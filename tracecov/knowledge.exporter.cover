@@ -60,15 +60,19 @@
     1:         arxiv_frontmatter, body = _render_arxiv_document(source, path)
     1:         frontmatter.update(arxiv_frontmatter)
     1:         return _markdown_document(frontmatter, body)
+    7:     if source.get("type") == "video" and path.name == "transcript.json":
+    3:         video_frontmatter, body = _render_video_document(source, path)
+    3:         frontmatter.update(video_frontmatter)
+    3:         return _markdown_document(frontmatter, body)
        
-    7:     sidecar_metadata = _load_sidecar_metadata(path)
-    7:     frontmatter.update(_frontmatter_from_sidecar(sidecar_metadata))
+    4:     sidecar_metadata = _load_sidecar_metadata(path)
+    4:     frontmatter.update(_frontmatter_from_sidecar(sidecar_metadata))
        
-    7:     suffix = path.suffix.lower()
-    7:     if suffix in {".md", ".markdown"}:
-    5:         raw_text = path.read_text(encoding="utf-8", errors="replace")
-    5:         embedded_frontmatter, body = _extract_frontmatter(raw_text)
-    5:         frontmatter.update(embedded_frontmatter)
+    4:     suffix = path.suffix.lower()
+    4:     if suffix in {".md", ".markdown"}:
+    2:         raw_text = path.read_text(encoding="utf-8", errors="replace")
+    2:         embedded_frontmatter, body = _extract_frontmatter(raw_text)
+    2:         frontmatter.update(embedded_frontmatter)
     2:     elif suffix in {".html", ".htm"}:
 >>>>>>         body = path.read_text(encoding="utf-8", errors="replace")
     2:     elif suffix in {".txt", ".json", ".yaml", ".yml", ".xml"}:
@@ -80,31 +84,34 @@
     1:                 "path": str(path),
                    }
                )
-    7:     return _markdown_document(frontmatter, body)
+    4:     return _markdown_document(frontmatter, body)
        
        
     1: def _extract_frontmatter(text: str) -> tuple[dict[str, Any], str]:
-    5:     if not text.startswith("---\n"):
-    3:         return {}, text
-    2:     marker = "\n---\n"
-    2:     end_index = text.find(marker, 4)
-    2:     if end_index == -1:
+    2:     if not text.startswith("---\n"):
+    1:         return {}, text
+    1:     marker = "\n---\n"
+    1:     end_index = text.find(marker, 4)
+    1:     if end_index == -1:
 >>>>>>         return {}, text
-    2:     raw_frontmatter = text[4:end_index]
-    2:     body = text[end_index + len(marker):]
-    2:     try:
-    2:         payload = yaml.safe_load(raw_frontmatter)
+    1:     raw_frontmatter = text[4:end_index]
+    1:     body = text[end_index + len(marker):]
+    1:     try:
+    1:         payload = yaml.safe_load(raw_frontmatter)
     1:     except yaml.YAMLError:
     1:         return {}, text
-    1:     if not isinstance(payload, dict):
+>>>>>>     if not isinstance(payload, dict):
 >>>>>>         return {}, text
-    1:     return payload, body.lstrip("\n")
+>>>>>>     return payload, body.lstrip("\n")
        
     1: def _iter_export_paths(source: dict[str, Any], raw_dir: Path) -> list[Path]:
     9:     if source.get("type") == "video":
-    3:         preferred = raw_dir / "transcript.md"
+    3:         preferred = raw_dir / "transcript.json"
     3:         if preferred.exists():
     3:             return [preferred]
+>>>>>>         legacy_markdown = raw_dir / "transcript.md"
+>>>>>>         if legacy_markdown.exists():
+>>>>>>             return [legacy_markdown]
 >>>>>>         fallback = raw_dir / "transcript.txt"
 >>>>>>         if fallback.exists():
 >>>>>>             return [fallback]
@@ -149,11 +156,11 @@
        
        
     1: def _load_sidecar_metadata(path: Path) -> dict[str, Any]:
-    7:     if path.suffix.lower() not in {".md", ".markdown", ".html", ".htm"}:
+    4:     if path.suffix.lower() not in {".md", ".markdown", ".html", ".htm"}:
     2:         return {}
-    5:     sidecar_path = path.with_suffix(".json")
-    5:     if not sidecar_path.exists():
-    4:         return {}
+    2:     sidecar_path = path.with_suffix(".json")
+    2:     if not sidecar_path.exists():
+    1:         return {}
     1:     try:
     1:         payload = json.loads(sidecar_path.read_text(encoding="utf-8"))
 >>>>>>     except json.JSONDecodeError:
@@ -162,8 +169,8 @@
        
        
     1: def _frontmatter_from_sidecar(payload: dict[str, Any]) -> dict[str, Any]:
-    7:     if not payload:
-    6:         return {}
+    4:     if not payload:
+    3:         return {}
     1:     frontmatter: dict[str, Any] = {}
     1:     if payload.get("title"):
     1:         frontmatter["title"] = payload["title"]
@@ -215,3 +222,55 @@
 >>>>>>     if "/pdf/" in source_url:
 >>>>>>         return source_url.rsplit("/pdf/", 1)[-1].removesuffix(".pdf")
 >>>>>>     return source["id"].removeprefix("arxiv-")
+       
+       
+    1: def _render_video_document(source: dict[str, Any], path: Path) -> tuple[dict[str, Any], str]:
+    3:     payload = json.loads(path.read_text(encoding="utf-8"))
+    3:     metadata_path = path.with_name("metadata.json")
+    3:     metadata = {}
+    3:     if metadata_path.exists():
+    3:         try:
+    3:             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+>>>>>>         except json.JSONDecodeError:
+>>>>>>             metadata = {}
+    3:     title = payload.get("title") or payload.get("video_id") or source["id"]
+    3:     author_name = payload.get("author_name") or "Unknown"
+    3:     segments = payload.get("segments", [])
+    3:     frontmatter = {
+    3:         "title": title,
+    3:         "video_id": payload.get("video_id"),
+    3:         "url": payload.get("url"),
+    3:         "author_name": author_name,
+    3:         "language": payload.get("language"),
+    3:         "language_code": payload.get("language_code"),
+    3:         "is_generated": payload.get("is_generated"),
+    3:         "segment_count": len(segments) if isinstance(segments, list) else 0,
+    3:         "source_metadata": metadata,
+           }
+    3:     lines = [
+    3:         f"# {title}",
+    3:         "",
+    3:         f"- Author: {author_name}",
+    3:         f"- Language: {payload.get('language')} ({payload.get('language_code')})",
+    3:         f"- Auto-generated: {payload.get('is_generated')}",
+    3:         "",
+    3:         "## Transcript",
+    3:         "",
+           ]
+    6:     for segment in segments if isinstance(segments, list) else []:
+    3:         if not isinstance(segment, dict):
+>>>>>>             continue
+    3:         text = str(segment.get("text", "")).strip()
+    3:         if not text:
+>>>>>>             continue
+    3:         lines.append(f"[{_format_timestamp(float(segment.get('start', 0.0)))}] {text}")
+    3:     return frontmatter, "\n".join(lines).rstrip()
+       
+       
+    1: def _format_timestamp(seconds: float) -> str:
+    3:     whole = int(seconds)
+    3:     hours, remainder = divmod(whole, 3600)
+    3:     minutes, secs = divmod(remainder, 60)
+    3:     if hours:
+>>>>>>         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+    3:     return f"{minutes:02d}:{secs:02d}"

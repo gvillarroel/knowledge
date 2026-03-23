@@ -60,6 +60,10 @@ def _build_markdown_for_raw_file(source: dict[str, Any], path: Path, rel: Path) 
         arxiv_frontmatter, body = _render_arxiv_document(source, path)
         frontmatter.update(arxiv_frontmatter)
         return _markdown_document(frontmatter, body)
+    if source.get("type") == "video" and path.name == "transcript.json":
+        video_frontmatter, body = _render_video_document(source, path)
+        frontmatter.update(video_frontmatter)
+        return _markdown_document(frontmatter, body)
 
     sidecar_metadata = _load_sidecar_metadata(path)
     frontmatter.update(_frontmatter_from_sidecar(sidecar_metadata))
@@ -102,9 +106,12 @@ def _extract_frontmatter(text: str) -> tuple[dict[str, Any], str]:
 
 def _iter_export_paths(source: dict[str, Any], raw_dir: Path) -> list[Path]:
     if source.get("type") == "video":
-        preferred = raw_dir / "transcript.md"
+        preferred = raw_dir / "transcript.json"
         if preferred.exists():
             return [preferred]
+        legacy_markdown = raw_dir / "transcript.md"
+        if legacy_markdown.exists():
+            return [legacy_markdown]
         fallback = raw_dir / "transcript.txt"
         if fallback.exists():
             return [fallback]
@@ -215,3 +222,55 @@ def _arxiv_paper_id(source: dict[str, Any]) -> str:
     if "/pdf/" in source_url:
         return source_url.rsplit("/pdf/", 1)[-1].removesuffix(".pdf")
     return source["id"].removeprefix("arxiv-")
+
+
+def _render_video_document(source: dict[str, Any], path: Path) -> tuple[dict[str, Any], str]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    metadata_path = path.with_name("metadata.json")
+    metadata = {}
+    if metadata_path.exists():
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            metadata = {}
+    title = payload.get("title") or payload.get("video_id") or source["id"]
+    author_name = payload.get("author_name") or "Unknown"
+    segments = payload.get("segments", [])
+    frontmatter = {
+        "title": title,
+        "video_id": payload.get("video_id"),
+        "url": payload.get("url"),
+        "author_name": author_name,
+        "language": payload.get("language"),
+        "language_code": payload.get("language_code"),
+        "is_generated": payload.get("is_generated"),
+        "segment_count": len(segments) if isinstance(segments, list) else 0,
+        "source_metadata": metadata,
+    }
+    lines = [
+        f"# {title}",
+        "",
+        f"- Author: {author_name}",
+        f"- Language: {payload.get('language')} ({payload.get('language_code')})",
+        f"- Auto-generated: {payload.get('is_generated')}",
+        "",
+        "## Transcript",
+        "",
+    ]
+    for segment in segments if isinstance(segments, list) else []:
+        if not isinstance(segment, dict):
+            continue
+        text = str(segment.get("text", "")).strip()
+        if not text:
+            continue
+        lines.append(f"[{_format_timestamp(float(segment.get('start', 0.0)))}] {text}")
+    return frontmatter, "\n".join(lines).rstrip()
+
+
+def _format_timestamp(seconds: float) -> str:
+    whole = int(seconds)
+    hours, remainder = divmod(whole, 3600)
+    minutes, secs = divmod(remainder, 60)
+    if hours:
+        return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+    return f"{minutes:02d}:{secs:02d}"

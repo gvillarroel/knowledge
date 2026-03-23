@@ -4,7 +4,6 @@ from dataclasses import asdict, dataclass
 from urllib.parse import parse_qs, urlparse
 
 import requests
-import yaml
 from youtube_transcript_api import YouTubeTranscriptApi
 
 from .base import SourceAdapter
@@ -49,7 +48,8 @@ class VideoSource(SourceAdapter):
         }
 
         self._clear_raw_dir()
-        self.write_text(self.raw_dir / "transcript.md", _markdown_transcript(raw_payload, metadata))
+        self.write_json(self.raw_dir / "transcript.json", raw_payload)
+        self.write_json(self.raw_dir / "metadata.json", metadata)
 
         return self.finalize_sync(
             {
@@ -93,50 +93,3 @@ def extract_video_id(value: str) -> str:
     if candidate:
         return candidate
     raise ValueError(f"could not extract video id from '{value}'")
-
-
-def _markdown_transcript(payload: dict[str, object], metadata: dict[str, object]) -> str:
-    title = payload.get("title") or payload["video_id"]
-    author_name = payload.get("author_name") or "Unknown"
-    segments = payload.get("segments", [])
-    frontmatter = {
-        "title": title,
-        "video_id": payload["video_id"],
-        "url": payload["url"],
-        "author_name": author_name,
-        "language": payload.get("language"),
-        "language_code": payload.get("language_code"),
-        "is_generated": payload.get("is_generated"),
-        "segment_count": len(segments),
-        "source_metadata": metadata,
-    }
-    lines = [
-        "---",
-        yaml.safe_dump(frontmatter, sort_keys=False, allow_unicode=False).strip(),
-        "---",
-        "",
-        f"# {title}",
-        "",
-        f"- Author: {author_name}",
-        f"- Language: {payload.get('language')} ({payload.get('language_code')})",
-        f"- Auto-generated: {payload.get('is_generated')}",
-        "",
-        "## Transcript",
-        "",
-    ]
-    for segment in segments:
-        item = segment if isinstance(segment, dict) else asdict(segment)
-        text = str(item.get("text", "")).strip()
-        if not text:
-            continue
-        lines.append(f"[{_format_timestamp(float(item.get('start', 0.0)))}] {text}")
-    return "\n".join(lines).rstrip() + "\n"
-
-
-def _format_timestamp(seconds: float) -> str:
-    whole = int(seconds)
-    hours, remainder = divmod(whole, 3600)
-    minutes, secs = divmod(remainder, 60)
-    if hours:
-        return f"{hours:02d}:{minutes:02d}:{secs:02d}"
-    return f"{minutes:02d}:{secs:02d}"

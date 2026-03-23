@@ -724,16 +724,15 @@
     1:     payload = VideoSource(source, store).sync()
        
     1:     assert payload["segments"] == 2
-    1:     transcript_md = (store.source_raw_dir(source) / "transcript.md").read_text(encoding="utf-8")
-    2:     raw_files = [path.name for path in store.source_raw_dir(source).iterdir() if path.is_file()]
-    1:     frontmatter = yaml.safe_load(transcript_md.split("---\n", 2)[1])
-    1:     assert raw_files == ["transcript.md"]
-    1:     assert transcript_md.startswith("---\n")
-    1:     assert frontmatter["video_id"] == "cxqRKt1GYNQ"
-    1:     assert frontmatter["author_name"] == "OpenAI"
-    1:     assert frontmatter["segment_count"] == 2
-    1:     assert "\n# Agent video\n" in transcript_md
-    1:     assert "[00:00] Hello world" in transcript_md
+    1:     transcript_payload = json.loads((store.source_raw_dir(source) / "transcript.json").read_text(encoding="utf-8"))
+    1:     metadata_payload = json.loads((store.source_raw_dir(source) / "metadata.json").read_text(encoding="utf-8"))
+    3:     raw_files = [path.name for path in store.source_raw_dir(source).iterdir() if path.is_file()]
+    1:     assert sorted(raw_files) == ["metadata.json", "transcript.json"]
+    1:     assert transcript_payload["video_id"] == "cxqRKt1GYNQ"
+    1:     assert transcript_payload["author_name"] == "OpenAI"
+    1:     assert len(transcript_payload["segments"]) == 2
+    1:     assert transcript_payload["segments"][0]["text"] == "Hello world"
+    1:     assert metadata_payload["title"] == "Agent video"
        
        
     3: def test_video_sync_removes_stale_raw_video_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -780,7 +779,7 @@
        
     1:     VideoSource(source, store).sync()
        
-    3:     assert sorted(path.name for path in raw_dir.iterdir()) == ["transcript.md"]
+    4:     assert sorted(path.name for path in raw_dir.iterdir()) == ["metadata.json", "transcript.json"]
        
        
     3: def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -895,7 +894,22 @@
     1:         delete_command="del",
            )
     1:     raw_dir = store.source_raw_dir(source)
-    1:     (raw_dir / "transcript.md").write_text("# Markdown transcript\n", encoding="utf-8")
+    2:     (raw_dir / "transcript.json").write_text(
+    2:         json.dumps(
+    1:             {
+    1:                 "video_id": "cxqRKt1GYNQ",
+    1:                 "url": "https://www.youtube.com/watch?v=cxqRKt1GYNQ&t=1405s",
+    1:                 "title": "Markdown transcript",
+    1:                 "author_name": "OpenAI",
+    1:                 "language": "English",
+    1:                 "language_code": "en",
+    1:                 "is_generated": True,
+    1:                 "segments": [{"text": "Hello", "start": 0.0, "duration": 1.0}],
+                   }
+               ),
+    1:         encoding="utf-8",
+           )
+    1:     (raw_dir / "metadata.json").write_text(json.dumps({"title": "Markdown transcript"}), encoding="utf-8")
     1:     (raw_dir / "transcript.txt").write_text("plain transcript\n", encoding="utf-8")
        
     1:     result = export_source(store, source)
@@ -918,13 +932,23 @@
     1:         delete_command="del",
            )
     1:     raw_dir = store.source_raw_dir(source)
-    2:     raw_dir.joinpath("transcript.md").write_text(
-    1:         "---\n"
-               "title: Agent video\n"
-               "video_id: cxqRKt1GYNQ\n"
-               "author_name: OpenAI\n"
-               "---\n\n"
-               "# Agent video\n",
+    2:     raw_dir.joinpath("transcript.json").write_text(
+    2:         json.dumps(
+    1:             {
+    1:                 "title": "Agent video",
+    1:                 "video_id": "cxqRKt1GYNQ",
+    1:                 "url": "https://www.youtube.com/watch?v=cxqRKt1GYNQ&t=1405s",
+    1:                 "author_name": "OpenAI",
+    1:                 "language": "English",
+    1:                 "language_code": "en",
+    1:                 "is_generated": True,
+    1:                 "segments": [{"text": "Hello world", "start": 0.0, "duration": 4.0}],
+                   }
+               ),
+    1:         encoding="utf-8",
+           )
+    2:     raw_dir.joinpath("metadata.json").write_text(
+    1:         json.dumps({"title": "Agent video", "channel": "OpenAI"}),
     1:         encoding="utf-8",
            )
        
@@ -936,7 +960,7 @@
     1:     assert "video_id: cxqRKt1GYNQ" in exported
     1:     assert "author_name: OpenAI" in exported
     1:     assert "# Agent video" in exported
-    1:     assert exported.count("---\n") == 2
+    1:     assert "source_metadata:" in exported
        
        
     3: def test_export_ignores_invalid_embedded_frontmatter(tmp_path: Path) -> None:
@@ -984,7 +1008,22 @@
            )
     1:     raw_dir = store.source_raw_dir(source)
     1:     library_dir = store.source_library_dir(source)
-    1:     (raw_dir / "transcript.md").write_text("# Markdown transcript\n", encoding="utf-8")
+    2:     (raw_dir / "transcript.json").write_text(
+    2:         json.dumps(
+    1:             {
+    1:                 "video_id": "cxqRKt1GYNQ",
+    1:                 "url": "https://www.youtube.com/watch?v=cxqRKt1GYNQ&t=1405s",
+    1:                 "title": "Markdown transcript",
+    1:                 "author_name": "OpenAI",
+    1:                 "language": "English",
+    1:                 "language_code": "en",
+    1:                 "is_generated": True,
+    1:                 "segments": [{"text": "Hello", "start": 0.0, "duration": 1.0}],
+                   }
+               ),
+    1:         encoding="utf-8",
+           )
+    1:     (raw_dir / "metadata.json").write_text(json.dumps({"title": "Markdown transcript"}), encoding="utf-8")
     1:     (library_dir / "transcript.txt.md").write_text("stale\n", encoding="utf-8")
     1:     (library_dir / "metadata.json.md").write_text("stale\n", encoding="utf-8")
        

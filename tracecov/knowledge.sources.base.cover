@@ -21,12 +21,12 @@
 >>>>>>         raise NotImplementedError
        
     1:     def write_json(self, path: Path, payload: Any) -> None:
-   10:         path.parent.mkdir(parents=True, exist_ok=True)
-   10:         path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+   14:         path.parent.mkdir(parents=True, exist_ok=True)
+   14:         path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
        
     1:     def write_text(self, path: Path, payload: str) -> None:
-    8:         path.parent.mkdir(parents=True, exist_ok=True)
-    8:         path.write_text(payload, encoding="utf-8")
+    6:         path.parent.mkdir(parents=True, exist_ok=True)
+    6:         path.write_text(payload, encoding="utf-8")
        
     1:     def finalize_sync(self, stats: dict[str, Any]) -> dict[str, Any]:
    11:         self.source["last_synced_at"] = utc_now()
