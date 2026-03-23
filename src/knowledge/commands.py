@@ -249,7 +249,7 @@ def cmd_sync(args: Namespace) -> dict:
     sources = store.list_collection_sources(key_name=key_name, source_type=source_type)
     if matched_value:
         sources = [source for source in sources if _matches_source(source, matched_value)]
-    synced = [create_source_adapter(source, store).sync() for source in sources]
+    synced = [create_source_adapter(_prepare_source_for_sync(source, args), store).sync() for source in sources]
     return {"synced": synced}
 
 
@@ -291,3 +291,14 @@ def _build_github_sync_command(repo_url: str, key_name: str, branches: list[str]
     branch_flags = " ".join(f"--branch {branch}" for branch in branches)
     suffix = f" {branch_flags}" if branch_flags else ""
     return f"know sync github-repo {repo_url} --key {key_name}{suffix}"
+
+
+def _prepare_source_for_sync(source: dict, args: Namespace) -> dict:
+    prepared = {
+        **source,
+        "config": dict(source.get("config", {})),
+    }
+    branch_override = getattr(args, "branch", None)
+    if prepared.get("type") == "github" and branch_override:
+        prepared["_sync_branches"] = list(branch_override)
+    return prepared

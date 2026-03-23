@@ -30,5 +30,8 @@ class SourceAdapter(ABC):
 
     def finalize_sync(self, stats: dict[str, Any]) -> dict[str, Any]:
         self.source["last_synced_at"] = utc_now()
-        self.store.update_collection_source(self.source)
+        persisted_source = {
+            key: value for key, value in self.source.items() if not key.startswith("_")
+        }
+        self.store.update_collection_source(persisted_source)
         return {"key": self.source["key"], "source": self.source["id"], **stats}

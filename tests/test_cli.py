@@ -355,6 +355,71 @@ def test_sync_site_by_url_exports_matching_source_stats(tmp_path: Path, monkeypa
     ).exists()
 
 
+def test_sync_github_repo_honors_branch_override_without_rewriting_metadata(tmp_path: Path, monkeypatch) -> None:
+    assert main(["--store", str(tmp_path), "add", "key", "code"]) == 0
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "github-repo",
+                "https://github.com/example/repo.git",
+                "--key",
+                "code",
+                "--branch",
+                "main",
+            ]
+        )
+        == 0
+    )
+
+    import knowledge.registry as registry_module
+
+    observed: dict[str, object] = {}
+
+    class StubGitHubRepoSource:
+        def __init__(self, source: dict[str, object], store) -> None:
+            observed["source"] = source
+            self.source = source
+            self.store = store
+
+        def sync(self) -> dict[str, object]:
+            self.source["last_synced_at"] = "2026-03-23T00:00:00+00:00"
+            persisted = {key: value for key, value in self.source.items() if not key.startswith("_")}
+            self.store.update_collection_source(persisted)
+            return {
+                "key": "code",
+                "source": self.source["id"],
+                "branches": self.source.get("_sync_branches"),
+            }
+
+    monkeypatch.setitem(registry_module.SOURCE_TYPES, "github", StubGitHubRepoSource)
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "sync",
+                "github-repo",
+                "https://github.com/example/repo.git",
+                "--key",
+                "code",
+                "--branch",
+                "release",
+            ]
+        )
+        == 0
+    )
+
+    metadata = yaml.safe_load((tmp_path / "code" / "metadata.yaml").read_text(encoding="utf-8"))
+    source = metadata["sources"][0]
+    assert observed["source"]["_sync_branches"] == ["release"]
+    assert source["config"]["branches"] == ["main"]
+    assert "_sync_branches" not in source
+
+
 def test_export_generates_frontmatter_and_zip_archive(tmp_path: Path, capsys) -> None:
     assert main(["--store", str(tmp_path), "add", "key", "sample"]) == 0
     assert main(["--store", str(tmp_path), "add", "arxiv", "https://arxiv.org/abs/1706.03762", "--key", "sample"]) == 0

@@ -10,11 +10,11 @@
        
     2: class SourceAdapter(ABC):
     1:     def __init__(self, source: dict[str, Any], store: KnowledgeStore) -> None:
-   10:         self.source = source
-   10:         self.store = store
-   10:         self.config = source["config"]
-   10:         self.raw_dir = store.source_raw_dir(source)
-   10:         self.cache_dir = store.source_cache_dir(source)
+   11:         self.source = source
+   11:         self.store = store
+   11:         self.config = source["config"]
+   11:         self.raw_dir = store.source_raw_dir(source)
+   11:         self.cache_dir = store.source_cache_dir(source)
        
     2:     @abstractmethod
     2:     def sync(self) -> dict[str, Any]:
@@ -29,6 +29,9 @@
     8:         path.write_text(payload, encoding="utf-8")
        
     1:     def finalize_sync(self, stats: dict[str, Any]) -> dict[str, Any]:
-   10:         self.source["last_synced_at"] = utc_now()
-   10:         self.store.update_collection_source(self.source)
-   10:         return {"key": self.source["key"], "source": self.source["id"], **stats}
+   11:         self.source["last_synced_at"] = utc_now()
+   22:         persisted_source = {
+  133:             key: value for key, value in self.source.items() if not key.startswith("_")
+               }
+   11:         self.store.update_collection_source(persisted_source)
+   11:         return {"key": self.source["key"], "source": self.source["id"], **stats}

@@ -36,9 +36,9 @@
        
        
     1: def make_store(tmp_path: Path) -> KnowledgeStore:
-   29:     store = KnowledgeStore(tmp_path)
-   29:     store.initialize()
-   29:     return store
+   30:     store = KnowledgeStore(tmp_path)
+   30:     store.initialize()
+   30:     return store
        
        
     3: def test_key_set_and_key_list_command_roundtrip(tmp_path: Path) -> None:
@@ -105,6 +105,21 @@
            )
     1:     assert payload == {"synced": [{"source": "confluence-ops"}]}
     1:     assert synced_ids == ["confluence-ops"]
+       
+       
+    3: def test_prepare_source_for_sync_adds_ephemeral_github_branch_override() -> None:
+    1:     source = {
+    1:         "key": "code",
+    1:         "type": "github",
+    1:         "id": "github-repo",
+    1:         "config": {"repo_url": "https://github.com/example/repo.git", "branches": ["main"]},
+           }
+       
+    1:     prepared = commands._prepare_source_for_sync(source, Namespace(branch=["release"]))
+       
+    1:     assert prepared["_sync_branches"] == ["release"]
+    1:     assert prepared["config"]["branches"] == ["main"]
+    1:     assert "_sync_branches" not in source
        
        
     3: def test_add_jira_and_aha_commands_store_metadata(tmp_path: Path) -> None:
@@ -578,6 +593,62 @@
     2:     assert any(args[:3] == ["git", "clone", "--mirror"] for args in calls)
     1:     assert (store.source_raw_dir(source) / "main" / "README.md").exists()
     1:     assert not (store.source_raw_dir(source) / "main" / "image.png").exists()
+       
+       
+    3: def test_github_sync_uses_ephemeral_branch_override_without_persisting_it(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("code")
+    2:     source = store.add_collection_source(
+    1:         "code",
+    1:         "github",
+    1:         title="https://github.com/example/repo.git",
+    1:         config={"repo_url": "https://github.com/example/repo.git", "branches": ["main"]},
+    1:         update_command="sync",
+    1:         delete_command="del",
+           )
+    1:     source["_sync_branches"] = ["release"]
+       
+    1:     observed_refs: list[str] = []
+    1:     cache_dir = store.source_cache_dir(source)
+    1:     if cache_dir.exists():
+    2:         for path in sorted(cache_dir.rglob("*"), reverse=True):
+    1:             if path.is_file():
+>>>>>>                 path.unlink()
+    1:             elif path.is_dir():
+    1:                 path.rmdir()
+    1:         cache_dir.rmdir()
+       
+    1:     def fake_run(
+>>>>>>         args: list[str],
+>>>>>>         cwd: Path,
+>>>>>>         check: bool,
+>>>>>>         capture_output: bool,
+>>>>>>         text: bool,
+>>>>>>         encoding: str | None = None,
+>>>>>>         errors: str | None = None,
+>>>>>>     ) -> SimpleNamespace:
+    3:         del cwd, check, capture_output, text, encoding, errors
+    3:         if args[:3] == ["git", "clone", "--mirror"]:
+    1:             Path(args[-1]).mkdir(parents=True, exist_ok=True)
+    1:             return SimpleNamespace(stdout="")
+    2:         if args[:4] == ["git", "ls-tree", "-r", "--name-only"]:
+    1:             observed_refs.append(args[-1])
+    1:             return SimpleNamespace(stdout="README.md\n")
+    1:         if args[:2] == ["git", "show"]:
+    1:             observed_refs.append(args[2].split(":", 1)[0])
+    1:             return SimpleNamespace(stdout="content\n")
+>>>>>>         raise AssertionError(f"Unexpected git invocation: {args}")
+       
+    1:     monkeypatch.setattr(subprocess, "run", fake_run)
+       
+    1:     payload = GitHubRepoSource(source, store).sync()
+       
+    1:     metadata = store.get_collection_metadata("code")
+    1:     persisted = metadata["sources"][0]
+    1:     assert payload["branches"] == ["release"]
+    1:     assert observed_refs == ["release", "release"]
+    1:     assert persisted["config"]["branches"] == ["main"]
+    1:     assert "_sync_branches" not in persisted
        
        
     3: def test_video_sync_writes_transcript_and_markdown(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

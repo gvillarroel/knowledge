@@ -16,7 +16,7 @@
        
        
     1: def utc_now() -> str:
-  224:     return datetime.now(UTC).replace(microsecond=0).isoformat()
+  237:     return datetime.now(UTC).replace(microsecond=0).isoformat()
        
        
     3: @dataclass
@@ -24,43 +24,43 @@
     1:     root_override: Path | None = None
        
     1:     def __post_init__(self) -> None:
-   79:         self.root = (
-   79:             self.root_override.expanduser().resolve()
-   79:             if self.root_override
+   83:         self.root = (
+   83:             self.root_override.expanduser().resolve()
+   83:             if self.root_override
 >>>>>>             else (Path.home() / ".knowledge").resolve()
                )
-   79:         self.temp_root = TEMP_ROOT
-   79:         self.config_path = self.root / "config.yaml"
-   79:         self.keys_path = self.root / "keys.yaml"
-   79:         self.exports_dir = self.root / "exports"
+   83:         self.temp_root = TEMP_ROOT
+   83:         self.config_path = self.root / "config.yaml"
+   83:         self.keys_path = self.root / "keys.yaml"
+   83:         self.exports_dir = self.root / "exports"
        
     1:     def initialize(self) -> None:
-   79:         self.root.mkdir(parents=True, exist_ok=True)
-   79:         self.temp_root.mkdir(parents=True, exist_ok=True)
-   79:         self.exports_dir.mkdir(parents=True, exist_ok=True)
-   79:         if not self.config_path.exists():
-   92:             self._write_yaml(
-   46:                 self.config_path,
-   46:                 {
-   46:                     "version": 1,
-   46:                     "created_at": utc_now(),
-   46:                     "paths": {"exports": "exports", "tmp": str(self.temp_root)},
+   83:         self.root.mkdir(parents=True, exist_ok=True)
+   83:         self.temp_root.mkdir(parents=True, exist_ok=True)
+   83:         self.exports_dir.mkdir(parents=True, exist_ok=True)
+   83:         if not self.config_path.exists():
+   96:             self._write_yaml(
+   48:                 self.config_path,
+   48:                 {
+   48:                     "version": 1,
+   48:                     "created_at": utc_now(),
+   48:                     "paths": {"exports": "exports", "tmp": str(self.temp_root)},
                        },
                    )
                else:
-   33:             config = self._read_yaml(self.config_path, default={})
-   33:             paths = config.setdefault("paths", {})
-   33:             changed = False
-   33:             if paths.get("exports") != "exports":
+   35:             config = self._read_yaml(self.config_path, default={})
+   35:             paths = config.setdefault("paths", {})
+   35:             changed = False
+   35:             if paths.get("exports") != "exports":
 >>>>>>                 paths["exports"] = "exports"
 >>>>>>                 changed = True
-   33:             if paths.get("tmp") != str(self.temp_root):
+   35:             if paths.get("tmp") != str(self.temp_root):
 >>>>>>                 paths["tmp"] = str(self.temp_root)
 >>>>>>                 changed = True
-   33:             if changed:
+   35:             if changed:
 >>>>>>                 self._write_yaml(self.config_path, config)
-   79:         if not self.keys_path.exists():
-   46:             self._write_yaml(self.keys_path, {"keys": {}})
+   83:         if not self.keys_path.exists():
+   48:             self._write_yaml(self.keys_path, {"keys": {}})
        
     2:     @property
     2:     def keys(self) -> dict[str, str]:
@@ -73,30 +73,30 @@
     8:         self._write_yaml(self.keys_path, payload)
        
     1:     def create_collection_key(self, name: str) -> dict[str, Any]:
-   45:         key_dir = self.key_dir(name)
-   45:         metadata_path = key_dir / "metadata.yaml"
-   45:         if metadata_path.exists():
+   47:         key_dir = self.key_dir(name)
+   47:         metadata_path = key_dir / "metadata.yaml"
+   47:         if metadata_path.exists():
     1:             raise FileExistsError(f"key '{name}' already exists")
        
-   44:         key_dir.mkdir(parents=True, exist_ok=False)
-  132:         for directory_name in KEY_DIRS:
-   88:             (key_dir / directory_name).mkdir(parents=True, exist_ok=True)
+   46:         key_dir.mkdir(parents=True, exist_ok=False)
+  138:         for directory_name in KEY_DIRS:
+   92:             (key_dir / directory_name).mkdir(parents=True, exist_ok=True)
        
-   44:         timestamp = utc_now()
-   44:         payload = {
-   44:             "version": 1,
-   44:             "name": name,
-   44:             "created_at": timestamp,
-   44:             "updated_at": timestamp,
-   88:             "commands": {
-   44:                 "list_sources": f"know list sources --key {name}",
-   44:                 "sync": f"know sync --key {name}",
-   44:                 "export": f"know export --key {name}",
+   46:         timestamp = utc_now()
+   46:         payload = {
+   46:             "version": 1,
+   46:             "name": name,
+   46:             "created_at": timestamp,
+   46:             "updated_at": timestamp,
+   92:             "commands": {
+   46:                 "list_sources": f"know list sources --key {name}",
+   46:                 "sync": f"know sync --key {name}",
+   46:                 "export": f"know export --key {name}",
                    },
-   44:             "sources": [],
+   46:             "sources": [],
                }
-   44:         self._write_yaml(metadata_path, payload)
-   44:         return payload
+   46:         self._write_yaml(metadata_path, payload)
+   46:         return payload
        
     1:     def list_collection_keys(self) -> list[str]:
     2:         keys: list[str] = []
@@ -106,18 +106,18 @@
     2:         return keys
        
     1:     def get_collection_metadata(self, name: str) -> dict[str, Any]:
-   81:         path = self.key_dir(name) / "metadata.yaml"
-   81:         if not path.exists():
+   87:         path = self.key_dir(name) / "metadata.yaml"
+   87:         if not path.exists():
     1:             raise FileNotFoundError(f"key '{name}' not found")
-   80:         metadata = self._read_yaml(path, default={})
-   80:         metadata["name"] = name
-   80:         metadata.setdefault("sources", [])
-   80:         metadata.setdefault("commands", {})
-   80:         return metadata
+   86:         metadata = self._read_yaml(path, default={})
+   86:         metadata["name"] = name
+   86:         metadata.setdefault("sources", [])
+   86:         metadata.setdefault("commands", {})
+   86:         return metadata
        
     1:     def save_collection_metadata(self, name: str, metadata: dict[str, Any]) -> None:
-   63:         metadata["updated_at"] = utc_now()
-   63:         self._write_yaml(self.key_dir(name) / "metadata.yaml", metadata)
+   67:         metadata["updated_at"] = utc_now()
+   67:         self._write_yaml(self.key_dir(name) / "metadata.yaml", metadata)
        
     2:     def add_collection_source(
                self,
@@ -130,27 +130,27 @@
 >>>>>>         update_command: str,
 >>>>>>         delete_command: str,
 >>>>>>     ) -> dict[str, Any]:
-   39:         metadata = self.get_collection_metadata(key_name)
-   39:         source_id = source_id or self._source_id(source_type, title)
-   39:         sources = metadata.setdefault("sources", [])
-   82:         if any(source.get("id") == source_id for source in sources):
+   41:         metadata = self.get_collection_metadata(key_name)
+   41:         source_id = source_id or self._source_id(source_type, title)
+   41:         sources = metadata.setdefault("sources", [])
+   86:         if any(source.get("id") == source_id for source in sources):
 >>>>>>             raise FileExistsError(f"source '{source_id}' already exists on key '{key_name}'")
        
-   39:         timestamp = utc_now()
-   39:         source_record = {
-   39:             "type": source_type,
-   39:             "id": source_id,
-   39:             "title": title,
-   39:             "created_at": timestamp,
-   39:             "updated_at": timestamp,
-   39:             "update_command": update_command,
-   39:             "delete_command": delete_command,
-   39:             "config": config,
+   41:         timestamp = utc_now()
+   41:         source_record = {
+   41:             "type": source_type,
+   41:             "id": source_id,
+   41:             "title": title,
+   41:             "created_at": timestamp,
+   41:             "updated_at": timestamp,
+   41:             "update_command": update_command,
+   41:             "delete_command": delete_command,
+   41:             "config": config,
                }
-   39:         sources.append(source_record)
-   39:         self.save_collection_metadata(key_name, metadata)
-   39:         self._delete_legacy_source_record(key_name, source_type, source_id)
-   39:         return {"key": key_name, **source_record}
+   41:         sources.append(source_record)
+   41:         self.save_collection_metadata(key_name, metadata)
+   41:         self._delete_legacy_source_record(key_name, source_type, source_id)
+   41:         return {"key": key_name, **source_record}
        
     1:     def delete_collection_source(self, key_name: str, source_id: str) -> dict[str, Any]:
     2:         metadata = self.get_collection_metadata(key_name)
@@ -170,35 +170,35 @@
 >>>>>>         key_name: str | None = None,
 >>>>>>         source_type: str | None = None,
 >>>>>>     ) -> list[dict[str, Any]]:
-    7:         key_names = [key_name] if key_name else self.list_collection_keys()
-    7:         matches: list[dict[str, Any]] = []
-   15:         for name in key_names:
-    8:             metadata = self.get_collection_metadata(name)
-   17:             for source in metadata.get("sources", []):
-    9:                 if source_type and source.get("type") != source_type:
+    8:         key_names = [key_name] if key_name else self.list_collection_keys()
+    8:         matches: list[dict[str, Any]] = []
+   17:         for name in key_names:
+    9:             metadata = self.get_collection_metadata(name)
+   19:             for source in metadata.get("sources", []):
+   10:                 if source_type and source.get("type") != source_type:
 >>>>>>                     continue
-    9:                 matches.append({"key": name, **source})
-    7:         return matches
+   10:                 matches.append({"key": name, **source})
+    8:         return matches
        
     1:     def update_collection_source(self, source: dict[str, Any]) -> None:
-   21:         key_name = source["key"]
-   21:         metadata = self.get_collection_metadata(key_name)
-   21:         updated_sources: list[dict[str, Any]] = []
-   42:         for current in metadata.get("sources", []):
-   21:             if current.get("id") == source["id"]:
-  230:                 replacement = {k: v for k, v in source.items() if k != "key"}
-   21:                 replacement["updated_at"] = utc_now()
-   21:                 updated_sources.append(replacement)
+   23:         key_name = source["key"]
+   23:         metadata = self.get_collection_metadata(key_name)
+   23:         updated_sources: list[dict[str, Any]] = []
+   46:         for current in metadata.get("sources", []):
+   23:             if current.get("id") == source["id"]:
+  252:                 replacement = {k: v for k, v in source.items() if k != "key"}
+   23:                 replacement["updated_at"] = utc_now()
+   23:                 updated_sources.append(replacement)
                    else:
 >>>>>>                 updated_sources.append(current)
-   21:         metadata["sources"] = updated_sources
-   21:         self.save_collection_metadata(key_name, metadata)
-   21:         self._delete_legacy_source_record(key_name, source["type"], source["id"])
+   23:         metadata["sources"] = updated_sources
+   23:         self.save_collection_metadata(key_name, metadata)
+   23:         self._delete_legacy_source_record(key_name, source["type"], source["id"])
        
     1:     def source_raw_dir(self, source: dict[str, Any]) -> Path:
-   39:         path = self.key_dir(source["key"]) / "raw" / source["type"] / source["id"]
-   39:         path.mkdir(parents=True, exist_ok=True)
-   39:         return path
+   40:         path = self.key_dir(source["key"]) / "raw" / source["type"] / source["id"]
+   40:         path.mkdir(parents=True, exist_ok=True)
+   40:         return path
        
     1:     def source_library_dir(self, source: dict[str, Any]) -> Path:
    20:         path = self.key_dir(source["key"]) / "library" / source["type"] / source["id"]
@@ -206,15 +206,15 @@
    20:         return path
        
     1:     def source_cache_dir(self, source: dict[str, Any]) -> Path:
-   12:         path = (
-   60:             self.temp_root
-   12:             / "knowledge-cache"
-   12:             / source["key"]
-   12:             / source["type"]
-   12:             / source["id"]
+   14:         path = (
+   70:             self.temp_root
+   14:             / "knowledge-cache"
+   14:             / source["key"]
+   14:             / source["type"]
+   14:             / source["id"]
                )
-   12:         path.mkdir(parents=True, exist_ok=True)
-   12:         return path
+   14:         path.mkdir(parents=True, exist_ok=True)
+   14:         return path
        
     1:     def archive_keys(self, key_names: Iterable[str]) -> Path:
     2:         timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
@@ -284,7 +284,7 @@
     1:         return value
        
     1:     def key_dir(self, key_name: str) -> Path:
-  329:         return self.root / key_name
+  346:         return self.root / key_name
        
     1:     def _ensure_key_dirs(self, key_name: str) -> None:
     2:         key_dir = self.key_dir(key_name)
@@ -332,11 +332,11 @@
     3:         return {"keys": len(key_names), "removed": removed}
        
     1:     def _delete_legacy_source_record(self, key_name: str, source_type: str, source_id: str) -> None:
-   65:         source_dir = self.key_dir(key_name) / source_type
-   65:         record_path = source_dir / f"{source_id}.yaml"
-   65:         if record_path.exists():
+   69:         source_dir = self.key_dir(key_name) / source_type
+   69:         record_path = source_dir / f"{source_id}.yaml"
+   69:         if record_path.exists():
     2:             record_path.unlink()
-   65:         if source_dir.exists() and not any(source_dir.iterdir()):
+   69:         if source_dir.exists() and not any(source_dir.iterdir()):
     2:             source_dir.rmdir()
        
     1:     def _delete_source_dirs(self, key_name: str, source_type: str, source_id: str) -> None:
@@ -374,21 +374,21 @@
     1:         return merged, new_count
        
     1:     def _read_yaml(self, path: Path, default: dict[str, Any]) -> dict[str, Any]:
-  138:         if not path.exists():
+  146:         if not path.exists():
     1:             return default
-  137:         data = yaml.safe_load(path.read_text(encoding="utf-8"))
-  137:         return data if isinstance(data, dict) else default
+  145:         data = yaml.safe_load(path.read_text(encoding="utf-8"))
+  145:         return data if isinstance(data, dict) else default
        
     1:     def _write_yaml(self, path: Path, payload: dict[str, Any]) -> None:
-  416:         path.write_text(
-  208:             yaml.safe_dump(payload, sort_keys=False, allow_unicode=False),
-  208:             encoding="utf-8",
+  436:         path.write_text(
+  218:             yaml.safe_dump(payload, sort_keys=False, allow_unicode=False),
+  218:             encoding="utf-8",
                )
        
     1:     def _source_id(self, source_type: str, title: str) -> str:
-   46:         parsed = urlparse(title)
-   46:         candidate = parsed.path.rsplit("/", 1)[-1] if parsed.scheme else title
-  399:         safe = "".join(ch if ch.isalnum() or ch in {"-", "_", "."} else "-" for ch in candidate).strip("-")
-   46:         if not safe:
+   49:         parsed = urlparse(title)
+   49:         candidate = parsed.path.rsplit("/", 1)[-1] if parsed.scheme else title
+  429:         safe = "".join(ch if ch.isalnum() or ch in {"-", "_", "."} else "-" for ch in candidate).strip("-")
+   49:         if not safe:
     4:             safe = "source"
-   46:         return f"{source_type}-{safe.lower()}"
+   49:         return f"{source_type}-{safe.lower()}"

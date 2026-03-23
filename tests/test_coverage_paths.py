@@ -107,6 +107,21 @@ def test_sync_filters_to_matching_source_value(tmp_path: Path, monkeypatch: pyte
     assert synced_ids == ["confluence-ops"]
 
 
+def test_prepare_source_for_sync_adds_ephemeral_github_branch_override() -> None:
+    source = {
+        "key": "code",
+        "type": "github",
+        "id": "github-repo",
+        "config": {"repo_url": "https://github.com/example/repo.git", "branches": ["main"]},
+    }
+
+    prepared = commands._prepare_source_for_sync(source, Namespace(branch=["release"]))
+
+    assert prepared["_sync_branches"] == ["release"]
+    assert prepared["config"]["branches"] == ["main"]
+    assert "_sync_branches" not in source
+
+
 def test_add_jira_and_aha_commands_store_metadata(tmp_path: Path) -> None:
     store = make_store(tmp_path)
     store.create_collection_key("work")
@@ -578,6 +593,62 @@ def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: 
     assert any(args[:3] == ["git", "clone", "--mirror"] for args in calls)
     assert (store.source_raw_dir(source) / "main" / "README.md").exists()
     assert not (store.source_raw_dir(source) / "main" / "image.png").exists()
+
+
+def test_github_sync_uses_ephemeral_branch_override_without_persisting_it(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    store = make_store(tmp_path)
+    store.create_collection_key("code")
+    source = store.add_collection_source(
+        "code",
+        "github",
+        title="https://github.com/example/repo.git",
+        config={"repo_url": "https://github.com/example/repo.git", "branches": ["main"]},
+        update_command="sync",
+        delete_command="del",
+    )
+    source["_sync_branches"] = ["release"]
+
+    observed_refs: list[str] = []
+    cache_dir = store.source_cache_dir(source)
+    if cache_dir.exists():
+        for path in sorted(cache_dir.rglob("*"), reverse=True):
+            if path.is_file():
+                path.unlink()
+            elif path.is_dir():
+                path.rmdir()
+        cache_dir.rmdir()
+
+    def fake_run(
+        args: list[str],
+        cwd: Path,
+        check: bool,
+        capture_output: bool,
+        text: bool,
+        encoding: str | None = None,
+        errors: str | None = None,
+    ) -> SimpleNamespace:
+        del cwd, check, capture_output, text, encoding, errors
+        if args[:3] == ["git", "clone", "--mirror"]:
+            Path(args[-1]).mkdir(parents=True, exist_ok=True)
+            return SimpleNamespace(stdout="")
+        if args[:4] == ["git", "ls-tree", "-r", "--name-only"]:
+            observed_refs.append(args[-1])
+            return SimpleNamespace(stdout="README.md\n")
+        if args[:2] == ["git", "show"]:
+            observed_refs.append(args[2].split(":", 1)[0])
+            return SimpleNamespace(stdout="content\n")
+        raise AssertionError(f"Unexpected git invocation: {args}")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    payload = GitHubRepoSource(source, store).sync()
+
+    metadata = store.get_collection_metadata("code")
+    persisted = metadata["sources"][0]
+    assert payload["branches"] == ["release"]
+    assert observed_refs == ["release", "release"]
+    assert persisted["config"]["branches"] == ["main"]
+    assert "_sync_branches" not in persisted
 
 
 def test_video_sync_writes_transcript_and_markdown(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

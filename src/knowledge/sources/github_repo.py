@@ -41,7 +41,7 @@ TEXT_SUFFIXES = {
 class GitHubRepoSource(SourceAdapter):
     def sync(self) -> dict[str, object]:
         repo_url = self.config["repo_url"]
-        branches = self.config.get("branches", ["HEAD"])
+        branches = self.source.get("_sync_branches") or self.config.get("branches", ["HEAD"])
         cache_repo = self.cache_dir / "repo.git"
 
         if cache_repo.exists():

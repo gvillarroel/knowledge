@@ -22,10 +22,10 @@
        
        
     1: def create_source_adapter(source: dict, store) -> SourceAdapter:
-    3:     source_type = source["type"]
-    3:     try:
-    3:         adapter_type = SOURCE_TYPES[source_type]
+    4:     source_type = source["type"]
+    4:     try:
+    4:         adapter_type = SOURCE_TYPES[source_type]
     1:     except KeyError as exc:
     1:         supported = ", ".join(sorted(SOURCE_TYPES))
     1:         raise ValueError(f"unsupported source type '{source_type}'. Supported: {supported}") from exc
-    2:     return adapter_type(source, store)
+    3:     return adapter_type(source, store)
