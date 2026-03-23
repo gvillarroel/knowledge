@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from argparse import Namespace
+from datetime import datetime
 from pathlib import Path
 
 from .exporter import export_source
@@ -206,7 +207,11 @@ def cmd_delete_source(args: Namespace) -> dict:
 def cmd_search_confluence(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    sources = store.list_collection_sources(source_type="confluence")
+    sources = _filter_confluence_sources_by_time_bounds(
+        store.list_collection_sources(source_type="confluence"),
+        start_time=getattr(args, "start_time", None),
+        end_time=getattr(args, "end_time", None),
+    )
     matches = []
     for source in sources:
         config = source.get("config", {})
@@ -217,7 +222,12 @@ def cmd_search_confluence(args: Namespace) -> dict:
                 "space": config.get("space") or config.get("space_key") or source.get("title"),
             }
         )
-    return {"query": args.query, "possible_sources": matches}
+    return {
+        "query": args.query,
+        "start_time": getattr(args, "start_time", None),
+        "end_time": getattr(args, "end_time", None),
+        "possible_sources": matches,
+    }
 
 
 def cmd_search_arxiv(args: Namespace) -> dict:
@@ -302,3 +312,37 @@ def _prepare_source_for_sync(source: dict, args: Namespace) -> dict:
     if prepared.get("type") == "github" and branch_override:
         prepared["_sync_branches"] = list(branch_override)
     return prepared
+
+
+def _filter_confluence_sources_by_time_bounds(
+    sources: list[dict],
+    *,
+    start_time: str | None,
+    end_time: str | None,
+) -> list[dict]:
+    lower_bound = _parse_iso8601(start_time) if start_time else None
+    upper_bound = _parse_iso8601(end_time) if end_time else None
+    if lower_bound is None and upper_bound is None:
+        return sources
+
+    matches: list[dict] = []
+    for source in sources:
+        candidate = _parse_iso8601(
+            source.get("last_synced_at")
+            or source.get("updated_at")
+            or source.get("created_at")
+        )
+        if candidate is None:
+            continue
+        if lower_bound and candidate < lower_bound:
+            continue
+        if upper_bound and candidate > upper_bound:
+            continue
+        matches.append(source)
+    return matches
+
+
+def _parse_iso8601(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))

@@ -213,6 +213,43 @@
     1:     assert '"space": "OPS"' in output
        
        
+    3: def test_search_confluence_honors_time_filters(tmp_path: Path, capsys) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "alpha"]) == 0
+    1:     assert main(["--store", str(tmp_path), "add", "key", "beta"]) == 0
+    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "alpha"]) == 0
+    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "OPS", "--key", "beta"]) == 0
+       
+    1:     alpha_metadata = yaml.safe_load((tmp_path / "alpha" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     beta_metadata = yaml.safe_load((tmp_path / "beta" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     alpha_metadata["sources"][0]["updated_at"] = "2026-03-20T12:00:00+00:00"
+    1:     beta_metadata["sources"][0]["last_synced_at"] = "2026-03-23T09:30:00Z"
+    1:     (tmp_path / "alpha" / "metadata.yaml").write_text(yaml.safe_dump(alpha_metadata, sort_keys=False), encoding="utf-8")
+    1:     (tmp_path / "beta" / "metadata.yaml").write_text(yaml.safe_dump(beta_metadata, sort_keys=False), encoding="utf-8")
+       
+    1:     capsys.readouterr()
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "search",
+    1:                 "confluence",
+    1:                 "incident postmortem",
+    1:                 "--start-time",
+    1:                 "2026-03-21T00:00:00+00:00",
+    1:                 "--end-time",
+    1:                 "2026-03-23T10:00:00+00:00",
+                   ]
+               )
+    2:         == 0
+           )
+    1:     output = capsys.readouterr().out
+    1:     assert '"start_time": "2026-03-21T00:00:00+00:00"' in output
+    1:     assert '"end_time": "2026-03-23T10:00:00+00:00"' in output
+    1:     assert '"space": "OPS"' in output
+    1:     assert '"space": "ENG"' not in output
+       
+       
     3: def test_search_arxiv_queries_public_api(tmp_path: Path, capsys, monkeypatch) -> None:
     1:     import requests
        

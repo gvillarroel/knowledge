@@ -213,6 +213,43 @@ def test_search_confluence_lists_possible_sources(tmp_path: Path, capsys) -> Non
     assert '"space": "OPS"' in output
 
 
+def test_search_confluence_honors_time_filters(tmp_path: Path, capsys) -> None:
+    assert main(["--store", str(tmp_path), "add", "key", "alpha"]) == 0
+    assert main(["--store", str(tmp_path), "add", "key", "beta"]) == 0
+    assert main(["--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "alpha"]) == 0
+    assert main(["--store", str(tmp_path), "add", "confluence", "--space", "OPS", "--key", "beta"]) == 0
+
+    alpha_metadata = yaml.safe_load((tmp_path / "alpha" / "metadata.yaml").read_text(encoding="utf-8"))
+    beta_metadata = yaml.safe_load((tmp_path / "beta" / "metadata.yaml").read_text(encoding="utf-8"))
+    alpha_metadata["sources"][0]["updated_at"] = "2026-03-20T12:00:00+00:00"
+    beta_metadata["sources"][0]["last_synced_at"] = "2026-03-23T09:30:00Z"
+    (tmp_path / "alpha" / "metadata.yaml").write_text(yaml.safe_dump(alpha_metadata, sort_keys=False), encoding="utf-8")
+    (tmp_path / "beta" / "metadata.yaml").write_text(yaml.safe_dump(beta_metadata, sort_keys=False), encoding="utf-8")
+
+    capsys.readouterr()
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "search",
+                "confluence",
+                "incident postmortem",
+                "--start-time",
+                "2026-03-21T00:00:00+00:00",
+                "--end-time",
+                "2026-03-23T10:00:00+00:00",
+            ]
+        )
+        == 0
+    )
+    output = capsys.readouterr().out
+    assert '"start_time": "2026-03-21T00:00:00+00:00"' in output
+    assert '"end_time": "2026-03-23T10:00:00+00:00"' in output
+    assert '"space": "OPS"' in output
+    assert '"space": "ENG"' not in output
+
+
 def test_search_arxiv_queries_public_api(tmp_path: Path, capsys, monkeypatch) -> None:
     import requests
 

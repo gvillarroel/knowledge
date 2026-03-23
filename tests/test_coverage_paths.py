@@ -122,6 +122,26 @@ def test_prepare_source_for_sync_adds_ephemeral_github_branch_override() -> None
     assert "_sync_branches" not in source
 
 
+def test_filter_confluence_sources_by_time_bounds_uses_sync_or_update_timestamps() -> None:
+    older = {
+        "id": "confluence-eng",
+        "updated_at": "2026-03-20T12:00:00+00:00",
+    }
+    newer = {
+        "id": "confluence-ops",
+        "last_synced_at": "2026-03-23T09:30:00+00:00",
+        "updated_at": "2026-03-22T12:00:00+00:00",
+    }
+
+    filtered = commands._filter_confluence_sources_by_time_bounds(
+        [older, newer],
+        start_time="2026-03-21T00:00:00+00:00",
+        end_time="2026-03-23T10:00:00+00:00",
+    )
+
+    assert [source["id"] for source in filtered] == ["confluence-ops"]
+
+
 def test_add_jira_and_aha_commands_store_metadata(tmp_path: Path) -> None:
     store = make_store(tmp_path)
     store.create_collection_key("work")
@@ -259,6 +279,12 @@ def test_matches_source_helper_covers_supported_fields() -> None:
     assert commands._matches_source(source, "https://github.com/example/repo.git")
     assert commands._matches_source(source, "https://arxiv.org/abs/1")
     assert not commands._matches_source(source, "missing")
+
+
+def test_parse_iso8601_supports_z_suffix() -> None:
+    parsed = commands._parse_iso8601("2026-03-23T10:15:00Z")
+    assert parsed is not None
+    assert parsed.isoformat() == "2026-03-23T10:15:00+00:00"
 
 
 def test_extract_video_id_supports_common_youtube_formats() -> None:

@@ -1,6 +1,7 @@
     1: from __future__ import annotations
        
     1: from argparse import Namespace
+    1: from datetime import datetime
     1: from pathlib import Path
        
     1: from .exporter import export_source
@@ -11,7 +12,7 @@
        
        
     1: def _store_from_args(args: Namespace) -> KnowledgeStore:
-   53:     return KnowledgeStore(args.store)
+   58:     return KnowledgeStore(args.store)
        
        
     1: def cmd_init(args: Namespace) -> dict:
@@ -34,10 +35,10 @@
        
        
     1: def cmd_add_key(args: Namespace) -> dict:
-   18:     store = _store_from_args(args)
-   18:     store.initialize()
-   18:     payload = store.create_collection_key(args.name)
-   18:     return {"created": payload["name"]}
+   20:     store = _store_from_args(args)
+   20:     store.initialize()
+   20:     payload = store.create_collection_key(args.name)
+   20:     return {"created": payload["name"]}
        
        
     1: def cmd_list_keys(args: Namespace) -> dict:
@@ -58,25 +59,25 @@
        
        
     1: def cmd_add_confluence(args: Namespace) -> dict:
-    5:     store = _store_from_args(args)
-    5:     store.initialize()
-    5:     config = {
-    5:         "space": args.space,
-    5:         "space_key": args.space,
-    5:         "base_url": args.base_url,
-    5:         "username": args.username,
-    5:         "token": args.token,
-    5:         "limit": args.limit,
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     config = {
+    7:         "space": args.space,
+    7:         "space_key": args.space,
+    7:         "base_url": args.base_url,
+    7:         "username": args.username,
+    7:         "token": args.token,
+    7:         "limit": args.limit,
            }
-   10:     source = store.add_collection_source(
-    5:         key_name=args.key,
-    5:         source_type="confluence",
-    5:         title=args.space,
-   35:         config={key: value for key, value in config.items() if value is not None},
-    5:         update_command=f"know sync confluence --space {args.space} --key {args.key}",
-    5:         delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
+   14:     source = store.add_collection_source(
+    7:         key_name=args.key,
+    7:         source_type="confluence",
+    7:         title=args.space,
+   49:         config={key: value for key, value in config.items() if value is not None},
+    7:         update_command=f"know sync confluence --space {args.space} --key {args.key}",
+    7:         delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
            )
-    5:     return {"key": args.key, "source": source}
+    7:     return {"key": args.key, "source": source}
        
        
     1: def cmd_add_arxiv(args: Namespace) -> dict:
@@ -204,20 +205,29 @@
        
        
     1: def cmd_search_confluence(args: Namespace) -> dict:
-    1:     store = _store_from_args(args)
-    1:     store.initialize()
-    1:     sources = store.list_collection_sources(source_type="confluence")
-    1:     matches = []
-    3:     for source in sources:
-    2:         config = source.get("config", {})
-    4:         matches.append(
-    2:             {
-    2:                 "source_id": source["id"],
-    2:                 "key": source["key"],
-    2:                 "space": config.get("space") or config.get("space_key") or source.get("title"),
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    4:     sources = _filter_confluence_sources_by_time_bounds(
+    2:         store.list_collection_sources(source_type="confluence"),
+    2:         start_time=getattr(args, "start_time", None),
+    2:         end_time=getattr(args, "end_time", None),
+           )
+    2:     matches = []
+    5:     for source in sources:
+    3:         config = source.get("config", {})
+    6:         matches.append(
+    3:             {
+    3:                 "source_id": source["id"],
+    3:                 "key": source["key"],
+    3:                 "space": config.get("space") or config.get("space_key") or source.get("title"),
                    }
                )
-    1:     return {"query": args.query, "possible_sources": matches}
+    2:     return {
+    2:         "query": args.query,
+    2:         "start_time": getattr(args, "start_time", None),
+    2:         "end_time": getattr(args, "end_time", None),
+    2:         "possible_sources": matches,
+           }
        
        
     1: def cmd_search_arxiv(args: Namespace) -> dict:
@@ -302,3 +312,37 @@
     5:     if prepared.get("type") == "github" and branch_override:
     2:         prepared["_sync_branches"] = list(branch_override)
     5:     return prepared
+       
+       
+    1: def _filter_confluence_sources_by_time_bounds(
+>>>>>>     sources: list[dict],
+           *,
+>>>>>>     start_time: str | None,
+>>>>>>     end_time: str | None,
+>>>>>> ) -> list[dict]:
+    3:     lower_bound = _parse_iso8601(start_time) if start_time else None
+    3:     upper_bound = _parse_iso8601(end_time) if end_time else None
+    3:     if lower_bound is None and upper_bound is None:
+    1:         return sources
+       
+    2:     matches: list[dict] = []
+    6:     for source in sources:
+    8:         candidate = _parse_iso8601(
+    6:             source.get("last_synced_at")
+    2:             or source.get("updated_at")
+>>>>>>             or source.get("created_at")
+               )
+    4:         if candidate is None:
+>>>>>>             continue
+    4:         if lower_bound and candidate < lower_bound:
+    2:             continue
+    2:         if upper_bound and candidate > upper_bound:
+>>>>>>             continue
+    2:         matches.append(source)
+    2:     return matches
+       
+       
+    1: def _parse_iso8601(value: str | None) -> datetime | None:
+    9:     if not value:
+>>>>>>         return None
+    9:     return datetime.fromisoformat(value.replace("Z", "+00:00"))

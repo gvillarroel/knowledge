@@ -29,218 +29,218 @@
        
        
     1: def build_parser() -> argparse.ArgumentParser:
-   94:     parser = argparse.ArgumentParser(
-   47:         prog="know",
-   47:         description="Manage a local knowledge base in ~/.knowledge.",
+  104:     parser = argparse.ArgumentParser(
+   52:         prog="know",
+   52:         description="Manage a local knowledge base in ~/.knowledge.",
            )
-   47:     parser.add_argument("--store", type=Path, default=None, help="Override the knowledge store path.")
-   47:     parser.add_argument("--json", action="store_true", help="Emit command output as JSON.")
+   52:     parser.add_argument("--store", type=Path, default=None, help="Override the knowledge store path.")
+   52:     parser.add_argument("--json", action="store_true", help="Emit command output as JSON.")
        
-   47:     subparsers = parser.add_subparsers(dest="command", required=True)
+   52:     subparsers = parser.add_subparsers(dest="command", required=True)
        
-   47:     add_parser = subparsers.add_parser("add", help="Create keys and attach source definitions.")
-   47:     add_subparsers = add_parser.add_subparsers(dest="add_command", required=True)
+   52:     add_parser = subparsers.add_parser("add", help="Create keys and attach source definitions.")
+   52:     add_subparsers = add_parser.add_subparsers(dest="add_command", required=True)
        
-   47:     add_key_parser = add_subparsers.add_parser("key", help="Create a knowledge key.")
-   47:     add_key_parser.add_argument("name", help="Knowledge key name.")
-   47:     add_key_parser.set_defaults(handler=cmd_add_key)
+   52:     add_key_parser = add_subparsers.add_parser("key", help="Create a knowledge key.")
+   52:     add_key_parser.add_argument("name", help="Knowledge key name.")
+   52:     add_key_parser.set_defaults(handler=cmd_add_key)
        
-   47:     add_confluence_parser = add_subparsers.add_parser("confluence", help="Attach a Confluence space.")
-   47:     add_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
-   47:     add_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_confluence_parser.add_argument("--base-url", help="Confluence base URL.")
-   47:     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
-   47:     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
-   47:     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
-   47:     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
+   52:     add_confluence_parser = add_subparsers.add_parser("confluence", help="Attach a Confluence space.")
+   52:     add_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+   52:     add_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_confluence_parser.add_argument("--base-url", help="Confluence base URL.")
+   52:     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
+   52:     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
+   52:     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
+   52:     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
        
-   47:     add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach an arXiv paper URL.")
-   47:     add_arxiv_parser.add_argument("url", help="arXiv URL.")
-   47:     add_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_arxiv_parser.set_defaults(handler=cmd_add_arxiv)
+   52:     add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach an arXiv paper URL.")
+   52:     add_arxiv_parser.add_argument("url", help="arXiv URL.")
+   52:     add_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_arxiv_parser.set_defaults(handler=cmd_add_arxiv)
        
-   47:     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
-   47:     add_site_parser.add_argument("url", help="Website URL.")
-   47:     add_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_site_parser.add_argument("--max-depth", type=int, default=1, help="Optional crawl depth.")
-   47:     add_site_parser.add_argument("--max-pages", type=int, default=1, help="Optional page limit.")
-   47:     add_site_parser.set_defaults(handler=cmd_add_site)
+   52:     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
+   52:     add_site_parser.add_argument("url", help="Website URL.")
+   52:     add_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_site_parser.add_argument("--max-depth", type=int, default=1, help="Optional crawl depth.")
+   52:     add_site_parser.add_argument("--max-pages", type=int, default=1, help="Optional page limit.")
+   52:     add_site_parser.set_defaults(handler=cmd_add_site)
        
-   47:     add_video_parser = add_subparsers.add_parser("video", help="Attach a video URL or path.")
-   47:     add_video_parser.add_argument("url", help="Video URL or local path.")
-   47:     add_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_video_parser.add_argument("--language", action="append", help="Preferred transcript language. Repeatable.")
-   47:     add_video_parser.set_defaults(handler=cmd_add_video)
+   52:     add_video_parser = add_subparsers.add_parser("video", help="Attach a video URL or path.")
+   52:     add_video_parser.add_argument("url", help="Video URL or local path.")
+   52:     add_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_video_parser.add_argument("--language", action="append", help="Preferred transcript language. Repeatable.")
+   52:     add_video_parser.set_defaults(handler=cmd_add_video)
        
-   47:     add_github_parser = add_subparsers.add_parser("github-repo", help="Attach a GitHub repository.")
-   47:     add_github_parser.add_argument("repo_url", help="Git repository URL.")
-   47:     add_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_github_parser.add_argument("--branch", action="append", help="Branch to include. Repeatable.")
-   47:     add_github_parser.set_defaults(handler=cmd_add_github_repo)
+   52:     add_github_parser = add_subparsers.add_parser("github-repo", help="Attach a GitHub repository.")
+   52:     add_github_parser.add_argument("repo_url", help="Git repository URL.")
+   52:     add_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_github_parser.add_argument("--branch", action="append", help="Branch to include. Repeatable.")
+   52:     add_github_parser.set_defaults(handler=cmd_add_github_repo)
        
-   47:     add_jira_parser = add_subparsers.add_parser("jira-project", help="Attach a Jira project.")
-   47:     add_jira_parser.add_argument("project", help="Jira project key.")
-   47:     add_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_jira_parser.add_argument("--base-url", help="Jira base URL.")
-   47:     add_jira_parser.add_argument("--username", help="Username or credential key reference.")
-   47:     add_jira_parser.add_argument("--token", help="Token or credential key reference.")
-   47:     add_jira_parser.add_argument("--jql", help="Override default JQL.")
-   47:     add_jira_parser.add_argument("--field", action="append", help="Field to request. Repeatable.")
-   47:     add_jira_parser.add_argument("--limit", type=int, help="Issue sync limit.")
-   47:     add_jira_parser.set_defaults(handler=cmd_add_jira_project)
+   52:     add_jira_parser = add_subparsers.add_parser("jira-project", help="Attach a Jira project.")
+   52:     add_jira_parser.add_argument("project", help="Jira project key.")
+   52:     add_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_jira_parser.add_argument("--base-url", help="Jira base URL.")
+   52:     add_jira_parser.add_argument("--username", help="Username or credential key reference.")
+   52:     add_jira_parser.add_argument("--token", help="Token or credential key reference.")
+   52:     add_jira_parser.add_argument("--jql", help="Override default JQL.")
+   52:     add_jira_parser.add_argument("--field", action="append", help="Field to request. Repeatable.")
+   52:     add_jira_parser.add_argument("--limit", type=int, help="Issue sync limit.")
+   52:     add_jira_parser.set_defaults(handler=cmd_add_jira_project)
        
-   47:     add_aha_parser = add_subparsers.add_parser("aha-workspace", help="Attach an Aha workspace.")
-   47:     add_aha_parser.add_argument("workspace", help="Aha workspace or product identifier.")
-   47:     add_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     add_aha_parser.add_argument("--base-url", help="Aha base URL.")
-   47:     add_aha_parser.add_argument("--token", help="Token or credential key reference.")
-   47:     add_aha_parser.add_argument("--limit", type=int, help="Feature sync limit.")
-   47:     add_aha_parser.set_defaults(handler=cmd_add_aha_workspace)
+   52:     add_aha_parser = add_subparsers.add_parser("aha-workspace", help="Attach an Aha workspace.")
+   52:     add_aha_parser.add_argument("workspace", help="Aha workspace or product identifier.")
+   52:     add_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     add_aha_parser.add_argument("--base-url", help="Aha base URL.")
+   52:     add_aha_parser.add_argument("--token", help="Token or credential key reference.")
+   52:     add_aha_parser.add_argument("--limit", type=int, help="Feature sync limit.")
+   52:     add_aha_parser.set_defaults(handler=cmd_add_aha_workspace)
        
-   47:     list_parser = subparsers.add_parser("list", help="List keys, credentials, or attached sources.")
-   47:     list_subparsers = list_parser.add_subparsers(dest="list_command", required=True)
+   52:     list_parser = subparsers.add_parser("list", help="List keys, credentials, or attached sources.")
+   52:     list_subparsers = list_parser.add_subparsers(dest="list_command", required=True)
        
-   47:     list_keys_parser = list_subparsers.add_parser("keys", help="List knowledge keys.")
-   47:     list_keys_parser.set_defaults(handler=cmd_list_keys)
+   52:     list_keys_parser = list_subparsers.add_parser("keys", help="List knowledge keys.")
+   52:     list_keys_parser.set_defaults(handler=cmd_list_keys)
        
-   47:     list_credentials_parser = list_subparsers.add_parser("credentials", help="List stored credential names.")
-   47:     list_credentials_parser.set_defaults(handler=cmd_key_list)
+   52:     list_credentials_parser = list_subparsers.add_parser("credentials", help="List stored credential names.")
+   52:     list_credentials_parser.set_defaults(handler=cmd_key_list)
        
-   47:     list_sources_parser = list_subparsers.add_parser("sources", help="List sources attached to keys.")
-   47:     list_sources_parser.add_argument("--key", help="Restrict to a single knowledge key.")
-   47:     list_sources_parser.add_argument("--type", help="Restrict to a single source type.")
-   47:     list_sources_parser.set_defaults(handler=cmd_list_collection_sources)
+   52:     list_sources_parser = list_subparsers.add_parser("sources", help="List sources attached to keys.")
+   52:     list_sources_parser.add_argument("--key", help="Restrict to a single knowledge key.")
+   52:     list_sources_parser.add_argument("--type", help="Restrict to a single source type.")
+   52:     list_sources_parser.set_defaults(handler=cmd_list_collection_sources)
        
-   47:     search_parser = subparsers.add_parser("search", help="Search configured source definitions.")
-   47:     search_subparsers = search_parser.add_subparsers(dest="search_command", required=True)
+   52:     search_parser = subparsers.add_parser("search", help="Search configured source definitions.")
+   52:     search_subparsers = search_parser.add_subparsers(dest="search_command", required=True)
        
-   47:     search_confluence_parser = search_subparsers.add_parser("confluence", help="List Confluence sources.")
-   47:     search_confluence_parser.add_argument("query", help="Free-text query string.")
-   47:     search_confluence_parser.add_argument("--start-time", help="Optional lower time bound.")
-   47:     search_confluence_parser.add_argument("--end-time", help="Optional upper time bound.")
-   47:     search_confluence_parser.set_defaults(handler=cmd_search_confluence)
+   52:     search_confluence_parser = search_subparsers.add_parser("confluence", help="List Confluence sources.")
+   52:     search_confluence_parser.add_argument("query", help="Free-text query string.")
+   52:     search_confluence_parser.add_argument("--start-time", help="Optional lower time bound.")
+   52:     search_confluence_parser.add_argument("--end-time", help="Optional upper time bound.")
+   52:     search_confluence_parser.set_defaults(handler=cmd_search_confluence)
        
-   47:     search_arxiv_parser = search_subparsers.add_parser("arxiv", help="Search arXiv via the public API.")
-   47:     search_arxiv_parser.add_argument("query", help="arXiv search_query expression or plain text.")
-   47:     search_arxiv_parser.add_argument("--start", type=int, default=0, help="Starting result offset.")
-   47:     search_arxiv_parser.add_argument("--max-results", type=int, default=10, help="Maximum number of results.")
-   94:     search_arxiv_parser.add_argument(
-   47:         "--sort-by",
-   47:         choices=("relevance", "lastUpdatedDate", "submittedDate"),
-   47:         default="relevance",
-   47:         help="Sort field supported by the arXiv API.",
+   52:     search_arxiv_parser = search_subparsers.add_parser("arxiv", help="Search arXiv via the public API.")
+   52:     search_arxiv_parser.add_argument("query", help="arXiv search_query expression or plain text.")
+   52:     search_arxiv_parser.add_argument("--start", type=int, default=0, help="Starting result offset.")
+   52:     search_arxiv_parser.add_argument("--max-results", type=int, default=10, help="Maximum number of results.")
+  104:     search_arxiv_parser.add_argument(
+   52:         "--sort-by",
+   52:         choices=("relevance", "lastUpdatedDate", "submittedDate"),
+   52:         default="relevance",
+   52:         help="Sort field supported by the arXiv API.",
            )
-   94:     search_arxiv_parser.add_argument(
-   47:         "--sort-order",
-   47:         choices=("ascending", "descending"),
-   47:         default="descending",
-   47:         help="Sort direction supported by the arXiv API.",
+  104:     search_arxiv_parser.add_argument(
+   52:         "--sort-order",
+   52:         choices=("ascending", "descending"),
+   52:         default="descending",
+   52:         help="Sort direction supported by the arXiv API.",
            )
-   47:     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
+   52:     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
        
-   47:     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")
-   47:     sync_parser.add_argument("--key", help="Restrict sync to a single knowledge key.")
-   47:     sync_subparsers = sync_parser.add_subparsers(dest="sync_command")
-   47:     sync_parser.set_defaults(handler=cmd_sync, source_type=None, match_value=None)
+   52:     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")
+   52:     sync_parser.add_argument("--key", help="Restrict sync to a single knowledge key.")
+   52:     sync_subparsers = sync_parser.add_subparsers(dest="sync_command")
+   52:     sync_parser.set_defaults(handler=cmd_sync, source_type=None, match_value=None)
        
-   47:     sync_confluence_parser = sync_subparsers.add_parser("confluence", help="Sync a Confluence source.")
-   47:     sync_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
-   47:     sync_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_confluence_parser.set_defaults(handler=cmd_sync, source_type="confluence", match_value=None)
+   52:     sync_confluence_parser = sync_subparsers.add_parser("confluence", help="Sync a Confluence source.")
+   52:     sync_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+   52:     sync_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_confluence_parser.set_defaults(handler=cmd_sync, source_type="confluence", match_value=None)
        
-   47:     sync_arxiv_parser = sync_subparsers.add_parser("arxiv", help="Sync an arXiv source.")
-   47:     sync_arxiv_parser.add_argument("url", help="arXiv URL.")
-   47:     sync_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_arxiv_parser.set_defaults(handler=cmd_sync, source_type="arxiv", match_value=None)
+   52:     sync_arxiv_parser = sync_subparsers.add_parser("arxiv", help="Sync an arXiv source.")
+   52:     sync_arxiv_parser.add_argument("url", help="arXiv URL.")
+   52:     sync_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_arxiv_parser.set_defaults(handler=cmd_sync, source_type="arxiv", match_value=None)
        
-   47:     sync_site_parser = sync_subparsers.add_parser("site", help="Sync a website source.")
-   47:     sync_site_parser.add_argument("url", help="Website URL.")
-   47:     sync_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_site_parser.set_defaults(handler=cmd_sync, source_type="site", match_value=None)
+   52:     sync_site_parser = sync_subparsers.add_parser("site", help="Sync a website source.")
+   52:     sync_site_parser.add_argument("url", help="Website URL.")
+   52:     sync_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_site_parser.set_defaults(handler=cmd_sync, source_type="site", match_value=None)
        
-   47:     sync_video_parser = sync_subparsers.add_parser("video", help="Sync a video source.")
-   47:     sync_video_parser.add_argument("url", help="Video URL or local path.")
-   47:     sync_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_video_parser.set_defaults(handler=cmd_sync, source_type="video", match_value=None)
+   52:     sync_video_parser = sync_subparsers.add_parser("video", help="Sync a video source.")
+   52:     sync_video_parser.add_argument("url", help="Video URL or local path.")
+   52:     sync_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_video_parser.set_defaults(handler=cmd_sync, source_type="video", match_value=None)
        
-   47:     sync_github_parser = sync_subparsers.add_parser("github-repo", help="Sync a GitHub repository source.")
-   47:     sync_github_parser.add_argument("repo_url", help="Git repository URL.")
-   47:     sync_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_github_parser.add_argument("--branch", action="append", help="Optional branch filters.")
-   47:     sync_github_parser.set_defaults(handler=cmd_sync, source_type="github", match_value=None)
+   52:     sync_github_parser = sync_subparsers.add_parser("github-repo", help="Sync a GitHub repository source.")
+   52:     sync_github_parser.add_argument("repo_url", help="Git repository URL.")
+   52:     sync_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_github_parser.add_argument("--branch", action="append", help="Optional branch filters.")
+   52:     sync_github_parser.set_defaults(handler=cmd_sync, source_type="github", match_value=None)
        
-   47:     sync_jira_parser = sync_subparsers.add_parser("jira-project", help="Sync a Jira project source.")
-   47:     sync_jira_parser.add_argument("project", help="Jira project key.")
-   47:     sync_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_jira_parser.set_defaults(handler=cmd_sync, source_type="jira", match_value=None)
+   52:     sync_jira_parser = sync_subparsers.add_parser("jira-project", help="Sync a Jira project source.")
+   52:     sync_jira_parser.add_argument("project", help="Jira project key.")
+   52:     sync_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_jira_parser.set_defaults(handler=cmd_sync, source_type="jira", match_value=None)
        
-   47:     sync_aha_parser = sync_subparsers.add_parser("aha-workspace", help="Sync an Aha workspace source.")
-   47:     sync_aha_parser.add_argument("workspace", help="Aha workspace or product.")
-   47:     sync_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     sync_aha_parser.set_defaults(handler=cmd_sync, source_type="aha", match_value=None)
+   52:     sync_aha_parser = sync_subparsers.add_parser("aha-workspace", help="Sync an Aha workspace source.")
+   52:     sync_aha_parser.add_argument("workspace", help="Aha workspace or product.")
+   52:     sync_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     sync_aha_parser.set_defaults(handler=cmd_sync, source_type="aha", match_value=None)
        
-   47:     del_parser = subparsers.add_parser("del", help="Delete a registered source from a key.")
-   47:     del_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   47:     del_parser.add_argument("source_id", help="Registered source id.")
-   47:     del_parser.set_defaults(handler=cmd_delete_source)
+   52:     del_parser = subparsers.add_parser("del", help="Delete a registered source from a key.")
+   52:     del_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   52:     del_parser.add_argument("source_id", help="Registered source id.")
+   52:     del_parser.set_defaults(handler=cmd_delete_source)
        
-   47:     init_parser = subparsers.add_parser("init", help="Initialize the knowledge store.")
-   47:     init_parser.set_defaults(handler=cmd_init)
+   52:     init_parser = subparsers.add_parser("init", help="Initialize the knowledge store.")
+   52:     init_parser.set_defaults(handler=cmd_init)
        
-   47:     set_parser = subparsers.add_parser("set", help="Store mutable configuration values.")
-   47:     set_subparsers = set_parser.add_subparsers(dest="set_command", required=True)
+   52:     set_parser = subparsers.add_parser("set", help="Store mutable configuration values.")
+   52:     set_subparsers = set_parser.add_subparsers(dest="set_command", required=True)
        
-   47:     set_credential_parser = set_subparsers.add_parser("credential", help="Store a named credential.")
-   47:     set_credential_parser.add_argument("name", help="Credential name.")
-   47:     set_credential_parser.add_argument("value", help="Credential value.")
-   47:     set_credential_parser.set_defaults(handler=cmd_key_set)
+   52:     set_credential_parser = set_subparsers.add_parser("credential", help="Store a named credential.")
+   52:     set_credential_parser.add_argument("name", help="Credential name.")
+   52:     set_credential_parser.add_argument("value", help="Credential value.")
+   52:     set_credential_parser.set_defaults(handler=cmd_key_set)
        
-   47:     export_parser = subparsers.add_parser("export", help="Render markdown output and create a zip export.")
-   47:     export_parser.add_argument("--key", help="Restrict export to a single knowledge key.")
-   47:     export_parser.set_defaults(handler=cmd_export)
+   52:     export_parser = subparsers.add_parser("export", help="Render markdown output and create a zip export.")
+   52:     export_parser.add_argument("--key", help="Restrict export to a single knowledge key.")
+   52:     export_parser.set_defaults(handler=cmd_export)
        
-   47:     import_parser = subparsers.add_parser("import", help="Import a previously exported zip archive.")
-   47:     import_parser.add_argument("archive", help="Zip archive path.")
-   47:     import_parser.set_defaults(handler=cmd_import)
+   52:     import_parser = subparsers.add_parser("import", help="Import a previously exported zip archive.")
+   52:     import_parser.add_argument("archive", help="Zip archive path.")
+   52:     import_parser.set_defaults(handler=cmd_import)
        
-   47:     return parser
+   52:     return parser
        
        
     1: def emit(payload: object, as_json: bool) -> int:
-   46:     if as_json:
+   51:     if as_json:
 >>>>>>         print(json.dumps(payload, indent=2, sort_keys=True))
-   46:     elif isinstance(payload, str):
+   51:     elif isinstance(payload, str):
 >>>>>>         print(payload)
            else:
-   46:         print(json.dumps(payload, indent=2, sort_keys=True))
-   46:     return 0
+   51:         print(json.dumps(payload, indent=2, sort_keys=True))
+   51:     return 0
        
        
     1: def main(argv: list[str] | None = None) -> int:
-   47:     parser = build_parser()
-   47:     args = parser.parse_args(argv)
+   52:     parser = build_parser()
+   52:     args = parser.parse_args(argv)
        
-   46:     if getattr(args, "sync_command", None) == "confluence":
+   51:     if getattr(args, "sync_command", None) == "confluence":
 >>>>>>         args.match_value = args.space
-   46:     elif getattr(args, "sync_command", None) == "arxiv":
+   51:     elif getattr(args, "sync_command", None) == "arxiv":
 >>>>>>         args.match_value = args.url
-   46:     elif getattr(args, "sync_command", None) == "site":
+   51:     elif getattr(args, "sync_command", None) == "site":
     1:         args.match_value = args.url
-   45:     elif getattr(args, "sync_command", None) == "video":
+   50:     elif getattr(args, "sync_command", None) == "video":
 >>>>>>         args.match_value = args.url
-   45:     elif getattr(args, "sync_command", None) == "github-repo":
+   50:     elif getattr(args, "sync_command", None) == "github-repo":
     1:         args.match_value = args.repo_url
-   44:     elif getattr(args, "sync_command", None) == "jira-project":
+   49:     elif getattr(args, "sync_command", None) == "jira-project":
 >>>>>>         args.match_value = args.project
-   44:     elif getattr(args, "sync_command", None) == "aha-workspace":
+   49:     elif getattr(args, "sync_command", None) == "aha-workspace":
 >>>>>>         args.match_value = args.workspace
        
-   46:     try:
-   46:         result = args.handler(args)
+   51:     try:
+   51:         result = args.handler(args)
 >>>>>>     except Exception as exc:  # pragma: no cover - CLI boundary
 >>>>>>         print(f"error: {exc}", file=sys.stderr)
 >>>>>>         return 1
-   46:     return emit(result, args.json)
+   51:     return emit(result, args.json)
        
        
     1: if __name__ == "__main__":  # pragma: no cover
