@@ -1,0 +1,293 @@
+    1: from __future__ import annotations
+       
+    1: from argparse import Namespace
+    1: from pathlib import Path
+       
+    1: from .exporter import export_source
+    1: from .registry import create_source_adapter
+    1: from .sources.arxiv import search_arxiv
+    1: from .sources.video import extract_video_id
+    1: from .store import KnowledgeStore
+       
+       
+    1: def _store_from_args(args: Namespace) -> KnowledgeStore:
+   50:     return KnowledgeStore(args.store)
+       
+       
+    1: def cmd_init(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     return {"store": str(store.root), "created": True}
+       
+       
+    1: def cmd_key_set(args: Namespace) -> dict:
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     store.set_key(args.name, args.value)
+    2:     return {"stored": args.name}
+       
+       
+    1: def cmd_key_list(args: Namespace) -> dict:
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     return {"keys": sorted(store.keys)}
+       
+       
+    1: def cmd_add_key(args: Namespace) -> dict:
+   17:     store = _store_from_args(args)
+   17:     store.initialize()
+   17:     payload = store.create_collection_key(args.name)
+   17:     return {"created": payload["name"]}
+       
+       
+    1: def cmd_list_keys(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     return {"keys": store.list_collection_keys()}
+       
+       
+    1: def cmd_list_collection_sources(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     return {
+    2:         "sources": store.list_collection_sources(
+    1:             key_name=getattr(args, "key", None),
+    1:             source_type=getattr(args, "type", None),
+               )
+           }
+       
+       
+    1: def cmd_add_confluence(args: Namespace) -> dict:
+    5:     store = _store_from_args(args)
+    5:     store.initialize()
+    5:     config = {
+    5:         "space": args.space,
+    5:         "space_key": args.space,
+    5:         "base_url": args.base_url,
+    5:         "username": args.username,
+    5:         "token": args.token,
+    5:         "limit": args.limit,
+           }
+   10:     source = store.add_collection_source(
+    5:         key_name=args.key,
+    5:         source_type="confluence",
+    5:         title=args.space,
+   35:         config={key: value for key, value in config.items() if value is not None},
+    5:         update_command=f"know sync confluence --space {args.space} --key {args.key}",
+    5:         delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
+           )
+    5:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_arxiv(args: Namespace) -> dict:
+    5:     store = _store_from_args(args)
+    5:     store.initialize()
+   10:     source = store.add_collection_source(
+    5:         key_name=args.key,
+    5:         source_type="arxiv",
+    5:         title=args.url,
+    5:         config={"url": args.url},
+    5:         update_command=f"know sync arxiv {args.url} --key {args.key}",
+    5:         delete_command=f"know del --key {args.key} {store._source_id('arxiv', args.url)}",
+           )
+    5:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_site(args: Namespace) -> dict:
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     normalized_url = args.url.rstrip("/") or args.url
+    3:     source_id = store._source_id("site", normalized_url)
+    3:     config = {
+    3:         "url": args.url,
+    3:         "max_depth": args.max_depth,
+    3:         "max_pages": args.max_pages,
+           }
+    6:     source = store.add_collection_source(
+    3:         key_name=args.key,
+    3:         source_type="site",
+    3:         source_id=source_id,
+    3:         title=args.url,
+    3:         config=config,
+    3:         update_command=f"know sync site {args.url} --key {args.key}",
+    3:         delete_command=f"know del --key {args.key} {source_id}",
+           )
+    3:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_video(args: Namespace) -> dict:
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     video_id = extract_video_id(args.url)
+    2:     config = {
+    2:         "url": args.url,
+    2:         "languages": args.language or ["en"],
+           }
+    4:     source = store.add_collection_source(
+    2:         key_name=args.key,
+    2:         source_type="video",
+    2:         source_id=f"video-{video_id.lower()}",
+    2:         title=args.url,
+    2:         config=config,
+    2:         update_command=f"know sync video {args.url} --key {args.key}",
+    2:         delete_command=f"know del --key {args.key} video-{video_id.lower()}",
+           )
+    2:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_github_repo(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     config = {
+    1:         "repo_url": args.repo_url,
+    1:         "branches": args.branch or ["HEAD"],
+           }
+    2:     source = store.add_collection_source(
+    1:         key_name=args.key,
+    1:         source_type="github",
+    1:         title=args.repo_url,
+    1:         config=config,
+    1:         update_command=_build_github_sync_command(args.repo_url, args.key, config["branches"]),
+    1:         delete_command=f"know del --key {args.key} {store._source_id('github', args.repo_url)}",
+           )
+    1:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_jira_project(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     config = {
+    1:         "project": args.project,
+    1:         "jql": args.jql or f"project = {args.project} ORDER BY updated DESC",
+    1:         "base_url": args.base_url,
+    1:         "username": args.username,
+    1:         "token": args.token,
+    1:         "fields": args.field,
+    1:         "limit": args.limit,
+           }
+    2:     source = store.add_collection_source(
+    1:         key_name=args.key,
+    1:         source_type="jira",
+    1:         title=args.project,
+    8:         config={key: value for key, value in config.items() if value is not None},
+    1:         update_command=f"know sync jira-project {args.project} --key {args.key}",
+    1:         delete_command=f"know del --key {args.key} {store._source_id('jira', args.project)}",
+           )
+    1:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_aha_workspace(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     config = {
+    1:         "workspace": args.workspace,
+    1:         "product": args.workspace,
+    1:         "base_url": args.base_url,
+    1:         "token": args.token,
+    1:         "limit": args.limit,
+           }
+    2:     source = store.add_collection_source(
+    1:         key_name=args.key,
+    1:         source_type="aha",
+    1:         title=args.workspace,
+    6:         config={key: value for key, value in config.items() if value is not None},
+    1:         update_command=f"know sync aha-workspace {args.workspace} --key {args.key}",
+    1:         delete_command=f"know del --key {args.key} {store._source_id('aha', args.workspace)}",
+           )
+    1:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_delete_source(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     return store.delete_collection_source(args.key, args.source_id)
+       
+       
+    1: def cmd_search_confluence(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     sources = store.list_collection_sources(source_type="confluence")
+    1:     matches = []
+    3:     for source in sources:
+    2:         config = source.get("config", {})
+    4:         matches.append(
+    2:             {
+    2:                 "source_id": source["id"],
+    2:                 "key": source["key"],
+    2:                 "space": config.get("space") or config.get("space_key") or source.get("title"),
+                   }
+               )
+    1:     return {"query": args.query, "possible_sources": matches}
+       
+       
+    1: def cmd_search_arxiv(args: Namespace) -> dict:
+    2:     results = search_arxiv(
+    1:         args.query,
+    1:         start=args.start,
+    1:         max_results=args.max_results,
+    1:         sort_by=args.sort_by,
+    1:         sort_order=args.sort_order,
+           )
+    2:     return {
+    1:         "query": args.query,
+    1:         "search_query": results.pop("search_query", None) or None,
+    1:         "start": args.start,
+    1:         "max_results": args.max_results,
+    1:         "sort_by": args.sort_by,
+    1:         "sort_order": args.sort_order,
+    1:         **results,
+           }
+       
+       
+    1: def cmd_sync(args: Namespace) -> dict:
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     key_name = getattr(args, "key", None)
+    3:     source_type = getattr(args, "source_type", None)
+    3:     matched_value = getattr(args, "match_value", None)
+       
+    3:     sources = store.list_collection_sources(key_name=key_name, source_type=source_type)
+    3:     if matched_value:
+    5:         sources = [source for source in sources if _matches_source(source, matched_value)]
+    6:     synced = [create_source_adapter(source, store).sync() for source in sources]
+    3:     return {"synced": synced}
+       
+       
+    1: def cmd_export(args: Namespace) -> dict:
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     key_names = [args.key] if args.key else store.list_collection_keys()
+    2:     exported: list[dict] = []
+    4:     for key_name in key_names:
+    4:         for source in store.list_collection_sources(key_name=key_name):
+    2:             exported.append(export_source(store, source))
+    2:     archive = store.archive_keys(key_names)
+    2:     return {"exported": exported, "archive": str(archive)}
+       
+       
+    1: def cmd_import(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    1:     return store.import_archive(Path(args.archive))
+       
+       
+    1: def _matches_source(source: dict, value: str) -> bool:
+    8:     config = source.get("config", {})
+   16:     return value in {
+    8:         source.get("id"),
+    8:         source.get("title"),
+    8:         config.get("space"),
+    8:         config.get("space_key"),
+    8:         config.get("url"),
+    8:         config.get("repo_url"),
+    8:         config.get("video_url"),
+    8:         config.get("project"),
+    8:         config.get("workspace"),
+    8:         config.get("product"),
+           }
+       
+       
+    1: def _build_github_sync_command(repo_url: str, key_name: str, branches: list[str]) -> str:
+    4:     branch_flags = " ".join(f"--branch {branch}" for branch in branches)
+    1:     suffix = f" {branch_flags}" if branch_flags else ""
+    1:     return f"know sync github-repo {repo_url} --key {key_name}{suffix}"

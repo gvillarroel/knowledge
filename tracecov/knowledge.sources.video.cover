@@ -1,0 +1,142 @@
+    1: from __future__ import annotations
+       
+    1: from dataclasses import asdict, dataclass
+    1: from urllib.parse import parse_qs, urlparse
+       
+    1: import requests
+    1: import yaml
+    1: from youtube_transcript_api import YouTubeTranscriptApi
+       
+    1: from .base import SourceAdapter
+       
+       
+    1: YOUTUBE_OEMBED_URL = "https://www.youtube.com/oembed"
+       
+       
+    3: @dataclass
+    2: class TranscriptSegment:
+    1:     text: str
+    1:     start: float
+    1:     duration: float
+       
+       
+    2: class VideoSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    2:         video_url = self.config["url"]
+    2:         video_id = extract_video_id(video_url)
+       
+    2:         api = YouTubeTranscriptApi()
+    2:         transcript = api.fetch(video_id, languages=self.config.get("languages", ["en"]))
+    4:         segments = [
+    6:             TranscriptSegment(
+    3:                 text=snippet.text.strip(),
+    3:                 start=float(snippet.start),
+    3:                 duration=float(snippet.duration),
+                   )
+    7:             for snippet in transcript
+               ]
+       
+    2:         metadata = self._fetch_metadata(video_url, video_id)
+    2:         raw_payload = {
+    2:             "video_id": video_id,
+    2:             "url": video_url,
+    2:             "title": metadata.get("title"),
+    2:             "author_name": metadata.get("author_name"),
+    2:             "language": transcript.language,
+    2:             "language_code": transcript.language_code,
+    2:             "is_generated": transcript.is_generated,
+    5:             "segments": [asdict(segment) for segment in segments],
+               }
+       
+    2:         self._clear_raw_dir()
+    2:         self.write_text(self.raw_dir / "transcript.md", _markdown_transcript(raw_payload, metadata))
+       
+    4:         return self.finalize_sync(
+    2:             {
+    2:                 "video_id": video_id,
+    2:                 "segments": len(segments),
+    2:                 "language_code": transcript.language_code,
+    2:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _fetch_metadata(self, video_url: str, video_id: str) -> dict[str, object]:
+    4:         response = requests.get(
+    2:             YOUTUBE_OEMBED_URL,
+    2:             params={"url": video_url, "format": "json"},
+    2:             timeout=60,
+               )
+    2:         response.raise_for_status()
+    2:         payload = response.json()
+    2:         payload.setdefault("video_id", video_id)
+    2:         payload.setdefault("url", video_url)
+    2:         return payload
+       
+    1:     def _clear_raw_dir(self) -> None:
+    5:         for path in sorted(self.raw_dir.rglob("*"), reverse=True):
+    3:             if path.is_file():
+    3:                 path.unlink()
+>>>>>>             elif path.is_dir():
+>>>>>>                 path.rmdir()
+       
+       
+    1: def extract_video_id(value: str) -> str:
+    7:     parsed = urlparse(value)
+    7:     if parsed.netloc in {"youtu.be", "www.youtu.be"}:
+    1:         return parsed.path.strip("/")
+    6:     query_id = parse_qs(parsed.query).get("v")
+    6:     if query_id:
+    5:         return query_id[0]
+    1:     if parsed.path.startswith("/shorts/"):
+    1:         return parsed.path.split("/shorts/", 1)[1].split("/", 1)[0]
+>>>>>>     candidate = parsed.path.strip("/").split("/")[-1]
+>>>>>>     if candidate:
+>>>>>>         return candidate
+>>>>>>     raise ValueError(f"could not extract video id from '{value}'")
+       
+       
+    1: def _markdown_transcript(payload: dict[str, object], metadata: dict[str, object]) -> str:
+    2:     title = payload.get("title") or payload["video_id"]
+    2:     author_name = payload.get("author_name") or "Unknown"
+    2:     segments = payload.get("segments", [])
+    2:     frontmatter = {
+    2:         "title": title,
+    2:         "video_id": payload["video_id"],
+    2:         "url": payload["url"],
+    2:         "author_name": author_name,
+    2:         "language": payload.get("language"),
+    2:         "language_code": payload.get("language_code"),
+    2:         "is_generated": payload.get("is_generated"),
+    2:         "segment_count": len(segments),
+    2:         "source_metadata": metadata,
+           }
+    2:     lines = [
+    2:         "---",
+    2:         yaml.safe_dump(frontmatter, sort_keys=False, allow_unicode=False).strip(),
+    2:         "---",
+    2:         "",
+    2:         f"# {title}",
+    2:         "",
+    2:         f"- Author: {author_name}",
+    2:         f"- Language: {payload.get('language')} ({payload.get('language_code')})",
+    2:         f"- Auto-generated: {payload.get('is_generated')}",
+    2:         "",
+    2:         "## Transcript",
+    2:         "",
+           ]
+    5:     for segment in segments:
+    3:         item = segment if isinstance(segment, dict) else asdict(segment)
+    3:         text = str(item.get("text", "")).strip()
+    3:         if not text:
+>>>>>>             continue
+    3:         lines.append(f"[{_format_timestamp(float(item.get('start', 0.0)))}] {text}")
+    2:     return "\n".join(lines).rstrip() + "\n"
+       
+       
+    1: def _format_timestamp(seconds: float) -> str:
+    3:     whole = int(seconds)
+    3:     hours, remainder = divmod(whole, 3600)
+    3:     minutes, secs = divmod(remainder, 60)
+    3:     if hours:
+>>>>>>         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+    3:     return f"{minutes:02d}:{secs:02d}"

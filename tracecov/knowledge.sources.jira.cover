@@ -1,0 +1,47 @@
+    1: from __future__ import annotations
+       
+    1: from urllib.parse import urljoin
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    2: class JiraSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    1:         base_url = self.config["base_url"].rstrip("/") + "/"
+    1:         auth = self._auth()
+    1:         jql = self.config["jql"]
+    1:         limit = int(self.config.get("limit", 100))
+       
+    2:         response = requests.get(
+    1:             urljoin(base_url, "rest/api/3/search/jql"),
+    1:             headers={"Accept": "application/json"},
+    1:             params={
+    1:                 "jql": jql,
+    1:                 "maxResults": limit,
+    1:                 "fields": ",".join(self.config.get("fields", ["summary", "description", "status"])),
+                   },
+    1:             auth=auth,
+    1:             timeout=60,
+               )
+    1:         response.raise_for_status()
+    1:         data = response.json()
+    1:         issues = data.get("issues", [])
+    1:         self.write_json(self.raw_dir / "issues.json", data)
+    2:         for issue in issues:
+    1:             key = issue["key"]
+    1:             self.write_json(self.raw_dir / "issues" / f"{key}.json", issue)
+       
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "issues": len(issues),
+    1:                 "jql": jql,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _auth(self) -> tuple[str, str]:
+    1:         username = self.store.resolve_key(self.config["username"])
+    1:         token = self.store.resolve_key(self.config["token"])
+    1:         return (username, token)

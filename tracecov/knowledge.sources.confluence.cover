@@ -1,0 +1,46 @@
+    1: from __future__ import annotations
+       
+    1: from urllib.parse import urljoin
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    2: class ConfluenceSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    1:         base_url = self.config["base_url"].rstrip("/") + "/"
+    1:         auth = self._auth()
+    1:         space_key = self.config["space_key"]
+    1:         limit = int(self.config.get("limit", 100))
+       
+    2:         response = requests.get(
+    1:             urljoin(base_url, "wiki/api/v2/pages"),
+    1:             headers={"Accept": "application/json"},
+    1:             params={"space-key": space_key, "limit": limit, "body-format": "storage"},
+    1:             auth=auth,
+    1:             timeout=60,
+               )
+    1:         response.raise_for_status()
+    1:         data = response.json()
+    1:         results = data.get("results", [])
+       
+    1:         self.write_json(self.raw_dir / "pages.json", data)
+    2:         for page in results:
+    1:             page_id = page["id"]
+    1:             body = page.get("body", {}).get("storage", {}).get("value", "")
+    1:             self.write_text(self.raw_dir / "pages" / f"{page_id}.html", body)
+    1:             self.write_json(self.raw_dir / "pages" / f"{page_id}.json", page)
+       
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "pages": len(results),
+    1:                 "space_key": space_key,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _auth(self) -> tuple[str, str]:
+    1:         username = self.store.resolve_key(self.config["username"])
+    1:         token = self.store.resolve_key(self.config["token"])
+    1:         return (username, token)

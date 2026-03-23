@@ -1,0 +1,128 @@
+    1: from __future__ import annotations
+       
+    1: from xml.etree import ElementTree
+    1: from urllib.parse import quote
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    1: ARXIV_API_URL = "https://export.arxiv.org/api/query"
+    1: ATOM_NAMESPACE = {"atom": "http://www.w3.org/2005/Atom", "opensearch": "http://a9.com/-/spec/opensearch/1.1/"}
+       
+       
+    2: class ArxivSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    1:         url = self.config["url"]
+    1:         paper_id = self._extract_paper_id(url)
+    1:         api_url = f"{ARXIV_API_URL}?id_list={quote(paper_id)}"
+       
+    2:         response = requests.get(
+    1:             api_url,
+    1:             headers={"Accept": "application/atom+xml"},
+    1:             timeout=60,
+               )
+    1:         response.raise_for_status()
+       
+    1:         self.write_text(self.raw_dir / "paper.xml", response.text)
+    1:         self.write_text(self.raw_dir / "source-url.txt", url + "\n")
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "paper_id": paper_id,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _extract_paper_id(self, url: str) -> str:
+    1:         trimmed = url.rstrip("/")
+    1:         if "/abs/" in trimmed:
+>>>>>>             return trimmed.rsplit("/abs/", 1)[-1]
+    1:         if "/pdf/" in trimmed:
+    1:             return trimmed.rsplit("/pdf/", 1)[-1].removesuffix(".pdf")
+>>>>>>         return trimmed.rsplit("/", 1)[-1]
+       
+       
+    5: def search_arxiv(
+>>>>>>     query: str,
+           *,
+    1:     start: int = 0,
+    1:     max_results: int = 10,
+    1:     sort_by: str = "relevance",
+    1:     sort_order: str = "descending",
+>>>>>> ) -> dict[str, object]:
+    1:     search_query = _normalize_search_query(query)
+    2:     response = requests.get(
+    1:         ARXIV_API_URL,
+    1:         params={
+    1:             "search_query": search_query,
+    1:             "start": start,
+    1:             "max_results": max_results,
+    1:             "sortBy": sort_by,
+    1:             "sortOrder": sort_order,
+               },
+    1:         headers={"Accept": "application/atom+xml"},
+    1:         timeout=60,
+           )
+    1:     response.raise_for_status()
+    2:     return {
+    1:         "search_query": search_query,
+    1:         **_parse_arxiv_feed(response.text),
+           }
+       
+       
+    1: def _normalize_search_query(query: str) -> str:
+    1:     trimmed = query.strip()
+    1:     if ":" in trimmed:
+>>>>>>         return trimmed
+   20:     if any(ch.isspace() for ch in trimmed):
+    1:         escaped = trimmed.replace('"', '\\"')
+    1:         return f'all:"{escaped}"'
+>>>>>>     return f"all:{trimmed}"
+       
+       
+    1: def _parse_arxiv_feed(payload: str) -> dict[str, object]:
+    2:     root = ElementTree.fromstring(payload)
+    2:     entries: list[dict[str, object]] = []
+    4:     for entry in root.findall("atom:entry", ATOM_NAMESPACE):
+    4:         links = {
+    4:             link.get("title") or link.get("rel") or "related": link.get("href")
+    8:             for link in entry.findall("atom:link", ATOM_NAMESPACE)
+    4:             if link.get("href")
+               }
+    4:         entries.append(
+    2:             {
+    2:                 "id": _text(entry, "atom:id"),
+    2:                 "title": _text(entry, "atom:title"),
+    2:                 "summary": _text(entry, "atom:summary"),
+    2:                 "published": _text(entry, "atom:published"),
+    2:                 "updated": _text(entry, "atom:updated"),
+    4:                 "authors": [_text(author, "atom:name") for author in entry.findall("atom:author", ATOM_NAMESPACE)],
+    4:                 "categories": [category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)],
+    4:                 "primary_category": next(
+    4:                     (category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)),
+    2:                     None,
+                       ),
+    2:                 "links": links,
+    2:                 "pdf_url": links.get("pdf"),
+                   }
+               )
+       
+    2:     return {
+    2:         "total_results": _int_text(root, "opensearch:totalResults"),
+    2:         "start_index": _int_text(root, "opensearch:startIndex"),
+    2:         "items_per_page": _int_text(root, "opensearch:itemsPerPage"),
+    2:         "entries": entries,
+           }
+       
+       
+    1: def _text(element: ElementTree.Element, selector: str) -> str | None:
+   18:     node = element.find(selector, ATOM_NAMESPACE)
+   18:     if node is None or node.text is None:
+    3:         return None
+   15:     return " ".join(node.text.split())
+       
+       
+    1: def _int_text(element: ElementTree.Element, selector: str) -> int:
+    6:     value = _text(element, selector)
+    6:     return int(value) if value is not None else 0

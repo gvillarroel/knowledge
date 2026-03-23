@@ -1,0 +1,159 @@
+schemaVersion: 1
+benchmark:
+  id: know-command-planning-compare
+  description: Compare Codex mini on assembling spec-aligned know CLI command plans with and without the local know skill, without executing the proposed commands.
+  tags:
+    - compare
+    - knowledge
+    - commands
+    - skill
+task:
+  prompts:
+    - id: register-key-sources
+      description: Produce a non-executed command plan for creating a key and attaching sources.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect the repository, `SPEC.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        create the key `research`, attach Confluence space `ENG`, and attach
+        arXiv paper `https://arxiv.org/abs/1706.03762`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements, not the currently implemented parser if they
+        differ.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know add key research",
+                "know add confluence --space ENG --key research",
+                "know add arxiv https://arxiv.org/abs/1706.03762 --key research",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+    - id: inspect-sync-export
+      description: Produce a non-executed command plan for listing, searching, syncing, and exporting.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect the repository, `SPEC.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        list sources for key `research`, search Confluence for
+        `incident postmortem`, sync key `research`, and export key `research`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements, not the currently implemented parser if they
+        differ.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know list sources --key research",
+                "know search confluence \"incident postmortem\"",
+                "know sync --key research",
+                "know export --key research",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+    - id: add-arxiv-to-key-context
+      description: Produce a non-executed command plan for attaching one arXiv paper to an existing key.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect the repository, `SPEC.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        add to key context `research` this arXiv paper
+        `https://arxiv.org/abs/2512.05470`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements, not the currently implemented parser if they
+        differ.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know add arxiv https://arxiv.org/abs/2512.05470 --key research",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+workspace:
+  sources:
+    - id: base
+      type: local-path
+      path: fixtures/know-command-planning/base
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: llm-rubric
+      provider: skill-arena:judge:codex
+      value: >-
+        Score 1.0 only if the answer is valid JSON, explicitly states that the
+        commands were not executed, and returns only a command plan that matches
+        the repository contract from SPEC.md for the know CLI.
+    - type: javascript
+      value: |
+        const data = JSON.parse(output);
+        return data.executed === false
+          && Array.isArray(data.commands)
+          && data.commands.length >= 1
+          && !/```/.test(output)
+          && !/\bI ran\b/i.test(output)
+          && !/\bexecuted\b\s*:\s*true\b/i.test(output);
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Fully isolated baseline without the local know skill.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+    - id: skill
+      description: Profile with only the repo-local know skill enabled through a workspace overlay.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/know
+              skillId: know
+            install:
+              strategy: workspace-overlay
+  variants:
+    - id: codex-mini
+      description: Codex mini variant for command-planning comparisons.
+      agent:
+        adapter: codex
+        model: gpt-5.1-codex-mini
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: low
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        labels:
+          variantDisplayName: codex mini

@@ -1,0 +1,37 @@
+    1: from __future__ import annotations
+       
+    1: from urllib.parse import urljoin
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    2: class AhaSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    1:         base_url = self.config["base_url"].rstrip("/") + "/"
+    1:         token = self.store.resolve_key(self.config["token"])
+    1:         product = self.config["product"]
+    1:         limit = int(self.config.get("limit", 100))
+       
+    2:         response = requests.get(
+    1:             urljoin(base_url, f"api/v1/products/{product}/features"),
+    1:             headers={"Authorization": f"Bearer {token}", "Accept": "application/json"},
+    1:             params={"per_page": limit},
+    1:             timeout=60,
+               )
+    1:         response.raise_for_status()
+    1:         data = response.json()
+    1:         features = data.get("features", [])
+    1:         self.write_json(self.raw_dir / "features.json", data)
+    2:         for feature in features:
+    1:             reference = feature.get("reference_num", feature["id"])
+    1:             self.write_json(self.raw_dir / "features" / f"{reference}.json", feature)
+       
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "features": len(features),
+    1:                 "product": product,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )

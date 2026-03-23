@@ -1,0 +1,144 @@
+    1: from __future__ import annotations
+       
+    1: import asyncio
+    1: import json
+    1: import re
+    1: from html import unescape
+    1: from urllib.parse import urlparse
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    2: class SiteSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    2:         start_url = self.config["url"]
+    2:         max_depth = int(self.config.get("max_depth", 1))
+    2:         max_pages = int(self.config.get("max_pages", 1))
+       
+    2:         pages = self._crawl_with_crawl4ai(start_url, max_depth, max_pages)
+    2:         if pages is None:
+    2:             pages = [self._fetch_single_page(start_url)]
+       
+    2:         self.write_json(self.raw_dir / "pages.json", pages)
+    4:         for page in pages:
+    2:             slug = _slugify_url(page["url"])
+    2:             self.write_text(self.raw_dir / "pages" / f"{slug}.md", str(page["markdown"]))
+    2:             self.write_json(self.raw_dir / "pages" / f"{slug}.json", page)
+       
+    4:         return self.finalize_sync(
+    2:             {
+    2:                 "pages": len(pages),
+    2:                 "entrypoint": start_url,
+    2:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _crawl_with_crawl4ai(
+>>>>>>         self, start_url: str, max_depth: int, max_pages: int
+>>>>>>     ) -> list[dict[str, object]] | None:
+    2:         try:
+    2:             from crawl4ai import AsyncWebCrawler
+    2:         except ImportError:
+    2:             return None
+       
+>>>>>>         async def run_crawl() -> list[dict[str, object]]:
+>>>>>>             async with AsyncWebCrawler() as crawler:
+>>>>>>                 result = await crawler.arun(
+>>>>>>                     url=start_url,
+>>>>>>                     max_depth=max_depth,
+>>>>>>                     word_count_threshold=1,
+>>>>>>                     page_timeout=60000,
+>>>>>>                     max_pages=max_pages,
+                       )
+>>>>>>                 if isinstance(result, list):
+>>>>>>                     return [self._normalize_result(item) for item in result]
+>>>>>>                 return [self._normalize_result(result)]
+       
+>>>>>>         return asyncio.run(run_crawl())
+       
+    1:     def _fetch_single_page(self, url: str) -> dict[str, object]:
+    2:         try:
+    4:             response = requests.get(
+    2:                 url,
+    2:                 headers={
+    2:                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                           "(KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    2:                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    2:                     "Accept-Language": "en-US,en;q=0.9",
+    2:                     "Upgrade-Insecure-Requests": "1",
+                       },
+    2:                 timeout=60,
+                   )
+    2:             response.raise_for_status()
+    1:             html = response.text
+    1:             title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
+    1:             title = unescape(title_match.group(1).strip()) if title_match else url
+    1:             markdown = _html_to_text(html)
+    1:             return {
+    1:                 "url": url,
+    1:                 "title": title,
+    1:                 "markdown": markdown,
+    2:                 "metadata": {
+    1:                     "url": url,
+    1:                     "title": title,
+    1:                     "fetched_via": "requests",
+    1:                     "content_type": response.headers.get("Content-Type"),
+                       },
+                   }
+    1:         except requests.HTTPError as exc:
+    1:             if exc.response is None or exc.response.status_code not in {401, 403}:
+>>>>>>                 raise
+    1:             return self._fetch_readable_proxy(url)
+       
+    1:     def _normalize_result(self, result: object) -> dict[str, object]:
+>>>>>>         if isinstance(result, dict):
+>>>>>>             payload = result
+               else:
+>>>>>>             payload = json.loads(result.model_dump_json())  # type: ignore[attr-defined]
+>>>>>>         return {
+>>>>>>             "url": payload.get("url"),
+>>>>>>             "title": payload.get("title"),
+>>>>>>             "markdown": payload.get("markdown") or payload.get("cleaned_html") or "",
+>>>>>>             "metadata": payload,
+               }
+       
+    1:     def _fetch_readable_proxy(self, url: str) -> dict[str, object]:
+    1:         proxy_url = f"https://r.jina.ai/http://{url.removeprefix('https://').removeprefix('http://')}"
+    1:         response = requests.get(proxy_url, timeout=60)
+    1:         response.raise_for_status()
+    1:         markdown = response.text.strip() + "\n"
+    1:         title_match = re.search(r"^Title:\s*(.+)$", markdown, re.MULTILINE)
+    1:         title = title_match.group(1).strip() if title_match else url
+    1:         return {
+    1:             "url": url,
+    1:             "title": title,
+    1:             "markdown": markdown,
+    2:             "metadata": {
+    1:                 "url": url,
+    1:                 "title": title,
+    1:                 "fetched_via": "r.jina.ai",
+    1:                 "proxy_url": proxy_url,
+    1:                 "content_type": response.headers.get("Content-Type"),
+                   },
+               }
+       
+       
+    1: def _slugify_url(value: str | None) -> str:
+    2:     if not value:
+>>>>>>         return "page"
+    2:     parsed = urlparse(value)
+    2:     base = f"{parsed.netloc}{parsed.path}".strip("/") or "page"
+    2:     safe = re.sub(r"[^A-Za-z0-9._-]+", "_", base)
+    2:     return safe[:200]
+       
+       
+    1: def _html_to_text(html: str) -> str:
+    1:     without_scripts = re.sub(r"<(script|style)[^>]*>.*?</\\1>", " ", html, flags=re.IGNORECASE | re.DOTALL)
+    1:     main = re.sub(r"</(p|div|section|article|h1|h2|h3|h4|h5|h6|li|br)>", "\n", without_scripts, flags=re.IGNORECASE)
+    1:     text = re.sub(r"<[^>]+>", " ", main)
+    1:     text = unescape(text)
+    5:     lines = [" ".join(line.split()) for line in text.splitlines()]
+    6:     cleaned = "\n".join(line for line in lines if line)
+    1:     return cleaned.strip() + "\n"

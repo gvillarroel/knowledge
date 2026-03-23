@@ -1,0 +1,97 @@
+    1: from __future__ import annotations
+       
+    1: import subprocess
+    1: from pathlib import Path
+       
+    1: from .base import SourceAdapter
+       
+       
+    1: TEXT_SUFFIXES = {
+           ".c",
+           ".cc",
+           ".cfg",
+           ".cpp",
+           ".cs",
+           ".css",
+           ".go",
+           ".h",
+           ".hpp",
+           ".html",
+           ".java",
+           ".js",
+           ".json",
+           ".jsx",
+           ".md",
+           ".mjs",
+           ".py",
+           ".rb",
+           ".rs",
+           ".sh",
+           ".sql",
+           ".toml",
+           ".ts",
+           ".tsx",
+           ".txt",
+           ".xml",
+           ".yaml",
+           ".yml",
+       }
+       
+       
+    2: class GitHubRepoSource(SourceAdapter):
+    1:     def sync(self) -> dict[str, object]:
+    1:         repo_url = self.config["repo_url"]
+    1:         branches = self.config.get("branches", ["HEAD"])
+    1:         cache_repo = self.cache_dir / "repo.git"
+       
+    1:         if cache_repo.exists():
+>>>>>>             self._git(["fetch", "--all", "--prune"], cwd=cache_repo)
+               else:
+    1:             self.cache_dir.mkdir(parents=True, exist_ok=True)
+    1:             self._git(["clone", "--mirror", repo_url, str(cache_repo)], cwd=self.cache_dir)
+       
+    1:         count = 0
+    2:         for branch in branches:
+    1:             tree_root = self.raw_dir / branch
+    1:             tree_root.mkdir(parents=True, exist_ok=True)
+    1:             files = self._git_output(["ls-tree", "-r", "--name-only", branch], cwd=cache_repo).splitlines()
+    4:             for file_name in files:
+    3:                 rel_path = Path(file_name)
+    3:                 if rel_path.suffix.lower() not in TEXT_SUFFIXES:
+    1:                     continue
+    2:                 output_path = tree_root / rel_path
+    2:                 output_path.parent.mkdir(parents=True, exist_ok=True)
+    2:                 content = self._git_output(["show", f"{branch}:{file_name}"], cwd=cache_repo)
+    2:                 output_path.write_text(content, encoding="utf-8", errors="replace")
+    2:                 count += 1
+       
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "branches": branches,
+    1:                 "files": count,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _git(self, args: list[str], cwd: Path) -> None:
+    2:         subprocess.run(
+    1:             ["git", *args],
+    1:             cwd=cwd,
+    1:             check=True,
+    1:             capture_output=True,
+    1:             text=True,
+    1:             encoding="utf-8",
+    1:             errors="replace",
+               )
+       
+    1:     def _git_output(self, args: list[str], cwd: Path) -> str:
+    6:         result = subprocess.run(
+    3:             ["git", *args],
+    3:             cwd=cwd,
+    3:             check=True,
+    3:             capture_output=True,
+    3:             text=True,
+    3:             encoding="utf-8",
+    3:             errors="replace",
+               )
+    3:         return result.stdout

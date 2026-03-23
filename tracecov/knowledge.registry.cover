@@ -1,0 +1,31 @@
+    1: from __future__ import annotations
+       
+    1: from .sources.aha import AhaSource
+    1: from .sources.arxiv import ArxivSource
+    1: from .sources.base import SourceAdapter
+    1: from .sources.confluence import ConfluenceSource
+    1: from .sources.crawl4ai_site import SiteSource
+    1: from .sources.github_repo import GitHubRepoSource
+    1: from .sources.jira import JiraSource
+    1: from .sources.video import VideoSource
+       
+       
+    1: SOURCE_TYPES: dict[str, type[SourceAdapter]] = {
+    1:     "aha": AhaSource,
+    1:     "arxiv": ArxivSource,
+    1:     "confluence": ConfluenceSource,
+    1:     "github": GitHubRepoSource,
+    1:     "jira": JiraSource,
+    1:     "site": SiteSource,
+    1:     "video": VideoSource,
+       }
+       
+       
+    1: def create_source_adapter(source: dict, store) -> SourceAdapter:
+    3:     source_type = source["type"]
+    3:     try:
+    3:         adapter_type = SOURCE_TYPES[source_type]
+    1:     except KeyError as exc:
+    1:         supported = ", ".join(sorted(SOURCE_TYPES))
+    1:         raise ValueError(f"unsupported source type '{source_type}'. Supported: {supported}") from exc
+    2:     return adapter_type(source, store)
