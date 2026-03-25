@@ -1019,9 +1019,9 @@
    11:     if not entry:
     7:         return items[0]
     4:     clean = re.sub(r"\033\[[0-9;]*m", "", entry or "")
-   22:     for i in items:
-   20:         t = i.get("title") or i.get("id") or i.get("name") or ""
-   20:         if t and t in clean:
+   26:     for i in items:
+   24:         t = i.get("title") or i.get("id") or i.get("name") or ""
+   24:         if t and t in clean:
     2:             return i
     2:     return items[0]
        
