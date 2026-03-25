@@ -1,0 +1,1059 @@
+    1: """Extended browse commands for deep knowledge navigation.
+       
+       Adds cross-key, cross-type, timeline, stale, unsynced, file-level,
+       repo-file, stats, and command browsers.
+       """
+       
+    1: from __future__ import annotations
+       
+    1: import os
+    1: import re
+    1: from argparse import Namespace
+    1: from datetime import datetime, timezone
+    1: from pathlib import Path
+    1: from typing import Any
+       
+    1: from .store import KnowledgeStore
+       
+       
+    1: def _store_from_args(args: Namespace) -> KnowledgeStore:
+  104:     return KnowledgeStore(args.store)
+       
+       
+    1: def _strip_yaml_frontmatter(text: str) -> str:
+   65:     if not text.startswith("---"):
+>>>>>>         return text
+   65:     end = text.find("\n---", 3)
+   65:     if end == -1:
+>>>>>>         return text
+   65:     return text[end + 4:].lstrip("\n")
+       
+       
+    1: def _extract_fm(text: str, field: str) -> str:
+   57:     if not text.startswith("---"):
+    1:         return ""
+   56:     end = text.find("\n---", 3)
+   56:     if end == -1:
+    1:         return ""
+   55:     fm = text[4:end]
+   56:     for line in fm.splitlines():
+   55:         if line.startswith(f"{field}:"):
+   54:             return line.split(":", 1)[1].strip().strip("'\"")
+    1:     return ""
+       
+       
+       # ── ANSI helpers ─────────────────────────────────────────────────────────
+       
+    1: _GREEN = "\033[32m"
+    1: _YELLOW = "\033[33m"
+    1: _CYAN = "\033[36m"
+    1: _BLUE = "\033[34m"
+    1: _MAGENTA = "\033[35m"
+    1: _RED = "\033[31m"
+    1: _DIM = "\033[2m"
+    1: _BOLD = "\033[1m"
+    1: _RESET = "\033[0m"
+       
+    1: _TYPE_COLORS = {
+    1:     "arxiv": _MAGENTA,
+    1:     "github": _GREEN,
+    1:     "confluence": _BLUE,
+    1:     "jira": _CYAN,
+    1:     "video": _YELLOW,
+    1:     "site": _BLUE,
+    1:     "aha": _MAGENTA,
+    1:     "google_releases": _YELLOW,
+    1:     "television": _DIM,
+       }
+       
+    1: _TYPE_ICONS = {
+    1:     "arxiv": "📄",
+    1:     "github": "🔗",
+    1:     "confluence": "📝",
+    1:     "jira": "🎫",
+    1:     "video": "🎬",
+    1:     "site": "🌐",
+    1:     "aha": "💡",
+    1:     "google_releases": "📢",
+    1:     "television": "📺",
+       }
+       
+       
+       # ── know browse by-key ───────────────────────────────────────────────────
+       
+    1: def cmd_browse_by_key(args: Namespace) -> object:
+           """List keys with source count and type summary for drill-down."""
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     fmt = getattr(args, "format", "json")
+    7:     entry = getattr(args, "entry", None)
+    7:     keys_data: list[dict[str, Any]] = []
+       
+   16:     for key_name in store.list_collection_keys():
+    9:         meta = store.get_collection_metadata(key_name)
+    9:         sources = meta.get("sources", [])
+    9:         type_counts: dict[str, int] = {}
+    9:         file_count = 0
+   45:         for s in sources:
+   36:             t = s.get("type", "unknown")
+   36:             type_counts[t] = type_counts.get(t, 0) + 1
+    9:         key_dir = store.key_dir(key_name)
+   33:         for md in key_dir.rglob("*.md"):
+   24:             if md.name != "metadata.yaml":
+   24:                 file_count += 1
+   54:         types_summary = ", ".join(f"{v} {k}" for k, v in sorted(type_counts.items()))
+   18:         keys_data.append({
+    9:             "name": key_name,
+    9:             "source_count": len(sources),
+    9:             "file_count": file_count,
+    9:             "types_summary": types_summary,
+    9:             "created_at": meta.get("created_at", ""),
+    9:             "updated_at": meta.get("updated_at", ""),
+               })
+       
+    7:     if fmt == "television":
+    2:         lines = []
+    5:         for k in keys_data:
+    6:             lines.append(
+    6:                 f"{_BOLD}{k['name']}{_RESET} | "
+    3:                 f"{_CYAN}{k['source_count']} sources{_RESET} | "
+    3:                 f"{_DIM}{k['file_count']} files | {k['types_summary']}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    5:     if fmt == "television-preview":
+    3:         item = _find_by_name(keys_data, entry)
+    3:         if not item:
+    1:             return "No key matched.\n"
+    2:         lines = [
+    2:             f"# {item['name']}",
+    2:             "",
+    2:             f"- Sources: {item['source_count']}",
+    2:             f"- Local files: {item['file_count']}",
+    2:             f"- Types: {item['types_summary']}",
+    2:             f"- Created: {item['created_at']}",
+    2:             f"- Updated: {item['updated_at']}",
+    2:             "",
+    2:             "## Commands",
+    2:             "",
+    2:             f"- List sources: `know list sources --key {item['name']}`",
+    2:             f"- Sync: `know sync --key {item['name']}`",
+    2:             f"- Export: `know export --key {item['name']}`",
+    2:             f"- Browse sources: Enter to drill into this key's sources",
+               ]
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"keys": keys_data}
+       
+       
+       # ── know browse by-type ──────────────────────────────────────────────────
+       
+    1: def cmd_browse_by_type(args: Namespace) -> object:
+           """List source types with count and key distribution."""
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+    6:     fmt = getattr(args, "format", "json")
+    6:     entry = getattr(args, "entry", None)
+       
+    6:     type_data: dict[str, dict[str, Any]] = {}
+   46:     for source in store.list_collection_sources():
+   40:         t = source.get("type", "unknown")
+   40:         if t not in type_data:
+   38:             type_data[t] = {"type": t, "count": 0, "keys": set(), "synced": 0, "unsynced": 0}
+   40:         type_data[t]["count"] += 1
+   40:         type_data[t]["keys"].add(source.get("key", ""))
+   40:         if source.get("last_synced_at"):
+>>>>>>             type_data[t]["synced"] += 1
+               else:
+   40:             type_data[t]["unsynced"] += 1
+       
+    6:     items = []
+   82:     for t, d in sorted(type_data.items(), key=lambda x: -x[1]["count"]):
+   76:         items.append({
+   38:             "type": t,
+   38:             "count": d["count"],
+   38:             "keys": sorted(d["keys"]),
+   38:             "key_count": len(d["keys"]),
+   38:             "synced": d["synced"],
+   38:             "unsynced": d["unsynced"],
+               })
+       
+    6:     if fmt == "television":
+    2:         lines = []
+   13:         for i in items:
+   11:             icon = _TYPE_ICONS.get(i["type"], "●")
+   11:             color = _TYPE_COLORS.get(i["type"], _DIM)
+   22:             lines.append(
+   22:                 f"{color}{icon} {i['type']}{_RESET} | "
+   11:                 f"{i['count']} sources | "
+   11:                 f"{_GREEN}{i['synced']} synced{_RESET} "
+   11:                 f"{_YELLOW}{i['unsynced']} pending{_RESET} | "
+   11:                 f"{_DIM}{i['key_count']} keys{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    2:         item = _find_by_field(items, "type", entry)
+    2:         if not item:
+>>>>>>             return "No type matched.\n"
+    2:         lines = [
+    2:             f"# Source type: {item['type']}",
+    2:             "",
+    2:             f"- Total sources: {item['count']}",
+    2:             f"- Synced: {item['synced']}",
+    2:             f"- Pending: {item['unsynced']}",
+    2:             f"- Keys using this type: {', '.join(item['keys'])}",
+    2:             "",
+    2:             "## Actions",
+    2:             "",
+    2:             "- Press **Enter** to browse all sources of this type",
+    2:             f"- `know browse local --type {item['type']}`",
+               ]
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"types": items}
+       
+       
+       # ── know browse papers ───────────────────────────────────────────────────
+       
+    1: def cmd_browse_papers(args: Namespace) -> object:
+           """Unified arXiv paper browser across ALL keys."""
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     fmt = getattr(args, "format", "json")
+    7:     entry = getattr(args, "entry", None)
+       
+    7:     sources = store.list_collection_sources(source_type="arxiv")
+    7:     papers: list[dict[str, Any]] = []
+       
+   17:     for source in sources:
+   10:         config = source.get("config", {})
+   10:         url = config.get("url", "")
+   10:         arxiv_id = _extract_arxiv_id(url)
+   10:         has_files = False
+   10:         body = ""
+   10:         try:
+   10:             source_dir = store.source_dir(source)
+   10:             md_files = list(source_dir.glob("**/*.md"))
+   10:             has_files = len(md_files) > 0
+   10:             if has_files and md_files:
+    7:                 text = md_files[0].read_text(encoding="utf-8")
+    7:                 body = _strip_yaml_frontmatter(text)
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+   20:         papers.append({
+   10:             "arxiv_id": arxiv_id,
+   10:             "url": url,
+   10:             "key": source.get("key", ""),
+   10:             "synced": has_files,
+   10:             "last_synced_at": source.get("last_synced_at", ""),
+   10:             "body": body[:500] if body else "",
+   10:             "title": source.get("title", url),
+               })
+       
+    7:     if fmt == "television":
+    2:         lines = []
+    5:         for p in papers:
+    3:             color = _GREEN if p["synced"] else _YELLOW
+    3:             marker = "●" if p["synced"] else "○"
+    6:             lines.append(
+    6:                 f"{color}{marker}{_RESET} {p['arxiv_id']} | "
+    3:                 f"{_DIM}{p['key']}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    5:     if fmt == "television-preview":
+    3:         item = _find_by_field(papers, "arxiv_id", entry)
+    3:         if not item:
+>>>>>>             return "No paper matched.\n"
+    3:         lines = [
+    3:             f"# arXiv: {item['arxiv_id']}",
+    3:             "",
+    3:             f"- URL: {item['url']}",
+    3:             f"- Key: {item['key']}",
+    3:             f"- Synced: {'✅ Yes' if item['synced'] else '❌ No'}",
+               ]
+    3:         if item.get("last_synced_at"):
+>>>>>>             lines.append(f"- Last synced: {item['last_synced_at']}")
+    3:         if item["body"]:
+    3:             lines.extend(["", "## Content preview", "", item["body"]])
+    6:         lines.extend([
+    3:             "",
+    3:             "## Commands",
+    3:             "",
+    3:             f"- Sync: `know sync arxiv {item['url']} --key {item['key']}`",
+               ])
+    3:         return "\n".join(lines) + "\n"
+    2:     return {"papers": papers}
+       
+       
+       # ── know browse repos ────────────────────────────────────────────────────
+       
+    1: def cmd_browse_repos(args: Namespace) -> object:
+           """All GitHub repos across all keys with file counts."""
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+    6:     fmt = getattr(args, "format", "json")
+    6:     entry = getattr(args, "entry", None)
+       
+    6:     sources = store.list_collection_sources(source_type="github")
+    6:     repos: list[dict[str, Any]] = []
+       
+   12:     for source in sources:
+    6:         config = source.get("config", {})
+    6:         repo_url = config.get("repo_url", "")
+    6:         branches = config.get("branches", ["HEAD"])
+    6:         file_count = 0
+    6:         try:
+    6:             source_dir = store.source_dir(source)
+   20:             file_count = sum(1 for _ in source_dir.rglob("*") if _.is_file())
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+   12:         repos.append({
+    6:             "repo_url": repo_url,
+    6:             "repo_name": _repo_short_name(repo_url),
+    6:             "key": source.get("key", ""),
+    6:             "source_id": source.get("id", ""),
+    6:             "branches": branches,
+    6:             "file_count": file_count,
+    6:             "synced": file_count > 0,
+    6:             "last_synced_at": source.get("last_synced_at", ""),
+               })
+       
+    6:     if fmt == "television":
+    2:         lines = []
+    4:         for r in repos:
+    2:             color = _GREEN if r["synced"] else _YELLOW
+    2:             marker = "●" if r["synced"] else "○"
+    4:             lines.append(
+    4:                 f"{color}{marker}{_RESET} {r['repo_name']} | "
+    2:                 f"{_DIM}{r['key']} | {r['file_count']} files | "
+    2:                 f"{', '.join(r['branches'])}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    2:         item = _find_by_field(repos, "repo_name", entry)
+    2:         if not item:
+>>>>>>             return "No repo matched.\n"
+    2:         lines = [
+    2:             f"# {item['repo_name']}",
+    2:             "",
+    2:             f"- URL: {item['repo_url']}",
+    2:             f"- Key: {item['key']}",
+    2:             f"- Branches: {', '.join(item['branches'])}",
+    2:             f"- Local files: {item['file_count']}",
+    2:             f"- Synced: {'✅ Yes' if item['synced'] else '❌ No'}",
+    2:             "",
+    2:             "## Actions",
+    2:             "",
+    2:             "- Press **Enter** to browse files inside this repo",
+    2:             f"- Sync: `{_build_sync_cmd(item)}`",
+               ]
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"repos": repos}
+       
+       
+       # ── know browse repo-files ──────────────────────────────────────────────
+       
+    1: def cmd_browse_repo_files(args: Namespace) -> object:
+           """Browse files inside a synced GitHub repo."""
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     fmt = getattr(args, "format", "json")
+    7:     entry = getattr(args, "entry", None)
+    7:     repo_filter = getattr(args, "repo", None)
+       
+    7:     sources = store.list_collection_sources(source_type="github")
+    7:     files: list[dict[str, Any]] = []
+       
+   14:     for source in sources:
+    7:         config = source.get("config", {})
+    7:         repo_name = _repo_short_name(config.get("repo_url", ""))
+    7:         if repo_filter and repo_filter not in repo_name:
+    1:             continue
+    6:         try:
+    6:             source_dir = store.source_dir(source)
+   16:             for f in sorted(source_dir.rglob("*")):
+   10:                 if not f.is_file():
+>>>>>>                     continue
+   10:                 rel = f.relative_to(source_dir)
+   10:                 body = ""
+   10:                 if f.suffix == ".md":
+    5:                     try:
+    5:                         text = f.read_text(encoding="utf-8", errors="replace")
+    5:                         body = _strip_yaml_frontmatter(text)
+>>>>>>                     except Exception:
+>>>>>>                         pass
+   20:                 files.append({
+   10:                     "path": str(rel).replace("\\", "/"),
+   10:                     "repo": repo_name,
+   10:                     "key": source.get("key", ""),
+   10:                     "size": f.stat().st_size,
+   10:                     "ext": f.suffix,
+   10:                     "full_path": str(f),
+   10:                     "body": body[:2000] if body else "",
+                       })
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+    7:     if fmt == "television":
+    2:         lines = []
+    4:         for f in files:
+    3:             ext_color = _GREEN if f["ext"] in {".py", ".rs", ".go", ".ts", ".js"} else \
+    1:                         _BLUE if f["ext"] in {".md", ".txt"} else \
+>>>>>>                         _YELLOW if f["ext"] in {".toml", ".yaml", ".yml", ".json"} else _DIM
+    4:             lines.append(
+    4:                 f"{ext_color}{f['path']}{_RESET} | "
+    2:                 f"{_DIM}{f['repo']} | {f['size']}b{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    5:     if fmt == "television-preview":
+    2:         item = _find_by_field(files, "path", entry)
+    2:         if not item:
+>>>>>>             return "No file matched.\n"
+    2:         lines = [
+    2:             f"# {item['path']}",
+    2:             "",
+    2:             f"- Repo: {item['repo']}",
+    2:             f"- Key: {item['key']}",
+    2:             f"- Size: {item['size']} bytes",
+               ]
+    2:         if item["body"]:
+    1:             lines.extend(["", "---", "", item["body"]])
+               else:
+    1:             try:
+    1:                 text = Path(item["full_path"]).read_text(encoding="utf-8", errors="replace")[:3000]
+    1:                 lines.extend(["", "---", "", text])
+>>>>>>             except Exception:
+>>>>>>                 lines.append("\n_Could not read file._")
+    2:         return "\n".join(lines) + "\n"
+    3:     return {"files": files}
+       
+       
+       # ── know browse files ────────────────────────────────────────────────────
+       
+    1: def cmd_browse_files(args: Namespace) -> object:
+           """Full-text searchable file browser across all local markdown."""
+   11:     store = _store_from_args(args)
+   11:     store.initialize()
+   11:     fmt = getattr(args, "format", "json")
+   11:     entry = getattr(args, "entry", None)
+   11:     query = getattr(args, "query", None)
+   11:     key_filter = getattr(args, "key", None)
+       
+   11:     sources = store.list_collection_sources(key_name=key_filter)
+   11:     items: list[dict[str, Any]] = []
+       
+   79:     for source in sources:
+   68:         try:
+   68:             source_dir = store.source_dir(source)
+  115:             for md_file in sorted(source_dir.rglob("*.md")):
+   47:                 text = md_file.read_text(encoding="utf-8", errors="replace")
+   47:                 title = _extract_fm(text, "title") or md_file.stem
+   47:                 body = _strip_yaml_frontmatter(text)
+   47:                 if query and query.lower() not in text.lower():
+   14:                     continue
+   66:                 items.append({
+   33:                     "title": title,
+   33:                     "source_type": source.get("type", ""),
+   33:                     "key": source.get("key", ""),
+   33:                     "source_id": source.get("id", ""),
+   33:                     "path": str(md_file),
+   33:                     "body": body,
+                       })
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+   11:     if fmt == "television":
+    2:         lines = []
+   10:         for i in items:
+    8:             color = _TYPE_COLORS.get(i["source_type"], _DIM)
+    8:             icon = _TYPE_ICONS.get(i["source_type"], "●")
+   16:             lines.append(
+   16:                 f"{color}{icon}{_RESET} {i['title']} | "
+    8:                 f"{_DIM}{i['source_type']} | {i['key']}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    9:     if fmt == "television-preview":
+    2:         item = _find_by_title(items, entry)
+    2:         if not item:
+>>>>>>             return "No file matched.\n"
+    2:         return f"# {item['title']}\n\n{item.get('body', '')}\n"
+    7:     return {"files": items}
+       
+       
+       # ── know browse recent ──────────────────────────────────────────────────
+       
+    1: def cmd_browse_recent(args: Namespace) -> object:
+           """Sources ordered by last sync date (most recent first)."""
+    5:     store = _store_from_args(args)
+    5:     store.initialize()
+    5:     fmt = getattr(args, "format", "json")
+    5:     entry = getattr(args, "entry", None)
+    5:     limit = getattr(args, "limit", 50)
+       
+    5:     sources = store.list_collection_sources()
+    5:     with_date = []
+   37:     for s in sources:
+   32:         synced_at = s.get("last_synced_at") or s.get("updated_at") or ""
+   32:         with_date.append({**s, "_sort_date": synced_at})
+   37:     with_date.sort(key=lambda x: x["_sort_date"], reverse=True)
+    5:     items = with_date[:limit]
+       
+    5:     if fmt == "television":
+    2:         lines = []
+   14:         for s in items:
+   12:             color = _TYPE_COLORS.get(s.get("type", ""), _DIM)
+   12:             icon = _TYPE_ICONS.get(s.get("type", ""), "●")
+   12:             date = s.get("last_synced_at", "never")[:19]
+   24:             lines.append(
+   24:                 f"{color}{icon} {s.get('title', s.get('id', ''))}{_RESET} | "
+   12:                 f"{_DIM}{s.get('key', '')} | {date}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    3:     if fmt == "television-preview":
+    1:         item = _find_by_title(items, entry)
+    1:         if not item:
+>>>>>>             return "No source matched.\n"
+    1:         lines = [
+    1:             f"# {item.get('title', item.get('id', ''))}",
+    1:             "",
+    1:             f"- Type: {item.get('type', '')}",
+    1:             f"- Key: {item.get('key', '')}",
+    1:             f"- Last synced: {item.get('last_synced_at', 'never')}",
+    1:             f"- Updated: {item.get('updated_at', '')}",
+               ]
+    1:         if item.get("update_command"):
+    1:             lines.append(f"- Sync: `{item['update_command']}`")
+    1:         return "\n".join(lines) + "\n"
+    2:     return {"sources": items}
+       
+       
+       # ── know browse stale ───────────────────────────────────────────────────
+       
+    1: def cmd_browse_stale(args: Namespace) -> object:
+           """Sources that haven't been synced in a long time or never."""
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+    6:     fmt = getattr(args, "format", "json")
+    6:     entry = getattr(args, "entry", None)
+    6:     days = getattr(args, "days", 7)
+       
+    6:     sources = store.list_collection_sources()
+    6:     now = datetime.now(timezone.utc)
+    6:     stale: list[dict[str, Any]] = []
+       
+   46:     for s in sources:
+   40:         synced_at = s.get("last_synced_at")
+   40:         if not synced_at:
+   40:             stale.append({**s, "age_days": -1, "status": "never synced"})
+   40:             continue
+>>>>>>         try:
+>>>>>>             dt = datetime.fromisoformat(synced_at)
+>>>>>>             age = (now - dt).days
+>>>>>>             if age >= days:
+>>>>>>                 stale.append({**s, "age_days": age, "status": f"{age} days ago"})
+>>>>>>         except Exception:
+>>>>>>             stale.append({**s, "age_days": -1, "status": "unknown"})
+       
+   46:     stale.sort(key=lambda x: x.get("age_days", 9999), reverse=True)
+       
+    6:     if fmt == "television":
+    2:         lines = []
+   14:         for s in stale:
+   12:             color = _RED if s["age_days"] < 0 else _YELLOW
+   12:             icon = "⚠️" if s["age_days"] < 0 else "🕐"
+   24:             lines.append(
+   24:                 f"{color}{icon} {s.get('title', s.get('id', ''))}{_RESET} | "
+   12:                 f"{s['status']} | "
+   12:                 f"{_DIM}{s.get('type', '')} | {s.get('key', '')}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    1:         item = _find_by_title(stale, entry)
+    1:         if not item:
+>>>>>>             return "No stale source matched.\n"
+    1:         lines = [
+    1:             f"# {item.get('title', item.get('id', ''))}",
+    1:             "",
+    1:             f"- Status: {item.get('status', '')}",
+    1:             f"- Type: {item.get('type', '')}",
+    1:             f"- Key: {item.get('key', '')}",
+               ]
+    1:         if item.get("update_command"):
+    2:             lines.extend([
+    1:                 "",
+    1:                 "## Re-sync command",
+    1:                 "",
+    1:                 f"```\n{item['update_command']}\n```",
+                   ])
+    1:         return "\n".join(lines) + "\n"
+    3:     return {"stale": stale}
+       
+       
+       # ── know browse unsynced ────────────────────────────────────────────────
+       
+    1: def cmd_browse_unsynced(args: Namespace) -> object:
+           """Sources registered but never synced."""
+    5:     store = _store_from_args(args)
+    5:     store.initialize()
+    5:     fmt = getattr(args, "format", "json")
+    5:     entry = getattr(args, "entry", None)
+       
+    5:     sources = store.list_collection_sources()
+   37:     unsynced = [s for s in sources if not s.get("last_synced_at")]
+       
+    5:     if fmt == "television":
+    2:         lines = []
+   14:         for s in unsynced:
+   12:             color = _TYPE_COLORS.get(s.get("type", ""), _RED)
+   12:             icon = _TYPE_ICONS.get(s.get("type", ""), "○")
+   24:             lines.append(
+   24:                 f"{color}{icon} {s.get('title', s.get('id', ''))}{_RESET} | "
+   12:                 f"{_DIM}{s.get('type', '')} | {s.get('key', '')}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    3:     if fmt == "television-preview":
+    1:         item = _find_by_title(unsynced, entry)
+    1:         if not item:
+>>>>>>             return "No unsynced source.\n"
+    1:         lines = [
+    1:             f"# {item.get('title', item.get('id', ''))}",
+    1:             "",
+    1:             f"- Type: {item.get('type', '')}",
+    1:             f"- Key: {item.get('key', '')}",
+    1:             f"- Created: {item.get('created_at', '')}",
+    1:             "",
+    1:             "## Sync command",
+    1:             "",
+    1:             f"```\n{item.get('update_command', 'N/A')}\n```",
+    1:             "",
+    1:             "Press **Enter** to sync this source.",
+               ]
+    1:         return "\n".join(lines) + "\n"
+    2:     return {"unsynced": unsynced}
+       
+       
+       # ── know browse timeline ────────────────────────────────────────────────
+       
+    1: def cmd_browse_timeline(args: Namespace) -> object:
+           """All sources ordered chronologically by creation date."""
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+    6:     fmt = getattr(args, "format", "json")
+    6:     entry = getattr(args, "entry", None)
+       
+    6:     sources = store.list_collection_sources()
+   46:     sources.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+       
+    6:     if fmt == "television":
+    2:         lines = []
+   14:         for s in sources:
+   12:             color = _TYPE_COLORS.get(s.get("type", ""), _DIM)
+   12:             icon = _TYPE_ICONS.get(s.get("type", ""), "●")
+   12:             date = (s.get("created_at") or "")[:10]
+   12:             synced = "●" if s.get("last_synced_at") else "○"
+   24:             lines.append(
+   24:                 f"{color}{icon}{_RESET} {date} | {synced} {s.get('title', s.get('id', ''))} | "
+   12:                 f"{_DIM}{s.get('key', '')}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    2:         item = _find_by_title(sources, entry)
+    2:         if not item:
+>>>>>>             return "No source matched.\n"
+    2:         lines = [
+    2:             f"# {item.get('title', item.get('id', ''))}",
+    2:             "",
+    2:             f"- Type: {item.get('type', '')}",
+    2:             f"- Key: {item.get('key', '')}",
+    2:             f"- Created: {item.get('created_at', '')}",
+    2:             f"- Last synced: {item.get('last_synced_at', 'never')}",
+               ]
+    2:         if item.get("config"):
+    2:             lines.extend(["", "## Config"])
+    5:             for k, v in item["config"].items():
+    3:                 lines.append(f"- {k}: {v}")
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"timeline": sources}
+       
+       
+       # ── know browse commands ─────────────────────────────────────────────────
+       
+    1: def cmd_browse_commands(args: Namespace) -> object:
+           """Browse all available sync/delete/export commands."""
+    8:     store = _store_from_args(args)
+    8:     store.initialize()
+    8:     fmt = getattr(args, "format", "json")
+    8:     entry = getattr(args, "entry", None)
+       
+    8:     cmds: list[dict[str, Any]] = []
+       
+           # Key-level commands
+   17:     for key_name in store.list_collection_keys():
+   18:         cmds.append({
+    9:             "command": f"know sync --key {key_name}",
+    9:             "type": "sync",
+    9:             "scope": "key",
+    9:             "target": key_name,
+    9:             "description": f"Sync all sources in key '{key_name}'",
+               })
+   18:         cmds.append({
+    9:             "command": f"know export --key {key_name}",
+    9:             "type": "export",
+    9:             "scope": "key",
+    9:             "target": key_name,
+    9:             "description": f"Export key '{key_name}'",
+               })
+       
+           # Source-level commands
+   44:     for source in store.list_collection_sources():
+   36:         if source.get("update_command"):
+   72:             cmds.append({
+   36:                 "command": source["update_command"],
+   36:                 "type": "sync",
+   36:                 "scope": "source",
+   36:                 "target": source.get("title", source.get("id", "")),
+   36:                 "key": source.get("key", ""),
+   36:                 "description": f"Sync {source.get('type', '')} source: {source.get('title', '')}",
+                   })
+   36:         if source.get("delete_command"):
+   72:             cmds.append({
+   36:                 "command": source["delete_command"],
+   36:                 "type": "delete",
+   36:                 "scope": "source",
+   36:                 "target": source.get("title", source.get("id", "")),
+   36:                 "key": source.get("key", ""),
+   36:                 "description": f"Delete {source.get('type', '')} source: {source.get('title', '')}",
+                   })
+       
+    8:     if fmt == "television":
+    3:         lines = []
+   33:         for c in cmds:
+   30:             color = _GREEN if c["type"] == "sync" else _YELLOW if c["type"] == "export" else _RED
+   30:             icon = "🔄" if c["type"] == "sync" else "📦" if c["type"] == "export" else "🗑️"
+   60:             lines.append(
+   30:                 f"{color}{icon} [{c['type']}]{_RESET} {c['command']}"
+                   )
+    3:         return "\n".join(lines)
+    5:     if fmt == "television-preview":
+    3:         item = _find_cmd(cmds, entry)
+    3:         if not item:
+    1:             return "No command matched.\n"
+    2:         lines = [
+    2:             f"# {item['description']}",
+    2:             "",
+    2:             f"- Type: {item['type']}",
+    2:             f"- Scope: {item['scope']}",
+    2:             f"- Target: {item['target']}",
+    2:             "",
+    2:             "## Command",
+    2:             "",
+    2:             f"```\n{item['command']}\n```",
+    2:             "",
+    2:             "Press **Enter** to execute this command.",
+               ]
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"commands": cmds}
+       
+       
+       # ── know browse stats ───────────────────────────────────────────────────
+       
+    1: def cmd_browse_stats(args: Namespace) -> object:
+           """Knowledge base statistics overview."""
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     fmt = getattr(args, "format", "json")
+    7:     entry = getattr(args, "entry", None)
+       
+    7:     keys = store.list_collection_keys()
+    7:     all_sources = store.list_collection_sources()
+    7:     type_counts: dict[str, int] = {}
+    7:     synced_count = 0
+   43:     for s in all_sources:
+   36:         t = s.get("type", "unknown")
+   36:         type_counts[t] = type_counts.get(t, 0) + 1
+   36:         if s.get("last_synced_at"):
+>>>>>>             synced_count += 1
+       
+    7:     total_files = 0
+   16:     for key_name in keys:
+    9:         kdir = store.key_dir(key_name)
+   42:         total_files += sum(1 for _ in kdir.rglob("*.md") if _.is_file())
+       
+    7:     stats = [
+    7:         {"label": "Total keys", "value": str(len(keys)), "detail": ", ".join(keys)},
+    7:         {"label": "Total sources", "value": str(len(all_sources)), "detail": ""},
+    7:         {"label": "Synced sources", "value": str(synced_count), "detail": f"{len(all_sources) - synced_count} pending"},
+    7:         {"label": "Total local files", "value": str(total_files), "detail": ".md files"},
+           ]
+   73:     for t, c in sorted(type_counts.items(), key=lambda x: -x[1]):
+   33:         icon = _TYPE_ICONS.get(t, "●")
+   33:         stats.append({"label": f"{icon} {t}", "value": str(c), "detail": "sources"})
+       
+    7:     if fmt == "television":
+    2:         lines = []
+   21:         for s in stats:
+   19:             lines.append(f"{_BOLD}{s['label']}{_RESET} | {_CYAN}{s['value']}{_RESET} | {_DIM}{s['detail']}{_RESET}")
+    2:         return "\n".join(lines)
+    5:     if fmt == "television-preview":
+    2:         lines = ["# Knowledge Base Statistics", ""]
+   21:         for s in stats:
+   19:             lines.append(f"- **{s['label']}**: {s['value']} {s['detail']}")
+    2:         lines.extend([
+                   "",
+                   "## Keys",
+                   "",
+               ])
+    5:         for key_name in keys:
+    3:             meta = store.get_collection_metadata(key_name)
+    3:             sc = len(meta.get("sources", []))
+    3:             lines.append(f"- `{key_name}` — {sc} sources")
+    2:         return "\n".join(lines) + "\n"
+    3:     return {"stats": stats}
+       
+       
+       # ── know browse crossref ────────────────────────────────────────────────
+       
+    1: def cmd_browse_crossref(args: Namespace) -> object:
+           """Find sources that appear in multiple keys (shared URLs, etc.)."""
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+    6:     fmt = getattr(args, "format", "json")
+    6:     entry = getattr(args, "entry", None)
+       
+    6:     url_map: dict[str, list[str]] = {}
+   27:     for source in store.list_collection_sources():
+   21:         config = source.get("config", {})
+   21:         url = config.get("url") or config.get("repo_url") or ""
+   21:         if url:
+   14:             url_map.setdefault(url, []).append(source.get("key", ""))
+       
+    6:     shared = []
+   17:     for url, ks in sorted(url_map.items()):
+   11:         if len(ks) > 1:
+    3:             shared.append({"url": url, "keys": ks, "key_count": len(ks)})
+       
+    6:     if fmt == "television":
+    2:         lines = []
+    3:         for s in shared:
+    2:             lines.append(
+    2:                 f"{_MAGENTA}🔗{_RESET} {s['url']} | "
+    1:                 f"{_CYAN}{s['key_count']} keys{_RESET} | "
+    1:                 f"{_DIM}{', '.join(s['keys'])}{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    2:         item = _find_by_field(shared, "url", entry)
+    2:         if not item:
+    1:             return "No cross-reference found.\n"
+    1:         lines = [
+    1:             f"# Shared source: {item['url']}",
+    1:             "",
+    1:             f"- Present in {item['key_count']} keys:",
+               ]
+    3:         for k in item["keys"]:
+    2:             lines.append(f"  - `{k}`")
+    1:         return "\n".join(lines) + "\n"
+    2:     return {"crossref": shared}
+       
+       
+       # ── know browse key-sources (for fork from by-key) ──────────────────────
+       
+    1: def cmd_browse_key_sources(args: Namespace) -> object:
+           """Browse sources for a specific key (used in fork chain)."""
+    7:     store = _store_from_args(args)
+    7:     store.initialize()
+    7:     fmt = getattr(args, "format", "json")
+    7:     entry = getattr(args, "entry", None)
+    7:     key_name = getattr(args, "key", None)
+       
+    7:     if not key_name:
+    1:         return "No key specified.\n"
+       
+    6:     sources = store.list_collection_sources(key_name=key_name)
+    6:     items: list[dict[str, Any]] = []
+   42:     for s in sources:
+   36:         file_count = 0
+   36:         try:
+   36:             sd = store.source_dir(s)
+  102:             file_count = sum(1 for _ in sd.rglob("*.md") if _.is_file())
+>>>>>>         except Exception:
+>>>>>>             pass
+  108:         items.append({
+   36:             **s,
+   36:             "file_count": file_count,
+   36:             "synced": file_count > 0 or bool(s.get("last_synced_at")),
+               })
+       
+    6:     if fmt == "television":
+    2:         lines = []
+   12:         for i in items:
+   10:             color = _TYPE_COLORS.get(i.get("type", ""), _DIM)
+   10:             icon = _TYPE_ICONS.get(i.get("type", ""), "●")
+   10:             marker = f"{_GREEN}●{_RESET}" if i["synced"] else f"{_YELLOW}○{_RESET}"
+   20:             lines.append(
+   20:                 f"{marker} {color}{icon} {i.get('title', i.get('id', ''))}{_RESET} | "
+   10:                 f"{_DIM}{i.get('type', '')} | {i['file_count']} files{_RESET}"
+                   )
+    2:         return "\n".join(lines)
+    4:     if fmt == "television-preview":
+    2:         item = _find_by_title(items, entry)
+    2:         if not item:
+>>>>>>             return "No source matched.\n"
+    2:         lines = [
+    2:             f"# {item.get('title', item.get('id', ''))}",
+    2:             "",
+    2:             f"- Type: {item.get('type', '')}",
+    2:             f"- Key: {item.get('key', '')}",
+    2:             f"- Files: {item['file_count']}",
+    2:             f"- Synced: {'✅ Yes' if item['synced'] else '❌ No'}",
+    2:             f"- Created: {item.get('created_at', '')}",
+    2:             f"- Last synced: {item.get('last_synced_at', 'never')}",
+               ]
+    2:         if item.get("update_command"):
+    2:             lines.extend(["", f"- Sync: `{item['update_command']}`"])
+    2:         if item.get("delete_command"):
+    2:             lines.append(f"- Delete: `{item['delete_command']}`")
+    2:         return "\n".join(lines) + "\n"
+    2:     return {"sources": items}
+       
+       
+       # ── know browse source-files (for fork chain) ──────────────────────────
+       
+    1: def cmd_browse_source_files(args: Namespace) -> object:
+           """Browse markdown files inside a specific source."""
+   10:     store = _store_from_args(args)
+   10:     store.initialize()
+   10:     fmt = getattr(args, "format", "json")
+   10:     entry = getattr(args, "entry", None)
+   10:     key_name = getattr(args, "key", None)
+   10:     source_id = getattr(args, "source_id", None)
+       
+   10:     if not key_name or not source_id:
+    1:         return "Need --key and --source-id.\n"
+       
+    9:     sources = store.list_collection_sources(key_name=key_name)
+   38:     source = next((s for s in sources if s.get("id") == source_id), None)
+    9:     if not source:
+    1:         return f"Source '{source_id}' not found in key '{key_name}'.\n"
+       
+    8:     items: list[dict[str, Any]] = []
+    8:     try:
+    8:         source_dir = store.source_dir(source)
+   16:         for f in sorted(source_dir.rglob("*")):
+    8:             if not f.is_file():
+>>>>>>                 continue
+    8:             rel = str(f.relative_to(source_dir)).replace("\\", "/")
+    8:             body = ""
+    8:             if f.suffix == ".md":
+    6:                 try:
+    6:                     text = f.read_text(encoding="utf-8", errors="replace")
+    6:                     title = _extract_fm(text, "title") or f.stem
+    6:                     body = _strip_yaml_frontmatter(text)
+>>>>>>                 except Exception:
+>>>>>>                     title = f.stem
+                   else:
+    2:                 title = f.name
+   16:             items.append({
+    8:                 "title": title,
+    8:                 "path": rel,
+    8:                 "full_path": str(f),
+    8:                 "ext": f.suffix,
+    8:                 "size": f.stat().st_size,
+    8:                 "body": body,
+                   })
+>>>>>>     except Exception:
+>>>>>>         pass
+       
+    8:     if fmt == "television":
+    2:         lines = []
+    4:         for i in items:
+    4:             ext_color = _GREEN if i["ext"] in {".py", ".rs", ".go"} else \
+    2:                         _BLUE if i["ext"] == ".md" else _DIM
+    2:             lines.append(f"{ext_color}{i['path']}{_RESET} | {_DIM}{i['size']}b{_RESET}")
+    2:         return "\n".join(lines)
+    6:     if fmt == "television-preview":
+    3:         item = _find_by_field(items, "path", entry)
+    3:         if not item:
+>>>>>>             item = _find_by_title(items, entry)
+    3:         if not item:
+>>>>>>             return "No file matched.\n"
+    3:         if item["body"]:
+    2:             return f"# {item['title']}\n\n{item['body']}\n"
+    1:         try:
+    1:             text = Path(item["full_path"]).read_text(encoding="utf-8", errors="replace")[:5000]
+    1:             return f"# {item['title']}\n\n```\n{text}\n```\n"
+>>>>>>         except Exception:
+>>>>>>             return f"# {item['title']}\n\n_Could not read file._\n"
+    3:     return {"files": items}
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    1: def _find_by_name(items: list[dict], entry: str | None) -> dict | None:
+    6:     if not items:
+    2:         return None
+    4:     if not entry:
+    1:         return items[0]
+    3:     clean = re.sub(r"\033\[[0-9;]*m", "", entry or "")
+    4:     for i in items:
+    4:         if i.get("name", "") in clean:
+    3:             return i
+>>>>>>     return items[0]
+       
+       
+    1: def _find_by_field(items: list[dict], field: str, entry: str | None) -> dict | None:
+   17:     if not items:
+    2:         return None
+   15:     if not entry:
+    2:         return items[0]
+   13:     clean = re.sub(r"\033\[[0-9;]*m", "", entry or "")
+   28:     for i in items:
+   24:         val = str(i.get(field, ""))
+   24:         if val and val in clean:
+    9:             return i
+    4:     return items[0]
+       
+       
+    1: def _find_by_title(items: list[dict], entry: str | None) -> dict | None:
+   11:     if not items:
+>>>>>>         return None
+   11:     if not entry:
+    7:         return items[0]
+    4:     clean = re.sub(r"\033\[[0-9;]*m", "", entry or "")
+   22:     for i in items:
+   20:         t = i.get("title") or i.get("id") or i.get("name") or ""
+   20:         if t and t in clean:
+    2:             return i
+    2:     return items[0]
+       
+       
+    1: def _find_cmd(cmds: list[dict], entry: str | None) -> dict | None:
+    6:     if not cmds:
+    2:         return None
+    4:     if not entry:
+    3:         return cmds[0]
+    1:     clean = re.sub(r"\033\[[0-9;]*m", "", entry or "")
+    2:     for c in cmds:
+    2:         if c["command"] in clean:
+    1:             return c
+>>>>>>     return cmds[0]
+       
+       
+    1: def _extract_arxiv_id(url: str) -> str:
+   13:     match = re.search(r"(\d{4}\.\d{4,5}(?:v\d+)?)", url)
+   13:     return match.group(1) if match else url.split("/")[-1]
+       
+       
+    1: def _repo_short_name(url: str) -> str:
+   15:     from urllib.parse import urlparse
+   15:     path = urlparse(url).path.rstrip("/")
+   15:     if path.endswith(".git"):
+    1:         path = path[:-4]
+   15:     parts = path.strip("/").split("/")
+   15:     if len(parts) >= 2:
+   15:         return f"{parts[-2]}/{parts[-1]}"
+>>>>>>     return url
+       
+       
+    1: def _build_sync_cmd(repo: dict) -> str:
+   13:     branches = " ".join(f"--branch {b}" for b in repo.get("branches", ["HEAD"]))
+    4:     return f"know sync github-repo {repo['repo_url']} --key {repo['key']} {branches}".strip()

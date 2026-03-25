@@ -11,8 +11,8 @@
     1:     """Raised when a credential reference cannot be resolved."""
        
     1:     def __init__(self, reference: str) -> None:
-    9:         self.reference = reference
-    9:         super().__init__(f"credential '{reference}' not found")
+   15:         self.reference = reference
+   15:         super().__init__(f"credential '{reference}' not found")
        
        
     2: class SourceNotFoundError(KnowledgeError):
