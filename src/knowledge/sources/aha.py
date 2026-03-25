@@ -8,6 +8,8 @@ from .base import SourceAdapter
 
 
 class AhaSource(SourceAdapter):
+    """Adapter that synchronizes features from an Aha workspace."""
+
     def sync(self) -> dict[str, object]:
         base_url = self.config["base_url"].rstrip("/") + "/"
         token = self.store.resolve_key(self.config["token"])

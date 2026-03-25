@@ -1,0 +1,503 @@
+    1: """Television formatters for the ``know browse`` family of commands.
+       
+       These formatters produce ANSI-colored output suitable for ``tv --ansi``
+       and provide sync-status visual cues (green = downloaded, yellow = remote).
+       """
+       
+    1: from __future__ import annotations
+       
+    1: from typing import Any
+       
+       
+       # ANSI color codes
+    1: _GREEN = "\033[32m"
+    1: _YELLOW = "\033[33m"
+    1: _CYAN = "\033[36m"
+    1: _DIM = "\033[2m"
+    1: _RESET = "\033[0m"
+    1: _BOLD = "\033[1m"
+    1: _BLUE = "\033[34m"
+    1: _MAGENTA = "\033[35m"
+       
+    1: _KIND_ICONS = {
+    1:     "issue": "🔵",
+    1:     "pull_request": "🟢",
+    1:     "discussion": "💬",
+       }
+       
+    1: _KIND_COLORS = {
+    1:     "issue": _CYAN,
+    1:     "pull_request": _GREEN,
+    1:     "discussion": _MAGENTA,
+       }
+       
+       
+       # ── Jira sync browse ────────────────────────────────────────────────────
+       
+    1: def format_jira_browse_television(issues: list[dict[str, Any]]) -> str:
+           """Colored list of Jira issues: green=synced, yellow=remote only."""
+    4:     lines: list[str] = []
+    7:     for issue in issues:
+    3:         key = issue.get("key", "")
+    3:         summary = issue.get("summary", "")
+    3:         status = issue.get("status", "")
+    3:         synced = issue.get("synced", False)
+    3:         color = _GREEN if synced else _YELLOW
+    3:         marker = "●" if synced else "○"
+    3:         line = f"{color}{marker} {key}{_RESET} | {summary} | {_DIM}{status}{_RESET}"
+    3:         lines.append(line)
+    4:     return "\n".join(lines)
+       
+       
+    1: def format_jira_browse_preview(issues: list[dict[str, Any]], selected: str | None) -> str:
+           """Preview pane for a selected Jira browse row."""
+    5:     issue = _find_jira_browse_issue(issues, selected)
+    5:     if not issue:
+    2:         return "No issue matched.\n"
+    3:     key = issue.get("key", "unknown")
+    3:     summary = issue.get("summary", key)
+    3:     synced = issue.get("synced", False)
+    3:     lines = [
+    3:         f"# {key}: {summary}",
+    3:         "",
+    3:         f"- Status: {issue.get('status', 'unknown')}",
+    3:         f"- Type: {issue.get('issue_type', 'unknown')}",
+    3:         f"- Priority: {issue.get('priority', 'unknown')}",
+    3:         f"- Assignee: {issue.get('assignee', 'unassigned')}",
+    3:         f"- Reporter: {issue.get('reporter', 'unknown')}",
+    3:         f"- Synced locally: {'✅ Yes' if synced else '❌ No'}",
+           ]
+    3:     if issue.get("labels"):
+>>>>>>         lines.append(f"- Labels: {', '.join(issue['labels'])}")
+    3:     if issue.get("web_url"):
+>>>>>>         lines.append(f"- URL: {issue['web_url']}")
+    3:     description = issue.get("description", "")
+    3:     if description:
+>>>>>>         lines.extend(["", "## Description", "", description])
+    3:     if synced and issue.get("local_path"):
+>>>>>>         lines.extend(["", f"📁 Local: `{issue['local_path']}`"])
+    3:     return "\n".join(lines) + "\n"
+       
+       
+    1: def _find_jira_browse_issue(
+>>>>>>     issues: list[dict[str, Any]], selected: str | None
+>>>>>> ) -> dict[str, Any] | None:
+    5:     if not issues:
+    2:         return None
+    3:     if not selected:
+    2:         return issues[0]
+    2:     for issue in issues:
+    2:         key = issue.get("key", "")
+    2:         if key and key in selected:
+    1:             return issue
+>>>>>>     return issues[0]
+       
+       
+       # ── Confluence sync browse ───────────────────────────────────────────────
+       
+    1: def format_confluence_browse_television(pages: list[dict[str, Any]]) -> str:
+           """Colored list of Confluence pages: green=synced, yellow=remote."""
+    1:     lines: list[str] = []
+    3:     for page in pages:
+    2:         title = page.get("title", "Untitled")
+    2:         space = page.get("space", "")
+    2:         synced = page.get("synced", False)
+    2:         color = _GREEN if synced else _YELLOW
+    2:         marker = "●" if synced else "○"
+    2:         line = f"{color}{marker}{_RESET} {title} | {_DIM}{space}{_RESET}"
+    2:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_confluence_browse_preview(pages: list[dict[str, Any]], selected: str | None) -> str:
+    1:     page = _find_browse_item_by_title(pages, selected)
+    1:     if not page:
+>>>>>>         return "No page matched.\n"
+    1:     title = page.get("title", "Untitled")
+    1:     synced = page.get("synced", False)
+    1:     lines = [
+    1:         f"# {title}",
+    1:         "",
+    1:         f"- Space: {page.get('space', 'unknown')}",
+    1:         f"- Synced locally: {'✅ Yes' if synced else '❌ No'}",
+           ]
+    1:     if page.get("web_url"):
+>>>>>>         lines.append(f"- URL: {page['web_url']}")
+    1:     if page.get("excerpt"):
+>>>>>>         lines.extend(["", "## Excerpt", "", page["excerpt"]])
+    1:     if synced and page.get("body"):
+    1:         lines.extend(["", "## Content", "", page["body"]])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── GitHub repos browse ─────────────────────────────────────────────────
+       
+    1: def format_github_repos_television(repos: list[dict[str, Any]]) -> str:
+           """List of GitHub repos with activity indicators."""
+    2:     lines: list[str] = []
+    4:     for repo in repos:
+    2:         full_name = repo.get("full_name", "")
+    2:         description = repo.get("description") or ""
+    2:         language = repo.get("language") or ""
+    2:         stars = repo.get("stargazers_count", 0)
+    2:         synced = repo.get("synced", False)
+    2:         color = _GREEN if synced else _CYAN
+    2:         marker = "●" if synced else "○"
+    2:         desc_short = (description[:60] + "…") if len(description) > 60 else description
+    2:         line = f"{color}{marker}{_RESET} {full_name} | {desc_short} | {_DIM}★{stars} {language}{_RESET}"
+    2:         lines.append(line)
+    2:     return "\n".join(lines)
+       
+       
+    1: def format_github_repos_preview(repos: list[dict[str, Any]], selected: str | None) -> str:
+    1:     repo = _find_browse_item_by_field(repos, "full_name", selected)
+    1:     if not repo:
+>>>>>>         return "No repository matched.\n"
+    1:     name = repo.get("full_name", "unknown")
+    1:     lines = [
+    1:         f"# {name}",
+    1:         "",
+    1:         f"- Description: {repo.get('description') or 'No description'}",
+    1:         f"- Language: {repo.get('language') or 'unknown'}",
+    1:         f"- Stars: {repo.get('stargazers_count', 0)}",
+    1:         f"- Forks: {repo.get('forks_count', 0)}",
+    1:         f"- Open Issues: {repo.get('open_issues_count', 0)}",
+    1:         f"- Synced locally: {'✅ Yes' if repo.get('synced') else '❌ No'}",
+    1:         f"- URL: {repo.get('html_url', '')}",
+    1:         f"- Updated: {repo.get('updated_at', 'unknown')}",
+           ]
+    1:     if repo.get("topics"):
+>>>>>>         lines.append(f"- Topics: {', '.join(repo['topics'])}")
+    2:     lines.extend([
+    1:         "",
+    1:         "## Actions",
+    1:         "",
+    1:         f"- Press **Enter** to browse issues, PRs & discussions",
+    1:         f"- Sync: `know sync github-repo {repo.get('clone_url', '')} --key <KEY>`",
+           ])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── GitHub activity (issues/PRs/discussions) ─────────────────────────────
+       
+    1: def format_github_activity_television(items: list[dict[str, Any]]) -> str:
+           """Unified list of issues, PRs, discussions for a repo."""
+    1:     lines: list[str] = []
+    4:     for item in items:
+    3:         kind = item.get("kind", "issue")
+    3:         number = item.get("number", 0)
+    3:         title = item.get("title", "")
+    3:         user = item.get("user", "")
+    3:         comments = item.get("comments_count", 0)
+    3:         icon = _KIND_ICONS.get(kind, "●")
+    3:         color = _KIND_COLORS.get(kind, _CYAN)
+    3:         labels_str = ""
+    3:         if item.get("labels"):
+    1:             labels_str = f" [{', '.join(item['labels'][:3])}]"
+    3:         line = (
+    6:             f"{color}{icon} #{number}{_RESET} | {title}{labels_str} | "
+    3:             f"{_DIM}@{user} 💬{comments}{_RESET}"
+               )
+    3:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_github_activity_preview(items: list[dict[str, Any]], selected: str | None, *, thread_md: str | None = None) -> str:
+           """Preview with full thread markdown."""
+    2:     if thread_md:
+    1:         return thread_md
+    1:     item = _find_github_activity_item(items, selected)
+    1:     if not item:
+>>>>>>         return "No item matched.\n"
+    1:     kind_label = {"issue": "Issue", "pull_request": "Pull Request", "discussion": "Discussion"}.get(item.get("kind", ""), "Item")
+    1:     lines = [
+    1:         f"# [{kind_label} #{item.get('number', 0)}] {item.get('title', '')}",
+    1:         "",
+    1:         f"- Author: @{item.get('user', 'unknown')}",
+    1:         f"- State: {item.get('state', 'open')}",
+    1:         f"- Created: {item.get('created_at', '')}",
+    1:         f"- Comments: {item.get('comments_count', 0)}",
+           ]
+    1:     if item.get("labels"):
+    1:         lines.append(f"- Labels: {', '.join(item['labels'])}")
+    1:     if item.get("url"):
+    1:         lines.append(f"- URL: {item['url']}")
+    1:     body = item.get("body") or ""
+    1:     if body.strip():
+    1:         lines.extend(["", "## Description", "", body.strip()])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+    1: def _find_github_activity_item(
+>>>>>>     items: list[dict[str, Any]], selected: str | None
+>>>>>> ) -> dict[str, Any] | None:
+    1:     if not items:
+>>>>>>         return None
+    1:     if not selected:
+    1:         return items[0]
+           # Extract #number from selection
+>>>>>>     import re
+>>>>>>     match = re.search(r"#(\d+)", selected)
+>>>>>>     if match:
+>>>>>>         num = int(match.group(1))
+>>>>>>         for item in items:
+>>>>>>             if item.get("number") == num:
+>>>>>>                 return item
+>>>>>>     return items[0]
+       
+       
+       # ── arXiv browse ─────────────────────────────────────────────────────────
+       
+    1: def format_arxiv_browse_television(papers: list[dict[str, Any]]) -> str:
+           """Colored list of arXiv papers: green=synced, yellow=remote."""
+    1:     lines: list[str] = []
+    2:     for paper in papers:
+    1:         title = paper.get("title", "Untitled")
+    1:         category = paper.get("primary_category", "")
+    1:         synced = paper.get("synced", False)
+    1:         color = _GREEN if synced else _YELLOW
+    1:         marker = "●" if synced else "○"
+    1:         line = f"{color}{marker}{_RESET} {title} | {_DIM}{category}{_RESET}"
+    1:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_arxiv_browse_preview(papers: list[dict[str, Any]], selected: str | None) -> str:
+    1:     paper = _find_browse_item_by_title(papers, selected)
+    1:     if not paper:
+>>>>>>         return "No paper matched.\n"
+    1:     title = paper.get("title", "Untitled")
+    1:     synced = paper.get("synced", False)
+    1:     lines = [
+    1:         f"# {title}",
+    1:         "",
+    1:         f"- Authors: {', '.join(paper.get('authors', []))}",
+    1:         f"- Published: {paper.get('published', 'unknown')}",
+    1:         f"- Category: {paper.get('primary_category', 'unknown')}",
+    1:         f"- Synced locally: {'✅ Yes' if synced else '❌ No'}",
+           ]
+    1:     if paper.get("pdf_url"):
+    1:         lines.append(f"- PDF: {paper['pdf_url']}")
+    1:     summary = paper.get("summary", "")
+    1:     if summary:
+    1:         lines.extend(["", "## Abstract", "", summary.strip()])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Aha browse ───────────────────────────────────────────────────────────
+       
+    1: def format_aha_browse_television(features: list[dict[str, Any]]) -> str:
+           """Colored list of Aha features: green=synced, yellow=remote."""
+    1:     lines: list[str] = []
+    2:     for feature in features:
+    1:         ref = feature.get("reference_num", "")
+    1:         name = feature.get("name", "Untitled")
+    1:         status = feature.get("status", "")
+    1:         synced = feature.get("synced", False)
+    1:         color = _GREEN if synced else _YELLOW
+    1:         marker = "●" if synced else "○"
+    1:         line = f"{color}{marker} {ref}{_RESET} | {name} | {_DIM}{status}{_RESET}"
+    1:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_aha_browse_preview(features: list[dict[str, Any]], selected: str | None) -> str:
+    1:     feature = _find_browse_item_by_field(features, "reference_num", selected)
+    1:     if not feature:
+>>>>>>         return "No feature matched.\n"
+    1:     name = feature.get("name", "Untitled")
+    1:     lines = [
+    1:         f"# {feature.get('reference_num', '')}: {name}",
+    1:         "",
+    1:         f"- Status: {feature.get('status', 'unknown')}",
+    1:         f"- Synced locally: {'✅ Yes' if feature.get('synced') else '❌ No'}",
+           ]
+    1:     if feature.get("description"):
+>>>>>>         lines.extend(["", "## Description", "", feature["description"]])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Google Releases browse ──────────────────────────────────────────────
+       
+    1: def format_releases_browse_television(entries: list[dict[str, Any]]) -> str:
+           """Colored list of release notes: green=synced, yellow=remote."""
+    1:     lines: list[str] = []
+    2:     for entry in entries:
+    1:         title = entry.get("title", "Untitled")
+    1:         updated = entry.get("updated", "")
+    1:         synced = entry.get("synced", False)
+    1:         color = _GREEN if synced else _YELLOW
+    1:         marker = "●" if synced else "○"
+    1:         products = ", ".join(entry.get("products", [])[:3])
+    1:         line = f"{color}{marker}{_RESET} {title} | {_DIM}{products} {updated}{_RESET}"
+    1:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_releases_browse_preview(entries: list[dict[str, Any]], selected: str | None) -> str:
+    1:     entry = _find_browse_item_by_title(entries, selected)
+    1:     if not entry:
+>>>>>>         return "No entry matched.\n"
+    1:     title = entry.get("title", "Untitled")
+    1:     lines = [
+    1:         f"# {title}",
+    1:         "",
+    1:         f"- Updated: {entry.get('updated', 'unknown')}",
+    1:         f"- Products: {', '.join(entry.get('products', []))}",
+    1:         f"- Synced locally: {'✅ Yes' if entry.get('synced') else '❌ No'}",
+           ]
+    1:     if entry.get("url"):
+>>>>>>         lines.append(f"- URL: {entry['url']}")
+    1:     if entry.get("body"):
+>>>>>>         lines.extend(["", entry["body"]])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Videos browse ────────────────────────────────────────────────────────
+       
+    1: def format_videos_browse_television(videos: list[dict[str, Any]]) -> str:
+           """Colored list of video sources: green=synced, yellow=not."""
+    1:     lines: list[str] = []
+    2:     for video in videos:
+    1:         title = video.get("title", video.get("url", "Unknown"))
+    1:         synced = video.get("synced", False)
+    1:         color = _GREEN if synced else _YELLOW
+    1:         marker = "●" if synced else "○"
+    1:         line = f"{color}{marker}{_RESET} {title}"
+    1:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_videos_browse_preview(videos: list[dict[str, Any]], selected: str | None) -> str:
+    1:     video = _find_browse_item_by_title(videos, selected)
+    1:     if not video:
+>>>>>>         return "No video matched.\n"
+    1:     title = video.get("title", "Unknown")
+    1:     lines = [
+    1:         f"# {title}",
+    1:         "",
+    1:         f"- URL: {video.get('url', 'unknown')}",
+    1:         f"- Synced locally: {'✅ Yes' if video.get('synced') else '❌ No'}",
+           ]
+    1:     if video.get("body"):
+>>>>>>         lines.extend(["", "## Transcription", "", video["body"]])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Sites browse ────────────────────────────────────────────────────────
+       
+    1: def format_sites_browse_television(sites: list[dict[str, Any]]) -> str:
+           """Colored list of crawled sites: green=synced, yellow=not."""
+    1:     lines: list[str] = []
+    2:     for site in sites:
+    1:         title = site.get("title", site.get("url", "Unknown"))
+    1:         synced = site.get("synced", False)
+    1:         color = _GREEN if synced else _YELLOW
+    1:         marker = "●" if synced else "○"
+    1:         line = f"{color}{marker}{_RESET} {title} | {_DIM}{site.get('url', '')}{_RESET}"
+    1:         lines.append(line)
+    1:     return "\n".join(lines)
+       
+       
+    1: def format_sites_browse_preview(sites: list[dict[str, Any]], selected: str | None) -> str:
+    1:     site = _find_browse_item_by_title(sites, selected)
+    1:     if not site:
+>>>>>>         return "No site matched.\n"
+    1:     title = site.get("title", "Unknown")
+    1:     lines = [
+    1:         f"# {title}",
+    1:         "",
+    1:         f"- URL: {site.get('url', 'unknown')}",
+    1:         f"- Synced locally: {'✅ Yes' if site.get('synced') else '❌ No'}",
+           ]
+    1:     if site.get("body"):
+>>>>>>         lines.extend(["", "## Content", "", site["body"]])
+    1:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Local knowledge browse ──────────────────────────────────────────────
+       
+    1: def format_local_browse_television(items: list[dict[str, Any]]) -> str:
+           """Browse all locally downloaded knowledge files."""
+    2:     lines: list[str] = []
+    4:     for item in items:
+    2:         title = item.get("title", "Untitled")
+    2:         source_type = item.get("source_type", "")
+    2:         key = item.get("key", "")
+    4:         color = {
+    2:             "jira": _CYAN,
+    2:             "confluence": _BLUE,
+    2:             "github": _GREEN,
+    2:             "arxiv": _MAGENTA,
+    2:             "video": _YELLOW,
+    2:         }.get(source_type, _DIM)
+    2:         line = f"{color}[{source_type}]{_RESET} {title} | {_DIM}{key}{_RESET}"
+    2:         lines.append(line)
+    2:     return "\n".join(lines)
+       
+       
+    1: def format_local_browse_preview(items: list[dict[str, Any]], selected: str | None) -> str:
+    2:     item = _find_browse_item_by_title(items, selected)
+    2:     if not item:
+>>>>>>         return "No item matched.\n"
+    2:     lines = [
+    2:         f"# {item.get('title', 'Untitled')}",
+    2:         "",
+    2:         f"- Type: {item.get('source_type', 'unknown')}",
+    2:         f"- Key: {item.get('key', 'unknown')}",
+    2:         f"- Path: {item.get('path', 'unknown')}",
+           ]
+    2:     if item.get("body"):
+    2:         lines.extend(["", item["body"]])
+    2:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    1: def _find_browse_item_by_title(
+>>>>>>     items: list[dict[str, Any]], selected: str | None
+>>>>>> ) -> dict[str, Any] | None:
+    7:     if not items:
+>>>>>>         return None
+    7:     if not selected:
+    7:         return items[0]
+           # Strip ANSI codes for matching
+>>>>>>     clean = _strip_ansi(selected).split(" | ", 1)[0].strip()
+           # Remove sync markers
+>>>>>>     clean = clean.lstrip("●○ ").strip()
+>>>>>>     for item in items:
+>>>>>>         title = item.get("title", item.get("key", ""))
+>>>>>>         if title and title in clean:
+>>>>>>             return item
+               # Match by key field
+>>>>>>         key = item.get("key", "")
+>>>>>>         if key and key in clean:
+>>>>>>             return item
+>>>>>>         ref = item.get("reference_num", "")
+>>>>>>         if ref and ref in clean:
+>>>>>>             return item
+>>>>>>         full_name = item.get("full_name", "")
+>>>>>>         if full_name and full_name in clean:
+>>>>>>             return item
+>>>>>>     return items[0]
+       
+       
+    1: def _find_browse_item_by_field(
+>>>>>>     items: list[dict[str, Any]], field: str, selected: str | None
+>>>>>> ) -> dict[str, Any] | None:
+    2:     if not items:
+>>>>>>         return None
+    2:     if not selected:
+    2:         return items[0]
+>>>>>>     clean = _strip_ansi(selected)
+>>>>>>     for item in items:
+>>>>>>         val = str(item.get(field, ""))
+>>>>>>         if val and val in clean:
+>>>>>>             return item
+>>>>>>     return items[0]
+       
+       
+    1: def _strip_ansi(text: str) -> str:
+           """Remove ANSI escape sequences from text."""
+    1:     import re
+    1:     return re.sub(r"\033\[[0-9;]*m", "", text)

@@ -1,0 +1,364 @@
+    1: """Television output formatting for all ``know`` commands.
+       
+       Each command that supports ``--format television`` emits one line per result
+       to be consumed by ``tv`` as a source command.  The ``television-preview``
+       variant renders a detail pane for the currently selected row.
+       """
+       
+    1: from __future__ import annotations
+       
+    1: from typing import Any
+       
+       
+       # ── Keys ─────────────────────────────────────────────────────────────────
+       
+    1: def format_keys_television(keys: list[str]) -> str:
+           """One line per key name."""
+    3:     return "\n".join(keys)
+       
+       
+    1: def format_keys_preview(keys: list[str], selected: str | None) -> str:
+           """Render detail pane for a selected key name."""
+    5:     name = _resolve_selection(keys, selected)
+    5:     if not name:
+    1:         return "No key matched the selected row.\n"
+    4:     lines = [
+    4:         f"# {name}",
+    4:         "",
+    4:         f"- Key: {name}",
+    4:         "",
+    4:         "## Commands",
+    4:         "",
+    4:         f"- List sources: `know list sources --key {name}`",
+    4:         f"- Sync: `know sync --key {name}`",
+    4:         f"- Export: `know export --key {name}`",
+           ]
+    4:     return "\n".join(lines) + "\n"
+       
+       
+       # ── Credentials ──────────────────────────────────────────────────────────
+       
+    1: def format_credentials_television(names: list[str]) -> str:
+           """One line per credential name."""
+    3:     return "\n".join(sorted(names))
+       
+       
+    1: def format_credentials_preview(names: list[str], selected: str | None) -> str:
+    3:     name = _resolve_selection(sorted(names), selected)
+    3:     if not name:
+    1:         return "No credential matched the selected row.\n"
+    2:     return f"# Credential: {name}\n\nStored in `keys.yaml`.\n"
+       
+       
+       # ── Sources ──────────────────────────────────────────────────────────────
+       
+    1: def format_sources_television(sources: list[dict[str, Any]]) -> str:
+           """``source_id | type | key | title``"""
+    3:     lines: list[str] = []
+    5:     for s in sources:
+    2:         sid = s.get("id", "")
+    2:         stype = s.get("type", "")
+    2:         key = s.get("key", "")
+    2:         title = s.get("title", "")
+    2:         lines.append(f"{sid} | {stype} | {key} | {title}")
+    3:     return "\n".join(lines)
+       
+       
+    1: def format_sources_preview(sources: list[dict[str, Any]], selected: str | None, *, markdown_body: str | None = None) -> str:
+    7:     source = _find_source(sources, selected)
+    7:     if not source:
+    1:         return "No source matched the selected row.\n"
+    6:     sid = source.get("id", "unknown")
+    6:     title = source.get("title", sid)
+       
+           # When markdown body is available, show content without metadata.
+    6:     if markdown_body:
+    1:         lines = [f"# {title}", ""]
+    1:         lines.append(markdown_body)
+    1:         return "\n".join(lines) + "\n"
+       
+    5:     lines = [
+    5:         f"# {title}",
+    5:         "",
+    5:         f"- Source id: {sid}",
+    5:         f"- Type: {source.get('type')}",
+    5:         f"- Key: {source.get('key')}",
+    5:         f"- Created: {source.get('created_at', 'unknown')}",
+    5:         f"- Updated: {source.get('updated_at', 'unknown')}",
+           ]
+    5:     config = source.get("config", {})
+    5:     if config:
+    5:         lines.extend(["", "## Config", ""])
+   14:         for k, v in config.items():
+    9:             lines.append(f"- {k}: {v}")
+    5:     update_cmd = source.get("update_command")
+    5:     delete_cmd = source.get("delete_command")
+    5:     if update_cmd or delete_cmd:
+    5:         lines.extend(["", "## Commands", ""])
+    5:         if update_cmd:
+    5:             lines.append(f"- Sync: `{update_cmd}`")
+    5:         if delete_cmd:
+    5:             lines.append(f"- Delete: `{delete_cmd}`")
+    5:     return "\n".join(lines) + "\n"
+       
+       
+    1: def _find_source(sources: list[dict[str, Any]], selected: str | None) -> dict[str, Any] | None:
+   10:     if not sources:
+    2:         return None
+    8:     if not selected:
+    2:         return sources[0]
+    6:     sel_id = selected.split(" | ", 1)[0].strip()
+    9:     for s in sources:
+    8:         if s.get("id") == sel_id:
+    5:             return s
+    1:     return sources[0]
+       
+       
+       # ── Confluence search ────────────────────────────────────────────────────
+       
+    1: def format_confluence_television(matches: list[dict[str, Any]]) -> str:
+           """``title | space | key | url``"""
+    2:     lines: list[str] = []
+    3:     for match in matches:
+    3:         for result in match.get("results", []):
+    2:             title = _confluence_result_title(result)
+    2:             space = match.get("space", "")
+    2:             key = match.get("key", "")
+    2:             url = _confluence_result_url(result, match.get("base_url", ""))
+    2:             lines.append(f"{title} | {space} | {key} | {url}")
+    2:     return "\n".join(lines)
+       
+       
+    1: def format_confluence_preview(matches: list[dict[str, Any]], selected: str | None) -> str:
+    4:     all_results = _flatten_confluence_results(matches)
+    4:     result, match_ctx = _find_confluence_result(all_results, selected)
+    4:     if not result:
+    1:         return "No Confluence result matched the selected row.\n"
+    3:     title = _confluence_result_title(result)
+    3:     content = result.get("content", {}) if isinstance(result, dict) else {}
+    3:     excerpt = str(result.get("excerpt") or "").strip()
+    3:     base_url = match_ctx.get("base_url", "") if match_ctx else ""
+    3:     url = _confluence_result_url(result, base_url)
+    3:     lines = [
+    3:         f"# {title}",
+    3:         "",
+    3:         f"- Space: {match_ctx.get('space', 'unknown') if match_ctx else 'unknown'}",
+    3:         f"- Key: {match_ctx.get('key', 'unknown') if match_ctx else 'unknown'}",
+    3:         f"- Type: {content.get('type', 'unknown')}",
+           ]
+    3:     if url:
+    3:         lines.append(f"- URL: {url}")
+    3:     last_modified = (content.get("history", {}) or {}).get("lastUpdated", {})
+    3:     if isinstance(last_modified, dict) and last_modified.get("when"):
+    3:         lines.append(f"- Updated: {last_modified['when']}")
+    3:     if excerpt:
+    3:         lines.extend(["", "## Excerpt", "", _strip_html_tags(excerpt)])
+    3:     return "\n".join(lines) + "\n"
+       
+       
+    1: def _confluence_result_title(result: dict[str, Any]) -> str:
+    7:     content = result.get("content", {}) if isinstance(result, dict) else {}
+    7:     if isinstance(content, dict) and content.get("title"):
+    7:         return str(content["title"]).strip()
+>>>>>>     return str(result.get("title", "Untitled")).strip()
+       
+       
+    1: def _confluence_result_url(result: dict[str, Any], base_url: str) -> str:
+    5:     content = result.get("content", {}) if isinstance(result, dict) else {}
+    5:     if isinstance(content, dict):
+    5:         links = content.get("_links", {})
+    5:         if isinstance(links, dict) and links.get("webui"):
+    5:             return f"{base_url.rstrip('/')}{links['webui']}"
+>>>>>>     return ""
+       
+       
+    1: def _flatten_confluence_results(
+>>>>>>     matches: list[dict[str, Any]],
+>>>>>> ) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+    4:     flat: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    7:     for match in matches:
+    9:         for result in match.get("results", []):
+    6:             flat.append((result, match))
+    4:     return flat
+       
+       
+    1: def _find_confluence_result(
+>>>>>>     flat: list[tuple[dict[str, Any], dict[str, Any]]], selected: str | None
+>>>>>> ) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    5:     if not flat:
+    2:         return None, None
+    3:     if not selected:
+    1:         return flat[0]
+    2:     sel_title = selected.split(" | ", 1)[0].strip()
+    2:     for result, ctx in flat:
+    2:         if _confluence_result_title(result) == sel_title:
+    2:             return result, ctx
+>>>>>>     return flat[0]
+       
+       
+       # ── Jira search ──────────────────────────────────────────────────────────
+       
+    1: def format_jira_television(matches: list[dict[str, Any]]) -> str:
+           """``issue_key | summary | status | project | assignee``"""
+    2:     lines: list[str] = []
+    3:     for match in matches:
+    3:         for issue in match.get("issues", []):
+    2:             key = issue.get("key", "")
+    2:             fields = issue.get("fields", {}) or {}
+    2:             summary = str(fields.get("summary") or "").strip()
+    2:             status = _jira_field_name(fields.get("status"))
+    2:             project_name = match.get("project", "")
+    2:             assignee = _jira_display_name(fields.get("assignee"))
+    2:             lines.append(f"{key} | {summary} | {status} | {project_name} | {assignee}")
+    2:     return "\n".join(lines)
+       
+       
+    1: def format_jira_preview(matches: list[dict[str, Any]], selected: str | None) -> str:
+    4:     all_issues = _flatten_jira_issues(matches)
+    4:     issue, match_ctx = _find_jira_issue(all_issues, selected)
+    4:     if not issue:
+    1:         return "No Jira issue matched the selected row.\n"
+    3:     fields = issue.get("fields", {}) or {}
+    3:     key = issue.get("key", "unknown")
+    3:     summary = str(fields.get("summary") or key)
+    3:     lines = [
+    3:         f"# {key}: {summary}",
+    3:         "",
+    3:         f"- Type: {_jira_field_name(fields.get('issuetype'))}",
+    3:         f"- Status: {_jira_field_name(fields.get('status'))}",
+    3:         f"- Priority: {_jira_field_name(fields.get('priority'))}",
+    3:         f"- Assignee: {_jira_display_name(fields.get('assignee'))}",
+    3:         f"- Reporter: {_jira_display_name(fields.get('reporter'))}",
+    3:         f"- Created: {fields.get('created', 'unknown')}",
+    3:         f"- Updated: {fields.get('updated', 'unknown')}",
+           ]
+    3:     labels = fields.get("labels")
+    3:     if labels:
+    8:         lines.append(f"- Labels: {', '.join(str(l) for l in labels)}")
+    3:     base_url = match_ctx.get("base_url", "") if match_ctx else ""
+    3:     if base_url:
+    3:         lines.append(f"- URL: {base_url.rstrip('/')}/browse/{key}")
+    3:     description = fields.get("description")
+    3:     if description:
+    1:         desc_text = str(description) if isinstance(description, str) else "(structured ADF content)"
+    1:         lines.extend(["", "## Description", "", desc_text])
+    3:     return "\n".join(lines) + "\n"
+       
+       
+    1: def _flatten_jira_issues(
+>>>>>>     matches: list[dict[str, Any]],
+>>>>>> ) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+    4:     flat: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    7:     for match in matches:
+    8:         for issue in match.get("issues", []):
+    5:             flat.append((issue, match))
+    4:     return flat
+       
+       
+    1: def _find_jira_issue(
+>>>>>>     flat: list[tuple[dict[str, Any], dict[str, Any]]], selected: str | None
+>>>>>> ) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    6:     if not flat:
+    2:         return None, None
+    4:     if not selected:
+    2:         return flat[0]
+    2:     sel_key = selected.split(" | ", 1)[0].strip()
+    3:     for issue, ctx in flat:
+    3:         if issue.get("key") == sel_key:
+    2:             return issue, ctx
+>>>>>>     return flat[0]
+       
+       
+    1: def _jira_field_name(value: Any) -> str:
+   11:     if isinstance(value, dict):
+   10:         return str(value.get("name") or "unknown")
+    1:     return "unknown"
+       
+       
+    1: def _jira_display_name(value: Any) -> str:
+    8:     if isinstance(value, dict):
+   10:         return str(
+    5:             value.get("displayName")
+>>>>>>             or value.get("emailAddress")
+>>>>>>             or value.get("accountId")
+>>>>>>             or "unassigned"
+               )
+    3:     return "unassigned"
+       
+       
+       # ── arXiv search ─────────────────────────────────────────────────────────
+       
+    1: def format_arxiv_television(entries: list[dict[str, Any]]) -> str:
+           """``title | primary_category | published``"""
+    5:     lines: list[str] = []
+   10:     for entry in entries if isinstance(entries, list) else []:
+    5:         if not isinstance(entry, dict):
+>>>>>>             continue
+    5:         title = str(entry.get("title") or "").strip()
+    5:         if not title:
+    1:             continue
+    4:         primary_category = str(entry.get("primary_category") or "uncategorized").strip()
+    4:         published = str(entry.get("published") or "unknown-date").strip()
+    4:         lines.append(f"{title} | {primary_category} | {published}")
+    5:     return "\n".join(lines)
+       
+       
+    1: def format_arxiv_preview(entries: list[dict[str, Any]], selected: str | None) -> str:
+    5:     entry = _find_arxiv_entry(entries, selected)
+    5:     if not entry:
+    1:         return "No arXiv entry matched the selected television row.\n"
+    4:     title = str(entry.get("title") or "Untitled")
+   10:     authors = [str(a) for a in entry.get("authors", []) if a]
+    4:     summary = str(entry.get("summary") or "").strip()
+    4:     lines = [
+    4:         f"# {title}",
+    4:         "",
+    4:         f"- Published: {entry.get('published') or 'unknown'}",
+    4:         f"- Updated: {entry.get('updated') or 'unknown'}",
+    4:         f"- Primary category: {entry.get('primary_category') or 'unknown'}",
+           ]
+    4:     if entry.get("pdf_url"):
+    4:         lines.append(f"- PDF: {entry['pdf_url']}")
+    4:     if entry.get("id"):
+    4:         lines.append(f"- Abs: {entry['id']}")
+    4:     if authors:
+    4:         lines.extend(["", "## Authors", "", ", ".join(authors)])
+    4:     if summary:
+    4:         lines.extend(["", "## Summary", "", summary])
+    4:     return "\n".join(lines).rstrip() + "\n"
+       
+       
+    1: def _find_arxiv_entry(entries: list[dict[str, Any]], selected: str | None) -> dict[str, Any]:
+   10:     if not isinstance(entries, list) or not entries:
+    3:         return {}
+    7:     if not selected:
+    1:         return entries[0] if isinstance(entries[0], dict) else {}
+    6:     sel_title = selected.split(" | ", 1)[0].strip()
+    9:     for entry in entries:
+    8:         if isinstance(entry, dict) and str(entry.get("title") or "").strip() == sel_title:
+    5:             return entry
+    1:     return entries[0] if isinstance(entries[0], dict) else {}
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    1: def _resolve_selection(items: list[str], selected: str | None) -> str | None:
+   12:     if not items:
+    3:         return None
+    9:     if not selected:
+    2:         return items[0]
+    7:     sel = selected.split(" | ", 1)[0].strip()
+    7:     if sel in items:
+    5:         return sel
+    2:     return items[0]
+       
+       
+    1: def _strip_html_tags(text: str) -> str:
+    6:     import re
+    6:     clean = re.sub(r"<[^>]+>", "", text)
+    6:     return clean.strip()
+       
+       
+       # ── Format constants ─────────────────────────────────────────────────────
+       
+    1: TV_FORMAT_CHOICES = ("json", "television", "television-preview")

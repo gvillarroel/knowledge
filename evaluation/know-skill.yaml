@@ -1,0 +1,205 @@
+schemaVersion: 1
+benchmark:
+  id: know-cli-skill-compare
+  description: Compare Codex mini on spec-aligned know CLI planning tasks with and without the local know skill across the expected CLI surface.
+  tags:
+    - compare
+    - knowledge
+    - cli
+    - skill
+task:
+  prompts:
+    - id: help-keys-credentials
+      description: Plan the commands for help, key creation, key listing, and credential management.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect `SPEC.md`, `docs/cli.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        show help, create the key `research`, list keys, store a Jira token under
+        the credential name `jira_token`, and list saved credentials.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements and docs.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know --help",
+                "know add key research",
+                "know list keys",
+                "know set credential jira_token secret-token",
+                "know list credentials",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+    - id: register-sources
+      description: Plan the commands for registering every expected source family covered by the current docs and spec.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect `SPEC.md`, `docs/cli.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        attach to key `research` these sources: Confluence space `ENG`, Jira
+        project `KAN`, arXiv paper `https://arxiv.org/abs/1706.03762`, site
+        `https://openai.com/index/harness-engineering/`, GitHub repository
+        `https://github.com/example/repo.git` with branches `main` and
+        `develop`, and video `https://example.com/demo.mp4`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements and docs.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know add confluence --space ENG --key research",
+                "know add jira-project KAN --key research",
+                "know add arxiv https://arxiv.org/abs/1706.03762 --key research",
+                "know add site https://openai.com/index/harness-engineering/ --key research",
+                "know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop",
+                "know add video https://example.com/demo.mp4 --key research",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+    - id: inspect-and-live-search
+      description: Plan the commands for source inspection and live Confluence and Jira search with source-native filters.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect `SPEC.md`, `docs/cli.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        list sources for key `research`, search Confluence for
+        `incident postmortem` in space `ENG` as page content tagged `runbook`
+        updated after `2026-03-01`, and search Jira for `search bug` inside
+        project `KAN` with status `In Progress`, returning fields `summary` and
+        `status`, updated after `2026-03-01`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements and docs.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know list sources --key research",
+                "know search confluence \"incident postmortem\" --space ENG --type page --label runbook --updated-after 2026-03-01",
+                "know search jira \"search bug\" --project KAN --status \"In Progress\" --field summary --field status --updated-after 2026-03-01",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+    - id: sync-export-import
+      description: Plan the commands for full-key synchronization, export, and archive import.
+      prompt: >-
+        Read this repository and return JSON only with exactly this shape:
+        {"executed": false, "commands": ["..."]}.
+        Do not execute any `know` command. Inspect `SPEC.md`, `docs/cli.md`, and
+        available skills as needed, but only propose commands.
+        Build the exact command plan, in order, for this scenario:
+        synchronize key `research`, export that key, and import the archive
+        `~/.knowledge/exports/knowledge-export-20260322T180000Z.zip`.
+        The commands must follow the intended `know` CLI contract from the
+        repository requirements and docs.
+      evaluation:
+        assertions:
+          - type: is-json
+          - type: javascript
+            value: |
+              const data = JSON.parse(output);
+              const expected = [
+                "know sync --key research",
+                "know export --key research",
+                "know import ~/.knowledge/exports/knowledge-export-20260322T180000Z.zip",
+              ];
+              return data.executed === false
+                && Array.isArray(data.commands)
+                && JSON.stringify(data.commands) === JSON.stringify(expected);
+workspace:
+  sources:
+    - id: base
+      type: local-path
+      path: C:/Users/villa/dev/knowledge
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: llm-rubric
+      provider: skill-arena:judge:codex
+      value: >-
+        Score 1.0 only if the answer is valid JSON, clearly indicates that no
+        commands were executed, and returns only the exact know CLI command plan
+        that matches the repository contract in SPEC.md and docs/cli.md for the
+        requested scenario.
+    - type: javascript
+      value: |
+        const data = JSON.parse(output);
+        return data.executed === false
+          && Array.isArray(data.commands)
+          && data.commands.length >= 1
+          && !/```/.test(output)
+          && !/\bI ran\b/i.test(output)
+          && !/\bexecuted\b\s*:\s*true\b/i.test(output);
+  requests: 10
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Fully isolated baseline without the local know skill.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - baseline
+        labels:
+          skill_state: off
+    - id: skill
+      description: Workspace overlay with the local know skill enabled.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: C:/Users/villa/dev/knowledge/skills/know
+              skillId: know
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - skill
+        labels:
+          skill_state: on
+  variants:
+    - id: codex-mini
+      description: Codex mini comparison variant for know CLI planning tasks.
+      agent:
+        adapter: codex
+        model: gpt-5.1-codex-mini
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: low
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        labels:
+          variantDisplayName: codex mini

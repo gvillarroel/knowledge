@@ -1,97 +1,188 @@
     1: from __future__ import annotations
        
     1: from argparse import Namespace
-    1: from datetime import datetime
+    1: import os
     1: from pathlib import Path
        
     1: from .exporter import export_source
     1: from .registry import create_source_adapter
     1: from .sources.arxiv import search_arxiv
+    1: from .sources.confluence import search_confluence
+    1: from .sources.jira import search_jira
     1: from .sources.video import extract_video_id
     1: from .store import KnowledgeStore
+    1: from .television import (
+           format_arxiv_preview,
+           format_arxiv_television,
+           format_confluence_preview,
+           format_confluence_television,
+           format_credentials_preview,
+           format_credentials_television,
+           format_jira_preview,
+           format_jira_television,
+           format_keys_preview,
+           format_keys_television,
+           format_sources_preview,
+           format_sources_television,
+       )
        
        
     1: def _store_from_args(args: Namespace) -> KnowledgeStore:
-   58:     return KnowledgeStore(args.store)
+   94:     return KnowledgeStore(args.store)
+       
+       
+    1: def _config_value_or_env_ref(explicit_value: str | None, env_name: str) -> str | None:
+   25:     if explicit_value is not None:
+   11:         return explicit_value
+   14:     if os.getenv(env_name):
+   14:         return f"$env:{env_name}"
+>>>>>>     return None
        
        
     1: def cmd_init(args: Namespace) -> dict:
-    1:     store = _store_from_args(args)
-    1:     store.initialize()
-    1:     return {"store": str(store.root), "created": True}
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     return {"store": str(store.root), "created": True}
        
        
     1: def cmd_key_set(args: Namespace) -> dict:
-    2:     store = _store_from_args(args)
-    2:     store.initialize()
-    2:     store.set_key(args.name, args.value)
-    2:     return {"stored": args.name}
+    4:     store = _store_from_args(args)
+    4:     store.initialize()
+    4:     store.set_key(args.name, args.value)
+    4:     return {"stored": args.name}
        
        
     1: def cmd_key_list(args: Namespace) -> dict:
-    2:     store = _store_from_args(args)
-    2:     store.initialize()
-    2:     return {"keys": sorted(store.keys)}
+    4:     store = _store_from_args(args)
+    4:     store.initialize()
+    4:     names = sorted(store.keys)
+    4:     output_format = getattr(args, "format", "json")
+    4:     if output_format == "television":
+    1:         return format_credentials_television(names)
+    3:     if output_format == "television-preview":
+    1:         return format_credentials_preview(names, getattr(args, "entry", None))
+    2:     return {"keys": names}
        
        
     1: def cmd_add_key(args: Namespace) -> dict:
-   20:     store = _store_from_args(args)
-   20:     store.initialize()
-   20:     payload = store.create_collection_key(args.name)
-   20:     return {"created": payload["name"]}
+   33:     store = _store_from_args(args)
+   33:     store.initialize()
+   33:     payload = store.create_collection_key(args.name)
+   33:     return {"created": payload["name"]}
        
        
     1: def cmd_list_keys(args: Namespace) -> dict:
-    1:     store = _store_from_args(args)
-    1:     store.initialize()
-    1:     return {"keys": store.list_collection_keys()}
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     keys = store.list_collection_keys()
+    3:     output_format = getattr(args, "format", "json")
+    3:     if output_format == "television":
+    1:         return format_keys_television(keys)
+    2:     if output_format == "television-preview":
+    1:         return format_keys_preview(keys, getattr(args, "entry", None))
+    1:     return {"keys": keys}
        
        
     1: def cmd_list_collection_sources(args: Namespace) -> dict:
-    1:     store = _store_from_args(args)
-    1:     store.initialize()
-    1:     return {
-    2:         "sources": store.list_collection_sources(
-    1:             key_name=getattr(args, "key", None),
-    1:             source_type=getattr(args, "type", None),
-               )
-           }
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    6:     sources = store.list_collection_sources(
+    3:         key_name=getattr(args, "key", None),
+    3:         source_type=getattr(args, "type", None),
+           )
+    3:     output_format = getattr(args, "format", "json")
+    3:     if output_format == "television":
+    1:         return format_sources_television(sources)
+    2:     if output_format == "television-preview":
+    1:         entry = getattr(args, "entry", None)
+    1:         source = _find_selected_source(sources, entry)
+    1:         body = _read_source_markdown_body(store, source) if source else None
+    1:         return format_sources_preview(sources, entry, markdown_body=body)
+    1:     return {"sources": sources}
+       
+       
+    1: def _find_selected_source(
+>>>>>>     sources: list[dict], selected: str | None
+>>>>>> ) -> dict | None:
+           """Resolve the source dict that matches the selected television row."""
+    5:     if not sources:
+    1:         return None
+    4:     if not selected:
+    2:         return sources[0]
+    2:     sel_id = selected.split(" | ", 1)[0].strip()
+    5:     for s in sources:
+    4:         if s.get("id") == sel_id:
+    1:             return s
+    1:     return sources[0]
+       
+       
+    1: def _read_source_markdown_body(store: KnowledgeStore, source: dict) -> str | None:
+           """Read ``.md`` files from a source directory and return the body without YAML frontmatter."""
+    3:     try:
+    3:         source_dir = store.source_dir(source)
+>>>>>>     except Exception:
+>>>>>>         return None
+    3:     if not source_dir.exists():
+>>>>>>         return None
+    3:     md_files = sorted(source_dir.glob("**/*.md"))
+    3:     if not md_files:
+    2:         return None
+    1:     parts: list[str] = []
+    3:     for md_file in md_files:
+    2:         try:
+    2:             text = md_file.read_text(encoding="utf-8")
+>>>>>>         except Exception:
+>>>>>>             continue
+    2:         body = _strip_yaml_frontmatter(text)
+    2:         if body.strip():
+    2:             parts.append(body.strip())
+    1:     return "\n\n---\n\n".join(parts) if parts else None
+       
+       
+    1: def _strip_yaml_frontmatter(text: str) -> str:
+           """Remove leading YAML frontmatter delimited by ``---``."""
+    5:     if not text.startswith("---"):
+    2:         return text
+    3:     end = text.find("\n---", 3)
+    3:     if end == -1:
+    1:         return text
+    2:     return text[end + 4:].lstrip("\n")
        
        
     1: def cmd_add_confluence(args: Namespace) -> dict:
-    7:     store = _store_from_args(args)
-    7:     store.initialize()
-    7:     config = {
-    7:         "space": args.space,
-    7:         "space_key": args.space,
-    7:         "base_url": args.base_url,
-    7:         "username": args.username,
-    7:         "token": args.token,
-    7:         "limit": args.limit,
+    8:     store = _store_from_args(args)
+    8:     store.initialize()
+    8:     config = {
+    8:         "space": args.space,
+    8:         "space_key": args.space,
+    8:         "base_url": args.base_url or os.getenv("CONFLUENCE_BASE_URL"),
+    8:         "username": _config_value_or_env_ref(args.username, "CONFLUENCE_USERNAME"),
+    8:         "token": _config_value_or_env_ref(args.token, "CONFLUENCE_TOKEN"),
+    8:         "limit": args.limit,
            }
-   14:     source = store.add_collection_source(
-    7:         key_name=args.key,
-    7:         source_type="confluence",
-    7:         title=args.space,
-   49:         config={key: value for key, value in config.items() if value is not None},
-    7:         update_command=f"know sync confluence --space {args.space} --key {args.key}",
-    7:         delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
+   16:     source = store.add_collection_source(
+    8:         key_name=args.key,
+    8:         source_type="confluence",
+    8:         title=args.space,
+   56:         config={key: value for key, value in config.items() if value is not None},
+    8:         update_command=f"know sync confluence --space {args.space} --key {args.key}",
+    8:         delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
            )
-    7:     return {"key": args.key, "source": source}
+    8:     return {"key": args.key, "source": source}
        
        
     1: def cmd_add_arxiv(args: Namespace) -> dict:
-    5:     store = _store_from_args(args)
-    5:     store.initialize()
-   10:     source = store.add_collection_source(
-    5:         key_name=args.key,
-    5:         source_type="arxiv",
-    5:         title=args.url,
-    5:         config={"url": args.url},
-    5:         update_command=f"know sync arxiv {args.url} --key {args.key}",
-    5:         delete_command=f"know del --key {args.key} {store._source_id('arxiv', args.url)}",
+    6:     store = _store_from_args(args)
+    6:     store.initialize()
+   12:     source = store.add_collection_source(
+    6:         key_name=args.key,
+    6:         source_type="arxiv",
+    6:         title=args.url,
+    6:         config={"url": args.url},
+    6:         update_command=f"know sync arxiv {args.url} --key {args.key}",
+    6:         delete_command=f"know del --key {args.key} {store._source_id('arxiv', args.url)}",
            )
-    5:     return {"key": args.key, "source": source}
+    6:     return {"key": args.key, "source": source}
        
        
     1: def cmd_add_site(args: Namespace) -> dict:
@@ -136,6 +227,30 @@
     2:     return {"key": args.key, "source": source}
        
        
+    1: def cmd_add_television(args: Namespace) -> dict:
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     source_id = store._source_id("television", args.name)
+    3:     config = {
+    3:         "channel": args.name,
+    3:         "description": args.description or f"Television channel for knowledge key {args.key}",
+    3:         "source_command": args.source_command,
+    3:         "source_display": args.source_display,
+    3:         "preview_command": args.preview_command,
+    3:         "action_command": args.action_command,
+           }
+    6:     source = store.add_collection_source(
+    3:         key_name=args.key,
+    3:         source_type="television",
+    3:         source_id=source_id,
+    3:         title=args.name,
+   21:         config={key: value for key, value in config.items() if value is not None},
+    3:         update_command=f"know sync television {args.name} --key {args.key}",
+    3:         delete_command=f"know del --key {args.key} {source_id}",
+           )
+    3:     return {"key": args.key, "source": source}
+       
+       
     1: def cmd_add_github_repo(args: Namespace) -> dict:
     2:     store = _store_from_args(args)
     2:     store.initialize()
@@ -154,48 +269,62 @@
     2:     return {"key": args.key, "source": source}
        
        
-    1: def cmd_add_jira_project(args: Namespace) -> dict:
+    1: def cmd_add_google_releases(args: Namespace) -> dict:
     1:     store = _store_from_args(args)
     1:     store.initialize()
-    1:     config = {
-    1:         "project": args.project,
-    1:         "jql": args.jql or f"project = {args.project} ORDER BY updated DESC",
-    1:         "base_url": args.base_url,
-    1:         "username": args.username,
-    1:         "token": args.token,
-    1:         "fields": args.field,
-    1:         "limit": args.limit,
-           }
     2:     source = store.add_collection_source(
     1:         key_name=args.key,
-    1:         source_type="jira",
-    1:         title=args.project,
-    8:         config={key: value for key, value in config.items() if value is not None},
-    1:         update_command=f"know sync jira-project {args.project} --key {args.key}",
-    1:         delete_command=f"know del --key {args.key} {store._source_id('jira', args.project)}",
+    1:         source_type="google_releases",
+    1:         title=args.url,
+    1:         config={"url": args.url},
+    1:         update_command=f"know sync google-releases {args.url} --key {args.key}",
+    1:         delete_command=f"know del --key {args.key} {store._source_id('google_releases', args.url)}",
            )
     1:     return {"key": args.key, "source": source}
+       
+       
+    1: def cmd_add_jira_project(args: Namespace) -> dict:
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     config = {
+    3:         "project": args.project,
+    3:         "jql": args.jql or f"project = {args.project} ORDER BY updated DESC",
+    3:         "base_url": args.base_url or os.getenv("JIRA_BASE_URL"),
+    3:         "username": _config_value_or_env_ref(args.username, "JIRA_USERNAME"),
+    3:         "token": _config_value_or_env_ref(args.token, "JIRA_TOKEN"),
+    3:         "fields": args.field,
+    3:         "limit": args.limit,
+           }
+    6:     source = store.add_collection_source(
+    3:         key_name=args.key,
+    3:         source_type="jira",
+    3:         title=args.project,
+   24:         config={key: value for key, value in config.items() if value is not None},
+    3:         update_command=f"know sync jira-project {args.project} --key {args.key}",
+    3:         delete_command=f"know del --key {args.key} {store._source_id('jira', args.project)}",
+           )
+    3:     return {"key": args.key, "source": source}
        
        
     1: def cmd_add_aha_workspace(args: Namespace) -> dict:
-    1:     store = _store_from_args(args)
-    1:     store.initialize()
-    1:     config = {
-    1:         "workspace": args.workspace,
-    1:         "product": args.workspace,
-    1:         "base_url": args.base_url,
-    1:         "token": args.token,
-    1:         "limit": args.limit,
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     config = {
+    3:         "workspace": args.workspace,
+    3:         "product": args.workspace,
+    3:         "base_url": args.base_url or os.getenv("AHA_BASE_URL"),
+    3:         "token": _config_value_or_env_ref(args.token, "AHA_TOKEN"),
+    3:         "limit": args.limit,
            }
-    2:     source = store.add_collection_source(
-    1:         key_name=args.key,
-    1:         source_type="aha",
-    1:         title=args.workspace,
-    6:         config={key: value for key, value in config.items() if value is not None},
-    1:         update_command=f"know sync aha-workspace {args.workspace} --key {args.key}",
-    1:         delete_command=f"know del --key {args.key} {store._source_id('aha', args.workspace)}",
+    6:     source = store.add_collection_source(
+    3:         key_name=args.key,
+    3:         source_type="aha",
+    3:         title=args.workspace,
+   18:         config={key: value for key, value in config.items() if value is not None},
+    3:         update_command=f"know sync aha-workspace {args.workspace} --key {args.key}",
+    3:         delete_command=f"know del --key {args.key} {store._source_id('aha', args.workspace)}",
            )
-    1:     return {"key": args.key, "source": source}
+    3:     return {"key": args.key, "source": source}
        
        
     1: def cmd_delete_source(args: Namespace) -> dict:
@@ -205,39 +334,138 @@
        
        
     1: def cmd_search_confluence(args: Namespace) -> dict:
-    2:     store = _store_from_args(args)
-    2:     store.initialize()
-    4:     sources = _filter_confluence_sources_by_time_bounds(
-    2:         store.list_collection_sources(source_type="confluence"),
-    2:         start_time=getattr(args, "start_time", None),
-    2:         end_time=getattr(args, "end_time", None),
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    6:     sources = store.list_collection_sources(
+    3:         key_name=getattr(args, "knowledge_key", None),
+    3:         source_type="confluence",
            )
-    2:     matches = []
-    5:     for source in sources:
+    3:     if getattr(args, "space", None):
+    2:         sources = [
+    1:             source
+    3:             for source in sources
+    1:             if (source.get("config", {}).get("space") or source.get("config", {}).get("space_key")) == args.space
+               ]
+    3:     matches = []
+    6:     for source in sources:
     3:         config = source.get("config", {})
-    6:         matches.append(
-    3:             {
-    3:                 "source_id": source["id"],
-    3:                 "key": source["key"],
-    3:                 "space": config.get("space") or config.get("space_key") or source.get("title"),
+    3:         if not config.get("base_url") or not config.get("username") or not config.get("token"):
+    2:             matches.append(
+    1:                 {
+    1:                     "source_id": source["id"],
+    1:                     "key": source["key"],
+    1:                     "space": config.get("space") or config.get("space_key") or source.get("title"),
+    1:                     "error": "missing credentials or base_url",
+                       }
+                   )
+    1:             continue
+   34:         results = search_confluence(
+    2:             base_url=config["base_url"],
+    2:             username=store.resolve_key(config["username"]),
+    2:             token=store.resolve_key(config["token"]),
+    2:             query=getattr(args, "query", None),
+    2:             cql=getattr(args, "cql", None),
+    2:             space=getattr(args, "space", None) or config.get("space") or config.get("space_key"),
+    2:             content_type=getattr(args, "type", None),
+    2:             labels=getattr(args, "label", None),
+    2:             title_contains=getattr(args, "title_contains", None),
+    2:             text_contains=getattr(args, "text_contains", None),
+    2:             created_after=getattr(args, "created_after", None),
+    2:             created_before=getattr(args, "created_before", None),
+    2:             updated_after=getattr(args, "updated_after", None),
+    2:             updated_before=getattr(args, "updated_before", None),
+    2:             limit=getattr(args, "limit", 25),
+    2:             cursor=getattr(args, "cursor", None),
+               )
+    4:         matches.append(
+    2:             {
+    2:                 "source_id": source["id"],
+    2:                 "key": source["key"],
+    2:                 "space": config.get("space") or config.get("space_key") or source.get("title"),
+    2:                 "base_url": config.get("base_url"),
+    2:                 "cql": results["cql"],
+    2:                 "results": results["results"],
+    2:                 "next_cursor": results["next_cursor"],
                    }
                )
-    2:     return {
-    2:         "query": args.query,
-    2:         "start_time": getattr(args, "start_time", None),
-    2:         "end_time": getattr(args, "end_time", None),
-    2:         "possible_sources": matches,
-           }
+    3:     return _format_confluence_output(args, matches)
+       
+       
+    1: def cmd_search_jira(args: Namespace) -> dict:
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "knowledge_key", None),
+    1:         source_type="jira",
+           )
+    1:     if getattr(args, "project", None):
+    2:         sources = [source for source in sources if source.get("config", {}).get("project") == args.project]
+       
+    1:     matches = []
+    2:     for source in sources:
+    1:         config = source.get("config", {})
+    1:         if not config.get("base_url") or not config.get("username") or not config.get("token"):
+>>>>>>             matches.append(
+>>>>>>                 {
+>>>>>>                     "source_id": source["id"],
+>>>>>>                     "key": source["key"],
+>>>>>>                     "project": config.get("project") or source.get("title"),
+>>>>>>                     "error": "missing credentials or base_url",
+                       }
+                   )
+>>>>>>             continue
+   22:         results = search_jira(
+    1:             base_url=config["base_url"],
+    1:             username=store.resolve_key(config["username"]),
+    1:             token=store.resolve_key(config["token"]),
+    1:             query=getattr(args, "query", None),
+    1:             project=getattr(args, "project", None) or config.get("project"),
+    1:             jql=getattr(args, "jql", None),
+    1:             statuses=getattr(args, "status", None),
+    1:             issue_types=getattr(args, "issue_type", None),
+    1:             assignee=getattr(args, "assignee", None),
+    1:             reporter=getattr(args, "reporter", None),
+    1:             created_after=getattr(args, "created_after", None),
+    1:             created_before=getattr(args, "created_before", None),
+    1:             updated_after=getattr(args, "updated_after", None),
+    1:             updated_before=getattr(args, "updated_before", None),
+    1:             order_by=getattr(args, "order_by", None),
+    1:             fields=getattr(args, "field", None),
+    1:             properties=getattr(args, "property", None),
+    1:             limit=getattr(args, "limit", 25),
+    1:             next_page_token=getattr(args, "next_page_token", None),
+    1:             expand=getattr(args, "expand", None),
+    1:             fields_by_keys=getattr(args, "fields_by_keys", False),
+               )
+    2:         matches.append(
+    1:             {
+    1:                 "source_id": source["id"],
+    1:                 "key": source["key"],
+    1:                 "project": config.get("project") or source.get("title"),
+    1:                 "base_url": config.get("base_url"),
+    1:                 "jql": results["jql"],
+    1:                 "issues": results["issues"],
+    1:                 "next_page_token": results["next_page_token"],
+                   }
+               )
+    1:     return _format_jira_output(args, matches)
        
        
     1: def cmd_search_arxiv(args: Namespace) -> dict:
-    2:     results = search_arxiv(
-    1:         args.query,
-    1:         start=args.start,
-    1:         max_results=args.max_results,
-    1:         sort_by=args.sort_by,
-    1:         sort_order=args.sort_order,
+    6:     results = search_arxiv(
+    3:         args.query,
+    3:         start=args.start,
+    3:         max_results=args.max_results,
+    3:         sort_by=args.sort_by,
+    3:         sort_order=args.sort_order,
            )
+    3:     output_format = getattr(args, "format", "json")
+    3:     if output_format == "television":
+    1:         entries = results.get("entries", [])
+    1:         return format_arxiv_television(entries)
+    2:     if output_format == "television-preview":
+    1:         entries = results.get("entries", [])
+    1:         return format_arxiv_preview(entries, getattr(args, "entry", None))
     2:     return {
     1:         "query": args.query,
     1:         "search_query": results.pop("search_query", None) or None,
@@ -249,18 +477,58 @@
            }
        
        
-    1: def cmd_sync(args: Namespace) -> dict:
-    4:     store = _store_from_args(args)
-    4:     store.initialize()
-    4:     key_name = getattr(args, "key", None)
-    4:     source_type = getattr(args, "source_type", None)
-    4:     matched_value = getattr(args, "match_value", None)
+    1: def _format_confluence_output(args: Namespace, matches: list[dict]) -> object:
+    3:     output_format = getattr(args, "format", "json")
+    3:     if output_format == "television":
+>>>>>>         return format_confluence_television(matches)
+    3:     if output_format == "television-preview":
+>>>>>>         return format_confluence_preview(matches, getattr(args, "entry", None))
+    3:     return {
+    3:         "query": args.query,
+    3:         "cql": getattr(args, "cql", None),
+    3:         "content_type": getattr(args, "type", None),
+    3:         "labels": getattr(args, "label", None) or [],
+    3:         "limit": getattr(args, "limit", 25),
+    3:         "cursor": getattr(args, "cursor", None),
+    3:         "matches": matches,
+           }
        
-    4:     sources = store.list_collection_sources(key_name=key_name, source_type=source_type)
-    4:     if matched_value:
-    7:         sources = [source for source in sources if _matches_source(source, matched_value)]
-    8:     synced = [create_source_adapter(_prepare_source_for_sync(source, args), store).sync() for source in sources]
-    4:     return {"synced": synced}
+       
+    1: def _format_jira_output(args: Namespace, matches: list[dict]) -> object:
+    1:     output_format = getattr(args, "format", "json")
+    1:     if output_format == "television":
+>>>>>>         return format_jira_television(matches)
+    1:     if output_format == "television-preview":
+>>>>>>         return format_jira_preview(matches, getattr(args, "entry", None))
+    1:     return {
+    1:         "query": getattr(args, "query", None),
+    1:         "jql": getattr(args, "jql", None),
+    1:         "limit": getattr(args, "limit", 25),
+    1:         "statuses": getattr(args, "status", None) or [],
+    1:         "issue_types": getattr(args, "issue_type", None) or [],
+    1:         "assignee": getattr(args, "assignee", None),
+    1:         "reporter": getattr(args, "reporter", None),
+    1:         "order_by": getattr(args, "order_by", None) or [],
+    1:         "fields": getattr(args, "field", None) or [],
+    1:         "properties": getattr(args, "property", None) or [],
+    1:         "expand": getattr(args, "expand", None) or [],
+    1:         "fields_by_keys": getattr(args, "fields_by_keys", False),
+    1:         "matches": matches,
+           }
+       
+       
+    1: def cmd_sync(args: Namespace) -> dict:
+    5:     store = _store_from_args(args)
+    5:     store.initialize()
+    5:     key_name = getattr(args, "key", None)
+    5:     source_type = getattr(args, "source_type", None)
+    5:     matched_value = getattr(args, "match_value", None)
+       
+    5:     sources = store.list_collection_sources(key_name=key_name, source_type=source_type)
+    5:     if matched_value:
+    9:         sources = [source for source in sources if _matches_source(source, matched_value)]
+   10:     synced = [create_source_adapter(_prepare_source_for_sync(source, args), store).sync() for source in sources]
+    5:     return {"synced": synced}
        
        
     1: def cmd_export(args: Namespace) -> dict:
@@ -282,18 +550,20 @@
        
        
     1: def _matches_source(source: dict, value: str) -> bool:
-    9:     config = source.get("config", {})
-   18:     return value in {
-    9:         source.get("id"),
-    9:         source.get("title"),
-    9:         config.get("space"),
-    9:         config.get("space_key"),
-    9:         config.get("url"),
-    9:         config.get("repo_url"),
-    9:         config.get("video_url"),
-    9:         config.get("project"),
-    9:         config.get("workspace"),
-    9:         config.get("product"),
+   11:     config = source.get("config", {})
+   22:     return value in {
+   11:         source.get("id"),
+   11:         source.get("title"),
+   11:         config.get("space"),
+   11:         config.get("space_key"),
+   11:         config.get("channel"),
+   11:         config.get("url"),
+   11:         config.get("feed_url"),
+   11:         config.get("repo_url"),
+   11:         config.get("video_url"),
+   11:         config.get("project"),
+   11:         config.get("workspace"),
+   11:         config.get("product"),
            }
        
        
@@ -304,45 +574,11 @@
        
        
     1: def _prepare_source_for_sync(source: dict, args: Namespace) -> dict:
-   15:     prepared = {
-    5:         **source,
-    5:         "config": dict(source.get("config", {})),
+   18:     prepared = {
+    6:         **source,
+    6:         "config": dict(source.get("config", {})),
            }
-    5:     branch_override = getattr(args, "branch", None)
-    5:     if prepared.get("type") == "github" and branch_override:
+    6:     branch_override = getattr(args, "branch", None)
+    6:     if prepared.get("type") == "github" and branch_override:
     2:         prepared["_sync_branches"] = list(branch_override)
-    5:     return prepared
-       
-       
-    1: def _filter_confluence_sources_by_time_bounds(
->>>>>>     sources: list[dict],
-           *,
->>>>>>     start_time: str | None,
->>>>>>     end_time: str | None,
->>>>>> ) -> list[dict]:
-    3:     lower_bound = _parse_iso8601(start_time) if start_time else None
-    3:     upper_bound = _parse_iso8601(end_time) if end_time else None
-    3:     if lower_bound is None and upper_bound is None:
-    1:         return sources
-       
-    2:     matches: list[dict] = []
-    6:     for source in sources:
-    8:         candidate = _parse_iso8601(
-    6:             source.get("last_synced_at")
-    2:             or source.get("updated_at")
->>>>>>             or source.get("created_at")
-               )
-    4:         if candidate is None:
->>>>>>             continue
-    4:         if lower_bound and candidate < lower_bound:
-    2:             continue
-    2:         if upper_bound and candidate > upper_bound:
->>>>>>             continue
-    2:         matches.append(source)
-    2:     return matches
-       
-       
-    1: def _parse_iso8601(value: str | None) -> datetime | None:
-    9:     if not value:
->>>>>>         return None
-    9:     return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    6:     return prepared

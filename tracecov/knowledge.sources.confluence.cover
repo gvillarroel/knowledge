@@ -1,5 +1,9 @@
     1: from __future__ import annotations
        
+    1: from html import unescape
+    1: from html.parser import HTMLParser
+    1: import re
+    1: from typing import Any
     1: from urllib.parse import urljoin
        
     1: import requests
@@ -8,39 +12,422 @@
        
        
     2: class ConfluenceSource(SourceAdapter):
+    1:     """Adapter that synchronizes pages from a Confluence space."""
+       
     1:     def sync(self) -> dict[str, object]:
-    1:         base_url = self.config["base_url"].rstrip("/") + "/"
-    1:         auth = self._auth()
-    1:         space_key = self.config["space_key"]
-    1:         limit = int(self.config.get("limit", 100))
+    2:         base_url = self.config["base_url"].rstrip("/") + "/"
+    2:         auth = self._auth()
+    2:         space_key = self.config["space_key"]
+    2:         limit = int(self.config.get("limit", 100))
        
-    2:         response = requests.get(
-    1:             urljoin(base_url, "wiki/api/v2/pages"),
-    1:             headers={"Accept": "application/json"},
-    1:             params={"space-key": space_key, "limit": limit, "body-format": "storage"},
-    1:             auth=auth,
-    1:             timeout=60,
-               )
-    1:         response.raise_for_status()
-    1:         data = response.json()
-    1:         results = data.get("results", [])
+    2:         pages: list[dict[str, object]] = []
+    2:         next_url = urljoin(base_url, "wiki/api/v2/pages")
+    2:         params: dict[str, object] | None = {
+    2:             "space-key": space_key,
+    2:             "limit": limit,
+    2:             "body-format": "storage",
+               }
+    5:         while next_url:
+    6:             response = requests.get(
+    3:                 next_url,
+    3:                 headers={"Accept": "application/json"},
+    3:                 params=params,
+    3:                 auth=auth,
+    3:                 timeout=60,
+                   )
+    3:             response.raise_for_status()
+    3:             data = response.json()
+    3:             pages.extend(data.get("results", []))
        
-    1:         self.write_json(self.raw_dir / "pages.json", data)
-    2:         for page in results:
-    1:             page_id = page["id"]
-    1:             body = page.get("body", {}).get("storage", {}).get("value", "")
-    1:             self.write_text(self.raw_dir / "pages" / f"{page_id}.html", body)
-    1:             self.write_json(self.raw_dir / "pages" / f"{page_id}.json", page)
+    3:             next_path = data.get("_links", {}).get("next")
+    3:             next_url = urljoin(base_url, next_path) if next_path else ""
+    3:             params = None
        
-    2:         return self.finalize_sync(
-    1:             {
-    1:                 "pages": len(results),
-    1:                 "space_key": space_key,
-    1:                 "raw_dir": str(self.raw_dir),
+    2:         self.clear_source_dir()
+    5:         for page in pages:
+    3:             page_id = page["id"]
+    3:             storage_body = page.get("body", {}).get("storage", {}).get("value", "")
+    3:             body = confluence_storage_to_markdown(storage_body)
+    3:             title = str(page.get("title") or f"Page {page_id}")
+   51:             frontmatter = {
+    3:                 "title": title,
+    3:                 "knowledge_key": self.source["key"],
+    3:                 "source_id": self.source["id"],
+    3:                 "source_type": self.source["type"],
+    3:                 "document_id": str(page_id),
+    3:                 "space_key": space_key,
+    3:                 "space_id": page.get("spaceId"),
+    3:                 "status": page.get("status"),
+    3:                 "author_id": page.get("authorId"),
+    3:                 "owner_id": page.get("ownerId"),
+    3:                 "parent_id": page.get("parentId"),
+    3:                 "parent_type": page.get("parentType"),
+    3:                 "created_at": page.get("createdAt"),
+    3:                 "updated_at": page.get("version", {}).get("createdAt") or page.get("updatedAt"),
+    3:                 "version_number": (page.get("version", {}) or {}).get("number"),
+    3:                 "web_url": _page_url(base_url, page),
+                   }
+    3:             self.write_markdown(self.raw_dir / f"{page_id}-{_slugify(title)}.md", frontmatter, body)
+       
+    4:         return self.finalize_sync(
+    2:             {
+    2:                 "pages": len(pages),
+    2:                 "space_key": space_key,
+    2:                 "raw_dir": str(self.raw_dir),
                    }
                )
        
     1:     def _auth(self) -> tuple[str, str]:
-    1:         username = self.store.resolve_key(self.config["username"])
-    1:         token = self.store.resolve_key(self.config["token"])
-    1:         return (username, token)
+    2:         username = self.store.resolve_key(self.config["username"])
+    2:         token = self.store.resolve_key(self.config["token"])
+    2:         return (username, token)
+       
+       
+   14: def search_confluence(
+           *,
+>>>>>>     base_url: str,
+>>>>>>     username: str,
+>>>>>>     token: str,
+    1:     query: str | None = None,
+    1:     cql: str | None = None,
+    1:     space: str | None = None,
+    1:     content_type: str | None = None,
+    1:     labels: list[str] | None = None,
+    1:     title_contains: str | None = None,
+    1:     text_contains: str | None = None,
+    1:     created_after: str | None = None,
+    1:     created_before: str | None = None,
+    1:     updated_after: str | None = None,
+    1:     updated_before: str | None = None,
+    1:     limit: int = 25,
+    1:     cursor: str | None = None,
+>>>>>> ) -> dict[str, object]:
+   12:     compiled_cql = cql or _build_cql(
+    6:         query=query,
+    6:         space=space,
+    6:         content_type=content_type,
+    6:         labels=labels,
+    6:         title_contains=title_contains,
+    6:         text_contains=text_contains,
+    6:         created_after=created_after,
+    6:         created_before=created_before,
+    6:         updated_after=updated_after,
+    6:         updated_before=updated_before,
+           )
+    5:     params: dict[str, object] = {
+    5:         "cql": compiled_cql,
+    5:         "limit": limit,
+           }
+    5:     if cursor:
+    1:         params["cursor"] = cursor
+       
+   10:     response = requests.get(
+    5:         urljoin(base_url.rstrip("/") + "/", "wiki/rest/api/search"),
+    5:         headers={"Accept": "application/json"},
+    5:         params=params,
+    5:         auth=(username, token),
+    5:         timeout=60,
+           )
+    5:     response.raise_for_status()
+    5:     payload = response.json()
+    5:     return {
+    5:         "query": query,
+    5:         "cql": compiled_cql,
+    5:         "limit": limit,
+    5:         "cursor": cursor,
+    5:         "results": payload.get("results", []),
+    5:         "next_cursor": _next_cursor(payload),
+           }
+       
+       
+    1: def _slugify(value: str) -> str:
+    3:     normalized = re.sub(r"[^A-Za-z0-9._-]+", "-", value).strip("-").lower()
+    3:     return normalized or "page"
+       
+       
+    1: def _page_url(base_url: str, page: dict[str, object]) -> str | None:
+    3:     links = page.get("_links", {}) if isinstance(page, dict) else {}
+    3:     webui = links.get("webui") if isinstance(links, dict) else None
+    3:     if isinstance(webui, str) and webui:
+>>>>>>         return urljoin(base_url, webui)
+    3:     return None
+       
+       
+    1: def _quote_cql(value: str) -> str:
+   16:     return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+       
+       
+    1: def _build_cql(
+           *,
+>>>>>>     query: str | None,
+>>>>>>     space: str | None,
+>>>>>>     content_type: str | None,
+>>>>>>     labels: list[str] | None,
+>>>>>>     title_contains: str | None,
+>>>>>>     text_contains: str | None,
+>>>>>>     created_after: str | None,
+>>>>>>     created_before: str | None,
+>>>>>>     updated_after: str | None,
+>>>>>>     updated_before: str | None,
+>>>>>> ) -> str:
+    6:     clauses: list[str] = []
+    6:     effective_text = text_contains or query
+    6:     if effective_text:
+    4:         clauses.append(f"text ~ {_quote_cql(effective_text)}")
+    6:     if title_contains:
+    1:         clauses.append(f"title ~ {_quote_cql(title_contains)}")
+    6:     if space:
+    4:         clauses.append(f"space = {_quote_cql(space)}")
+    6:     if content_type:
+    1:         clauses.append(f"type = {_quote_cql(content_type)}")
+    8:     for label in labels or []:
+    2:         clauses.append(f"label = {_quote_cql(label)}")
+    6:     if created_after:
+    1:         clauses.append(f'created >= {_quote_cql(created_after)}')
+    6:     if created_before:
+    1:         clauses.append(f'created <= {_quote_cql(created_before)}')
+    6:     if updated_after:
+    1:         clauses.append(f'lastmodified >= {_quote_cql(updated_after)}')
+    6:     if updated_before:
+    1:         clauses.append(f'lastmodified <= {_quote_cql(updated_before)}')
+    6:     if not clauses:
+    1:         raise ValueError("confluence search requires a query, --text-contains, --title-contains, or --cql")
+    5:     return " AND ".join(clauses)
+       
+       
+    1: def _next_cursor(payload: dict[str, object]) -> str | None:
+    5:     links = payload.get("_links", {}) if isinstance(payload, dict) else {}
+    5:     next_link = links.get("next") if isinstance(links, dict) else None
+    5:     if not isinstance(next_link, str) or "cursor=" not in next_link:
+    2:         return None
+    3:     return next_link.rsplit("cursor=", 1)[-1].split("&", 1)[0]
+       
+       
+    1: def confluence_storage_to_markdown(payload: str) -> str:
+    6:     parser = _ConfluenceStorageParser()
+    6:     parser.feed(payload)
+    6:     parser.close()
+    6:     return parser.render()
+       
+       
+    2: class _ConfluenceStorageParser(HTMLParser):
+    1:     def __init__(self) -> None:
+    6:         super().__init__(convert_charrefs=True)
+    6:         self.parts: list[str] = []
+    6:         self.list_stack: list[str] = []
+    6:         self.link_stack: list[str | None] = []
+    6:         self.blockquote_depth = 0
+    6:         self.preformatted = False
+    6:         self.code_block = False
+       
+    1:     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+   26:         handler = _CONFLUENCE_START.get(tag)
+   26:         if handler is not None:
+   21:             handler(self, attrs)
+       
+    1:     def handle_endtag(self, tag: str) -> None:
+   26:         handler = _CONFLUENCE_END.get(tag)
+   26:         if handler is not None:
+   19:             handler(self)
+       
+           # -- Start-tag handlers ------------------------------------------------
+       
+    1:     def _start_block(self, _attrs: list[tuple[str, str | None]]) -> None:
+    7:         self._ensure_block_break()
+       
+    1:     def _start_br(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self.parts.append("\n")
+       
+    1:     def _start_bold(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self.parts.append("**")
+       
+    1:     def _start_italic(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self.parts.append("*")
+       
+    1:     def _start_code(self, _attrs: list[tuple[str, str | None]]) -> None:
+    2:         if self.preformatted:
+    1:             return
+    1:         self.parts.append("`")
+       
+    1:     def _start_pre(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._ensure_block_break()
+    1:         self.preformatted = True
+    1:         self.code_block = True
+    1:         self.parts.append("```\n")
+       
+    1:     def _start_heading(self, _attrs: list[tuple[str, str | None]], tag: str = "h1") -> None:
+    1:         self._ensure_block_break()
+    1:         self.parts.append("#" * int(tag[1]) + " ")
+       
+    1:     def _start_list(self, _attrs: list[tuple[str, str | None]], tag: str = "ul") -> None:
+    1:         self._ensure_block_break()
+    1:         self.list_stack.append(tag)
+       
+    1:     def _start_li(self, _attrs: list[tuple[str, str | None]]) -> None:
+    2:         indent = "  " * max(len(self.list_stack) - 1, 0)
+    2:         marker = "- " if (self.list_stack[-1:] and self.list_stack[-1] == "ul") else "1. "
+    2:         self.parts.append(f"{indent}{marker}")
+       
+    1:     def _start_blockquote(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._ensure_block_break()
+    1:         self.blockquote_depth += 1
+    1:         self.parts.append("> " * self.blockquote_depth)
+       
+    1:     def _start_a(self, attrs: list[tuple[str, str | None]]) -> None:
+    1:         attrs_dict = dict(attrs)
+    1:         self.link_stack.append(attrs_dict.get("href"))
+    1:         self.parts.append("[")
+       
+    1:     def _start_hr(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._ensure_block_break()
+    1:         self.parts.append("---\n\n")
+       
+    1:     def _start_structured_macro(self, attrs: list[tuple[str, str | None]]) -> None:
+    1:         attrs_dict = dict(attrs)
+    1:         if attrs_dict.get("ac:name") in {"code", "noformat"}:
+    1:             self._ensure_block_break()
+    1:             self.preformatted = True
+    1:             self.code_block = True
+    1:             self.parts.append("```\n")
+       
+           # -- End-tag handlers --------------------------------------------------
+       
+    1:     def _end_block(self) -> None:
+    7:         self._ensure_block_break()
+       
+    1:     def _end_bold(self) -> None:
+    1:         self.parts.append("**")
+       
+    1:     def _end_italic(self) -> None:
+    1:         self.parts.append("*")
+       
+    1:     def _end_code(self) -> None:
+    2:         if self.preformatted:
+    1:             return
+    1:         self.parts.append("`")
+       
+    1:     def _end_pre(self) -> None:
+    1:         self.parts.append("\n```")
+    1:         self.preformatted = False
+    1:         self.code_block = False
+    1:         self._ensure_block_break()
+       
+    1:     def _end_heading(self) -> None:
+    1:         self._ensure_block_break()
+       
+    1:     def _end_list(self) -> None:
+    1:         if self.list_stack:
+    1:             self.list_stack.pop()
+    1:         self._ensure_block_break()
+       
+    1:     def _end_li(self) -> None:
+    2:         self.parts.append("\n")
+       
+    1:     def _end_blockquote(self) -> None:
+    1:         self.blockquote_depth = max(self.blockquote_depth - 1, 0)
+    1:         self._ensure_block_break()
+       
+    1:     def _end_a(self) -> None:
+    1:         href = self.link_stack.pop() if self.link_stack else None
+    1:         self.parts.append(f"]({href})" if href else "]")
+       
+    1:     def _end_structured_macro(self) -> None:
+    1:         if self.code_block:
+    1:             self.parts.append("\n```")
+    1:             self.preformatted = False
+    1:             self.code_block = False
+    1:             self._ensure_block_break()
+       
+    1:     def handle_data(self, data: str) -> None:
+   23:         if not data:
+>>>>>>             return
+   23:         text = unescape(data)
+   23:         if self.preformatted:
+    2:             self.parts.append(text)
+    2:             return
+   21:         collapsed = re.sub(r"\s+", " ", text)
+   21:         if collapsed.strip():
+   21:             self.parts.append(collapsed)
+       
+    1:     def render(self) -> str:
+    6:         text = "".join(self.parts)
+    6:         text = text.replace("\\n", "\n")
+    6:         text = re.sub(r">\s*\n\n", "> ", text)
+    6:         text = _normalize_task_artifacts(text)
+    6:         text = re.sub(r"\n{3,}", "\n\n", text)
+    6:         text = re.sub(r"[ \t]+\n", "\n", text)
+    6:         return text.strip() or "No content."
+       
+    1:     def _ensure_block_break(self) -> None:
+   25:         current = "".join(self.parts[-2:])
+   25:         if not current.endswith("\n\n"):
+   18:             if current.endswith("\n"):
+    1:                 self.parts.append("\n")
+                   else:
+   17:                 self.parts.append("\n\n")
+       
+       
+    1: def _normalize_task_artifacts(text: str) -> str:
+           """Normalize Confluence task list artifacts into Markdown checkboxes."""
+   12:     text = re.sub(
+    6:         r"\n\s*\d+\s*\n(incomplete|complete)\s*\n([^\n]+?)(?:\n\s*\n|\Z)",
+    7:         lambda match: "\n- [{}] {}\n\n".format(" " if match.group(1) == "incomplete" else "x", match.group(2).strip()),
+    6:         text,
+    6:         flags=re.IGNORECASE,
+           )
+    6:     return text
+       
+       
+       # -- Confluence parser dispatch tables -----------------------------------
+       
+    1: def _make_confluence_heading_start(t: str):  # noqa: ANN202
+           """Create a start-tag handler for heading ``t`` (e.g. ``h1``)."""
+    6:     def handler(self: _ConfluenceStorageParser, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._start_heading(_attrs, tag=t)
+    6:     return handler
+       
+       
+    1: def _make_confluence_list_start(t: str):  # noqa: ANN202
+           """Create a start-tag handler for list type ``t`` (``ul`` or ``ol``)."""
+    2:     def handler(self: _ConfluenceStorageParser, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._start_list(_attrs, tag=t)
+    2:     return handler
+       
+       
+    3: _CONFLUENCE_START: dict[str, Any] = {
+    1:     "p": _ConfluenceStorageParser._start_block,
+    1:     "div": _ConfluenceStorageParser._start_block,
+    1:     "br": _ConfluenceStorageParser._start_br,
+    1:     "strong": _ConfluenceStorageParser._start_bold,
+    1:     "b": _ConfluenceStorageParser._start_bold,
+    1:     "em": _ConfluenceStorageParser._start_italic,
+    1:     "i": _ConfluenceStorageParser._start_italic,
+    1:     "code": _ConfluenceStorageParser._start_code,
+    1:     "pre": _ConfluenceStorageParser._start_pre,
+    1:     "li": _ConfluenceStorageParser._start_li,
+    1:     "blockquote": _ConfluenceStorageParser._start_blockquote,
+    1:     "a": _ConfluenceStorageParser._start_a,
+    1:     "hr": _ConfluenceStorageParser._start_hr,
+    1:     "ac:structured-macro": _ConfluenceStorageParser._start_structured_macro,
+    7:     **{f"h{i}": _make_confluence_heading_start(f"h{i}") for i in range(1, 7)},
+    1:     "ul": _make_confluence_list_start("ul"),
+    1:     "ol": _make_confluence_list_start("ol"),
+       }
+       
+    2: _CONFLUENCE_END: dict[str, Any] = {
+    1:     "p": _ConfluenceStorageParser._end_block,
+    1:     "div": _ConfluenceStorageParser._end_block,
+    1:     "strong": _ConfluenceStorageParser._end_bold,
+    1:     "b": _ConfluenceStorageParser._end_bold,
+    1:     "em": _ConfluenceStorageParser._end_italic,
+    1:     "i": _ConfluenceStorageParser._end_italic,
+    1:     "code": _ConfluenceStorageParser._end_code,
+    1:     "pre": _ConfluenceStorageParser._end_pre,
+    1:     "li": _ConfluenceStorageParser._end_li,
+    1:     "blockquote": _ConfluenceStorageParser._end_blockquote,
+    1:     "a": _ConfluenceStorageParser._end_a,
+    1:     "ac:structured-macro": _ConfluenceStorageParser._end_structured_macro,
+    1:     "ul": _ConfluenceStorageParser._end_list,
+    1:     "ol": _ConfluenceStorageParser._end_list,
+    7:     **{f"h{i}": _ConfluenceStorageParser._end_heading for i in range(1, 7)},
+       }

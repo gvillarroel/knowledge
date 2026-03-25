@@ -1,0 +1,123 @@
+    1: from __future__ import annotations
+       
+    1: import json
+    1: import shlex
+    1: from pathlib import Path
+       
+    1: from .base import SourceAdapter
+       
+       
+    2: class TelevisionSource(SourceAdapter):
+    1:     """Adapter that generates Television channel definitions for ``tv``."""
+       
+    1:     def sync(self) -> dict[str, object]:
+    2:         self.clear_source_dir()
+       
+    2:         channel_name = self.config.get("channel") or self.source["title"]
+    2:         channel_slug = self.source["id"].removeprefix("television-")
+    2:         channel_path = self.raw_dir / f"{channel_slug}.toml"
+    2:         manifest_path = self.raw_dir / "commands.json"
+    2:         readme_path = self.raw_dir / "README.md"
+       
+    2:         self.write_text(channel_path, self._build_channel_toml(channel_name))
+    4:         self.write_json(
+    2:             manifest_path,
+    2:             {
+    2:                 "channel": channel_name,
+    2:                 "channel_file": str(channel_path),
+    2:                 "commands": self._build_command_manifest(channel_name, channel_path),
+                   },
+               )
+    2:         self.write_text(readme_path, self._build_readme(channel_name, channel_path))
+       
+    4:         return self.finalize_sync(
+    2:             {
+    2:                 "channel": channel_name,
+    2:                 "files": 3,
+    2:                 "channel_file": str(channel_path),
+                   }
+               )
+       
+    1:     def _build_channel_toml(self, channel_name: str) -> str:
+    2:         lines = [
+    2:             "[metadata]",
+    2:             f'name = "{_escape_toml(channel_name)}"',
+    2:             f'description = "{_escape_toml(self.config.get("description") or "")}"',
+    2:             "",
+    2:             "[source]",
+    2:             f'command = "{_escape_toml(self.config["source_command"])}"',
+               ]
+    2:         source_display = self.config.get("source_display")
+    2:         if source_display:
+>>>>>>             lines.append(f'display = "{_escape_toml(source_display)}"')
+    2:         preview_command = self.config.get("preview_command")
+    2:         if preview_command:
+    4:             lines.extend(
+    2:                 [
+    2:                     "",
+    2:                     "[preview]",
+    2:                     f'command = "{_escape_toml(preview_command)}"',
+                       ]
+                   )
+    2:         action_command = self.config.get("action_command")
+    2:         if action_command:
+    4:             lines.extend(
+    2:                 [
+    2:                     "",
+    2:                     "[keybindings]",
+    2:                     'ctrl-o = "actions:open"',
+    2:                     "",
+    2:                     "[actions.open]",
+    2:                     f'command = "{_escape_toml(action_command)}"',
+    2:                     'mode = "execute"',
+                       ]
+                   )
+    2:         return "\n".join(lines) + "\n"
+       
+    1:     def _build_command_manifest(self, channel_name: str, channel_path: Path) -> dict[str, str]:
+    4:         cable_path = f"~/.config/television/cable/{channel_path.name}"
+    4:         quoted_channel_path = _shell_quote(str(channel_path))
+    4:         return {
+    4:             "sync": self.source["update_command"],
+    4:             "install_unix": f"mkdir -p ~/.config/television/cable && cp {quoted_channel_path} {cable_path}",
+    4:             "install_powershell": (
+    8:                 "New-Item -ItemType Directory -Force -Path "
+                       "$HOME/.config/television/cable | Out-Null; "
+    4:                 f'Copy-Item -Force "{channel_path}" "$HOME/.config/television/cable/{channel_path.name}"'
+                   ),
+    4:             "run_after_install": f"tv {channel_name}",
+    4:             "run_inline": self._build_inline_run_command(),
+               }
+       
+    1:     def _build_inline_run_command(self) -> str:
+    4:         parts = ["tv", f"--source-command={_shell_quote(self.config['source_command'])}"]
+    4:         source_display = self.config.get("source_display")
+    4:         if source_display:
+>>>>>>             parts.append(f"--source-display={_shell_quote(source_display)}")
+    4:         preview_command = self.config.get("preview_command")
+    4:         if preview_command:
+    4:             parts.append(f"--preview-command={_shell_quote(preview_command)}")
+    4:         return " ".join(parts)
+       
+    1:     def _build_readme(self, channel_name: str, channel_path: Path) -> str:
+    2:         commands = self._build_command_manifest(channel_name, channel_path)
+    2:         payload = json.dumps(commands, indent=2, sort_keys=True)
+    2:         return (
+    4:             f"# Television channel: {channel_name}\n\n"
+                   "This directory contains a reproducible Television channel definition generated by `know`.\n\n"
+    2:             f"- Channel file: `{channel_path.name}`\n"
+    2:             f"- Sync command: `{self.source['update_command']}`\n"
+    2:             f"- Delete command: `{self.source['delete_command']}`\n\n"
+                   "## Commands\n\n"
+                   "```json\n"
+    2:             f"{payload}\n"
+                   "```\n"
+               )
+       
+       
+    1: def _escape_toml(value: str) -> str:
+   10:     return value.replace("\\", "\\\\").replace('"', '\\"')
+       
+       
+    1: def _shell_quote(value: str) -> str:
+   12:     return shlex.quote(value)

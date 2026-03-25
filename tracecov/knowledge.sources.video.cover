@@ -20,6 +20,8 @@
        
        
     2: class VideoSource(SourceAdapter):
+    1:     """Adapter that fetches YouTube transcripts via the Transcript API."""
+       
     1:     def sync(self) -> dict[str, object]:
     2:         video_url = self.config["url"]
     2:         video_id = extract_video_id(video_url)
@@ -81,15 +83,15 @@
        
        
     1: def extract_video_id(value: str) -> str:
-    7:     parsed = urlparse(value)
-    7:     if parsed.netloc in {"youtu.be", "www.youtu.be"}:
-    1:         return parsed.path.strip("/")
-    6:     query_id = parse_qs(parsed.query).get("v")
-    6:     if query_id:
+   10:     parsed = urlparse(value)
+   10:     if parsed.netloc in {"youtu.be", "www.youtu.be"}:
+    2:         return parsed.path.strip("/")
+    8:     query_id = parse_qs(parsed.query).get("v")
+    8:     if query_id:
     5:         return query_id[0]
-    1:     if parsed.path.startswith("/shorts/"):
-    1:         return parsed.path.split("/shorts/", 1)[1].split("/", 1)[0]
->>>>>>     candidate = parsed.path.strip("/").split("/")[-1]
->>>>>>     if candidate:
+    3:     if parsed.path.startswith("/shorts/"):
+    2:         return parsed.path.split("/shorts/", 1)[1].split("/", 1)[0]
+    1:     candidate = parsed.path.strip("/").split("/")[-1]
+    1:     if candidate:
 >>>>>>         return candidate
->>>>>>     raise ValueError(f"could not extract video id from '{value}'")
+    1:     raise ValueError(f"could not extract video id from '{value}'")

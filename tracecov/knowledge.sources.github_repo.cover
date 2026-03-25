@@ -39,6 +39,8 @@
        
        
     2: class GitHubRepoSource(SourceAdapter):
+    1:     """Adapter that clones and extracts text files from a Git repository."""
+       
     1:     def sync(self) -> dict[str, object]:
     2:         repo_url = self.config["repo_url"]
     2:         branches = self.source.get("_sync_branches") or self.config.get("branches", ["HEAD"])

@@ -1,0 +1,9 @@
+[metadata]
+name = "know-arxiv"
+description = "Search arXiv papers"
+
+[source]
+command = "know search arxiv \"all:machine learning\" --format television --max-results 20 --sort-by submittedDate"
+
+[preview]
+command = "know search arxiv \"all:machine learning\" --format television-preview --max-results 20 --sort-by submittedDate --entry '{}'"

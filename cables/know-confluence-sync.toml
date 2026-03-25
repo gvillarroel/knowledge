@@ -1,0 +1,19 @@
+[metadata]
+name = "know-confluence-sync"
+description = "Browse Confluence pages with sync status (green=downloaded, yellow=pending)"
+
+[source]
+command = "know browse confluence --format television"
+
+[preview]
+command = "know browse confluence --format television-preview --entry '{}'"
+
+[ui]
+ansi = true
+
+[keybindings]
+enter = "actions:sync-and-browse"
+
+[actions.sync-and-browse]
+command = "know sync --key $(echo '{}' | grep -oP 'knowledge_key: \\K.*') 2>/dev/null; tv know-confluence-sync"
+mode = "execute"

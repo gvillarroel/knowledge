@@ -12,4 +12,11 @@ The skill instructs agents to:
 - update tests for every CLI or metadata change;
 - run `pytest` after implementation.
 
+The skill is also the right place to check expected patterns for Television-oriented documentation and examples, including:
+
+- `know add television ... --source-command ... --preview-command ...`
+- `know list keys --format television`
+- `know list sources --format television`
+- `know search arxiv ... --format television`
+
 This document exists for human discoverability. The executable instructions for Codex live in `skills/know/SKILL.md`.

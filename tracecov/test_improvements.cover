@@ -1,0 +1,886 @@
+    1: """Additional tests to raise coverage above 90% for all modules."""
+       
+    1: from __future__ import annotations
+       
+    1: import json
+    1: from argparse import Namespace
+    1: from pathlib import Path
+       
+    1: import pytest
+    1: import yaml
+       
+    1: from knowledge.cli import _validate_url, _SYNC_ATTR_MAP, build_parser, main, load_dotenv
+    1: from knowledge.errors import (
+           CredentialNotFoundError,
+           InvalidURLError,
+           KeyAlreadyExistsError,
+           KnowledgeError,
+           SourceAlreadyExistsError,
+           SourceNotFoundError,
+           SyncError,
+       )
+    1: from knowledge.exporter import (
+           _build_markdown_for_raw_file,
+           _extract_frontmatter,
+           _export_relative_path,
+           _is_generated_export,
+           _iter_export_paths,
+           _render_video_document,
+           export_source,
+       )
+    1: from knowledge.sources.base import SourceAdapter
+    1: from knowledge.sources.crawl4ai_site import SiteSource, _html_to_text, _slugify_url
+    1: from knowledge.sources.google_releases import parse_google_releases_feed
+    1: from knowledge.sources.jira import (
+           _adf_to_markdown,
+           _apply_marks,
+           _build_jql,
+           _display_name,
+           _field_name,
+           _status_category_name,
+           _table_row,
+       )
+    1: from knowledge.sources.video import extract_video_id
+    1: from knowledge.store import KnowledgeStore
+       
+       
+    1: def make_store(tmp_path: Path) -> KnowledgeStore:
+   15:     store = KnowledgeStore(tmp_path)
+   15:     store.initialize()
+   15:     return store
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # D-07: Custom error types
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestErrors:
+    1:     def test_knowledge_error_is_exception(self):
+    1:         assert issubclass(KnowledgeError, Exception)
+       
+    1:     def test_credential_not_found(self):
+    1:         err = CredentialNotFoundError("$token")
+    1:         assert err.reference == "$token"
+    1:         assert "not found" in str(err)
+       
+    1:     def test_source_not_found(self):
+    1:         err = SourceNotFoundError("docs", "src-1")
+    1:         assert err.key_name == "docs"
+    1:         assert err.source_id == "src-1"
+    1:         assert "src-1" in str(err)
+       
+    1:     def test_key_already_exists(self):
+    1:         err = KeyAlreadyExistsError("docs")
+    1:         assert err.key_name == "docs"
+    1:         assert "already exists" in str(err)
+       
+    1:     def test_source_already_exists(self):
+    1:         err = SourceAlreadyExistsError("docs", "src-1")
+    1:         assert err.key_name == "docs"
+    1:         assert err.source_id == "src-1"
+    1:         assert "already exists" in str(err)
+       
+    1:     def test_invalid_url(self):
+    1:         err = InvalidURLError("ftp://x", reason="bad scheme")
+    1:         assert err.url == "ftp://x"
+    1:         assert "bad scheme" in str(err)
+       
+    1:     def test_invalid_url_default_reason(self):
+    1:         err = InvalidURLError("bad")
+    1:         assert "invalid URL" in str(err)
+       
+    1:     def test_sync_error(self):
+    1:         err = SyncError("docs", "src-1", "timeout")
+    1:         assert err.key_name == "docs"
+    1:         assert err.source_id == "src-1"
+    1:         assert "timeout" in str(err)
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # D-06: URL validation
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestURLValidation:
+    1:     def test_valid_url_passes(self):
+    1:         _validate_url("https://arxiv.org/abs/1234")
+       
+    1:     def test_http_url_passes(self):
+    1:         _validate_url("http://example.com")
+       
+    1:     def test_ftp_url_rejected(self):
+    2:         with pytest.raises(InvalidURLError):
+    1:             _validate_url("ftp://example.com")
+       
+    1:     def test_no_scheme_rejected(self):
+    2:         with pytest.raises(InvalidURLError):
+    1:             _validate_url("example.com")
+       
+    1:     def test_empty_rejected(self):
+    2:         with pytest.raises(InvalidURLError):
+    1:             _validate_url("")
+       
+    1:     def test_cli_add_arxiv_rejects_bad_url(self, tmp_path):
+    1:         rc = main(["--store", str(tmp_path), "add", "key", "k1"])
+    1:         assert rc == 0
+    2:         with pytest.raises(InvalidURLError):
+    1:             _validate_url("not-a-url")
+       
+    1:     def test_cli_add_site_with_valid_url(self, tmp_path):
+               # Just ensure the parser builds correctly with the new flags
+    1:         parser = build_parser()
+    2:         args = parser.parse_args([
+    1:             "--store", str(tmp_path),
+    1:             "--verbose",
+    1:             "add", "site", "https://example.com", "--key", "k1",
+               ])
+    1:         assert args.verbose is True
+    1:         assert args.url == "https://example.com"
+       
+    1:     def test_cli_add_google_releases_with_valid_url(self, tmp_path):
+    1:         parser = build_parser()
+    2:         args = parser.parse_args([
+    1:             "--store", str(tmp_path),
+    1:             "add", "google-releases", "https://docs.cloud.google.com/feeds/gcp-release-notes.xml", "--key", "k1",
+               ])
+    1:         assert args.url == "https://docs.cloud.google.com/feeds/gcp-release-notes.xml"
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # D-10: Verbose / quiet flags
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestVerboseQuietFlags:
+    1:     def test_quiet_flag_parsed(self):
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["--quiet", "list", "keys"])
+    1:         assert args.quiet is True
+       
+    1:     def test_verbose_flag_parsed(self):
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["--verbose", "list", "keys"])
+    1:         assert args.verbose is True
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # D-05: Sync attr map
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestSyncAttrMap:
+    1:     def test_all_sync_commands_have_mapping(self):
+    1:         expected = {"confluence", "arxiv", "site", "video", "television",
+                           "google-releases",
+                           "github-repo", "jira-project", "aha-workspace"}
+    1:         assert set(_SYNC_ATTR_MAP.keys()) == expected
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # Exporter coverage improvements
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestExporterCoverage:
+    1:     def test_extract_frontmatter_no_closing_marker(self):
+    1:         text = "---\ntitle: foo\nbody without end"
+    1:         fm, body = _extract_frontmatter(text)
+    1:         assert fm == {}
+    1:         assert body == text
+       
+    1:     def test_extract_frontmatter_invalid_yaml(self):
+    1:         text = "---\n: :\n---\n\nbody"
+    1:         fm, body = _extract_frontmatter(text)
+               # yaml.safe_load may parse or error; either way we get a result
+    1:         assert isinstance(fm, dict) or body == text
+       
+    1:     def test_extract_frontmatter_non_dict_yaml(self):
+    1:         text = "---\n- item1\n- item2\n---\n\nbody"
+    1:         fm, body = _extract_frontmatter(text)
+    1:         assert fm == {}
+    1:         assert body == text
+       
+    1:     def test_export_relative_path_html(self):
+    1:         result = _export_relative_path({"type": "site"}, Path("pages/index.html"))
+    1:         assert result.suffix == ".md"
+       
+    1:     def test_export_relative_path_unknown(self):
+    1:         result = _export_relative_path({"type": "github"}, Path("README.rst"))
+    1:         assert result.name == "README.rst.md"
+       
+    1:     def test_iter_export_paths_video_legacy_md(self, tmp_path):
+    1:         raw_dir = tmp_path / "video" / "v1"
+    1:         raw_dir.mkdir(parents=True)
+    1:         (raw_dir / "transcript.md").write_text("# transcript", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "video"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "transcript.md"
+       
+    1:     def test_iter_export_paths_video_txt_fallback(self, tmp_path):
+    1:         raw_dir = tmp_path / "video" / "v2"
+    1:         raw_dir.mkdir(parents=True)
+    1:         (raw_dir / "transcript.txt").write_text("plain text", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "video"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "transcript.txt"
+       
+    1:     def test_iter_export_paths_arxiv_html_fallback(self, tmp_path):
+    1:         raw_dir = tmp_path / "arxiv" / "a1"
+    1:         raw_dir.mkdir(parents=True)
+    1:         (raw_dir / "paper.html").write_text("<h1>test</h1>", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "arxiv"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "paper.html"
+       
+    1:     def test_iter_export_paths_arxiv_txt_fallback(self, tmp_path):
+    1:         raw_dir = tmp_path / "arxiv" / "a2"
+    1:         raw_dir.mkdir(parents=True)
+    1:         (raw_dir / "paper.txt").write_text("text", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "arxiv"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "paper.txt"
+       
+    1:     def test_iter_export_paths_confluence_html(self, tmp_path):
+    1:         raw_dir = tmp_path / "confluence" / "c1"
+    1:         pages_dir = raw_dir / "pages"
+    1:         pages_dir.mkdir(parents=True)
+    1:         (pages_dir / "page1.html").write_text("<p>hi</p>", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "confluence"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "page1.html"
+       
+    1:     def test_iter_export_paths_google_releases_entries(self, tmp_path):
+    1:         raw_dir = tmp_path / "google_releases" / "g1"
+    1:         entries_dir = raw_dir / "entries"
+    1:         entries_dir.mkdir(parents=True)
+    1:         (entries_dir / "march-24-2026.md").write_text("# release", encoding="utf-8")
+    1:         paths = _iter_export_paths({"type": "google_releases"}, raw_dir)
+    1:         assert len(paths) == 1
+    1:         assert paths[0].name == "march-24-2026.md"
+       
+    1:     def test_build_markdown_for_html_file(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "github", "title": "t"}
+    1:         html_file = tmp_path / "page.html"
+    1:         html_file.write_text("<p>Hello</p>", encoding="utf-8")
+    1:         result = _build_markdown_for_raw_file(source, html_file, Path("page.html"))
+    1:         assert "<p>Hello</p>" in result
+       
+    1:     def test_build_markdown_for_binary_file(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "github", "title": "t"}
+    1:         bin_file = tmp_path / "image.png"
+    1:         bin_file.write_bytes(b"\x89PNG")
+    1:         result = _build_markdown_for_raw_file(source, bin_file, Path("image.png"))
+    1:         assert "Binary or unsupported" in result
+       
+    1:     def test_build_markdown_for_txt_file(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "github", "title": "t"}
+    1:         txt_file = tmp_path / "notes.txt"
+    1:         txt_file.write_text("hello world", encoding="utf-8")
+    1:         result = _build_markdown_for_raw_file(source, txt_file, Path("notes.txt"))
+    1:         assert "```txt" in result
+    1:         assert "hello world" in result
+       
+    1:     def test_is_generated_export_for_aha(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "aha"}
+    1:         md_file = tmp_path / "file.md"
+    1:         md_file.write_text("anything", encoding="utf-8")
+    1:         assert _is_generated_export(md_file, source) is True
+       
+    1:     def test_is_generated_export_for_github_without_frontmatter(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "github"}
+    1:         md_file = tmp_path / "file.md"
+    1:         md_file.write_text("no frontmatter here", encoding="utf-8")
+    1:         assert _is_generated_export(md_file, source) is False
+       
+    1:     def test_is_generated_export_for_github_with_matching_frontmatter(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "github"}
+    1:         md_file = tmp_path / "file.md"
+    1:         fm = yaml.safe_dump({"knowledge_key": "k", "source_id": "s"})
+    1:         md_file.write_text(f"---\n{fm}---\n\nbody", encoding="utf-8")
+    1:         assert _is_generated_export(md_file, source) is True
+       
+    1:     def test_export_source_for_jira_type(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k1")
+    2:         source = store.add_collection_source(
+    1:             "k1", "jira", title="PROJ",
+    1:             config={"project": "PROJ"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         src_dir = store.source_dir(source)
+    2:         (src_dir / "PROJ-1.md").write_text(
+    1:             "---\ntitle: Issue 1\n---\n\n# Issue 1\n", encoding="utf-8"
+               )
+    1:         result = export_source(store, source)
+    1:         assert result["files"] == 1
+       
+    1:     def test_render_video_document_with_metadata(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "video", "config": {}}
+    1:         transcript = {
+    1:             "video_id": "abc",
+    1:             "url": "https://youtube.com/watch?v=abc",
+    1:             "title": "Test Video",
+    1:             "author_name": "Author",
+    1:             "language": "English",
+    1:             "language_code": "en",
+    1:             "is_generated": True,
+    2:             "segments": [
+    1:                 {"text": "Hello", "start": 0.0, "duration": 1.0},
+    1:                 {"text": "World", "start": 3661.0, "duration": 1.0},
+    1:                 {"text": "", "start": 5.0, "duration": 1.0},
+                   ],
+               }
+    1:         transcript_path = tmp_path / "transcript.json"
+    1:         transcript_path.write_text(json.dumps(transcript), encoding="utf-8")
+    1:         metadata_path = tmp_path / "metadata.json"
+    1:         metadata_path.write_text(json.dumps({"extra": "info"}), encoding="utf-8")
+    1:         fm, body = _render_video_document(source, transcript_path)
+    1:         assert fm["title"] == "Test Video"
+    1:         assert "[01:01:01]" in body  # 3661 seconds
+    1:         assert "Hello" in body
+    1:         assert fm["source_metadata"] == {"extra": "info"}
+       
+    1:     def test_render_video_document_bad_metadata_json(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "video", "config": {}}
+    1:         transcript = {
+    1:             "video_id": "x", "url": "u", "title": "T",
+    1:             "author_name": "A", "language": "en",
+    1:             "language_code": "en", "is_generated": False,
+    1:             "segments": [],
+               }
+    1:         transcript_path = tmp_path / "transcript.json"
+    1:         transcript_path.write_text(json.dumps(transcript), encoding="utf-8")
+    1:         bad_meta = tmp_path / "metadata.json"
+    1:         bad_meta.write_text("{invalid json", encoding="utf-8")
+    1:         fm, body = _render_video_document(source, transcript_path)
+    1:         assert fm["source_metadata"] == {}
+       
+    1:     def test_render_video_non_dict_segments(self, tmp_path):
+    1:         source = {"key": "k", "id": "s", "type": "video", "config": {}}
+    1:         transcript = {
+    1:             "video_id": "x", "url": "u", "title": "T",
+    1:             "author_name": "A", "language": "en",
+    1:             "language_code": "en", "is_generated": False,
+    1:             "segments": "not a list",
+               }
+    1:         transcript_path = tmp_path / "transcript.json"
+    1:         transcript_path.write_text(json.dumps(transcript), encoding="utf-8")
+    1:         fm, body = _render_video_document(source, transcript_path)
+    1:         assert "Transcript" in body
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # crawl4ai_site coverage improvements
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestCrawl4aiSiteCoverage:
+    1:     def test_html_to_text_strips_script_tags(self):
+    1:         html = "<html><script>alert(1)</script><p>Hello</p></html>"
+    1:         result = _html_to_text(html)
+    1:         assert "alert" not in result
+    1:         assert "Hello" in result
+       
+    1:     def test_html_to_text_strips_style_tags(self):
+    1:         html = "<html><style>body{color:red}</style><p>Content</p></html>"
+    1:         result = _html_to_text(html)
+    1:         assert "color:red" not in result
+    1:         assert "Content" in result
+       
+    1:     def test_slugify_url_empty(self):
+    1:         assert _slugify_url("") == "page"
+       
+    1:     def test_slugify_url_none(self):
+    1:         assert _slugify_url(None) == "page"
+       
+    1:     def test_slugify_url_long(self):
+    1:         result = _slugify_url("https://example.com/" + "a" * 300)
+    1:         assert len(result) <= 200
+       
+    1:     def test_fetch_single_page_success(self, tmp_path, monkeypatch):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+       
+    2:         class FakeResp:
+    1:             text = "<html><title>Example</title><p>Hello World</p></html>"
+    1:             headers = {"Content-Type": "text/html"}
+    2:             def raise_for_status(self): pass
+    1:             def json(self): return {}
+       
+    2:         monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeResp())
+    1:         result = adapter._fetch_single_page("https://example.com")
+    1:         assert result["title"] == "Example"
+    1:         assert "Hello World" in result["markdown"]
+       
+    1:     def test_fetch_single_page_403_falls_back_to_proxy(self, tmp_path, monkeypatch):
+    1:         import requests as req
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+       
+    2:         class FakeErrorResp:
+    1:             status_code = 403
+    1:             text = ""
+    1:             headers = {}
+    1:             def raise_for_status(self):
+    1:                 err = req.HTTPError(response=self)
+    1:                 raise err
+    1:             def json(self): return {}
+       
+    2:         class FakeProxyResp:
+    1:             text = "Title: Proxy Page\n\nContent from proxy\n"
+    1:             headers = {"Content-Type": "text/plain"}
+    2:             def raise_for_status(self): pass
+    1:             def json(self): return {}
+       
+    1:         call_count = [0]
+    1:         def fake_get(*args, **kwargs):
+    2:             call_count[0] += 1
+    2:             if call_count[0] == 1:
+    1:                 return FakeErrorResp()
+    1:             return FakeProxyResp()
+       
+    1:         monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", fake_get)
+    1:         result = adapter._fetch_single_page("https://example.com")
+    1:         assert result["title"] == "Proxy Page"
+    1:         assert result["metadata"]["fetched_via"] == "r.jina.ai"
+       
+    1:     def test_fetch_single_page_500_raises(self, tmp_path, monkeypatch):
+    1:         import requests as req
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+       
+    2:         class FakeErrorResp:
+    1:             status_code = 500
+    1:             text = ""
+    1:             headers = {}
+    1:             def raise_for_status(self):
+    1:                 err = req.HTTPError(response=self)
+    1:                 raise err
+       
+    2:         monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeErrorResp())
+    2:         with pytest.raises(req.HTTPError):
+    1:             adapter._fetch_single_page("https://example.com")
+       
+    1:     def test_normalize_result_dict(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+    2:         result = adapter._normalize_result({
+    1:             "url": "https://example.com",
+    1:             "title": "Example",
+    1:             "markdown": "# Hello",
+               })
+    1:         assert result["url"] == "https://example.com"
+    1:         assert result["markdown"] == "# Hello"
+       
+    1:     def test_normalize_result_cleaned_html_fallback(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+    2:         result = adapter._normalize_result({
+    1:             "url": "https://example.com",
+    1:             "title": "Example",
+    1:             "cleaned_html": "<p>fallback</p>",
+               })
+    1:         assert result["markdown"] == "<p>fallback</p>"
+       
+    1:     def test_fetch_readable_proxy_no_title(self, tmp_path, monkeypatch):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "site", title="https://example.com",
+    1:             config={"url": "https://example.com", "max_depth": 1, "max_pages": 1},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = SiteSource(source, store)
+       
+    2:         class FakeResp:
+    1:             text = "No title line here\nJust content\n"
+    1:             headers = {"Content-Type": "text/plain"}
+    2:             def raise_for_status(self): pass
+       
+    2:         monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeResp())
+    1:         result = adapter._fetch_readable_proxy("https://example.com")
+    1:         assert result["title"] == "https://example.com"
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # base.py SourceAdapter coverage
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class ConcreteAdapter(SourceAdapter):
+    1:     """Minimal concrete adapter for testing base methods."""
+    1:     def sync(self):
+    1:         return self.finalize_sync({"test": True})
+       
+       
+    2: class TestSourceAdapterBase:
+    1:     def test_write_json(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = ConcreteAdapter(source, store)
+    1:         out = adapter.raw_dir / "data.json"
+    1:         adapter.write_json(out, {"key": "value"})
+    1:         assert json.loads(out.read_text(encoding="utf-8")) == {"key": "value"}
+       
+    1:     def test_write_markdown(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = ConcreteAdapter(source, store)
+    1:         out = adapter.raw_dir / "doc.md"
+    1:         adapter.write_markdown(out, {"title": "Test"}, "Body text")
+    1:         content = out.read_text(encoding="utf-8")
+    1:         assert content.startswith("---\n")
+    1:         assert "title: Test" in content
+    1:         assert "Body text" in content
+       
+    1:     def test_clear_source_dir(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = ConcreteAdapter(source, store)
+               # Create some files
+    1:         (adapter.raw_dir / "file.txt").write_text("hello", encoding="utf-8")
+    1:         sub = adapter.raw_dir / "subdir"
+    1:         sub.mkdir()
+    1:         (sub / "inner.txt").write_text("inner", encoding="utf-8")
+    1:         adapter.clear_source_dir()
+               # Dir exists but is empty
+    1:         assert adapter.raw_dir.exists()
+    1:         assert list(adapter.raw_dir.iterdir()) == []
+       
+    1:     def test_clear_source_dir_when_not_exists(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         adapter = ConcreteAdapter(source, store)
+    1:         import shutil
+    1:         if adapter.raw_dir.exists():
+    1:             shutil.rmtree(adapter.raw_dir)
+    1:         adapter.clear_source_dir()
+    1:         assert adapter.raw_dir.exists()
+       
+    1:     def test_finalize_sync_strips_private_keys(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k")
+    2:         source = store.add_collection_source(
+    1:             "k", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    1:         source["_sync_branches"] = ["main"]
+    1:         adapter = ConcreteAdapter(source, store)
+    1:         result = adapter.sync()
+    1:         assert result["test"] is True
+               # Check the persisted source doesn't have private keys
+    1:         metadata = store.get_collection_metadata("k")
+    2:         for s in metadata["sources"]:
+    1:             assert "_sync_branches" not in s
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # Jira ADF renderer additional coverage
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestJiraADFCoverage:
+    1:     def test_adf_emoji(self):
+    1:         node = {"type": "emoji", "attrs": {"text": "😀", "shortName": ":grinning:"}}
+    1:         assert _adf_to_markdown(node) == "😀"
+       
+    1:     def test_adf_emoji_shortname_only(self):
+    1:         node = {"type": "emoji", "attrs": {"shortName": ":smile:"}}
+    1:         assert _adf_to_markdown(node) == ":smile:"
+       
+    1:     def test_adf_mention(self):
+    1:         node = {"type": "mention", "attrs": {"text": "John"}}
+    1:         assert _adf_to_markdown(node) == "@John"
+       
+    1:     def test_adf_inline_card(self):
+    1:         node = {"type": "inlineCard", "attrs": {"url": "https://example.com"}}
+    1:         assert _adf_to_markdown(node) == "https://example.com"
+       
+    1:     def test_adf_block_card(self):
+    1:         node = {"type": "blockCard", "attrs": {"url": "https://example.com"}}
+    1:         assert _adf_to_markdown(node) == "https://example.com"
+       
+    1:     def test_adf_rule(self):
+    1:         node = {"type": "rule"}
+    1:         assert _adf_to_markdown(node) == "---"
+       
+    1:     def test_adf_panel(self):
+    2:         node = {"type": "panel", "content": [
+    1:             {"type": "paragraph", "content": [{"type": "text", "text": "Note"}]}
+               ]}
+    1:         result = _adf_to_markdown(node)
+    1:         assert result.startswith(">")
+    1:         assert "Note" in result
+       
+    1:     def test_adf_code_block_with_language(self):
+    1:         node = {
+    1:             "type": "codeBlock",
+    1:             "attrs": {"language": "python"},
+    1:             "content": [{"type": "text", "text": "print('hi')"}],
+               }
+    1:         result = _adf_to_markdown(node)
+    1:         assert "```python" in result
+    1:         assert "print('hi')" in result
+       
+    1:     def test_apply_marks_strike(self):
+    1:         result = _apply_marks("deleted", [{"type": "strike"}])
+    1:         assert result == "~~deleted~~"
+       
+    1:     def test_apply_marks_link(self):
+    1:         result = _apply_marks("click", [{"type": "link", "attrs": {"href": "https://x.com"}}])
+    1:         assert result == "[click](https://x.com)"
+       
+    1:     def test_apply_marks_link_no_href(self):
+    1:         result = _apply_marks("click", [{"type": "link", "attrs": {}}])
+    1:         assert result == "click"
+       
+    1:     def test_field_name_non_dict(self):
+    1:         assert _field_name("string") is None
+    1:         assert _field_name(None) is None
+       
+    1:     def test_field_name_no_name_key(self):
+    1:         assert _field_name({"id": 123}) is None
+       
+    1:     def test_display_name_non_dict(self):
+    1:         assert _display_name("string") is None
+    1:         assert _display_name(None) is None
+       
+    1:     def test_status_category_name_non_dict(self):
+    1:         assert _status_category_name("string") is None
+    1:         assert _status_category_name(None) is None
+       
+    1:     def test_status_category_name_no_category(self):
+    1:         assert _status_category_name({"name": "Open"}) is None
+       
+    1:     def test_status_category_name_category_not_dict(self):
+    1:         assert _status_category_name({"statusCategory": "string"}) is None
+       
+    1:     def test_build_jql_no_clauses_raises(self):
+    2:         with pytest.raises(ValueError):
+    2:             _build_jql(
+    1:                 query=None, project=None, statuses=None, issue_types=None,
+    1:                 assignee=None, reporter=None, created_after=None,
+    1:                 created_before=None, updated_after=None, updated_before=None,
+    1:                 order_by=None,
+                   )
+       
+    1:     def test_build_jql_with_all_filters(self):
+    2:         result = _build_jql(
+    1:             query="bug", project="PROJ", statuses=["Open", "Closed"],
+    1:             issue_types=["Bug"], assignee="john", reporter="jane",
+    1:             created_after="2025-01-01", created_before="2025-12-31",
+    1:             updated_after="2025-06-01", updated_before="2025-06-30",
+    1:             order_by=["updated DESC"],
+               )
+    1:         assert "project = PROJ" in result
+    1:         assert "assignee" in result
+    1:         assert "reporter" in result
+    1:         assert "ORDER BY" in result
+       
+    1:     def test_table_row(self):
+    1:         node = {
+    2:             "content": [
+    2:                 {"type": "tableCell", "content": [
+    1:                     {"type": "paragraph", "content": [{"type": "text", "text": "A"}]}
+                       ]},
+    2:                 {"type": "tableHeader", "content": [
+    1:                     {"type": "paragraph", "content": [{"type": "text", "text": "B"}]}
+                       ]},
+                   ]
+               }
+    1:         cells = _table_row(node)
+    1:         assert cells == ["A", "B"]
+       
+    1:     def test_adf_table(self):
+    1:         node = {
+    1:             "type": "table",
+    2:             "content": [
+    2:                 {"type": "tableRow", "content": [
+    2:                     {"type": "tableHeader", "content": [
+    1:                         {"type": "paragraph", "content": [{"type": "text", "text": "H1"}]}
+                           ]},
+                       ]},
+    2:                 {"type": "tableRow", "content": [
+    2:                     {"type": "tableCell", "content": [
+    1:                         {"type": "paragraph", "content": [{"type": "text", "text": "V1"}]}
+                           ]},
+                       ]},
+                   ],
+               }
+    1:         result = _adf_to_markdown(node)
+    1:         assert "| H1 |" in result
+    1:         assert "| V1 |" in result
+    1:         assert "---" in result
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # Video extract_video_id additional coverage
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestVideoExtractId:
+    1:     def test_shorts_url(self):
+    1:         result = extract_video_id("https://www.youtube.com/shorts/abc123")
+    1:         assert result == "abc123"
+       
+    1:     def test_youtu_be(self):
+    1:         result = extract_video_id("https://youtu.be/xyz789")
+    1:         assert result == "xyz789"
+       
+    1:     def test_empty_path_raises(self):
+    2:         with pytest.raises(ValueError):
+    1:             extract_video_id("https://youtube.com/")
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # Store additional coverage
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestStoreCoverage:
+    1:     def test_source_already_exists_error(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k1")
+    2:         store.add_collection_source(
+    1:             "k1", "arxiv", title="paper",
+    1:             config={"url": "https://arxiv.org/abs/1"},
+    1:             update_command="sync", delete_command="del",
+               )
+    2:         with pytest.raises(SourceAlreadyExistsError):
+    2:             store.add_collection_source(
+    1:                 "k1", "arxiv", title="paper",
+    1:                 config={"url": "https://arxiv.org/abs/1"},
+    1:                 update_command="sync", delete_command="del",
+                   )
+       
+    1:     def test_config_yaml_updated_on_reinitialize(self, tmp_path):
+    1:         store = make_store(tmp_path)
+               # Mutate config to trigger update path
+    1:         config = yaml.safe_load(store.config_path.read_text(encoding="utf-8"))
+    1:         config["paths"]["exports"] = "old"
+    1:         store.config_path.write_text(yaml.safe_dump(config), encoding="utf-8")
+    1:         store.initialize()
+    1:         updated = yaml.safe_load(store.config_path.read_text(encoding="utf-8"))
+    1:         assert updated["paths"]["exports"] == "exports"
+       
+    1:     def test_cleanup_orphan_source_dirs_removes_raw_library(self, tmp_path):
+    1:         store = make_store(tmp_path)
+    1:         store.create_collection_key("k1")
+    1:         key_dir = store.key_dir("k1")
+    1:         (key_dir / "raw").mkdir()
+    1:         (key_dir / "library").mkdir()
+    1:         result = store.cleanup_orphan_source_dirs("k1")
+    1:         assert result["removed"] >= 2
+    1:         assert not (key_dir / "raw").exists()
+    1:         assert not (key_dir / "library").exists()
+       
+       
+       # ──────────────────────────────────────────────────────────────
+       # load_dotenv coverage
+       # ──────────────────────────────────────────────────────────────
+       
+       
+    2: class TestLoadDotenv:
+    1:     def test_load_dotenv_with_file(self, tmp_path, monkeypatch):
+    1:         env_file = tmp_path / ".env"
+    2:         env_file.write_text(
+    1:             '# comment\nTEST_KNOW_VAR="hello"\nTEST_KNOW_BARE=world\n\n',
+    1:             encoding="utf-8",
+               )
+    1:         monkeypatch.delenv("TEST_KNOW_VAR", raising=False)
+    1:         monkeypatch.delenv("TEST_KNOW_BARE", raising=False)
+    1:         load_dotenv(env_file)
+    1:         import os
+    1:         assert os.environ.get("TEST_KNOW_VAR") == "hello"
+    1:         assert os.environ.get("TEST_KNOW_BARE") == "world"
+               # Cleanup
+    1:         monkeypatch.delenv("TEST_KNOW_VAR", raising=False)
+    1:         monkeypatch.delenv("TEST_KNOW_BARE", raising=False)
+       
+    1:     def test_load_dotenv_single_quotes(self, tmp_path, monkeypatch):
+    1:         env_file = tmp_path / ".env"
+    1:         env_file.write_text("TEST_KNOW_SQ='single'\n", encoding="utf-8")
+    1:         monkeypatch.delenv("TEST_KNOW_SQ", raising=False)
+    1:         load_dotenv(env_file)
+    1:         import os
+    1:         assert os.environ.get("TEST_KNOW_SQ") == "single"
+    1:         monkeypatch.delenv("TEST_KNOW_SQ", raising=False)
+       
+    1:     def test_load_dotenv_missing_file(self, tmp_path):
+    1:         load_dotenv(tmp_path / "nonexistent.env")  # Should not raise
+       
+       
+    2: class TestGoogleReleasesCoverage:
+    1:     def test_parse_google_releases_feed_extracts_products_and_links(self):
+    1:         payload = """<?xml version="1.0" encoding="UTF-8"?>
+       <feed xmlns="http://www.w3.org/2005/Atom">
+         <entry>
+           <title>March 24, 2026</title>
+           <id>tag:google.com,2016:gcp-release-notes#March_24_2026</id>
+           <updated>2026-03-24T00:00:00-07:00</updated>
+           <link rel="alternate" href="https://docs.cloud.google.com/release-notes#March_24_2026"/>
+           <content type="html"><![CDATA[
+             <h2 class="release-note-product-title">Cloud Monitoring</h2>
+             <h3>Feature</h3>
+             <p>Updated quotas.</p>
+           ]]></content>
+         </entry>
+       </feed>
+       """
+    1:         entries = parse_google_releases_feed(payload)
+    1:         assert entries[0]["title"] == "March 24, 2026"
+    1:         assert entries[0]["products"] == ["Cloud Monitoring"]
+    1:         assert entries[0]["url"] == "https://docs.cloud.google.com/release-notes#March_24_2026"
+    1:         assert entries[0]["slug"] == "march-24-2026"

@@ -2,17 +2,34 @@
        
     1: import argparse
     1: import json
+    1: import logging
+    1: import os
     1: import sys
     1: from pathlib import Path
+    1: from urllib.parse import urlparse
        
+    1: from .browse_commands import (
+           cmd_browse_aha,
+           cmd_browse_arxiv,
+           cmd_browse_confluence,
+           cmd_browse_github,
+           cmd_browse_github_activity,
+           cmd_browse_jira,
+           cmd_browse_local,
+           cmd_browse_releases,
+           cmd_browse_sites,
+           cmd_browse_videos,
+       )
     1: from .commands import (
            cmd_add_aha_workspace,
            cmd_add_arxiv,
            cmd_add_confluence,
            cmd_add_github_repo,
+           cmd_add_google_releases,
            cmd_add_jira_project,
            cmd_add_key,
            cmd_add_site,
+           cmd_add_television,
            cmd_add_video,
            cmd_delete_source,
            cmd_export,
@@ -24,223 +41,433 @@
            cmd_list_keys,
            cmd_search_arxiv,
            cmd_search_confluence,
+           cmd_search_jira,
            cmd_sync,
        )
+    1: from .television import TV_FORMAT_CHOICES
+       
+       
+    1: def load_dotenv(dotenv_path: Path | None = None) -> None:
+           """Load environment variables from a ``.env`` file if present."""
+   91:     path = (dotenv_path or Path.cwd() / ".env").resolve()
+   91:     if not path.exists():
+    1:         return
+       
+  745:     for raw_line in path.read_text(encoding="utf-8").splitlines():
+  655:         line = raw_line.strip()
+  655:         if not line or line.startswith("#") or "=" not in line:
+    2:             continue
+  653:         name, value = line.split("=", 1)
+  653:         name = name.strip()
+  653:         value = value.strip()
+  653:         if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
+    2:             value = value[1:-1]
+  653:         if name not in os.environ or os.environ[name] == "":
+   24:             os.environ[name] = value
        
        
     1: def build_parser() -> argparse.ArgumentParser:
-  104:     parser = argparse.ArgumentParser(
-   52:         prog="know",
-   52:         description="Manage a local knowledge base in ~/.knowledge.",
+           """Build the top-level argument parser for the ``know`` CLI."""
+       
+  194:     parser = argparse.ArgumentParser(
+   97:         prog="know",
+   97:         description="Manage a local knowledge base in ~/.knowledge.",
            )
-   52:     parser.add_argument("--store", type=Path, default=None, help="Override the knowledge store path.")
-   52:     parser.add_argument("--json", action="store_true", help="Emit command output as JSON.")
+   97:     parser.add_argument("--store", type=Path, default=None, help="Override the knowledge store path.")
+   97:     parser.add_argument("--json", action="store_true", help="Emit command output as JSON.")
+   97:     parser.add_argument("--verbose", action="store_true", help="Print progress messages.")
+   97:     parser.add_argument("--quiet", action="store_true", help="Suppress non-error output.")
        
-   52:     subparsers = parser.add_subparsers(dest="command", required=True)
+   97:     subparsers = parser.add_subparsers(dest="command", required=True)
        
-   52:     add_parser = subparsers.add_parser("add", help="Create keys and attach source definitions.")
-   52:     add_subparsers = add_parser.add_subparsers(dest="add_command", required=True)
+   97:     add_parser = subparsers.add_parser("add", help="Create keys and attach source definitions.")
+   97:     add_subparsers = add_parser.add_subparsers(dest="add_command", required=True)
        
-   52:     add_key_parser = add_subparsers.add_parser("key", help="Create a knowledge key.")
-   52:     add_key_parser.add_argument("name", help="Knowledge key name.")
-   52:     add_key_parser.set_defaults(handler=cmd_add_key)
+   97:     add_key_parser = add_subparsers.add_parser("key", help="Create a knowledge key.")
+   97:     add_key_parser.add_argument("name", help="Knowledge key name.")
+   97:     add_key_parser.set_defaults(handler=cmd_add_key)
        
-   52:     add_confluence_parser = add_subparsers.add_parser("confluence", help="Attach a Confluence space.")
-   52:     add_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
-   52:     add_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_confluence_parser.add_argument("--base-url", help="Confluence base URL.")
-   52:     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
-   52:     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
-   52:     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
-   52:     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
+   97:     add_confluence_parser = add_subparsers.add_parser("confluence", help="Attach a Confluence space.")
+   97:     add_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+   97:     add_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_confluence_parser.add_argument("--base-url", help="Confluence base URL.")
+   97:     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
+   97:     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
+   97:     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
+   97:     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
        
-   52:     add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach an arXiv paper URL.")
-   52:     add_arxiv_parser.add_argument("url", help="arXiv URL.")
-   52:     add_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_arxiv_parser.set_defaults(handler=cmd_add_arxiv)
+   97:     add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach an arXiv paper URL.")
+   97:     add_arxiv_parser.add_argument("url", help="arXiv URL.")
+   97:     add_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_arxiv_parser.set_defaults(handler=cmd_add_arxiv)
        
-   52:     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
-   52:     add_site_parser.add_argument("url", help="Website URL.")
-   52:     add_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_site_parser.add_argument("--max-depth", type=int, default=1, help="Optional crawl depth.")
-   52:     add_site_parser.add_argument("--max-pages", type=int, default=1, help="Optional page limit.")
-   52:     add_site_parser.set_defaults(handler=cmd_add_site)
+   97:     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
+   97:     add_site_parser.add_argument("url", help="Website URL.")
+   97:     add_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_site_parser.add_argument("--max-depth", type=int, default=1, help="Optional crawl depth.")
+   97:     add_site_parser.add_argument("--max-pages", type=int, default=1, help="Optional page limit.")
+   97:     add_site_parser.set_defaults(handler=cmd_add_site)
        
-   52:     add_video_parser = add_subparsers.add_parser("video", help="Attach a video URL or path.")
-   52:     add_video_parser.add_argument("url", help="Video URL or local path.")
-   52:     add_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_video_parser.add_argument("--language", action="append", help="Preferred transcript language. Repeatable.")
-   52:     add_video_parser.set_defaults(handler=cmd_add_video)
+   97:     add_video_parser = add_subparsers.add_parser("video", help="Attach a video URL or path.")
+   97:     add_video_parser.add_argument("url", help="Video URL or local path.")
+   97:     add_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_video_parser.add_argument("--language", action="append", help="Preferred transcript language. Repeatable.")
+   97:     add_video_parser.set_defaults(handler=cmd_add_video)
        
-   52:     add_github_parser = add_subparsers.add_parser("github-repo", help="Attach a GitHub repository.")
-   52:     add_github_parser.add_argument("repo_url", help="Git repository URL.")
-   52:     add_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_github_parser.add_argument("--branch", action="append", help="Branch to include. Repeatable.")
-   52:     add_github_parser.set_defaults(handler=cmd_add_github_repo)
+   97:     add_television_parser = add_subparsers.add_parser("television", help="Attach a Television channel definition.")
+   97:     add_television_parser.add_argument("name", help="Television channel name.")
+   97:     add_television_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_television_parser.add_argument("--description", help="Channel description.")
+   97:     add_television_parser.add_argument("--source-command", required=True, help="Television source command.")
+   97:     add_television_parser.add_argument("--source-display", help="Optional Television source display template.")
+   97:     add_television_parser.add_argument("--preview-command", help="Optional Television preview command.")
+   97:     add_television_parser.add_argument("--action-command", help="Optional command for the default open action.")
+   97:     add_television_parser.set_defaults(handler=cmd_add_television)
        
-   52:     add_jira_parser = add_subparsers.add_parser("jira-project", help="Attach a Jira project.")
-   52:     add_jira_parser.add_argument("project", help="Jira project key.")
-   52:     add_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_jira_parser.add_argument("--base-url", help="Jira base URL.")
-   52:     add_jira_parser.add_argument("--username", help="Username or credential key reference.")
-   52:     add_jira_parser.add_argument("--token", help="Token or credential key reference.")
-   52:     add_jira_parser.add_argument("--jql", help="Override default JQL.")
-   52:     add_jira_parser.add_argument("--field", action="append", help="Field to request. Repeatable.")
-   52:     add_jira_parser.add_argument("--limit", type=int, help="Issue sync limit.")
-   52:     add_jira_parser.set_defaults(handler=cmd_add_jira_project)
+   97:     add_github_parser = add_subparsers.add_parser("github-repo", help="Attach a GitHub repository.")
+   97:     add_github_parser.add_argument("repo_url", help="Git repository URL.")
+   97:     add_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_github_parser.add_argument("--branch", action="append", help="Branch to include. Repeatable.")
+   97:     add_github_parser.set_defaults(handler=cmd_add_github_repo)
        
-   52:     add_aha_parser = add_subparsers.add_parser("aha-workspace", help="Attach an Aha workspace.")
-   52:     add_aha_parser.add_argument("workspace", help="Aha workspace or product identifier.")
-   52:     add_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     add_aha_parser.add_argument("--base-url", help="Aha base URL.")
-   52:     add_aha_parser.add_argument("--token", help="Token or credential key reference.")
-   52:     add_aha_parser.add_argument("--limit", type=int, help="Feature sync limit.")
-   52:     add_aha_parser.set_defaults(handler=cmd_add_aha_workspace)
-       
-   52:     list_parser = subparsers.add_parser("list", help="List keys, credentials, or attached sources.")
-   52:     list_subparsers = list_parser.add_subparsers(dest="list_command", required=True)
-       
-   52:     list_keys_parser = list_subparsers.add_parser("keys", help="List knowledge keys.")
-   52:     list_keys_parser.set_defaults(handler=cmd_list_keys)
-       
-   52:     list_credentials_parser = list_subparsers.add_parser("credentials", help="List stored credential names.")
-   52:     list_credentials_parser.set_defaults(handler=cmd_key_list)
-       
-   52:     list_sources_parser = list_subparsers.add_parser("sources", help="List sources attached to keys.")
-   52:     list_sources_parser.add_argument("--key", help="Restrict to a single knowledge key.")
-   52:     list_sources_parser.add_argument("--type", help="Restrict to a single source type.")
-   52:     list_sources_parser.set_defaults(handler=cmd_list_collection_sources)
-       
-   52:     search_parser = subparsers.add_parser("search", help="Search configured source definitions.")
-   52:     search_subparsers = search_parser.add_subparsers(dest="search_command", required=True)
-       
-   52:     search_confluence_parser = search_subparsers.add_parser("confluence", help="List Confluence sources.")
-   52:     search_confluence_parser.add_argument("query", help="Free-text query string.")
-   52:     search_confluence_parser.add_argument("--start-time", help="Optional lower time bound.")
-   52:     search_confluence_parser.add_argument("--end-time", help="Optional upper time bound.")
-   52:     search_confluence_parser.set_defaults(handler=cmd_search_confluence)
-       
-   52:     search_arxiv_parser = search_subparsers.add_parser("arxiv", help="Search arXiv via the public API.")
-   52:     search_arxiv_parser.add_argument("query", help="arXiv search_query expression or plain text.")
-   52:     search_arxiv_parser.add_argument("--start", type=int, default=0, help="Starting result offset.")
-   52:     search_arxiv_parser.add_argument("--max-results", type=int, default=10, help="Maximum number of results.")
-  104:     search_arxiv_parser.add_argument(
-   52:         "--sort-by",
-   52:         choices=("relevance", "lastUpdatedDate", "submittedDate"),
-   52:         default="relevance",
-   52:         help="Sort field supported by the arXiv API.",
+  194:     add_google_releases_parser = add_subparsers.add_parser(
+   97:         "google-releases",
+   97:         help="Attach a Google Cloud release notes Atom feed.",
            )
-  104:     search_arxiv_parser.add_argument(
-   52:         "--sort-order",
-   52:         choices=("ascending", "descending"),
-   52:         default="descending",
-   52:         help="Sort direction supported by the arXiv API.",
+   97:     add_google_releases_parser.add_argument("url", help="Google Cloud release notes feed URL.")
+   97:     add_google_releases_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_google_releases_parser.set_defaults(handler=cmd_add_google_releases)
+       
+   97:     add_jira_parser = add_subparsers.add_parser("jira-project", help="Attach a Jira project.")
+   97:     add_jira_parser.add_argument("project", help="Jira project key.")
+   97:     add_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_jira_parser.add_argument("--base-url", help="Jira base URL.")
+   97:     add_jira_parser.add_argument("--username", help="Username or credential key reference.")
+   97:     add_jira_parser.add_argument("--token", help="Token or credential key reference.")
+   97:     add_jira_parser.add_argument("--jql", help="Override default JQL.")
+   97:     add_jira_parser.add_argument("--field", action="append", help="Field to request. Repeatable.")
+   97:     add_jira_parser.add_argument("--limit", type=int, help="Issue sync limit.")
+   97:     add_jira_parser.set_defaults(handler=cmd_add_jira_project)
+       
+   97:     add_aha_parser = add_subparsers.add_parser("aha-workspace", help="Attach an Aha workspace.")
+   97:     add_aha_parser.add_argument("workspace", help="Aha workspace or product identifier.")
+   97:     add_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     add_aha_parser.add_argument("--base-url", help="Aha base URL.")
+   97:     add_aha_parser.add_argument("--token", help="Token or credential key reference.")
+   97:     add_aha_parser.add_argument("--limit", type=int, help="Feature sync limit.")
+   97:     add_aha_parser.set_defaults(handler=cmd_add_aha_workspace)
+       
+   97:     list_parser = subparsers.add_parser("list", help="List keys, credentials, or attached sources.")
+   97:     list_subparsers = list_parser.add_subparsers(dest="list_command", required=True)
+       
+   97:     list_keys_parser = list_subparsers.add_parser("keys", help="List knowledge keys.")
+   97:     list_keys_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     list_keys_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
+   97:     list_keys_parser.set_defaults(handler=cmd_list_keys)
+       
+   97:     list_credentials_parser = list_subparsers.add_parser("credentials", help="List stored credential names.")
+   97:     list_credentials_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     list_credentials_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
+   97:     list_credentials_parser.set_defaults(handler=cmd_key_list)
+       
+   97:     list_sources_parser = list_subparsers.add_parser("sources", help="List sources attached to keys.")
+   97:     list_sources_parser.add_argument("--key", help="Restrict to a single knowledge key.")
+   97:     list_sources_parser.add_argument("--type", help="Restrict to a single source type.")
+   97:     list_sources_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     list_sources_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
+   97:     list_sources_parser.set_defaults(handler=cmd_list_collection_sources)
+       
+   97:     search_parser = subparsers.add_parser("search", help="Search configured source definitions.")
+   97:     search_subparsers = search_parser.add_subparsers(dest="search_command", required=True)
+       
+   97:     search_confluence_parser = search_subparsers.add_parser("confluence", help="Search Confluence content.")
+   97:     search_confluence_parser.add_argument("query", nargs="?", help="Free-text query string.")
+   97:     search_confluence_parser.add_argument("--knowledge-key", help="Restrict to one knowledge key.")
+   97:     search_confluence_parser.add_argument("--space", help="Restrict the search to one Confluence space.")
+   97:     search_confluence_parser.add_argument("--cql", help="Override the generated CQL query.")
+   97:     search_confluence_parser.add_argument("--type", help="Restrict by Confluence content type.")
+   97:     search_confluence_parser.add_argument("--label", action="append", help="Restrict by label. Repeatable.")
+   97:     search_confluence_parser.add_argument("--title-contains", help="Filter by title text.")
+   97:     search_confluence_parser.add_argument("--text-contains", help="Filter by body text.")
+   97:     search_confluence_parser.add_argument("--created-after", help="Restrict to content created after this ISO-8601 timestamp.")
+   97:     search_confluence_parser.add_argument("--created-before", help="Restrict to content created before this ISO-8601 timestamp.")
+   97:     search_confluence_parser.add_argument("--updated-after", help="Restrict to content updated after this ISO-8601 timestamp.")
+   97:     search_confluence_parser.add_argument("--updated-before", help="Restrict to content updated before this ISO-8601 timestamp.")
+   97:     search_confluence_parser.add_argument("--limit", type=int, default=25, help="Maximum number of results per source.")
+   97:     search_confluence_parser.add_argument("--cursor", help="Cursor token from a previous response.")
+   97:     search_confluence_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     search_confluence_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
+   97:     search_confluence_parser.set_defaults(handler=cmd_search_confluence)
+       
+   97:     search_jira_parser = search_subparsers.add_parser("jira", help="Search Jira issues through REST API v3.")
+   97:     search_jira_parser.add_argument("query", nargs="?", help="Free-text query used to build JQL.")
+   97:     search_jira_parser.add_argument("--knowledge-key", help="Restrict to one knowledge key.")
+   97:     search_jira_parser.add_argument("--project", help="Restrict to one Jira project.")
+   97:     search_jira_parser.add_argument("--jql", help="Explicit JQL to execute.")
+   97:     search_jira_parser.add_argument("--status", action="append", help="Restrict by Jira status. Repeatable.")
+   97:     search_jira_parser.add_argument("--issue-type", action="append", help="Restrict by issue type. Repeatable.")
+   97:     search_jira_parser.add_argument("--assignee", help="Restrict by assignee.")
+   97:     search_jira_parser.add_argument("--reporter", help="Restrict by reporter.")
+   97:     search_jira_parser.add_argument("--created-after", help="Restrict to issues created after this ISO-8601 timestamp.")
+   97:     search_jira_parser.add_argument("--created-before", help="Restrict to issues created before this ISO-8601 timestamp.")
+   97:     search_jira_parser.add_argument("--updated-after", help="Restrict to issues updated after this ISO-8601 timestamp.")
+   97:     search_jira_parser.add_argument("--updated-before", help="Restrict to issues updated before this ISO-8601 timestamp.")
+   97:     search_jira_parser.add_argument("--order-by", action="append", help="JQL ORDER BY expression fragment. Repeatable.")
+   97:     search_jira_parser.add_argument("--field", action="append", help="Field to request. Repeatable.")
+   97:     search_jira_parser.add_argument("--property", action="append", help="Entity property to request. Repeatable.")
+   97:     search_jira_parser.add_argument("--expand", action="append", help="Expand value to request. Repeatable.")
+   97:     search_jira_parser.add_argument("--fields-by-keys", action="store_true", help="Ask Jira to interpret fields by keys.")
+   97:     search_jira_parser.add_argument("--limit", type=int, default=25, help="Maximum number of results per source.")
+   97:     search_jira_parser.add_argument("--next-page-token", help="Enhanced-search pagination token.")
+   97:     search_jira_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     search_jira_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
+   97:     search_jira_parser.set_defaults(handler=cmd_search_jira)
+       
+   97:     search_arxiv_parser = search_subparsers.add_parser("arxiv", help="Search arXiv via the public API.")
+   97:     search_arxiv_parser.add_argument("query", help="arXiv search_query expression or plain text.")
+  194:     search_arxiv_parser.add_argument(
+   97:         "--format",
+   97:         choices=("json", "television", "television-preview"),
+   97:         default="json",
+   97:         help="Output format. Use television variants when wiring the command into tv.",
            )
-   52:     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
+  194:     search_arxiv_parser.add_argument(
+   97:         "--entry",
+   97:         help="Entry title to preview when using --format television-preview.",
+           )
+   97:     search_arxiv_parser.add_argument("--start", type=int, default=0, help="Starting result offset.")
+   97:     search_arxiv_parser.add_argument("--max-results", type=int, default=10, help="Maximum number of results.")
+  194:     search_arxiv_parser.add_argument(
+   97:         "--sort-by",
+   97:         choices=("relevance", "lastUpdatedDate", "submittedDate"),
+   97:         default="relevance",
+   97:         help="Sort field supported by the arXiv API.",
+           )
+  194:     search_arxiv_parser.add_argument(
+   97:         "--sort-order",
+   97:         choices=("ascending", "descending"),
+   97:         default="descending",
+   97:         help="Sort direction supported by the arXiv API.",
+           )
+   97:     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
        
-   52:     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")
-   52:     sync_parser.add_argument("--key", help="Restrict sync to a single knowledge key.")
-   52:     sync_subparsers = sync_parser.add_subparsers(dest="sync_command")
-   52:     sync_parser.set_defaults(handler=cmd_sync, source_type=None, match_value=None)
+   97:     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")
+   97:     sync_parser.add_argument("--key", help="Restrict sync to a single knowledge key.")
+   97:     sync_subparsers = sync_parser.add_subparsers(dest="sync_command")
+   97:     sync_parser.set_defaults(handler=cmd_sync, source_type=None, match_value=None)
        
-   52:     sync_confluence_parser = sync_subparsers.add_parser("confluence", help="Sync a Confluence source.")
-   52:     sync_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
-   52:     sync_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_confluence_parser.set_defaults(handler=cmd_sync, source_type="confluence", match_value=None)
+   97:     sync_confluence_parser = sync_subparsers.add_parser("confluence", help="Sync a Confluence source.")
+   97:     sync_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+   97:     sync_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_confluence_parser.set_defaults(handler=cmd_sync, source_type="confluence", match_value=None)
        
-   52:     sync_arxiv_parser = sync_subparsers.add_parser("arxiv", help="Sync an arXiv source.")
-   52:     sync_arxiv_parser.add_argument("url", help="arXiv URL.")
-   52:     sync_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_arxiv_parser.set_defaults(handler=cmd_sync, source_type="arxiv", match_value=None)
+   97:     sync_arxiv_parser = sync_subparsers.add_parser("arxiv", help="Sync an arXiv source.")
+   97:     sync_arxiv_parser.add_argument("url", help="arXiv URL.")
+   97:     sync_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_arxiv_parser.set_defaults(handler=cmd_sync, source_type="arxiv", match_value=None)
        
-   52:     sync_site_parser = sync_subparsers.add_parser("site", help="Sync a website source.")
-   52:     sync_site_parser.add_argument("url", help="Website URL.")
-   52:     sync_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_site_parser.set_defaults(handler=cmd_sync, source_type="site", match_value=None)
+   97:     sync_site_parser = sync_subparsers.add_parser("site", help="Sync a website source.")
+   97:     sync_site_parser.add_argument("url", help="Website URL.")
+   97:     sync_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_site_parser.set_defaults(handler=cmd_sync, source_type="site", match_value=None)
        
-   52:     sync_video_parser = sync_subparsers.add_parser("video", help="Sync a video source.")
-   52:     sync_video_parser.add_argument("url", help="Video URL or local path.")
-   52:     sync_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_video_parser.set_defaults(handler=cmd_sync, source_type="video", match_value=None)
+   97:     sync_video_parser = sync_subparsers.add_parser("video", help="Sync a video source.")
+   97:     sync_video_parser.add_argument("url", help="Video URL or local path.")
+   97:     sync_video_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_video_parser.set_defaults(handler=cmd_sync, source_type="video", match_value=None)
        
-   52:     sync_github_parser = sync_subparsers.add_parser("github-repo", help="Sync a GitHub repository source.")
-   52:     sync_github_parser.add_argument("repo_url", help="Git repository URL.")
-   52:     sync_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_github_parser.add_argument("--branch", action="append", help="Optional branch filters.")
-   52:     sync_github_parser.set_defaults(handler=cmd_sync, source_type="github", match_value=None)
+   97:     sync_television_parser = sync_subparsers.add_parser("television", help="Sync a Television channel definition.")
+   97:     sync_television_parser.add_argument("name", help="Television channel name.")
+   97:     sync_television_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_television_parser.set_defaults(handler=cmd_sync, source_type="television", match_value=None)
        
-   52:     sync_jira_parser = sync_subparsers.add_parser("jira-project", help="Sync a Jira project source.")
-   52:     sync_jira_parser.add_argument("project", help="Jira project key.")
-   52:     sync_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_jira_parser.set_defaults(handler=cmd_sync, source_type="jira", match_value=None)
+   97:     sync_github_parser = sync_subparsers.add_parser("github-repo", help="Sync a GitHub repository source.")
+   97:     sync_github_parser.add_argument("repo_url", help="Git repository URL.")
+   97:     sync_github_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_github_parser.add_argument("--branch", action="append", help="Optional branch filters.")
+   97:     sync_github_parser.set_defaults(handler=cmd_sync, source_type="github", match_value=None)
        
-   52:     sync_aha_parser = sync_subparsers.add_parser("aha-workspace", help="Sync an Aha workspace source.")
-   52:     sync_aha_parser.add_argument("workspace", help="Aha workspace or product.")
-   52:     sync_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     sync_aha_parser.set_defaults(handler=cmd_sync, source_type="aha", match_value=None)
+  194:     sync_google_releases_parser = sync_subparsers.add_parser(
+   97:         "google-releases",
+   97:         help="Sync a Google Cloud release notes feed source.",
+           )
+   97:     sync_google_releases_parser.add_argument("url", help="Google Cloud release notes feed URL.")
+   97:     sync_google_releases_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_google_releases_parser.set_defaults(handler=cmd_sync, source_type="google_releases", match_value=None)
        
-   52:     del_parser = subparsers.add_parser("del", help="Delete a registered source from a key.")
-   52:     del_parser.add_argument("--key", required=True, help="Knowledge key name.")
-   52:     del_parser.add_argument("source_id", help="Registered source id.")
-   52:     del_parser.set_defaults(handler=cmd_delete_source)
+   97:     sync_jira_parser = sync_subparsers.add_parser("jira-project", help="Sync a Jira project source.")
+   97:     sync_jira_parser.add_argument("project", help="Jira project key.")
+   97:     sync_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_jira_parser.set_defaults(handler=cmd_sync, source_type="jira", match_value=None)
        
-   52:     init_parser = subparsers.add_parser("init", help="Initialize the knowledge store.")
-   52:     init_parser.set_defaults(handler=cmd_init)
+   97:     sync_aha_parser = sync_subparsers.add_parser("aha-workspace", help="Sync an Aha workspace source.")
+   97:     sync_aha_parser.add_argument("workspace", help="Aha workspace or product.")
+   97:     sync_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     sync_aha_parser.set_defaults(handler=cmd_sync, source_type="aha", match_value=None)
        
-   52:     set_parser = subparsers.add_parser("set", help="Store mutable configuration values.")
-   52:     set_subparsers = set_parser.add_subparsers(dest="set_command", required=True)
+   97:     del_parser = subparsers.add_parser("del", help="Delete a registered source from a key.")
+   97:     del_parser.add_argument("--key", required=True, help="Knowledge key name.")
+   97:     del_parser.add_argument("source_id", help="Registered source id.")
+   97:     del_parser.set_defaults(handler=cmd_delete_source)
        
-   52:     set_credential_parser = set_subparsers.add_parser("credential", help="Store a named credential.")
-   52:     set_credential_parser.add_argument("name", help="Credential name.")
-   52:     set_credential_parser.add_argument("value", help="Credential value.")
-   52:     set_credential_parser.set_defaults(handler=cmd_key_set)
+   97:     init_parser = subparsers.add_parser("init", help="Initialize the knowledge store.")
+   97:     init_parser.set_defaults(handler=cmd_init)
        
-   52:     export_parser = subparsers.add_parser("export", help="Render markdown output and create a zip export.")
-   52:     export_parser.add_argument("--key", help="Restrict export to a single knowledge key.")
-   52:     export_parser.set_defaults(handler=cmd_export)
+   97:     set_parser = subparsers.add_parser("set", help="Store mutable configuration values.")
+   97:     set_subparsers = set_parser.add_subparsers(dest="set_command", required=True)
        
-   52:     import_parser = subparsers.add_parser("import", help="Import a previously exported zip archive.")
-   52:     import_parser.add_argument("archive", help="Zip archive path.")
-   52:     import_parser.set_defaults(handler=cmd_import)
+   97:     set_credential_parser = set_subparsers.add_parser("credential", help="Store a named credential.")
+   97:     set_credential_parser.add_argument("name", help="Credential name.")
+   97:     set_credential_parser.add_argument("value", help="Credential value.")
+   97:     set_credential_parser.set_defaults(handler=cmd_key_set)
        
-   52:     return parser
+   97:     export_parser = subparsers.add_parser("export", help="Render markdown output and create a zip export.")
+   97:     export_parser.add_argument("--key", help="Restrict export to a single knowledge key.")
+   97:     export_parser.set_defaults(handler=cmd_export)
+       
+   97:     import_parser = subparsers.add_parser("import", help="Import a previously exported zip archive.")
+   97:     import_parser.add_argument("archive", help="Zip archive path.")
+   97:     import_parser.set_defaults(handler=cmd_import)
+       
+           # ── Browse subcommands ───────────────────────────────────────────────
+   97:     browse_parser = subparsers.add_parser("browse", help="Browse knowledge with sync-status indicators.")
+   97:     browse_subparsers = browse_parser.add_subparsers(dest="browse_command", required=True)
+       
+   97:     browse_jira_parser = browse_subparsers.add_parser("jira", help="Browse Jira issues with sync status.")
+   97:     browse_jira_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_jira_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_jira_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_jira_parser.set_defaults(handler=cmd_browse_jira)
+       
+   97:     browse_confluence_parser = browse_subparsers.add_parser("confluence", help="Browse Confluence pages with sync status.")
+   97:     browse_confluence_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_confluence_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_confluence_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_confluence_parser.set_defaults(handler=cmd_browse_confluence)
+       
+   97:     browse_github_parser = browse_subparsers.add_parser("github", help="Browse GitHub repos you've interacted with.")
+   97:     browse_github_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_github_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_github_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_github_parser.set_defaults(handler=cmd_browse_github)
+       
+  194:     browse_github_activity_parser = browse_subparsers.add_parser(
+   97:         "github-activity",
+   97:         help="Browse issues, PRs & discussions for a GitHub repo.",
+           )
+   97:     browse_github_activity_parser.add_argument("repo", help="Repository in owner/repo format.")
+   97:     browse_github_activity_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_github_activity_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_github_activity_parser.set_defaults(handler=cmd_browse_github_activity)
+       
+   97:     browse_arxiv_parser = browse_subparsers.add_parser("arxiv", help="Browse arXiv papers with sync status.")
+   97:     browse_arxiv_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_arxiv_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_arxiv_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_arxiv_parser.set_defaults(handler=cmd_browse_arxiv)
+       
+   97:     browse_aha_parser = browse_subparsers.add_parser("aha", help="Browse Aha features with sync status.")
+   97:     browse_aha_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_aha_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_aha_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_aha_parser.set_defaults(handler=cmd_browse_aha)
+       
+   97:     browse_releases_parser = browse_subparsers.add_parser("releases", help="Browse Google release notes with sync status.")
+   97:     browse_releases_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_releases_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_releases_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_releases_parser.set_defaults(handler=cmd_browse_releases)
+       
+   97:     browse_videos_parser = browse_subparsers.add_parser("videos", help="Browse video sources with sync status.")
+   97:     browse_videos_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_videos_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_videos_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_videos_parser.set_defaults(handler=cmd_browse_videos)
+       
+   97:     browse_sites_parser = browse_subparsers.add_parser("sites", help="Browse crawled sites with sync status.")
+   97:     browse_sites_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_sites_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_sites_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_sites_parser.set_defaults(handler=cmd_browse_sites)
+       
+   97:     browse_local_parser = browse_subparsers.add_parser("local", help="Browse all locally downloaded knowledge.")
+   97:     browse_local_parser.add_argument("--key", help="Restrict to a knowledge key.")
+   97:     browse_local_parser.add_argument("--type", help="Restrict to a source type.")
+   97:     browse_local_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+   97:     browse_local_parser.add_argument("--entry", help="Entry to preview.")
+   97:     browse_local_parser.set_defaults(handler=cmd_browse_local)
+       
+   97:     return parser
        
        
     1: def emit(payload: object, as_json: bool) -> int:
-   51:     if as_json:
->>>>>>         print(json.dumps(payload, indent=2, sort_keys=True))
-   51:     elif isinstance(payload, str):
->>>>>>         print(payload)
+           """Print *payload* to stdout and return exit code ``0``."""
+   87:     import sys
+   87:     if as_json:
+    2:         text = json.dumps(payload, indent=2, sort_keys=True)
+   85:     elif isinstance(payload, str):
+    8:         text = payload
            else:
-   51:         print(json.dumps(payload, indent=2, sort_keys=True))
-   51:     return 0
+   77:         text = json.dumps(payload, indent=2, sort_keys=True)
+   87:     sys.stdout.buffer.write(text.encode("utf-8", errors="replace"))
+   87:     sys.stdout.buffer.write(b"\n")
+   87:     sys.stdout.buffer.flush()
+   87:     return 0
+       
+       
+    1: _SYNC_ATTR_MAP: dict[str, str] = {
+    1:     "confluence": "space",
+    1:     "arxiv": "url",
+    1:     "site": "url",
+    1:     "video": "url",
+    1:     "television": "name",
+    1:     "github-repo": "repo_url",
+    1:     "google-releases": "url",
+    1:     "jira-project": "project",
+    1:     "aha-workspace": "workspace",
+       }
+       
+       
+    1: def _validate_url(value: str) -> None:
+           """Raise ``SystemExit`` if *value* is not a valid URL with scheme."""
+   15:     from .errors import InvalidURLError
+       
+   15:     parsed = urlparse(value)
+   15:     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+    4:         raise InvalidURLError(value, reason="URL must start with http:// or https://")
        
        
     1: def main(argv: list[str] | None = None) -> int:
-   52:     parser = build_parser()
-   52:     args = parser.parse_args(argv)
+           """Entry-point for the ``know`` CLI."""
        
-   51:     if getattr(args, "sync_command", None) == "confluence":
->>>>>>         args.match_value = args.space
-   51:     elif getattr(args, "sync_command", None) == "arxiv":
->>>>>>         args.match_value = args.url
-   51:     elif getattr(args, "sync_command", None) == "site":
-    1:         args.match_value = args.url
-   50:     elif getattr(args, "sync_command", None) == "video":
->>>>>>         args.match_value = args.url
-   50:     elif getattr(args, "sync_command", None) == "github-repo":
-    1:         args.match_value = args.repo_url
-   49:     elif getattr(args, "sync_command", None) == "jira-project":
->>>>>>         args.match_value = args.project
-   49:     elif getattr(args, "sync_command", None) == "aha-workspace":
->>>>>>         args.match_value = args.workspace
+   88:     load_dotenv()
+   88:     parser = build_parser()
+   88:     args = parser.parse_args(argv)
        
-   51:     try:
-   51:         result = args.handler(args)
+           # Logging -----------------------------------------------------------
+   87:     if getattr(args, "quiet", False):
+>>>>>>         logging.basicConfig(level=logging.ERROR, format="%(message)s")
+   87:     elif getattr(args, "verbose", False):
+>>>>>>         logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
+           else:
+   87:         logging.basicConfig(level=logging.WARNING, format="%(message)s")
+       
+           # Resolve sync match_value via attribute map -------------------------
+   87:     sync_cmd = getattr(args, "sync_command", None)
+   87:     if sync_cmd in _SYNC_ATTR_MAP:
+    3:         args.match_value = getattr(args, _SYNC_ATTR_MAP[sync_cmd])
+       
+           # URL validation for source registration commands --------------------
+   87:     add_cmd = getattr(args, "add_command", None)
+   87:     if add_cmd in {"arxiv", "site", "google-releases"} and hasattr(args, "url"):
+    9:         _validate_url(args.url)
+       
+   87:     try:
+   87:         result = args.handler(args)
 >>>>>>     except Exception as exc:  # pragma: no cover - CLI boundary
 >>>>>>         print(f"error: {exc}", file=sys.stderr)
 >>>>>>         return 1
-   51:     return emit(result, args.json)
+   87:     return emit(result, args.json)
        
        
     1: if __name__ == "__main__":  # pragma: no cover

@@ -1,18 +1,42 @@
 from __future__ import annotations
 
 from argparse import Namespace
-from datetime import datetime
+import os
 from pathlib import Path
 
 from .exporter import export_source
 from .registry import create_source_adapter
 from .sources.arxiv import search_arxiv
+from .sources.confluence import search_confluence
+from .sources.jira import search_jira
 from .sources.video import extract_video_id
 from .store import KnowledgeStore
+from .television import (
+    format_arxiv_preview,
+    format_arxiv_television,
+    format_confluence_preview,
+    format_confluence_television,
+    format_credentials_preview,
+    format_credentials_television,
+    format_jira_preview,
+    format_jira_television,
+    format_keys_preview,
+    format_keys_television,
+    format_sources_preview,
+    format_sources_television,
+)
 
 
 def _store_from_args(args: Namespace) -> KnowledgeStore:
     return KnowledgeStore(args.store)
+
+
+def _config_value_or_env_ref(explicit_value: str | None, env_name: str) -> str | None:
+    if explicit_value is not None:
+        return explicit_value
+    if os.getenv(env_name):
+        return f"$env:{env_name}"
+    return None
 
 
 def cmd_init(args: Namespace) -> dict:
@@ -31,7 +55,13 @@ def cmd_key_set(args: Namespace) -> dict:
 def cmd_key_list(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    return {"keys": sorted(store.keys)}
+    names = sorted(store.keys)
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_credentials_television(names)
+    if output_format == "television-preview":
+        return format_credentials_preview(names, getattr(args, "entry", None))
+    return {"keys": names}
 
 
 def cmd_add_key(args: Namespace) -> dict:
@@ -44,18 +74,79 @@ def cmd_add_key(args: Namespace) -> dict:
 def cmd_list_keys(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    return {"keys": store.list_collection_keys()}
+    keys = store.list_collection_keys()
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_keys_television(keys)
+    if output_format == "television-preview":
+        return format_keys_preview(keys, getattr(args, "entry", None))
+    return {"keys": keys}
 
 
 def cmd_list_collection_sources(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    return {
-        "sources": store.list_collection_sources(
-            key_name=getattr(args, "key", None),
-            source_type=getattr(args, "type", None),
-        )
-    }
+    sources = store.list_collection_sources(
+        key_name=getattr(args, "key", None),
+        source_type=getattr(args, "type", None),
+    )
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_sources_television(sources)
+    if output_format == "television-preview":
+        entry = getattr(args, "entry", None)
+        source = _find_selected_source(sources, entry)
+        body = _read_source_markdown_body(store, source) if source else None
+        return format_sources_preview(sources, entry, markdown_body=body)
+    return {"sources": sources}
+
+
+def _find_selected_source(
+    sources: list[dict], selected: str | None
+) -> dict | None:
+    """Resolve the source dict that matches the selected television row."""
+    if not sources:
+        return None
+    if not selected:
+        return sources[0]
+    sel_id = selected.split(" | ", 1)[0].strip()
+    for s in sources:
+        if s.get("id") == sel_id:
+            return s
+    return sources[0]
+
+
+def _read_source_markdown_body(store: KnowledgeStore, source: dict) -> str | None:
+    """Read ``.md`` files from a source directory and return the body without YAML frontmatter."""
+    try:
+        source_dir = store.source_dir(source)
+    except Exception:
+        return None
+    if not source_dir.exists():
+        return None
+    md_files = sorted(source_dir.glob("**/*.md"))
+    if not md_files:
+        return None
+    parts: list[str] = []
+    for md_file in md_files:
+        try:
+            text = md_file.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        body = _strip_yaml_frontmatter(text)
+        if body.strip():
+            parts.append(body.strip())
+    return "\n\n---\n\n".join(parts) if parts else None
+
+
+def _strip_yaml_frontmatter(text: str) -> str:
+    """Remove leading YAML frontmatter delimited by ``---``."""
+    if not text.startswith("---"):
+        return text
+    end = text.find("\n---", 3)
+    if end == -1:
+        return text
+    return text[end + 4:].lstrip("\n")
 
 
 def cmd_add_confluence(args: Namespace) -> dict:
@@ -64,9 +155,9 @@ def cmd_add_confluence(args: Namespace) -> dict:
     config = {
         "space": args.space,
         "space_key": args.space,
-        "base_url": args.base_url,
-        "username": args.username,
-        "token": args.token,
+        "base_url": args.base_url or os.getenv("CONFLUENCE_BASE_URL"),
+        "username": _config_value_or_env_ref(args.username, "CONFLUENCE_USERNAME"),
+        "token": _config_value_or_env_ref(args.token, "CONFLUENCE_TOKEN"),
         "limit": args.limit,
     }
     source = store.add_collection_source(
@@ -136,6 +227,30 @@ def cmd_add_video(args: Namespace) -> dict:
     return {"key": args.key, "source": source}
 
 
+def cmd_add_television(args: Namespace) -> dict:
+    store = _store_from_args(args)
+    store.initialize()
+    source_id = store._source_id("television", args.name)
+    config = {
+        "channel": args.name,
+        "description": args.description or f"Television channel for knowledge key {args.key}",
+        "source_command": args.source_command,
+        "source_display": args.source_display,
+        "preview_command": args.preview_command,
+        "action_command": args.action_command,
+    }
+    source = store.add_collection_source(
+        key_name=args.key,
+        source_type="television",
+        source_id=source_id,
+        title=args.name,
+        config={key: value for key, value in config.items() if value is not None},
+        update_command=f"know sync television {args.name} --key {args.key}",
+        delete_command=f"know del --key {args.key} {source_id}",
+    )
+    return {"key": args.key, "source": source}
+
+
 def cmd_add_github_repo(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
@@ -154,15 +269,29 @@ def cmd_add_github_repo(args: Namespace) -> dict:
     return {"key": args.key, "source": source}
 
 
+def cmd_add_google_releases(args: Namespace) -> dict:
+    store = _store_from_args(args)
+    store.initialize()
+    source = store.add_collection_source(
+        key_name=args.key,
+        source_type="google_releases",
+        title=args.url,
+        config={"url": args.url},
+        update_command=f"know sync google-releases {args.url} --key {args.key}",
+        delete_command=f"know del --key {args.key} {store._source_id('google_releases', args.url)}",
+    )
+    return {"key": args.key, "source": source}
+
+
 def cmd_add_jira_project(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
     config = {
         "project": args.project,
         "jql": args.jql or f"project = {args.project} ORDER BY updated DESC",
-        "base_url": args.base_url,
-        "username": args.username,
-        "token": args.token,
+        "base_url": args.base_url or os.getenv("JIRA_BASE_URL"),
+        "username": _config_value_or_env_ref(args.username, "JIRA_USERNAME"),
+        "token": _config_value_or_env_ref(args.token, "JIRA_TOKEN"),
         "fields": args.field,
         "limit": args.limit,
     }
@@ -183,8 +312,8 @@ def cmd_add_aha_workspace(args: Namespace) -> dict:
     config = {
         "workspace": args.workspace,
         "product": args.workspace,
-        "base_url": args.base_url,
-        "token": args.token,
+        "base_url": args.base_url or os.getenv("AHA_BASE_URL"),
+        "token": _config_value_or_env_ref(args.token, "AHA_TOKEN"),
         "limit": args.limit,
     }
     source = store.add_collection_source(
@@ -207,27 +336,119 @@ def cmd_delete_source(args: Namespace) -> dict:
 def cmd_search_confluence(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    sources = _filter_confluence_sources_by_time_bounds(
-        store.list_collection_sources(source_type="confluence"),
-        start_time=getattr(args, "start_time", None),
-        end_time=getattr(args, "end_time", None),
+    sources = store.list_collection_sources(
+        key_name=getattr(args, "knowledge_key", None),
+        source_type="confluence",
     )
+    if getattr(args, "space", None):
+        sources = [
+            source
+            for source in sources
+            if (source.get("config", {}).get("space") or source.get("config", {}).get("space_key")) == args.space
+        ]
     matches = []
     for source in sources:
         config = source.get("config", {})
+        if not config.get("base_url") or not config.get("username") or not config.get("token"):
+            matches.append(
+                {
+                    "source_id": source["id"],
+                    "key": source["key"],
+                    "space": config.get("space") or config.get("space_key") or source.get("title"),
+                    "error": "missing credentials or base_url",
+                }
+            )
+            continue
+        results = search_confluence(
+            base_url=config["base_url"],
+            username=store.resolve_key(config["username"]),
+            token=store.resolve_key(config["token"]),
+            query=getattr(args, "query", None),
+            cql=getattr(args, "cql", None),
+            space=getattr(args, "space", None) or config.get("space") or config.get("space_key"),
+            content_type=getattr(args, "type", None),
+            labels=getattr(args, "label", None),
+            title_contains=getattr(args, "title_contains", None),
+            text_contains=getattr(args, "text_contains", None),
+            created_after=getattr(args, "created_after", None),
+            created_before=getattr(args, "created_before", None),
+            updated_after=getattr(args, "updated_after", None),
+            updated_before=getattr(args, "updated_before", None),
+            limit=getattr(args, "limit", 25),
+            cursor=getattr(args, "cursor", None),
+        )
         matches.append(
             {
                 "source_id": source["id"],
                 "key": source["key"],
                 "space": config.get("space") or config.get("space_key") or source.get("title"),
+                "base_url": config.get("base_url"),
+                "cql": results["cql"],
+                "results": results["results"],
+                "next_cursor": results["next_cursor"],
             }
         )
-    return {
-        "query": args.query,
-        "start_time": getattr(args, "start_time", None),
-        "end_time": getattr(args, "end_time", None),
-        "possible_sources": matches,
-    }
+    return _format_confluence_output(args, matches)
+
+
+def cmd_search_jira(args: Namespace) -> dict:
+    store = _store_from_args(args)
+    store.initialize()
+    sources = store.list_collection_sources(
+        key_name=getattr(args, "knowledge_key", None),
+        source_type="jira",
+    )
+    if getattr(args, "project", None):
+        sources = [source for source in sources if source.get("config", {}).get("project") == args.project]
+
+    matches = []
+    for source in sources:
+        config = source.get("config", {})
+        if not config.get("base_url") or not config.get("username") or not config.get("token"):
+            matches.append(
+                {
+                    "source_id": source["id"],
+                    "key": source["key"],
+                    "project": config.get("project") or source.get("title"),
+                    "error": "missing credentials or base_url",
+                }
+            )
+            continue
+        results = search_jira(
+            base_url=config["base_url"],
+            username=store.resolve_key(config["username"]),
+            token=store.resolve_key(config["token"]),
+            query=getattr(args, "query", None),
+            project=getattr(args, "project", None) or config.get("project"),
+            jql=getattr(args, "jql", None),
+            statuses=getattr(args, "status", None),
+            issue_types=getattr(args, "issue_type", None),
+            assignee=getattr(args, "assignee", None),
+            reporter=getattr(args, "reporter", None),
+            created_after=getattr(args, "created_after", None),
+            created_before=getattr(args, "created_before", None),
+            updated_after=getattr(args, "updated_after", None),
+            updated_before=getattr(args, "updated_before", None),
+            order_by=getattr(args, "order_by", None),
+            fields=getattr(args, "field", None),
+            properties=getattr(args, "property", None),
+            limit=getattr(args, "limit", 25),
+            next_page_token=getattr(args, "next_page_token", None),
+            expand=getattr(args, "expand", None),
+            fields_by_keys=getattr(args, "fields_by_keys", False),
+        )
+        matches.append(
+            {
+                "source_id": source["id"],
+                "key": source["key"],
+                "project": config.get("project") or source.get("title"),
+                "base_url": config.get("base_url"),
+                "jql": results["jql"],
+                "issues": results["issues"],
+                "next_page_token": results["next_page_token"],
+            }
+        )
+    return _format_jira_output(args, matches)
 
 
 def cmd_search_arxiv(args: Namespace) -> dict:
@@ -238,6 +459,13 @@ def cmd_search_arxiv(args: Namespace) -> dict:
         sort_by=args.sort_by,
         sort_order=args.sort_order,
     )
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        entries = results.get("entries", [])
+        return format_arxiv_television(entries)
+    if output_format == "television-preview":
+        entries = results.get("entries", [])
+        return format_arxiv_preview(entries, getattr(args, "entry", None))
     return {
         "query": args.query,
         "search_query": results.pop("search_query", None) or None,
@@ -246,6 +474,46 @@ def cmd_search_arxiv(args: Namespace) -> dict:
         "sort_by": args.sort_by,
         "sort_order": args.sort_order,
         **results,
+    }
+
+
+def _format_confluence_output(args: Namespace, matches: list[dict]) -> object:
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_confluence_television(matches)
+    if output_format == "television-preview":
+        return format_confluence_preview(matches, getattr(args, "entry", None))
+    return {
+        "query": args.query,
+        "cql": getattr(args, "cql", None),
+        "content_type": getattr(args, "type", None),
+        "labels": getattr(args, "label", None) or [],
+        "limit": getattr(args, "limit", 25),
+        "cursor": getattr(args, "cursor", None),
+        "matches": matches,
+    }
+
+
+def _format_jira_output(args: Namespace, matches: list[dict]) -> object:
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_jira_television(matches)
+    if output_format == "television-preview":
+        return format_jira_preview(matches, getattr(args, "entry", None))
+    return {
+        "query": getattr(args, "query", None),
+        "jql": getattr(args, "jql", None),
+        "limit": getattr(args, "limit", 25),
+        "statuses": getattr(args, "status", None) or [],
+        "issue_types": getattr(args, "issue_type", None) or [],
+        "assignee": getattr(args, "assignee", None),
+        "reporter": getattr(args, "reporter", None),
+        "order_by": getattr(args, "order_by", None) or [],
+        "fields": getattr(args, "field", None) or [],
+        "properties": getattr(args, "property", None) or [],
+        "expand": getattr(args, "expand", None) or [],
+        "fields_by_keys": getattr(args, "fields_by_keys", False),
+        "matches": matches,
     }
 
 
@@ -288,7 +556,9 @@ def _matches_source(source: dict, value: str) -> bool:
         source.get("title"),
         config.get("space"),
         config.get("space_key"),
+        config.get("channel"),
         config.get("url"),
+        config.get("feed_url"),
         config.get("repo_url"),
         config.get("video_url"),
         config.get("project"),
@@ -312,37 +582,3 @@ def _prepare_source_for_sync(source: dict, args: Namespace) -> dict:
     if prepared.get("type") == "github" and branch_override:
         prepared["_sync_branches"] = list(branch_override)
     return prepared
-
-
-def _filter_confluence_sources_by_time_bounds(
-    sources: list[dict],
-    *,
-    start_time: str | None,
-    end_time: str | None,
-) -> list[dict]:
-    lower_bound = _parse_iso8601(start_time) if start_time else None
-    upper_bound = _parse_iso8601(end_time) if end_time else None
-    if lower_bound is None and upper_bound is None:
-        return sources
-
-    matches: list[dict] = []
-    for source in sources:
-        candidate = _parse_iso8601(
-            source.get("last_synced_at")
-            or source.get("updated_at")
-            or source.get("created_at")
-        )
-        if candidate is None:
-            continue
-        if lower_bound and candidate < lower_bound:
-            continue
-        if upper_bound and candidate > upper_bound:
-            continue
-        matches.append(source)
-    return matches
-
-
-def _parse_iso8601(value: str | None) -> datetime | None:
-    if not value:
-        return None
-    return datetime.fromisoformat(value.replace("Z", "+00:00"))

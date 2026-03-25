@@ -1,0 +1,19 @@
+[metadata]
+name = "know-videos-browse"
+description = "Browse video transcriptions with sync status"
+
+[source]
+command = "know browse videos --format television"
+
+[preview]
+command = "know browse videos --format television-preview --entry '{}'"
+
+[ui]
+ansi = true
+
+[keybindings]
+enter = "actions:sync-and-browse"
+
+[actions.sync-and-browse]
+command = "know sync --key $(echo '{}' | grep -oP 'knowledge_key: \\K.*') 2>/dev/null; tv know-videos-browse"
+mode = "execute"

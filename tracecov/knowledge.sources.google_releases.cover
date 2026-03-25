@@ -1,0 +1,389 @@
+    1: from __future__ import annotations
+       
+    1: from html import unescape
+    1: from html.parser import HTMLParser
+    1: import re
+    1: from typing import Any
+    1: from xml.etree import ElementTree
+       
+    1: import requests
+       
+    1: from .base import SourceAdapter
+       
+       
+    1: ATOM_NAMESPACE = {"atom": "http://www.w3.org/2005/Atom"}
+       
+       
+    2: class GoogleReleasesSource(SourceAdapter):
+    1:     """Adapter that synchronizes Google Cloud release note Atom feeds."""
+       
+    1:     def sync(self) -> dict[str, object]:
+    1:         feed_url = self.config["url"]
+    2:         response = requests.get(
+    1:             feed_url,
+    1:             headers={"Accept": "application/atom+xml, application/xml;q=0.9, text/xml;q=0.8"},
+    1:             timeout=60,
+               )
+    1:         response.raise_for_status()
+       
+    1:         entries = parse_google_releases_feed(response.text)
+    1:         self.clear_source_dir()
+    1:         self.write_text(self.raw_dir / "feed.xml", response.text)
+    1:         self.write_json(self.raw_dir / "entries.json", entries)
+       
+    2:         for entry in entries:
+    1:             document_path = self.raw_dir / "entries" / f"{entry['slug']}.md"
+    1:             frontmatter = {
+    1:                 "title": entry["title"],
+    1:                 "knowledge_key": self.source["key"],
+    1:                 "source_id": self.source["id"],
+    1:                 "source_type": self.source["type"],
+    1:                 "entry_id": entry["entry_id"],
+    1:                 "entry_updated": entry["updated"],
+    1:                 "entry_url": entry["url"],
+    1:                 "feed_url": feed_url,
+    1:                 "products": entry["products"],
+    1:                 "product_count": len(entry["products"]),
+                   }
+    1:             self.write_markdown(document_path, frontmatter, _render_entry_markdown(entry))
+       
+    2:         return self.finalize_sync(
+    1:             {
+    1:                 "entries": len(entries),
+    1:                 "feed_url": feed_url,
+    1:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+       
+    1: def parse_google_releases_feed(payload: str) -> list[dict[str, object]]:
+           """Parse the Google Cloud release notes Atom feed into normalized entries."""
+    2:     root = ElementTree.fromstring(payload)
+    2:     entries: list[dict[str, object]] = []
+    4:     for entry in root.findall("atom:entry", ATOM_NAMESPACE):
+    2:         title = _text(entry, "atom:title") or "Untitled release"
+    2:         entry_id = _text(entry, "atom:id") or title
+    2:         updated = _text(entry, "atom:updated")
+    2:         content = entry.find("atom:content", ATOM_NAMESPACE)
+    2:         html = content.text if content is not None and content.text is not None else ""
+    2:         entry_url = None
+    2:         for link in entry.findall("atom:link", ATOM_NAMESPACE):
+    2:             if link.get("rel") == "alternate" and link.get("href"):
+    2:                 entry_url = link.get("href")
+    2:                 break
+    2:         products = _extract_release_products(html)
+    4:         entries.append(
+    2:             {
+    2:                 "title": title,
+    2:                 "entry_id": entry_id,
+    2:                 "updated": updated,
+    2:                 "url": entry_url,
+    2:                 "html": html,
+    2:                 "products": products,
+    2:                 "slug": _slugify_release_entry(title, entry_id),
+                   }
+               )
+    2:     return entries
+       
+       
+    1: def _render_entry_markdown(entry: dict[str, object]) -> str:
+    1:     title = str(entry.get("title") or "Untitled release")
+    2:     products = [str(product) for product in entry.get("products", []) if product]
+    1:     lines = [f"# {title}"]
+    1:     if entry.get("updated"):
+    1:         lines.extend(["", f"- Updated: {entry['updated']}"])
+    1:     if entry.get("url"):
+    1:         lines.append(f"- Source: {entry['url']}")
+    1:     if products:
+    1:         lines.append(f"- Products: {', '.join(products)}")
+       
+    1:     content = _google_release_html_to_markdown(str(entry.get("html") or ""))
+    1:     if content:
+    1:         lines.extend(["", content])
+    1:     return "\n".join(lines).rstrip() + "\n"
+       
+       
+    1: def _extract_release_products(html: str) -> list[str]:
+    2:     parser = _ProductTitleParser()
+    2:     parser.feed(html)
+    2:     parser.close()
+    2:     return parser.products
+       
+       
+    2: class _ProductTitleParser(HTMLParser):
+    1:     def __init__(self) -> None:
+    2:         super().__init__(convert_charrefs=True)
+    2:         self.products: list[str] = []
+    2:         self._capture_product = False
+    2:         self._buffer: list[str] = []
+       
+    1:     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+   13:         attrs_dict = dict(attrs)
+   13:         class_name = attrs_dict.get("class") or ""
+   13:         if tag == "h2" and "release-note-product-title" in class_name.split():
+    2:             self._capture_product = True
+    2:             self._buffer = []
+       
+    1:     def handle_endtag(self, tag: str) -> None:
+   13:         if tag == "h2" and self._capture_product:
+    2:             value = " ".join("".join(self._buffer).split())
+    2:             if value:
+    2:                 self.products.append(value)
+    2:             self._capture_product = False
+    2:             self._buffer = []
+       
+    1:     def handle_data(self, data: str) -> None:
+   22:         if self._capture_product and data:
+    2:             self._buffer.append(unescape(data))
+       
+       
+    2: class _GoogleReleaseHTMLParser(HTMLParser):
+    1:     def __init__(self) -> None:
+    1:         super().__init__(convert_charrefs=True)
+    1:         self.parts: list[str] = []
+    1:         self.list_stack: list[str] = []
+    1:         self.link_stack: list[str | None] = []
+    1:         self.code_stack: list[bool] = []
+    1:         self.table_state: list[dict[str, object]] = []
+       
+    1:     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+   10:         handler = self._START_HANDLERS.get(tag)
+   10:         if handler is not None:
+   10:             handler(self, attrs)
+       
+    1:     def handle_endtag(self, tag: str) -> None:
+   10:         handler = self._END_HANDLERS.get(tag)
+   10:         if handler is not None:
+   10:             handler(self)
+       
+    1:     def handle_data(self, data: str) -> None:
+   15:         if not data:
+>>>>>>             return
+   15:         text = re.sub(r"\s+", " ", unescape(data))
+   15:         if not text.strip():
+    8:             return
+    7:         if self.table_state and self.table_state[-1].get("current_cell") is not None:
+    4:             current_cell = self.table_state[-1]["current_cell"]
+    4:             if isinstance(current_cell, list):
+    4:                 current_cell.append(text)
+    4:             return
+    3:         self.parts.append(text)
+       
+           # -- Start-tag handlers ------------------------------------------------
+       
+    1:     def _start_block(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._ensure_block_break()
+       
+    1:     def _start_br(self, _attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         self.parts.append("\n")
+       
+    1:     def _start_bold(self, _attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         self.parts.append("**")
+       
+    1:     def _start_italic(self, _attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         self.parts.append("*")
+       
+    1:     def _start_code(self, _attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         self.code_stack.append(True)
+>>>>>>         self.parts.append("`")
+       
+    1:     def _start_heading(self, attrs: list[tuple[str, str | None]], tag: str = "h1") -> None:
+    2:         self._ensure_block_break()
+    2:         attrs_dict = dict(attrs)
+    2:         prefix = "#" * int(tag[1])
+    2:         if tag == "h2" and "release-note-product-title" in (attrs_dict.get("class") or "").split():
+    1:             prefix = "##"
+    2:         self.parts.append(f"{prefix} ")
+       
+    1:     def _start_list(self, attrs: list[tuple[str, str | None]], tag: str = "ul") -> None:
+>>>>>>         self._ensure_block_break()
+>>>>>>         self.list_stack.append(tag)
+       
+    1:     def _start_li(self, _attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         indent = "  " * max(len(self.list_stack) - 1, 0)
+>>>>>>         marker = "- " if (self.list_stack[-1:] and self.list_stack[-1] == "ul") else "1. "
+>>>>>>         self.parts.append(f"{indent}{marker}")
+       
+    1:     def _start_a(self, attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         attrs_dict = dict(attrs)
+>>>>>>         self.link_stack.append(attrs_dict.get("href"))
+>>>>>>         self.parts.append("[")
+       
+    1:     def _start_table(self, _attrs: list[tuple[str, str | None]]) -> None:
+    1:         self._ensure_block_break()
+    1:         self.table_state.append({"rows": [], "current_row": None, "current_cell": None})
+       
+    1:     def _start_tr(self, _attrs: list[tuple[str, str | None]]) -> None:
+    2:         if self.table_state:
+    2:             self.table_state[-1]["current_row"] = []
+       
+    1:     def _start_cell(self, _attrs: list[tuple[str, str | None]]) -> None:
+    4:         if self.table_state:
+    4:             self.table_state[-1]["current_cell"] = []
+       
+    1:     _START_HANDLERS: dict[str, Any] = {}
+       
+           # -- End-tag handlers --------------------------------------------------
+       
+    1:     def _end_block(self) -> None:
+    1:         self._ensure_block_break()
+       
+    1:     def _end_bold(self) -> None:
+>>>>>>         self.parts.append("**")
+       
+    1:     def _end_italic(self) -> None:
+>>>>>>         self.parts.append("*")
+       
+    1:     def _end_code(self) -> None:
+>>>>>>         if self.code_stack:
+>>>>>>             self.code_stack.pop()
+>>>>>>         self.parts.append("`")
+       
+    1:     def _end_heading(self) -> None:
+    2:         self._ensure_block_break()
+       
+    1:     def _end_list(self) -> None:
+>>>>>>         if self.list_stack:
+>>>>>>             self.list_stack.pop()
+>>>>>>         self._ensure_block_break()
+       
+    1:     def _end_li(self) -> None:
+>>>>>>         self.parts.append("\n")
+       
+    1:     def _end_a(self) -> None:
+>>>>>>         href = self.link_stack.pop() if self.link_stack else None
+>>>>>>         self.parts.append(f"]({href})" if href else "]")
+       
+    1:     def _end_cell(self) -> None:
+    4:         if not self.table_state:
+>>>>>>             return
+    4:         table = self.table_state[-1]
+    4:         current_row = table.get("current_row")
+    4:         current_cell = table.get("current_cell")
+    4:         if isinstance(current_row, list):
+    4:             current_row.append(" ".join("".join(current_cell or []).split()))
+    4:         table["current_cell"] = None
+       
+    1:     def _end_tr(self) -> None:
+    2:         if not self.table_state:
+>>>>>>             return
+    2:         table = self.table_state[-1]
+    2:         current_row = table.get("current_row")
+    2:         if isinstance(current_row, list) and current_row:
+    2:             rows = table.get("rows")
+    2:             if isinstance(rows, list):
+    2:                 rows.append(current_row)
+    2:         table["current_row"] = None
+       
+    1:     def _end_table(self) -> None:
+    1:         if not self.table_state:
+>>>>>>             return
+    1:         table = self.table_state.pop()
+    1:         rows = table.get("rows")
+    1:         if isinstance(rows, list) and rows:
+    1:             self.parts.append(_markdown_table(rows))
+    1:             self._ensure_block_break()
+       
+    1:     _END_HANDLERS: dict[str, Any] = {}
+       
+    1:     def render(self) -> str:
+               """Join parts and normalize whitespace into final Markdown output."""
+    1:         text = "".join(self.parts)
+    1:         text = re.sub(r"\n{3,}", "\n\n", text)
+    1:         text = re.sub(r"[ \t]+\n", "\n", text)
+    1:         return text.strip()
+       
+    1:     def _ensure_block_break(self) -> None:
+    8:         current = "".join(self.parts[-2:])
+    8:         if not current.endswith("\n\n"):
+    5:             if current.endswith("\n"):
+>>>>>>                 self.parts.append("\n")
+                   else:
+    5:                 self.parts.append("\n\n")
+       
+       
+       # Populate dispatch tables after class definition so methods are bound.
+    1: def _make_heading_start(t: str):  # noqa: ANN202
+    6:     def handler(self: _GoogleReleaseHTMLParser, attrs: list[tuple[str, str | None]]) -> None:
+    2:         self._start_heading(attrs, tag=t)
+    6:     return handler
+       
+    1: def _make_list_start(t: str):  # noqa: ANN202
+    2:     def handler(self: _GoogleReleaseHTMLParser, attrs: list[tuple[str, str | None]]) -> None:
+>>>>>>         self._start_list(attrs, tag=t)
+    2:     return handler
+       
+    3: _GoogleReleaseHTMLParser._START_HANDLERS = {
+    1:     "p": _GoogleReleaseHTMLParser._start_block,
+    1:     "div": _GoogleReleaseHTMLParser._start_block,
+    1:     "br": _GoogleReleaseHTMLParser._start_br,
+    1:     "strong": _GoogleReleaseHTMLParser._start_bold,
+    1:     "b": _GoogleReleaseHTMLParser._start_bold,
+    1:     "em": _GoogleReleaseHTMLParser._start_italic,
+    1:     "i": _GoogleReleaseHTMLParser._start_italic,
+    1:     "code": _GoogleReleaseHTMLParser._start_code,
+    1:     "li": _GoogleReleaseHTMLParser._start_li,
+    1:     "a": _GoogleReleaseHTMLParser._start_a,
+    1:     "table": _GoogleReleaseHTMLParser._start_table,
+    1:     "tr": _GoogleReleaseHTMLParser._start_tr,
+    1:     "th": _GoogleReleaseHTMLParser._start_cell,
+    1:     "td": _GoogleReleaseHTMLParser._start_cell,
+    7:     **{f"h{i}": _make_heading_start(f"h{i}") for i in range(1, 7)},
+    1:     "ul": _make_list_start("ul"),
+    1:     "ol": _make_list_start("ol"),
+       }
+       
+    2: _GoogleReleaseHTMLParser._END_HANDLERS = {
+    1:     "p": _GoogleReleaseHTMLParser._end_block,
+    1:     "div": _GoogleReleaseHTMLParser._end_block,
+    1:     "strong": _GoogleReleaseHTMLParser._end_bold,
+    1:     "b": _GoogleReleaseHTMLParser._end_bold,
+    1:     "em": _GoogleReleaseHTMLParser._end_italic,
+    1:     "i": _GoogleReleaseHTMLParser._end_italic,
+    1:     "code": _GoogleReleaseHTMLParser._end_code,
+    1:     "li": _GoogleReleaseHTMLParser._end_li,
+    1:     "a": _GoogleReleaseHTMLParser._end_a,
+    1:     "th": _GoogleReleaseHTMLParser._end_cell,
+    1:     "td": _GoogleReleaseHTMLParser._end_cell,
+    1:     "tr": _GoogleReleaseHTMLParser._end_tr,
+    1:     "table": _GoogleReleaseHTMLParser._end_table,
+    1:     "ul": _GoogleReleaseHTMLParser._end_list,
+    1:     "ol": _GoogleReleaseHTMLParser._end_list,
+    7:     **{f"h{i}": _GoogleReleaseHTMLParser._end_heading for i in range(1, 7)},
+       }
+       
+       
+    1: def _google_release_html_to_markdown(html: str) -> str:
+    1:     parser = _GoogleReleaseHTMLParser()
+    1:     parser.feed(html)
+    1:     parser.close()
+    1:     return parser.render()
+       
+       
+    1: def _markdown_table(rows: list[object]) -> str:
+    7:     normalized_rows = [[str(cell).strip() for cell in row] for row in rows if isinstance(row, list) and row]
+    1:     if not normalized_rows:
+>>>>>>         return ""
+    4:     width = max(len(row) for row in normalized_rows)
+    3:     padded = [row + [""] * (width - len(row)) for row in normalized_rows]
+    1:     header = padded[0]
+    1:     lines = [
+    1:         "| " + " | ".join(header) + " |",
+    4:         "| " + " | ".join("---" for _ in header) + " |",
+           ]
+    2:     for row in padded[1:]:
+    1:         lines.append("| " + " | ".join(row) + " |")
+    1:     return "\n".join(lines)
+       
+       
+    1: def _slugify_release_entry(title: str, entry_id: str) -> str:
+    2:     raw_value = title or entry_id.rsplit("#", 1)[-1]
+    2:     normalized = re.sub(r"[^A-Za-z0-9._-]+", "-", raw_value).strip("-").lower()
+    2:     return normalized or "release"
+       
+       
+    1: def _text(element: ElementTree.Element, selector: str) -> str | None:
+    6:     node = element.find(selector, ATOM_NAMESPACE)
+    6:     if node is None or node.text is None:
+>>>>>>         return None
+    6:     return " ".join(node.text.split())

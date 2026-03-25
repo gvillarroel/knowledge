@@ -3,18 +3,27 @@
     1: import json
     1: from abc import ABC, abstractmethod
     1: from pathlib import Path
+    1: import shutil
     1: from typing import Any
+       
+    1: import yaml
        
     1: from ..store import KnowledgeStore, utc_now
        
        
     2: class SourceAdapter(ABC):
+    1:     """Abstract base for all source synchronization adapters.
+       
+           Each concrete adapter implements :meth:`sync` which fetches content from
+           the external system and writes raw files into the store.
+           """
+       
     1:     def __init__(self, source: dict[str, Any], store: KnowledgeStore) -> None:
-   11:         self.source = source
-   11:         self.store = store
-   11:         self.config = source["config"]
-   11:         self.raw_dir = store.source_raw_dir(source)
-   11:         self.cache_dir = store.source_cache_dir(source)
+   29:         self.source = source
+   29:         self.store = store
+   29:         self.config = source["config"]
+   29:         self.raw_dir = store.source_raw_dir(source)
+   29:         self.cache_dir = store.source_cache_dir(source)
        
     2:     @abstractmethod
     2:     def sync(self) -> dict[str, Any]:
@@ -25,13 +34,33 @@
    14:         path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
        
     1:     def write_text(self, path: Path, payload: str) -> None:
-    6:         path.parent.mkdir(parents=True, exist_ok=True)
-    6:         path.write_text(payload, encoding="utf-8")
+   20:         path.parent.mkdir(parents=True, exist_ok=True)
+   20:         path.write_text(payload, encoding="utf-8")
+       
+    1:     def write_markdown(self, path: Path, frontmatter: dict[str, Any], body: str) -> None:
+   10:         document = (
+   50:             "---\n"
+   10:             + yaml.safe_dump(frontmatter, sort_keys=False, allow_unicode=False).strip()
+   10:             + "\n---\n\n"
+   10:             + body.rstrip()
+   10:             + "\n"
+               )
+   10:         self.write_text(path, document)
+       
+    1:     def clear_source_dir(self) -> None:
+   11:         if not self.raw_dir.exists():
+    1:             self.raw_dir.mkdir(parents=True, exist_ok=True)
+    1:             return
+   12:         for path in sorted(self.raw_dir.iterdir(), reverse=True):
+    2:             if path.is_dir():
+    1:                 shutil.rmtree(path)
+                   else:
+    1:                 path.unlink()
        
     1:     def finalize_sync(self, stats: dict[str, Any]) -> dict[str, Any]:
-   11:         self.source["last_synced_at"] = utc_now()
-   22:         persisted_source = {
-  133:             key: value for key, value in self.source.items() if not key.startswith("_")
+   19:         self.source["last_synced_at"] = utc_now()
+   38:         persisted_source = {
+  230:             key: value for key, value in self.source.items() if not key.startswith("_")
                }
-   11:         self.store.update_collection_source(persisted_source)
-   11:         return {"key": self.source["key"], "source": self.source["id"], **stats}
+   19:         self.store.update_collection_source(persisted_source)
+   19:         return {"key": self.source["key"], "source": self.source["id"], **stats}

@@ -39,6 +39,8 @@ TEXT_SUFFIXES = {
 
 
 class GitHubRepoSource(SourceAdapter):
+    """Adapter that clones and extracts text files from a Git repository."""
+
     def sync(self) -> dict[str, object]:
         repo_url = self.config["repo_url"]
         branches = self.source.get("_sync_branches") or self.config.get("branches", ["HEAD"])

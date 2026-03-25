@@ -20,6 +20,8 @@ class TranscriptSegment:
 
 
 class VideoSource(SourceAdapter):
+    """Adapter that fetches YouTube transcripts via the Transcript API."""
+
     def sync(self) -> dict[str, object]:
         video_url = self.config["url"]
         video_id = extract_video_id(video_url)

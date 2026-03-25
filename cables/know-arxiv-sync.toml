@@ -1,0 +1,19 @@
+[metadata]
+name = "know-arxiv-sync"
+description = "Browse arXiv papers with sync status (green=downloaded, yellow=pending)"
+
+[source]
+command = "know browse arxiv --format television"
+
+[preview]
+command = "know browse arxiv --format television-preview --entry '{}'"
+
+[ui]
+ansi = true
+
+[keybindings]
+enter = "actions:sync-and-browse"
+
+[actions.sync-and-browse]
+command = "know sync --key $(echo '{}' | grep -oP 'knowledge_key: \\K.*') 2>/dev/null; tv know-arxiv-sync"
+mode = "execute"

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import tempfile
 from dataclasses import dataclass
 from datetime import UTC, datetime
+import os
 from pathlib import Path
 import shutil
 from typing import Any, Iterable
@@ -10,9 +12,15 @@ from zipfile import ZipFile
 
 import yaml
 
+from .errors import (
+    CredentialNotFoundError,
+    KeyAlreadyExistsError,
+    SourceAlreadyExistsError,
+    SourceNotFoundError,
+)
 
-KEY_DIRS = ("raw", "library")
-TEMP_ROOT = Path("/tmp").resolve()
+
+TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 
 
 def utc_now() -> str:
@@ -21,6 +29,12 @@ def utc_now() -> str:
 
 @dataclass
 class KnowledgeStore:
+    """Manages the local ``~/.knowledge`` store on disk.
+
+    All CRUD operations for keys, sources, credentials, and archives are
+    handled through this class.
+    """
+
     root_override: Path | None = None
 
     def __post_init__(self) -> None:
@@ -35,6 +49,7 @@ class KnowledgeStore:
         self.exports_dir = self.root / "exports"
 
     def initialize(self) -> None:
+        """Ensure all required store directories and config files exist."""
         self.root.mkdir(parents=True, exist_ok=True)
         self.temp_root.mkdir(parents=True, exist_ok=True)
         self.exports_dir.mkdir(parents=True, exist_ok=True)
@@ -73,14 +88,13 @@ class KnowledgeStore:
         self._write_yaml(self.keys_path, payload)
 
     def create_collection_key(self, name: str) -> dict[str, Any]:
+        """Create a new knowledge key directory with initial metadata."""
         key_dir = self.key_dir(name)
         metadata_path = key_dir / "metadata.yaml"
         if metadata_path.exists():
-            raise FileExistsError(f"key '{name}' already exists")
+            raise KeyAlreadyExistsError(name)
 
         key_dir.mkdir(parents=True, exist_ok=False)
-        for directory_name in KEY_DIRS:
-            (key_dir / directory_name).mkdir(parents=True, exist_ok=True)
 
         timestamp = utc_now()
         payload = {
@@ -130,11 +144,12 @@ class KnowledgeStore:
         update_command: str,
         delete_command: str,
     ) -> dict[str, Any]:
+        """Register a new source under the given key."""
         metadata = self.get_collection_metadata(key_name)
         source_id = source_id or self._source_id(source_type, title)
         sources = metadata.setdefault("sources", [])
         if any(source.get("id") == source_id for source in sources):
-            raise FileExistsError(f"source '{source_id}' already exists on key '{key_name}'")
+            raise SourceAlreadyExistsError(key_name, source_id)
 
         timestamp = utc_now()
         source_record = {
@@ -157,7 +172,7 @@ class KnowledgeStore:
         sources = metadata.get("sources", [])
         match = next((source for source in sources if source.get("id") == source_id), None)
         if match is None:
-            raise FileNotFoundError(f"source '{source_id}' not found on key '{key_name}'")
+            raise SourceNotFoundError(key_name, source_id)
 
         metadata["sources"] = [source for source in sources if source.get("id") != source_id]
         self.save_collection_metadata(key_name, metadata)
@@ -195,15 +210,16 @@ class KnowledgeStore:
         self.save_collection_metadata(key_name, metadata)
         self._delete_legacy_source_record(key_name, source["type"], source["id"])
 
-    def source_raw_dir(self, source: dict[str, Any]) -> Path:
-        path = self.key_dir(source["key"]) / "raw" / source["type"] / source["id"]
+    def source_dir(self, source: dict[str, Any]) -> Path:
+        path = self.key_dir(source["key"]) / source["type"] / source["id"]
         path.mkdir(parents=True, exist_ok=True)
         return path
 
+    def source_raw_dir(self, source: dict[str, Any]) -> Path:
+        return self.source_dir(source)
+
     def source_library_dir(self, source: dict[str, Any]) -> Path:
-        path = self.key_dir(source["key"]) / "library" / source["type"] / source["id"]
-        path.mkdir(parents=True, exist_ok=True)
-        return path
+        return self.source_dir(source)
 
     def source_cache_dir(self, source: dict[str, Any]) -> Path:
         path = (
@@ -276,10 +292,20 @@ class KnowledgeStore:
         }
 
     def resolve_key(self, value: str) -> str:
+        """Resolve a credential reference to its actual value.
+
+        Supports ``$env:VAR`` for environment variables and ``$name`` for
+        entries stored in ``keys.yaml``.  Plain strings are returned as-is.
+        """
+        if value.startswith("$env:"):
+            env_name = value[5:]
+            if env_name not in os.environ:
+                raise CredentialNotFoundError(value)
+            return os.environ[env_name]
         if value.startswith("$"):
             key_name = value[1:]
             if key_name not in self.keys:
-                raise KeyError(f"missing key '{key_name}'")
+                raise CredentialNotFoundError(value)
             return self.keys[key_name]
         return value
 
@@ -289,8 +315,6 @@ class KnowledgeStore:
     def _ensure_key_dirs(self, key_name: str) -> None:
         key_dir = self.key_dir(key_name)
         key_dir.mkdir(parents=True, exist_ok=True)
-        for directory_name in KEY_DIRS:
-            (key_dir / directory_name).mkdir(parents=True, exist_ok=True)
 
     def cleanup_legacy_source_records(self, key_name: str | None = None) -> dict[str, int]:
         key_names = [key_name] if key_name else self.list_collection_keys()
@@ -309,27 +333,42 @@ class KnowledgeStore:
         return {"keys": len(key_names), "removed": removed}
 
     def cleanup_orphan_source_dirs(self, key_name: str | None = None) -> dict[str, int]:
+        """Remove source directories that are no longer referenced in metadata."""
         key_names = [key_name] if key_name else self.list_collection_keys()
         removed = 0
         for current_key in key_names:
-            metadata = self.get_collection_metadata(current_key)
-            expected = {
-                (source.get("type"), source.get("id"))
-                for source in metadata.get("sources", [])
-                if source.get("type") and source.get("id")
-            }
-            for bucket in ("raw", "library"):
-                base_dir = self.key_dir(current_key) / bucket
-                if not base_dir.exists():
-                    continue
-                for type_dir in [path for path in base_dir.iterdir() if path.is_dir()]:
-                    for source_dir in [path for path in type_dir.iterdir() if path.is_dir()]:
-                        if (type_dir.name, source_dir.name) not in expected:
-                            shutil.rmtree(source_dir)
-                            removed += 1
-                    if not any(type_dir.iterdir()):
-                        type_dir.rmdir()
+            removed += self._cleanup_key_orphans(current_key)
         return {"keys": len(key_names), "removed": removed}
+
+    def _cleanup_key_orphans(self, key_name: str) -> int:
+        """Remove orphan source dirs for a single key. Returns count removed."""
+        metadata = self.get_collection_metadata(key_name)
+        expected = {
+            (source.get("type"), source.get("id"))
+            for source in metadata.get("sources", [])
+            if source.get("type") and source.get("id")
+        }
+        key_dir = self.key_dir(key_name)
+        removed = 0
+        for type_dir in [p for p in key_dir.iterdir() if p.is_dir()]:
+            removed += self._cleanup_type_dir(type_dir, expected, key_dir)
+        return removed
+
+    def _cleanup_type_dir(
+        self, type_dir: Path, expected: set[tuple[str | None, str | None]], key_dir: Path
+    ) -> int:
+        """Clean up a single type directory, removing legacy or orphan dirs."""
+        removed = 0
+        if type_dir.name in {"raw", "library"}:
+            shutil.rmtree(type_dir)
+            return 1
+        for source_dir in [p for p in type_dir.iterdir() if p.is_dir()]:
+            if (type_dir.name, source_dir.name) not in expected:
+                shutil.rmtree(source_dir)
+                removed += 1
+        if type_dir.exists() and not any(type_dir.iterdir()):
+            type_dir.rmdir()
+        return removed
 
     def _delete_legacy_source_record(self, key_name: str, source_type: str, source_id: str) -> None:
         source_dir = self.key_dir(key_name) / source_type
@@ -340,37 +379,28 @@ class KnowledgeStore:
             source_dir.rmdir()
 
     def _delete_source_dirs(self, key_name: str, source_type: str, source_id: str) -> None:
-        for bucket in KEY_DIRS:
-            type_dir = self.key_dir(key_name) / bucket / source_type
-            source_dir = type_dir / source_id
-            if source_dir.exists():
-                shutil.rmtree(source_dir)
-            if type_dir.exists() and not any(type_dir.iterdir()):
-                type_dir.rmdir()
+        type_dir = self.key_dir(key_name) / source_type
+        source_dir = type_dir / source_id
+        if source_dir.exists():
+            shutil.rmtree(source_dir)
+        if type_dir.exists() and not any(type_dir.iterdir()):
+            type_dir.rmdir()
 
     def _merge_metadata(self, current: dict[str, Any], incoming: dict[str, Any]) -> tuple[dict[str, Any], int]:
+        """Merge *incoming* metadata into *current*, returning the result and count of new sources."""
         merged = dict(current)
         merged["version"] = max(int(current.get("version", 1)), int(incoming.get("version", 1)))
         merged["name"] = incoming.get("name") or current.get("name")
         merged["created_at"] = current.get("created_at") or incoming.get("created_at") or utc_now()
         merged["updated_at"] = utc_now()
         merged["commands"] = {
-            **(current.get("commands", {}) if isinstance(current.get("commands"), dict) else {}),
-            **(incoming.get("commands", {}) if isinstance(incoming.get("commands"), dict) else {}),
+            **_safe_dict(current.get("commands")),
+            **_safe_dict(incoming.get("commands")),
         }
-
-        existing_sources = current.get("sources", []) if isinstance(current.get("sources"), list) else []
-        incoming_sources = incoming.get("sources", []) if isinstance(incoming.get("sources"), list) else []
-        by_id: dict[str, dict[str, Any]] = {source["id"]: source for source in existing_sources if "id" in source}
-        new_count = 0
-        for source in incoming_sources:
-            source_id = source.get("id")
-            if not source_id:
-                continue
-            if source_id not in by_id:
-                new_count += 1
-            by_id[source_id] = source
-        merged["sources"] = list(by_id.values())
+        merged["sources"], new_count = _merge_sources(
+            _safe_list(current.get("sources")),
+            _safe_list(incoming.get("sources")),
+        )
         return merged, new_count
 
     def _read_yaml(self, path: Path, default: dict[str, Any]) -> dict[str, Any]:
@@ -392,3 +422,29 @@ class KnowledgeStore:
         if not safe:
             safe = "source"
         return f"{source_type}-{safe.lower()}"
+
+
+def _safe_dict(value: Any) -> dict[str, Any]:
+    """Return *value* as a dict, or an empty dict if not a dict."""
+    return value if isinstance(value, dict) else {}
+
+
+def _safe_list(value: Any) -> list[Any]:
+    """Return *value* as a list, or an empty list if not a list."""
+    return value if isinstance(value, list) else []
+
+
+def _merge_sources(
+    existing: list[dict[str, Any]], incoming: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], int]:
+    """Merge two source lists by id. Returns (merged list, new count)."""
+    by_id: dict[str, dict[str, Any]] = {s["id"]: s for s in existing if "id" in s}
+    new_count = 0
+    for source in incoming:
+        source_id = source.get("id")
+        if not source_id:
+            continue
+        if source_id not in by_id:
+            new_count += 1
+        by_id[source_id] = source
+    return list(by_id.values()), new_count

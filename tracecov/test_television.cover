@@ -1,0 +1,524 @@
+    1: """Tests for television output formatting across all commands."""
+    1: from __future__ import annotations
+       
+    1: import pytest
+       
+    1: from knowledge.television import (
+           TV_FORMAT_CHOICES,
+           format_arxiv_preview,
+           format_arxiv_television,
+           format_confluence_preview,
+           format_confluence_television,
+           format_credentials_preview,
+           format_credentials_television,
+           format_jira_preview,
+           format_jira_television,
+           format_keys_preview,
+           format_keys_television,
+           format_sources_preview,
+           format_sources_television,
+           _find_arxiv_entry,
+           _find_source,
+           _find_confluence_result,
+           _find_jira_issue,
+           _resolve_selection,
+           _strip_html_tags,
+       )
+       
+       
+       # ── TV_FORMAT_CHOICES ────────────────────────────────────────────────────
+       
+    2: class TestTVFormatChoices:
+    1:     def test_choices_tuple(self):
+    1:         assert TV_FORMAT_CHOICES == ("json", "television", "television-preview")
+       
+       
+       # ── Keys ─────────────────────────────────────────────────────────────────
+       
+    2: class TestKeysTelevision:
+    1:     def test_format_keys_television_basic(self):
+    1:         result = format_keys_television(["research", "work"])
+    1:         assert result == "research\nwork"
+       
+    1:     def test_format_keys_television_empty(self):
+    1:         assert format_keys_television([]) == ""
+       
+    1:     def test_format_keys_preview_basic(self):
+    1:         result = format_keys_preview(["research", "work"], "research")
+    1:         assert "# research" in result
+    1:         assert "know list sources --key research" in result
+    1:         assert "know sync --key research" in result
+    1:         assert "know export --key research" in result
+       
+    1:     def test_format_keys_preview_no_selection(self):
+    1:         result = format_keys_preview(["research"], None)
+    1:         assert "# research" in result
+       
+    1:     def test_format_keys_preview_empty(self):
+    1:         result = format_keys_preview([], None)
+    1:         assert "No key matched" in result
+       
+    1:     def test_format_keys_preview_nonexistent_falls_back(self):
+    1:         result = format_keys_preview(["alpha"], "nonexistent")
+    1:         assert "# alpha" in result
+       
+       
+       # ── Credentials ──────────────────────────────────────────────────────────
+       
+    2: class TestCredentialsTelevision:
+    1:     def test_format_credentials_television_basic(self):
+    1:         result = format_credentials_television(["jira_token", "conf_token"])
+    1:         lines = result.split("\n")
+    1:         assert lines == ["conf_token", "jira_token"]
+       
+    1:     def test_format_credentials_television_empty(self):
+    1:         assert format_credentials_television([]) == ""
+       
+    1:     def test_format_credentials_preview_basic(self):
+    1:         result = format_credentials_preview(["jira_token"], "jira_token")
+    1:         assert "jira_token" in result
+    1:         assert "keys.yaml" in result
+       
+    1:     def test_format_credentials_preview_empty(self):
+    1:         result = format_credentials_preview([], None)
+    1:         assert "No credential matched" in result
+       
+       
+       # ── Sources ──────────────────────────────────────────────────────────────
+       
+    2: class TestSourcesTelevision:
+    1:     SAMPLE_SOURCES = [
+    1:         {
+    1:             "id": "confluence-eng",
+    1:             "type": "confluence",
+    1:             "key": "research",
+    1:             "title": "ENG",
+    1:             "created_at": "2026-01-01T00:00:00+00:00",
+    1:             "updated_at": "2026-03-01T00:00:00+00:00",
+    1:             "config": {"space": "ENG", "base_url": "https://wiki.example.com"},
+    1:             "update_command": "know sync confluence --space ENG --key research",
+    1:             "delete_command": "know del --key research confluence-eng",
+               },
+    1:         {
+    1:             "id": "jira-kan",
+    1:             "type": "jira",
+    1:             "key": "work",
+    1:             "title": "KAN",
+    1:             "config": {"project": "KAN"},
+               },
+           ]
+       
+    1:     def test_format_sources_television_basic(self):
+    1:         result = format_sources_television(self.SAMPLE_SOURCES)
+    1:         lines = result.split("\n")
+    1:         assert len(lines) == 2
+    1:         assert "confluence-eng | confluence | research | ENG" in lines[0]
+    1:         assert "jira-kan | jira | work | KAN" in lines[1]
+       
+    1:     def test_format_sources_television_empty(self):
+    1:         assert format_sources_television([]) == ""
+       
+    1:     def test_format_sources_preview_by_id(self):
+    2:         result = format_sources_preview(
+    1:             self.SAMPLE_SOURCES, "confluence-eng | confluence | research | ENG"
+               )
+    1:         assert "# ENG" in result
+    1:         assert "confluence-eng" in result
+    1:         assert "know sync confluence" in result
+    1:         assert "space: ENG" in result
+       
+    1:     def test_format_sources_preview_no_selection(self):
+    1:         result = format_sources_preview(self.SAMPLE_SOURCES, None)
+    1:         assert "# ENG" in result
+       
+    1:     def test_format_sources_preview_empty(self):
+    1:         result = format_sources_preview([], None)
+    1:         assert "No source matched" in result
+       
+    1:     def test_find_source_by_id(self):
+    1:         found = _find_source(self.SAMPLE_SOURCES, "jira-kan | jira | work | KAN")
+    1:         assert found is not None
+    1:         assert found["id"] == "jira-kan"
+       
+    1:     def test_find_source_fallback(self):
+    1:         found = _find_source(self.SAMPLE_SOURCES, "nonexistent")
+    1:         assert found is not None
+    1:         assert found["id"] == "confluence-eng"
+       
+    1:     def test_find_source_empty(self):
+    1:         assert _find_source([], "anything") is None
+       
+    1:     def test_format_sources_preview_with_markdown_body(self):
+    1:         body = "# Introduction\n\nSome content here."
+    2:         result = format_sources_preview(
+    1:             self.SAMPLE_SOURCES,
+    1:             "confluence-eng | confluence | research | ENG",
+    1:             markdown_body=body,
+               )
+    1:         assert "# ENG" in result
+    1:         assert "# Introduction" in result
+    1:         assert "Some content here." in result
+               # Should NOT contain metadata fields when body is present
+    1:         assert "Source id:" not in result
+    1:         assert "Type:" not in result
+       
+    1:     def test_format_sources_preview_none_body_falls_back(self):
+    2:         result = format_sources_preview(
+    1:             self.SAMPLE_SOURCES,
+    1:             "confluence-eng | confluence | research | ENG",
+    1:             markdown_body=None,
+               )
+               # Falls back to metadata view
+    1:         assert "Source id:" in result
+    1:         assert "confluence-eng" in result
+       
+    1:     def test_format_sources_preview_empty_body_falls_back(self):
+    2:         result = format_sources_preview(
+    1:             self.SAMPLE_SOURCES,
+    1:             "confluence-eng | confluence | research | ENG",
+    1:             markdown_body="",
+               )
+               # Empty string is falsy, falls back to metadata
+    1:         assert "Source id:" in result
+       
+       
+       # ── Confluence ───────────────────────────────────────────────────────────
+       
+    2: class TestConfluenceTelevision:
+    1:     SAMPLE_MATCHES = [
+    1:         {
+    1:             "source_id": "confluence-eng",
+    1:             "key": "research",
+    1:             "space": "ENG",
+    1:             "base_url": "https://wiki.example.com",
+    1:             "cql": 'text ~ "incident"',
+    2:             "results": [
+    1:                 {
+    2:                     "content": {
+    1:                         "title": "Incident Postmortem Q1",
+    1:                         "type": "page",
+    1:                         "_links": {"webui": "/wiki/spaces/ENG/pages/123"},
+    2:                         "history": {
+    1:                             "lastUpdated": {"when": "2026-02-15T10:00:00Z"}
+                               },
+                           },
+    1:                     "excerpt": "This was an <b>incident</b> report.",
+                       },
+    1:                 {
+    2:                     "content": {
+    1:                         "title": "Runbook: Database",
+    1:                         "type": "page",
+    1:                         "_links": {"webui": "/wiki/spaces/ENG/pages/456"},
+                           },
+    1:                     "excerpt": "Steps to recover database.",
+                       },
+                   ],
+    1:             "next_cursor": None,
+               }
+           ]
+       
+    1:     def test_format_confluence_television_basic(self):
+    1:         result = format_confluence_television(self.SAMPLE_MATCHES)
+    1:         lines = result.split("\n")
+    1:         assert len(lines) == 2
+    1:         assert "Incident Postmortem Q1" in lines[0]
+    1:         assert "ENG" in lines[0]
+    1:         assert "Runbook: Database" in lines[1]
+       
+    1:     def test_format_confluence_television_empty(self):
+    1:         assert format_confluence_television([]) == ""
+       
+    1:     def test_format_confluence_preview_basic(self):
+    2:         result = format_confluence_preview(
+    1:             self.SAMPLE_MATCHES, "Incident Postmortem Q1 | ENG | research | url"
+               )
+    1:         assert "# Incident Postmortem Q1" in result
+    1:         assert "Space: ENG" in result
+    1:         assert "incident" in result
+    1:         assert "Updated: 2026-02-15T10:00:00Z" in result
+       
+    1:     def test_format_confluence_preview_no_selection(self):
+    1:         result = format_confluence_preview(self.SAMPLE_MATCHES, None)
+    1:         assert "# Incident Postmortem Q1" in result
+       
+    1:     def test_format_confluence_preview_empty_matches(self):
+    1:         result = format_confluence_preview([], None)
+    1:         assert "No Confluence result matched" in result
+       
+    1:     def test_format_confluence_preview_url(self):
+    2:         result = format_confluence_preview(
+    1:             self.SAMPLE_MATCHES, "Incident Postmortem Q1 | ENG | research | url"
+               )
+    1:         assert "wiki.example.com" in result
+       
+    1:     def test_find_confluence_result_empty(self):
+    1:         r, ctx = _find_confluence_result([], "anything")
+    1:         assert r is None
+    1:         assert ctx is None
+       
+       
+       # ── Jira ─────────────────────────────────────────────────────────────────
+       
+    2: class TestJiraTelevision:
+    1:     SAMPLE_MATCHES = [
+    1:         {
+    1:             "source_id": "jira-kan",
+    1:             "key": "work",
+    1:             "project": "KAN",
+    1:             "base_url": "https://jira.example.com",
+    1:             "jql": "project = KAN",
+    2:             "issues": [
+    1:                 {
+    1:                     "key": "KAN-101",
+    1:                     "id": "10101",
+    2:                     "fields": {
+    1:                         "summary": "Fix login bug",
+    1:                         "status": {"name": "In Progress"},
+    1:                         "issuetype": {"name": "Bug"},
+    1:                         "priority": {"name": "High"},
+    1:                         "assignee": {"displayName": "Alice"},
+    1:                         "reporter": {"displayName": "Bob"},
+    1:                         "labels": ["backend", "auth"],
+    1:                         "created": "2026-03-01T08:00:00Z",
+    1:                         "updated": "2026-03-20T14:00:00Z",
+                           },
+                       },
+    1:                 {
+    1:                     "key": "KAN-102",
+    1:                     "id": "10102",
+    2:                     "fields": {
+    1:                         "summary": "Add caching layer",
+    1:                         "status": {"name": "To Do"},
+    1:                         "issuetype": {"name": "Story"},
+    1:                         "priority": {"name": "Medium"},
+    1:                         "assignee": None,
+    1:                         "reporter": {"displayName": "Charlie"},
+    1:                         "labels": [],
+    1:                         "created": "2026-03-15T09:00:00Z",
+    1:                         "updated": "2026-03-15T09:00:00Z",
+                           },
+                       },
+                   ],
+    1:             "next_page_token": None,
+               }
+           ]
+       
+    1:     def test_format_jira_television_basic(self):
+    1:         result = format_jira_television(self.SAMPLE_MATCHES)
+    1:         lines = result.split("\n")
+    1:         assert len(lines) == 2
+    1:         assert "KAN-101" in lines[0]
+    1:         assert "Fix login bug" in lines[0]
+    1:         assert "In Progress" in lines[0]
+    1:         assert "Alice" in lines[0]
+    1:         assert "KAN-102" in lines[1]
+    1:         assert "unassigned" in lines[1]
+       
+    1:     def test_format_jira_television_empty(self):
+    1:         assert format_jira_television([]) == ""
+       
+    1:     def test_format_jira_preview_basic(self):
+    2:         result = format_jira_preview(
+    1:             self.SAMPLE_MATCHES, "KAN-101 | Fix login bug | In Progress | KAN | Alice"
+               )
+    1:         assert "# KAN-101: Fix login bug" in result
+    1:         assert "Bug" in result
+    1:         assert "In Progress" in result
+    1:         assert "High" in result
+    1:         assert "Alice" in result
+    1:         assert "Bob" in result
+    1:         assert "backend" in result
+    1:         assert "jira.example.com" in result
+       
+    1:     def test_format_jira_preview_no_selection(self):
+    1:         result = format_jira_preview(self.SAMPLE_MATCHES, None)
+    1:         assert "KAN-101" in result
+       
+    1:     def test_format_jira_preview_empty(self):
+    1:         result = format_jira_preview([], None)
+    1:         assert "No Jira issue matched" in result
+       
+    1:     def test_format_jira_preview_with_description(self):
+    1:         matches = [
+    1:             {
+    1:                 "source_id": "jira-x",
+    1:                 "key": "k",
+    1:                 "project": "X",
+    1:                 "base_url": "https://jira.example.com",
+    2:                 "issues": [
+    1:                     {
+    1:                         "key": "X-1",
+    2:                         "fields": {
+    1:                             "summary": "Test",
+    1:                             "status": {"name": "Open"},
+    1:                             "issuetype": {"name": "Task"},
+    1:                             "priority": None,
+    1:                             "assignee": None,
+    1:                             "reporter": None,
+    1:                             "description": "Detailed description here.",
+    1:                             "created": "2026-01-01",
+    1:                             "updated": "2026-01-01",
+                               },
+                           }
+                       ],
+                   }
+               ]
+    1:         result = format_jira_preview(matches, None)
+    1:         assert "Detailed description here." in result
+       
+    1:     def test_find_jira_issue_empty(self):
+    1:         r, ctx = _find_jira_issue([], "anything")
+    1:         assert r is None
+    1:         assert ctx is None
+       
+    1:     def test_find_jira_issue_by_key(self):
+    1:         flat = [
+    1:             ({"key": "KAN-101"}, {"project": "KAN"}),
+    1:             ({"key": "KAN-102"}, {"project": "KAN"}),
+               ]
+    1:         issue, ctx = _find_jira_issue(flat, "KAN-102 | summary")
+    1:         assert issue["key"] == "KAN-102"
+       
+       
+       # ── arXiv ────────────────────────────────────────────────────────────────
+       
+    2: class TestArxivTelevision:
+    1:     SAMPLE_ENTRIES = [
+    1:         {
+    1:             "title": "Attention Is All You Need",
+    1:             "primary_category": "cs.CL",
+    1:             "published": "2017-06-12T17:57:25Z",
+    1:             "updated": "2023-08-02T17:54:18Z",
+    1:             "authors": ["Ashish Vaswani", "Noam Shazeer"],
+    1:             "summary": "The dominant sequence transduction models...",
+    1:             "pdf_url": "http://arxiv.org/pdf/1706.03762v7",
+    1:             "id": "http://arxiv.org/abs/1706.03762v7",
+               },
+    1:         {
+    1:             "title": "BERT: Pre-training",
+    1:             "primary_category": "cs.CL",
+    1:             "published": "2018-10-11T00:00:00Z",
+               },
+           ]
+       
+    1:     def test_format_arxiv_television_basic(self):
+    1:         result = format_arxiv_television(self.SAMPLE_ENTRIES)
+    1:         lines = result.split("\n")
+    1:         assert len(lines) == 2
+    1:         assert "Attention Is All You Need | cs.CL | 2017-06-12" in lines[0]
+       
+    1:     def test_format_arxiv_television_empty(self):
+    1:         assert format_arxiv_television([]) == ""
+       
+    1:     def test_format_arxiv_television_skips_no_title(self):
+    1:         entries = [{"primary_category": "cs.CL"}]
+    1:         assert format_arxiv_television(entries) == ""
+       
+    1:     def test_format_arxiv_preview_basic(self):
+    2:         result = format_arxiv_preview(
+    1:             self.SAMPLE_ENTRIES,
+    1:             "Attention Is All You Need | cs.CL | 2017-06-12T17:57:25Z",
+               )
+    1:         assert "# Attention Is All You Need" in result
+    1:         assert "Ashish Vaswani" in result
+    1:         assert "dominant sequence" in result
+    1:         assert "PDF:" in result
+       
+    1:     def test_format_arxiv_preview_no_selection(self):
+    1:         result = format_arxiv_preview(self.SAMPLE_ENTRIES, None)
+    1:         assert "Attention Is All You Need" in result
+       
+    1:     def test_format_arxiv_preview_empty(self):
+    1:         result = format_arxiv_preview([], None)
+    1:         assert "No arXiv entry matched" in result
+       
+    1:     def test_find_arxiv_entry_by_title(self):
+    2:         entry = _find_arxiv_entry(
+    1:             self.SAMPLE_ENTRIES,
+    1:             "BERT: Pre-training | cs.CL | 2018",
+               )
+    1:         assert entry["title"] == "BERT: Pre-training"
+       
+    1:     def test_find_arxiv_entry_fallback(self):
+    1:         entry = _find_arxiv_entry(self.SAMPLE_ENTRIES, "nonexistent")
+    1:         assert entry["title"] == "Attention Is All You Need"
+       
+    1:     def test_find_arxiv_entry_empty(self):
+    1:         assert _find_arxiv_entry([], None) == {}
+       
+    1:     def test_find_arxiv_entry_not_a_list(self):
+    1:         assert _find_arxiv_entry("not a list", None) == {}
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    2: class TestHelpers:
+    1:     def test_resolve_selection_empty(self):
+    1:         assert _resolve_selection([], "x") is None
+       
+    1:     def test_resolve_selection_none(self):
+    1:         assert _resolve_selection(["a", "b"], None) == "a"
+       
+    1:     def test_resolve_selection_match(self):
+    1:         assert _resolve_selection(["a", "b"], "b") == "b"
+       
+    1:     def test_resolve_selection_no_match_fallback(self):
+    1:         assert _resolve_selection(["a", "b"], "c") == "a"
+       
+    1:     def test_strip_html_tags(self):
+    1:         assert _strip_html_tags("<b>bold</b> text") == "bold text"
+    1:         assert _strip_html_tags("no tags") == "no tags"
+    1:         assert _strip_html_tags("") == ""
+       
+       
+       # ── CLI integration with --format television ─────────────────────────────
+       
+    2: class TestCLITelevisionIntegration:
+    1:     """Test that commands accept --format television flags via the parser."""
+       
+    1:     def test_list_keys_television(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+               # Create a key
+    1:         main(["--store", str(store), "add", "key", "mykey"])
+               # List keys in television format
+    1:         rc = main(["--store", str(store), "list", "keys", "--format", "television"])
+    1:         assert rc == 0
+       
+    1:     def test_list_keys_television_preview(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+    1:         main(["--store", str(store), "add", "key", "mykey"])
+    1:         rc = main(["--store", str(store), "list", "keys", "--format", "television-preview", "--entry", "mykey"])
+    1:         assert rc == 0
+       
+    1:     def test_list_sources_television(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+    1:         main(["--store", str(store), "add", "key", "k1"])
+    1:         rc = main(["--store", str(store), "list", "sources", "--format", "television"])
+    1:         assert rc == 0
+       
+    1:     def test_list_sources_television_preview(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+    1:         main(["--store", str(store), "add", "key", "k1"])
+    1:         main(["--store", str(store), "add", "arxiv", "https://arxiv.org/abs/1706.03762", "--key", "k1"])
+    1:         rc = main(["--store", str(store), "list", "sources", "--format", "television-preview"])
+    1:         assert rc == 0
+       
+    1:     def test_list_credentials_television(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+    1:         main(["--store", str(store), "init"])
+    1:         main(["--store", str(store), "set", "credential", "tok", "val"])
+    1:         rc = main(["--store", str(store), "list", "credentials", "--format", "television"])
+    1:         assert rc == 0
+       
+    1:     def test_list_credentials_television_preview(self, tmp_path):
+    1:         from knowledge.cli import main
+    1:         store = tmp_path / "store"
+    1:         main(["--store", str(store), "init"])
+    1:         main(["--store", str(store), "set", "credential", "tok", "val"])
+    1:         rc = main(["--store", str(store), "list", "credentials", "--format", "television-preview", "--entry", "tok"])
+    1:         assert rc == 0

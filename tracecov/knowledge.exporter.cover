@@ -11,156 +11,226 @@
        
        
     1: def _dump_frontmatter(payload: dict[str, Any]) -> str:
-    8:     return yaml.safe_dump(payload, sort_keys=False, allow_unicode=False).strip()
+   12:     return yaml.safe_dump(payload, sort_keys=False, allow_unicode=False).strip()
        
        
     1: def _markdown_document(frontmatter: dict[str, Any], body: str) -> str:
-    8:     return f"---\n{_dump_frontmatter(frontmatter)}\n---\n\n{body.rstrip()}\n"
+   12:     return f"---\n{_dump_frontmatter(frontmatter)}\n---\n\n{body.rstrip()}\n"
        
        
     1: def _render_json_payload(payload: Any) -> str:
-    1:     return "```json\n" + json.dumps(payload, indent=2, sort_keys=True) + "\n```"
+    2:     return "```json\n" + json.dumps(payload, indent=2, sort_keys=True) + "\n```"
        
        
     1: def export_source(store: KnowledgeStore, source: dict[str, Any]) -> dict[str, Any]:
-    9:     raw_dir = store.source_raw_dir(source)
-    9:     library_dir = store.source_library_dir(source)
-    9:     _clear_library_dir(library_dir)
+           """Export a single source into Markdown with YAML frontmatter."""
+   11:     source_dir = store.source_dir(source)
+   11:     if source.get("type") in {"confluence", "jira"}:
+    3:         exported_files = [str(path) for path in sorted(source_dir.glob("*.md"))]
+    2:         source["last_exported_at"] = source.get("updated_at")
+    2:         store.update_collection_source(source)
+    2:         return {
+    2:             "key": source["key"],
+    2:             "source": source["id"],
+    2:             "files": len(exported_files),
+    2:             "library_dir": str(source_dir),
+               }
+       
     9:     exported_files: list[str] = []
+    9:     export_targets: list[Path] = []
        
-   17:     for path in _iter_export_paths(source, raw_dir):
-    8:         rel = path.relative_to(raw_dir)
-    8:         content = _build_markdown_for_raw_file(source, path, rel)
-    8:         output_path = library_dir / _export_relative_path(source, rel)
-    8:         output_path.parent.mkdir(parents=True, exist_ok=True)
-    8:         output_path.write_text(content, encoding="utf-8")
-    8:         exported_files.append(str(output_path))
+   18:     for path in _iter_export_paths(source, source_dir):
+    9:         rel = path.relative_to(source_dir)
+    9:         content = _build_markdown_for_raw_file(source, path, rel)
+    9:         output_path = source_dir / _export_relative_path(source, rel)
+    9:         export_targets.append(output_path)
+    9:         output_path.parent.mkdir(parents=True, exist_ok=True)
+    9:         output_path.write_text(content, encoding="utf-8")
+    9:         exported_files.append(str(output_path))
        
+    9:     _clear_stale_export_outputs(source, source_dir, export_targets)
     9:     source["last_exported_at"] = source.get("updated_at")
     9:     store.update_collection_source(source)
     9:     return {
     9:         "key": source["key"],
     9:         "source": source["id"],
     9:         "files": len(exported_files),
-    9:         "library_dir": str(library_dir),
+    9:         "library_dir": str(source_dir),
            }
        
        
     1: def _build_markdown_for_raw_file(source: dict[str, Any], path: Path, rel: Path) -> str:
-    8:     frontmatter = {
-    8:         "title": source.get("title") or rel.stem,
-    8:         "knowledge_key": source["key"],
-    8:         "source_id": source["id"],
-    8:         "source_type": source["type"],
-    8:         "original_path": str(rel).replace("\\", "/"),
-    8:         "generated_from": str(path),
+           """Build a Markdown document from a raw source file."""
+   12:     frontmatter = {
+   12:         "title": source.get("title") or rel.stem,
+   12:         "knowledge_key": source["key"],
+   12:         "source_id": source["id"],
+   12:         "source_type": source["type"],
+   12:         "original_path": str(rel).replace("\\", "/"),
+   12:         "generated_from": str(path),
            }
        
-    8:     if source.get("type") == "arxiv" and path.name == "paper.xml":
-    1:         arxiv_frontmatter, body = _render_arxiv_document(source, path)
-    1:         frontmatter.update(arxiv_frontmatter)
-    1:         return _markdown_document(frontmatter, body)
-    7:     if source.get("type") == "video" and path.name == "transcript.json":
-    3:         video_frontmatter, body = _render_video_document(source, path)
-    3:         frontmatter.update(video_frontmatter)
-    3:         return _markdown_document(frontmatter, body)
+   12:     special_renderer = _SPECIAL_RENDERERS.get((source.get("type"), path.name))
+   12:     if special_renderer is not None:
+    4:         extra_fm, body = special_renderer(source, path)
+    4:         frontmatter.update(extra_fm)
+    4:         return _markdown_document(frontmatter, body)
        
-    4:     sidecar_metadata = _load_sidecar_metadata(path)
-    4:     frontmatter.update(_frontmatter_from_sidecar(sidecar_metadata))
+    8:     sidecar_metadata = _load_sidecar_metadata(path)
+    8:     frontmatter.update(_frontmatter_from_sidecar(sidecar_metadata))
        
-    4:     suffix = path.suffix.lower()
-    4:     if suffix in {".md", ".markdown"}:
-    2:         raw_text = path.read_text(encoding="utf-8", errors="replace")
-    2:         embedded_frontmatter, body = _extract_frontmatter(raw_text)
-    2:         frontmatter.update(embedded_frontmatter)
-    2:     elif suffix in {".html", ".htm"}:
->>>>>>         body = path.read_text(encoding="utf-8", errors="replace")
-    2:     elif suffix in {".txt", ".json", ".yaml", ".yml", ".xml"}:
-    1:         body = f"```{suffix.lstrip('.')}\n{path.read_text(encoding='utf-8', errors='replace')}\n```"
-           else:
-    2:         body = _render_json_payload(
-    1:             {
-    1:                 "note": "Binary or unsupported file type retained in raw store.",
-    1:                 "path": str(path),
-                   }
-               )
-    4:     return _markdown_document(frontmatter, body)
+    8:     body = _render_body_by_extension(path)
+    8:     if path.suffix.lower() in {".md", ".markdown"}:
+    3:         raw_text = path.read_text(encoding="utf-8", errors="replace")
+    3:         embedded_frontmatter, body = _extract_frontmatter(raw_text)
+    3:         frontmatter.update(embedded_frontmatter)
+       
+    8:     return _markdown_document(frontmatter, body)
+       
+       
+    1: def _render_body_by_extension(path: Path) -> str:
+           """Render the body text for a file based on its extension."""
+    8:     suffix = path.suffix.lower()
+    8:     if suffix in {".md", ".markdown"}:
+    3:         return path.read_text(encoding="utf-8", errors="replace")
+    5:     if suffix in {".html", ".htm"}:
+    1:         return path.read_text(encoding="utf-8", errors="replace")
+    4:     if suffix in {".txt", ".json", ".yaml", ".yml", ".xml"}:
+    2:         return f"```{suffix.lstrip('.')}\n{path.read_text(encoding='utf-8', errors='replace')}\n```"
+    4:     return _render_json_payload(
+    2:         {
+    2:             "note": "Binary or unsupported file type retained in raw store.",
+    2:             "path": str(path),
+               }
+           )
+       
+       
+    1: _SPECIAL_RENDERERS: dict[tuple[str | None, str], Any] = {
+    2:     ("arxiv", "paper.xml"): lambda source, path: _render_arxiv_document(source, path),
+    4:     ("video", "transcript.json"): lambda source, path: _render_video_document(source, path),
+       }
        
        
     1: def _extract_frontmatter(text: str) -> tuple[dict[str, Any], str]:
-    2:     if not text.startswith("---\n"):
+    7:     if not text.startswith("---\n"):
     1:         return {}, text
-    1:     marker = "\n---\n"
-    1:     end_index = text.find(marker, 4)
-    1:     if end_index == -1:
->>>>>>         return {}, text
-    1:     raw_frontmatter = text[4:end_index]
-    1:     body = text[end_index + len(marker):]
-    1:     try:
-    1:         payload = yaml.safe_load(raw_frontmatter)
-    1:     except yaml.YAMLError:
+    6:     marker = "\n---\n"
+    6:     end_index = text.find(marker, 4)
+    6:     if end_index == -1:
     1:         return {}, text
->>>>>>     if not isinstance(payload, dict):
->>>>>>         return {}, text
->>>>>>     return payload, body.lstrip("\n")
+    5:     raw_frontmatter = text[4:end_index]
+    5:     body = text[end_index + len(marker):]
+    5:     try:
+    5:         payload = yaml.safe_load(raw_frontmatter)
+    2:     except yaml.YAMLError:
+    2:         return {}, text
+    3:     if not isinstance(payload, dict):
+    1:         return {}, text
+    2:     return payload, body.lstrip("\n")
        
     1: def _iter_export_paths(source: dict[str, Any], raw_dir: Path) -> list[Path]:
-    9:     if source.get("type") == "video":
-    3:         preferred = raw_dir / "transcript.json"
-    3:         if preferred.exists():
-    3:             return [preferred]
->>>>>>         legacy_markdown = raw_dir / "transcript.md"
->>>>>>         if legacy_markdown.exists():
->>>>>>             return [legacy_markdown]
->>>>>>         fallback = raw_dir / "transcript.txt"
->>>>>>         if fallback.exists():
->>>>>>             return [fallback]
-    6:     if source.get("type") == "arxiv":
-    8:         for filename in ("paper.xml", "paper.html", "paper.txt"):
-    7:             preferred = raw_dir / filename
-    7:             if preferred.exists():
-    2:                 return [preferred]
-    4:     if source.get("type") == "site":
-    1:         pages_dir = raw_dir / "pages"
-    1:         if pages_dir.exists():
-    2:             page_files = [path for path in sorted(pages_dir.rglob("*.md")) if path.is_file()]
-    1:             if page_files:
-    1:                 return page_files
-    3:     if source.get("type") == "confluence":
-    1:         pages_dir = raw_dir / "pages"
-    1:         if pages_dir.exists():
->>>>>>             page_files = [path for path in sorted(pages_dir.rglob("*.html")) if path.is_file()]
->>>>>>             if page_files:
->>>>>>                 return page_files
-    6:     return [path for path in sorted(raw_dir.rglob("*")) if path.is_file()]
+           """Return the list of raw files to export for a source."""
+   15:     source_type = source.get("type")
+   15:     resolver = _EXPORT_PATH_RESOLVERS.get(source_type)
+   15:     if resolver is not None:
+   14:         result = resolver(raw_dir)
+   14:         if result is not None:
+   13:             return result
+    5:     return [path for path in sorted(raw_dir.rglob("*")) if path.is_file()]
+       
+       
+    1: def _resolve_video_paths(raw_dir: Path) -> list[Path] | None:
+    8:     for name in ("transcript.json", "transcript.md", "transcript.txt"):
+    8:         candidate = raw_dir / name
+    8:         if candidate.exists():
+    5:             return [candidate]
+>>>>>>     return None
+       
+       
+    1: def _resolve_arxiv_paths(raw_dir: Path) -> list[Path] | None:
+   13:     for name in ("paper.xml", "paper.html", "paper.txt"):
+   12:         candidate = raw_dir / name
+   12:         if candidate.exists():
+    4:             return [candidate]
+    1:     return None
+       
+       
+    1: def _resolve_glob_paths(raw_dir: Path, subdir: str, pattern: str) -> list[Path] | None:
+    4:     target = raw_dir / subdir
+    4:     if target.exists():
+    8:         files = [p for p in sorted(target.rglob(pattern)) if p.is_file()]
+    4:         if files:
+    4:             return files
+>>>>>>     return None
+       
+       
+    1: def _resolve_site_paths(raw_dir: Path) -> list[Path] | None:
+    1:     return _resolve_glob_paths(raw_dir, "pages", "*.md")
+       
+       
+    1: def _resolve_google_releases_paths(raw_dir: Path) -> list[Path] | None:
+    2:     return _resolve_glob_paths(raw_dir, "entries", "*.md")
+       
+       
+    1: def _resolve_confluence_paths(raw_dir: Path) -> list[Path] | None:
+    1:     return _resolve_glob_paths(raw_dir, "pages", "*.html")
+       
+       
+    1: _EXPORT_PATH_RESOLVERS: dict[str, Any] = {
+    1:     "video": _resolve_video_paths,
+    1:     "arxiv": _resolve_arxiv_paths,
+    1:     "site": _resolve_site_paths,
+    1:     "google_releases": _resolve_google_releases_paths,
+    1:     "confluence": _resolve_confluence_paths,
+       }
        
        
     1: def _export_relative_path(source: dict[str, Any], rel: Path) -> Path:
-    8:     if source.get("type") == "video":
+   11:     if source.get("type") == "video":
     3:         return Path("transcript.md")
-    5:     if source.get("type") == "arxiv" and rel.name.startswith("paper."):
+    8:     if source.get("type") == "arxiv" and rel.name.startswith("paper."):
     3:         return Path("paper.md")
-    2:     if rel.suffix.lower() in {".md", ".markdown"}:
-    2:         return rel.with_suffix(".md")
->>>>>>     if rel.suffix.lower() in {".html", ".htm"}:
->>>>>>         return rel.with_suffix(".md")
->>>>>>     return rel.with_name(f"{rel.name}.md")
+    5:     if rel.suffix.lower() in {".md", ".markdown"}:
+    3:         return rel.with_suffix(".md")
+    2:     if rel.suffix.lower() in {".html", ".htm"}:
+    1:         return rel.with_suffix(".md")
+    1:     return rel.with_name(f"{rel.name}.md")
        
        
-    1: def _clear_library_dir(library_dir: Path) -> None:
-   11:     for path in sorted(library_dir.rglob("*"), reverse=True):
-    2:         if path.is_file():
+    1: def _clear_stale_export_outputs(source: dict[str, Any], source_dir: Path, keep_paths: list[Path]) -> None:
+   18:     keep = {path.resolve() for path in keep_paths}
+   20:     for path in sorted(source_dir.rglob("*.md"), reverse=True):
+   11:         if path.resolve() in keep:
+    9:             continue
+    2:         if _is_generated_export(path, source):
     2:             path.unlink()
->>>>>>         elif path.is_dir():
+   36:     for path in sorted(source_dir.rglob("*"), reverse=True):
+   27:         if path.is_dir() and path != source_dir and not any(path.iterdir()):
 >>>>>>             path.rmdir()
        
        
+    1: def _is_generated_export(path: Path, source: dict[str, Any]) -> bool:
+    5:     if source.get("type") in {"arxiv", "video", "confluence", "jira", "aha"}:
+    3:         return True
+    2:     try:
+    2:         text = path.read_text(encoding="utf-8", errors="replace")
+>>>>>>     except OSError:
+>>>>>>         return False
+    2:     if not text.startswith("---\n"):
+    1:         return False
+    1:     frontmatter, _ = _extract_frontmatter(text)
+    1:     return (
+    1:         frontmatter.get("knowledge_key") == source["key"]
+    1:         and frontmatter.get("source_id") == source["id"]
+           )
+       
+       
     1: def _load_sidecar_metadata(path: Path) -> dict[str, Any]:
-    4:     if path.suffix.lower() not in {".md", ".markdown", ".html", ".htm"}:
-    2:         return {}
-    2:     sidecar_path = path.with_suffix(".json")
-    2:     if not sidecar_path.exists():
-    1:         return {}
+    8:     if path.suffix.lower() not in {".md", ".markdown", ".html", ".htm"}:
+    4:         return {}
+    4:     sidecar_path = path.with_suffix(".json")
+    4:     if not sidecar_path.exists():
+    3:         return {}
     1:     try:
     1:         payload = json.loads(sidecar_path.read_text(encoding="utf-8"))
 >>>>>>     except json.JSONDecodeError:
@@ -169,8 +239,8 @@
        
        
     1: def _frontmatter_from_sidecar(payload: dict[str, Any]) -> dict[str, Any]:
-    4:     if not payload:
-    3:         return {}
+    8:     if not payload:
+    7:         return {}
     1:     frontmatter: dict[str, Any] = {}
     1:     if payload.get("title"):
     1:         frontmatter["title"] = payload["title"]
@@ -225,52 +295,52 @@
        
        
     1: def _render_video_document(source: dict[str, Any], path: Path) -> tuple[dict[str, Any], str]:
-    3:     payload = json.loads(path.read_text(encoding="utf-8"))
-    3:     metadata_path = path.with_name("metadata.json")
-    3:     metadata = {}
-    3:     if metadata_path.exists():
-    3:         try:
-    3:             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
->>>>>>         except json.JSONDecodeError:
->>>>>>             metadata = {}
-    3:     title = payload.get("title") or payload.get("video_id") or source["id"]
-    3:     author_name = payload.get("author_name") or "Unknown"
-    3:     segments = payload.get("segments", [])
-    3:     frontmatter = {
-    3:         "title": title,
-    3:         "video_id": payload.get("video_id"),
-    3:         "url": payload.get("url"),
-    3:         "author_name": author_name,
-    3:         "language": payload.get("language"),
-    3:         "language_code": payload.get("language_code"),
-    3:         "is_generated": payload.get("is_generated"),
-    3:         "segment_count": len(segments) if isinstance(segments, list) else 0,
-    3:         "source_metadata": metadata,
+    6:     payload = json.loads(path.read_text(encoding="utf-8"))
+    6:     metadata_path = path.with_name("metadata.json")
+    6:     metadata = {}
+    6:     if metadata_path.exists():
+    5:         try:
+    5:             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    1:         except json.JSONDecodeError:
+    1:             metadata = {}
+    6:     title = payload.get("title") or payload.get("video_id") or source["id"]
+    6:     author_name = payload.get("author_name") or "Unknown"
+    6:     segments = payload.get("segments", [])
+    6:     frontmatter = {
+    6:         "title": title,
+    6:         "video_id": payload.get("video_id"),
+    6:         "url": payload.get("url"),
+    6:         "author_name": author_name,
+    6:         "language": payload.get("language"),
+    6:         "language_code": payload.get("language_code"),
+    6:         "is_generated": payload.get("is_generated"),
+    6:         "segment_count": len(segments) if isinstance(segments, list) else 0,
+    6:         "source_metadata": metadata,
            }
-    3:     lines = [
-    3:         f"# {title}",
-    3:         "",
-    3:         f"- Author: {author_name}",
-    3:         f"- Language: {payload.get('language')} ({payload.get('language_code')})",
-    3:         f"- Auto-generated: {payload.get('is_generated')}",
-    3:         "",
-    3:         "## Transcript",
-    3:         "",
+    6:     lines = [
+    6:         f"# {title}",
+    6:         "",
+    6:         f"- Author: {author_name}",
+    6:         f"- Language: {payload.get('language')} ({payload.get('language_code')})",
+    6:         f"- Auto-generated: {payload.get('is_generated')}",
+    6:         "",
+    6:         "## Transcript",
+    6:         "",
            ]
-    6:     for segment in segments if isinstance(segments, list) else []:
-    3:         if not isinstance(segment, dict):
+   12:     for segment in segments if isinstance(segments, list) else []:
+    6:         if not isinstance(segment, dict):
 >>>>>>             continue
-    3:         text = str(segment.get("text", "")).strip()
-    3:         if not text:
->>>>>>             continue
-    3:         lines.append(f"[{_format_timestamp(float(segment.get('start', 0.0)))}] {text}")
-    3:     return frontmatter, "\n".join(lines).rstrip()
+    6:         text = str(segment.get("text", "")).strip()
+    6:         if not text:
+    1:             continue
+    5:         lines.append(f"[{_format_timestamp(float(segment.get('start', 0.0)))}] {text}")
+    6:     return frontmatter, "\n".join(lines).rstrip()
        
        
     1: def _format_timestamp(seconds: float) -> str:
-    3:     whole = int(seconds)
-    3:     hours, remainder = divmod(whole, 3600)
-    3:     minutes, secs = divmod(remainder, 60)
-    3:     if hours:
->>>>>>         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
-    3:     return f"{minutes:02d}:{secs:02d}"
+    5:     whole = int(seconds)
+    5:     hours, remainder = divmod(whole, 3600)
+    5:     minutes, secs = divmod(remainder, 60)
+    5:     if hours:
+    1:         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+    4:     return f"{minutes:02d}:{secs:02d}"

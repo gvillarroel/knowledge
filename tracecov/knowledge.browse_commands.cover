@@ -1,0 +1,687 @@
+    1: """Implementation of ``know browse`` commands.
+       
+       Each command retrieves data from both local store and remote APIs,
+       annotates items with sync status, and emits television-formatted output.
+       """
+       
+    1: from __future__ import annotations
+       
+    1: import os
+    1: from argparse import Namespace
+    1: from pathlib import Path
+    1: from typing import Any
+       
+    1: from .browse_tv import (
+           format_aha_browse_preview,
+           format_aha_browse_television,
+           format_arxiv_browse_preview,
+           format_arxiv_browse_television,
+           format_confluence_browse_preview,
+           format_confluence_browse_television,
+           format_github_activity_preview,
+           format_github_activity_television,
+           format_github_repos_preview,
+           format_github_repos_television,
+           format_jira_browse_preview,
+           format_jira_browse_television,
+           format_local_browse_preview,
+           format_local_browse_television,
+           format_releases_browse_preview,
+           format_releases_browse_television,
+           format_sites_browse_preview,
+           format_sites_browse_television,
+           format_videos_browse_preview,
+           format_videos_browse_television,
+       )
+    1: from .store import KnowledgeStore
+       
+       
+    1: def _store_from_args(args: Namespace) -> KnowledgeStore:
+           """Create a ``KnowledgeStore`` from parsed CLI arguments."""
+   17:     return KnowledgeStore(args.store)
+       
+       
+    1: def _config_value_or_env(explicit: str | None, env_name: str) -> str | None:
+           """Return explicit value, ``$env:`` reference, or ``None``."""
+>>>>>>     if explicit is not None:
+>>>>>>         return explicit
+>>>>>>     if os.getenv(env_name):
+>>>>>>         return f"$env:{env_name}"
+>>>>>>     return None
+       
+       
+    1: def _strip_yaml_frontmatter(text: str) -> str:
+           """Remove leading ``---`` delimited YAML frontmatter."""
+    5:     if not text.startswith("---"):
+    1:         return text
+    4:     end = text.find("\n---", 3)
+    4:     if end == -1:
+>>>>>>         return text
+    4:     return text[end + 4:].lstrip("\n")
+       
+       
+       # ── Jira browse ──────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_jira(args: Namespace) -> object:
+           """List Jira issues across registered projects with sync status."""
+    4:     store = _store_from_args(args)
+    4:     store.initialize()
+    8:     sources = store.list_collection_sources(
+    4:         key_name=getattr(args, "key", None),
+    4:         source_type="jira",
+           )
+    4:     fmt = getattr(args, "format", "json")
+    4:     entry = getattr(args, "entry", None)
+       
+    4:     all_issues: list[dict[str, Any]] = []
+       
+    5:     for source in sources:
+    1:         config = source.get("config", {})
+    1:         base_url = config.get("base_url")
+    1:         username_ref = config.get("username")
+    1:         token_ref = config.get("token")
+       
+               # Get local synced files
+    1:         local_keys: set[str] = set()
+    1:         try:
+    1:             source_dir = store.source_dir(source)
+    2:             for md_file in source_dir.glob("**/*.md"):
+    1:                 stem = md_file.stem
+    1:                 local_keys.add(stem)
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+               # Try fetching from API
+    1:         if base_url and username_ref and token_ref:
+>>>>>>             try:
+>>>>>>                 from .sources.jira import search_jira
+       
+>>>>>>                 username = store.resolve_key(username_ref)
+>>>>>>                 token = store.resolve_key(token_ref)
+>>>>>>                 project = config.get("project")
+>>>>>>                 jql = config.get("jql") or f"project = {project} ORDER BY updated DESC"
+>>>>>>                 results = search_jira(
+>>>>>>                     base_url=base_url,
+>>>>>>                     username=username,
+>>>>>>                     token=token,
+>>>>>>                     jql=jql,
+>>>>>>                     limit=int(config.get("limit", 50)),
+                       )
+>>>>>>                 for issue in results.get("issues", []):
+>>>>>>                     key = issue.get("key", "")
+>>>>>>                     fields = issue.get("fields", {}) or {}
+>>>>>>                     all_issues.append({
+>>>>>>                         "key": key,
+>>>>>>                         "summary": str(fields.get("summary") or key),
+>>>>>>                         "status": _field_name(fields.get("status")),
+>>>>>>                         "issue_type": _field_name(fields.get("issuetype")),
+>>>>>>                         "priority": _field_name(fields.get("priority")),
+>>>>>>                         "assignee": _display_name(fields.get("assignee")),
+>>>>>>                         "reporter": _display_name(fields.get("reporter")),
+>>>>>>                         "labels": fields.get("labels") or [],
+>>>>>>                         "description": str(fields.get("description") or ""),
+>>>>>>                         "web_url": f"{base_url.rstrip('/')}/browse/{key}",
+>>>>>>                         "synced": key in local_keys,
+>>>>>>                         "local_path": str(store.source_dir(source) / f"{key}.md") if key in local_keys else None,
+>>>>>>                         "source_id": source.get("id"),
+>>>>>>                         "knowledge_key": source.get("key"),
+>>>>>>                         "project": project,
+                           })
+>>>>>>             except Exception:
+                       # Fall back to local-only
+>>>>>>                 _add_local_jira_issues(store, source, all_issues, local_keys)
+               else:
+    1:             _add_local_jira_issues(store, source, all_issues, local_keys)
+       
+    4:     if fmt == "television":
+    2:         return format_jira_browse_television(all_issues)
+    2:     if fmt == "television-preview":
+    1:         return format_jira_browse_preview(all_issues, entry)
+    1:     return {"issues": all_issues}
+       
+       
+    1: def _add_local_jira_issues(
+>>>>>>     store: KnowledgeStore,
+>>>>>>     source: dict[str, Any],
+>>>>>>     all_issues: list[dict[str, Any]],
+>>>>>>     local_keys: set[str],
+>>>>>> ) -> None:
+           """Add locally synced Jira issues to the list."""
+    2:     for key in sorted(local_keys):
+    2:         all_issues.append({
+    1:             "key": key,
+    1:             "summary": key,
+    1:             "status": "unknown",
+    1:             "issue_type": "unknown",
+    1:             "priority": "unknown",
+    1:             "assignee": "unknown",
+    1:             "reporter": "unknown",
+    1:             "labels": [],
+    1:             "description": "",
+    1:             "synced": True,
+    1:             "source_id": source.get("id"),
+    1:             "knowledge_key": source.get("key"),
+    1:             "project": source.get("config", {}).get("project"),
+               })
+       
+       
+       # ── Confluence browse ────────────────────────────────────────────────────
+       
+    1: def cmd_browse_confluence(args: Namespace) -> object:
+           """List Confluence pages with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="confluence",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     all_pages: list[dict[str, Any]] = []
+       
+    1:     for source in sources:
+>>>>>>         config = source.get("config", {})
+>>>>>>         local_titles: set[str] = set()
+>>>>>>         local_bodies: dict[str, str] = {}
+       
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             for md_file in source_dir.glob("**/*.md"):
+>>>>>>                 text = md_file.read_text(encoding="utf-8")
+>>>>>>                 title = _extract_frontmatter_field(text, "title") or md_file.stem
+>>>>>>                 local_titles.add(title)
+>>>>>>                 local_bodies[title] = _strip_yaml_frontmatter(text)
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+               # Try fetching from API
+>>>>>>         base_url = config.get("base_url")
+>>>>>>         if base_url and config.get("username") and config.get("token"):
+>>>>>>             try:
+>>>>>>                 from .sources.confluence import search_confluence
+       
+>>>>>>                 space = config.get("space") or config.get("space_key")
+>>>>>>                 results = search_confluence(
+>>>>>>                     base_url=base_url,
+>>>>>>                     username=store.resolve_key(config["username"]),
+>>>>>>                     token=store.resolve_key(config["token"]),
+>>>>>>                     query=" ",
+>>>>>>                     space=space,
+>>>>>>                     limit=50,
+                       )
+>>>>>>                 for result in results.get("results", []):
+>>>>>>                     content = result.get("content", {}) or {}
+>>>>>>                     title = str(content.get("title") or "Untitled")
+>>>>>>                     excerpt = str(result.get("excerpt") or "")
+>>>>>>                     synced = title in local_titles
+>>>>>>                     all_pages.append({
+>>>>>>                         "title": title,
+>>>>>>                         "space": space or "",
+>>>>>>                         "synced": synced,
+>>>>>>                         "web_url": _confluence_webui(base_url, content),
+>>>>>>                         "excerpt": excerpt,
+>>>>>>                         "body": local_bodies.get(title, ""),
+                           })
+>>>>>>             except Exception:
+>>>>>>                 _add_local_confluence(local_titles, local_bodies, source, all_pages)
+               else:
+>>>>>>             _add_local_confluence(local_titles, local_bodies, source, all_pages)
+       
+    1:     if fmt == "television":
+>>>>>>         return format_confluence_browse_television(all_pages)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_confluence_browse_preview(all_pages, entry)
+    1:     return {"pages": all_pages}
+       
+       
+    1: def _add_local_confluence(
+>>>>>>     local_titles: set[str],
+>>>>>>     local_bodies: dict[str, str],
+>>>>>>     source: dict[str, Any],
+>>>>>>     all_pages: list[dict[str, Any]],
+>>>>>> ) -> None:
+>>>>>>     config = source.get("config", {})
+>>>>>>     for title in sorted(local_titles):
+>>>>>>         all_pages.append({
+>>>>>>             "title": title,
+>>>>>>             "space": config.get("space") or config.get("space_key") or "",
+>>>>>>             "synced": True,
+>>>>>>             "body": local_bodies.get(title, ""),
+               })
+       
+       
+       # ── GitHub browse ────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_github(args: Namespace) -> object:
+           """List GitHub repos the user has interacted with."""
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     fmt = getattr(args, "format", "json")
+    2:     entry = getattr(args, "entry", None)
+       
+    2:     token = _resolve_github_token(store)
+       
+           # Get locally registered repos
+    2:     local_repos: set[str] = set()
+    2:     sources = store.list_collection_sources(source_type="github")
+    2:     for source in sources:
+>>>>>>         url = source.get("config", {}).get("repo_url", "")
+>>>>>>         repo_name = _repo_name_from_url(url)
+>>>>>>         if repo_name:
+>>>>>>             local_repos.add(repo_name.lower())
+       
+    2:     repos: list[dict[str, Any]] = []
+    2:     if token:
+>>>>>>         try:
+>>>>>>             from .sources.github_api import list_user_repos
+       
+>>>>>>             raw_repos = list_user_repos(token, per_page=50)
+>>>>>>             for repo in raw_repos:
+>>>>>>                 full_name = repo.get("full_name", "")
+>>>>>>                 repos.append({
+>>>>>>                     **repo,
+>>>>>>                     "synced": full_name.lower() in local_repos,
+                       })
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+           # Add local-only repos not in API response
+    2:     api_names = {r.get("full_name", "").lower() for r in repos}
+    2:     for source in sources:
+>>>>>>         url = source.get("config", {}).get("repo_url", "")
+>>>>>>         name = _repo_name_from_url(url)
+>>>>>>         if name and name.lower() not in api_names:
+>>>>>>             repos.append({
+>>>>>>                 "full_name": name,
+>>>>>>                 "description": f"Local source: {source.get('id', '')}",
+>>>>>>                 "language": "",
+>>>>>>                 "stargazers_count": 0,
+>>>>>>                 "forks_count": 0,
+>>>>>>                 "open_issues_count": 0,
+>>>>>>                 "html_url": url,
+>>>>>>                 "synced": True,
+>>>>>>                 "updated_at": source.get("updated_at", ""),
+                   })
+       
+    2:     if fmt == "television":
+    1:         return format_github_repos_television(repos)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_github_repos_preview(repos, entry)
+    1:     return {"repos": repos}
+       
+       
+    1: def cmd_browse_github_activity(args: Namespace) -> object:
+           """List issues, PRs, and discussions for a specific GitHub repo."""
+    2:     store = _store_from_args(args)
+    2:     store.initialize()
+    2:     fmt = getattr(args, "format", "json")
+    2:     entry = getattr(args, "entry", None)
+    2:     repo_arg = getattr(args, "repo", "")
+       
+           # Parse owner/repo
+    2:     owner, repo = _parse_owner_repo(repo_arg)
+    2:     if not owner or not repo:
+    1:         return "Invalid repo format. Use owner/repo.\n"
+       
+    1:     token = _resolve_github_token(store)
+    1:     if not token:
+    1:         return "GitHub token not configured. Set GITHUB_TOKEN or use `know set credential github_token <TOKEN>`.\n"
+       
+>>>>>>     from .sources.github_api import list_repo_activity, render_issue_thread_markdown
+       
+>>>>>>     items = list_repo_activity(token, owner, repo, per_page=30)
+       
+>>>>>>     if fmt == "television":
+>>>>>>         return format_github_activity_television(items)
+>>>>>>     if fmt == "television-preview":
+               # Find the selected item and render full thread
+>>>>>>         item = _find_activity_item(items, entry)
+>>>>>>         if item:
+>>>>>>             thread_md = render_issue_thread_markdown(token, owner, repo, item)
+>>>>>>             return format_github_activity_preview(items, entry, thread_md=thread_md)
+>>>>>>         return format_github_activity_preview(items, entry)
+>>>>>>     return {"repo": f"{owner}/{repo}", "items": items}
+       
+       
+       # ── arXiv browse ─────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_arxiv(args: Namespace) -> object:
+           """List arXiv papers with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="arxiv",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     papers: list[dict[str, Any]] = []
+    1:     for source in sources:
+>>>>>>         has_files = False
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             has_files = any(source_dir.glob("**/*.md"))
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+>>>>>>         config = source.get("config", {})
+>>>>>>         papers.append({
+>>>>>>             "title": source.get("title", config.get("url", "Unknown")),
+>>>>>>             "primary_category": "",
+>>>>>>             "published": source.get("created_at", ""),
+>>>>>>             "synced": has_files,
+>>>>>>             "url": config.get("url", ""),
+>>>>>>             "pdf_url": config.get("url", "").replace("/abs/", "/pdf/") if "/abs/" in config.get("url", "") else "",
+>>>>>>             "authors": [],
+>>>>>>             "summary": "",
+               })
+       
+    1:     if fmt == "television":
+>>>>>>         return format_arxiv_browse_television(papers)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_arxiv_browse_preview(papers, entry)
+    1:     return {"papers": papers}
+       
+       
+       # ── Aha browse ───────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_aha(args: Namespace) -> object:
+           """List Aha features with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="aha",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     features: list[dict[str, Any]] = []
+    1:     for source in sources:
+>>>>>>         has_files = False
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             has_files = any(source_dir.glob("**/*.json"))
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+>>>>>>         features.append({
+>>>>>>             "reference_num": source.get("title", ""),
+>>>>>>             "name": source.get("title", "Unknown"),
+>>>>>>             "status": "",
+>>>>>>             "synced": has_files,
+               })
+       
+    1:     if fmt == "television":
+>>>>>>         return format_aha_browse_television(features)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_aha_browse_preview(features, entry)
+    1:     return {"features": features}
+       
+       
+       # ── Google Releases browse ──────────────────────────────────────────────
+       
+    1: def cmd_browse_releases(args: Namespace) -> object:
+           """List Google Cloud release notes with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="google_releases",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     entries: list[dict[str, Any]] = []
+    1:     for source in sources:
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             for md_file in sorted(source_dir.glob("entries/*.md")):
+>>>>>>                 text = md_file.read_text(encoding="utf-8")
+>>>>>>                 title = _extract_frontmatter_field(text, "title") or md_file.stem
+>>>>>>                 body = _strip_yaml_frontmatter(text)
+>>>>>>                 entries.append({
+>>>>>>                     "title": title,
+>>>>>>                     "updated": _extract_frontmatter_field(text, "entry_updated") or "",
+>>>>>>                     "products": [],
+>>>>>>                     "url": _extract_frontmatter_field(text, "entry_url") or "",
+>>>>>>                     "synced": True,
+>>>>>>                     "body": body,
+                       })
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+    1:     if fmt == "television":
+>>>>>>         return format_releases_browse_television(entries)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_releases_browse_preview(entries, entry)
+    1:     return {"entries": entries}
+       
+       
+       # ── Videos browse ────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_videos(args: Namespace) -> object:
+           """List video sources with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="video",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     videos: list[dict[str, Any]] = []
+    1:     for source in sources:
+>>>>>>         has_files = False
+>>>>>>         body = ""
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             md_files = list(source_dir.glob("**/*.md"))
+>>>>>>             has_files = len(md_files) > 0
+>>>>>>             if has_files and md_files:
+>>>>>>                 text = md_files[0].read_text(encoding="utf-8")
+>>>>>>                 body = _strip_yaml_frontmatter(text)
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+>>>>>>         config = source.get("config", {})
+>>>>>>         videos.append({
+>>>>>>             "title": source.get("title", config.get("url", "Unknown")),
+>>>>>>             "url": config.get("url", ""),
+>>>>>>             "synced": has_files,
+>>>>>>             "body": body,
+               })
+       
+    1:     if fmt == "television":
+>>>>>>         return format_videos_browse_television(videos)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_videos_browse_preview(videos, entry)
+    1:     return {"videos": videos}
+       
+       
+       # ── Sites browse ─────────────────────────────────────────────────────────
+       
+    1: def cmd_browse_sites(args: Namespace) -> object:
+           """List crawled site sources with sync status."""
+    1:     store = _store_from_args(args)
+    1:     store.initialize()
+    2:     sources = store.list_collection_sources(
+    1:         key_name=getattr(args, "key", None),
+    1:         source_type="site",
+           )
+    1:     fmt = getattr(args, "format", "json")
+    1:     entry = getattr(args, "entry", None)
+       
+    1:     sites: list[dict[str, Any]] = []
+    1:     for source in sources:
+>>>>>>         has_files = False
+>>>>>>         body = ""
+>>>>>>         try:
+>>>>>>             source_dir = store.source_dir(source)
+>>>>>>             md_files = list(source_dir.glob("**/*.md"))
+>>>>>>             has_files = len(md_files) > 0
+>>>>>>             if has_files and md_files:
+>>>>>>                 text = md_files[0].read_text(encoding="utf-8")
+>>>>>>                 body = _strip_yaml_frontmatter(text)
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+>>>>>>         config = source.get("config", {})
+>>>>>>         sites.append({
+>>>>>>             "title": source.get("title", config.get("url", "Unknown")),
+>>>>>>             "url": config.get("url", ""),
+>>>>>>             "synced": has_files,
+>>>>>>             "body": body,
+               })
+       
+    1:     if fmt == "television":
+>>>>>>         return format_sites_browse_television(sites)
+    1:     if fmt == "television-preview":
+>>>>>>         return format_sites_browse_preview(sites, entry)
+    1:     return {"sites": sites}
+       
+       
+       # ── Local knowledge browse ──────────────────────────────────────────────
+       
+    1: def cmd_browse_local(args: Namespace) -> object:
+           """Browse all locally downloaded knowledge files."""
+    3:     store = _store_from_args(args)
+    3:     store.initialize()
+    3:     fmt = getattr(args, "format", "json")
+    3:     entry = getattr(args, "entry", None)
+    3:     key_filter = getattr(args, "key", None)
+    3:     type_filter = getattr(args, "type", None)
+       
+    6:     sources = store.list_collection_sources(
+    3:         key_name=key_filter,
+    3:         source_type=type_filter,
+           )
+       
+    3:     items: list[dict[str, Any]] = []
+    5:     for source in sources:
+    2:         try:
+    2:             source_dir = store.source_dir(source)
+    4:             for md_file in sorted(source_dir.glob("**/*.md")):
+    2:                 text = md_file.read_text(encoding="utf-8")
+    2:                 title = _extract_frontmatter_field(text, "title") or md_file.stem
+    2:                 body = _strip_yaml_frontmatter(text)
+    4:                 items.append({
+    2:                     "title": title,
+    2:                     "source_type": source.get("type", ""),
+    2:                     "key": source.get("key", ""),
+    2:                     "path": str(md_file),
+    2:                     "body": body.strip(),
+                       })
+>>>>>>         except Exception:
+>>>>>>             pass
+       
+    3:     if fmt == "television":
+    1:         return format_local_browse_television(items)
+    2:     if fmt == "television-preview":
+    1:         return format_local_browse_preview(items, entry)
+    1:     return {"items": items}
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    1: def _resolve_github_token(store: KnowledgeStore) -> str | None:
+           """Resolve GitHub token from env or store credentials."""
+    3:     token = os.getenv("GITHUB_TOKEN")
+    3:     if token:
+>>>>>>         return token
+    3:     try:
+    3:         return store.resolve_key("$github_token")
+    3:     except Exception:
+    3:         pass
+    3:     try:
+    3:         return store.resolve_key("$GITHUB_TOKEN")
+    3:     except Exception:
+    3:         pass
+    3:     return None
+       
+       
+    1: def _repo_name_from_url(url: str) -> str | None:
+           """Extract owner/repo from a Git URL."""
+    6:     from urllib.parse import urlparse
+       
+    6:     parsed = urlparse(url)
+    6:     path = parsed.path.rstrip("/")
+    6:     if path.endswith(".git"):
+    1:         path = path[:-4]
+    6:     parts = path.strip("/").split("/")
+    6:     if len(parts) >= 2:
+    3:         return f"{parts[-2]}/{parts[-1]}"
+    3:     return None
+       
+       
+    1: def _parse_owner_repo(value: str) -> tuple[str, str]:
+           """Parse 'owner/repo' or a full URL into (owner, repo)."""
+    5:     if "/" in value and not value.startswith("http"):
+    2:         parts = value.split("/")
+    2:         return parts[0], parts[1]
+    3:     name = _repo_name_from_url(value)
+    3:     if name:
+    1:         parts = name.split("/")
+    1:         return parts[0], parts[1]
+    2:     return "", ""
+       
+       
+    1: def _find_activity_item(
+>>>>>>     items: list[dict[str, Any]], selected: str | None
+>>>>>> ) -> dict[str, Any] | None:
+           """Find a GitHub activity item by number from selected text."""
+>>>>>>     if not items:
+>>>>>>         return None
+>>>>>>     if not selected:
+>>>>>>         return items[0]
+>>>>>>     import re
+       
+>>>>>>     match = re.search(r"#(\d+)", selected)
+>>>>>>     if match:
+>>>>>>         num = int(match.group(1))
+>>>>>>         for item in items:
+>>>>>>             if item.get("number") == num:
+>>>>>>                 return item
+>>>>>>     return items[0]
+       
+       
+    1: def _field_name(value: Any) -> str:
+>>>>>>     if isinstance(value, dict):
+>>>>>>         return str(value.get("name") or "unknown")
+>>>>>>     return "unknown"
+       
+       
+    1: def _display_name(value: Any) -> str:
+>>>>>>     if isinstance(value, dict):
+>>>>>>         return str(
+>>>>>>             value.get("displayName")
+>>>>>>             or value.get("emailAddress")
+>>>>>>             or value.get("accountId")
+>>>>>>             or "unassigned"
+               )
+>>>>>>     return "unassigned"
+       
+       
+    1: def _extract_frontmatter_field(text: str, field: str) -> str | None:
+           """Extract a field value from YAML frontmatter."""
+    6:     if not text.startswith("---"):
+    1:         return None
+    5:     end = text.find("\n---", 3)
+    5:     if end == -1:
+>>>>>>         return None
+    5:     fm = text[4:end]
+    8:     for line in fm.splitlines():
+    7:         if line.startswith(f"{field}:"):
+    4:             return line.split(":", 1)[1].strip().strip("'\"")
+    1:     return None
+       
+       
+    1: def _confluence_webui(base_url: str, content: dict[str, Any]) -> str:
+           """Build a Confluence web URL from content _links."""
+>>>>>>     links = content.get("_links", {})
+>>>>>>     if isinstance(links, dict) and links.get("webui"):
+>>>>>>         return f"{base_url.rstrip('/')}{links['webui']}"
+>>>>>>     return ""

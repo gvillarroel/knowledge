@@ -1,0 +1,532 @@
+    1: """Tests for ``know browse`` commands and their television formatters."""
+       
+    1: from __future__ import annotations
+       
+    1: import json
+    1: import re
+    1: from argparse import Namespace
+    1: from pathlib import Path
+    1: from unittest.mock import MagicMock, patch
+       
+    1: import pytest
+       
+    1: from knowledge.browse_commands import (
+           cmd_browse_aha,
+           cmd_browse_arxiv,
+           cmd_browse_confluence,
+           cmd_browse_github,
+           cmd_browse_github_activity,
+           cmd_browse_jira,
+           cmd_browse_local,
+           cmd_browse_releases,
+           cmd_browse_sites,
+           cmd_browse_videos,
+           _extract_frontmatter_field,
+           _parse_owner_repo,
+           _repo_name_from_url,
+           _strip_yaml_frontmatter,
+       )
+    1: from knowledge.browse_tv import (
+           _strip_ansi,
+           format_aha_browse_preview,
+           format_aha_browse_television,
+           format_arxiv_browse_preview,
+           format_arxiv_browse_television,
+           format_confluence_browse_preview,
+           format_confluence_browse_television,
+           format_github_activity_preview,
+           format_github_activity_television,
+           format_github_repos_preview,
+           format_github_repos_television,
+           format_jira_browse_preview,
+           format_jira_browse_television,
+           format_local_browse_preview,
+           format_local_browse_television,
+           format_releases_browse_preview,
+           format_releases_browse_television,
+           format_sites_browse_preview,
+           format_sites_browse_television,
+           format_videos_browse_preview,
+           format_videos_browse_television,
+       )
+    1: from knowledge.store import KnowledgeStore
+       
+       
+       # ── Helper ───────────────────────────────────────────────────────────────
+       
+    1: def _make_args(**kwargs) -> Namespace:
+   17:     defaults = {"store": None, "json": False, "verbose": False, "quiet": False}
+   17:     defaults.update(kwargs)
+   17:     return Namespace(**defaults)
+       
+       
+    1: def _clean(text: str) -> str:
+           """Strip ANSI codes for easier assertion."""
+   12:     return re.sub(r"\033\[[0-9;]*m", "", text)
+       
+       
+       # ── browse_tv formatters ────────────────────────────────────────────────
+       
+    2: class TestJiraBrowseFormatters:
+    1:     def test_television_synced(self):
+    1:         issues = [
+    1:             {"key": "PROJ-1", "summary": "First", "status": "Done", "synced": True},
+    1:             {"key": "PROJ-2", "summary": "Second", "status": "Open", "synced": False},
+               ]
+    1:         out = format_jira_browse_television(issues)
+    1:         clean = _clean(out)
+    1:         assert "● PROJ-1" in clean
+    1:         assert "○ PROJ-2" in clean
+    1:         assert "First" in clean
+    1:         assert "Second" in clean
+       
+    1:     def test_television_empty(self):
+    1:         assert format_jira_browse_television([]) == ""
+       
+    1:     def test_preview_synced(self):
+    1:         issues = [{"key": "X-1", "summary": "Bug", "synced": True, "status": "Done"}]
+    1:         out = format_jira_browse_preview(issues, None)
+    1:         assert "✅ Yes" in out
+    1:         assert "X-1" in out
+       
+    1:     def test_preview_not_synced(self):
+    1:         issues = [{"key": "X-2", "summary": "Task", "synced": False, "status": "Open"}]
+    1:         out = format_jira_browse_preview(issues, None)
+    1:         assert "❌ No" in out
+       
+    1:     def test_preview_no_match(self):
+    1:         out = format_jira_browse_preview([], "something")
+    1:         assert "No issue" in out
+       
+    1:     def test_preview_select_by_key(self):
+    1:         issues = [
+    1:             {"key": "A-1", "summary": "First", "synced": True},
+    1:             {"key": "A-2", "summary": "Second", "synced": False},
+               ]
+    1:         out = format_jira_browse_preview(issues, "○ A-2 | Second | Open")
+    1:         assert "A-2" in out
+       
+       
+    2: class TestConfluenceBrowseFormatters:
+    1:     def test_television_output(self):
+    1:         pages = [
+    1:             {"title": "Page One", "space": "DEV", "synced": True},
+    1:             {"title": "Page Two", "space": "DEV", "synced": False},
+               ]
+    1:         out = format_confluence_browse_television(pages)
+    1:         clean = _clean(out)
+    1:         assert "●" in clean
+    1:         assert "○" in clean
+    1:         assert "Page One" in clean
+       
+    1:     def test_preview(self):
+    1:         pages = [{"title": "Page", "space": "SP", "synced": True, "body": "Content here"}]
+    1:         out = format_confluence_browse_preview(pages, None)
+    1:         assert "Page" in out
+    1:         assert "Content here" in out
+       
+       
+    2: class TestGitHubBrowseFormatters:
+    1:     def test_repos_television(self):
+    1:         repos = [
+    2:             {"full_name": "user/repo1", "description": "A test repo", "language": "Python",
+    1:              "stargazers_count": 5, "synced": True},
+    2:             {"full_name": "user/repo2", "description": "Another", "language": "Go",
+    1:              "stargazers_count": 0, "synced": False},
+               ]
+    1:         out = format_github_repos_television(repos)
+    1:         clean = _clean(out)
+    1:         assert "user/repo1" in clean
+    1:         assert "user/repo2" in clean
+    1:         assert "●" in clean
+    1:         assert "○" in clean
+       
+    1:     def test_repos_preview(self):
+    2:         repos = [{"full_name": "user/repo", "description": "Test", "language": "Rust",
+    1:                   "stargazers_count": 10, "forks_count": 2, "open_issues_count": 3,
+    1:                   "html_url": "https://github.com/user/repo", "synced": True,
+    1:                   "updated_at": "2026-01-01"}]
+    1:         out = format_github_repos_preview(repos, None)
+    1:         assert "user/repo" in out
+    1:         assert "✅ Yes" in out
+       
+    1:     def test_activity_television(self):
+    1:         items = [
+    2:             {"kind": "issue", "number": 1, "title": "Bug", "user": "alice",
+    1:              "comments_count": 3, "labels": ["bug"]},
+    2:             {"kind": "pull_request", "number": 2, "title": "Fix", "user": "bob",
+    1:              "comments_count": 1, "labels": []},
+    2:             {"kind": "discussion", "number": 3, "title": "Q&A", "user": "carol",
+    1:              "comments_count": 0, "labels": []},
+               ]
+    1:         out = format_github_activity_television(items)
+    1:         clean = _clean(out)
+    1:         assert "#1" in clean
+    1:         assert "#2" in clean
+    1:         assert "#3" in clean
+    1:         assert "Bug" in clean
+       
+    1:     def test_activity_preview_with_thread(self):
+    1:         items = [{"kind": "issue", "number": 1, "title": "Bug"}]
+    1:         out = format_github_activity_preview(items, None, thread_md="# Full thread\nDetails")
+    1:         assert "Full thread" in out
+       
+    1:     def test_activity_preview_without_thread(self):
+    2:         items = [{"kind": "issue", "number": 1, "title": "Bug", "state": "open",
+    1:                   "user": "alice", "created_at": "2026-01-01", "comments_count": 0,
+    1:                   "labels": ["bug"], "url": "https://github.com/x/y/issues/1",
+    1:                   "body": "Description text"}]
+    1:         out = format_github_activity_preview(items, None)
+    1:         assert "Bug" in out
+    1:         assert "Description text" in out
+       
+       
+    2: class TestArxivBrowseFormatters:
+    1:     def test_television(self):
+    1:         papers = [{"title": "Paper A", "primary_category": "cs.AI", "synced": True}]
+    1:         out = format_arxiv_browse_television(papers)
+    1:         clean = _clean(out)
+    1:         assert "Paper A" in clean
+    1:         assert "●" in clean
+       
+    1:     def test_preview(self):
+    2:         papers = [{"title": "Paper A", "primary_category": "cs.AI", "synced": False,
+    1:                    "authors": ["Alice", "Bob"], "published": "2026-01-01",
+    1:                    "summary": "An abstract.", "pdf_url": "https://arxiv.org/pdf/123"}]
+    1:         out = format_arxiv_browse_preview(papers, None)
+    1:         assert "Paper A" in out
+    1:         assert "❌ No" in out
+    1:         assert "An abstract." in out
+       
+       
+    2: class TestAhaBrowseFormatters:
+    1:     def test_television(self):
+    1:         features = [{"reference_num": "FEAT-1", "name": "Feature X", "status": "In Progress", "synced": True}]
+    1:         out = format_aha_browse_television(features)
+    1:         clean = _clean(out)
+    1:         assert "FEAT-1" in clean
+       
+    1:     def test_preview(self):
+    1:         features = [{"reference_num": "FEAT-1", "name": "Feature X", "synced": False}]
+    1:         out = format_aha_browse_preview(features, None)
+    1:         assert "❌ No" in out
+       
+       
+    2: class TestReleasesBrowseFormatters:
+    1:     def test_television(self):
+    1:         entries = [{"title": "Release v1", "updated": "2026-01-01", "products": ["GKE"], "synced": True}]
+    1:         out = format_releases_browse_television(entries)
+    1:         clean = _clean(out)
+    1:         assert "Release v1" in clean
+       
+    1:     def test_preview(self):
+    1:         entries = [{"title": "Release v1", "updated": "2026-01-01", "products": ["GKE"], "synced": True}]
+    1:         out = format_releases_browse_preview(entries, None)
+    1:         assert "Release v1" in out
+       
+       
+    2: class TestVideosBrowseFormatters:
+    1:     def test_television(self):
+    1:         videos = [{"title": "Video A", "synced": True}]
+    1:         out = format_videos_browse_television(videos)
+    1:         clean = _clean(out)
+    1:         assert "Video A" in clean
+       
+    1:     def test_preview(self):
+    1:         videos = [{"title": "Video A", "synced": True, "url": "https://youtube.com/watch?v=x"}]
+    1:         out = format_videos_browse_preview(videos, None)
+    1:         assert "Video A" in out
+       
+       
+    2: class TestSitesBrowseFormatters:
+    1:     def test_television(self):
+    1:         sites = [{"title": "Example", "url": "https://example.com", "synced": True}]
+    1:         out = format_sites_browse_television(sites)
+    1:         clean = _clean(out)
+    1:         assert "Example" in clean
+       
+    1:     def test_preview(self):
+    1:         sites = [{"title": "Example", "url": "https://example.com", "synced": True}]
+    1:         out = format_sites_browse_preview(sites, None)
+    1:         assert "Example" in out
+       
+       
+    2: class TestLocalBrowseFormatters:
+    1:     def test_television(self):
+    1:         items = [{"title": "Doc", "source_type": "jira", "key": "mykey"}]
+    1:         out = format_local_browse_television(items)
+    1:         clean = _clean(out)
+    1:         assert "[jira]" in clean
+    1:         assert "Doc" in clean
+       
+    1:     def test_preview(self):
+    1:         items = [{"title": "Doc", "source_type": "jira", "key": "k", "path": "/a/b.md", "body": "Body text"}]
+    1:         out = format_local_browse_preview(items, None)
+    1:         assert "Body text" in out
+       
+       
+       # ── Helpers ──────────────────────────────────────────────────────────────
+       
+    2: class TestHelpers:
+    1:     def test_strip_ansi(self):
+    1:         assert _strip_ansi("\033[32mhello\033[0m") == "hello"
+       
+    1:     def test_repo_name_from_url(self):
+    1:         assert _repo_name_from_url("https://github.com/owner/repo.git") == "owner/repo"
+    1:         assert _repo_name_from_url("https://github.com/owner/repo") == "owner/repo"
+    1:         assert _repo_name_from_url("not-a-url") is None
+       
+    1:     def test_parse_owner_repo(self):
+    1:         assert _parse_owner_repo("owner/repo") == ("owner", "repo")
+    1:         assert _parse_owner_repo("https://github.com/owner/repo") == ("owner", "repo")
+    1:         assert _parse_owner_repo("invalid") == ("", "")
+       
+    1:     def test_strip_yaml_frontmatter(self):
+    1:         text = "---\ntitle: Hello\n---\n\nBody content"
+    1:         assert "Body content" in _strip_yaml_frontmatter(text)
+    1:         assert "title" not in _strip_yaml_frontmatter(text)
+       
+    1:     def test_strip_yaml_frontmatter_no_frontmatter(self):
+    1:         text = "Just plain text"
+    1:         assert _strip_yaml_frontmatter(text) == text
+       
+    1:     def test_extract_frontmatter_field(self):
+    1:         text = "---\ntitle: My Title\nauthor: Alice\n---\nBody"
+    1:         assert _extract_frontmatter_field(text, "title") == "My Title"
+    1:         assert _extract_frontmatter_field(text, "author") == "Alice"
+    1:         assert _extract_frontmatter_field(text, "missing") is None
+       
+    1:     def test_extract_frontmatter_field_no_frontmatter(self):
+    1:         assert _extract_frontmatter_field("No frontmatter", "title") is None
+       
+       
+       # ── Browse commands (mocked store) ──────────────────────────────────────
+       
+    2: @pytest.fixture
+    2: def tmp_store(tmp_path):
+   17:     store = KnowledgeStore(tmp_path)
+   17:     store.initialize()
+   17:     return store
+       
+       
+    2: class TestBrowseJiraCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_jira(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "issues" in result
+       
+    1:     def test_television_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="television", key=None, entry=None)
+    1:         result = cmd_browse_jira(args)
+    1:         assert isinstance(result, str)
+       
+    1:     def test_television_preview_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="television-preview", key=None, entry=None)
+    1:         result = cmd_browse_jira(args)
+    1:         assert isinstance(result, str)
+       
+       
+    2: class TestBrowseConfluenceCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_confluence(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "pages" in result
+       
+       
+    2: class TestBrowseGitHubCommand:
+    1:     def test_json_format_no_token(self, tmp_store):
+    2:         with patch.dict("os.environ", {}, clear=False):
+                   # Remove GITHUB_TOKEN if present
+    1:             import os
+    1:             old = os.environ.pop("GITHUB_TOKEN", None)
+    1:             try:
+    1:                 args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:                 result = cmd_browse_github(args)
+    1:                 assert isinstance(result, dict)
+    1:                 assert "repos" in result
+                   finally:
+    1:                 if old:
+>>>>>>                     os.environ["GITHUB_TOKEN"] = old
+       
+    1:     def test_television_format_no_token(self, tmp_store):
+    1:         import os
+    1:         old = os.environ.pop("GITHUB_TOKEN", None)
+    1:         try:
+    1:             args = _make_args(store=tmp_store.root, format="television", key=None, entry=None)
+    1:             result = cmd_browse_github(args)
+    1:             assert isinstance(result, str)
+               finally:
+    1:             if old:
+>>>>>>                 os.environ["GITHUB_TOKEN"] = old
+       
+       
+    2: class TestBrowseGitHubActivityCommand:
+    1:     def test_invalid_repo(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", repo="invalid", entry=None)
+    1:         result = cmd_browse_github_activity(args)
+    1:         assert "Invalid repo" in str(result)
+       
+    1:     def test_no_token(self, tmp_store):
+    1:         import os
+    1:         old = os.environ.pop("GITHUB_TOKEN", None)
+    1:         try:
+    1:             args = _make_args(store=tmp_store.root, format="json", repo="owner/repo", entry=None)
+    1:             result = cmd_browse_github_activity(args)
+    1:             assert "token" in str(result).lower()
+               finally:
+    1:             if old:
+>>>>>>                 os.environ["GITHUB_TOKEN"] = old
+       
+       
+    2: class TestBrowseArxivCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_arxiv(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "papers" in result
+       
+       
+    2: class TestBrowseAhaCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_aha(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "features" in result
+       
+       
+    2: class TestBrowseReleasesCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_releases(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "entries" in result
+       
+       
+    2: class TestBrowseVideosCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_videos(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "videos" in result
+       
+       
+    2: class TestBrowseSitesCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None)
+    1:         result = cmd_browse_sites(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "sites" in result
+       
+       
+    2: class TestBrowseLocalCommand:
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", key=None, entry=None, type=None)
+    1:         result = cmd_browse_local(args)
+    1:         assert isinstance(result, dict)
+    1:         assert "items" in result
+       
+    1:     def test_with_local_files(self, tmp_store):
+               # Create a key with a source and a local file
+    1:         tmp_store.create_collection_key("test-key")
+    2:         tmp_store.add_collection_source(
+    1:             key_name="test-key",
+    1:             source_type="jira",
+    1:             title="PROJ",
+    1:             config={"project": "PROJ", "jql": "project=PROJ", "base_url": "https://jira.example.com"},
+    1:             update_command="know sync jira-project PROJ --key test-key",
+    1:             delete_command="know del --key test-key jira-proj",
+               )
+               # Write a markdown file
+    1:         source_dir = tmp_store.root / "test-key" / "jira" / "jira-proj"
+    1:         source_dir.mkdir(parents=True, exist_ok=True)
+    1:         md = source_dir / "PROJ-1.md"
+    1:         md.write_text("---\ntitle: Test Issue\n---\n\n# Test Issue\nBody here", encoding="utf-8")
+       
+    1:         args = _make_args(store=tmp_store.root, format="television", key=None, entry=None, type=None)
+    1:         result = cmd_browse_local(args)
+    1:         assert isinstance(result, str)
+    1:         clean = _clean(result)
+    1:         assert "Test Issue" in clean
+       
+    1:     def test_preview_with_local_files(self, tmp_store):
+    1:         tmp_store.create_collection_key("pkey")
+    2:         tmp_store.add_collection_source(
+    1:             key_name="pkey",
+    1:             source_type="jira",
+    1:             title="P",
+    1:             config={"project": "P", "jql": "project=P", "base_url": "https://jira.example.com"},
+    1:             update_command="know sync jira-project P --key pkey",
+    1:             delete_command="know del --key pkey jira-p",
+               )
+    1:         source_dir = tmp_store.root / "pkey" / "jira" / "jira-p"
+    1:         source_dir.mkdir(parents=True, exist_ok=True)
+    1:         md = source_dir / "P-1.md"
+    1:         md.write_text("---\ntitle: My Issue\n---\n\n# My Issue\nBody content", encoding="utf-8")
+       
+    1:         args = _make_args(store=tmp_store.root, format="television-preview", key=None, entry=None, type=None)
+    1:         result = cmd_browse_local(args)
+    1:         assert isinstance(result, str)
+    1:         assert "Body content" in result
+       
+       
+    2: class TestBrowseJiraWithSources:
+    1:     def test_local_only_jira(self, tmp_store):
+    1:         tmp_store.create_collection_key("jk")
+    2:         tmp_store.add_collection_source(
+    1:             key_name="jk",
+    1:             source_type="jira",
+    1:             title="JP",
+    1:             config={"project": "JP", "jql": "project=JP"},
+    1:             update_command="know sync jira-project JP --key jk",
+    1:             delete_command="know del --key jk jira-jp",
+               )
+    1:         source_dir = tmp_store.root / "jk" / "jira" / "jira-jp"
+    1:         source_dir.mkdir(parents=True, exist_ok=True)
+    1:         (source_dir / "JP-1.md").write_text("---\ntitle: Issue 1\n---\n\nBody", encoding="utf-8")
+       
+    1:         args = _make_args(store=tmp_store.root, format="television", key=None, entry=None)
+    1:         result = cmd_browse_jira(args)
+    1:         assert isinstance(result, str)
+    1:         clean = _clean(result)
+    1:         assert "JP-1" in clean
+    1:         assert "●" in clean  # synced marker
+       
+       
+       # ── CLI integration ─────────────────────────────────────────────────────
+       
+    2: class TestCLIBrowseIntegration:
+    1:     def test_browse_help(self):
+    1:         from knowledge.cli import build_parser
+    1:         parser = build_parser()
+               # Verify browse subcommands are registered
+    2:         with pytest.raises(SystemExit):
+    1:             parser.parse_args(["browse", "--help"])
+       
+    1:     def test_browse_jira_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "jira", "--format", "television"])
+    1:         assert args.format == "television"
+    1:         assert args.handler == cmd_browse_jira
+       
+    1:     def test_browse_github_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "github", "--format", "television"])
+    1:         assert args.handler == cmd_browse_github
+       
+    1:     def test_browse_github_activity_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "github-activity", "owner/repo", "--format", "television-preview"])
+    1:         assert args.repo == "owner/repo"
+    1:         assert args.format == "television-preview"
+       
+    1:     def test_browse_local_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "local", "--key", "k", "--type", "jira", "--format", "television"])
+    1:         assert args.key == "k"
+    1:         assert args.type == "jira"

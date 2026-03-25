@@ -6,7 +6,9 @@ from .sources.base import SourceAdapter
 from .sources.confluence import ConfluenceSource
 from .sources.crawl4ai_site import SiteSource
 from .sources.github_repo import GitHubRepoSource
+from .sources.google_releases import GoogleReleasesSource
 from .sources.jira import JiraSource
+from .sources.television import TelevisionSource
 from .sources.video import VideoSource
 
 
@@ -15,13 +17,16 @@ SOURCE_TYPES: dict[str, type[SourceAdapter]] = {
     "arxiv": ArxivSource,
     "confluence": ConfluenceSource,
     "github": GitHubRepoSource,
+    "google_releases": GoogleReleasesSource,
     "jira": JiraSource,
     "site": SiteSource,
+    "television": TelevisionSource,
     "video": VideoSource,
 }
 
 
 def create_source_adapter(source: dict, store) -> SourceAdapter:
+    """Instantiate the correct :class:`SourceAdapter` for *source*."""
     source_type = source["type"]
     try:
         adapter_type = SOURCE_TYPES[source_type]

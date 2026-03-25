@@ -25,8 +25,8 @@
     1:     assert metadata["name"] == "product-docs"
     1:     assert metadata["commands"]["sync"] == "know sync --key product-docs"
     1:     assert metadata["commands"]["export"] == "know export --key product-docs"
-    1:     assert (tmp_path / "product-docs" / "raw").exists()
-    1:     assert (tmp_path / "product-docs" / "library").exists()
+    1:     assert not (tmp_path / "product-docs" / "raw").exists()
+    1:     assert not (tmp_path / "product-docs" / "library").exists()
     1:     assert not (tmp_path / "product-docs" / "cache").exists()
        
        
@@ -80,6 +80,210 @@
     1:     assert metadata["sources"][0]["config"]["space"] == "ENG"
     1:     assert metadata["sources"][0]["update_command"] == "know sync confluence --space ENG --key research"
     1:     assert not (tmp_path / "research" / "confluence" / "confluence-eng.yaml").exists()
+       
+       
+    3: def test_add_confluence_reads_credentials_from_dotenv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     monkeypatch.delenv("CONFLUENCE_BASE_URL", raising=False)
+    1:     monkeypatch.delenv("CONFLUENCE_USERNAME", raising=False)
+    1:     monkeypatch.delenv("CONFLUENCE_TOKEN", raising=False)
+    1:     env_path = tmp_path / ".env"
+    2:     env_path.write_text(
+    3:         "\n".join(
+    1:             [
+                       "CONFLUENCE_BASE_URL=https://example.atlassian.net",
+                       "CONFLUENCE_USERNAME=tester@example.com",
+                       "CONFLUENCE_TOKEN=secret-token",
+                   ]
+               )
+    1:         + "\n",
+    1:         encoding="utf-8",
+           )
+    1:     monkeypatch.chdir(tmp_path)
+       
+    1:     assert main(["--store", str(tmp_path / "store"), "add", "key", "research"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path / "store"),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "ENG",
+    1:                 "--key",
+    1:                 "research",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "store" / "research" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     config = metadata["sources"][0]["config"]
+    1:     assert config["base_url"] == "https://example.atlassian.net"
+    1:     assert config["username"] == "$env:CONFLUENCE_USERNAME"
+    1:     assert config["token"] == "$env:CONFLUENCE_TOKEN"
+       
+       
+    3: def test_add_jira_reads_credentials_from_dotenv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     monkeypatch.delenv("JIRA_BASE_URL", raising=False)
+    1:     monkeypatch.delenv("JIRA_USERNAME", raising=False)
+    1:     monkeypatch.delenv("JIRA_TOKEN", raising=False)
+    1:     env_path = tmp_path / ".env"
+    2:     env_path.write_text(
+    3:         "\n".join(
+    1:             [
+                       "JIRA_BASE_URL=https://example.atlassian.net",
+                       "JIRA_USERNAME=tester@example.com",
+                       "JIRA_TOKEN=secret-token",
+                   ]
+               )
+    1:         + "\n",
+    1:         encoding="utf-8",
+           )
+    1:     monkeypatch.chdir(tmp_path)
+       
+    1:     assert main(["--store", str(tmp_path / "store"), "add", "key", "work"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path / "store"),
+    1:                 "add",
+    1:                 "jira-project",
+    1:                 "PROD",
+    1:                 "--key",
+    1:                 "work",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "store" / "work" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     config = metadata["sources"][0]["config"]
+    1:     assert config["base_url"] == "https://example.atlassian.net"
+    1:     assert config["username"] == "$env:JIRA_USERNAME"
+    1:     assert config["token"] == "$env:JIRA_TOKEN"
+       
+       
+    3: def test_add_aha_reads_credentials_from_dotenv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     monkeypatch.delenv("AHA_BASE_URL", raising=False)
+    1:     monkeypatch.delenv("AHA_TOKEN", raising=False)
+    1:     env_path = tmp_path / ".env"
+    2:     env_path.write_text(
+    3:         "\n".join(
+    1:             [
+    1:                 "AHA_BASE_URL=https://aha.example.com",
+    1:                 "AHA_TOKEN=secret-token",
+                   ]
+               )
+    1:         + "\n",
+    1:         encoding="utf-8",
+           )
+    1:     monkeypatch.chdir(tmp_path)
+       
+    1:     assert main(["--store", str(tmp_path / "store"), "add", "key", "roadmap"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path / "store"),
+    1:                 "add",
+    1:                 "aha-workspace",
+    1:                 "PROD",
+    1:                 "--key",
+    1:                 "roadmap",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "store" / "roadmap" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     config = metadata["sources"][0]["config"]
+    1:     assert config["base_url"] == "https://aha.example.com"
+    1:     assert config["token"] == "$env:AHA_TOKEN"
+       
+       
+    3: def test_add_confluence_json_output_does_not_print_dotenv_secret(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys) -> None:
+    1:     monkeypatch.delenv("CONFLUENCE_BASE_URL", raising=False)
+    1:     monkeypatch.delenv("CONFLUENCE_USERNAME", raising=False)
+    1:     monkeypatch.delenv("CONFLUENCE_TOKEN", raising=False)
+    2:     (tmp_path / ".env").write_text(
+    3:         "\n".join(
+    1:             [
+                       "CONFLUENCE_BASE_URL=https://example.atlassian.net",
+                       "CONFLUENCE_USERNAME=tester@example.com",
+                       "CONFLUENCE_TOKEN=secret-token",
+                   ]
+               )
+    1:         + "\n",
+    1:         encoding="utf-8",
+           )
+    1:     monkeypatch.chdir(tmp_path)
+       
+    1:     assert main(["--store", str(tmp_path / "store"), "add", "key", "research"]) == 0
+    1:     capsys.readouterr()
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path / "store"),
+    1:                 "--json",
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "ENG",
+    1:                 "--key",
+    1:                 "research",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     output = capsys.readouterr().out
+    1:     assert "secret-token" not in output
+    1:     assert "$env:CONFLUENCE_TOKEN" in output
+       
+       
+    6: def test_add_aha_json_output_does_not_print_dotenv_secret(
+    1:     tmp_path: Path,
+    1:     monkeypatch: pytest.MonkeyPatch,
+           capsys,
+    1: ) -> None:
+    1:     monkeypatch.delenv("AHA_BASE_URL", raising=False)
+    1:     monkeypatch.delenv("AHA_TOKEN", raising=False)
+    2:     (tmp_path / ".env").write_text(
+    3:         "\n".join(
+    1:             [
+    1:                 "AHA_BASE_URL=https://aha.example.com",
+    1:                 "AHA_TOKEN=secret-token",
+                   ]
+               )
+    1:         + "\n",
+    1:         encoding="utf-8",
+           )
+    1:     monkeypatch.chdir(tmp_path)
+       
+    1:     assert main(["--store", str(tmp_path / "store"), "add", "key", "roadmap"]) == 0
+    1:     capsys.readouterr()
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path / "store"),
+    1:                 "--json",
+    1:                 "add",
+    1:                 "aha-workspace",
+    1:                 "PROD",
+    1:                 "--key",
+    1:                 "roadmap",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     output = capsys.readouterr().out
+    1:     assert "secret-token" not in output
+    1:     assert "$env:AHA_TOKEN" in output
        
        
     3: def test_add_arxiv_registers_url_under_key(tmp_path: Path) -> None:
@@ -160,6 +364,39 @@
     1:     assert metadata["sources"][0]["id"] == "video-cxqrkt1gynq"
        
        
+    3: def test_add_television_registers_channel_under_key(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "automation"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "television",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+    1:                 "--description",
+    1:                 "Browse registered knowledge sources",
+    1:                 "--source-command",
+    1:                 "know list sources --key automation --json",
+    1:                 "--preview-command",
+    1:                 "know list sources --key automation --json",
+    1:                 "--action-command",
+    1:                 "know sync --key automation",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "automation" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     assert metadata["sources"][0]["type"] == "television"
+    1:     assert metadata["sources"][0]["config"]["channel"] == "knowledge-sources"
+    1:     assert metadata["sources"][0]["config"]["source_command"] == "know list sources --key automation --json"
+    1:     assert metadata["sources"][0]["update_command"] == "know sync television knowledge-sources --key automation"
+    1:     assert metadata["sources"][0]["id"] == "television-knowledge-sources"
+       
+       
     3: def test_add_github_repo_uses_repeatable_branch_flags(tmp_path: Path) -> None:
     1:     assert main(["--store", str(tmp_path), "add", "key", "code"]) == 0
     4:     assert (
@@ -186,6 +423,31 @@
     1:     assert metadata["sources"][0]["config"]["branches"] == ["main", "dev"]
        
        
+    3: def test_add_google_releases_registers_feed_under_key(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "cloud"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "google-releases",
+    1:                 "https://docs.cloud.google.com/feeds/gcp-release-notes.xml",
+    1:                 "--key",
+    1:                 "cloud",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "cloud" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     assert metadata["sources"][0]["type"] == "google_releases"
+    1:     assert metadata["sources"][0]["config"]["url"] == "https://docs.cloud.google.com/feeds/gcp-release-notes.xml"
+    3:     assert metadata["sources"][0]["update_command"] == (
+    2:         "know sync google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key cloud"
+           )
+       
+       
     3: def test_list_sources_filters_by_key(tmp_path: Path, capsys) -> None:
     1:     assert main(["--store", str(tmp_path), "add", "key", "alpha"]) == 0
     1:     assert main(["--store", str(tmp_path), "add", "key", "beta"]) == 0
@@ -200,31 +462,138 @@
     1:     assert '"beta"' not in output
        
        
-    3: def test_search_confluence_lists_possible_sources(tmp_path: Path, capsys) -> None:
+    3: def test_search_confluence_queries_live_api(tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     import knowledge.sources.confluence as confluence_module
+       
     1:     assert main(["--store", str(tmp_path), "add", "key", "alpha"]) == 0
-    1:     assert main(["--store", str(tmp_path), "add", "key", "beta"]) == 0
-    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "alpha"]) == 0
-    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "OPS", "--key", "beta"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "ENG",
+    1:                 "--key",
+    1:                 "alpha",
+    1:                 "--base-url",
+    1:                 "https://conf.example.com",
+    1:                 "--username",
+    1:                 "user@example.com",
+    1:                 "--token",
+    1:                 "secret",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    2:     class StubResponse:
+    1:         def raise_for_status(self) -> None:
+    1:             return None
+       
+    1:         def json(self) -> dict[str, object]:
+    1:             return {
+    2:                 "results": [
+    1:                     {
+    1:                         "title": "Incident Postmortem",
+    1:                         "content": {"id": "123"},
+                           }
+                       ],
+    1:                 "_links": {"next": "/wiki/rest/api/search?cursor=abc"},
+                   }
+       
+    1:     def fake_get(url: str, *, headers: dict[str, str], params: dict[str, object], auth: tuple[str, str], timeout: int) -> StubResponse:
+    1:         assert url == "https://conf.example.com/wiki/rest/api/search"
+    1:         assert headers["Accept"] == "application/json"
+    1:         assert params == {
+    1:             "cql": 'text ~ "incident postmortem" AND space = "ENG"',
+    1:             "limit": 25,
+               }
+    1:         assert auth == ("user@example.com", "secret")
+    1:         assert timeout == 60
+    1:         return StubResponse()
+       
+    1:     monkeypatch.setattr(confluence_module.requests, "get", fake_get)
        
     1:     assert main(["--store", str(tmp_path), "search", "confluence", "incident postmortem"]) == 0
     1:     output = capsys.readouterr().out
     1:     assert '"query": "incident postmortem"' in output
+    1:     assert '"cql": "text ~ \\"incident postmortem\\" AND space = \\"ENG\\""' in output
     1:     assert '"space": "ENG"' in output
-    1:     assert '"space": "OPS"' in output
+    1:     assert '"next_cursor": "abc"' in output
+    1:     assert '"title": "Incident Postmortem"' in output
        
        
-    3: def test_search_confluence_honors_time_filters(tmp_path: Path, capsys) -> None:
+    3: def test_search_confluence_honors_key_and_space_filters(tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     import knowledge.sources.confluence as confluence_module
+       
     1:     assert main(["--store", str(tmp_path), "add", "key", "alpha"]) == 0
     1:     assert main(["--store", str(tmp_path), "add", "key", "beta"]) == 0
-    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "alpha"]) == 0
-    1:     assert main(["--store", str(tmp_path), "add", "confluence", "--space", "OPS", "--key", "beta"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "ENG",
+    1:                 "--key",
+    1:                 "alpha",
+    1:                 "--base-url",
+    1:                 "https://conf.example.com",
+    1:                 "--username",
+    1:                 "user@example.com",
+    1:                 "--token",
+    1:                 "secret",
+                   ]
+               )
+    2:         == 0
+           )
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "OPS",
+    1:                 "--key",
+    1:                 "beta",
+    1:                 "--base-url",
+    1:                 "https://conf.example.com",
+    1:                 "--username",
+    1:                 "user@example.com",
+    1:                 "--token",
+    1:                 "secret",
+                   ]
+               )
+    2:         == 0
+           )
        
-    1:     alpha_metadata = yaml.safe_load((tmp_path / "alpha" / "metadata.yaml").read_text(encoding="utf-8"))
-    1:     beta_metadata = yaml.safe_load((tmp_path / "beta" / "metadata.yaml").read_text(encoding="utf-8"))
-    1:     alpha_metadata["sources"][0]["updated_at"] = "2026-03-20T12:00:00+00:00"
-    1:     beta_metadata["sources"][0]["last_synced_at"] = "2026-03-23T09:30:00Z"
-    1:     (tmp_path / "alpha" / "metadata.yaml").write_text(yaml.safe_dump(alpha_metadata, sort_keys=False), encoding="utf-8")
-    1:     (tmp_path / "beta" / "metadata.yaml").write_text(yaml.safe_dump(beta_metadata, sort_keys=False), encoding="utf-8")
+    1:     calls: list[dict[str, object]] = []
+       
+    2:     class StubResponse:
+    1:         def raise_for_status(self) -> None:
+    1:             return None
+       
+    1:         def json(self) -> dict[str, object]:
+    1:             return {"results": [], "_links": {}}
+       
+    1:     def fake_get(_url: str, *, headers: dict[str, str], params: dict[str, object], auth: tuple[str, str], timeout: int) -> StubResponse:
+    2:         calls.append(
+    1:             {
+    1:                 "headers": headers,
+    1:                 "params": params,
+    1:                 "auth": auth,
+    1:                 "timeout": timeout,
+                   }
+               )
+    1:         return StubResponse()
+       
+    1:     monkeypatch.setattr(confluence_module.requests, "get", fake_get)
        
     1:     capsys.readouterr()
     4:     assert (
@@ -235,19 +604,106 @@
     1:                 "search",
     1:                 "confluence",
     1:                 "incident postmortem",
-    1:                 "--start-time",
-    1:                 "2026-03-21T00:00:00+00:00",
-    1:                 "--end-time",
-    1:                 "2026-03-23T10:00:00+00:00",
+    1:                 "--knowledge-key",
+    1:                 "beta",
+    1:                 "--space",
+    1:                 "OPS",
+    1:                 "--limit",
+    1:                 "5",
                    ]
                )
     2:         == 0
            )
     1:     output = capsys.readouterr().out
-    1:     assert '"start_time": "2026-03-21T00:00:00+00:00"' in output
-    1:     assert '"end_time": "2026-03-23T10:00:00+00:00"' in output
+    1:     assert len(calls) == 1
+    2:     assert calls[0]["params"] == {
+    1:         "cql": 'text ~ "incident postmortem" AND space = "OPS"',
+    1:         "limit": 5,
+           }
     1:     assert '"space": "OPS"' in output
     1:     assert '"space": "ENG"' not in output
+       
+       
+    3: def test_search_jira_queries_v3_api(tmp_path: Path, capsys, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     import knowledge.sources.jira as jira_module
+       
+    1:     assert main(["--store", str(tmp_path), "add", "key", "work"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "jira-project",
+    1:                 "KAN",
+    1:                 "--key",
+    1:                 "work",
+    1:                 "--base-url",
+    1:                 "https://jira.example.com",
+    1:                 "--username",
+    1:                 "user@example.com",
+    1:                 "--token",
+    1:                 "secret",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    2:     class StubResponse:
+    1:         def raise_for_status(self) -> None:
+    1:             return None
+       
+    1:         def json(self) -> dict[str, object]:
+    1:             return {
+    1:                 "issues": [{"key": "KAN-1", "fields": {"summary": "Find search bug"}}],
+    1:                 "nextPageToken": "token-2",
+                   }
+       
+    1:     def fake_get(url: str, *, headers: dict[str, str], params: dict[str, object], auth: tuple[str, str], timeout: int) -> StubResponse:
+    1:         assert url == "https://jira.example.com/rest/api/3/search/jql"
+    1:         assert headers["Accept"] == "application/json"
+    1:         assert params == {
+    1:             "jql": 'project = KAN AND (summary ~ "search bug" OR description ~ "search bug")',
+    1:             "maxResults": 10,
+    1:             "fieldsByKeys": "true",
+    1:             "fields": "summary,status",
+    1:             "expand": "names",
+               }
+    1:         assert auth == ("user@example.com", "secret")
+    1:         assert timeout == 60
+    1:         return StubResponse()
+       
+    1:     monkeypatch.setattr(jira_module.requests, "get", fake_get)
+       
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "search",
+    1:                 "jira",
+    1:                 "search bug",
+    1:                 "--project",
+    1:                 "KAN",
+    1:                 "--field",
+    1:                 "summary",
+    1:                 "--field",
+    1:                 "status",
+    1:                 "--expand",
+    1:                 "names",
+    1:                 "--fields-by-keys",
+    1:                 "--limit",
+    1:                 "10",
+                   ]
+               )
+    2:         == 0
+           )
+    1:     output = capsys.readouterr().out
+    1:     assert '"project": "KAN"' in output
+    1:     assert '"jql": "project = KAN AND (summary ~ \\"search bug\\" OR description ~ \\"search bug\\")"' in output
+    1:     assert '"fields_by_keys": true' in output
+    1:     assert '"key": "KAN-1"' in output
+    1:     assert '"next_page_token": "token-2"' in output
        
        
     3: def test_search_arxiv_queries_public_api(tmp_path: Path, capsys, monkeypatch) -> None:
@@ -315,6 +771,116 @@
     1:     assert '"pdf_url": "http://arxiv.org/pdf/1706.03762v7"' in output
        
        
+    3: def test_search_arxiv_television_format_lists_titles(tmp_path: Path, capsys, monkeypatch) -> None:
+    1:     import requests
+       
+    1:     atom_payload = """<?xml version="1.0" encoding="utf-8"?>
+       <feed xmlns="http://www.w3.org/2005/Atom"
+             xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+         <opensearch:totalResults>1</opensearch:totalResults>
+         <opensearch:startIndex>0</opensearch:startIndex>
+         <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+         <entry>
+           <id>http://arxiv.org/abs/1706.03762v7</id>
+           <updated>2023-08-02T17:54:18Z</updated>
+           <published>2017-06-12T17:57:25Z</published>
+           <title>Attention Is All You Need</title>
+           <summary>Transformer paper summary.</summary>
+           <author><name>Ashish Vaswani</name></author>
+           <category term="cs.CL" />
+           <link rel="alternate" href="http://arxiv.org/abs/1706.03762v7" />
+           <link title="pdf" href="http://arxiv.org/pdf/1706.03762v7" />
+         </entry>
+       </feed>
+       """
+       
+    2:     class StubResponse:
+    1:         text = atom_payload
+       
+    1:         def raise_for_status(self) -> None:
+    1:             return None
+       
+    2:     monkeypatch.setattr(
+    1:         requests,
+    1:         "get",
+    2:         lambda *args, **kwargs: StubResponse(),
+           )
+       
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "search",
+    1:                 "arxiv",
+    1:                 "attention is all you need",
+    1:                 "--format",
+    1:                 "television",
+                   ]
+               )
+    2:         == 0
+           )
+    1:     output = capsys.readouterr().out
+    1:     assert "Attention Is All You Need | cs.CL | 2017-06-12T17:57:25Z" in output
+       
+       
+    3: def test_search_arxiv_television_preview_format_renders_summary(tmp_path: Path, capsys, monkeypatch) -> None:
+    1:     import requests
+       
+    1:     atom_payload = """<?xml version="1.0" encoding="utf-8"?>
+       <feed xmlns="http://www.w3.org/2005/Atom"
+             xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+         <opensearch:totalResults>1</opensearch:totalResults>
+         <opensearch:startIndex>0</opensearch:startIndex>
+         <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+         <entry>
+           <id>http://arxiv.org/abs/1706.03762v7</id>
+           <updated>2023-08-02T17:54:18Z</updated>
+           <published>2017-06-12T17:57:25Z</published>
+           <title>Attention Is All You Need</title>
+           <summary>Transformer paper summary.</summary>
+           <author><name>Ashish Vaswani</name></author>
+           <category term="cs.CL" />
+           <link rel="alternate" href="http://arxiv.org/abs/1706.03762v7" />
+           <link title="pdf" href="http://arxiv.org/pdf/1706.03762v7" />
+         </entry>
+       </feed>
+       """
+       
+    2:     class StubResponse:
+    1:         text = atom_payload
+       
+    1:         def raise_for_status(self) -> None:
+    1:             return None
+       
+    2:     monkeypatch.setattr(
+    1:         requests,
+    1:         "get",
+    2:         lambda *args, **kwargs: StubResponse(),
+           )
+       
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "search",
+    1:                 "arxiv",
+    1:                 "attention is all you need",
+    1:                 "--format",
+    1:                 "television-preview",
+    1:                 "--entry",
+    1:                 "Attention Is All You Need | cs.CL | 2017-06-12T17:57:25Z",
+                   ]
+               )
+    2:         == 0
+           )
+    1:     output = capsys.readouterr().out
+    1:     assert "# Attention Is All You Need" in output
+    1:     assert "## Summary" in output
+    1:     assert "Transformer paper summary." in output
+       
+       
     3: def test_sync_by_key_exports_matching_source_stats(tmp_path: Path, monkeypatch) -> None:
     1:     assert main(["--store", str(tmp_path), "add", "key", "research"]) == 0
     1:     assert main(["--store", str(tmp_path), "add", "arxiv", "https://arxiv.org/abs/1706.03762", "--key", "research"]) == 0
@@ -332,7 +898,7 @@
     1:     assert main(["--store", str(tmp_path), "sync", "--key", "research"]) == 0
     1:     metadata = yaml.safe_load((tmp_path / "research" / "metadata.yaml").read_text(encoding="utf-8"))
     1:     assert metadata["sources"][0]["last_synced_at"]
-    1:     assert (tmp_path / "research" / "raw" / "arxiv" / "arxiv-1706.03762" / "paper.xml").exists()
+    1:     assert (tmp_path / "research" / "arxiv" / "arxiv-1706.03762" / "paper.xml").exists()
        
        
     3: def test_sync_site_by_url_exports_matching_source_stats(tmp_path: Path, monkeypatch) -> None:
@@ -387,8 +953,8 @@
            )
     1:     metadata = yaml.safe_load((tmp_path / "sites" / "metadata.yaml").read_text(encoding="utf-8"))
     1:     assert metadata["sources"][0]["last_synced_at"]
-   13:     assert (
-   13:         tmp_path / "sites" / "raw" / "site" / "site-harness-engineering" / "pages" / "openai.com_index_harness-engineering.md"
+   11:     assert (
+   11:         tmp_path / "sites" / "site" / "site-harness-engineering" / "pages" / "openai.com_index_harness-engineering.md"
     1:     ).exists()
        
        
@@ -457,11 +1023,55 @@
     1:     assert "_sync_branches" not in source
        
        
+    3: def test_sync_television_writes_channel_bundle(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "automation"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "television",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+    1:                 "--source-command",
+    1:                 "know list sources --key automation --json",
+    1:                 "--preview-command",
+    1:                 "know export --key automation",
+    1:                 "--action-command",
+    1:                 "know sync --key automation",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "sync",
+    1:                 "television",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     source_dir = tmp_path / "automation" / "television" / "television-knowledge-sources"
+    1:     assert (source_dir / "knowledge-sources.toml").exists()
+    1:     assert (source_dir / "commands.json").exists()
+    1:     assert (source_dir / "README.md").exists()
+       
+       
     3: def test_export_generates_frontmatter_and_zip_archive(tmp_path: Path, capsys) -> None:
     1:     assert main(["--store", str(tmp_path), "add", "key", "sample"]) == 0
     1:     assert main(["--store", str(tmp_path), "add", "arxiv", "https://arxiv.org/abs/1706.03762", "--key", "sample"]) == 0
        
-    1:     raw_file = tmp_path / "sample" / "raw" / "arxiv" / "arxiv-1706.03762" / "paper.txt"
+    1:     raw_file = tmp_path / "sample" / "arxiv" / "arxiv-1706.03762" / "paper.txt"
     1:     raw_file.parent.mkdir(parents=True, exist_ok=True)
     1:     raw_file.write_text("Attention Is All You Need\n", encoding="utf-8")
        
@@ -472,7 +1082,7 @@
     1:     assert archive_path.exists()
        
     1:     exported = (
-    1:         tmp_path / "sample" / "library" / "arxiv" / "arxiv-1706.03762" / "paper.md"
+    1:         tmp_path / "sample" / "arxiv" / "arxiv-1706.03762" / "paper.md"
     1:     ).read_text(encoding="utf-8")
     1:     assert exported.startswith("---\n")
     1:     assert "knowledge_key: sample" in exported

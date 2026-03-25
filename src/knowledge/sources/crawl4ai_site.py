@@ -12,6 +12,8 @@ from .base import SourceAdapter
 
 
 class SiteSource(SourceAdapter):
+    """Adapter that crawls a website and stores pages as Markdown."""
+
     def sync(self) -> dict[str, object]:
         start_url = self.config["url"]
         max_depth = int(self.config.get("max_depth", 1))
@@ -135,7 +137,7 @@ def _slugify_url(value: str | None) -> str:
 
 
 def _html_to_text(html: str) -> str:
-    without_scripts = re.sub(r"<(script|style)[^>]*>.*?</\\1>", " ", html, flags=re.IGNORECASE | re.DOTALL)
+    without_scripts = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.IGNORECASE | re.DOTALL)
     main = re.sub(r"</(p|div|section|article|h1|h2|h3|h4|h5|h6|li|br)>", "\n", without_scripts, flags=re.IGNORECASE)
     text = re.sub(r"<[^>]+>", " ", main)
     text = unescape(text)

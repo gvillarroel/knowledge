@@ -1,0 +1,308 @@
+    1: """GitHub REST API client for browsing repos, issues, PRs, and discussions.
+       
+       Requires a ``GITHUB_TOKEN`` environment variable or a credential stored via
+       ``know set credential github_token <TOKEN>``.
+       """
+       
+    1: from __future__ import annotations
+       
+    1: from typing import Any
+       
+    1: import requests
+       
+       
+    1: _API_BASE = "https://api.github.com"
+    1: _ACCEPT = "application/vnd.github+json"
+    1: _API_VERSION = "2022-11-28"
+       
+       
+    1: def _headers(token: str) -> dict[str, str]:
+    8:     return {
+    8:         "Accept": _ACCEPT,
+    8:         "Authorization": f"Bearer {token}",
+    8:         "X-GitHub-Api-Version": _API_VERSION,
+           }
+       
+       
+       # ── Repos ────────────────────────────────────────────────────────────────
+       
+    6: def list_user_repos(
+>>>>>>     token: str,
+           *,
+    1:     sort: str = "updated",
+    1:     direction: str = "desc",
+    1:     per_page: int = 50,
+    1:     page: int = 1,
+    1:     affiliation: str = "owner,collaborator,organization_member",
+>>>>>> ) -> list[dict[str, Any]]:
+           """List repositories the authenticated user has interacted with."""
+    2:     response = requests.get(
+    1:         f"{_API_BASE}/user/repos",
+    1:         headers=_headers(token),
+    1:         params={
+    1:             "sort": sort,
+    1:             "direction": direction,
+    1:             "per_page": per_page,
+    1:             "page": page,
+    1:             "affiliation": affiliation,
+               },
+    1:         timeout=30,
+           )
+    1:     response.raise_for_status()
+    1:     return response.json()
+       
+       
+       # ── Issues & PRs ─────────────────────────────────────────────────────────
+       
+    4: def list_repo_issues(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+           *,
+    1:     state: str = "open",
+    1:     per_page: int = 50,
+    1:     page: int = 1,
+>>>>>> ) -> list[dict[str, Any]]:
+           """List issues for a repository (includes PRs unless filtered)."""
+    2:     response = requests.get(
+    1:         f"{_API_BASE}/repos/{owner}/{repo}/issues",
+    1:         headers=_headers(token),
+    1:         params={"state": state, "per_page": per_page, "page": page},
+    1:         timeout=30,
+           )
+    1:     response.raise_for_status()
+    1:     return response.json()
+       
+       
+    4: def list_repo_pulls(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+           *,
+    1:     state: str = "open",
+    1:     per_page: int = 50,
+    1:     page: int = 1,
+>>>>>> ) -> list[dict[str, Any]]:
+           """List pull requests for a repository."""
+    2:     response = requests.get(
+    1:         f"{_API_BASE}/repos/{owner}/{repo}/pulls",
+    1:         headers=_headers(token),
+    1:         params={"state": state, "per_page": per_page, "page": page},
+    1:         timeout=30,
+           )
+    1:     response.raise_for_status()
+    1:     return response.json()
+       
+       
+    2: def list_repo_discussions(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+           *,
+    1:     per_page: int = 20,
+>>>>>> ) -> list[dict[str, Any]]:
+           """List discussions for a repository via GitHub GraphQL API."""
+    2:     query = """
+           query($owner: String!, $repo: String!, $first: Int!) {
+             repository(owner: $owner, name: $repo) {
+               discussions(first: $first, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                 nodes {
+                   number
+                   title
+                   body
+                   url
+                   createdAt
+                   updatedAt
+                   author { login }
+                   category { name }
+                   comments(first: 10) {
+                     nodes {
+                       body
+                       createdAt
+                       author { login }
+                     }
+                   }
+                 }
+               }
+             }
+           }
+           """
+    4:     response = requests.post(
+    2:         "https://api.github.com/graphql",
+    2:         headers=_headers(token),
+    2:         json={
+    2:             "query": query,
+    2:             "variables": {"owner": owner, "repo": repo, "first": per_page},
+               },
+    2:         timeout=30,
+           )
+    2:     response.raise_for_status()
+    2:     data = response.json()
+    2:     repo_data = (data.get("data") or {}).get("repository") or {}
+    2:     discussions = (repo_data.get("discussions") or {}).get("nodes") or []
+    2:     return discussions
+       
+       
+    2: def get_issue_comments(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+>>>>>>     issue_number: int,
+           *,
+    1:     per_page: int = 50,
+>>>>>> ) -> list[dict[str, Any]]:
+           """Get comments on an issue or PR."""
+    2:     response = requests.get(
+    1:         f"{_API_BASE}/repos/{owner}/{repo}/issues/{issue_number}/comments",
+    1:         headers=_headers(token),
+    1:         params={"per_page": per_page},
+    1:         timeout=30,
+           )
+    1:     response.raise_for_status()
+    1:     return response.json()
+       
+       
+    1: def get_pr_detail(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+>>>>>>     pr_number: int,
+>>>>>> ) -> dict[str, Any]:
+           """Get detailed information about a pull request."""
+    2:     response = requests.get(
+    1:         f"{_API_BASE}/repos/{owner}/{repo}/pulls/{pr_number}",
+    1:         headers=_headers(token),
+    1:         timeout=30,
+           )
+    1:     response.raise_for_status()
+    1:     return response.json()
+       
+       
+       # ── Activity helpers ─────────────────────────────────────────────────────
+       
+    4: def list_repo_activity(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+           *,
+    1:     state: str = "open",
+    1:     per_page: int = 30,
+    1:     include_discussions: bool = True,
+>>>>>> ) -> list[dict[str, Any]]:
+           """Return a unified list of issues, PRs, and discussions for a repo.
+       
+           Each item includes a ``kind`` field: ``issue``, ``pull_request``, or
+           ``discussion``.
+           """
+    2:     items: list[dict[str, Any]] = []
+       
+           # Issues (includes PRs on GitHub API)
+    2:     raw_issues = list_repo_issues(token, owner, repo, state=state, per_page=per_page)
+    5:     for issue in raw_issues:
+    3:         kind = "pull_request" if issue.get("pull_request") else "issue"
+    6:         items.append({
+    3:             "kind": kind,
+    3:             "number": issue["number"],
+    3:             "title": issue.get("title", ""),
+    3:             "state": issue.get("state", "open"),
+    3:             "user": (issue.get("user") or {}).get("login", ""),
+    3:             "created_at": issue.get("created_at", ""),
+    3:             "updated_at": issue.get("updated_at", ""),
+    3:             "body": issue.get("body") or "",
+    3:             "labels": [l.get("name", "") for l in issue.get("labels", [])],
+    3:             "url": issue.get("html_url", ""),
+    3:             "comments_count": issue.get("comments", 0),
+               })
+       
+           # Discussions
+    2:     if include_discussions:
+    2:         try:
+    2:             discussions = list_repo_discussions(token, owner, repo, per_page=per_page)
+    2:             for disc in discussions:
+    2:                 items.append({
+    1:                     "kind": "discussion",
+    1:                     "number": disc.get("number", 0),
+    1:                     "title": disc.get("title", ""),
+    1:                     "state": "open",
+    1:                     "user": (disc.get("author") or {}).get("login", ""),
+    1:                     "created_at": disc.get("createdAt", ""),
+    1:                     "updated_at": disc.get("updatedAt", ""),
+    1:                     "body": disc.get("body") or "",
+    1:                     "labels": [],
+    1:                     "url": disc.get("url", ""),
+    1:                     "comments_count": len((disc.get("comments") or {}).get("nodes") or []),
+    1:                     "category": (disc.get("category") or {}).get("name", ""),
+    1:                     "_discussion_comments": (disc.get("comments") or {}).get("nodes") or [],
+                       })
+    1:         except Exception:
+    1:             pass  # Discussions API may not be available for all repos
+       
+    2:     return items
+       
+       
+    1: def render_issue_thread_markdown(
+>>>>>>     token: str,
+>>>>>>     owner: str,
+>>>>>>     repo: str,
+>>>>>>     item: dict[str, Any],
+>>>>>> ) -> str:
+           """Render a full issue/PR/discussion thread as Markdown."""
+    3:     kind = item.get("kind", "issue")
+    3:     number = item.get("number", 0)
+    3:     title = item.get("title", "Untitled")
+    3:     body = item.get("body") or ""
+    3:     user = item.get("user", "unknown")
+    3:     created = item.get("created_at", "")
+    3:     labels = item.get("labels", [])
+       
+    3:     kind_label = {"issue": "Issue", "pull_request": "Pull Request", "discussion": "Discussion"}.get(kind, kind)
+       
+    3:     lines = [
+    3:         f"# [{kind_label} #{number}] {title}",
+    3:         "",
+    3:         f"- Author: @{user}",
+    3:         f"- Created: {created}",
+    3:         f"- State: {item.get('state', 'open')}",
+           ]
+    3:     if labels:
+    1:         lines.append(f"- Labels: {', '.join(labels)}")
+    3:     if item.get("url"):
+    2:         lines.append(f"- URL: {item['url']}")
+       
+    3:     if body.strip():
+    3:         lines.extend(["", "## Description", "", body.strip()])
+       
+           # Fetch and render comments
+    3:     if kind == "discussion":
+    1:         comments = item.get("_discussion_comments", [])
+    1:         if comments:
+    1:             lines.extend(["", "## Comments", ""])
+    2:             for comment in comments:
+    1:                 author = (comment.get("author") or {}).get("login", "unknown")
+    1:                 date = comment.get("createdAt", "")
+    1:                 cbody = comment.get("body") or ""
+    2:                 lines.extend([
+    1:                     f"### @{author} ({date})",
+    1:                     "",
+    1:                     cbody.strip(),
+    1:                     "",
+                       ])
+           else:
+    2:         try:
+    2:             comments = get_issue_comments(token, owner, repo, number, per_page=30)
+    1:             if comments:
+    1:                 lines.extend(["", "## Comments", ""])
+    2:                 for comment in comments:
+    1:                     author = (comment.get("user") or {}).get("login", "unknown")
+    1:                     date = comment.get("created_at", "")
+    1:                     cbody = comment.get("body") or ""
+    2:                     lines.extend([
+    1:                         f"### @{author} ({date})",
+    1:                         "",
+    1:                         cbody.strip(),
+    1:                         "",
+                           ])
+    1:         except Exception:
+    1:             lines.extend(["", "_Could not load comments._"])
+       
+    3:     return "\n".join(lines).rstrip() + "\n"

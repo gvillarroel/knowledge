@@ -51,78 +51,78 @@
     1:     sort_by: str = "relevance",
     1:     sort_order: str = "descending",
 >>>>>> ) -> dict[str, object]:
-    1:     search_query = _normalize_search_query(query)
-    2:     response = requests.get(
-    1:         ARXIV_API_URL,
-    1:         params={
-    1:             "search_query": search_query,
-    1:             "start": start,
-    1:             "max_results": max_results,
-    1:             "sortBy": sort_by,
-    1:             "sortOrder": sort_order,
+    3:     search_query = _normalize_search_query(query)
+    6:     response = requests.get(
+    3:         ARXIV_API_URL,
+    3:         params={
+    3:             "search_query": search_query,
+    3:             "start": start,
+    3:             "max_results": max_results,
+    3:             "sortBy": sort_by,
+    3:             "sortOrder": sort_order,
                },
-    1:         headers={"Accept": "application/atom+xml"},
-    1:         timeout=60,
+    3:         headers={"Accept": "application/atom+xml"},
+    3:         timeout=60,
            )
-    1:     response.raise_for_status()
-    2:     return {
-    1:         "search_query": search_query,
-    1:         **_parse_arxiv_feed(response.text),
+    3:     response.raise_for_status()
+    6:     return {
+    3:         "search_query": search_query,
+    3:         **_parse_arxiv_feed(response.text),
            }
        
        
     1: def _normalize_search_query(query: str) -> str:
-    1:     trimmed = query.strip()
-    1:     if ":" in trimmed:
+    3:     trimmed = query.strip()
+    3:     if ":" in trimmed:
 >>>>>>         return trimmed
-   20:     if any(ch.isspace() for ch in trimmed):
-    1:         escaped = trimmed.replace('"', '\\"')
-    1:         return f'all:"{escaped}"'
+   60:     if any(ch.isspace() for ch in trimmed):
+    3:         escaped = trimmed.replace('"', '\\"')
+    3:         return f'all:"{escaped}"'
 >>>>>>     return f"all:{trimmed}"
        
        
     1: def _parse_arxiv_feed(payload: str) -> dict[str, object]:
-    2:     root = ElementTree.fromstring(payload)
-    2:     entries: list[dict[str, object]] = []
-    4:     for entry in root.findall("atom:entry", ATOM_NAMESPACE):
-    4:         links = {
-    4:             link.get("title") or link.get("rel") or "related": link.get("href")
-    8:             for link in entry.findall("atom:link", ATOM_NAMESPACE)
-    4:             if link.get("href")
+    4:     root = ElementTree.fromstring(payload)
+    4:     entries: list[dict[str, object]] = []
+    8:     for entry in root.findall("atom:entry", ATOM_NAMESPACE):
+    8:         links = {
+    8:             link.get("title") or link.get("rel") or "related": link.get("href")
+   16:             for link in entry.findall("atom:link", ATOM_NAMESPACE)
+    8:             if link.get("href")
                }
-    4:         entries.append(
-    2:             {
-    2:                 "id": _text(entry, "atom:id"),
-    2:                 "title": _text(entry, "atom:title"),
-    2:                 "summary": _text(entry, "atom:summary"),
-    2:                 "published": _text(entry, "atom:published"),
-    2:                 "updated": _text(entry, "atom:updated"),
-    4:                 "authors": [_text(author, "atom:name") for author in entry.findall("atom:author", ATOM_NAMESPACE)],
-    4:                 "categories": [category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)],
-    4:                 "primary_category": next(
-    4:                     (category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)),
-    2:                     None,
+    8:         entries.append(
+    4:             {
+    4:                 "id": _text(entry, "atom:id"),
+    4:                 "title": _text(entry, "atom:title"),
+    4:                 "summary": _text(entry, "atom:summary"),
+    4:                 "published": _text(entry, "atom:published"),
+    4:                 "updated": _text(entry, "atom:updated"),
+    8:                 "authors": [_text(author, "atom:name") for author in entry.findall("atom:author", ATOM_NAMESPACE)],
+    8:                 "categories": [category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)],
+    8:                 "primary_category": next(
+    8:                     (category.get("term") for category in entry.findall("atom:category", ATOM_NAMESPACE)),
+    4:                     None,
                        ),
-    2:                 "links": links,
-    2:                 "pdf_url": links.get("pdf"),
+    4:                 "links": links,
+    4:                 "pdf_url": links.get("pdf"),
                    }
                )
        
-    2:     return {
-    2:         "total_results": _int_text(root, "opensearch:totalResults"),
-    2:         "start_index": _int_text(root, "opensearch:startIndex"),
-    2:         "items_per_page": _int_text(root, "opensearch:itemsPerPage"),
-    2:         "entries": entries,
+    4:     return {
+    4:         "total_results": _int_text(root, "opensearch:totalResults"),
+    4:         "start_index": _int_text(root, "opensearch:startIndex"),
+    4:         "items_per_page": _int_text(root, "opensearch:itemsPerPage"),
+    4:         "entries": entries,
            }
        
        
     1: def _text(element: ElementTree.Element, selector: str) -> str | None:
-   18:     node = element.find(selector, ATOM_NAMESPACE)
-   18:     if node is None or node.text is None:
+   36:     node = element.find(selector, ATOM_NAMESPACE)
+   36:     if node is None or node.text is None:
     3:         return None
-   15:     return " ".join(node.text.split())
+   33:     return " ".join(node.text.split())
        
        
     1: def _int_text(element: ElementTree.Element, selector: str) -> int:
-    6:     value = _text(element, selector)
-    6:     return int(value) if value is not None else 0
+   12:     value = _text(element, selector)
+   12:     return int(value) if value is not None else 0
