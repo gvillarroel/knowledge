@@ -4,16 +4,7 @@ description = "Browse crawled websites with sync status"
 
 [source]
 command = "know browse sites --format television"
+ansi = true
 
 [preview]
 command = "know browse sites --format television-preview --entry '{}'"
-
-[ui]
-ansi = true
-
-[keybindings]
-enter = "actions:sync-and-browse"
-
-[actions.sync-and-browse]
-command = "know sync --key $(echo '{}' | grep -oP 'knowledge_key: \\K.*') 2>/dev/null; tv know-sites-browse"
-mode = "execute"

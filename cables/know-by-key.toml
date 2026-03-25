@@ -1,0 +1,18 @@
+[metadata]
+name = "know-by-key"
+description = "Browse knowledge keys → Enter drills into key sources"
+
+[source]
+command = "know browse by-key --format television"
+ansi = true
+
+[preview]
+command = "know browse by-key --format television-preview --entry '{}'"
+
+[keybindings]
+enter = "actions:drill-key"
+
+[actions.drill-key]
+description = "Browse sources inside this key"
+command = "tv --ansi --source-command=\"know browse key-sources --key '{0}' --format television\" --preview-command=\"know browse key-sources --key '{0}' --format television-preview --entry '{}'\""
+mode = "execute"

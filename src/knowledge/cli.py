@@ -20,6 +20,23 @@ from .browse_commands import (
     cmd_browse_sites,
     cmd_browse_videos,
 )
+from .browse_extended import (
+    cmd_browse_by_key,
+    cmd_browse_by_type,
+    cmd_browse_commands,
+    cmd_browse_crossref,
+    cmd_browse_files,
+    cmd_browse_key_sources,
+    cmd_browse_papers,
+    cmd_browse_recent,
+    cmd_browse_repo_files,
+    cmd_browse_repos,
+    cmd_browse_source_files,
+    cmd_browse_stale,
+    cmd_browse_stats,
+    cmd_browse_timeline,
+    cmd_browse_unsynced,
+)
 from .commands import (
     cmd_add_aha_workspace,
     cmd_add_arxiv,
@@ -396,6 +413,90 @@ def build_parser() -> argparse.ArgumentParser:
     browse_local_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
     browse_local_parser.add_argument("--entry", help="Entry to preview.")
     browse_local_parser.set_defaults(handler=cmd_browse_local)
+
+    # ── Extended browse subcommands ──────────────────────────────────────
+    browse_by_key_parser = browse_subparsers.add_parser("by-key", help="Keys overview with source counts. Enter drills in.")
+    browse_by_key_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_by_key_parser.add_argument("--entry", help="Entry to preview.")
+    browse_by_key_parser.set_defaults(handler=cmd_browse_by_key)
+
+    browse_by_type_parser = browse_subparsers.add_parser("by-type", help="Source types overview. Enter drills into type.")
+    browse_by_type_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_by_type_parser.add_argument("--entry", help="Entry to preview.")
+    browse_by_type_parser.set_defaults(handler=cmd_browse_by_type)
+
+    browse_papers_parser = browse_subparsers.add_parser("papers", help="Unified arXiv paper browser across all keys.")
+    browse_papers_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_papers_parser.add_argument("--entry", help="Entry to preview.")
+    browse_papers_parser.set_defaults(handler=cmd_browse_papers)
+
+    browse_repos_parser = browse_subparsers.add_parser("repos", help="All synced GitHub repos across all keys.")
+    browse_repos_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_repos_parser.add_argument("--entry", help="Entry to preview.")
+    browse_repos_parser.set_defaults(handler=cmd_browse_repos)
+
+    browse_repo_files_parser = browse_subparsers.add_parser("repo-files", help="Browse files inside a synced repo.")
+    browse_repo_files_parser.add_argument("--repo", help="Filter by repo name.")
+    browse_repo_files_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_repo_files_parser.add_argument("--entry", help="Entry to preview.")
+    browse_repo_files_parser.set_defaults(handler=cmd_browse_repo_files)
+
+    browse_files_parser = browse_subparsers.add_parser("files", help="Full-text searchable file browser.")
+    browse_files_parser.add_argument("--query", help="Full-text search query.")
+    browse_files_parser.add_argument("--key", help="Restrict to a knowledge key.")
+    browse_files_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_files_parser.add_argument("--entry", help="Entry to preview.")
+    browse_files_parser.set_defaults(handler=cmd_browse_files)
+
+    browse_recent_parser = browse_subparsers.add_parser("recent", help="Recently synced sources.")
+    browse_recent_parser.add_argument("--limit", type=int, default=50, help="Max items.")
+    browse_recent_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_recent_parser.add_argument("--entry", help="Entry to preview.")
+    browse_recent_parser.set_defaults(handler=cmd_browse_recent)
+
+    browse_stale_parser = browse_subparsers.add_parser("stale", help="Sources not synced recently.")
+    browse_stale_parser.add_argument("--days", type=int, default=7, help="Consider stale after N days.")
+    browse_stale_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_stale_parser.add_argument("--entry", help="Entry to preview.")
+    browse_stale_parser.set_defaults(handler=cmd_browse_stale)
+
+    browse_unsynced_parser = browse_subparsers.add_parser("unsynced", help="Sources never synced.")
+    browse_unsynced_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_unsynced_parser.add_argument("--entry", help="Entry to preview.")
+    browse_unsynced_parser.set_defaults(handler=cmd_browse_unsynced)
+
+    browse_timeline_parser = browse_subparsers.add_parser("timeline", help="Chronological source timeline.")
+    browse_timeline_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_timeline_parser.add_argument("--entry", help="Entry to preview.")
+    browse_timeline_parser.set_defaults(handler=cmd_browse_timeline)
+
+    browse_commands_parser = browse_subparsers.add_parser("commands", help="All available sync/delete/export commands.")
+    browse_commands_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_commands_parser.add_argument("--entry", help="Entry to preview.")
+    browse_commands_parser.set_defaults(handler=cmd_browse_commands)
+
+    browse_stats_parser = browse_subparsers.add_parser("stats", help="Knowledge base statistics overview.")
+    browse_stats_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_stats_parser.add_argument("--entry", help="Entry to preview.")
+    browse_stats_parser.set_defaults(handler=cmd_browse_stats)
+
+    browse_crossref_parser = browse_subparsers.add_parser("crossref", help="Sources shared across multiple keys.")
+    browse_crossref_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_crossref_parser.add_argument("--entry", help="Entry to preview.")
+    browse_crossref_parser.set_defaults(handler=cmd_browse_crossref)
+
+    browse_key_sources_parser = browse_subparsers.add_parser("key-sources", help="Sources for a specific key (fork target).")
+    browse_key_sources_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    browse_key_sources_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_key_sources_parser.add_argument("--entry", help="Entry to preview.")
+    browse_key_sources_parser.set_defaults(handler=cmd_browse_key_sources)
+
+    browse_source_files_parser = browse_subparsers.add_parser("source-files", help="Files inside a specific source (fork target).")
+    browse_source_files_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    browse_source_files_parser.add_argument("--source-id", required=True, help="Source ID.")
+    browse_source_files_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_source_files_parser.add_argument("--entry", help="Entry to preview.")
+    browse_source_files_parser.set_defaults(handler=cmd_browse_source_files)
 
     return parser
 

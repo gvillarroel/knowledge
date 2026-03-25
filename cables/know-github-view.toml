@@ -4,16 +4,15 @@ description = "Browse GitHub repos you have interacted with"
 
 [source]
 command = "know browse github --format television"
+ansi = true
 
 [preview]
 command = "know browse github --format television-preview --entry '{}'"
-
-[ui]
-ansi = true
 
 [keybindings]
 enter = "actions:open-repo"
 
 [actions.open-repo]
-command = "tv --ansi --source-command=\"know browse github-activity $(echo '{}' | sed 's/ |.*//' | sed 's/[●○] //' | tr -d '\\033[32m\\033[36m\\033[0m') --format television\" --preview-command=\"know browse github-activity $(echo '{}' | sed 's/ |.*//' | sed 's/[●○] //' | tr -d '\\033[32m\\033[36m\\033[0m') --format television-preview --entry '{}'\""
+description = "Browse issues, PRs and discussions for this repo"
+command = "tv --ansi --source-command=\"know browse github-activity $(echo '{}' | sed 's/ |.*//' | sed 's/[^ ]* //' ) --format television\" --preview-command=\"know browse github-activity $(echo '{}' | sed 's/ |.*//' | sed 's/[^ ]* //') --format television-preview --entry '{}'\""
 mode = "execute"

@@ -1,0 +1,18 @@
+[metadata]
+name = "know-repos"
+description = "Browse all synced GitHub repos. Enter browses repo files."
+
+[source]
+command = "know browse repos --format television"
+ansi = true
+
+[preview]
+command = "know browse repos --format television-preview --entry '{}'"
+
+[keybindings]
+enter = "actions:browse-files"
+
+[actions.browse-files]
+description = "Browse files inside this repo"
+command = "tv --ansi --source-command=\"know browse repo-files --repo '{0}' --format television\" --preview-command=\"know browse repo-files --repo '{0}' --format television-preview --entry '{}'\""
+mode = "execute"

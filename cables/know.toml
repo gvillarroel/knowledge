@@ -1,0 +1,19 @@
+[metadata]
+name = "know"
+description = "Knowledge base hub - select a channel to enter"
+
+[source]
+command = "tv list-channels"
+display = "{}"
+output = "{}"
+
+[preview]
+command = "echo 'Select a know channel and press Enter'"
+
+[keybindings]
+enter = "actions:open-channel"
+
+[actions.open-channel]
+description = "Open the selected know channel"
+command = "tv {}"
+mode = "execute"

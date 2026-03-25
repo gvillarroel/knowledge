@@ -1,0 +1,18 @@
+[metadata]
+name = "know-by-type"
+description = "Browse source types → Enter drills into sources of that type"
+
+[source]
+command = "know browse by-type --format television"
+ansi = true
+
+[preview]
+command = "know browse by-type --format television-preview --entry '{}'"
+
+[keybindings]
+enter = "actions:drill-type"
+
+[actions.drill-type]
+description = "Browse all sources of this type"
+command = "tv --ansi --source-command=\"know browse local --type '{0}' --format television\" --preview-command=\"know browse local --type '{0}' --format television-preview --entry '{}'\""
+mode = "execute"

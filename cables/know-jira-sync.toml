@@ -4,16 +4,7 @@ description = "Browse Jira issues with sync status (green=downloaded, yellow=pen
 
 [source]
 command = "know browse jira --format television"
+ansi = true
 
 [preview]
 command = "know browse jira --format television-preview --entry '{}'"
-
-[ui]
-ansi = true
-
-[keybindings]
-enter = "actions:sync-and-browse"
-
-[actions.sync-and-browse]
-command = "know sync --key $(echo '{}' | grep -oP 'knowledge_key: \\K.*') 2>/dev/null; tv know-jira-sync"
-mode = "execute"
