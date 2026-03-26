@@ -6,5 +6,5 @@ description = "Search arXiv papers"
 command = "know search arxiv \"all:$SEARCH\" --format television --max-results 20 --sort-by submittedDate"
 
 [preview]
-# TODO: este debe mostrar solo el markdown del elemento seleccionado, orientado a ver el abstract
+# TODO: this should show only the selected item's Markdown, focused on the abstract
 command = "know search arxiv \"all:$SEARCH\" --format television-preview --max-results 20 --sort-by submittedDate --entry '{}'"

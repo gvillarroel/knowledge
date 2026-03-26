@@ -664,9 +664,9 @@ class TestBrowseCrossrefEmpty:
     def test_empty_crossref(self, tmp_path):
         s = KnowledgeStore(tmp_path)
         s.initialize()
-        s.create_collection_key("solo")
+        s.create_collection_key("single")
         s.add_collection_source(
-            key_name="solo", source_type="arxiv", title="Unique",
+            key_name="single", source_type="arxiv", title="Unique",
             config={"url": "https://arxiv.org/abs/9999.99999"},
             update_command="know sync arxiv",
             delete_command="know del arxiv",

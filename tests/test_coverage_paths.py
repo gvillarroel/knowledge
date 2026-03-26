@@ -938,12 +938,12 @@ def test_confluence_storage_to_markdown_covers_misc_blocks() -> None:
 
 
 def test_confluence_storage_to_markdown_normalizes_task_artifacts() -> None:
-    payload = "<p>Tasks</p><ac:task-list>\\n<ac:task>\\n<ac:task-id>1</ac:task-id>\\n<ac:task-status>incomplete</ac:task-status>\\nEscribe tu tarea aquí.\\n\\n</ac:task></ac:task-list>"
+    payload = "<p>Tasks</p><ac:task-list>\\n<ac:task>\\n<ac:task-id>1</ac:task-id>\\n<ac:task-status>incomplete</ac:task-status>\\nWrite your task here.\\n\\n</ac:task></ac:task-list>"
 
     rendered = confluence_storage_to_markdown(payload)
 
     assert "1\nincomplete" not in rendered
-    assert "- [ ] Escribe tu tarea aquí." in rendered
+    assert "- [ ] Write your task here." in rendered
 
 
 def test_jira_sync_writes_issues_and_resolves_auth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
