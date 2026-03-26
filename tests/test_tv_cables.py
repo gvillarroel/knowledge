@@ -41,8 +41,12 @@ def test_browse_github_activity_accepts_selected_row(tmp_path: Path, monkeypatch
 def test_bundled_tv_cables_do_not_use_shell_hacks() -> None:
     github_cable = Path("cables/know-github-view.toml").read_text(encoding="utf-8")
     arxiv_cable = Path("cables/know-arxiv.toml").read_text(encoding="utf-8")
+    follow_cable = Path("cables/know-follow.toml").read_text(encoding="utf-8")
 
     assert "sed " not in github_cable
     assert "$(" not in github_cable
     assert "--selected-row '{}'" in github_cable
     assert 'know search arxiv \\"all:$SEARCH\\" --format television-preview' in arxiv_cable
+    assert "$(" not in follow_cable
+    assert "start " not in follow_cable
+    assert 'command = "know browse follow-url' in follow_cable

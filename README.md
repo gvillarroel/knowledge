@@ -153,6 +153,7 @@ The repository includes ready-to-use Television cable files in the `cables/` dir
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
+| `know-follow.toml` | `know-follow` | Inspect follow-up items from GitHub and Jira |
 
 Install them all at once:
 
@@ -172,7 +173,10 @@ Then run any channel:
 tv know-keys
 tv know-arxiv
 tv know-jira
+tv know-follow
 ```
+
+The bundled `know-follow` cable is OS-neutral: `know browse follow-url` only prints the resolved URL, so you can edit the cable later and wrap that command with the browser launcher your system expects.
 
 ## Notes
 

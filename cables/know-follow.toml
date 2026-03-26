@@ -1,6 +1,6 @@
 [metadata]
 name = "know-follow"
-description = "Open items from GitHub repos and Jira projects you interacted with (last 6 months)"
+description = "Inspect items from GitHub repos and Jira projects you interacted with (last 6 months)"
 
 [source]
 command = "know browse follow --format television"
@@ -10,9 +10,9 @@ ansi = true
 command = "know browse follow --format television-preview --entry {split: :0|strip_ansi}"
 
 [keybindings]
-enter = "actions:open-in-browser"
+enter = "actions:show-url"
 
-[actions.open-in-browser]
-description = "Open the selected item in the default browser"
-command = "start $(know browse follow-url {split: :0|strip_ansi})"
-mode = "fork"
+[actions.show-url]
+description = "Resolve the selected item URL; customize this command per OS if you want to open it automatically"
+command = "know browse follow-url '{}'"
+mode = "execute"

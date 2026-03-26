@@ -98,6 +98,12 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 # Browse local files with optional full-text filtering
 `know browse files [--query $VALUE] [--key $KEY] [--format $FORMAT] [--entry $ENTRY]`
 
+# Browse follow-up items gathered from GitHub activity and Jira projects
+`know browse follow [--format $FORMAT] [--entry $ENTRY]`
+
+# Resolve the browser URL for one follow row; the cable can wrap this with an OS-specific open command if desired
+`know browse follow-url $ENTRY`
+
 # Browse GitHub repositories you have interacted with; remote access uses `GITHUB_TOKEN` when present and otherwise falls back to stored credentials such as `github_token`
 `know browse github [--key $KEY] [--format $FORMAT] [--entry $ENTRY]`
 
