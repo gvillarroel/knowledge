@@ -501,3 +501,268 @@ def _strip_ansi(text: str) -> str:
     """Remove ANSI escape sequences from text."""
     import re
     return re.sub(r"\033\[[0-9;]*m", "", text)
+
+
+# ── Confluence spaces browse ─────────────────────────────────────────────
+
+def format_confluence_spaces_television(spaces: list[dict[str, Any]]) -> str:
+    """List Confluence spaces for television output."""
+    lines: list[str] = []
+    for space in spaces:
+        key = space.get("key", "")
+        name = space.get("name", "")
+        stype = space.get("type", "")
+        line = f"{_CYAN}{key}{_RESET} | {name} | {_DIM}{stype}{_RESET}"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def format_confluence_spaces_preview(
+    spaces: list[dict[str, Any]], selected: str | None
+) -> str:
+    """Preview pane for a selected Confluence space row."""
+    space = _find_browse_item_by_field(spaces, "key", selected)
+    if not space:
+        return "No space matched.\n"
+    lines = [
+        f"# {space.get('name', 'Unknown')}",
+        "",
+        f"- Key: {space.get('key', '')}",
+        f"- Type: {space.get('type', '')}",
+        f"- URL: {space.get('web_url', '')}",
+    ]
+    desc = space.get("description", "")
+    if desc:
+        lines.extend(["", "## Description", "", desc])
+    lines.extend([
+        "",
+        "## Actions",
+        "",
+        "- Press **Enter** to browse pages in this space",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+# ── Confluence pages (path-style) browse ─────────────────────────────────
+
+def format_confluence_pages_television(pages: list[dict[str, Any]]) -> str:
+    """List Confluence pages as ``/path/title`` for television output."""
+    lines: list[str] = []
+    for page in pages:
+        path = page.get("path", page.get("title", ""))
+        space = page.get("space", "")
+        line = f"{_CYAN}{path}{_RESET} | {_DIM}{space}{_RESET}"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def format_confluence_pages_preview(
+    pages: list[dict[str, Any]], selected: str | None
+) -> str:
+    """Preview pane for a selected Confluence page (path-style) row."""
+    page = _find_confluence_page(pages, selected)
+    if not page:
+        return "No page matched.\n"
+    lines = [
+        f"# {page.get('title', 'Untitled')}",
+        "",
+        f"- Path: {page.get('path', '')}",
+        f"- Space: {page.get('space', '')}",
+        f"- URL: {page.get('web_url', '')}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _find_confluence_page(
+    pages: list[dict[str, Any]], selected: str | None
+) -> dict[str, Any] | None:
+    """Find a Confluence page by path or title from selected text."""
+    if not pages:
+        return None
+    if not selected:
+        return pages[0]
+    clean = _strip_ansi(selected)
+    for page in pages:
+        path = page.get("path", "")
+        if path and path in clean:
+            return page
+        title = page.get("title", "")
+        if title and title in clean:
+            return page
+    return pages[0]
+
+
+# ── Jira projects browse ────────────────────────────────────────────────
+
+def format_jira_projects_television(projects: list[dict[str, Any]]) -> str:
+    """List Jira projects for television output."""
+    lines: list[str] = []
+    for proj in projects:
+        key = proj.get("key", "")
+        name = proj.get("name", "")
+        ptype = proj.get("project_type", "")
+        lead = proj.get("lead", "")
+        line = f"{_CYAN}{key}{_RESET} | {name} | {_DIM}{ptype} · {lead}{_RESET}"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def format_jira_projects_preview(
+    projects: list[dict[str, Any]], selected: str | None
+) -> str:
+    """Preview pane for a selected Jira project row."""
+    proj = _find_browse_item_by_field(projects, "key", selected)
+    if not proj:
+        return "No project matched.\n"
+    lines = [
+        f"# {proj.get('name', 'Unknown')}",
+        "",
+        f"- Key: {proj.get('key', '')}",
+        f"- Type: {proj.get('project_type', '')}",
+        f"- Lead: {proj.get('lead', '')}",
+        f"- URL: {proj.get('web_url', '')}",
+    ]
+    lines.extend([
+        "",
+        "## Actions",
+        "",
+        "- Press **Enter** to browse issues in this project",
+    ])
+    return "\n".join(lines) + "\n"
+
+
+# ── GitHub repos (for fork into activity) ────────────────────────────────
+
+def format_github_repos_fork_television(repos: list[dict[str, Any]]) -> str:
+    """List GitHub repos for the hub channel that forks into activity."""
+    return format_github_repos_television(repos)
+
+
+def format_github_repos_fork_preview(
+    repos: list[dict[str, Any]], selected: str | None
+) -> str:
+    """Preview for GitHub repo hub channel."""
+    return format_github_repos_preview(repos, selected)
+
+
+# ── Follow browse ────────────────────────────────────────────────────────
+
+def format_follow_television(items: list[dict[str, Any]]) -> str:
+    """List with path and title separated by a single space.
+
+    Format: ``<icon><source>/<repo>/<type>/<id> <title>``
+
+    The icon ANSI is glued to the path (no space) so the first shell word
+    is always space-free.  Preview and action commands use
+    ``{split: :0|strip_ansi}`` to extract just the clean path.
+    """
+    lines: list[str] = []
+    for item in items:
+        source = item.get("source", "")
+        item_id = item.get("id", "")
+        title = item.get("title", "")
+        if source == "github":
+            repo = item.get("repo", "")
+            kind = item.get("element_type", "issue")
+            color = _KIND_COLORS.get(kind, _CYAN)
+            icon = _KIND_ICONS.get(kind, "●")
+            path = f"{source}/{repo}/{kind}/{item_id}"
+            line = f"{color}{icon}{_RESET}{path} {title}"
+        else:
+            project = item.get("project", "")
+            etype = item.get("element_type", "")
+            path = f"{source}/{project}/{etype}/{item_id}"
+            line = f"{_BLUE}🔷{_RESET}{path} {title}"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def format_follow_preview(
+    items: list[dict[str, Any]],
+    selected: str | None,
+    store: Any = None,
+) -> str:
+    """Preview pane for a selected follow row showing main content as markdown."""
+    item = _find_follow_item(items, selected)
+    if not item:
+        return "No item matched.\n"
+
+    source = item.get("source", "")
+    title = item.get("title", "Untitled")
+    url = item.get("url", "")
+
+    if source == "github":
+        kind_label = {
+            "issue": "Issue",
+            "pull_request": "Pull Request",
+            "discussion": "Discussion",
+        }.get(item.get("element_type", ""), "Item")
+        lines = [
+            f"# [{kind_label} #{item.get('id', '')}] {title}",
+            "",
+            f"- Repo: {item.get('repo', '')}",
+            f"- Author: @{item.get('user', 'unknown')}",
+            f"- Created: {item.get('created_at', '')}",
+            f"- Updated: {item.get('updated_at', '')}",
+            f"- Comments: {item.get('comments_count', 0)}",
+        ]
+        if item.get("labels"):
+            lines.append(f"- Labels: {', '.join(item['labels'])}")
+        if url:
+            lines.append(f"- URL: {url}")
+        body = item.get("body") or ""
+        if body.strip():
+            lines.extend(["", "## Description", "", body.strip()])
+
+        return "\n".join(lines) + "\n"
+    else:
+        # Jira
+        lines = [
+            f"# {item.get('id', '')}: {title}",
+            "",
+            f"- Project: {item.get('project', '')}",
+            f"- Type: {item.get('element_type', '')}",
+            f"- Status: {item.get('status', 'unknown')}",
+            f"- Priority: {item.get('priority', 'unknown')}",
+            f"- Assignee: {item.get('assignee', 'unassigned')}",
+            f"- Reporter: {item.get('reporter', 'unknown')}",
+        ]
+        if item.get("labels"):
+            lines.append(f"- Labels: {', '.join(item['labels'])}")
+        if url:
+            lines.append(f"- URL: {url}")
+        body = item.get("body") or ""
+        if body.strip():
+            lines.extend(["", "## Description", "", body.strip()])
+        return "\n".join(lines) + "\n"
+
+
+def _find_follow_item(
+    items: list[dict[str, Any]], selected: str | None
+) -> dict[str, Any] | None:
+    """Find a follow item from selected television row text.
+
+    The selected text may be the full line or just the path portion
+    extracted by ``{split:|:0|trim}`` in the cable template.
+    """
+    if not items:
+        return None
+    if not selected:
+        return items[0]
+    clean = _strip_ansi(selected).strip()
+    # Remove leading icon characters
+    for icon in ("🔵", "🟢", "💬", "🔷", "●"):
+        clean = clean.lstrip(icon).strip()
+    # Take only the path part (first space-separated token)
+    path_part = clean.split()[0] if clean.split() else clean
+    # Try matching by path field
+    for item in items:
+        path = item.get("path", "")
+        if path and (path == path_part or path_part in path or path in path_part):
+            return item
+    # Try matching by id
+    for item in items:
+        item_id = item.get("id", "")
+        if item_id and item_id in path_part:
+            return item
+    return items[0]

@@ -1,0 +1,18 @@
+[metadata]
+name = "know-jprojects"
+description = "List Jira projects → Enter browses issues in the selected project"
+
+[source]
+command = "know browse jira-projects --format television"
+ansi = true
+
+[preview]
+command = "know browse jira-projects --format television-preview --entry '{}'"
+
+[keybindings]
+enter = "actions:open-project"
+
+[actions.open-project]
+description = "Browse issues in this Jira project"
+command = "tv --ansi --source-command=\"know search jira '' --project '{0}' --format television\" --preview-command=\"know search jira '' --project '{0}' --format television-preview --entry '{}'\""
+mode = "fork"

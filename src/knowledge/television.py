@@ -36,20 +36,6 @@ def format_keys_preview(keys: list[str], selected: str | None) -> str:
     return "\n".join(lines) + "\n"
 
 
-# ── Credentials ──────────────────────────────────────────────────────────
-
-def format_credentials_television(names: list[str]) -> str:
-    """One line per credential name."""
-    return "\n".join(sorted(names))
-
-
-def format_credentials_preview(names: list[str], selected: str | None) -> str:
-    name = _resolve_selection(sorted(names), selected)
-    if not name:
-        return "No credential matched the selected row.\n"
-    return f"# Credential: {name}\n\nStored in `keys.yaml`.\n"
-
-
 # ── Sources ──────────────────────────────────────────────────────────────
 
 def format_sources_television(sources: list[dict[str, Any]]) -> str:

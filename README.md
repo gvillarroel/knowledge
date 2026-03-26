@@ -24,12 +24,11 @@ The installed executable is `know`.
 know add key research
 know set credential jira_token secret-token
 know add confluence --space ENG --key research
-know add aha-workspace PROD --key research
+know add aha PROD --key research
 know add arxiv https://arxiv.org/abs/1706.03762 --key research
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
-know add television research-sources --key research --source-command "know list sources --key research --json"
-know list credentials
+know add tv research-sources --key research --source-command "know list sources --key research --json"
 know list sources --key research
 know search confluence "incident postmortem"
 know search arxiv "attention is all you need" --max-results 5 --sort-by submittedDate
@@ -74,7 +73,6 @@ know --help
 know add key <KEY>
 know set credential <NAME> <VALUE>
 know list keys
-know list credentials
 know list sources --key <KEY>
 know add confluence --space <SPACE> --key <KEY>
 know search confluence "text search"
@@ -83,8 +81,9 @@ know add arxiv <URL> --key <KEY>
 know add google-releases <FEED_URL> --key <KEY>
 know add github-repo <REPO_URL> --key <KEY> --branch <BRANCH>
 know add jira-project <PROJECT> --key <KEY>
-know add aha-workspace <PRODUCT> --key <KEY>
-know add television <CHANNEL> --key <KEY> --source-command <COMMAND>
+know add aha <PRODUCT> --key <KEY>
+know add tv
+know add tv <CHANNEL> --key <KEY> --source-command <COMMAND>
 know sync --key <KEY>
 know export --key <KEY>
 know import <ARCHIVE.zip>
@@ -113,10 +112,18 @@ tv \
   --preview-command "know list sources --key research --format television-preview --entry '{}'"
 ```
 
+### Install the bundled Television cables
+
+```bash
+know add tv
+```
+
+This copies the repository's pre-built `.toml` channel files into `~/.config/television/cable/`.
+
 ### Create a reusable Television channel from `know list sources`
 
 ```bash
-know add television research-sources --key research \
+know add tv research-sources --key research \
   --description "Browse all registered sources for the research key" \
   --source-command "know list sources --key research --format television" \
   --preview-command "know list sources --key research --format television-preview --entry '{}'"
@@ -126,7 +133,7 @@ know sync television research-sources --key research
 ### Create a reusable Television channel from arXiv search
 
 ```bash
-know add television arxiv-transformers --key research \
+know add tv arxiv-transformers --key research \
   --description "Browse arXiv search results for transformer papers" \
   --source-command "know search arxiv \"attention is all you need\" --format television --max-results 20 --sort-by submittedDate" \
   --preview-command "know search arxiv \"attention is all you need\" --format television-preview --entry '{}'"
@@ -143,7 +150,6 @@ The repository includes ready-to-use Television cable files in the `cables/` dir
 |---|---|---|
 | `know-keys.toml` | `know-keys` | Browse knowledge keys |
 | `know-sources.toml` | `know-sources` | Browse all registered sources |
-| `know-credentials.toml` | `know-credentials` | Browse stored credentials |
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
@@ -172,7 +178,7 @@ tv know-jira
 
 - `keys.yaml` stores named credentials that can be referenced as `$name`.
 - Credential management also follows the `know <verb> <object>` pattern: `know set credential ...` and `know list credentials`.
-- `know add aha-workspace <PRODUCT> --key <KEY>` can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, storing the token as `$env:AHA_TOKEN` instead of copying the secret into metadata.
+- `know add aha <PRODUCT> --key <KEY>` can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, storing the token as `$env:AHA_TOKEN` instead of copying the secret into metadata.
 - Exported Markdown always includes YAML frontmatter with source provenance.
 - `know export` renders Markdown into each key library and also produces a zip archive for import or transfer.
 - Television channel sources materialize a reusable `channel.toml` plus install/run commands for `tv`.

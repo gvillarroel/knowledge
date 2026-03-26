@@ -1,5 +1,6 @@
     1: from __future__ import annotations
        
+    1: from typing import Any
     1: from urllib.parse import urljoin
        
     1: import requests
@@ -11,29 +12,68 @@
     1:     """Adapter that synchronizes features from an Aha workspace."""
        
     1:     def sync(self) -> dict[str, object]:
-    1:         base_url = self.config["base_url"].rstrip("/") + "/"
-    1:         token = self.store.resolve_key(self.config["token"])
-    1:         product = self.config["product"]
-    1:         limit = int(self.config.get("limit", 100))
+    3:         base_url = self.config["base_url"].rstrip("/") + "/"
+    3:         token = self.store.resolve_key(self.config["token"])
+    3:         workspace = self.config.get("workspace") or self.config["product"]
+    3:         limit_value = self.config.get("limit")
+    3:         remaining = int(limit_value) if limit_value is not None else None
+    3:         page = 1
+    3:         features: list[dict[str, Any]] = []
+    3:         last_page_payload: dict[str, Any] = {}
        
-    2:         response = requests.get(
-    1:             urljoin(base_url, f"api/v1/products/{product}/features"),
-    1:             headers={"Authorization": f"Bearer {token}", "Accept": "application/json"},
-    1:             params={"per_page": limit},
-    1:             timeout=60,
-               )
-    1:         response.raise_for_status()
-    1:         data = response.json()
-    1:         features = data.get("features", [])
-    1:         self.write_json(self.raw_dir / "features.json", data)
-    2:         for feature in features:
-    1:             reference = feature.get("reference_num", feature["id"])
-    1:             self.write_json(self.raw_dir / "features" / f"{reference}.json", feature)
+    3:         self.clear_source_dir()
        
-    2:         return self.finalize_sync(
-    1:             {
-    1:                 "features": len(features),
-    1:                 "product": product,
-    1:                 "raw_dir": str(self.raw_dir),
+    5:         while True:
+    5:             per_page = 200 if remaining is None else max(1, min(remaining, 200))
+   10:             response = requests.get(
+    5:                 urljoin(base_url, f"api/v1/products/{workspace}/features"),
+    5:                 headers={"Authorization": f"Bearer {token}", "Accept": "application/json"},
+    5:                 params={"page": page, "per_page": per_page},
+    5:                 timeout=60,
+                   )
+    5:             response.raise_for_status()
+    5:             data = response.json()
+    5:             last_page_payload = data
+    5:             page_features = data.get("features", [])
+    5:             if remaining is not None:
+    3:                 page_features = page_features[:remaining]
+    3:                 remaining -= len(page_features)
+    5:             features.extend(page_features)
+       
+    5:             if not self._has_next_page(data, page_features, page) or remaining == 0:
+    3:                 break
+    2:             page += 1
+       
+    3:         payload = dict(last_page_payload)
+    3:         payload["features"] = features
+    3:         self.write_json(self.raw_dir / "features.json", payload)
+    8:         for feature in features:
+    5:             reference = feature.get("reference_num", feature["id"])
+    5:             self.write_json(self.raw_dir / "features" / f"{reference}.json", feature)
+       
+    6:         return self.finalize_sync(
+    3:             {
+    3:                 "features": len(features),
+    3:                 "workspace": workspace,
+    3:                 "product": workspace,
+    3:                 "raw_dir": str(self.raw_dir),
                    }
                )
+       
+    1:     def _has_next_page(
+               self,
+>>>>>>         payload: dict[str, Any],
+>>>>>>         page_features: list[dict[str, Any]],
+>>>>>>         current_page: int,
+>>>>>>     ) -> bool:
+    5:         pagination = payload.get("pagination") or []
+    5:         if isinstance(pagination, list) and pagination:
+    4:             page_info = pagination[0] if isinstance(pagination[0], dict) else {}
+    1:         elif isinstance(pagination, dict):
+>>>>>>             page_info = pagination
+               else:
+    1:             page_info = {}
+    5:         total_pages = page_info.get("total_pages")
+    5:         if isinstance(total_pages, int):
+    4:             return current_page < total_pages
+    1:         return False

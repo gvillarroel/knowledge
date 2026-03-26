@@ -9,8 +9,6 @@
            format_arxiv_television,
            format_confluence_preview,
            format_confluence_television,
-           format_credentials_preview,
-           format_credentials_television,
            format_jira_preview,
            format_jira_television,
            format_keys_preview,
@@ -61,27 +59,6 @@
     1:     def test_format_keys_preview_nonexistent_falls_back(self):
     1:         result = format_keys_preview(["alpha"], "nonexistent")
     1:         assert "# alpha" in result
-       
-       
-       # ── Credentials ──────────────────────────────────────────────────────────
-       
-    2: class TestCredentialsTelevision:
-    1:     def test_format_credentials_television_basic(self):
-    1:         result = format_credentials_television(["jira_token", "conf_token"])
-    1:         lines = result.split("\n")
-    1:         assert lines == ["conf_token", "jira_token"]
-       
-    1:     def test_format_credentials_television_empty(self):
-    1:         assert format_credentials_television([]) == ""
-       
-    1:     def test_format_credentials_preview_basic(self):
-    1:         result = format_credentials_preview(["jira_token"], "jira_token")
-    1:         assert "jira_token" in result
-    1:         assert "keys.yaml" in result
-       
-    1:     def test_format_credentials_preview_empty(self):
-    1:         result = format_credentials_preview([], None)
-    1:         assert "No credential matched" in result
        
        
        # ── Sources ──────────────────────────────────────────────────────────────
@@ -507,18 +484,11 @@
     1:         rc = main(["--store", str(store), "list", "sources", "--format", "television-preview"])
     1:         assert rc == 0
        
-    1:     def test_list_credentials_television(self, tmp_path):
+    1:     def test_list_credentials_does_not_accept_television_flags(self, tmp_path):
     1:         from knowledge.cli import main
     1:         store = tmp_path / "store"
     1:         main(["--store", str(store), "init"])
     1:         main(["--store", str(store), "set", "credential", "tok", "val"])
-    1:         rc = main(["--store", str(store), "list", "credentials", "--format", "television"])
-    1:         assert rc == 0
-       
-    1:     def test_list_credentials_television_preview(self, tmp_path):
-    1:         from knowledge.cli import main
-    1:         store = tmp_path / "store"
-    1:         main(["--store", str(store), "init"])
-    1:         main(["--store", str(store), "set", "credential", "tok", "val"])
-    1:         rc = main(["--store", str(store), "list", "credentials", "--format", "television-preview", "--entry", "tok"])
-    1:         assert rc == 0
+    2:         with pytest.raises(SystemExit) as excinfo:
+    1:             main(["--store", str(store), "list", "credentials", "--format", "television"])
+    1:         assert excinfo.value.code == 2

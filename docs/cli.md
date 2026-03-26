@@ -10,14 +10,13 @@ know add key research
 know set credential jira_token secret-token
 know add confluence --space ENG --key research
 know add jira-project KAN --key research
-know add aha-workspace PROD --key research
+know add aha PROD --key research
 know add arxiv https://arxiv.org/abs/1706.03762 --key research
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add site https://openai.com/index/harness-engineering/ --key research
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
-know add television research-sources --key research --source-command "know list sources --key research --json"
+know add tv research-sources --key research --source-command "know list sources --key research --json"
 know list keys
-know list credentials
 know list sources --key research
 know search confluence "incident postmortem" --space ENG --type page --label runbook
 know search jira "search bug" --project KAN --status "In Progress" --field summary --field status
@@ -80,7 +79,6 @@ When you need an interactive terminal browser, prefer `television` output format
 These commands can emit Television-compatible rows directly:
 
 - `know list keys --format television`
-- `know list credentials --format television`
 - `know list sources --format television`
 - `know search confluence ... --format television`
 - `know search jira ... --format television`
@@ -117,7 +115,7 @@ tv \
 ### Persist an arXiv Television channel in the knowledge store
 
 ```bash
-know add television arxiv-transformers --key research \
+know add tv arxiv-transformers --key research \
   --description "Browse arXiv search results for transformer papers" \
   --source-command "know search arxiv \"attention is all you need\" --format television --max-results 20" \
   --preview-command "know search arxiv \"attention is all you need\" --format television-preview --entry '{}'"
@@ -127,7 +125,7 @@ know sync television arxiv-transformers --key research
 ### Persist a source inventory Television channel
 
 ```bash
-know add television research-sources --key research \
+know add tv research-sources --key research \
   --description "Browse registered sources for the research key" \
   --source-command "know list sources --key research --format television" \
   --preview-command "know list sources --key research --format television-preview --entry '{}'"
@@ -164,7 +162,6 @@ file into `~/.config/television/cable/` and run `tv <channel-name>`.
 |---|---|---|
 | `know-keys.toml` | `know-keys` | Browse knowledge keys |
 | `know-sources.toml` | `know-sources` | Browse all registered sources |
-| `know-credentials.toml` | `know-credentials` | Browse stored credentials |
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
@@ -206,7 +203,7 @@ tv --source-command='know search arxiv "attention is all you need" --format tele
 ### Register a cable as a knowledge source
 
 ```bash
-know add television jira-browse --key work \
+know add tv jira-browse --key work \
   --description "Browse Jira KAN issues in tv" \
   --source-command "know search jira \"\" --project KAN --format television" \
   --preview-command "know search jira \"\" --project KAN --format television-preview --entry '{}'"

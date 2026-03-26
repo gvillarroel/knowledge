@@ -27,10 +27,10 @@
        
     1: def create_source_adapter(source: dict, store) -> SourceAdapter:
            """Instantiate the correct :class:`SourceAdapter` for *source*."""
-    5:     source_type = source["type"]
-    5:     try:
-    5:         adapter_type = SOURCE_TYPES[source_type]
+    6:     source_type = source["type"]
+    6:     try:
+    6:         adapter_type = SOURCE_TYPES[source_type]
     1:     except KeyError as exc:
     1:         supported = ", ".join(sorted(SOURCE_TYPES))
     1:         raise ValueError(f"unsupported source type '{source_type}'. Supported: {supported}") from exc
-    4:     return adapter_type(source, store)
+    5:     return adapter_type(source, store)

@@ -36,20 +36,6 @@
     4:     return "\n".join(lines) + "\n"
        
        
-       # ── Credentials ──────────────────────────────────────────────────────────
-       
-    1: def format_credentials_television(names: list[str]) -> str:
-           """One line per credential name."""
-    3:     return "\n".join(sorted(names))
-       
-       
-    1: def format_credentials_preview(names: list[str], selected: str | None) -> str:
-    3:     name = _resolve_selection(sorted(names), selected)
-    3:     if not name:
-    1:         return "No credential matched the selected row.\n"
-    2:     return f"# Credential: {name}\n\nStored in `keys.yaml`.\n"
-       
-       
        # ── Sources ──────────────────────────────────────────────────────────────
        
     1: def format_sources_television(sources: list[dict[str, Any]]) -> str:
@@ -343,13 +329,13 @@
        # ── Helpers ──────────────────────────────────────────────────────────────
        
     1: def _resolve_selection(items: list[str], selected: str | None) -> str | None:
-   12:     if not items:
-    3:         return None
-    9:     if not selected:
+    9:     if not items:
+    2:         return None
+    7:     if not selected:
     2:         return items[0]
-    7:     sel = selected.split(" | ", 1)[0].strip()
-    7:     if sel in items:
-    5:         return sel
+    5:     sel = selected.split(" | ", 1)[0].strip()
+    5:     if sel in items:
+    3:         return sel
     2:     return items[0]
        
        

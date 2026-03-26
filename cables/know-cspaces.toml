@@ -1,0 +1,18 @@
+[metadata]
+name = "know-cspaces"
+description = "List Confluence spaces → Enter browses pages in the selected space"
+
+[source]
+command = "know browse confluence-spaces --format television"
+ansi = true
+
+[preview]
+command = "know browse confluence-spaces --format television-preview --entry '{}'"
+
+[keybindings]
+enter = "actions:open-space"
+
+[actions.open-space]
+description = "Browse pages in this Confluence space"
+command = "tv --ansi --source-command=\"know browse confluence-pages --space '{0}' --format television\" --preview-command=\"know browse confluence-pages --space '{0}' --format television-preview --entry '{}'\""
+mode = "fork"

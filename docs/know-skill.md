@@ -14,7 +14,7 @@ The skill instructs agents to:
 
 The skill is also the right place to check expected patterns for Television-oriented documentation and examples, including:
 
-- `know add television ... --source-command ... --preview-command ...`
+- `know add tv ... --source-command ... --preview-command ...`
 - `know list keys --format television`
 - `know list sources --format television`
 - `know search arxiv ... --format television`

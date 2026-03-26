@@ -13,7 +13,8 @@ command = "echo 'Select a know channel and press Enter'"
 [keybindings]
 enter = "actions:open-channel"
 
+
 [actions.open-channel]
 description = "Open the selected know channel"
-command = "tv {}"
-mode = "execute"
+command = "tv '{}'"
+mode = "fork"

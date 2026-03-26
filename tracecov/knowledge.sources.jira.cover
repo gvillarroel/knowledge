@@ -99,6 +99,46 @@
     4:         return (username, token)
        
        
+    2: def list_jira_projects(
+           *,
+>>>>>>     base_url: str,
+>>>>>>     username: str,
+>>>>>>     token: str,
+    1:     limit: int = 100,
+>>>>>> ) -> list[dict[str, object]]:
+           """Return Jira projects visible to the authenticated user."""
+>>>>>>     url = urljoin(base_url.rstrip("/") + "/", "rest/api/3/project/search")
+>>>>>>     projects: list[dict[str, object]] = []
+>>>>>>     start_at = 0
+       
+>>>>>>     while True:
+>>>>>>         response = requests.get(
+>>>>>>             url,
+>>>>>>             headers={"Accept": "application/json"},
+>>>>>>             params={"maxResults": min(limit - len(projects), 50), "startAt": start_at},
+>>>>>>             auth=(username, token),
+>>>>>>             timeout=60,
+               )
+>>>>>>         response.raise_for_status()
+>>>>>>         payload = response.json()
+>>>>>>         for proj in payload.get("values", []):
+>>>>>>             projects.append({
+>>>>>>                 "key": proj.get("key", ""),
+>>>>>>                 "name": proj.get("name", ""),
+>>>>>>                 "project_type": proj.get("projectTypeKey", ""),
+>>>>>>                 "lead": (proj.get("lead", {}) or {}).get("displayName", ""),
+>>>>>>                 "web_url": f"{base_url.rstrip('/')}/browse/{proj.get('key', '')}",
+                   })
+>>>>>>             if len(projects) >= limit:
+>>>>>>                 return projects
+       
+>>>>>>         if payload.get("isLast", True):
+>>>>>>             break
+>>>>>>         start_at += len(payload.get("values", []))
+       
+>>>>>>     return projects
+       
+       
    19: def search_jira(
            *,
 >>>>>>     base_url: str,

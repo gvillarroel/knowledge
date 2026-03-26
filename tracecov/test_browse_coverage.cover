@@ -410,11 +410,12 @@
     1:         import os
     1:         old = os.environ.pop("GITHUB_TOKEN", None)
     1:         try:
-    1:             args = _args(store=rich_store.root, format="json", key=None, entry=None)
-    1:             result = cmd_browse_github(args)
-    1:             assert len(result["repos"]) >= 1
-    1:             assert result["repos"][0]["synced"] is True
-    1:             assert "owner/myrepo" in result["repos"][0]["full_name"]
+    2:             with patch("subprocess.run", side_effect=FileNotFoundError):
+    1:                 args = _args(store=rich_store.root, format="json", key=None, entry=None)
+    1:                 result = cmd_browse_github(args)
+    1:                 assert len(result["repos"]) >= 1
+    1:                 assert result["repos"][0]["synced"] is True
+    1:                 assert "owner/myrepo" in result["repos"][0]["full_name"]
                finally:
     1:             if old:
 >>>>>>                 os.environ["GITHUB_TOKEN"] = old
@@ -423,10 +424,11 @@
     1:         import os
     1:         old = os.environ.pop("GITHUB_TOKEN", None)
     1:         try:
-    1:             args = _args(store=rich_store.root, format="television", key=None, entry=None)
-    1:             result = cmd_browse_github(args)
-    1:             clean = _clean(result)
-    1:             assert "owner/myrepo" in clean
+    2:             with patch("subprocess.run", side_effect=FileNotFoundError):
+    1:                 args = _args(store=rich_store.root, format="television", key=None, entry=None)
+    1:                 result = cmd_browse_github(args)
+    1:                 clean = _clean(result)
+    1:                 assert "owner/myrepo" in clean
                finally:
     1:             if old:
 >>>>>>                 os.environ["GITHUB_TOKEN"] = old

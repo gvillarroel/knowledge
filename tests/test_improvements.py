@@ -173,7 +173,7 @@ class TestSyncAttrMap:
     def test_all_sync_commands_have_mapping(self):
         expected = {"confluence", "arxiv", "site", "video", "television",
                     "google-releases",
-                    "github-repo", "jira-project", "aha-workspace"}
+                    "github-repo", "jira-project", "aha"}
         assert set(_SYNC_ATTR_MAP.keys()) == expected
 
 

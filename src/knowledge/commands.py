@@ -3,6 +3,7 @@ from __future__ import annotations
 from argparse import Namespace
 import os
 from pathlib import Path
+import shutil
 
 from .exporter import export_source
 from .registry import create_source_adapter
@@ -16,8 +17,6 @@ from .television import (
     format_arxiv_television,
     format_confluence_preview,
     format_confluence_television,
-    format_credentials_preview,
-    format_credentials_television,
     format_jira_preview,
     format_jira_television,
     format_keys_preview,
@@ -56,12 +55,7 @@ def cmd_key_list(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
     names = sorted(store.keys)
-    output_format = getattr(args, "format", "json")
-    if output_format == "television":
-        return format_credentials_television(names)
-    if output_format == "television-preview":
-        return format_credentials_preview(names, getattr(args, "entry", None))
-    return {"keys": names}
+    return {"credentials": names}
 
 
 def cmd_add_key(args: Namespace) -> dict:
@@ -150,6 +144,8 @@ def _strip_yaml_frontmatter(text: str) -> str:
 
 
 def cmd_add_confluence(args: Namespace) -> dict:
+    if not args.space and not args.cql:
+        raise ValueError("confluence add requires --space or --cql")
     store = _store_from_args(args)
     store.initialize()
     config = {
@@ -158,15 +154,22 @@ def cmd_add_confluence(args: Namespace) -> dict:
         "base_url": args.base_url or os.getenv("CONFLUENCE_BASE_URL"),
         "username": _config_value_or_env_ref(args.username, "CONFLUENCE_USERNAME"),
         "token": _config_value_or_env_ref(args.token, "CONFLUENCE_TOKEN"),
+        "cql": args.cql,
         "limit": args.limit,
     }
+    title = args.space or args.cql
+    update_command = (
+        f"know sync confluence --space {args.space} --key {args.key}"
+        if args.space
+        else f"know sync --key {args.key}"
+    )
     source = store.add_collection_source(
         key_name=args.key,
         source_type="confluence",
-        title=args.space,
+        title=title,
         config={key: value for key, value in config.items() if value is not None},
-        update_command=f"know sync confluence --space {args.space} --key {args.key}",
-        delete_command=f"know del --key {args.key} {store._source_id('confluence', args.space)}",
+        update_command=update_command,
+        delete_command=f"know del --key {args.key} {store._source_id('confluence', title)}",
     )
     return {"key": args.key, "source": source}
 
@@ -228,6 +231,27 @@ def cmd_add_video(args: Namespace) -> dict:
 
 
 def cmd_add_television(args: Namespace) -> dict:
+    if not args.name:
+        if any(
+            value is not None
+            for value in (
+                args.key,
+                args.description,
+                args.source_command,
+                args.source_display,
+                args.preview_command,
+                args.action_command,
+            )
+        ):
+            raise ValueError(
+                "know add tv without a channel name only installs the bundled cables; "
+                "to register a channel provide NAME, --key, and --source-command"
+            )
+        return _install_bundled_television_cables()
+
+    if not args.key or not args.source_command:
+        raise ValueError("know add tv <NAME> requires --key and --source-command")
+
     store = _store_from_args(args)
     store.initialize()
     source_id = store._source_id("television", args.name)
@@ -239,16 +263,105 @@ def cmd_add_television(args: Namespace) -> dict:
         "preview_command": args.preview_command,
         "action_command": args.action_command,
     }
-    source = store.add_collection_source(
+    normalized_config = {key: value for key, value in config.items() if value is not None}
+    source = _upsert_television_source(
+        store=store,
         key_name=args.key,
-        source_type="television",
         source_id=source_id,
         title=args.name,
-        config={key: value for key, value in config.items() if value is not None},
+        config=normalized_config,
         update_command=f"know sync television {args.name} --key {args.key}",
         delete_command=f"know del --key {args.key} {source_id}",
     )
     return {"key": args.key, "source": source}
+
+
+def _upsert_television_source(
+    *,
+    store: KnowledgeStore,
+    key_name: str,
+    source_id: str,
+    title: str,
+    config: dict[str, object],
+    update_command: str,
+    delete_command: str,
+) -> dict[str, object]:
+    """Create or replace a Television channel registration for a key."""
+    existing = next(
+        (
+            source
+            for source in store.list_collection_sources(key_name=key_name, source_type="television")
+            if source.get("id") == source_id
+        ),
+        None,
+    )
+    if existing is None:
+        return store.add_collection_source(
+            key_name=key_name,
+            source_type="television",
+            source_id=source_id,
+            title=title,
+            config=config,
+            update_command=update_command,
+            delete_command=delete_command,
+        )
+
+    updated_source = {
+        **existing,
+        "title": title,
+        "config": config,
+        "update_command": update_command,
+        "delete_command": delete_command,
+    }
+    store.update_collection_source(updated_source)
+    return updated_source
+
+
+def _install_bundled_television_cables() -> dict:
+    """Copy the repository's bundled Television cable files into Television's config dir."""
+    source_dir = Path(__file__).resolve().parents[2] / "cables"
+    if not source_dir.exists():
+        raise FileNotFoundError(f"bundled cable directory '{source_dir}' not found")
+
+    installed: list[str] = []
+    destination_dirs = _television_cable_destinations()
+    for destination_dir in destination_dirs:
+        destination_dir.mkdir(parents=True, exist_ok=True)
+        for cable_path in sorted(source_dir.glob("*.toml")):
+            shutil.copy2(cable_path, destination_dir / cable_path.name)
+            if cable_path.name not in installed:
+                installed.append(cable_path.name)
+
+    return {
+        "destination": str(destination_dirs[0]),
+        "destinations": [str(path) for path in destination_dirs],
+        "installed": installed,
+    }
+
+
+def _television_cable_destinations() -> list[Path]:
+    """Return the Television cable directories active for this environment."""
+    destinations: list[Path] = []
+
+    television_config = os.getenv("TELEVISION_CONFIG")
+    if television_config:
+        destinations.append(Path(television_config).expanduser().resolve() / "cable")
+
+    local_app_data = os.getenv("LOCALAPPDATA")
+    if local_app_data:
+        destinations.append(Path(local_app_data).expanduser().resolve() / "television" / "config" / "cable")
+
+    destinations.append(Path.home() / ".config" / "television" / "cable")
+
+    unique_destinations: list[Path] = []
+    seen: set[Path] = set()
+    for destination in destinations:
+        resolved = destination.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        unique_destinations.append(resolved)
+    return unique_destinations
 
 
 def cmd_add_github_repo(args: Namespace) -> dict:
@@ -321,7 +434,7 @@ def cmd_add_aha_workspace(args: Namespace) -> dict:
         source_type="aha",
         title=args.workspace,
         config={key: value for key, value in config.items() if value is not None},
-        update_command=f"know sync aha-workspace {args.workspace} --key {args.key}",
+        update_command=f"know sync aha {args.workspace} --key {args.key}",
         delete_command=f"know del --key {args.key} {store._source_id('aha', args.workspace)}",
     )
     return {"key": args.key, "source": source}

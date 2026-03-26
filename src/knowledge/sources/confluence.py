@@ -17,31 +17,14 @@ class ConfluenceSource(SourceAdapter):
     def sync(self) -> dict[str, object]:
         base_url = self.config["base_url"].rstrip("/") + "/"
         auth = self._auth()
-        space_key = self.config["space_key"]
+        space_key = self.config.get("space_key") or self.config.get("space")
         limit = int(self.config.get("limit", 100))
+        cql = self.config.get("cql")
 
-        pages: list[dict[str, object]] = []
-        next_url = urljoin(base_url, "wiki/api/v2/pages")
-        params: dict[str, object] | None = {
-            "space-key": space_key,
-            "limit": limit,
-            "body-format": "storage",
-        }
-        while next_url:
-            response = requests.get(
-                next_url,
-                headers={"Accept": "application/json"},
-                params=params,
-                auth=auth,
-                timeout=60,
-            )
-            response.raise_for_status()
-            data = response.json()
-            pages.extend(data.get("results", []))
-
-            next_path = data.get("_links", {}).get("next")
-            next_url = urljoin(base_url, next_path) if next_path else ""
-            params = None
+        if cql:
+            pages = self._sync_pages_with_cql(base_url, auth, cql, limit)
+        else:
+            pages = self._sync_space_pages(base_url, auth, space_key, limit)
 
         self.clear_source_dir()
         for page in pages:
@@ -73,6 +56,7 @@ class ConfluenceSource(SourceAdapter):
             {
                 "pages": len(pages),
                 "space_key": space_key,
+                "cql": cql,
                 "raw_dir": str(self.raw_dir),
             }
         )
@@ -81,6 +65,92 @@ class ConfluenceSource(SourceAdapter):
         username = self.store.resolve_key(self.config["username"])
         token = self.store.resolve_key(self.config["token"])
         return (username, token)
+
+    def _sync_space_pages(
+        self,
+        base_url: str,
+        auth: tuple[str, str],
+        space_key: str,
+        limit: int,
+    ) -> list[dict[str, object]]:
+        pages: list[dict[str, object]] = []
+        next_url = urljoin(base_url, "wiki/api/v2/pages")
+        params: dict[str, object] | None = {
+            "space-key": space_key,
+            "limit": limit,
+            "body-format": "storage",
+        }
+        while next_url:
+            response = requests.get(
+                next_url,
+                headers={"Accept": "application/json"},
+                params=params,
+                auth=auth,
+                timeout=60,
+            )
+            response.raise_for_status()
+            data = response.json()
+            pages.extend(data.get("results", []))
+
+            next_path = data.get("_links", {}).get("next")
+            next_url = urljoin(base_url, next_path) if next_path else ""
+            params = None
+        return pages
+
+    def _sync_pages_with_cql(
+        self,
+        base_url: str,
+        auth: tuple[str, str],
+        cql: str,
+        limit: int,
+    ) -> list[dict[str, object]]:
+        pages: list[dict[str, object]] = []
+        cursor: str | None = None
+        seen_page_ids: set[str] = set()
+        search_url = urljoin(base_url, "wiki/rest/api/search")
+        remaining = limit
+
+        while True:
+            params: dict[str, object] = {"cql": cql, "limit": remaining}
+            if cursor:
+                params["cursor"] = cursor
+            response = requests.get(
+                search_url,
+                headers={"Accept": "application/json"},
+                params=params,
+                auth=auth,
+                timeout=60,
+            )
+            response.raise_for_status()
+            payload = response.json()
+
+            for result in payload.get("results", []):
+                page_id = _search_result_page_id(result)
+                if not page_id or page_id in seen_page_ids:
+                    continue
+                seen_page_ids.add(page_id)
+                pages.append(self._fetch_page(base_url, auth, page_id))
+                remaining -= 1
+                if remaining == 0:
+                    return pages
+
+            cursor = _next_cursor(payload)
+            if not cursor:
+                break
+
+        return pages
+
+    def _fetch_page(self, base_url: str, auth: tuple[str, str], page_id: str) -> dict[str, object]:
+        response = requests.get(
+            urljoin(base_url, f"wiki/api/v2/pages/{page_id}"),
+            headers={"Accept": "application/json"},
+            params={"body-format": "storage"},
+            auth=auth,
+            timeout=60,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        return payload if isinstance(payload, dict) else {}
 
 
 def search_confluence(
@@ -138,6 +208,110 @@ def search_confluence(
         "results": payload.get("results", []),
         "next_cursor": _next_cursor(payload),
     }
+
+
+def list_confluence_spaces(
+    *,
+    base_url: str,
+    username: str,
+    token: str,
+    limit: int = 250,
+) -> list[dict[str, object]]:
+    """Return all Confluence spaces visible to the authenticated user."""
+    spaces: list[dict[str, object]] = []
+    next_url: str | None = urljoin(base_url.rstrip("/") + "/", "wiki/rest/api/space")
+    params: dict[str, object] | None = {"limit": min(limit, 250)}
+
+    while next_url:
+        response = requests.get(
+            next_url,
+            headers={"Accept": "application/json"},
+            params=params,
+            auth=(username, token),
+            timeout=60,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        for space in payload.get("results", []):
+            spaces.append({
+                "key": space.get("key", ""),
+                "name": space.get("name", ""),
+                "type": space.get("type", ""),
+                "description": (space.get("description", {}) or {}).get("plain", {}).get("value", ""),
+                "web_url": f"{base_url.rstrip('/')}/wiki/spaces/{space.get('key', '')}",
+            })
+            if len(spaces) >= limit:
+                return spaces
+
+        next_path = (payload.get("_links", {}) or {}).get("next")
+        next_url = urljoin(base_url, next_path) if next_path else None
+        params = None
+
+    return spaces
+
+
+def list_confluence_pages(
+    *,
+    base_url: str,
+    username: str,
+    token: str,
+    space: str,
+    limit: int = 500,
+) -> list[dict[str, object]]:
+    """Return Confluence pages in a space with ancestor-based path.
+
+    Each returned dict contains ``title``, ``path`` (``/ancestor1/ancestor2/title``),
+    ``web_url``, and ``page_id``.
+    """
+    pages: list[dict[str, object]] = []
+    next_url: str | None = urljoin(
+        base_url.rstrip("/") + "/",
+        "wiki/rest/api/content",
+    )
+    params: dict[str, object] | None = {
+        "type": "page",
+        "spaceKey": space,
+        "expand": "ancestors",
+        "limit": min(limit, 100),
+    }
+
+    while next_url:
+        response = requests.get(
+            next_url,
+            headers={"Accept": "application/json"},
+            params=params,
+            auth=(username, token),
+            timeout=60,
+        )
+        response.raise_for_status()
+        payload = response.json()
+
+        for page in payload.get("results", []):
+            title = page.get("title", "Untitled")
+            ancestors = page.get("ancestors", []) or []
+            path_parts = [a.get("title", "") for a in ancestors if a.get("title")]
+            path_parts.append(title)
+            path_str = "/" + "/".join(path_parts)
+
+            links = page.get("_links", {}) or {}
+            webui = links.get("webui", "")
+            web_url = f"{base_url.rstrip('/')}{webui}" if webui else ""
+
+            pages.append({
+                "title": title,
+                "path": path_str,
+                "web_url": web_url,
+                "page_id": str(page.get("id", "")),
+                "space": space,
+            })
+            if len(pages) >= limit:
+                return pages
+
+        next_path = (payload.get("_links", {}) or {}).get("next")
+        next_url = urljoin(base_url, next_path) if next_path else None
+        params = None
+
+    return pages
 
 
 def _slugify(value: str) -> str:
@@ -201,6 +375,18 @@ def _next_cursor(payload: dict[str, object]) -> str | None:
     if not isinstance(next_link, str) or "cursor=" not in next_link:
         return None
     return next_link.rsplit("cursor=", 1)[-1].split("&", 1)[0]
+
+
+def _search_result_page_id(result: dict[str, object]) -> str | None:
+    if not isinstance(result, dict):
+        return None
+    content = result.get("content")
+    if isinstance(content, dict):
+        content_id = content.get("id")
+        if content_id:
+            return str(content_id)
+    result_id = result.get("id")
+    return str(result_id) if result_id else None
 
 
 def confluence_storage_to_markdown(payload: str) -> str:

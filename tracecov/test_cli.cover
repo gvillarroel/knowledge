@@ -46,6 +46,7 @@
     1:     capsys.readouterr()
     1:     assert main(["--store", str(tmp_path), "list", "credentials"]) == 0
     1:     output = capsys.readouterr().out
+    1:     assert '"credentials"' in output
     1:     assert '"jira_token"' in output
        
        
@@ -80,6 +81,56 @@
     1:     assert metadata["sources"][0]["config"]["space"] == "ENG"
     1:     assert metadata["sources"][0]["update_command"] == "know sync confluence --space ENG --key research"
     1:     assert not (tmp_path / "research" / "confluence" / "confluence-eng.yaml").exists()
+       
+       
+    3: def test_add_confluence_persists_cql_filter(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "research"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--space",
+    1:                 "ENG",
+    1:                 "--cql",
+    1:                 'type = "page" AND label = "runbook"',
+    1:                 "--key",
+    1:                 "research",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "research" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     assert metadata["sources"][0]["config"]["cql"] == 'type = "page" AND label = "runbook"'
+       
+       
+    3: def test_add_confluence_with_cql_only_registers_source_under_key(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "research"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "confluence",
+    1:                 "--cql",
+    1:                 'type = "page" AND label = "runbook"',
+    1:                 "--key",
+    1:                 "research",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "research" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     source = metadata["sources"][0]
+    1:     assert source["type"] == "confluence"
+    1:     assert source["config"]["cql"] == 'type = "page" AND label = "runbook"'
+    1:     assert "space" not in source["config"]
+    1:     assert source["update_command"] == "know sync --key research"
        
        
     3: def test_add_confluence_reads_credentials_from_dotenv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -188,7 +239,7 @@
     1:                 "--store",
     1:                 str(tmp_path / "store"),
     1:                 "add",
-    1:                 "aha-workspace",
+    1:                 "aha",
     1:                 "PROD",
     1:                 "--key",
     1:                 "roadmap",
@@ -272,7 +323,7 @@
     1:                 str(tmp_path / "store"),
     1:                 "--json",
     1:                 "add",
-    1:                 "aha-workspace",
+    1:                 "aha",
     1:                 "PROD",
     1:                 "--key",
     1:                 "roadmap",
@@ -372,7 +423,7 @@
     1:                 "--store",
     1:                 str(tmp_path),
     1:                 "add",
-    1:                 "television",
+    1:                 "tv",
     1:                 "knowledge-sources",
     1:                 "--key",
     1:                 "automation",
@@ -395,6 +446,145 @@
     1:     assert metadata["sources"][0]["config"]["source_command"] == "know list sources --key automation --json"
     1:     assert metadata["sources"][0]["update_command"] == "know sync television knowledge-sources --key automation"
     1:     assert metadata["sources"][0]["id"] == "television-knowledge-sources"
+       
+       
+    3: def test_add_television_alias_still_registers_channel_under_key(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "automation"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "television",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+    1:                 "--source-command",
+    1:                 "know list sources --key automation --json",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "automation" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     assert metadata["sources"][0]["type"] == "television"
+       
+       
+    3: def test_add_tv_without_args_installs_bundled_cables(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     home_dir = tmp_path / "home"
+    2:     monkeypatch.setattr("knowledge.commands.Path.home", lambda: home_dir)
+       
+    1:     assert main(["add", "tv"]) == 0
+       
+    1:     cable_dir = home_dir / ".config" / "television" / "cable"
+    1:     assert cable_dir.is_dir()
+    1:     assert (cable_dir / "know.toml").exists()
+    1:     assert (cable_dir / "know-keys.toml").exists()
+       
+       
+    6: def test_add_tv_without_args_installs_into_active_television_locations(
+    1:     tmp_path: Path,
+    1:     monkeypatch: pytest.MonkeyPatch,
+    1: ) -> None:
+    1:     home_dir = tmp_path / "home"
+    1:     tv_repo = tmp_path / "tv-repo"
+    1:     local_appdata = tmp_path / "local-appdata"
+    2:     monkeypatch.setattr("knowledge.commands.Path.home", lambda: home_dir)
+    1:     monkeypatch.setenv("TELEVISION_CONFIG", str(tv_repo))
+    1:     monkeypatch.setenv("LOCALAPPDATA", str(local_appdata))
+       
+    1:     assert main(["add", "tv"]) == 0
+       
+    1:     assert (tv_repo / "cable" / "know.toml").exists()
+    1:     assert (local_appdata / "television" / "config" / "cable" / "know.toml").exists()
+    1:     assert (home_dir / ".config" / "television" / "cable" / "know.toml").exists()
+       
+       
+    3: def test_add_tv_name_still_requires_key_and_source_command(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    1:     rc = main(["--store", str(tmp_path), "add", "tv", "knowledge-sources"])
+       
+    1:     assert rc == 1
+    1:     assert "requires --key and --source-command" in capsys.readouterr().err
+       
+       
+    3: def test_add_tv_existing_channel_updates_definition_used_by_sync(tmp_path: Path) -> None:
+    1:     assert main(["--store", str(tmp_path), "add", "key", "automation"]) == 0
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "tv",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+    1:                 "--description",
+    1:                 "Old description",
+    1:                 "--source-command",
+    1:                 "know list sources --key automation --json",
+                   ]
+               )
+    2:         == 0
+           )
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "add",
+    1:                 "tv",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+    1:                 "--description",
+    1:                 "New description",
+    1:                 "--source-command",
+    1:                 "know browse local --key automation --format television",
+    1:                 "--preview-command",
+    1:                 "know browse local --key automation --format television-preview --entry '{}'",
+                   ]
+               )
+    2:         == 0
+           )
+    4:     assert (
+    4:         main(
+    2:             [
+    1:                 "--store",
+    1:                 str(tmp_path),
+    1:                 "sync",
+    1:                 "television",
+    1:                 "knowledge-sources",
+    1:                 "--key",
+    1:                 "automation",
+                   ]
+               )
+    2:         == 0
+           )
+       
+    1:     metadata = yaml.safe_load((tmp_path / "automation" / "metadata.yaml").read_text(encoding="utf-8"))
+    1:     assert len(metadata["sources"]) == 1
+    1:     source = metadata["sources"][0]
+    1:     assert source["config"]["description"] == "New description"
+    1:     assert source["config"]["source_command"] == "know browse local --key automation --format television"
+    3:     assert source["config"]["preview_command"] == (
+    2:         "know browse local --key automation --format television-preview --entry '{}'"
+           )
+       
+    1:     channel_text = (
+    5:         tmp_path
+    1:         / "automation"
+    1:         / "television"
+    1:         / "television-knowledge-sources"
+    1:         / "knowledge-sources.toml"
+    1:     ).read_text(encoding="utf-8")
+    1:     assert 'description = "New description"' in channel_text
+    1:     assert 'command = "know browse local --key automation --format television"' in channel_text
+    2:     assert (
+    3:         'command = "know browse local --key automation --format television-preview --entry \'{}\'"'
+    1:         in channel_text
+           )
        
        
     3: def test_add_github_repo_uses_repeatable_branch_flags(tmp_path: Path) -> None:
@@ -1031,7 +1221,7 @@
     1:                 "--store",
     1:                 str(tmp_path),
     1:                 "add",
-    1:                 "television",
+    1:                 "tv",
     1:                 "knowledge-sources",
     1:                 "--key",
     1:                 "automation",

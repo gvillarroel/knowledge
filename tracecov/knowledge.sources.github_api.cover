@@ -17,10 +17,10 @@
        
        
     1: def _headers(token: str) -> dict[str, str]:
-    8:     return {
-    8:         "Accept": _ACCEPT,
-    8:         "Authorization": f"Bearer {token}",
-    8:         "X-GitHub-Api-Version": _API_VERSION,
+   11:     return {
+   11:         "Accept": _ACCEPT,
+   11:         "Authorization": f"Bearer {token}",
+   11:         "X-GitHub-Api-Version": _API_VERSION,
            }
        
        
@@ -36,20 +36,20 @@
     1:     affiliation: str = "owner,collaborator,organization_member",
 >>>>>> ) -> list[dict[str, Any]]:
            """List repositories the authenticated user has interacted with."""
-    2:     response = requests.get(
-    1:         f"{_API_BASE}/user/repos",
-    1:         headers=_headers(token),
-    1:         params={
-    1:             "sort": sort,
-    1:             "direction": direction,
-    1:             "per_page": per_page,
-    1:             "page": page,
-    1:             "affiliation": affiliation,
+    8:     response = requests.get(
+    4:         f"{_API_BASE}/user/repos",
+    4:         headers=_headers(token),
+    4:         params={
+    4:             "sort": sort,
+    4:             "direction": direction,
+    4:             "per_page": per_page,
+    4:             "page": page,
+    4:             "affiliation": affiliation,
                },
-    1:         timeout=30,
+    4:         timeout=30,
            )
-    1:     response.raise_for_status()
-    1:     return response.json()
+    4:     response.raise_for_status()
+    4:     return response.json()
        
        
        # ── Issues & PRs ─────────────────────────────────────────────────────────

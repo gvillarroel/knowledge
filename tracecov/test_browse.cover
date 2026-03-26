@@ -14,9 +14,12 @@
            cmd_browse_aha,
            cmd_browse_arxiv,
            cmd_browse_confluence,
+           cmd_browse_confluence_pages,
+           cmd_browse_confluence_spaces,
            cmd_browse_github,
            cmd_browse_github_activity,
            cmd_browse_jira,
+           cmd_browse_jira_projects,
            cmd_browse_local,
            cmd_browse_releases,
            cmd_browse_sites,
@@ -55,9 +58,9 @@
        # ── Helper ───────────────────────────────────────────────────────────────
        
     1: def _make_args(**kwargs) -> Namespace:
-   17:     defaults = {"store": None, "json": False, "verbose": False, "quiet": False}
-   17:     defaults.update(kwargs)
-   17:     return Namespace(**defaults)
+   27:     defaults = {"store": None, "json": False, "verbose": False, "quiet": False}
+   27:     defaults.update(kwargs)
+   27:     return Namespace(**defaults)
        
        
     1: def _clean(text: str) -> str:
@@ -304,9 +307,9 @@
        
     2: @pytest.fixture
     2: def tmp_store(tmp_path):
-   17:     store = KnowledgeStore(tmp_path)
-   17:     store.initialize()
-   17:     return store
+   27:     store = KnowledgeStore(tmp_path)
+   27:     store.initialize()
+   27:     return store
        
        
     2: class TestBrowseJiraCommand:
@@ -372,9 +375,10 @@
     1:         import os
     1:         old = os.environ.pop("GITHUB_TOKEN", None)
     1:         try:
-    1:             args = _make_args(store=tmp_store.root, format="json", repo="owner/repo", entry=None)
-    1:             result = cmd_browse_github_activity(args)
-    1:             assert "token" in str(result).lower()
+    2:             with patch("subprocess.run", side_effect=FileNotFoundError):
+    1:                 args = _make_args(store=tmp_store.root, format="json", repo="owner/repo", entry=None)
+    1:                 result = cmd_browse_github_activity(args)
+    1:                 assert "token" in str(result).lower()
                finally:
     1:             if old:
 >>>>>>                 os.environ["GITHUB_TOKEN"] = old
@@ -530,3 +534,293 @@
     1:         args = parser.parse_args(["browse", "local", "--key", "k", "--type", "jira", "--format", "television"])
     1:         assert args.key == "k"
     1:         assert args.type == "jira"
+       
+    1:     def test_browse_confluence_spaces_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         from knowledge.browse_commands import cmd_browse_confluence_spaces
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "confluence-spaces", "--format", "television"])
+    1:         assert args.format == "television"
+    1:         assert args.handler == cmd_browse_confluence_spaces
+       
+    1:     def test_browse_confluence_pages_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         from knowledge.browse_commands import cmd_browse_confluence_pages
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "confluence-pages", "--space", "DEV", "--format", "television"])
+    1:         assert args.space == "DEV"
+    1:         assert args.handler == cmd_browse_confluence_pages
+       
+    1:     def test_browse_jira_projects_parse(self):
+    1:         from knowledge.cli import build_parser
+    1:         from knowledge.browse_commands import cmd_browse_jira_projects
+    1:         parser = build_parser()
+    1:         args = parser.parse_args(["browse", "jira-projects", "--format", "television"])
+    1:         assert args.format == "television"
+    1:         assert args.handler == cmd_browse_jira_projects
+       
+       
+       # ── Confluence spaces browse tests ───────────────────────────────────────
+       
+       
+    2: class TestBrowseConfluenceSpaces:
+    1:     """Tests for ``know browse confluence-spaces``."""
+       
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json")
+    1:         result = cmd_browse_confluence_spaces(args)
+    1:         assert result == {"spaces": []}
+       
+    1:     def test_television_format_with_mock_api(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("CONFLUENCE_USER", "user@example.com")
+    1:         monkeypatch.setenv("CONFLUENCE_TOKEN", "fake-token")
+    1:         _add_confluence_source(tmp_store)
+    1:         mock_spaces = [
+    2:             {"key": "DEV", "name": "Development", "type": "global",
+    1:              "description": {"plain": {"value": "Dev space"}},
+    1:              "web_url": "https://example.atlassian.net/wiki/spaces/DEV"},
+    2:             {"key": "OPS", "name": "Operations", "type": "global",
+    1:              "description": {"plain": {"value": "Ops space"}},
+    1:              "web_url": "https://example.atlassian.net/wiki/spaces/OPS"},
+               ]
+    1:         args = _make_args(store=tmp_store.root, format="television")
+    2:         with patch("knowledge.sources.confluence.list_confluence_spaces", return_value=mock_spaces):
+    1:             result = cmd_browse_confluence_spaces(args)
+    1:         assert "DEV" in result
+    1:         assert "OPS" in result
+       
+    1:     def test_preview_format(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("CONFLUENCE_USER", "user@example.com")
+    1:         monkeypatch.setenv("CONFLUENCE_TOKEN", "fake-token")
+    1:         _add_confluence_source(tmp_store)
+    1:         mock_spaces = [
+    2:             {"key": "DEV", "name": "Development", "type": "global",
+    1:              "description": "", "web_url": "https://x.atlassian.net/wiki/spaces/DEV"},
+               ]
+    1:         args = _make_args(store=tmp_store.root, format="television-preview", entry="DEV | Development")
+    2:         with patch("knowledge.sources.confluence.list_confluence_spaces", return_value=mock_spaces):
+    1:             result = cmd_browse_confluence_spaces(args)
+    1:         assert "Development" in result
+       
+       
+       # ── Confluence pages browse tests ────────────────────────────────────────
+       
+       
+    2: class TestBrowseConfluencePages:
+    1:     """Tests for ``know browse confluence-pages``."""
+       
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json", space="DEV", selected_row=None)
+    1:         result = cmd_browse_confluence_pages(args)
+    1:         assert result == {"pages": []}
+       
+    1:     def test_television_format_with_mock_api(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("CONFLUENCE_USER", "user@example.com")
+    1:         monkeypatch.setenv("CONFLUENCE_TOKEN", "fake-token")
+    1:         _add_confluence_source(tmp_store)
+    1:         mock_pages = [
+    2:             {"title": "Getting Started", "path": "/Getting Started",
+    1:              "web_url": "https://x.atlassian.net/wiki/spaces/DEV/pages/1", "page_id": "1", "space": "DEV"},
+    2:             {"title": "API Guide", "path": "/Getting Started/API Guide",
+    1:              "web_url": "https://x.atlassian.net/wiki/spaces/DEV/pages/2", "page_id": "2", "space": "DEV"},
+               ]
+    1:         args = _make_args(store=tmp_store.root, format="television", space="DEV", selected_row=None)
+    2:         with patch("knowledge.sources.confluence.list_confluence_pages", return_value=mock_pages):
+    1:             result = cmd_browse_confluence_pages(args)
+    1:         assert "/Getting Started" in result
+    1:         assert "/Getting Started/API Guide" in result
+       
+    1:     def test_preview_format(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("CONFLUENCE_USER", "user@example.com")
+    1:         monkeypatch.setenv("CONFLUENCE_TOKEN", "fake-token")
+    1:         _add_confluence_source(tmp_store)
+    1:         mock_pages = [
+    2:             {"title": "API Guide", "path": "/Getting Started/API Guide",
+    1:              "web_url": "https://x.atlassian.net/wiki/spaces/DEV/pages/2", "page_id": "2", "space": "DEV"},
+               ]
+    2:         args = _make_args(store=tmp_store.root, format="television-preview",
+    1:                           entry="/Getting Started/API Guide", space="DEV", selected_row=None)
+    2:         with patch("knowledge.sources.confluence.list_confluence_pages", return_value=mock_pages):
+    1:             result = cmd_browse_confluence_pages(args)
+    1:         assert "API Guide" in result
+       
+    1:     def test_space_from_selected_row(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("CONFLUENCE_USER", "user@example.com")
+    1:         monkeypatch.setenv("CONFLUENCE_TOKEN", "fake-token")
+    1:         _add_confluence_source(tmp_store)
+    1:         mock_pages = [
+    2:             {"title": "Page1", "path": "/Page1",
+    1:              "web_url": "", "page_id": "1", "space": "DEV"},
+               ]
+    2:         args = _make_args(store=tmp_store.root, format="json", space=None,
+    1:                           selected_row="\033[36mDEV\033[0m | Development | \033[2mglobal\033[0m")
+    2:         with patch("knowledge.sources.confluence.list_confluence_pages", return_value=mock_pages):
+    1:             result = cmd_browse_confluence_pages(args)
+    1:         assert len(result["pages"]) == 1
+       
+       
+       # ── Jira projects browse tests ──────────────────────────────────────────
+       
+       
+    2: class TestBrowseJiraProjects:
+    1:     """Tests for ``know browse jira-projects``."""
+       
+    1:     def test_json_format_empty(self, tmp_store):
+    1:         args = _make_args(store=tmp_store.root, format="json")
+    1:         result = cmd_browse_jira_projects(args)
+    1:         assert result == {"projects": []}
+       
+    1:     def test_television_format_with_mock_api(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("JIRA_USER", "user@example.com")
+    1:         monkeypatch.setenv("JIRA_TOKEN", "fake-token")
+    1:         _add_jira_source(tmp_store)
+    1:         mock_projects = [
+    2:             {"key": "KAN", "name": "Kanban Board", "project_type": "software",
+    1:              "lead": "Alice", "web_url": "https://x.atlassian.net/browse/KAN"},
+    2:             {"key": "OPS", "name": "Operations", "project_type": "business",
+    1:              "lead": "Bob", "web_url": "https://x.atlassian.net/browse/OPS"},
+               ]
+    1:         args = _make_args(store=tmp_store.root, format="television")
+    2:         with patch("knowledge.sources.jira.list_jira_projects", return_value=mock_projects):
+    1:             result = cmd_browse_jira_projects(args)
+    1:         assert "KAN" in result
+    1:         assert "OPS" in result
+       
+    1:     def test_preview_format(self, tmp_store, monkeypatch):
+    1:         monkeypatch.setenv("JIRA_USER", "user@example.com")
+    1:         monkeypatch.setenv("JIRA_TOKEN", "fake-token")
+    1:         _add_jira_source(tmp_store)
+    1:         mock_projects = [
+    2:             {"key": "KAN", "name": "Kanban Board", "project_type": "software",
+    1:              "lead": "Alice", "web_url": "https://x.atlassian.net/browse/KAN"},
+               ]
+    1:         args = _make_args(store=tmp_store.root, format="television-preview", entry="KAN | Kanban Board")
+    2:         with patch("knowledge.sources.jira.list_jira_projects", return_value=mock_projects):
+    1:             result = cmd_browse_jira_projects(args)
+    1:         assert "Kanban Board" in result
+       
+       
+       # ── TV formatter tests ──────────────────────────────────────────────────
+       
+       
+    2: class TestConfluenceSpacesFormatters:
+    1:     """Tests for Confluence spaces television formatters."""
+       
+    1:     def test_format_television(self):
+    1:         from knowledge.browse_tv import format_confluence_spaces_television
+    1:         spaces = [
+    1:             {"key": "DEV", "name": "Development", "type": "global"},
+    1:             {"key": "OPS", "name": "Operations", "type": "personal"},
+               ]
+    1:         result = format_confluence_spaces_television(spaces)
+    1:         clean = _strip_ansi(result)
+    1:         assert "DEV" in clean
+    1:         assert "Development" in clean
+    1:         assert "OPS" in clean
+       
+    1:     def test_format_preview(self):
+    1:         from knowledge.browse_tv import format_confluence_spaces_preview
+    2:         spaces = [{"key": "DEV", "name": "Development", "type": "global",
+    1:                     "web_url": "https://x.atlassian.net/wiki/spaces/DEV", "description": "A dev space"}]
+    1:         result = format_confluence_spaces_preview(spaces, "DEV | Development")
+    1:         assert "Development" in result
+    1:         assert "A dev space" in result
+       
+    1:     def test_format_preview_empty(self):
+    1:         from knowledge.browse_tv import format_confluence_spaces_preview
+    1:         result = format_confluence_spaces_preview([], None)
+    1:         assert "No space matched" in result
+       
+       
+    2: class TestConfluencePagesFormatters:
+    1:     """Tests for Confluence pages (path-style) television formatters."""
+       
+    1:     def test_format_television(self):
+    1:         from knowledge.browse_tv import format_confluence_pages_television
+    1:         pages = [
+    1:             {"title": "Home", "path": "/Home", "space": "DEV"},
+    1:             {"title": "Guide", "path": "/Home/Guide", "space": "DEV"},
+               ]
+    1:         result = format_confluence_pages_television(pages)
+    1:         clean = _strip_ansi(result)
+    1:         assert "/Home" in clean
+    1:         assert "/Home/Guide" in clean
+       
+    1:     def test_format_preview(self):
+    1:         from knowledge.browse_tv import format_confluence_pages_preview
+    2:         pages = [{"title": "Guide", "path": "/Home/Guide", "space": "DEV",
+    1:                    "web_url": "https://x.atlassian.net/wiki/pages/1"}]
+    1:         result = format_confluence_pages_preview(pages, "/Home/Guide")
+    1:         assert "Guide" in result
+    1:         assert "/Home/Guide" in result
+       
+    1:     def test_format_preview_empty(self):
+    1:         from knowledge.browse_tv import format_confluence_pages_preview
+    1:         result = format_confluence_pages_preview([], None)
+    1:         assert "No page matched" in result
+       
+       
+    2: class TestJiraProjectsFormatters:
+    1:     """Tests for Jira projects television formatters."""
+       
+    1:     def test_format_television(self):
+    1:         from knowledge.browse_tv import format_jira_projects_television
+    1:         projects = [
+    1:             {"key": "KAN", "name": "Kanban", "project_type": "software", "lead": "Alice"},
+               ]
+    1:         result = format_jira_projects_television(projects)
+    1:         clean = _strip_ansi(result)
+    1:         assert "KAN" in clean
+    1:         assert "Kanban" in clean
+       
+    1:     def test_format_preview(self):
+    1:         from knowledge.browse_tv import format_jira_projects_preview
+    2:         projects = [{"key": "KAN", "name": "Kanban", "project_type": "software",
+    1:                       "lead": "Alice", "web_url": "https://x.atlassian.net/browse/KAN"}]
+    1:         result = format_jira_projects_preview(projects, "KAN | Kanban")
+    1:         assert "Kanban" in result
+    1:         assert "Alice" in result
+       
+    1:     def test_format_preview_empty(self):
+    1:         from knowledge.browse_tv import format_jira_projects_preview
+    1:         result = format_jira_projects_preview([], None)
+    1:         assert "No project matched" in result
+       
+       
+       # ── Helpers for new tests ────────────────────────────────────────────────
+       
+       
+    1: def _add_confluence_source(store: KnowledgeStore) -> None:
+           """Register a Confluence source in the test store."""
+    5:     store.create_collection_key("testkey")
+   10:     store.add_collection_source(
+    5:         key_name="testkey",
+    5:         source_type="confluence",
+    5:         title="Dev Space",
+    5:         config={
+    5:             "space": "DEV",
+    5:             "base_url": "https://example.atlassian.net",
+    5:             "username": "$env:CONFLUENCE_USER",
+    5:             "token": "$env:CONFLUENCE_TOKEN",
+               },
+    5:         update_command="know sync confluence --space DEV --key testkey",
+    5:         delete_command="know del --key testkey <id>",
+           )
+       
+       
+    1: def _add_jira_source(store: KnowledgeStore) -> None:
+           """Register a Jira source in the test store."""
+    2:     store.create_collection_key("testkey")
+    4:     store.add_collection_source(
+    2:         key_name="testkey",
+    2:         source_type="jira",
+    2:         title="KAN Project",
+    2:         config={
+    2:             "project": "KAN",
+    2:             "base_url": "https://example.atlassian.net",
+    2:             "username": "$env:JIRA_USER",
+    2:             "token": "$env:JIRA_TOKEN",
+               },
+    2:         update_command="know sync jira-project KAN --key testkey",
+    2:         delete_command="know del --key testkey <id>",
+           )

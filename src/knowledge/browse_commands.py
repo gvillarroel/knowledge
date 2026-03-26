@@ -18,6 +18,8 @@ from .browse_tv import (
     format_arxiv_browse_television,
     format_confluence_browse_preview,
     format_confluence_browse_television,
+    format_follow_preview,
+    format_follow_television,
     format_github_activity_preview,
     format_github_activity_television,
     format_github_repos_preview,
@@ -317,7 +319,7 @@ def cmd_browse_github_activity(args: Namespace) -> object:
     store.initialize()
     fmt = getattr(args, "format", "json")
     entry = getattr(args, "entry", None)
-    repo_arg = getattr(args, "repo", "")
+    repo_arg = getattr(args, "repo", None) or _repo_name_from_selected_row(getattr(args, "selected_row", None))
 
     # Parse owner/repo
     owner, repo = _parse_owner_repo(repo_arg)
@@ -588,7 +590,7 @@ def cmd_browse_local(args: Namespace) -> object:
 # ── Helpers ──────────────────────────────────────────────────────────────
 
 def _resolve_github_token(store: KnowledgeStore) -> str | None:
-    """Resolve GitHub token from env or store credentials."""
+    """Resolve GitHub token from env, store credentials, or ``gh`` CLI."""
     token = os.getenv("GITHUB_TOKEN")
     if token:
         return token
@@ -598,6 +600,20 @@ def _resolve_github_token(store: KnowledgeStore) -> str | None:
         pass
     try:
         return store.resolve_key("$GITHUB_TOKEN")
+    except Exception:
+        pass
+    # Fall back to the ``gh`` CLI auth token
+    try:
+        import subprocess
+
+        result = subprocess.run(
+            ["gh", "auth", "token"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
     except Exception:
         pass
     return None
@@ -627,6 +643,18 @@ def _parse_owner_repo(value: str) -> tuple[str, str]:
         parts = name.split("/")
         return parts[0], parts[1]
     return "", ""
+
+
+def _repo_name_from_selected_row(selected_row: str | None) -> str:
+    """Extract ``owner/repo`` from a Television row emitted by GitHub repo browse."""
+    if not selected_row:
+        return ""
+    import re
+
+    clean = re.sub(r"\033\[[0-9;]*m", "", selected_row)
+    first_segment = clean.split(" | ", 1)[0].strip()
+    first_segment = first_segment.lstrip("●○ ").strip()
+    return first_segment
 
 
 def _find_activity_item(
@@ -685,3 +713,551 @@ def _confluence_webui(base_url: str, content: dict[str, Any]) -> str:
     if isinstance(links, dict) and links.get("webui"):
         return f"{base_url.rstrip('/')}{links['webui']}"
     return ""
+
+
+# ── Confluence spaces browse ─────────────────────────────────────────────
+
+def cmd_browse_confluence_spaces(args: Namespace) -> object:
+    """List Confluence spaces from all registered Confluence sources."""
+    from .browse_tv import (
+        format_confluence_spaces_preview,
+        format_confluence_spaces_television,
+    )
+
+    store = _store_from_args(args)
+    store.initialize()
+    sources = store.list_collection_sources(source_type="confluence")
+    fmt = getattr(args, "format", "json")
+    entry = getattr(args, "entry", None)
+
+    seen: set[str] = set()
+    all_spaces: list[dict[str, Any]] = []
+
+    for source in sources:
+        config = source.get("config", {})
+        base_url = config.get("base_url")
+        if not base_url or not config.get("username") or not config.get("token"):
+            continue
+        try:
+            from .sources.confluence import list_confluence_spaces
+
+            spaces = list_confluence_spaces(
+                base_url=base_url,
+                username=store.resolve_key(config["username"]),
+                token=store.resolve_key(config["token"]),
+            )
+            for space in spaces:
+                key = str(space.get("key", ""))
+                if key and key not in seen:
+                    seen.add(key)
+                    all_spaces.append(space)
+        except Exception:
+            pass
+
+    if fmt == "television":
+        return format_confluence_spaces_television(all_spaces)
+    if fmt == "television-preview":
+        return format_confluence_spaces_preview(all_spaces, entry)
+    return {"spaces": all_spaces}
+
+
+# ── Confluence pages (path-style) browse ─────────────────────────────────
+
+def cmd_browse_confluence_pages(args: Namespace) -> object:
+    """List Confluence pages as ``/path/title`` for a given space."""
+    from .browse_tv import (
+        format_confluence_pages_preview,
+        format_confluence_pages_television,
+    )
+
+    store = _store_from_args(args)
+    store.initialize()
+    fmt = getattr(args, "format", "json")
+    entry = getattr(args, "entry", None)
+    space_filter = getattr(args, "space", None)
+
+    # Derive space from --selected-row when drilling in from cspaces
+    if not space_filter:
+        selected_row = getattr(args, "selected_row", None)
+        if selected_row:
+            import re
+            clean = re.sub(r"\033\[[0-9;]*m", "", selected_row)
+            first = clean.split("|")[0].strip()
+            if first:
+                space_filter = first
+
+    sources = store.list_collection_sources(source_type="confluence")
+
+    all_pages: list[dict[str, Any]] = []
+
+    for source in sources:
+        config = source.get("config", {})
+        base_url = config.get("base_url")
+        if not base_url or not config.get("username") or not config.get("token"):
+            continue
+        source_space = config.get("space") or config.get("space_key")
+        if space_filter and source_space != space_filter:
+            continue
+        try:
+            from .sources.confluence import list_confluence_pages
+
+            pages = list_confluence_pages(
+                base_url=base_url,
+                username=store.resolve_key(config["username"]),
+                token=store.resolve_key(config["token"]),
+                space=space_filter or source_space or "",
+            )
+            all_pages.extend(pages)
+        except Exception:
+            pass
+
+    if fmt == "television":
+        return format_confluence_pages_television(all_pages)
+    if fmt == "television-preview":
+        return format_confluence_pages_preview(all_pages, entry)
+    return {"pages": all_pages}
+
+
+# ── Jira projects browse ────────────────────────────────────────────────
+
+def cmd_browse_jira_projects(args: Namespace) -> object:
+    """List Jira projects from all registered Jira sources."""
+    from .browse_tv import (
+        format_jira_projects_preview,
+        format_jira_projects_television,
+    )
+
+    store = _store_from_args(args)
+    store.initialize()
+    sources = store.list_collection_sources(source_type="jira")
+    fmt = getattr(args, "format", "json")
+    entry = getattr(args, "entry", None)
+
+    seen: set[str] = set()
+    all_projects: list[dict[str, Any]] = []
+
+    for source in sources:
+        config = source.get("config", {})
+        base_url = config.get("base_url")
+        if not base_url or not config.get("username") or not config.get("token"):
+            continue
+        try:
+            from .sources.jira import list_jira_projects
+
+            projects = list_jira_projects(
+                base_url=base_url,
+                username=store.resolve_key(config["username"]),
+                token=store.resolve_key(config["token"]),
+            )
+            for proj in projects:
+                key = str(proj.get("key", ""))
+                if key and key not in seen:
+                    seen.add(key)
+                    all_projects.append(proj)
+        except Exception:
+            pass
+
+    if fmt == "television":
+        return format_jira_projects_television(all_projects)
+    if fmt == "television-preview":
+        return format_jira_projects_preview(all_projects, entry)
+    return {"projects": all_projects}
+
+
+# ── Follow browse ────────────────────────────────────────────────────────
+
+def cmd_browse_follow(args: Namespace) -> object:
+    """List open items from GitHub repos and Jira projects interacted with in the last 6 months.
+
+    Each item is presented as a path:
+    ``github/<repo>/<element_type>/<id>`` or
+    ``jira/<project>/<issue_type>/<key>``.
+
+    Only open items are included (not closed, done, or merged).
+    """
+    from datetime import datetime, timedelta, timezone
+
+    store = _store_from_args(args)
+    store.initialize()
+    fmt = getattr(args, "format", "json")
+    entry = getattr(args, "entry", None)
+
+    # ── Fast-path for preview: resolve directly from path ────────────
+    if fmt == "television-preview" and entry:
+        return _follow_preview_fast(entry, store)
+
+    six_months_ago = datetime.now(timezone.utc) - timedelta(days=180)
+    six_months_iso = six_months_ago.strftime("%Y-%m-%dT%H:%M:%S%z")
+
+    items: list[dict[str, Any]] = []
+
+    # ── GitHub items ─────────────────────────────────────────────────
+    token = _resolve_github_token(store)
+    if token:
+        try:
+            from .sources.github_api import list_user_repos, list_repo_activity
+
+            repos = list_user_repos(token, per_page=100)
+            for repo in repos:
+                updated = repo.get("updated_at") or repo.get("pushed_at") or ""
+                if updated and updated < six_months_iso:
+                    continue
+                full_name = repo.get("full_name", "")
+                if not full_name or "/" not in full_name:
+                    continue
+                owner, repo_name = full_name.split("/", 1)
+                try:
+                    activity = list_repo_activity(
+                        token, owner, repo_name,
+                        state="open", per_page=50,
+                    )
+                except Exception:
+                    continue
+                for act in activity:
+                    kind = act.get("kind", "issue")
+                    number = act.get("number", 0)
+                    title = act.get("title", "")
+                    items.append({
+                        "source": "github",
+                        "repo": full_name,
+                        "element_type": kind,
+                        "id": str(number),
+                        "title": title,
+                        "url": act.get("url", ""),
+                        "user": act.get("user", ""),
+                        "created_at": act.get("created_at", ""),
+                        "updated_at": act.get("updated_at", ""),
+                        "body": act.get("body") or "",
+                        "labels": act.get("labels", []),
+                        "comments_count": act.get("comments_count", 0),
+                        "state": act.get("state", "open"),
+                        "path": f"github/{full_name}/{kind}/{number}",
+                    })
+        except Exception:
+            pass
+
+    # ── Jira items ───────────────────────────────────────────────────
+    jira_sources = store.list_collection_sources(source_type="jira")
+    _DONE_CATEGORIES = {"done", "complete", "completed", "closed", "resolved"}
+    for source in jira_sources:
+        config = source.get("config", {})
+        base_url = config.get("base_url")
+        username_ref = config.get("username")
+        token_ref = config.get("token")
+        if not (base_url and username_ref and token_ref):
+            continue
+        try:
+            from .sources.jira import search_jira
+
+            username = store.resolve_key(username_ref)
+            jira_token = store.resolve_key(token_ref)
+            project = config.get("project", "")
+            jql = (
+                f"project = {project} AND statusCategory != Done "
+                f"AND updated >= '-26w' ORDER BY updated DESC"
+            )
+            results = search_jira(
+                base_url=base_url,
+                username=username,
+                token=jira_token,
+                jql=jql,
+                limit=int(config.get("limit", 50)),
+                fields=[
+                    "summary", "status", "issuetype", "priority",
+                    "assignee", "reporter", "labels", "created", "updated",
+                    "description",
+                ],
+            )
+            for issue in results.get("issues", []):
+                key = issue.get("key", "")
+                fields = issue.get("fields", {}) or {}
+                status_name = _field_name(fields.get("status"))
+                status_cat = ""
+                status_obj = fields.get("status")
+                if isinstance(status_obj, dict):
+                    cat_obj = status_obj.get("statusCategory") or {}
+                    status_cat = (cat_obj.get("name") or "").lower()
+                if status_cat in _DONE_CATEGORIES:
+                    continue
+                summary = str(fields.get("summary") or key)
+                issue_type = _field_name(fields.get("issuetype")) or "task"
+                # Convert ADF description to markdown
+                description_body = ""
+                raw_desc = fields.get("description")
+                if raw_desc:
+                    try:
+                        from .sources.jira import _adf_to_markdown
+                        description_body = _adf_to_markdown(raw_desc)
+                    except Exception:
+                        description_body = str(raw_desc) if not isinstance(raw_desc, dict) else ""
+                items.append({
+                    "source": "jira",
+                    "project": project,
+                    "element_type": issue_type.lower().replace(" ", "_"),
+                    "id": key,
+                    "title": summary,
+                    "url": f"{base_url.rstrip('/')}/browse/{key}",
+                    "status": status_name,
+                    "priority": _field_name(fields.get("priority")),
+                    "assignee": _display_name(fields.get("assignee")),
+                    "reporter": _display_name(fields.get("reporter")),
+                    "labels": fields.get("labels") or [],
+                    "created_at": fields.get("created") or "",
+                    "updated_at": fields.get("updated") or "",
+                    "body": description_body,
+                    "state": "open",
+                    "path": f"jira/{project}/{issue_type.lower().replace(' ', '_')}/{key}",
+                })
+        except Exception:
+            pass
+
+    if fmt == "television":
+        return format_follow_television(items)
+    if fmt == "television-preview":
+        return format_follow_preview(items, entry, store)
+    return {"items": items}
+
+
+def _follow_preview_fast(entry: str, store: KnowledgeStore) -> str:
+    """Render a preview for a follow entry without re-querying all APIs.
+
+    Parses the path (``github/owner/repo/kind/number`` or
+    ``jira/PROJECT/type/KEY``) and fetches only the single item needed.
+    """
+    import re
+
+    clean = re.sub(r"\033\[[0-9;]*m", "", entry).strip()
+    for icon in ("🔵", "🟢", "💬", "🔷", "●"):
+        clean = clean.lstrip(icon).strip()
+    parts = clean.split()
+    path = parts[0] if parts else clean
+    segments = [s for s in path.split("/") if s]
+
+    if not segments:
+        return "No item matched.\n"
+
+    source = segments[0]
+
+    if source == "github" and len(segments) >= 5:
+        owner, repo_name, kind, number = segments[1], segments[2], segments[3], segments[4]
+        token = _resolve_github_token(store)
+        if not token:
+            return "GitHub token not configured.\n"
+        try:
+            from .sources.github_api import list_repo_issues, list_repo_pulls, list_repo_discussions
+
+            item_data: dict[str, Any] | None = None
+            num = int(number)
+            if kind == "pull_request":
+                from .sources.github_api import get_pr_detail
+                pr = get_pr_detail(token, owner, repo_name, num)
+                item_data = {
+                    "kind": "pull_request", "number": num,
+                    "title": pr.get("title", ""),
+                    "body": pr.get("body") or "",
+                    "user": (pr.get("user") or {}).get("login", ""),
+                    "created_at": pr.get("created_at", ""),
+                    "updated_at": pr.get("updated_at", ""),
+                    "state": pr.get("state", "open"),
+                    "labels": [l.get("name", "") for l in pr.get("labels", [])],
+                    "url": pr.get("html_url", ""),
+                }
+            elif kind == "discussion":
+                discussions = list_repo_discussions(token, owner, repo_name, per_page=50)
+                for d in discussions:
+                    if d.get("number") == num:
+                        item_data = {
+                            "kind": "discussion", "number": num,
+                            "title": d.get("title", ""),
+                            "body": d.get("body") or "",
+                            "user": (d.get("author") or {}).get("login", ""),
+                            "created_at": d.get("createdAt", ""),
+                            "updated_at": d.get("updatedAt", ""),
+                            "state": "open",
+                            "labels": [],
+                            "url": d.get("url", ""),
+                        }
+                        break
+            else:
+                # Issue
+                import requests
+                resp = requests.get(
+                    f"https://api.github.com/repos/{owner}/{repo_name}/issues/{num}",
+                    headers={
+                        "Accept": "application/vnd.github+json",
+                        "Authorization": f"Bearer {token}",
+                        "X-GitHub-Api-Version": "2022-11-28",
+                    },
+                    timeout=10,
+                )
+                resp.raise_for_status()
+                issue = resp.json()
+                item_data = {
+                    "kind": "issue", "number": num,
+                    "title": issue.get("title", ""),
+                    "body": issue.get("body") or "",
+                    "user": (issue.get("user") or {}).get("login", ""),
+                    "created_at": issue.get("created_at", ""),
+                    "updated_at": issue.get("updated_at", ""),
+                    "state": issue.get("state", "open"),
+                    "labels": [l.get("name", "") for l in issue.get("labels", [])],
+                    "url": issue.get("html_url", ""),
+                }
+
+            if item_data:
+                kind_label = {
+                    "issue": "Issue", "pull_request": "Pull Request",
+                    "discussion": "Discussion",
+                }.get(item_data["kind"], "Item")
+                lines = [
+                    f"# [{kind_label} #{num}] {item_data['title']}",
+                    "",
+                    f"- Repo: {owner}/{repo_name}",
+                    f"- Author: @{item_data['user']}",
+                    f"- Created: {item_data['created_at']}",
+                    f"- Updated: {item_data.get('updated_at', '')}",
+                    f"- State: {item_data['state']}",
+                ]
+                if item_data.get("labels"):
+                    lines.append(f"- Labels: {', '.join(item_data['labels'])}")
+                if item_data.get("url"):
+                    lines.append(f"- URL: {item_data['url']}")
+                body = item_data.get("body") or ""
+                if body.strip():
+                    lines.extend(["", "## Description", "", body.strip()])
+                return "\n".join(lines) + "\n"
+        except Exception:
+            pass
+        return f"Could not load GitHub {kind} #{number}.\n"
+
+    elif source == "jira" and len(segments) >= 4:
+        issue_key = segments[3]
+        project = segments[1]
+        issue_type = segments[2]
+        # Find Jira credentials from registered sources
+        jira_sources = store.list_collection_sources(source_type="jira")
+        for src in jira_sources:
+            config = src.get("config", {})
+            base_url = config.get("base_url")
+            if not (base_url and config.get("username") and config.get("token")):
+                continue
+            try:
+                from .sources.jira import search_jira, _adf_to_markdown
+
+                username = store.resolve_key(config["username"])
+                jira_token = store.resolve_key(config["token"])
+                results = search_jira(
+                    base_url=base_url, username=username, token=jira_token,
+                    jql=f"key = {issue_key}",
+                    fields=[
+                        "summary", "status", "issuetype", "priority",
+                        "assignee", "reporter", "labels", "created",
+                        "updated", "description",
+                    ],
+                    limit=1,
+                )
+                issues = results.get("issues", [])
+                if issues:
+                    issue = issues[0]
+                    fields = issue.get("fields", {}) or {}
+                    summary = str(fields.get("summary") or issue_key)
+                    desc = ""
+                    if fields.get("description"):
+                        try:
+                            desc = _adf_to_markdown(fields["description"])
+                        except Exception:
+                            pass
+                    lines = [
+                        f"# {issue_key}: {summary}",
+                        "",
+                        f"- Project: {project}",
+                        f"- Type: {issue_type}",
+                        f"- Status: {_field_name(fields.get('status'))}",
+                        f"- Priority: {_field_name(fields.get('priority'))}",
+                        f"- Assignee: {_display_name(fields.get('assignee'))}",
+                        f"- Reporter: {_display_name(fields.get('reporter'))}",
+                    ]
+                    labels = fields.get("labels") or []
+                    if labels:
+                        lines.append(f"- Labels: {', '.join(labels)}")
+                    lines.append(f"- URL: {base_url.rstrip('/')}/browse/{issue_key}")
+                    if desc.strip():
+                        lines.extend(["", "## Description", "", desc.strip()])
+                    return "\n".join(lines) + "\n"
+            except Exception:
+                pass
+        return f"Could not load Jira issue {issue_key}.\n"
+
+    return "No item matched.\n"
+
+
+def cmd_browse_follow_open(args: Namespace) -> object:
+    """Resolve the URL from a follow television row and print it to stdout.
+
+    The cable TOML is responsible for piping this URL to the OS-specific
+    open command (``start``, ``open``, ``xdg-open``, etc.), which makes
+    the solution portable without changing Python code.
+    """
+    import re
+
+    selected = getattr(args, "selected_row", "") or ""
+    clean = re.sub(r"\033\[[0-9;]*m", "", selected).strip()
+
+    # Take only the path part (first space-separated token)
+    parts = clean.split()
+    clean = parts[0] if parts else clean
+
+    # Remove leading icon characters
+    for icon in ("🔵", "🟢", "💬", "🔷", "●"):
+        clean = clean.lstrip(icon).strip()
+
+    url = _resolve_follow_url(clean, args)
+    if url:
+        return url
+    return ""
+
+
+def _resolve_follow_url(path: str, args: Namespace) -> str | None:
+    """Resolve a web URL from a follow path string.
+
+    Paths look like:
+    - ``github/owner/repo/issue/123/title``
+    - ``github/owner/repo/pull_request/45/title``
+    - ``github/owner/repo/discussion/67``
+    - ``jira/PROJECT/type/KEY-123``
+    """
+    parts = [p for p in path.split("/") if p]
+    if len(parts) < 4:
+        return None
+
+    source = parts[0]
+
+    if source == "github":
+        if len(parts) < 5:
+            return None
+        owner = parts[1]
+        repo = parts[2]
+        kind = parts[3]
+        number = parts[4]
+        if kind == "pull_request":
+            return f"https://github.com/{owner}/{repo}/pull/{number}"
+        elif kind == "discussion":
+            return f"https://github.com/{owner}/{repo}/discussions/{number}"
+        else:
+            return f"https://github.com/{owner}/{repo}/issues/{number}"
+
+    elif source == "jira":
+        # jira/PROJECT/type/KEY-123
+        issue_key = parts[3]
+        # Try to find the base_url from registered sources
+        store = _store_from_args(args)
+        store.initialize()
+        jira_sources = store.list_collection_sources(source_type="jira")
+        for src in jira_sources:
+            config = src.get("config", {})
+            base_url = config.get("base_url")
+            if base_url:
+                return f"{base_url.rstrip('/')}/browse/{issue_key}"
+        return None
+
+    return None

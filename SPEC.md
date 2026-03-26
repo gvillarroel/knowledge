@@ -92,11 +92,11 @@ know add confluence --space <SPACE> --key <KEY> [--base-url URL] [--username REF
 know add arxiv <URL> --key <KEY>
 know add site <URL> --key <KEY> [--max-depth N] [--max-pages N]
 know add video <VIDEO_URL_OR_PATH> --key <KEY> [--language LANG ...]
-know add television <CHANNEL_NAME> --key <KEY> --source-command <CMD> [--preview-command CMD] [--description TEXT] [--source-display TPL] [--action-command CMD]
+know add tv <CHANNEL_NAME> --key <KEY> --source-command <CMD> [--preview-command CMD] [--description TEXT] [--source-display TPL] [--action-command CMD]
 know add github-repo <REPO_URL> --key <KEY> [--branch BRANCH ...]
 know add google-releases <FEED_URL> --key <KEY>
 know add jira-project <PROJECT> --key <KEY> [--base-url URL] [--username REF] [--token REF] [--jql JQL] [--field FIELD ...] [--limit N]
-know add aha-workspace <WORKSPACE> --key <KEY> [--base-url URL] [--token REF] [--limit N]
+know add aha <WORKSPACE> --key <KEY> [--base-url URL] [--token REF] [--limit N]
 ```
 
 ### `know list` — Inspect keys, credentials, and sources
@@ -129,7 +129,7 @@ know sync television <CHANNEL_NAME> --key <KEY>
 know sync github-repo <REPO_URL> --key <KEY> [--branch BRANCH ...]
 know sync google-releases <FEED_URL> --key <KEY>
 know sync jira-project <PROJECT> --key <KEY>
-know sync aha-workspace <WORKSPACE> --key <KEY>
+know sync aha <WORKSPACE> --key <KEY>
 ```
 
 ### `know del` — Delete a registered source
@@ -179,6 +179,9 @@ know browse releases [--key KEY] [--format FMT] [--entry ROW]
 know browse videos [--key KEY] [--format FMT] [--entry ROW]
 know browse sites [--key KEY] [--format FMT] [--entry ROW]
 know browse local [--key KEY] [--type TYPE] [--format FMT] [--entry ROW]
+know browse confluence-spaces [--format FMT] [--entry ROW]
+know browse confluence-pages --space <SPACE> [--format FMT] [--entry ROW]
+know browse jira-projects [--format FMT] [--entry ROW]
 ```
 
 #### Cross-key aggregate browsers
@@ -340,7 +343,7 @@ sources:
 - Registers a Jira project source with optional JQL, field selection, and credentials.
 - Creates a source record under `~/.knowledge/<key>/jira/`.
 
-### `know add aha-workspace <WORKSPACE> --key <KEY>`
+### `know add aha <WORKSPACE> --key <KEY>`
 - Registers an Aha workspace source. Credentials can be read from environment via `$env:` references.
 - Creates a source record under `~/.knowledge/<key>/aha/`.
 
@@ -349,7 +352,7 @@ sources:
 - Registers a Google Cloud release notes Atom feed source.
 - Creates a source record under `~/.knowledge/<key>/google_releases/`.
 
-### `know add television <CHANNEL_NAME> --key <KEY>`
+### `know add tv <CHANNEL_NAME> --key <KEY>`
 - Registers a Television channel definition with source-command and optional preview-command, action-command.
 - Creates a source record under `~/.knowledge/<key>/television/`.
 - During sync, generates TOML cable file, commands.json, and README.md.
@@ -477,7 +480,7 @@ Every `list`, `search`, and `browse` command supports three output formats:
 
 ### 2. Television source adapter
 
-`know add television` registers a persistent channel definition that generates a TOML cable file during sync.
+`know add tv` registers a persistent channel definition that generates a TOML cable file during sync.
 
 ### Pre-built cables
 
@@ -513,6 +516,9 @@ Ready-to-use Television cable definitions live in `cables/` at the repository ro
 | `know-commands.toml` | `know-commands` | All sync/delete/export commands |
 | `know-stats.toml` | `know-stats` | Knowledge base statistics |
 | `know-crossref.toml` | `know-crossref` | Sources shared across keys |
+| `know-cspaces.toml` | `know-cspaces` | Confluence spaces → drill into pages |
+| `know-jprojects.toml` | `know-jprojects` | Jira projects → drill into issues |
+| `know-grepos.toml` | `know-grepos` | GitHub repos → drill into activity |
 
 Install cables:
 

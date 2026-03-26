@@ -15,11 +15,64 @@
     1:     """Adapter that synchronizes pages from a Confluence space."""
        
     1:     def sync(self) -> dict[str, object]:
-    2:         base_url = self.config["base_url"].rstrip("/") + "/"
-    2:         auth = self._auth()
-    2:         space_key = self.config["space_key"]
-    2:         limit = int(self.config.get("limit", 100))
+    4:         base_url = self.config["base_url"].rstrip("/") + "/"
+    4:         auth = self._auth()
+    4:         space_key = self.config.get("space_key") or self.config.get("space")
+    4:         limit = int(self.config.get("limit", 100))
+    4:         cql = self.config.get("cql")
        
+    4:         if cql:
+    2:             pages = self._sync_pages_with_cql(base_url, auth, cql, limit)
+               else:
+    2:             pages = self._sync_space_pages(base_url, auth, space_key, limit)
+       
+    4:         self.clear_source_dir()
+    9:         for page in pages:
+    5:             page_id = page["id"]
+    5:             storage_body = page.get("body", {}).get("storage", {}).get("value", "")
+    5:             body = confluence_storage_to_markdown(storage_body)
+    5:             title = str(page.get("title") or f"Page {page_id}")
+   85:             frontmatter = {
+    5:                 "title": title,
+    5:                 "knowledge_key": self.source["key"],
+    5:                 "source_id": self.source["id"],
+    5:                 "source_type": self.source["type"],
+    5:                 "document_id": str(page_id),
+    5:                 "space_key": space_key,
+    5:                 "space_id": page.get("spaceId"),
+    5:                 "status": page.get("status"),
+    5:                 "author_id": page.get("authorId"),
+    5:                 "owner_id": page.get("ownerId"),
+    5:                 "parent_id": page.get("parentId"),
+    5:                 "parent_type": page.get("parentType"),
+    5:                 "created_at": page.get("createdAt"),
+    5:                 "updated_at": page.get("version", {}).get("createdAt") or page.get("updatedAt"),
+    5:                 "version_number": (page.get("version", {}) or {}).get("number"),
+    5:                 "web_url": _page_url(base_url, page),
+                   }
+    5:             self.write_markdown(self.raw_dir / f"{page_id}-{_slugify(title)}.md", frontmatter, body)
+       
+    8:         return self.finalize_sync(
+    4:             {
+    4:                 "pages": len(pages),
+    4:                 "space_key": space_key,
+    4:                 "cql": cql,
+    4:                 "raw_dir": str(self.raw_dir),
+                   }
+               )
+       
+    1:     def _auth(self) -> tuple[str, str]:
+    4:         username = self.store.resolve_key(self.config["username"])
+    4:         token = self.store.resolve_key(self.config["token"])
+    4:         return (username, token)
+       
+    1:     def _sync_space_pages(
+               self,
+>>>>>>         base_url: str,
+>>>>>>         auth: tuple[str, str],
+>>>>>>         space_key: str,
+>>>>>>         limit: int,
+>>>>>>     ) -> list[dict[str, object]]:
     2:         pages: list[dict[str, object]] = []
     2:         next_url = urljoin(base_url, "wiki/api/v2/pages")
     2:         params: dict[str, object] | None = {
@@ -42,45 +95,62 @@
     3:             next_path = data.get("_links", {}).get("next")
     3:             next_url = urljoin(base_url, next_path) if next_path else ""
     3:             params = None
+    2:         return pages
        
-    2:         self.clear_source_dir()
-    5:         for page in pages:
-    3:             page_id = page["id"]
-    3:             storage_body = page.get("body", {}).get("storage", {}).get("value", "")
-    3:             body = confluence_storage_to_markdown(storage_body)
-    3:             title = str(page.get("title") or f"Page {page_id}")
-   51:             frontmatter = {
-    3:                 "title": title,
-    3:                 "knowledge_key": self.source["key"],
-    3:                 "source_id": self.source["id"],
-    3:                 "source_type": self.source["type"],
-    3:                 "document_id": str(page_id),
-    3:                 "space_key": space_key,
-    3:                 "space_id": page.get("spaceId"),
-    3:                 "status": page.get("status"),
-    3:                 "author_id": page.get("authorId"),
-    3:                 "owner_id": page.get("ownerId"),
-    3:                 "parent_id": page.get("parentId"),
-    3:                 "parent_type": page.get("parentType"),
-    3:                 "created_at": page.get("createdAt"),
-    3:                 "updated_at": page.get("version", {}).get("createdAt") or page.get("updatedAt"),
-    3:                 "version_number": (page.get("version", {}) or {}).get("number"),
-    3:                 "web_url": _page_url(base_url, page),
-                   }
-    3:             self.write_markdown(self.raw_dir / f"{page_id}-{_slugify(title)}.md", frontmatter, body)
+    1:     def _sync_pages_with_cql(
+               self,
+>>>>>>         base_url: str,
+>>>>>>         auth: tuple[str, str],
+>>>>>>         cql: str,
+>>>>>>         limit: int,
+>>>>>>     ) -> list[dict[str, object]]:
+    2:         pages: list[dict[str, object]] = []
+    2:         cursor: str | None = None
+    2:         seen_page_ids: set[str] = set()
+    2:         search_url = urljoin(base_url, "wiki/rest/api/search")
+    2:         remaining = limit
        
-    4:         return self.finalize_sync(
-    2:             {
-    2:                 "pages": len(pages),
-    2:                 "space_key": space_key,
-    2:                 "raw_dir": str(self.raw_dir),
-                   }
+    2:         while True:
+    2:             params: dict[str, object] = {"cql": cql, "limit": remaining}
+    2:             if cursor:
+>>>>>>                 params["cursor"] = cursor
+    4:             response = requests.get(
+    2:                 search_url,
+    2:                 headers={"Accept": "application/json"},
+    2:                 params=params,
+    2:                 auth=auth,
+    2:                 timeout=60,
+                   )
+    2:             response.raise_for_status()
+    2:             payload = response.json()
+       
+    3:             for result in payload.get("results", []):
+    2:                 page_id = _search_result_page_id(result)
+    2:                 if not page_id or page_id in seen_page_ids:
+>>>>>>                     continue
+    2:                 seen_page_ids.add(page_id)
+    2:                 pages.append(self._fetch_page(base_url, auth, page_id))
+    2:                 remaining -= 1
+    2:                 if remaining == 0:
+    1:                     return pages
+       
+    1:             cursor = _next_cursor(payload)
+    1:             if not cursor:
+    1:                 break
+       
+    1:         return pages
+       
+    1:     def _fetch_page(self, base_url: str, auth: tuple[str, str], page_id: str) -> dict[str, object]:
+    4:         response = requests.get(
+    2:             urljoin(base_url, f"wiki/api/v2/pages/{page_id}"),
+    2:             headers={"Accept": "application/json"},
+    2:             params={"body-format": "storage"},
+    2:             auth=auth,
+    2:             timeout=60,
                )
-       
-    1:     def _auth(self) -> tuple[str, str]:
-    2:         username = self.store.resolve_key(self.config["username"])
-    2:         token = self.store.resolve_key(self.config["token"])
-    2:         return (username, token)
+    2:         response.raise_for_status()
+    2:         payload = response.json()
+    2:         return payload if isinstance(payload, dict) else {}
        
        
    14: def search_confluence(
@@ -140,17 +210,121 @@
            }
        
        
+    2: def list_confluence_spaces(
+           *,
+>>>>>>     base_url: str,
+>>>>>>     username: str,
+>>>>>>     token: str,
+    1:     limit: int = 250,
+>>>>>> ) -> list[dict[str, object]]:
+           """Return all Confluence spaces visible to the authenticated user."""
+>>>>>>     spaces: list[dict[str, object]] = []
+>>>>>>     next_url: str | None = urljoin(base_url.rstrip("/") + "/", "wiki/rest/api/space")
+>>>>>>     params: dict[str, object] | None = {"limit": min(limit, 250)}
+       
+>>>>>>     while next_url:
+>>>>>>         response = requests.get(
+>>>>>>             next_url,
+>>>>>>             headers={"Accept": "application/json"},
+>>>>>>             params=params,
+>>>>>>             auth=(username, token),
+>>>>>>             timeout=60,
+               )
+>>>>>>         response.raise_for_status()
+>>>>>>         payload = response.json()
+>>>>>>         for space in payload.get("results", []):
+>>>>>>             spaces.append({
+>>>>>>                 "key": space.get("key", ""),
+>>>>>>                 "name": space.get("name", ""),
+>>>>>>                 "type": space.get("type", ""),
+>>>>>>                 "description": (space.get("description", {}) or {}).get("plain", {}).get("value", ""),
+>>>>>>                 "web_url": f"{base_url.rstrip('/')}/wiki/spaces/{space.get('key', '')}",
+                   })
+>>>>>>             if len(spaces) >= limit:
+>>>>>>                 return spaces
+       
+>>>>>>         next_path = (payload.get("_links", {}) or {}).get("next")
+>>>>>>         next_url = urljoin(base_url, next_path) if next_path else None
+>>>>>>         params = None
+       
+>>>>>>     return spaces
+       
+       
+    2: def list_confluence_pages(
+           *,
+>>>>>>     base_url: str,
+>>>>>>     username: str,
+>>>>>>     token: str,
+>>>>>>     space: str,
+    1:     limit: int = 500,
+>>>>>> ) -> list[dict[str, object]]:
+           """Return Confluence pages in a space with ancestor-based path.
+       
+           Each returned dict contains ``title``, ``path`` (``/ancestor1/ancestor2/title``),
+           ``web_url``, and ``page_id``.
+           """
+>>>>>>     pages: list[dict[str, object]] = []
+>>>>>>     next_url: str | None = urljoin(
+>>>>>>         base_url.rstrip("/") + "/",
+>>>>>>         "wiki/rest/api/content",
+           )
+>>>>>>     params: dict[str, object] | None = {
+>>>>>>         "type": "page",
+>>>>>>         "spaceKey": space,
+>>>>>>         "expand": "ancestors",
+>>>>>>         "limit": min(limit, 100),
+           }
+       
+>>>>>>     while next_url:
+>>>>>>         response = requests.get(
+>>>>>>             next_url,
+>>>>>>             headers={"Accept": "application/json"},
+>>>>>>             params=params,
+>>>>>>             auth=(username, token),
+>>>>>>             timeout=60,
+               )
+>>>>>>         response.raise_for_status()
+>>>>>>         payload = response.json()
+       
+>>>>>>         for page in payload.get("results", []):
+>>>>>>             title = page.get("title", "Untitled")
+>>>>>>             ancestors = page.get("ancestors", []) or []
+>>>>>>             path_parts = [a.get("title", "") for a in ancestors if a.get("title")]
+>>>>>>             path_parts.append(title)
+>>>>>>             path_str = "/" + "/".join(path_parts)
+       
+>>>>>>             links = page.get("_links", {}) or {}
+>>>>>>             webui = links.get("webui", "")
+>>>>>>             web_url = f"{base_url.rstrip('/')}{webui}" if webui else ""
+       
+>>>>>>             pages.append({
+>>>>>>                 "title": title,
+>>>>>>                 "path": path_str,
+>>>>>>                 "web_url": web_url,
+>>>>>>                 "page_id": str(page.get("id", "")),
+>>>>>>                 "space": space,
+                   })
+>>>>>>             if len(pages) >= limit:
+>>>>>>                 return pages
+       
+>>>>>>         next_path = (payload.get("_links", {}) or {}).get("next")
+>>>>>>         next_url = urljoin(base_url, next_path) if next_path else None
+>>>>>>         params = None
+       
+>>>>>>     return pages
+       
+       
     1: def _slugify(value: str) -> str:
-    3:     normalized = re.sub(r"[^A-Za-z0-9._-]+", "-", value).strip("-").lower()
-    3:     return normalized or "page"
+    5:     normalized = re.sub(r"[^A-Za-z0-9._-]+", "-", value).strip("-").lower()
+    5:     return normalized or "page"
        
        
     1: def _page_url(base_url: str, page: dict[str, object]) -> str | None:
-    3:     links = page.get("_links", {}) if isinstance(page, dict) else {}
-    3:     webui = links.get("webui") if isinstance(links, dict) else None
-    3:     if isinstance(webui, str) and webui:
+    5:     links = page.get("_links", {}) if isinstance(page, dict) else {}
+    5:     webui = links.get("webui") if isinstance(links, dict) else None
+    5:     if isinstance(webui, str) and webui:
 >>>>>>         return urljoin(base_url, webui)
-    3:     return None
+    5:     return None
        
        
     1: def _quote_cql(value: str) -> str:
@@ -196,44 +370,56 @@
        
        
     1: def _next_cursor(payload: dict[str, object]) -> str | None:
-    5:     links = payload.get("_links", {}) if isinstance(payload, dict) else {}
-    5:     next_link = links.get("next") if isinstance(links, dict) else None
-    5:     if not isinstance(next_link, str) or "cursor=" not in next_link:
-    2:         return None
+    6:     links = payload.get("_links", {}) if isinstance(payload, dict) else {}
+    6:     next_link = links.get("next") if isinstance(links, dict) else None
+    6:     if not isinstance(next_link, str) or "cursor=" not in next_link:
+    3:         return None
     3:     return next_link.rsplit("cursor=", 1)[-1].split("&", 1)[0]
        
        
+    1: def _search_result_page_id(result: dict[str, object]) -> str | None:
+    2:     if not isinstance(result, dict):
+>>>>>>         return None
+    2:     content = result.get("content")
+    2:     if isinstance(content, dict):
+    2:         content_id = content.get("id")
+    2:         if content_id:
+    2:             return str(content_id)
+>>>>>>     result_id = result.get("id")
+>>>>>>     return str(result_id) if result_id else None
+       
+       
     1: def confluence_storage_to_markdown(payload: str) -> str:
-    6:     parser = _ConfluenceStorageParser()
-    6:     parser.feed(payload)
-    6:     parser.close()
-    6:     return parser.render()
+    8:     parser = _ConfluenceStorageParser()
+    8:     parser.feed(payload)
+    8:     parser.close()
+    8:     return parser.render()
        
        
     2: class _ConfluenceStorageParser(HTMLParser):
     1:     def __init__(self) -> None:
-    6:         super().__init__(convert_charrefs=True)
-    6:         self.parts: list[str] = []
-    6:         self.list_stack: list[str] = []
-    6:         self.link_stack: list[str | None] = []
-    6:         self.blockquote_depth = 0
-    6:         self.preformatted = False
-    6:         self.code_block = False
+    8:         super().__init__(convert_charrefs=True)
+    8:         self.parts: list[str] = []
+    8:         self.list_stack: list[str] = []
+    8:         self.link_stack: list[str | None] = []
+    8:         self.blockquote_depth = 0
+    8:         self.preformatted = False
+    8:         self.code_block = False
        
     1:     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-   26:         handler = _CONFLUENCE_START.get(tag)
-   26:         if handler is not None:
-   21:             handler(self, attrs)
+   28:         handler = _CONFLUENCE_START.get(tag)
+   28:         if handler is not None:
+   23:             handler(self, attrs)
        
     1:     def handle_endtag(self, tag: str) -> None:
-   26:         handler = _CONFLUENCE_END.get(tag)
-   26:         if handler is not None:
-   19:             handler(self)
+   28:         handler = _CONFLUENCE_END.get(tag)
+   28:         if handler is not None:
+   21:             handler(self)
        
            # -- Start-tag handlers ------------------------------------------------
        
     1:     def _start_block(self, _attrs: list[tuple[str, str | None]]) -> None:
-    7:         self._ensure_block_break()
+    9:         self._ensure_block_break()
        
     1:     def _start_br(self, _attrs: list[tuple[str, str | None]]) -> None:
     1:         self.parts.append("\n")
@@ -293,7 +479,7 @@
            # -- End-tag handlers --------------------------------------------------
        
     1:     def _end_block(self) -> None:
-    7:         self._ensure_block_break()
+    9:         self._ensure_block_break()
        
     1:     def _end_bold(self) -> None:
     1:         self.parts.append("**")
@@ -339,43 +525,43 @@
     1:             self._ensure_block_break()
        
     1:     def handle_data(self, data: str) -> None:
-   23:         if not data:
+   25:         if not data:
 >>>>>>             return
-   23:         text = unescape(data)
-   23:         if self.preformatted:
+   25:         text = unescape(data)
+   25:         if self.preformatted:
     2:             self.parts.append(text)
     2:             return
-   21:         collapsed = re.sub(r"\s+", " ", text)
-   21:         if collapsed.strip():
-   21:             self.parts.append(collapsed)
+   23:         collapsed = re.sub(r"\s+", " ", text)
+   23:         if collapsed.strip():
+   23:             self.parts.append(collapsed)
        
     1:     def render(self) -> str:
-    6:         text = "".join(self.parts)
-    6:         text = text.replace("\\n", "\n")
-    6:         text = re.sub(r">\s*\n\n", "> ", text)
-    6:         text = _normalize_task_artifacts(text)
-    6:         text = re.sub(r"\n{3,}", "\n\n", text)
-    6:         text = re.sub(r"[ \t]+\n", "\n", text)
-    6:         return text.strip() or "No content."
+    8:         text = "".join(self.parts)
+    8:         text = text.replace("\\n", "\n")
+    8:         text = re.sub(r">\s*\n\n", "> ", text)
+    8:         text = _normalize_task_artifacts(text)
+    8:         text = re.sub(r"\n{3,}", "\n\n", text)
+    8:         text = re.sub(r"[ \t]+\n", "\n", text)
+    8:         return text.strip() or "No content."
        
     1:     def _ensure_block_break(self) -> None:
-   25:         current = "".join(self.parts[-2:])
-   25:         if not current.endswith("\n\n"):
-   18:             if current.endswith("\n"):
+   29:         current = "".join(self.parts[-2:])
+   29:         if not current.endswith("\n\n"):
+   22:             if current.endswith("\n"):
     1:                 self.parts.append("\n")
                    else:
-   17:                 self.parts.append("\n\n")
+   21:                 self.parts.append("\n\n")
        
        
     1: def _normalize_task_artifacts(text: str) -> str:
            """Normalize Confluence task list artifacts into Markdown checkboxes."""
-   12:     text = re.sub(
-    6:         r"\n\s*\d+\s*\n(incomplete|complete)\s*\n([^\n]+?)(?:\n\s*\n|\Z)",
-    7:         lambda match: "\n- [{}] {}\n\n".format(" " if match.group(1) == "incomplete" else "x", match.group(2).strip()),
-    6:         text,
-    6:         flags=re.IGNORECASE,
+   16:     text = re.sub(
+    8:         r"\n\s*\d+\s*\n(incomplete|complete)\s*\n([^\n]+?)(?:\n\s*\n|\Z)",
+    9:         lambda match: "\n- [{}] {}\n\n".format(" " if match.group(1) == "incomplete" else "x", match.group(2).strip()),
+    8:         text,
+    8:         flags=re.IGNORECASE,
            )
-    6:     return text
+    8:     return text
        
        
        # -- Confluence parser dispatch tables -----------------------------------

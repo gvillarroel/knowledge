@@ -27,26 +27,26 @@
        
     2: class DummyResponse:
     1:     def __init__(self, payload: dict | None = None, text: str = "") -> None:
-   19:         self._payload = payload or {}
-   19:         self.text = text
+   27:         self._payload = payload or {}
+   27:         self.text = text
        
     1:     def raise_for_status(self) -> None:
-   19:         return None
+   27:         return None
        
     1:     def json(self) -> dict:
-   17:         return self._payload
+   25:         return self._payload
        
        
     1: def make_store(tmp_path: Path) -> KnowledgeStore:
-   40:     store = KnowledgeStore(tmp_path)
-   40:     store.initialize()
-   40:     return store
+   45:     store = KnowledgeStore(tmp_path)
+   45:     store.initialize()
+   45:     return store
        
        
     3: def test_key_set_and_key_list_command_roundtrip(tmp_path: Path) -> None:
     1:     args = Namespace(store=tmp_path, name="jira_token", value="secret")
     1:     assert commands.cmd_key_set(args) == {"stored": "jira_token"}
-    1:     assert commands.cmd_key_list(Namespace(store=tmp_path)) == {"keys": ["jira_token"]}
+    1:     assert commands.cmd_key_list(Namespace(store=tmp_path)) == {"credentials": ["jira_token"]}
        
        
     3: def test_delete_source_command_removes_record(tmp_path: Path) -> None:
@@ -221,6 +221,72 @@
     1:     assert payload["source"]["id"] == "television-knowledge-sources"
     1:     assert payload["source"]["config"]["channel"] == "knowledge-sources"
     1:     assert payload["source"]["config"]["source_command"] == "know list sources --key automation --json"
+       
+       
+    3: def test_add_television_command_updates_existing_channel_definition(tmp_path: Path) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("automation")
+       
+    2:     first = commands.cmd_add_television(
+    2:         Namespace(
+    1:             store=tmp_path,
+    1:             key="automation",
+    1:             name="knowledge-sources",
+    1:             description="Browse registered sources",
+    1:             source_command="know list sources --key automation --json",
+    1:             source_display=None,
+    1:             preview_command=None,
+    1:             action_command=None,
+               )
+           )
+    1:     created_at = first["source"]["created_at"]
+       
+    2:     second = commands.cmd_add_television(
+    2:         Namespace(
+    1:             store=tmp_path,
+    1:             key="automation",
+    1:             name="knowledge-sources",
+    1:             description="Browse synced sources",
+    1:             source_command="know browse local --key automation --format television",
+    1:             source_display="{0}",
+    1:             preview_command="know browse local --key automation --format television-preview --entry '{}'",
+    1:             action_command="know sync --key automation",
+               )
+           )
+       
+    1:     metadata = store.get_collection_metadata("automation")
+    1:     assert len(metadata["sources"]) == 1
+    1:     source = metadata["sources"][0]
+    1:     assert source["id"] == "television-knowledge-sources"
+    1:     assert source["created_at"] == created_at
+    1:     assert source["config"]["description"] == "Browse synced sources"
+    1:     assert source["config"]["source_command"] == "know browse local --key automation --format television"
+    1:     assert source["config"]["source_display"] == "{0}"
+    3:     assert source["config"]["preview_command"] == (
+    2:         "know browse local --key automation --format television-preview --entry '{}'"
+           )
+    1:     assert source["config"]["action_command"] == "know sync --key automation"
+    1:     assert second["source"]["config"]["description"] == "Browse synced sources"
+       
+       
+    6: def test_television_cable_destinations_include_active_windows_paths(
+    1:     tmp_path: Path,
+    1:     monkeypatch: pytest.MonkeyPatch,
+    1: ) -> None:
+    1:     home_dir = tmp_path / "home"
+    1:     tv_repo = tmp_path / "tv-repo"
+    1:     local_appdata = tmp_path / "local-appdata"
+    1:     monkeypatch.setenv("TELEVISION_CONFIG", str(tv_repo))
+    1:     monkeypatch.setenv("LOCALAPPDATA", str(local_appdata))
+    2:     monkeypatch.setattr("knowledge.commands.Path.home", lambda: home_dir)
+       
+    1:     destinations = commands._television_cable_destinations()
+       
+    1:     assert destinations == [
+    1:         (tv_repo / "cable").resolve(),
+    1:         (local_appdata / "television" / "config" / "cable").resolve(),
+    1:         (home_dir / ".config" / "television" / "cable").resolve(),
+           ]
        
        
     3: def test_add_collection_source_does_not_write_legacy_yaml_record(tmp_path: Path) -> None:
@@ -612,6 +678,126 @@
     1:         ("https://conf.example.com/wiki/api/v2/pages?cursor=abc", None),
            ]
     1:     assert len(list(store.source_raw_dir(source).glob("*.md"))) == 2
+       
+       
+    3: def test_confluence_sync_uses_registered_cql_filter(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("docs")
+    2:     source = store.add_collection_source(
+    1:         "docs",
+    1:         "confluence",
+    1:         title="ENG",
+    1:         config={
+    1:             "base_url": "https://conf.example.com",
+    1:             "space_key": "ENG",
+    1:             "username": "user@example.com",
+    1:             "token": "token",
+    1:             "cql": 'type = "page" AND label = "runbook"',
+    1:             "limit": 10,
+               },
+    1:         update_command="sync",
+    1:         delete_command="del",
+           )
+       
+    1:     calls: list[tuple[str, object | None]] = []
+       
+    1:     def fake_get(url: str, **kwargs: object) -> DummyResponse:
+    2:         calls.append((url, kwargs.get("params")))
+    2:         if url == "https://conf.example.com/wiki/rest/api/search":
+    2:             return DummyResponse(
+    1:                 payload={
+    1:                     "results": [{"content": {"id": "123"}}],
+    1:                     "_links": {},
+                       }
+                   )
+    1:         if url == "https://conf.example.com/wiki/api/v2/pages/123":
+    2:             return DummyResponse(
+    1:                 payload={
+    1:                     "id": "123",
+    1:                     "title": "Runbook",
+    1:                     "body": {"storage": {"value": "<p>Checklist</p>"}},
+                       }
+                   )
+>>>>>>         raise AssertionError(url)
+       
+    1:     monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+       
+    1:     payload = ConfluenceSource(source, store).sync()
+       
+    1:     assert payload["pages"] == 1
+    1:     assert payload["cql"] == 'type = "page" AND label = "runbook"'
+    1:     assert calls == [
+    1:         (
+    1:             "https://conf.example.com/wiki/rest/api/search",
+    1:             {"cql": 'type = "page" AND label = "runbook"', "limit": 10},
+               ),
+    1:         (
+    1:             "https://conf.example.com/wiki/api/v2/pages/123",
+    1:             {"body-format": "storage"},
+               ),
+           ]
+    1:     markdown_files = list(store.source_raw_dir(source).glob("*.md"))
+    1:     assert len(markdown_files) == 1
+    1:     assert "Checklist" in markdown_files[0].read_text(encoding="utf-8")
+       
+       
+    3: def test_confluence_sync_with_cql_stops_after_limit(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("docs")
+    2:     source = store.add_collection_source(
+    1:         "docs",
+    1:         "confluence",
+    1:         title='type = "page"',
+    1:         config={
+    1:             "base_url": "https://conf.example.com",
+    1:             "username": "user@example.com",
+    1:             "token": "token",
+    1:             "cql": 'type = "page"',
+    1:             "limit": 1,
+               },
+    1:         update_command="sync",
+    1:         delete_command="del",
+           )
+       
+    1:     calls: list[tuple[str, object | None]] = []
+       
+    1:     def fake_get(url: str, **kwargs: object) -> DummyResponse:
+    2:         calls.append((url, kwargs.get("params")))
+    2:         if url == "https://conf.example.com/wiki/rest/api/search":
+    2:             return DummyResponse(
+    1:                 payload={
+    2:                     "results": [
+    1:                         {"content": {"id": "123"}},
+    1:                         {"content": {"id": "456"}},
+                           ],
+    1:                     "_links": {"next": "/wiki/rest/api/search?cursor=next-1"},
+                       }
+                   )
+    1:         if url == "https://conf.example.com/wiki/api/v2/pages/123":
+    2:             return DummyResponse(
+    1:                 payload={
+    1:                     "id": "123",
+    1:                     "title": "Runbook",
+    1:                     "body": {"storage": {"value": "<p>Checklist</p>"}},
+                       }
+                   )
+>>>>>>         raise AssertionError(url)
+       
+    1:     monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+       
+    1:     payload = ConfluenceSource(source, store).sync()
+       
+    1:     assert payload["pages"] == 1
+    1:     assert calls == [
+    1:         (
+    1:             "https://conf.example.com/wiki/rest/api/search",
+    1:             {"cql": 'type = "page"', "limit": 1},
+               ),
+    1:         (
+    1:             "https://conf.example.com/wiki/api/v2/pages/123",
+    1:             {"body-format": "storage"},
+               ),
+           ]
        
        
     3: def test_search_confluence_uses_search_endpoint_and_returns_cursor(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1102,7 +1288,118 @@
     1:     payload = AhaSource(source, store).sync()
        
     1:     assert payload["features"] == 1
+    1:     assert payload["workspace"] == "PROD"
     1:     assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
+       
+       
+    6: def test_aha_sync_downloads_entire_workspace_across_pages(
+    1:     tmp_path: Path,
+    1:     monkeypatch: pytest.MonkeyPatch,
+    1: ) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("roadmap")
+    1:     store.set_key("aha_token", "token")
+    2:     source = store.add_collection_source(
+    1:         "roadmap",
+    1:         "aha",
+    1:         title="PROD",
+    1:         config={
+    1:             "base_url": "https://aha.example.com",
+    1:             "workspace": "PROD",
+    1:             "token": "$aha_token",
+               },
+    1:         update_command="sync",
+    1:         delete_command="del",
+           )
+       
+    1:     calls: list[dict[str, object]] = []
+       
+    1:     def fake_get(url: str, **kwargs: object) -> DummyResponse:
+    2:         calls.append({"url": url, "params": kwargs["params"]})
+    2:         page = kwargs["params"]["page"]
+    2:         if page == 1:
+    2:             return DummyResponse(
+    1:                 payload={
+    1:                     "pagination": [{"current_page": 1, "total_pages": 2}],
+    1:                     "features": [{"id": "1", "reference_num": "PROD-1"}],
+                       }
+                   )
+    2:         return DummyResponse(
+    1:             payload={
+    1:                 "pagination": [{"current_page": 2, "total_pages": 2}],
+    1:                 "features": [{"id": "2", "reference_num": "PROD-2"}],
+                   }
+               )
+       
+    1:     monkeypatch.setattr("knowledge.sources.aha.requests.get", fake_get)
+    1:     payload = AhaSource(source, store).sync()
+       
+    1:     assert payload["features"] == 2
+    1:     assert calls == [
+    1:         {
+    1:             "url": "https://aha.example.com/api/v1/products/PROD/features",
+    1:             "params": {"page": 1, "per_page": 200},
+               },
+    1:         {
+    1:             "url": "https://aha.example.com/api/v1/products/PROD/features",
+    1:             "params": {"page": 2, "per_page": 200},
+               },
+           ]
+    1:     assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
+    1:     assert (store.source_raw_dir(source) / "features" / "PROD-2.json").exists()
+       
+       
+    3: def test_aha_sync_respects_limit_across_pages(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    1:     store = make_store(tmp_path)
+    1:     store.create_collection_key("roadmap")
+    1:     store.set_key("aha_token", "token")
+    2:     source = store.add_collection_source(
+    1:         "roadmap",
+    1:         "aha",
+    1:         title="PROD",
+    1:         config={
+    1:             "base_url": "https://aha.example.com",
+    1:             "workspace": "PROD",
+    1:             "token": "$aha_token",
+    1:             "limit": 2,
+               },
+    1:         update_command="sync",
+    1:         delete_command="del",
+           )
+       
+    1:     calls: list[dict[str, object]] = []
+       
+    1:     def fake_get(_url: str, **kwargs: object) -> DummyResponse:
+    2:         calls.append(kwargs["params"])
+    2:         page = kwargs["params"]["page"]
+    2:         if page == 1:
+    2:             return DummyResponse(
+    1:                 payload={
+    1:                     "pagination": [{"current_page": 1, "total_pages": 2}],
+    1:                     "features": [{"id": "1", "reference_num": "PROD-1"}],
+                       }
+                   )
+    2:         return DummyResponse(
+    1:             payload={
+    1:                 "pagination": [{"current_page": 2, "total_pages": 2}],
+    2:                 "features": [
+    1:                     {"id": "2", "reference_num": "PROD-2"},
+    1:                     {"id": "3", "reference_num": "PROD-3"},
+                       ],
+                   }
+               )
+       
+    1:     monkeypatch.setattr("knowledge.sources.aha.requests.get", fake_get)
+    1:     payload = AhaSource(source, store).sync()
+       
+    1:     assert payload["features"] == 2
+    1:     assert calls == [
+    1:         {"page": 1, "per_page": 2},
+    1:         {"page": 2, "per_page": 1},
+           ]
+    1:     assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
+    1:     assert (store.source_raw_dir(source) / "features" / "PROD-2.json").exists()
+    1:     assert not (store.source_raw_dir(source) / "features" / "PROD-3.json").exists()
        
        
     3: def test_arxiv_sync_fetches_feed_and_extracts_pdf_id(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

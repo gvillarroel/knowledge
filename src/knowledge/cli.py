@@ -12,9 +12,14 @@ from .browse_commands import (
     cmd_browse_aha,
     cmd_browse_arxiv,
     cmd_browse_confluence,
+    cmd_browse_confluence_pages,
+    cmd_browse_confluence_spaces,
+    cmd_browse_follow,
+    cmd_browse_follow_open,
     cmd_browse_github,
     cmd_browse_github_activity,
     cmd_browse_jira,
+    cmd_browse_jira_projects,
     cmd_browse_local,
     cmd_browse_releases,
     cmd_browse_sites,
@@ -105,11 +110,12 @@ def build_parser() -> argparse.ArgumentParser:
     add_key_parser.set_defaults(handler=cmd_add_key)
 
     add_confluence_parser = add_subparsers.add_parser("confluence", help="Attach a Confluence space.")
-    add_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+    add_confluence_parser.add_argument("--space", help="Confluence space key.")
     add_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
     add_confluence_parser.add_argument("--base-url", help="Confluence base URL.")
     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
+    add_confluence_parser.add_argument("--cql", help="Persist a custom Confluence CQL filter for sync.")
     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
 
@@ -131,11 +137,19 @@ def build_parser() -> argparse.ArgumentParser:
     add_video_parser.add_argument("--language", action="append", help="Preferred transcript language. Repeatable.")
     add_video_parser.set_defaults(handler=cmd_add_video)
 
-    add_television_parser = add_subparsers.add_parser("television", help="Attach a Television channel definition.")
-    add_television_parser.add_argument("name", help="Television channel name.")
-    add_television_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    add_television_parser = add_subparsers.add_parser(
+        "tv",
+        aliases=["television"],
+        help="Attach a Television channel definition.",
+    )
+    add_television_parser.add_argument(
+        "name",
+        nargs="?",
+        help="Television channel name. Omit it to install the bundled cable files.",
+    )
+    add_television_parser.add_argument("--key", help="Knowledge key name.")
     add_television_parser.add_argument("--description", help="Channel description.")
-    add_television_parser.add_argument("--source-command", required=True, help="Television source command.")
+    add_television_parser.add_argument("--source-command", help="Television source command.")
     add_television_parser.add_argument("--source-display", help="Optional Television source display template.")
     add_television_parser.add_argument("--preview-command", help="Optional Television preview command.")
     add_television_parser.add_argument("--action-command", help="Optional command for the default open action.")
@@ -166,7 +180,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_jira_parser.add_argument("--limit", type=int, help="Issue sync limit.")
     add_jira_parser.set_defaults(handler=cmd_add_jira_project)
 
-    add_aha_parser = add_subparsers.add_parser("aha-workspace", help="Attach an Aha workspace.")
+    add_aha_parser = add_subparsers.add_parser("aha", help="Attach an Aha workspace.")
     add_aha_parser.add_argument("workspace", help="Aha workspace or product identifier.")
     add_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
     add_aha_parser.add_argument("--base-url", help="Aha base URL.")
@@ -183,8 +197,6 @@ def build_parser() -> argparse.ArgumentParser:
     list_keys_parser.set_defaults(handler=cmd_list_keys)
 
     list_credentials_parser = list_subparsers.add_parser("credentials", help="List stored credential names.")
-    list_credentials_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
-    list_credentials_parser.add_argument("--entry", help="Entry to preview when using --format television-preview.")
     list_credentials_parser.set_defaults(handler=cmd_key_list)
 
     list_sources_parser = list_subparsers.add_parser("sources", help="List sources attached to keys.")
@@ -317,7 +329,7 @@ def build_parser() -> argparse.ArgumentParser:
     sync_jira_parser.add_argument("--key", required=True, help="Knowledge key name.")
     sync_jira_parser.set_defaults(handler=cmd_sync, source_type="jira", match_value=None)
 
-    sync_aha_parser = sync_subparsers.add_parser("aha-workspace", help="Sync an Aha workspace source.")
+    sync_aha_parser = sync_subparsers.add_parser("aha", help="Sync an Aha workspace source.")
     sync_aha_parser.add_argument("workspace", help="Aha workspace or product.")
     sync_aha_parser.add_argument("--key", required=True, help="Knowledge key name.")
     sync_aha_parser.set_defaults(handler=cmd_sync, source_type="aha", match_value=None)
@@ -356,11 +368,28 @@ def build_parser() -> argparse.ArgumentParser:
     browse_jira_parser.add_argument("--entry", help="Entry to preview.")
     browse_jira_parser.set_defaults(handler=cmd_browse_jira)
 
+    browse_jprojects_parser = browse_subparsers.add_parser("jira-projects", help="List Jira projects.")
+    browse_jprojects_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_jprojects_parser.add_argument("--entry", help="Entry to preview.")
+    browse_jprojects_parser.set_defaults(handler=cmd_browse_jira_projects)
+
     browse_confluence_parser = browse_subparsers.add_parser("confluence", help="Browse Confluence pages with sync status.")
     browse_confluence_parser.add_argument("--key", help="Restrict to a knowledge key.")
     browse_confluence_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
     browse_confluence_parser.add_argument("--entry", help="Entry to preview.")
     browse_confluence_parser.set_defaults(handler=cmd_browse_confluence)
+
+    browse_cspaces_parser = browse_subparsers.add_parser("confluence-spaces", help="List Confluence spaces.")
+    browse_cspaces_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_cspaces_parser.add_argument("--entry", help="Entry to preview.")
+    browse_cspaces_parser.set_defaults(handler=cmd_browse_confluence_spaces)
+
+    browse_cpages_parser = browse_subparsers.add_parser("confluence-pages", help="List Confluence pages as /path/title.")
+    browse_cpages_parser.add_argument("--space", help="Confluence space key.")
+    browse_cpages_parser.add_argument("--selected-row", help="Television row for drill-in from spaces channel.")
+    browse_cpages_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_cpages_parser.add_argument("--entry", help="Entry to preview.")
+    browse_cpages_parser.set_defaults(handler=cmd_browse_confluence_pages)
 
     browse_github_parser = browse_subparsers.add_parser("github", help="Browse GitHub repos you've interacted with.")
     browse_github_parser.add_argument("--key", help="Restrict to a knowledge key.")
@@ -372,10 +401,29 @@ def build_parser() -> argparse.ArgumentParser:
         "github-activity",
         help="Browse issues, PRs & discussions for a GitHub repo.",
     )
-    browse_github_activity_parser.add_argument("repo", help="Repository in owner/repo format.")
+    browse_github_activity_parser.add_argument("repo", nargs="?", help="Repository in owner/repo format.")
+    browse_github_activity_parser.add_argument(
+        "--selected-row",
+        help="Full Television row text to derive the repository from when drilling in from another channel.",
+    )
     browse_github_activity_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
     browse_github_activity_parser.add_argument("--entry", help="Entry to preview.")
     browse_github_activity_parser.set_defaults(handler=cmd_browse_github_activity)
+
+    browse_follow_parser = browse_subparsers.add_parser(
+        "follow",
+        help="Open items from GitHub repos and Jira projects interacted with in the last 6 months.",
+    )
+    browse_follow_parser.add_argument("--format", choices=TV_FORMAT_CHOICES, default="json", help="Output format.")
+    browse_follow_parser.add_argument("--entry", help="Entry to preview.")
+    browse_follow_parser.set_defaults(handler=cmd_browse_follow)
+
+    browse_follow_open_parser = browse_subparsers.add_parser(
+        "follow-url",
+        help="Print the web URL for a follow item (used by tv enter action).",
+    )
+    browse_follow_open_parser.add_argument("selected_row", help="Television row text.")
+    browse_follow_open_parser.set_defaults(handler=cmd_browse_follow_open)
 
     browse_arxiv_parser = browse_subparsers.add_parser("arxiv", help="Browse arXiv papers with sync status.")
     browse_arxiv_parser.add_argument("--key", help="Restrict to a knowledge key.")
@@ -525,7 +573,7 @@ _SYNC_ATTR_MAP: dict[str, str] = {
     "github-repo": "repo_url",
     "google-releases": "url",
     "jira-project": "project",
-    "aha-workspace": "workspace",
+    "aha": "workspace",
 }
 
 
