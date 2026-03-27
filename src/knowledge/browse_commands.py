@@ -6,6 +6,7 @@ annotates items with sync status, and emits television-formatted output.
 
 from __future__ import annotations
 
+import asyncio
 import os
 from argparse import Namespace
 from pathlib import Path
@@ -36,6 +37,9 @@ from .browse_tv import (
     format_videos_browse_television,
 )
 from .store import KnowledgeStore
+
+
+_FOLLOW_MAX_CONCURRENT_REQUESTS = 8
 
 
 def _store_from_args(args: Namespace) -> KnowledgeStore:
@@ -889,74 +893,162 @@ def cmd_browse_follow(args: Namespace) -> object:
     six_months_ago = datetime.now(timezone.utc) - timedelta(days=180)
     six_months_iso = six_months_ago.strftime("%Y-%m-%dT%H:%M:%S%z")
 
-    items: list[dict[str, Any]] = []
+    items = asyncio.run(_collect_follow_items(store, six_months_iso))
 
-    # ── GitHub items ─────────────────────────────────────────────────
+    if fmt == "television":
+        return format_follow_television(items)
+    if fmt == "television-preview":
+        return format_follow_preview(items, entry, store)
+    return {"items": items}
+
+
+async def _collect_follow_items(
+    store: KnowledgeStore,
+    six_months_iso: str,
+) -> list[dict[str, Any]]:
+    """Collect follow items from GitHub and Jira concurrently."""
     token = _resolve_github_token(store)
-    if token:
-        try:
-            from .sources.github_api import list_user_repos, list_repo_activity
-
-            repos = list_user_repos(token, per_page=100)
-            for repo in repos:
-                updated = repo.get("updated_at") or repo.get("pushed_at") or ""
-                if updated and updated < six_months_iso:
-                    continue
-                full_name = repo.get("full_name", "")
-                if not full_name or "/" not in full_name:
-                    continue
-                owner, repo_name = full_name.split("/", 1)
-                try:
-                    activity = list_repo_activity(
-                        token, owner, repo_name,
-                        state="open", per_page=50,
-                    )
-                except Exception:
-                    continue
-                for act in activity:
-                    kind = act.get("kind", "issue")
-                    number = act.get("number", 0)
-                    title = act.get("title", "")
-                    items.append({
-                        "source": "github",
-                        "repo": full_name,
-                        "element_type": kind,
-                        "id": str(number),
-                        "title": title,
-                        "url": act.get("url", ""),
-                        "user": act.get("user", ""),
-                        "created_at": act.get("created_at", ""),
-                        "updated_at": act.get("updated_at", ""),
-                        "body": act.get("body") or "",
-                        "labels": act.get("labels", []),
-                        "comments_count": act.get("comments_count", 0),
-                        "state": act.get("state", "open"),
-                        "path": f"github/{full_name}/{kind}/{number}",
-                    })
-        except Exception:
-            pass
-
-    # ── Jira items ───────────────────────────────────────────────────
     jira_sources = store.list_collection_sources(source_type="jira")
-    _DONE_CATEGORIES = {"done", "complete", "completed", "closed", "resolved"}
-    for source in jira_sources:
-        config = source.get("config", {})
-        base_url = config.get("base_url")
-        username_ref = config.get("username")
-        token_ref = config.get("token")
-        if not (base_url and username_ref and token_ref):
-            continue
-        try:
-            from .sources.jira import search_jira
 
-            username = store.resolve_key(username_ref)
-            jira_token = store.resolve_key(token_ref)
-            project = config.get("project", "")
-            jql = (
-                f"project = {project} AND statusCategory != Done "
-                f"AND updated >= '-26w' ORDER BY updated DESC"
+    github_items, jira_items = await asyncio.gather(
+        _fetch_github_follow_items(token, six_months_iso),
+        _fetch_jira_follow_items(store, jira_sources),
+    )
+    return [*github_items, *jira_items]
+
+
+async def _fetch_github_follow_items(
+    token: str | None,
+    six_months_iso: str,
+) -> list[dict[str, Any]]:
+    """Fetch follow items from recent GitHub repositories."""
+    if not token:
+        return []
+
+    try:
+        from .sources.github_api import list_user_repos
+
+        repos = await asyncio.to_thread(list_user_repos, token, per_page=100)
+    except Exception:
+        return []
+
+    semaphore = asyncio.Semaphore(_FOLLOW_MAX_CONCURRENT_REQUESTS)
+    tasks: list[asyncio.Future[list[dict[str, Any]]] | asyncio.Task[list[dict[str, Any]]]] = []
+    for repo in repos:
+        updated = repo.get("updated_at") or repo.get("pushed_at") or ""
+        if updated and updated < six_months_iso:
+            continue
+        full_name = repo.get("full_name", "")
+        if not full_name or "/" not in full_name:
+            continue
+        owner, repo_name = full_name.split("/", 1)
+        tasks.append(
+            asyncio.create_task(
+                _fetch_github_repo_follow_items(
+                    token,
+                    full_name,
+                    owner,
+                    repo_name,
+                    semaphore,
+                )
             )
-            results = search_jira(
+        )
+    if not tasks:
+        return []
+
+    results = await asyncio.gather(*tasks)
+    return [item for batch in results for item in batch]
+
+
+async def _fetch_github_repo_follow_items(
+    token: str,
+    full_name: str,
+    owner: str,
+    repo_name: str,
+    semaphore: asyncio.Semaphore,
+) -> list[dict[str, Any]]:
+    """Fetch follow items for one GitHub repository."""
+    try:
+        from .sources.github_api import list_repo_activity
+
+        async with semaphore:
+            activity = await asyncio.to_thread(
+                list_repo_activity,
+                token,
+                owner,
+                repo_name,
+                state="open",
+                per_page=50,
+            )
+    except Exception:
+        return []
+
+    items: list[dict[str, Any]] = []
+    for act in activity:
+        kind = act.get("kind", "issue")
+        number = act.get("number", 0)
+        title = act.get("title", "")
+        items.append({
+            "source": "github",
+            "repo": full_name,
+            "element_type": kind,
+            "id": str(number),
+            "title": title,
+            "url": act.get("url", ""),
+            "user": act.get("user", ""),
+            "created_at": act.get("created_at", ""),
+            "updated_at": act.get("updated_at", ""),
+            "body": act.get("body") or "",
+            "labels": act.get("labels", []),
+            "comments_count": act.get("comments_count", 0),
+            "state": act.get("state", "open"),
+            "path": f"github/{full_name}/{kind}/{number}",
+        })
+    return items
+
+
+async def _fetch_jira_follow_items(
+    store: KnowledgeStore,
+    jira_sources: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fetch follow items from Jira sources concurrently."""
+    semaphore = asyncio.Semaphore(_FOLLOW_MAX_CONCURRENT_REQUESTS)
+    tasks: list[asyncio.Future[list[dict[str, Any]]] | asyncio.Task[list[dict[str, Any]]]] = []
+    for source in jira_sources:
+        tasks.append(asyncio.create_task(_fetch_jira_source_follow_items(store, source, semaphore)))
+    if not tasks:
+        return []
+
+    results = await asyncio.gather(*tasks)
+    return [item for batch in results for item in batch]
+
+
+async def _fetch_jira_source_follow_items(
+    store: KnowledgeStore,
+    source: dict[str, Any],
+    semaphore: asyncio.Semaphore,
+) -> list[dict[str, Any]]:
+    """Fetch follow items for one Jira source."""
+    config = source.get("config", {})
+    base_url = config.get("base_url")
+    username_ref = config.get("username")
+    token_ref = config.get("token")
+    if not (base_url and username_ref and token_ref):
+        return []
+
+    try:
+        from .sources.jira import search_jira
+
+        username = store.resolve_key(username_ref)
+        jira_token = store.resolve_key(token_ref)
+        project = config.get("project", "")
+        jql = (
+            f"project = {project} AND statusCategory != Done "
+            f"AND updated >= '-26w' ORDER BY updated DESC"
+        )
+        async with semaphore:
+            results = await asyncio.to_thread(
+                search_jira,
                 base_url=base_url,
                 username=username,
                 token=jira_token,
@@ -968,54 +1060,53 @@ def cmd_browse_follow(args: Namespace) -> object:
                     "description",
                 ],
             )
-            for issue in results.get("issues", []):
-                key = issue.get("key", "")
-                fields = issue.get("fields", {}) or {}
-                status_name = _field_name(fields.get("status"))
-                status_cat = ""
-                status_obj = fields.get("status")
-                if isinstance(status_obj, dict):
-                    cat_obj = status_obj.get("statusCategory") or {}
-                    status_cat = (cat_obj.get("name") or "").lower()
-                if status_cat in _DONE_CATEGORIES:
-                    continue
-                summary = str(fields.get("summary") or key)
-                issue_type = _field_name(fields.get("issuetype")) or "task"
-                # Convert ADF description to markdown
-                description_body = ""
-                raw_desc = fields.get("description")
-                if raw_desc:
-                    try:
-                        from .sources.jira import _adf_to_markdown
-                        description_body = _adf_to_markdown(raw_desc)
-                    except Exception:
-                        description_body = str(raw_desc) if not isinstance(raw_desc, dict) else ""
-                items.append({
-                    "source": "jira",
-                    "project": project,
-                    "element_type": issue_type.lower().replace(" ", "_"),
-                    "id": key,
-                    "title": summary,
-                    "url": f"{base_url.rstrip('/')}/browse/{key}",
-                    "status": status_name,
-                    "priority": _field_name(fields.get("priority")),
-                    "assignee": _display_name(fields.get("assignee")),
-                    "reporter": _display_name(fields.get("reporter")),
-                    "labels": fields.get("labels") or [],
-                    "created_at": fields.get("created") or "",
-                    "updated_at": fields.get("updated") or "",
-                    "body": description_body,
-                    "state": "open",
-                    "path": f"jira/{project}/{issue_type.lower().replace(' ', '_')}/{key}",
-                })
-        except Exception:
-            pass
+    except Exception:
+        return []
 
-    if fmt == "television":
-        return format_follow_television(items)
-    if fmt == "television-preview":
-        return format_follow_preview(items, entry, store)
-    return {"items": items}
+    done_categories = {"done", "complete", "completed", "closed", "resolved"}
+    items: list[dict[str, Any]] = []
+    for issue in results.get("issues", []):
+        key = issue.get("key", "")
+        fields = issue.get("fields", {}) or {}
+        status_name = _field_name(fields.get("status"))
+        status_cat = ""
+        status_obj = fields.get("status")
+        if isinstance(status_obj, dict):
+            cat_obj = status_obj.get("statusCategory") or {}
+            status_cat = (cat_obj.get("name") or "").lower()
+        if status_cat in done_categories:
+            continue
+        summary = str(fields.get("summary") or key)
+        issue_type = _field_name(fields.get("issuetype")) or "task"
+        description_body = ""
+        raw_desc = fields.get("description")
+        if raw_desc:
+            try:
+                from .sources.jira import _adf_to_markdown
+
+                description_body = _adf_to_markdown(raw_desc)
+            except Exception:
+                description_body = str(raw_desc) if not isinstance(raw_desc, dict) else ""
+        normalized_issue_type = issue_type.lower().replace(" ", "_")
+        items.append({
+            "source": "jira",
+            "project": project,
+            "element_type": normalized_issue_type,
+            "id": key,
+            "title": summary,
+            "url": f"{base_url.rstrip('/')}/browse/{key}",
+            "status": status_name,
+            "priority": _field_name(fields.get("priority")),
+            "assignee": _display_name(fields.get("assignee")),
+            "reporter": _display_name(fields.get("reporter")),
+            "labels": fields.get("labels") or [],
+            "created_at": fields.get("created") or "",
+            "updated_at": fields.get("updated") or "",
+            "body": description_body,
+            "state": "open",
+            "path": f"jira/{project}/{normalized_issue_type}/{key}",
+        })
+    return items
 
 
 def _follow_preview_fast(entry: str, store: KnowledgeStore) -> str:

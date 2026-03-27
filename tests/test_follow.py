@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import threading
 from argparse import Namespace
 from unittest.mock import MagicMock, patch
 
@@ -479,6 +480,144 @@ class TestCmdBrowseFollow:
             args = _make_args(format="json", entry=None)
             result = cmd_browse_follow(args)
             assert len(result["items"]) == 0
+
+    def test_github_repo_activity_requests_run_concurrently(self):
+        mock_store = MagicMock()
+        mock_store.list_collection_sources.return_value = []
+        fake_repos = [
+            {
+                "full_name": "owner/repo-one",
+                "updated_at": "2026-03-01T00:00:00Z",
+                "pushed_at": "2026-03-01T00:00:00Z",
+            },
+            {
+                "full_name": "owner/repo-two",
+                "updated_at": "2026-03-02T00:00:00Z",
+                "pushed_at": "2026-03-02T00:00:00Z",
+            },
+        ]
+        gate = threading.Event()
+        started = 0
+        started_lock = threading.Lock()
+        all_started = threading.Event()
+
+        def fake_activity(token, owner, repo_name, **kwargs):
+            nonlocal started
+            with started_lock:
+                started += 1
+                if started == 2:
+                    all_started.set()
+            assert all_started.wait(timeout=1), "repo activity calls did not overlap"
+            gate.wait(timeout=1)
+            return [{
+                "kind": "issue",
+                "number": 1,
+                "title": f"{repo_name} issue",
+                "state": "open",
+                "user": "user1",
+                "created_at": "2026-02-01T00:00:00Z",
+                "updated_at": "2026-03-01T00:00:00Z",
+                "body": "body text",
+                "labels": [],
+                "url": f"https://github.com/owner/{repo_name}/issues/1",
+                "comments_count": 0,
+            }]
+
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._resolve_github_token",
+            return_value="fake-token",
+        ), patch(
+            "knowledge.sources.github_api.list_user_repos",
+            return_value=fake_repos,
+        ), patch(
+            "knowledge.sources.github_api.list_repo_activity",
+            side_effect=fake_activity,
+        ):
+            gate.set()
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert len(result["items"]) == 2
+
+    def test_jira_source_requests_run_concurrently(self):
+        mock_store = MagicMock()
+        mock_store.list_collection_sources.return_value = [
+            {
+                "type": "jira",
+                "id": "src1",
+                "config": {
+                    "base_url": "https://co.atlassian.net",
+                    "username": "$jira_user",
+                    "token": "$jira_token",
+                    "project": "KAN",
+                    "limit": 10,
+                },
+            },
+            {
+                "type": "jira",
+                "id": "src2",
+                "config": {
+                    "base_url": "https://co.atlassian.net",
+                    "username": "$jira_user",
+                    "token": "$jira_token",
+                    "project": "OPS",
+                    "limit": 10,
+                },
+            },
+        ]
+        mock_store.resolve_key.side_effect = lambda k: "resolved"
+        gate = threading.Event()
+        started = 0
+        started_lock = threading.Lock()
+        all_started = threading.Event()
+
+        def fake_search_jira(*, jql, **kwargs):
+            nonlocal started
+            with started_lock:
+                started += 1
+                if started == 2:
+                    all_started.set()
+            assert all_started.wait(timeout=1), "jira search calls did not overlap"
+            gate.wait(timeout=1)
+            project = "KAN" if "project = KAN" in jql else "OPS"
+            return {
+                "issues": [
+                    {
+                        "key": f"{project}-1",
+                        "fields": {
+                            "summary": f"{project} open task",
+                            "status": {
+                                "name": "To Do",
+                                "statusCategory": {"name": "To Do"},
+                            },
+                            "issuetype": {"name": "Task"},
+                            "priority": {"name": "Medium"},
+                            "assignee": {"displayName": "Dave"},
+                            "reporter": {"displayName": "Eve"},
+                            "labels": [],
+                            "created": "2026-01-01T00:00:00Z",
+                            "updated": "2026-03-01T00:00:00Z",
+                        },
+                    },
+                ],
+            }
+
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._resolve_github_token",
+            return_value=None,
+        ), patch(
+            "knowledge.sources.jira.search_jira",
+            side_effect=fake_search_jira,
+        ):
+            gate.set()
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert len(result["items"]) == 2
 
 
 # ── cmd_browse_follow_open (now follow-url: returns URL only) ────────────

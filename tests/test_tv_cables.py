@@ -49,4 +49,7 @@ def test_bundled_tv_cables_do_not_use_shell_hacks() -> None:
     assert 'know search arxiv \\"all:$SEARCH\\" --format television-preview' in arxiv_cable
     assert "$(" not in follow_cable
     assert "start " not in follow_cable
+    assert "preview_size = 70" in follow_cable
+    assert "preview_word_wrap = true" in follow_cable
+    assert "bat --language=markdown" in follow_cable
     assert 'command = "know browse follow-url' in follow_cable

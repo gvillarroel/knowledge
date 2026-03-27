@@ -173,6 +173,7 @@ tv --source-command='know browse files --query "incident" --format television' \
 The bundled `know-follow` cable is intentionally OS-neutral.
 
 - `know browse follow-url <ROW>` only resolves and prints the target URL.
+- The preview command pipes Markdown through `bat` for syntax-highlighted rendering in Television.
 - The bundled cable binds `Enter` to that command directly instead of hard-coding `start`, `open`, or `xdg-open`.
 - If you want automatic browser opening, edit `cables/know-follow.toml` for your platform.
 

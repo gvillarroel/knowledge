@@ -1,13 +1,27 @@
 [metadata]
 name = "know-follow"
 description = "Inspect items from GitHub repos and Jira projects you interacted with (last 6 months)"
+preview_size = 70
+preview_word_wrap = true
 
 [source]
 command = "know browse follow --format television"
 ansi = true
 
 [preview]
-command = "know browse follow --format television-preview --entry {split: :0|strip_ansi}"
+command = "know browse follow --format television-preview --entry {split: :0|strip_ansi} | bat --language=markdown --style=plain --paging=never --color=always"
+
+[ui]
+ui_scale = 80
+layout = "portrait"
+input_bar_position = "bottom"
+input_header = "Search files:"
+input_prompt = ">> "
+
+[ui.preview_panel]
+size = 90
+scrollbar = true
+
 
 [keybindings]
 enter = "actions:show-url"
