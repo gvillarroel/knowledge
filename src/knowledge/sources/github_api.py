@@ -6,6 +6,7 @@ Requires a ``GITHUB_TOKEN`` environment variable or a credential stored via
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 import requests
@@ -45,6 +46,30 @@ def list_user_repos(
             "per_page": per_page,
             "page": page,
             "affiliation": affiliation,
+        },
+        timeout=30,
+    )
+    response.raise_for_status()
+    return response.json()
+
+
+def list_starred_repos(
+    token: str,
+    *,
+    sort: str = "updated",
+    direction: str = "desc",
+    per_page: int = 50,
+    page: int = 1,
+) -> list[dict[str, Any]]:
+    """List repositories starred by the authenticated user."""
+    response = requests.get(
+        f"{_API_BASE}/user/starred",
+        headers=_headers(token),
+        params={
+            "sort": sort,
+            "direction": direction,
+            "per_page": per_page,
+            "page": page,
         },
         timeout=30,
     )
@@ -196,8 +221,33 @@ def list_repo_activity(
     """
     items: list[dict[str, Any]] = []
 
+    discussions: list[dict[str, Any]] = []
+    if include_discussions:
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            issues_future = executor.submit(
+                list_repo_issues,
+                token,
+                owner,
+                repo,
+                state=state,
+                per_page=per_page,
+            )
+            discussions_future = executor.submit(
+                list_repo_discussions,
+                token,
+                owner,
+                repo,
+                per_page=per_page,
+            )
+            raw_issues = issues_future.result()
+            try:
+                discussions = discussions_future.result()
+            except Exception:
+                discussions = []
+    else:
+        raw_issues = list_repo_issues(token, owner, repo, state=state, per_page=per_page)
+
     # Issues (includes PRs on GitHub API)
-    raw_issues = list_repo_issues(token, owner, repo, state=state, per_page=per_page)
     for issue in raw_issues:
         kind = "pull_request" if issue.get("pull_request") else "issue"
         items.append({
@@ -216,26 +266,22 @@ def list_repo_activity(
 
     # Discussions
     if include_discussions:
-        try:
-            discussions = list_repo_discussions(token, owner, repo, per_page=per_page)
-            for disc in discussions:
-                items.append({
-                    "kind": "discussion",
-                    "number": disc.get("number", 0),
-                    "title": disc.get("title", ""),
-                    "state": "open",
-                    "user": (disc.get("author") or {}).get("login", ""),
-                    "created_at": disc.get("createdAt", ""),
-                    "updated_at": disc.get("updatedAt", ""),
-                    "body": disc.get("body") or "",
-                    "labels": [],
-                    "url": disc.get("url", ""),
-                    "comments_count": len((disc.get("comments") or {}).get("nodes") or []),
-                    "category": (disc.get("category") or {}).get("name", ""),
-                    "_discussion_comments": (disc.get("comments") or {}).get("nodes") or [],
-                })
-        except Exception:
-            pass  # Discussions API may not be available for all repos
+        for disc in discussions:
+            items.append({
+                "kind": "discussion",
+                "number": disc.get("number", 0),
+                "title": disc.get("title", ""),
+                "state": "open",
+                "user": (disc.get("author") or {}).get("login", ""),
+                "created_at": disc.get("createdAt", ""),
+                "updated_at": disc.get("updatedAt", ""),
+                "body": disc.get("body") or "",
+                "labels": [],
+                "url": disc.get("url", ""),
+                "comments_count": len((disc.get("comments") or {}).get("nodes") or []),
+                "category": (disc.get("category") or {}).get("name", ""),
+                "_discussion_comments": (disc.get("comments") or {}).get("nodes") or [],
+            })
 
     return items
 

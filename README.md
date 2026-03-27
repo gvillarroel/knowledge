@@ -153,7 +153,7 @@ The repository includes ready-to-use Television cable files in the `cables/` dir
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
-| `know-follow.toml` | `know-follow` | Inspect follow-up items from GitHub and Jira |
+| `know-follow.toml` | `know-follow` | Inspect follow-up items from GitHub, starred GitHub repos, and Jira |
 
 Install them all at once:
 
@@ -176,7 +176,7 @@ tv know-jira
 tv know-follow
 ```
 
-The bundled `know-follow` cable is OS-neutral: `know browse follow-url` only prints the resolved URL, so you can edit the cable later and wrap that command with the browser launcher your system expects.
+The bundled `know-follow` cable uses PowerShell `start` on `Enter`, opening the URL returned by `know browse follow-url`. If you want a Python-managed fallback, `know browse follow-open` is still available as a CLI command. GitHub follow items are collected from both your accessible repositories and repositories you have starred, then filtered down to recently active repos before loading open issues, PRs, and discussions.
 
 ## Notes
 

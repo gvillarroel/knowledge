@@ -10,23 +10,24 @@ ansi = true
 
 [preview]
 command = "know browse follow --format television-preview --entry {split: :0|strip_ansi} | bat --language=markdown --style=plain --paging=never --color=always"
+env = { BAT_THEME = "ansi" }
+
 
 [ui]
-ui_scale = 80
-layout = "portrait"
-input_bar_position = "bottom"
+input_bar_position = "top"
 input_header = "Search files:"
 input_prompt = ">> "
 
+
 [ui.preview_panel]
-size = 90
+size = 70
 scrollbar = true
 
 
 [keybindings]
-enter = "actions:show-url"
+enter = "actions:open-url"
 
-[actions.show-url]
-description = "Resolve the selected item URL; customize this command per OS if you want to open it automatically"
-command = "know browse follow-url '{}'"
+[actions.open-url]
+description = "Open the selected item URL with PowerShell start"
+command = "powershell -NoProfile -Command \"`$url = know browse follow-url '{}'; if (`$url) { start `$url }\""
 mode = "execute"

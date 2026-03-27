@@ -15,6 +15,7 @@ from .browse_commands import (
     cmd_browse_confluence_pages,
     cmd_browse_confluence_spaces,
     cmd_browse_follow,
+    cmd_browse_follow_launch,
     cmd_browse_follow_open,
     cmd_browse_github,
     cmd_browse_github_activity,
@@ -420,10 +421,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     browse_follow_open_parser = browse_subparsers.add_parser(
         "follow-url",
-        help="Print the web URL for a follow item (used by tv enter action).",
+        help="Print the web URL for a follow item.",
     )
     browse_follow_open_parser.add_argument("selected_row", help="Television row text.")
     browse_follow_open_parser.set_defaults(handler=cmd_browse_follow_open)
+
+    browse_follow_launch_parser = browse_subparsers.add_parser(
+        "follow-open",
+        help="Open the web URL for a follow item in the default browser.",
+    )
+    browse_follow_launch_parser.add_argument("selected_row", help="Television row text.")
+    browse_follow_launch_parser.set_defaults(handler=cmd_browse_follow_launch)
 
     browse_arxiv_parser = browse_subparsers.add_parser("arxiv", help="Browse arXiv papers with sync status.")
     browse_arxiv_parser.add_argument("--key", help="Restrict to a knowledge key.")

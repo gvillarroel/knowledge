@@ -57,7 +57,7 @@ These channels work after copying `cables/*.toml` into `~/.config/television/cab
 | `tv know-aha-sync` | Browse Aha features with sync status. | `know browse aha --format television` |
 | `tv know-releases-sync` | Browse Google release notes with sync status. | `know browse releases --format television` |
 | `tv know-github-view` | Browse GitHub repositories. | `know browse github --format television` |
-| `tv know-follow` | Inspect follow-up items from GitHub and Jira; the bundled Enter action prints the resolved URL so you can customize the OS open command in the cable. | `know browse follow --format television` |
+| `tv know-follow` | Inspect follow-up items from GitHub, starred GitHub repos, and Jira; `Enter` opens the selected item through PowerShell `start`. | `know browse follow --format television` |
 | `tv know-videos-browse` | Browse video sources with sync status. | `know browse videos --format television` |
 | `tv know-sites-browse` | Browse website sources with sync status. | `know browse sites --format television` |
 | `tv know-local` | Browse all local knowledge files. | `know browse local --format television` |
@@ -170,20 +170,12 @@ tv --source-command='know browse files --query "incident" --format television' \
 
 ## Follow Channel URL Handling
 
-The bundled `know-follow` cable is intentionally OS-neutral.
+The bundled `know-follow` cable opens the selected item by resolving the URL with `know browse follow-url '{}'` and passing it to PowerShell `start`.
 
-- `know browse follow-url <ROW>` only resolves and prints the target URL.
-- The preview command pipes Markdown through `bat` for syntax-highlighted rendering in Television.
-- The bundled cable binds `Enter` to that command directly instead of hard-coding `start`, `open`, or `xdg-open`.
-- If you want automatic browser opening, edit `cables/know-follow.toml` for your platform.
-
-Use the URL-producing `know browse follow-url '{}'` command as the input to whatever browser-launch command your shell and OS expect.
-
-Typical launchers are:
-
-- Windows: `start`
-- macOS: `open`
-- Linux: `xdg-open`
+- `know browse follow-url <ROW>` resolves and prints the target URL.
+- The bundled cable runs `powershell -NoProfile -Command "`$url = know browse follow-url '{}'; if (`$url) { start `$url }"` on `Enter`.
+- `know browse follow-open <ROW>` still exists as a Python `webbrowser` fallback if you want to call it directly.
+- The preview command still pipes Markdown through `bat` for syntax-highlighted rendering in Television.
 
 ## Drill-Down Channels
 

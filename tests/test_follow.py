@@ -1,16 +1,17 @@
-"""Tests for ``know browse follow`` and ``know browse follow-url`` commands."""
+"""Tests for follow browse commands."""
 
 from __future__ import annotations
 
 import re
 import threading
 from argparse import Namespace
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
 from knowledge.browse_commands import (
     cmd_browse_follow,
+    cmd_browse_follow_launch,
     cmd_browse_follow_open,
     _resolve_follow_url,
 )
@@ -309,6 +310,9 @@ class TestCmdBrowseFollow:
             "knowledge.sources.github_api.list_user_repos",
             return_value=fake_repos,
         ), patch(
+            "knowledge.sources.github_api.list_starred_repos",
+            return_value=[],
+        ), patch(
             "knowledge.sources.github_api.list_repo_activity",
             return_value=fake_activity,
         ):
@@ -476,10 +480,94 @@ class TestCmdBrowseFollow:
         ), patch(
             "knowledge.sources.github_api.list_user_repos",
             return_value=fake_repos,
+        ), patch(
+            "knowledge.sources.github_api.list_starred_repos",
+            return_value=[],
         ):
             args = _make_args(format="json", entry=None)
             result = cmd_browse_follow(args)
             assert len(result["items"]) == 0
+
+    def test_starred_github_repos_are_included(self):
+        mock_store = MagicMock()
+        mock_store.list_collection_sources.return_value = []
+        fake_activity = [
+            {
+                "kind": "issue",
+                "number": 9,
+                "title": "Starred repo issue",
+                "state": "open",
+                "user": "user1",
+                "created_at": "2026-02-01T00:00:00Z",
+                "updated_at": "2026-03-01T00:00:00Z",
+                "body": "body text",
+                "labels": [],
+                "url": "https://github.com/starred/repo/issues/9",
+                "comments_count": 0,
+            }
+        ]
+        fake_starred_repos = [
+            {
+                "full_name": "starred/repo",
+                "updated_at": "2026-03-01T00:00:00Z",
+                "pushed_at": "2026-03-01T00:00:00Z",
+            }
+        ]
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._resolve_github_token",
+            return_value="fake-token",
+        ), patch(
+            "knowledge.sources.github_api.list_user_repos",
+            return_value=[],
+        ), patch(
+            "knowledge.sources.github_api.list_starred_repos",
+            return_value=fake_starred_repos,
+        ), patch(
+            "knowledge.sources.github_api.list_repo_activity",
+            return_value=fake_activity,
+        ):
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert len(result["items"]) == 1
+            assert result["items"][0]["repo"] == "starred/repo"
+
+    def test_starred_and_owned_github_repos_are_deduplicated(self):
+        mock_store = MagicMock()
+        mock_store.list_collection_sources.return_value = []
+        fake_repo = {
+            "full_name": "owner/repo",
+            "updated_at": "2026-03-01T00:00:00Z",
+            "pushed_at": "2026-03-01T00:00:00Z",
+        }
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._resolve_github_token",
+            return_value="fake-token",
+        ), patch(
+            "knowledge.sources.github_api.list_user_repos",
+            return_value=[fake_repo],
+        ), patch(
+            "knowledge.sources.github_api.list_starred_repos",
+            return_value=[fake_repo],
+        ), patch(
+            "knowledge.sources.github_api.list_repo_activity",
+            return_value=[],
+        ) as activity_mock:
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert result["items"] == []
+            activity_mock.assert_called_once_with(
+                "fake-token",
+                "owner",
+                "repo",
+                state="open",
+                per_page=50,
+            )
 
     def test_github_repo_activity_requests_run_concurrently(self):
         mock_store = MagicMock()
@@ -532,6 +620,9 @@ class TestCmdBrowseFollow:
         ), patch(
             "knowledge.sources.github_api.list_user_repos",
             return_value=fake_repos,
+        ), patch(
+            "knowledge.sources.github_api.list_starred_repos",
+            return_value=[],
         ), patch(
             "knowledge.sources.github_api.list_repo_activity",
             side_effect=fake_activity,
@@ -619,6 +710,48 @@ class TestCmdBrowseFollow:
             result = cmd_browse_follow(args)
             assert len(result["items"]) == 2
 
+    def test_uses_cached_follow_items_when_available(self):
+        mock_store = MagicMock()
+        mock_store.initialize.return_value = None
+        cached_items = [{"path": "github/owner/repo/issue/1", "source": "github"}]
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._load_follow_cache",
+            return_value=cached_items,
+        ), patch(
+            "knowledge.browse_commands._collect_follow_items",
+            new_callable=AsyncMock,
+        ) as collect_mock:
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert result == {"items": cached_items}
+            collect_mock.assert_not_called()
+
+    def test_saves_follow_items_after_cache_miss(self):
+        mock_store = MagicMock()
+        mock_store.initialize.return_value = None
+        fetched_items = [{"path": "jira/KAN/task/KAN-1", "source": "jira"}]
+        with patch(
+            "knowledge.browse_commands._store_from_args",
+            return_value=mock_store,
+        ), patch(
+            "knowledge.browse_commands._load_follow_cache",
+            return_value=None,
+        ), patch(
+            "knowledge.browse_commands._collect_follow_items",
+            new_callable=AsyncMock,
+            return_value=fetched_items,
+        ) as collect_mock, patch(
+            "knowledge.browse_commands._save_follow_cache",
+        ) as save_mock:
+            args = _make_args(format="json", entry=None)
+            result = cmd_browse_follow(args)
+            assert result == {"items": fetched_items}
+            collect_mock.assert_called_once()
+            save_mock.assert_called_once_with(mock_store, fetched_items)
+
 
 # ── cmd_browse_follow_open (now follow-url: returns URL only) ────────────
 
@@ -661,3 +794,28 @@ class TestCmdBrowseFollowOpen:
         args = _make_args(selected_row=ansi_row)
         result = cmd_browse_follow_open(args)
         assert result == "https://github.com/owner/repo/issues/42"
+
+
+class TestCmdBrowseFollowLaunch:
+    def test_opens_resolved_url(self):
+        args = _make_args(selected_row="🔵github/owner/repo/issue/42 Fix bug")
+        with patch("webbrowser.open", return_value=True) as open_mock:
+            result = cmd_browse_follow_launch(args)
+            assert result == ""
+            open_mock.assert_called_once_with(
+                "https://github.com/owner/repo/issues/42",
+                new=2,
+            )
+
+    def test_returns_url_when_browser_open_fails(self):
+        args = _make_args(selected_row="🔵github/owner/repo/issue/42 Fix bug")
+        with patch("webbrowser.open", return_value=False):
+            result = cmd_browse_follow_launch(args)
+            assert result == "https://github.com/owner/repo/issues/42"
+
+    def test_returns_empty_for_unresolvable_row(self):
+        args = _make_args(selected_row="garbage")
+        with patch("webbrowser.open") as open_mock:
+            result = cmd_browse_follow_launch(args)
+            assert result == ""
+            open_mock.assert_not_called()

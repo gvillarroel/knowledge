@@ -7,7 +7,10 @@ annotates items with sync status, and emits television-formatted output.
 from __future__ import annotations
 
 import asyncio
+import hashlib
+import json
 import os
+import time
 from argparse import Namespace
 from pathlib import Path
 from typing import Any
@@ -40,6 +43,7 @@ from .store import KnowledgeStore
 
 
 _FOLLOW_MAX_CONCURRENT_REQUESTS = 8
+_FOLLOW_CACHE_TTL_SECONDS = 60
 
 
 def _store_from_args(args: Namespace) -> KnowledgeStore:
@@ -893,7 +897,10 @@ def cmd_browse_follow(args: Namespace) -> object:
     six_months_ago = datetime.now(timezone.utc) - timedelta(days=180)
     six_months_iso = six_months_ago.strftime("%Y-%m-%dT%H:%M:%S%z")
 
-    items = asyncio.run(_collect_follow_items(store, six_months_iso))
+    items = _load_follow_cache(store)
+    if items is None:
+        items = asyncio.run(_collect_follow_items(store, six_months_iso))
+        _save_follow_cache(store, items)
 
     if fmt == "television":
         return format_follow_television(items)
@@ -921,14 +928,17 @@ async def _fetch_github_follow_items(
     token: str | None,
     six_months_iso: str,
 ) -> list[dict[str, Any]]:
-    """Fetch follow items from recent GitHub repositories."""
+    """Fetch follow items from recent owned/collaborated and starred repos."""
     if not token:
         return []
 
     try:
-        from .sources.github_api import list_user_repos
+        from .sources.github_api import list_starred_repos, list_user_repos
 
-        repos = await asyncio.to_thread(list_user_repos, token, per_page=100)
+        user_repos_task = asyncio.to_thread(list_user_repos, token, per_page=100)
+        starred_repos_task = asyncio.to_thread(list_starred_repos, token, per_page=100)
+        user_repos, starred_repos = await asyncio.gather(user_repos_task, starred_repos_task)
+        repos = _dedupe_github_repos([*user_repos, *starred_repos])
     except Exception:
         return []
 
@@ -958,6 +968,53 @@ async def _fetch_github_follow_items(
 
     results = await asyncio.gather(*tasks)
     return [item for batch in results for item in batch]
+
+
+def _dedupe_github_repos(repos: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Deduplicate GitHub repos by ``full_name`` while preserving first-seen order."""
+    seen: set[str] = set()
+    unique: list[dict[str, Any]] = []
+    for repo in repos:
+        full_name = str(repo.get("full_name", "")).strip()
+        if not full_name or full_name in seen:
+            continue
+        seen.add(full_name)
+        unique.append(repo)
+    return unique
+
+
+def _follow_cache_path(store: KnowledgeStore) -> Path:
+    """Return the cache file used for follow results for one store root."""
+    root_hash = hashlib.sha1(str(store.root).encode("utf-8")).hexdigest()[:16]
+    return store.temp_root / "knowledge-cache" / "follow" / f"{root_hash}.json"
+
+
+def _load_follow_cache(store: KnowledgeStore) -> list[dict[str, Any]] | None:
+    """Load recent follow results from the temp cache when available."""
+    path = _follow_cache_path(store)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+    cached_at = float(payload.get("cached_at", 0.0))
+    if time.time() - cached_at > _FOLLOW_CACHE_TTL_SECONDS:
+        return None
+
+    items = payload.get("items")
+    if not isinstance(items, list):
+        return None
+    return items
+
+
+def _save_follow_cache(store: KnowledgeStore, items: list[dict[str, Any]]) -> None:
+    """Persist follow results into a short-lived temp cache."""
+    path = _follow_cache_path(store)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps({"cached_at": time.time(), "items": items}, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
 
 
 async def _fetch_github_repo_follow_items(
@@ -1283,12 +1340,7 @@ def _follow_preview_fast(entry: str, store: KnowledgeStore) -> str:
 
 
 def cmd_browse_follow_open(args: Namespace) -> object:
-    """Resolve the URL from a follow television row and print it to stdout.
-
-    The cable TOML is responsible for piping this URL to the OS-specific
-    open command (``start``, ``open``, ``xdg-open``, etc.), which makes
-    the solution portable without changing Python code.
-    """
+    """Resolve the URL from a follow television row and print it to stdout."""
     import re
 
     selected = getattr(args, "selected_row", "") or ""
@@ -1306,6 +1358,20 @@ def cmd_browse_follow_open(args: Namespace) -> object:
     if url:
         return url
     return ""
+
+
+def cmd_browse_follow_launch(args: Namespace) -> object:
+    """Resolve and open the URL from a follow television row."""
+    import webbrowser
+
+    url = str(cmd_browse_follow_open(args) or "")
+    if not url:
+        return ""
+    try:
+        opened = webbrowser.open(url, new=2)
+    except Exception:
+        return url
+    return "" if opened else url
 
 
 def _resolve_follow_url(path: str, args: Namespace) -> str | None:

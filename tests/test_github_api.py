@@ -8,6 +8,7 @@ import pytest
 
 from knowledge.sources.github_api import (
     list_user_repos,
+    list_starred_repos,
     list_repo_issues,
     list_repo_pulls,
     list_repo_discussions,
@@ -37,6 +38,18 @@ class TestListUserRepos:
         repos = list_user_repos("tok")
         assert len(repos) == 2
         assert repos[0]["full_name"] == "user/repo1"
+
+
+class TestListStarredRepos:
+    @patch("knowledge.sources.github_api.requests.get")
+    def test_returns_starred_repos(self, mock_get):
+        mock_resp = MagicMock()
+        mock_resp.json.return_value = [{"full_name": "user/starred"}]
+        mock_resp.raise_for_status = MagicMock()
+        mock_get.return_value = mock_resp
+
+        repos = list_starred_repos("tok")
+        assert repos == [{"full_name": "user/starred"}]
 
 
 class TestListRepoIssues:
@@ -165,6 +178,14 @@ class TestListRepoActivity:
         ]
         items = list_repo_activity("tok", "owner", "repo")
         assert len(items) == 1
+
+    @patch("knowledge.sources.github_api.list_repo_discussions")
+    @patch("knowledge.sources.github_api.list_repo_issues")
+    def test_skips_discussions_when_disabled(self, mock_issues, mock_discussions):
+        mock_issues.return_value = []
+        items = list_repo_activity("tok", "owner", "repo", include_discussions=False)
+        assert items == []
+        mock_discussions.assert_not_called()
 
 
 class TestRenderIssueThread:
