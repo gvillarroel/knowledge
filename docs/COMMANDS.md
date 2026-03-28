@@ -210,7 +210,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 `know search arxiv "$VALUE" [--start N] [--max-results N] [--sort-by relevance|lastUpdatedDate|submittedDate] [--sort-order ascending|descending] [--format $FORMAT] [--entry $ENTRY]`
 
 # Search the web through Brave Search API; requires `BRAVE_SEARCH_API_KEY` or stored credential `brave_search_api_key`
-`know search brave "$VALUE" [--count N] [--format $FORMAT] [--entry $ENTRY]`
+`know search brave "$VALUE" [--country CC] [--search-lang LANG] [--ui-lang LOCALE] [--count N] [--offset N] [--safesearch off|moderate|strict] [--spellcheck|--no-spellcheck] [--freshness VALUE] [--text-decorations|--no-text-decorations] [--result-filter TYPE ...] [--units imperial|metric] [--goggles VALUE ...] [--extra-snippets|--no-extra-snippets] [--summary|--no-summary] [--enable-rich-callback|--no-enable-rich-callback] [--include-fetch-metadata|--no-include-fetch-metadata] [--operators|--no-operators] [--loc-lat FLOAT] [--loc-long FLOAT] [--loc-timezone NAME] [--loc-city NAME] [--loc-state CODE] [--loc-state-name NAME] [--loc-country CC] [--loc-postal-code CODE] [--api-version YYYY-MM-DD] [--accept application/json|*/*] [--cache-control no-cache] [--user-agent VALUE] [--format $FORMAT] [--entry $ENTRY]`
 
 # Search Confluence content through configured sources
 `know search confluence ["$VALUE"] [--knowledge-key $KEY] [--space $NAME] [--cql $VALUE] [--type $NAME] [--label $NAME ...] [--title-contains $VALUE] [--text-contains $VALUE] [--created-after $VALUE] [--created-before $VALUE] [--updated-after $VALUE] [--updated-before $VALUE] [--limit N] [--cursor $VALUE] [--format $FORMAT] [--entry $ENTRY]`

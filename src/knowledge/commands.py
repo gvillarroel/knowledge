@@ -600,7 +600,7 @@ def cmd_search_brave(args: Namespace) -> dict:
     results = search_brave(
         args.query,
         api_key=_resolve_brave_api_key(store),
-        count=args.count,
+        options=_collect_brave_request_options(args),
     )
     output_format = getattr(args, "format", "json")
     if output_format == "television":
@@ -622,6 +622,41 @@ def _resolve_brave_api_key(store: KnowledgeStore) -> str:
     raise ValueError(
         "Brave Search API key not configured. Set BRAVE_SEARCH_API_KEY or store `brave_search_api_key`."
     )
+
+
+def _collect_brave_request_options(args: Namespace) -> dict[str, object]:
+    """Collect supported Brave request options from parsed CLI args."""
+    return {
+        "count": args.count,
+        "offset": args.offset,
+        "country": args.country,
+        "search_lang": args.search_lang,
+        "ui_lang": args.ui_lang,
+        "safesearch": args.safesearch,
+        "spellcheck": args.spellcheck,
+        "freshness": args.freshness,
+        "text_decorations": args.text_decorations,
+        "result_filter": args.result_filter,
+        "units": args.units,
+        "goggles": args.goggles,
+        "extra_snippets": args.extra_snippets,
+        "summary": args.summary,
+        "enable_rich_callback": args.enable_rich_callback,
+        "include_fetch_metadata": args.include_fetch_metadata,
+        "operators": args.operators,
+        "loc_lat": args.loc_lat,
+        "loc_long": args.loc_long,
+        "loc_timezone": args.loc_timezone,
+        "loc_city": args.loc_city,
+        "loc_state": args.loc_state,
+        "loc_state_name": args.loc_state_name,
+        "loc_country": args.loc_country,
+        "loc_postal_code": args.loc_postal_code,
+        "api_version": args.api_version,
+        "accept": args.accept,
+        "cache_control": args.cache_control,
+        "user_agent": args.user_agent,
+    }
 
 
 def _format_confluence_output(args: Namespace, matches: list[dict]) -> object:

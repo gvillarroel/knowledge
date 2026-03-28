@@ -22,6 +22,7 @@ know search confluence "incident postmortem" --space ENG --type page --label run
 know search jira "search bug" --project KAN --status "In Progress" --field summary --field status
 know search arxiv "all:transformer" --max-results 10 --sort-by relevance
 know search brave "text to search" --count 5
+know search brave "local coffee" --country US --search-lang en --ui-lang en-US --safesearch moderate --result-filter web --result-filter locations --loc-lat 40.7 --loc-long -74.0 --loc-city "New York"
 know sync --key research
 know export --key research
 know import ~/.knowledge/exports/knowledge-export-20260322T180000Z.zip
@@ -91,6 +92,11 @@ The matching preview mode is `--format television-preview --entry '{}'`.
 `know search brave` uses the Brave Search API. Configure the key with
 `BRAVE_SEARCH_API_KEY` or store it with
 `know set credential brave_search_api_key <VALUE>`.
+The CLI exposes Brave query parameters such as `--country`, `--search-lang`,
+`--ui-lang`, `--offset`, `--safesearch`, `--freshness`, repeatable
+`--result-filter`, repeatable `--goggles`, boolean toggles like
+`--spellcheck` / `--no-spellcheck`, and location headers like `--loc-lat`,
+`--loc-long`, `--loc-timezone`, and `--loc-city`.
 
 ## Television examples
 
