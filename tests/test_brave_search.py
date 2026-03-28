@@ -50,13 +50,32 @@ def test_search_brave_normalizes_web_results(monkeypatch: pytest.MonkeyPatch) ->
 
 
 def test_search_brave_reports_missing_bx(monkeypatch: pytest.MonkeyPatch) -> None:
+    class _Resp:
+        text = """
+        <div class="result-content test">
+          <a href="https://openai.com/codex/" class="svelte-14r20fy l1">
+            <div class="site-name-content"><div class="desktop-small-semibold">OpenAI</div></div>
+            <div class="title search-snippet-title" title="Codex">Codex</div>
+          </a>
+          <div class="content desktop-default-regular">Agentic coding.</div>
+        </div></div></div>
+        """
+
+        def raise_for_status(self) -> None:
+            return None
+
     def fake_run(*args, **kwargs):
         raise FileNotFoundError("bx not found")
 
-    monkeypatch.setattr(brave_module.subprocess, "run", fake_run)
+    def fake_get(*args, **kwargs) -> _Resp:
+        return _Resp()
 
-    with pytest.raises(Exception, match="Brave Search CLI `bx` is not installed"):
-        brave_module.search_brave("openai")
+    monkeypatch.setattr(brave_module.subprocess, "run", fake_run)
+    monkeypatch.setattr(brave_module.requests, "get", fake_get)
+
+    results = brave_module.search_brave("openai")
+    assert results["results"][0]["title"] == "Codex"
+    assert results["results"][0]["source"] == "OpenAI"
 
 
 def test_format_brave_television_and_preview() -> None:
@@ -75,6 +94,24 @@ def test_format_brave_television_and_preview() -> None:
     assert "OpenAI Codex | openai.com | https://openai.com/index/openai-codex/" in tv
     assert "# OpenAI Codex" in preview
     assert "Agentic coding in the terminal." in preview
+
+
+def test_parse_brave_html_extracts_results() -> None:
+    html = """
+    <div class="result-content abc">
+      <a href="https://openai.com/codex/" class="svelte-14r20fy l1">
+        <div class="site-name-content"><div class="desktop-small-semibold">OpenAI</div></div>
+        <div class="title search-snippet-title" title="Codex | OpenAI">Codex <strong>|</strong> OpenAI</div>
+      </a>
+      <div class="content desktop-default-regular">The best way to build with agents.</div>
+    </div></div></div>
+    """
+
+    results = brave_module._parse_brave_html(html, limit=5)
+
+    assert results[0]["title"] == "Codex | OpenAI"
+    assert results[0]["url"] == "https://openai.com/codex/"
+    assert results[0]["description"] == "The best way to build with agents."
 
 
 def test_search_brave_main_json_output(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys) -> None:
