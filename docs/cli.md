@@ -21,6 +21,7 @@ know list sources --key research
 know search confluence "incident postmortem" --space ENG --type page --label runbook
 know search jira "search bug" --project KAN --status "In Progress" --field summary --field status
 know search arxiv "all:transformer" --max-results 10 --sort-by relevance
+know search brave "text to search" --count 5
 know sync --key research
 know export --key research
 know import ~/.knowledge/exports/knowledge-export-20260322T180000Z.zip
@@ -83,6 +84,7 @@ These commands can emit Television-compatible rows directly:
 - `know search confluence ... --format television`
 - `know search jira ... --format television`
 - `know search arxiv ... --format television`
+- `know search brave ... --format television`
 
 The matching preview mode is `--format television-preview --entry '{}'`.
 
@@ -150,8 +152,9 @@ After `know sync television ...`, the generated source directory contains:
 
 ## Television integration
 
-Every list and search command supports `--format television` and `--format television-preview`.
-Use them as `tv` source and preview commands respectively.
+`know list keys`, `know list sources`, and every `know search ...` command support
+`--format television` and `--format television-preview`. Use them as `tv`
+source and preview commands respectively.
 
 ### Ready-to-use cables
 

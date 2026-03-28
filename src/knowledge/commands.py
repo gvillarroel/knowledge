@@ -8,6 +8,7 @@ import shutil
 from .exporter import export_source
 from .registry import create_source_adapter
 from .sources.arxiv import search_arxiv
+from .sources.brave import search_brave
 from .sources.confluence import search_confluence
 from .sources.jira import search_jira
 from .sources.video import extract_video_id
@@ -15,6 +16,8 @@ from .store import KnowledgeStore
 from .television import (
     format_arxiv_preview,
     format_arxiv_television,
+    format_brave_preview,
+    format_brave_television,
     format_confluence_preview,
     format_confluence_television,
     format_jira_preview,
@@ -588,6 +591,20 @@ def cmd_search_arxiv(args: Namespace) -> dict:
         "sort_order": args.sort_order,
         **results,
     }
+
+
+def cmd_search_brave(args: Namespace) -> dict:
+    """Search the web through the Brave Search CLI."""
+    results = search_brave(
+        args.query,
+        count=args.count,
+    )
+    output_format = getattr(args, "format", "json")
+    if output_format == "television":
+        return format_brave_television(results["results"])
+    if output_format == "television-preview":
+        return format_brave_preview(results["results"], getattr(args, "entry", None))
+    return results
 
 
 def _format_confluence_output(args: Namespace, matches: list[dict]) -> object:

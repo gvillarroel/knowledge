@@ -133,6 +133,13 @@ tv --source-command='know search arxiv "all:machine learning" --format televisio
    --preview-command='know search arxiv "all:machine learning" --format television-preview --max-results 20 --sort-by submittedDate --entry "{}"'
 ```
 
+Search the web through Brave Search:
+
+```bash
+tv --source-command='know search brave "openai codex" --format television --count 10' \
+   --preview-command='know search brave "openai codex" --format television-preview --count 10 --entry "{}"'
+```
+
 Search Jira for one project:
 
 ```bash

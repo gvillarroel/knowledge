@@ -103,7 +103,7 @@ know add aha <WORKSPACE> --key <KEY> [--base-url URL] [--token REF] [--limit N]
 
 ```bash
 know list keys [--format json|television|television-preview] [--entry ROW]
-know list credentials [--format json|television|television-preview] [--entry ROW]
+know list credentials
 know list sources [--key KEY] [--type TYPE] [--format json|television|television-preview] [--entry ROW]
 ```
 
@@ -113,6 +113,7 @@ know list sources [--key KEY] [--type TYPE] [--format json|television|television
 know search confluence "text" [filters...] [--format json|television|television-preview] [--entry ROW]
 know search jira "text" [filters...] [--format json|television|television-preview] [--entry ROW]
 know search arxiv "query" [--max-results N] [--sort-by FIELD] [--sort-order DIR] [--format json|television|television-preview] [--entry ROW]
+know search brave "text" [--count N] [--format json|television|television-preview] [--entry ROW]
 ```
 
 `know search <SOURCE> --help` shows all available filters for that source.
@@ -406,6 +407,11 @@ Filters:
 - `--sort-by` sort field (`relevance`, `lastUpdatedDate`, `submittedDate`);
 - `--sort-order` sort direction (`ascending`, `descending`).
 
+### `know search brave "text"`
+Executes a web search through the Brave Search CLI (`bx web`).
+Filters:
+- `--count` maximum results to request from Brave.
+
 `know search <SOURCE> --help` shows all available filters for that source.
 
 ## Credential Management
@@ -470,7 +476,7 @@ Television (`tv`) is a terminal fuzzy-finder. The `know` CLI integrates with it 
 
 ### 1. Output formats
 
-Every `list`, `search`, and `browse` command supports three output formats:
+`know list keys`, `know list sources`, every `search`, and every `browse` command support three output formats:
 
 | Format | Flag | Purpose |
 |---|---|---|
@@ -491,7 +497,6 @@ Ready-to-use Television cable definitions live in `cables/` at the repository ro
 | `know.toml` | `know` | Hub: list all know channels |
 | `know-keys.toml` | `know-keys` | Browse knowledge keys |
 | `know-sources.toml` | `know-sources` | Browse all registered sources |
-| `know-credentials.toml` | `know-credentials` | Browse stored credentials |
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-confluence-sync.toml` | `know-confluence-sync` | Browse Confluence with sync status |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
@@ -516,6 +521,7 @@ Ready-to-use Television cable definitions live in `cables/` at the repository ro
 | `know-commands.toml` | `know-commands` | All sync/delete/export commands |
 | `know-stats.toml` | `know-stats` | Knowledge base statistics |
 | `know-crossref.toml` | `know-crossref` | Sources shared across keys |
+| `know-follow.toml` | `know-follow` | Follow-up items from GitHub activity, starred repos, and Jira |
 | `know-cspaces.toml` | `know-cspaces` | Confluence spaces → drill into pages |
 | `know-jprojects.toml` | `know-jprojects` | Jira projects → drill into issues |
 | `know-grepos.toml` | `know-grepos` | GitHub repos → drill into activity |
@@ -570,7 +576,8 @@ Human documentation lives inside `docs/`:
 | File | Content |
 |---|---|
 | `docs/cli.md` | Full CLI reference with examples |
-| `docs/television.md` | Television integration guide |
+| `docs/TVs.md` | Television integration guide |
+| `docs/COMMANDS.md` | Compact command reference |
 | `docs/know-skill.md` | Skill reference for agent use |
 
 ## Error Handling

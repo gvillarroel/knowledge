@@ -272,6 +272,53 @@ def _jira_display_name(value: Any) -> str:
     return "unassigned"
 
 
+# ── Brave Search ─────────────────────────────────────────────────────────
+
+def format_brave_television(results: list[dict[str, Any]]) -> str:
+    """``title | source | url``"""
+    lines: list[str] = []
+    for result in results:
+        title = str(result.get("title") or "").strip()
+        if not title:
+            continue
+        source = str(result.get("source") or "unknown").strip()
+        url = str(result.get("url") or "").strip()
+        lines.append(f"{title} | {source} | {url}")
+    return "\n".join(lines)
+
+
+def format_brave_preview(results: list[dict[str, Any]], selected: str | None) -> str:
+    """Render the selected Brave Search result."""
+    result = _find_brave_result(results, selected)
+    if not result:
+        return "No Brave Search result matched the selected row.\n"
+    title = str(result.get("title") or "Untitled")
+    lines = [
+        f"# {title}",
+        "",
+        f"- Source: {result.get('source') or 'unknown'}",
+    ]
+    url = str(result.get("url") or "").strip()
+    if url:
+        lines.append(f"- URL: {url}")
+    description = str(result.get("description") or "").strip()
+    if description:
+        lines.extend(["", "## Summary", "", description])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _find_brave_result(results: list[dict[str, Any]], selected: str | None) -> dict[str, Any]:
+    if not results:
+        return {}
+    if not selected:
+        return results[0]
+    selected_title = selected.split(" | ", 1)[0].strip()
+    for result in results:
+        if str(result.get("title") or "").strip() == selected_title:
+            return result
+    return results[0]
+
+
 # ── arXiv search ─────────────────────────────────────────────────────────
 
 def format_arxiv_television(entries: list[dict[str, Any]]) -> str:

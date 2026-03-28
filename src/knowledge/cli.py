@@ -63,6 +63,7 @@ from .commands import (
     cmd_list_collection_sources,
     cmd_list_keys,
     cmd_search_arxiv,
+    cmd_search_brave,
     cmd_search_confluence,
     cmd_search_jira,
     cmd_sync,
@@ -280,6 +281,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Sort direction supported by the arXiv API.",
     )
     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
+
+    search_brave_parser = search_subparsers.add_parser("brave", help="Search the web through the Brave Search CLI.")
+    search_brave_parser.add_argument("query", help="Text to search on the web.")
+    search_brave_parser.add_argument(
+        "--format",
+        choices=("json", "television", "television-preview"),
+        default="json",
+        help="Output format. Use television variants when wiring the command into tv.",
+    )
+    search_brave_parser.add_argument(
+        "--entry",
+        help="Entry title to preview when using --format television-preview.",
+    )
+    search_brave_parser.add_argument("--count", type=int, default=10, help="Maximum number of Brave results.")
+    search_brave_parser.set_defaults(handler=cmd_search_brave)
 
     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")
     sync_parser.add_argument("--key", help="Restrict sync to a single knowledge key.")
