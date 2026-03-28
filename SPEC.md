@@ -408,9 +408,11 @@ Filters:
 - `--sort-order` sort direction (`ascending`, `descending`).
 
 ### `know search brave "text"`
-Executes a web search through the Brave Search CLI (`bx web`).
+Executes a web search through the Brave Search API.
 Filters:
 - `--count` maximum results to request from Brave.
+Authentication:
+- `X-Subscription-Token` from `BRAVE_SEARCH_API_KEY` or stored credential `brave_search_api_key`.
 
 `know search <SOURCE> --help` shows all available filters for that source.
 
@@ -502,6 +504,7 @@ Ready-to-use Television cable definitions live in `cables/` at the repository ro
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-jira-sync.toml` | `know-jira-sync` | Browse Jira with sync status |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
+| `know-brave.toml` | `know-brave` | Search the web with Brave Search API |
 | `know-arxiv-sync.toml` | `know-arxiv-sync` | Browse arXiv with sync status |
 | `know-aha-sync.toml` | `know-aha-sync` | Browse Aha with sync status |
 | `know-releases-sync.toml` | `know-releases-sync` | Browse releases with sync status |

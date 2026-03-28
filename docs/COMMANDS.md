@@ -209,7 +209,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 # Search the arXiv public API
 `know search arxiv "$VALUE" [--start N] [--max-results N] [--sort-by relevance|lastUpdatedDate|submittedDate] [--sort-order ascending|descending] [--format $FORMAT] [--entry $ENTRY]`
 
-# Search the web through Brave Search CLI
+# Search the web through Brave Search API; requires `BRAVE_SEARCH_API_KEY` or stored credential `brave_search_api_key`
 `know search brave "$VALUE" [--count N] [--format $FORMAT] [--entry $ENTRY]`
 
 # Search Confluence content through configured sources

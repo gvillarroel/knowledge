@@ -594,9 +594,12 @@ def cmd_search_arxiv(args: Namespace) -> dict:
 
 
 def cmd_search_brave(args: Namespace) -> dict:
-    """Search the web through the Brave Search CLI."""
+    """Search the web through the Brave Search API."""
+    store = _store_from_args(args)
+    store.initialize()
     results = search_brave(
         args.query,
+        api_key=_resolve_brave_api_key(store),
         count=args.count,
     )
     output_format = getattr(args, "format", "json")
@@ -605,6 +608,20 @@ def cmd_search_brave(args: Namespace) -> dict:
     if output_format == "television-preview":
         return format_brave_preview(results["results"], getattr(args, "entry", None))
     return results
+
+
+def _resolve_brave_api_key(store: KnowledgeStore) -> str:
+    """Resolve the Brave Search API key from env or stored credentials."""
+    if os.getenv("BRAVE_SEARCH_API_KEY"):
+        return os.environ["BRAVE_SEARCH_API_KEY"]
+    for ref in ("$brave_search_api_key", "$brave_api_key"):
+        try:
+            return store.resolve_key(ref)
+        except Exception:
+            continue
+    raise ValueError(
+        "Brave Search API key not configured. Set BRAVE_SEARCH_API_KEY or store `brave_search_api_key`."
+    )
 
 
 def _format_confluence_output(args: Namespace, matches: list[dict]) -> object:

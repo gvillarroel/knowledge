@@ -88,6 +88,10 @@ These commands can emit Television-compatible rows directly:
 
 The matching preview mode is `--format television-preview --entry '{}'`.
 
+`know search brave` uses the Brave Search API. Configure the key with
+`BRAVE_SEARCH_API_KEY` or store it with
+`know set credential brave_search_api_key <VALUE>`.
+
 ## Television examples
 
 ### Browse keys with `tv`

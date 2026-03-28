@@ -153,6 +153,7 @@ The repository includes ready-to-use Television cable files in the `cables/` dir
 | `know-confluence.toml` | `know-confluence` | Search Confluence pages |
 | `know-jira.toml` | `know-jira` | Search Jira issues |
 | `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
+| `know-brave.toml` | `know-brave` | Search the web with Brave Search API |
 | `know-follow.toml` | `know-follow` | Inspect follow-up items from GitHub, starred GitHub repos, and Jira |
 
 Install them all at once:
@@ -172,6 +173,7 @@ Then run any channel:
 ```bash
 tv know-keys
 tv know-arxiv
+tv know-brave
 tv know-jira
 tv know-follow
 ```

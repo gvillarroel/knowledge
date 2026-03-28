@@ -282,7 +282,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
 
-    search_brave_parser = search_subparsers.add_parser("brave", help="Search the web through the Brave Search CLI.")
+    search_brave_parser = search_subparsers.add_parser("brave", help="Search the web through the Brave Search API.")
     search_brave_parser.add_argument("query", help="Text to search on the web.")
     search_brave_parser.add_argument(
         "--format",

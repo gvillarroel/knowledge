@@ -53,6 +53,7 @@ These channels work after copying `cables/*.toml` into `~/.config/television/cab
 | `tv know-jira` | Search Jira issues. | `know search jira "" --format television` |
 | `tv know-jira-sync` | Browse Jira issues with sync status. | `know browse jira --format television` |
 | `tv know-arxiv` | Search arXiv papers. | `know search arxiv "all:$SEARCH" --format television --max-results 20 --sort-by submittedDate` |
+| `tv know-brave` | Search the web with Brave Search API. | `know search brave "$SEARCH" --format television --count 20` |
 | `tv know-arxiv-sync` | Browse arXiv papers with sync status. | `know browse arxiv --format television` |
 | `tv know-aha-sync` | Browse Aha features with sync status. | `know browse aha --format television` |
 | `tv know-releases-sync` | Browse Google release notes with sync status. | `know browse releases --format television` |

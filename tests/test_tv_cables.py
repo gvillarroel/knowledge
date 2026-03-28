@@ -41,12 +41,15 @@ def test_browse_github_activity_accepts_selected_row(tmp_path: Path, monkeypatch
 def test_bundled_tv_cables_use_expected_commands() -> None:
     github_cable = Path("cables/know-github-view.toml").read_text(encoding="utf-8")
     arxiv_cable = Path("cables/know-arxiv.toml").read_text(encoding="utf-8")
+    brave_cable = Path("cables/know-brave.toml").read_text(encoding="utf-8")
     follow_cable = Path("cables/know-follow.toml").read_text(encoding="utf-8")
 
     assert "sed " not in github_cable
     assert "$(" not in github_cable
     assert "--selected-row '{}'" in github_cable
     assert 'know search arxiv \\"all:$SEARCH\\" --format television-preview' in arxiv_cable
+    assert 'know search brave \\"$SEARCH\\" --format television --count 20' in brave_cable
+    assert 'know search brave \\"$SEARCH\\" --format television-preview --count 20 --entry \'{}\'' in brave_cable
     assert "preview_size = 70" in follow_cable
     assert "preview_word_wrap = true" in follow_cable
     assert "bat --language=markdown" in follow_cable

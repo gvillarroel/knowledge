@@ -1,0 +1,9 @@
+[metadata]
+name = "know-brave"
+description = "Search the web with Brave Search API"
+
+[source]
+command = "know search brave \"$SEARCH\" --format television --count 20"
+
+[preview]
+command = "know search brave \"$SEARCH\" --format television-preview --count 20 --entry '{}'"
