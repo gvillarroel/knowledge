@@ -28,8 +28,6 @@ class GoogleReleasesSource(SourceAdapter):
 
         entries = parse_google_releases_feed(response.text)
         self.clear_source_dir()
-        self.write_text(self.raw_dir / "feed.xml", response.text)
-        self.write_json(self.raw_dir / "entries.json", entries)
 
         for entry in entries:
             document_path = self.raw_dir / "entries" / f"{entry['slug']}.md"
@@ -51,7 +49,8 @@ class GoogleReleasesSource(SourceAdapter):
             {
                 "entries": len(entries),
                 "feed_url": feed_url,
-                "raw_dir": str(self.raw_dir),
+                "documents": len(entries),
+                "library_dir": str(self.raw_dir),
             }
         )
 

@@ -90,6 +90,18 @@ def load_dotenv(dotenv_path: Path | None = None) -> None:
             os.environ[name] = value
 
 
+def _configure_utf8_stdio() -> None:
+    """Prefer UTF-8 stdio so third-party loggers can emit Unicode safely."""
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            try:
+                reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                continue
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Build the top-level argument parser for the ``know`` CLI."""
 
@@ -129,8 +141,14 @@ def build_parser() -> argparse.ArgumentParser:
     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
     add_site_parser.add_argument("url", help="Website URL.")
     add_site_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    add_site_parser.add_argument("--source-id", help="Optional stable source id.")
     add_site_parser.add_argument("--max-depth", type=int, default=1, help="Optional crawl depth.")
     add_site_parser.add_argument("--max-pages", type=int, default=1, help="Optional page limit.")
+    add_site_parser.add_argument(
+        "--compact",
+        action="store_true",
+        help="Deprecated. Final Markdown-only site output is now the default layout.",
+    )
     add_site_parser.set_defaults(handler=cmd_add_site)
 
     add_video_parser = add_subparsers.add_parser("video", help="Attach a video URL or path.")
@@ -705,6 +723,7 @@ def main(argv: list[str] | None = None) -> int:
     """Entry-point for the ``know`` CLI."""
 
     load_dotenv()
+    _configure_utf8_stdio()
     parser = build_parser()
     args = parser.parse_args(argv)
 

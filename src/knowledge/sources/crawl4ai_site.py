@@ -200,6 +200,10 @@ class SiteSource(SourceAdapter):
         return pages or [self._fetch_single_page(start_url)]
 
     def _fetch_page_with_links(self, url: str) -> tuple[dict[str, object], list[str]]:
+        if _cdp_url():
+            browser_page = self._fetch_page_with_browser(url)
+            if browser_page is not None:
+                return browser_page
         response = _http_get_with_backoff(url)
         try:
             response.raise_for_status()
@@ -232,6 +236,60 @@ class SiteSource(SourceAdapter):
             parser.links,
         )
 
+    def _fetch_page_with_browser(self, url: str) -> tuple[dict[str, object], list[str]] | None:
+        try:
+            from playwright.sync_api import Error as PlaywrightError, sync_playwright
+        except ImportError:
+            return None
+
+        cdp_url = _cdp_url()
+        if not cdp_url:
+            return None
+
+        try:
+            with sync_playwright() as playwright:
+                browser = playwright.chromium.connect_over_cdp(cdp_url)
+                created_context = False
+                context = browser.contexts[0] if browser.contexts else None
+                if context is None:
+                    context = browser.new_context()
+                    created_context = True
+                page = context.new_page()
+                try:
+                    page.goto(url, wait_until="domcontentloaded", timeout=90000)
+                    try:
+                        page.wait_for_load_state("networkidle", timeout=5000)
+                    except PlaywrightError:
+                        pass
+                    html = page.content()
+                    title = page.title() or url
+                    links = page.eval_on_selector_all("a[href]", "els => els.map((el) => el.href)")
+                finally:
+                    page.close()
+                    if created_context:
+                        context.close()
+                    browser.close()
+        except Exception:
+            return None
+
+        markdown = _html_to_text(html)
+        parser = _LinkExtractor()
+        parser.feed(html)
+        extracted_links = [link for link in links if isinstance(link, str)] + parser.links
+        return (
+            {
+                "url": url,
+                "title": title,
+                "markdown": markdown,
+                "metadata": {
+                    "url": url,
+                    "title": title,
+                    "fetched_via": "browser_cdp",
+                    "cdp_url": cdp_url,
+                },
+            },
+            extracted_links,
+        )
     def _fetch_single_page(self, url: str) -> dict[str, object]:
         page, _ = self._fetch_page_with_links(url)
         return page

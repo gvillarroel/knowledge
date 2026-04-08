@@ -47,6 +47,23 @@ class SourceAdapter(ABC):
         )
         self.write_text(path, document)
 
+    def write_source_metadata(self, synced_at: str, stats: dict[str, Any]) -> None:
+        payload = {
+            "knowledge_key": self.source["key"],
+            "source_id": self.source["id"],
+            "source_type": self.source["type"],
+            "title": self.source.get("title"),
+            "last_synced_at": synced_at,
+            "update_command": self.source.get("update_command"),
+            "delete_command": self.source.get("delete_command"),
+            "config": self.source.get("config", {}),
+            "stats": stats,
+        }
+        self.write_text(
+            self.raw_dir / "source-metadata.yaml",
+            yaml.safe_dump(payload, sort_keys=False, allow_unicode=False),
+        )
+
     def clear_source_dir(self) -> None:
         if not self.raw_dir.exists():
             self.raw_dir.mkdir(parents=True, exist_ok=True)
@@ -58,9 +75,11 @@ class SourceAdapter(ABC):
                 path.unlink()
 
     def finalize_sync(self, stats: dict[str, Any]) -> dict[str, Any]:
-        self.source["last_synced_at"] = utc_now()
+        synced_at = utc_now()
+        self.source["last_synced_at"] = synced_at
         persisted_source = {
             key: value for key, value in self.source.items() if not key.startswith("_")
         }
+        self.write_source_metadata(synced_at, stats)
         self.store.update_collection_source(persisted_source)
         return {"key": self.source["key"], "source": self.source["id"], **stats}

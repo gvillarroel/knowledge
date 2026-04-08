@@ -195,19 +195,22 @@ def cmd_add_site(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
     normalized_url = args.url.rstrip("/") or args.url
-    source_id = store._source_id("site", normalized_url)
+    compact = bool(getattr(args, "compact", False))
+    source_id = getattr(args, "source_id", None) or store._source_id("site", normalized_url)
     config = {
         "url": args.url,
         "max_depth": args.max_depth,
         "max_pages": args.max_pages,
+        "compact_output": compact,
     }
+    compact_flag = " --compact" if compact else ""
     source = store.add_collection_source(
         key_name=args.key,
         source_type="site",
         source_id=source_id,
         title=args.url,
         config=config,
-        update_command=f"know sync site {args.url} --key {args.key}",
+        update_command=f"know sync site {args.url} --key {args.key}{compact_flag}",
         delete_command=f"know del --key {args.key} {source_id}",
     )
     return {"key": args.key, "source": source}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import json
 from urllib.parse import parse_qs, urlparse
 
 import requests
@@ -49,16 +50,48 @@ class VideoSource(SourceAdapter):
             "segments": [asdict(segment) for segment in segments],
         }
 
-        self._clear_raw_dir()
-        self.write_json(self.raw_dir / "transcript.json", raw_payload)
-        self.write_json(self.raw_dir / "metadata.json", metadata)
+        title = raw_payload.get("title") or raw_payload.get("video_id") or self.source["id"]
+        author_name = raw_payload.get("author_name") or "Unknown"
+        frontmatter = {
+            "title": title,
+            "knowledge_key": self.source["key"],
+            "source_id": self.source["id"],
+            "source_type": self.source["type"],
+            "video_id": raw_payload.get("video_id"),
+            "url": raw_payload.get("url"),
+            "author_name": author_name,
+            "language": raw_payload.get("language"),
+            "language_code": raw_payload.get("language_code"),
+            "is_generated": raw_payload.get("is_generated"),
+            "segment_count": len(segments),
+            "source_metadata": metadata,
+        }
+        lines = [
+            f"# {title}",
+            "",
+            f"- Author: {author_name}",
+            f"- Language: {raw_payload.get('language')} ({raw_payload.get('language_code')})",
+            f"- Auto-generated: {raw_payload.get('is_generated')}",
+            "",
+            "## Transcript",
+            "",
+        ]
+        for segment in raw_payload["segments"]:
+            text = str(segment.get("text", "")).strip()
+            if not text:
+                continue
+            lines.append(f"[{_format_timestamp(float(segment.get('start', 0.0)))}] {text}")
+
+        self.clear_source_dir()
+        self.write_markdown(self.raw_dir / "transcript.md", frontmatter, "\n".join(lines).rstrip())
 
         return self.finalize_sync(
             {
                 "video_id": video_id,
                 "segments": len(segments),
                 "language_code": transcript.language_code,
-                "raw_dir": str(self.raw_dir),
+                "documents": 1,
+                "library_dir": str(self.raw_dir),
             }
         )
 
@@ -74,14 +107,6 @@ class VideoSource(SourceAdapter):
         payload.setdefault("url", video_url)
         return payload
 
-    def _clear_raw_dir(self) -> None:
-        for path in sorted(self.raw_dir.rglob("*"), reverse=True):
-            if path.is_file():
-                path.unlink()
-            elif path.is_dir():
-                path.rmdir()
-
-
 def extract_video_id(value: str) -> str:
     parsed = urlparse(value)
     if parsed.netloc in {"youtu.be", "www.youtu.be"}:
@@ -95,3 +120,12 @@ def extract_video_id(value: str) -> str:
     if candidate:
         return candidate
     raise ValueError(f"could not extract video id from '{value}'")
+
+
+def _format_timestamp(seconds: float) -> str:
+    whole = int(seconds)
+    hours, remainder = divmod(whole, 3600)
+    minutes, secs = divmod(remainder, 60)
+    if hours:
+        return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+    return f"{minutes:02d}:{secs:02d}"
