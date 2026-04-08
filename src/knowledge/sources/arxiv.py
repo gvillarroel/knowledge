@@ -25,12 +25,41 @@ class ArxivSource(SourceAdapter):
         )
         response.raise_for_status()
 
-        self.write_text(self.raw_dir / "paper.xml", response.text)
-        self.write_text(self.raw_dir / "source-url.txt", url + "\n")
+        feed = _parse_arxiv_feed(response.text)
+        entry = next(iter(feed.get("entries", [])), {})
+        title = entry.get("title") or self.source.get("title") or self.source["id"]
+        summary = str(entry.get("summary") or "").strip()
+        authors = [author for author in entry.get("authors", []) if author]
+        categories = [category for category in entry.get("categories", []) if category]
+        links = entry.get("links", {})
+        frontmatter = {
+            "title": title,
+            "knowledge_key": self.source["key"],
+            "source_id": self.source["id"],
+            "source_type": self.source["type"],
+            "paper_id": paper_id,
+            "source_url": url,
+            "authors": authors,
+            "published": entry.get("published"),
+            "updated": entry.get("updated"),
+            "categories": categories,
+            "primary_category": entry.get("primary_category"),
+            "pdf_url": entry.get("pdf_url"),
+            "links": links,
+        }
+        lines = [f"# {title}"]
+        if authors:
+            lines.extend(["", "Authors: " + ", ".join(str(author) for author in authors)])
+        if summary:
+            lines.extend(["", "## Summary", "", summary])
+
+        self.clear_source_dir()
+        self.write_markdown(self.raw_dir / "paper.md", frontmatter, "\n".join(lines).strip())
         return self.finalize_sync(
             {
                 "paper_id": paper_id,
-                "raw_dir": str(self.raw_dir),
+                "documents": 1,
+                "library_dir": str(self.raw_dir),
             }
         )
 

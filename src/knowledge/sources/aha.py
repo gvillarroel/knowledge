@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import re
 from typing import Any
 from urllib.parse import urljoin
 
@@ -46,17 +48,32 @@ class AhaSource(SourceAdapter):
 
         payload = dict(last_page_payload)
         payload["features"] = features
-        self.write_json(self.raw_dir / "features.json", payload)
         for feature in features:
             reference = feature.get("reference_num", feature["id"])
-            self.write_json(self.raw_dir / "features" / f"{reference}.json", feature)
+            name = _feature_name(feature, str(reference))
+            frontmatter = {
+                "title": name,
+                "knowledge_key": self.source["key"],
+                "source_id": self.source["id"],
+                "source_type": self.source["type"],
+                "feature_id": feature.get("id"),
+                "reference_num": reference,
+                "url": feature.get("url"),
+                "workflow_status": _feature_status(feature),
+            }
+            self.write_markdown(
+                self.raw_dir / "features" / f"{reference}.md",
+                frontmatter,
+                _render_feature_markdown(feature),
+            )
 
         return self.finalize_sync(
             {
                 "features": len(features),
                 "workspace": workspace,
                 "product": workspace,
-                "raw_dir": str(self.raw_dir),
+                "documents": len(features),
+                "library_dir": str(self.raw_dir),
             }
         )
 
@@ -77,3 +94,64 @@ class AhaSource(SourceAdapter):
         if isinstance(total_pages, int):
             return current_page < total_pages
         return False
+
+
+def _feature_name(feature: dict[str, Any], fallback: str) -> str:
+    return str(
+        feature.get("name")
+        or feature.get("title")
+        or feature.get("reference_num")
+        or fallback
+    )
+
+
+def _feature_status(feature: dict[str, Any]) -> str | None:
+    status = feature.get("workflow_status")
+    if isinstance(status, dict):
+        name = status.get("name")
+        return str(name) if name else None
+    return None
+
+
+def _feature_description(feature: dict[str, Any]) -> str:
+    description = feature.get("description")
+    if isinstance(description, dict):
+        for key in ("body", "html_body", "text"):
+            value = description.get(key)
+            if isinstance(value, str) and value.strip():
+                return _strip_html(value)
+    if isinstance(description, str) and description.strip():
+        return _strip_html(description)
+    return ""
+
+
+def _strip_html(value: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", value)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def _render_feature_markdown(feature: dict[str, Any]) -> str:
+    reference = str(feature.get("reference_num") or feature.get("id") or "feature")
+    name = _feature_name(feature, reference)
+    lines = [f"# {name}", "", f"- Reference: {reference}"]
+    status = _feature_status(feature)
+    if status:
+        lines.append(f"- Status: {status}")
+    url = feature.get("url")
+    if url:
+        lines.append(f"- URL: {url}")
+    description = _feature_description(feature)
+    if description:
+        lines.extend(["", "## Description", "", description])
+    lines.extend(
+        [
+            "",
+            "## Source Data",
+            "",
+            "```json",
+            json.dumps(feature, indent=2, sort_keys=True),
+            "```",
+        ]
+    )
+    return "\n".join(lines).rstrip()

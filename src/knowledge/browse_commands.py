@@ -372,7 +372,7 @@ def cmd_browse_arxiv(args: Namespace) -> object:
         has_files = False
         try:
             source_dir = store.source_dir(source)
-            has_files = any(source_dir.glob("**/*.md"))
+            has_files = any(source_dir.glob("**/*.md")) or any(source_dir.glob("**/*.json"))
         except Exception:
             pass
 
@@ -413,7 +413,7 @@ def cmd_browse_aha(args: Namespace) -> object:
         has_files = False
         try:
             source_dir = store.source_dir(source)
-            has_files = any(source_dir.glob("**/*.json"))
+            has_files = any(source_dir.glob("**/*.md")) or any(source_dir.glob("**/*.json"))
         except Exception:
             pass
 

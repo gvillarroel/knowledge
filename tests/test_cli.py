@@ -1253,8 +1253,7 @@ def test_sync_television_writes_channel_bundle(tmp_path: Path) -> None:
 
     source_dir = tmp_path / "automation" / "television" / "television-knowledge-sources"
     assert (source_dir / "knowledge-sources.toml").exists()
-    assert (source_dir / "commands.json").exists()
-    assert (source_dir / "README.md").exists()
+    assert (source_dir / "source-metadata.yaml").exists()
 
 
 def test_export_generates_frontmatter_and_zip_archive(tmp_path: Path, capsys) -> None:

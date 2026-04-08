@@ -10,6 +10,18 @@ from .sources.arxiv import _parse_arxiv_feed
 from .store import KnowledgeStore
 
 
+_FINAL_LAYOUT_SOURCE_TYPES = {
+    "aha",
+    "arxiv",
+    "confluence",
+    "google_releases",
+    "jira",
+    "site",
+    "television",
+    "video",
+}
+
+
 def _dump_frontmatter(payload: dict[str, Any]) -> str:
     return yaml.safe_dump(payload, sort_keys=False, allow_unicode=False).strip()
 
@@ -25,8 +37,12 @@ def _render_json_payload(payload: Any) -> str:
 def export_source(store: KnowledgeStore, source: dict[str, Any]) -> dict[str, Any]:
     """Export a single source into Markdown with YAML frontmatter."""
     source_dir = store.source_dir(source)
-    if source.get("type") in {"confluence", "jira"}:
-        exported_files = [str(path) for path in sorted(source_dir.glob("*.md"))]
+    if source.get("type") in _FINAL_LAYOUT_SOURCE_TYPES and (source_dir / "source-metadata.yaml").exists():
+        exported_files = [
+            str(path)
+            for path in sorted(source_dir.rglob("*"))
+            if path.is_file() and path.name != "source-metadata.yaml"
+        ]
         source["last_exported_at"] = source.get("updated_at")
         store.update_collection_source(source)
         return {
