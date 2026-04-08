@@ -1,6 +1,13 @@
-# Allowed Commands
+# Command Reference
 
 This document lists the supported `know` CLI commands in a compact reference format.
+
+For narrative usage and workflows, use:
+
+- [README.md](README.md): documentation map
+- [cli.md](cli.md): main guide
+- [TVs.md](TVs.md): Television-specific usage
+- [site-spikes.md](site-spikes.md): site capture benchmarking
 
 The CLI also loads a local `.env` file at startup. When a command below mentions an OS variable, that value can come from the current environment or from `.env`.
 
@@ -27,6 +34,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 - `know search confluence` and `know search jira` accept an optional free-text query.
 - `know add tv` also accepts the alias `know add television`.
 - `know add tv` without a channel name installs the bundled Television cable files.
+- There is no dedicated CDP BFS subcommand. Browser-assisted site crawling uses the normal `know add site ...` and `know sync site ...` commands together with `KNOW_SITE_CDP_URL`.
 
 ## Add Commands
 
@@ -52,7 +60,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 `know add key $KEY`
 
 # Register a website source
-`know add site $URL --key $KEY [--max-depth N] [--max-pages N]`
+`know add site $URL --key $KEY [--max-depth N] [--max-pages N] [--compact]`
 
 # Install the repository's bundled Television cable files
 `know add tv`
@@ -245,6 +253,19 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 
 # Synchronize a website source
 `know sync site $URL --key $KEY`
+
+# Enable browser-assisted CDP BFS capture for supported site sync flows
+`$env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"`
+
+# Recommended Windows install for CDP BFS site capture
+`uv python install 3.12`
+`uv tool install --python 3.12 --force .`
+
+# Typical docs.cloud.google.com workflow with compact site output
+`know add site https://docs.cloud.google.com/bigquery/docs --key $KEY --max-depth 1 --max-pages 10 --compact`
+
+# Run the sync using the configured CDP browser session
+`know sync site https://docs.cloud.google.com/bigquery/docs --key $KEY`
 
 # Synchronize a Television source
 `know sync television $NAME --key $KEY`

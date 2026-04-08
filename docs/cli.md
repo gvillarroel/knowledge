@@ -2,6 +2,16 @@
 
 `know` manages a local knowledge store in `~/.knowledge`.
 
+Use this document as the main user guide.
+
+Other documents in this directory:
+
+- [README.md](README.md): documentation map
+- [COMMANDS.md](COMMANDS.md): compact command lookup
+- [TVs.md](TVs.md): Television integration guide
+- [site-spikes.md](site-spikes.md): site capture benchmarking guide
+- [know-skill.md](know-skill.md): contributor workflow and maintenance rules
+
 ## Core commands
 
 ```bash
@@ -75,7 +85,8 @@ When you need an interactive terminal browser, prefer `television` output format
 - Jira search uses Jira REST API v3 search.
 - Site sync detects anti-bot pages and fails the sync instead of overwriting a healthy source directory.
 - Site sync can reuse a live Chrome or Brave session through `KNOW_SITE_CDP_URL=http://127.0.0.1:9222`, loading browser cookies into the HTTP crawler for browser-assisted capture.
-- For `docs.cloud.google.com`, the default strategy with `KNOW_SITE_CDP_URL` is a browser-assisted CDP BFS crawl that reuses Chrome cookies and keeps traversal inside the documentation subtree.
+- Site sync prefers HTTP BFS by default, and with `KNOW_SITE_CDP_URL` that BFS path can reuse Chrome or Brave cookies from a live session.
+- For `docs.cloud.google.com`, the CDP-assisted BFS path is the preferred production setup because it keeps traversal inside the documentation subtree.
 - The CDP BFS path extracts `main` or `article` content before converting to Markdown, which produces cleaner output than stripping the entire HTML document.
 - Television sync stores a `channel.toml`, a command manifest, and install/run instructions for `tv`.
 - Google release feeds store the raw Atom XML plus one normalized Markdown file per feed entry under `entries/`.
@@ -95,17 +106,100 @@ $env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"
 know sync site https://docs.cloud.google.com/bigquery/docs --key research
 ```
 
+Install the tool with Python 3.12 before using this workflow on Windows:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force .
+```
+
+If you install from GitHub instead of a local checkout, use:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force git+https://github.com/<owner>/<repo>.git
+```
+
+The CDP BFS path needs the tool runtime itself to include `playwright`. In this workspace that was reliable with Python 3.12 and not reliable with Python 3.14.
+
+There is no dedicated CDP BFS subcommand. The production path is still the normal `site` workflow:
+
+```bash
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
+know sync site https://docs.cloud.google.com/bigquery/docs --key research
+```
+
 This mode does not require the `site` source itself to be driven entirely by `crawl4ai`.
 For `docs.cloud.google.com`, `know` reuses cookies from the connected browser and runs the HTTP crawler inside the intended documentation subtree.
+
+## CDP BFS workflow
+
+Use this workflow when a documentation site loads correctly in your browser session but blocks plain automated requests.
+
+### Preconditions
+
+- Chrome or Brave must be running with remote debugging enabled.
+- The browser session should already be logged in or otherwise accepted by the target site if the site depends on session state.
+- The Python `playwright` package must be installed because `know` uses it to connect to the existing browser session.
+
+### Step 1: Start a debuggable browser session
+
+```powershell
+& "$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe" `
+  --remote-debugging-port=9222 `
+  --remote-debugging-address=127.0.0.1 `
+  --user-data-dir="$env:TEMP\\chrome-cdp-profile"
+```
+
+You can use Brave instead if you prefer. Keep that browser process running while the sync is happening.
+
+### Step 2: Point `know` at the DevTools endpoint
+
+```powershell
+$env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"
+```
+
+### Step 3: Register and sync the site as usual
+
+```bash
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
+know sync site https://docs.cloud.google.com/bigquery/docs --key research
+```
+
+### Step 4: Confirm the captured output
+
+Look in the synced Markdown files under the site source directory. The frontmatter metadata should show a fetch mode that confirms the CDP-assisted path, typically:
+
+- `http_cdp_bfs`
+- `browser_cdp`
+
+For `docs.cloud.google.com`, `http_cdp_bfs` is the expected production path when `KNOW_SITE_CDP_URL` is set.
+
+### Strategy selection rules
+
+- `site` sync prefers HTTP BFS by default.
+- If `KNOW_SITE_CDP_URL` is set, the BFS path can reuse the live browser session.
+- `docs.cloud.google.com` remains the main documented CDP-assisted BFS target because it benefits the most from browser cookies and subtree scoping.
+- `KNOW_SITE_FORCE_CRAWL4AI=1` forces the `crawl4ai` strategy instead of the default BFS path.
+
+### Failure mode
+
+If the target site still returns anti-bot or challenge content, sync fails instead of replacing a healthy local corpus with blocked pages.
 
 Relevant environment variables:
 
 - `KNOW_SITE_CDP_URL` — DevTools endpoint for a live browser session
-- `KNOW_SITE_FORCE_CRAWL4AI=1` — force deep crawl even on hosts that normally prefer the HTTP crawler
+- `KNOW_SITE_FORCE_CRAWL4AI=1` — force the `crawl4ai` strategy instead of the default BFS path
 - `KNOW_SITE_HTTP_MAX_ATTEMPTS` — retry count for HTTP fetches
 - `KNOW_SITE_HTTP_RETRY_BASE_SECONDS` — linear backoff base for blocked responses
 
 The CDP mode relies on the Python `playwright` package but connects to your existing Chrome or Brave session. It does not require a separate Playwright-managed browser installation for this workflow.
+
+### Benchmarking versus production sync
+
+Use `know sync site ...` for production capture.
+Use the standalone benchmark runner only when you want to compare several strategies such as `http_plain_bfs`, `http_cdp_bfs`, `browser_cdp_bfs`, or `browser_seeded_http_cdp`.
+That workflow is documented in [site-spikes.md](site-spikes.md).
 
 ## Compact site output
 
@@ -211,8 +305,8 @@ source and preview commands respectively.
 
 ### Ready-to-use cables
 
-Pre-built cable definitions live in `cables/` at the repository root.  Copy any `.toml`
-file into `~/.config/television/cable/` and run `tv <channel-name>`.
+Pre-built cable definitions ship with the project. Copy the bundled `.toml`
+files into `~/.config/television/cable/` and run `tv <channel-name>`.
 
 | Cable file | Channel | Description |
 |---|---|---|

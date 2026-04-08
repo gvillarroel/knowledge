@@ -18,6 +18,22 @@ uv tool install git+https://github.com/<owner>/<repo>.git
 
 The installed executable is `know`.
 
+For browser-assisted `site` capture on Windows, install `know` with Python 3.12 explicitly:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force .
+```
+
+Use the same pattern for GitHub installs:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force git+https://github.com/<owner>/<repo>.git
+```
+
+This matters because the CDP BFS site workflow depends on the Python `playwright` package in the tool runtime. In this workspace, Python 3.14 was not a reliable runtime for the full `site` stack, while Python 3.12 worked with the required dependencies.
+
 ## Quick Start
 
 ```bash
@@ -49,6 +65,14 @@ The command family stays consistent across source types, so the same pattern wor
 ## Browser-Assisted Site Capture
 
 The `site` source supports a browser-assisted capture mode for sites that rate-limit plain HTTP scraping.
+There is no separate `know cdp-bfs` command. You keep using the normal `site` commands:
+
+- `know add site ...`
+- `know sync site ...`
+
+The default site strategy is now BFS over HTTP whenever possible.
+If `KNOW_SITE_CDP_URL` is set, that same BFS flow can reuse your live browser session.
+Use `KNOW_SITE_FORCE_CRAWL4AI=1` only when you explicitly want the `crawl4ai` strategy instead.
 
 Set `KNOW_SITE_CDP_URL` to a live Chrome or Brave DevTools endpoint such as `http://127.0.0.1:9222`.
 When that variable is present, `know` reuses cookies from the connected browser session and applies them to the HTTP crawler.
@@ -59,7 +83,7 @@ This is especially useful for `docs.cloud.google.com`, where:
 - HTTP BFS crawling with the browser session cookies can capture the intended documentation subtree more reliably
 - scoped extraction from the primary page content produces cleaner Markdown than full-document stripping
 
-Typical setup:
+Recommended workflow:
 
 ```powershell
 & "$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe" `
@@ -72,11 +96,19 @@ know add site https://docs.cloud.google.com/bigquery/docs --key research --max-d
 know sync site https://docs.cloud.google.com/bigquery/docs --key research
 ```
 
+What happens in that flow:
+
+1. Chrome or Brave stays open with your authenticated browser session.
+2. `know` connects to the DevTools endpoint from `KNOW_SITE_CDP_URL`.
+3. For `docs.cloud.google.com`, the `site` adapter prefers the CDP-assisted BFS HTTP path.
+4. The crawler reuses browser cookies, stays inside the documentation subtree, and extracts primary page content before converting it to Markdown.
+
 Safety behavior:
 
 - anti-bot pages are detected and fail the sync instead of overwriting a healthy corpus
-- when `KNOW_SITE_CDP_URL` is present, `docs.cloud.google.com` uses the browser-assisted CDP BFS crawler by default
-- other hosts can still use `crawl4ai`, and `KNOW_SITE_FORCE_CRAWL4AI=1` can override the HTTP preference when needed
+- site sync prefers BFS by default
+- when `KNOW_SITE_CDP_URL` is present, the BFS path can reuse the connected browser session
+- `KNOW_SITE_FORCE_CRAWL4AI=1` switches the primary strategy to `crawl4ai`
 - the CDP mode requires the Python `playwright` package, but it connects to your existing Chrome session and does not require a bundled Playwright browser install
 
 For a cleaner on-disk layout, register site sources with `--compact`:
@@ -92,6 +124,20 @@ Compact site output keeps only:
 - `source-metadata.yaml` as source-level sync metadata
 
 It does not write per-page JSON sidecars.
+
+### Verifying that CDP BFS was used
+
+After sync, inspect the generated Markdown frontmatter under the site source directory. The page metadata should include a fetch mode such as:
+
+- `http_cdp_bfs` for the HTTP crawler seeded with browser cookies
+- `browser_cdp` for pages fetched directly through the live browser session
+
+If you do not set `KNOW_SITE_CDP_URL`, the same site source falls back to the regular non-CDP path.
+
+### When to use `site-spikes`
+
+The production workflow above is for normal `know sync site ...` usage.
+If you want to compare multiple crawl strategies side by side, use the separate benchmark runner documented in [docs/site-spikes.md](docs/site-spikes.md).
 
 ## Store Layout
 
