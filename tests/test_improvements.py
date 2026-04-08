@@ -639,7 +639,7 @@ class TestCrawl4aiSiteCoverage:
 
     def test_prefer_http_crawl_for_docs_cloud(self):
         assert _prefer_http_crawl("https://docs.cloud.google.com/bigquery/docs") is True
-        assert _prefer_http_crawl("https://example.com/docs") is False
+        assert _prefer_http_crawl("https://example.com/docs") is True
 
     def test_allowed_path_prefixes_keep_python_reference_scoped(self):
         assert _allowed_path_prefixes("https://docs.cloud.google.com/python/docs/reference/bigquery/latest") == [
@@ -657,9 +657,10 @@ class TestCrawl4aiSiteCoverage:
         monkeypatch.setenv("KNOW_SITE_CDP_URL", " ")
         assert _cdp_url() is None
 
-    def test_prefer_crawl4ai_when_cdp_available(self, monkeypatch):
+    def test_prefer_crawl4ai_false_by_default_even_when_cdp_available(self, monkeypatch):
         monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
-        assert _prefer_crawl4ai("https://example.com/docs") is True
+        monkeypatch.delenv("KNOW_SITE_FORCE_CRAWL4AI", raising=False)
+        assert _prefer_crawl4ai("https://example.com/docs") is False
 
     def test_prefer_cdp_bfs_for_docs_cloud_when_cdp_available(self, monkeypatch):
         monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
@@ -677,11 +678,12 @@ class TestCrawl4aiSiteCoverage:
         monkeypatch.delenv("KNOW_SITE_FORCE_CRAWL4AI", raising=False)
         assert _prefer_crawl4ai("https://example.com/docs") is False
 
-    def test_prefer_crawl4ai_still_false_without_cdp_even_when_force_enabled(self, monkeypatch):
+    def test_prefer_crawl4ai_true_when_force_enabled(self, monkeypatch):
         monkeypatch.delenv("KNOW_SITE_CDP_URL", raising=False)
         monkeypatch.setenv("KNOW_SITE_PREFER_HTTP_HOSTS", "example.com")
         monkeypatch.setenv("KNOW_SITE_FORCE_CRAWL4AI", "1")
-        assert _prefer_crawl4ai("https://example.com/docs") is False
+        assert _prefer_crawl4ai("https://example.com/docs") is True
+        assert _prefer_http_crawl("https://example.com/docs") is False
 
     def test_http_session_loads_cdp_cookies(self, monkeypatch):
         _http_session.cache_clear()
@@ -890,6 +892,11 @@ class TestCrawl4aiSiteCoverage:
             "docs.example.com_product_docs.md",
             "docs.example.com_product_docs_page-a.md",
         ]
+        pages_index = json.loads((store.source_raw_dir(source) / "pages.json").read_text(encoding="utf-8"))
+        assert [item["url"] for item in pages_index] == [
+            "https://docs.example.com/product/docs",
+            "https://docs.example.com/product/docs/page-a",
+        ]
 
     def test_sync_raises_on_anti_bot_and_preserves_existing_corpus(self, tmp_path, monkeypatch):
         store = make_store(tmp_path)
@@ -904,6 +911,7 @@ class TestCrawl4aiSiteCoverage:
         raw_dir.mkdir(parents=True, exist_ok=True)
         sentinel = raw_dir / "pages.json"
         sentinel.write_text('[{"url":"https://docs.example.com/healthy"}]', encoding="utf-8")
+        monkeypatch.setenv("KNOW_SITE_FORCE_CRAWL4AI", "1")
 
         monkeypatch.setattr(
             adapter,
@@ -953,6 +961,140 @@ class TestCrawl4aiSiteCoverage:
         assert payload["pages"] == 1
         assert calls == ["http"]
 
+    def test_sync_uses_browser_seeded_strategy_when_configured(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.cloud.google.com/bigquery/docs",
+            config={"url": "https://docs.cloud.google.com/bigquery/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.setenv("KNOW_SITE_CDP_STRATEGY", "browser_seeded_http")
+        calls: list[str] = []
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_browser_seeded_http_bfs",
+            lambda *_args: calls.append("seeded") or [
+                {"url": "https://docs.cloud.google.com/bigquery/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}}
+            ],
+        )
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_http_bfs",
+            lambda *_args: calls.append("http") or [
+                {"url": "https://docs.cloud.google.com/bigquery/docs", "title": "Blocked", "markdown": "To continue, please type the characters below", "metadata": {}}
+            ],
+        )
+
+        payload = adapter.sync()
+
+        assert payload["pages"] == 1
+        assert calls == ["seeded"]
+
+    def test_sync_falls_back_to_browser_seeded_http_after_anti_bot(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.cloud.google.com/bigquery/docs",
+            config={"url": "https://docs.cloud.google.com/bigquery/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.delenv("KNOW_SITE_CDP_STRATEGY", raising=False)
+        calls: list[str] = []
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_http_bfs",
+            lambda *_args: calls.append("http") or [
+                {
+                    "url": "https://docs.cloud.google.com/bigquery/docs",
+                    "title": "About this page",
+                    "markdown": "To continue, please type the characters below",
+                    "metadata": {},
+                }
+            ],
+        )
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_browser_seeded_http_bfs",
+            lambda *_args: calls.append("seeded") or [
+                {"url": "https://docs.cloud.google.com/bigquery/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}},
+                {"url": "https://docs.cloud.google.com/bigquery/docs/data-clean-rooms", "title": "Clean rooms", "markdown": "# Clean rooms", "metadata": {}},
+            ],
+        )
+
+        payload = adapter.sync()
+
+        assert payload["pages"] == 2
+        assert calls == ["http", "seeded"]
+
+    def test_sync_prefers_http_bfs_by_default_for_generic_hosts(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://example.com/docs",
+            config={"url": "https://example.com/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        monkeypatch.delenv("KNOW_SITE_FORCE_CRAWL4AI", raising=False)
+        calls: list[str] = []
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_http_bfs",
+            lambda *_args: calls.append("http") or [
+                {"url": "https://example.com/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}}
+            ],
+        )
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_crawl4ai",
+            lambda *_args: calls.append("crawl4ai") or None,
+        )
+
+        payload = adapter.sync()
+
+        assert payload["pages"] == 1
+        assert calls == ["http"]
+
+    def test_sync_prefers_crawl4ai_when_forced(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://example.com/docs",
+            config={"url": "https://example.com/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        monkeypatch.setenv("KNOW_SITE_FORCE_CRAWL4AI", "1")
+        calls: list[str] = []
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_http_bfs",
+            lambda *_args: calls.append("http") or [
+                {"url": "https://example.com/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}}
+            ],
+        )
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_crawl4ai",
+            lambda *_args: calls.append("crawl4ai") or [
+                {"url": "https://example.com/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}}
+            ],
+        )
+
+        payload = adapter.sync()
+
+        assert payload["pages"] == 1
+        assert calls == ["crawl4ai"]
+
     def test_compact_site_output_writes_only_markdown_and_metadata(self, tmp_path, monkeypatch):
         store = make_store(tmp_path)
         store.create_collection_key("k")
@@ -967,6 +1109,7 @@ class TestCrawl4aiSiteCoverage:
             update_command="sync", delete_command="del",
         )
         adapter = SiteSource(source, store)
+        monkeypatch.setenv("KNOW_SITE_FORCE_CRAWL4AI", "1")
 
         monkeypatch.setattr(
             adapter,

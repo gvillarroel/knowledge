@@ -9,6 +9,8 @@ import time
 from functools import lru_cache
 from html import unescape
 from html.parser import HTMLParser
+from pathlib import Path
+from typing import Any
 from urllib.parse import urldefrag, urljoin, urlparse
 
 import requests
@@ -55,10 +57,12 @@ class SiteSource(SourceAdapter):
 
         pages: list[dict[str, object]] | None = None
         if _prefer_cdp_bfs(start_url):
-            pages = self._crawl_with_http_bfs(start_url, max_depth, crawl_page_limit)
+            pages = self._crawl_with_cdp_strategy(start_url, max_depth, crawl_page_limit)
         elif _prefer_crawl4ai(start_url):
             pages = self._crawl_with_crawl4ai(start_url, max_depth, crawl_page_limit)
-        if pages is None:
+            if pages is None:
+                pages = self._crawl_with_http_bfs(start_url, max_depth, crawl_page_limit)
+        else:
             pages = self._crawl_with_http_bfs(start_url, max_depth, crawl_page_limit)
         anti_bot_reason = _find_anti_bot_reason(pages)
         if anti_bot_reason:
@@ -79,14 +83,32 @@ class SiteSource(SourceAdapter):
             }
         )
 
+    def _crawl_with_cdp_strategy(self, start_url: str, max_depth: int, max_pages: int) -> list[dict[str, object]]:
+        strategy = _cdp_strategy()
+        if strategy == "browser_seeded_http":
+            return self._crawl_with_browser_seeded_http_bfs(start_url, max_depth, max_pages)
+        if strategy == "browser_bfs":
+            return self._crawl_with_browser_bfs(start_url, max_depth, max_pages)
+
+        pages = self._crawl_with_http_bfs(start_url, max_depth, max_pages)
+        if not _find_anti_bot_reason(pages):
+            return pages
+
+        seeded_pages = self._crawl_with_browser_seeded_http_bfs(start_url, max_depth, max_pages)
+        if not _find_anti_bot_reason(seeded_pages):
+            return seeded_pages
+        return seeded_pages
+
     def _write_compact_pages(
         self,
         start_url: str,
         pages: list[dict[str, object]],
     ) -> None:
+        index: list[dict[str, object]] = []
         for page in pages:
             slug = _slugify_url(str(page.get("url") or "page"))
-            page_path = self.raw_dir / "pages" / f"{slug}.md"
+            relative_path = Path("pages") / f"{slug}.md"
+            page_path = self.raw_dir / relative_path
             metadata = page.get("metadata") if isinstance(page.get("metadata"), dict) else {}
             frontmatter = {
                 "title": page.get("title") or page.get("url"),
@@ -98,6 +120,14 @@ class SiteSource(SourceAdapter):
                 "source_metadata": metadata,
             }
             self.write_markdown(page_path, frontmatter, str(page.get("markdown") or ""))
+            index.append(
+                {
+                    "url": page.get("url"),
+                    "title": page.get("title") or page.get("url"),
+                    "path": str(relative_path).replace("\\", "/"),
+                }
+            )
+        self.write_json(self.raw_dir / "pages.json", index)
 
     def _crawl_with_crawl4ai(
         self, start_url: str, max_depth: int, max_pages: int
@@ -199,6 +229,52 @@ class SiteSource(SourceAdapter):
 
         return pages or [self._fetch_single_page(start_url)]
 
+    def _crawl_with_browser_seeded_http_bfs(
+        self,
+        start_url: str,
+        max_depth: int,
+        max_pages: int,
+    ) -> list[dict[str, object]]:
+        del max_depth
+        seed_pages = self._crawl_with_browser_bfs(start_url, 0, 1)
+        if not seed_pages:
+            return self._crawl_with_http_bfs(start_url, 0, 1)
+
+        seed_page = seed_pages[0]
+        pages = [seed_page]
+        if _page_anti_bot_reason(seed_page):
+            return pages
+
+        start_url = _normalize_url(start_url)
+        allowed_prefixes = _allowed_path_prefixes(start_url)
+        for candidate in _rank_candidate_links(list(seed_page.get("links") or []), start_url):
+            if len(pages) >= max_pages:
+                break
+            normalized = _normalize_url(urljoin(start_url, candidate))
+            if not _should_follow_link(normalized, start_url, allowed_prefixes):
+                continue
+            if any(_normalize_url(str(page.get("url") or "")) == normalized for page in pages):
+                continue
+            try:
+                page, _links = self._fetch_page_with_links(normalized)
+            except (_BlockedPageError, _SkippablePageError):
+                continue
+            page_metadata = page.get("metadata") if isinstance(page.get("metadata"), dict) else {}
+            page["metadata"] = {
+                **page_metadata,
+                "seeded_from_browser": True,
+                "seed_url": start_url,
+            }
+            pages.append(page)
+
+        return _dedupe_pages_by_url(pages)
+
+    def _crawl_with_browser_bfs(self, start_url: str, max_depth: int, max_pages: int) -> list[dict[str, object]]:
+        cdp_url = _cdp_url()
+        if not cdp_url:
+            return []
+        return asyncio.run(_browser_bfs_capture(start_url, max_pages=max_pages, max_depth=max_depth, cdp_url=cdp_url))
+
     def _fetch_page_with_links(self, url: str) -> tuple[dict[str, object], list[str]]:
         if _cdp_url():
             browser_page = self._fetch_page_with_browser(url)
@@ -287,6 +363,7 @@ class SiteSource(SourceAdapter):
                     "fetched_via": "browser_cdp",
                     "cdp_url": cdp_url,
                 },
+                "links": extracted_links,
             },
             extracted_links,
         )
@@ -496,12 +573,14 @@ def _fallback_delay_seconds() -> float:
 
 
 def _prefer_http_crawl(start_url: str) -> bool:
+    if _prefer_crawl4ai(start_url):
+        return False
     host = urlparse(start_url).netloc.lower()
     host_override = os.getenv("KNOW_SITE_PREFER_HTTP_HOSTS", "")
     override_hosts = [item.strip().lower() for item in host_override.split(",") if item.strip()]
     if override_hosts:
         return any(host == candidate or host.endswith(f".{candidate}") for candidate in override_hosts)
-    return host == "docs.cloud.google.com"
+    return True
 
 
 def _prefer_cdp_bfs(start_url: str) -> bool:
@@ -510,17 +589,21 @@ def _prefer_cdp_bfs(start_url: str) -> bool:
     return _cdp_url() is not None
 
 
+def _cdp_strategy() -> str:
+    raw = os.getenv("KNOW_SITE_CDP_STRATEGY", "").strip().lower()
+    if raw in {"http_bfs", "browser_seeded_http", "browser_bfs"}:
+        return raw
+    return "auto"
+
+
 def _cdp_url() -> str | None:
     raw = os.getenv("KNOW_SITE_CDP_URL", "").strip()
     return raw or None
 
 
 def _prefer_crawl4ai(start_url: str) -> bool:
-    if _prefer_http_crawl(start_url) and os.getenv("KNOW_SITE_FORCE_CRAWL4AI", "").strip() != "1":
-        return False
-    if _cdp_url():
-        return True
-    return not _prefer_http_crawl(start_url)
+    del start_url
+    return os.getenv("KNOW_SITE_FORCE_CRAWL4AI", "").strip() == "1"
 
 
 def _http_get_with_backoff(url: str) -> requests.Response:
@@ -609,6 +692,98 @@ def _load_cookies_from_cdp(cdp_url: str) -> list[dict[str, object]]:
         return asyncio.run(read_cookies())
     except Exception as exc:
         raise RuntimeError(f"Unable to load cookies from CDP endpoint {cdp_url}") from exc
+
+
+async def _browser_bfs_capture(
+    start_url: str,
+    *,
+    max_pages: int,
+    max_depth: int,
+    cdp_url: str,
+) -> list[dict[str, object]]:
+    from playwright.async_api import Error as PlaywrightError, async_playwright
+
+    start_url = _normalize_url(start_url)
+    allowed_prefixes = _allowed_path_prefixes(start_url)
+    queue: list[tuple[str, int]] = [(start_url, 0)]
+    queued = {start_url}
+    visited: set[str] = set()
+    pages: list[dict[str, object]] = []
+
+    async with async_playwright() as playwright:
+        browser = await playwright.chromium.connect_over_cdp(cdp_url)
+        context = browser.contexts[0] if browser.contexts else await browser.new_context()
+        while queue and len(pages) < max_pages:
+            current_url, depth = queue.pop(0)
+            if current_url in visited:
+                continue
+            visited.add(current_url)
+            page = await context.new_page()
+            response = None
+            try:
+                response = await page.goto(current_url, wait_until="domcontentloaded", timeout=90000)
+                try:
+                    await page.wait_for_load_state("networkidle", timeout=5000)
+                except PlaywrightError:
+                    pass
+                payload: dict[str, Any] = await page.evaluate(
+                    """() => {
+                        const root = document.querySelector('main') || document.querySelector('article') || document.body;
+                        const anchors = Array.from(document.querySelectorAll('a[href]'));
+                        return {
+                            title: document.title || location.href,
+                            url: location.href,
+                            markdown: (root ? root.innerText : document.body.innerText || '').trim(),
+                            links: anchors.map((anchor) => anchor.href).filter(Boolean),
+                        };
+                    }"""
+                )
+            finally:
+                await page.close()
+
+            normalized_url = _normalize_url(str(payload.get("url") or current_url))
+            markdown = _normalize_browser_text(str(payload.get("markdown") or ""))
+            links = [
+                _normalize_url(str(link))
+                for link in payload.get("links", [])
+                if isinstance(link, str) and link
+            ]
+            pages.append(
+                {
+                    "url": normalized_url,
+                    "title": str(payload.get("title") or normalized_url),
+                    "markdown": markdown,
+                    "metadata": {
+                        "url": normalized_url,
+                        "title": str(payload.get("title") or normalized_url),
+                        "fetched_via": "browser_cdp_bfs",
+                        "cdp_url": cdp_url,
+                        "status_code": None if response is None else response.status,
+                    },
+                    "links": links,
+                }
+            )
+
+            if depth >= max_depth:
+                continue
+            for link in _rank_candidate_links(links, start_url):
+                normalized = _normalize_url(urljoin(current_url, link))
+                if normalized in visited or normalized in queued:
+                    continue
+                if not _should_follow_link(normalized, start_url, allowed_prefixes):
+                    continue
+                queue.append((normalized, depth + 1))
+                queued.add(normalized)
+                if len(queue) + len(pages) >= max_pages:
+                    break
+
+    return _dedupe_pages_by_url(pages)
+
+
+def _normalize_browser_text(text: str) -> str:
+    lines = [" ".join(line.split()) for line in text.splitlines()]
+    cleaned = "\n".join(line for line in lines if line)
+    return cleaned.strip() + ("\n" if cleaned else "")
 
 
 def _page_anti_bot_reason(page: dict[str, object]) -> str | None:

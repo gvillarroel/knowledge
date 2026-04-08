@@ -1,0 +1,108 @@
+{
+  "url": "https://docs.cloud.google.com/bigquery/docs",
+  "generated_at": "2026-04-08T03:06:59Z",
+  "max_pages": 24,
+  "max_depth": 1,
+  "cdp_url": "http://127.0.0.1:9222",
+  "python_version": "3.14.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "strategies": [
+    {
+      "name": "http_plain_bfs",
+      "status": "ok",
+      "elapsed_seconds": 0.88,
+      "pages_requested": 24,
+      "pages_captured": 1,
+      "useful_pages": 0,
+      "blocked_pages": 1,
+      "avg_markdown_chars": 1089,
+      "notes": [
+        "Requests-based breadth-first crawl.",
+        "No browser state is used, so anti-bot pages are expected on Google-hosted docs.",
+        "Start URL: https://docs.cloud.google.com/bigquery/docs"
+      ],
+      "error": null,
+      "sample_pages": [
+        {
+          "url": "https://docs.cloud.google.com/bigquery/docs",
+          "title": "https://docs.cloud.google.com/bigquery/docs",
+          "markdown": "https://docs.cloud.google.com/bigquery/docs\nTo continue, please type the characters below:\nAbout this page\nOur systems have detected unusual traffic from your computer network. This page checks to see if it's really you sending the requests, and not a robot. Why did this happen?\nThis page appears when Google automatically detects requests coming from your computer network which appear to be in violation of the Terms of Service . The block will expire shortly after those requests stop. In the meantime, solving the above CAPTCHA will let you continue to use our services. This traffic may have been sent by malicious software, a browser plug-in, or a script that sends automated requests. If you share your network connection, ask your administrator for help \u2014 a different computer using the same IP address may be responsible. Learn more Sometimes you may be asked to solve the CAPTCHA if you are using advanced terms that robots are known to use, or sending requests very quickly.\nIP address: 24.125.174.217 Time: 2026-04-08T03:06:59Z URL: https://docs.cloud.google.com/bigquery/docs\n",
+          "links": [
+            "https://docs.cloud.google.com/bigquery/docs",
+            "https://www.google.com/policies/terms",
+            "https://support.google.com/websearch/answer/86640"
+          ],
+          "fetch_mode": "http_plain_bfs",
+          "status_code": 429,
+          "blocked_reason": "google_sorry"
+        }
+      ]
+    },
+    {
+      "name": "http_cdp_bfs",
+      "status": "failed",
+      "elapsed_seconds": 0.0,
+      "pages_requested": 24,
+      "pages_captured": 0,
+      "useful_pages": 0,
+      "blocked_pages": 0,
+      "avg_markdown_chars": 0,
+      "notes": [
+        "Requests-based breadth-first crawl.",
+        "Chrome cookies are loaded through CDP before issuing HTTP requests."
+      ],
+      "error": "RuntimeError: CDP-assisted site crawling requires the `playwright` Python package. Install it before using KNOW_SITE_CDP_URL.",
+      "sample_pages": []
+    },
+    {
+      "name": "crawl4ai_deep",
+      "status": "unavailable",
+      "elapsed_seconds": 0.0,
+      "pages_requested": 24,
+      "pages_captured": 0,
+      "useful_pages": 0,
+      "blocked_pages": 0,
+      "avg_markdown_chars": 0,
+      "notes": [
+        "Deep crawl baseline used by the current site adapter.",
+        "Connected to the live Chrome session through CDP.",
+        "No pages were captured for https://docs.cloud.google.com/bigquery/docs."
+      ],
+      "error": "No module named 'crawl4ai'",
+      "sample_pages": []
+    },
+    {
+      "name": "browser_cdp_bfs",
+      "status": "unavailable",
+      "elapsed_seconds": 0.0,
+      "pages_requested": 24,
+      "pages_captured": 0,
+      "useful_pages": 0,
+      "blocked_pages": 0,
+      "avg_markdown_chars": 0,
+      "notes": [
+        "Every page is navigated inside the live Chrome session.",
+        "No pages were captured for https://docs.cloud.google.com/bigquery/docs."
+      ],
+      "error": "No module named 'playwright'",
+      "sample_pages": []
+    },
+    {
+      "name": "browser_seeded_http_cdp",
+      "status": "unavailable",
+      "elapsed_seconds": 0.0,
+      "pages_requested": 24,
+      "pages_captured": 0,
+      "useful_pages": 0,
+      "blocked_pages": 0,
+      "avg_markdown_chars": 0,
+      "notes": [
+        "The browser seeds high-signal documentation links, then requests + Chrome cookies download pages faster.",
+        "This is the main candidate if you want a production replacement for full browser crawling.",
+        "No pages were captured for https://docs.cloud.google.com/bigquery/docs."
+      ],
+      "error": "No module named 'playwright'",
+      "sample_pages": []
+    }
+  ]
+}

@@ -1,8 +1,14 @@
-# Supported `tv` Commands
+# Television Guide
 
-This document lists the Television (`tv`) commands supported by this repository.
+This document covers Television (`tv`) usage with the `know` CLI.
 
-The repository supports `tv` in three ways:
+Use this guide together with:
+
+- [README.md](README.md): documentation map
+- [cli.md](cli.md): general CLI workflows
+- [COMMANDS.md](COMMANDS.md): compact command lookup
+
+The project supports `tv` in three ways:
 
 1. Run a bundled channel directly, such as `tv know-keys`.
 2. Run `tv` inline with a `know ... --format television` source command.
@@ -42,7 +48,7 @@ tv list-channels
 
 ## Bundled Channels
 
-These channels work after copying `cables/*.toml` into `~/.config/television/cable/`.
+These channels work after copying the bundled `.toml` files into `~/.config/television/cable/`.
 
 | `tv` command | Purpose | Backing `know` command |
 |---|---|---|
