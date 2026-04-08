@@ -294,7 +294,98 @@ def build_parser() -> argparse.ArgumentParser:
         "--entry",
         help="Entry title to preview when using --format television-preview.",
     )
+    search_brave_parser.add_argument("--country", help="Country code for regional results, for example US.")
+    search_brave_parser.add_argument("--search-lang", help="Language code for search results, for example en.")
+    search_brave_parser.add_argument("--ui-lang", help="Preferred UI language in the response, for example en-US.")
     search_brave_parser.add_argument("--count", type=int, default=10, help="Maximum number of Brave results.")
+    search_brave_parser.add_argument("--offset", type=int, default=0, help="Page offset to skip before returning results.")
+    search_brave_parser.add_argument(
+        "--safesearch",
+        choices=("off", "moderate", "strict"),
+        help="Adult-content filtering level.",
+    )
+    search_brave_parser.add_argument(
+        "--spellcheck",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Enable Brave spell correction.",
+    )
+    search_brave_parser.add_argument(
+        "--freshness",
+        help="Freshness filter such as pd, pw, pm, py, or YYYY-MM-DDtoYYYY-MM-DD.",
+    )
+    search_brave_parser.add_argument(
+        "--text-decorations",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Include Brave text decoration markers in snippets.",
+    )
+    search_brave_parser.add_argument(
+        "--result-filter",
+        action="append",
+        choices=("discussions", "faq", "infobox", "news", "query", "summarizer", "videos", "web", "locations"),
+        help="Result types to include. Repeatable.",
+    )
+    search_brave_parser.add_argument(
+        "--units",
+        choices=("imperial", "metric"),
+        help="Measurement units for result formatting.",
+    )
+    search_brave_parser.add_argument(
+        "--goggles",
+        action="append",
+        help="Goggle URL or inline definition. Repeatable.",
+    )
+    search_brave_parser.add_argument(
+        "--extra-snippets",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Request additional alternate snippets.",
+    )
+    search_brave_parser.add_argument(
+        "--summary",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Enable summary generation for summarizer results.",
+    )
+    search_brave_parser.add_argument(
+        "--enable-rich-callback",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Enable Brave rich callback support.",
+    )
+    search_brave_parser.add_argument(
+        "--include-fetch-metadata",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Include fetch metadata in the response.",
+    )
+    search_brave_parser.add_argument(
+        "--operators",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Apply Brave search operators found in the query.",
+    )
+    search_brave_parser.add_argument("--loc-lat", type=float, help="Client latitude for local results.")
+    search_brave_parser.add_argument("--loc-long", type=float, help="Client longitude for local results.")
+    search_brave_parser.add_argument("--loc-timezone", help="Client IANA timezone for local results.")
+    search_brave_parser.add_argument("--loc-city", help="Client city for local results.")
+    search_brave_parser.add_argument("--loc-state", help="Client state or region code for local results.")
+    search_brave_parser.add_argument("--loc-state-name", help="Client state or region name for local results.")
+    search_brave_parser.add_argument("--loc-country", help="Client country code for local results.")
+    search_brave_parser.add_argument("--loc-postal-code", help="Client postal code for local results.")
+    search_brave_parser.add_argument("--api-version", help="Explicit Brave API version header.")
+    search_brave_parser.add_argument(
+        "--accept",
+        choices=("application/json", "*/*"),
+        help="Accept header to send to Brave.",
+    )
+    search_brave_parser.add_argument(
+        "--cache-control",
+        choices=("no-cache",),
+        help="Cache-Control header for Brave requests.",
+    )
+    search_brave_parser.add_argument("--user-agent", help="User-Agent header for Brave requests.")
     search_brave_parser.set_defaults(handler=cmd_search_brave)
 
     sync_parser = subparsers.add_parser("sync", help="Synchronize one key or selected sources.")

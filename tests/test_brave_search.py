@@ -14,9 +14,53 @@ from knowledge.television import format_brave_preview, format_brave_television
 
 def test_search_brave_parser() -> None:
     parser = build_parser()
-    args = parser.parse_args(["search", "brave", "openai codex", "--count", "3", "--format", "television"])
+    args = parser.parse_args(
+        [
+            "search",
+            "brave",
+            "openai codex",
+            "--count",
+            "3",
+            "--offset",
+            "2",
+            "--country",
+            "US",
+            "--search-lang",
+            "en",
+            "--ui-lang",
+            "en-US",
+            "--spellcheck",
+            "--result-filter",
+            "web",
+            "--result-filter",
+            "news",
+            "--goggles",
+            "https://example.com/test.goggle",
+            "--loc-lat",
+            "40.7",
+            "--loc-long",
+            "-74.0",
+            "--api-version",
+            "2025-10-01",
+            "--user-agent",
+            "pytest",
+            "--format",
+            "television",
+        ]
+    )
     assert args.query == "openai codex"
     assert args.count == 3
+    assert args.offset == 2
+    assert args.country == "US"
+    assert args.search_lang == "en"
+    assert args.ui_lang == "en-US"
+    assert args.spellcheck is True
+    assert args.result_filter == ["web", "news"]
+    assert args.goggles == ["https://example.com/test.goggle"]
+    assert args.loc_lat == pytest.approx(40.7)
+    assert args.loc_long == pytest.approx(-74.0)
+    assert args.api_version == "2025-10-01"
+    assert args.user_agent == "pytest"
     assert args.format == "television"
     assert args.handler == cmd_search_brave
 
@@ -58,15 +102,52 @@ def test_search_brave_normalizes_web_results(monkeypatch: pytest.MonkeyPatch) ->
 
     monkeypatch.setattr(brave_module.requests, "get", fake_get)
 
-    results = brave_module.search_brave("openai codex", api_key="secret", count=5)
+    results = brave_module.search_brave(
+        "openai codex",
+        api_key="secret",
+        options={
+            "count": 5,
+            "offset": 2,
+            "country": "US",
+            "search_lang": "en",
+            "ui_lang": "en-US",
+            "spellcheck": True,
+            "text_decorations": False,
+            "result_filter": ["web", "news"],
+            "goggles": ["https://example.com/test.goggle"],
+            "loc_lat": 40.7,
+            "loc_long": -74.0,
+            "api_version": "2025-10-01",
+            "cache_control": "no-cache",
+            "user_agent": "pytest",
+        },
+    )
 
     assert results["query"] == "openai codex"
     assert results["count"] == 5
+    assert results["offset"] == 2
     assert results["more_results_available"] is True
     assert results["results"][0]["title"] == "OpenAI Codex"
     assert results["results"][0]["source"] == "openai.com"
     assert captured["url"] == brave_module._BRAVE_WEB_SEARCH_URL
-    assert captured["params"] == {"q": "openai codex", "count": 5}
+    assert captured["params"] == {
+        "q": "openai codex",
+        "count": 5,
+        "offset": 2,
+        "country": "US",
+        "search_lang": "en",
+        "ui_lang": "en-US",
+        "spellcheck": "true",
+        "text_decorations": "false",
+        "result_filter": "web,news",
+        "goggles": ["https://example.com/test.goggle"],
+    }
+    assert captured["headers"]["Accept"] == "application/json"
+    assert captured["headers"]["Api-Version"] == "2025-10-01"
+    assert captured["headers"]["Cache-Control"] == "no-cache"
+    assert captured["headers"]["User-Agent"] == "pytest"
+    assert captured["headers"]["X-Loc-Lat"] == "40.7"
+    assert captured["headers"]["X-Loc-Long"] == "-74.0"
     assert captured["headers"]["X-Subscription-Token"] == "secret"
 
 
@@ -79,6 +160,42 @@ def test_search_brave_reports_api_failures(monkeypatch: pytest.MonkeyPatch) -> N
 
     with pytest.raises(Exception, match="Brave Search API request failed"):
         brave_module.search_brave("openai", api_key="secret")
+
+
+def test_search_brave_normalizes_non_web_sections() -> None:
+    payload = {
+        "news": {
+            "results": [
+                {
+                    "title": "Launch update",
+                    "url": "https://example.com/news/launch",
+                    "description": "Latest product launch details.",
+                    "meta_url": {"hostname": "example.com"},
+                }
+            ]
+        },
+        "locations": {
+            "results": [
+                {
+                    "name": "OpenAI HQ",
+                    "address": {
+                        "street_address": "1 Market St",
+                        "locality": "San Francisco",
+                        "region": "CA",
+                        "country": "US",
+                    },
+                }
+            ]
+        },
+    }
+
+    results = brave_module._normalize_results(payload)
+
+    assert results[0]["result_type"] == "news"
+    assert results[0]["title"] == "Launch update"
+    assert results[1]["result_type"] == "locations"
+    assert results[1]["title"] == "OpenAI HQ"
+    assert "San Francisco" in results[1]["description"]
 
 
 def test_format_brave_television_and_preview() -> None:
@@ -213,3 +330,112 @@ def test_search_brave_fails_when_api_key_missing(tmp_path: Path, capsys, monkeyp
     rc = main(["--store", str(tmp_path), "search", "brave", "openai codex"])
     assert rc == 1
     assert "Brave Search API key not configured" in capsys.readouterr().err
+
+
+def test_search_brave_main_passes_extended_options(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys) -> None:
+    payload = {"web": {"results": []}, "query": {"more_results_available": False}}
+    captured: dict[str, object] = {}
+
+    def fake_get(url: str, *, params: dict[str, object], headers: dict[str, str], timeout: int) -> _Resp:
+        captured["url"] = url
+        captured["params"] = params
+        captured["headers"] = headers
+        captured["timeout"] = timeout
+        return _Resp(payload)
+
+    monkeypatch.setenv("BRAVE_SEARCH_API_KEY", "secret")
+    monkeypatch.setattr(brave_module.requests, "get", fake_get)
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "search",
+                "brave",
+                "openai codex",
+                "--country",
+                "US",
+                "--search-lang",
+                "en",
+                "--ui-lang",
+                "en-US",
+                "--count",
+                "7",
+                "--offset",
+                "3",
+                "--safesearch",
+                "strict",
+                "--spellcheck",
+                "--freshness",
+                "pw",
+                "--no-text-decorations",
+                "--result-filter",
+                "web",
+                "--result-filter",
+                "news",
+                "--units",
+                "metric",
+                "--goggles",
+                "https://example.com/test.goggle",
+                "--extra-snippets",
+                "--summary",
+                "--enable-rich-callback",
+                "--include-fetch-metadata",
+                "--operators",
+                "--loc-lat",
+                "40.7",
+                "--loc-long",
+                "-74.0",
+                "--loc-timezone",
+                "America/New_York",
+                "--loc-city",
+                "New York",
+                "--loc-state",
+                "NY",
+                "--loc-state-name",
+                "New York",
+                "--loc-country",
+                "US",
+                "--loc-postal-code",
+                "10001",
+                "--api-version",
+                "2025-10-01",
+                "--cache-control",
+                "no-cache",
+                "--user-agent",
+                "pytest",
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+    assert captured["url"] == brave_module._BRAVE_WEB_SEARCH_URL
+    assert captured["params"] == {
+        "q": "openai codex",
+        "country": "US",
+        "search_lang": "en",
+        "ui_lang": "en-US",
+        "count": 7,
+        "offset": 3,
+        "safesearch": "strict",
+        "spellcheck": "true",
+        "freshness": "pw",
+        "text_decorations": "false",
+        "result_filter": "web,news",
+        "units": "metric",
+        "goggles": ["https://example.com/test.goggle"],
+        "extra_snippets": "true",
+        "summary": "true",
+        "enable_rich_callback": "true",
+        "include_fetch_metadata": "true",
+        "operators": "true",
+    }
+    assert captured["headers"]["X-Subscription-Token"] == "secret"
+    assert captured["headers"]["Accept"] == "application/json"
+    assert captured["headers"]["X-Loc-Timezone"] == "America/New_York"
+    assert captured["headers"]["X-Loc-City"] == "New York"
+    assert captured["headers"]["X-Loc-State"] == "NY"
+    assert captured["headers"]["X-Loc-State-Name"] == "New York"
+    assert captured["headers"]["X-Loc-Country"] == "US"
+    assert captured["headers"]["X-Loc-Postal-Code"] == "10001"
