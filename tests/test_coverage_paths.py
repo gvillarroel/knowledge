@@ -1289,7 +1289,9 @@ def test_aha_sync_writes_features(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
 
     assert payload["features"] == 1
     assert payload["workspace"] == "PROD"
-    assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
+    feature_doc = store.source_raw_dir(source) / "features" / "PROD-1.md"
+    assert feature_doc.exists()
+    assert (store.source_raw_dir(source) / "source-metadata.yaml").exists()
 
 
 def test_aha_sync_downloads_entire_workspace_across_pages(
@@ -1345,8 +1347,8 @@ def test_aha_sync_downloads_entire_workspace_across_pages(
             "params": {"page": 2, "per_page": 200},
         },
     ]
-    assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
-    assert (store.source_raw_dir(source) / "features" / "PROD-2.json").exists()
+    assert (store.source_raw_dir(source) / "features" / "PROD-1.md").exists()
+    assert (store.source_raw_dir(source) / "features" / "PROD-2.md").exists()
 
 
 def test_aha_sync_respects_limit_across_pages(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1397,9 +1399,9 @@ def test_aha_sync_respects_limit_across_pages(tmp_path: Path, monkeypatch: pytes
         {"page": 1, "per_page": 2},
         {"page": 2, "per_page": 1},
     ]
-    assert (store.source_raw_dir(source) / "features" / "PROD-1.json").exists()
-    assert (store.source_raw_dir(source) / "features" / "PROD-2.json").exists()
-    assert not (store.source_raw_dir(source) / "features" / "PROD-3.json").exists()
+    assert (store.source_raw_dir(source) / "features" / "PROD-1.md").exists()
+    assert (store.source_raw_dir(source) / "features" / "PROD-2.md").exists()
+    assert not (store.source_raw_dir(source) / "features" / "PROD-3.md").exists()
 
 
 def test_arxiv_sync_fetches_feed_and_extracts_pdf_id(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1425,7 +1427,8 @@ def test_arxiv_sync_fetches_feed_and_extracts_pdf_id(tmp_path: Path, monkeypatch
 
     assert payload["paper_id"] == "1706.03762"
     assert "1706.03762" in captured["url"]
-    assert (store.source_raw_dir(source) / "paper.xml").read_text(encoding="utf-8") == "<feed/>"
+    assert (store.source_raw_dir(source) / "paper.md").exists()
+    assert (store.source_raw_dir(source) / "source-metadata.yaml").exists()
 
 
 def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1584,15 +1587,12 @@ def test_video_sync_writes_transcript_and_markdown(tmp_path: Path, monkeypatch: 
     payload = VideoSource(source, store).sync()
 
     assert payload["segments"] == 2
-    transcript_payload = json.loads((store.source_raw_dir(source) / "transcript.json").read_text(encoding="utf-8"))
-    metadata_payload = json.loads((store.source_raw_dir(source) / "metadata.json").read_text(encoding="utf-8"))
+    transcript_doc = (store.source_raw_dir(source) / "transcript.md").read_text(encoding="utf-8")
     raw_files = [path.name for path in store.source_raw_dir(source).iterdir() if path.is_file()]
-    assert sorted(raw_files) == ["metadata.json", "transcript.json"]
-    assert transcript_payload["video_id"] == "cxqRKt1GYNQ"
-    assert transcript_payload["author_name"] == "OpenAI"
-    assert len(transcript_payload["segments"]) == 2
-    assert transcript_payload["segments"][0]["text"] == "Hello world"
-    assert metadata_payload["title"] == "Agent video"
+    assert sorted(raw_files) == ["source-metadata.yaml", "transcript.md"]
+    assert "video_id: cxqRKt1GYNQ" in transcript_doc
+    assert "author_name: OpenAI" in transcript_doc
+    assert "[00:00] Hello world" in transcript_doc
 
 
 def test_video_sync_removes_stale_raw_video_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1639,7 +1639,7 @@ def test_video_sync_removes_stale_raw_video_files(tmp_path: Path, monkeypatch: p
 
     VideoSource(source, store).sync()
 
-    assert sorted(path.name for path in raw_dir.iterdir()) == ["metadata.json", "transcript.json"]
+    assert sorted(path.name for path in raw_dir.iterdir()) == ["source-metadata.yaml", "transcript.md"]
 
 
 def test_television_sync_writes_channel_bundle(tmp_path: Path) -> None:
@@ -1664,20 +1664,15 @@ def test_television_sync_writes_channel_bundle(tmp_path: Path) -> None:
     payload = TelevisionSource(source, store).sync()
 
     channel_file = store.source_raw_dir(source) / "knowledge-sources.toml"
-    manifest_file = store.source_raw_dir(source) / "commands.json"
-    readme_file = store.source_raw_dir(source) / "README.md"
-    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    metadata_file = store.source_raw_dir(source) / "source-metadata.yaml"
 
-    assert payload["files"] == 3
+    assert payload["files"] == 1
     assert channel_file.exists()
-    assert manifest_file.exists()
-    assert readme_file.exists()
+    assert metadata_file.exists()
     channel_text = channel_file.read_text(encoding="utf-8")
     assert 'name = "knowledge-sources"' in channel_text
     assert 'command = "know list sources --key automation --json"' in channel_text
     assert 'ctrl-o = "actions:open"' in channel_text
-    assert manifest["commands"]["run_after_install"] == "tv knowledge-sources"
-    assert "install_unix" in manifest["commands"]
 
 
 def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1703,7 +1698,7 @@ def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypa
             return None
 
     def fake_get(url: str, **kwargs: object) -> Response:
-        assert url == "https://openai.com/index/harness-engineering/"
+        assert url == "https://openai.com/index/harness-engineering"
         assert kwargs["timeout"] == 60
         return Response()
 
@@ -1714,10 +1709,12 @@ def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypa
     page_md = (
         store.source_raw_dir(source) / "pages" / "openai.com_index_harness-engineering.md"
     ).read_text(encoding="utf-8")
-    page_json = json.loads((store.source_raw_dir(source) / "pages.json").read_text(encoding="utf-8"))
+    source_metadata = (store.source_raw_dir(source) / "source-metadata.yaml").read_text(encoding="utf-8")
     assert "Harness Engineering" in page_md
     assert "Evaluation systems for AI." in page_md
-    assert page_json[0]["title"] == "Harness Engineering"
+    assert "content_scope: primary" in page_md
+    assert "fetched_via: http_bfs" in page_md
+    assert "pages: 1" in source_metadata
 
 
 def test_site_sync_falls_back_to_readable_proxy_after_403(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1759,9 +1756,9 @@ def test_site_sync_falls_back_to_readable_proxy_after_403(tmp_path: Path, monkey
 
     def fake_get(url: str, **_kwargs: object):
         calls.append(url)
-        if url == "https://openai.com/index/harness-engineering/":
+        if url == "https://openai.com/index/harness-engineering":
             return ForbiddenResponse()
-        if url == "https://r.jina.ai/http://openai.com/index/harness-engineering/":
+        if url == "https://r.jina.ai/http://openai.com/index/harness-engineering":
             return ProxyResponse()
         raise AssertionError(url)
 
@@ -1770,8 +1767,8 @@ def test_site_sync_falls_back_to_readable_proxy_after_403(tmp_path: Path, monkey
 
     assert payload["pages"] == 1
     assert calls == [
-        "https://openai.com/index/harness-engineering/",
-        "https://r.jina.ai/http://openai.com/index/harness-engineering/",
+        "https://openai.com/index/harness-engineering",
+        "https://r.jina.ai/http://openai.com/index/harness-engineering",
     ]
     page_md = (
         store.source_raw_dir(source) / "pages" / "openai.com_index_harness-engineering.md"
@@ -1820,11 +1817,11 @@ def test_google_releases_sync_writes_feed_manifest_and_entry_markdown(tmp_path: 
 
     assert payload["entries"] == 1
     raw_dir = store.source_raw_dir(source)
-    assert (raw_dir / "feed.xml").exists()
-    manifest = json.loads((raw_dir / "entries.json").read_text(encoding="utf-8"))
+    assert not (raw_dir / "feed.xml").exists()
+    assert (raw_dir / "source-metadata.yaml").exists()
     entry_file = raw_dir / "entries" / "march-24-2026.md"
     contents = entry_file.read_text(encoding="utf-8")
-    assert manifest[0]["products"] == ["Cloud Monitoring"]
+    assert "products:" in contents
     assert "# March 24, 2026" in contents
     assert "## Cloud Monitoring" in contents
     assert "| Old | New |" in contents

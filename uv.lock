@@ -1153,6 +1153,7 @@ name = "knowledge-cli"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "playwright" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "youtube-transcript-api" },
@@ -1166,6 +1167,7 @@ crawl4ai = [
 [package.metadata]
 requires-dist = [
     { name = "crawl4ai", marker = "extra == 'crawl4ai'", specifier = ">=0.6.0" },
+    { name = "playwright", specifier = ">=1.58.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "requests", specifier = ">=2.32.0" },
     { name = "youtube-transcript-api", specifier = ">=1.2.4" },

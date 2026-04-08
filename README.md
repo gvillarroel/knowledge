@@ -46,6 +46,53 @@ know export --key research
 
 The command family stays consistent across source types, so the same pattern works for Confluence, Jira, arXiv, websites, videos, GitHub repositories, Google release feeds, Aha workspaces, and Television channel definitions.
 
+## Browser-Assisted Site Capture
+
+The `site` source supports a browser-assisted capture mode for sites that rate-limit plain HTTP scraping.
+
+Set `KNOW_SITE_CDP_URL` to a live Chrome or Brave DevTools endpoint such as `http://127.0.0.1:9222`.
+When that variable is present, `know` reuses cookies from the connected browser session and applies them to the HTTP crawler.
+
+This is especially useful for `docs.cloud.google.com`, where:
+
+- plain automated requests can be redirected to Google `sorry` pages
+- HTTP BFS crawling with the browser session cookies can capture the intended documentation subtree more reliably
+- scoped extraction from the primary page content produces cleaner Markdown than full-document stripping
+
+Typical setup:
+
+```powershell
+& "$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe" `
+  --remote-debugging-port=9222 `
+  --remote-debugging-address=127.0.0.1 `
+  --user-data-dir="$env:TEMP\\chrome-cdp-profile"
+
+$env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10
+know sync site https://docs.cloud.google.com/bigquery/docs --key research
+```
+
+Safety behavior:
+
+- anti-bot pages are detected and fail the sync instead of overwriting a healthy corpus
+- when `KNOW_SITE_CDP_URL` is present, `docs.cloud.google.com` uses the browser-assisted CDP BFS crawler by default
+- other hosts can still use `crawl4ai`, and `KNOW_SITE_FORCE_CRAWL4AI=1` can override the HTTP preference when needed
+- the CDP mode requires the Python `playwright` package, but it connects to your existing Chrome session and does not require a bundled Playwright browser install
+
+For a cleaner on-disk layout, register site sources with `--compact`:
+
+```bash
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
+```
+
+Compact site output keeps only:
+
+- `pages/*.md` with YAML frontmatter
+- `pages.json` as the page index
+- `source-metadata.yaml` as source-level sync metadata
+
+It does not write per-page JSON sidecars.
+
 ## Store Layout
 
 ```text

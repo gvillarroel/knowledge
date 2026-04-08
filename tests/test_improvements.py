@@ -5,11 +5,12 @@ from __future__ import annotations
 import json
 from argparse import Namespace
 from pathlib import Path
+from unittest.mock import MagicMock
 
 import pytest
 import yaml
 
-from knowledge.cli import _validate_url, _SYNC_ATTR_MAP, build_parser, main, load_dotenv
+from knowledge.cli import _configure_utf8_stdio, _validate_url, _SYNC_ATTR_MAP, build_parser, main, load_dotenv
 from knowledge.errors import (
     CredentialNotFoundError,
     InvalidURLError,
@@ -29,7 +30,35 @@ from knowledge.exporter import (
     export_source,
 )
 from knowledge.sources.base import SourceAdapter
-from knowledge.sources.crawl4ai_site import SiteSource, _html_to_text, _slugify_url
+from knowledge.sources.crawl4ai_site import (
+    SiteSource,
+    _BlockedPageError,
+    _LinkExtractor,
+    _SkippablePageError,
+    _active_http_fetch_mode,
+    _allowed_path_prefixes,
+    _cdp_url,
+    _content_scope,
+    _dedupe_pages_by_url,
+    _env_float,
+    _env_int,
+    _extract_html_title,
+    _extract_primary_html,
+    _fallback_delay_seconds,
+    _find_anti_bot_reason,
+    _http_session,
+    _http_get_with_backoff,
+    _html_to_primary_text,
+    _normalize_url,
+    _page_anti_bot_reason,
+    _prefer_cdp_bfs,
+    _prefer_crawl4ai,
+    _prefer_http_crawl,
+    _rank_candidate_links,
+    _should_follow_link,
+    _html_to_text,
+    _slugify_url,
+)
 from knowledge.sources.google_releases import parse_google_releases_feed
 from knowledge.sources.jira import (
     _adf_to_markdown,
@@ -41,6 +70,7 @@ from knowledge.sources.jira import (
     _table_row,
 )
 from knowledge.sources.video import extract_video_id
+from knowledge.sources.television import TelevisionSource, _escape_toml, _shell_quote
 from knowledge.store import KnowledgeStore
 
 
@@ -376,6 +406,19 @@ class TestExporterCoverage:
 
 
 class TestCrawl4aiSiteCoverage:
+    def test_link_extractor_collects_links(self):
+        parser = _LinkExtractor()
+        parser.feed('<a href="/docs">Docs</a><a href="https://example.com/a">A</a><span>ignored</span>')
+        assert parser.links == ["/docs", "https://example.com/a"]
+
+    def test_page_error_types_store_context(self):
+        blocked = _BlockedPageError("https://example.com", "rate_limited")
+        skipped = _SkippablePageError("https://example.com/missing", "not_found")
+        assert blocked.url == "https://example.com"
+        assert blocked.reason == "rate_limited"
+        assert skipped.url.endswith("/missing")
+        assert skipped.reason == "not_found"
+
     def test_html_to_text_strips_script_tags(self):
         html = "<html><script>alert(1)</script><p>Hello</p></html>"
         result = _html_to_text(html)
@@ -397,6 +440,41 @@ class TestCrawl4aiSiteCoverage:
     def test_slugify_url_long(self):
         result = _slugify_url("https://example.com/" + "a" * 300)
         assert len(result) <= 200
+
+    def test_normalize_url_strips_query_fragment_and_slash(self):
+        assert _normalize_url("https://example.com/docs/page/?q=1#frag") == "https://example.com/docs/page"
+
+    def test_should_follow_link_filters_scheme_host_and_prefix(self):
+        start = "https://docs.example.com/product/docs"
+        allowed = _allowed_path_prefixes(start)
+        assert _should_follow_link("https://docs.example.com/product/docs/page-a", start, allowed) is True
+        assert _should_follow_link("mailto:test@example.com", start, allowed) is False
+        assert _should_follow_link("https://other.example.com/product/docs/page-a", start, allowed) is False
+        assert _should_follow_link("https://docs.example.com/other/path", start, allowed) is False
+
+    def test_dedupe_pages_by_url_normalizes_duplicates(self):
+        deduped = _dedupe_pages_by_url(
+            [
+                {"url": "https://example.com/docs/page?a=1"},
+                {"url": "https://example.com/docs/page#frag"},
+                {"url": "https://example.com/docs/other"},
+            ]
+        )
+        assert [item["url"] for item in deduped] == [
+            "https://example.com/docs/page?a=1",
+            "https://example.com/docs/other",
+        ]
+
+    def test_env_float_and_int_return_defaults_for_invalid_values(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_TEST_FLOAT", "oops")
+        monkeypatch.setenv("KNOW_SITE_TEST_INT", "oops")
+        assert _env_float("KNOW_SITE_TEST_FLOAT", 1.5) == 1.5
+        assert _env_int("KNOW_SITE_TEST_INT", 3) == 3
+
+    def test_fallback_delay_seconds_zero_when_env_zero(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_FALLBACK_DELAY_SECONDS", "0")
+        monkeypatch.setenv("KNOW_SITE_FALLBACK_JITTER_SECONDS", "0")
+        assert _fallback_delay_seconds() == 0.0
 
     def test_fetch_single_page_success(self, tmp_path, monkeypatch):
         store = make_store(tmp_path)
@@ -531,6 +609,474 @@ class TestCrawl4aiSiteCoverage:
         monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeResp())
         result = adapter._fetch_readable_proxy("https://example.com")
         assert result["title"] == "https://example.com"
+
+    def test_find_anti_bot_reason_detects_google_sorry(self):
+        reason = _find_anti_bot_reason([
+            {
+                "url": "https://docs.example.com/x",
+                "title": "About this page",
+                "markdown": "Our systems have detected unusual traffic from your computer network.",
+                "metadata": {},
+            }
+        ])
+        assert reason == "google_sorry"
+
+    def test_page_anti_bot_reason_detects_verify_human(self):
+        reason = _page_anti_bot_reason(
+            {
+                "url": "https://docs.example.com/x",
+                "title": "Human check",
+                "markdown": "Please verify you are human",
+                "metadata": {},
+            }
+        )
+        assert reason == "verify_human"
+
+    def test_find_anti_bot_reason_returns_none_for_clean_pages(self):
+        assert _find_anti_bot_reason(
+            [{"url": "https://docs.example.com/x", "title": "Docs", "markdown": "Normal content", "metadata": {}}]
+        ) is None
+
+    def test_prefer_http_crawl_for_docs_cloud(self):
+        assert _prefer_http_crawl("https://docs.cloud.google.com/bigquery/docs") is True
+        assert _prefer_http_crawl("https://example.com/docs") is False
+
+    def test_allowed_path_prefixes_keep_python_reference_scoped(self):
+        assert _allowed_path_prefixes("https://docs.cloud.google.com/python/docs/reference/bigquery/latest") == [
+            "/python/docs/reference/bigquery/latest"
+        ]
+
+    def test_allowed_path_prefixes_for_generic_docs(self):
+        assert _allowed_path_prefixes("https://docs.example.com/product/docs/page") == ["/product/docs"]
+
+    def test_cdp_url_reads_env(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        assert _cdp_url() == "http://127.0.0.1:9222"
+
+    def test_cdp_url_blank_env_returns_none(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", " ")
+        assert _cdp_url() is None
+
+    def test_prefer_crawl4ai_when_cdp_available(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        assert _prefer_crawl4ai("https://example.com/docs") is True
+
+    def test_prefer_cdp_bfs_for_docs_cloud_when_cdp_available(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.delenv("KNOW_SITE_PREFER_HTTP_HOSTS", raising=False)
+        assert _prefer_cdp_bfs("https://docs.cloud.google.com/bigquery/docs") is True
+
+    def test_prefer_http_crawl_honors_override_hosts(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_PREFER_HTTP_HOSTS", "example.com,docs.test")
+        assert _prefer_http_crawl("https://sub.example.com/docs") is True
+        assert _prefer_http_crawl("https://docs.test/path") is True
+
+    def test_prefer_crawl4ai_false_for_http_override_without_force(self, monkeypatch):
+        monkeypatch.delenv("KNOW_SITE_CDP_URL", raising=False)
+        monkeypatch.setenv("KNOW_SITE_PREFER_HTTP_HOSTS", "example.com")
+        monkeypatch.delenv("KNOW_SITE_FORCE_CRAWL4AI", raising=False)
+        assert _prefer_crawl4ai("https://example.com/docs") is False
+
+    def test_prefer_crawl4ai_still_false_without_cdp_even_when_force_enabled(self, monkeypatch):
+        monkeypatch.delenv("KNOW_SITE_CDP_URL", raising=False)
+        monkeypatch.setenv("KNOW_SITE_PREFER_HTTP_HOSTS", "example.com")
+        monkeypatch.setenv("KNOW_SITE_FORCE_CRAWL4AI", "1")
+        assert _prefer_crawl4ai("https://example.com/docs") is False
+
+    def test_http_session_loads_cdp_cookies(self, monkeypatch):
+        _http_session.cache_clear()
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.setattr(
+            "knowledge.sources.crawl4ai_site._load_cookies_from_cdp",
+            lambda _url: [
+                {"name": "SID", "value": "abc", "domain": ".google.com", "path": "/"},
+            ],
+        )
+        session = _http_session()
+        cookie = session.cookies.get("SID", domain=".google.com", path="/")
+        assert cookie == "abc"
+        _http_session.cache_clear()
+
+    def test_http_session_raises_runtime_cookie_loading_errors(self, monkeypatch):
+        _http_session.cache_clear()
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.setattr(
+            "knowledge.sources.crawl4ai_site._load_cookies_from_cdp",
+            lambda _url: (_ for _ in ()).throw(RuntimeError("boom")),
+        )
+        with pytest.raises(RuntimeError, match="boom"):
+            _http_session()
+        _http_session.cache_clear()
+
+    def test_http_session_ignores_non_runtime_cookie_loading_errors(self, monkeypatch):
+        _http_session.cache_clear()
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        monkeypatch.setattr(
+            "knowledge.sources.crawl4ai_site._load_cookies_from_cdp",
+            lambda _url: (_ for _ in ()).throw(ValueError("boom")),
+        )
+        session = _http_session()
+        assert session is not None
+        _http_session.cache_clear()
+
+    def test_load_cookies_from_cdp_does_not_close_shared_browser(self, monkeypatch):
+        import sys
+        import types
+
+        class FakeContext:
+            async def cookies(self):
+                return [{"name": "SID", "value": "abc"}]
+
+        class FakeBrowser:
+            def __init__(self):
+                self.contexts = [FakeContext()]
+                self.closed = False
+
+            async def close(self):
+                self.closed = True
+
+        class FakeChromium:
+            def __init__(self, browser):
+                self.browser = browser
+
+            async def connect_over_cdp(self, url):
+                assert url == "http://127.0.0.1:9222"
+                return self.browser
+
+        class FakePlaywrightContext:
+            def __init__(self, browser):
+                self.chromium = FakeChromium(browser)
+
+            async def __aenter__(self):
+                return self
+
+            async def __aexit__(self, exc_type, exc, tb):
+                return False
+
+        browser = FakeBrowser()
+
+        class FakeAsyncPlaywright:
+            def __call__(self):
+                return FakePlaywrightContext(browser)
+
+        playwright_module = types.ModuleType("playwright")
+        async_api_module = types.ModuleType("playwright.async_api")
+        async_api_module.async_playwright = FakeAsyncPlaywright()
+        playwright_module.async_api = async_api_module
+        monkeypatch.setitem(sys.modules, "playwright", playwright_module)
+        monkeypatch.setitem(sys.modules, "playwright.async_api", async_api_module)
+
+        from knowledge.sources.crawl4ai_site import _load_cookies_from_cdp
+
+        cookies = _load_cookies_from_cdp("http://127.0.0.1:9222")
+
+        assert cookies == [{"name": "SID", "value": "abc"}]
+        assert browser.closed is False
+
+    def test_extract_html_title_and_primary_content_helpers(self):
+        html = (
+            "<html><head><title> BigQuery docs </title></head>"
+            "<body><nav>Nav</nav><main><h1>Docs</h1><p>Useful content here.</p></main></body></html>"
+        )
+
+        assert _extract_html_title(html) == "BigQuery docs"
+        assert "Useful content here." in (_extract_primary_html(html) or "")
+        assert _content_scope(html) == "primary"
+        assert "Useful content here." in _html_to_primary_text(html)
+
+    def test_rank_candidate_links_prefers_guides_over_reference(self):
+        ranked = _rank_candidate_links(
+            [
+                "/bigquery/docs/reference/rest",
+                "/bigquery/docs/guides/tables",
+                "/bigquery/docs/tutorials/load-data",
+            ],
+            "https://docs.cloud.google.com/bigquery/docs",
+        )
+
+        assert ranked[0] == "/bigquery/docs/guides/tables"
+        assert ranked[-1] == "/bigquery/docs/reference/rest"
+
+    def test_active_http_fetch_mode_uses_cdp_when_available(self, monkeypatch):
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        assert _active_http_fetch_mode() == "http_cdp_bfs"
+
+    def test_http_get_with_backoff_retries_429(self, monkeypatch):
+        class FakeResp:
+            def __init__(self, status_code: int, text: str, url: str = "https://docs.example.com/page"):
+                self.status_code = status_code
+                self.text = text
+                self.url = url
+                self.headers = {"Content-Type": "text/html"}
+
+            def raise_for_status(self):
+                return None
+
+        calls = {"count": 0}
+
+        def fake_get(*_args, **_kwargs):
+            calls["count"] += 1
+            if calls["count"] < 3:
+                return FakeResp(429, "Our systems have detected unusual traffic")
+            return FakeResp(200, "<html><title>OK</title></html>")
+
+        monkeypatch.setenv("KNOW_SITE_HTTP_MAX_ATTEMPTS", "3")
+        monkeypatch.setenv("KNOW_SITE_HTTP_RETRY_BASE_SECONDS", "0")
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", fake_get)
+        response = _http_get_with_backoff("https://docs.example.com/page")
+        assert response.status_code == 200
+        assert calls["count"] == 3
+
+    def test_http_get_with_backoff_retries_connection_error(self, monkeypatch):
+        class FakeResp:
+            def __init__(self):
+                self.status_code = 200
+                self.text = "<html><title>OK</title></html>"
+                self.headers = {"Content-Type": "text/html"}
+
+            def raise_for_status(self):
+                return None
+
+        calls = {"count": 0}
+
+        def fake_get(*_args, **_kwargs):
+            calls["count"] += 1
+            if calls["count"] < 3:
+                raise requests.ConnectionError("remote disconnected")
+            return FakeResp()
+
+        import requests
+
+        monkeypatch.setenv("KNOW_SITE_HTTP_MAX_ATTEMPTS", "3")
+        monkeypatch.setenv("KNOW_SITE_HTTP_RETRY_BASE_SECONDS", "0")
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", fake_get)
+        response = _http_get_with_backoff("https://docs.example.com/page")
+        assert response.status_code == 200
+        assert calls["count"] == 3
+
+    def test_sync_fallback_crawls_multiple_pages_without_crawl4ai(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.example.com/product/docs",
+            config={"url": "https://docs.example.com/product/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+
+        pages = {
+            "https://docs.example.com/product/docs": "<html><title>Docs</title><a href=\"/product/docs/page-a\">A</a><a href=\"/other/docs/nope\">No</a></html>",
+            "https://docs.example.com/product/docs/page-a": "<html><title>Page A</title><a href=\"/product/docs/page-b\">B</a></html>",
+            "https://docs.example.com/product/docs/page-b": "<html><title>Page B</title></html>",
+        }
+
+        class FakeResp:
+            def __init__(self, text: str):
+                self.text = text
+                self.headers = {"Content-Type": "text/html"}
+            def raise_for_status(self):  # noqa: D401
+                return None
+
+        monkeypatch.setattr(adapter, "_crawl_with_crawl4ai", lambda *_args: None)
+        monkeypatch.setattr(
+            "knowledge.sources.crawl4ai_site.requests.get",
+            lambda url, **_kwargs: FakeResp(pages[url]),
+        )
+
+        payload = adapter.sync()
+        assert payload["pages"] == 2
+        exported = sorted((store.source_raw_dir(source) / "pages").glob("*.md"))
+        assert [page.name for page in exported] == [
+            "docs.example.com_product_docs.md",
+            "docs.example.com_product_docs_page-a.md",
+        ]
+
+    def test_sync_raises_on_anti_bot_and_preserves_existing_corpus(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.example.com/product/docs",
+            config={"url": "https://docs.example.com/product/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        raw_dir = store.source_raw_dir(source)
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        sentinel = raw_dir / "pages.json"
+        sentinel.write_text('[{"url":"https://docs.example.com/healthy"}]', encoding="utf-8")
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_crawl4ai",
+            lambda *_args: [
+                {
+                    "url": "https://docs.example.com/product/docs",
+                    "title": "About this page",
+                    "markdown": "To continue, please type the characters below",
+                    "metadata": {},
+                }
+            ],
+        )
+
+        with pytest.raises(SyncError):
+            adapter.sync()
+
+        assert sentinel.read_text(encoding="utf-8") == '[{"url":"https://docs.example.com/healthy"}]'
+
+    def test_sync_prefers_http_bfs_for_docs_cloud_with_cdp(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.cloud.google.com/bigquery/docs",
+            config={"url": "https://docs.cloud.google.com/bigquery/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        monkeypatch.setenv("KNOW_SITE_CDP_URL", "http://127.0.0.1:9222")
+        calls: list[str] = []
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_http_bfs",
+            lambda *_args: calls.append("http") or [
+                {"url": "https://docs.cloud.google.com/bigquery/docs", "title": "Docs", "markdown": "# Docs", "metadata": {}}
+            ],
+        )
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_crawl4ai",
+            lambda *_args: calls.append("crawl4ai") or None,
+        )
+
+        payload = adapter.sync()
+
+        assert payload["pages"] == 1
+        assert calls == ["http"]
+
+    def test_compact_site_output_writes_only_markdown_and_metadata(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.example.com/product/docs",
+            config={
+                "url": "https://docs.example.com/product/docs",
+                "max_depth": 1,
+                "max_pages": 2,
+                "compact_output": True,
+            },
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+
+        monkeypatch.setattr(
+            adapter,
+            "_crawl_with_crawl4ai",
+            lambda *_args: [
+                {
+                    "url": "https://docs.example.com/product/docs",
+                    "title": "Docs",
+                    "markdown": "# Docs",
+                    "metadata": {"status_code": 200},
+                }
+            ],
+        )
+
+        payload = adapter.sync()
+        assert payload["pages"] == 1
+        source_dir = store.source_raw_dir(source)
+        assert (source_dir / "source-metadata.yaml").exists()
+        assert len(list((source_dir / "pages").glob("*.md"))) == 1
+        assert list((source_dir / "pages").glob("*.json")) == []
+
+    def test_sync_skips_blocked_child_pages_in_http_crawl(self, tmp_path, monkeypatch):
+        import requests as req
+
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.example.com/product/docs",
+            config={"url": "https://docs.example.com/product/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+
+        pages = {
+            "https://docs.example.com/product/docs": "<html><title>Docs</title><a href=\"/product/docs/page-a\">A</a><a href=\"/product/docs/page-b\">B</a></html>",
+            "https://docs.example.com/product/docs/page-b": "<html><title>Page B</title></html>",
+        }
+
+        class FakeResp:
+            def __init__(self, status_code: int, text: str):
+                self.status_code = status_code
+                self.text = text
+                self.headers = {"Content-Type": "text/html"}
+
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise req.HTTPError(response=self)
+                return None
+
+        def fake_get(url, **_kwargs):
+            if url.endswith("page-a"):
+                return FakeResp(429, "Our systems have detected unusual traffic")
+            return FakeResp(200, pages[url])
+
+        monkeypatch.setattr(adapter, "_crawl_with_crawl4ai", lambda *_args: None)
+        monkeypatch.setenv("KNOW_SITE_HTTP_MAX_ATTEMPTS", "1")
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", fake_get)
+
+        payload = adapter.sync()
+        assert payload["pages"] == 2
+        exported = sorted((store.source_raw_dir(source) / "pages").glob("*.md"))
+        assert [page.name for page in exported] == [
+            "docs.example.com_product_docs.md",
+            "docs.example.com_product_docs_page-b.md",
+        ]
+
+    def test_sync_skips_not_found_child_pages_in_http_crawl(self, tmp_path, monkeypatch):
+        import requests as req
+
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://docs.example.com/product/docs",
+            config={"url": "https://docs.example.com/product/docs", "max_depth": 1, "max_pages": 3},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+
+        pages = {
+            "https://docs.example.com/product/docs": "<html><title>Docs</title><a href=\"/product/docs/page-a\">A</a><a href=\"/product/docs/page-b\">B</a></html>",
+            "https://docs.example.com/product/docs/page-b": "<html><title>Page B</title></html>",
+        }
+
+        class FakeResp:
+            def __init__(self, status_code: int, text: str):
+                self.status_code = status_code
+                self.text = text
+                self.headers = {"Content-Type": "text/html"}
+
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise req.HTTPError(response=self)
+                return None
+
+        def fake_get(url, **_kwargs):
+            if url.endswith("page-a"):
+                return FakeResp(404, "not found")
+            return FakeResp(200, pages[url])
+
+        monkeypatch.setattr(adapter, "_crawl_with_crawl4ai", lambda *_args: None)
+        monkeypatch.setenv("KNOW_SITE_HTTP_MAX_ATTEMPTS", "1")
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", fake_get)
+
+        payload = adapter.sync()
+        assert payload["pages"] == 2
+        exported = sorted((store.source_raw_dir(source) / "pages").glob("*.md"))
+        assert [page.name for page in exported] == [
+            "docs.example.com_product_docs.md",
+            "docs.example.com_product_docs_page-b.md",
+        ]
 
 
 # ──────────────────────────────────────────────────────────────
@@ -784,6 +1330,63 @@ class TestVideoExtractId:
             extract_video_id("https://youtube.com/")
 
 
+class TestTelevisionSourceCoverage:
+    def test_build_channel_toml_includes_optional_sections(self, tmp_path):
+        store = make_store(tmp_path)
+        store.create_collection_key("tv")
+        source = store.add_collection_source(
+            "tv",
+            "television",
+            title='channel "one"',
+            config={
+                "source_command": "know list sources --key tv --json",
+                "source_display": "{0}",
+                "preview_command": "know list sources --key tv --format television-preview --entry '{}'",
+                "action_command": "know sync --key tv",
+                "description": 'desc "quoted"',
+            },
+            update_command="know sync television channel-one --key tv",
+            delete_command="know del --key tv television-channel-one",
+        )
+        adapter = TelevisionSource(source, store)
+        toml_text = adapter._build_channel_toml('channel "one"')
+        assert 'name = "channel \\"one\\""' in toml_text
+        assert 'description = "desc \\"quoted\\""' in toml_text
+        assert 'display = "{0}"' in toml_text
+        assert "[preview]" in toml_text
+        assert "[actions.open]" in toml_text
+
+    def test_build_command_manifest_and_inline_run_command(self, tmp_path):
+        store = make_store(tmp_path)
+        store.create_collection_key("tv")
+        source = store.add_collection_source(
+            "tv",
+            "television",
+            title="knowledge-sources",
+            config={
+                "source_command": "know list sources --key tv --json",
+                "source_display": "{0}",
+                "preview_command": "know browse local --key tv --format television-preview --entry '{}'",
+            },
+            update_command="know sync television knowledge-sources --key tv",
+            delete_command="know del --key tv television-knowledge-sources",
+        )
+        adapter = TelevisionSource(source, store)
+        manifest = adapter._build_command_manifest("knowledge-sources", Path("C:/tmp/knowledge-sources.toml"))
+        assert manifest["sync"] == "know sync television knowledge-sources --key tv"
+        assert "install_unix" in manifest
+        assert "install_powershell" in manifest
+        assert manifest["run_after_install"] == "tv knowledge-sources"
+        assert "--source-command=" in manifest["run_inline"]
+        assert "--source-display=" in manifest["run_inline"]
+        assert "--preview-command=" in manifest["run_inline"]
+
+    def test_escape_toml_and_shell_quote(self):
+        assert _escape_toml('a"b\\c') == 'a\\"b\\\\c'
+        quoted = _shell_quote("hello world")
+        assert "hello" in quoted and "world" in quoted
+
+
 # ──────────────────────────────────────────────────────────────
 # Store additional coverage
 # ──────────────────────────────────────────────────────────────
@@ -860,6 +1463,21 @@ class TestLoadDotenv:
 
     def test_load_dotenv_missing_file(self, tmp_path):
         load_dotenv(tmp_path / "nonexistent.env")  # Should not raise
+
+    def test_configure_utf8_stdio_reconfigures_streams(self, monkeypatch):
+        calls = []
+
+        class FakeStream:
+            def reconfigure(self, **kwargs):
+                calls.append(kwargs)
+
+        monkeypatch.setattr("sys.stdout", FakeStream())
+        monkeypatch.setattr("sys.stderr", FakeStream())
+        _configure_utf8_stdio()
+        assert calls == [
+            {"encoding": "utf-8", "errors": "replace"},
+            {"encoding": "utf-8", "errors": "replace"},
+        ]
 
 
 class TestGoogleReleasesCoverage:

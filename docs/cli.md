@@ -14,6 +14,7 @@ know add aha PROD --key research
 know add arxiv https://arxiv.org/abs/1706.03762 --key research
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add site https://openai.com/index/harness-engineering/ --key research
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
 know add tv research-sources --key research --source-command "know list sources --key research --json"
 know list keys
@@ -71,9 +72,51 @@ When you need an interactive terminal browser, prefer `television` output format
 - Jira sync stores one Markdown file per issue with YAML frontmatter.
 - Confluence search uses the current Confluence search API with CQL filters.
 - Jira search uses Jira REST API v3 search.
+- Site sync detects anti-bot pages and fails the sync instead of overwriting a healthy source directory.
+- Site sync can reuse a live Chrome or Brave session through `KNOW_SITE_CDP_URL=http://127.0.0.1:9222`, loading browser cookies into the HTTP crawler for browser-assisted capture.
+- For `docs.cloud.google.com`, the default strategy with `KNOW_SITE_CDP_URL` is a browser-assisted CDP BFS crawl that reuses Chrome cookies and keeps traversal inside the documentation subtree.
+- The CDP BFS path extracts `main` or `article` content before converting to Markdown, which produces cleaner output than stripping the entire HTML document.
 - Television sync stores a `channel.toml`, a command manifest, and install/run instructions for `tv`.
 - Google release feeds store the raw Atom XML plus one normalized Markdown file per feed entry under `entries/`.
 - Aha workspaces can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, and the token is stored as a `$env:` reference instead of being persisted directly in source metadata.
+
+## Browser-assisted site capture
+
+When a site blocks plain automated requests but works in a real browser session, launch Chrome or Brave with remote debugging and point `KNOW_SITE_CDP_URL` at that session:
+
+```powershell
+& "$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe" `
+  --remote-debugging-port=9222 `
+  --remote-debugging-address=127.0.0.1 `
+  --user-data-dir="$env:TEMP\\chrome-cdp-profile"
+
+$env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"
+know sync site https://docs.cloud.google.com/bigquery/docs --key research
+```
+
+This mode does not require the `site` source itself to be driven entirely by `crawl4ai`.
+For `docs.cloud.google.com`, `know` reuses cookies from the connected browser and runs the HTTP crawler inside the intended documentation subtree.
+
+Relevant environment variables:
+
+- `KNOW_SITE_CDP_URL` — DevTools endpoint for a live browser session
+- `KNOW_SITE_FORCE_CRAWL4AI=1` — force deep crawl even on hosts that normally prefer the HTTP crawler
+- `KNOW_SITE_HTTP_MAX_ATTEMPTS` — retry count for HTTP fetches
+- `KNOW_SITE_HTTP_RETRY_BASE_SECONDS` — linear backoff base for blocked responses
+
+The CDP mode relies on the Python `playwright` package but connects to your existing Chrome or Brave session. It does not require a separate Playwright-managed browser installation for this workflow.
+
+## Compact site output
+
+Use `know add site ... --compact` when you want the `site` source to keep only final page Markdown plus minimal metadata.
+
+Compact `site` layout:
+
+- `pages/*.md` with YAML frontmatter
+- `pages.json` containing URL, title, and relative Markdown path
+- `source-metadata.yaml` with crawl settings and page count
+
+Compact mode does not write per-page JSON sidecars and is the recommended layout for downstream pipelines that only need final text plus enough metadata to refresh the source later.
 
 ## Television output formats
 
