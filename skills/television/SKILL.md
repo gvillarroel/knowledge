@@ -1,6 +1,10 @@
 ---
 name: television
 description: Use when Codex needs to create, update, or troubleshoot Television (`tv`) channels in this repository, especially when wiring `know add television`, `know sync television`, or `know search arxiv --format television` into reproducible terminal discovery workflows.
+metadata:
+  okf:
+    type: Skill
+    okf_version: "0.1"
 ---
 
 # Overview

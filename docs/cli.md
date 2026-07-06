@@ -45,7 +45,7 @@ know import ~/.knowledge/exports/knowledge-export-20260322T180000Z.zip
 2. Attach one or more sources with `know add ... --key research`.
 3. Use `know list sources --key research` to confirm the registrations and saved commands.
 4. Use `know sync --key research` to fetch or generate raw source content.
-5. Use `know export --key research` to build normalized Markdown and a zip archive.
+5. Use `know export --key research` to build normalized OKF-compatible Markdown and a zip archive.
 
 When you need an interactive terminal browser, prefer `television` output formats or register a dedicated Television source.
 
@@ -79,8 +79,9 @@ When you need an interactive terminal browser, prefer `television` output format
 
 ## Source behavior
 
-- Confluence sync stores one Markdown file per page with YAML frontmatter.
-- Jira sync stores one Markdown file per issue with YAML frontmatter.
+- Confluence sync stores one Markdown file per page with YAML frontmatter and OKF concept metadata.
+- Jira sync stores one Markdown file per issue with YAML frontmatter and OKF concept metadata.
+- `know export` ensures every non-reserved Markdown concept document has a non-empty OKF `type` field and preserves source provenance fields.
 - Confluence search uses the current Confluence search API with CQL filters.
 - Jira search uses Jira REST API v3 search.
 - Site sync detects anti-bot pages and fails the sync instead of overwriting a healthy source directory.

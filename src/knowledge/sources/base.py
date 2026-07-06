@@ -9,6 +9,7 @@ from typing import Any
 import yaml
 
 from ..store import KnowledgeStore, utc_now
+from ..okf import render_okf_markdown
 
 
 class SourceAdapter(ABC):
@@ -38,13 +39,7 @@ class SourceAdapter(ABC):
         path.write_text(payload, encoding="utf-8")
 
     def write_markdown(self, path: Path, frontmatter: dict[str, Any], body: str) -> None:
-        document = (
-            "---\n"
-            + yaml.safe_dump(frontmatter, sort_keys=False, allow_unicode=False).strip()
-            + "\n---\n\n"
-            + body.rstrip()
-            + "\n"
-        )
+        document = render_okf_markdown(frontmatter, body, source=self.source, fallback_title=path.stem)
         self.write_text(path, document)
 
     def write_source_metadata(self, synced_at: str, stats: dict[str, Any]) -> None:

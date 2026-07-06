@@ -6,6 +6,7 @@ from typing import Any
 
 import yaml
 
+from .okf import apply_okf_frontmatter, ensure_markdown_file_okf, render_okf_markdown, split_frontmatter
 from .sources.arxiv import _parse_arxiv_feed
 from .store import KnowledgeStore
 
@@ -20,6 +21,8 @@ _FINAL_LAYOUT_SOURCE_TYPES = {
     "television",
     "video",
 }
+
+_RESERVED_MARKDOWN_FILENAMES = {"index.md", "log.md"}
 
 
 def _dump_frontmatter(payload: dict[str, Any]) -> str:
@@ -38,6 +41,8 @@ def export_source(store: KnowledgeStore, source: dict[str, Any]) -> dict[str, An
     """Export a single source into Markdown with YAML frontmatter."""
     source_dir = store.source_dir(source)
     if source.get("type") in _FINAL_LAYOUT_SOURCE_TYPES and (source_dir / "source-metadata.yaml").exists():
+        _ensure_final_layout_okf(source, source_dir)
+        legacy_repaired = _ensure_legacy_layout_okf(store, source)
         exported_files = [
             str(path)
             for path in sorted(source_dir.rglob("*"))
@@ -49,6 +54,7 @@ def export_source(store: KnowledgeStore, source: dict[str, Any]) -> dict[str, An
             "key": source["key"],
             "source": source["id"],
             "files": len(exported_files),
+            "legacy_markdown_files": legacy_repaired,
             "library_dir": str(source_dir),
         }
 
@@ -65,14 +71,66 @@ def export_source(store: KnowledgeStore, source: dict[str, Any]) -> dict[str, An
         exported_files.append(str(output_path))
 
     _clear_stale_export_outputs(source, source_dir, export_targets)
+    legacy_repaired = _ensure_legacy_layout_okf(store, source)
     source["last_exported_at"] = source.get("updated_at")
     store.update_collection_source(source)
     return {
         "key": source["key"],
         "source": source["id"],
         "files": len(exported_files),
+        "legacy_markdown_files": legacy_repaired,
         "library_dir": str(source_dir),
     }
+
+
+def _ensure_final_layout_okf(source: dict[str, Any], source_dir: Path) -> None:
+    """Ensure existing final-layout Markdown files carry OKF frontmatter."""
+    for path in sorted(source_dir.rglob("*.md")):
+        if path.name in _RESERVED_MARKDOWN_FILENAMES:
+            _strip_reserved_frontmatter(path)
+            continue
+        ensure_markdown_file_okf(path, source=source, fallback_title=path.stem)
+
+
+def _ensure_legacy_layout_okf(store: KnowledgeStore, source: dict[str, Any]) -> int:
+    """Repair Markdown files in pre-final raw/library source directories."""
+    repaired = 0
+    for source_dir in _legacy_source_dirs(store, source):
+        repaired += _ensure_markdown_tree_okf(source, source_dir)
+    return repaired
+
+
+def _legacy_source_dirs(store: KnowledgeStore, source: dict[str, Any]) -> list[Path]:
+    key_dir = store.key_dir(source["key"])
+    source_type = str(source.get("type") or "")
+    source_id = str(source.get("id") or "")
+    dirs: list[Path] = []
+    for bucket in ("raw", "library"):
+        candidate = key_dir / bucket / source_type / source_id
+        if candidate.exists() and candidate.is_dir():
+            dirs.append(candidate)
+    return dirs
+
+
+def _ensure_markdown_tree_okf(source: dict[str, Any], source_dir: Path) -> int:
+    repaired = 0
+    for path in sorted(source_dir.rglob("*.md")):
+        if path.name in _RESERVED_MARKDOWN_FILENAMES:
+            if _strip_reserved_frontmatter(path):
+                repaired += 1
+            continue
+        if ensure_markdown_file_okf(path, source=source, fallback_title=path.stem):
+            repaired += 1
+    return repaired
+
+
+def _strip_reserved_frontmatter(path: Path) -> bool:
+    text = path.read_text(encoding="utf-8", errors="replace")
+    _frontmatter, body, has_frontmatter = split_frontmatter(text)
+    if not has_frontmatter:
+        return False
+    path.write_text(body.rstrip() + "\n", encoding="utf-8")
+    return True
 
 
 def _build_markdown_for_raw_file(source: dict[str, Any], path: Path, rel: Path) -> str:
@@ -90,6 +148,7 @@ def _build_markdown_for_raw_file(source: dict[str, Any], path: Path, rel: Path) 
     if special_renderer is not None:
         extra_fm, body = special_renderer(source, path)
         frontmatter.update(extra_fm)
+        frontmatter = apply_okf_frontmatter(frontmatter, source=source, body=body, fallback_title=rel.stem)
         return _markdown_document(frontmatter, body)
 
     sidecar_metadata = _load_sidecar_metadata(path)
@@ -101,7 +160,7 @@ def _build_markdown_for_raw_file(source: dict[str, Any], path: Path, rel: Path) 
         embedded_frontmatter, body = _extract_frontmatter(raw_text)
         frontmatter.update(embedded_frontmatter)
 
-    return _markdown_document(frontmatter, body)
+    return render_okf_markdown(frontmatter, body, source=source, fallback_title=rel.stem)
 
 
 def _render_body_by_extension(path: Path) -> str:
@@ -207,10 +266,16 @@ def _export_relative_path(source: dict[str, Any], rel: Path) -> Path:
     if source.get("type") == "arxiv" and rel.name.startswith("paper."):
         return Path("paper.md")
     if rel.suffix.lower() in {".md", ".markdown"}:
-        return rel.with_suffix(".md")
+        return _avoid_reserved_markdown_name(rel.with_suffix(".md"))
     if rel.suffix.lower() in {".html", ".htm"}:
-        return rel.with_suffix(".md")
-    return rel.with_name(f"{rel.name}.md")
+        return _avoid_reserved_markdown_name(rel.with_suffix(".md"))
+    return _avoid_reserved_markdown_name(rel.with_name(f"{rel.name}.md"))
+
+
+def _avoid_reserved_markdown_name(path: Path) -> Path:
+    if path.name in _RESERVED_MARKDOWN_FILENAMES:
+        return path.with_name(f"{path.stem}.document.md")
+    return path
 
 
 def _clear_stale_export_outputs(source: dict[str, Any], source_dir: Path, keep_paths: list[Path]) -> None:

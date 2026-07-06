@@ -9,6 +9,7 @@ Build a Python CLI called `know` to manage a local knowledge base in `~/.knowled
 - synchronizing content from multiple systems into a raw local store;
 - processing video sources by extracting or generating transcriptions;
 - exporting normalized Markdown documents with YAML frontmatter;
+- exporting Open Knowledge Format (OKF) v0.1-compatible Markdown concept documents;
 - preserving traceability back to the original source;
 - supporting repeatable updates through explicit commands stored with each key;
 - browsing knowledge interactively with sync-status indicators;
@@ -26,6 +27,8 @@ Television channel definitions may also be attached when a key needs reproducibl
 - Every integration must be reproducible from declarative configuration.
 - Source content should remain reproducible from the registered source configuration.
 - Every exported document must include source metadata in YAML frontmatter.
+- Every exported Markdown concept document must include a non-empty OKF `type` field.
+- Exported Markdown should populate OKF `title`, `description`, `resource`, `tags`, and `timestamp` when those values can be derived from source metadata without guessing.
 - Integrations must support repeatable re-sync without manual intervention.
 - Optional dependencies must not block use of the base CLI.
 - The default user-facing command is `know`.
@@ -151,7 +154,7 @@ know set credential <NAME> <VALUE>
 know export [--key KEY]
 ```
 
-Generates a zip of one or more keys containing normalized Markdown with YAML frontmatter. For video sources, the exported Markdown is generated from the transcription and follows the same frontmatter and traceability rules as every other exported document. If timestamps, speaker segments, chapters, or source transcript metadata are available, they are preserved in raw data and reflected in Markdown when useful.
+Generates a zip of one or more keys containing normalized Markdown with OKF-compatible YAML frontmatter. For video sources, the exported Markdown is generated from the transcription and follows the same frontmatter and traceability rules as every other exported document. If timestamps, speaker segments, chapters, or source transcript metadata are available, they are preserved in raw data and reflected in Markdown when useful.
 
 ### `know import` — Import a zip archive
 
@@ -556,7 +559,8 @@ tv --source-command='know search jira "" --project KAN --format television' \
 ## Export Format
 
 `know export [--key KEY]` generates a zip archive of one or more keys containing:
-- All synchronized Markdown files with YAML frontmatter preserving source traceability.
+- All synchronized Markdown files with OKF-compatible YAML frontmatter preserving source traceability.
+- A non-empty OKF `type` field on every non-reserved Markdown concept document.
 - For video sources, the exported Markdown is generated from the transcription.
 - Raw transcription data is kept separate from exported Markdown.
 - The archive is written to `~/.knowledge/exports/`.
@@ -606,6 +610,7 @@ src/knowledge/
   store.py                # KnowledgeStore: key/source/credential CRUD, metadata persistence
   exporter.py             # Markdown export and zip archive generation
   registry.py             # Source adapter registry
+  okf.py                  # Open Knowledge Format frontmatter normalization
   errors.py               # Custom exception types
   television.py           # Television output formatters for list/search commands
   browse_commands.py      # Per-source-type browse handlers (jira, confluence, github, etc.)
@@ -635,6 +640,7 @@ src/knowledge/
 - **Credential resolution** uses `$name` references into `keys.yaml` and `$env:VAR` for environment variables.
 - The `.env` file in the working directory is loaded automatically at startup.
 - The sync attribute map (`_SYNC_ATTR_MAP`) replaces the long `if/elif` chain for resolving `match_value` from CLI args.
+- OKF compatibility is applied as an additive metadata layer: existing source provenance fields remain intact, while `type`, `resource`, `tags`, and `timestamp` are derived where possible.
 
 ## Architectural Decisions
 

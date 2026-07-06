@@ -28,6 +28,7 @@ When you change this project, keep the work aligned with the documented behavior
 - Update tests for every user-visible behavior change.
 - Update documentation in the same change when command shape, defaults, or workflows change.
 - Keep examples realistic and runnable.
+- Preserve Open Knowledge Format compatibility for exported Markdown concept documents.
 
 ## Validation Expectations
 
@@ -36,6 +37,7 @@ Before closing work:
 - run the relevant test suite
 - run the repository coverage gate
 - confirm the documentation still matches the implemented behavior
+- validate OKF-sensitive changes with tests that inspect generated frontmatter
 
 The default validation gate used in routine work is:
 
