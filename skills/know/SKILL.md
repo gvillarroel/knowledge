@@ -1,6 +1,10 @@
 ---
 name: know
 description: Use when needs to work with the `know` CLI in this repository to create knowledge keys, register sources, inspect configured sources, synchronize content into `~/.knowledge`, export normalized Markdown libraries, or import exported archives.
+metadata:
+  okf:
+    type: Skill
+    okf_version: "0.1"
 ---
 
 # Overview
@@ -27,6 +31,7 @@ Use the `know` CLI to build and maintain a local, reproducible knowledge base in
 - Prefer the command shape `know <verb> <object>` consistently and avoid noun-first top-level forms such as `know key ...`.
 - Preserve source content under `<key>/<source-type>/<source-id>/`.
 - Ensure exported Markdown includes YAML frontmatter with source provenance.
+- Ensure exported Markdown remains Open Knowledge Format compatible: every concept document needs a non-empty `type` field and should preserve `resource`, `tags`, and `timestamp` when they can be derived.
 - Prefer the command shapes documented in `SPEC.md` and `docs/cli.md`.
 
 ## Use credentials and metadata consistently

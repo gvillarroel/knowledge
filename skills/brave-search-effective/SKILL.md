@@ -1,6 +1,10 @@
 ---
 name: brave-search-effective
 description: Use when Codex needs to research the web through the Brave Search CLI (`bx`) and return useful sources quickly. Trigger for web lookups, current news checks, image/video discovery, place lookups, query refinement, domain filtering, or when the user asks to use Brave Search specifically. Prefer this skill when `bx web`, `bx news`, `bx images`, `bx videos`, or `bx places` can answer the request efficiently from the terminal.
+metadata:
+  okf:
+    type: Skill
+    okf_version: "0.1"
 ---
 
 # Brave Search Effective

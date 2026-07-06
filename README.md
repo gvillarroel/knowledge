@@ -2,7 +2,7 @@
 
 `know` is a Python CLI for building a local knowledge base in `~/.knowledge`.
 
-Each knowledge key is an independent local collection with declarative source registrations, raw synchronized content, exported Markdown, and repeatable commands stored in metadata.
+Each knowledge key is an independent local collection with declarative source registrations, raw synchronized content, Open Knowledge Format-compatible exported Markdown, and repeatable commands stored in metadata.
 
 ## Install
 
@@ -278,7 +278,8 @@ The bundled `know-follow` cable uses PowerShell `start` on `Enter`, opening the 
 - `keys.yaml` stores named credentials that can be referenced as `$name`.
 - Credential management also follows the `know <verb> <object>` pattern: `know set credential ...` and `know list credentials`.
 - `know add aha <PRODUCT> --key <KEY>` can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, storing the token as `$env:AHA_TOKEN` instead of copying the secret into metadata.
-- Exported Markdown always includes YAML frontmatter with source provenance.
+- Exported Markdown always includes YAML frontmatter with source provenance and a non-empty OKF `type` field.
+- `know export` preserves producer-specific fields while deriving OKF `resource`, `tags`, and `timestamp` values when available.
 - `know export` renders Markdown into each key library and also produces a zip archive for import or transfer.
 - Television channel sources materialize a reusable `channel.toml` plus install/run commands for `tv`.
 - Google release feeds are normalized into one Markdown document per feed entry date plus the raw `feed.xml`.
