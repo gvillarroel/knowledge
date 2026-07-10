@@ -1,3 +1,15 @@
+---
+type: Software Project
+title: knowledge
+description: CLI for managing a local markdown knowledge base sourced from external
+  systems.
+tags:
+- knowledge
+- cli
+- okf
+source_path: README.md
+---
+
 # knowledge
 
 `know` is a Python CLI for building a local knowledge base in `~/.knowledge`.

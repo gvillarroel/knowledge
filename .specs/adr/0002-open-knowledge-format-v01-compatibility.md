@@ -38,6 +38,8 @@ This means:
 - OKF compatibility is implemented as additive normalization, not a replacement for source-specific metadata;
 - Codex skill files keep their native skill frontmatter shape and expose OKF compatibility through `metadata.okf` so skill discovery is not broken.
 
+The skill-frontmatter clause above is superseded by ADR 0003. Native skills now keep only their runtime fields and are represented through a generated, strictly conformant OKF projection.
+
 ## Consequences
 
 Positive:
@@ -55,3 +57,4 @@ Negative:
 
 - track upstream OKF spec changes before adopting future versions;
 - add stricter bundle generation if a future task requires pure OKF archives without non-Markdown sidecar files.
+- follow ADR 0003 for project and skill interoperability.

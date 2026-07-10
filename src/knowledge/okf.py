@@ -10,6 +10,11 @@ import yaml
 
 OKF_VERSION = "0.1"
 
+FRONTMATTER_RE = re.compile(
+    r"\A\ufeff?---\r?\n(?P<frontmatter>.*?)\r?\n---(?:\r?\n|\Z)",
+    re.DOTALL,
+)
+
 SOURCE_TYPE_CONCEPT_TYPES = {
     "aha": "Aha Feature",
     "arxiv": "arXiv Paper",
@@ -71,8 +76,11 @@ def apply_okf_frontmatter(
     normalized = dict(frontmatter)
     source = source or {}
 
-    if not _has_value(normalized.get("type")):
+    concept_type = normalized.get("type")
+    if not isinstance(concept_type, str) or not concept_type.strip():
         normalized["type"] = _concept_type(source)
+    else:
+        normalized["type"] = concept_type.strip()
     if not _has_value(normalized.get("title")):
         title = source.get("title") or fallback_title
         if _has_value(title):
@@ -144,21 +152,18 @@ def ensure_markdown_file_okf(
 
 def split_frontmatter(text: str) -> tuple[dict[str, Any], str, bool]:
     """Split a Markdown document into YAML frontmatter and body."""
-    if not text.startswith("---\n"):
+    match = FRONTMATTER_RE.match(text)
+    if match is None:
         return {}, text, False
-    marker = "\n---\n"
-    end_index = text.find(marker, 4)
-    if end_index == -1:
-        return {}, text, False
-    raw_frontmatter = text[4:end_index]
-    body = text[end_index + len(marker):]
+    raw_frontmatter = match.group("frontmatter")
+    body = text[match.end():]
     try:
         payload = yaml.safe_load(raw_frontmatter)
     except yaml.YAMLError:
         return {}, text, False
     if not isinstance(payload, dict):
         return {}, text, False
-    return payload, body.lstrip("\n"), True
+    return payload, body.lstrip("\r\n"), True
 
 
 def _concept_type(source: dict[str, Any]) -> str:
@@ -262,11 +267,16 @@ def _order_frontmatter(frontmatter: dict[str, Any]) -> dict[str, Any]:
 
 
 def _has_value(value: Any) -> bool:
-    return value is not None and value != "" and value != []
+    if isinstance(value, str):
+        return bool(value.strip())
+    return value is not None and value != []
 
 
 def _is_uri(value: Any) -> bool:
     if not isinstance(value, str) or not value.strip():
         return False
-    parsed = urlparse(value)
-    return bool(parsed.scheme and parsed.netloc)
+    normalized = value.strip()
+    parsed = urlparse(normalized)
+    if len(parsed.scheme) == 1 and len(normalized) >= 3 and normalized[1:3] in {":\\", ":/"}:
+        return False
+    return bool(parsed.scheme and (parsed.netloc or parsed.path))

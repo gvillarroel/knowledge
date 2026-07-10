@@ -5,16 +5,19 @@ import argparse
 import re
 import sys
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 
-DATE_HEADING_RE = re.compile(r"^##\s+\d{4}-\d{2}-\d{2}\s*$")
+OKF_VERSION = "0.1"
+DATE_HEADING_RE = re.compile(r"^##\s+(\d{4}-\d{2}-\d{2})\s*$")
+INDEX_ENTRY_RE = re.compile(r"^\*\s+\[[^\]]+\]\([^)]+\)(?:\s+-\s+.+)?\s*$")
 
 
-@dataclass
+@dataclass(frozen=True)
 class ValidationError:
     """A single OKF validation problem."""
 
@@ -22,34 +25,38 @@ class ValidationError:
     message: str
 
 
+@dataclass(frozen=True)
+class _ParsedFrontmatter:
+    payload: dict[str, Any]
+    body: str
+    present: bool
+    error: str | None = None
+
+
 def split_frontmatter(text: str) -> tuple[dict[str, Any], str, bool]:
-    """Return YAML frontmatter, Markdown body, and whether frontmatter exists."""
-    if not text.startswith("---\n"):
+    """Return YAML frontmatter, Markdown body, and whether a valid block exists."""
+    parsed = _parse_frontmatter(text)
+    if parsed.error:
         return {}, text, False
-    marker = "\n---\n"
-    end_index = text.find(marker, 4)
-    if end_index == -1:
-        return {}, text, False
-    raw_frontmatter = text[4:end_index]
-    body = text[end_index + len(marker):]
-    try:
-        payload = yaml.safe_load(raw_frontmatter)
-    except yaml.YAMLError:
-        return {}, text, False
-    if not isinstance(payload, dict):
-        return {}, text, False
-    return payload, body.lstrip("\n"), True
+    return parsed.payload, parsed.body, parsed.present
 
 
 def validate_bundle(bundle_root: Path) -> list[ValidationError]:
-    """Validate a directory tree against OKF v0.1 conformance rules."""
+    """Validate a directory tree against the normative OKF v0.1 rules."""
     errors: list[ValidationError] = []
     if not bundle_root.exists() or not bundle_root.is_dir():
         return [ValidationError(bundle_root, "bundle root must be an existing directory")]
 
-    for path in sorted(bundle_root.rglob("*.md")):
+    markdown_files = sorted(
+        path for path in bundle_root.rglob("*") if path.is_file() and path.suffix.lower() == ".md"
+    )
+    for path in markdown_files:
         rel = path.relative_to(bundle_root)
-        text = path.read_text(encoding="utf-8", errors="replace")
+        try:
+            text = path.read_bytes().decode("utf-8-sig")
+        except UnicodeDecodeError as exc:
+            errors.append(ValidationError(path, f"document must be valid UTF-8: {exc}"))
+            continue
         if path.name == "index.md":
             errors.extend(_validate_index(path, rel, text))
             continue
@@ -60,32 +67,118 @@ def validate_bundle(bundle_root: Path) -> list[ValidationError]:
     return errors
 
 
+def _parse_frontmatter(text: str) -> _ParsedFrontmatter:
+    normalized = text.removeprefix("\ufeff")
+    lines = normalized.splitlines()
+    if not lines or lines[0] != "---":
+        return _ParsedFrontmatter({}, normalized, False)
+    try:
+        end_index = lines.index("---", 1)
+    except ValueError:
+        return _ParsedFrontmatter({}, normalized, True, "unterminated YAML frontmatter block")
+    raw_frontmatter = "\n".join(lines[1:end_index])
+    try:
+        payload = yaml.safe_load(raw_frontmatter)
+    except yaml.YAMLError as exc:
+        return _ParsedFrontmatter({}, normalized, True, f"invalid YAML frontmatter: {exc}")
+    if not isinstance(payload, dict):
+        return _ParsedFrontmatter({}, normalized, True, "YAML frontmatter must be a mapping")
+    body = "\n".join(lines[end_index + 1 :]).lstrip("\n")
+    return _ParsedFrontmatter(payload, body, True)
+
+
 def _validate_concept(path: Path, text: str) -> list[ValidationError]:
-    frontmatter, _body, has_frontmatter = split_frontmatter(text)
-    if not has_frontmatter:
-        return [ValidationError(path, "concept document must start with parseable YAML frontmatter")]
-    concept_type = frontmatter.get("type")
+    parsed = _parse_frontmatter(text)
+    if not parsed.present:
+        return [ValidationError(path, "concept document must start with YAML frontmatter")]
+    if parsed.error:
+        return [ValidationError(path, parsed.error)]
+    concept_type = parsed.payload.get("type")
     if not isinstance(concept_type, str) or not concept_type.strip():
         return [ValidationError(path, "concept frontmatter must include a non-empty top-level 'type'")]
     return []
 
 
 def _validate_index(path: Path, rel: Path, text: str) -> list[ValidationError]:
-    frontmatter, _body, has_frontmatter = split_frontmatter(text)
-    if has_frontmatter and rel.parts != ("index.md",):
-        return [ValidationError(path, "only the bundle-root index.md may declare frontmatter")]
-    if has_frontmatter:
-        version = frontmatter.get("okf_version")
-        if version is not None and str(version) != "0.1":
-            return [ValidationError(path, "root index.md okf_version should be '0.1'")]
-    return []
+    errors: list[ValidationError] = []
+    parsed = _parse_frontmatter(text)
+    if parsed.present and parsed.error:
+        return [ValidationError(path, parsed.error)]
+    if parsed.present and rel.parts != ("index.md",):
+        errors.append(ValidationError(path, "only the bundle-root index.md may declare frontmatter"))
+    if parsed.present and rel.parts == ("index.md",):
+        version = parsed.payload.get("okf_version")
+        if str(version) != OKF_VERSION:
+            errors.append(ValidationError(path, f"root index.md frontmatter must declare okf_version: '{OKF_VERSION}'"))
+        unexpected = set(parsed.payload) - {"okf_version"}
+        if unexpected:
+            fields = ", ".join(sorted(str(field) for field in unexpected))
+            errors.append(ValidationError(path, f"root index.md frontmatter has unsupported fields: {fields}"))
+    body = parsed.body if parsed.present and not parsed.error else text
+    errors.extend(_validate_index_body(path, body))
+    return errors
+
+
+def _validate_index_body(path: Path, body: str) -> list[ValidationError]:
+    errors: list[ValidationError] = []
+    has_section = False
+    for line_number, raw_line in enumerate(body.splitlines(), start=1):
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("# "):
+            has_section = True
+            continue
+        if INDEX_ENTRY_RE.match(line):
+            if not has_section:
+                errors.append(ValidationError(path, f"index entry on line {line_number} must follow a section heading"))
+            continue
+        errors.append(
+            ValidationError(
+                path,
+                f"index line {line_number} must be a level-one section heading or '* [Title](target)' entry",
+            )
+        )
+    return errors
 
 
 def _validate_log(path: Path, text: str) -> list[ValidationError]:
+    parsed = _parse_frontmatter(text)
+    if parsed.present:
+        message = parsed.error or "log.md must not contain YAML frontmatter"
+        return [ValidationError(path, message)]
+
     errors: list[ValidationError] = []
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        if line.startswith("## ") and not DATE_HEADING_RE.match(line):
-            errors.append(ValidationError(path, f"log date heading on line {line_number} must use YYYY-MM-DD"))
+    previous_date: date | None = None
+    has_title = False
+    has_date = False
+    for line_number, raw_line in enumerate(text.splitlines(), start=1):
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("# ") and not has_title and not has_date:
+            has_title = True
+            continue
+        if line.startswith("## "):
+            match = DATE_HEADING_RE.match(line)
+            if not match:
+                errors.append(ValidationError(path, f"log date heading on line {line_number} must use YYYY-MM-DD"))
+                continue
+            try:
+                current_date = date.fromisoformat(match.group(1))
+            except ValueError:
+                errors.append(ValidationError(path, f"log date heading on line {line_number} is not a real date"))
+                continue
+            if previous_date is not None and current_date > previous_date:
+                errors.append(ValidationError(path, f"log date heading on line {line_number} must be newest first"))
+            previous_date = current_date
+            has_date = True
+            continue
+        if line.startswith("* ") and has_date:
+            continue
+        errors.append(
+            ValidationError(path, f"log line {line_number} must be a title, ISO date heading, or dated list entry")
+        )
     return errors
 
 

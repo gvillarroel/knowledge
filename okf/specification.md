@@ -1,3 +1,14 @@
+---
+type: Project Specification
+title: knowledge specification
+description: Requirements and architecture for the knowledge CLI.
+tags:
+- knowledge
+- requirements
+- okf
+source_path: SPEC.md
+---
+
 # SPEC
 
 ## Objective

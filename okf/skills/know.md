@@ -1,6 +1,14 @@
 ---
-name: know
-description: Use when needs to work with the `know` CLI in this repository to create knowledge keys, register sources, inspect configured sources, synchronize content into `~/.knowledge`, export normalized Markdown libraries, or import exported archives.
+type: Agent Skill
+title: Know CLI
+description: Use when needs to work with the `know` CLI in this repository to create
+  knowledge keys, register sources, inspect configured sources, synchronize content
+  into `~/.knowledge`, export normalized Markdown libraries, or import exported archives.
+tags:
+- codex
+- skill
+skill_name: know
+source_path: skills/know/SKILL.md
 ---
 
 # Overview

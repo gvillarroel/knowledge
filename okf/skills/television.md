@@ -1,6 +1,15 @@
 ---
-name: television
-description: Use when Codex needs to create, update, or troubleshoot Television (`tv`) channels in this repository, especially when wiring `know add television`, `know sync television`, or `know search arxiv --format television` into reproducible terminal discovery workflows.
+type: Agent Skill
+title: Television
+description: Use when Codex needs to create, update, or troubleshoot Television (`tv`)
+  channels in this repository, especially when wiring `know add television`, `know
+  sync television`, or `know search arxiv --format television` into reproducible terminal
+  discovery workflows.
+tags:
+- codex
+- skill
+skill_name: television
+source_path: skills/television/SKILL.md
 ---
 
 # Overview

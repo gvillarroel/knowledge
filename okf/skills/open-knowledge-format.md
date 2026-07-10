@@ -1,6 +1,16 @@
 ---
-name: open-knowledge-format
-description: Use when Codex needs to validate, generate, repair, convert, or explain Google Cloud Open Knowledge Format (OKF) v0.1 bundles, including Markdown knowledge libraries, project documentation, Codex or agent skills that need a separate OKF projection, YAML frontmatter, reserved index.md/log.md files, citations, cross-links, or `know` CLI exports.
+type: Agent Skill
+title: Open Knowledge Format
+description: Use when Codex needs to validate, generate, repair, convert, or explain
+  Google Cloud Open Knowledge Format (OKF) v0.1 bundles, including Markdown knowledge
+  libraries, project documentation, Codex or agent skills that need a separate OKF
+  projection, YAML frontmatter, reserved index.md/log.md files, citations, cross-links,
+  or `know` CLI exports.
+tags:
+- codex
+- skill
+skill_name: open-knowledge-format
+source_path: skills/open-knowledge-format/SKILL.md
 ---
 
 # Open Knowledge Format

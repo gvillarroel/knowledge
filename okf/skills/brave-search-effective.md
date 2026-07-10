@@ -1,6 +1,17 @@
 ---
-name: brave-search-effective
-description: Use when Codex needs to research the web through the Brave Search CLI (`bx`) and return useful sources quickly. Trigger for web lookups, current news checks, image/video discovery, place lookups, query refinement, domain filtering, or when the user asks to use Brave Search specifically. Prefer this skill when `bx web`, `bx news`, `bx images`, `bx videos`, or `bx places` can answer the request efficiently from the terminal.
+type: Agent Skill
+title: Brave Search
+description: Use when Codex needs to research the web through the Brave Search CLI
+  (`bx`) and return useful sources quickly. Trigger for web lookups, current news
+  checks, image/video discovery, place lookups, query refinement, domain filtering,
+  or when the user asks to use Brave Search specifically. Prefer this skill when `bx
+  web`, `bx news`, `bx images`, `bx videos`, or `bx places` can answer the request
+  efficiently from the terminal.
+tags:
+- codex
+- skill
+skill_name: brave-search-effective
+source_path: skills/brave-search-effective/SKILL.md
 ---
 
 # Brave Search Effective

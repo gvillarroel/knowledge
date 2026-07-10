@@ -40,6 +40,26 @@ def test_apply_okf_frontmatter_derives_required_and_recommended_fields() -> None
     assert payload["tags"] == ["cs.cl", "arxiv", "research"]
 
 
+def test_apply_okf_frontmatter_repairs_invalid_type_and_accepts_urn_resource() -> None:
+    payload = apply_okf_frontmatter(
+        {"type": 7, "resource": "urn:codex:skill:know"},
+        source={"type": "television"},
+    )
+
+    assert payload["type"] == "Television Channel"
+    assert payload["resource"] == "urn:codex:skill:know"
+
+
+def test_split_frontmatter_accepts_bom_and_crlf() -> None:
+    frontmatter, body, has_frontmatter = split_frontmatter(
+        "\ufeff---\r\ntype: Reference\r\ntitle: Windows\r\n---\r\n\r\n# Body\r\n"
+    )
+
+    assert has_frontmatter is True
+    assert frontmatter == {"type": "Reference", "title": "Windows"}
+    assert body == "# Body\r\n"
+
+
 def test_exported_raw_markdown_is_okf_conformant(tmp_path: Path) -> None:
     store = make_store(tmp_path)
     store.create_collection_key("sample")
@@ -201,15 +221,93 @@ def test_open_knowledge_format_skill_validator_accepts_valid_bundle(tmp_path: Pa
     assert "OKF validation passed" in result.stdout
 
 
-def test_repository_skills_expose_okf_metadata() -> None:
+def test_repository_skills_keep_native_frontmatter_and_have_okf_projections() -> None:
     skills_dir = Path(__file__).resolve().parents[1] / "skills"
     skill_files = sorted(skills_dir.glob("*/SKILL.md"))
     assert skill_files
 
     for skill_file in skill_files:
+        assert (skill_file.parent / "agents" / "openai.yaml").is_file(), skill_file
         text = skill_file.read_text(encoding="utf-8")
         raw_frontmatter = text.split("---", 2)[1]
         frontmatter = yaml.safe_load(raw_frontmatter)
-        okf_metadata = frontmatter.get("metadata", {}).get("okf", {})
-        assert okf_metadata["type"] == "Skill", skill_file
-        assert okf_metadata["okf_version"] == "0.1", skill_file
+        assert set(frontmatter) == {"name", "description"}, skill_file
+
+        projection = skills_dir.parent / "okf" / "skills" / f"{skill_file.parent.name}.md"
+        assert projection.is_file(), projection
+        projected_frontmatter = yaml.safe_load(projection.read_text(encoding="utf-8").split("---", 2)[1])
+        assert projected_frontmatter["type"] == "Agent Skill"
+        assert projected_frontmatter["skill_name"] == frontmatter["name"]
+        assert projected_frontmatter["source_path"] == f"skills/{skill_file.parent.name}/SKILL.md"
+
+
+def test_project_okf_bundle_is_current_and_conformant() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    builder = repo_root / "skills" / "open-knowledge-format" / "scripts" / "build_project_okf_bundle.py"
+    validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+
+    check = subprocess.run(
+        [sys.executable, str(builder), str(repo_root), "--output", str(repo_root / "okf"), "--check"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert check.returncode == 0, check.stderr
+
+    validation = subprocess.run(
+        [sys.executable, str(validator), str(repo_root / "okf")],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert validation.returncode == 0, validation.stderr
+
+
+def test_okf_validator_accepts_crlf_and_root_version_frontmatter(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "index.md").write_bytes(
+        b"---\r\nokf_version: '0.1'\r\n---\r\n\r\n# Concepts\r\n\r\n* [Example](example.md) - Example.\r\n"
+    )
+    (bundle / "example.md").write_bytes(b"---\r\ntype: Reference\r\n---\r\n\r\n# Example\r\n")
+
+    result = subprocess.run(
+        [sys.executable, str(validator), str(bundle)],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+
+
+def test_okf_validator_rejects_invalid_concepts_and_reserved_files(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+    bundle = tmp_path / "bundle"
+    nested = bundle / "nested"
+    nested.mkdir(parents=True)
+    (bundle / "concept.md").write_text("---\ntitle: Missing type\n---\n\nBody.\n", encoding="utf-8")
+    (nested / "index.md").write_text("---\nokf_version: '0.1'\n---\n\n# Concepts\n", encoding="utf-8")
+    (bundle / "log.md").write_text(
+        "# Updates\n\n## 2026-07-08\n* **Update**: New.\n\n## 2026-07-09\n* **Update**: Out of order.\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(validator), str(bundle)],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 1
+    assert "non-empty top-level 'type'" in result.stderr
+    assert "only the bundle-root index.md" in result.stderr
+    assert "newest first" in result.stderr

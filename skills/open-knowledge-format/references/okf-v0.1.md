@@ -6,6 +6,7 @@ Use this reference when generating, repairing, or auditing Open Knowledge Format
 
 - Google Cloud announcement, "Introducing the Open Knowledge Format", published June 12, 2026: https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing
 - Draft v0.1 specification in `GoogleCloudPlatform/knowledge-catalog`: https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md
+- Specification revision reviewed for this skill: `ee67a5ca27044ebe7c38385f5b6cffc2305a9c1a` (June 12, 2026).
 
 ## Format Summary
 
@@ -48,3 +49,17 @@ When external sources support claims, add a `# Citations` section near the end o
 - Every concept frontmatter has a non-empty `type`.
 - `index.md` and `log.md` are used only for their reserved meanings.
 - Consumers do not reject missing optional fields, unknown fields, unknown types, broken links, or missing indexes.
+
+## Native Skill Compatibility
+
+Codex `SKILL.md` is not itself an OKF concept document. Its discovery frontmatter uses `name` and `description`, while a normal OKF concept requires a top-level `type`. Do not merge those contracts or hide `type` under a nested compatibility marker.
+
+To exchange project skills through OKF:
+
+1. Keep each native `SKILL.md` valid for its agent runtime.
+2. Create a dedicated OKF bundle subdirectory.
+3. Project each skill into a normal concept with `type: Agent Skill`, a display `title`, its trigger `description`, and source-traceability extension fields.
+4. Copy the skill's Markdown instructions into the concept body.
+5. Regenerate and validate the projection whenever skills change.
+
+Use `../scripts/build_project_okf_bundle.py` for repositories that follow the `skills/<name>/SKILL.md` layout.
