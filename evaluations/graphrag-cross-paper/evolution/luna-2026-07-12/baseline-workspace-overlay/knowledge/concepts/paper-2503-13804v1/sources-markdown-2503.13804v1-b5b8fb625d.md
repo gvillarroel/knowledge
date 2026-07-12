@@ -1,0 +1,977 @@
+---
+type: Research Paper
+title: Empowering GraphRAG with Knowledge Filtering and Integration
+description: '- Pinned arXiv record: [2503.13804v1](https://arxiv.org/abs/2503.13804v1)'
+resource: https://example.org/graphrag-cross-paper/resource/paper-2503-13804v1/sources%2Fmarkdown%2F2503.13804v1
+tags:
+- paper-2503-13804v1
+- markdown
+- rl
+concept_id: concepts/paper-2503-13804v1/sources-markdown-2503.13804v1-b5b8fb625d
+concept_path: concepts/paper-2503-13804v1/sources-markdown-2503.13804v1-b5b8fb625d.md
+subject_iri: https://example.org/graphrag-cross-paper/resource/paper-2503-13804v1/sources%2Fmarkdown%2F2503.13804v1
+ontology_class_iri: https://example.org/ontology/graphrag-cross-paper#Paper
+ontology_version_iri: https://example.org/ontology/graphrag-cross-paper/1.0.0
+source_id: paper-2503-13804v1
+source_kind: markdown
+source_path: sources/markdown/2503.13804v1.md
+source_content_sha256: d99a955dcbd8496020e5f984f91c8b10e174ab4c8fbe590481fdd021ea034d6b
+record_sha256: 1ecc23609a441a21ee280d263491316d03cb9b0d1c597a2d89f933f467ea32e3
+source_refs:
+- https://example.org/graphrag-cross-paper/provenance/record/paper-2503-13804v1/b0b38a6bbfbed4ea6a12dc8e
+record_id: sources/markdown/2503.13804v1
+---
+
+# Empowering GraphRAG with Knowledge Filtering and Integration
+
+## Source citation
+
+- Pinned arXiv record: [2503.13804v1](https://arxiv.org/abs/2503.13804v1)
+- Authors: Kai Guo; Harry Shomer; Shenglai Zeng; Haoyu Han; Yu Wang; Jiliang Tang
+- PDF: [https://arxiv.org/pdf/2503.13804v1](https://arxiv.org/pdf/2503.13804v1)
+- PDF SHA-256: `4a3b5991bf11e67488bde476c5df825a1fc5b0a502031057fa13ef9d9b28d50a`
+- Extracted pages: 11
+
+The following text was extracted page by page from the pinned PDF. Page headings are stable evidence locators.
+
+## PDF page 1
+
+Empowering GraphRAG with Knowledge Filtering and Integration
+Kai Guo1, Harry Shomer1, Shenglai Zeng1, Haoyu Han1, Yu Wang2, Jiliang Tang1
+1Michigan State University 2 University of Oregon
+{guokai1, shomerha, zengshe1, hanhaoy1, tangjili}@msu.edu,
+{yuwang}@uoregon.edu
+Abstract
+In recent years, large language models (LLMs)
+have revolutionized the field of natural lan-
+guage processing. However, they often
+suffer from knowledge gaps and hallucina-
+tions. Graph retrieval-augmented generation
+(GraphRAG) enhances LLM reasoning by in-
+tegrating structured knowledge from external
+graphs. However, we identify two key chal-
+lenges that plague GraphRAG: (1) Retrieving
+noisy and irrelevant information can degrade
+performance and (2) Excessive reliance on ex-
+ternal knowledge suppresses the model’s in-
+trinsic reasoning. To address these issues, we
+propose GraphRAG-FI (Filtering & Integra-
+tion), consisting of GraphRAG-Filtering and
+GraphRAG-Integration. GraphRAG-Filtering
+employs a two-stage filtering mechanism to
+refine retrieved information. GraphRAG-
+Integration employs a logits-based selection
+strategy to balance external knowledge from
+GraphRAG with the LLM’s intrinsic reasoning,
+reducing over-reliance on retrievals. Experi-
+ments on knowledge graph QA tasks demon-
+strate that GraphRAG-FI significantly improves
+reasoning performance across multiple back-
+bone models, establishing a more reliable and
+effective GraphRAG framework.
+1 Introduction
+Large language models (LLMs) have achieved re-
+markable success in NLP tasks, particularly in tasks
+that require complex reasoning (Havrilla et al.; Wu
+et al., 2023; Hao et al., 2023). However, despite
+their strengths, LLMs are prone to hallucinations,
+resulting in incorrect or poor reasoning (Ji et al.,
+2023; Huang et al., 2024; Sriramanan et al., 2025).
+GraphRAG techniques have emerged as a promis-
+ing solution to this problem (Han et al., 2024;
+Zhang et al., 2025; He et al., 2025; Mavromatis
+and Karypis, 2024), by integrating relevant infor-
+mation from external graphs. Knowledge graphs,
+which store facts in the form of a graph, are com-
+monly used for this problem. Specifically, relevant
+facts (i.e., triples) or paths are extracted from the
+knowledge graph and used to enrich the context
+of the LLMs with structured and reliable informa-
+tion (Luo et al., 2024; Li et al., 2025; Ma et al.,
+2024). This approach has shown ability to improve
+the reasoning capabilities and reduce the presence
+of hallucinations in LLMs (Sun et al.; Li et al.,
+2025; Dong et al., 2024).
+To better assess the efficacy of GraphRAG, in
+Section 3 we conduct a preliminary study com-
+paring its performance with an LLM-only model
+(i.e., LLM without GraphRAG). This compari-
+son reveals both the advantages and limitations
+of GraphRAG. While GraphRAG improved rea-
+soning accuracy by correcting some LLM errors,
+it also introduces some notable weaknesses. For
+example, incorporating external knowledge will
+sometimes cause questions that were originally an-
+swered correctly by the LLM to be misclassified.
+This highlights the dangers of retrieving irrelevant
+information. Furthermore, excessive retrieval com-
+pounds this issue by introducing both noise and
+redundant information, thus further hindering the
+reasoning process.
+Meanwhile, we find that LLM-only and
+GraphRAG can complement one another. Specifi-
+cally, GraphRAG can enhance reasoning for those
+questions LLMs lack knowledge of; while exces-
+sive reliance on external information may cause
+the model to overlook internally known correct an-
+swers. These findings highlight two key limitations
+of existing GraphRAG methods. First, GraphRAG
+is highly susceptible to retrieving irrelevant or mis-
+leading information. Second, GraphRAG struggles
+to balance external retrieval with the LLM’s inter-
+nal knowledge, often missing parts of the answer
+that the LLM-only model can provide using its own
+knowledge.
+Inspired by these findings, we propose a novel
+design that aims to address these issues. First, we
+aim to enhance the retrieval quality to better avoid
+arXiv:2503.13804v1 [cs.AI] 18 Mar 2025
+## PDF page 2
+
+retrieving irrelevant information. Second, we in-
+tegrate GraphRAG with an LLM’s intrinsic rea-
+soning ability, thus only using GraphRAG when
+external knowledge is necessary. In particular, to
+mitigate the issue of retrieving irrelevant informa-
+tion, we introduce a two-stage filtering process.
+Furthermore, to mitigate GraphRAG from over-
+relying on retrieved information while underuti-
+lizing the LLM’s inherent reasoning ability, we
+introduce a logits-based selection mechanism that
+dynamically integrates LLMs’ standalone answers
+with GraphRAG’s outputs. This approach ensures
+that the final response effectively balances exter-
+nal knowledge with the model’s internal reasoning.
+The main contributions of our work are summa-
+rized as follows:
+• We identify two key challenges in GraphRAG:
+(1) It is susceptible to errors by retrieving
+irrelevant or misleading information. (2)
+It overemphasizes the externally retrieved
+knowledge, at the expense of the intrinsic rea-
+soning capabilities of LLMs.
+• We introduce a novel approach that enhances
+GraphRAG by incorporating a two-stage filter-
+ing mechanism to refine the retrieved knowl-
+edge and dynamically integrate this knowl-
+edge with a LLMs’ standalone reasoning ca-
+pabilities.
+• Extensive experiments on knowledge graph
+QA demonstrate the effectiveness of our
+method across multiple backbone models.
+2 Related work
+GraphRAG. GraphRAG aims to address halluci-
+nations and outdated knowledge in LLMs by in-
+corporating additional information retrieved from
+external knowledge bases (Sun et al.; Li et al., 2025;
+Dong et al., 2024). G-Retriever (He et al., 2025)
+identifies relevant nodes and edges for a given
+query based on cosine similarity, and then con-
+structs a subgraph to aid in the generation pro-
+cess. Similarly, RoG (Luo et al., 2024) intro-
+duces a planning-retrieval-reasoning framework,
+where it retrieves reasoning paths guided by a plan-
+ning module and performs reasoning using these
+paths. On the other hand, GNN-RAG (Mavromatis
+and Karypis, 2024) leverages Graph Neural Net-
+works (GNNs) (Kipf and Welling, 2016) to pro-
+cess the intricate graph structures within knowledge
+graphs, enabling effective retrieval. They also use
+retrieval augmentation techniques to enhance diver-
+sity. However, the effectiveness of these methods
+is heavily dependent on the quality of the retrieved
+information, and their performance significantly de-
+clines when the retrieved graph data is either noisy
+or unrelated to the query (He et al., 2025) .
+Filter Methods. Filtering attempts to only
+keep those pieces of retrieved information that
+are relevant to the given query (Gao et al., 2025).
+ChunkRAG (Singh et al., 2024) tries to improve
+RAG systems by assessing and filtering retrieved
+data at the chunk level, with each "chunk" repre-
+senting a concise and coherent segment of a docu-
+ment. This method first applies semantic chunking
+to partition documents into meaningful sections.
+It then leverages LLM-based relevance scoring to
+evaluate how well each chunk aligns with the user
+query. Zeng et al. (2024b) thoroughly investigate
+LLM representation behaviors in relation to RAG,
+uncovering distinct patterns between positive and
+negative samples in the representation space. This
+distinction enables representation-based methods
+to achieve significantly better performance for cer-
+tain tasks. Building on these insights, they intro-
+duce Rep-PCA, which employs representation clas-
+sifiers for knowledge filtering. RoK (Wang et al.,
+2024) refines the reasoning paths within the sub-
+graph by computing the average PageRank score
+for each path. Similarly, He et al. (2024) use PageR-
+ank to identify the most relevant entities.
+3 Preliminary studies
+To evaluate the effectiveness of GraphRAG, we
+compare the performance with and without re-
+trieved external knowledge. Furthermore, we ana-
+lyze the attention scores of the LLM to assess its
+ability to discern both the relevance and importance
+of the retrieved information. Lastly, we evaluate
+the performance of internal knowledge filtering.
+3.1 Experimental settings
+In this section, we aim to study the importance
+of retrieving external information when using
+GraphRAG for knowledge graph QA. To do so, we
+report the QA performance when using: LLM with
+GraphRAG and LLM w/o GraphRAG (i.e., LLM-
+only). For GraphRAG, we use RoG (Luo et al.,
+2024) and GNN-RAG (Mavromatis and Karypis,
+2024). For the LLM-only experiments, we use
+the fine-tuned LLaMA 2-7B model, which is the
+same LLM used by RoG. The experiments are con-
+## PDF page 3
+
+Figure 1: Category A includes cases where both
+GraphRAG and the LLM-only model are correct. Cat-
+egory B covers instances where GraphRAG outper-
+forms the LLM-only model, while Category C includes
+cases where the LLM-only model performs better than
+GraphRAG. Category D represents cases where both
+models fail.
+ducted on two common datasets the WebQSP (Yih
+et al., 2016) and CWQ (Talmor and Berant, 2018)
+datasets. In this study, we mainly use the F1 score
+to evaluate the performance.
+Figure 2: The relationship between path number and
+average F1
+3.2 The Impact of GraphRAG
+To understanding the effectiveness of GraphRAG,
+we compare prediction outcomes between LLM
+with GraphRAG and LLM w/o GraphRAG (i.e.,
+LLM-only). We categorize the results into four
+groups based on F1 scores, as shown in the Figure 1.
+Category A includes cases where both GraphRAG
+and the LLM-only model provide correct answers.
+Category B consists of instances where GraphRAG
+produces a more accurate answer than the LLM-
+only model. Category C includes cases where
+the LLM-only model outperforms GraphRAG. Fi-
+nally, Category D represents instances where both
+GraphRAG and the LLM-only model fail to gen-
+erate the correct answer. Figure 1 illustrates the
+key observations from our experiments. While
+GraphRAG enhances certain predictions, it also
+introduces notable challenges that require further
+investigation.
+Positive Impact of GraphRAG GraphRAG can
+enhance the LLM’s reasoning capabilities by cor-
+recting errors that the standalone model would typ-
+ically commit. Notably, in the category B, 45.64%
+of previously incorrect responses were successfully
+rectified with the integration of GraphRAG. This
+highlights the advantage of leveraging structured
+knowledge graphs to boost LLM performance.
+Limited Impact of GraphRAG Category A con-
+tains those answers where both GraphRAG and
+LLM-only are correct. This show that GraphRAG
+can sometimes preserve the performance of a
+LLM when the LLM already possesses the correct
+knowledge. Conversely, category D, representing
+9.03% of cases, corresponds to those cases where
+GraphRAG fails to enhance the model’s accuracy.
+For this category, neither the standalone LLM nor
+GraphRAG are able to provide the correct answer.
+This pattern implies that GraphRAG does not al-
+ways access or incorporate sufficiently informative
+or relevant knowledge.
+Negative Impact of GraphRAG A notable draw-
+back of GraphRAG is that will occasionally de-
+grade the performance of a standalone LLM. That
+is, it will sometimes lead to wrong predictions
+for queries that the standalone LLM originally got
+right. These instances are represented by category
+C and accounts for 16.89% of samples when evalu-
+ating via the F1 score. In these cases, GraphRAG
+misleads the model rather than improving it. This
+suggests that some of the retrieved information may
+be incorrect, noisy, or irrelevant, ultimately leading
+to poorer predictions. Therefore, in some cases,
+LLMs without GraphRAG outperform those with
+GraphRAG, because existing works have shown
+that LLMs tend to over-rely on external informa-
+tion (Ren et al., 2023; Tan et al., 2024; Wang et al.,
+2023; Ni et al., 2024; Zeng et al., 2024a). When
+retrieval is insufficient or the quality of retrieved
+knowledge is low, this reliance can degrade genera-
+tion quality.
+3.3 The Impact of the Number of Retrieved
+Paths
+Due to the structure of knowledge graphs, nodes
+with high degrees and numerous relational edges
+have a greater likelihood of yielding a large num-
+ber of retrieved paths. In this subsection, we study
+## PDF page 4
+
+the impact of the number of retrieved paths on
+performance. Figure 2 illustrates the relationship
+between the number of retrieved paths and the
+model’s performance. Interestingly, as indicated
+by the smoothed line (blue), incorporating a mod-
+erate amount of retrieved information enhances
+performance. However, increasing the number of
+retrieved paths ultimately leads to a decline in per-
+formance. This trend (green line) suggests that re-
+trieving too much information will introduce noise,
+making it harder for the model to use the correct
+and relevant knowledge for the task. This phe-
+nomenon thus highlights an important insight –
+more information does not necessarily indicate
+better performance. Instead, an overabundance of
+retrieved data can overwhelm the model with irrel-
+evant details. This observation underscores the ne-
+cessity for effective filtering mechanisms that can
+prioritize high-quality, relevant knowledge while
+discarding extraneous or misleading information.
+3.4 Attention Reflects the Importance of
+Retrieved Information
+Figure 3: Attention Scores for Retrieved Information
+With/Without Ground Truth
+In this subsection, we analyze the ability of the
+LLM to distinguish the importance of retrieved ex-
+ternal knowledge. The attention scores of a LLM
+can provide a natural indicator of the relevance
+and significance of the retrieved knowledge (Yang
+et al., 2024; Ben-Artzy and Schwartz, 2024). The
+attention scores, derived from the model’s internal
+mechanisms, effectively capture which pieces of in-
+formation are most influential in reaching the final
+decision. Inspired by recent work (Chuang et al.,
+2023; Halawi et al., 2023), which suggests that
+attention scores in the middle layers are more effec-
+tive. We examine the attention scores of the (mid-
+dle + 2)-th layer in the LLM for each retrieved path.
+We obtain the attention scores for all retrieved paths
+and categorize them into two groups: (1) paths that
+contain the ground truth and (2) paths that do not.
+We then compute the average attention score for
+each group and present the results in Figure 3. As
+demonstrated in Figure 3, there is a clear alignment
+between the attention scores and the ground truth
+labels, suggesting that these scores can be used to
+assess the relevance of retrieved information.
+This observation inspires a key insight: The
+attention scores highlight the most significant re-
+trieved information, suggesting their potential use
+in filtering out noisy or irrelevant knowledge. Since
+retrieved information with lower attention scores
+contribute minimally to the final output, they can be
+pruned to streamline retrieval and enhance overall
+performance.
+3.5 Internal Knowledge Filtering
+Large language models (LLMs) generate responses
+that may contain both correct and incorrect infor-
+mation. To assess the reliability of these responses,
+we analyze the associated logits, which represent
+the model’s confidence in its predictions. Typically,
+higher confidence correlates with correctness (Ma
+et al., 2025; Virk et al., 2024). Leveraging this
+property, we implement “Internal Knowledge Fil-
+tering”, which uses the logits to help refine the
+answer selection.The logits of answer can be di-
+rectly obtained from the LLM’s output. Formally,
+let AL denote the sets of answer candidates from
+the LLM model. Furthermore, let it’s correspond-
+ing logits after softmax function be given by ℓL(a).
+The filtering step is given by the following:
+Afiltered
+L = {a ∈ AL | ℓL(a) ≥ τL}, (1)
+where τL = 1. This allows us to filter out the re-
+sponses that the LLM has low-confidence in. The
+experimental results are shown in Table 1. We
+can clearly see that that leveraging logits to filter
+out low-confidence responses has a large positive
+effect on performance. In this way, we can recon-
+sider intrinsic knowledge and apply this approach
+to GraphRAG to better balance internal and exter-
+nal knowledge base on logits.
+Table 1: Impact of logits on LLM performance
+Methods WebQSP CWQ
+Hit F1 Hit F1
+LLM 66.15 49.97 40.27 34.17
+LLM with Logits 84.17 76.74 61.83 58.19
+## PDF page 5
+
+3.6 Discussions
+In this subsection, we summarize the key findings
+and discussions from our preliminary study. The
+performance issues observed in GraphRAG primar-
+ily arise from two key factors. (1) Noisy or Irrele-
+vant Retrieval: Some retrieved paths contain irrel-
+evant or misleading information. This negatively
+impacts the model’s ability to properly answer the
+query. Furthermore, this noise can introduce con-
+flicting or unnecessary information that hinders
+the decision-making process rather than improving
+it. (2) Lack of Consideration for LLM’s Own
+Knowledge: GraphRAG does not always take into
+account the inherent reasoning ability of the LLM
+itself. In some cases, the retrieved information
+overrides the LLM’s correct predictions, leading to
+performance degradation rather than enhancement.
+A more adaptive approach is needed to balance ex-
+ternal knowledge retrieval with the model’s internal
+knowledge.
+4 Method
+Based on our analysis, we propose a new frame-
+work to address the identified challenges, guided
+by two key insights: (1) Filtering retrieved informa-
+tion: Given the tendency of GraphRAG to retrieve
+irrelevant or incorrect retrieved information, it is
+essential to refine the retrieved knowledge. (2)
+Properly leveraging the LLMs standalone capabil-
+ities: The LLM itself can often correctly answer
+some questions. It’s thus necessary to effectively
+integrate and use the inherent reasoning ability of
+LLMs along with GraphRAG.
+An overview of our framework GraphRAG-FI
+is given in Figure 4. It consists of two core com-
+ponents: GraphRAG-Filtering and GraphRAG-
+Integration. GraphRAG-Filtering first refines the
+retrieved information by removing irrelevant or
+misleading knowledge. GraphRAG-Integration
+module balances the retrieved knowledge with the
+LLM’s inherent reasoning ability, thereby mitigat-
+ing the overuse of retrieved information that can
+negatively impact performance. In the following
+subsections, we will introduce each component of
+our framework in detail.
+4.1 GraphRAG-Filtering
+Let P = {p1, p2, . . . , pN } denote the set of N
+retrieved paths or triplets, where each path pi is
+assigned an attention score ai. Then we design
+filtering via the following two stages.
+Stage 1: Coarse Filtering using Attention: In
+the first stage, we perform a coarse filtering by
+retaining only those paths whose attention scores
+exceeds a threshold τ. This is given formally by:
+Pcoarse = {pi ∈ P | ai ≥ τ }. (2)
+Stage 2: Fine Filtering via LLMs: After the
+initial coarse filtering, which significantly reduces
+the number of candidate paths, we perform a more
+precise evaluation with a LLM on the remaining
+subset. This two-stage filtering approach not only
+enhances the quality of the retrieved paths but also
+greatly reduces the overall cost by limiting the use
+of the LLM to only those paths deemed promising
+in the first stage. Let f (p) represent the evaluation
+score provided by the LLM for a path p, and let
+τ ′ be the corresponding threshold. The final set of
+filtered paths is then given by:
+Pfinal = {p ∈ Pcoarse | f (p) ≥ τ ′}, (3)
+where Pcoarse is the set of paths that passed the
+coarse filtering stage, τ ′ is not predefined but is
+determined by the LLM itself.
+Prompt Construction: After the two filtering
+stages, we incorporate the selected paths and query
+into the prompt to further guide the model’s reason-
+ing. The prompt contains the following two types
+of retrieved paths:
+• High Priority Paths: These are the final fil-
+tered paths given by Pfinal, which are consid-
+ered the most reliable.
+• Additional Paths: We also consider the the
+remaining paths included by the coarse filter
+but removed via the fine filter, Pcoarse − Pfinal.
+We conjecture that while they may not be as
+important as those paths in Pfinal, they can still
+offer some useful supplementary context.
+The new prompt is then constructed by first in-
+serting a header for the high-priority paths, fol-
+lowed by each path on a separate line. The same
+process is repeated for the additional paths. By
+structuring the prompt in this way, we are able to
+clearly delineate the paths by their priority. This
+ensures that the most critical information ( Pfinal)
+is emphasized and processed first, while still in-
+corporating the supplementary context from the
+additional paths. An example prompt is given in
+Appendix A.2.
+## PDF page 6
+
+Figure 4: An overview of the GraphRAG-FI framework.
+4.2 Integration with LLMs’ Internal
+Knowledge
+As noted in Section 3.2, in addition to ensuring
+we only retrieve high-quality information, we also
+want to retain internal knowledge of the LLMs. As
+such, we want to also integrate the capabilities of
+just the LLM into our framework. However, a chal-
+lenge is knowing when to defer to which method.
+When do we trust the answers given by GraphRAG
+and when the standalone LLM? Furthermore, how
+do we fuse the answers given by both methods?
+To achieve this goal, we need a method to de-
+termine which answers produced by both LLM-
+only and GraphRAG are actually relevant. In Sec-
+tion 3.5, we found that the LLM’s logits can pro-
+vide a useful tool to refine the potential answers.
+That is, focusing only on those answers that are
+given a higher confidence is helpful. This naturally
+provides us with an easy way to focus on just the
+high-quality information. For both GraphRAG and
+the LLM-only model, we filter the answers based
+on their logits, ensuring that only high-confidence
+responses are retained. After this logits-based fil-
+tering, the refined answers from both sources are
+combined to produce the final answer, thereby en-
+hancing robustness and accuracy.
+Formally, let AG and AL denote the sets of an-
+swer candidates from GraphRAG and the LLM-
+only model, respectively. We further use a to in-
+dicate a single candidate answer in either set. Fur-
+thermore, let their corresponding logits after the
+softmax function be given byℓG(a) and ℓL(a). The
+filtering step is given by the following:
+Afiltered
+G = {a ∈ AG | ℓG(a) ≥ τG}, (4)
+Afiltered
+L = {a ∈ AL | ℓL(a) ≥ τL}, (5)
+where τG and τL are predefined thresholds, τL is set
+to 1. Subsequently, the final answer is determined
+by combining the filtered sets:
+Afinal = Combine
+
+Afiltered
+G , Afiltered
+L
+
+, (6)
+where Combine(·) denotes the function that inte-
+grates the filtered answers into the final reliable
+output.
+5 Experiment
+In our experiments, we seek to address the follow-
+ing research questions: RQ1: How effective is the
+proposed method when applied to state-of-the-art
+GraphRAG retrievers in the knowledge graph QA
+task? RQ2: How does the proposed method com-
+pare to other filtering approaches? RQ3: How does
+the performance change when more noisy informa-
+tion is introduced? and RQ4: What is the impact
+of the two modules on performance?
+5.1 Experiment Settings
+Datasets. To assess the effectiveness of our
+method, we evaluate it on two widely recognized
+KGQA benchmark datasets: WebQSP (Yih et al.,
+2016) and CWQ (Talmor and Berant, 2018). We-
+bQSP contains 4,737 natural language questions
+that require reasoning over paths of up to two hops.
+In contrast, CWQ includes 34,699 more complex
+questions that necessitate multi-hop reasoning over
+## PDF page 7
+
+Table 2: Performance comparison with different baselines on the two KGQA datasets.
+Type Methods WebQSP CWQ
+Hit F1 Hit F1
+LLMs
+Flan-T5-xl(Chung et al., 2024) 31.0 - 14.7 -
+Alpaca-7B(Taori et al., 2023) 51.8 - 27.4 -
+LLaMA2-Chat-7B(Touvron et al., 2023) 64.4 - 34.6 -
+ChatGPT 66.8 - 39.9 -
+ChatGPT+CoT 75.6 - 48.9 -
+LLMs+KGs
+ROG 86.73 70.75 61.91 54.95
+ROG + Similarity 85.50 69.38 61.62 54.38
+ROG + PageRank 85.44 69.60 61.34 54.41
+ROG + GraphRAG-Filtering 87.40 73.41 63.86 57.25
+ROG + GraphRAG-FI 89.25 73.86 64.82 55.12
+GNN-RAG 90.11 73.25 69.10 60.55
+GNN-RAG + Similarity 89.68 72.17 68.50 60.26
+GNN-RAG + PageRank 89.18 71.92 66.75 58.73
+GNN-RAG + GraphRAG-Filtering 91.28 74.74 69.70 60.96
+GNN-RAG + GraphRAG-FI 91.89 75.98 71.12 60.34
+SubgraphRAG 76.90 64.65 53.87 50.43
+SubgraphRAG + Similarity 72.72 59.98 52.05 48.27
+SubgraphRAG + PageRank 61.79 50.65 46.75 43.23
+SubgraphRAG + GraphRAG-Filtering 81.01 68.40 58.82 54.71
+SubgraphRAG + GraphRAG-FI 81.08 68.28 58.96 52.52
+up to four hops. Both datasets are built upon Free-
+base , which consists of around 88 million enti-
+ties, 20 thousand relations, and 126 million triples.
+Further details on the datasets are provided in Ap-
+pendix A.1.
+Retriever Backbones. Our framework adopts
+three existing retrieval methods as its backbone:
+path-based retrieval (ROG (Luo et al., 2024)),
+GNN (Mavromatis and Karypis, 2024)), and
+subgraph-based retrieval (SubgraphRAG (Li et al.,
+2025)). Path-based retrieval extracts relevant paths
+using heuristics or shortest-path algorithms, while
+GNN-based retrieval leverages a Graph Neural Net-
+work to learn and retrieve informative paths. In
+contrast, subgraph-based retrieval retrieves relevant
+subgraphs and encodes them as triples, enabling
+fine-grained relational reasoning. Therefore, both
+path-based and GNN-based methods generate paths
+as input for the LLM. Lastly, subgraph-based meth-
+ods give triples (i.e., edges) as input to the LLM
+that take the form of (h, r, t). By considering these
+three methods, we are able to test our framework
+on a diverse set of retrieval methods.
+Filter Baselines. The most commonly used fil-
+tering methods for RAG are similarity-based ap-
+proaches used in (Gao et al., 2025). Similarity-
+based methods evaluate the relevance of retrieved
+information by measuring feature similarity. For
+retrieval over graphs, PageRank-based filtering is
+widely adopted (Wang et al., 2024). PageRank-
+based filtering leverages the graph structure to rank
+nodes based on their connectivity and importance.
+These methods provide a baseline filtering mecha-
+nism for refining the retrieved results.
+Implementation and Evaluation Metrics. We
+use LLaMA2-Chat-7B from ROG as the LLM
+backbone, which is instruction-finetuned on the
+training split of WebQSP and CWQ, as well as Free-
+base, for three epochs. For the similarity-based fil-
+ter, we utilize SentenceTransformer (‘all-MiniLM-
+L6-v2’) to generate representations for retrieval.
+We evaluate our retrieval methods using both Hit
+Rate (Hit) and F1-score (F1). Hit Rate measures the
+proportion of relevant items successfully retrieved,
+reflecting retrieval effectiveness. F1-score balances
+precision and recall, providing a comprehensive as-
+sessment of retrieval quality. These metrics ensure
+a robust evaluation of retrieval performance. We
+adjust the thresholds τ and τG within the ranges
+[top 40, top 50] and [0.4, 0.5], respectively.
+## PDF page 8
+
+5.2 Main Results
+In this section, we evaluate the performance of
+our method with various retrievers and compare it
+against baseline filter models.
+RQ1: KGQA Performance Comparison. In this
+subsection, we apply our method to different re-
+trievers, including the path-based retriever, GNN-
+based retriever, and subgraph-based retriever. The
+results presented in Table 2 demonstrate that our
+method consistently improves all retrievers, achiev-
+ing an average improvement of 3.81% in Hit and
+2.35% in F1 over ROG, 2.46% in Hit and 1.7%
+in F1 over GNN-RAG, and significant gains of
+7.47% in Hit and 4.88% in F1 over SubgraphRAG
+across two datasets. These results demonstrate that
+our approach is effective across different retrieval
+paradigms, reinforcing its adaptability to various
+retrieval strategies in QA tasks.
+RQ2: Comparison with other filter methods.
+We compare our method against other filtering
+baselines, with the results presented in Table 2.
+Our approach consistently outperforms competing
+methods across both datasets and retriever types.
+Specifically, for ROG, our method can achieve an
+average improvement of 4.78% in Hit and 3.95% in
+F1 compared to similarity-based filtering on both
+datasets. Furthermore, compared to the PageRank-
+based filtering method, our approach yields an av-
+erage increase of 5.03% in Hit and 3.70% in F1
+across both datasets. These results highlight the
+superiority of our method in enhancing retrieval
+effectiveness and overall performance.
+Table 3: Performance when adding more noise
+Methods WebQSP CWQ
+Hit F1 Hit F1
+ROG-original 86.73 70.75 61.91 54.95
+ROG* 85.87 68.81 60.49 53.72
+ROG* + GraphRAG-Filtering 86.61 73.0161.91 55.67
+5.3 Robustness to Noise
+In this subsection, we evaluate robustness of differ-
+ent methods to noise. To evaluate the noise resis-
+tance of the backbone model and our filter method,
+we use GPT to generate 30 additional noise paths
+that contain both irrelevant and incorrect informa-
+tion. This information is then incorporated into
+the retrieved context. We then analyze the impact
+of this noise on performance. The experimental
+results presented in Table 3, ROG* represents the
+cases where noise is introduced. As the noise level
+increases, the Hit score decreases by 2.29%, and
+the F1 score drops by 2.23% on the CWQ dataset,
+highlighting the model’s sensitivity to noise. How-
+ever, when applying our method, we observe a
+2.23% improvement in Hit and a 3.63% improve-
+ment in F1 over ROG* on CWQ. These results
+demonstrate the effectiveness of our approach in
+mitigating the negative impact of noisy retrieval.
+5.4 Ablation Study
+We conduct an ablation study to analyze the ef-
+fectiveness of the filtering module and integrating
+module in GraphRAG-FI. From the results in Ta-
+ble 4, we can see that GraphRAG-Filtering is useful
+for the ROG retriever, as it improves both the F1
+and Hit scores. For example, GraphRAG-Filtering
+increases the F1 score by 4.19% and the Hit score
+by 3.15% on CWQ dataset. We also see a boost
+in performance for GraphRAG-Integration, with a
+1.60% and 2.62% increase in F1 and Hit score, re-
+spectively, on WebQSP. These results demonstrate
+the effectiveness of our two components.
+Table 4: Ablation study.
+Methods WebQSP CWQ
+Hit F1 Hit F1
+ROG-original 86.73 70.75 61.91 54.95
+ROG + GraphRAG-Filtering 87.40 73.4163.86 57.25
+ROG + GraphRAG-Integration 89.00 71.8864.25 55.19
+ROG + GraphRAG-FI 89.25 73.86 64.82 55.12
+6 Conclusion
+In this work, we propose GraphRAG-FI (Fil-
+tering & Integration), an enhanced GraphRAG
+framework that addresses key challenges in graph
+retrieval-augmented generation. By incorporating
+GraphRAG-Filtering, which utilizes a two-stage
+filtering mechanism to refine retrieved informa-
+tion, and GraphRAG-Integration, which employs a
+logits-based selection strategy to balance retrieval
+and intrinsic reasoning, our approach mitigates
+the impact of noisy retrievals and excessive de-
+pendence on external knowledge. Experimental
+results on knowledge graph QA tasks demonstrate
+that GraphRAG-FI significantly improves reason-
+ing accuracy across multiple backbone models, es-
+tablishing a more reliable and effective GraphRAG
+framework.
+## PDF page 9
+
+Limitations
+In this work, we identify two key challenges in
+GraphRAG: (1) it is prone to errors due to the
+retrieval of irrelevant or misleading information,
+and (2) it places excessive emphasis on externally
+retrieved knowledge, which can diminish the in-
+trinsic reasoning capabilities of LLMs. Future re-
+search will first explore a broader range of large
+language models to evaluate their effectiveness
+within GraphRAG. Additionally, further investi-
+gation into diverse filtering methods could enhance
+the refinement of retrieved information and reduce
+noise. More sophisticated fusion strategies may
+also be explored to dynamically balance external
+knowledge with the intrinsic reasoning of LLMs,
+enabling more effective information integration.
+References
+Amit Ben-Artzy and Roy Schwartz. 2024. Attend
+first, consolidate later: On the importance of at-
+tention in different llm layers. arXiv preprint
+arXiv:2409.03621.
+Yung-Sung Chuang, Yujia Xie, Hongyin Luo, Yoon
+Kim, James Glass, and Pengcheng He. 2023. Dola:
+Decoding by contrasting layers improves factu-
+ality in large language models. arXiv preprint
+arXiv:2309.03883.
+Hyung Won Chung, Le Hou, Shayne Longpre, Barret
+Zoph, Yi Tay, William Fedus, Yunxuan Li, Xuezhi
+Wang, Mostafa Dehghani, Siddhartha Brahma, et al.
+2024. Scaling instruction-finetuned language models.
+Journal of Machine Learning Research, 25(70):1–53.
+Jialin Dong, Bahare Fatemi, Bryan Perozzi, Lin F Yang,
+and Anton Tsitsulin. 2024. Don’t forget to connect!
+improving rag with graph-based reranking. arXiv
+preprint arXiv:2405.18414.
+Zengyi Gao, Yukun Cao, Hairu Wang, Ao Ke, Yuan
+Feng, Xike Xie, and S Kevin Zhou. 2025. Frag: A
+flexible modular framework for retrieval-augmented
+generation based on knowledge graphs. arXiv
+preprint arXiv:2501.09957.
+Danny Halawi, Jean-Stanislas Denain, and Jacob Stein-
+hardt. 2023. Overthinking the truth: Understanding
+how language models process false demonstrations.
+arXiv preprint arXiv:2307.09476.
+Haoyu Han, Yu Wang, Harry Shomer, Kai Guo, Jiayuan
+Ding, Yongjia Lei, Mahantesh Halappanavar, Ryan A
+Rossi, Subhabrata Mukherjee, Xianfeng Tang, et al.
+2024. Retrieval-augmented generation with graphs
+(graphrag). arXiv preprint arXiv:2501.00309.
+Shibo Hao, Yi Gu, Haodi Ma, Joshua Hong, Zhen
+Wang, Daisy Wang, and Zhiting Hu. 2023. Rea-
+soning with language model is planning with world
+model. In Proceedings of the 2023 Conference on
+Empirical Methods in Natural Language Processing,
+pages 8154–8173.
+Alexander Havrilla, Sharath Chandra Raparthy, Christo-
+foros Nalmpantis, Jane Dwivedi-Yu, Maksym Zhu-
+ravinskyi, Eric Hambro, and Roberta Raileanu.
+Glore: When, where, and how to improve llm reason-
+ing via global and local refinements. In Forty-first
+International Conference on Machine Learning.
+Xiaoxin He, Yijun Tian, Yifei Sun, Nitesh Chawla,
+Thomas Laurent, Yann LeCun, Xavier Bresson, and
+Bryan Hooi. 2025. G-retriever: Retrieval-augmented
+generation for textual graph understanding and ques-
+tion answering. Advances in Neural Information
+Processing Systems, 37:132876–132907.
+Xiaoxin He, Yijun Tian, Yifei Sun, Nitesh V Chawla,
+Thomas Laurent, Yann LeCun, Xavier Bresson, and
+Bryan Hooi. 2024. G-retriever: Retrieval-augmented
+generation for textual graph understanding and ques-
+tion answering. arXiv preprint arXiv:2402.07630.
+Lei Huang, Weijiang Yu, Weitao Ma, Weihong Zhong,
+Zhangyin Feng, Haotian Wang, Qianglong Chen,
+Weihua Peng, Xiaocheng Feng, Bing Qin, et al. 2024.
+A survey on hallucination in large language models:
+Principles, taxonomy, challenges, and open questions.
+ACM Transactions on Information Systems.
+Ziwei Ji, Tiezheng Yu, Yan Xu, Nayeon Lee, Etsuko
+Ishii, and Pascale Fung. 2023. Towards mitigating
+llm hallucination via self reflection. In Findings
+of the Association for Computational Linguistics:
+EMNLP 2023, pages 1827–1843.
+Thomas N Kipf and Max Welling. 2016. Semi-
+supervised classification with graph convolutional
+networks. arXiv preprint arXiv:1609.02907.
+Mufei Li, Siqi Miao, and Pan Li. 2025. Simple is effec-
+tive: The roles of graphs and large language models
+in knowledge-graph-based retrieval-augmented gen-
+eration. In International Conference on Learning
+Representations.
+Linhao Luo, Yuan-Fang Li, Gholamreza Haffari, and
+Shirui Pan. 2024. Reasoning on graphs: Faithful and
+interpretable large language model reasoning. In In-
+ternational Conference on Learning Representations.
+Huan Ma, Jingdong Chen, Guangyu Wang, and
+Changqing Zhang. 2025. Estimating llm uncertainty
+with logits. arXiv preprint arXiv:2502.00290.
+Shengjie Ma, Chengjin Xu, Xuhui Jiang, Muzhi Li,
+Huaren Qu, and Jian Guo. 2024. Think-on-graph 2.0:
+Deep and interpretable large language model reason-
+ing with knowledge graph-guided retrieval. arXiv
+e-prints, pages arXiv–2407.
+Costas Mavromatis and George Karypis. 2024. Gnn-
+rag: Graph neural retrieval for large language model
+reasoning. arXiv preprint arXiv:2405.20139.
+## PDF page 10
+
+Shiyu Ni, Keping Bi, Jiafeng Guo, and Xueqi Cheng.
+2024. When do llms need retrieval augmentation?
+mitigating llms’ overconfidence helps retrieval aug-
+mentation. arXiv preprint arXiv:2402.11457.
+Ruiyang Ren, Yuhao Wang, Yingqi Qu, Wayne Xin
+Zhao, Jing Liu, Hao Tian, Hua Wu, Ji-Rong Wen,
+and Haifeng Wang. 2023. Investigating the fac-
+tual knowledge boundary of large language mod-
+els with retrieval augmentation. arXiv preprint
+arXiv:2307.11019.
+Ishneet Sukhvinder Singh, Ritvik Aggarwal, Ibrahim
+Allahverdiyev, Muhammad Taha, Aslihan Akalin,
+Kevin Zhu, and Sean O’Brien. 2024. Chunkrag:
+Novel llm-chunk filtering method for rag systems.
+arXiv preprint arXiv:2410.19572.
+Gaurang Sriramanan, Siddhant Bharti, Vinu Sankar
+Sadasivan, Shoumik Saha, Priyatham Kattakinda,
+and Soheil Feizi. 2025. Llm-check: Investigating
+detection of hallucinations in large language models.
+Advances in Neural Information Processing Systems,
+37:34188–34216.
+Jiashuo Sun, Chengjin Xu, Lumingyuan Tang, Saizhuo
+Wang, Chen Lin, Yeyun Gong, Lionel Ni, Heung-
+Yeung Shum, and Jian Guo. Think-on-graph: Deep
+and responsible reasoning of large language model
+on knowledge graph. In The Twelfth International
+Conference on Learning Representations.
+Alon Talmor and Jonathan Berant. 2018. The web as
+a knowledge-base for answering complex questions.
+arXiv preprint arXiv:1803.06643.
+Hexiang Tan, Fei Sun, Wanli Yang, Yuanzhuo Wang,
+Qi Cao, and Xueqi Cheng. 2024. Blinded by gen-
+erated contexts: How language models merge gen-
+erated and retrieved contexts for open-domain qa?
+arXiv preprint arXiv:2401.11911.
+Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann
+Dubois, Xuechen Li, Carlos Guestrin, Percy Liang,
+and Tatsunori B Hashimoto. 2023. Stanford alpaca:
+An instruction-following llama model.
+Hugo Touvron, Louis Martin, Kevin Stone, Peter Al-
+bert, Amjad Almahairi, Yasmine Babaei, Nikolay
+Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti
+Bhosale, et al. 2023. Llama 2: Open founda-
+tion and fine-tuned chat models. arXiv preprint
+arXiv:2307.09288.
+Yuvraj Virk, Premkumar Devanbu, and Toufique Ahmed.
+2024. Enhancing trust in llm-generated code sum-
+maries with calibrated confidence scores. arXiv
+preprint arXiv:2404.19318.
+Yile Wang, Peng Li, Maosong Sun, and Yang Liu.
+2023. Self-knowledge guided retrieval augmen-
+tation for large language models. arXiv preprint
+arXiv:2310.05002.
+Yuqi Wang, Boran Jiang, Yi Luo, Dawei He, Peng
+Cheng, and Liangcai Gao. 2024. Reasoning on ef-
+ficient knowledge paths: Knowledge graph guides
+large language model for domain question answering.
+arXiv preprint arXiv:2404.10384.
+Xiaoqian Wu, Yong-Lu Li, Jianhua Sun, and Cewu Lu.
+2023. Symbol-llm: leverage language models for
+symbolic system in visual human activity reasoning.
+Advances in Neural Information Processing Systems,
+36:29680–29691.
+Lijie Yang, Zhihao Zhang, Zhuofu Chen, Zikun Li, and
+Zhihao Jia. 2024. Tidaldecode: Fast and accurate llm
+decoding with position persistent sparse attention.
+arXiv preprint arXiv:2410.05076.
+Wen-tau Yih, Matthew Richardson, Christopher Meek,
+Ming-Wei Chang, and Jina Suh. 2016. The value of
+semantic parse labeling for knowledge base question
+answering. In Proceedings of the 54th Annual Meet-
+ing of the Association for Computational Linguistics
+(Volume 2: Short Papers), pages 201–206.
+Shenglai Zeng, Jiankun Zhang, Pengfei He, Yue Xing,
+Yiding Liu, Han Xu, Jie Ren, Shuaiqiang Wang,
+Dawei Yin, Yi Chang, et al. 2024a. The good and the
+bad: Exploring privacy issues in retrieval-augmented
+generation (rag). arXiv preprint arXiv:2402.16893.
+Shenglai Zeng, Jiankun Zhang, Bingheng Li, Yuping
+Lin, Tianqi Zheng, Dante Everaert, Hanqing Lu, Hui
+Liu, Yue Xing, Monica Xiao Cheng, et al. 2024b. To-
+wards knowledge checking in retrieval-augmented
+generation: A representation perspective. arXiv
+preprint arXiv:2411.14572.
+Qinggang Zhang, Shengyuan Chen, Yuanchen Bei,
+Zheng Yuan, Huachi Zhou, Zijin Hong, Junnan Dong,
+Hao Chen, Yi Chang, and Xiao Huang. 2025. A
+survey of graph retrieval-augmented generation for
+customized large language models. arXiv preprint
+arXiv:2501.13958.
+## PDF page 11
+
+Table 5: Statistics of datasets.
+Datasets #Train #Test Max #hop
+WebQSP 2,826 1,628 2
+CWQ 27,639 3,531 4
+A Appendix
+A.1 Datasets
+We utilize two benchmark KGQA datasets, We-
+bQSP (Yih et al., 2016) and CWQ (Talmor and
+Berant, 2018), as proposed in previous studies. Fol-
+lowing ROG, we maintain the same training and
+testing splits. The dataset statistics are provided in
+Table 5.
+A.2 Prompt Example
+Prompts
+Based on the reasoning paths, please an-
+swer the given question. Please keep the
+answer as simple as possible and return all
+the possible answers as a list.
+Reasoning Paths:
+High Priority Paths:
+Northern Colorado Bears football → educa-
+tion.educational_institution.sports_teams
+→ University of Northern Colorado
+Additional Paths:
+Northern Colorado Bears football → educa-
+tion.educational_institution.sports_teams
+→ University of Northern Colorado
+Greeley → location.location.containedby
+→ United States of America
+Greeley → location.location.containedby
+→ Greeley Masonic Temple
+Question: What educational institution has
+a football sports team named Northern Col-
+orado Bears is in Greeley, Colorado?
+Figure 5: An Example of Our Prompt

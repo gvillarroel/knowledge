@@ -1,0 +1,91 @@
+{
+  "date": "2026-07-12",
+  "model": "openai-codex/gpt-5.6-luna",
+  "routing": "luna-only",
+  "control_rerun": false,
+  "primary": {
+    "benchmark_id": "graphrag-cross-paper-30-consult-skill-retest",
+    "eval_id": "eval-eah-2026-07-12T20:53:32",
+    "run_directory": "results/graphrag-cross-paper-30-consult-skill-retest/2026-07-12T20-53-27-743Z-compare",
+    "requested": 30,
+    "passed": 23,
+    "failed": 5,
+    "errors": 2,
+    "strict_rate": 0.7666666667,
+    "completed_response_rate": 0.8214285714,
+    "duration_ms": 1144208,
+    "metric_passes": {
+      "response-format": 28,
+      "response-contract": 27,
+      "evidence-path-validity": 27,
+      "semantic-structure": 25,
+      "page-citation-grounding": 24,
+      "cross-paper-evidence": 25
+    }
+  },
+  "baseline_skill": {
+    "benchmark_id": "graphrag-cross-paper-30-compare",
+    "eval_id": "eval-ebe-2026-07-12T19:20:40",
+    "run_directory": "results/graphrag-cross-paper-30-compare/2026-07-12T19-20-32-563Z-compare",
+    "requested": 30,
+    "passed": 10,
+    "failed": 20,
+    "errors": 0,
+    "strict_rate": 0.3333333333,
+    "metric_passes": {
+      "response-format": 29,
+      "response-contract": 28,
+      "evidence-path-validity": 24,
+      "semantic-structure": 15,
+      "page-citation-grounding": 15,
+      "cross-paper-evidence": 14
+    }
+  },
+  "paired_transition": {
+    "gained": 14,
+    "lost": 1,
+    "passed_both": 9,
+    "failed_both": 6,
+    "net_gain": 13,
+    "exact_mcnemar_two_sided_p": 0.0009765625
+  },
+  "holdout": {
+    "eval_id": "eval-5G7-2026-07-12T20:45:15",
+    "run_directory": "results/graphrag-cross-paper-holdout-6-validation/2026-07-12T20-45-09-733Z-compare",
+    "passed": 2,
+    "failed": 4,
+    "errors": 0,
+    "baseline_passed": 1,
+    "promotion_gate": "pass"
+  },
+  "technical_recovery": {
+    "eval_id": "eval-JIj-2026-07-12T21:20:22",
+    "run_directory": "results/graphrag-cross-paper-technical-recovery-2/2026-07-12T21-20-18-430Z-compare",
+    "passed": 2,
+    "failed": 0,
+    "errors": 0,
+    "score_merge": "forbidden"
+  },
+  "primary_nonpassing": {
+    "q002-common-pipeline": ["evidence-path-validity"],
+    "q005-community-hierarchy": [
+      "response-contract",
+      "semantic-structure",
+      "page-citation-grounding",
+      "cross-paper-evidence"
+    ],
+    "q009-query-processing-routing": ["technical-timeout"],
+    "q010-context-organization": [
+      "semantic-structure",
+      "page-citation-grounding",
+      "cross-paper-evidence"
+    ],
+    "q017-imperfect-graphs": ["technical-timeout"],
+    "q019-external-parametric-balance": [
+      "semantic-structure",
+      "page-citation-grounding",
+      "cross-paper-evidence"
+    ],
+    "q020-domain-adaptation": ["page-citation-grounding"]
+  }
+}

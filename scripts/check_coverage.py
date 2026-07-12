@@ -13,6 +13,14 @@ from pathlib import Path
 SUMMARY_RE = re.compile(
     r"^\s*(?P<lines>\d+)\s+(?P<pct>\d+(?:\.\d+)?)%\s+(?P<module>[\w\.]+)\s+\((?P<path>.+)\)\s*$"
 )
+NON_APPLICATION_TESTS = (
+    "tests/test_build_semantic_okf_skill.py",
+    "tests/test_consult_semantic_okf_skill.py",
+    "tests/test_extract_ontologies_skill.py",
+    "tests/test_graphrag_cross_paper_benchmark.py",
+    "tests/test_semantic_okf_builder_benchmark.py",
+    "tests/test_semantic_okf_reader_benchmark.py",
+)
 
 
 @dataclass
@@ -39,11 +47,31 @@ def parse_args() -> argparse.Namespace:
         help="Only modules with this prefix are included in the application coverage total.",
     )
     parser.add_argument(
+        "--include-non-application-tests",
+        action="store_true",
+        help=(
+            "Also trace repository skill/evaluation suites that do not import the measured "
+            "application package."
+        ),
+    )
+    parser.add_argument(
         "--tests-args",
         nargs=argparse.REMAINDER,
         help="Optional extra arguments passed to pytest after `--`.",
     )
     return parser.parse_args()
+
+
+def coverage_pytest_args(args: argparse.Namespace) -> list[str]:
+    """Build the pytest scope that contributes to application-package coverage."""
+
+    pytest_args = list(args.tests_args or [])
+    if args.include_non_application_tests:
+        return pytest_args
+    return [
+        *(f"--ignore={path}" for path in NON_APPLICATION_TESTS),
+        *pytest_args,
+    ]
 
 
 def run_trace(coverdir: Path, pytest_args: list[str]) -> str:
@@ -115,7 +143,7 @@ def total_pct(rows: list[ModuleCoverage]) -> float:
 
 def main() -> int:
     args = parse_args()
-    pytest_args = args.tests_args or []
+    pytest_args = coverage_pytest_args(args)
 
     repo_root = Path(__file__).resolve().parents[1]
     coverdir = repo_root / "tracecov"

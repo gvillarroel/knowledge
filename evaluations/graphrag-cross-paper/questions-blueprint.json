@@ -1,0 +1,427 @@
+{
+  "benchmark_id": "graphrag-cross-paper-30-compare",
+  "questions": [
+    {
+      "id": "q001-methodology-taxonomy",
+      "category": "methodology-taxonomy",
+      "question": "Build a practical taxonomy of the GraphRAG methodologies represented in the corpus. Group methods by how they organize and retrieve graph evidence, explain what makes each family distinct, and name the tasks for which each family is most suitable.",
+      "dimensions": ["methodology", "retrieval-strategy", "organization-synthesis", "task"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 8,
+      "required_points": [
+        "Distinguish community or hierarchy based summarization from node, path, subgraph, diffusion, logical-query, filtering, and agentic families.",
+        "Tie every family to characteristic retrieval and context-organization behavior rather than grouping only by paper names.",
+        "Relate global sensemaking, local factual lookup, multi-hop reasoning, long-context exploration, fact-checking, and domain QA to appropriate families.",
+        "Acknowledge hybrid methods and the benchmark paper instead of forcing every paper into one exclusive algorithm family."
+      ]
+    },
+    {
+      "id": "q002-common-pipeline",
+      "category": "pipeline-comparison",
+      "question": "Across the papers, what pipeline stages recur from raw information to a grounded answer, and where do the approaches make materially different design choices? Explain the usual task of each stage.",
+      "dimensions": ["graph-construction", "retrieval-strategy", "organization-synthesis", "task"],
+      "focus_papers": ["2404.16130v2", "2408.04187v2", "2409.13731v3", "2410.05779v3", "2503.06474v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Describe ingestion or graph construction, indexing or organization, query processing, retrieval, context assembly, and generation or verification.",
+        "Contrast LLM extraction, classical NLP extraction, schema guidance, and pre-existing graph inputs.",
+        "Explain that retrieval and organization may be communities, paths, graph neighborhoods, generated queries, or fused vector and graph results.",
+        "Connect stage choices to accuracy, cost, updateability, and task scope."
+      ]
+    },
+    {
+      "id": "q003-graph-origin-representation",
+      "category": "graph-representation",
+      "question": "Compare methods that construct graphs from unstructured documents with methods that begin from pre-existing textual or knowledge graphs. How does graph origin change representation, retrieval, and the tasks the system can support?",
+      "dimensions": ["graph-construction", "graph-representation", "retrieval-strategy", "task"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2410.05779v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Separate document-derived entity-relation indexes from supplied textual graphs or knowledge graphs.",
+        "Explain how chunks, entities, relations, communities, and graph topology preserve different evidence.",
+        "Relate supplied graphs to graph QA or fact verification and document-derived graphs to corpus QA or sensemaking, while noting overlap.",
+        "Discuss extraction cost and errors for constructed graphs versus coverage and schema constraints for supplied graphs."
+      ]
+    },
+    {
+      "id": "q004-retrieval-units",
+      "category": "retrieval-unit",
+      "question": "What retrieval units recur across GraphRAG systems, and what reasoning task does each unit make easier or harder? Compare isolated facts, nodes and relations, chunks, paths, connected subgraphs, and communities.",
+      "dimensions": ["retrieval-unit", "retrieval-strategy", "task", "limitation"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2504.02112v2", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 7,
+      "required_points": [
+        "Explain the precision and fragmentation trade-off of facts, triples, nodes, and chunks.",
+        "Explain why paths and connected subgraphs are useful for multi-hop evidence chains but can introduce search or pruning cost.",
+        "Explain why communities and summaries improve breadth and global questions but can lose detail.",
+        "Identify hybrid or multi-granular retrieval as a way to combine local precision with global context."
+      ]
+    },
+    {
+      "id": "q005-community-hierarchy",
+      "category": "community-retrieval",
+      "question": "How do community and hierarchical organization methods turn graph structure into answerable context? Compare their retrieval and synthesis tasks, and explain when communities help more than direct entity or chunk retrieval.",
+      "dimensions": ["organization-synthesis", "retrieval-strategy", "task", "limitation"],
+      "focus_papers": ["2404.16130v2", "2408.08535v1", "2410.05779v3", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 4,
+      "required_points": [
+        "Describe community detection or hierarchy construction and summary generation.",
+        "Explain map-reduce or top-down and bottom-up use of community information.",
+        "Connect communities to global sensemaking, breadth, contextual summarization, or fact-checking.",
+        "Discuss summary abstraction, redundant context, token cost, and loss of local detail."
+      ]
+    },
+    {
+      "id": "q006-path-subgraph-reasoning",
+      "category": "path-subgraph",
+      "question": "Compare path-centric, connected-subgraph, and graph-query approaches to multi-hop reasoning. How does each retrieve bridges between facts, organize evidence, and control irrelevant context?",
+      "dimensions": ["retrieval-unit", "retrieval-strategy", "organization-synthesis", "limitation"],
+      "focus_papers": ["2402.07630v3", "2409.13731v3", "2502.14902v2", "2503.06474v2", "2504.02112v2", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Contrast PCST connected-subgraph selection, relational-path pruning, logical-form retrieval, and generated graph queries.",
+        "Explain the role of bridge nodes or relations in preserving multi-hop connectivity.",
+        "Explain how path serialization, query execution, verification, or pruning shapes the final context.",
+        "Discuss the balance between fixed traversal, free-form exploration, retrieval completeness, and noise."
+      ]
+    },
+    {
+      "id": "q007-diffusion-versus-traversal",
+      "category": "retrieval-algorithm",
+      "question": "Contrast graph diffusion or ranking with explicit path, subgraph, and adaptive traversal. What signal starts each process, how does evidence propagate, and which query types favor each mechanism?",
+      "dimensions": ["retrieval-strategy", "retrieval-unit", "task", "efficiency-update"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2502.14902v2", "2504.02112v2", "2508.19855v3"],
+      "min_papers": 4,
+      "required_points": [
+        "Explain Personalized PageRank or spreading activation from query-linked seeds.",
+        "Contrast diffusion with explicit optimization over connected subgraphs or relational paths.",
+        "Explain adaptive or agentic traversal as query-conditioned sequential control.",
+        "Relate associative retrieval, deterministic evidence chains, and diverse question patterns to the mechanisms."
+      ]
+    },
+    {
+      "id": "q008-local-global-queries",
+      "category": "query-scope",
+      "question": "How do the papers distinguish local, entity-focused questions from global or corpus-level questions? Compare the retrieval and synthesis changes needed when moving between these scopes.",
+      "dimensions": ["task", "retrieval-strategy", "organization-synthesis"],
+      "focus_papers": ["2404.16130v2", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Define local questions as specific entities, relations, facts, or neighborhoods and global questions as themes or corpus-wide synthesis.",
+        "Explain direct entity or low-level retrieval versus community summaries, high-level keys, or hierarchical filtering.",
+        "Describe how final synthesis changes from a compact evidence chain to aggregation of partial answers or summaries.",
+        "Note methods that support both scopes and the quality-cost trade-offs."
+      ]
+    },
+    {
+      "id": "q009-query-processing-routing",
+      "category": "query-processing",
+      "question": "What roles do query decomposition, classification, logical forms, planning, and reflection play before or during graph retrieval? Explain how they route different questions to different retrieval work.",
+      "dimensions": ["methodology", "retrieval-strategy", "task", "efficiency-update"],
+      "focus_papers": ["2406.14550v2", "2409.13731v3", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Distinguish decomposition into subquestions, classification by question pattern, and conversion into logical or graph queries.",
+        "Explain planning and reflective iteration in agentic graph exploration.",
+        "Show how routing chooses traversal depth, retrieval form, or fallback evidence rather than using one fixed strategy.",
+        "Discuss latency, token, robustness, and execution-validity trade-offs."
+      ]
+    },
+    {
+      "id": "q010-context-organization",
+      "category": "context-organization",
+      "question": "Retrieval alone does not determine the prompt. Compare how the methods organize retrieved graph evidence before generation and explain how organization affects coherence, reasoning, and source fidelity.",
+      "dimensions": ["organization-synthesis", "retrieval-unit", "strength", "limitation"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2408.04187v2", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Compare community reports and partial answers, textualized connected subgraphs, ordered paths, organized chunks, and agent memory or notes.",
+        "Explain why ordering and retaining relations can help multi-hop coherence.",
+        "Explain why original chunks or source excerpts can preserve fidelity after graph retrieval.",
+        "Discuss context redundancy, abstraction loss, and token-budget constraints."
+      ]
+    },
+    {
+      "id": "q011-vector-graph-hybrid",
+      "category": "hybrid-retrieval",
+      "question": "How are vector similarity and graph structure combined across the corpus? Identify the distinct jobs of semantic seeding, graph expansion or ranking, and result fusion, and explain why neither signal is always sufficient alone.",
+      "dimensions": ["retrieval-strategy", "retrieval-unit", "strength", "limitation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2409.13731v3", "2410.05779v3", "2503.06474v2", "2506.05690v3", "2507.03226v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Describe embedding similarity as a way to find seeds, entities, chunks, or relations relevant to the wording of a query.",
+        "Describe graph structure as a way to connect, expand, diffuse, traverse, or organize evidence beyond isolated similarity.",
+        "Include dual-level retrieval, mutual indexing, or reciprocal-rank fusion as hybrid patterns.",
+        "Explain semantic-gap, disconnected-evidence, graph-noise, and cost trade-offs."
+      ]
+    },
+    {
+      "id": "q012-llm-roles",
+      "category": "llm-role",
+      "question": "Across GraphRAG pipelines, which tasks are delegated to an LLM and which are performed by graph algorithms, databases, or classical NLP? Explain the accuracy and cost consequences of that division of labor.",
+      "dimensions": ["graph-construction", "retrieval-strategy", "organization-synthesis", "efficiency-update"],
+      "focus_papers": ["2404.16130v2", "2405.14831v3", "2406.14550v2", "2408.04187v2", "2409.13731v3", "2410.05779v3", "2503.06474v2", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Cover LLM extraction, summarization, query decomposition or keywording, planning, verification, and answer generation.",
+        "Cover graph algorithms such as clustering, PageRank, path or subgraph optimization, traversal, and database query execution.",
+        "Include a classical-NLP construction alternative and explain its production-cost motivation.",
+        "Discuss propagation of LLM extraction errors, offline expense, online flexibility, and explainability."
+      ]
+    },
+    {
+      "id": "q013-offline-construction-cost",
+      "category": "cost-tradeoff",
+      "question": "Compare the main offline costs of building GraphRAG indexes. Which construction choices improve semantic richness, and which choices reduce expense or simplify updates at the risk of losing information?",
+      "dimensions": ["graph-construction", "efficiency-update", "strength", "limitation"],
+      "focus_papers": ["2404.16130v2", "2405.14831v3", "2408.04187v2", "2409.13731v3", "2410.05779v3", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Compare LLM entity-relation extraction and summary generation with dependency parsing or reuse of existing graphs.",
+        "Explain the cost of embeddings, community detection, schema extraction, and multiple granularity indexes.",
+        "Explain how incremental indexing can amortize rebuild cost.",
+        "Relate cheaper construction to possible extraction quality, domain semantics, and downstream retrieval trade-offs."
+      ]
+    },
+    {
+      "id": "q014-online-efficiency",
+      "category": "online-efficiency",
+      "question": "What are the dominant online inference costs in GraphRAG, and how do the methods reduce latency or token use without discarding essential relational evidence?",
+      "dimensions": ["retrieval-strategy", "organization-synthesis", "efficiency-update", "limitation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2406.14550v2", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 7,
+      "required_points": [
+        "Identify graph search or traversal, repeated LLM calls, prompt-context size, and verification or reflection as online costs.",
+        "Explain one-step diffusion, vector lookup, pruning, adaptive execution, filtering, and parallel subqueries as cost controls.",
+        "Discuss why aggressive pruning or fixed budgets may omit bridging evidence.",
+        "Separate offline index cost from online latency and token cost."
+      ]
+    },
+    {
+      "id": "q015-incremental-updates",
+      "category": "updates",
+      "question": "How do the papers handle new or changing knowledge? Compare static rebuilds, incremental graph updates, and query-time adaptation, including what each approach must preserve to avoid stale or inconsistent answers.",
+      "dimensions": ["graph-construction", "efficiency-update", "limitation"],
+      "focus_papers": ["2405.14831v3", "2408.04187v2", "2409.13731v3", "2410.05779v3", "2503.06474v2", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Distinguish rebuilding a static graph from adding entities, relations, chunks, embeddings, or schemas incrementally.",
+        "Explain query-time planning or retrieval adaptation as different from updating stored knowledge.",
+        "Discuss deduplication, mutual indexes, provenance, schema consistency, and community maintenance.",
+        "Relate update design to cost, freshness, and error accumulation."
+      ]
+    },
+    {
+      "id": "q016-noise-redundancy",
+      "category": "noise-control",
+      "question": "How do GraphRAG systems reduce noisy, redundant, or weakly relevant graph evidence? Compare prevention during construction with filtering, pruning, ranking, and organization during retrieval.",
+      "dimensions": ["graph-construction", "retrieval-strategy", "organization-synthesis", "limitation"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2408.04187v2", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 7,
+      "required_points": [
+        "Cover deduplication, schema or vocabulary guidance, and higher-quality construction as preventive controls.",
+        "Cover PCST or flow pruning, two-stage filtering, reranking, adaptive traversal, or community filtering as retrieval controls.",
+        "Explain that more graph context can distract the generator and increase tokens even when recall rises.",
+        "Explain the risk that filtering removes bridge evidence or narrows coverage too aggressively."
+      ]
+    },
+    {
+      "id": "q017-imperfect-graphs",
+      "category": "graph-quality",
+      "question": "What failure modes follow from incomplete, inconsistent, or incorrectly extracted graphs, and which papers provide mechanisms that make retrieval robust to those defects?",
+      "dimensions": ["graph-construction", "retrieval-strategy", "safety-grounding", "limitation"],
+      "focus_papers": ["2405.14831v3", "2408.04187v2", "2409.13731v3", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Explain broken reasoning paths, missed entities or relations, retrieval drift, and misleading context.",
+        "Describe hybrid retrieval, logic or query execution, verification, filtering, fallback to source chunks, or agent reflection as mitigations.",
+        "Explain why stronger schema or authoritative vocabularies can improve construction but may reduce adaptability.",
+        "Avoid claiming that any method fully eliminates graph incompleteness."
+      ]
+    },
+    {
+      "id": "q018-grounding-safety",
+      "category": "grounding-safety",
+      "question": "Compare how the papers use graph evidence to reduce hallucination or improve safety. Which mechanisms make an answer auditable, and what new risks can graph retrieval itself introduce?",
+      "dimensions": ["safety-grounding", "organization-synthesis", "strength", "limitation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2503.06474v2", "2503.13804v1", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Connect explicit paths, subgraphs, source excerpts, authoritative vocabularies, fact-checking evidence, or verification to auditability.",
+        "Explain that noisy or incomplete graphs can ground the model in wrong evidence rather than prevent hallucination.",
+        "Include medical safety or fact-checking examples alongside general QA.",
+        "Discuss filtering and calibrated integration without equating evidence availability with answer correctness."
+      ]
+    },
+    {
+      "id": "q019-external-parametric-balance",
+      "category": "knowledge-integration",
+      "question": "How should a GraphRAG system balance retrieved external knowledge with the language model's intrinsic or parametric knowledge? Compare methods that emphasize external evidence with methods that explicitly regulate dependence on it.",
+      "dimensions": ["retrieval-strategy", "organization-synthesis", "safety-grounding", "limitation"],
+      "focus_papers": ["2405.14831v3", "2408.04187v2", "2409.13731v3", "2503.06474v2", "2503.13804v1", "2506.05690v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Explain retrieval as a source of fresh, domain-specific, or explicit relational knowledge.",
+        "Explain the danger of irrelevant retrieval suppressing useful intrinsic reasoning.",
+        "Describe filtering and logits-based or other integration controls from the dedicated filtering-and-integration work.",
+        "Relate the balance to graph quality, domain risk, and evidence sufficiency."
+      ]
+    },
+    {
+      "id": "q020-domain-adaptation",
+      "category": "domain-adaptation",
+      "question": "How do GraphRAG designs change for medical, professional, enterprise, and cross-domain use? Identify which components become domain-specific and which retrieval ideas remain reusable.",
+      "dimensions": ["graph-construction", "retrieval-strategy", "task", "safety-grounding"],
+      "focus_papers": ["2408.04187v2", "2408.08535v1", "2409.13731v3", "2503.06474v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Cover controlled medical vocabularies or authoritative sources, professional logic and rules, and enterprise extraction cost.",
+        "Explain schema, entity and relation types, data sources, evaluation tasks, and risk controls as domain-specific components.",
+        "Identify reusable hybrid retrieval, graph traversal, context organization, and generation patterns.",
+        "Discuss domain transfer, adaptation cost, and the risk of benchmark or ontology mismatch."
+      ]
+    },
+    {
+      "id": "q021-fact-checking-versus-qa",
+      "category": "task-comparison",
+      "question": "Compare fact-checking and question answering as GraphRAG tasks. How do their evidence requirements, retrieval paths, output objectives, and evaluation criteria differ?",
+      "dimensions": ["task", "retrieval-strategy", "organization-synthesis", "evaluation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2504.02112v2", "2506.05690v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Explain fact-checking as verification of a claim against corroborating or contradicting graph evidence.",
+        "Explain QA as producing an answer that may require factual lookup, multi-hop composition, or broader synthesis.",
+        "Compare community or multi-hop evidence retrieval with path, subgraph, logical, or adaptive QA retrieval.",
+        "Relate labels or verdict quality, factuality, evidence coverage, answer accuracy, and retrieval metrics to the tasks."
+      ]
+    },
+    {
+      "id": "q022-long-context-sensemaking",
+      "category": "long-context",
+      "question": "Why can graph organization help with long-context and corpus-level sensemaking even when a model has a large context window? Compare global summarization, associative memory, agentic reading, and dual-level retrieval.",
+      "dimensions": ["graph-representation", "retrieval-strategy", "organization-synthesis", "task"],
+      "focus_papers": ["2404.16130v2", "2405.14831v3", "2406.14550v2", "2410.05779v3", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 5,
+      "required_points": [
+        "Explain that a long context window does not itself select, connect, or organize dispersed evidence.",
+        "Compare community summaries, associative graph diffusion, coarse-to-fine agent exploration, and local or global graph keys.",
+        "Relate these approaches to global themes, multi-hop association, and long-document QA.",
+        "Discuss preprocessing cost, abstraction loss, iterative latency, and token efficiency."
+      ]
+    },
+    {
+      "id": "q023-method-task-matrix",
+      "category": "method-task-relation",
+      "question": "Construct a method-to-task decision matrix in prose: which GraphRAG methodology families are best aligned with factual lookup, multi-hop QA, global summarization, long-context exploration, fact-checking, and domain-specific reasoning, and why?",
+      "dimensions": ["methodology", "retrieval-unit", "retrieval-strategy", "task"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 8,
+      "required_points": [
+        "Map local facts to node, relation, chunk, or low-level retrieval.",
+        "Map multi-hop QA to paths, connected subgraphs, diffusion, graph queries, or agentic traversal with reasons.",
+        "Map global summarization to communities, hierarchies, or high-level retrieval.",
+        "Map long-context, fact-checking, medical or professional reasoning to their specialized mechanisms and constraints.",
+        "State that method selection depends on query type, graph quality, latency, and evidence requirements rather than one universal winner."
+      ]
+    },
+    {
+      "id": "q024-evaluation-practices",
+      "category": "evaluation",
+      "question": "How are GraphRAG systems evaluated across retrieval, generation, reasoning, safety, and efficiency? Explain why a single answer-accuracy score cannot characterize the full pipeline.",
+      "dimensions": ["evaluation", "task", "strength", "limitation"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 8,
+      "required_points": [
+        "Separate retrieval quality from final answer correctness or generation quality.",
+        "Include multi-hop or task metrics, comprehensiveness or diversity, grounding or hallucination, and latency or token cost.",
+        "Discuss LLM-as-judge and task-specific automatic metrics.",
+        "Explain the need for component or pipeline-stage analysis and fair baselines."
+      ]
+    },
+    {
+      "id": "q025-benchmark-bias",
+      "category": "evaluation-validity",
+      "question": "What can make a GraphRAG evaluation overstate or understate the value of graphs? Relate query type, dataset structure, baseline choice, judging procedure, and pipeline-stage failures.",
+      "dimensions": ["evaluation", "comparison", "limitation", "task"],
+      "focus_papers": ["2404.16130v2", "2408.08535v1", "2410.05779v3", "2504.02112v2", "2506.05690v3"],
+      "min_papers": 4,
+      "required_points": [
+        "Explain that graph benefits depend on hierarchical, relational, multi-hop, or global structure in the task.",
+        "Discuss unfair or weak baselines, question patterns, leakage or unrelated questions, and LLM judge bias.",
+        "Explain why graph construction, retrieval, and generation should be evaluated separately as well as end to end.",
+        "Avoid treating reported wins on one benchmark as universal evidence for GraphRAG."
+      ]
+    },
+    {
+      "id": "q026-explainability-evidence",
+      "category": "explainability",
+      "question": "Which GraphRAG designs make reasoning evidence easier to inspect, and what is the difference between presenting an interpretable path and actually guaranteeing a faithful explanation?",
+      "dimensions": ["retrieval-unit", "organization-synthesis", "safety-grounding", "limitation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2502.14902v2", "2503.06474v2", "2504.02112v2", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Identify paths, connected subgraphs, executed graph queries, source-linked chunks, or community evidence as inspectable artifacts.",
+        "Explain how ordering relations can expose a reasoning chain more clearly than isolated chunks.",
+        "Distinguish retriever traceability from the generator's actual causal use of evidence.",
+        "Discuss noisy graphs, omitted evidence, summary abstraction, and plausible but unfaithful explanations."
+      ]
+    },
+    {
+      "id": "q027-community-construction",
+      "category": "community-construction",
+      "question": "Compare how the community-oriented papers form, represent, and use graph communities. What problem is community detection solving, and how do structural and semantic signals change the result?",
+      "dimensions": ["graph-construction", "graph-representation", "organization-synthesis", "task"],
+      "focus_papers": ["2404.16130v2", "2408.08535v1", "2410.05779v3", "2506.05690v3", "2508.19855v3"],
+      "min_papers": 4,
+      "required_points": [
+        "Explain communities as higher-level groupings of related entities or subgraphs used to reduce corpus complexity.",
+        "Compare structural clustering, semantic profiles or keys, hierarchical levels, and topology-plus-semantics community detection.",
+        "Explain how summaries or community evidence support global questions, filtering, and fact-checking.",
+        "Discuss resolution choice, cross-community relations, and loss of fine-grained evidence."
+      ]
+    },
+    {
+      "id": "q028-optimization-operators",
+      "category": "algorithm-comparison",
+      "question": "Compare the optimization and control mechanisms used to select graph evidence: PCST, PageRank, flow-based pruning, logical or graph query execution, filtering, and rank fusion. What objective is each mechanism approximating?",
+      "dimensions": ["retrieval-strategy", "retrieval-unit", "efficiency-update", "limitation"],
+      "focus_papers": ["2402.07630v3", "2405.14831v3", "2409.13731v3", "2502.14902v2", "2503.13804v1", "2504.02112v2", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Explain PCST as relevance-versus-connectivity subgraph selection and PageRank as diffusion or associative ranking.",
+        "Explain flow pruning as retaining key relational paths while removing redundancy.",
+        "Explain logical or database queries as executable constraints, filtering as relevance control, and RRF as combining rankings.",
+        "Compare determinism, adaptability, computational cost, recall, and sensitivity to graph quality."
+      ]
+    },
+    {
+      "id": "q029-static-agentic-retrieval",
+      "category": "agentic-retrieval",
+      "question": "Compare one-shot or statically configured GraphRAG retrieval with adaptive and agentic retrieval. When is iterative planning or reflection worth its additional cost?",
+      "dimensions": ["methodology", "retrieval-strategy", "efficiency-update", "task"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2504.02112v2", "2508.19855v3"],
+      "min_papers": 6,
+      "required_points": [
+        "Describe fixed top-k, one-step diffusion, community retrieval, or predetermined pruning as static or one-shot patterns.",
+        "Describe planning, function calls, question classification, query generation, reflection, and iterative evidence gathering as adaptive patterns.",
+        "Relate agentic retrieval to complex, ambiguous, diverse, or long-context questions.",
+        "Balance improved control and recovery against latency, token cost, non-determinism, and error propagation."
+      ]
+    },
+    {
+      "id": "q030-design-decision-framework",
+      "category": "design-decision",
+      "question": "Propose an evidence-based decision framework for choosing a GraphRAG design. Starting from query scope, data form, graph quality, latency budget, update needs, safety requirements, and evaluation goals, explain which methodology choices follow and why.",
+      "dimensions": ["graph-construction", "retrieval-unit", "retrieval-strategy", "task", "evaluation", "limitation", "efficiency-update", "safety-grounding"],
+      "focus_papers": ["2402.07630v3", "2404.16130v2", "2405.14831v3", "2406.14550v2", "2408.04187v2", "2408.08535v1", "2409.13731v3", "2410.05779v3", "2502.14902v2", "2503.06474v2", "2503.13804v1", "2504.02112v2", "2506.05690v3", "2507.03226v3", "2508.19855v3"],
+      "min_papers": 10,
+      "required_points": [
+        "Choose graph construction or reuse based on data form, domain schema, graph quality, and offline budget.",
+        "Choose local facts, paths or subgraphs, communities, diffusion, graph queries, or agents based on query scope and reasoning needs.",
+        "Choose filtering, verification, source-linked context, or calibrated integration based on noise and safety risk.",
+        "Account for incremental updates, online latency, token cost, and explainability.",
+        "Define evaluation across retrieval, generation, task accuracy, grounding, robustness, and efficiency, and avoid declaring one universal best method."
+      ]
+    }
+  ]
+}

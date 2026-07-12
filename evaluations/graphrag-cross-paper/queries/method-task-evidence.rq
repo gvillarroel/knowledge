@@ -1,0 +1,17 @@
+PREFIX gr: <https://example.org/ontology/graphrag-cross-paper#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?paperId ?method ?claim ?evidence
+WHERE {
+  ?claim a gr:PaperSemanticClaim ;
+         gr:claimKind "task"^^xsd:string ;
+         gr:aboutPaper ?paper ;
+         gr:subjectTerm ?methodTerm ;
+         gr:interpretation ?claimText ;
+         gr:evidenceLocator ?evidence .
+  ?paper gr:paperId ?paperId .
+  ?methodTerm dcterms:title ?method .
+  BIND(?claimText AS ?claim)
+}
+ORDER BY ?paperId ?claim

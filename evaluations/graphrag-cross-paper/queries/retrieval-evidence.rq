@@ -1,0 +1,14 @@
+PREFIX gr: <https://example.org/ontology/graphrag-cross-paper#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?paperId ?kind ?claim ?evidence
+WHERE {
+  VALUES ?kind { "retrieval-unit"^^xsd:string "retrieval-strategy"^^xsd:string }
+  ?claimNode a gr:PaperSemanticClaim ;
+             gr:claimKind ?kind ;
+             gr:aboutPaper ?paper ;
+             gr:interpretation ?claim ;
+             gr:evidenceLocator ?evidence .
+  ?paper gr:paperId ?paperId .
+}
+ORDER BY ?paperId ?kind ?claim

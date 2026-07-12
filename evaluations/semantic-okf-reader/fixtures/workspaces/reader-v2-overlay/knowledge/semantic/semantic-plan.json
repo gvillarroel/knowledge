@@ -1,0 +1,1013 @@
+{
+  "bundle": {
+    "base_iri": "https://example.org/forty-source/",
+    "description": "A reviewed heterogeneous corpus with forty independently declared sources.",
+    "ontology_iri": "https://example.org/ontology/forty-source",
+    "owl_profile": "rl",
+    "prefix": "forty",
+    "title": "Forty-source Semantic OKF corpus",
+    "version_iri": "https://example.org/ontology/forty-source/1.0.0"
+  },
+  "ontology": {
+    "classes": [
+      {
+        "label": "document",
+        "name": "Document"
+      },
+      {
+        "label": "person",
+        "name": "Person"
+      },
+      {
+        "label": "project",
+        "name": "Project"
+      },
+      {
+        "label": "vocabulary resource",
+        "name": "VocabularyResource"
+      }
+    ],
+    "properties": [
+      {
+        "domain": "Document",
+        "kind": "datatype",
+        "name": "category",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Document",
+        "kind": "datatype",
+        "name": "published",
+        "range": "xsd:date"
+      },
+      {
+        "domain": "Document",
+        "kind": "datatype",
+        "name": "priority",
+        "range": "xsd:integer"
+      },
+      {
+        "domain": "Person",
+        "kind": "datatype",
+        "name": "name",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Person",
+        "kind": "datatype",
+        "name": "role",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Person",
+        "kind": "datatype",
+        "name": "active",
+        "range": "xsd:boolean"
+      },
+      {
+        "domain": "Person",
+        "kind": "datatype",
+        "name": "joinedOn",
+        "range": "xsd:date"
+      },
+      {
+        "domain": "Person",
+        "kind": "datatype",
+        "name": "score",
+        "range": "xsd:double"
+      },
+      {
+        "domain": "Project",
+        "kind": "datatype",
+        "name": "status",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Project",
+        "kind": "datatype",
+        "name": "budget",
+        "range": "xsd:double"
+      },
+      {
+        "domain": "Project",
+        "kind": "datatype",
+        "name": "featured",
+        "range": "xsd:boolean"
+      },
+      {
+        "domain": "Project",
+        "kind": "datatype",
+        "name": "startDate",
+        "range": "xsd:date"
+      },
+      {
+        "domain": "Project",
+        "kind": "datatype",
+        "name": "updatedAt",
+        "range": "xsd:dateTime"
+      },
+      {
+        "domain": "Project",
+        "kind": "object",
+        "name": "owner",
+        "range": "Person"
+      },
+      {
+        "domain": "VocabularyResource",
+        "kind": "datatype",
+        "name": "prefLabel",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "VocabularyResource",
+        "kind": "datatype",
+        "name": "notation",
+        "range": "xsd:string"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "FORTY-DOC-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Each accepted document must have one non-empty category.",
+      "min_count": 1,
+      "name": "DocumentCategoryRule",
+      "path": "category",
+      "pattern": ".+",
+      "target_class": "Document"
+    },
+    {
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "FORTY-PERSON-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Each accepted person must have one non-empty role.",
+      "min_count": 1,
+      "name": "PersonRoleRule",
+      "path": "role",
+      "pattern": ".+",
+      "target_class": "Person"
+    },
+    {
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "FORTY-PROJECT-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Each accepted project must have one non-empty status.",
+      "min_count": 1,
+      "name": "ProjectStatusRule",
+      "path": "status",
+      "pattern": ".+",
+      "target_class": "Project"
+    },
+    {
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "FORTY-PROJECT-2"
+        ]
+      },
+      "class": "Person",
+      "max_count": 1,
+      "message": "Each accepted project must identify one accepted person owner.",
+      "min_count": 1,
+      "name": "ProjectOwnerRule",
+      "node_kind": "IRI",
+      "path": "owner",
+      "target_class": "Project"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "FORTY-VOCAB-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "message": "Each accepted vocabulary resource must have a preferred label.",
+      "min_count": 1,
+      "name": "VocabularyLabelRule",
+      "path": "prefLabel",
+      "pattern": ".+",
+      "target_class": "VocabularyResource"
+    }
+  ],
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "concept_type": "Policy",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-01",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/01-retention-policy.md"
+    },
+    {
+      "concept_type": "Guide",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-02",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/02-onboarding-guide.md"
+    },
+    {
+      "concept_type": "Checklist",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-03",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/03-security-checklist.md"
+    },
+    {
+      "concept_type": "Architecture Note",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-04",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/04-architecture-note.md"
+    },
+    {
+      "concept_type": "Runbook",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-05",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/05-operations-runbook.md"
+    },
+    {
+      "concept_type": "Research Summary",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-06",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/06-research-summary.md"
+    },
+    {
+      "concept_type": "Glossary",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-07",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/07-product-glossary.md"
+    },
+    {
+      "concept_type": "Incident Review",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-08",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/08-incident-review.md"
+    },
+    {
+      "concept_type": "Accessibility Guide",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-09",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/09-accessibility-guide.md"
+    },
+    {
+      "concept_type": "Data Dictionary",
+      "fields": {
+        "category": "category",
+        "priority": "priority",
+        "published": "published"
+      },
+      "id": "docs-10",
+      "kind": "markdown",
+      "ontology_class": "Document",
+      "path": "sources/markdown/10-data-dictionary.md"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-01",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-01.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-02",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-02.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-03",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-03.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-04",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-04.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-05",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-05.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-06",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-06.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-07",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-07.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-08",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-08.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-09",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-09.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Person",
+      "fields": {
+        "active": "active",
+        "joined_on": "joinedOn",
+        "name": "name",
+        "role": "role",
+        "score": "score"
+      },
+      "id": "people-10",
+      "id_field": "id",
+      "kind": "csv",
+      "ontology_class": "Person",
+      "options": {
+        "enforceSchema": "false",
+        "header": "true"
+      },
+      "path": "sources/csv/people-10.csv",
+      "schema": {
+        "active": "boolean",
+        "id": "string",
+        "joined_on": "date",
+        "name": "string",
+        "role": "string",
+        "score": "double"
+      },
+      "title_field": "name"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-01",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-01.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-02",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-02.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-03",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-03.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-04",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-04.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-05",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-05.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-06",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-06.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-07",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-07.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-08",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-08.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-09",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-09.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Project",
+      "fields": {
+        "budget": "budget",
+        "featured": "featured",
+        "owner_iri": "owner",
+        "start_date": "startDate",
+        "status": "status",
+        "updated_at": "updatedAt"
+      },
+      "id": "projects-10",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "Project",
+      "path": "sources/json/projects-10.jsonl",
+      "schema": {
+        "budget": "double",
+        "featured": "boolean",
+        "id": "string",
+        "owner_iri": "string",
+        "start_date": "date",
+        "status": "string",
+        "title": "string",
+        "updated_at": "timestamp"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "turtle",
+      "id": "vocab-01",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/01-knowledge-sharing.ttl",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "turtle",
+      "id": "vocab-02",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/02-semantic-boundary.ttl",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "turtle",
+      "id": "vocab-03",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/03-source-lineage.ttl",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "turtle",
+      "id": "vocab-04",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/04-validated-snapshot.ttl",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "nt",
+      "id": "vocab-05",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/05-controlled-refresh.nt",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "nt",
+      "id": "vocab-06",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/06-typed-literal.nt",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "nt",
+      "id": "vocab-07",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/07-competency-query.nt",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "n3",
+      "id": "vocab-08",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/08-graph-isomorphism.n3",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "n3",
+      "id": "vocab-09",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/09-progressive-disclosure.n3",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    {
+      "concept_type": "Vocabulary Resource",
+      "fields": {
+        "http://www.w3.org/2004/02/skos/core#notation": "notation",
+        "http://www.w3.org/2004/02/skos/core#prefLabel": "prefLabel"
+      },
+      "format": "n3",
+      "id": "vocab-10",
+      "kind": "rdf",
+      "ontology_class": "VocabularyResource",
+      "path": "sources/rdf/10-reproducibility.n3",
+      "title_predicate": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    }
+  ]
+}

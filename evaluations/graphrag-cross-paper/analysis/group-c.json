@@ -1,0 +1,673 @@
+{
+  "papers": [
+    {
+      "paper_id": "2503.13804v1",
+      "title": "Empowering GraphRAG with Knowledge Filtering and Integration",
+      "method_name": "GraphRAG-FI (GraphRAG-Filtering plus GraphRAG-Integration)",
+      "problem_statement": "The authors target two failure modes: noisy or misleading retrieved graph knowledge and excessive reliance on that external knowledge at the expense of an LLM's correct intrinsic knowledge [PDF pp. 1-2].",
+      "graph_source_type": "Pre-existing external knowledge graphs; the experiments use Freebase-backed KGQA datasets and retrieval outputs from path-, GNN-, and subgraph-based GraphRAG backbones [PDF pp. 6-7].",
+      "graph_representations": [
+        "Retrieved knowledge is represented as reasoning paths or triples, depending on the backbone [PDF pp. 5, 7].",
+        "Path-based and GNN-based backbones give paths to the LLM, whereas SubgraphRAG serializes retrieved subgraphs as (head, relation, tail) triples [PDF p. 7].",
+        "Candidate answers from GraphRAG and the standalone LLM are represented as separate answer sets with associated output logits [PDF p. 6]."
+      ],
+      "construction_methods": [
+        "The paper does not propose knowledge-graph construction; it operates as a filtering and integration layer over existing GraphRAG retrievers and their retrieved paths or triples [PDF pp. 5-7].",
+        "Its evaluated knowledge source is Freebase, described as roughly 88 million entities, 20 thousand relations, and 126 million triples [PDF p. 7]."
+      ],
+      "retrieval_units": [
+        "Reasoning paths produced by RoG and GNN-RAG [PDF p. 7].",
+        "Individual relation triples produced from a retrieved subgraph by SubgraphRAG [PDF p. 7].",
+        "High-priority paths that survive both filtering stages and additional paths that survive only coarse filtering [PDF p. 5].",
+        "Candidate answer items generated independently by GraphRAG and by the standalone LLM [PDF p. 6]."
+      ],
+      "retrieval_strategies": [
+        "Stage 1 performs coarse pruning by retaining paths whose middle-layer-derived attention score exceeds a threshold [PDF pp. 4-5].",
+        "Stage 2 asks an LLM to score the surviving paths and retains those meeting an LLM-determined relevance threshold [PDF p. 5].",
+        "The framework is applied after three retrieval paradigms: RoG path retrieval, GNN-RAG neural retrieval, and SubgraphRAG subgraph retrieval [PDF p. 7].",
+        "Similarity filtering and PageRank filtering are used as comparison baselines rather than components of GraphRAG-FI [PDF p. 7]."
+      ],
+      "organization_and_synthesis": [
+        "The prompt places doubly filtered paths under a High Priority heading and coarse-only survivors under an Additional Paths heading [PDF pp. 5, 11].",
+        "GraphRAG-Integration filters both GraphRAG and standalone-LLM answer sets by logits, then combines the retained candidates into the final answer [PDF p. 6].",
+        "The design treats external retrieval and parametric reasoning as complementary evidence sources rather than always preferring retrieval [PDF pp. 3, 6]."
+      ],
+      "query_and_task_types": [
+        "Knowledge-graph question answering over short and multi-hop questions [PDF pp. 6-7].",
+        "WebQSP questions requiring paths of up to two hops [PDF pp. 6-7].",
+        "Complex WebQuestions questions requiring reasoning over paths of up to four hops [PDF pp. 6-7].",
+        "Noise-stress questions whose retrieved context is augmented with irrelevant and incorrect paths [PDF p. 8]."
+      ],
+      "evaluation_tasks": [
+        "KGQA on WebQSP and Complex WebQuestions, reported with Hit Rate and F1 [PDF pp. 6-8].",
+        "Comparison across RoG, GNN-RAG, and SubgraphRAG retriever backbones [PDF pp. 7-8].",
+        "Comparison against similarity-based and PageRank-based filtering [PDF pp. 7-8].",
+        "Robustness evaluation after adding 30 GPT-generated noisy paths [PDF p. 8].",
+        "Ablation of GraphRAG-Filtering and GraphRAG-Integration [PDF p. 8]."
+      ],
+      "reported_strengths": [
+        "The authors report improvements across all three retrieval paradigms, which supports the claim that the layer is retriever-agnostic within the tested KGQA setting [PDF p. 8].",
+        "The two-stage filter outperforms similarity and PageRank filtering in the reported aggregate comparisons [PDF p. 8].",
+        "The noise experiment reports that filtering recovers performance lost after irrelevant and incorrect paths are inserted [PDF p. 8].",
+        "The staged design limits expensive LLM scoring to paths that first pass inexpensive attention-based pruning [PDF p. 5]."
+      ],
+      "reported_limitations": [
+        "The authors state that evaluation should be expanded to a broader range of LLMs [PDF p. 9].",
+        "They identify exploration of more diverse filtering methods as future work [PDF p. 9].",
+        "They identify more sophisticated fusion strategies for balancing retrieved and intrinsic knowledge as future work [PDF p. 9].",
+        "Analyst synthesis: evidence is limited to two Freebase KGQA datasets and one LLaMA2-Chat-7B implementation setting, so broader-domain generality is not established by the reported experiments [PDF pp. 6-7]."
+      ],
+      "efficiency_and_updates": [
+        "Coarse attention filtering reduces the candidate set before LLM-based fine filtering, explicitly intended to lower evaluation cost [PDF p. 5].",
+        "The paper observes that retrieving too many paths can reduce performance, motivating bounded retrieval rather than context growth [PDF p. 4].",
+        "Analyst synthesis: the method is a query-time refinement layer; it does not describe graph refresh, incremental indexing, or source-update handling [PDF pp. 5-7]."
+      ],
+      "claims": [
+        {
+          "kind": "comparison",
+          "statement": "Author claim: GraphRAG can correct some errors made by a standalone LLM, but can also turn originally correct standalone answers into wrong ones.",
+          "evidence_pages": [1, 3]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: In the preliminary categorization, 45.64% of previously incorrect responses were rectified by GraphRAG, while 16.89% of samples fell in the category where the standalone LLM outperformed GraphRAG.",
+          "evidence_pages": [3]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Author claim: A moderate number of retrieved paths helps, but increasing path count eventually reduces performance because additional paths introduce noise.",
+          "evidence_pages": [4]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: Attention scores for retrieved paths align with whether paths contain ground-truth information and are therefore used as a coarse relevance signal.",
+          "evidence_pages": [4]
+        },
+        {
+          "kind": "strength",
+          "statement": "Author-reported result: Filtering standalone-LLM answers with logits raised WebQSP F1 from 49.97 to 76.74 and CWQ F1 from 34.17 to 58.19 in the preliminary study.",
+          "evidence_pages": [4]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: GraphRAG-Filtering uses attention-threshold pruning followed by an LLM relevance evaluation of the reduced candidate set.",
+          "evidence_pages": [5]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Author claim: The prompt preserves some coarse-filter survivors as supplementary context even when they do not pass the fine filter.",
+          "evidence_pages": [5, 11]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Author claim: GraphRAG-Integration independently applies confidence thresholds to GraphRAG and standalone-LLM answers, then combines their retained candidates.",
+          "evidence_pages": [6]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: Across the two datasets, the authors report average gains over RoG of 3.81% Hit and 2.35% F1, over GNN-RAG of 2.46% Hit and 1.7% F1, and over SubgraphRAG of 7.47% Hit and 4.88% F1.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: Against similarity filtering for RoG, the authors report average gains of 4.78% Hit and 3.95% F1 across the two datasets.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "safety-grounding",
+          "statement": "Author-reported result: After adding 30 noisy paths, filtering improved CWQ Hit by 2.23% and F1 by 3.63% over the noisy RoG condition.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author-reported result: The ablation reports separate benefits from both the filtering and integration modules, although the size and direction of gains vary by metric and dataset.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged limitation: The authors leave broader model coverage, diverse filtering methods, and more sophisticated external-internal fusion for future work.",
+          "evidence_pages": [9]
+        }
+      ]
+    },
+    {
+      "paper_id": "2504.02112v2",
+      "title": "PolyG: Adaptive Graph Traversal for Diverse GraphRAG Questions",
+      "method_name": "PolyG, evaluated with the PolyBench question-pattern benchmark",
+      "problem_statement": "The authors argue that KGQA benchmarks overrepresent a small set of relation-constrained question patterns, while fixed graph traversal or unrestricted LLM exploration cannot jointly provide effectiveness and efficiency across diverse real-world graph questions [PDF pp. 1-2].",
+      "graph_source_type": "Existing property-style knowledge graphs from GRBench in academia, literature, and e-commerce; PolyG queries them through schema-aware Cypher rather than building a new graph from documents [PDF pp. 5-7].",
+      "graph_representations": [
+        "A knowledge graph is represented as entities, relations, attributes, inverse edges, and reasoning paths corresponding to fact triples (subject, predicate chain, object) [PDF pp. 3-4].",
+        "The retrieved context is rendered as entity and relation tables, with full reasoning paths added for relationship-oriented questions [PDF p. 7].",
+        "Nested questions are represented as ordered query plans whose steps are basic questions and whose later steps may depend on earlier results [PDF pp. 5-7]."
+      ],
+      "construction_methods": [
+        "PolyG is a query planner and retriever over existing knowledge graphs; it does not introduce document-to-graph extraction [PDF pp. 3, 5-7].",
+        "PolyBench selects three public GRBench graphs and generates 400 questions per graph using 73 manually designed templates paired with Cypher queries [PDF pp. 5-6].",
+        "Template questions are paraphrased with Claude-3.5-Sonnet, and one of four paraphrases is sampled for the benchmark [PDF p. 6]."
+      ],
+      "retrieval_units": [
+        "One-hop neighbors for general entity questions [PDF p. 7].",
+        "Meta-path endpoints and relational chains for questions with an explicit predicate [PDF p. 7].",
+        "Top-k shortest paths for unconstrained relationship questions and constrained top-k shortest paths when the predicate is given [PDF p. 7].",
+        "Entity tables, relation tables, prior sub-question responses, and complete reasoning paths form the generation context [PDF p. 7]."
+      ],
+      "retrieval_strategies": [
+        "The pattern (subject, unknown predicate, unknown object) maps to breadth-first one-hop neighbor expansion [PDF p. 7].",
+        "The pattern (subject, known predicate, unknown object) maps to a meta-path-guided walk [PDF p. 7].",
+        "The pattern (subject, unknown predicate, object) maps to top-k shortest paths [PDF p. 7].",
+        "The pattern (subject, known predicate, object) maps to constrained top-k shortest paths with filtering clauses [PDF p. 7].",
+        "Generated Cypher is executed asynchronously, and failures or empty results trigger LLM self-correction with up to three retries [PDF p. 7]."
+      ],
+      "organization_and_synthesis": [
+        "Question categorization first distinguishes basic from nested questions and assigns a basic pattern when applicable [PDF p. 6].",
+        "Nested questions are decomposed into a query plan; intermediate results instantiate later sub-questions [PDF pp. 6-7].",
+        "The final generation prompt combines the original question, every sub-question and response, entity/relation tables, and applicable reasoning paths [PDF p. 7]."
+      ],
+      "query_and_task_types": [
+        "General description of a known subject: (s, *, *) [PDF p. 4].",
+        "Retrieval of an unknown object under a known predicate chain: (s, p, *) [PDF p. 4].",
+        "Discovery of relations between a known subject and object: (s, *, o) [PDF p. 4].",
+        "Verification of a specified relation between a known subject and object: (s, p, o) [PDF p. 4].",
+        "Nested questions composed from multiple basic patterns and intermediate answers [PDF pp. 4-6]."
+      ],
+      "evaluation_tasks": [
+        "PolyBench contains 1,200 questions across academia, literature, and e-commerce knowledge graphs [PDF pp. 5-6].",
+        "Generation quality is judged on comprehensiveness, diversity, empowerment, directness, and overall winner [PDF pp. 8, 15].",
+        "F1 and Hit are reported only for patterns for which the benchmark supplies gold answers [PDF pp. 6, 8].",
+        "End-to-end response latency and token usage evaluate efficiency [PDF pp. 8, 15, 17].",
+        "Failure-rate and categorization-accuracy analyses test query generation and taxonomy classification [PDF pp. 9-10]."
+      ],
+      "reported_strengths": [
+        "PolyG adapts traversal to a question's missing triple components instead of using one traversal policy for all questions [PDF pp. 4, 7].",
+        "The authors report the highest aggregate quality win rates, F1, and Hit under both tested generation models [PDF p. 8].",
+        "The self-correction mechanism is reported to reduce generated-Cypher failures, especially for nested questions [PDF pp. 9-10].",
+        "The explicit query plan makes dependent, multi-step questions executable while retaining intermediate evidence [PDF pp. 6-7]."
+      ],
+      "reported_limitations": [
+        "The authors explicitly state that the four-pattern taxonomy may not capture every natural-language graph question, including global summaries and compositions of more than two basic patterns [PDF p. 5].",
+        "Large RDF schemas may exceed the LLM context window and require conversion into smaller property graphs [PDF p. 7].",
+        "Most PolyBench questions lack a definitive gold answer, so much of generation quality relies on LLM judgment [PDF pp. 6, 15].",
+        "Even with schema guidance, generated Cypher can be syntactically wrong, semantically wrong, or return no results [PDF pp. 7, 9-10].",
+        "PolyG's broader context can improve comprehensiveness while reducing directness, an explicit quality trade-off [PDF pp. 15-16]."
+      ],
+      "efficiency_and_updates": [
+        "Adaptive retrieval avoids invoking an LLM at every graph-traversal step, unlike free-form Graph-CoT-style exploration [PDF pp. 2, 18].",
+        "Nested queries have materially higher latency and token use than basic patterns because they require decomposition and sequential dependencies [PDF p. 17].",
+        "PolyG uses a maximum of three Cypher correction retries to balance quality and execution cost [PDF p. 7].",
+        "Analyst synthesis: the paper evaluates query-time adaptation over fixed graphs and does not define incremental graph-update or source-reprocessing behavior [PDF pp. 5-7]."
+      ],
+      "claims": [
+        {
+          "kind": "evaluation",
+          "statement": "Author claim: Existing KGQA benchmarks mostly cover only a narrow subset of four basic graph-question patterns.",
+          "evidence_pages": [1, 2, 5, 19]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author claim: Fixed traversal strategies specialize in particular question patterns, while LLM-directed traversal at every step is more general but costly.",
+          "evidence_pages": [2, 18]
+        },
+        {
+          "kind": "task",
+          "statement": "Author claim: The four basic patterns are derived by treating the subject, predicate chain, and object of a fact triple as known or unknown, removing invalid and inverse-redundant combinations.",
+          "evidence_pages": [4]
+        },
+        {
+          "kind": "task",
+          "statement": "Author claim: A valid graph question either belongs to one of the four basic patterns or can be decomposed into basic-pattern sub-questions.",
+          "evidence_pages": [5]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged limitation: The taxonomy is presented as useful rather than exhaustive; global summaries and larger compositions are named as under-covered cases.",
+          "evidence_pages": [5]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Author claim: PolyG converts a nested natural-language question into a dependency-aware query plan instead of requiring all sub-questions to be instantiated in advance.",
+          "evidence_pages": [6, 7]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: Each basic pattern receives a different traversal strategy: BFS, meta-path walk, shortest paths, or constrained shortest paths.",
+          "evidence_pages": [7]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Author claim: Execution errors are returned to the LLM for automatic Cypher repair, with three retries used in the implementation.",
+          "evidence_pages": [7]
+        },
+        {
+          "kind": "strength",
+          "statement": "Author-reported result: With Claude-3.5-Sonnet, PolyG attained a 54.75% overall-winner rate, 0.7084 F1, and 0.8900 Hit in the aggregate table.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author-reported result: PolyG's average question-categorization accuracy is reported as 89%.",
+          "evidence_pages": [9]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: PolyG generated correct Cypher for more than 95% of questions, while the paper reports 24% and 30% failure rates for RoG and direct Cypher baselines.",
+          "evidence_pages": [9, 10]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author-reported result: Without self-correction, the authors report a 70% failure rate for nested questions.",
+          "evidence_pages": [10]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported trade-off: PolyG is usually more comprehensive but not always the most direct or cheapest method; the paper treats this as a quality-efficiency and comprehensiveness-directness trade-off.",
+          "evidence_pages": [15, 16, 17]
+        }
+      ]
+    },
+    {
+      "paper_id": "2507.03226v3",
+      "title": "Towards Practical GraphRAG: Efficient Knowledge Graph Construction and Hybrid Retrieval at Scale",
+      "method_name": "Dependency-based or LLM-based KG construction with RRF hybrid graph-vector retrieval",
+      "problem_statement": "The paper targets enterprise GraphRAG's high graph-construction cost, limited refresh frequency, and query-time traversal latency by replacing mandatory LLM extraction with a classical NLP option and using a bounded hybrid retrieval cascade [PDF pp. 1-3].",
+      "graph_source_type": "A knowledge graph extracted from unstructured enterprise documents in PDF, HTML, XLSX, and CSV formats; experiments use 550 legacy-code-migration PDFs [PDF pp. 4, 8].",
+      "graph_representations": [
+        "A unified entity-relation graph whose entities are Concept nodes and whose edges are normalized extracted relations [PDF pp. 4-6].",
+        "Entity-to-entity relations and entity-to-chunk associations are both retained [PDF pp. 7-8].",
+        "Separate dense embeddings are maintained for entities, chunks, and relations in a vector database while topology resides in an in-memory graph database [PDF pp. 6-7]."
+      ],
+      "construction_methods": [
+        "Docling parses heterogeneous documents while preserving structure; hierarchical chunking splits on section boundaries, then recursively at 2,048 characters with 200-character overlap [PDF p. 4].",
+        "SpaCy sentence segmentation and removal of sentences without verb phrases reduce downstream work [PDF p. 4].",
+        "Dependency and linear extraction are combined with passive-voice normalization, phrase merging, coreference resolution, entity normalization, stopword/short-span filtering, and optional relation confidence scores [PDF pp. 4-5].",
+        "An interchangeable GPT-family few-shot extractor is retained for critical or semantically ambiguous collections, allowing a cost-accuracy choice [PDF pp. 5-6]."
+      ],
+      "retrieval_units": [
+        "Seed entities obtained from noun-phrase extraction and top-five entity-vector matches [PDF p. 7].",
+        "One-hop neighboring entity relations and entity-to-chunk links, capped by relation sampling [PDF p. 7].",
+        "Chunks ranked from both graph candidates and corpus-wide dense search, then fused with Reciprocal Rank Fusion [PDF pp. 6-7].",
+        "Top-k chunks, top-2k relations, and query entities passed together as an explicit context dictionary [PDF p. 7]."
+      ],
+      "retrieval_strategies": [
+        "A cascaded high-recall then precision-oriented architecture: identify seeds, traverse one hop, rank graph candidates with cosine similarity, and fuse graph-derived and dense chunk rankings with RRF [PDF pp. 6-7].",
+        "Case-insensitive exact graph matching is combined with semantic top-k entity-vector matching to improve seed coverage [PDF p. 7].",
+        "Relation sampling uses roughly 100 candidates for small or medium graphs and 200 for larger graphs [PDF p. 7].",
+        "RRF uses k=60 for chunk fusion, after which top-k chunks and top-2k relations are selected [PDF pp. 6-7]."
+      ],
+      "organization_and_synthesis": [
+        "The generator receives three separately labeled context channels: chunks, relations, and entities [PDF p. 7].",
+        "Hybrid fusion preserves both semantic passage similarity and explicit graph relationships rather than collapsing all evidence into one ranker [PDF pp. 6-7].",
+        "Source text chunks remain linked to graph entities so generation can use both structured relations and original textual evidence [PDF pp. 7-8]."
+      ],
+      "query_and_task_types": [
+        "Enterprise technical question answering about code-migration errors, implementation differences, and best practices [PDF p. 8].",
+        "Legacy-code transformation proposals requiring coordinated migration of related program components [PDF pp. 8-10].",
+        "Entity-grounded retrieval questions that require linking technical identifiers to remediation guidance [PDF p. 10].",
+        "Multi-entity dependency reasoning in enterprise system migration [PDF pp. 2, 10-11]."
+      ],
+      "evaluation_tasks": [
+        "CCM Chat: 150 question-answer pairs evaluated by semantic alignment and RAGAS context precision, faithfulness, and answer relevancy [PDF pp. 8-10].",
+        "CCM Code Proposal: 200 legacy/migrated code pairs evaluated by pairwise LLM judgment and five 1-5 technical rubric dimensions [PDF pp. 8-10].",
+        "Comparison of dense vector retrieval, GraphRAG with GPT-4o graph extraction, and GraphRAG with dependency extraction [PDF pp. 9-10].",
+        "Qualitative examination of entity-specific evidence retrieval and coordinated code migration [PDF pp. 10-11]."
+      ],
+      "reported_strengths": [
+        "Dependency extraction is domain-agnostic and avoids domain-specific training [PDF p. 5].",
+        "The dependency-based graph retained most of the LLM-extracted graph's reported downstream performance while avoiding mandatory LLM construction [PDF pp. 5, 9-11].",
+        "Separate entity, relation, and chunk embeddings support multi-granular query matching [PDF pp. 6-7].",
+        "Graph traversal exposed linked migration dependencies that dense passage retrieval missed in the reported qualitative example [PDF pp. 10-11]."
+      ],
+      "reported_limitations": [
+        "Dependency parsing may miss implicit or context-dependent relations that are not directly expressed in surface syntax [PDF p. 11].",
+        "Evaluation is confined to the code-migration domain, so generalization to other settings remains open [PDF p. 11].",
+        "The retrieval implementation is limited to one-hop traversal; more advanced traversal is left for future work [PDF p. 11].",
+        "Analyst synthesis: many reported quality metrics use LLM-based judges, so results inherit the uncertainty of model-based evaluation [PDF pp. 8-10]."
+      ],
+      "efficiency_and_updates": [
+        "Dependency parsing is proposed to reduce GPU/API construction cost and permit more scalable refreshes than LLM-only extraction [PDF pp. 1-3, 5].",
+        "One-hop traversal and capped relation sampling bound query-time graph work [PDF pp. 6-7].",
+        "The paper motivates dynamic-content refresh but does not specify a concrete incremental deletion, provenance, or re-indexing protocol [PDF pp. 2-3].",
+        "Future work includes query-time caching and more advanced traversal beyond one hop [PDF p. 11]."
+      ],
+      "claims": [
+        {
+          "kind": "efficiency-update",
+          "statement": "Author claim: LLM-based graph construction is identified as a primary scalability bottleneck for dynamic enterprise corpora.",
+          "evidence_pages": [2, 3]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Author claim: The framework exposes dependency-based and LLM-based extraction as interchangeable modes to support an explicit cost-accuracy trade-off.",
+          "evidence_pages": [3, 5, 6]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Author claim: The dependency pipeline combines syntactic and linear triples, resolves coreference, normalizes entities, filters weak spans, and can score relation confidence.",
+          "evidence_pages": [4, 5]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: Query seeds combine inexpensive noun-phrase extraction with semantic entity-vector search rather than relying solely on an LLM.",
+          "evidence_pages": [7]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: Graph-derived chunk rankings and corpus-wide dense rankings are fused with Reciprocal Rank Fusion.",
+          "evidence_pages": [6, 7]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Author claim: The final context explicitly includes top chunks, twice as many relations, and seed entities.",
+          "evidence_pages": [7]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: On CCM Chat, the reported semantic-alignment weighted averages are 50.80% for dense retrieval, 65.83% for GPT-4o GraphRAG, and 61.87% for dependency GraphRAG.",
+          "evidence_pages": [9, 10]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: The dependency variant's reported RAGAS average is 74.93%, compared with 75.83% for GPT-4o GraphRAG and 71.48% for dense retrieval.",
+          "evidence_pages": [9]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: On CCM Code Proposal, dependency GraphRAG won 78.5% of pairwise judgments with a 4.03 average score, compared with 21.5% and 3.43 for dense retrieval.",
+          "evidence_pages": [10]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "Author-reported result: The constructed CCM graph contains 39,155 nodes, 47,613 entity-to-entity relations, and 63,681 entity-to-chunk relations.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported qualitative result: In the code example, graph traversal connected a transaction-code change to required screen-structure changes that dense retrieval omitted.",
+          "evidence_pages": [10, 11]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged limitation: Surface-syntax dependency extraction can miss implicit and context-dependent relations.",
+          "evidence_pages": [11]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged limitation: Cross-domain generalization, public-benchmark evaluation, deeper traversal, and query-time caching remain future work.",
+          "evidence_pages": [11]
+        }
+      ]
+    },
+    {
+      "paper_id": "2508.19855v3",
+      "title": "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning",
+      "method_name": "Youtu-GraphRAG",
+      "problem_statement": "The paper argues that optimizing graph construction and retrieval independently produces weak alignment and poor domain-shift robustness; it instead binds extraction, hierarchical organization, query decomposition, and reflective retrieval to one evolving graph schema [PDF pp. 1-4].",
+      "graph_source_type": "Graphs are extracted from document corpora into schema-constrained entity-relation triples and entity attributes, then organized into semantic-topological communities and a four-level knowledge tree [PDF pp. 3-8].",
+      "graph_representations": [
+        "A fine-grained triple graph contains entities, relations, documents, and entity attributes linked through has-attribute relations [PDF pp. 3-4].",
+        "A graph schema contains allowed entity types, relation types, and attribute types and is shared by construction and retrieval [PDF pp. 1, 4-5].",
+        "A four-level knowledge tree contains attributes, entity-relation triples, pivotal keywords, and communities [PDF pp. 6-8].",
+        "Communities are represented with both topological relation-overlap and semantic subgraph-embedding signals [PDF pp. 5-7]."
+      ],
+      "construction_methods": [
+        "A frozen LLM extraction agent is bounded by a seed schema so it extracts targeted entity types, relations, and attributes instead of unconstrained OpenIE output [PDF p. 4].",
+        "The agent proposes high-confidence schema additions based on recurring document patterns, allowing controlled adaptation beyond the seed schema [PDF pp. 4-5].",
+        "Entities are embedded from one-hop triple contexts; K-means initializes clusters before dual-perception community fusion [PDF p. 6].",
+        "Communities receive LLM-generated names and descriptions, are inserted as graph nodes with member-of edges, and expose central entities as keywords [PDF p. 7]."
+      ],
+      "retrieval_units": [
+        "Entity nodes and entity attributes for atomic fact retrieval [PDF pp. 8-9].",
+        "Entity-relation triples for relationship and few-hop matching [PDF pp. 8-9].",
+        "Community nodes and summaries for global or cross-domain queries [PDF pp. 7-9].",
+        "Depth-first paths of up to five hops for complex multi-constraint reasoning [PDF pp. 8-9]."
+      ],
+      "retrieval_strategies": [
+        "Schema-guided query decomposition converts a complex query into valid node-, triple-, or community-level atomic sub-queries [PDF p. 8].",
+        "Entity matching, triple matching, community filtering, and bounded DFS execute in parallel as specialized retrieval routes [PDF pp. 8-9].",
+        "An agent alternates forward reasoning and backward reflection using schema grounding and historical retrieval memory [PDF p. 8].",
+        "Community filtering provides top-down narrowing while lower tree levels support bottom-up fact and path reasoning [PDF pp. 6-9]."
+      ],
+      "organization_and_synthesis": [
+        "Dual-perception clustering combines graph topology and subgraph semantics before community summarization [PDF pp. 5-7].",
+        "The four-level tree preserves fine-grained attributes and triples below keyword and community abstractions [PDF pp. 6-8].",
+        "Parallel sub-query results are accumulated in agent history, reflected on, and used to drive subsequent reasoning [PDF p. 8].",
+        "The same schema constrains both what is extracted and how queries are decomposed, providing vertical alignment [PDF pp. 1-4, 8]."
+      ],
+      "query_and_task_types": [
+        "Single-hop atomic fact checking through entity or attribute matching [PDF pp. 8-9].",
+        "Few-hop relationship inference through triple matching [PDF pp. 8-9].",
+        "Global summarization and cross-domain questions through community filtering [PDF p. 9].",
+        "Complex multi-constraint and multi-hop questions through schema decomposition and DFS paths [PDF pp. 7-9].",
+        "Anonymity Reversion and multiple-choice questions designed to require retrieved evidence rather than memorized entities [PDF pp. 10, 17-19]."
+      ],
+      "evaluation_tasks": [
+        "Multi-hop QA on HotpotQA, MuSiQue, and 2WikiMultiHopQA [PDF pp. 9, 11-13].",
+        "Domain-specific textbook reasoning with GraphRAG-Bench [PDF pp. 9-13].",
+        "Bilingual AnonyRAG Chinese and English evaluation, including Anonymity Reversion [PDF pp. 10-13, 17-19].",
+        "Open mode permits parametric knowledge; reject mode requires abstention when retrieval is insufficient [PDF pp. 9, 17].",
+        "Ablations remove community detection, agent coordination, or schema guidance [PDF pp. 13-14]."
+      ],
+      "reported_strengths": [
+        "Schema sharing aligns graph extraction with query decomposition and supports controlled domain adaptation [PDF pp. 1-5, 8].",
+        "The tree supports both global abstraction and fine-grained relational reasoning in one index [PDF pp. 6-9].",
+        "Parallel specialized retrieval routes cover atomic, relational, global, and multi-constraint questions [PDF pp. 8-9].",
+        "The authors report a favorable performance-token Pareto frontier across six benchmarks [PDF pp. 11-12, 14]."
+      ],
+      "reported_limitations": [
+        "The authors note that a manually predefined seed schema limits scalability before automatic expansion is applied [PDF pp. 4-5].",
+        "GraphRAG evaluation is prompt-sensitive, and permissive prompts can hide retrieval failure through parametric knowledge leakage [PDF p. 9].",
+        "Analyst synthesis: schema expansion and community summaries still depend on frozen LLM outputs, so extraction quality and cost are not eliminated [PDF pp. 3-7, 10].",
+        "Analyst synthesis: the paper has no dedicated limitations section; explicit constraints must be inferred from its motivation, evaluation design, and ablations [PDF pp. 4-5, 9, 13-14]."
+      ],
+      "efficiency_and_updates": [
+        "Schema-bounded extraction narrows the output space and controlled schema expansion accepts only high-confidence recurring patterns [PDF pp. 4-5].",
+        "K-means initialization, capped cluster counts, representative centers, and pairwise cluster fusion reduce community-detection search [PDF pp. 6-7].",
+        "The framework supports continuous schema growth for unseen domains, but the paper does not specify source deletion or incremental graph-provenance repair [PDF pp. 4-5].",
+        "A no-agent variant is offered for applications needing real-time interactive latency [PDF p. 11]."
+      ],
+      "claims": [
+        {
+          "kind": "comparison",
+          "statement": "Author claim: Construction-only and retrieval-only GraphRAG optimizations neglect their interdependence and can underperform under domain shift.",
+          "evidence_pages": [1, 2, 14]
+        },
+        {
+          "kind": "methodology",
+          "statement": "Author claim: A shared graph schema bounds extraction and supplies the vocabulary used by the query decomposer.",
+          "evidence_pages": [1, 2, 4, 8]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Author claim: Schema expansion balances compactness against coverage by accepting high-confidence entity, relation, and attribute patterns from new documents.",
+          "evidence_pages": [4, 5]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Author claim: Dual-perception community detection combines relation-topology overlap with semantic subgraph similarity.",
+          "evidence_pages": [5, 6, 7]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "Author claim: The resulting tree has four levels: attributes, triples, keywords, and communities.",
+          "evidence_pages": [6, 7, 8]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Author claim: The retrieval agent decomposes complex questions into schema-valid atomic sub-queries and executes entity, triple, community, and DFS routes.",
+          "evidence_pages": [8, 9]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Author claim: Iterative reflection uses prior reasoning and retrieval history to detect and correct weak paths.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author claim: Open and reject evaluation modes respectively measure end-task capability with parametric knowledge and retrieval-grounded capability with required abstention.",
+          "evidence_pages": [9, 17]
+        },
+        {
+          "kind": "safety-grounding",
+          "statement": "Author claim: AnonyRAG replaces entity mentions consistently to prevent memorized entity shortcuts while retaining discourse coherence.",
+          "evidence_pages": [10, 17, 18]
+        },
+        {
+          "kind": "strength",
+          "statement": "Author-reported result: With DeepSeek in top-20 evaluation, Youtu-GraphRAG reports 86.5% HotpotQA, 85.5% 2Wiki, and 53.6% MuSiQue open accuracy.",
+          "evidence_pages": [11]
+        },
+        {
+          "kind": "strength",
+          "statement": "Author-reported result: Under DeepSeek reject mode, the corresponding top-20 results are 81.2%, 77.6%, and 47.5%.",
+          "evidence_pages": [11]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Author-reported result: The paper reports up to 90.71% lower token cost and 16.62% higher accuracy than its state-of-the-art baselines.",
+          "evidence_pages": [1, 14]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author-reported result: Ablations reduce performance when community detection, agent reasoning, or schema guidance is removed, with the agent removal causing the largest reported loss on 2Wiki.",
+          "evidence_pages": [13, 14]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged constraint: The seed schema can require manual predefinition and therefore motivates controlled automatic expansion.",
+          "evidence_pages": [4, 5]
+        }
+      ]
+    },
+    {
+      "paper_id": "2506.05690v3",
+      "title": "When to use Graphs in RAG: A Comprehensive Analysis for Graph Retrieval-Augmented Generation",
+      "method_name": "GraphRAG-Bench",
+      "problem_statement": "The paper asks when graph structure provides measurable value over vanilla RAG and argues that existing benchmarks confound this question through shallow task taxonomies, low-density corpora, and answer-only evaluation [PDF pp. 1-5].",
+      "graph_source_type": "Benchmark ontologies and evidence graphs derived from dense hierarchical NCCN medical guidelines and loosely organized pre-20th-century novels from Project Gutenberg [PDF pp. 5-6, 18].",
+      "graph_representations": [
+        "Structured domain ontologies represent entities, contextual relations, and hierarchical dependencies extracted from the source corpora [PDF p. 6].",
+        "Self-contained evidence subgraphs support basic retrieval, while reconstructed multi-hop relational sequences support deeper reasoning [PDF p. 6].",
+        "Evaluated GraphRAG systems produce structurally different index graphs measured by nodes, edges, average degree, and clustering coefficient [PDF pp. 6, 9]."
+      ],
+      "construction_methods": [
+        "Corpus selection intentionally pairs explicit medical hierarchies with implicit narrative relationships to vary information density [PDF pp. 5, 18].",
+        "Raw text is transformed into domain ontologies, and evidence is collected as localized subgraphs or multi-hop chains [PDF p. 6].",
+        "Question difficulty is generated from evidence structure rather than phrasing alone, with breadth defined by required triples and depth by inference hops [PDF pp. 6, 18].",
+        "Relevance checking, correction, and refinement follow initial question generation [PDF p. 6]."
+      ],
+      "retrieval_units": [
+        "The benchmark does not impose one retrieval unit; compared systems retrieve text chunks, entities, relations, paths, communities, or tree nodes according to their architecture [PDF pp. 2-3, 7-9].",
+        "Gold evidence components are used to measure whether retrieved contexts are complete [PDF pp. 6-8].",
+        "Question-context semantic alignment is used to measure relevance and redundancy [PDF pp. 6-8]."
+      ],
+      "retrieval_strategies": [
+        "The evaluation compares vector RAG with and without reranking against local/global MS-GraphRAG, HippoRAG variants, LightRAG, Fast-GraphRAG, RAPTOR, and Lazy-GraphRAG [PDF pp. 7-9].",
+        "GraphRAG is characterized as traversing explicit entity, relation, thematic, or hierarchical connections, whereas vanilla RAG ranks isolated chunks by semantic similarity [PDF p. 3].",
+        "The benchmark's purpose is comparative diagnosis, not prescribing a single graph traversal algorithm [PDF pp. 5-7]."
+      ],
+      "organization_and_synthesis": [
+        "Tasks progress from isolated fact retrieval to multi-source reasoning, contextual summarization, and creative generation [PDF pp. 4-6].",
+        "Evaluation is stage-specific: graph quality, retrieval recall/relevance, and generation accuracy/faithfulness/coverage are assessed separately [PDF pp. 5-7].",
+        "Medical and novel corpora test explicit formal hierarchy and implicit contextual dependency respectively [PDF pp. 5, 18]."
+      ],
+      "query_and_task_types": [
+        "Level 1 fact retrieval requires isolated knowledge with minimal reasoning [PDF p. 4].",
+        "Level 2 complex reasoning chains evidence across documents through logical connections [PDF p. 4].",
+        "Level 3 contextual summarization synthesizes fragmented evidence into a coherent structured answer [PDF p. 4].",
+        "Level 4 creative generation extends retrieved evidence into a hypothetical or transformed output while remaining faithful [PDF p. 4]."
+      ],
+      "evaluation_tasks": [
+        "Graph construction quality: node count, edge count, average degree, and average clustering coefficient [PDF pp. 6, 9].",
+        "Retrieval quality: context relevance and evidence recall [PDF pp. 6-8].",
+        "Generation quality: lexical overlap, answer accuracy, faithfulness, and evidence coverage [PDF pp. 7-8].",
+        "Efficiency: prompt-token cost across methods and task levels [PDF p. 9].",
+        "Cross-corpus comparison on medical guidelines and novels [PDF pp. 5, 7-9]."
+      ],
+      "reported_strengths": [
+        "The benchmark separates retrieval difficulty from reasoning complexity and varies both systematically [PDF pp. 4-6, 18].",
+        "It diagnoses failures by pipeline stage instead of relying only on final-answer accuracy [PDF pp. 4-7, 18-19].",
+        "The paired corpora expose performance under both explicit and implicit knowledge organization [PDF pp. 5, 18].",
+        "The resulting analysis yields conditional guidance rather than assuming GraphRAG is universally superior [PDF pp. 7-9, 19]."
+      ],
+      "reported_limitations": [
+        "The benchmark is text-only and does not test diagrams, tables, sensor sequences, or other multimodal evidence [PDF p. 33].",
+        "The authors state that future work should test hybrid knowledge representations and contextual fidelity across data types [PDF p. 33].",
+        "The main GPT-based study covers 11 GraphRAG frameworks, but the open-source Qwen experiment uses only a representative subset because of time and resource constraints [PDF p. 26].",
+        "Analyst synthesis: conclusions about 'when to use graphs' are conditional on the selected novel and medical corpora, evaluated models, prompts, and metrics [PDF pp. 5-9, 33]."
+      ],
+      "efficiency_and_updates": [
+        "Graph construction and graph-derived aggregation add preprocessing and prompt cost relative to vanilla RAG [PDF pp. 3, 9].",
+        "Prompt length grows with task complexity and required knowledge points, sometimes reducing relevance through redundant context [PDF p. 9].",
+        "The authors recommend precise retrieval, quality rather than merely large graphs, and explicit boundaries on context growth [PDF p. 19].",
+        "Analyst synthesis: GraphRAG-Bench evaluates static indexed corpora and does not define incremental source-update or graph-reprocessing procedures [PDF pp. 5-6]."
+      ],
+      "claims": [
+        {
+          "kind": "comparison",
+          "statement": "Author claim: Vanilla RAG is well suited to direct access to discrete information, whereas GraphRAG's proposed advantage lies in interconnected contextual analysis.",
+          "evidence_pages": [3]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author claim: Existing multi-hop benchmarks often test sequential fact lookup rather than synthesis of domain hierarchies and indirect dependencies.",
+          "evidence_pages": [2, 4]
+        },
+        {
+          "kind": "task",
+          "statement": "Author claim: GraphRAG-Bench varies task complexity across fact retrieval, complex reasoning, contextual summarization, and creative generation.",
+          "evidence_pages": [3, 4, 5]
+        },
+        {
+          "kind": "task",
+          "statement": "Author claim: Question complexity is controlled through knowledge breadth and reasoning depth rather than question format alone.",
+          "evidence_pages": [6, 18]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Author claim: Stage-specific metrics are intended to distinguish graph-construction, retrieval, and generation failures.",
+          "evidence_pages": [5, 6, 7, 18, 19]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: Basic RAG is comparable to or better than GraphRAG on simple fact retrieval, where graph expansion can add noise.",
+          "evidence_pages": [7, 8]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: GraphRAG methods show their clearest advantages on complex reasoning, contextual summarization, and creative generation.",
+          "evidence_pages": [7, 8]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported trade-off: For broad creative tasks, graph methods can improve evidence recall or faithfulness while losing context relevance or broad evidence coverage.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Author-reported result: On novel Level 2-3 questions, HippoRAG has the highest evidence recall while HippoRAG2 leads context relevance in the cited comparison.",
+          "evidence_pages": [8]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "Author-reported result: Index graph density varies substantially by implementation; HippoRAG2 constructs the densest reported graphs and also achieves high retrieval recall.",
+          "evidence_pages": [9]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Author-reported trade-off: GraphRAG prompt expansion can add substantial token overhead, with large variation across architectures.",
+          "evidence_pages": [9]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Author recommendation: Maximize key-information retrieval while minimizing redundancy, build tightly connected useful graphs rather than simply larger ones, and bound context growth.",
+          "evidence_pages": [19]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Author-acknowledged limitation: The benchmark currently excludes multimodal GraphRAG and therefore cannot establish whether its findings transfer to visual, tabular, or temporal evidence.",
+          "evidence_pages": [33]
+        }
+      ]
+    }
+  ]
+}

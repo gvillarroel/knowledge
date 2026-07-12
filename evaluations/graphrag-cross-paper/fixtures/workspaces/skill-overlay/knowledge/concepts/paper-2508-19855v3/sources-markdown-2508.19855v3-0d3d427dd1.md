@@ -1,0 +1,1099 @@
+---
+type: Research Paper
+title: 'Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex
+  Reasoning'
+description: '- Pinned arXiv record: [2508.19855v3](https://arxiv.org/abs/2508.19855v3)'
+resource: https://example.org/graphrag-cross-paper/resource/paper-2508-19855v3/sources%2Fmarkdown%2F2508.19855v3
+tags:
+- paper-2508-19855v3
+- markdown
+- rl
+concept_id: concepts/paper-2508-19855v3/sources-markdown-2508.19855v3-0d3d427dd1
+concept_path: concepts/paper-2508-19855v3/sources-markdown-2508.19855v3-0d3d427dd1.md
+subject_iri: https://example.org/graphrag-cross-paper/resource/paper-2508-19855v3/sources%2Fmarkdown%2F2508.19855v3
+ontology_class_iri: https://example.org/ontology/graphrag-cross-paper#Paper
+ontology_version_iri: https://example.org/ontology/graphrag-cross-paper/1.0.0
+source_id: paper-2508-19855v3
+source_kind: markdown
+source_path: sources/markdown/2508.19855v3.md
+source_content_sha256: cd1e78090bfb7f71328f05fe1edf5b827f727bf94fd0795ffdd6cb9121aeb3a2
+record_sha256: 1f5dd83bbc339ab65bf0d683510dbf86979863001e4ff27083a08bf42d116024
+source_refs:
+- https://example.org/graphrag-cross-paper/provenance/record/paper-2508-19855v3/797e1de5af8662f42da64f31
+record_id: sources/markdown/2508.19855v3
+---
+
+# Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning
+
+## Source citation
+
+- Pinned arXiv record: [2508.19855v3](https://arxiv.org/abs/2508.19855v3)
+- Authors: Junnan Dong; Siyu An; Yifei Yu; Qian-Wen Zhang; Linhao Luo; Xiao Huang; Yunsheng Wu; Di Yin; Xing Sun
+- PDF: [https://arxiv.org/pdf/2508.19855v3](https://arxiv.org/pdf/2508.19855v3)
+- PDF SHA-256: `9061363b164aaba132454e239ecc107076c81f61ecab1eb39cb43405d481e46a`
+- Extracted pages: 19
+
+The following text was extracted page by page from the pinned PDF. Page headings are stable evidence locators.
+
+## PDF page 1
+
+Youtu-GraphRAG
+Youtu-GraphRAG: Vertically Unified Agents for Graph
+Retrieval-Augmented Complex Reasoning
+Junnan Dong1†, Siyu An 1†‡ , Yifei Yu 1, Qian-Wen Zhang 1, Linhao Luo 2,
+Xiao Huang3, Yunsheng Wu 1, Di Yin 1,Xing Sun1
+1Tencent Youtu Lab
+2Monash University
+3The Hong Kong Polytechnic University
+Graph retrieval-augmented generation (GraphRAG) has effectively enhanced large language models
+in complex reasoning by organizing fragmented knowledge into explicitly structured graphs. Prior
+efforts have been made to improve either graph construction or graph retrieval in isolation, yielding
+suboptimal performance, especially when domain shifts occur. In this paper, we propose a vertically
+unified agentic paradigm, Youtu-GraphRAG, to jointly connect the entire framework as an intricate
+integration. Specifically, (i) a seed graph schema is introduced to bound the automatic extraction
+agent with targeted entity types, relations and attribute types, also continuously expanded for
+scalability over unseen domains; (ii) To obtain higher-level knowledge upon the schema, we develop
+novel dually-perceived community detection, fusing structural topology with subgraph semantics
+for comprehensive knowledge organization. This naturally yields a hierarchical knowledge tree that
+supports both top-down filtering and bottom-up reasoning with community summaries; (iii) An
+agentic retriever is designed to interpret the same graph schema to transform complex queries into
+tractable and parallel sub-queries. It iteratively performs reflection for more advanced reasoning;(iv)
+To alleviate the knowledge leaking problem in pre-trained LLM, we propose a tailored anonymous
+dataset and a novel ‘Anonymity Reversion’ task that deeply measures the real performance of the
+GraphRAG frameworks. Extensive experiments across six challenging benchmarks demonstrate
+the robustness of Youtu-GraphRAG, remarkably moving the Pareto frontier with up to 90.71% saving
+of token costs and 16.62% higher accuracy over state-of-the-art baselines. The results indicate our
+adaptability, allowing seamless domain transfer with minimal intervention on schema.
+Code: https://github.com/TencentCloudADP/Youtu-GraphRAG
+Data: https://huggingface.co/datasets/Youtu-Graph/AnonyRAG
+1 Introduction
+Graph retrieval-augmented generation (GraphRAG) has emerged as a promising paradigm to enhance large
+language models (LLMs) with structured knowledge [Xiao et al., 2025, Pan et al., 2024], particularly for
+complex multi-hop reasoning tasks across multiple documents[Wang et al., 2024, Zhang et al., 2024]. By
+representing fragmented documents as connected graphs with underlying relations [He et al., 2024, Dong
+et al., 2023], GraphRAG enables LLMs to traverse explicit paths among documents and entities, performing
+complex reasoning that is otherwise infeasible within flat retrieval [Peng et al., 2024, Han et al., 2024]. The
+structured approach effectively addresses critical limitations in conventional RAG ([Dong et al., 2024]), which
+often struggles with the coherent relations between discrete pieces of information and multi-hop reasoning.
+† Equal contribution. hansonjdong@tencent.com, siyuan@tencent.com
+‡ Corresponding author.
+1
+arXiv:2508.19855v3 [cs.IR] 3 Sep 2025
+## PDF page 2
+
+Youtu-GraphRAG
+The evolution of GraphRAG brings two distinct but equally important trajectories since the foundational
+work of [Edge et al., 2024]. First, from the retrieval front, LightRAG [Guo et al., 2024] pioneered vector
+sparsification to improve efficiency. While GNN-RAG and GFM-RAG ([Mavromatis and Karypis, 2024, Luo
+et al., 2025]) advanced this direction further by incorporating graph neural networks for fine-grained node
+matching, more recent HippoRAG 1&2 [Jimenez Gutierrez et al., 2024, Gutiérrez et al., 2025] introduced
+(a)
+(b)
+(c)
+Retrieval
+GraphConstruction
+LLM
+LLM
+LLM
+GraphConstruction
+DocumentsRetrieval
+Query
+Query
+GraphConstructionRetrievalIndexing
+Figure 1. A sketched comparison among
+existing pipelines and Youtu-GraphRAG.
+represents a non-tailored component, indicat-
+ing current methods focus on either graph
+construction (a) or retrieval (b) in isolation,
+while Youtu-GraphRAG proposes a unified
+paradigm (c) for superior complex reasoning.
+memory and personalized PageRank algorithms for context-
+aware retrieval. Second, in terms of graph construction, existing
+methods can be broadly categorized into flat and hierarchical
+approaches. Early methods, such as KGP [Wang et al., 2024],
+rely on existing hyperlinks or KNN-based graphs, resulting in
+coarse-grained relations that fail to capture nuanced hierarchical
+semantics. More recent advancements, such as GraphRAG [Edge
+et al., 2024], combine knowledge graphs with community detec-
+tion and summarization for multi-level information. Followed
+by hierarchical methods like RAPTOR [Sarthi et al., 2024] and
+E2GraphRAG [Zhao et al., 2025], they further refine the graph
+using tree-like clustering and recursive summarization to enrich
+structural representation. However, they remain constrained by
+their isolated optimizations, concentrating on either construction
+or retrieval while neglecting their interdependencies. This po-
+tentially limits complex reasoning performance where cohesive
+knowledge organization and retrieval are equally important.
+To bridge this gap, we aim to answer a critical question:
+How can we effectively unify graph construction and retrieval
+for more robust complex reasoning?
+This task is challenging for two reasons. First, construction and retrieval are not readily aligned as two distinct
+components. It remains difficult to organically establish synergy between them, where the constructed graph
+could effectively benefit retrieval with both structures and semantics. Second, how to properly evaluate the
+performance remains a tough problem. With the rapid scaling of LLMs, almost all the existing datasets have
+already been ‘seen’ before. This fails to reflect the real performance of the entire GraphRAG.
+In this paper, we propose a vertically unified agentic paradigm, Youtu-GraphRAG, to jointly consider both
+graph construction and retrieval as an intricate integration based on graph schema. To be specific, (i) a
+graph schema is introduced to bound the extraction agent that ensures the quality and conciseness with
+targeted entity types, relations and attribute types; The seed schema is continuously and automatically
+expanded based on the feedback. (ii) To obtain higher-level knowledge upon the schema, we develop dually-
+perceived community detection, fusing structural topology with subgraph semantics for comprehensive
+knowledge clustering. This naturally yields a hierarchical knowledge tree that supports both top-down
+filtering and bottom-up reasoning with community summaries; (iii) An agentic retriever is designed to
+interpret the same graph schema to transform complex queries into parallel sub-queries and perform iterative
+reflection. The agent iteratively performs both reasoning and reflection for more advanced performance;
+(iv) To alleviate the knowledge leaking problem in pre-trained LLM, we first propose a tailored anonymous
+dataset with an ‘Anonymity Reversion’ task. Extensive experiments across six challenging benchmarks
+demonstrate the robustness of Youtu-GraphRAG, remarkably moving the Pareto frontier with up to 90.71%
+saving of token consumption and 16.62% higher accuracy over SOTA baselines. The results also indicate our
+remarkable adaptability which allows seamless domain transfer with minimal intervention on the graph
+schema, providing insights of the next evolutionary GraphRAG paradigm for real-world applications.
+Contributions. In general, our primary contributions are summarized hereunder:
+• We first propose a vertically unified Agentic GraphRAG framework to integrate graph construction and
+retrieval for more robust and advanced reasoning, where both construction and retrieval agents are
+bounded by graph schema for effective extraction and query decomposition, respectively;
+• A novel theoretically-grounded community detection algorithm is employed to inject high-level sum-
+2
+## PDF page 3
+
+Youtu-GraphRAG
+ExtractionAgent
+KnowledgeTreeConstruction
+RetrievalAgent
+Documents
+Decomposition
+UserQuery LLM
+PlanningFour-LevelKnowledgeTree
+📦GraphSchema/│─ Entity type│─ Relation└ Attribute Type
+SeedGraphSchema
+Figure 2. A toy overview of Youtu-GraphRAG that unifies graph construction and retrieval through a schema-guided
+agentic paradigm. (i) An extraction agent automatically processes documents into structured knowledge via targeted
+entity/relation extraction; (ii) A four-level knowledge tree is constructed upon the schema with a community detection
+that fuses topological structures and graph semantics, enabling hierarchical reasoning;(iii) A retrieval agent decomposes
+user queries into parallel sub-queries aligned with the schema, iteratively driving multi-route retrieval.
+marization upon graph schema, simultaneously preserving structural and semantic graph properties;
+• We present a tailored anonymous dataset and ‘Anonymous Revertion’ task is proposed to prevent LLM
+knowledge leaking for fair evaluation of the GraphRAG performance;
+• Extensive empirical experiments are conducted over five challenging benchmarks, showing state-of-the-art
+performance across diverse reasoning tasks and domains that moves the Pareto frontier with up to 90.71%
+saving of token costs and 16.62% higher accuracy.
+2 Task Definition
+In this section, we formally define the general GraphRAG pipeline with standardized notations from scratch,
+including both graph construction and graph retrieval. We denote scalars as lowercase alphabets (e.g.,a),
+vectors as boldface lowercase alphabets (e.g., a), matrices as boldface uppercase alphabets (e.g., A) and
+copperplate for a set of elements (e.g., A). We refer to GraphRAG as the task of answering a natural language
+question by first retrieving structured knowledge from a corpus and then generating a response.
+Given a set of documentsD, GraphRAG first leverages a frozen LLMfLLM(·) to extract important knowledge,
+connected by a structured graph G as output. To enrich the understanding of G, a community detection
+algorithm fcomm(G) is employed to partition G into communities C = {C1, C2 . . .Cm} to obtain higher-level
+summarizations. Based on the constructed graph G, given a complex query q ∈ Q, a retrieval model
+fretrieve(q, G) = arg max P (Gsub | q) traverses the graph and retrieves top- k question-specific subgraphs
+Gsub ⊆ Gthat maximize the similarity with given query q. The final performance is evaluated from multiple
+aspects: (i) graph construction costs including time efficiency and token consumptions;(ii) retrieval accuracy
+and efficiency; and (iii) final answer accuracy comparing apred and ground-truths agold.
+2.1 Construction Stage
+Beginning with the documents D as corpus, contemporary GraphRAG research includes two synergistic
+knowledge organizations that form the graph G at different granularities. First, the fine-grained graph
+Gtriple = (E, R, D) is constructed by using fLLM(D) to extract atomic units in the form of triples (h, r, t) from
+each document d ∈ D, where entities {h, t} ∈ Eand relations r ∈ Rare explicitly linked to represent the
+abundant relational information among them. The extraction is performed by the frozen LLM fLLM(d),
+which processes raw text to populate Gtriple with schema-compliant triples. Concurrently in another pipeline
+of research, a coarse-grained document graph Gdoc = (D, C) is built by directly clustering documents to
+maximally preserve the raw context where the atomic units are documents instead of triples. To obtain
+higher-level knowledge, a complementary community detection algorithm fcomm(G) is employed. Typically,
+fcomm(G), including Louvain, Leiden, GMM [Traag et al., 2019, Sarthi et al., 2024], etc., operates over G with
+3
+## PDF page 4
+
+Youtu-GraphRAG
+sufficient summaries and abstracts generated by fLLM(d), and results in communities C = {C1, C2 . . .Cm}.
+Ci ⊆ Gis further summarized into a high-level meta-node ˆei = fLLM(Ci) by fLLM(C) where ˆei ∈ G. The
+performance is evaluated by the time used tconstruct and the token consumptions $ during construction.
+2.2 Retrieval Stage
+During inference, given a query q ∈ Q, the typical retrieval model fretrieve(q, G) =arg max P (d | q) directly
+returns the top-k similar documents ˆD = {d1, d2 · · ·dk} as the final answer, while graph-based methods
+provide a more explainable subgraph ˆG for multi-hop path traversal, i.e., fretrieve(q, G) =arg max P ( ˆG |q)
+where ˆG = {e0
+r1
+− →e1
+r2
+− → · · ·
+rk
+− →ek} ∈ G. Based on the retrieved subgraph, fLLM(q, ˆG) is employed to
+generate the final answer. The final performance is evaluated holistically by the retrieval recall comparing
+ˆGdoc and ground truth documents Adoc
+gold and answer accuracy by comparing between apred and agold.
+3 Approach: Youtu-GraphRAG
+In this section, we elaborate on the core methodology of Youtu-GraphRAG, designed to answer two funda-
+mental research questions: (i) How to achieve unified optimization of graph construction and retrieval
+for higher robustness and generalizability? (ii) How could we enable effective reasoning across different
+knowledge granularities? Correspondingly, our framework integrates three designs in a vertically unified
+manner based on graph schema. First, a graph schema-bounded agent is designed to ensure construction
+quality while eliminating noise through automatic expansion. Second, beyond the schema, we present a
+dual-perception community detection that jointly analyzes both topological and semantic similarity to create
+multi-scale knowledge clusters which forms a four-level knowledge tree. Finally, an agentic retriever is
+designed to effectively decompose questions into schema-aligned atomic sub-queries with parallel retrieval
+routes and iterative reflection.
+3.1 Schema-Bounded Agentic Extraction
+Existing GraphRAG methods leverage either pure LLMs or OpenIE ([Jimenez Gutierrez et al., 2024, Gutiérrez
+et al., 2025, Luo et al., 2025, Edge et al., 2024]) for named entity recognition and triple extraction. However,
+this open-ended approach would inevitably introduce noise and irrelevant trivia, thereby reducing the
+usability of the graph. Instead, we treat graph extraction as constrained generation based on a high-quality
+seed graph schema for domain-specific tasks and define a compact schema as
+S ≜
+
+Se, Sr, Sattr
+
+
+, (1)
+where Se indicates the targeted entity types (e.g., Person, Disease), Sr guides the extraction with condensed
+relations (e.g., treats, causes), and Sattr lists attribute types that could be attached and used to describe
+any corresponding entities (e.g., occupation, gender). A frozen LLM-based agent fLLM(S, D) is bounded to
+identify matched information that appear in S, effectively reducing the search space to the Cartesian product
+Se × Sr × Sa. Formally, for each document d, we obtain a set of triples hereunder
+T (d) =
+
+(h, r, t), (e, rattr, eattr) | {f (h), f (t), f (e)} ∈ Se, {r, rattr} ∈ Sr, eattr ∈ Sattr
+ 
+. (2)
+Therefore, in our paper, we define Gtriple = (E, R, D), where the entire entity set E = {Er, Eattr} contains not
+only named entities e but also the corresponding attributes eattr and the relation set R similarly contains both
+entity-entity relations r and rattr, i.e., has_attribute relations to connect entities and attributes. However,
+a seed schema could be general and require manual efforts for predefinitions, which limits the scalability
+and adaptability of GraphRAG to unseen domains. We thereby equip the agent with an adding tool
+4
+## PDF page 5
+
+Youtu-GraphRAG
+SparseAdjacencyMatrixStructureSimilarity
+Input Graph
+Final Communities 
+Initial CommunitiesPartitionedbytriple-level clustering
+[eh, er, et]
+TripleEmbeddingTriple<->SubgraphSematic Similarity
+CommunityCentersBasedonS2DualPerception
+Pair-wise Community Fusion
+…
+Iteration#1 (a) (b)
+…
+Iteration#2
+(c)
+S2
+Figure 3. An overview of our dually-perceived community detection. (a) Input graph partitioning into initial communi-
+ties via triple embeddings; (b) community center identification through joint consideration of topology connectivity and
+subgraph semantic similarity; and (c) iterative pairwise community merging to form the final hierarchy. Distinct colors
+represent functionally coherent communities.
+and incorporate an adaptive design that dynamically refines the initial schema S through continuous
+interaction with the document content. The agent automatically proposes schema expansions by analyzing
+the underlying relational patterns in each document d ∈ Dthrough the update function:
+∆S = ⟨∆Se, ∆Sr, ∆Sattr⟩ = I[ fLLM(d, S) ⊙ S] ≥ µ, (3)
+where S (t) represents the schema at iteration t, µ serves as a confidence threshold to control the acceptance
+of new schema elements. ∆S contains candidate expansions for entity types, relations, and attributes,
+respectively. This dynamic adaptation enables the schema to evolve beyond its initial definitions while
+maintaining controlled growth, as the agent selectively incorporates only high-confidence patterns that
+demonstrate sufficient frequency and contextual consistency across documents in the new domain. Therefore,
+we expect the resulting schema to maintain its compact representation while gaining document-specific
+expressiveness, effectively balancing between strict schema guidance and flexible knowledge acquisition.
+Through this mechanism, our framework achieves more comprehensive knowledge coverage compared to
+static schema approaches, particularly when processing domains with emerging relational patterns.
+3.2 Upon Schema: Graph Indexing with Knowledge Tree
+The fine-grained raw graphs could quickly become extremely dense and noisy. Typically, a complementary
+community detection algorithm fcomm(G) is employed to summarize the knowledge so as to reorganize the
+graph in communities C = {C1, C2 . . .Cm}. Contemporary methods apply Louvain, Leiden, Gaussian Mixture
+Models (GMM) ([Traag et al., 2019, Sarthi et al., 2024]), etc., operates over G with sufficient summaries and
+abstracts generated by fLLM(d). Ci ⊆ Gis further summarized into a high-level meta-node ˆei = fLLM(Ci) by
+fLLM(C) where ˆei ∈ G.
+However, the performance of existing community detection methods can hardly satisfy the real-world
+demands. They primarily rely on structural connectivity while largely neglecting the rich semantic in-
+formation embedded in the relational context. As a result, they often produce suboptimal partitions in
+real-world knowledge graphs since both topological and semantic coherence are crucial for meaningful
+community detection. To address this limitation, we are motivated to propose a novel and revolutionary
+5
+## PDF page 6
+
+Youtu-GraphRAG
+dual-perception community detection framework that simultaneously optimizes for topological connectivity
+and semantic similarity through a three-stage optimization process. An illustration is shown in Figure 3. The
+final output is compressed into a Knowledge Tree K of depth L that preserves fine-grained facts at the leaves
+and coarse summaries at internal nodes. In our paper, we define L = 4, including {Community, Keywords,
+Entity-relation Triples, Attributes }.
+Entity Representation. Given a graph G = (E, R), we first encode each entity ei ∈ Eby harvesting its
+contextualized embedding ei ∈ R3d, aggregating the frozen LLM embeddings of all triples within its one-hop
+neighborhood Ni. Specifically, for each triple (ei, r, ej) ∈ Ni, we concatenate the embeddings of the head
+entity ei, relation rij, and tail entity ej, then average across all neighboring triples:
+ei = 1
+|Ni| ∑
+(ei,r,ej)∈Ni
+
+ei∥rij ∥ej
+
+. (4)
+To this end, the entity representation could effectively preserve both local structural patterns and semantic
+relations, enabling downstream clustering to leverage both signals.
+Cluster Initialization. Due to the huge size of real-world graph G, we first reduce the search space by
+initializing the communities by applying K-means clustering on the entity embeddings {ei}N
+i=1, producing
+an initial partition candidates {C (0)
+1 , . . ., C (0)
+k }, where the superscript denotes the iteration count. While this
+step provides a coarse grouping, it does not yet account for the interplay between structural and semantic
+similarity. The cluster number is limited as k = min
+
+max
+
+2, ⌊ |E |
+β ⌋
+
+, η
+
+, where β=10 controls the granularity
+that ensures minimum 10 entities per cluster, η=200 prevents excessive fragmentation. We implement this
+with optimized KMeans (n_init=5, random_state=42) to ensure reproducibility.
+Iterative Community Fusion via Dual-Perception Scoring. First, to refine the initial clusters, we introduce a
+dual-perception scoring function ϕ(ei, C (t)
+m ) that quantifies the affinity between a node ei and a community
+C (t)
+m at iteration t. This score combines two considerations. (i) topological connectivity overlap (Sr) that
+measures the Jaccard similarity between the relation incident to ei and those in C (t)
+m ; (ii) subgraph semantic
+similarity (Ss), which computes the cosine similarity between the entities’s embedding FΘ(Ti) and the
+community centroid EC (t)
+m
+[FΘ(Tjk)], where FΘ is a matrix for embedding transformation.
+ϕ(ei, Cm) =Sr(ei, Cm)| {z }
+relational
+⊕λ Ss(ei, Cm)| {z }
+semantic
+, (5)
+with
+Sr(ei, Cm) = ∥Ψ(ei) ∩ Ψ(Cm)∥2
+∥Ψ(ei) ∪ Ψ(Cm)∥2
+,
+Ss(ei, Cm) =ϕ
+
+FΘ(Ti), ∑
+j∈Cm
+
+FΘ(Tj)
+
+,
+(6)
+where Ss denotes the Jaccard similarity matrix computed over the multiset of incident relation types Ψ(·).
+Ss(i, j) measures the overlap of relation-specific neighborhoods between nodes i and j.
+Leveraging the dual-perception score, at each iteration t, we first locate the most representative centroid
+entities for each community, which maximizes its dual-perception affinity score ϕ(ei, Cm) with respect to
+the entire community subgraph. We define the center nodes as: i.e., e∗
+center = arg maxϕ(ei, Cm), where
+ei ∈ Cm,ϕ(ei, Cm) is the dual-perception score as aforementioned, combining both topological relation overlap
+Sr(ei, Cm) and semantic similarity Ss(ei, Cm). This selection criterion ensures that the center node not only
+exhibits strong structural connectivity within the community, i.e., highSr but also encapsulates the dominant
+semantic characteristics of the subgraph, i.e., high Ss. The resulting center nodes are then employed to serve
+as high-quality representatives for their respective communities, facilitating efficient pair-wise community
+6
+## PDF page 7
+
+Youtu-GraphRAG
+The headquarter of Vilaiyaadu Mankatha is located in […]. 
+The explorer goes to the restaurant […];
+Vilaiyaadu Mankatha is located in […];
+When did the explorer reach the city where the headquarters of the only group larger than Vilaiyaadu Mankatha's record label is located?
+GraphQ
+Where is Vilaiyaadu Mankatha's headquarters located?
+When did the explorer visit this city?
+DomainSchema
+Agent
+ExistingEmbedding-basedSimilarityMatching QueryEmbedding
+AgenticGraphQTraditional Agent
+entitytyperelationattributetype
+📦Schema/│── 
+📂Entity type│ │── 
+📂PERSON│ │── 
+📂…│ └── 
+📂ORGANIZATION│── 
+📂Relation/│ │── 
+📂COMPARED_TO│ │── 
+📂…│ └── 
+📂LOCATED_IN└── 
+📂Attribute Type/│── 
+📂NAME │── 
+📂REVENUE└── 
+📂TIME
+Agent
+Planning
+What is the size of Vilaiyaadu Mankatha's record label?
+Find {HEADQUARTER_OF} all the {ORANIZATION}s related toVilaiyaadu Mankatha. 
+What is the {TIME} of a {PERSON} has {NAME} ‘explorer’ {VISITS} all the {ORGANIZATION}s?
+Retrieve
+Which {ORGANIZATION} owns the {REVENUE} {COMPARED_TO} Vilaiyaadu Mankatha?
+Planning
+Figure 4. The figure contrasts three query-resolution strategies for a multi-hop question. While embedding matching
+retrieves disjointed facts (left) and traditional agents use repetitive templates (right), our agentic decomposer (center)
+leverages domain schema to plan efficient sub-queries: (1) compare record label revenues, (2) locate the larger group’s
+headquarters, and (3) trace the explorer’s visit—achieving precise, with parallel reasoning and outperforming unstruc-
+tured retrieval and template-based agents.
+fusion. We then facilitate the pairwise matching between all clusters using their centroid dual-perception
+score. Clusters (C (t)
+a , C (t)
+b ) are merged if their dual-perception divergence falls below a threshold ϵ:
+E[ϕ(ei, C (t)
+a )] − E[ϕ(ei, C (t)
+b )] < ϵ. (7)
+This design further shrinks the search space from node-community comparison to node-node comparison,
+yielding a boosted efficient community detection.
+3.2.1 Knowledge Tree
+To this end, building upon our schema-bounded extraction framework, we develop a hierarchical knowledge
+organization pipeline that transforms raw graphs into a structuredKnowledge TreeK. First, the process begins
+with our novel dual-perception community detection algorithm, which computes entity-community affinity
+through the combined metric, blending topological connectivity overlap with semantic subgraph similarity.
+Second, fLLM(Cm) is then applied to generate a brief name and description for the entire community based
+on the member names. These community names are treated as community nodes and inserted into the
+original graph, connecting with each member entity with the relationmember_of. Third, within each detected
+community Cm, we identify pivotal keywords by selecting entities maximizing the structural-semantic score
+arg maxei∈Cm ϕ(ei, Cm).
+The resulting hierarchy, together with the schema, collectively informs the construction of our four-layer
+knowledge tree K. The tree maximizes bottom-up semantic coherence at each level, simultaneously preserv-
+ing fine-grained reasoning through granular entity-relation/entity-attribute retrieval (L1) and enhancing
+high-level community-based filtering (L4). We formally define it as K = S4
+ℓ=1 Lℓ
+7
+## PDF page 8
+
+Youtu-GraphRAG
+Lℓ =
+
+
+
+{Cm} ℓ = 4 (Community)
+{arg maxϕ(vi, Cm)} ℓ = 3 (Keywords)
+{(h, r, t) | h, t ∈ E, r ∈ R} ℓ = 2 (Entity-Relation Triples )
+{(e, has_attr, {etype
+attr : evalue
+attr })} ℓ = 1 (Attributes)
+(8)
+3.3 Agentic Retriever
+Schema-enhanced Query Decomposer. The complexity of multi-hop queries in large-scale knowledge
+graphs necessitates an intelligent decomposition mechanism that respects both the explicit schema constraints
+and implicit semantic relationships. Our schema-guided decomposition approach provides several key
+advantages over traditional methods. First, by leveraging the graph schema S = (Se, Sr, Sattr), where
+Se denotes entity types, Sr represents relation types, and Sattr contains attribute definitions, we ensure
+that each generated atomic sub-query strictly adheres to valid patterns in the knowledge graph. This
+schema-awareness prevents the generation of ill-formed queries that would either fail to return results
+or retrieve irrelevant information. For instance, when processing a query like "Which pharmaceutical
+companies manufacture diabetes drugs?", the schema guarantees that the "manufacture" relation only
+connects companies to drugs, not to other entity types. Second, the schema serves as a semantic framework
+that maintains coherence throughout the decomposition process. Consider the query "Where did Turing
+Award winners study?" Our method automatically maps "Turing Award winner" to the appropriate entity
+type Se : Person with the specific award attribute, while correctly interpreting "study" as anSr : educated_at.
+This semantic precision prevents the common problem of interpretation drift that often occurs in naive
+decomposition approaches. Therefore, the final Q = fLLM(q, S) ={q1, q2 . . .qi}, where i is a pre-defined
+maximum number for total atomic sub-queries and each qi explicitly targets either: (i) node-level retrieval
+(e, has_attr, a), (ii) triple-level matching (h, r, t), or (iii) community-level verification Cm, as determined by
+schema elements Se, Sr, and Sattr.
+Iterative Reasoning and Reflection. Since reasoning and reflection are two core cognitive capabilities for
+the agent, following the standard agent framework of perception-reasoning-action cycles, we formalize our
+agent as a tuple A = ⟨S, H, fLLM⟩, where H denotes the agent’s historical memory containing both reasoning
+steps and the retrieval results, and the functions fLLM is employed to implement both key operations.
+A(t) = fLLM
+
+qt
+| {z }
+Reasoning
+, H(t−1)
+| {z }
+Reflection
+, (9)
+This process addresses the compositional generalization challenge in complex QA by (i) maintaining explicit
+symbolic grounding through S during reasoning steps, and (ii) performing continuous self-monitoring via
+reflection to detect and correct reasoning paths. The agent’s operational flow alternates between forward
+reasoning with schema-guided query decomposition and retrieval and backward reflection for complex
+scenarios, creating a closed-loop framework that progressively converges to optimal solutions.
+Multi-Route Retrieval. To handle diverse sub-query types, we implement four parallel retrieval strategies
+with distinct optimization objectives:
+Entity Matching : arg max
+e∈E
+cos
+
+e, qi
+
+Triple Matching : arg max
+(h,r,t)∈G
+cos
+
+(eh, r, et), qi)
+
+Community Filtering : arg max
+Cm∈K
+cos
+
+eCm, qi
+
+DFS Path Traversal : P (qi) =e0
+r1
+− →e1
+r2
+− → · · ·rn
+− →en s.t. ∀ri ∈ R, n ≤ d
+(10)
+In general, the four retrieval paths exhibit distinct specialization patterns: (i) Entity Matching optimally
+handles single-hop simple queries requiring precise node identification, e.g., atomic fact check problem;
+8
+## PDF page 9
+
+Youtu-GraphRAG
+(ii) Triple Matching dominates few-hop reasoning tasks by modeling (h, r, t) compositional semantics,
+particularly effective for relationship inference; (iii) Community Filtering aims to address global queries, e.g.,
+summarization and cross-domain problems through top-down filtering in the cluster; (4) DFS Path Traversal
+scales to complex multi-constraint problems, we define the maximum depth d = 5. This specialization aligns
+with the cognitive spectrum from atomic facts to complex reasoning scenarios.
+4 Experiments
+4.1 Evaluation Metrics
+Following the workflow of RAG, the evaluation is typically divided into two stages:(i) assess the accuracy of
+retrieved evidence and (ii) examine the end-to-end performance by evaluating the quality of LLMs responses
+generated from the retrieved evidence. In practical deployment scenarios, where multiple valid retrieval
+references may exist for identical answers, the latter evaluation paradigm has emerged as the prevailing
+standard in practical applications.
+Regarding the assessment of LLMs responses, several character-based matching protocols, e.g., recall, EM
+and F1 score were established. To account for semantic deviations caused by minor character variations,
+where slight textual differences may lead to substantially divergent meanings, we employ DeepSeek-V3-0324
+to assess response similarity against ground truth references.
+During the reproduction of various GraphRAG frameworks, we observed experimental results exhibit
+significant variations depending on the prompts in the LLMs generation stage. Specifically, some frame-
+works(Zhao et al. [2025]) instruct to explicitly reject to answer when retrieved evidence is insufficient, while
+others(Xiao et al. [2025], Sarthi et al. [2024]) allow LLMs to leverage its parametric knowledge or ambiguates
+the instruction in such cases. Given that most LLMs have been exposed to extensive corpora during pre-
+training, we identify answering questions based on LLMs’ knowledge rather than retrieval mechanism as a
+critical factor for fairly evaluation - we term knowledge leaking.
+To separately assess two critical capabilities: (1) recognizing knowledge limitations, and (2) leveraging LLMs’
+parametric knowledge, we therefore implement a dual-mode evaluation on three widely-used datasets:
+• Reject mode. Under this mode, LLMs must reject to answer the question when retrieval fails to provide
+sufficient evidence. This strictly evaluates the retrieval effectiveness and prevent hallucination.
+• Open mode. LLMs are allowed to answer using either retrieved content or its inherently parametric
+knowledge. This maximally measures the overall capability in real-world practical deployment.
+We have reproduced representative baselines and conducted comprehensive evaluations based on the
+metrics in this work. The corresponding prompts are provided in Appendix A. Moreover, the observations
+further underscore the importance of our proposed AnonyRAG dataset to ensure fair and comprehensive
+assessment of GraphRAG methods.
+4.2 Datasets
+We firstly evaluate Youtu-GraphRAG in dual-mode on three widely used multi-hop QA datasets: HotpotQA
+(Yang et al. [2018]), MuSiQue (Trivedi et al. [2022]) and 2WikiMultiHopQA (abbreviated as 2Wiki Ho et al.
+[2020]), following the setting in (Jimenez Gutierrez et al. [2024], Gutiérrez et al. [2025]) for fair comparison.
+To evaluate the framework’s performance across diverse domains, we also employ GraphRAG-Bench(Xiao
+et al. [2025]), shorted as G-Bench, a benchmark dataset constructed from textbook corpora. Additionally, to
+9
+## PDF page 10
+
+Youtu-GraphRAG
+prevent knowledge leaking, we propose two novel bilingual anonymous datasets, i.e., AnonyRAG-CHS
+and AnonyRAG-ENG and propose a challenging ‘Anonymous Reversion’ task.
+We anonymize specific entity types (e.g., people, locations) in the dataset to break the model’s memory
+shortcuts and prevent it from relying on pretrained knowledge rather than retrieved evidence. Moreover, we
+preserve semantic coherence through entity linking, enabling LLMs to maintain discourse comprehension
+despite anonymized mentions. The construction details of the dataset are documented in Appendix B.
+4.3 Baselines
+We include three pipelines of research as baselines. (i) Naive RAG, as the standard RAG approach that
+retrieves top-k document chunks using vector similarity search without any explicit knowledge structuring;
+(ii) Pure GraphRAG, which builds flat knowledge graphs for retrieval but lacks hierarchical organization,
+focusing primarily on relational reasoning through graph traversal algorithms, including GraphRAG (Edge
+et al. [2024]), LightRAG (Guo et al. [2024]), G-Retriever (He et al. [2024]) and HippoRAG 1&2 (Jimenez Gutier-
+rez et al. [2024], Gutiérrez et al. [2025]); (iii) Tree-based GraphRAG, represents hierarchical methods that
+employ recursive clustering and summarization to construct multi-level knowledge trees including RAPTOR
+(Sarthi et al. [2024]) and E2GraphRAG (Zhao et al. [2025]).
+To ensure a fair performance comparison, we reproduce all the baselines andYoutu-GraphRAG with the same
+setting and evaluate with consistent metrics. In terms of base models, we maintain DeepSeek-V3-0324 and
+Qwen3-32B as the base LLMs and a lightweight embedding model all-MiniLM-L6-v2.
+4.4 Overall Evaluation
+4.4.1 Comparison of Time and Token Consumption
+For baselines involving graph construction and community detection stages, this section compares their
+token and time consumption. Unless otherwise specified, all LLM APIs invoked here are based on the
+DeepSeek-V3-0324 and deployed on identical hardware. All procedures are executed using 32-thread
+concurrent inference to ensure both the efficiency of graph construction and the fairness of comparisons.
+Figure 5a presents the time and token consumption during the graph construction stage for Youtu-GraphRAG
+and five baselines. Our method consistently achieves the lowest token consumption across all six datasets
+and maintains relatively efficient time performance on five of the datasets. In the community detection
+stage, as shown in Figure 5b, Youtu-GraphRAG achieves the lowest token consumption compared with the
+other three baselines, consuming no more than 10,000 tokens on any dataset. Meanwhile, our method also
+demonstrates consistently efficient time performance across all datasets.
+(a) Consumption comparison of graph construction
+ (b) Consumption comparison of community detection
+10
+## PDF page 11
+
+Youtu-GraphRAG
+Table 1. Overall performance comparisons over benchmark datasets in terms of top-20 Accuracy.
+Method HotpotQA 2Wiki MuSiQue G-Bench Annoy-CHS Annoy-ENG
+Open Reject Open Reject Open Reject Open Open Open
+Deepseek-V3-0324
+Zero-shot LLM 53.70 - 41.6 - 25.7 - 70.92 9.62 8.18
+Naive RAG 79.90 72.40 70.3 38.9 47.49 30.63 71.81 12.5 43.02
+E2GraphRAG 68.70 48.80 43.20 20.00 28.36 8.01 68.66 16.01 35.97
+RAPTOR 80.90 73.60 70.10 38.40 48.50 31.10 73.08 12.08 40.2
+LightRAG 71.90 56.00 58.00 29.20 38.98 24.57 70.83 9.16 22.14
+GraphRAG 56.10 26.40 41.80 10.00 32.20 16.50 75.54 21.66 38.85
+G-Retriever 49.00 6.70 35.80 5.00 23.50 1.70 70.63 4.07 5.08
+HippoRAG 81.70 73.10 77.90 64.00 48.30 36.20 72.89 36.77 40.68
+HippoRAG-IRCOT 81.00 74.60 78.40 66.00 46.70 35.50 73.38 36.05 42.17
+HippoRAG2 81.80 74.90 77.30 48.30 50.80 37.80 79.37 12.92 43.16
+Ours w/o Agent 83.70 75.30 72.80 57.80 51.40 40.00 81.53 37.06 40.05
+Youtu-GraphRAG 86.50 81.20 85.50 77.60 53.60 47.50 86.54 42.88 43.26
+Qwen3-32B
+Zero-shot LLM 36.40 - 33.30 - 13.40 - 70.04 5.11 6.49
+Naive RAG 75.00 69.00 58.50 39.60 40.64 33.03 72.69 7.56 26.84
+RAPTOR 79.20 72.90 61.20 40.10 38.99 32.86 72.20 13.37 22.14
+HippoRAG 77.00 71.80 72.80 62.50 40.60 32.10 75.64 8.58 32.30
+HippoRAG-IRCOT 80.30 76.60 74.80 65.40 44.70 37.40 77.11 9. 16 33.15
+HippoRAG2 81.80 71.30 65.20 39.90 51.40 37.70 80.35 12.65 38.36
+Ours w/o Agent 83.80 73.90 74.90 55.30 52.90 40.10 80.74 34.88 35.13
+Youtu-GraphRAG 85.90 78.60 85.70 74.20 54.60 45.30 84.48 39.24 40.05
+4.4.2 Main Performance Comparison
+In Table 1, we report the top-20 accuracy across six challenging benchmarks under both open and reject
+modes, based on two strong LLM backbones, i.e., DeepSeek-V3-0324 and Qwen3-32b. Across virtually all
+datasets and settings, Youtu-GraphRAG attains the highest performance, reflecting its ability to combine
+precise retrieval with robust reasoning. Besides, we also include an variant with no agent for iterative
+reasoning and reflection as a lightweight version, i.e., Ours w/o Agent , fulfilling real-world applications
+requiring real-time interactive feedback.
+The distinction between the two evaluation modes provides complementary perspectives on system capa-
+bility. Open mode unlocks the full reasoning potential of the LLM to synthesize an answer regardless of
+retrieval gaps. This mirrors high-coverage real-world deployments where maximizing end-task accuracy
+outweighs caution. Youtu-GraphRAG consistently outperforms existing baselines, achieving improvements
+from 2 to 8 points over the strongest competitor across datasets. When augmented with our agent framework,
+Youtu-GraphRAG further pushes the performance frontier, reaching top-20 accuracies of 86.5%, 85.5%, and
+53.6% on HotpotQA, 2Wiki, and MuSiQue respectively under Deepseek-V3-0324, and 85.9%, 85.7%, and
+54.6% under Qwen3-32B, demonstrating a clear advantage in multi-hop reasoning and cross-document
+synthesis. Reject mode, by contrast, imposes a stringent criterion if the retrieved context is insufficient, the
+model must abstain. Youtu-GraphRAG attains 81.2%, 77.6%, and 47.5% on HotpotQA, 2Wiki, and MuSiQue,
+outperforming the strongest baseline by 7–14 points. Across all datasets, our method achieves consistently
+higher top-20 accuracy, confirming its ability to synergize graph-based retrieval with agent-driven reasoning
+for both high-coverage and high-precision scenarios. We value this metric since it directly probes retrieval
+quality, as speculative answers are penalized and the acceptance rate becomes a direct function of retrieval
+completeness and precision. Our superiority on two anonymous datasets also validates the generalizability
+of Youtu-GraphRAG beyond standard benchmarks. Specifically, under the open mode, it achieves 42.88%
+11
+## PDF page 12
+
+Youtu-GraphRAG
+and 43.26% top-20 accuracy on Annoy-CHS and Annoy-ENG, respectively, surpassing all baselines by a
+clear margin. These results also reflect our robust reasoning and retrieval integration across diverse lan-
+guages and domains, demonstrating that our approach could be easily transferred to previously unseen data
+distributions while maintaining high accuracy.
+A key objective of Youtu-GraphRAG is to jointly optimize performance and efficiency by unifying graph con-
+struction and retrieval. Figure 6 illustrates the trade-off between token consumption during the construction
+and overall QA performance across six benchmarks. Our approach consistently achieves optimal perfor-
+mance with the least token consumption, effectively shifting the Pareto frontier compared to all baselines.
+1M 8M 32M 64M 128M
+T oken Consumption
+0
+20
+40
+60
+80Performance (%)
+HotpotQA
+2Wiki
+MuSiQue
+GraphRAG-Bench 
+AnonyRAG-CHS
+AnonyRAG-ENG
+LightRAG
+LGraphRAG
+HippoRAG1-IR_COT
+HippoRAG2
+Youtu-GraphRAG
+Figure 6. Youtu-GraphRAG effectively moves the Pareto fron-
+tier with lower token costs and higher performance.
+While existing GraphRAG methods face a dilemma
+to balance the token consumption during con-
+struction and the accuracy for final generation,
+Youtu-GraphRAG leverages a vertically unified novel
+framework, i.e., schema-guided extraction, dually-
+perceived community detection and the schema-
+enhanced agentic retrieval to build concise yet se-
+mantically rich graphs and allow the agent to max-
+imize reasoning effectiveness. As a result, our
+method effectively moves the Pareto frontier and at-
+tains the best performance on all benchmarks while consuming up to an order of magnitude fewer tokens
+during graph construction. This demonstrates that careful integration of structured schema alignment,
+hierarchical knowledge tree, and adaptive retrieval can fundamentally improve the cost-effectiveness of
+GraphRAG systems in real-world applications.
+Table 2. Overall performance comparisons over benchmark datasets based on DeepSeek in terms of top-10 Accuracy.
+Method HotpotQA 2Wiki MuSiQue G-Bench Annoy-CHS Annoy-ENG
+Open Reject Open Reject Open Reject Open Open Open
+Naive RAG 79.40 68.00 67.60 33.70 45.58 26.73 71.22 12.08 38.93
+RAPTOR 78.20 67.10 67.40 36.40 45.88 30.03 72.79 11.77 33.99
+G-Retriever 49.90 5.90 38.00 3.80 23.50 1.70 70.24 5.38 5.50
+LightRAG 71.98 58.10 65.70 38.10 39.40 22.90 69.74 8.58 18.90
+GraphRAG 54.30 23.70 40.00 9.80 30.20 16.00 61.39 21.37 38.36
+HippoRAG 78.20 69.40 77.10 61.10 45.20 30.90 70.14 34.01 40.12
+HippoRAG-IRCOT 78.10 70.20 77.70 60.70 44.40 31.60 72.89 36.19 41.42
+HippoRAG2 79.40 70.40 74.60 45.80 49.10 34.00 77.21 13.52 37.24
+Ours w/o Agent 80.50 72.10 72.10 54.40 49.80 38.30 80.55 35.17 40.54
+Youtu-GraphRAG 83.40 78.90 82.30 72.60 52.10 46.90 83.50 38.08 42.57
+4.5 Analysis of Generalizability
+To examine the domain-transfer capability of Youtu-GraphRAG, we evaluate it across six heterogeneous
+benchmarks without any task-specific fine-tuning. As shown in Figure 7, Youtu-GraphRAG achieves the
+best performance in both Open Accuracy and Reject Accuracy on all datasets, surpassing state-of-the-art
+GraphRAG baselines by a clear margin.
+We attribute this strong generalizability to the intrinsic integration of graph construction and retrieval within
+our framework. (i) The schema-guided extraction agent produces consistent, domain-adaptive graphs;
+the dually-perceived community detection yields hierarchical knowledge structures that remain robust
+across domains; (ii) The agentic query decomposer dynamically adapts retrieval strategies to different
+question types without manual tuning. Notably, our model demonstrates particularly large gains on multi-
+12
+## PDF page 13
+
+Youtu-GraphRAG
+Table 3. Ablation studies of our method over six datasets. We evaluate three variants: without Community detection
+(w/o Comm.), without Agent coordination (w/o Agent), and without Schema guidance (w/o Schema).
+Variants HotptQA 2Wiki MuSiQue G-Bench AnonyRAG-CHS AnonyRAG-ENG
+w/o Comm. 79.50 75.10 44.00 85.02 39.97 39.92
+w/o Agent 75.30 57.80 40.00 81.53 37.60 40.05
+w/o Schema 77.10 73.40 45.60 83.50 35.61 40.32
+Youtu-GraphRAG 81.20 77.60 47.50 86.54 42.88 43.26
+hop reasoning datasets such as HotpotQA and 2Wiki in open settings, and shows superior abstention
+capability on MuSiQue and 2Wiki in reject settings, indicating robustness in both complex reasoning and
+uncertainty calibration. These results confirm that Youtu-GraphRAG can seamlessly transfer to unseen
+domains while preserving structural fidelity and reasoning depth, fulfilling the vision of a foundational
+GraphRAG paradigm.
+20 40 60 80 100
+HotpotQA
+2WikiMuSiQue
+GraphRAG-Bench
+AnonyRAG-CHS AnonyRAG-ENG
+Open Acc. (%)
+RAPTOR
+LGraphRAG
+HippoRAG1
+HippoRAG2
+Youtu-GraphRAG
+20
+40
+60
+80
+MuSiQue
+HotpotQA2Wiki
+Reject Acc. (%)
+RAPTOR
+LGraphRAG
+HippoRAG1
+HippoRAG2
+Youtu-GraphRAG
+Figure 7. We showcase the generalizability over six bench-
+mark datasets in terms of both open and reject accuracy.
+Furthermore, we summarize the top- 10 results in
+Table 2, which provides a more stringent evaluation
+of retrieval. Our methods consistently outperform
+all baselines across both open and reject modes. In
+the open mode, Youtu-GraphRAG achieves top-10 ac-
+curacies of 83.4%, 82.3%, and 52.1% on HotpotQA,
+2Wiki, and MuSiQue respectively, surpassing the
+strongest competitor by 4˜8 points. Under the reject
+mode, the gains are even more pronounced, with
+improvements of 8 ˜12 points, indicating robust re-
+trieval fidelity and reduced speculative answering.
+Notably, on the two anonymous datasets, Annoy-
+CHS and Annoy-ENG, our agent-enhanced model
+attains 38.08% and 42.57%, reinforcing its consistent superiority in diverse scenarios. These top- k results
+confirm that our approach not only excels in high-coverage settings but also maintains precise answer
+selection under stricter evaluation criteria, further validating the effectiveness of integrating graph-based
+retrieval with agent-guided reasoning.
+4.6 Ablation Studies
+To quantify the contribution of each component, we perform ablations by removing community detection
+(w/o Comm.), agent reasoning and reflection (w/o Agent), and schema guidance (w/o Schema). Results on
+six benchmarks are summarized in Table 3.
+Specifically, removing community detection leads to a consistent drop across all datasets, particularly
+on multi-hop QA tasks such as HotpotQA and 2Wiki around 1.7% and 2.5%, indicating that structuring
+knowledge into coherent communities facilitates more accurate retrieval and reasoning for global questions.
+The absence of agent reasoning and reflection causes the most severe degradation on complex reasoning
+datasets, especially on 2Wiki and MuSiQue with remarkable 19.8% and-7.5% differences, supporting our
+motivation that the iterative reasoning-feedback loop plays an essential role for resolving ambiguous
+intermediate steps. Eliminating schema guidance results in noticeable performance drops on knowledge-
+intensive settings, especially on AnonyRAG-CHS with 7.27% decreases, highlighting the importance of a
+high-quality initialization of seed schema for new domains. This further demonstrates our advantage since
+Youtu-GraphRAG only requires minimum manual intervention to handle with domain shifts. In conclusion,
+our model consistently outperforms all ablated variants, demonstrating that the three components are
+complementary: community detection improves retrieval quality, agent reasoning enhances multi-step
+13
+## PDF page 14
+
+Youtu-GraphRAG
+inference, and schema guidance enforces structural fidelity. These findings suggest that removing any single
+component disrupts the synergy between retrieval and reasoning, with agent reasoning being most critical
+for multi-hop inference, while schema plays a vito role in low-resource and domain-specific scenarios.
+5 Related Work
+While large language models (LLMs) demonstrate remarkable capabilities in language understanding
+and reasoning, they are known to be prone to hallucinations—generating confident yet factually incorrect
+outputs—especially when reasoning over complex or multi-hop queries [Zhang et al., 2025, Qin et al., 2024,
+Kuang et al., 2025, Dong et al., 2024, Qin et al., 2024]. Integrating LLMs with graph-structured knowledge,
+therefore, combines the generative flexibility of LLMs with the factual rigor of structured data, enabling
+more accurate and trustworthy reasoning over complex domains [Luo et al., 2023, Dong et al., 2023, Bei
+et al., 2025, Yasunaga et al., 2021, Luo et al., 2024]. Evolving development of GraphRAG has progressed
+along two complementary research trajectories since the seminal work of [Edge et al., 2024]. The first
+following approaches have evolved from LightRAG’s [Guo et al., 2024] vector sparsification techniques
+to more sophisticated graph-aware methods. Subsequent innovations include GNN-RAG and GFM-RAG
+[Mavromatis and Karypis, 2024, Luo et al., 2025], which employ graph neural networks for enhanced node
+matching, and HippoRAG 1&2 [Jimenez Gutierrez et al., 2024, Gutiérrez et al., 2025] that introduced memory
+mechanisms and personalized PageRank algorithms for context-aware retrieval. While another Group
+of methods have focused on improving the quality of knowledge organization, hierarchical approaches
+like RAPTOR [Sarthi et al., 2024] and E 2GraphRAG [Zhao et al., 2025] employ tree-like clustering and
+recursive summarization to enhance semantic organization. However, current research remain constrained
+by their specialized optimizations, either focusing on retrieval or construction in isolation, and lack a unified
+design. This fragmentation limits their performance on complex reasoning tasks requiring tight integration of
+knowledge organization and retrieval capabilities, which makes it even harder to adjust the entire framework
+for generalizability especially when domain shifts occur. Our work bridges this gap by developing a holistic
+framework that jointly optimizes both aspects while maintaining graph foundation model properties.
+6 Conclusions
+In this paper, we propose Youtu-GraphRAG, a vertically unified agentic paradigm that jointly optimizes both
+aspects through a graph schema. Our framework introduces (i) a schema-guided agent for continuous
+knowledge extraction with predefined entity types, relations, and attributes; (ii) dually-perceived commu-
+nity and keyword detection, fusing structural topology with subgraph semantics to construct a hierarchical
+knowledge tree that supports top-down filtering and bottom-up reasoning; (iii) an agentic retriever inter-
+prets the schema to break complex queries into tractable sub-queries, paired with an iterative reasoning
+and reflection; and (iv) Anonymity Reversion, a novel task to mitigate knowledge leakage in LLMs, deeply
+measuring the real performance of GraphRAG frameworks supported by a carefully curated anonymous
+dataset. Extensive experiments across six challenging benchmarks demonstrate Youtu-GraphRAG’s robust-
+ness, advancing the Pareto frontier with up to 90.71% reduction in token costs and 16.62% higher accuracy
+than state-of-the-art baselines. Notably, our framework exhibits strong adaptability, enabling seamless
+domain transfer with minimal schema adjustments. These results underscore the importance of unified
+graph construction and retrieval, paving the way for more efficient and generalizable GraphRAG.
+14
+## PDF page 15
+
+Youtu-GraphRAG
+References
+[1] Yilin Xiao, Junnan Dong, Chuang Zhou, Su Dong, Qianwen Zhang, Di Yin, Xing Sun, and Xiao Huang.
+Graphrag-bench: Challenging domain-specific reasoning for evaluating graph retrieval-augmented
+generation. arXiv preprint arXiv:2506.02404, 2025.
+[2] Shirui Pan, Linhao Luo, Yufei Wang, Chen Chen, Jiapu Wang, and Xindong Wu. Unifying large language
+models and knowledge graphs: A roadmap. IEEE Transactions on Knowledge and Data Engineering, 36(7):
+3580–3599, 2024.
+[3] Yu Wang, Nedim Lipka, Ryan A Rossi, Alexa Siu, Ruiyi Zhang, and Tyler Derr. Knowledge graph
+prompting for multi-document question answering. In AAAI, volume 38, pages 19206–19214, 2024.
+[4] Qinggang Zhang, Junnan Dong, Hao Chen, Daochen Zha, Zailiang Yu, and Xiao Huang. Knowgpt:
+Knowledge graph based prompting for large language models. NeurIPS, 37:6052–6080, 2024.
+[5] Xiaoxin He, Yijun Tian, Yifei Sun, Nitesh Chawla, Thomas Laurent, Yann LeCun, Xavier Bresson, and
+Bryan Hooi. G-retriever: Retrieval-augmented generation for textual graph understanding and question
+answering. NeurIPS, 37:132876–132907, 2024.
+[6] Junnan Dong, Qinggang Zhang, Xiao Huang, Keyu Duan, Qiaoyu Tan, and Zhimeng Jiang. Hierarchy-
+aware multi-hop question answering over knowledge graphs. In The Web Conf, 2023.
+[7] Boci Peng, Yun Zhu, Yongchao Liu, Xiaohe Bo, Haizhou Shi, Chuntao Hong, Yan Zhang, and Siliang
+Tang. Graph retrieval-augmented generation: A survey. arXiv preprint arXiv:2408.08921, 2024.
+[8] Haoyu Han, Yu Wang, Harry Shomer, Kai Guo, Jiayuan Ding, Yongjia Lei, Mahantesh Halappanavar,
+Ryan A Rossi, Subhabrata Mukherjee, Xianfeng Tang, et al. Retrieval-augmented generation with
+graphs (graphrag). arXiv preprint arXiv:2501.00309, 2024.
+[9] Junnan Dong, Qinggang Zhang, Huachi Zhou, Daochen Zha, Pai Zheng, and Xiao Huang. Modality-
+aware integration with large language models for knowledge-based visual question answering. In ACL,
+pages 2417–2429. ACL, 2024.
+[10] Darren Edge, Ha Trinh, Newman Cheng, Joshua Bradley, Alex Chao, Apurva Mody, Steven Truitt,
+Dasha Metropolitansky, Robert Osazuwa Ness, and Jonathan Larson. From local to global: A graph rag
+approach to query-focused summarization. arXiv preprint arXiv:2404.16130, 2024.
+[11] Zirui Guo, Lianghao Xia, Yanhua Yu, Tu Ao, and Chao Huang. Lightrag: Simple and fast retrieval-
+augmented generation. arXiv preprint arXiv:2410.05779, 2024.
+[12] Costas Mavromatis and George Karypis. Gnn-rag: Graph neural retrieval for large language model
+reasoning. arXiv preprint arXiv:2405.20139, 2024.
+[13] Linhao Luo, Zicheng Zhao, Gholamreza Haffari, Dinh Phung, Chen Gong, and Shirui Pan. Gfm-rag:
+graph foundation model for retrieval augmented generation. arXiv preprint arXiv:2502.01113, 2025.
+[14] Bernal Jimenez Gutierrez, Yiheng Shu, Yu Gu, Michihiro Yasunaga, and Yu Su. Hipporag: Neurobiolog-
+ically inspired long-term memory for large language models. NeurIPS, 37:59532–59569, 2024.
+[15] Bernal Jiménez Gutiérrez, Yiheng Shu, Weijian Qi, Sizhe Zhou, and Yu Su. From rag to memory:
+Non-parametric continual learning for large language models. ICML, 2025.
+[16] Parth Sarthi, Salman Abdullah, Aditi Tuli, Shubh Khanna, Anna Goldie, and Christopher D Manning.
+Raptor: Recursive abstractive processing for tree-organized retrieval. In The Twelfth International
+Conference on Learning Representations, 2024.
+[17] Yibo Zhao, Jiapeng Zhu, Ye Guo, Kangkang He, and Xiang Li. Eˆ 2graphrag: Streamlining graph-based
+rag for high efficiency and effectiveness. arXiv preprint arXiv:2505.24226, 2025.
+15
+## PDF page 16
+
+Youtu-GraphRAG
+[18] Vincent A Traag, Ludo Waltman, and Nees Jan Van Eck. From louvain to leiden: guaranteeing well-
+connected communities. Scientific reports, 9(1):1–12, 2019.
+[19] Zhilin Yang, Peng Qi, Saizheng Zhang, Yoshua Bengio, William W Cohen, Ruslan Salakhutdinov, and
+Christopher D Manning. Hotpotqa: A dataset for diverse, explainable multi-hop question answering.
+arXiv preprint arXiv:1809.09600, 2018.
+[20] Harsh Trivedi, Niranjan Balasubramanian, Tushar Khot, and Ashish Sabharwal. Musique: Multihop
+questions via single-hop question composition.Transactions of the Association for Computational Linguistics,
+10:539–554, 2022.
+[21] Xanh Ho, Anh-Khoa Duong Nguyen, Saku Sugawara, and Akiko Aizawa. Constructing a multi-hop qa
+dataset for comprehensive evaluation of reasoning steps. arXiv preprint arXiv:2011.01060, 2020.
+[22] Qinggang Zhang, Shengyuan Chen, Yuanchen Bei, Zheng Yuan, Huachi Zhou, Zijin Hong, Junnan
+Dong, Hao Chen, Yi Chang, and Xiao Huang. A survey of graph retrieval-augmented generation for
+customized large language models. arXiv preprint arXiv:2501.13958, 2025.
+[23] Libo Qin, Qiguang Chen, Yuhang Zhou, Zhi Chen, Yinghui Li, Lizi Liao, Min Li, Wanxiang Che, and
+Philip S. Yu. Multilingual large language model: A survey of resources, taxonomy and frontiers. CoRR,
+abs/2404.04925, 2024. doi: 10.48550/ARXIV .2404.04925. URL https://doi.org/10.48550/arXiv.
+2404.04925.
+[24] Jiayi Kuang, Ying Shen, Jingyou Xie, Haohao Luo, Zhe Xu, Ronghao Li, Yinghui Li, Xianfeng Cheng,
+Xika Lin, and Yu Han. Natural language understanding and inference with MLLM in visual question
+answering: A survey. ACM Comput. Surv. , 57(8):190:1–190:36, 2025. doi: 10.1145/3711680. URL
+https://doi.org/10.1145/3711680.
+[25] Junnan Dong, Zijin Hong, Yuanchen Bei, Feiran Huang, Xinrun Wang, and Xiao Huang. Clr-bench:
+Evaluating large language models in college-level reasoning. arXiv preprint arXiv:2410.17558, 2024.
+[26] Libo Qin, Qiguang Chen, Xiachong Feng, Yang Wu, Yongheng Zhang, Yinghui Li, Min Li, Wanxiang
+Che, and Philip S. Yu. Large language models meet NLP: A survey. CoRR, abs/2405.12819, 2024. doi:
+10.48550/ARXIV .2405.12819. URLhttps://doi.org/10.48550/arXiv.2405.12819.
+[27] Linhao Luo, Yuan-Fang Li, Gholamreza Haffari, and Shirui Pan. Reasoning on graphs: Faithful and
+interpretable large language model reasoning. arXiv preprint arXiv:2310.01061, 2023.
+[28] Yuanchen Bei, Weizhi Zhang, Siwen Wang, Weizhi Chen, Sheng Zhou, Hao Chen, Yong Li, Jiajun Bu,
+Shirui Pan, Yizhou Yu, et al. Graphs meet ai agents: Taxonomy, progress, and future opportunities.
+arXiv preprint arXiv:2506.18019, 2025.
+[29] Michihiro Yasunaga, Hongyu Ren, Antoine Bosselut, Percy Liang, and Jure Leskovec. Qa-gnn:
+Reasoning with language models and knowledge graphs for question answering. arXiv preprint
+arXiv:2104.06378, 2021.
+[30] Linhao Luo, Zicheng Zhao, Gholamreza Haffari, Yuan-Fang Li, Chen Gong, and Shirui Pan. Graph-
+constrained reasoning: Faithful reasoning on knowledge graphs with large language models. arXiv
+preprint arXiv:2410.13080, 2024.
+16
+## PDF page 17
+
+Youtu-GraphRAG
+A Prompt templates in LLMs generation
+We present the prompt templates in A.1 and A.1, which designed to evaluate whether permitting LLMs to
+utilize its parametric knowledge within the RAG system affects performance. To minimize confounding
+factors, we employed minimalistic prompts that solely differentiate between the two modes.
+A.1 Reject mode
+Given the question and the extracted knowledge from different retrieval paths, please answer the
+question below. If the extracted knowledge is not enough to answer, please reject to answer.
+Question: {query}
+Extracted Knowledge: {context}
+Answer:
+A.2 Open mode
+Given the question and the extracted knowledge from different retrieval paths, please answer the
+question below. If the extracted knowledge is not enough to answer, please answer it based on your
+own knowledge.
+Question: {query}
+Extracted Knowledge: {context}
+Answer:
+B Data Collection and Processing
+All raw data in this study are sourced from the original texts of four classic novels: Water Margin, Dream of
+the Red Chamber, Moby-Dick, and Middlemarch. The copyrights of all these works have entered the public
+domain, thus presenting no copyright issues. In selecting data sources, we pursued two key objectives: (1)
+Ensuring comprehensive multilingual evaluation coverage, while (2) Maintaining sufficient complexity in
+entity representations (e.g., persons, locations) to rigorously assess model capabilities. The basic statistical
+information of the dataset is in Table 4.
+In our data processing methodology, we employed DeepSeek for entity extraction from the corpus, then
+the data chunks are anonymized with the extracted entities. Query-answer pairs were constructed by
+DeepSeek using queries from 2Wiki and MuSiQue as seed templates. Upon acquiring the question-answer
+pairs, we performed entity anonymization using the same anonymization dictionary as applied to the
+corpus. This procedure ensures that LLMs cannot effectively leverage parametric memorized patterns from
+17
+## PDF page 18
+
+Youtu-GraphRAG
+questions. A representative example of anonymized question-answer pairs is presented in Table 5. As
+clearly demonstrated, while LLMs could handle questions according to common sense knowledge, their
+performance significantly degrades when confronted with anonymized versions of these questions. This
+phenomenon forces LLMs to rely on retrieved contextual information rather than depending solely on their
+parametric knowledge.
+To avoid the variance in evaluating subjective questions, we finally converted the questions into two formats:
+Anonymity Reversion. We provide LLMs with anonymized question-answer pairs as context, requiring to
+infer and reconstruct the original entities that were anonymized. This task specifically assesses the model’s
+ability to leverage contextual clues for entity recovery.
+Multiple Choice. To diversify question types and ensure objective evaluation, a subset of questions was
+converted into multiple-choice format.
+We then performed zero-shot filtering to verify model performance on these transformed questions. This de-
+sign preserves the original assessment objectives of testing the LLM’s contextual reasoning capabilities while
+guaranteeing answer objectivity and uniqueness. Crucially, it mitigates potential unreliability introduced by
+LLM-as-judge evaluation paradigms. Table 6 presents representative cases of these two question formats.
+Table 4. Question Type and Difficulty Distribution Statistics
+Question Type Difficulty Level Chinese Literature English Literature Total
+Water Margin Dream of Red Chamber Moby-Dick Middlemarch
+Objective Simple ( ≤4 hops) 29 26 54 54 163
+Complex ( >4 hops) 24 34 51 22 131
+Subjective
+(Anonymous Reversion)
+Simple ( ≤4 hops) 65 50 51 116 282
+Complex ( >4 hops) 146 314 142 219 821
+Total 264 424 298 411 1397
+Table 5. Comparations of anonymized and Non-anonymized questions
+Lang Type Question Zero-shot LLM Response Val
+CHS Raw
+Query
+从史 进 拜 师到 最 终 离开 少华 山 ，
+期 间 共 经历 了哪 些 身 份 转变 ？
+从 富家子 弟 → 王 进徒弟 → 庄 主 →强 盗同伙 → 落 草 为
+寇 ， 共 经历 四 次 身 份 转变 。
+Correct
+Annoy
+Query
+从[PERSON#277] 拜 师到 最 终 离
+开[LOCATION#759] ， 期 间 共 经
+历 了哪 些 身 份 转变 ？
+从 拜 师到 离开[LOCATION#759] ，[PERSON#277] 的
+关 键 身 份 转变可 梳 理 如 下 ：1. 入 门弟 子 阶 段,初 始 以
+普通 学徒 身 份 拜 入 师 门 ， 主 要 承担 基 础 杂役 工作. . .
+Wrong
+ENG Raw
+Query
+What does the narrator’s reac-
+tion to Queequeg’s smoking in
+bed reveal about their relation-
+ship?
+The narrator’s acceptance of Queequeg’s smoking re-
+veals their deepening friendship and shared comfort.
+Correct
+Annoy
+Query
+What does the [PERSON#1999]’s
+reaction to [PERSON#200]’s
+smoking in bed reveal about
+their relationship?
+To analyze what [PERSON#1999]’s reaction to [PER-
+SON#200]’s smoking in bed reveals about their re-
+lationship, we would need more context about the
+specific reaction and. . .
+Wrong
+18
+## PDF page 19
+
+Youtu-GraphRAG
+Table 6. Final Question-Answer Formats
+Lang Question Ground Truth
+Anonymity Reversion
+CHS
+请 根 据 上下 文 对 下 面 这 段 问 答
+‘‘‘
+Q: 在 [PERSON#532] 离开 [LOCATION#526] 后 ， 他 在哪 个 村 庄
+的 酒 店 中与 [PERSON#277] 重逢 ？ 这 个 村 庄 附 近 的 山 上 盘 踞 着
+哪 两位 头 领 ？
+A: [PERSON#532] 在 [LOCATION#110] 附 近 的 酒 店 与 [PERSON
+#277] 重逢 ， 该 村 庄 附 近 的 [LOCATION#535] 上 盘 踞 [PERSON#
+503]和 [PERSON#4] 两位 头 领 。
+‘‘‘
+中 已 经 被匿名化 处 理 的 所 有 人名和 地名 等 进 行 推 理 ，判 断 出 被
+匿名 的原 本 内 容 是哪 些 。
+PERSON#532—— 鲁 智 深
+PERSON#277—— 史 进
+PERSON #4—— 周通
+PERSON#503—— 李忠
+LOCATION#526—— 五台 山
+LOCATION#110—— 桃 花 村
+LOCATION#535—— 桃 花 山
+ENG
+Please read the following QA pairs
+‘‘‘
+Q: What does [PERSON#200]’s story about the wedding feast
+reveal about cultural misunderstandings?
+A: The story reveals how cultural misunderstandings, such as
+[PERSON#588] mistaking the punchbowl for a finger-glass, can
+arise from ignorance of local customs.
+‘‘‘
+then for all anonymized Persons and Locations, perform infer-
+ence to determine the original content that was anonymized.
+PERSON#200——Queequeg
+PERSON#588——captai
+Multiple Choice
+CHS
+海 棠 诗 社 成 立 时 ， [PERSON#315] 给 自 己取 的别号 是 什么 ？ 这 个
+别号 与 她 居住 的哪 个 场 所 相 关 ？
+A. [LOCATION#340] ； [LOCATION#625] 老 农
+B. [LOCATION#340] ； [LOCATION#340] 隐 士
+C. [LOCATION#625] 老 农 ； [LOCATION#340]
+D. [LOCATION#340] 居 士 ； [LOCATION#625] 老 农
+C. ( 李 纨 ， 稻 香 老 农 ， 稻 香 村 )
+ENG
+Which two physical traits do [PERSON#1035] and her daughter
+[PERSON#445] share in common?
+A. Straight hair and round faces
+B. Curly hair and square faces
+C. Wavy hair and oval faces
+D. Short hair and triangular faces
+B. (Mrs. Garth, daughter Mary)
+19

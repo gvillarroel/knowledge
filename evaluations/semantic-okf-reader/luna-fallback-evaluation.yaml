@@ -1,0 +1,1203 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-reader-300-luna-semantic-fallback
+  description: Retry failed Semantic OKF treatment cells with PI GPT-5.6 Luna.
+  tags:
+  - semantic-okf
+  - knowledge
+  - retrieval
+  - pi
+  - compare
+  - 300-questions
+  - luna
+  - semantic-fallback
+task:
+  prompts:
+  - id: q021-typed-fact
+    description: Isolated semantic question q021
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-01/project-01-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q021-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q021-typed-fact"
+              && digest === "23bdcc0a60bccf7361b2173baaa915a92828ef21312b98e70b2eeccd3920a858";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q021-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-01/project-01-a-20f1c1d620.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q022-typed-fact
+    description: Isolated semantic question q022
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-02/project-02-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q022-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q022-typed-fact"
+              && digest === "2e34d3733d2687f8ec2c46d66551da76f1cde0269afc016760b9a832510da532";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q022-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-02/project-02-a-6375eac1a9.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q023-typed-fact
+    description: Isolated semantic question q023
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-03/project-03-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q023-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q023-typed-fact"
+              && digest === "f4d1ba1cc5b2ae09e3e17de1222461bb094d89e607c839af51c72cd579528fd0";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q023-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-03/project-03-a-950c026250.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q024-typed-fact
+    description: Isolated semantic question q024
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-04/project-04-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q024-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q024-typed-fact"
+              && digest === "72d8fba99938b3db1966f1c848b0cc8ab0ea6ab6a45eb059f77bba92a800a294";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q024-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-04/project-04-a-54a8bfe5ca.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q025-typed-fact
+    description: Isolated semantic question q025
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-05/project-05-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q025-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q025-typed-fact"
+              && digest === "0f4ffaaddb2b709439fc824b9b9428325845f649e5fb4ebe9681c3bc521236ae";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q025-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-05/project-05-a-fe813ca101.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q026-typed-fact
+    description: Isolated semantic question q026
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-06/project-06-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q026-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q026-typed-fact"
+              && digest === "69c400fb8292a6565ff8a06cd6022585cdcc37fae4bd0101cc1ec3fe054d2224";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q026-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-06/project-06-a-7e8c84b5d9.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q027-typed-fact
+    description: Isolated semantic question q027
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-07/project-07-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q027-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q027-typed-fact"
+              && digest === "785e38678dfbbb0560f17d48c16012f416c3b6bf71a4135e49b8dede327c86e8";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q027-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-07/project-07-a-1aa2f1fa63.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q028-typed-fact
+    description: Isolated semantic question q028
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-08/project-08-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q028-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q028-typed-fact"
+              && digest === "e060ba9443e405df59c1eee5d95f1802d8c880f79d1e172e7342e2829ce0bf66";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q028-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-08/project-08-a-d60efee262.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q029-typed-fact
+    description: Isolated semantic question q029
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-09/project-09-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q029-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q029-typed-fact"
+              && digest === "c02526b4c64c4c98135642c728496c02df1bc1ca49501705247e261a1f622962";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q029-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-09/project-09-a-d833a0bbb3.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q030-typed-fact
+    description: Isolated semantic question q030
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: For featured project subject `https://example.org/forty-source/resource/projects-10/project-10-a`, return featured, budget, startDate, and updatedAt. Return a JSON object with exactly these keys: `budget`, `featured`, `startDate`, `updatedAt`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q030-typed-fact","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q030-typed-fact"
+              && digest === "891d35d0fa6d23f7a1ab39c80425ea8e9cd69690ab2583d1645448a6f68828fe";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q030-typed-fact") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/projects-10/project-10-a-91cff7070e.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q190-aggregation
+    description: Isolated semantic question q190
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: What is the exact sum of project budgets in logical source `projects-05`?
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q190-aggregation","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q190-aggregation"
+              && digest === "d28009dd84da5f1444e8359e4648cb94add814396bea32e40a85cffff813a4f2";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q190-aggregation") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q266-ontology-shacl
+    description: Isolated semantic question q266
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return kind, domain, and range for ontology property `budget`. Return a JSON object with exactly these keys: `domain`, `kind`, `range`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q266-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q266-ontology-shacl"
+              && digest === "1b16a330d7314b37c6feaac27581098f05132365d79a14694dc65286ceb5afce";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q266-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/semantic-plan.json"],["semantic/ontology.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q267-ontology-shacl
+    description: Isolated semantic question q267
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return kind, domain, and range for ontology property `featured`. Return a JSON object with exactly these keys: `domain`, `kind`, `range`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q267-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q267-ontology-shacl"
+              && digest === "fdf9187327091d91425e4489853cfdaae6a00fc3e251f0d79c55033e65f419b6";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q267-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/semantic-plan.json"],["semantic/ontology.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q270-ontology-shacl
+    description: Isolated semantic question q270
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return the complete generated constraint summary for SHACL shape `DocumentCategoryRuleShape`. Return a JSON object with exactly these keys: `basis_kind`, `datatype`, `max_count`, `min_count`, `path`, `pattern`, `target_class`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q270-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q270-ontology-shacl"
+              && digest === "444e7f5fa3669de9ca3931a7dd238f14c2c791beb69aa8ff31c730dec7465946";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q270-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/shapes.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q271-ontology-shacl
+    description: Isolated semantic question q271
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return the complete generated constraint summary for SHACL shape `PersonRoleRuleShape`. Return a JSON object with exactly these keys: `basis_kind`, `datatype`, `max_count`, `min_count`, `path`, `pattern`, `target_class`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q271-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q271-ontology-shacl"
+              && digest === "968fa4dbea7900a16f9a65da36ca0686879f33a77fdfd5afaf8c05c80d8ab1ec";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q271-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/shapes.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q272-ontology-shacl
+    description: Isolated semantic question q272
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return the complete generated constraint summary for SHACL shape `ProjectOwnerRuleShape`. Return a JSON object with exactly these keys: `basis_kind`, `class`, `max_count`, `min_count`, `node_kind`, `path`, `target_class`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q272-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q272-ontology-shacl"
+              && digest === "aadf2d4ce488ab6e507287f899b65a1cb17e0a2d86740c787dcabf67cdea1daa";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q272-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/shapes.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q273-ontology-shacl
+    description: Isolated semantic question q273
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return the complete generated constraint summary for SHACL shape `ProjectStatusRuleShape`. Return a JSON object with exactly these keys: `basis_kind`, `datatype`, `max_count`, `min_count`, `path`, `pattern`, `target_class`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q273-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q273-ontology-shacl"
+              && digest === "e9057e6cf794534b8a2baee728a1976bf4124e1fe31112611bd0dd718481aecd";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q273-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/shapes.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q275-ontology-shacl
+    description: Isolated semantic question q275
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Return target and required_paths for the generated `SemanticMappingShape`. Return a JSON object with exactly these keys: `required_paths`, `target`.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q275-ontology-shacl","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q275-ontology-shacl"
+              && digest === "be650c0e320dbaf598bb0477e63329fb3aacbc1e86089fee69f0a9857dcc1d88";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q275-ontology-shacl") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/shapes.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q283-integrity-negative
+    description: Isolated semantic question q283
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Does `https://example.org/vocabulary/knowledge-sharing` have asserted prefLabel `Knowledge sharing`? Answer only for the asserted snapshot.
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q283-integrity-negative","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q283-integrity-negative"
+              && digest === "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q283-integrity-negative") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q289-integrity-negative
+    description: Isolated semantic question q289
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: How many accepted ledger subjects lack a non-empty OKF concept ID?
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q289-integrity-negative","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q289-integrity-negative"
+              && digest === "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q289-integrity-negative") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+  - id: q297-bundle-inventory
+    description: Isolated semantic question q297
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: How many JSON logical sources are declared?
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q297-bundle-inventory","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q297-bundle-inventory"
+              && digest === "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q297-bundle-inventory") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/source-manifest.json"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+workspace:
+  sources:
+  - id: isolated-base
+    type: local-path
+    path: evaluations/semantic-okf-reader/fixtures/workspaces/base
+    target: /
+  setup:
+    initializeGit: true
+    env:
+      SEMANTIC_OKF_BUNDLE: $WORKSPACE/knowledge
+evaluation:
+  assertions:
+  - type: is-json
+    metric: response-format
+  - type: javascript
+    metric: response-contract
+    value: |
+      try {
+        const parsed = JSON.parse(output.trim());
+        const keys = Object.keys(parsed);
+        return JSON.stringify(keys) === JSON.stringify(['question_id', 'answer', 'evidence'])
+          && typeof parsed.question_id === 'string'
+          && Array.isArray(parsed.evidence)
+          && parsed.evidence.every((item) => typeof item === 'string')
+          && (parsed.answer === null ? parsed.evidence.length === 0 : parsed.evidence.length > 0);
+      } catch {
+        return false;
+      }
+  - type: javascript
+    metric: evidence-path-validity
+    value: |
+      const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+      try {
+        const actual = JSON.parse(output.trim());
+        const known = new Set(["concepts/docs-01/sources-markdown-01-retention-policy-9cac150795.md","concepts/docs-02/sources-markdown-02-onboarding-guide-939b5c2578.md","concepts/docs-03/sources-markdown-03-security-checklist-16ac98b6fd.md","concepts/docs-04/sources-markdown-04-architecture-note-fd173cfcd0.md","concepts/docs-05/sources-markdown-05-operations-runbook-c7391b5d92.md","concepts/docs-06/sources-markdown-06-research-summary-d1699510c4.md","concepts/docs-07/sources-markdown-07-product-glossary-9392656d03.md","concepts/docs-08/sources-markdown-08-incident-review-0f6970952a.md","concepts/docs-09/sources-markdown-09-accessibility-guide-7de7f69036.md","concepts/docs-10/sources-markdown-10-data-dictionary-2ca743ed16.md","concepts/people-01/person-01-a-6c0bf30ef6.md","concepts/people-01/person-01-b-a022b2c5fc.md","concepts/people-02/person-02-a-8bf7fb83fb.md","concepts/people-02/person-02-b-a1ca44440c.md","concepts/people-03/person-03-a-b8d8035a31.md","concepts/people-03/person-03-b-50318fa6ac.md","concepts/people-04/person-04-a-72fac71234.md","concepts/people-04/person-04-b-b713381bb8.md","concepts/people-05/person-05-a-68796f3e0f.md","concepts/people-05/person-05-b-aa8131b5fc.md","concepts/people-06/person-06-a-0fab4a466e.md","concepts/people-06/person-06-b-240f8e93b6.md","concepts/people-07/person-07-a-3aaf429bfc.md","concepts/people-07/person-07-b-0b32913ccd.md","concepts/people-08/person-08-a-779d3c80c2.md","concepts/people-08/person-08-b-a8a93a29d0.md","concepts/people-09/person-09-a-e4af477da5.md","concepts/people-09/person-09-b-f9a398f737.md","concepts/people-10/person-10-a-4bc5699c7b.md","concepts/people-10/person-10-b-36e600e204.md","concepts/projects-01/project-01-a-20f1c1d620.md","concepts/projects-01/project-01-b-f4ab8ac839.md","concepts/projects-02/project-02-a-6375eac1a9.md","concepts/projects-02/project-02-b-f7cf7e3a1e.md","concepts/projects-03/project-03-a-950c026250.md","concepts/projects-03/project-03-b-09f5e4ebd6.md","concepts/projects-04/project-04-a-54a8bfe5ca.md","concepts/projects-04/project-04-b-cceecb1798.md","concepts/projects-05/project-05-a-fe813ca101.md","concepts/projects-05/project-05-b-a2ccbf3247.md","concepts/projects-06/project-06-a-7e8c84b5d9.md","concepts/projects-06/project-06-b-50f45f0445.md","concepts/projects-07/project-07-a-1aa2f1fa63.md","concepts/projects-07/project-07-b-88962482b9.md","concepts/projects-08/project-08-a-d60efee262.md","concepts/projects-08/project-08-b-917e641c52.md","concepts/projects-09/project-09-a-d833a0bbb3.md","concepts/projects-09/project-09-b-63d45eaa88.md","concepts/projects-10/project-10-a-91cff7070e.md","concepts/projects-10/project-10-b-0d7cecc601.md","concepts/vocab-01/https-example.org-vocabulary-knowledge-sharing-14700223e3.md","concepts/vocab-02/https-example.org-vocabulary-semantic-boundary-735a5913b8.md","concepts/vocab-03/https-example.org-vocabulary-source-lineage-d1af4a282b.md","concepts/vocab-04/https-example.org-vocabulary-validated-snapshot-07978d36b7.md","concepts/vocab-05/https-example.org-vocabulary-controlled-refresh-35d48842e3.md","concepts/vocab-06/https-example.org-vocabulary-typed-literal-9d4fb55fa2.md","concepts/vocab-07/https-example.org-vocabulary-competency-query-578feea673.md","concepts/vocab-08/https-example.org-vocabulary-graph-isomorphism-a486eed219.md","concepts/vocab-09/https-example.org-vocabulary-progressive-disclosure-35f5d7d867.md","concepts/vocab-10/https-example.org-vocabulary-reproducibility-af37728c57.md","index.md","semantic/build-report.json","semantic/data.ttl","semantic/ontology.ttl","semantic/provenance.ttl","semantic/records.jsonl","semantic/semantic-plan.json","semantic/shapes.ttl","semantic/source-manifest.json","semantic/validation-report.ttl"]);
+        return actual.evidence.every((item) => known.has(normalizePath(item)));
+      } catch {
+        return false;
+      }
+  requests: 1
+  timeoutMs: 240000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+  - id: skill
+    description: Strictly isolated profile with the build-semantic-okf skill and pinned knowledge snapshot supplied by one
+      workspace overlay.
+    isolation:
+      inheritSystem: false
+    capabilities:
+      skills:
+      - source:
+          type: local-path
+          path: evaluations/semantic-okf-reader/fixtures/workspaces/skill-overlay
+          skillId: build-semantic-okf
+        install:
+          strategy: workspace-overlay
+    output:
+      tags:
+      - skill
+      - knowledge-on
+      labels:
+        skill_state: 'on'
+        knowledge_access: 'on'
+  variants:
+  - id: pi-openrouter-gpt56-luna-semantic-fallback
+    description: PI GPT-5.6 Luna semantic fallback for treatment cells that failed the initial model route.
+    agent:
+      adapter: pi
+      model: openrouter/openai/gpt-5.6-luna
+      executionMethod: command
+      commandPath: bin/pi-spark-luna-fallback.ps1
+      sandboxMode: read-only
+      approvalPolicy: never
+      webSearchEnabled: false
+      networkAccessEnabled: true
+      reasoningEffort: low
+      additionalDirectories: []
+      cliEnv:
+        OPENROUTER_API_KEY: $HOST_ENV:OPENROUTER_API_KEY
+        PI_FALLBACK_MODEL: openrouter/openai/gpt-5.6-luna
+        PI_MODEL_TIMEOUT_SECONDS: '90'
+      config: {}
+    output:
+      tags:
+      - pi
+      - gpt-5.6-luna
+      - semantic-fallback
+      - isolated
+      labels:
+        variantDisplayName: PI GPT-5.6 Luna fallback
+        adapter_family: pi
+        retry_model: openrouter/openai/gpt-5.6-luna
+        fallback_reason: failed-complete-treatment-cell

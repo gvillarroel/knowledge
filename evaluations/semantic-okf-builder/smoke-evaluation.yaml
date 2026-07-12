@@ -1,0 +1,135 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-builder-lifecycle-smoke-compare
+  description: Live rehearsal of heterogeneous Semantic OKF creation with and without the builder skill.
+  tags:
+    - semantic-okf
+    - lifecycle
+    - builder
+    - smoke
+    - luna-only
+task:
+  prompts:
+    - id: create-heterogeneous
+      description: Create and validate a new bundle from Markdown, CSV, JSONL, and RDF sources.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"create-heterogeneous","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py create work/create --force --reset-deliverable deliverables/create
+
+        Build `work/create/manifest.json` into `deliverables/create/bundle` with the skill's real builder. The reviewed manifest contains Markdown, CSV, JSONL, and RDF inputs. Run the independent bundle validator, then run:
+        python verification/verify_lifecycle.py create --workspace . --report deliverables/create/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"create-heterogeneous","status":"completed","verification":"deliverables/create/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "create-heterogeneous";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/create/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/create/verification.json
+            value: '"case": "create"'
+workspace:
+  sources:
+    - id: base
+      type: local-path
+      path: evaluations/semantic-okf-builder/fixtures/workspaces/base
+      target: /
+  setup:
+    initializeGit: true
+    env:
+      PYTHONIOENCODING: utf-8
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const parsed = JSON.parse(output.trim());
+          const keys = Object.keys(parsed);
+          const status = parsed.status;
+          return keys.length === 3
+            && keys[0] === "case"
+            && keys[1] === "status"
+            && keys[2] === "verification"
+            && typeof parsed.case === "string"
+            && ["completed", "failed", "unavailable"].includes(status)
+            && ((status === "completed" && typeof parsed.verification === "string")
+              || (status !== "completed" && parsed.verification === null));
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 900000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without lifecycle instructions or Semantic OKF mutation scripts.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: 'off'
+    - id: skill
+      description: Isolated treatment with only the current build-semantic-okf lifecycle skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf
+              skillId: build-semantic-okf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - builder-skill
+        labels:
+          skill_state: 'on'
+  variants:
+    - id: pi-luna-only
+      description: PI with GPT-5.6 Luna for every isolated lifecycle request.
+      agent:
+        adapter: pi
+        model: openai-codex/gpt-5.6-luna
+        executionMethod: command
+        commandPath: bin/pi-luna.ps1
+        sandboxMode: workspace-write
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: true
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv:
+          PI_MODEL_TIMEOUT_SECONDS: '360'
+        config: {}
+      output:
+        tags:
+          - pi
+          - gpt-5.6-luna
+          - luna-only
+          - lifecycle
+        labels:
+          variantDisplayName: PI GPT-5.6 Luna
+          adapter_family: pi
+          model: openai-codex/gpt-5.6-luna
+          routing: luna-only

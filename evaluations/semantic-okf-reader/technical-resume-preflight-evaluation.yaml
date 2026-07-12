@@ -1,0 +1,175 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-reader-300-technical-resume-preflight
+  description: Limited preflight for the Semantic OKF technical resume route.
+  tags:
+  - semantic-okf
+  - knowledge
+  - retrieval
+  - pi
+  - compare
+  - 300-questions
+  - technical-resume
+  - luna
+task:
+  prompts:
+  - id: q065-relation-traversal
+    description: Isolated semantic question q065
+    prompt: |-
+      Answer one isolated semantic knowledge question. The authoritative Semantic OKF snapshot is available only when your declared capabilities provide it at `knowledge/`. Use only that snapshot; do not use the web, prior knowledge, or guesses.
+
+      For joins, filters, missingness, and aggregates, inspect the complete authoritative artifact, do not stop at the first match, and verify the result before answering. Use every requested JSON key exactly as written; never rename or prefix keys.
+
+      Question: Which project subject IRI is owned by person subject `https://example.org/forty-source/resource/people-03/person-03-a`?
+
+      Return JSON only with exactly these keys in this order: {"question_id":"q065-relation-traversal","answer":<JSON value>,"evidence":[<one or more artifact paths>]}. Return a sufficient evidence set, prefer the smallest useful set, and cite only files that exist in the snapshot. Paths may be relative to the bundle root (`semantic/...` or `concepts/...`) or the workspace (`knowledge/...`). Do not duplicate paths; sort evidence and every set-valued answer array lexicographically. Preserve JSON booleans, numbers, arrays, and objects. If the snapshot is unavailable, return null for `answer` and an empty evidence array.
+    evaluation:
+      assertions:
+      - type: javascript
+        metric: semantic-accuracy
+        value: |
+          const stable = (value) => {
+            if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`;
+            if (value && typeof value === 'object') {
+              return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
+            }
+            if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) {
+              const parsed = new Date(value);
+              if (!Number.isNaN(parsed.valueOf())) return JSON.stringify(parsed.toISOString());
+            }
+            return JSON.stringify(value);
+          };
+          try {
+            const actual = JSON.parse(output.trim());
+            const crypto = process.getBuiltinModule('node:crypto');
+            const digest = crypto.createHash('sha256').update(stable(actual.answer)).digest('hex');
+            return actual.question_id === "q065-relation-traversal"
+              && digest === "210917d4b0bc3e881517747c95ab30e5995ed1823bd50edcdaed1b683250b0c7";
+          } catch {
+            return false;
+          }
+      - type: javascript
+        metric: evidence-grounding
+        value: |
+          const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+          try {
+            const actual = JSON.parse(output.trim());
+            if (actual.question_id !== "q065-relation-traversal") return false;
+            if (actual.answer === null) return actual.evidence.length === 0;
+            const evidence = actual.evidence.map(normalizePath);
+            const accepted = [["semantic/records.jsonl"],["semantic/data.ttl"],["concepts/people-03/person-03-a-b8d8035a31.md","concepts/projects-03/project-03-a-950c026250.md"]];
+            return actual.evidence.length > 0
+              && new Set(evidence).size === evidence.length
+              && JSON.stringify([...evidence].sort()) === JSON.stringify(evidence)
+              && accepted.some((required) => required.every((item) => evidence.includes(item)));
+          } catch {
+            return false;
+          }
+workspace:
+  sources:
+  - id: isolated-base
+    type: local-path
+    path: evaluations/semantic-okf-reader/fixtures/workspaces/base
+    target: /
+  setup:
+    initializeGit: true
+    env:
+      SEMANTIC_OKF_BUNDLE: $WORKSPACE/knowledge
+evaluation:
+  assertions:
+  - type: is-json
+    metric: response-format
+  - type: javascript
+    metric: response-contract
+    value: |
+      try {
+        const parsed = JSON.parse(output.trim());
+        const keys = Object.keys(parsed);
+        return JSON.stringify(keys) === JSON.stringify(['question_id', 'answer', 'evidence'])
+          && typeof parsed.question_id === 'string'
+          && Array.isArray(parsed.evidence)
+          && parsed.evidence.every((item) => typeof item === 'string')
+          && (parsed.answer === null ? parsed.evidence.length === 0 : parsed.evidence.length > 0);
+      } catch {
+        return false;
+      }
+  - type: javascript
+    metric: evidence-path-validity
+    value: |
+      const normalizePath = (value) => value.replaceAll('\\', '/').replace(/^\.\//, '').replace(/^knowledge\//, '');
+      try {
+        const actual = JSON.parse(output.trim());
+        const known = new Set(["concepts/docs-01/sources-markdown-01-retention-policy-9cac150795.md","concepts/docs-02/sources-markdown-02-onboarding-guide-939b5c2578.md","concepts/docs-03/sources-markdown-03-security-checklist-16ac98b6fd.md","concepts/docs-04/sources-markdown-04-architecture-note-fd173cfcd0.md","concepts/docs-05/sources-markdown-05-operations-runbook-c7391b5d92.md","concepts/docs-06/sources-markdown-06-research-summary-d1699510c4.md","concepts/docs-07/sources-markdown-07-product-glossary-9392656d03.md","concepts/docs-08/sources-markdown-08-incident-review-0f6970952a.md","concepts/docs-09/sources-markdown-09-accessibility-guide-7de7f69036.md","concepts/docs-10/sources-markdown-10-data-dictionary-2ca743ed16.md","concepts/people-01/person-01-a-6c0bf30ef6.md","concepts/people-01/person-01-b-a022b2c5fc.md","concepts/people-02/person-02-a-8bf7fb83fb.md","concepts/people-02/person-02-b-a1ca44440c.md","concepts/people-03/person-03-a-b8d8035a31.md","concepts/people-03/person-03-b-50318fa6ac.md","concepts/people-04/person-04-a-72fac71234.md","concepts/people-04/person-04-b-b713381bb8.md","concepts/people-05/person-05-a-68796f3e0f.md","concepts/people-05/person-05-b-aa8131b5fc.md","concepts/people-06/person-06-a-0fab4a466e.md","concepts/people-06/person-06-b-240f8e93b6.md","concepts/people-07/person-07-a-3aaf429bfc.md","concepts/people-07/person-07-b-0b32913ccd.md","concepts/people-08/person-08-a-779d3c80c2.md","concepts/people-08/person-08-b-a8a93a29d0.md","concepts/people-09/person-09-a-e4af477da5.md","concepts/people-09/person-09-b-f9a398f737.md","concepts/people-10/person-10-a-4bc5699c7b.md","concepts/people-10/person-10-b-36e600e204.md","concepts/projects-01/project-01-a-20f1c1d620.md","concepts/projects-01/project-01-b-f4ab8ac839.md","concepts/projects-02/project-02-a-6375eac1a9.md","concepts/projects-02/project-02-b-f7cf7e3a1e.md","concepts/projects-03/project-03-a-950c026250.md","concepts/projects-03/project-03-b-09f5e4ebd6.md","concepts/projects-04/project-04-a-54a8bfe5ca.md","concepts/projects-04/project-04-b-cceecb1798.md","concepts/projects-05/project-05-a-fe813ca101.md","concepts/projects-05/project-05-b-a2ccbf3247.md","concepts/projects-06/project-06-a-7e8c84b5d9.md","concepts/projects-06/project-06-b-50f45f0445.md","concepts/projects-07/project-07-a-1aa2f1fa63.md","concepts/projects-07/project-07-b-88962482b9.md","concepts/projects-08/project-08-a-d60efee262.md","concepts/projects-08/project-08-b-917e641c52.md","concepts/projects-09/project-09-a-d833a0bbb3.md","concepts/projects-09/project-09-b-63d45eaa88.md","concepts/projects-10/project-10-a-91cff7070e.md","concepts/projects-10/project-10-b-0d7cecc601.md","concepts/vocab-01/https-example.org-vocabulary-knowledge-sharing-14700223e3.md","concepts/vocab-02/https-example.org-vocabulary-semantic-boundary-735a5913b8.md","concepts/vocab-03/https-example.org-vocabulary-source-lineage-d1af4a282b.md","concepts/vocab-04/https-example.org-vocabulary-validated-snapshot-07978d36b7.md","concepts/vocab-05/https-example.org-vocabulary-controlled-refresh-35d48842e3.md","concepts/vocab-06/https-example.org-vocabulary-typed-literal-9d4fb55fa2.md","concepts/vocab-07/https-example.org-vocabulary-competency-query-578feea673.md","concepts/vocab-08/https-example.org-vocabulary-graph-isomorphism-a486eed219.md","concepts/vocab-09/https-example.org-vocabulary-progressive-disclosure-35f5d7d867.md","concepts/vocab-10/https-example.org-vocabulary-reproducibility-af37728c57.md","index.md","semantic/build-report.json","semantic/data.ttl","semantic/ontology.ttl","semantic/provenance.ttl","semantic/records.jsonl","semantic/semantic-plan.json","semantic/shapes.ttl","semantic/source-manifest.json","semantic/validation-report.ttl"]);
+        return actual.evidence.every((item) => known.has(normalizePath(item)));
+      } catch {
+        return false;
+      }
+  requests: 1
+  timeoutMs: 240000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+  - id: no-skill
+    description: Strictly isolated control with neither the reader skill nor the snapshot.
+    isolation:
+      inheritSystem: false
+    capabilities: {}
+    output:
+      tags:
+      - control
+      - knowledge-off
+      labels:
+        skill_state: 'off'
+        knowledge_access: 'off'
+  - id: skill
+    description: Strictly isolated profile with the build-semantic-okf skill and pinned knowledge snapshot supplied by one
+      workspace overlay.
+    isolation:
+      inheritSystem: false
+    capabilities:
+      skills:
+      - source:
+          type: local-path
+          path: evaluations/semantic-okf-reader/fixtures/workspaces/skill-overlay
+          skillId: build-semantic-okf
+        install:
+          strategy: workspace-overlay
+    output:
+      tags:
+      - skill
+      - knowledge-on
+      labels:
+        skill_state: 'on'
+        knowledge_access: 'on'
+  variants:
+  - id: pi-openai-gpt56-luna-technical-resume
+    description: PI GPT-5.6 Luna technical resume after the original Codex route exhausted its shared usage limit.
+    agent:
+      adapter: pi
+      model: openrouter/openai/gpt-5.6-luna
+      executionMethod: command
+      commandPath: bin/pi-spark-luna-fallback.ps1
+      sandboxMode: read-only
+      approvalPolicy: never
+      webSearchEnabled: false
+      networkAccessEnabled: true
+      reasoningEffort: low
+      additionalDirectories: []
+      cliEnv:
+        OPENROUTER_API_KEY: $HOST_ENV:OPENROUTER_API_KEY
+        PI_FALLBACK_MODEL: openrouter/openai/gpt-5.6-luna
+        PI_MODEL_TIMEOUT_SECONDS: '90'
+      config: {}
+    output:
+      tags:
+      - pi
+      - gpt-5.6-luna
+      - technical-resume
+      - isolated
+      labels:
+        variantDisplayName: PI GPT-5.6 Luna technical resume
+        adapter_family: pi
+        resume_model: openrouter/openai/gpt-5.6-luna
+        resume_reason: shared-codex-usage-limit

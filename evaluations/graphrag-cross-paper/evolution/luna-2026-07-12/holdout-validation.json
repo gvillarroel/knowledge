@@ -1,0 +1,68 @@
+{
+  "benchmark_id": "graphrag-cross-paper-holdout-6-paired",
+  "model": "openai-codex/gpt-5.6-luna",
+  "holdout_prompt_ids": [
+    "q005-community-hierarchy",
+    "q010-context-organization",
+    "q015-incremental-updates",
+    "q020-domain-adaptation",
+    "q025-benchmark-bias",
+    "q029-static-agentic-retrieval"
+  ],
+  "fitness_definition": "successful cells divided by completed cells; a successful cell passes all six deterministic assertions",
+  "baseline_skill_tree_sha256": "3319d50ebabbf8427c7fb8b667e9d596847138a4abf23c5bab8f97dee5f94641",
+  "candidate_skill_tree_sha256": "4b8dece35b21e79ba5f66984b8d1c656759abf0e37da1323f7b17e0af7c105f1",
+  "knowledge_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+  "initial_candidate_validation": {
+    "eval_id": "eval-4G6-2026-07-12T15:34:08",
+    "run_directory": "results/graphrag-cross-paper-holdout-6-validation/2026-07-12T15-34-02-736Z-compare",
+    "candidate_successful_cells": 3,
+    "candidate_completed_cells": 6,
+    "candidate_assertions_passed": 25,
+    "candidate_assertions_total": 36,
+    "errors": 0,
+    "reason_for_confirmation": "Full-cell fitness improved over the recorded baseline, but the assertion-level diagnostic was mixed. The unchanged candidate required a paired confirmation against the frozen baseline."
+  },
+  "paired_confirmation": {
+    "eval_id": "eval-eK9-2026-07-12T15:41:56",
+    "run_directory": "results/graphrag-cross-paper-holdout-6-paired/2026-07-12T15-41-51-344Z-compare",
+    "requested_cells": 12,
+    "completed_cells": 12,
+    "reused_scenarios": 0,
+    "errors": 0,
+    "baseline": {
+      "successful_cells": 2,
+      "completed_cells": 6,
+      "fitness": 0.3333333333333333,
+      "assertions_passed": 22,
+      "assertions_total": 36,
+      "metrics": {
+        "response-format": 6,
+        "response-contract": 6,
+        "evidence-path-validity": 4,
+        "semantic-structure": 2,
+        "page-citation-grounding": 2,
+        "cross-paper-evidence": 2
+      }
+    },
+    "candidate": {
+      "successful_cells": 4,
+      "completed_cells": 6,
+      "fitness": 0.6666666666666666,
+      "assertions_passed": 30,
+      "assertions_total": 36,
+      "metrics": {
+        "response-format": 6,
+        "response-contract": 6,
+        "evidence-path-validity": 6,
+        "semantic-structure": 4,
+        "page-citation-grounding": 4,
+        "cross-paper-evidence": 4
+      }
+    },
+    "fitness_delta": 0.3333333333333333,
+    "assertion_delta": 8
+  },
+  "decision": "promote",
+  "decision_reason": "The unchanged candidate doubled paired holdout fitness, improved the assertion total and every failing metric group, and introduced no technical error."
+}

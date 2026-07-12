@@ -1,0 +1,303 @@
+{
+  "artifacts": {
+    "data": {
+      "path": "semantic/data.ttl",
+      "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+    },
+    "ontology": {
+      "path": "semantic/ontology.ttl",
+      "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+    },
+    "provenance": {
+      "path": "semantic/provenance.ttl",
+      "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+    },
+    "records": {
+      "path": "semantic/records.jsonl",
+      "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+    },
+    "semantic_plan": {
+      "path": "semantic/semantic-plan.json",
+      "sha256": "7d708e899a1984717399372981b84daaac517f44508ae627b53f4b4a3b08d8d5"
+    },
+    "shapes": {
+      "path": "semantic/shapes.ttl",
+      "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+    },
+    "validation_report": {
+      "path": "semantic/validation-report.ttl",
+      "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+    }
+  },
+  "base_iri": "https://example.org/graphrag-cross-paper/",
+  "okf_version": "0.1",
+  "ontology_iri": "https://example.org/ontology/graphrag-cross-paper",
+  "owl_profile": "RL",
+  "plan_sha256": "82a443f7bac6d1c453c8d6956b87c2bc527a3365ed5f727027f908842c40aa3b",
+  "processor": {
+    "contract_version": "1.0",
+    "name": "semantic-okf-python",
+    "records": 874,
+    "sources": 31
+  },
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "content_sha256": "efa6052544d35e22ed944908693cd3f53a0c49c061fdcc35d53c7db1c24d282b",
+      "id": "analysis-vocabulary",
+      "kind": "json",
+      "path": "sources/semantic/analysis-vocabulary.jsonl",
+      "record_count": 28,
+      "records_sha256": "869c077409e0e5cdc47d7eaab1ff6e97d2901c849d305d8f55184882622a2f23"
+    },
+    {
+      "content_sha256": "8e7dcc07cdeaa66f685fea9791fe09f8e66131699245383bf213a6702434cd7a",
+      "id": "claims-2402-07630v3",
+      "kind": "json",
+      "path": "sources/claims/2402.07630v3.jsonl",
+      "record_count": 59,
+      "records_sha256": "763f9b12203c30730b72f52ceccdc1ec2ba011b17ba3ad76d04f7e55b1282ff7"
+    },
+    {
+      "content_sha256": "d1587364ca84c8b3a4ec91247f0b828fba28b7845e2e520ca4a518e09ed874fe",
+      "id": "claims-2404-16130v2",
+      "kind": "json",
+      "path": "sources/claims/2404.16130v2.jsonl",
+      "record_count": 57,
+      "records_sha256": "073c9a4483e4c4926ebcc33ccb4ed0b1a05019cdd015f9ebc28479b0fc17e275"
+    },
+    {
+      "content_sha256": "50c70656c9d5d54d653f0f4772da5be654d591c8857e2be8519a8d0c36dc3b69",
+      "id": "claims-2405-14831v3",
+      "kind": "json",
+      "path": "sources/claims/2405.14831v3.jsonl",
+      "record_count": 60,
+      "records_sha256": "225fe735abf811a54181d8b066eabcac3178a288af7b7831f47fd8b80e8c95d9"
+    },
+    {
+      "content_sha256": "24ab2f9e24c9cfd26e55ea847cb6e12f3359737416e3a2d4a790128ff14485b4",
+      "id": "claims-2406-14550v2",
+      "kind": "json",
+      "path": "sources/claims/2406.14550v2.jsonl",
+      "record_count": 59,
+      "records_sha256": "74f7a8b767c226e69b9066875369a69d0271196db77dfe1f5b0655505203c618"
+    },
+    {
+      "content_sha256": "5b63ed66a32a71f1c030d3dcc4c06fa9a9a5e4ca13d4ffce81f00d6a484c8b46",
+      "id": "claims-2408-04187v2",
+      "kind": "json",
+      "path": "sources/claims/2408.04187v2.jsonl",
+      "record_count": 60,
+      "records_sha256": "4e5f08153561d7a07221be885b0affc4ee53102dbbf5d173752b6dff4d3c619d"
+    },
+    {
+      "content_sha256": "dbaf99fcaa8c07ec0cd45adab950a6055e3ed9167c8b895648b5f35024bf3951",
+      "id": "claims-2408-08535v1",
+      "kind": "json",
+      "path": "sources/claims/2408.08535v1.jsonl",
+      "record_count": 50,
+      "records_sha256": "20129da09cfa8e2cb3eb211068e0bb2495f3767704b0561aad31cf934b74f2ef"
+    },
+    {
+      "content_sha256": "ea49c87ff7f82f5a4ab72025dc8fdf632e5c2c9f4ffa746599c97d23a60c7d87",
+      "id": "claims-2409-13731v3",
+      "kind": "json",
+      "path": "sources/claims/2409.13731v3.jsonl",
+      "record_count": 58,
+      "records_sha256": "3040a091d8166aabfbb54dddc962a6c03fe6a69ac9ae115888d91f35a705f9de"
+    },
+    {
+      "content_sha256": "23de843f870d899f346a8b3e41f06acfd5f0b3710dbbb8785b35dc469637f757",
+      "id": "claims-2410-05779v3",
+      "kind": "json",
+      "path": "sources/claims/2410.05779v3.jsonl",
+      "record_count": 55,
+      "records_sha256": "750572bd9ad6599395b9869a8654f407d4ae676d34ddc688d063d29f91c1dc85"
+    },
+    {
+      "content_sha256": "4a31e4da8243ccebf87a45d0610c4595b33e8bb705b617e57c3f97f33ff1787f",
+      "id": "claims-2502-14902v2",
+      "kind": "json",
+      "path": "sources/claims/2502.14902v2.jsonl",
+      "record_count": 54,
+      "records_sha256": "2cd88e5b0fcae3c128c458d1f882d4006a86f19f9978fe90985281d6f1476adf"
+    },
+    {
+      "content_sha256": "528fb3599ff025717c359a9a2870e6c0b7e05cca5ca6bf0910b792abcabc4ebe",
+      "id": "claims-2503-06474v2",
+      "kind": "json",
+      "path": "sources/claims/2503.06474v2.jsonl",
+      "record_count": 59,
+      "records_sha256": "2d9556691a8a5d3ba0368f3a000c0b6032866d206bc72199ccc1d24e8b05185c"
+    },
+    {
+      "content_sha256": "f0d8670b8b07e031663cf057223b29ee61b3d08ed8e9567459ef9fba69e101bc",
+      "id": "claims-2503-13804v1",
+      "kind": "json",
+      "path": "sources/claims/2503.13804v1.jsonl",
+      "record_count": 49,
+      "records_sha256": "f8347ea77be905da96e97c783690bd059f553ff7955a2e76ba426b31de73eab5"
+    },
+    {
+      "content_sha256": "d738c9a101ad114aa150702c26d3c4dca95fca5a0ac4ef6e3961d7cea17cbb6f",
+      "id": "claims-2504-02112v2",
+      "kind": "json",
+      "path": "sources/claims/2504.02112v2.jsonl",
+      "record_count": 54,
+      "records_sha256": "74e9db21707a64bb65a6bed74f3f86640325bc415601321d6ee2224677167abd"
+    },
+    {
+      "content_sha256": "a4193ca12ae1ae5056e7c96ed1f143083076eb3ae252df94115a49605c125bc6",
+      "id": "claims-2506-05690v3",
+      "kind": "json",
+      "path": "sources/claims/2506.05690v3.jsonl",
+      "record_count": 50,
+      "records_sha256": "c875fa40486732db23f2273a6fb0ac172171f4e2ac131872b3d7434f9eaeee1d"
+    },
+    {
+      "content_sha256": "506db279440e5f265278b2fe3ab436e067c8eec3e0440a20b6caad55dfc39d8e",
+      "id": "claims-2507-03226v3",
+      "kind": "json",
+      "path": "sources/claims/2507.03226v3.jsonl",
+      "record_count": 51,
+      "records_sha256": "0c26f2109b1c86db2116abfaaf864c92e59bc58d6c11faf4d63bd193357bd643"
+    },
+    {
+      "content_sha256": "97d262f046a9d6abedb20c10277757bd4184ecf5716b0901e0e5cf38a13bd0fa",
+      "id": "claims-2508-19855v3",
+      "kind": "json",
+      "path": "sources/claims/2508.19855v3.jsonl",
+      "record_count": 56,
+      "records_sha256": "cfd9080b6ca18fae9400486924a0fdda0d23f8915df7798c9bb6ebf6e835f75d"
+    },
+    {
+      "content_sha256": "2a96ea5374f0915e49bfbc0f40cee66bbd0b595b21736337d75eeda4627534bd",
+      "id": "paper-2402-07630v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2402.07630v3.md",
+      "record_count": 1,
+      "records_sha256": "bfb0962ccbe00aeaa83ef71ca3708e8ba98b3bb65b962750fbc13fb064fa28e4"
+    },
+    {
+      "content_sha256": "069c7ed25d24b3d16bdfab88d804c89a6bf6cd7cf88e0a213b3c33bbbbccce5e",
+      "id": "paper-2404-16130v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2404.16130v2.md",
+      "record_count": 1,
+      "records_sha256": "4a11b14f61cc87faf033ff2eff37b801c1392ae0700a2d031c86d39467fee429"
+    },
+    {
+      "content_sha256": "c06181e4679f21224e8a002ca3128b106671e55220b1ea9ffe264bfa8be20ddc",
+      "id": "paper-2405-14831v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2405.14831v3.md",
+      "record_count": 1,
+      "records_sha256": "88f1e8642b75da61ffc30b3abde0de70a810fe4ef6d0bfed7c88e4232b845ffc"
+    },
+    {
+      "content_sha256": "9a5e8b91d96e0eb38fb315e0121b19a3e1befccf55d002b1ffff0ee4ec9ab3b2",
+      "id": "paper-2406-14550v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2406.14550v2.md",
+      "record_count": 1,
+      "records_sha256": "5ee5815e5b75a01d85ca71a9b0267150a66e7080fbce7b09d78ae3370684085c"
+    },
+    {
+      "content_sha256": "0c5bd46988e360888683e754a13e2d9e633c7c5d06c85f2ad9abafb4ddf34571",
+      "id": "paper-2408-04187v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2408.04187v2.md",
+      "record_count": 1,
+      "records_sha256": "7ff805f94bba11acf423691d741abb1e050c8129789ef6e67cd7b44a80baeecb"
+    },
+    {
+      "content_sha256": "65f006621610ea96536655183f8a56f2268856a8fa6bc2c6a8b194a656624456",
+      "id": "paper-2408-08535v1",
+      "kind": "markdown",
+      "path": "sources/markdown/2408.08535v1.md",
+      "record_count": 1,
+      "records_sha256": "fe568c44f956b88351d65933fdab3ea3aa412e12738982bd35bee645358c7917"
+    },
+    {
+      "content_sha256": "5e10b4377a86cf602dde239d7483549829ca82372661c6579f041ef139f3acb7",
+      "id": "paper-2409-13731v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2409.13731v3.md",
+      "record_count": 1,
+      "records_sha256": "f264ec4d80bc0bc93e9f337f2a5b93b3d6c644582621a5a69ea5e2e3fa06bda2"
+    },
+    {
+      "content_sha256": "a4c5e8a9e6fa19f56c0be3eb252a4e90018d12caa13c036841529d3983d6d2e4",
+      "id": "paper-2410-05779v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2410.05779v3.md",
+      "record_count": 1,
+      "records_sha256": "fea479f6d0119ed13032cbd56572a8cd9f57d20e5b6313da61817bc026043fe5"
+    },
+    {
+      "content_sha256": "62c68eca88585df8f4ccd8d2137d6db5710d40178e186a844e6bdd090a6b02cc",
+      "id": "paper-2502-14902v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2502.14902v2.md",
+      "record_count": 1,
+      "records_sha256": "c45b9774b398bfaa8f16e864926bcd4dc8df4cb93d4a82d822221ed66a00f5f5"
+    },
+    {
+      "content_sha256": "30a9b8b7e1991a407565d918878536aa9dc9ee6bbde4cc8107d7339b5cb11495",
+      "id": "paper-2503-06474v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2503.06474v2.md",
+      "record_count": 1,
+      "records_sha256": "66d49426f77c670a746cb06f1b90efb71fa5bac1e7d66861e7c8a22c61fb0393"
+    },
+    {
+      "content_sha256": "d99a955dcbd8496020e5f984f91c8b10e174ab4c8fbe590481fdd021ea034d6b",
+      "id": "paper-2503-13804v1",
+      "kind": "markdown",
+      "path": "sources/markdown/2503.13804v1.md",
+      "record_count": 1,
+      "records_sha256": "d001fe5bc1794b38226e584efbe1c979f91ff90386fbc20f383812dc16da53ab"
+    },
+    {
+      "content_sha256": "cf9892f8113ed9708d20bf9accb22f37eccd2d188344ce518047c7b990e62e9b",
+      "id": "paper-2504-02112v2",
+      "kind": "markdown",
+      "path": "sources/markdown/2504.02112v2.md",
+      "record_count": 1,
+      "records_sha256": "219d3f9b74b7fd460e1093058b81029734c4a0cfeac0b0377e168d8f5f267d6a"
+    },
+    {
+      "content_sha256": "c24315acbe32ba9b00a7e7b701385f5e4925634bbd27cd6af9ddc63037858f22",
+      "id": "paper-2506-05690v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2506.05690v3.md",
+      "record_count": 1,
+      "records_sha256": "d224a85836e276126415fed51f6e368e58d88d38bfda325b79f190cc98e059b1"
+    },
+    {
+      "content_sha256": "eacd0df839e833a512f7fce1c724b2ecf521908901c9fd80755fd9767eef0dd8",
+      "id": "paper-2507-03226v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2507.03226v3.md",
+      "record_count": 1,
+      "records_sha256": "1225d662d0245e1f1e334aa8e92559cf962abe64b6466cf65c91f393f8e8eed9"
+    },
+    {
+      "content_sha256": "cd1e78090bfb7f71328f05fe1edf5b827f727bf94fd0795ffdd6cb9121aeb3a2",
+      "id": "paper-2508-19855v3",
+      "kind": "markdown",
+      "path": "sources/markdown/2508.19855v3.md",
+      "record_count": 1,
+      "records_sha256": "5d50ff6d69d4fa3474267e9347fa1202be5f12024487fff00a952bf0f3aeed65"
+    }
+  ],
+  "validation": {
+    "coherence": "pass",
+    "okf": "pass",
+    "owl_consistency": "not_checked",
+    "owl_profile": "not_checked",
+    "rdf": "pass",
+    "shacl": "conformant"
+  },
+  "version_iri": "https://example.org/ontology/graphrag-cross-paper/1.0.0"
+}

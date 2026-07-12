@@ -1,0 +1,19 @@
+{
+  "traceId": "luna-2026-07-12-skill-q021-fact-checking-versus-qa",
+  "outcome": "failure",
+  "benchmarkId": "graphrag-cross-paper-30-compare",
+  "promptId": "q021-fact-checking-versus-qa",
+  "issues": [
+    "invalid-evidence-path",
+    "insufficient-focus-paper-coverage",
+    "insufficient-focus-page-citation-coverage",
+    "insufficient-focus-cross-paper-evidence"
+  ],
+  "strengths": [
+    "valid-response-format",
+    "strong-output-contract"
+  ],
+  "notes": "Deterministic failures: [{\"metric\":\"evidence-path-validity\",\"kind\":\"nonexistent-paths\",\"paths\":[\"knowledge/concepts/paper-2405-14831v3.md\",\"knowledge/concepts/paper-2406-14550v2.md\",\"knowledge/concepts/paper-2408-04187v2.md\",\"knowledge/concepts/paper-2408-08535v1.md\",\"knowledge/concepts/paper-2409-13731v3.md\",\"knowledge/concepts/paper-2508-19855v3.md\"]},{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2406.14550v2\",\"2508.19855v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2405.14831v3\",\"2408.04187v2\",\"2408.08535v1\",\"2409.13731v3\"]}]. Counts: {\"summary_words\":234,\"dimensions\":4,\"paper_ids\":6,\"focus_paper_ids\":4,\"citations\":6,\"focus_citations\":4,\"citation_pages\":22,\"evidence\":22,\"focus_evidence_papers\":4}.",
+  "filesTouched": [],
+  "score": 0.3333333333333333
+}

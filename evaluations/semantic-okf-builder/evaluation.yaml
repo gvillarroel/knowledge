@@ -1,0 +1,310 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-builder-lifecycle-compare
+  description: Compare isolated PI lifecycle work with and without the build-semantic-okf skill across deterministic mutation and safety tasks.
+  tags:
+    - semantic-okf
+    - lifecycle
+    - builder
+    - compare
+    - luna-only
+task:
+  prompts:
+    - id: create-heterogeneous
+      description: Create and validate a new bundle from Markdown, CSV, JSONL, and RDF sources.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"create-heterogeneous","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py create work/create --force --reset-deliverable deliverables/create
+
+        Build `work/create/manifest.json` into `deliverables/create/bundle` with the skill's real builder. The reviewed manifest contains Markdown, CSV, JSONL, and RDF inputs. Run the independent bundle validator, then run:
+        python verification/verify_lifecycle.py create --workspace . --report deliverables/create/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"create-heterogeneous","status":"completed","verification":"deliverables/create/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "create-heterogeneous";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/create/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/create/verification.json
+            value: '"case": "create"'
+    - id: augment-add-source
+      description: Add a reviewed source and advance the ontology version through guarded refresh.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"augment-add-source","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py augment work/augment --force --reset-deliverable deliverables/augment
+
+        Build `work/augment/manifest-v1.json` into `deliverables/augment/bundle`. Then refresh that existing bundle from `work/augment/manifest-v2.json`, which adds the reviewed `projects` source and advances the ontology version. Apply only the required plan-change approval. Save the refresh command's JSON stdout exactly as `deliverables/augment/refresh-report.json`. Run:
+        python verification/verify_lifecycle.py augment --workspace . --report deliverables/augment/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"augment-add-source","status":"completed","verification":"deliverables/augment/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "augment-add-source";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/augment/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/augment/verification.json
+            value: '"case": "augment"'
+    - id: refresh-changed-source
+      description: Reprocess a changed source into a complete validated replacement snapshot.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"refresh-changed-source","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py refresh work/refresh --force --reset-deliverable deliverables/refresh
+
+        Build `work/refresh/manifest.json` into `deliverables/refresh/bundle`. Replace only `work/refresh/live/people.csv` with `work/refresh/seeds/people-v2.csv`, then run a normal full-source refresh with the unchanged manifest. Save the refresh command's JSON stdout exactly as `deliverables/refresh/refresh-report.json`. Run:
+        python verification/verify_lifecycle.py refresh --workspace . --report deliverables/refresh/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"refresh-changed-source","status":"completed","verification":"deliverables/refresh/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "refresh-changed-source";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/refresh/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/refresh/verification.json
+            value: '"case": "refresh"'
+    - id: remove-source-safely
+      description: Demonstrate removal blockers, ontology-version safety, and approved promotion.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"remove-source-safely","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py remove work/remove --force --reset-deliverable deliverables/remove
+
+        Build `work/remove/manifest-v1.json` into `deliverables/remove/bundle`. Preview refresh with `work/remove/manifest-v2-reused-version.json` and no approval flags. The expected exit code is 3; save its JSON stdout exactly as `deliverables/remove/safety-report.json` and confirm that plan change, record removal, and ontology-version reuse are all blocked. Then refresh with `work/remove/manifest-v2.json`, applying the explicit plan-change and record-removal approvals, and save its JSON stdout exactly as `deliverables/remove/refresh-report.json`. Run:
+        python verification/verify_lifecycle.py remove --workspace . --report deliverables/remove/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"remove-source-safely","status":"completed","verification":"deliverables/remove/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "remove-source-safely";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/remove/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/remove/verification.json
+            value: '"case": "remove"'
+    - id: choose-source-topology
+      description: Select the reviewed topology for four materially different source-combination cases.
+      prompt: |
+        Use the installed $build-semantic-okf skill and read its source-combination protocol. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not infer the policy from general knowledge or modify the workspace; return exactly {"case":"choose-source-topology","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py topology work/topology --force --reset-deliverable deliverables/topology
+
+        Read `work/topology/topology-request.json`. Write `deliverables/topology/decision.json` as one JSON object mapping every scenario ID to exactly one of `separate-bundles`, `separate-in-bundle`, `logical-union`, or `upstream-canonicalization`. Do not add explanatory keys. Run:
+        python verification/verify_lifecycle.py topology --workspace . --report deliverables/topology/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"choose-source-topology","status":"completed","verification":"deliverables/topology/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "choose-source-topology";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/topology/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/topology/verification.json
+            value: '"case": "topology"'
+    - id: atomic-rejection-recovery
+      description: Reject duplicate identities atomically and recover an interrupted refresh transaction.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"atomic-rejection-recovery","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py atomic work/atomic --force --reset-deliverable deliverables/atomic
+
+        Attempt to build `work/atomic/manifest-invalid.json` into `deliverables/atomic/rejected`. The duplicate identity must fail atomically with exit code 2; save its JSON stdout exactly as `deliverables/atomic/rejection-report.json` and verify that no rejected output or staging tree was published. Build `work/atomic/manifest-valid.json` into `deliverables/atomic/bundle`. Run `python cases/prepare_interruption.py deliverables/atomic/bundle` to create the reviewed interrupted-transaction fixture, then use the skill's recovery command and save its JSON stdout exactly as `deliverables/atomic/recovery-report.json`. Run:
+        python verification/verify_lifecycle.py atomic --workspace . --report deliverables/atomic/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"atomic-rejection-recovery","status":"completed","verification":"deliverables/atomic/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "atomic-rejection-recovery";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/atomic/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/atomic/verification.json
+            value: '"case": "atomic"'
+    - id: detect-tampering
+      description: Detect post-build data-graph tampering with independent validation.
+      prompt: |
+        Use the installed $build-semantic-okf skill. If `skills/build-semantic-okf/SKILL.md` is unavailable, do not recreate the implementation or modify the workspace; return exactly {"case":"detect-tampering","status":"unavailable","verification":null}.
+
+        Otherwise, prepare a clean case with:
+        python cases/setup_case.py tamper work/tamper --force --reset-deliverable deliverables/tamper
+
+        Build `work/tamper/manifest.json` into `deliverables/tamper/bundle` and validate it successfully. Copy that complete bundle to `deliverables/tamper/tampered`, append the valid Turtle triple `<https://example.org/tamper-extra> <https://example.org/ontology/tamper#name> "Injected" .` to its `semantic/data.ttl`, and run the independent validator against the tampered copy. Validation is expected to exit 1; save its JSON stdout exactly as `deliverables/tamper/validation-report.json`. Leave the original bundle unchanged. Run:
+        python verification/verify_lifecycle.py tamper --workspace . --report deliverables/tamper/verification.json
+
+        Repair any failure before finishing. Return JSON only with exactly these keys in this order: {"case":"detect-tampering","status":"completed","verification":"deliverables/tamper/verification.json"}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: case-contract
+            value: |
+              try {
+                const parsed = JSON.parse(output.trim());
+                return parsed.case === "detect-tampering";
+              } catch { return false; }
+          - type: file-contains
+            metric: lifecycle-verification
+            path: deliverables/tamper/verification.json
+            value: '"pass": true'
+          - type: file-contains
+            metric: lifecycle-case
+            path: deliverables/tamper/verification.json
+            value: '"case": "tamper"'
+workspace:
+  sources:
+    - id: base
+      type: local-path
+      path: evaluations/semantic-okf-builder/fixtures/workspaces/base
+      target: /
+  setup:
+    initializeGit: true
+    env:
+      PYTHONIOENCODING: utf-8
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const parsed = JSON.parse(output.trim());
+          const keys = Object.keys(parsed);
+          const status = parsed.status;
+          return keys.length === 3
+            && keys[0] === "case"
+            && keys[1] === "status"
+            && keys[2] === "verification"
+            && typeof parsed.case === "string"
+            && ["completed", "failed", "unavailable"].includes(status)
+            && ((status === "completed" && typeof parsed.verification === "string")
+              || (status !== "completed" && parsed.verification === null));
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 900000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without lifecycle instructions or Semantic OKF mutation scripts.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: 'off'
+    - id: skill
+      description: Isolated treatment with only the current build-semantic-okf lifecycle skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf
+              skillId: build-semantic-okf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - builder-skill
+        labels:
+          skill_state: 'on'
+  variants:
+    - id: pi-luna-only
+      description: PI with GPT-5.6 Luna for every isolated lifecycle request.
+      agent:
+        adapter: pi
+        model: openai-codex/gpt-5.6-luna
+        executionMethod: command
+        commandPath: bin/pi-luna.ps1
+        sandboxMode: workspace-write
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: true
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv:
+          PI_MODEL_TIMEOUT_SECONDS: '360'
+        config: {}
+      output:
+        tags:
+          - pi
+          - gpt-5.6-luna
+          - luna-only
+          - lifecycle
+        labels:
+          variantDisplayName: PI GPT-5.6 Luna
+          adapter_family: pi
+          model: openai-codex/gpt-5.6-luna
+          routing: luna-only
+

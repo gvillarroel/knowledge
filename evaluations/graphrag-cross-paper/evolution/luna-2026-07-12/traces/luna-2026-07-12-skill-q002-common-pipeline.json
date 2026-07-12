@@ -1,0 +1,19 @@
+{
+  "traceId": "luna-2026-07-12-skill-q002-common-pipeline",
+  "outcome": "failure",
+  "benchmarkId": "graphrag-cross-paper-30-compare",
+  "promptId": "q002-common-pipeline",
+  "issues": [
+    "insufficient-focus-cross-paper-evidence",
+    "insufficient-focus-page-citation-coverage",
+    "insufficient-focus-paper-coverage"
+  ],
+  "strengths": [
+    "strong-output-contract",
+    "valid-evidence-paths",
+    "valid-response-format"
+  ],
+  "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2405.14831v3\",\"2406.14550v2\",\"2502.14902v2\",\"2504.02112v2\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2408.04187v2\",\"2409.13731v3\",\"2410.05779v3\",\"2503.06474v2\",\"2508.19855v3\"]}]. Counts: {\"summary_words\":236,\"dimensions\":4,\"paper_ids\":9,\"focus_paper_ids\":5,\"citations\":9,\"focus_citations\":5,\"citation_pages\":25,\"evidence\":9,\"focus_evidence_papers\":5}.",
+  "filesTouched": [],
+  "score": 0.5
+}

@@ -1,0 +1,19 @@
+{
+  "traceId": "luna-2026-07-12-skill-q027-community-construction",
+  "outcome": "failure",
+  "benchmarkId": "graphrag-cross-paper-30-compare",
+  "promptId": "q027-community-construction",
+  "issues": [
+    "insufficient-focus-paper-coverage",
+    "insufficient-focus-page-citation-coverage",
+    "insufficient-focus-cross-paper-evidence"
+  ],
+  "strengths": [
+    "valid-response-format",
+    "strong-output-contract",
+    "valid-evidence-paths"
+  ],
+  "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":3,\"required\":4,\"nonfocus_selected\":[\"2408.04187v2\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":3,\"required\":4},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":3,\"required\":4,\"covered_paper_ids\":[\"2404.16130v2\",\"2408.08535v1\",\"2508.19855v3\"]}]. Counts: {\"summary_words\":224,\"dimensions\":10,\"paper_ids\":4,\"focus_paper_ids\":3,\"citations\":4,\"focus_citations\":3,\"citation_pages\":13,\"evidence\":18,\"focus_evidence_papers\":3}.",
+  "filesTouched": [],
+  "score": 0.5
+}

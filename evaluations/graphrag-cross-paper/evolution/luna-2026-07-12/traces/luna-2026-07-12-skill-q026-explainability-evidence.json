@@ -1,0 +1,19 @@
+{
+  "traceId": "luna-2026-07-12-skill-q026-explainability-evidence",
+  "outcome": "failure",
+  "benchmarkId": "graphrag-cross-paper-30-compare",
+  "promptId": "q026-explainability-evidence",
+  "issues": [
+    "insufficient-focus-cross-paper-evidence",
+    "insufficient-focus-page-citation-coverage",
+    "insufficient-focus-paper-coverage"
+  ],
+  "strengths": [
+    "strong-output-contract",
+    "valid-evidence-paths",
+    "valid-response-format"
+  ],
+  "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2404.16130v2\",\"2503.13804v1\",\"2506.05690v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2402.07630v3\",\"2408.08535v1\",\"2409.13731v3\",\"2502.14902v2\",\"2503.06474v2\"]}]. Counts: {\"summary_words\":261,\"dimensions\":6,\"paper_ids\":8,\"focus_paper_ids\":5,\"citations\":8,\"focus_citations\":5,\"citation_pages\":38,\"evidence\":10,\"focus_evidence_papers\":5}.",
+  "filesTouched": [],
+  "score": 0.5
+}

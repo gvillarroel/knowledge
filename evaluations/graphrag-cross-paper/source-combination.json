@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "decision": "separate-in-bundle",
+  "bundle_id": "graphrag-cross-paper-2026-07",
+  "rationale": "Each pinned paper is an independent scholarly authority, but all papers may share one reproducible evaluation release and validation lifecycle.",
+  "paper_members": [
+    "paper-2404-16130-v2",
+    "paper-2402-07630-v3",
+    "paper-2405-14831-v3",
+    "paper-2406-14550-v2",
+    "paper-2408-04187-v2",
+    "paper-2408-08535-v1",
+    "paper-2409-13731-v3",
+    "paper-2410-05779-v3",
+    "paper-2502-14902-v2",
+    "paper-2503-06474-v2",
+    "paper-2503-13804-v1",
+    "paper-2504-02112-v2",
+    "paper-2507-03226-v3",
+    "paper-2508-19855-v3",
+    "paper-2506-05690-v3"
+  ],
+  "identity_scope": "source-id-and-record-id",
+  "duplicate_policy": "reject-within-identity-scope",
+  "record_fusion": false,
+  "raw_source_inventory": "sources/inventory.json",
+  "derived_analysis": {
+    "mode": "source-scoped-reviewed-claims",
+    "description": "Each paper has its own derived claim source. Claims expose a common analysis dimension and a paper-specific interpretation without asserting that differently worded methods are equivalent.",
+    "claim_authority": "paper-specific-review",
+    "cross_paper_winner_selection": false,
+    "automatic_same_as": false,
+    "shared_vocabulary": "analysis-vocabulary"
+  },
+  "governance": {
+    "release_boundary": "single-evaluation-snapshot",
+    "access_boundary": false,
+    "review_reference": "analysis/review-ledger.json",
+    "approval_reference": "evaluation-study-review"
+  }
+}

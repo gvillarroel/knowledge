@@ -1,0 +1,454 @@
+{
+  "importedAt": "2026-07-12T15:32:43.673Z",
+  "traces": [
+    {
+      "traceId": "luna-2026-07-12-skill-q001-methodology-taxonomy",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q001-methodology-taxonomy",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":207,\"dimensions\":7,\"paper_ids\":11,\"focus_paper_ids\":11,\"citations\":11,\"focus_citations\":11,\"citation_pages\":35,\"evidence\":11,\"focus_evidence_papers\":11}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q002-common-pipeline",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q002-common-pipeline",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2405.14831v3\",\"2406.14550v2\",\"2502.14902v2\",\"2504.02112v2\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2408.04187v2\",\"2409.13731v3\",\"2410.05779v3\",\"2503.06474v2\",\"2508.19855v3\"]}]. Counts: {\"summary_words\":236,\"dimensions\":4,\"paper_ids\":9,\"focus_paper_ids\":5,\"citations\":9,\"focus_citations\":5,\"citation_pages\":25,\"evidence\":9,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q003-graph-origin-representation",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q003-graph-origin-representation",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2503.13804v1\",\"2504.02112v2\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2402.07630v3\",\"2404.16130v2\",\"2405.14831v3\",\"2406.14550v2\",\"2410.05779v3\"]}]. Counts: {\"summary_words\":237,\"dimensions\":4,\"paper_ids\":7,\"focus_paper_ids\":5,\"citations\":7,\"focus_citations\":5,\"citation_pages\":22,\"evidence\":15,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q004-retrieval-units",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q004-retrieval-units",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":221,\"dimensions\":4,\"paper_ids\":8,\"focus_paper_ids\":7,\"citations\":8,\"focus_citations\":7,\"citation_pages\":29,\"evidence\":8,\"focus_evidence_papers\":7}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q006-path-subgraph-reasoning",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q006-path-subgraph-reasoning",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2410.05779v3\",\"2503.13804v1\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2409.13731v3\",\"2502.14902v2\",\"2504.02112v2\",\"2508.19855v3\"]}]. Counts: {\"summary_words\":222,\"dimensions\":6,\"paper_ids\":6,\"focus_paper_ids\":4,\"citations\":6,\"focus_citations\":4,\"citation_pages\":23,\"evidence\":14,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q007-diffusion-versus-traversal",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q007-diffusion-versus-traversal",
+      "issues": [
+        "invalid-evidence-path"
+      ],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"evidence-path-validity\",\"kind\":\"nonexistent-paths\",\"paths\":[\"knowledge/concepts/analysis-vocabulary/method-2504-02112v2-7384607c0f.md\"]}]. Counts: {\"summary_words\":256,\"dimensions\":10,\"paper_ids\":5,\"focus_paper_ids\":4,\"citations\":5,\"focus_citations\":4,\"citation_pages\":16,\"evidence\":11,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.8333333333333334
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q008-local-global-queries",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q008-local-global-queries",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":249,\"dimensions\":5,\"paper_ids\":6,\"focus_paper_ids\":5,\"citations\":6,\"focus_citations\":5,\"citation_pages\":24,\"evidence\":19,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q009-query-processing-routing",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q009-query-processing-routing",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":221,\"dimensions\":5,\"paper_ids\":5,\"focus_paper_ids\":5,\"citations\":5,\"focus_citations\":5,\"citation_pages\":16,\"evidence\":17,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q011-vector-graph-hybrid",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q011-vector-graph-hybrid",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2408.04187v2\",\"2502.14902v2\",\"2508.19855v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2402.07630v3\",\"2405.14831v3\",\"2409.13731v3\",\"2507.03226v3\"]}]. Counts: {\"summary_words\":228,\"dimensions\":7,\"paper_ids\":7,\"focus_paper_ids\":4,\"citations\":7,\"focus_citations\":4,\"citation_pages\":23,\"evidence\":21,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q012-llm-roles",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q012-llm-roles",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":241,\"dimensions\":4,\"paper_ids\":11,\"focus_paper_ids\":8,\"citations\":11,\"focus_citations\":8,\"citation_pages\":37,\"evidence\":11,\"focus_evidence_papers\":8}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q013-offline-construction-cost",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q013-offline-construction-cost",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":232,\"dimensions\":5,\"paper_ids\":8,\"focus_paper_ids\":7,\"citations\":8,\"focus_citations\":7,\"citation_pages\":29,\"evidence\":29,\"focus_evidence_papers\":7}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q014-online-efficiency",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q014-online-efficiency",
+      "issues": [
+        "invalid-evidence-path",
+        "output-contract-mismatch"
+      ],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"response-contract\",\"kind\":\"unsorted-evidence\"},{\"metric\":\"evidence-path-validity\",\"kind\":\"nonexistent-paths\",\"paths\":[\"knowledge/concepts/claims-2404-16130v2/claim-2404-16130v2-001-*.md\",\"knowledge/concepts/claims-2405-14831v3/claim-2405-14831v3-001-*.md\",\"knowledge/concepts/claims-2410-05779v3/claim-2410-05779v3-001-*.md\",\"knowledge/concepts/claims-2502-14902v2/claim-2502-14902v2-045.md\",\"knowledge/concepts/claims-2503-13804v1/claim-2503-13804v1-001.md\",\"knowledge/concepts/claims-2507-03226v3/claim-2507-03226v3-001.md\",\"knowledge/concepts/claims-2508-19855v3/claim-2508-19855v3-001.md\"]}]. Counts: {\"summary_words\":226,\"dimensions\":4,\"paper_ids\":8,\"focus_paper_ids\":7,\"citations\":8,\"focus_citations\":7,\"citation_pages\":21,\"evidence\":16,\"focus_evidence_papers\":7}.",
+      "filesTouched": [],
+      "score": 0.6666666666666666
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q016-noise-redundancy",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q016-noise-redundancy",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":213,\"dimensions\":4,\"paper_ids\":9,\"focus_paper_ids\":7,\"citations\":9,\"focus_citations\":7,\"citation_pages\":28,\"evidence\":18,\"focus_evidence_papers\":7}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q017-imperfect-graphs",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q017-imperfect-graphs",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2406.14550v2\",\"2502.14902v2\",\"2507.03226v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2405.14831v3\",\"2408.04187v2\",\"2409.13731v3\",\"2503.06474v2\",\"2503.13804v1\"]}]. Counts: {\"summary_words\":234,\"dimensions\":4,\"paper_ids\":8,\"focus_paper_ids\":5,\"citations\":8,\"focus_citations\":5,\"citation_pages\":30,\"evidence\":8,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q018-grounding-safety",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q018-grounding-safety",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":240,\"dimensions\":4,\"paper_ids\":8,\"focus_paper_ids\":6,\"citations\":8,\"focus_citations\":6,\"citation_pages\":32,\"evidence\":12,\"focus_evidence_papers\":6}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q019-external-parametric-balance",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q019-external-parametric-balance",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage",
+        "invalid-evidence-path"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"evidence-path-validity\",\"kind\":\"nonexistent-paths\",\"paths\":[\"knowledge/concepts/paper-2402-07630v3/method-2402-07630v3-335db094a0.md\",\"knowledge/concepts/paper-2405-14831v3/method-2405-14831v3-3aa9d225d5.md\",\"knowledge/concepts/paper-2409-13731v3/method-2409-13731v3-92623f0dd4.md\",\"knowledge/concepts/paper-2410-05779v3/method-2410-05779v3-8982f6a378.md\",\"knowledge/concepts/paper-2503-13804v1/method-2503-13804v1-69cfb69dbc.md\",\"knowledge/concepts/paper-2506-05690v3/method-2506-05690v3-210525e8a2.md\",\"knowledge/concepts/paper-2508-19855v3/method-2508-19855v3-84f3f7a368.md\"]},{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2402.07630v3\",\"2410.05779v3\",\"2508.19855v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2405.14831v3\",\"2409.13731v3\",\"2503.13804v1\",\"2506.05690v3\"]}]. Counts: {\"summary_words\":221,\"dimensions\":4,\"paper_ids\":7,\"focus_paper_ids\":4,\"citations\":7,\"focus_citations\":4,\"citation_pages\":18,\"evidence\":24,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.3333333333333333
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q021-fact-checking-versus-qa",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q021-fact-checking-versus-qa",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage",
+        "invalid-evidence-path"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"evidence-path-validity\",\"kind\":\"nonexistent-paths\",\"paths\":[\"knowledge/concepts/paper-2405-14831v3.md\",\"knowledge/concepts/paper-2406-14550v2.md\",\"knowledge/concepts/paper-2408-04187v2.md\",\"knowledge/concepts/paper-2408-08535v1.md\",\"knowledge/concepts/paper-2409-13731v3.md\",\"knowledge/concepts/paper-2508-19855v3.md\"]},{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2406.14550v2\",\"2508.19855v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2405.14831v3\",\"2408.04187v2\",\"2408.08535v1\",\"2409.13731v3\"]}]. Counts: {\"summary_words\":234,\"dimensions\":4,\"paper_ids\":6,\"focus_paper_ids\":4,\"citations\":6,\"focus_citations\":4,\"citation_pages\":22,\"evidence\":22,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.3333333333333333
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q022-long-context-sensemaking",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q022-long-context-sensemaking",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2409.13731v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2404.16130v2\",\"2405.14831v3\",\"2406.14550v2\",\"2410.05779v3\"]}]. Counts: {\"summary_words\":207,\"dimensions\":4,\"paper_ids\":5,\"focus_paper_ids\":4,\"citations\":5,\"focus_citations\":4,\"citation_pages\":16,\"evidence\":5,\"focus_evidence_papers\":4}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q023-method-task-matrix",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q023-method-task-matrix",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":212,\"dimensions\":4,\"paper_ids\":10,\"focus_paper_ids\":10,\"citations\":10,\"focus_citations\":10,\"citation_pages\":43,\"evidence\":10,\"focus_evidence_papers\":10}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q024-evaluation-practices",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q024-evaluation-practices",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":212,\"dimensions\":9,\"paper_ids\":9,\"focus_paper_ids\":8,\"citations\":9,\"focus_citations\":8,\"citation_pages\":45,\"evidence\":18,\"focus_evidence_papers\":8}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q026-explainability-evidence",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q026-explainability-evidence",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":5,\"required\":6,\"nonfocus_selected\":[\"2404.16130v2\",\"2503.13804v1\",\"2506.05690v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":5,\"required\":6},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":5,\"required\":6,\"covered_paper_ids\":[\"2402.07630v3\",\"2408.08535v1\",\"2409.13731v3\",\"2502.14902v2\",\"2503.06474v2\"]}]. Counts: {\"summary_words\":261,\"dimensions\":6,\"paper_ids\":8,\"focus_paper_ids\":5,\"citations\":8,\"focus_citations\":5,\"citation_pages\":38,\"evidence\":10,\"focus_evidence_papers\":5}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q027-community-construction",
+      "outcome": "failure",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q027-community-construction",
+      "issues": [
+        "insufficient-focus-cross-paper-evidence",
+        "insufficient-focus-page-citation-coverage",
+        "insufficient-focus-paper-coverage"
+      ],
+      "strengths": [
+        "strong-output-contract",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":3,\"required\":4,\"nonfocus_selected\":[\"2408.04187v2\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":3,\"required\":4},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":3,\"required\":4,\"covered_paper_ids\":[\"2404.16130v2\",\"2408.08535v1\",\"2508.19855v3\"]}]. Counts: {\"summary_words\":224,\"dimensions\":10,\"paper_ids\":4,\"focus_paper_ids\":3,\"citations\":4,\"focus_citations\":3,\"citation_pages\":13,\"evidence\":18,\"focus_evidence_papers\":3}.",
+      "filesTouched": [],
+      "score": 0.5
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q028-optimization-operators",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q028-optimization-operators",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":215,\"dimensions\":5,\"paper_ids\":9,\"focus_paper_ids\":8,\"citations\":9,\"focus_citations\":8,\"citation_pages\":21,\"evidence\":20,\"focus_evidence_papers\":8}.",
+      "filesTouched": [],
+      "score": 1
+    },
+    {
+      "traceId": "luna-2026-07-12-skill-q030-design-decision-framework",
+      "outcome": "success",
+      "benchmarkId": "graphrag-cross-paper-30-compare",
+      "promptId": "q030-design-decision-framework",
+      "issues": [],
+      "strengths": [
+        "complete-semantic-structure",
+        "grounded-focus-page-citations",
+        "strong-output-contract",
+        "sufficient-focus-cross-paper-evidence",
+        "valid-evidence-paths",
+        "valid-response-format"
+      ],
+      "notes": "All six deterministic assertions passed. Counts: {\"summary_words\":243,\"dimensions\":13,\"paper_ids\":15,\"focus_paper_ids\":15,\"citations\":15,\"focus_citations\":15,\"citation_pages\":54,\"evidence\":15,\"focus_evidence_papers\":15}.",
+      "filesTouched": [],
+      "score": 1
+    }
+  ],
+  "counts": {
+    "total": 24,
+    "successes": 12,
+    "failures": 12
+  }
+}

@@ -22,6 +22,9 @@ Build a Python CLI called `know` to manage a local knowledge base in `~/.knowled
 - exporting normalized Markdown documents with YAML frontmatter;
 - exporting Open Knowledge Format (OKF) v0.1-compatible Markdown concept documents;
 - publishing a strict, generated OKF v0.1 subdirectory for the project and every repository skill;
+- selecting a reviewed Semantic OKF source-combination topology that either preserves source boundaries or treats compatible physical partitions as one logical source;
+- refreshing generated Semantic OKF snapshots by fully reprocessing their declared sources;
+- consulting Semantic OKF knowledge efficiently through ledger, Markdown, and local SPARQL workflows;
 - preserving traceability back to the original source;
 - supporting repeatable updates through explicit commands stored with each key;
 - browsing knowledge interactively with sync-status indicators;
@@ -48,6 +51,11 @@ Television channel definitions may also be attached when a key needs reproducibl
 - Video sources must be normalized through transcription before export so they can be consumed like the rest of the text-oriented library.
 - Cross-platform compatibility: use `tempfile.gettempdir()` instead of hard-coded paths.
 - Native `SKILL.md` frontmatter must remain limited to `name` and `description`; OKF skill interoperability is provided by a generated projection rather than nested compatibility metadata.
+- Semantic OKF refreshes must rebuild complete snapshots, validate before promotion, report additions/changes/removals, and never merge generated trees in place.
+- Semantic OKF query workflows must select the cheapest authoritative layer and keep domain data, ontology, provenance, and validation graphs distinct unless a query explicitly requires their union.
+- Semantic OKF multi-input plans must distinguish source-scoped separation, homogeneous partition union, and upstream entity fusion; they must never silently deduplicate, select winners, or imply access isolation that the generated default data graph does not provide.
+- Semantic OKF CSV ingestion must match exact physical header names independently of JSON schema member order, apply deterministic strict Python scalar parsing, and reject ambiguous or lossy input.
+- Semantic OKF adapters must reprocess every declared source, detect both content changes and glob-membership changes, and remain deterministic without an external data-processing engine.
 
 ## Non-functional Requirements
 
@@ -590,6 +598,47 @@ tv --source-command='know search jira "" --project KAN --format television' \
 A `SKILL.md` file in `skills/know/` provides usage instructions for the CLI, including Television integration patterns and credential management.
 
 The repository also ships `skills/open-knowledge-format/`, which documents the reviewed Google Cloud OKF v0.1 contract and provides deterministic bundle generation and validation scripts.
+
+The repository must expose Semantic OKF lifecycle and consultation as two distinct skills with mutually exclusive mutation authority.
+
+The write-capable `skills/build-semantic-okf/` skill must:
+
+- choose and record whether multiple inputs remain separate, form one homogeneous partition union, or require upstream canonicalization;
+- create a new coherent bundle from a reviewed manifest;
+- add, change, or remove declared sources and their reviewed mappings without silently changing domain meaning;
+- refresh an existing bundle by reprocessing all original sources into a validated replacement snapshot; and
+- validate semantic, provenance, SHACL, and OKF coherence before publication or promotion.
+
+The read-only `skills/consult-semantic-okf/` skill must:
+
+- consume an existing validated snapshot without modifying its manifest, sources, generated concepts, semantic graphs, or reports;
+- choose the cheapest authoritative consultation layer: `records.jsonl` for exact metadata, concept Markdown for lexical discovery and reading, and explicitly selected RDF graphs for joins, aggregation, schema, lineage, or validation questions;
+- answer and synthesize knowledge across one or more sources with verified citations, page locators, and exact artifact paths; and
+- keep domain data, ontology, provenance, shapes, and validation results distinct unless the question explicitly requires a reviewed union.
+
+Requests that create, expand, reprocess, repair, or otherwise mutate a Semantic OKF snapshot must route to `build-semantic-okf`. Requests that search, query, compare, explain, or cite knowledge from an existing snapshot must route to `consult-semantic-okf`. Ontology learning and evidence-led semantic model authoring remain a separate pre-build responsibility of `extract-ontologies`.
+
+Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
+
+### Semantic OKF consultation benchmark
+
+The repository must keep an isolated Skill Arena benchmark under `evaluations/semantic-okf-reader/` that evaluates grounded semantic correctness across the consultation layers of a pinned Semantic OKF snapshot.
+
+- The canonical battery contains exactly 300 semantically distinct questions with stable IDs, hidden normalized answers, reviewed alternative minimal evidence sets, wording-independent query descriptors and signatures, category labels, and difficulty labels. Answer hashing must normalize equivalent offset-bearing ISO date-times to UTC milliseconds.
+- The control profile receives neither Semantic OKF knowledge nor a consultation skill. The treatment profile receives both the pinned knowledge snapshot and an independently pinned `consult-semantic-okf` snapshot through one profile-only workspace overlay; it must not receive the write-capable builder skill.
+- Both profiles use the same PI route, prompt, sandbox, network policy, and deterministic answer assertions. Every active run must call `openai-codex/gpt-5.6-luna` directly; no GPT-5.3 route or cross-model fallback is permitted. Every question is an independent model request and must not depend on workspace mutations or session state from another question.
+- Semantic accuracy, evidence grounding, evidence-path validity, and response-contract compliance are separate named metrics. Grounding requires a reviewed sufficient subset and permits additional existing snapshot artifacts. A control abstention is contract-compliant but does not count as a correct semantic answer.
+- The battery covers typed facts, relation traversal, multi-hop joins, typed filtering, aggregation, provenance, ontology and SHACL contracts, integrity and missingness, and bundle inventory.
+- The initial full evaluation expands to 600 Skill Arena cells. A five-question smoke manifest must remain available for a ten-cell live rehearsal. Same-model technical retries are additional Luna calls and must be reported separately.
+- Generation must be deterministic and expose a check-only mode. Tests must reject duplicate IDs, duplicate question text, duplicate semantic signatures, missing evidence, stale derived files, knowledge or evaluated-skill snapshot drift, or knowledge leakage into the control profile.
+- Live PI execution is intentionally separate from generation and validation because it consumes model quota. A dry-run is required before any live compare.
+- The runtime wrapper must invoke GPT-5.6 Luna exactly once per cell, preserve diagnostic stderr, identify the model that answered, and never select a different model after runtime or assertion failure. Each attempt must have a 90-second hard timeout that terminates its complete process tree and normalizes a timeout to exit 124. PI 0.80.6 or newer is required for GPT-5.6 Luna.
+- A host-side technical resume builder must classify completeness only from nonblank `response.output` and absent `response.error`. Its merger must bind every result file to its exact source manifest, join cells by prompt and profile IDs, restore canonical identity and indices, recompute Promptfoo aggregates, persist source hashes and attempt chains, and reject duplicate or unresolved cells. A host credential reference may expose only the explicitly named same-name environment variable and must never serialize its value.
+- An optional host-side semantic retry builder may read a technically complete composite and the exact manifest used for that run, verify every treatment prompt identity and text, select only unsuccessful `skill` cells, persist their IDs, and emit a GPT-5.6 Luna-only retry manifest. It must never retry control cells or passing treatment cells. Composite reporting substitutes every bound retry result for its selected prompt, including failed retries, to prevent best-of-attempt cherry-picking, and reports technical and semantic retries separately. Completed mixed-model manifests remain historical artifacts and must not be used as active configurations.
+- Windows prompt transport must preserve UTF-8 through the Skill Arena PowerShell boundary for both prompt input and model stdout.
+- Query-layer labels demonstrate coverage only. Runtime efficiency, latency, tokens, and tool calls are outside this benchmark until tracing and explicit efficiency assertions are added.
+
+This two-arm design estimates the value of the complete consultation-skill-and-knowledge access path. A future causal study that needs to isolate procedural skill value must add a third profile with the same knowledge snapshot but no consultation skill.
 
 ## Project OKF Bundle
 

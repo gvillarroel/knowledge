@@ -1,0 +1,19 @@
+{
+  "traceId": "luna-2026-07-12-skill-q011-vector-graph-hybrid",
+  "outcome": "failure",
+  "benchmarkId": "graphrag-cross-paper-30-compare",
+  "promptId": "q011-vector-graph-hybrid",
+  "issues": [
+    "insufficient-focus-paper-coverage",
+    "insufficient-focus-page-citation-coverage",
+    "insufficient-focus-cross-paper-evidence"
+  ],
+  "strengths": [
+    "valid-response-format",
+    "strong-output-contract",
+    "valid-evidence-paths"
+  ],
+  "notes": "Deterministic failures: [{\"metric\":\"semantic-structure\",\"kind\":\"insufficient-focus-papers\",\"actual\":4,\"required\":5,\"nonfocus_selected\":[\"2408.04187v2\",\"2502.14902v2\",\"2508.19855v3\"]},{\"metric\":\"page-citation-grounding\",\"kind\":\"insufficient-focus-citations\",\"actual\":4,\"required\":5},{\"metric\":\"cross-paper-evidence\",\"kind\":\"insufficient-focus-evidence\",\"actual\":4,\"required\":5,\"covered_paper_ids\":[\"2402.07630v3\",\"2405.14831v3\",\"2409.13731v3\",\"2507.03226v3\"]}]. Counts: {\"summary_words\":228,\"dimensions\":7,\"paper_ids\":7,\"focus_paper_ids\":4,\"citations\":7,\"focus_citations\":4,\"citation_pages\":23,\"evidence\":21,\"focus_evidence_papers\":4}.",
+  "filesTouched": [],
+  "score": 0.5
+}

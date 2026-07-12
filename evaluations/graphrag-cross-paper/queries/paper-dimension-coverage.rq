@@ -1,0 +1,11 @@
+PREFIX gr: <https://example.org/ontology/graphrag-cross-paper#>
+
+SELECT ?paperId (COUNT(?claim) AS ?claimCount) (COUNT(DISTINCT ?kind) AS ?dimensionCount)
+WHERE {
+  ?claim a gr:PaperSemanticClaim ;
+         gr:claimKind ?kind ;
+         gr:aboutPaper ?paper .
+  ?paper gr:paperId ?paperId .
+}
+GROUP BY ?paperId
+ORDER BY ?paperId

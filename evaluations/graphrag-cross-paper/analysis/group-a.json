@@ -1,0 +1,954 @@
+{
+  "papers": [
+    {
+      "paper_id": "2404.16130v2",
+      "title": "From Local to Global: A Graph RAG Approach to Query-Focused Summarization",
+      "method_name": "GraphRAG",
+      "problem_statement": "Conventional vector RAG retrieves locally relevant records but does not support global sensemaking or query-focused summarization over an entire corpus that is too large for one context window (PDF pp. 1-2).",
+      "graph_source_type": "An LLM-extracted entity knowledge graph built from an unstructured multi-document text corpus, augmented with relationship descriptions and optional claims (PDF pp. 4-5).",
+      "graph_representations": [
+        "Entity nodes, relationship edges, and covariates such as claims form the base graph index (PDF p. 4).",
+        "Duplicate relationship extractions become weighted edges, while repeated entity and relationship descriptions are aggregated and summarized (PDF p. 5).",
+        "A hierarchical Leiden partition represents the graph at nested community levels from local subcommunities to global communities (PDF pp. 5-6).",
+        "Report-like community summaries form a second, textual representation of each graph community for later query processing (PDF p. 6)."
+      ],
+      "construction_methods": [
+        "Split source documents into text chunks; chunk size trades fewer extraction calls against lower recall for information early in a long chunk (PDF p. 4).",
+        "Prompt an LLM with domain-tailored exemplars to extract entities, relationships, descriptions, and optionally factual claims (PDF pp. 4-5).",
+        "Consolidate repeated entity and relationship instances; the reported experiments use exact-string entity matching and summarize descriptions per node and edge (PDF p. 5).",
+        "Apply hierarchical Leiden community detection recursively until leaf communities cannot be partitioned further (PDF pp. 5-6).",
+        "Generate leaf and higher-level community reports bottom-up, substituting shorter child-community summaries when raw element summaries exceed the context window (PDF p. 6)."
+      ],
+      "retrieval_units": [
+        "Pre-generated community summaries at a selected hierarchy level are the primary global-query context units (PDF pp. 6, 8).",
+        "Nodes, edges, and claims are prioritized inputs to leaf-community summary generation rather than direct global-query retrieval units in the evaluated pipeline (PDF p. 6).",
+        "Query-specific intermediate community answers are map outputs that become the inputs to final reduction (PDF p. 6).",
+        "Text chunks are used directly only in the graph-free text-summarization and semantic-search comparison conditions (PDF p. 8)."
+      ],
+      "retrieval_strategies": [
+        "Select one hierarchy level, randomly shuffle its community reports, and divide them into fixed-token chunks so relevant information is distributed across map calls (PDF p. 6).",
+        "Generate partial answers in parallel and ask the LLM to score each answer's helpfulness from 0 to 100; discard zero-scored answers (PDF p. 6).",
+        "Sort partial answers by helpfulness and pack them into a final context window for query-focused reduce summarization (PDF p. 6).",
+        "The reported global search is exhaustive over community summaries at a chosen level, unlike top-k vector retrieval of locally similar chunks (PDF pp. 2, 6, 8)."
+      ],
+      "organization_and_synthesis": [
+        "Graph modularity supplies a thematic, mutually exclusive, collectively exhaustive partition at each community level (PDF pp. 3, 5-6).",
+        "Bottom-up community report generation recursively compresses lower-level graph evidence into higher-level corpus descriptions (PDF p. 6).",
+        "At query time, map-reduce query-focused summarization combines independently generated community answers into one global answer (PDF p. 6).",
+        "This analysis infers a two-stage synthesis architecture: corpus-level synthesis is precomputed during indexing, while question-specific synthesis is performed during map-reduce query processing (PDF pp. 4, 6)."
+      ],
+      "query_and_task_types": [
+        "Global sensemaking questions that require understanding themes, trends, connections, or priorities across an entire corpus (PDF pp. 1-3).",
+        "Query-focused summarization when no small set of locally relevant records can adequately represent the answer (PDF pp. 1-2).",
+        "Iterative corpus exploration through summaries at different community hierarchy levels is described as a useful sensemaking workflow (PDF p. 6).",
+        "Localized fact questions are presented as the comparative strength of conventional vector RAG, not the main target of this global-search method (PDF p. 2)."
+      ],
+      "evaluation_tasks": [
+        "Answer 125 adaptively generated global sensemaking questions for each of a podcast-transcript corpus and a news-article corpus, both around one million tokens (PDF pp. 7-8).",
+        "Head-to-head LLM judging of comprehensiveness, diversity, empowerment, and the control criterion directness (PDF pp. 7-8).",
+        "Claim-based validation using the number of unique factual claims for comprehensiveness and agglomerative clusters of claims for diversity (PDF p. 9).",
+        "Compare four graph-community levels against graph-free source-text map-reduce summarization and vector semantic search (PDF p. 8)."
+      ],
+      "reported_strengths": [
+        "All global approaches substantially beat vector semantic search on answer comprehensiveness and diversity across both evaluated corpora (PDF pp. 9-10).",
+        "Non-root GraphRAG community summaries generally provide small, consistent comprehensiveness and diversity gains over map-reduce summarization of raw source text (PDF p. 10).",
+        "Root-level reports retain advantages over vector RAG while requiring more than 97 percent fewer query-time context tokens than raw-text map-reduce (PDF p. 10).",
+        "GraphRAG is resilient to some duplicate entities because duplicates tend to be clustered together for later summarization, according to the authors (PDF p. 5)."
+      ],
+      "reported_limitations": [
+        "Evaluation covers only two approximately one-million-token corpora; the authors call for tests across more domains, corpus sizes, and use cases (PDF p. 11).",
+        "Fabrication rates were not compared, and the authors identify hallucination-oriented evaluation as future strengthening work (PDF p. 11).",
+        "Empowerment results are mixed; evaluator analysis suggests that specific examples, quotations, and citations are important details that graph extraction may need to retain better (PDF pp. 9-10).",
+        "The reported implementation uses exact-string entity matching, while softer entity matching is proposed but not evaluated in the main analysis (PDF p. 5).",
+        "Generated answers can misrepresent source data, so the authors recommend disclosure of AI use and possible output errors (PDF p. 12)."
+      ],
+      "efficiency_and_updates": [
+        "Longer extraction chunks reduce the number and cost of LLM extraction calls but can reduce recall for earlier information within a chunk (PDF p. 4).",
+        "Indexing the podcast corpus with 600-token chunks reportedly took 281 minutes under the stated GPT-4 Turbo and CPU configuration (PDF p. 9).",
+        "Low-level community reports used 26 to 33 percent fewer query context tokens than graph-free source-text summarization; root reports used over 97 percent fewer (PDF p. 10).",
+        "The paper proposes future hybrid local matching, just-in-time report generation, roll-up, and drill-down strategies, but does not report an incremental graph-update experiment (PDF p. 12)."
+      ],
+      "claims": [
+        {
+          "kind": "task",
+          "statement": "The authors argue that vector RAG is suitable for answers localized in a small record set but fails at corpus-wide sensemaking.",
+          "evidence_pages": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "GraphRAG first extracts an entity knowledge graph and then pre-generates summaries over hierarchical graph communities.",
+          "evidence_pages": [
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "The base graph contains entities, relationships, and optionally claims, with descriptions created through domain-tailored LLM prompts.",
+          "evidence_pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Chunk length is an indexing cost-recall tradeoff: longer chunks need fewer calls but can hide information appearing early in the chunk.",
+          "evidence_pages": [
+            4
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "The evaluated implementation reconciles entities by exact string match and uses duplicate relationship frequency as an edge weight.",
+          "evidence_pages": [
+            5
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Hierarchical Leiden communities provide a divide-and-conquer organization in which each level covers the graph's nodes.",
+          "evidence_pages": [
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Community reports are synthesized bottom-up, using child reports as compressed substitutes when raw element descriptions do not fit.",
+          "evidence_pages": [
+            6
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Global query answering uses map-reduce over community reports with LLM-assigned helpfulness scores controlling the reduce context.",
+          "evidence_pages": [
+            6
+          ]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "The adaptive benchmark generates persona- and task-conditioned questions that require high-level understanding rather than low-level fact lookup.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "The main evaluation compares comprehensiveness, diversity, empowerment, and directness for 125 questions per corpus.",
+          "evidence_pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "Across the two reported datasets, global approaches outperform vector semantic search on comprehensiveness and diversity.",
+          "evidence_pages": [
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Graph community reports generally provide only small improvements over raw-text map-reduce, and root-level reports trade some quality for much lower token cost.",
+          "evidence_pages": [
+            10
+          ]
+        },
+        {
+          "kind": "evaluation",
+          "statement": "Claim-count and claim-cluster analyses directionally support the LLM-judge findings, although diversity significance is weaker for some news conditions.",
+          "evidence_pages": [
+            9,
+            11,
+            12
+          ]
+        },
+        {
+          "kind": "limitation",
+          "statement": "The authors limit their conclusions to the tested corpora and call for broader generalization and fabrication-rate evaluation.",
+          "evidence_pages": [
+            11
+          ]
+        },
+        {
+          "kind": "retrieval-unit",
+          "statement": "The method's main retrieval unit is a precomputed thematic summary, so its strongest evidence concerns global coverage rather than precise local citation recovery.",
+          "evidence_pages": [
+            6,
+            9,
+            10,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "2402.07630v3",
+      "title": "G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering",
+      "method_name": "G-Retriever",
+      "problem_statement": "The method targets conversational question answering over large, real-world textual graphs, where flattening a whole graph exceeds the LLM context and a single graph embedding can hallucinate graph elements (PDF pp. 1-3).",
+      "graph_source_type": "A pre-existing textual graph whose nodes and edges carry text attributes; evaluated sources include explanation graphs, scene graphs, and a Freebase knowledge graph subset (PDF pp. 4-5).",
+      "graph_representations": [
+        "A textual graph is represented as nodes and edges with sequential textual attributes (PDF p. 4).",
+        "The retrieved evidence is a connected Prize-Collecting Steiner Tree subgraph rather than an isolated list of top-k triples (PDF pp. 6-7, 18).",
+        "The connected subgraph is represented twice for generation: as a learned GNN graph token and as flattened natural-language graph text (PDF pp. 7-8).",
+        "The returned subgraph also serves as an explanation artifact identifying the graph evidence used for an answer (PDF pp. 3, 6)."
+      ],
+      "construction_methods": [
+        "Encode node and edge text with a pretrained language model and store the embeddings in a nearest-neighbor index (PDF p. 6).",
+        "Encode the query with the same model and select top-k nodes and edges by cosine similarity (PDF pp. 6-7).",
+        "Assign ranked relevance prizes and solve a Prize-Collecting Steiner Tree objective that balances prizes against an adjustable per-edge subgraph-size cost (PDF p. 7).",
+        "Transform high-prize edges into virtual nodes when necessary so edge prizes can be handled by a node-prize PCST solver (PDF p. 7).",
+        "Encode the retrieved subgraph with a graph attention architecture and project its pooled representation into the LLM embedding space (PDF pp. 7-8)."
+      ],
+      "retrieval_units": [
+        "Semantically scored nodes and edges are the atomic retrieval candidates (PDF pp. 6-7).",
+        "A query-conditioned connected subgraph is the final structured retrieval unit supplied to generation (PDF pp. 6-8).",
+        "The textualized connected subgraph is an explicit prompt context, while its GNN encoding is a soft graph prompt (PDF pp. 7-8).",
+        "The method contrasts its context-aware subgraph unit with earlier isolated node, edge, or triple retrieval (PDF p. 18)."
+      ],
+      "retrieval_strategies": [
+        "Perform top-k cosine nearest-neighbor retrieval independently over node and edge embeddings (PDF pp. 6-7).",
+        "Use PCST to retain relevant candidates plus bridge elements needed to connect them, while penalizing graph size (PDF p. 7).",
+        "Tune k and edge cost to control evidence coverage and prompt size; reported WebQSP performance peaks before very large k introduces distracting information (PDF pp. 7, 18).",
+        "Generate from the question, textualized subgraph, and trainable graph token while keeping the base LLM frozen in the prompt-tuning setting (PDF p. 8)."
+      ],
+      "organization_and_synthesis": [
+        "PCST imposes structural coherence by producing one connected evidence subgraph rather than independently selected facts (PDF p. 7).",
+        "A GNN pools structural information into a single graph token, while textualization preserves node and edge details for LLM reasoning (PDF pp. 7-9).",
+        "This analysis classifies G-Retriever as query-time local subgraph selection, not corpus-wide thematic summarization, because it has no community-report stage (PDF pp. 6-8, 18)."
+      ],
+      "query_and_task_types": [
+        "Conversational questions and creative instructions over real-world textual graphs (PDF pp. 1-3).",
+        "Commonsense stance reasoning over explanation graphs (PDF p. 5).",
+        "Scene-graph question answering requiring spatial and multi-step inference (PDF p. 5).",
+        "Multi-hop knowledge-graph question answering over Freebase neighborhoods (PDF pp. 5-6).",
+        "Evidence-oriented answers that identify supporting graph nodes or edges (PDF pp. 1, 3, 9)."
+      ],
+      "evaluation_tasks": [
+        "GraphQA standardizes ExplaGraphs, SceneGraphs, and WebQSP into textual graph, question, and answer records (PDF pp. 4-5).",
+        "Evaluate commonsense classification and scene QA with accuracy, and WebQSP knowledge-base QA with Hit@1 (PDF p. 5).",
+        "Compare inference-only, frozen-LLM prompt tuning, and LoRA-tuned settings (PDF p. 8).",
+        "Manually inspect 100 SceneGraphs answers per method to check whether cited nodes and edges actually exist (PDF p. 9).",
+        "Ablate the graph encoder, projection, textualized graph, and retrieval components on WebQSP (PDF p. 9)."
+      ],
+      "reported_strengths": [
+        "G-Retriever leads the reported results across three textual-graph domains in prompt-tuned and LoRA settings (PDF p. 8).",
+        "On SceneGraphs and WebQSP, retrieval sharply reduces prompt tokens, graph nodes, and training time (PDF p. 9).",
+        "Manual validation reports substantially more valid cited nodes, valid edges, and fully valid evidence graphs than graph prompt tuning without retrieval (PDF p. 9).",
+        "Ablations support complementarity between the GNN graph token and explicit textualized graph (PDF p. 9).",
+        "PCST retrieval achieves higher reported WebQSP retrieval accuracy than isolated top-k triple retrieval because it incorporates graph connectivity (PDF p. 18)."
+      ],
+      "reported_limitations": [
+        "The retrieval component is static; the authors name trainable retrieval as future work (PDF p. 10).",
+        "Retrieval quality is sensitive to k: too few candidates omit evidence, while too many introduce distracting information (PDF p. 18).",
+        "Cosine similarity is adopted as a general fast choice, but the authors explicitly do not claim it is optimal (PDF p. 18).",
+        "Inference-only results reveal that adding an entire noisy textual graph can underperform answering from the question alone (PDF p. 8).",
+        "The evaluation uses three benchmark graph families and does not test document-to-graph extraction or corpus-wide global summarization (PDF pp. 4-5, 8-10)."
+      ],
+      "efficiency_and_updates": [
+        "SceneGraphs retrieval reduces average graph text from 1,396 to 235 tokens and training time from 123.1 to 86.8 minutes per epoch (PDF p. 9).",
+        "WebQSP retrieval reduces average graph text from 100,627 to 610 tokens, nodes from 1,371 to 18, and training time from 18.7 to 6.2 minutes per epoch (PDF p. 9).",
+        "PCST is solved using a near-linear-time approach after the edge-prize transformation (PDF p. 7).",
+        "The reported retrieval index is static; no incremental graph-update workflow is evaluated (PDF p. 10)."
+      ],
+      "claims": [
+        {
+          "kind": "task",
+          "statement": "The authors frame the target as general question answering over real textual graphs rather than conventional graph classification or toy graph queries.",
+          "evidence_pages": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "methodology",
+          "statement": "G-Retriever combines an LLM, graph encoder, and retrieval-augmented generation through indexing, retrieval, subgraph construction, and generation.",
+          "evidence_pages": [
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Node and edge texts are embedded, and the query retrieves top-k candidates by cosine similarity.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "PCST selects a connected evidence subgraph by maximizing relevance prizes minus an edge-count cost.",
+          "evidence_pages": [
+            7
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Edge relevance is incorporated into node-prize PCST by replacing certain edges with prize-bearing virtual nodes.",
+          "evidence_pages": [
+            7
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Generation conditions a frozen LLM on both a learned graph token and a textualized version of the retrieved subgraph.",
+          "evidence_pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "task",
+          "statement": "GraphQA spans commonsense stance reasoning, scene understanding, and multi-hop knowledge-base question answering.",
+          "evidence_pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "G-Retriever reports the best scores among compared methods for all three datasets in the frozen prompt-tuning and LoRA settings.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Graph retrieval reduces WebQSP prompt nodes and tokens by about 99 percent and training time by 67 percent in the reported setup.",
+          "evidence_pages": [
+            9
+          ]
+        },
+        {
+          "kind": "safety-grounding",
+          "statement": "Manual evidence checking reports 62 percent fully valid supporting graphs for G-Retriever versus 8 percent for graph prompt tuning.",
+          "evidence_pages": [
+            9
+          ]
+        },
+        {
+          "kind": "methodology",
+          "statement": "Removing the graph encoder or textualized graph causes much larger WebQSP drops than removing only the projection layer.",
+          "evidence_pages": [
+            9
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "The number of initial semantic candidates must balance missing evidence against distracting graph content.",
+          "evidence_pages": [
+            18
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "The authors distinguish PCST retrieval from isolated triple retrieval because it returns a connected subgraph containing bridge evidence.",
+          "evidence_pages": [
+            18
+          ]
+        },
+        {
+          "kind": "limitation",
+          "statement": "The current retriever is static and the paper leaves trainable retrieval to future work.",
+          "evidence_pages": [
+            10
+          ]
+        },
+        {
+          "kind": "retrieval-unit",
+          "statement": "G-Retriever is most directly applicable when a graph already exists and the question needs a compact local evidence subgraph; the paper does not establish global corpus summarization behavior.",
+          "evidence_pages": [
+            4,
+            5,
+            6,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "2405.14831v3",
+      "title": "HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models",
+      "method_name": "HippoRAG",
+      "problem_statement": "Standard RAG encodes passages independently and therefore struggles to integrate newly supplied knowledge across passage boundaries, especially for multi-hop and path-finding questions (PDF pp. 1-3).",
+      "graph_source_type": "A schemaless open knowledge graph extracted passage-by-passage from an unstructured retrieval corpus, with noun-phrase nodes, OpenIE relation edges, and encoder-derived synonymy edges (PDF pp. 3-5).",
+      "graph_representations": [
+        "The synthetic hippocampal index is an open KG of noun-phrase nodes and relation edges extracted by an instruction-tuned LLM (PDF pp. 3-4).",
+        "Additional similarity-based synonymy edges connect non-identical noun phrases to improve pattern completion (PDF pp. 3-4).",
+        "A node-by-passage count matrix records how often every KG noun phrase appears in each source passage (PDF p. 4).",
+        "Personalized PageRank produces a probability distribution over KG nodes, which is projected back into a ranked distribution over passages (PDF pp. 4-5)."
+      ],
+      "construction_methods": [
+        "Use an instruction-tuned LLM first for named-entity extraction and then for one-shot OpenIE triple extraction from each passage (PDF p. 4).",
+        "Build one corpus-wide schemaless KG from passage-level triples without supervised graph training (PDF pp. 3-4, 10).",
+        "Use a dense retrieval encoder to add a synonymy edge when two noun-phrase embeddings exceed a similarity threshold (PDF p. 4).",
+        "Create a sparse node-passage incidence/count matrix so graph activation can be converted into passage relevance (PDF p. 4).",
+        "Compute node specificity as inverse passage frequency and use it to modulate query-node priors before graph diffusion (PDF p. 5)."
+      ],
+      "retrieval_units": [
+        "Query named entities are the initial semantic cues extracted from the question (PDF pp. 3-4).",
+        "Linked KG query nodes seed graph-based associative retrieval (PDF pp. 3-5).",
+        "KG neighborhoods activated by Personalized PageRank are the intermediate retrieval representation (PDF pp. 3-5).",
+        "Original corpus passages, ranked by aggregated node probability, are the final units returned to the downstream QA reader (PDF p. 5)."
+      ],
+      "retrieval_strategies": [
+        "Extract named entities from the query, embed them, and link each to its nearest noun-phrase node in the open KG (PDF p. 4).",
+        "Seed Personalized PageRank equally on query nodes, optionally weighted by node specificity, to diffuse relevance through multi-hop associations (PDF pp. 4-5).",
+        "Multiply the PPR node distribution by the node-passage matrix to rank evidence passages in one retrieval step (PDF p. 5).",
+        "Optionally use HippoRAG as the retrieval component within iterative IRCoT for complementary multi-step gains (PDF pp. 6-7)."
+      ],
+      "organization_and_synthesis": [
+        "OpenIE normalizes passage content into reusable noun-phrase associations without imposing a fixed ontology (PDF pp. 3-4).",
+        "PPR performs associative integration over many graph paths rather than following only one generated reasoning path (PDF pp. 3-5, 8-9).",
+        "The method returns passages to a QA reader and improves retrieval rather than pre-generating thematic corpus summaries (PDF pp. 5, 7, 10).",
+        "This analysis classifies HippoRAG's synthesis as graph-mediated evidence integration: synthesis happens through diffusion and passage ranking, while natural-language answer synthesis remains downstream (PDF pp. 5, 7, 10)."
+      ],
+      "query_and_task_types": [
+        "Multi-hop question answering that requires integrating facts across multiple passages (PDF pp. 1-2, 5).",
+        "Path-following questions with a relatively constrained chain of relations (PDF pp. 8-9).",
+        "Path-finding questions that require discovering an intersection among many possible graph paths (PDF pp. 2, 8-9).",
+        "Long-term-memory scenarios such as literature review, legal briefing, and medical diagnosis are motivating examples rather than directly evaluated application studies (PDF p. 1).",
+        "Continual integration of newly supplied knowledge is an architectural goal of the external KG memory (PDF pp. 1, 3, 9-10)."
+      ],
+      "evaluation_tasks": [
+        "Single-step retrieval and downstream QA on 1,000-question subsets of MuSiQue, 2WikiMultiHopQA, and HotpotQA (PDF pp. 5-7).",
+        "Compare BM25, dense retrievers, Propositionizer, RAPTOR, and iterative IRCoT using recall at 2 and 5, exact match, and F1 (PDF pp. 5-7).",
+        "Measure all-recall, the percentage of queries for which every supporting passage is retrieved (PDF p. 8).",
+        "Ablate OpenIE models, PPR alternatives, node specificity, and synonymy edges (PDF pp. 7-8).",
+        "Use a qualitative path-finding case study to compare HippoRAG, ColBERTv2, and IRCoT (PDF pp. 8-9)."
+      ],
+      "reported_strengths": [
+        "Single-step retrieval improves substantially over dense and LLM-augmented baselines on MuSiQue and especially 2WikiMultiHopQA (PDF p. 6).",
+        "Single-step HippoRAG is on par with or better than iterative IRCoT in the reported QA results while being much cheaper and faster online (PDF pp. 1, 7-8).",
+        "Combining HippoRAG with IRCoT yields complementary retrieval and QA gains across all three benchmarks (PDF pp. 6-7).",
+        "All-recall gains suggest the graph helps retrieve complete supporting-document sets, not merely partial evidence for more questions (PDF p. 8).",
+        "Unlike summary-based offline integration, adding new knowledge can be handled by adding KG edges without regenerating all prior summaries, according to the authors (PDF p. 9)."
+      ],
+      "reported_limitations": [
+        "Most observed errors are attributed to named-entity recognition and OpenIE, whose components are used off the shelf without task-specific training (PDF p. 10).",
+        "Simple PPR ignores relation semantics during traversal; relation-guided graph search is proposed as a possible improvement (PDF p. 10).",
+        "OpenIE consistency degrades for longer documents and requires further work (PDF p. 10).",
+        "Scalability and efficacy are not empirically validated for graphs far larger than the benchmark indexes (PDF p. 10).",
+        "HotpotQA gains are weaker because its lower integration requirements and a concept-context tradeoff make it less aligned with HippoRAG's design (PDF p. 6)."
+      ],
+      "efficiency_and_updates": [
+        "The authors report single-step online retrieval as 10 to 30 times cheaper and 6 to 13 times faster than IRCoT while remaining competitive (PDF pp. 2, 7-8).",
+        "Indexing requires LLM-based named-entity and OpenIE extraction plus similarity-edge construction for the corpus (PDF pp. 3-4).",
+        "New knowledge can be integrated by adding associations to the KG rather than rerunning hierarchical summarization over the whole corpus (PDF p. 9).",
+        "The paper does not yet validate retrieval performance and resource scaling once the synthetic hippocampal index grows far beyond the studied corpora (PDF p. 10)."
+      ],
+      "claims": [
+        {
+          "kind": "task",
+          "statement": "The authors argue that independently encoded passages prevent standard RAG from integrating knowledge across passage boundaries.",
+          "evidence_pages": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "HippoRAG builds a schemaless OpenIE graph as an external associative memory for a retrieval corpus.",
+          "evidence_pages": [
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Indexing uses named-entity extraction followed by OpenIE, plus dense-encoder synonymy edges between similar noun phrases.",
+          "evidence_pages": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Query entities are linked to KG nodes and used as Personalized PageRank seeds.",
+          "evidence_pages": [
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "PPR activation is projected through a node-passage matrix to rank original passages for the QA reader.",
+          "evidence_pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "Node specificity supplies an inverse-passage-frequency signal using only information local to each graph node.",
+          "evidence_pages": [
+            5
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "HippoRAG reports its largest single-step retrieval gains on the entity-centric 2WikiMultiHopQA dataset.",
+          "evidence_pages": [
+            6
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Replacing PPR with query nodes alone or their immediate neighbors degrades retrieval across all three datasets.",
+          "evidence_pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "OpenIE quality is consequential: REBEL extracts fewer useful associations and produces large retrieval drops relative to LLM OpenIE.",
+          "evidence_pages": [
+            7
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "All-recall results indicate particularly large gains in recovering every supporting passage for 2WikiMultiHopQA.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "The authors report that HippoRAG can solve a path-finding example where both ColBERTv2 and iterative IRCoT miss the intersecting evidence.",
+          "evidence_pages": [
+            8,
+            9
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "HippoRAG improves retrieval only, so graph-augmented answer-generation methods are described as complementary.",
+          "evidence_pages": [
+            10
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "The authors contrast incremental edge addition in HippoRAG with summary-based indexes that must be recomputed when new data arrives.",
+          "evidence_pages": [
+            9
+          ]
+        },
+        {
+          "kind": "limitation",
+          "statement": "NER, OpenIE, graph search, long-document consistency, and unproven large-index scaling remain stated limitations.",
+          "evidence_pages": [
+            10
+          ]
+        },
+        {
+          "kind": "retrieval-unit",
+          "statement": "HippoRAG is best characterized as associative passage retrieval: it integrates evidence through a graph but does not itself generate a global thematic summary.",
+          "evidence_pages": [
+            4,
+            5,
+            7,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "2406.14550v2",
+      "title": "GraphReader: Building Graph-based Agent to Enhance Long-Context Abilities of Large Language Models",
+      "method_name": "GraphReader",
+      "problem_statement": "Long-context LLMs and conventional retrieval can miss detailed, long-range, or multi-hop evidence; GraphReader instead lets a limited-context agent plan and explore a graph derived from one long input document (PDF pp. 1-3).",
+      "graph_source_type": "An LLM-derived graph constructed from a long document, with normalized key-element nodes, associated atomic facts and chunk identifiers, and edges based on reciprocal key-element mentions (PDF pp. 2-3).",
+      "graph_representations": [
+        "Each node contains a normalized key element and all atomic facts associated with that element (PDF pp. 2-3).",
+        "An edge links two key-element nodes when each element appears in the other's associated atomic facts (PDF p. 3).",
+        "Atomic facts preserve a coarse compressed view while chunk identifiers link the graph back to detailed original text (PDF pp. 3-4).",
+        "A per-agent notebook accumulates supporting facts and functions as the working representation used for final reasoning (PDF pp. 3-4)."
+      ],
+      "construction_methods": [
+        "Split a long document into paragraph-preserving chunks bounded by the LLM context limit (PDF p. 3).",
+        "Prompt the LLM to convert each chunk into indivisible atomic facts and extract essential nouns, verbs, and adjectives as key elements (PDF p. 3).",
+        "Normalize key elements to reduce lexical noise and granularity variation (PDF p. 3).",
+        "Associate each normalized element with its source atomic facts and link pairs whose elements are reciprocally mentioned (PDF p. 3)."
+      ],
+      "retrieval_units": [
+        "Key-element nodes are coarse navigation and initial-selection units (PDF pp. 3-4).",
+        "Atomic-fact groups provide a compact overview and help the agent choose which original chunks merit reading (PDF p. 4).",
+        "Original chunks and their previous or subsequent neighbors provide fine-grained evidence (PDF p. 4).",
+        "Neighboring graph nodes enable long-range and multi-hop traversal beyond adjacent text (PDF p. 4).",
+        "Independent agent notebooks are consolidated as the evidence units for final answer reasoning (PDF p. 4)."
+      ],
+      "retrieval_strategies": [
+        "Create a step-by-step rational plan and select several initial key-element nodes based on the question and plan (PDF pp. 3-4).",
+        "Explore coarse-to-fine: inspect atomic facts, queue promising original chunks, optionally read adjacent chunks, and then traverse graph neighbors (PDF p. 4).",
+        "Use explicit agent functions for reading chunks, searching more, traversing neighbors, or terminating once evidence is sufficient (PDF p. 4).",
+        "Run multiple searches from independent initial nodes, then combine their notes and use chain-of-thought plus majority voting to resolve inconsistencies (PDF p. 4)."
+      ],
+      "organization_and_synthesis": [
+        "The graph externalizes long-range associations between details that may occur far apart in the source document (PDF pp. 2-3).",
+        "Atomic facts compress details for navigation, while on-demand chunk access restores source detail before a claim enters the notebook (PDF p. 4).",
+        "Agent reflection continually updates a notebook and changes subsequent exploration actions (PDF pp. 1, 3-4).",
+        "Final synthesis combines independent notebooks, complementary evidence, and majority voting before answer generation (PDF p. 4)."
+      ],
+      "query_and_task_types": [
+        "Complex multi-hop question answering over long input documents (PDF pp. 1-2, 4-5).",
+        "Single-hop long-document question answering where the answer detail may be hard to locate (PDF pp. 4-5).",
+        "Questions requiring long-range dependencies among facts distributed through contexts from 16k to 256k tokens (PDF pp. 1, 6-7).",
+        "Repeated questions over one document are identified as an efficient use case because the graph can be reused (PDF p. 8)."
+      ],
+      "evaluation_tasks": [
+        "Multi-hop QA on HotpotQA, 2WikiMultiHopQA, MuSiQue, and HotpotWikiQA-mixup (PDF pp. 4-6).",
+        "Single-hop long-context QA on NarrativeQA (PDF pp. 4-6).",
+        "Evaluate HotpotWikiQA-mixup at 16k, 32k, 64k, 128k, and 256k input lengths (PDF pp. 5-7).",
+        "Use exact match, F1, optimized F1 star, and two LLM-rater correctness measures (PDF p. 5).",
+        "Ablate the rational plan and reasoned node selection, and vary the initial-node count and chunk size (PDF p. 7)."
+      ],
+      "reported_strengths": [
+        "Using a 4k working context, GraphReader reports the strongest scores among evaluated systems across the four LongBench datasets (PDF p. 6).",
+        "GraphReader remains substantially stronger than baselines from 16k through 256k on HotpotWikiQA-mixup, while full-context GPT-4 degrades with length (PDF pp. 6-7).",
+        "Reasoned node selection is important: random selection causes an average 18 percent decline in the ablation (PDF p. 7).",
+        "The final notebook recalls more supporting evidence than the initial atomic-fact layer, suggesting that on-demand chunk reading adds useful detail (PDF p. 8).",
+        "A graph can be reused across multiple questions about the same document, amortizing its construction cost (PDF p. 8)."
+      ],
+      "reported_limitations": [
+        "The implementation relies on a closed GPT-4 API and therefore may face rate and regional restrictions (PDF p. 9).",
+        "Agent efficiency depends on the underlying model's planning and reasoning capabilities (PDF p. 9).",
+        "Too many initial nodes introduce noise, especially for single-hop questions (PDF p. 7).",
+        "Chunks larger than the reported optimum can hide details, while smaller chunks cause semantic truncation (PDF p. 7).",
+        "The paper evaluates fixed long documents and does not report an incremental document-graph update procedure (PDF pp. 3, 8-9)."
+      ],
+      "efficiency_and_updates": [
+        "The standard configuration uses a 4k agent context, maximum 2k-token chunks, five initial nodes, and at most ten function calls per search path (PDF p. 5).",
+        "GraphReader consumes 52.8k tokens per 358.3k-token question context versus 48.7k for ReadAgent in the reported 256k benchmark analysis (PDF pp. 7-8).",
+        "The graph-construction cost can be amortized in single-document, multiple-query scenarios (PDF p. 8).",
+        "No dynamic update benchmark is presented; the graph is constructed from the input document before exploration (PDF pp. 2-3, 9)."
+      ],
+      "claims": [
+        {
+          "kind": "task",
+          "statement": "The authors argue that trees, pagination, and simple retrieval do not adequately expose long-range multi-hop dependencies in very long text.",
+          "evidence_pages": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "GraphReader extracts atomic facts and key elements from chunks, normalizes the elements, and connects mutually referring element nodes.",
+          "evidence_pages": [
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "methodology",
+          "statement": "A rational plan decomposes the question before the agent selects initial graph nodes.",
+          "evidence_pages": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "Exploration is coarse-to-fine, moving from key-element nodes to atomic facts, original chunks, adjacent chunks, and neighboring nodes.",
+          "evidence_pages": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "The agent uses reflection and explicit functions to decide whether to read more evidence, traverse, or terminate.",
+          "evidence_pages": [
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Independent search notebooks are combined with chain-of-thought and majority voting for final answer generation.",
+          "evidence_pages": [
+            4
+          ]
+        },
+        {
+          "kind": "task",
+          "statement": "The evaluation spans single-hop and multi-hop QA with source lengths reaching 256k tokens.",
+          "evidence_pages": [
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "GraphReader with a 4k working context outperforms the reported GPT-4-128k baselines across the tested LongBench tasks.",
+          "evidence_pages": [
+            6
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "On HotpotWikiQA-mixup, GraphReader degrades much less than full-context GPT-4 as input length grows to 256k.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Removing the rational plan hurts performance, while random node selection causes a much larger average decline.",
+          "evidence_pages": [
+            7
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Five initial nodes and 2k-token chunks are empirical optima; more nodes add noise and either much larger or smaller chunks lose information.",
+          "evidence_pages": [
+            7
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "GraphReader uses only modestly more tokens than ReadAgent in the reported 256k analysis but achieves much stronger task scores.",
+          "evidence_pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "The final notebook has higher supporting-fact recall than the atomic-fact representation, indicating gains from active exploration.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Closed-model dependency and the agent's reliance on planning quality are the paper's explicit limitations.",
+          "evidence_pages": [
+            9
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "GraphReader is an agentic reading method for a long input, not a precomputed cross-corpus global summarizer; its retrieval policy is adaptive and question-specific.",
+          "evidence_pages": [
+            2,
+            3,
+            4,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "2408.04187v2",
+      "title": "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
+      "method_name": "MedGraphRAG",
+      "problem_statement": "Medical RAG must combine private patient data with broad domain knowledge while preserving terminology, evidence traceability, and holistic reasoning; the authors argue that standard RAG and general GraphRAG do not jointly meet those needs (PDF pp. 1-2).",
+      "graph_source_type": "A three-tier medical graph linking entities from user RAG documents to entities in medical papers or textbooks and then to UMLS concepts and definitions (PDF pp. 2-4).",
+      "graph_representations": [
+        "Per-chunk Meta-MedGraphs represent user-document entities, UMLS semantic types, contextual descriptions, and LLM-generated relationships (PDF pp. 3-4).",
+        "A fixed repository graph has a publication layer and a UMLS vocabulary layer beneath user-data graphs (PDF pp. 3-4).",
+        "Cross-tier reference-of and definition-of links form triples that connect a user entity to source evidence and controlled terminology (PDF pp. 2-4).",
+        "A multi-layer hierarchy of structured medical tag summaries organizes Meta-MedGraphs without explicitly merging their nodes (PDF p. 4)."
+      ],
+      "construction_methods": [
+        "Perform paragraph-preserving semantic chunking with a five-paragraph sliding window and a hard model-token limit (PDF pp. 2-3).",
+        "Extract entities with a name, UMLS semantic type, and context-sensitive description (PDF p. 3).",
+        "Link user entities to publication entities by embedding similarity and publication entities to UMLS concepts using the same mechanism (PDF pp. 3-4).",
+        "Prompt an LLM to infer concise directed relationships between entities using both their user context and linked references (PDF p. 4).",
+        "Generate predefined medical tag summaries and repeatedly merge the top 20 percent most similar graph groups under a within-group threshold, up to 12 layers (PDF p. 4)."
+      ],
+      "retrieval_units": [
+        "Hierarchical tag summaries are the coarse units for top-down graph selection and bottom-up context refinement (PDF pp. 4-5).",
+        "A selected Meta-MedGraph is the local graph container reached by top-down retrieval (PDF p. 5).",
+        "Top-ranked entities and their cross-tier graph neighborhoods provide detailed evidence, sources, and definitions (PDF p. 5).",
+        "Higher-level tag summaries are progressively reintroduced as context for answer refinement (PDF p. 5)."
+      ],
+      "retrieval_strategies": [
+        "Generate a structured tag summary for the user query and descend the tag hierarchy by choosing the most similar child at each level (PDF pp. 4-5).",
+        "Within the selected Meta-MedGraph, retrieve top entities by query-to-entity embedding similarity and add their multi-hop triple neighbors (PDF p. 5).",
+        "Generate an initial evidence-based answer from names and graph relationships in the retrieved local evidence graph (PDF p. 5).",
+        "Refine the answer bottom-up by adding progressively broader tag summaries along the previously selected hierarchy path (PDF p. 5)."
+      ],
+      "organization_and_synthesis": [
+        "Triple Graph Construction organizes private observations, scholarly evidence, and controlled definitions into distinct but linked tiers (PDF pp. 2-4).",
+        "Predefined clinical tags summarize graph content into recurring categories such as symptoms, patient history, body functions, and medication (PDF p. 4).",
+        "U-Retrieval balances precise local evidence with broader context by combining a top-down descent and bottom-up answer refinement (PDF pp. 2, 4-5).",
+        "The method avoids general-purpose graph community construction and instead clusters graph-level tag summaries, reducing organizational complexity (PDF pp. 2, 4)."
+      ],
+      "query_and_task_types": [
+        "Medical multiple-choice question answering across biomedical and clinical domains (PDF pp. 5-7).",
+        "Public-health fact checking that requires evidence-supported verification (PDF pp. 5-7).",
+        "Long-form clinical response generation with accurate citations and understandable terminology (PDF pp. 1-2, 6-7).",
+        "Comorbidity and treatment questions that require integrating patient facts, medical evidence, and terminology across graph tiers (PDF pp. 6-7).",
+        "Questions over frequently updated private data such as electronic health records are a stated target scenario (PDF p. 5)."
+      ],
+      "evaluation_tasks": [
+        "Evaluate six base LLMs on nine MultiMedQA medical QA benchmarks and two health fact-checking benchmarks (PDF pp. 5-7).",
+        "Compare no retrieval, standard RAG, Microsoft GraphRAG, and MedGraphRAG under the same RAG and test data (PDF pp. 5-7).",
+        "Human-evaluate long-form responses on MultiMedQA and DiverseHealth for pertinence, correctness, citation precision, citation recall, and understandability (PDF pp. 6-7).",
+        "Ablate Meta-MedGraph construction, triple graph construction, and U-Retrieval on three QA datasets (PDF p. 8).",
+        "Compare data tiers independently and cumulatively across RAG, GraphRAG, and MedGraphRAG (PDF p. 8)."
+      ],
+      "reported_strengths": [
+        "MedGraphRAG reports consistent improvements over standard RAG and GraphRAG across all eleven automatic evaluation datasets and six base models (PDF pp. 6-7).",
+        "Human raters give MedGraphRAG the strongest reported citation precision, citation recall, and understandability scores among citation-oriented baselines (PDF p. 7).",
+        "Triple-layer evidence retrieval exposes sources and controlled definitions in addition to private user facts (PDF pp. 2-5).",
+        "Ablations show cumulative gains from medical graph structure, cross-tier linking, and U-Retrieval (PDF p. 8).",
+        "The tiered method benefits more from adding publication and dictionary data than standard RAG or general GraphRAG in the reported analysis (PDF p. 8)."
+      ],
+      "reported_limitations": [
+        "The paper leaves real-time data updates to future work and does not benchmark incremental update latency or consistency (PDF p. 8).",
+        "Validation on real-world clinical data is future work; the reported RAG source uses MIMIC-IV and benchmark datasets (PDF pp. 5, 8).",
+        "The graph depends on LLM-generated semantic chunks, entities, and relationships plus fixed similarity thresholds, creating extraction and linking assumptions not isolated in the reported ablation (PDF pp. 2-5, 8).",
+        "The main automatic tests emphasize multiple-choice accuracy, so clinical safety conclusions are broader than those metrics alone establish (PDF pp. 5-7).",
+        "The authors do not provide a dedicated limitations section; these bounds are drawn from their stated future work and evaluation scope (PDF pp. 5-8)."
+      ],
+      "efficiency_and_updates": [
+        "The tag hierarchy is proposed as a cheaper alternative to constructing general graph communities (PDF pp. 2, 4).",
+        "Hierarchy construction dynamically merges the top 20 percent most similar groups and is capped at 12 layers (PDF p. 4).",
+        "Reported retrieval uses four tag levels for GPT-4, five for other models, the top 60 entities, and 16-hop neighborhoods (PDF p. 5).",
+        "Real-time updates are not implemented or measured; they are explicitly identified as future work (PDF p. 8)."
+      ],
+      "claims": [
+        {
+          "kind": "safety-grounding",
+          "statement": "The authors argue that medical RAG needs verifiable evidence and terminology support in addition to holistic reasoning over private data.",
+          "evidence_pages": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "MedGraphRAG links user-document entities to publication entities and then to UMLS concepts, creating source and definition paths.",
+          "evidence_pages": [
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "graph-construction",
+          "statement": "Document preparation combines paragraph boundaries, LLM topic decisions, a five-paragraph sliding window, and a hard token cap.",
+          "evidence_pages": [
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "graph-representation",
+          "statement": "Extracted entities carry a name, a UMLS semantic type, and a contextual description.",
+          "evidence_pages": [
+            3
+          ]
+        },
+        {
+          "kind": "organization-synthesis",
+          "statement": "Medical tag summaries are clustered hierarchically instead of running general graph community detection.",
+          "evidence_pages": [
+            4
+          ]
+        },
+        {
+          "kind": "retrieval-strategy",
+          "statement": "U-Retrieval descends from broad query tags to one precise graph, retrieves detailed entity neighborhoods, and then refines the response with broader tags.",
+          "evidence_pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "task",
+          "statement": "The evaluation combines medical QA, health fact checking, and clinician-rated long-form response generation.",
+          "evidence_pages": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "Across the reported table, MedGraphRAG improves every tested base model over its no-retrieval, standard-RAG, and GraphRAG variants on most or all datasets.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "Clinicians and lay raters give MedGraphRAG the strongest reported overall long-form ratings, especially for evidence and understandability.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "safety-grounding",
+          "statement": "The clinical case study attributes a more suitable comorbidity-aware answer to direct retrieval of specific evidence through the tiered graph.",
+          "evidence_pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "strength",
+          "statement": "Ablations show the largest incremental gains when triple graph construction replaces the general GraphRAG organization, with further gains from U-Retrieval.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "comparison",
+          "statement": "Publication and dictionary data yield much larger gains under MedGraphRAG than under standard RAG in the authors' incremental-data analysis.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "efficiency-update",
+          "statement": "Higher tag layers are less detailed but more efficient, so the hierarchy explicitly trades precision against scope and cost.",
+          "evidence_pages": [
+            4
+          ]
+        },
+        {
+          "kind": "limitation",
+          "statement": "Real-time updates and validation on real-world clinical data remain future work.",
+          "evidence_pages": [
+            8
+          ]
+        },
+        {
+          "kind": "safety-grounding",
+          "statement": "MedGraphRAG combines local evidence retrieval and global context refinement, but its safety evidence remains bounded by benchmark accuracy and a limited human evaluation rather than deployment outcomes.",
+          "evidence_pages": [
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ]
+    }
+  ]
+}
