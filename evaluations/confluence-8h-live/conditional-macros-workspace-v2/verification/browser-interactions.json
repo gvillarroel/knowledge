@@ -1,0 +1,246 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34472058",
+  "operation_id": "e6767807-06df-4c0c-9a77-71c2a8b11617",
+  "browser_gt_sha256": "882b6eb5c639415fc0fafa4122838812f3d89e0b39bb622d8476ba3e6c106f53",
+  "observed_at": "2026-07-13T08:45:56Z",
+  "checks": [
+    {
+      "id": "rendered-page",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The locally revised conditional-macro fixture renders without an unknown-macro placeholder.",
+      "actual": {
+        "remote_version": 3,
+        "title_visible": true,
+        "current_conditional_macros_heading_count": 1,
+        "unknown_macro_placeholder_count": 0
+      },
+      "screenshot": {
+        "path": "browser-final-top.jpg",
+        "sha256": "75e97529127cb18cfa6d783a6837c47aedb31362d3df510efdeda5641e0a0df7"
+      }
+    },
+    {
+      "id": "page-tree-search-submission",
+      "passed": true,
+      "method": "authenticated-form-submission-and-url-assertion",
+      "assertion": "Page Tree Search submits a query scoped to the configured root page.",
+      "actual": {
+        "query": "Current conditional",
+        "search_path": "/wiki/search",
+        "space_key": "~701216ec7fd06929c4771add0ec012097b466",
+        "ancestor_page_id": "34472058",
+        "empty_result_heading_count": 1
+      },
+      "screenshot": {
+        "path": "browser-page-tree-search.jpg",
+        "sha256": "4e0ce39823a07b387d9c5cdc0de37fe1a4cfe77f9fb08adadbd963b323f7c833"
+      }
+    },
+    {
+      "id": "blog-posts-empty-state",
+      "passed": true,
+      "method": "authenticated-role-query-and-screenshot",
+      "assertion": "Blog Posts renders its live empty state and create-blog action with the locally authored maximum parameter accepted.",
+      "actual": {
+        "create_blog_link_count": 1,
+        "configured_maximum": 5,
+        "render_error_count": 0
+      },
+      "screenshot": {
+        "path": "browser-final-top.jpg",
+        "sha256": "75e97529127cb18cfa6d783a6837c47aedb31362d3df510efdeda5641e0a0df7"
+      }
+    },
+    {
+      "id": "content-report-table-results",
+      "passed": true,
+      "method": "authenticated-table-query-and-screenshot",
+      "assertion": "Content Report Table resolves the roundtrip-campaign label to live page rows.",
+      "actual": {
+        "table_rows_including_header": 5,
+        "result_rows": 4,
+        "columns": ["Title", "Author", "Modified"]
+      },
+      "screenshot": {
+        "path": "browser-final-mid.jpg",
+        "sha256": "8b8e91e9faf2c83a92ebde3a18e0094ce4d007a3669ad1a2d9d76da5712805a7"
+      }
+    },
+    {
+      "id": "include-content-render",
+      "passed": true,
+      "method": "authenticated-heading-table-and-link-query",
+      "assertion": "Include Content renders the configured published target rather than a placeholder.",
+      "actual": {
+        "target_page_id": "34472028",
+        "target_title": "Confluence 8h Lab — Remote Render Preflight 2026-07-13",
+        "included_heading": "Integrated remote-render preflight",
+        "included_verification_table_visible": true
+      },
+      "screenshot": {
+        "path": "browser-final-mid.jpg",
+        "sha256": "8b8e91e9faf2c83a92ebde3a18e0094ce4d007a3669ad1a2d9d76da5712805a7"
+      }
+    },
+    {
+      "id": "user-list-valid-group",
+      "passed": true,
+      "method": "authenticated-table-and-user-link-query",
+      "assertion": "User List resolves a real tenant group and includes the authenticated account.",
+      "actual": {
+        "group": "confluence-users-villarroelgj-1774746765908",
+        "table_rows_including_header": 8,
+        "authenticated_user_visible": true
+      },
+      "screenshot": {
+        "path": "browser-final-user-decision.jpg",
+        "sha256": "57508f01775d9b9b4bedc63f73eea81c3e2ec1676cb8ae28df044454fd91c043"
+      }
+    },
+    {
+      "id": "decision-report-empty-state",
+      "passed": true,
+      "method": "authenticated-table-query-and-screenshot",
+      "assertion": "Decision Report executes and returns a valid empty result rather than an error.",
+      "actual": {
+        "table_rows_including_header": 2,
+        "empty_message": "No decisions were found",
+        "render_error_count": 0
+      },
+      "screenshot": {
+        "path": "browser-final-decision-template.jpg",
+        "sha256": "f3778489b84d4a53a1168ad2456a11dd5c3050284effe33d833d784c5d6f3b90"
+      }
+    },
+    {
+      "id": "create-from-template-draft",
+      "passed": true,
+      "method": "authenticated-button-click-and-new-tab-inspection",
+      "assertion": "Create from Template opens a meeting-notes draft with the configured generated title.",
+      "actual": {
+        "draft_page_id": "34406469",
+        "draft_title": "Generated review 2026-07-13",
+        "created_with_template": true,
+        "action_items_heading_count": 1,
+        "decisions_heading_count": 1,
+        "published": false
+      },
+      "screenshot": {
+        "path": "browser-template-draft.jpg",
+        "sha256": "16397150cc73030aa1c99e14cbfb2ef878dff4e7f2b368123323cc792ca745f8"
+      }
+    },
+    {
+      "id": "iframe-playback",
+      "passed": true,
+      "method": "authenticated-frame-role-click-and-dom-geometry",
+      "assertion": "The locally configured iFrame loads the exact YouTube embed and starts playback.",
+      "actual": {
+        "src": "https://www.youtube.com/embed/CNeuec8ybc4",
+        "title": "Confluence iframe verification",
+        "rendered_width": 764,
+        "rendered_height": 324,
+        "play_button_count_before_click": 1,
+        "pause_button_count_after_click": 1
+      },
+      "screenshot": {
+        "path": "browser-iframe-playback.jpg",
+        "sha256": "f613a0b8f0d204a8eb101d282af17a6a61dfd0dfe929bed62f4d300d185a88eb"
+      }
+    },
+    {
+      "id": "roadmap-render",
+      "passed": true,
+      "method": "authenticated-text-query-and-screenshot",
+      "assertion": "The UI-created Roadmap Planner preserves its opaque payload and renders every configured lane, bar, and marker.",
+      "actual": {
+        "lanes": 2,
+        "bars": 3,
+        "markers": 1,
+        "lane_titles": ["Carril 1", "Carril 2"],
+        "bar_titles": ["Barra 1", "Barra 2", "Barra 3"],
+        "marker_titles": ["Marcador 1"]
+      },
+      "screenshot": {
+        "path": "browser-template-preview.jpg",
+        "sha256": "3d2d272a5ccd61c50f524662946277200f337e1db12647909251c344d3fbe496"
+      }
+    },
+    {
+      "id": "toc-zone-anchor",
+      "passed": true,
+      "method": "authenticated-anchor-click-and-url-assertion",
+      "assertion": "Table of Contents Zone generates top and bottom links for both locally authored headings and the discovery link navigates to its fragment.",
+      "actual": {
+        "anchor_instances": 4,
+        "unique_targets": 2,
+        "location": "both",
+        "clicked_target_ends_with": "Zoneheading:discovery"
+      },
+      "screenshot": {
+        "path": "browser-toc-zone.jpg",
+        "sha256": "fa8fd527a1bc09ba2224be63331c4d4760e23f1a916d9fad8476b0271d4ca000"
+      }
+    },
+    {
+      "id": "synced-block-dynamic-render",
+      "passed": true,
+      "method": "authenticated-heading-table-query-with-adf-correlation",
+      "assertion": "The locally revised synced-block source renders its dynamic contents in the authenticated page even though REST view returns placeholders.",
+      "actual": {
+        "bodied_sync_block_adf_nodes": 2,
+        "heading_visible": true,
+        "guidance_visible": true,
+        "table_rows_including_header": 3,
+        "rest_view_placeholder_count": 2
+      },
+      "screenshot": {
+        "path": "browser-sync-block.jpg",
+        "sha256": "0470c2f3560c6f8edc58fc916e4db85f7c03f62db8486401b8db5da980b1f94e"
+      }
+    },
+    {
+      "id": "cards-premium-gate",
+      "passed": true,
+      "method": "authenticated-editor-localized-option-click-and-premium-gate",
+      "assertion": "The localized Cards option is present, but this tenant requires a Premium trial before insertion.",
+      "actual": {
+        "locale": "es-ES",
+        "query": "Tarjetas",
+        "exact_option": "Tarjetas",
+        "option_description": "Mostrar enlaces como tarjetas",
+        "gate_title": "Haz que tu contenido destaque con tarjetas",
+        "free_trial_link_count": 1,
+        "learn_more_link_count": 1,
+        "insertion_performed": false
+      },
+      "screenshot": {
+        "path": "browser-cards-premium-gate.jpg",
+        "sha256": "f2d7d0ff1683a8b40953d66e6949e6c97ea3ac95ab906ff82e2deb92020665d8"
+      }
+    },
+    {
+      "id": "carousel-premium-gate",
+      "passed": true,
+      "method": "authenticated-editor-localized-option-click-and-premium-gate",
+      "assertion": "The localized Carousel option is present, but this tenant requires a Premium trial before insertion.",
+      "actual": {
+        "locale": "es-ES",
+        "query": "Carrusel",
+        "exact_option": "Carrusel",
+        "option_description": "Crea un trío giratorio de cuadros dinámicos.",
+        "gate_title": "Capta la atención con el carrusel",
+        "free_trial_link_count": 1,
+        "learn_more_link_count": 1,
+        "insertion_performed": false
+      },
+      "screenshot": {
+        "path": "browser-carousel-premium-gate.jpg",
+        "sha256": "5b26027da352c078fac4e1472fa9d5b940b43fe6a2f211abda50b5dca8393e63"
+      }
+    }
+  ]
+}

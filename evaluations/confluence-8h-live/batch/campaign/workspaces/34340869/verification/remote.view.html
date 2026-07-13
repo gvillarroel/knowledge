@@ -1,0 +1,56 @@
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Campaignbaseline"><style>[data-colorid=g6ufj8x42k]{color:#0052cc} html[data-color-mode=dark] [data-colorid=g6ufj8x42k]{color:#3385ff}</style>Campaign baseline</h2>
+<p>This page is a minimal live target. All capability content will be added from a local workspace through the round-trip skill.</p>
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Typographyandinlinecontent">Typography and inline content</h2>
+<p><strong>Bold specimen</strong> &middot; <em>Italic specimen</em> &middot; <u>Underline specimen</u> &middot; <s>Strike specimen</s> &middot; <code>inline_code()</code> &middot; H<sub>2</sub>O &middot; x<sup>2</sup></p>
+<p style="text-align: center;"><span data-colorid="g6ufj8x42k">Centered blue text</span> and <span style="background-color: rgb(255,235,230);">highlighted text</span></p>
+<p style="margin-left: 60.0px;">Indented paragraph preserved through storage XML.</p>
+<h3 id="Confluence8hLab—TextandStructure2026-07-12-Headinglevelthree">Heading level three</h3>
+<h4 id="Confluence8hLab—TextandStructure2026-07-12-Headinglevelfour">Heading level four</h4>
+<blockquote><p>Quoted content remains visually distinct.</p></blockquote>
+<hr />
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Listsandtasks">Lists and tasks</h2>
+<ul>
+  <li>Bullet item one</li>
+  <li>Bullet item two<ul><li>Nested bullet</li></ul></li>
+</ul>
+<ol>
+  <li>Numbered item one</li>
+  <li>Numbered item two<ol><li>Nested numbered item</li></ol></li>
+</ol>
+<ul class="inline-task-list" data-inline-tasks-content-id="34340869"><li data-inline-task-id="8001">Verify local-to-Confluence task preservation</li></ul>
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Panels,dates,emoji,andstatus">Panels, dates, emoji, and status</h2>
+<div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="d56eb4aa-7e1a-4aab-aeb6-142c6299b124" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Information panel from local storage.</p></div></div>
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="fb70f4f9-f13b-4377-aab1-ac8f791e3d1a" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note panel from local storage.</p></div></div>
+<div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="491b642c-ff7f-4e91-b484-6ad9910f1715" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Warning panel from local storage.</p></div></div>
+<div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="4d606fd2-c899-4491-8d96-fff48bbb43eb" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Tip panel from local storage.</p></div></div>
+<p>Calendar date: <time datetime="2026-07-12" class="date-past">12 jul 2026</time> Emoji: <img class="emoticon emoticon-smile" data-emoji-id="1f642" data-emoji-shortname=":slight_smile:" data-emoji-fallback="🙂" src="/wiki/s/1476789852/6452/0a80a7434a19952ca489850c9d2bcdc3697b1c2a/_/images/icons/emoticons/smile.png" width="16" height="16" data-emoticon-name="smile" alt="(sonrisa)" /> Inline status: <span class="status-macro aui-lozenge aui-lozenge-visual-refresh aui-lozenge-success conf-macro output-inline" data-hasbody="false" data-macro-id="fe20d49a-453e-4c46-ad26-301553cf5cf9" data-macro-name="status">STRUCTURE READY</span></p>
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Expandandcode">Expand and code</h2>
+<div class="expand-container conf-macro output-block" data-hasbody="true" data-macro-id="85f33be8-91f0-4733-9e35-5f0a0ce5027c" data-macro-name="expand" id="expander-198778974"><div id="expander-control-198778974" class="expand-control"><span class="expand-control-icon icon">&nbsp;</span><span class="expand-control-text">Open nested verification content</span></div><div id="expander-content-198778974" class="expand-content expand-hidden">
+    <p>Expandable body survived the local round trip.</p>
+    <div class="expand-container conf-macro output-block" data-hasbody="true" data-macro-id="24380073-cd4e-4836-85fa-4de5a55878e0" data-macro-name="expand" id="expander-698170379"><div id="expander-control-698170379" class="expand-control"><span class="expand-control-icon icon">&nbsp;</span><span class="expand-control-text">Nested expand</span></div><div id="expander-content-698170379" class="expand-content expand-hidden"><p>Nested expandable content is functional.</p></div></div>
+  </div></div>
+<div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="3cf67d42-0e30-4765-a3b1-916c9bc34dba" data-macro-name="code" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Round-trip pseudocode</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: python; gutter: false; theme: Confluence" data-theme="Confluence">workspace = download(page_id)
+validate(workspace)
+upload(workspace)</pre>
+</div></div>
+<h2 id="Confluence8hLab—TextandStructure2026-07-12-Tablesandlayouts">Tables and layouts</h2>
+<div class="table-wrap"><table data-layout="default" data-table-width="760" class="confluenceTable">
+  <tbody>
+    <tr><th class="confluenceTh"><p>Capability</p></th><th class="confluenceTh"><p>Storage form</p></th><th class="confluenceTh"><p>Result</p></th></tr>
+    <tr><td rowspan="2" class="confluenceTd"><p>Merged rows</p></td><td class="confluenceTd"><p>rowspan=2</p></td><td class="confluenceTd"><p>PASS A</p></td></tr>
+    <tr><td colspan="2" class="confluenceTd"><p>Merged columns with colspan=2</p></td></tr>
+  </tbody>
+</table></div>
+<div class="contentLayout2">
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Left layout column</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Right layout column</p></div>
+</div>
+</div>
+</div>

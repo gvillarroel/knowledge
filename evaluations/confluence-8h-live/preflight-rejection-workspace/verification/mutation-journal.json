@@ -1,0 +1,56 @@
+{
+  "desired_state_sha256": "58e0a8870692e2768d41a8ee6f2a2ddcb0d827c6627fbbcac5cd6f51e60a53ff",
+  "error": {
+    "message": "Confluence remote render preflight produced an unknown-macro placeholder",
+    "type": "RemoteRenderPreflightError"
+  },
+  "operation_id": "8aa30ab5-99d3-4efc-91a5-782f86684301",
+  "page_id": "34734163",
+  "plan_sha256": "aabf3f02b6966bf4f8194c142fa2af0c2874de4acfcac888d3559ca349ed73f4",
+  "remote_render_preflight_required": true,
+  "resumed_from_operation_id": null,
+  "schema_version": "1.0",
+  "started_at": "2026-07-13T06:17:12.912412Z",
+  "status": "failed",
+  "steps": [
+    {
+      "detail": {
+        "reason": "unknown-macro-placeholder",
+        "render_safety": {
+          "signals_found": [
+            "class-token",
+            "placeholder-path"
+          ],
+          "status": "failed",
+          "unknown_macro_placeholders": 1
+        },
+        "status": "failed"
+      },
+      "id": "remote-render-preflight",
+      "kind": "preflight",
+      "status": "failed",
+      "updated_at": "2026-07-13T06:17:13.269338Z"
+    },
+    {
+      "id": "page",
+      "kind": "page",
+      "status": "pending"
+    },
+    {
+      "id": "labels",
+      "kind": "labels",
+      "status": "pending"
+    },
+    {
+      "id": "content-state",
+      "kind": "content-state",
+      "status": "pending"
+    },
+    {
+      "id": "api-verification",
+      "kind": "verification",
+      "status": "pending"
+    }
+  ],
+  "updated_at": "2026-07-13T06:17:13.270933Z"
+}

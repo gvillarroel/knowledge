@@ -1,0 +1,1376 @@
+{
+  "schema_version": "1.0",
+  "campaign_id": "confluence-8h-2026-07-12",
+  "campaign_progress": "campaign-progress.json",
+  "description": "Declarative acceptance expectations for locally edited Confluence Cloud workspaces. A capability passes only after local storage, API verification, no-op dry-run, and browser ground truth all pass.",
+  "workspaces": [
+    {
+      "id": "text-structure",
+      "path": "batch/campaign/workspaces/34340869",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "capabilities": [
+        {
+          "id": "typography-inline-content",
+          "description": "Headings, inline emphasis, code, strike, underline, subscript, superscript, colors, alignment, indentation, quotation, and divider.",
+          "local": {
+            "tags_min": {"blockquote": 1, "code": 1, "em": 1, "h2": 1, "h3": 1, "h4": 1, "hr": 1, "s": 1, "span": 2, "strong": 1, "sub": 1, "sup": 1, "u": 1},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Typography and inline content", "Bold specimen", "Centered blue text", "Quoted content remains visually distinct."]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"blockquote": 1, "heading": 3, "rule": 1},
+            "marks_min": {"alignment": 1, "backgroundColor": 1, "code": 1, "em": 1, "indentation": 1, "strike": 1, "strong": 1, "subsup": 2, "textColor": 1, "underline": 1},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["typography-inline-content"], "require_screenshots": true}
+        },
+        {
+          "id": "lists-and-tasks",
+          "description": "Nested ordered and unordered lists plus an incomplete task item.",
+          "local": {
+            "tags_min": {"ac:task": 1, "ac:task-list": 1, "li": 6, "ol": 2, "ul": 2},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Bullet item one", "Nested numbered item", "Verify local-to-Confluence task preservation"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bulletList": 2, "listItem": 6, "orderedList": 2, "taskItem": 1, "taskList": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["lists-and-tasks"], "require_screenshots": true}
+        },
+        {
+          "id": "panels-date-emoji-status",
+          "description": "Information, note, warning, and tip panels with a date, emoji, and inline status.",
+          "local": {
+            "tags_min": {"ac:emoticon": 1, "time": 1},
+            "macros_min": {"info": 1, "note": 1, "status": 1, "tip": 1, "warning": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Information panel from local storage.", "Calendar date:", "STRUCTURE READY"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"date": 1, "emoji": 1, "panel": 4, "status": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["panels-date-emoji-status"], "require_screenshots": true}
+        },
+        {
+          "id": "expand-and-code",
+          "description": "Nested expandable content and a Python code block.",
+          "local": {
+            "tags_min": {"ac:plain-text-body": 1, "ac:rich-text-body": 2},
+            "macros_min": {"code": 1, "expand": 2},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Open nested verification content", "Nested expandable content is functional.", "workspace = download(page_id)"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"codeBlock": 1, "expand": 1, "nestedExpand": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["expand-and-code"], "require_screenshots": true}
+        },
+        {
+          "id": "tables-and-layouts",
+          "description": "Row and column spans plus a two-column page layout.",
+          "local": {
+            "tags_min": {"ac:layout": 1, "ac:layout-cell": 2, "ac:layout-section": 1, "table": 1, "td": 4, "th": 3, "tr": 3},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Merged columns with colspan=2", "Left layout column", "Right layout column"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"layoutColumn": 2, "layoutSection": 1, "table": 1, "tableCell": 4, "tableHeader": 3, "tableRow": 3},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["tables-and-layouts"], "require_screenshots": true}
+        }
+      ]
+    },
+    {
+      "id": "links-media",
+      "path": "batch/campaign/workspaces/34504707",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "interaction_expectations": {
+        "external-email-smart-links": {"method": "authenticated-dom-and-screenshot", "actual_equals": "All four link forms were present in the authenticated DOM."},
+        "internal-anchor-links": {"method": "authenticated-click-and-dom", "actual_equals": "The internal page link was present and clicking the media anchor exposed the target section."},
+        "cross-page-excerpt": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The rendered excerpt contained 'Campaign excerpt content available to another page.'"},
+        "image-attachments": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The PNG and caption were visible in the authenticated page."},
+        "jpeg-image-render": {
+          "method": "authenticated-dom-geometry-and-screenshot",
+          "actual_equals": {"filename": "campaign-photo.jpg", "mime_type": "image/jpeg", "complete": true, "natural_width": 640, "natural_height": 360, "rendered_width": 360, "rendered_height": 203, "layout": "align-end"}
+        },
+        "animated-gif-render": {
+          "method": "authenticated-timed-pixel-comparison",
+          "actual_equals": {"filename": "campaign-animation.gif", "mime_type": "image/gif", "complete": true, "natural_width": 640, "natural_height": 360, "frames": 2, "frame_duration_ms": 600, "sample_interval_ms": 650, "changed_pixels": 230358, "pixel_comparison": "browser-image-variants.json"}
+        },
+        "generic-file-attachments": {
+          "method": "authenticated-dom-and-screenshot",
+          "actual_equals": {"filenames": ["campaign-preview.pdf", "campaign-video.mp4", "campaign-audio.mp3", "campaign-data.csv", "campaign-notes.txt"], "visible_count": 5}
+        },
+        "pdf-preview-download": {"method": "authenticated-preview-dialog", "actual_equals": "campaign-preview.pdf opened as a 2 KB document with Download and no load error."},
+        "video-playback-download": {"method": "authenticated-preview-playback", "actual_equals": "campaign-video.mp4 opened as 2.6 MB, played a 5-second H.264/AAC stream, and exposed seek, volume, speed, fullscreen, and Download controls."},
+        "audio-playback-download": {"method": "authenticated-preview-playback", "actual_equals": "campaign-audio.mp3 opened, exposed a two-second playback timeline and Download, and reported no load error."},
+        "csv-preview-download": {"method": "authenticated-preview-content", "actual_equals": "The preview contained the header 'capability,format,result', the expected smart-link row, and Download."},
+        "text-revision-preview-download": {"method": "authenticated-preview-content", "actual_equals": "The preview showed the revision-two sentence from attachment version 2 and Download."},
+        "attachment-version-two": {
+          "method": "authenticated-preview-content-plus-api-identity",
+          "actual_equals": {"filename": "campaign-notes.txt", "attachment_id": "att34373663", "version": 2, "revision_two_text_visible": true}
+        }
+      },
+      "capabilities": [
+        {
+          "id": "external-email-smart-links",
+          "description": "External HTTPS, email, inline Smart Link, and block Smart Link forms.",
+          "local": {
+            "tags_min": {"a": 4},
+            "macros_min": {},
+            "hrefs": ["https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/", "mailto:villarroel.gj@gmail.com?subject=Confluence%20round-trip%20fixture", "https://support.atlassian.com/confluence-cloud/docs/work-with-images-videos-and-files/", "https://support.atlassian.com/confluence-cloud/docs/simplify-data-with-tables/"],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["External HTTPS documentation link", "Email link fixture", "Inline Smart Link fixture", "Block Smart Link fixture"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"blockCard": 1, "inlineCard": 1},
+            "marks_min": {"link": 2},
+            "urls": ["https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/", "mailto:villarroel.gj@gmail.com?subject=Confluence%20round-trip%20fixture", "https://support.atlassian.com/confluence-cloud/docs/work-with-images-videos-and-files/", "https://support.atlassian.com/confluence-cloud/docs/simplify-data-with-tables/"],
+            "media_min": 3,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["external-email-smart-links"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["external-email-smart-links"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "internal-anchor-links",
+          "description": "Existing page, undefined-page, section-anchor, and anchor macro links.",
+          "local": {
+            "tags_min": {"ac:link": 2, "ri:page": 2},
+            "macros_min": {"anchor": 1},
+            "hrefs": ["#campaign-media-anchor"],
+            "page_references": ["Confluence 8h Lab — Text and Structure 2026-07-12", "Confluence 8h Undefined Page Fixture"],
+            "attachment_references": [],
+            "visible_markers": ["Open the text and structure laboratory", "Undefined page creation link fixture", "Jump to the media anchor"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"inlineCard": 1},
+            "marks_min": {"link": 1},
+            "urls": ["#campaign-media-anchor"],
+            "media_min": 3,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["internal-anchor-links"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["internal-anchor-links"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "cross-page-excerpt",
+          "description": "An excerpt-include macro resolves reusable content from another campaign page.",
+          "local": {
+            "tags_min": {"ri:page": 3},
+            "macros_min": {"excerpt-include": 1},
+            "hrefs": [],
+            "page_references": ["Confluence 8h Lab — Macros and Dynamic Content 2026-07-12"],
+            "attachment_references": [],
+            "visible_markers": ["Cross-page reusable content", "The following macro consumes the excerpt published by the macros laboratory:"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_min": 3,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["cross-page-excerpt"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["cross-page-excerpt"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "image-attachments",
+          "description": "PNG, JPEG, and animated GIF attachments preserve storage controls and are separately browser-verified for representative rendering, geometry, and animation; functional accessibility is verified through ac:alt on a dedicated page.",
+          "local": {
+            "tags_min": {"ac:caption": 1, "ac:image": 3, "ri:attachment": 3},
+            "macros_min": {},
+            "parameters_min": {"alt": 3},
+            "parameter_values": {
+              "alt": [
+                "Animated campaign diagram color transition",
+                "Confluence round-trip architecture campaign diagram",
+                "JPEG conversion of the campaign architecture diagram"
+              ]
+            },
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": ["campaign-animation.gif", "campaign-diagram.png", "campaign-photo.jpg"],
+            "attachment_files": ["campaign-animation.gif", "campaign-diagram.png", "campaign-photo.jpg"],
+            "visible_markers": ["PNG attachment with explicit storage controls.", "JPEG resized and right aligned:", "Animated GIF:"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"media": 3, "mediaSingle": 3},
+            "marks_min": {},
+            "urls": [],
+            "media_min": 3,
+            "required_checks": ["storage-equivalent", "attachment-reference:campaign-diagram.png", "attachment-reference:campaign-photo.jpg", "attachment-reference:campaign-animation.gif"]
+          },
+          "browser": {
+            "required_check_ids": ["image-attachments"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["image-attachments", "jpeg-image-render", "animated-gif-render"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "generic-file-attachments",
+          "description": "PDF, MP4, MP3, CSV, and plain-text attachment links open their tested previews or playback surfaces and expose Download controls; returned download bytes were not verified.",
+          "local": {
+            "tags_min": {"ac:link": 7, "ac:plain-text-link-body": 5, "ri:attachment": 8},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": ["campaign-audio.mp3", "campaign-data.csv", "campaign-notes.txt", "campaign-preview.pdf", "campaign-video.mp4"],
+            "attachment_files": ["campaign-audio.mp3", "campaign-data.csv", "campaign-notes.txt", "campaign-preview.pdf", "campaign-video.mp4"],
+            "visible_markers": ["Open PDF preview fixture", "Open MP4 video fixture", "Open MP3 audio fixture", "Open CSV data fixture", "Open plain-text fixture"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"doc": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_min": 3,
+            "required_checks": ["storage-equivalent", "attachment-reference:campaign-preview.pdf", "attachment-reference:campaign-video.mp4", "attachment-reference:campaign-audio.mp3", "attachment-reference:campaign-data.csv", "attachment-reference:campaign-notes.txt"]
+          },
+          "browser": {
+            "required_check_ids": ["generic-file-attachments"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": [
+              "generic-file-attachments",
+              "pdf-preview-download",
+              "video-playback-download",
+              "audio-playback-download",
+              "csv-preview-download",
+              "text-revision-preview-download",
+              "attachment-version-two"
+            ],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "macros-dynamic",
+      "path": "batch/campaign/workspaces/34570243",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "capabilities": [
+        {
+          "id": "navigation-macros",
+          "description": "Table of contents, page tree, and children macros render dynamic navigation.",
+          "local": {
+            "tags_min": {"ac:structured-macro": 3},
+            "macros_min": {"children": 1, "pagetree": 1, "toc": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Table of contents", "Page tree", "Children"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 3},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["navigation-macros"], "require_screenshots": true}
+        },
+        {
+          "id": "content-discovery-macros",
+          "description": "Attachments, content-by-label, recent updates, history, and contributors macros scan page collections dynamically.",
+          "local": {
+            "tags_min": {"ac:structured-macro": 8},
+            "macros_min": {"attachments": 1, "change-history": 1, "contentbylabel": 1, "contributors": 1, "recently-updated": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Content by campaign label", "Recent updates", "Change history", "Contributors"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 5},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["content-discovery-macros"], "require_screenshots": true}
+        },
+        {
+          "id": "reusable-content-properties",
+          "description": "Excerpt, page-properties, and page-properties-report macros support reusable and aggregated content.",
+          "local": {
+            "tags_min": {"ac:rich-text-body": 2, "table": 1},
+            "macros_min": {"details": 1, "detailssummary": 1, "excerpt": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Campaign excerpt content available to another page.", "Eight-hour Confluence round trip", "Content properties report"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bodiedExtension": 2, "extension": 1, "table": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["reusable-content-properties"], "require_screenshots": true}
+        },
+        {
+          "id": "search-reporting-macros",
+          "description": "Live search, task report, labels list, and popular labels macros explore many pages.",
+          "local": {
+            "tags_min": {"ac:structured-macro": 15},
+            "macros_min": {"listlabels": 1, "livesearch": 1, "popular-labels": 1, "tasks-report-macro": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Live search", "Task report", "Label discovery"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 4},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["search-reporting-macros"], "require_screenshots": true}
+        },
+        {
+          "id": "profile-and-widget",
+          "description": "Profile picture, user profile, and external widget macros retain their dynamic parameters.",
+          "local": {
+            "tags_min": {"ac:structured-macro": 18},
+            "macros_min": {"profile": 1, "profile-picture": 1, "widget": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Profile picture", "User profile", "Widget connector"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 3},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["profile", "profile-picture", "widget"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["profile-and-widget"], "require_screenshots": true}
+        }
+      ]
+    },
+    {
+      "id": "metadata-safety",
+      "path": "batch/campaign/workspaces/34406404",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "capabilities": [
+        {
+          "id": "editable-page-metadata",
+          "description": "Title, global labels, and page content state can change while parent and space remain stable.",
+          "local": {
+            "tags_min": {"table": 1, "td": 8, "th": 2, "tr": 5},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Editable page metadata", "roundtrip-campaign, metadata-verified, batch-ready", "Campaign Ready", "Immutable and verified"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"table": 1, "tableCell": 8, "tableHeader": 2, "tableRow": 5},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent", "title", "space-id", "parent-id", "labels", "content-state"]
+          },
+          "browser": {"required_check_ids": ["editable-page-metadata"], "require_screenshots": true}
+        },
+        {
+          "id": "mention-and-inline-status",
+          "description": "A user mention and inline status remain distinct from page-level metadata.",
+          "local": {
+            "tags_min": {"ac:link": 1, "ri:user": 1},
+            "macros_min": {"status": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Campaign owner:", "Inline state remains independent:", "BATCH READY"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"mention": 1, "status": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {"required_check_ids": ["mention-and-inline-status"], "require_screenshots": true}
+        },
+        {
+          "id": "safety-invariants",
+          "description": "Read-only representations, restrictions, parent, space, and optimistic locks remain verifiable after upload.",
+          "local": {
+            "tags_min": {"h2": 3, "p": 8},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Immutable evidence", "Restrictions, ADF, rendered view, parent ID, space ID, and attachment locks must not be silently changed by a batch edit."]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"doc": 1, "heading": 3},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent", "space-id", "parent-id"]
+          },
+          "browser": {"required_check_ids": ["safety-invariants"], "require_screenshots": true}
+        }
+      ]
+    },
+    {
+      "id": "pi-luna-complex-edit",
+      "path": "pi-luna-workspace",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "capabilities": [
+        {
+          "id": "pi-luna-complex-edit",
+          "description": "An AI-assisted local edit preserves complex structure, dynamic macros, links, API representations, exact no-op convergence, and rendered browser behavior.",
+          "local": {
+            "tags_min": {
+              "a": 2,
+              "ac:layout": 1,
+              "ac:layout-cell": 2,
+              "ac:layout-section": 1,
+              "ac:link": 1,
+              "ac:task": 1,
+              "ac:task-list": 1,
+              "code": 1,
+              "ol": 1,
+              "ri:page": 1,
+              "table": 1,
+              "td": 3,
+              "th": 1,
+              "tr": 3,
+              "ul": 1
+            },
+            "macros_min": {
+              "anchor": 1,
+              "code": 1,
+              "expand": 2,
+              "info": 1,
+              "status": 1,
+              "tasks-report-macro": 1
+            },
+            "hrefs": ["#pi-luna-details", "https://example.com/pi-luna"],
+            "page_references": ["Confluence 8h Lab — Text and Structure 2026-07-12"],
+            "attachment_references": [],
+            "visible_markers": [
+              "PI Luna complex edit accepted",
+              "Review the complex edit fixture",
+              "Nested expansion content.",
+              "PI Luna fixture matrix",
+              "Left-column content",
+              "Existing task reporting remains available:"
+            ]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {
+              "codeBlock": 1,
+              "expand": 1,
+              "extension": 1,
+              "layoutColumn": 2,
+              "layoutSection": 1,
+              "nestedExpand": 1,
+              "panel": 1,
+              "status": 1,
+              "table": 1,
+              "tableCell": 3,
+              "tableHeader": 1,
+              "tableRow": 3,
+              "taskItem": 1,
+              "taskList": 1
+            },
+            "marks_min": {"link": 3},
+            "urls": [
+              "#pi-luna-details",
+              "https://example.com/pi-luna",
+              "https://villarroelgj-1774746765908.atlassian.net/wiki/spaces/~701216ec7fd06929c4771add0ec012097b466/pages/34340869"
+            ],
+            "extensions": ["tasks-report-macro"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": [
+              "rendered-page",
+              "dynamic-task-report",
+              "nested-expand",
+              "internal-and-external-links",
+              "table-and-layout"
+            ],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "pi-openrouter-direct-tool-edit",
+      "path": "pi-openrouter-workspace",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "capabilities": [
+        {
+          "id": "pi-openrouter-direct-tool-edit",
+          "description": "A direct PI filesystem edit through OpenRouter preserves locally authored macros, decisions, nested structure, tasks, tables, layouts, links, exact no-op convergence, and rendered behavior.",
+          "local": {
+            "tags_min": {
+              "a": 1,
+              "ac:adf-extension": 1,
+              "ac:adf-node": 2,
+              "ac:layout": 1,
+              "ac:layout-cell": 2,
+              "ac:layout-section": 1,
+              "ac:link": 1,
+              "ac:task": 1,
+              "ac:task-list": 1,
+              "ri:page": 1,
+              "table": 1,
+              "td": 2,
+              "th": 1,
+              "tr": 2
+            },
+            "macros_min": {
+              "code": 1,
+              "expand": 2,
+              "info": 1,
+              "status": 1
+            },
+            "hrefs": ["https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/"],
+            "page_references": ["PI Luna Complex Edit Fixture 2026-07-12"],
+            "attachment_references": [],
+            "visible_markers": [
+              "PI OpenRouter direct edit accepted",
+              "Complete the direct edit review",
+              "Decision: accept the direct OpenRouter edit.",
+              "Nested expand content.",
+              "Direct edit evidence",
+              "First column",
+              "Second column"
+            ]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {
+              "codeBlock": 1,
+              "decisionItem": 1,
+              "decisionList": 1,
+              "expand": 1,
+              "layoutColumn": 2,
+              "layoutSection": 1,
+              "nestedExpand": 1,
+              "panel": 1,
+              "status": 1,
+              "table": 1,
+              "tableCell": 2,
+              "tableHeader": 1,
+              "tableRow": 2,
+              "taskItem": 1,
+              "taskList": 1
+            },
+            "marks_min": {"link": 2},
+            "urls": [
+              "https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/",
+              "https://villarroelgj-1774746765908.atlassian.net/wiki/spaces/~701216ec7fd06929c4771add0ec012097b466/pages/34570271"
+            ],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": [
+              "rendered-page",
+              "direct-pi-edit",
+              "decision-node",
+              "nested-expand",
+              "task-table-layout-links"
+            ],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "native-editor-coverage",
+      "path": "native-editor-workspace",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "mutation_receipt": {
+        "path": "verification/upload.json",
+        "allowed_statuses": ["uploaded"],
+        "page_updated": true,
+        "attachment_actions": {}
+      },
+      "interaction_expectations": {
+        "rendered-page": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The page title and final acceptance marker were present in the authenticated page."},
+        "heading-hierarchy": {"method": "authenticated-role-and-text-query", "actual_equals": {"heading_levels": [1, 2, 3, 4, 5, 6], "level_6_exact_count": 1}},
+        "inline-formatting": {"method": "authenticated-dom-and-screenshot", "actual_equals": "All configured inline and block formatting markers rendered without a conversion error."},
+        "nested-lists-tasks": {"method": "authenticated-dom-and-screenshot", "actual_equals": {"task_text_exact_count": 1, "incomplete_checkbox_visible": true, "complete_checkbox_visible": true, "assignee_visible": true, "due_date_visible": true, "toggle_evidence": "browser-task-toggle.json"}},
+        "rich-table": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The complete three-column verification matrix was visible with the expected merged cells and values."},
+        "dates-mentions-status": {"method": "authenticated-dom-and-screenshot", "actual_equals": {"mention_visible": true, "date_visible": true, "emoji_visible": true, "status_exact_count": 1}},
+        "one-through-five-columns": {"method": "authenticated-dom-and-screenshot", "actual_equals": {"layout_sections": 8, "layout_columns": 22, "five_e_exact_count": 1, "geometry_evidence": "browser-layout-geometry.json"}}
+      },
+      "capabilities": [
+        {
+          "id": "native-heading-and-formatting",
+          "description": "Native-editor H1-H6 hierarchy, inline marks, alignment, quotation, preformatted text, hard break, and divider survive storage round-trip and render correctly.",
+          "local": {
+            "tags_min": {"blockquote": 1, "br": 1, "code": 1, "em": 1, "h1": 1, "h2": 1, "h3": 1, "h4": 1, "h5": 1, "h6": 1, "hr": 1, "pre": 1, "strong": 1, "sub": 1, "sup": 1, "u": 1},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Native editor round-trip acceptance", "Heading level 6 fixture", "Native editor acceptance complete"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"blockquote": 1, "hardBreak": 1, "heading": 14, "rule": 1},
+            "marks_min": {"alignment": 2, "backgroundColor": 1, "code": 2, "em": 1, "strong": 1, "subsup": 2, "textColor": 1, "underline": 1},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["rendered-page", "heading-hierarchy", "inline-formatting"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["rendered-page", "heading-hierarchy", "inline-formatting"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "native-lists-tasks-table-and-metadata",
+          "description": "Nested ordered and unordered lists, assigned/due and completed tasks, merged table cells, mentions, dates, emoji, and inline status remain functional.",
+          "local": {
+            "tags_min": {"ac:emoticon": 1, "ac:task": 2, "ac:task-list": 1, "li": 6, "ol": 2, "ri:user": 3, "table": 1, "td": 5, "th": 4, "time": 3, "ul": 2},
+            "macros_min": {"status": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Review the native editor fixture", "Native editor verification matrix", "NATIVE READY"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bulletList": 2, "date": 3, "emoji": 1, "listItem": 6, "mention": 3, "orderedList": 2, "status": 1, "table": 1, "tableCell": 5, "tableHeader": 4, "tableRow": 4, "taskItem": 2, "taskList": 1},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["nested-lists-tasks", "rich-table", "dates-mentions-status"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["nested-lists-tasks", "rich-table", "dates-mentions-status"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "native-layout-variants",
+          "description": "One-, two-, three-, sidebar-, four-, and five-column native layouts retain all eight sections and twenty-two columns with measured browser geometry.",
+          "local": {
+            "tags_min": {"ac:layout": 1, "ac:layout-cell": 22, "ac:layout-section": 8},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Five E"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"layoutColumn": 22, "layoutSection": 8},
+            "marks_min": {},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["one-through-five-columns"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["one-through-five-columns"],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "remote-render-preflight",
+      "path": "preflight-workspace",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "mutation_receipt": {
+        "path": "verification/upload.json",
+        "allowed_statuses": ["uploaded"],
+        "page_updated": true,
+        "attachment_actions": {},
+        "remote_render_preflight": {"status": "completed", "polls_min": 1, "rendered_bytes_min": 1}
+      },
+      "interaction_expectations": {
+        "rendered-page": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The title, body, labels, and final acceptance marker were visible."},
+        "remote-preflight-info-panel": {"method": "authenticated-dom-and-screenshot", "actual_equals": "The blue information panel rendered with the exact local body text."},
+        "remote-preflight-four-columns": {"method": "authenticated-dom-geometry-and-screenshot", "actual_equals": {"Validate": {"x": 732, "width": 154}, "Convert": {"x": 934, "width": 154}, "Publish": {"x": 1136, "width": 154}, "Verify": {"x": 1338, "width": 154}}},
+        "remote-preflight-table": {"method": "authenticated-dom-and-screenshot", "actual_equals": {"rows": [["Async conversion", "COMPLETED"], ["Page verification", "VERIFIED"]]}}
+      },
+      "capabilities": [
+        {
+          "id": "remote-render-preflight-acceptance",
+          "description": "The integrated asynchronous remote-render preflight completes before mutation, then the accepted info panel, four-column layout, link, and table survive API and browser verification.",
+          "local": {
+            "tags_min": {"a": 1, "ac:layout": 1, "ac:layout-cell": 4, "ac:layout-section": 1, "table": 1, "td": 4, "th": 2},
+            "macros_min": {"info": 1},
+            "hrefs": ["https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-body/"],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Integrated remote-render preflight", "Remote renderer accepted this macro body before mutation.", "Async conversion", "COMPLETED", "Integrated preflight acceptance complete."]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"layoutColumn": 4, "layoutSection": 1, "panel": 1, "table": 1, "tableCell": 4, "tableHeader": 2, "tableRow": 3},
+            "marks_min": {"link": 1},
+            "urls": ["https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-body/"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["rendered-page", "remote-preflight-info-panel", "remote-preflight-four-columns", "remote-preflight-table"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["rendered-page", "remote-preflight-info-panel", "remote-preflight-four-columns", "remote-preflight-table"],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "accessible-image-alt-text",
+      "path": "alt-text-workspace",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "mutation_receipt": {
+        "path": "verification/upload.json",
+        "allowed_statuses": ["verification-failed"],
+        "allow_reconciled_verification_failure": true,
+        "page_updated": true,
+        "attachment_actions": {"accessible-diagram.png": "create"}
+      },
+      "interaction_expectations": {
+        "rendered-page": {
+          "method": "authenticated-dom-and-screenshot",
+          "actual_equals": "The heading, explanatory text, image, and caption were visible."
+        },
+        "accessible-alt-text": {
+          "method": "authenticated-accessibility-role-query",
+          "actual_equals": {"role": "img", "name": "Accessible Confluence storage round-trip architecture diagram", "count": 1}
+        },
+        "caption": {
+          "method": "authenticated-dom-text-query",
+          "actual_equals": "Accessible image uploaded through the round-trip skill."
+        }
+      },
+      "capabilities": [
+        {
+          "id": "accessible-image-alt-text",
+          "description": "An image authored with the ac:alt storage attribute retains the same alternative text in regenerated ADF, rendered HTML, and the authenticated browser accessibility tree.",
+          "local": {
+            "tags_min": {"ac:caption": 1, "ac:image": 1, "ri:attachment": 1},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": ["accessible-diagram.png"],
+            "attachment_files": ["accessible-diagram.png"],
+            "image_alternative_texts": ["Accessible Confluence storage round-trip architecture diagram"],
+            "visible_markers": [
+              "Accessible image round-trip fixture",
+              "Accessible image uploaded through the round-trip skill."
+            ]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"caption": 1, "media": 1, "mediaSingle": 1},
+            "marks_min": {"border": 1},
+            "urls": [],
+            "media_exact": 1,
+            "adf_image_alternative_texts": ["Accessible Confluence storage round-trip architecture diagram"],
+            "view_image_alternative_texts": ["Accessible Confluence storage round-trip architecture diagram"],
+            "required_checks": [
+              "storage-equivalent",
+              "attachment-reference:accessible-diagram.png",
+              "attachment-media-type:accessible-diagram.png",
+              "attachment:accessible-diagram.png"
+            ]
+          },
+          "browser": {
+            "required_check_ids": ["rendered-page", "accessible-alt-text", "caption"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["rendered-page", "accessible-alt-text", "caption"],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "conditional-macro-discovery",
+      "path": "conditional-macros-workspace-v2",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "interaction_expectations": {
+        "rendered-page": {
+          "method": "authenticated-dom-and-screenshot",
+          "actual_equals": {
+            "remote_version": 3,
+            "title_visible": true,
+            "current_conditional_macros_heading_count": 1,
+            "unknown_macro_placeholder_count": 0
+          }
+        },
+        "page-tree-search-submission": {
+          "method": "authenticated-form-submission-and-url-assertion",
+          "actual_equals": {
+            "query": "Current conditional",
+            "search_path": "/wiki/search",
+            "space_key": "~701216ec7fd06929c4771add0ec012097b466",
+            "ancestor_page_id": "34472058",
+            "empty_result_heading_count": 1
+          }
+        },
+        "blog-posts-empty-state": {
+          "method": "authenticated-role-query-and-screenshot",
+          "actual_equals": {"create_blog_link_count": 1, "configured_maximum": 5, "render_error_count": 0}
+        },
+        "content-report-table-results": {
+          "method": "authenticated-table-query-and-screenshot",
+          "actual_equals": {"table_rows_including_header": 5, "result_rows": 4, "columns": ["Title", "Author", "Modified"]}
+        },
+        "include-content-render": {
+          "method": "authenticated-heading-table-and-link-query",
+          "actual_equals": {
+            "target_page_id": "34472028",
+            "target_title": "Confluence 8h Lab — Remote Render Preflight 2026-07-13",
+            "included_heading": "Integrated remote-render preflight",
+            "included_verification_table_visible": true
+          }
+        },
+        "user-list-valid-group": {
+          "method": "authenticated-table-and-user-link-query",
+          "actual_equals": {
+            "group": "confluence-users-villarroelgj-1774746765908",
+            "table_rows_including_header": 8,
+            "authenticated_user_visible": true
+          }
+        },
+        "decision-report-empty-state": {
+          "method": "authenticated-table-query-and-screenshot",
+          "actual_equals": {"table_rows_including_header": 2, "empty_message": "No decisions were found", "render_error_count": 0}
+        },
+        "create-from-template-draft": {
+          "method": "authenticated-button-click-and-new-tab-inspection",
+          "actual_equals": {
+            "draft_page_id": "34406469",
+            "draft_title": "Generated review 2026-07-13",
+            "created_with_template": true,
+            "action_items_heading_count": 1,
+            "decisions_heading_count": 1,
+            "published": false
+          }
+        },
+        "iframe-playback": {
+          "method": "authenticated-frame-role-click-and-dom-geometry",
+          "actual_equals": {
+            "src": "https://www.youtube.com/embed/CNeuec8ybc4",
+            "title": "Confluence iframe verification",
+            "rendered_width": 764,
+            "rendered_height": 324,
+            "play_button_count_before_click": 1,
+            "pause_button_count_after_click": 1
+          }
+        },
+        "roadmap-render": {
+          "method": "authenticated-text-query-and-screenshot",
+          "actual_equals": {
+            "lanes": 2,
+            "bars": 3,
+            "markers": 1,
+            "lane_titles": ["Carril 1", "Carril 2"],
+            "bar_titles": ["Barra 1", "Barra 2", "Barra 3"],
+            "marker_titles": ["Marcador 1"]
+          }
+        },
+        "toc-zone-anchor": {
+          "method": "authenticated-anchor-click-and-url-assertion",
+          "actual_equals": {"anchor_instances": 4, "unique_targets": 2, "location": "both", "clicked_target_ends_with": "Zoneheading:discovery"}
+        },
+        "synced-block-dynamic-render": {
+          "method": "authenticated-heading-table-query-with-adf-correlation",
+          "actual_equals": {
+            "bodied_sync_block_adf_nodes": 2,
+            "heading_visible": true,
+            "guidance_visible": true,
+            "table_rows_including_header": 3,
+            "rest_view_placeholder_count": 2
+          }
+        },
+        "cards-premium-gate": {
+          "method": "authenticated-editor-localized-option-click-and-premium-gate",
+          "actual_equals": {
+            "locale": "es-ES",
+            "query": "Tarjetas",
+            "exact_option": "Tarjetas",
+            "option_description": "Mostrar enlaces como tarjetas",
+            "gate_title": "Haz que tu contenido destaque con tarjetas",
+            "free_trial_link_count": 1,
+            "learn_more_link_count": 1,
+            "insertion_performed": false
+          }
+        },
+        "carousel-premium-gate": {
+          "method": "authenticated-editor-localized-option-click-and-premium-gate",
+          "actual_equals": {
+            "locale": "es-ES",
+            "query": "Carrusel",
+            "exact_option": "Carrusel",
+            "option_description": "Crea un trío giratorio de cuadros dinámicos.",
+            "gate_title": "Capta la atención con el carrusel",
+            "free_trial_link_count": 1,
+            "learn_more_link_count": 1,
+            "insertion_performed": false
+          }
+        }
+      },
+      "capabilities": [
+        {
+          "id": "conditional-discovery-and-reporting-macros",
+          "description": "Current Page Tree Search, Blog Posts, Content Report Table, Include Content, User List, and Decision Report forms survive local storage editing and execute in the authenticated tenant.",
+          "local": {
+            "tags_min": {"ac:link": 1, "ac:structured-macro": 6, "ri:page": 1},
+            "macros_min": {"blog-posts": 1, "content-report-table": 1, "decisionreport": 1, "include": 1, "pagetreesearch": 1, "userlister": 1},
+            "hrefs": [],
+            "page_references": ["Confluence 8h Lab — Remote Render Preflight 2026-07-13"],
+            "attachment_references": [],
+            "visible_markers": ["Blog Posts", "Content Report Table", "Include Content", "User List", "Decision Report"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 6},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["blog-posts", "content-report-table", "decisionreport", "include", "pagetreesearch", "userlister"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["rendered-page", "page-tree-search-submission", "blog-posts-empty-state", "content-report-table-results", "include-content-render", "user-list-valid-group", "decision-report-empty-state"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["rendered-page", "page-tree-search-submission", "blog-posts-empty-state", "content-report-table-results", "include-content-render", "user-list-valid-group", "decision-report-empty-state"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "create-template-and-iframe",
+          "description": "Create from Template launches a configured meeting-notes draft and the current iFrame form loads and plays its exact embed.",
+          "local": {
+            "tags_min": {"ac:structured-macro": 2, "ri:url": 1},
+            "macros_min": {"create-from-template": 1, "iframe": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Create from Template", "iFrame"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 1, "inlineExtension": 1},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["create-from-template", "iframe"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["create-from-template-draft", "iframe-playback"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["create-from-template-draft", "iframe-playback"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "roadmap-and-toc-zone",
+          "description": "A UI-created Roadmap Planner remains opaque and functional while a locally authored Table of Contents Zone body generates top and bottom navigation links.",
+          "local": {
+            "tags_min": {"ac:rich-text-body": 1, "ac:structured-macro": 2, "h2": 1, "h3": 1},
+            "macros_min": {"roadmap": 1, "toc-zone": 1},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Roadmap Planner", "Table of Contents Zone", "Zone heading: discovery", "Zone heading: verification"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bodiedExtension": 1, "extension": 1, "heading": 2},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["roadmap", "toc-zone"],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["roadmap-render", "toc-zone-anchor"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["roadmap-render", "toc-zone-anchor"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "synced-block-source-roundtrip",
+          "description": "Two editor-created synced-block nodes retain their resource identities while a locally revised source body and table render in the authenticated page; REST view placeholders are not treated as dynamic truth.",
+          "local": {
+            "tags_min": {"ac:adf-extension": 2, "ac:adf-node": 2, "table": 1, "td": 6, "th": 3, "tr": 3},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Synced block source", "Reusable synchronized guidance from the live fixture.", "Structured metric table"]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bodiedSyncBlock": 2, "table": 1, "tableCell": 6, "tableHeader": 3, "tableRow": 3},
+            "marks_min": {"breakout": 2},
+            "urls": [],
+            "media_exact": 0,
+            "required_checks": ["storage-equivalent"]
+          },
+          "browser": {
+            "required_check_ids": ["synced-block-dynamic-render"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["synced-block-dynamic-render"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "premium-cards-and-carousel-gates",
+          "description": "Localized Cards and Carousel options are present in the current editor, but both stop at an operation-bound Premium-trial gate and no storage constructor is inferred.",
+          "local": {
+            "tags_min": {"h2": 1, "p": 1},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": ["Cards and Carousel were offered by the editor but required a Premium trial on this tenant."]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"heading": 1, "paragraph": 1},
+            "marks_min": {},
+            "urls": [],
+            "extensions": [],
+            "media_exact": 0,
+            "view_contains": ["Cards and Carousel were offered by the editor but required a Premium trial on this tenant."],
+            "required_checks": [
+              "storage-equivalent",
+              "view-render-safety",
+              "visible-text:Cards and Carousel were offered by the editor but required a Premium trial on this tenant."
+            ]
+          },
+          "browser": {
+            "required_check_ids": ["cards-premium-gate", "carousel-premium-gate"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["cards-premium-gate", "carousel-premium-gate"],
+            "require_screenshots": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "integration-macro-discovery",
+      "path": "integration-macros-workspace-v5",
+      "artifacts": {
+        "storage": "page.storage.xml",
+        "api_report": "verification/report.json",
+        "noop_dry_run": "verification/noop-dry-run.json",
+        "browser_gt": "verification/browser-ground-truth.json"
+      },
+      "interaction_expectations": {
+        "office-pdf-excel-render": {
+          "method": "authenticated-macro-dom-frame-query-and-screenshot",
+          "actual_equals": {
+            "storage_macro_keys": ["viewpdf", "viewxls"],
+            "viewpdf_dom_count": 1,
+            "viewxls_dom_count": 1,
+            "pdf_attachment": "integration-preview.pdf",
+            "pdf_title": "Confluence round-trip PDF fixture",
+            "pdf_acceptance_marker_count": 3,
+            "pdf_viewer_controls": ["cp.zoom.out", "cp.zoom.in", "cp.fit.to.page", "cp.enter.presentation.mode"],
+            "excel_attachment": "office-excel-fixture.xlsx",
+            "excel_iframe_count": 1,
+            "worksheet": "Verification",
+            "table_rows_including_header": 3,
+            "calculated_totals": [30, 55]
+          }
+        },
+        "tenant-integration-boundaries": {
+          "method": "authenticated-published-summary-query-and-screenshot",
+          "actual_equals": {
+            "heading": "Integration gates observed in this tenant",
+            "heading_count": 1,
+            "list_item_count": 4,
+            "jira_activities_boundary_visible": true,
+            "jira_chart_boundary_visible": true,
+            "assets_boundary_visible": true,
+            "catalog_boundary_visible": true
+          }
+        },
+        "jira-activities-access-gate": {
+          "method": "authenticated-editor-option-click-and-dialog-query",
+          "actual_equals": {
+            "insert_option": "Actividades de Jira",
+            "dialog_title": "Insert Jira work items",
+            "message": "You don't have access to any Jira sites",
+            "contact_admin_guidance_visible": true
+          }
+        },
+        "jira-chart-connection-gate": {
+          "method": "authenticated-editor-option-click-and-dialog-query",
+          "actual_equals": {
+            "insert_option": "Gráficos de Jira",
+            "dialog_title": "Conectar Confluence con Jira",
+            "contact_administrator_button_count": 1,
+            "connection_not_created": true
+          }
+        },
+        "assets-access-gate": {
+          "method": "authenticated-editor-option-click-and-dialog-query",
+          "actual_equals": {
+            "insert_option": "Activos",
+            "dialog_title": "You don't have access to this content",
+            "contact_site_administrator_guidance_visible": true,
+            "insert_objects_disabled": true
+          }
+        },
+        "current-catalog-boundary": {
+          "method": "authenticated-editor-catalog-search",
+          "actual_equals": {
+            "locale": "es-ES",
+            "exact_option_matches": {
+              "Activity Stream": 0,
+              "Team Calendars": 0,
+              "Jira Timeline": 0,
+              "Word": 0,
+              "PowerPoint": 0
+            },
+            "word_query_unrelated_results": ["Lista numerada", "Lista de viñetas", "Ampliar"]
+          }
+        }
+      },
+      "capabilities": [
+        {
+          "id": "office-pdf-excel-functional-macros",
+          "description": "The tenant-native PDF and Excel macros retain their exact attachment references, render the PDF, and expose the Verification worksheet with calculated totals in the authenticated browser.",
+          "local": {
+            "tags_min": {"ac:parameter": 3, "ac:structured-macro": 2, "h2": 2, "ri:attachment": 2},
+            "macros_min": {"viewpdf": 1, "viewxls": 1},
+            "parameters_min": {"name": 2, "sheet": 1},
+            "parameter_values": {"sheet": ["Verification"]},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": ["integration-preview.pdf", "office-excel-fixture.xlsx"],
+            "attachment_files": ["integration-preview.pdf", "office-excel-fixture.xlsx"],
+            "visible_markers": [
+              "Office and integration macro discovery",
+              "PDF macro",
+              "Excel macro",
+              "The authenticated browser must render the exact PDF page and the Verification worksheet with calculated totals."
+            ]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"extension": 2, "heading": 3},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["viewpdf", "viewxls"],
+            "media_exact": 0,
+            "view_contains": [
+              "data-macro-name=\"viewpdf\"",
+              "data-attachment-name=\"integration-preview.pdf\"",
+              "data-macro-name=\"viewxls\"",
+              "data-attachment-name=\"office-excel-fixture.xlsx\"",
+              "data-attachment-sheet-name=\"Verification\""
+            ],
+            "required_checks": [
+              "storage-equivalent",
+              "view-render-safety",
+              "attachment-reference:integration-preview.pdf",
+              "attachment-identity:integration-preview.pdf",
+              "attachment-media-type:integration-preview.pdf",
+              "attachment:integration-preview.pdf",
+              "attachment-reference:office-excel-fixture.xlsx",
+              "attachment-identity:office-excel-fixture.xlsx",
+              "attachment-media-type:office-excel-fixture.xlsx",
+              "attachment:office-excel-fixture.xlsx"
+            ]
+          },
+          "browser": {
+            "required_check_ids": ["office-pdf-excel-render"],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": ["office-pdf-excel-render"],
+            "require_screenshots": true
+          }
+        },
+        {
+          "id": "tenant-integration-gates-and-catalog-boundary",
+          "description": "Authenticated editor probes reproduce the tenant-specific Jira and Assets access gates and record that the es-ES catalog returned no exact option match for the queried English integration labels.",
+          "local": {
+            "tags_min": {"h2": 1, "li": 4, "ul": 1},
+            "macros_min": {},
+            "hrefs": [],
+            "page_references": [],
+            "attachment_references": [],
+            "visible_markers": [
+              "Integration gates observed in this tenant",
+              "Jira Activities reported that the account has no accessible Jira sites.",
+              "Jira Charts requested an administrator-managed Confluence-to-Jira connection.",
+              "Assets reported that the account does not have access to the requested content.",
+              "Activity Stream, Team Calendars, Jira Timeline, Word, and PowerPoint were not offered as insertable core elements in the current editor catalog."
+            ]
+          },
+          "api": {
+            "report_status": "verified",
+            "nodes_min": {"bulletList": 1, "heading": 4, "listItem": 4},
+            "marks_min": {},
+            "urls": [],
+            "extensions": ["viewpdf", "viewxls"],
+            "media_exact": 0,
+            "view_contains": [
+              "Integration gates observed in this tenant",
+              "Jira Activities reported that the account has no accessible Jira sites.",
+              "Jira Charts requested an administrator-managed Confluence-to-Jira connection.",
+              "Assets reported that the account does not have access to the requested content.",
+              "Activity Stream, Team Calendars, Jira Timeline, Word, and PowerPoint were not offered as insertable core elements in the current editor catalog."
+            ],
+            "required_checks": ["storage-equivalent", "view-render-safety"]
+          },
+          "browser": {
+            "required_check_ids": [
+              "tenant-integration-boundaries",
+              "jira-activities-access-gate",
+              "jira-chart-connection-gate",
+              "assets-access-gate",
+              "current-catalog-boundary"
+            ],
+            "interaction_evidence": "verification/browser-interactions.json",
+            "required_interaction_ids": [
+              "tenant-integration-boundaries",
+              "jira-activities-access-gate",
+              "jira-chart-connection-gate",
+              "assets-access-gate",
+              "current-catalog-boundary"
+            ],
+            "require_screenshots": true
+          }
+        }
+      ]
+    }
+  ]
+}

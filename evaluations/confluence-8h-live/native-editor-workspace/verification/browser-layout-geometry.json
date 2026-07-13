@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34373703",
+  "operation_id": "f39703c1-cf1e-418e-bafd-6288c1338908",
+  "browser_gt_sha256": "41d57e89ec4cebf89d051cc8829bc13c30a98634606618d8ef1a46ca5dc44c70",
+  "observed_at": "2026-07-13T05:43:08Z",
+  "viewport_width": 1920,
+  "unit": "css-pixel",
+  "rows": [
+    {"type": "single", "cells": [{"label": "Single-column layout cell", "x": 732, "width": 760}]},
+    {"type": "two_equal", "cells": [{"label": "Two equal A", "x": 732, "width": 356}, {"label": "Two equal B", "x": 1136, "width": 356}]},
+    {"type": "two_left_sidebar", "cells": [{"label": "Left sidebar", "x": 732, "width": 237}, {"label": "Wide right content", "x": 1017, "width": 475}]},
+    {"type": "two_right_sidebar", "cells": [{"label": "Wide left content", "x": 732, "width": 475}, {"label": "Right sidebar", "x": 1254, "width": 237}]},
+    {"type": "three_equal", "cells": [{"label": "Three equal A", "x": 732, "width": 221}, {"label": "Three equal B", "x": 1001, "width": 221}, {"label": "Three equal C", "x": 1270, "width": 221}]},
+    {"type": "three_with_sidebars", "cells": [{"label": "Three left sidebar", "x": 732, "width": 166}, {"label": "Three wide center", "x": 946, "width": 332}, {"label": "Three right sidebar", "x": 1326, "width": 166}]},
+    {"type": "four_equal", "cells": [{"label": "Four A", "x": 732, "width": 154}, {"label": "Four B", "x": 934, "width": 154}, {"label": "Four C", "x": 1136, "width": 154}, {"label": "Four D", "x": 1338, "width": 154}]},
+    {"type": "five_equal", "cells": [{"label": "Five A", "x": 732, "width": 114}, {"label": "Five B", "x": 893, "width": 114}, {"label": "Five C", "x": 1055, "width": 114}, {"label": "Five D", "x": 1216, "width": 114}, {"label": "Five E", "x": 1378, "width": 114}]}
+  ],
+  "assertions": {
+    "all_rows_share_a_horizontal_baseline": true,
+    "equal_rows_have_equal_cell_widths": true,
+    "left_sidebar_is_narrower_than_content": true,
+    "right_sidebar_is_narrower_than_content": true,
+    "three_sidebars_are_narrower_than_center": true,
+    "four_columns_visible": true,
+    "five_columns_visible": true
+  }
+}

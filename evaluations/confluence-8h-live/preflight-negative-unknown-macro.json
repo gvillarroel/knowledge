@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "status": "verified-negative",
+  "observed_at": "2026-07-13T06:11:24Z",
+  "page_context_id": "34472028",
+  "mutation_attempted": false,
+  "request": {
+    "source_representation": "storage",
+    "target_representation": "view",
+    "allow_cache": false,
+    "candidate_storage": "<h2>Negative preflight probe</h2><ac:structured-macro ac:name=\"definitely-not-a-real-confluence-macro\" />"
+  },
+  "converter_observation": {
+    "status": "COMPLETED",
+    "error": null,
+    "rendered_length": 334,
+    "contains_unknown_macro_class": true,
+    "contains_unknown_macro_placeholder_url": true,
+    "contains_candidate_macro_name": true,
+    "rendered_shape": "h2 followed by img.wysiwyg-unknown-macro whose src uses /placeholder/unknown-macro"
+  },
+  "safety_conclusion": {
+    "task_completion_alone_is_insufficient": true,
+    "required_behavior": "Reject the rendered unknown-macro placeholder before attachments or page PUT.",
+    "generic_error_text_must_not_be_used": "A valid warning panel contains an aui-iconfont-error class."
+  },
+  "privacy": {
+    "async_id_persisted": false,
+    "credential_persisted": false
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "campaign_id": "confluence-8h-2026-07-12-hardened-draft",
+  "ended_at": "2026-07-13T00:07:22-04:00",
+  "minimum_duration_hours": 8,
+  "multi_page_workflow": {
+    "report": {
+      "path": "evidence/multi-page-workflow/report.json",
+      "sha256": "8c22bd6e6c2eceaa698c767af77b7fa71b42a5ba86d0bd19f08a7074e60c0ea8"
+    }
+  },
+  "phases": [
+    {
+      "ended_at": "2026-07-13T00:07:22-04:00",
+      "id": "live-roundtrip-verification",
+      "name": "Live multi-page round-trip verification",
+      "started_at": "2026-07-12T21:57:14-04:00",
+      "test_cases": [
+        {
+          "coverage_categories": [
+            "text-and-marks",
+            "structure",
+            "inline-elements",
+            "containers"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/text-and-structure/report.json",
+              "sha256": "42484113b6d234fdccb47841dfc8eaaac8db8c41110645254b0a83bdc6183369"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/text-and-structure/browser-ground-truth.json",
+              "sha256": "d206deef6a3535dd00b3dccf36bb4b8fe842d02b578a793121c4bce9b655f4c6"
+            },
+            "noop_dry_run": {
+              "path": "evidence/text-and-structure/noop-dry-run.json",
+              "sha256": "83d468e2aaffc0729caa156985d5f32718b8f5ae4813702a83e6e7266e8747e3"
+            }
+          },
+          "id": "text-and-structure",
+          "name": "Text and structure round-trip",
+          "page_id": "34340869",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "links",
+            "smart-links",
+            "media",
+            "attachments"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/links-and-media/report.json",
+              "sha256": "5ab9b5f1f9ae095b6a503bace13af7214a385d78c2312563700433539e86e1b1"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/links-and-media/browser-ground-truth.json",
+              "sha256": "cd4baf0718bc050ccd65b4db3fd1d5e9ed5af13ab8e3cbca798f67cc5311e074"
+            },
+            "noop_dry_run": {
+              "path": "evidence/links-and-media/noop-dry-run.json",
+              "sha256": "1f338ceee3a7cd0e0228e823d7129e07e9698228e915024e124a8fc295060a10"
+            }
+          },
+          "id": "links-and-media",
+          "name": "Links, media, and attachments round-trip",
+          "page_id": "34504707",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "core-dynamic-macros",
+            "marketplace-and-custom-extensions"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/macros-and-dynamic-content/report.json",
+              "sha256": "40251456d37837a21b9bd437b303cb69af56d724fb0f8a666052783cc8034530"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/macros-and-dynamic-content/browser-ground-truth.json",
+              "sha256": "083fc26ac6ca86fc9da607a27b3f430cbbbacb3121c20f87c0d9b92666f2e3f2"
+            },
+            "noop_dry_run": {
+              "path": "evidence/macros-and-dynamic-content/noop-dry-run.json",
+              "sha256": "0083aebe3e9fc6df2f6c2be3517fb325a518a048eb6d68e1d5436abfb08988dc"
+            }
+          },
+          "id": "macros-and-dynamic-content",
+          "name": "Dynamic macro and extension round-trip",
+          "page_id": "34570243",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "page-metadata",
+            "immutable-and-preserved-surfaces"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/metadata-and-safety/report.json",
+              "sha256": "1abad0a7e2773e2ded4a159b4b78a8a7ee14a5a19939668a3858aeb66b9564b9"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/metadata-and-safety/browser-ground-truth.json",
+              "sha256": "ed49250d1e20ce921866721c8354eb963824427e6046dde58a510b96dffc3d58"
+            },
+            "noop_dry_run": {
+              "path": "evidence/metadata-and-safety/noop-dry-run.json",
+              "sha256": "9936adbe962a3fd2ae5a609319832a1a217fd73f7731f0785fb1b715fb79e842"
+            }
+          },
+          "id": "metadata-and-safety",
+          "name": "Metadata and preserved-surface round-trip",
+          "page_id": "34406404",
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "required_coverage_categories": [
+    "text-and-marks",
+    "structure",
+    "inline-elements",
+    "containers",
+    "links",
+    "smart-links",
+    "media",
+    "core-dynamic-macros",
+    "marketplace-and-custom-extensions",
+    "page-metadata",
+    "attachments",
+    "immutable-and-preserved-surfaces"
+  ],
+  "schema_version": "1.0",
+  "started_at": "2026-07-12T21:57:14-04:00"
+}

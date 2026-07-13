@@ -1,0 +1,211 @@
+schemaVersion: 1
+benchmark:
+  id: roundtrip-confluence-pages-isolated-planning-compare
+  description: Compare offline loss-aware Confluence planning with and without the standalone roundtrip-confluence-pages skill.
+  tags:
+    - knowledge
+    - confluence
+    - planning
+    - isolated
+    - compare
+task:
+  prompts:
+    - id: preserve-dynamic-page-edit
+      description: Plan a safe edit of a page with dynamic and attachment-backed content.
+      prompt: |-
+        Plan an offline edit of a published Confluence page that adds a short approval note while preserving an unknown Marketplace macro, a Smart Link card, a status, and an attachment-backed image. No credentials or remote calls are available. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"preserve":["..."],"verification":["..."],"stop_conditions":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: loss-aware-page-plan
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.preserve, ...value.verification, ...value.stop_conditions].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && any(text, ['storage xml', 'storage format', 'page.storage.xml'])
+                  && any(text, ['adf', 'atlas doc format'])
+                  && any(text, ['rendered view', 'rendered html', 'view html'])
+                  && any(text, ['read-only evidence', 'immutable evidence', 'observation only', 'not editable', 'leave adf', 'leave rendered html'])
+                  && text.includes('macro')
+                  && any(text, ['smart link', 'link card'])
+                  && text.includes('status')
+                  && any(text, ['attachment-backed image', 'attachment image', 'image attachment', 'image node', 'image loads from its attachment'])
+                  && text.includes('version')
+                  && any(text, ['dry run', 'dry-run', 'mutation plan', 'preview the update'])
+                  && any(text, ['api verification', 'api check', 're-fetch', 'api plus authenticated-browser verification'])
+                  && any(text, ['browser', 'visual ground truth', 'screenshot']);
+              } catch { return false; }
+    - id: replace-architecture-attachment
+      description: Plan an attachment replacement with metadata preservation.
+      prompt: |-
+        An architecture page needs a replacement diagram file, one new global label, and an updated page-level status. Plan the offline round-trip while keeping the page in its current location and leaving access restrictions unchanged. Never delete the old remote attachment automatically. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"preserve":["..."],"verification":["..."],"stop_conditions":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: attachment-safety-plan
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.preserve, ...value.verification, ...value.stop_conditions].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && (any(text, ['attachment first', 'attachment upload first', 'attachments upload first', 'upload attachments first', 'upload the attachment before', 'attachments must upload before', 'attachment before the page', 'attachments before storage'])
+                    || /attachment.{0,48}(?:upload|uploaded).{0,64}before.{0,32}(?:storage|page|body)/.test(text)
+                    || /upload.{0,72}(?:first|before).{0,96}(?:storage|page|body)/.test(text))
+                  && (any(text, ['exact filename', 'matching filename', 'same filename', 'same-name', 'intended filename', 'intended portable filename', 'intended confluence filename'])
+                    || /\b(?:exact|matching|same|intended).{0,24}filename/.test(text))
+                  && any(text, ['storage xml', 'storage reference', 'image reference'])
+                  && any(text, ['sha-256', 'hash', 'byte digest'])
+                  && any(text, ['media type', 'content type', 'mime'])
+                  && any(text, ['global label', 'labels'])
+                  && any(text, ['content status', 'page-level status', 'page status'])
+                  && any(text, ['do not delete', 'never delete', 'leave the old attachment'])
+                  && any(text, ['restriction', 'permission'])
+                  && any(text, ['parent', 'space', 'location'])
+                  && (any(text, ['api verification', 'api check', 'api report', 're-fetch'])
+                    || (text.includes('returned storage') && text.includes('remote bytes')))
+                  && any(text, ['browser', 'screenshot', 'visual']);
+              } catch { return false; }
+    - id: resumable-reviewed-page-batch
+      description: Generalize the workflow to a small reviewed batch with throttling.
+      prompt: |-
+        Six reviewed Confluence pages need the same wording update; some contain unknown macros, and the service may throttle requests. Prepare an offline batch plan with per-page safety, resumability, and truthful partial-result reporting. Do not contact Confluence or claim atomic rollback. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"preserve":["..."],"verification":["..."],"stop_conditions":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: batch-generalization
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.preserve, ...value.verification, ...value.stop_conditions].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && text.includes('six')
+                  && text.includes('manifest')
+                  && any(text, ['per-page version', 'version lock for each', 'each page version', 'each remote page', 'remote page and attachment version', 'version and attachment locks', 'optimistic version', 'version lock'])
+                  && any(text, ['sequential', 'one page at a time'])
+                  && any(text, ['429', 'rate limit', 'throttle', 'backoff'])
+                  && any(text, ['resume', 'resumable', 'checkpoint'])
+                  && any(text, ['partial', 'per-page result', 'mixed outcome'])
+                  && /unknown[- ]macro|opaque.{0,24}macro|macro (?:subtree|inventor)/.test(text)
+                  && any(text, ['not atomic', 'no atomic', 'cannot roll back', 'no rollback', 'roll back', 'rolled back', 'atomic rollback', 'atomicity or rollback'])
+                  && any(text, ['api verification', 'api check', 'api report', 'api-verified', 'remote re-fetch', 'api and authenticated-browser verification'])
+                  && any(text, ['browser', 'visual verification', 'screenshot']);
+              } catch { return false; }
+    - id: concurrent-version-conflict
+      description: Recover safely when the remote page changes after download.
+      prompt: |-
+        The remote Confluence page version changed after its workspace was downloaded, and the requested edit also mentions moving the page and changing restrictions. No remote connection is permitted here. Provide a safe boundary and recovery plan instead of forcing an upload. Return JSON only with exactly these keys in this order: {"status":"blocked","steps":["..."],"preserve":["..."],"verification":["..."],"stop_conditions":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: conflict-boundary
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.preserve, ...value.verification, ...value.stop_conditions].join('\n').toLowerCase();
+                return value.status === 'blocked'
+                  && text.includes('version')
+                  && any(text, ['changed', 'stale', 'conflict', 'optimistic lock'])
+                  && any(text, ['stop', 'abort', 'refuse', 'do not upload'])
+                  && (any(text, ['fresh download', 'download again', 're-download', 'download the same', 'new workspace'])
+                    || (text.includes('download') && text.includes('fresh workspace')))
+                  && (any(text, ['review the change again', 'reapply the edit', 'reapply the requested', 'reapply only the requested', 'reapplying the requested', 'rebase the local edit'])
+                    || /reapply.{0,32}(?:edit|change|patch)/.test(text))
+                  && any(text, ['do not force', 'never force', 'without force', 'do not upload or use --force', 'do not upload, use --force'])
+                  && text.includes('move')
+                  && text.includes('restriction')
+                  && any(text, ['separate', 'must not', 'cannot'])
+                  && (any(text, ['no remote call', 'offline', 'no connection', 'no remote connection', 'no authorized remote connection', 'remote access remains unavailable', 'remote access or credentials remain unavailable', 'remote connectivity', 'connectivity or required credentials remain unavailable'])
+                    || /remote access.{0,48}unavailable/.test(text))
+                  && any(text, ['api verification', 'api check', 'remote re-fetch', 'api and authenticated-browser verification'])
+                  && any(text, ['browser', 'visual ground truth', 'screenshot']);
+              } catch { return false; }
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 5
+            && keys[0] === 'status'
+            && keys[1] === 'steps'
+            && keys[2] === 'preserve'
+            && keys[3] === 'verification'
+            && keys[4] === 'stop_conditions'
+            && typeof value.status === 'string'
+            && ['steps', 'preserve', 'verification', 'stop_conditions'].every((key) =>
+              Array.isArray(value[key])
+              && value[key].length > 0
+              && value[key].every((item) => typeof item === 'string' && item.trim().length > 0));
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without Confluence round-trip guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local roundtrip-confluence-pages skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/roundtrip-confluence-pages
+              skillId: roundtrip-confluence-pages
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - roundtrip-confluence-pages
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+          - offline
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

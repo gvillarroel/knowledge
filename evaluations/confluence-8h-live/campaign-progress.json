@@ -1,0 +1,554 @@
+{
+  "schema_version": "1.0",
+  "campaign_id": "confluence-8h-2026-07-12",
+  "tenant": "https://villarroelgj-1774746765908.atlassian.net",
+  "space_id": "163842",
+  "started_at": "2026-07-12T21:57:14-04:00",
+  "minimum_end_at": "2026-07-13T05:57:14-04:00",
+  "status": "complete",
+  "last_updated_at": "2026-07-13T06:02:38-04:00",
+  "live_capability_result": {
+    "status": "complete",
+    "passed": 32,
+    "failed": 0,
+    "missing": 0,
+    "prerequisite": 0
+  },
+  "batch_result": {
+    "status": "verified",
+    "manifest": "batch/campaign/batch-manifest.json",
+    "completion_report": "batch/campaign/post-dynamic-completion.json",
+    "dependency_order": [
+      "34570243",
+      "34406404",
+      "34340869",
+      "34504707"
+    ],
+    "api_checks": 88,
+    "browser_checks": 33,
+    "screenshots": 26
+  },
+  "ai_assisted_edit": {
+    "status": "verified",
+    "model": "openai-codex/gpt-5.6-luna",
+    "page_id": "34570271",
+    "remote_version": 42,
+    "operation_id": "8a78ce08-6113-4d22-9307-f083bf67cddf",
+    "completion": {
+      "api_checks": 10,
+      "browser_checks": 5,
+      "screenshots": 2,
+      "noop": true
+    },
+    "evidence": "pi-luna-evidence.json"
+  },
+  "ai_direct_tool_edit": {
+    "status": "verified",
+    "model": "openrouter/openai/gpt-5.6-luna",
+    "page_id": "34471938",
+    "remote_version": 3,
+    "operation_id": "84a840da-91f1-4782-ab84-e3d628d85df0",
+    "completion": {
+      "api_checks": 10,
+      "browser_checks": 6,
+      "screenshots": 2,
+      "noop": true
+    },
+    "evidence": "pi-openrouter-evidence.json"
+  },
+  "native_editor_result": {
+    "status": "verified",
+    "page_id": "34373703",
+    "remote_version": 4,
+    "operation_id": "f39703c1-cf1e-418e-bafd-6288c1338908",
+    "api_report": "native-editor-workspace/verification/report.json",
+    "browser_evidence": "native-editor-workspace/verification/browser-ground-truth.json",
+    "interaction_evidence": "native-editor-workspace/verification/browser-interactions.json",
+    "completion": {
+      "api_checks": 14,
+      "browser_checks": 7,
+      "screenshots": 4,
+      "noop": true
+    }
+  },
+  "conditional_macro_result": {
+    "status": "verified",
+    "page_id": "34472058",
+    "remote_version": 3,
+    "operation_id": "e6767807-06df-4c0c-9a77-71c2a8b11617",
+    "workspace": "conditional-macros-workspace-v2",
+    "manifest": "conditional-macros-workspace-v2/manifest.json",
+    "api_report": "conditional-macros-workspace-v2/verification/report.json",
+    "browser_evidence": "conditional-macros-workspace-v2/verification/browser-ground-truth.json",
+    "interaction_evidence": "conditional-macros-workspace-v2/verification/browser-interactions.json",
+    "evidence": "conditional-macros-workspace-v2/verification/noop-dry-run.json",
+    "completion": {
+      "api_checks": 15,
+      "browser_checks": 14,
+      "screenshots": 14,
+      "noop": true
+    },
+    "screenshot_evidence": [
+      {
+        "id": "cards-premium-gate",
+        "evidence": "conditional-macros-workspace-v2/verification/browser-cards-premium-gate.jpg"
+      },
+      {
+        "id": "carousel-premium-gate",
+        "evidence": "conditional-macros-workspace-v2/verification/browser-carousel-premium-gate.jpg"
+      }
+    ],
+    "conditional_limits": {
+      "cards": "Localized option and Premium-trial gate verified; insertion not performed",
+      "carousel": "Localized option and Premium-trial gate verified; insertion not performed",
+      "synced_block_rest_view": "placeholder-only; authenticated browser and ADF are authoritative"
+    }
+  },
+  "integration_macro_result": {
+    "status": "verified",
+    "page_id": "34897923",
+    "remote_version": 4,
+    "operation_id": "3bfeda86-577b-4428-be12-1e8f1bae1d8a",
+    "workspace": "integration-macros-workspace-v5",
+    "manifest": "integration-macros-workspace-v5/manifest.json",
+    "api_report": "integration-macros-workspace-v5/verification/report.json",
+    "browser_evidence": "integration-macros-workspace-v5/verification/browser-ground-truth.json",
+    "interaction_evidence": "integration-macros-workspace-v5/verification/browser-interactions.json",
+    "evidence": "integration-macros-workspace-v5/verification/noop-dry-run.json",
+    "completion": {
+      "api_checks": 20,
+      "browser_checks": 7,
+      "screenshots": 8,
+      "noop": true
+    },
+    "completion_gate": {
+      "status": "verified"
+    },
+    "screenshot_evidence": [
+      {
+        "id": "assets-access-gate",
+        "evidence": "integration-macros-workspace-v5/verification/browser-assets-access-gate-final3.jpg"
+      },
+      {
+        "id": "catalog-absence",
+        "evidence": "integration-macros-workspace-v5/verification/browser-catalog-absence-final4.jpg"
+      },
+      {
+        "id": "excel-render",
+        "evidence": "integration-macros-workspace-v5/verification/browser-excel-final.jpg"
+      },
+      {
+        "id": "integration-gates-summary",
+        "evidence": "integration-macros-workspace-v5/verification/browser-gates-summary-final.jpg"
+      },
+      {
+        "id": "jira-activities-access-gate",
+        "evidence": "integration-macros-workspace-v5/verification/browser-jira-access-gate-final3.jpg"
+      },
+      {
+        "id": "jira-chart-connection-gate",
+        "evidence": "integration-macros-workspace-v5/verification/browser-jira-chart-connect-gate-final3.jpg"
+      },
+      {
+        "id": "pdf-render",
+        "evidence": "integration-macros-workspace-v5/verification/browser-pdf-final2.jpg"
+      }
+    ]
+  },
+  "remote_render_preflight_result": {
+    "status": "verified",
+    "page_id": "34472028",
+    "remote_version": 2,
+    "operation_id": "882453f8-7847-4efc-9e0f-849d80d1906e",
+    "api_report": "preflight-workspace/verification/report.json",
+    "browser_evidence": "preflight-workspace/verification/browser-ground-truth.json",
+    "interaction_evidence": "preflight-workspace/verification/browser-interactions.json",
+    "upload_report": "preflight-workspace/verification/upload.json",
+    "remote_render_preflight": {
+      "status": "completed",
+      "polls": 2,
+      "rendered_bytes": 1820,
+      "rendered_sha256": "624dedbfa2eb97f6e178fbf1bf30d3d54f3a1ff0e8091a208b86f3ee97574ea3"
+    },
+    "completion": {
+      "api_checks": 13,
+      "browser_checks": 4,
+      "screenshots": 2,
+      "noop": true
+    }
+  },
+  "remote_render_preflight_negative": {
+    "status": "verified-rejection",
+    "scenario": "The asynchronous converter completed without an API error but returned an unknown-macro placeholder.",
+    "required_behavior": "Reject the candidate before page or attachment mutation.",
+    "page_mutations": 0,
+    "evidence": "preflight-negative-unknown-macro.json"
+  },
+  "remote_render_preflight_live_rejection": {
+    "status": "verified-rejection",
+    "page_id": "34734163",
+    "remote_version_unchanged": 1,
+    "page_updated": false,
+    "candidate_marker_present": false,
+    "unknown_placeholder_present": false,
+    "evidence": "preflight-rejection-workspace/verification/rejection-proof.json"
+  },
+  "remote_render_preflight_reconciliation": {
+    "status": "verified-reconciliation",
+    "page_id": "34472028",
+    "operation_id": "882453f8-7847-4efc-9e0f-849d80d1906e",
+    "page_mutated": false,
+    "historical_and_fresh_render_digest_match": true,
+    "unknown_macro_placeholders": 0,
+    "evidence": "preflight-workspace/verification/render-safety-reconciliation.json"
+  },
+  "extended_batch_result": {
+    "status": "verified",
+    "batch_id": "9b1e903385d837e347f9",
+    "manifest": "batch/extended-current/batch-manifest.json",
+    "upload_report": "batch/extended-current/batch-upload-noop.json",
+    "completion_report": "batch/extended-current/batch-completion.json",
+    "page_ids": ["34373703", "34472028"],
+    "dependency_order": ["34373703", "34472028"],
+    "page_mutations": 0,
+    "completion": {
+      "api_checks": 14,
+      "browser_checks": 2,
+      "screenshots": 4
+    }
+  },
+  "second_batch_result": {
+    "status": "verified",
+    "batch_id": "7347a584c40c8ad91fb2",
+    "manifest": "batch/direct-round2/batch-manifest.json",
+    "completion_report": "batch/direct-round2/batch-completion-current.json",
+    "page_ids": ["34471938", "34275329"],
+    "dependency_order": ["34471938", "34275329"],
+    "edit": {
+      "storage_marker": "Fleet automation round 2 accepted.",
+      "label": "fleet-automation-round2"
+    },
+    "completion": {
+      "api_checks": 20,
+      "browser_checks": 9,
+      "screenshots": 4
+    }
+  },
+  "attachment_revision_result": {
+    "status": "verified",
+    "page_id": "34504707",
+    "filename": "campaign-notes.txt",
+    "remote_attachment_id": "att34373663",
+    "previous_version": 1,
+    "remote_version": 2,
+    "sha256": "729bc746515484e24660736cc0db4ff8be5533979889d4b8558510110f6fa8c3",
+    "page_version_unchanged": 7,
+    "upload_report": "batch/campaign/attachment-revision-upload.json",
+    "api_report": "batch/campaign/attachment-revision-api-verify.json",
+    "completion_report": "batch/campaign/attachment-revision-completion.json",
+    "completion": {
+      "api_checks": 88,
+      "browser_checks": 18,
+      "screenshots": 11
+    }
+  },
+  "media_preview_correction": {
+    "status": "verified",
+    "page_id": "34504707",
+    "filename": "campaign-video.mp4",
+    "remote_attachment_id": "att34373669",
+    "previous_version": 1,
+    "remote_version": 2,
+    "sha256": "c394e0ce1319cd3bee9bf0fca24bc3d8222d40ea4a1c0a6c1935b10c35e14bcd",
+    "page_version_unchanged": 7,
+    "operation_id": "cd94df78-881c-471b-8e64-588ae1686608",
+    "api_evidence": "draft-guard-probe-v2/verification/video-upload.json",
+    "browser_evidence": "draft-guard-probe-v2/verification/browser-video-preview-v2.png",
+    "browser_observation": "A 2.6 MB H.264/AAC MP4 rendered with active playback, seek, volume, speed, fullscreen, and download controls."
+  },
+  "attachment_format_validation": {
+    "status": "verified",
+    "page_id": "34504707",
+    "formats": ["PNG", "JPEG", "GIF", "PDF", "MP4", "MP3", "CSV", "UTF-8 text"],
+    "evidence": "batch/campaign/workspaces/34504707/verification/attachment-format-validation.json"
+  },
+  "accessible_image_alt_text": {
+    "status": "verified",
+    "page_id": "34734134",
+    "remote_version": 2,
+    "operation_id": "de40e713-d7f5-430c-bbc3-13aa372bb1a3",
+    "workspace": "alt-text-workspace",
+    "storage_attribute": "ac:alt",
+    "browser_accessible_image_count": 1,
+    "api_report": "alt-text-workspace/verification/report.json",
+    "browser_evidence": "alt-text-workspace/verification/browser-ground-truth.json",
+    "interaction_evidence": "alt-text-workspace/verification/browser-interactions.json",
+    "completion": {
+      "api_checks": 13,
+      "browser_checks": 3,
+      "screenshots": 2,
+      "noop": true
+    }
+  },
+  "draft_guard": {
+    "status": "verified",
+    "page_id": "34504707",
+    "divergent_draft_detected": true,
+    "body_update_blocked_with_force": true,
+    "attachment_only_update_allowed": true,
+    "conflict_evidence": "draft-guard-probe-final/verification/draft-conflict.json"
+  },
+  "final_space_inventory": {
+    "status": "verified",
+    "pages": 20,
+    "errors": 0,
+    "inventory": "space-inventory-final-v10.json",
+    "explorations": "final-explores-v6",
+    "exploration_evidence": [
+      {
+        "id": "conditional-page-id",
+        "evidence": "final-explores-v6/by-conditional-page-id.json"
+      },
+      {
+        "id": "create-template",
+        "evidence": "final-explores-v6/by-create-template.json"
+      },
+      {
+        "id": "excel-visible-text",
+        "evidence": "final-explores-v6/by-excel-visible-text.json"
+      },
+      {
+        "id": "integration-gates-text",
+        "evidence": "final-explores-v6/by-integration-gates-text.json"
+      },
+      {
+        "id": "integration-page-id",
+        "evidence": "final-explores-v6/by-integration-page-id.json"
+      },
+      {
+        "id": "office-excel-attachment",
+        "evidence": "final-explores-v6/by-office-excel-attachment.json"
+      },
+      {
+        "id": "page-tree-search",
+        "evidence": "final-explores-v6/by-page-tree-search.json"
+      },
+      {
+        "id": "plan-gate-text",
+        "evidence": "final-explores-v6/by-plan-gate-text.json"
+      },
+      {
+        "id": "roadmap",
+        "evidence": "final-explores-v6/by-roadmap.json"
+      },
+      {
+        "id": "synced-block",
+        "evidence": "final-explores-v6/by-synced-block.json"
+      },
+      {
+        "id": "toc-zone",
+        "evidence": "final-explores-v6/by-toc-zone.json"
+      },
+      {
+        "id": "viewpdf",
+        "evidence": "final-explores-v6/by-viewpdf.json"
+      },
+      {
+        "id": "viewxls",
+        "evidence": "final-explores-v6/by-viewxls.json"
+      }
+    ]
+  },
+  "official_documentation_audit": {
+    "status": "verified",
+    "reviewed_at": "2026-07-13T05:23:36-04:00",
+    "evidence": "official-docs-audit-2026-07-13.json"
+  },
+  "coverage_gate": {
+    "status": "passed",
+    "application_tests": 691,
+    "focused_confluence_tests": 294,
+    "application_coverage_percent": 90.9,
+    "threshold_percent": 80.0,
+    "standalone_skill_tests": 227,
+    "standalone_skill_combined_coverage_percent": 81.93,
+    "standalone_skill_statement_coverage_percent": 85.28,
+    "standalone_skill_branch_coverage_percent": 74.0,
+    "evidence": "coverage-gate.json"
+  },
+  "evidence_bindings": {
+    "alt-text-workspace/verification/browser-ground-truth.json": "820e19e8acad67ed14e973a25ebc0f888a5037b2e72649c00dc2cfee4914f74d",
+    "alt-text-workspace/verification/browser-interactions.json": "b21fd5e08431855b5fd18e5e49609f9565621a4bd7e969f29084344dade78b5f",
+    "alt-text-workspace/verification/report.json": "79d76cd56bf788af89ed728b587043fe012e6918b74239761920a938bd07dd4a",
+    "batch/campaign/attachment-revision-api-verify.json": "702adbd0c7901fffc1e6080d818bbe30e696c2e0482a44571f1303316fb16bb5",
+    "batch/campaign/attachment-revision-completion.json": "ea4a3cd3fe0de427de343ded88059943798823eb61540c914443f7f529505d74",
+    "batch/campaign/attachment-revision-upload.json": "88bd157718be2a4f44e9933bea3acc2636b7534787b38ec48fcdab55981b9497",
+    "batch/campaign/batch-manifest.json": "519aa2d90aa694f9786d011b4c499d8e71227529d68b368c211154c8cab1a22f",
+    "batch/campaign/post-dynamic-completion.json": "4e7af9d72af52e71b3ab99622f228d056882738e675c41562f9a8f1e47c81ff3",
+    "batch/campaign/workspaces/34504707/verification/attachment-format-validation.json": "106b641f80a580270e0d683838c78bb79ce4c543f8f379900e8cf1dfa24f04b7",
+    "batch/direct-round2/batch-completion-current.json": "2935e50b3988207ec4ee5544a978a238dd9af8cc7ea3b5550500c5a18dd26344",
+    "batch/direct-round2/batch-manifest.json": "db2d3c029b363364b3bcf5918bd07626a8cbbaf94d7bfb726d97d2053ed53107",
+    "batch/extended-current/batch-completion.json": "98f1e3cd48e14a0a5dac8043a7f715922cc97b5731ffa182a4b82406133cc490",
+    "batch/extended-current/batch-manifest.json": "5869adea1cda6a7099b0e5b97ad0ef456f1071e49a2829f0978af6c6dc124e20",
+    "batch/extended-current/batch-upload-noop.json": "835ce6878ef8376aadddf84aed52ca3ee3eb3f11f45fbc079559faf8b10bd210",
+    "conditional-macros-workspace-v2/manifest.json": "af673679a71268a2730a4c1039319f5796399c6d42919f76f3405a9c790dc562",
+    "conditional-macros-workspace-v2/verification/browser-cards-premium-gate.jpg": "f2d7d0ff1683a8b40953d66e6949e6c97ea3ac95ab906ff82e2deb92020665d8",
+    "conditional-macros-workspace-v2/verification/browser-carousel-premium-gate.jpg": "5b26027da352c078fac4e1472fa9d5b940b43fe6a2f211abda50b5dca8393e63",
+    "conditional-macros-workspace-v2/verification/browser-ground-truth.json": "882b6eb5c639415fc0fafa4122838812f3d89e0b39bb622d8476ba3e6c106f53",
+    "conditional-macros-workspace-v2/verification/browser-interactions.json": "dcd6fbad34d76528bd08adb57267ac817a67d77c638fedc2390c6b0d1ac4a1ab",
+    "conditional-macros-workspace-v2/verification/noop-dry-run.json": "a4de327e1a3835088fbe96512ef5edbd2000db31e8bf359a086986cfa0a7ee25",
+    "conditional-macros-workspace-v2/verification/report.json": "2bed71d564e243c73fb5442db82097d2c11558eddd1220579a4c166d3152a91a",
+    "coverage-gate.json": "92f8e04c7ee91c6d3cc8d25fa3a15ce5db3a4f7847685ebda4a462acad6ce81a",
+    "draft-guard-probe-final/verification/draft-conflict.json": "f153468a73d7dacfd8ba7396af9bd7cef69774255e4388db6c16753459561d98",
+    "draft-guard-probe-v2/verification/browser-video-preview-v2.png": "1a141be37cb333660dbaefcceba4becea805ca110455e767ebdec9d7e47c32d6",
+    "draft-guard-probe-v2/verification/video-upload.json": "8f3f2aba3e01d3f89e5b94046afd3d5469dac34cb24df5b42578a5a6a80c301f",
+    "integration-macros-workspace-v5/manifest.json": "14a3f1a6ce6493eb8d47ff6ff2212be623b9d856ca89a57711038c2ca8d198ff",
+    "final-explores-v6/by-conditional-page-id.json": "83f9792faf722181b757b29e3d05eca38e3de31002ee405ab889ab0bf86bcd9e",
+    "final-explores-v6/by-create-template.json": "e8f035bc7a04e7c08a3997b521b8357f8dca82cb2d5e3ad97de11deed17463e7",
+    "final-explores-v6/by-excel-visible-text.json": "7fa8379ff31a6c2f155a8f091dd4f1cf9d0e00929dfb377c8b9cd5344afb1f9f",
+    "final-explores-v6/by-integration-gates-text.json": "6c3e92075471e98b1d2217de900a98552f7420f7687a0cfcf16364f49e29958b",
+    "final-explores-v6/by-integration-page-id.json": "9b816123088b6b25125a62d7a8f48b6d65055a8be4432b9f4ba9e0ea15ea24df",
+    "final-explores-v6/by-office-excel-attachment.json": "5a674df5dae8c52d4c3f51f41985bfd48f7de293c4f8f524640264df6739d0c7",
+    "final-explores-v6/by-page-tree-search.json": "bb2cb8cac954a0d4b137955b5d1f4edf29dfe4d6ffb4cd62b313fde2a1343e05",
+    "final-explores-v6/by-plan-gate-text.json": "4125eab84be9156e9642de2323601972127c4da82117395eca77ea58195473a8",
+    "final-explores-v6/by-roadmap.json": "c08564e41cddaed8c4825eee80fc130cdc727338b6cfd35e0ff4b34c2ccdfe7a",
+    "final-explores-v6/by-synced-block.json": "fe96759a5ee8cb35010385098cd47b621f9af34fdb9990f135ffe3952c173dc7",
+    "final-explores-v6/by-toc-zone.json": "8a74d5595afc050ce179eb1a9abd77ae75eaa557f1bd8f2ad4eed38690803ce2",
+    "final-explores-v6/by-viewpdf.json": "8dc34cb3a3ccdadf0698ce98094b06e562cdd982a6bc961cd3a62d74fa4cf331",
+    "final-explores-v6/by-viewxls.json": "eb69ca5684de488eb1064f1fcf587e8ee5a83d8dcae686d9fd96116c7865fcfd",
+    "integration-macros-workspace-v5/verification/browser-assets-access-gate-final3.jpg": "561bab6049f91b1811dd944bcc1293e3a221975b40c6c54660f117d9a76aea67",
+    "integration-macros-workspace-v5/verification/browser-catalog-absence-final4.jpg": "7cab49ba5f6589e3339c7b3eea281ce9c0ba6b876b9dcb173d21098d54544417",
+    "integration-macros-workspace-v5/verification/browser-excel-final.jpg": "6a8e02d476f4eaa86482563d8bd496256efcf7c8b8ff494f3c41c7d46aaa2d20",
+    "integration-macros-workspace-v5/verification/browser-gates-summary-final.jpg": "052c5b7092b7f913b3b3649ed418f17a109ef41a64434dda6b4181b479c16a30",
+    "integration-macros-workspace-v5/verification/browser-ground-truth.json": "5a822f44f3136459cc06e7619234b3365a04f6aa1ee204af96d64378d1b2c1bf",
+    "integration-macros-workspace-v5/verification/browser-interactions.json": "8ef755e6569ed8a828ce92afc9de0c2e581d91a7e1cf48379ce3f66f78d2a8a7",
+    "integration-macros-workspace-v5/verification/browser-jira-access-gate-final3.jpg": "59bdb9d07af5abe387e0287e6d0c576cd9e2884e73a746d7ba0b270cf8debb9c",
+    "integration-macros-workspace-v5/verification/browser-jira-chart-connect-gate-final3.jpg": "3ecf9de277ac60a0573a898f44d9cd6a636a75f436cbb5b67cb329271638741b",
+    "integration-macros-workspace-v5/verification/browser-pdf-final2.jpg": "22e78884a96fec5379c3ff85c630c7f42391a9fb0cb5efd3fce1874fd2d1f3c3",
+    "integration-macros-workspace-v5/verification/noop-dry-run.json": "a3fced0b3917841c663ec26694dd725188ef7b9339a36872c5d13a598d3ed419",
+    "integration-macros-workspace-v5/verification/report.json": "fb0d7c8b4fba5f4bbb2d37eb0827bfc88352a09c1a1997021650be92b7f3584f",
+    "native-editor-workspace/verification/browser-ground-truth.json": "41d57e89ec4cebf89d051cc8829bc13c30a98634606618d8ef1a46ca5dc44c70",
+    "native-editor-workspace/verification/browser-interactions.json": "e9f31175b27371397a1a8fad238415783cd3111090cc584e0e0a3468ffd64776",
+    "native-editor-workspace/verification/report.json": "b25738908983630ad0fc6d506aa53a7224ef55f1800a4679854f67291bba58b6",
+    "official-docs-audit-2026-07-13.json": "068ea097d812be0684e9c632f69d1abbfd1e8b98e766ccfd5bad42300c7710cb",
+    "pi-luna-evidence.json": "8131530a89bf1685dae7c686dac999128334511b00dec159881eeefd04866891",
+    "pi-openrouter-evidence.json": "7a1c81ae34acbcc4892284cdf36feaf90046f803350d83925308ecb37ad3e523",
+    "preflight-workspace/verification/browser-ground-truth.json": "2b421a4176a9b6affc02232b3b3b40ff00841c76dd9a3c4bef31f0ad1424b4c8",
+    "preflight-workspace/verification/browser-interactions.json": "40a99d4c0a224d7b67a95198db9679543fae85705b5cac3f2fdda43aefd54de7",
+    "preflight-workspace/verification/report.json": "94f762f1b70f4524635aa55f9aaab6d8d9940acf7d4afd376f72dbbc9bd85831",
+    "preflight-workspace/verification/upload.json": "d4adf81d83307399b8d4f6e425d3a6e25f1511ef8f8028def661bb5c622dcda1",
+    "preflight-workspace/verification/render-safety-reconciliation.json": "c05e566c391285cc2bac8a6d15a1fda987c88b0c299652a45cf1a23a8e48b164",
+    "preflight-negative-unknown-macro.json": "c811c105284085e022c1654553e97cf2f0e62191b7cde393e63de67c89f26626",
+    "preflight-rejection-workspace/verification/rejection-proof.json": "4f0feccc888f83d0ebdee8aaecfecd8a2385a752d55cd0dce3ace327212b0fef",
+    "space-inventory-final-v10.json": "16c2390286500c4c6a58e9aadd8e0db2cf30e8bab313499122f7f8c2ce76d358"
+  },
+  "prerequisite_pages": [
+    {
+      "page_id": "34570271",
+      "title": "PI Luna Complex Edit Fixture 2026-07-12",
+      "purpose": "Live data for Children and Page Tree macros"
+    }
+  ],
+  "pages": [
+    {
+      "page_id": "34340869",
+      "workspace": "batch/campaign/workspaces/34340869",
+      "workspace_id": "text-structure",
+      "title": "Confluence 8h Lab — Text and Structure 2026-07-12",
+      "phase": "verified",
+      "remote_version": 2,
+      "operation_id": "abc3aec1-20bd-4b6f-b783-1869f3a3960a"
+    },
+    {
+      "page_id": "34504707",
+      "workspace": "batch/campaign/workspaces/34504707",
+      "workspace_id": "links-media",
+      "title": "Confluence 8h Lab — Links and Media 2026-07-12",
+      "phase": "verified",
+      "remote_version": 7,
+      "operation_id": "076662e5-00ef-4598-a19a-d72b47e69a74",
+      "depends_on": ["34570243", "34340869"]
+    },
+    {
+      "page_id": "34570243",
+      "workspace": "batch/campaign/workspaces/34570243",
+      "workspace_id": "macros-dynamic",
+      "title": "Confluence 8h Lab — Macros and Dynamic Content 2026-07-12",
+      "phase": "verified",
+      "remote_version": 3,
+      "operation_id": "65c68eb6-213f-4353-a117-3d9ca44168d5"
+    },
+    {
+      "page_id": "34406404",
+      "workspace": "batch/campaign/workspaces/34406404",
+      "workspace_id": "metadata-safety",
+      "title": "Confluence 8h Lab — Metadata and Safety — Revised Locally 2026-07-12",
+      "phase": "verified",
+      "remote_version": 3,
+      "operation_id": "e21e4538-9c0d-4dba-b18e-9bcb9a274521"
+    },
+    {
+      "page_id": "34570271",
+      "workspace": "pi-luna-workspace",
+      "workspace_id": "pi-luna-complex-edit",
+      "title": "PI Luna Complex Edit Fixture 2026-07-12",
+      "phase": "verified",
+      "remote_version": 42,
+      "operation_id": "8a78ce08-6113-4d22-9307-f083bf67cddf"
+    },
+    {
+      "page_id": "34471938",
+      "workspace": "pi-openrouter-workspace",
+      "workspace_id": "pi-openrouter-direct-tool-edit",
+      "title": "Confluence Round-Trip Link Target 2026-07-12",
+      "phase": "verified",
+      "remote_version": 3,
+      "operation_id": "84a840da-91f1-4782-ab84-e3d628d85df0"
+    },
+    {
+      "page_id": "34373703",
+      "workspace": "native-editor-workspace",
+      "workspace_id": "native-editor-coverage",
+      "title": "Confluence 8h Lab — Native Editor Coverage 2026-07-13",
+      "phase": "verified",
+      "remote_version": 4,
+      "operation_id": "f39703c1-cf1e-418e-bafd-6288c1338908"
+    },
+    {
+      "page_id": "34472028",
+      "workspace": "preflight-workspace",
+      "workspace_id": "remote-render-preflight",
+      "title": "Confluence 8h Lab — Remote Render Preflight 2026-07-13",
+      "phase": "verified",
+      "remote_version": 2,
+      "operation_id": "882453f8-7847-4efc-9e0f-849d80d1906e"
+    },
+    {
+      "page_id": "34472058",
+      "workspace": "conditional-macros-workspace-v2",
+      "workspace_id": "conditional-macro-discovery",
+      "title": "Confluence 8h Lab — Conditional Macro Discovery 2026-07-13",
+      "phase": "verified",
+      "remote_version": 3,
+      "operation_id": "e6767807-06df-4c0c-9a77-71c2a8b11617"
+    },
+    {
+      "page_id": "34897923",
+      "workspace": "integration-macros-workspace-v5",
+      "workspace_id": "integration-macro-discovery",
+      "title": "Confluence 8h Lab — Integration Macro Discovery 2026-07-13",
+      "phase": "verified",
+      "remote_version": 4,
+      "operation_id": "3bfeda86-577b-4428-be12-1e8f1bae1d8a"
+    },
+    {
+      "page_id": "34734134",
+      "workspace": "alt-text-workspace",
+      "workspace_id": "accessible-image-alt-text",
+      "title": "Confluence 8h Lab — Accessible Image Alt Text 2026-07-13",
+      "phase": "verified",
+      "remote_version": 2,
+      "operation_id": "de40e713-d7f5-430c-bbc3-13aa372bb1a3"
+    }
+  ]
+}

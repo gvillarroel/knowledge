@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34504707",
+  "operation_id": "076662e5-00ef-4598-a19a-d72b47e69a74",
+  "browser_gt_sha256": "8a3ca5f993219746fbb9a4556191ac345f168892856071124f44d86884602ec5",
+  "observed_at": "2026-07-13T05:49:38Z",
+  "checks": [
+    {
+      "id": "external-email-smart-links",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The external HTTPS link, email link, inline Smart Link, and block Smart Link are present without a rendering error.",
+      "actual": "All four link forms were present in the authenticated DOM.",
+      "screenshot": {"path": "browser-final-links-section.png", "sha256": "1e64af6b7f9b6d641bfc4da7ca16f3dfb28ed9dbee23980235810a8f34ea61e9"}
+    },
+    {
+      "id": "internal-anchor-links",
+      "passed": true,
+      "method": "authenticated-click-and-dom",
+      "assertion": "The internal page link is present and the page anchor scrolls to the media section.",
+      "actual": "The internal page link was present and clicking the media anchor exposed the target section.",
+      "screenshot": {"path": "browser-final-media-section.png", "sha256": "210d3531b9f2528074556d30959a0ed5829bd07e71bd595713b42b6ba975da3c"}
+    },
+    {
+      "id": "cross-page-excerpt",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The excerpt include resolves content from the macros laboratory page.",
+      "actual": "The rendered excerpt contained 'Campaign excerpt content available to another page.'",
+      "screenshot": {"path": "browser-final-media-section.png", "sha256": "210d3531b9f2528074556d30959a0ed5829bd07e71bd595713b42b6ba975da3c"}
+    },
+    {
+      "id": "image-attachments",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The image section renders its PNG and caption without an error.",
+      "actual": "The PNG and caption were visible in the authenticated page.",
+      "screenshot": {"path": "browser-final-media-section.png", "sha256": "210d3531b9f2528074556d30959a0ed5829bd07e71bd595713b42b6ba975da3c"}
+    },
+    {
+      "id": "jpeg-image-render",
+      "passed": true,
+      "method": "authenticated-dom-geometry-and-screenshot",
+      "assertion": "The JPEG loads as an image/jpeg resource at its configured right alignment and 360-pixel width.",
+      "actual": {"filename": "campaign-photo.jpg", "mime_type": "image/jpeg", "complete": true, "natural_width": 640, "natural_height": 360, "rendered_width": 360, "rendered_height": 203, "layout": "align-end"},
+      "screenshot": {"path": "browser-final-jpeg.png", "sha256": "c2c9569f94c970a90ea454ea88279f7723b4ec1ac9d179b391e368611824aa0e"}
+    },
+    {
+      "id": "animated-gif-render",
+      "passed": true,
+      "method": "authenticated-timed-pixel-comparison",
+      "assertion": "The GIF loads at its natural size and visibly changes frames across its 600-millisecond frame interval.",
+      "actual": {"filename": "campaign-animation.gif", "mime_type": "image/gif", "complete": true, "natural_width": 640, "natural_height": 360, "frames": 2, "frame_duration_ms": 600, "sample_interval_ms": 650, "changed_pixels": 230358, "pixel_comparison": "browser-image-variants.json"},
+      "screenshot": {"path": "browser-gif-frame-a.png", "sha256": "bb7275dab04ebc7b6dbe818212b3548d27560937b66c02c2503c527f7933f612"}
+    },
+    {
+      "id": "generic-file-attachments",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The PDF, MP4, MP3, CSV, and text attachment controls are all present in the page.",
+      "actual": {"filenames": ["campaign-preview.pdf", "campaign-video.mp4", "campaign-audio.mp3", "campaign-data.csv", "campaign-notes.txt"], "visible_count": 5},
+      "screenshot": {"path": "browser-gif-frame-a.png", "sha256": "bb7275dab04ebc7b6dbe818212b3548d27560937b66c02c2503c527f7933f612"}
+    },
+    {
+      "id": "pdf-preview-download",
+      "passed": true,
+      "method": "authenticated-preview-dialog",
+      "assertion": "The PDF tile opens a preview dialog with a nonzero size and Download control.",
+      "actual": "campaign-preview.pdf opened as a 2 KB document with Download and no load error.",
+      "screenshot": {"path": "browser-final-pdf-preview.png", "sha256": "4b9c2519b1ec7886a57e71e9d0d59b93d66dade0cc35464a4d8eeaf7fde5713a"}
+    },
+    {
+      "id": "video-playback-download",
+      "passed": true,
+      "method": "authenticated-preview-playback",
+      "assertion": "The MP4 preview exposes working playback and Download controls.",
+      "actual": "campaign-video.mp4 opened as 2.6 MB, played a 5-second H.264/AAC stream, and exposed seek, volume, speed, fullscreen, and Download controls.",
+      "screenshot": {"path": "browser-final-video-playback.png", "sha256": "141219017e2b4ff0b85e4bd17bbe52eabc58e2b9edd799c606faf71f8ceb0d0b"}
+    },
+    {
+      "id": "audio-playback-download",
+      "passed": true,
+      "method": "authenticated-preview-playback",
+      "assertion": "The MP3 preview exposes working playback and Download controls.",
+      "actual": "campaign-audio.mp3 opened, exposed a two-second playback timeline and Download, and reported no load error.",
+      "screenshot": {"path": "browser-final-audio-preview.png", "sha256": "399b948098eca74a2bc6eff432d7a9fb25ea2b3630f9f0ae21a18c1e2956a6c2"}
+    },
+    {
+      "id": "csv-preview-download",
+      "passed": true,
+      "method": "authenticated-preview-content",
+      "assertion": "The CSV preview exposes its expected rows and a Download control.",
+      "actual": "The preview contained the header 'capability,format,result', the expected smart-link row, and Download.",
+      "screenshot": {"path": "browser-final-csv-preview.png", "sha256": "dd87ddf56091e73c2b23da24eca2f349ad25fb39389ee5d20f3930d5f3cdf94e"}
+    },
+    {
+      "id": "text-revision-preview-download",
+      "passed": true,
+      "method": "authenticated-preview-content",
+      "assertion": "The text preview exposes the in-place revision and a Download control.",
+      "actual": "The preview showed the revision-two sentence from attachment version 2 and Download.",
+      "screenshot": {"path": "browser-final-text-preview.png", "sha256": "5c4231f8179bbaaf0bd6ab54b6d8b428b55a969b178816b7b96cc131a5364d5f"}
+    },
+    {
+      "id": "attachment-version-two",
+      "passed": true,
+      "method": "authenticated-preview-content-plus-api-identity",
+      "assertion": "The in-place text attachment revision retains its attachment identity and exposes revision-two content.",
+      "actual": {"filename": "campaign-notes.txt", "attachment_id": "att34373663", "version": 2, "revision_two_text_visible": true},
+      "screenshot": {"path": "browser-final-text-preview.png", "sha256": "5c4231f8179bbaaf0bd6ab54b6d8b428b55a969b178816b7b96cc131a5364d5f"}
+    }
+  ]
+}

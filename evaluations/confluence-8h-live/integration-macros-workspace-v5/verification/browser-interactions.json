@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34897923",
+  "operation_id": "3bfeda86-577b-4428-be12-1e8f1bae1d8a",
+  "browser_gt_sha256": "5a822f44f3136459cc06e7619234b3365a04f6aa1ee204af96d64378d1b2c1bf",
+  "observed_at": "2026-07-13T08:06:23Z",
+  "checks": [
+    {
+      "id": "rendered-page",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The locally reorganized integration fixture renders at remote version 4 without an unknown-macro placeholder.",
+      "actual": {
+        "remote_version": 4,
+        "title_visible": true,
+        "local_heading_visible": true,
+        "unknown_macro_placeholder_count": 0,
+        "office_macro_dom_count": 2
+      },
+      "screenshot": {
+        "path": "browser-pdf-final2.jpg",
+        "sha256": "22e78884a96fec5379c3ff85c630c7f42391a9fb0cb5efd3fce1874fd2d1f3c3"
+      }
+    },
+    {
+      "id": "office-pdf-excel-render",
+      "passed": true,
+      "method": "authenticated-macro-dom-frame-query-and-screenshot",
+      "assertion": "The exact editor-created PDF and Excel macros render the verified attachments, named worksheet, and calculated values after the local storage upload.",
+      "actual": {
+        "storage_macro_keys": ["viewpdf", "viewxls"],
+        "viewpdf_dom_count": 1,
+        "viewxls_dom_count": 1,
+        "pdf_attachment": "integration-preview.pdf",
+        "pdf_title": "Confluence round-trip PDF fixture",
+        "pdf_acceptance_marker_count": 3,
+        "pdf_viewer_controls": ["cp.zoom.out", "cp.zoom.in", "cp.fit.to.page", "cp.enter.presentation.mode"],
+        "excel_attachment": "office-excel-fixture.xlsx",
+        "excel_iframe_count": 1,
+        "worksheet": "Verification",
+        "table_rows_including_header": 3,
+        "calculated_totals": [30, 55]
+      },
+      "screenshot": {
+        "path": "browser-excel-final.jpg",
+        "sha256": "6a8e02d476f4eaa86482563d8bd496256efcf7c8b8ff494f3c41c7d46aaa2d20"
+      }
+    },
+    {
+      "id": "tenant-integration-boundaries",
+      "passed": true,
+      "method": "authenticated-published-summary-query-and-screenshot",
+      "assertion": "The published page records the tenant-specific Jira, Assets, and current-catalog boundaries as four visible list items.",
+      "actual": {
+        "heading": "Integration gates observed in this tenant",
+        "heading_count": 1,
+        "list_item_count": 4,
+        "jira_activities_boundary_visible": true,
+        "jira_chart_boundary_visible": true,
+        "assets_boundary_visible": true,
+        "catalog_boundary_visible": true
+      },
+      "screenshot": {
+        "path": "browser-gates-summary-final.jpg",
+        "sha256": "052c5b7092b7f913b3b3649ed418f17a109ef41a64434dda6b4181b479c16a30"
+      }
+    },
+    {
+      "id": "jira-activities-access-gate",
+      "passed": true,
+      "method": "authenticated-editor-option-click-and-dialog-query",
+      "assertion": "Jira Activities is offered, but this account has no accessible Jira site in the tested tenant.",
+      "actual": {
+        "insert_option": "Actividades de Jira",
+        "dialog_title": "Insert Jira work items",
+        "message": "You don't have access to any Jira sites",
+        "contact_admin_guidance_visible": true
+      },
+      "screenshot": {
+        "path": "browser-jira-access-gate-final3.jpg",
+        "sha256": "59bdb9d07af5abe387e0287e6d0c576cd9e2884e73a746d7ba0b270cf8debb9c"
+      }
+    },
+    {
+      "id": "jira-chart-connection-gate",
+      "passed": true,
+      "method": "authenticated-editor-option-click-and-dialog-query",
+      "assertion": "Jira Chart is offered, but this tenant requires an administrator-managed Confluence-to-Jira connection.",
+      "actual": {
+        "insert_option": "Gráficos de Jira",
+        "dialog_title": "Conectar Confluence con Jira",
+        "contact_administrator_button_count": 1,
+        "connection_not_created": true
+      },
+      "screenshot": {
+        "path": "browser-jira-chart-connect-gate-final3.jpg",
+        "sha256": "3ecf9de277ac60a0573a898f44d9cd6a636a75f436cbb5b67cb329271638741b"
+      }
+    },
+    {
+      "id": "assets-access-gate",
+      "passed": true,
+      "method": "authenticated-editor-option-click-and-dialog-query",
+      "assertion": "Assets is offered, but the authenticated account cannot access Assets content in the tested tenant.",
+      "actual": {
+        "insert_option": "Activos",
+        "dialog_title": "You don't have access to this content",
+        "contact_site_administrator_guidance_visible": true,
+        "insert_objects_disabled": true
+      },
+      "screenshot": {
+        "path": "browser-assets-access-gate-final3.jpg",
+        "sha256": "561bab6049f91b1811dd944bcc1293e3a221975b40c6c54660f117d9a76aea67"
+      }
+    },
+    {
+      "id": "current-catalog-boundary",
+      "passed": true,
+      "method": "authenticated-editor-catalog-search",
+      "assertion": "The tested current-editor catalog exposed no exact insert option for five legacy or integration labels; this is a dated tenant observation, not a global product claim.",
+      "actual": {
+        "locale": "es-ES",
+        "exact_option_matches": {
+          "Activity Stream": 0,
+          "Team Calendars": 0,
+          "Jira Timeline": 0,
+          "Word": 0,
+          "PowerPoint": 0
+        },
+        "word_query_unrelated_results": ["Lista numerada", "Lista de viñetas", "Ampliar"]
+      },
+      "screenshot": {
+        "path": "browser-catalog-absence-final4.jpg",
+        "sha256": "7cab49ba5f6589e3339c7b3eea281ce9c0ba6b876b9dcb173d21098d54544417"
+      }
+    }
+  ]
+}

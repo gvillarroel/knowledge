@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34570243",
+  "operation_id": "65c68eb6-213f-4353-a117-3d9ca44168d5",
+  "browser_gt_sha256": "2770ff733e168d41352dca26f0338eedb3772076004292ed341413a07f2c3173",
+  "observed_at": "2026-07-13T06:03:53Z",
+  "checks": [
+    {
+      "id": "navigation-macros",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The table of contents, page tree, and children macros render current navigable links.",
+      "actual": {"table_of_contents_visible": true, "page_tree_root_links": 14, "children_link": "PI Luna Complex Edit Fixture 2026-07-12"},
+      "screenshot": {"path": "browser-page-tree-current.png", "sha256": "bf9c800ed7c49e5e9a61992a82031e94af4e3e8c546a8d3f5345063fb4618ea9"}
+    },
+    {
+      "id": "content-discovery-macros",
+      "passed": true,
+      "method": "authenticated-live-output-and-screenshots",
+      "assertion": "Attachments, Content by Label, Recently Updated, Change History, and Contributors return current data without errors.",
+      "actual": {"attachment_rows": 1, "content_by_label_pages": 4, "recent_pages": 10, "change_history_rows": 4, "contributors": ["Gerardo Jorge Villarroel González"]},
+      "screenshot": {"path": "browser-recent-updates-current.png", "sha256": "8173b1479e617f370e09ea8c8231501e5873734dd2ee3a3e65083f0149de5ed0"}
+    },
+    {
+      "id": "reusable-content-properties",
+      "passed": true,
+      "method": "authenticated-table-query-and-screenshot",
+      "assertion": "Excerpt, Content Properties, and Content Properties Report expose their configured reusable values.",
+      "actual": {"excerpt_visible": true, "details": {"Owner": "Gerardo Villarroel", "Campaign": "Eight-hour Confluence round trip", "Status": "ACTIVE"}, "report_rows": 1},
+      "screenshot": {"path": "browser-live-search-result.png", "sha256": "e1fc71281446c3101124cc8cc23be295c6b9a0fd96be8a7e0b538e2253d52d8e"}
+    },
+    {
+      "id": "search-reporting-macros",
+      "passed": true,
+      "method": "authenticated-search-navigation-and-table-query",
+      "assertion": "Live Search submits a space-scoped query and Task Report returns current linked task rows.",
+      "actual": {"query": "Native Editor Coverage", "search_result_count": 1, "task_report_rows": 3, "popular_labels_include": "confluence-8h-verified"},
+      "screenshot": {"path": "browser-live-search-submitted.png", "sha256": "2b52daa39db63bda6a3d4518951fa2123b82e4cf2285fb39c937d2026266d906"}
+    },
+    {
+      "id": "profile-and-widget",
+      "passed": true,
+      "method": "authenticated-dom-iframe-and-screenshot",
+      "assertion": "Profile Picture, User Profile, and Widget Connector render their current external content.",
+      "actual": {"profile_name": "Gerardo Jorge Villarroel González", "profile_email": "villarroel.gj@gmail.com", "youtube_embed": "https://www.youtube.com/embed/CNeuec8ybc4?wmode=opaque", "iframe_size": [480, 300]},
+      "screenshot": {"path": "browser-profile-widget-current.png", "sha256": "c647696efa8e293c3fd05b13f8fe75ce95ea06b685ae916c568c7a32d5228946"}
+    },
+    {
+      "id": "page-tree-live-inventory",
+      "passed": true,
+      "method": "authenticated-dom-link-inventory",
+      "assertion": "Page Tree reflects newly created live campaign pages.",
+      "actual": {"root_page_links": 14, "contains_native_editor": true, "contains_remote_preflight": true},
+      "screenshot": {"path": "browser-page-tree-current.png", "sha256": "bf9c800ed7c49e5e9a61992a82031e94af4e3e8c546a8d3f5345063fb4618ea9"}
+    },
+    {
+      "id": "attachment-macro-live-row",
+      "passed": true,
+      "method": "authenticated-dom-link-query",
+      "assertion": "The Attachments macro exposes the uploaded text attachment and download link.",
+      "actual": {"filename": "macro-attachment.txt", "href": "/wiki/download/attachments/34570243/macro-attachment.txt?api=v2", "rows": 1},
+      "screenshot": {"path": "browser-attachment-macro-current.png", "sha256": "04c322d0e1f43a6c471819d73823cc00041ed2d480e793f9925c12ad74233882"}
+    },
+    {
+      "id": "recently-updated-live-data",
+      "passed": true,
+      "method": "authenticated-dom-dynamic-output",
+      "assertion": "Recently Updated exposes current pages rather than serialized stale output.",
+      "actual": {"visible_pages": 10, "first_page": "Confluence 8h Lab — Remote Render Preflight 2026-07-13", "contains_native_editor": true},
+      "screenshot": {"path": "browser-recent-updates-current.png", "sha256": "8173b1479e617f370e09ea8c8231501e5873734dd2ee3a3e65083f0149de5ed0"}
+    },
+    {
+      "id": "content-properties-live-join",
+      "passed": true,
+      "method": "authenticated-table-query",
+      "assertion": "Content Properties Report joins the source details table into a report row.",
+      "actual": {"source_rows": 3, "report_rows": 1, "joined_status": "ACTIVE"},
+      "screenshot": {"path": "browser-live-search-result.png", "sha256": "e1fc71281446c3101124cc8cc23be295c6b9a0fd96be8a7e0b538e2253d52d8e"}
+    },
+    {
+      "id": "live-search-submission",
+      "passed": true,
+      "method": "authenticated-form-submit-and-navigation",
+      "assertion": "Live Search submits its query with the current-space restriction and returns the target page.",
+      "actual": {"query": "Native Editor Coverage", "result_url": "/wiki/search?text=Native%20Editor%20Coverage&spaces=~701216ec7fd06929c4771add0ec012097b466", "result_count": 1, "result_title": "Confluence 8h Lab — Native Editor Coverage 2026-07-13"},
+      "screenshot": {"path": "browser-live-search-submitted.png", "sha256": "2b52daa39db63bda6a3d4518951fa2123b82e4cf2285fb39c937d2026266d906"}
+    },
+    {
+      "id": "task-report-live-rows",
+      "passed": true,
+      "method": "authenticated-table-and-link-query",
+      "assertion": "Task Report resolves live incomplete tasks and their source page links.",
+      "actual": {"rows": 3, "tasks": ["Review the complex edit fixture", "Verify local-to-Confluence task preservation", "Confirm browser rendering against post-upload ground truth"], "all_locations_linked": true},
+      "screenshot": {"path": "browser-task-report-current.png", "sha256": "a56ba698b9361f01fbbf7bdc970fc6607730fd15f6244f234db0a6cb1b91e6da"}
+    },
+    {
+      "id": "profile-widget-live-render",
+      "passed": true,
+      "method": "authenticated-dom-iframe-and-screenshot",
+      "assertion": "Profile images and the YouTube Widget Connector render without an error placeholder.",
+      "actual": {"profile_picture_visible": true, "profile_card_visible": true, "youtube_iframe_visible": true, "youtube_iframe_title": "Contenido de YouTube insertado"},
+      "screenshot": {"path": "browser-profile-widget-current.png", "sha256": "c647696efa8e293c3fd05b13f8fe75ce95ea06b685ae916c568c7a32d5228946"}
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+<h1>Native editor round-trip acceptance</h1>
+<p>This page was downloaded, edited as local Confluence storage, preflight-rendered by Confluence, uploaded, and verified through the API and authenticated browser.</p>
+
+<h2>Heading hierarchy</h2>
+<h1>Heading level 1 fixture</h1>
+<h2>Heading level 2 fixture</h2>
+<h3>Heading level 3 fixture</h3>
+<h4>Heading level 4 fixture</h4>
+<h5>Heading level 5 fixture</h5>
+<h6>Heading level 6 fixture</h6>
+
+<h2>Inline and block formatting</h2>
+<p><strong>Bold text</strong>, <em>italic text</em>, <u>underlined text</u>, <span style="text-decoration: line-through;">struck text</span>, <sup>superscript</sup>, <sub>subscript</sub>, and <code>inline_code()</code>.</p>
+<p><span style="color: rgb(0,82,204);">Blue foreground</span>, <span style="background-color: rgb(255,235,230);">red-tint highlight</span>, <small>small text</small>, and <big>big text</big>.</p>
+<p style="text-align: left;">Left-aligned acceptance marker</p>
+<p style="text-align: center;">Centered acceptance marker</p>
+<p style="text-align: right;">Right-aligned acceptance marker</p>
+<blockquote><p>Block quote preserved through storage conversion.</p></blockquote>
+<pre>preformatted_line_1
+preformatted_line_2</pre>
+<p>Line one<br />Line two after a soft break.</p>
+<hr />
+
+<h2>Lists and tasks</h2>
+<ul>
+  <li>Unordered parent
+    <ul><li>Nested unordered child</li></ul>
+  </li>
+  <li>Second unordered item</li>
+</ul>
+<ol>
+  <li>Ordered parent
+    <ol><li>Nested ordered child</li></ol>
+  </li>
+  <li>Second ordered item</li>
+</ol>
+<ac:task-list>
+  <ac:task>
+    <ac:task-id>native-incomplete-20260713</ac:task-id>
+    <ac:task-status>incomplete</ac:task-status>
+    <ac:task-body>Review the native editor fixture with <ac:link><ri:user ri:account-id="70121:6ec7fd06-929c-4771-add0-ec012097b466" /></ac:link> by <time datetime="2026-07-20" /></ac:task-body>
+  </ac:task>
+  <ac:task>
+    <ac:task-id>native-complete-20260713</ac:task-id>
+    <ac:task-status>complete</ac:task-status>
+    <ac:task-body>Preflight the local storage representation</ac:task-body>
+  </ac:task>
+</ac:task-list>
+
+<h2>Rich table</h2>
+<table data-layout="wide">
+  <tbody>
+    <tr><th colspan="3">Native editor verification matrix</th></tr>
+    <tr><th>Surface</th><th>Expected state</th><th>Owner and date</th></tr>
+    <tr><td rowspan="2">Storage</td><td>Locally valid</td><td><ac:link><ri:user ri:account-id="70121:6ec7fd06-929c-4771-add0-ec012097b466" /></ac:link></td></tr>
+    <tr><td>Remotely rendered</td><td><time datetime="2026-07-13" /></td></tr>
+  </tbody>
+</table>
+
+<h2>Dates, mentions, emoji, and status</h2>
+<p>Owner: <ac:link><ri:user ri:account-id="70121:6ec7fd06-929c-4771-add0-ec012097b466" /></ac:link>; milestone: <time datetime="2026-07-20" />; reaction: <ac:emoticon ac:name="smile" />.</p>
+<p>Verification state: <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">NATIVE READY</ac:parameter><ac:parameter ac:name="colour">Green</ac:parameter></ac:structured-macro></p>
+
+<h2>One through five columns</h2>
+<ac:layout>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell><p>Single-column layout cell</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="two_equal">
+    <ac:layout-cell><p>Two equal A</p></ac:layout-cell>
+    <ac:layout-cell><p>Two equal B</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="two_left_sidebar">
+    <ac:layout-cell><p>Left sidebar</p></ac:layout-cell>
+    <ac:layout-cell><p>Wide right content</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="two_right_sidebar">
+    <ac:layout-cell><p>Wide left content</p></ac:layout-cell>
+    <ac:layout-cell><p>Right sidebar</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="three_equal">
+    <ac:layout-cell><p>Three equal A</p></ac:layout-cell>
+    <ac:layout-cell><p>Three equal B</p></ac:layout-cell>
+    <ac:layout-cell><p>Three equal C</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="three_with_sidebars">
+    <ac:layout-cell><p>Three left sidebar</p></ac:layout-cell>
+    <ac:layout-cell><p>Three wide center</p></ac:layout-cell>
+    <ac:layout-cell><p>Three right sidebar</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="four_equal">
+    <ac:layout-cell><p>Four A</p></ac:layout-cell>
+    <ac:layout-cell><p>Four B</p></ac:layout-cell>
+    <ac:layout-cell><p>Four C</p></ac:layout-cell>
+    <ac:layout-cell><p>Four D</p></ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="five_equal">
+    <ac:layout-cell><p>Five A</p></ac:layout-cell>
+    <ac:layout-cell><p>Five B</p></ac:layout-cell>
+    <ac:layout-cell><p>Five C</p></ac:layout-cell>
+    <ac:layout-cell><p>Five D</p></ac:layout-cell>
+    <ac:layout-cell><p>Five E</p></ac:layout-cell>
+  </ac:layout-section>
+</ac:layout>
+
+<h2>Native editor acceptance complete</h2>
+<p>All markers in this fixture are intentional and must remain visible after a no-op re-download and verification.</p>

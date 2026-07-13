@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34472028",
+  "operation_id": "882453f8-7847-4efc-9e0f-849d80d1906e",
+  "browser_gt_sha256": "2b421a4176a9b6affc02232b3b3b40ff00841c76dd9a3c4bef31f0ad1424b4c8",
+  "observed_at": "2026-07-13T05:55:17Z",
+  "checks": [
+    {
+      "id": "rendered-page",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The page whose body passed the integrated server preflight renders without an error.",
+      "actual": "The title, body, labels, and final acceptance marker were visible.",
+      "screenshot": {"path": "browser-final.png", "sha256": "6614d4f0c04d31f870dd650693f79f4911a8198abd364792829a54897d978d45"}
+    },
+    {
+      "id": "remote-preflight-info-panel",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The preflighted info macro renders as an information panel.",
+      "actual": "The blue information panel rendered with the exact local body text.",
+      "screenshot": {"path": "browser-final.png", "sha256": "6614d4f0c04d31f870dd650693f79f4911a8198abd364792829a54897d978d45"}
+    },
+    {
+      "id": "remote-preflight-four-columns",
+      "passed": true,
+      "method": "authenticated-dom-geometry-and-screenshot",
+      "assertion": "The preflighted four-column layout retains four equal visual columns.",
+      "actual": {"Validate": {"x": 732, "width": 154}, "Convert": {"x": 934, "width": 154}, "Publish": {"x": 1136, "width": 154}, "Verify": {"x": 1338, "width": 154}},
+      "screenshot": {"path": "browser-final.png", "sha256": "6614d4f0c04d31f870dd650693f79f4911a8198abd364792829a54897d978d45"}
+    },
+    {
+      "id": "remote-preflight-table",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The preflighted table renders both gate rows and their required results.",
+      "actual": {"rows": [["Async conversion", "COMPLETED"], ["Page verification", "VERIFIED"]]},
+      "screenshot": {"path": "browser-final.png", "sha256": "6614d4f0c04d31f870dd650693f79f4911a8198abd364792829a54897d978d45"}
+    }
+  ]
+}

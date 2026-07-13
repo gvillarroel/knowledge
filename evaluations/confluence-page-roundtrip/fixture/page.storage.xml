@@ -1,0 +1,53 @@
+<h1>Confluence Round-Trip Acceptance</h1>
+<p>This page exercises <strong>lossless editing</strong>, <em>dynamic content</em>, and <a href="https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/">the Confluence page API</a>.</p>
+<ac:structured-macro ac:name="status" ac:schema-version="1">
+  <ac:parameter ac:name="title">IN PROGRESS</ac:parameter>
+  <ac:parameter ac:name="colour">Yellow</ac:parameter>
+</ac:structured-macro>
+<ac:structured-macro ac:name="toc" ac:schema-version="1">
+  <ac:parameter ac:name="maxLevel">3</ac:parameter>
+</ac:structured-macro>
+<h2>Overview</h2>
+<ac:structured-macro ac:name="info" ac:schema-version="1">
+  <ac:rich-text-body>
+    <p>Unknown macro attributes and bodies must survive unrelated edits.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p><a data-card-appearance="block" href="https://support.atlassian.com/confluence-cloud/docs/what-are-macros/">Confluence macro documentation</a></p>
+<p>
+  <ac:link>
+    <ri:page ri:content-title="Architecture" />
+    <ac:plain-text-link-body><![CDATA[Internal architecture page]]></ac:plain-text-link-body>
+  </ac:link>
+</p>
+<h2>System context</h2>
+<ac:image ac:align="center" ac:alt="System context diagram">
+  <ri:attachment ri:filename="system-context.svg" />
+</ac:image>
+<ac:structured-macro ac:name="expand" ac:schema-version="1">
+  <ac:parameter ac:name="title">Detailed validation notes</ac:parameter>
+  <ac:rich-text-body>
+    <p>The uploader must validate storage, labels, status, attachments, ADF, and rendered view.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<h2>Acceptance matrix</h2>
+<ac:structured-macro ac:name="details" ac:schema-version="1">
+  <ac:parameter ac:name="id">roundtrip-details</ac:parameter>
+  <ac:rich-text-body>
+    <table>
+      <tbody>
+        <tr><th>Capability</th><th>Expected</th></tr>
+        <tr><td>Dynamic macro</td><td>Preserved</td></tr>
+        <tr><td>Attachment image</td><td>Byte-identical</td></tr>
+        <tr><td>Smart Link</td><td>Card appearance retained</td></tr>
+      </tbody>
+    </table>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:task-list>
+  <ac:task>
+    <ac:task-id>1</ac:task-id>
+    <ac:task-status>incomplete</ac:task-status>
+    <ac:task-body>Complete browser verification</ac:task-body>
+  </ac:task>
+</ac:task-list>

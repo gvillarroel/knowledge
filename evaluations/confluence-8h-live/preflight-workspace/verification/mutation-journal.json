@@ -1,0 +1,77 @@
+{
+  "api_verified_at": "2026-07-13T05:53:59.550349Z",
+  "desired_state_sha256": "5e7d71c2ced82fd7015ddc311e82083663338b7ecce1de3d84fdaad4befc1da7",
+  "operation_id": "882453f8-7847-4efc-9e0f-849d80d1906e",
+  "page_id": "34472028",
+  "plan_sha256": "e7ac8a333eb7cac83e76f779b65f4a3ea1e09b6ac00558afab85f0a8055246bb",
+  "remote_render_preflight_required": true,
+  "resumed_from_operation_id": null,
+  "schema_version": "1.0",
+  "started_at": "2026-07-13T05:53:56.027225Z",
+  "status": "api-verified",
+  "steps": [
+    {
+      "detail": {
+        "polls": 2,
+        "rendered_bytes": 1820,
+        "rendered_sha256": "624dedbfa2eb97f6e178fbf1bf30d3d54f3a1ff0e8091a208b86f3ee97574ea3",
+        "representation": "view",
+        "status": "completed"
+      },
+      "id": "remote-render-preflight",
+      "kind": "preflight",
+      "status": "applied",
+      "updated_at": "2026-07-13T05:53:56.819921Z"
+    },
+    {
+      "detail": {
+        "remote_version": 2
+      },
+      "id": "page",
+      "kind": "page",
+      "status": "applied",
+      "updated_at": "2026-07-13T05:53:57.642009Z"
+    },
+    {
+      "detail": {
+        "after": [
+          "capability-remote-preflight",
+          "confluence-8h-verified"
+        ],
+        "before": [],
+        "changes": {
+          "added": [
+            "capability-remote-preflight",
+            "confluence-8h-verified"
+          ],
+          "removed": []
+        }
+      },
+      "id": "labels",
+      "kind": "labels",
+      "status": "applied",
+      "updated_at": "2026-07-13T05:53:58.060152Z"
+    },
+    {
+      "detail": {
+        "after": null,
+        "before": null,
+        "result": "unchanged"
+      },
+      "id": "content-state",
+      "kind": "content-state",
+      "status": "applied",
+      "updated_at": "2026-07-13T05:53:58.393806Z"
+    },
+    {
+      "detail": {
+        "remote_version": 2
+      },
+      "id": "api-verification",
+      "kind": "verification",
+      "status": "verified",
+      "updated_at": "2026-07-13T05:53:59.552046Z"
+    }
+  ],
+  "updated_at": "2026-07-13T05:54:00.221828Z"
+}

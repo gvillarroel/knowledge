@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34504707",
+  "operation_id": "076662e5-00ef-4598-a19a-d72b47e69a74",
+  "remote_version": 7,
+  "browser_gt_sha256": "8a3ca5f993219746fbb9a4556191ac345f168892856071124f44d86884602ec5",
+  "validated_at": "2026-07-13T06:24:20Z",
+  "attachments": [
+    {
+      "filename": "campaign-diagram.png",
+      "attachment_id": "att34537496",
+      "version": 1,
+      "media_type": "image/png",
+      "bytes": 12340,
+      "sha256": "990337b29b55923fa39d864164ec81154b6e3dc915b583fa4a16176a28d2d59c",
+      "decoder": {"format": "PNG", "mode": "RGB", "width": 1280, "height": 720, "frames": 1},
+      "browser_result": "complete 720x405 centered image with configured border and caption"
+    },
+    {
+      "filename": "campaign-photo.jpg",
+      "attachment_id": "att34537502",
+      "version": 1,
+      "media_type": "image/jpeg",
+      "bytes": 30331,
+      "sha256": "47416dc3d86ad747a47250768512170fd8385c1bce97e7b21119c10c7d320a7a",
+      "decoder": {"format": "JPEG", "mode": "RGB", "width": 1280, "height": 720, "frames": 1},
+      "browser_result": "complete 360x203 right-aligned image"
+    },
+    {
+      "filename": "campaign-animation.gif",
+      "attachment_id": "att34504736",
+      "version": 1,
+      "media_type": "image/gif",
+      "bytes": 17239,
+      "sha256": "10042d63515849c3bc866969ce62631431cd74b205f994c70dd5af076c0c4f56",
+      "decoder": {"format": "GIF", "mode": "P", "width": 640, "height": 360, "frames": 2, "durations_ms": [600, 600]},
+      "browser_result": "complete 640x360 image; 230358 of 230400 cropped pixels changed across a 650 ms sample interval"
+    },
+    {
+      "filename": "campaign-preview.pdf",
+      "attachment_id": "att34242598",
+      "version": 1,
+      "media_type": "application/pdf",
+      "bytes": 1990,
+      "sha256": "c78b908d8dd8490e48abd7c970b5a59993a68477cfbcbb87c45d4a8a3d575a84",
+      "decoder": {"pages": 1, "text_contains": ["Confluence round-trip PDF fixture", "PDF title is legible", "Campaign fixture - page 1"]},
+      "browser_result": "one rendered page in the preview dialog, 2 KB size, Download control, and no load error"
+    },
+    {
+      "filename": "campaign-video.mp4",
+      "attachment_id": "att34373669",
+      "version": 2,
+      "media_type": "video/mp4",
+      "bytes": 2760918,
+      "sha256": "c394e0ce1319cd3bee9bf0fca24bc3d8222d40ea4a1c0a6c1935b10c35e14bcd",
+      "decoder": {"duration_seconds": 5.0, "video": {"codec": "h264", "profile": "Constrained Baseline", "width": 1280, "height": 720}, "audio": {"codec": "aac", "profile": "LC", "sample_rate": 48000, "channels": 1}},
+      "browser_result": "played with seek, volume, speed, fullscreen, and Download controls"
+    },
+    {
+      "filename": "campaign-audio.mp3",
+      "attachment_id": "att34242592",
+      "version": 1,
+      "media_type": "audio/mpeg",
+      "bytes": 9147,
+      "sha256": "eea3782a2ae2587a9c81b7e16fa5b912db2bde802faa6e4b91749f2802a63728",
+      "decoder": {"duration_seconds": 2.0, "codec": "mp3", "sample_rate": 44100, "channels": 1},
+      "browser_result": "two-second playback timeline and Download control"
+    },
+    {
+      "filename": "campaign-data.csv",
+      "attachment_id": "att34570329",
+      "version": 1,
+      "media_type": "application/vnd.ms-excel",
+      "bytes": 106,
+      "sha256": "fd494bc913fd3f47efbe0a55e65b08739149bd4c481d303d927776570a4e2fc9",
+      "decoder": {"rows": 4, "header": ["capability", "format", "result"], "last_row": ["smart-link", "card", "pending"]},
+      "browser_result": "header, smart-link row, and Download control visible"
+    },
+    {
+      "filename": "campaign-notes.txt",
+      "attachment_id": "att34373663",
+      "version": 2,
+      "media_type": "text/plain",
+      "bytes": 326,
+      "sha256": "729bc746515484e24660736cc0db4ff8be5533979889d4b8558510110f6fa8c3",
+      "decoder": {"utf8": true, "contains_revision_two": true},
+      "browser_result": "revision-two sentence and Download control visible"
+    }
+  ],
+  "supporting_browser_artifacts": [
+    "browser-interactions.json",
+    "browser-image-variants.json"
+  ]
+}

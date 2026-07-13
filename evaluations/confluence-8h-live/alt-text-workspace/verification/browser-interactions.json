@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34734134",
+  "operation_id": "de40e713-d7f5-430c-bbc3-13aa372bb1a3",
+  "browser_gt_sha256": "820e19e8acad67ed14e973a25ebc0f888a5037b2e72649c00dc2cfee4914f74d",
+  "observed_at": "2026-07-13T05:00:54Z",
+  "checks": [
+    {
+      "id": "rendered-page",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The dedicated accessible-image page renders without an error.",
+      "actual": "The heading, explanatory text, image, and caption were visible.",
+      "screenshot": {"path": "browser-final.png", "sha256": "f2ff8befae1008e42bd4d1ea88cd2480cef94a01dbcbc0fae2d1638e27829265"}
+    },
+    {
+      "id": "accessible-alt-text",
+      "passed": true,
+      "method": "authenticated-accessibility-role-query",
+      "assertion": "Exactly one image exposes the expected accessible name.",
+      "actual": {"role": "img", "name": "Accessible Confluence storage round-trip architecture diagram", "count": 1},
+      "screenshot": {"path": "browser-final.png", "sha256": "f2ff8befae1008e42bd4d1ea88cd2480cef94a01dbcbc0fae2d1638e27829265"}
+    },
+    {
+      "id": "caption",
+      "passed": true,
+      "method": "authenticated-dom-text-query",
+      "assertion": "The uploaded image caption is visible.",
+      "actual": "Accessible image uploaded through the round-trip skill.",
+      "screenshot": {"path": "browser-final.png", "sha256": "f2ff8befae1008e42bd4d1ea88cd2480cef94a01dbcbc0fae2d1638e27829265"}
+    }
+  ]
+}

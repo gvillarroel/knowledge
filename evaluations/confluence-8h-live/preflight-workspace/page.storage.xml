@@ -1,0 +1,23 @@
+<h1>Integrated remote-render preflight</h1>
+<p>This body was authored locally and had to complete Confluence's asynchronous storage-to-view conversion before the page update was allowed.</p>
+<ac:structured-macro ac:name="info">
+  <ac:rich-text-body><p>Remote renderer accepted this macro body before mutation.</p></ac:rich-text-body>
+</ac:structured-macro>
+<h2>Preflight-gated layout</h2>
+<ac:layout>
+  <ac:layout-section ac:type="four_equal">
+    <ac:layout-cell><p>Validate</p></ac:layout-cell>
+    <ac:layout-cell><p>Convert</p></ac:layout-cell>
+    <ac:layout-cell><p>Publish</p></ac:layout-cell>
+    <ac:layout-cell><p>Verify</p></ac:layout-cell>
+  </ac:layout-section>
+</ac:layout>
+<table>
+  <tbody>
+    <tr><th>Gate</th><th>Required result</th></tr>
+    <tr><td>Async conversion</td><td>COMPLETED</td></tr>
+    <tr><td>Page verification</td><td>VERIFIED</td></tr>
+  </tbody>
+</table>
+<p>Official contract: <a href="https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-body/">Confluence content body conversion API</a>.</p>
+<p>Integrated preflight acceptance complete.</p>

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "reviewed_at": "2026-07-13T05:23:36-04:00",
+  "scope": "Current Confluence Cloud page types, editor elements, REST page subtype behavior, and legacy-editor chronology",
+  "sources": [
+    {
+      "title": "Create and edit content",
+      "url": "https://support.atlassian.com/confluence-cloud/docs/create-and-edit-content/"
+    },
+    {
+      "title": "Add elements to a page or live doc",
+      "url": "https://support.atlassian.com/confluence-cloud/docs/insert-elements-into-a-page/"
+    },
+    {
+      "title": "Confluence Cloud REST API v2: Page",
+      "url": "https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/"
+    },
+    {
+      "title": "Macros that are unavailable or have limited availability in the Cloud editor",
+      "url": "https://support.atlassian.com/confluence-cloud/docs/learn-which-macros-are-being-removed/"
+    },
+    {
+      "title": "FAQ: Understanding legacy editor deprecation",
+      "url": "https://support.atlassian.com/confluence-cloud/docs/faq-understanding-legacy-editor-deprecation/"
+    }
+  ],
+  "findings": [
+    "Current Confluence content types include published pages, live docs, blog posts, whiteboards, databases, content-tree Smart Link items, and slides; only published pages are inside this skill's mutation contract.",
+    "Content-tree Smart Link items are a separate content type from Smart Links embedded in a page body.",
+    "The official basic-element list contains action items, code snippets, dates, decisions, dividers, emoji, expands, headings, mentions, panels, quotes, and statuses; the capability matrix accounts for each category and keeps untested option combinations conditional or preserve-only.",
+    "The REST v2 page-list endpoint accepts a subtype filter and the same page model can represent live docs with subtype live.",
+    "Legacy-editor retirement began in January 2026, while full deprecation occurred on April 1, 2026."
+  ],
+  "tenant_read_only_probe": {
+    "space_id": "163842",
+    "all_current_results": 20,
+    "all_current_subtypes": [
+      null
+    ],
+    "page_subtype_results": 20,
+    "page_subtypes": [
+      null
+    ],
+    "live_subtype_results": 0,
+    "pagination_probe_limit": 1,
+    "pagination_next_present": true,
+    "pagination_query_keys": [
+      "cursor",
+      "limit",
+      "space-id",
+      "status",
+      "subtype"
+    ],
+    "pagination_invariants_validated": true,
+    "mutation_performed": false
+  },
+  "resulting_changes": [
+    "scan-space now requests subtype=page, validates each returned item before fetching ADF or rendered view data, and requires every continuation to preserve the original space, current status, and page subtype filters.",
+    "An unexpected live doc or other unsupported subtype makes an inventory partial instead of entering a published-page batch.",
+    "The standalone documentation distinguishes content-tree Smart Link items from embedded page Smart Links and states the April 1, 2026 full-deprecation date.",
+    "Unit tests cover the page subtype filter, live-doc rejection, all nine batch CLI command parsers, every CLI dispatch path, and real JPEG ground-truth decoding."
+  ],
+  "limitations": [
+    "This dated review is not an exhaustive inventory of Marketplace modules or tenant-specific editor experiments.",
+    "Live docs, blog posts, databases, whiteboards, content-tree Smart Link items, folders, and slides require dedicated workflows before mutation support can be claimed."
+  ]
+}

@@ -1,0 +1,927 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Campaign baseline",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "text": "This page is a minimal live target. All capability content will be added from a local workspace through the round-trip skill.",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Navigation macros",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Table of contents",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "toc",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "75a96a76-9e71-4549-85f3-6245112e27fb"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Table of Contents"
+          },
+          "macroParams": {
+            "maxLevel": {
+              "value": "3"
+            },
+            "printable": {
+              "value": "true"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Page tree",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "extensionKey": "pagetree",
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "parameters": {
+              "macroMetadata": {
+                "macroId": {
+                  "value": "4df326dc-ad00-40eb-9f94-511626f17f1c"
+                },
+                "schemaVersion": {
+                  "value": "1"
+                },
+                "title": "Page Tree"
+              },
+              "macroParams": {}
+            }
+          },
+          "type": "inlineExtension"
+        },
+        {
+          "text": "\n",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Children",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "children",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "25e7e232-eb87-45a5-be8d-e4f4e1c80ca3"
+            },
+            "schemaVersion": {
+              "value": "2"
+            },
+            "title": "Child pages"
+          },
+          "macroParams": {
+            "all": {
+              "value": "true"
+            },
+            "sort": {
+              "value": "creation"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Content discovery macros",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Attachments",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "attachments",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "layout": "wide",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "0c3447c7-352b-48a8-b53a-acd441b98e59"
+            },
+            "placeholder": [
+              {
+                "data": {
+                  "url": "/download/resources/confluence.extra.attachments/placeholder.png"
+                },
+                "type": "image"
+              }
+            ],
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Attachments"
+          },
+          "macroParams": {
+            "old": {
+              "value": "false"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Content by campaign label",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "contentbylabel",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "5eb675ce-24c6-4c13-aa4a-c7e3043db2e4"
+            },
+            "schemaVersion": {
+              "value": "4"
+            },
+            "title": "Filter by label"
+          },
+          "macroParams": {
+            "cql": {
+              "value": "label = \"roundtrip-campaign\""
+            },
+            "labels": {
+              "value": "roundtrip-campaign"
+            },
+            "max": {
+              "value": "20"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Recent updates",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "recently-updated",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "4a269d5f-1253-42b5-9a2d-5b6fea33175e"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Recent updates"
+          },
+          "macroParams": {
+            "max": {
+              "value": "10"
+            },
+            "types": {
+              "value": "page"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Change history",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "change-history",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "5837d8ea-95a3-46ea-a54c-e589e14b0fe6"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Change History"
+          },
+          "macroParams": {}
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Contributors",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "contributors",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "6ff3fbc1-88e2-4ac3-a8d2-deafbdf517bf"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Contributors"
+          },
+          "macroParams": {
+            "limit": {
+              "value": "10"
+            },
+            "showAnonymous": {
+              "value": "false"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Reusable content and properties",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "excerpt",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "3486408e-ac78-4680-926c-4f8eb88cf383"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Excerpt"
+          },
+          "macroParams": {
+            "hidden": {
+              "value": "false"
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "text": "Campaign excerpt content available to another page.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "type": "bodiedExtension"
+    },
+    {
+      "attrs": {
+        "extensionKey": "details",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "663e4c19-f87b-41cb-adeb-1bdecd77d4f4"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Page Properties"
+          },
+          "macroParams": {
+            "id": {
+              "value": "campaign-properties"
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "Owner",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableHeader"
+                },
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "Gerardo Villarroel",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableCell"
+                }
+              ],
+              "type": "tableRow"
+            },
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "Campaign",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableHeader"
+                },
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "Eight-hour Confluence round trip",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableCell"
+                }
+              ],
+              "type": "tableRow"
+            },
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "Status",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableHeader"
+                },
+                {
+                  "attrs": {
+                    "colspan": 1,
+                    "rowspan": 1
+                  },
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "text": "ACTIVE",
+                          "type": "text"
+                        }
+                      ],
+                      "type": "paragraph"
+                    }
+                  ],
+                  "type": "tableCell"
+                }
+              ],
+              "type": "tableRow"
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "type": "bodiedExtension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Content properties report",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "detailssummary",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "layout": "full-width",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "65a6106f-38eb-434b-abd8-f848318fcc90"
+            },
+            "schemaVersion": {
+              "value": "3"
+            },
+            "title": "Page Properties Report"
+          },
+          "macroParams": {
+            "cql": {
+              "value": "label = \"roundtrip-campaign\""
+            },
+            "headings": {
+              "value": "Owner,Campaign,Status"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Search and reporting macros",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Live search",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "extensionKey": "livesearch",
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "parameters": {
+              "macroMetadata": {
+                "macroId": {
+                  "value": "e8b41442-ed18-4102-bfc4-844a54095c7b"
+                },
+                "placeholder": [
+                  {
+                    "data": {
+                      "url": "https://villarroelgj-1774746765908.atlassian.net/wiki/download/resources/confluence.extra.livesearch/images/search.png"
+                    },
+                    "type": "icon"
+                  }
+                ],
+                "schemaVersion": {
+                  "value": "1"
+                },
+                "title": "Live Search"
+              },
+              "macroParams": {
+                "placeholder": {
+                  "value": "Search the campaign space"
+                },
+                "spaceKey": {
+                  "value": "@self"
+                }
+              }
+            }
+          },
+          "type": "inlineExtension"
+        },
+        {
+          "text": "\n",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Task report",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "tasks-report-macro",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "b0dd4a2f-46d4-4613-915c-e649f5d23ac9"
+            },
+            "placeholder": [
+              {
+                "data": {
+                  "url": "/download/resources/com.atlassian.confluence.plugins.confluence-inline-tasks/tasks-report-image-resources/task-report-placeholder.png"
+                },
+                "type": "image"
+              }
+            ],
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Task report"
+          },
+          "macroParams": {
+            "pageSize": {
+              "value": "20"
+            },
+            "spaces": {
+              "value": "~701216ec7fd06929c4771add0ec012097b466"
+            },
+            "status": {
+              "value": "incomplete"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Label discovery",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "listlabels",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "b2d8e186-e2c6-48fc-8712-70b0d7867d66"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Labels List"
+          },
+          "macroParams": {
+            "spaceKey": {
+              "value": "@self"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "extensionKey": "popular-labels",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "c331057e-7b61-40b7-ba45-79532ba3b4d9"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Popular Labels"
+          },
+          "macroParams": {
+            "count": {
+              "value": "20"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 2
+      },
+      "content": [
+        {
+          "text": "Profile and external content",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Profile picture",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "extensionKey": "profile-picture",
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "parameters": {
+              "macroMetadata": {
+                "macroId": {
+                  "value": "e1e8a606-4cdc-4684-850c-b782b295703a"
+                },
+                "placeholder": [
+                  {
+                    "data": {
+                      "url": "/aa-avatar/70121:6ec7fd06-929c-4771-add0-ec012097b466"
+                    },
+                    "type": "image"
+                  }
+                ],
+                "schemaVersion": {
+                  "value": "1"
+                },
+                "title": "Profile Picture"
+              },
+              "macroOutput": "<a class=\"userLogoLink conf-macro output-inline\" data-account-id=\"70121:6ec7fd06-929c-4771-add0-ec012097b466\" data-hasbody=\"false\" data-macro-id=\"e1e8a606-4cdc-4684-850c-b782b295703a\" data-macro-name=\"profile-picture\" data-username=\"70121:6ec7fd06-929c-4771-add0-ec012097b466\" href=\"https://villarroelgj-1774746765908.atlassian.net/wiki/people/70121:6ec7fd06-929c-4771-add0-ec012097b466?ref=confluence\" target=\"_blank\" title=\"\"><img class=\"userLogo-48 logo\" src=\"/wiki/aa-avatar/70121:6ec7fd06-929c-4771-add0-ec012097b466\" alt=\"User icon: Gerardo Jorge Villarroel González\" title=\"\" /></a>",
+              "macroParams": {
+                "User": {
+                  "value": "70121:6ec7fd06-929c-4771-add0-ec012097b466"
+                }
+              }
+            }
+          },
+          "type": "inlineExtension"
+        },
+        {
+          "text": "\n",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "User profile",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "profile",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "2ce84bfa-504a-4ef6-8160-443993af922c"
+            },
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "User Profile"
+          },
+          "macroOutput": "\n\n\n\n<div class=\"profile-macro conf-macro output-block\" data-hasbody=\"false\" data-macro-id=\"2ce84bfa-504a-4ef6-8160-443993af922c\" data-macro-name=\"profile\">\n    <div class=\"vcard\">\n        \n                                <a class=\"userLogoLink\" data-account-id=\"70121:6ec7fd06-929c-4771-add0-ec012097b466\" data-username=\"70121:6ec7fd06-929c-4771-add0-ec012097b466\" href=\"/wiki/people/70121:6ec7fd06-929c-4771-add0-ec012097b466\">\n            <img class=\"userLogo logo\" src=\"/wiki/aa-avatar/70121:6ec7fd06-929c-4771-add0-ec012097b466\" alt=\"Icono del usuario: Gerardo Jorge Villarroel González\" title=\"Gerardo Jorge Villarroel González\" />\n        </a>\n                    <div class=\"values\">\n            <div>                    <a href=\"/wiki/people/70121:6ec7fd06-929c-4771-add0-ec012097b466\" class=\"url fn confluence-userlink\" data-account-id=\"70121:6ec7fd06-929c-4771-add0-ec012097b466\">Gerardo Jorge Villarroel González</a>\n            </div>\n                            <a href=\"mailto:villarroel.gj@gmail.com\" title=\"Enviar un correo a Gerardo Jorge Villarroel González\" class=\"email\">villarroel.gj@gmail.com</a>\n                                    </div>\n    </div>\n</div>",
+          "macroParams": {
+            "user": {
+              "value": "70121:6ec7fd06-929c-4771-add0-ec012097b466"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    },
+    {
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "text": "Widget connector",
+          "type": "text"
+        }
+      ],
+      "type": "heading"
+    },
+    {
+      "attrs": {
+        "extensionKey": "widget",
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "parameters": {
+          "macroMetadata": {
+            "macroId": {
+              "value": "966bec2c-d2cc-4c4c-aad0-1c738ddbd514"
+            },
+            "placeholder": [
+              {
+                "data": {
+                  "url": "/plugins/servlet/widgetconnector/placeholder?thumb=https://img.youtube.com/vi/CNeuec8ybc4/mqdefault.jpg&overlay=youtube&width=480&height=300"
+                },
+                "type": "image"
+              }
+            ],
+            "schemaVersion": {
+              "value": "1"
+            },
+            "title": "Widget Connector"
+          },
+          "macroParams": {
+            "_template": {
+              "value": "com/atlassian/confluence/extra/widgetconnector/templates/youtube.vm"
+            },
+            "height": {
+              "value": "300px"
+            },
+            "overlay": {
+              "value": "youtube"
+            },
+            "url": {
+              "value": "https://www.youtube.com/watch?v=CNeuec8ybc4"
+            },
+            "width": {
+              "value": "480px"
+            }
+          }
+        }
+      },
+      "type": "extension"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

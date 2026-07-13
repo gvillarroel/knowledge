@@ -1,0 +1,1154 @@
+{
+  "atomic": false,
+  "batch_id": "240eb7b43dc2613aa099",
+  "batch_manifest_sha256": "519aa2d90aa694f9786d011b4c499d8e71227529d68b368c211154c8cab1a22f",
+  "created_at": "2026-07-13T02:33:43.992697Z",
+  "dependencies": {
+    "34340869": [],
+    "34406404": [],
+    "34504707": [
+      "34570243",
+      "34340869"
+    ],
+    "34570243": []
+  },
+  "dependency_order": [
+    "34570243",
+    "34406404",
+    "34340869",
+    "34504707"
+  ],
+  "errors": [],
+  "history": [
+    {
+      "previous_errors": [
+        {
+          "error": "Confluence PUT /wiki/api/v2/pages/34570243 returned HTTP 500: {\"errors\":[{\"status\":500,\"code\":\"INTERNAL_SERVER_ERROR\",\"title\":\"Internal Server Error\",\"detail\":null}]}",
+          "page_id": "34570243",
+          "rate_limited": false
+        }
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:48:31.898389Z"
+    },
+    {
+      "previous_errors": [
+        "batch preflight failed; no new upload was started"
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:49:19.892937Z"
+    },
+    {
+      "previous_errors": [
+        {
+          "error": "Confluence PUT /wiki/rest/api/content/34406404/state returned HTTP 400: com.atlassian.confluence.api.service.exceptions.api.BadRequestException: color in body of content state must be a 6 hex digit color like #04df03!",
+          "page_id": "34406404",
+          "rate_limited": false
+        }
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:50:17.363528Z"
+    },
+    {
+      "previous_errors": [
+        {
+          "error": "page upload did not pass API verification",
+          "page_id": "34406404",
+          "rate_limited": false
+        }
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:52:13.214553Z"
+    },
+    {
+      "previous_errors": [
+        {
+          "error": "Confluence PUT /wiki/api/v2/pages/34504707 returned HTTP 500: {\"errors\":[{\"status\":500,\"code\":\"INTERNAL_SERVER_ERROR\",\"title\":\"Internal Server Error\",\"detail\":null}]}",
+          "page_id": "34504707",
+          "rate_limited": false
+        }
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:58:56.363853Z"
+    },
+    {
+      "previous_errors": [
+        {
+          "error": "page upload did not pass API verification",
+          "page_id": "34504707",
+          "rate_limited": false
+        }
+      ],
+      "previous_status": "partial",
+      "resumed_at": "2026-07-13T02:59:46.649032Z"
+    }
+  ],
+  "pages": [
+    {
+      "page_id": "34570243",
+      "result": {
+        "attachments": [],
+        "content_state": "unchanged",
+        "labels": {
+          "added": [
+            "capability-macros",
+            "roundtrip-campaign"
+          ],
+          "removed": []
+        },
+        "operation_id": "f9f5697a-7495-4145-8ade-71c519a76b94",
+        "page_id": "34570243",
+        "page_updated": true,
+        "status": "uploaded",
+        "verification": {
+          "adf_summary": {
+            "extensions": [
+              "attachments",
+              "change-history",
+              "children",
+              "com.atlassian.confluence.macro.core",
+              "contentbylabel",
+              "contributors",
+              "details",
+              "detailssummary",
+              "excerpt",
+              "listlabels",
+              "livesearch",
+              "pagetree",
+              "popular-labels",
+              "profile",
+              "profile-picture",
+              "recently-updated",
+              "tasks-report",
+              "toc",
+              "widget"
+            ],
+            "marks": {},
+            "media_ids": [],
+            "nodes": {
+              "bodiedExtension": 2,
+              "doc": 1,
+              "extension": 13,
+              "heading": 21,
+              "inlineExtension": 3,
+              "paragraph": 11,
+              "table": 1,
+              "tableCell": 3,
+              "tableHeader": 3,
+              "tableRow": 3,
+              "text": 32
+            },
+            "urls": []
+          },
+          "checks": [
+            {
+              "detail": {
+                "actual": "ed818688ddd0633c050e445019fb21d4079dddf966172c113ea462d077f8718a",
+                "exact_canonical_actual": "e77eea4bd01ba79b1f596814ccb9c376f5c078d270afc56bcd150cae9a688986",
+                "exact_canonical_expected": "ded259a422465376c73028d70ad9cf10c5c71dd2492b603aa1095d897392714e",
+                "expected": "ed818688ddd0633c050e445019fb21d4079dddf966172c113ea462d077f8718a"
+              },
+              "name": "storage-equivalent",
+              "passed": true
+            },
+            {
+              "detail": "Confluence 8h Lab — Macros and Dynamic Content 2026-07-12",
+              "name": "title",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163842",
+                "expected": "163842"
+              },
+              "name": "space-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163939",
+                "expected": "163939"
+              },
+              "name": "parent-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": [
+                  "capability-macros",
+                  "roundtrip-campaign"
+                ],
+                "expected": [
+                  "capability-macros",
+                  "roundtrip-campaign"
+                ]
+              },
+              "name": "labels",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": null,
+                "expected": null
+              },
+              "name": "content-state",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "a8ea5557704a4cceb9a6b822b39e5556ea7e331a871ab311881c96026b13f2ed",
+                "expected": "a8ea5557704a4cceb9a6b822b39e5556ea7e331a871ab311881c96026b13f2ed"
+              },
+              "name": "restrictions-unchanged",
+              "passed": true
+            },
+            {
+              "detail": "Table of contents",
+              "name": "visible-text:Table of contents",
+              "passed": true
+            },
+            {
+              "detail": "Content by campaign label",
+              "name": "visible-text:Content by campaign label",
+              "passed": true
+            },
+            {
+              "detail": "Campaign excerpt content available to another page.",
+              "name": "visible-text:Campaign excerpt content available to another page.",
+              "passed": true
+            },
+            {
+              "detail": "Live search",
+              "name": "visible-text:Live search",
+              "passed": true
+            },
+            {
+              "detail": "Profile picture",
+              "name": "visible-text:Profile picture",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "text/plain",
+                "expected": "text/plain"
+              },
+              "name": "attachment-media-type:macro-attachment.txt",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "0c73031c4d407e3bdcc1e897faa1a52e15c9454935540fcf9b6dbd9eb8223fd4",
+                "expected": "0c73031c4d407e3bdcc1e897faa1a52e15c9454935540fcf9b6dbd9eb8223fd4"
+              },
+              "name": "attachment:macro-attachment.txt",
+              "passed": true
+            }
+          ],
+          "desired_state_sha256": "6070858735fdd6e32b51fed8cf9df8b375ebd45ce9481b2f2e66a8e2cc2fdc16",
+          "evidence": {
+            "atlas_doc_format": {
+              "path": "remote.adf.json",
+              "sha256": "62aad2b2b24b0352547a76028e7d951f21665421008f21d81a9d0c7f71d26731"
+            },
+            "restrictions": {
+              "path": "remote.restrictions.json",
+              "sha256": "0f8b98be70e9191a410a69284d320e2a0400b304ec73cd7bcb75d63313b842a6"
+            },
+            "storage": {
+              "path": "remote.storage.xml",
+              "sha256": "c7277de985a9301030844bad9cf47cac528ea034cd9728c78ee9b1c8c592cdd8"
+            },
+            "view": {
+              "path": "remote.view.html",
+              "sha256": "a095ca2c0f5ad2c3b33937849e5c8c2fa48de067c04b6d62634bc831936c11b0"
+            }
+          },
+          "operation_id": "f9f5697a-7495-4145-8ade-71c519a76b94",
+          "page_id": "34570243",
+          "remote_version": 2,
+          "schema_version": "1.0",
+          "status": "verified",
+          "storage_summary": {
+            "attachment_filenames": [],
+            "canonical_sha256": "e77eea4bd01ba79b1f596814ccb9c376f5c078d270afc56bcd150cae9a688986",
+            "hrefs": [],
+            "macros": {
+              "attachments": 1,
+              "change-history": 1,
+              "children": 1,
+              "contentbylabel": 1,
+              "contributors": 1,
+              "details": 1,
+              "detailssummary": 1,
+              "excerpt": 1,
+              "listlabels": 1,
+              "livesearch": 1,
+              "pagetree": 1,
+              "popular-labels": 1,
+              "profile": 1,
+              "profile-picture": 1,
+              "recently-updated": 1,
+              "tasks-report": 1,
+              "toc": 1,
+              "widget": 1
+            },
+            "page_references": [],
+            "tags": {
+              "ac:parameter": 29,
+              "ac:rich-text-body": 2,
+              "ac:structured-macro": 18,
+              "h2": 6,
+              "h3": 15,
+              "p": 8,
+              "ri:space": 2,
+              "ri:url": 1,
+              "ri:user": 2,
+              "table": 1,
+              "tbody": 1,
+              "td": 3,
+              "th": 3,
+              "tr": 3
+            }
+          },
+          "verified_at": "2026-07-13T02:49:26.522665Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "page_id": "34406404",
+      "result": {
+        "attachments": [],
+        "content_state": "unchanged",
+        "labels": {
+          "added": [],
+          "removed": []
+        },
+        "operation_id": "2a385096-8fd2-4822-b290-88e7a909a3c7",
+        "page_id": "34406404",
+        "page_updated": false,
+        "status": "uploaded",
+        "verification": {
+          "adf_summary": {
+            "extensions": [],
+            "marks": {},
+            "media_ids": [],
+            "nodes": {
+              "doc": 1,
+              "heading": 4,
+              "mention": 1,
+              "paragraph": 15,
+              "status": 1,
+              "table": 1,
+              "tableCell": 8,
+              "tableHeader": 2,
+              "tableRow": 5,
+              "text": 19
+            },
+            "urls": []
+          },
+          "checks": [
+            {
+              "detail": {
+                "actual": "cd3812a5d46a3e341a06c9a85f4bb27df575aa1a85e9044fa3a5ba35fe2460ac",
+                "exact_canonical_actual": "a650baac7dcccb302214e5c79b874415ac75e1c289d2817dfbf03128bbfe7eda",
+                "exact_canonical_expected": "c59ffccd453830206d7110dc8328e5d914f06d96ed97bd7ca7d98f393fb08b9d",
+                "expected": "cd3812a5d46a3e341a06c9a85f4bb27df575aa1a85e9044fa3a5ba35fe2460ac"
+              },
+              "name": "storage-equivalent",
+              "passed": true
+            },
+            {
+              "detail": "Confluence 8h Lab — Metadata and Safety — Revised Locally 2026-07-12",
+              "name": "title",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163842",
+                "expected": "163842"
+              },
+              "name": "space-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163939",
+                "expected": "163939"
+              },
+              "name": "parent-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": [
+                  "batch-ready",
+                  "metadata-verified",
+                  "roundtrip-campaign"
+                ],
+                "expected": [
+                  "batch-ready",
+                  "metadata-verified",
+                  "roundtrip-campaign"
+                ]
+              },
+              "name": "labels",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": {
+                  "color": "#00875a",
+                  "id": 34734099,
+                  "name": "Campaign Ready"
+                },
+                "expected": {
+                  "color": "#00875A",
+                  "name": "Campaign Ready"
+                }
+              },
+              "name": "content-state",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "2f71078f257a96a5d0f826a83ab6051ea1c18f5b0e8eddf58b4d25d30c23d30d",
+                "expected": "2f71078f257a96a5d0f826a83ab6051ea1c18f5b0e8eddf58b4d25d30c23d30d"
+              },
+              "name": "restrictions-unchanged",
+              "passed": true
+            },
+            {
+              "detail": "Editable page metadata",
+              "name": "visible-text:Editable page metadata",
+              "passed": true
+            },
+            {
+              "detail": "Campaign owner:",
+              "name": "visible-text:Campaign owner:",
+              "passed": true
+            },
+            {
+              "detail": "BATCH READY",
+              "name": "visible-text:BATCH READY",
+              "passed": true
+            },
+            {
+              "detail": "Immutable evidence",
+              "name": "visible-text:Immutable evidence",
+              "passed": true
+            },
+            {
+              "detail": "Restrictions, ADF, rendered view, parent ID, space ID, and attachment locks must not be silently changed by a batch edit.",
+              "name": "visible-text:Restrictions, ADF, rendered view, parent ID, space ID, and attachment locks must not be silently changed by a batch edit.",
+              "passed": true
+            }
+          ],
+          "desired_state_sha256": "a10f9e615d2d4c4cb8ca3bcca8fce2fb612f36eda453f725544a292d172c9945",
+          "evidence": {
+            "atlas_doc_format": {
+              "path": "remote.adf.json",
+              "sha256": "7ac444fcde45ed6e1aef76adbf9bfbb8935063ad672e27c4514de313716e46c0"
+            },
+            "restrictions": {
+              "path": "remote.restrictions.json",
+              "sha256": "1a8cec4b0f4cae6b1a796a4ed3425114c8a1f86d86bd2c833e4700e8b05910f5"
+            },
+            "storage": {
+              "path": "remote.storage.xml",
+              "sha256": "45537b47f054a6141366d06964b8ec3b4f26b0e0d42e175f96caaedb9a3beded"
+            },
+            "view": {
+              "path": "remote.view.html",
+              "sha256": "accdc45bcd2ba928b1be2e8d80d21a1b2fc804044b6ede5ea2c85c86c04d8edd"
+            }
+          },
+          "operation_id": "2a385096-8fd2-4822-b290-88e7a909a3c7",
+          "page_id": "34406404",
+          "remote_version": 3,
+          "schema_version": "1.0",
+          "status": "verified",
+          "storage_summary": {
+            "attachment_filenames": [],
+            "canonical_sha256": "a650baac7dcccb302214e5c79b874415ac75e1c289d2817dfbf03128bbfe7eda",
+            "hrefs": [],
+            "macros": {
+              "status": 1
+            },
+            "page_references": [],
+            "tags": {
+              "ac:link": 1,
+              "ac:parameter": 2,
+              "ac:structured-macro": 1,
+              "h2": 4,
+              "p": 15,
+              "ri:user": 1,
+              "table": 1,
+              "tbody": 1,
+              "td": 8,
+              "th": 2,
+              "tr": 5
+            }
+          },
+          "verified_at": "2026-07-13T02:52:17.606910Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "page_id": "34340869",
+      "result": {
+        "attachments": [],
+        "content_state": "unchanged",
+        "labels": {
+          "added": [
+            "capability-structure",
+            "roundtrip-campaign"
+          ],
+          "removed": []
+        },
+        "operation_id": "b987c03a-daa4-4b17-bbc9-1281c7fabe98",
+        "page_id": "34340869",
+        "page_updated": false,
+        "status": "uploaded",
+        "verification": {
+          "adf_summary": {
+            "extensions": [],
+            "marks": {
+              "alignment": 1,
+              "backgroundColor": 1,
+              "code": 1,
+              "em": 1,
+              "indentation": 1,
+              "strike": 1,
+              "strong": 2,
+              "subsup": 2,
+              "textColor": 1,
+              "underline": 1
+            },
+            "media_ids": [],
+            "nodes": {
+              "blockquote": 1,
+              "bulletList": 2,
+              "codeBlock": 1,
+              "date": 1,
+              "doc": 1,
+              "emoji": 1,
+              "expand": 1,
+              "heading": 9,
+              "layoutColumn": 2,
+              "layoutSection": 1,
+              "listItem": 6,
+              "nestedExpand": 1,
+              "orderedList": 2,
+              "panel": 4,
+              "paragraph": 27,
+              "rule": 1,
+              "status": 1,
+              "table": 1,
+              "tableCell": 4,
+              "tableHeader": 3,
+              "tableRow": 3,
+              "taskItem": 1,
+              "taskList": 1,
+              "text": 54
+            },
+            "urls": []
+          },
+          "checks": [
+            {
+              "detail": {
+                "actual": "7b43b8a525df617c3cddebd24f12b76711ac58f60f9047a8fc7cc34340741ead",
+                "exact_canonical_actual": "f3296f19087985b12c9dace3eb75592d3b1706c0e6de10f133573a881a29268b",
+                "exact_canonical_expected": "c10be3466feeea88825fa4b49a46bf40ae284b7fb95f3f1f08b4c8341fccceee",
+                "expected": "7b43b8a525df617c3cddebd24f12b76711ac58f60f9047a8fc7cc34340741ead"
+              },
+              "name": "storage-equivalent",
+              "passed": true
+            },
+            {
+              "detail": "Confluence 8h Lab — Text and Structure 2026-07-12",
+              "name": "title",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163842",
+                "expected": "163842"
+              },
+              "name": "space-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163939",
+                "expected": "163939"
+              },
+              "name": "parent-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": [
+                  "capability-structure",
+                  "roundtrip-campaign"
+                ],
+                "expected": [
+                  "capability-structure",
+                  "roundtrip-campaign"
+                ]
+              },
+              "name": "labels",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": null,
+                "expected": null
+              },
+              "name": "content-state",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "56367dd5803bb615a441858482bb29feefa41c2c6fc0c6a6b4dd5074239bb2d8",
+                "expected": "56367dd5803bb615a441858482bb29feefa41c2c6fc0c6a6b4dd5074239bb2d8"
+              },
+              "name": "restrictions-unchanged",
+              "passed": true
+            },
+            {
+              "detail": "Typography and inline content",
+              "name": "visible-text:Typography and inline content",
+              "passed": true
+            },
+            {
+              "detail": "Bold specimen",
+              "name": "visible-text:Bold specimen",
+              "passed": true
+            },
+            {
+              "detail": "Verify local-to-Confluence task preservation",
+              "name": "visible-text:Verify local-to-Confluence task preservation",
+              "passed": true
+            },
+            {
+              "detail": "STRUCTURE READY",
+              "name": "visible-text:STRUCTURE READY",
+              "passed": true
+            },
+            {
+              "detail": "Open nested verification content",
+              "name": "visible-text:Open nested verification content",
+              "passed": true
+            },
+            {
+              "detail": "Round-trip pseudocode",
+              "name": "visible-text:Round-trip pseudocode",
+              "passed": true
+            },
+            {
+              "detail": "Merged columns with colspan=2",
+              "name": "visible-text:Merged columns with colspan=2",
+              "passed": true
+            },
+            {
+              "detail": "Left layout column",
+              "name": "visible-text:Left layout column",
+              "passed": true
+            }
+          ],
+          "desired_state_sha256": "c51782010956bc8827fd95402d6f78c05b131c28f3be3aa96f4840ef78eb7624",
+          "evidence": {
+            "atlas_doc_format": {
+              "path": "remote.adf.json",
+              "sha256": "de26e9fa536c695e6a99b88da84c1fe9f6308dd9b266de0f4b1da0758c153869"
+            },
+            "restrictions": {
+              "path": "remote.restrictions.json",
+              "sha256": "e0f7e184e7e151f578a3bef7e3b5fdd5ee0d96ab70a162ad480d3753ef0e465b"
+            },
+            "storage": {
+              "path": "remote.storage.xml",
+              "sha256": "b15acc2204424cacb79313ecc5adcf25ff4fc7362c03d8e5096555122fe75edc"
+            },
+            "view": {
+              "path": "remote.view.html",
+              "sha256": "e599fa68950dac2518268bbbd7775a8e33855205e3f5b06d28f388719ea85720"
+            }
+          },
+          "operation_id": "b987c03a-daa4-4b17-bbc9-1281c7fabe98",
+          "page_id": "34340869",
+          "remote_version": 2,
+          "schema_version": "1.0",
+          "status": "verified",
+          "storage_summary": {
+            "attachment_filenames": [],
+            "canonical_sha256": "f3296f19087985b12c9dace3eb75592d3b1706c0e6de10f133573a881a29268b",
+            "hrefs": [],
+            "macros": {
+              "code": 1,
+              "expand": 2,
+              "info": 1,
+              "note": 1,
+              "status": 1,
+              "tip": 1,
+              "warning": 1
+            },
+            "page_references": [],
+            "tags": {
+              "ac:emoticon": 1,
+              "ac:layout": 1,
+              "ac:layout-cell": 2,
+              "ac:layout-section": 1,
+              "ac:parameter": 6,
+              "ac:plain-text-body": 1,
+              "ac:rich-text-body": 6,
+              "ac:structured-macro": 8,
+              "ac:task": 1,
+              "ac:task-body": 1,
+              "ac:task-id": 1,
+              "ac:task-list": 1,
+              "ac:task-status": 1,
+              "blockquote": 1,
+              "code": 1,
+              "em": 1,
+              "h2": 6,
+              "h3": 1,
+              "h4": 1,
+              "hr": 1,
+              "li": 6,
+              "ol": 2,
+              "p": 21,
+              "s": 1,
+              "span": 2,
+              "strong": 1,
+              "sub": 1,
+              "sup": 1,
+              "table": 1,
+              "tbody": 1,
+              "td": 4,
+              "th": 3,
+              "time": 1,
+              "tr": 3,
+              "u": 1,
+              "ul": 2
+            }
+          },
+          "verified_at": "2026-07-13T02:52:19.681251Z"
+        }
+      },
+      "status": "verified"
+    },
+    {
+      "page_id": "34504707",
+      "result": {
+        "attachments": [],
+        "content_state": "unchanged",
+        "labels": {
+          "added": [],
+          "removed": []
+        },
+        "operation_id": "652615d4-2d0b-4e9e-8dc9-744d696cdcfb",
+        "page_id": "34504707",
+        "page_updated": false,
+        "status": "uploaded",
+        "verification": {
+          "adf_summary": {
+            "extensions": [
+              "anchor",
+              "com.atlassian.confluence.macro.core",
+              "excerpt-include"
+            ],
+            "marks": {
+              "border": 1,
+              "link": 5
+            },
+            "media_ids": [
+              "0f871e8c-258e-4cee-985a-2cb5137c0460",
+              "22e686c5-7d32-4cb3-91d3-1150db127f2f",
+              "397cd07b-3aea-49dc-b306-f8173e085358",
+              "74094a05-35cd-4c60-bde4-a76ecee89aa3",
+              "7c01f356-52d6-44ef-bdb9-9fb747831b84",
+              "a6af5b36-90e4-4557-b98b-e39ba6e90d14",
+              "ad731ffd-705e-448b-a0a9-52afca36bb83",
+              "ba7c69ff-6455-4573-a77b-2c724833b2b2"
+            ],
+            "nodes": {
+              "blockCard": 1,
+              "bulletList": 1,
+              "caption": 1,
+              "doc": 1,
+              "extension": 1,
+              "heading": 6,
+              "inlineCard": 1,
+              "inlineExtension": 1,
+              "listItem": 5,
+              "media": 3,
+              "mediaInline": 5,
+              "mediaSingle": 3,
+              "paragraph": 17,
+              "text": 18
+            },
+            "urls": [
+              "#campaign-media-anchor",
+              "https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/",
+              "https://support.atlassian.com/confluence-cloud/docs/simplify-data-with-tables/",
+              "https://support.atlassian.com/confluence-cloud/docs/work-with-images-videos-and-files/",
+              "https://villarroelgj-1774746765908.atlassian.net/wiki/pages/createpage.action?spaceKey=~701216ec7fd06929c4771add0ec012097b466&title=Confluence%208h%20Undefined%20Page%20Fixture&linkCreation=true&fromPageId=34504707",
+              "https://villarroelgj-1774746765908.atlassian.net/wiki/spaces/~701216ec7fd06929c4771add0ec012097b466/pages/34340869",
+              "mailto:villarroel.gj@gmail.com?subject=Confluence%20round-trip%20fixture"
+            ]
+          },
+          "checks": [
+            {
+              "detail": {
+                "actual": "3001c333ddbdd013f0e3583729bba7f243a74430a434a252a5f872e4992f080c",
+                "exact_canonical_actual": "400b4815bdcdf81eeca2b53502e5b45e2c2bbd7ca5c99bdb7c9eed554804855e",
+                "exact_canonical_expected": "fa48c09bdc87fcbba1874d245913d47c9bdb2dff3e8f0904d9ef42e1e2aeeb85",
+                "expected": "3001c333ddbdd013f0e3583729bba7f243a74430a434a252a5f872e4992f080c"
+              },
+              "name": "storage-equivalent",
+              "passed": true
+            },
+            {
+              "detail": "Confluence 8h Lab — Links and Media 2026-07-12",
+              "name": "title",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163842",
+                "expected": "163842"
+              },
+              "name": "space-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "163939",
+                "expected": "163939"
+              },
+              "name": "parent-id",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": [
+                  "capability-media",
+                  "roundtrip-campaign"
+                ],
+                "expected": [
+                  "capability-media",
+                  "roundtrip-campaign"
+                ]
+              },
+              "name": "labels",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": null,
+                "expected": null
+              },
+              "name": "content-state",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "d24961ab1281ddd2f9039ca0bb06d94806c364357015fc3a1ff7aa107e754ff0",
+                "expected": "d24961ab1281ddd2f9039ca0bb06d94806c364357015fc3a1ff7aa107e754ff0"
+              },
+              "name": "restrictions-unchanged",
+              "passed": true
+            },
+            {
+              "detail": "External HTTPS documentation link",
+              "name": "visible-text:External HTTPS documentation link",
+              "passed": true
+            },
+            {
+              "detail": "Email link fixture",
+              "name": "visible-text:Email link fixture",
+              "passed": true
+            },
+            {
+              "detail": "Inline Smart Link fixture",
+              "name": "visible-text:Inline Smart Link fixture",
+              "passed": true
+            },
+            {
+              "detail": "Open the text and structure laboratory",
+              "name": "visible-text:Open the text and structure laboratory",
+              "passed": true
+            },
+            {
+              "detail": "Cross-page reusable content",
+              "name": "visible-text:Cross-page reusable content",
+              "passed": true
+            },
+            {
+              "detail": "PNG with center alignment, border, width, alt text, and caption:",
+              "name": "visible-text:PNG with center alignment, border, width, alt text, and caption:",
+              "passed": true
+            },
+            {
+              "detail": "Open PDF preview fixture",
+              "name": "visible-text:Open PDF preview fixture",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-animation.gif",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-audio.mp3",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-data.csv",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-diagram.png",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-notes.txt",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-photo.jpg",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-preview.pdf",
+              "passed": true
+            },
+            {
+              "detail": "exists remotely",
+              "name": "attachment-reference:campaign-video.mp4",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "image/gif",
+                "expected": "image/gif"
+              },
+              "name": "attachment-media-type:campaign-animation.gif",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "10042d63515849c3bc866969ce62631431cd74b205f994c70dd5af076c0c4f56",
+                "expected": "10042d63515849c3bc866969ce62631431cd74b205f994c70dd5af076c0c4f56"
+              },
+              "name": "attachment:campaign-animation.gif",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "audio/mpeg",
+                "expected": "audio/mpeg"
+              },
+              "name": "attachment-media-type:campaign-audio.mp3",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "eea3782a2ae2587a9c81b7e16fa5b912db2bde802faa6e4b91749f2802a63728",
+                "expected": "eea3782a2ae2587a9c81b7e16fa5b912db2bde802faa6e4b91749f2802a63728"
+              },
+              "name": "attachment:campaign-audio.mp3",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "application/vnd.ms-excel",
+                "expected": "application/vnd.ms-excel"
+              },
+              "name": "attachment-media-type:campaign-data.csv",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "fd494bc913fd3f47efbe0a55e65b08739149bd4c481d303d927776570a4e2fc9",
+                "expected": "fd494bc913fd3f47efbe0a55e65b08739149bd4c481d303d927776570a4e2fc9"
+              },
+              "name": "attachment:campaign-data.csv",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "image/png",
+                "expected": "image/png"
+              },
+              "name": "attachment-media-type:campaign-diagram.png",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "990337b29b55923fa39d864164ec81154b6e3dc915b583fa4a16176a28d2d59c",
+                "expected": "990337b29b55923fa39d864164ec81154b6e3dc915b583fa4a16176a28d2d59c"
+              },
+              "name": "attachment:campaign-diagram.png",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "text/plain",
+                "expected": "text/plain"
+              },
+              "name": "attachment-media-type:campaign-notes.txt",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "e055cb9067103b78abf2108d2b00642d598a43c6666186beacc855bebceacd0d",
+                "expected": "e055cb9067103b78abf2108d2b00642d598a43c6666186beacc855bebceacd0d"
+              },
+              "name": "attachment:campaign-notes.txt",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "image/jpeg",
+                "expected": "image/jpeg"
+              },
+              "name": "attachment-media-type:campaign-photo.jpg",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "47416dc3d86ad747a47250768512170fd8385c1bce97e7b21119c10c7d320a7a",
+                "expected": "47416dc3d86ad747a47250768512170fd8385c1bce97e7b21119c10c7d320a7a"
+              },
+              "name": "attachment:campaign-photo.jpg",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "application/pdf",
+                "expected": "application/pdf"
+              },
+              "name": "attachment-media-type:campaign-preview.pdf",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "c78b908d8dd8490e48abd7c970b5a59993a68477cfbcbb87c45d4a8a3d575a84",
+                "expected": "c78b908d8dd8490e48abd7c970b5a59993a68477cfbcbb87c45d4a8a3d575a84"
+              },
+              "name": "attachment:campaign-preview.pdf",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "video/mp4",
+                "expected": "video/mp4"
+              },
+              "name": "attachment-media-type:campaign-video.mp4",
+              "passed": true
+            },
+            {
+              "detail": {
+                "actual": "3c13d68f591421ad0afab19ffed845e79b05becc29ce1553d70c37072aab4a47",
+                "expected": "3c13d68f591421ad0afab19ffed845e79b05becc29ce1553d70c37072aab4a47"
+              },
+              "name": "attachment:campaign-video.mp4",
+              "passed": true
+            }
+          ],
+          "desired_state_sha256": "bdf92e4dcd666465dc9aee7fb285158fdf7e97116ecb6f4c9c8e0b8d242b0346",
+          "evidence": {
+            "atlas_doc_format": {
+              "path": "remote.adf.json",
+              "sha256": "d7f7e46b9b4e7dde271cffd4cc1db2b8a4687dc6daacecabab31b02536352224"
+            },
+            "restrictions": {
+              "path": "remote.restrictions.json",
+              "sha256": "7c93e7e93b7e0005d884df7b2bfdbaf1f58b2e35c53f606bd531913fbf4a861c"
+            },
+            "storage": {
+              "path": "remote.storage.xml",
+              "sha256": "ee6083d57af672a232f14b41b050ff621846f577dc732ebe7efa9dfaccd60f6e"
+            },
+            "view": {
+              "path": "remote.view.html",
+              "sha256": "cfe36cb197f49c2994a36faaa8f7cf1caf3adc0bb3328194db394cf5aef73dfa"
+            }
+          },
+          "operation_id": "652615d4-2d0b-4e9e-8dc9-744d696cdcfb",
+          "page_id": "34504707",
+          "remote_version": 7,
+          "schema_version": "1.0",
+          "status": "verified",
+          "storage_summary": {
+            "attachment_filenames": [
+              "campaign-animation.gif",
+              "campaign-audio.mp3",
+              "campaign-data.csv",
+              "campaign-diagram.png",
+              "campaign-notes.txt",
+              "campaign-photo.jpg",
+              "campaign-preview.pdf",
+              "campaign-video.mp4"
+            ],
+            "canonical_sha256": "400b4815bdcdf81eeca2b53502e5b45e2c2bbd7ca5c99bdb7c9eed554804855e",
+            "hrefs": [
+              "#campaign-media-anchor",
+              "https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/",
+              "https://support.atlassian.com/confluence-cloud/docs/simplify-data-with-tables/",
+              "https://support.atlassian.com/confluence-cloud/docs/work-with-images-videos-and-files/",
+              "mailto:villarroel.gj@gmail.com?subject=Confluence%20round-trip%20fixture"
+            ],
+            "macros": {
+              "anchor": 1,
+              "excerpt-include": 1
+            },
+            "page_references": [
+              "Confluence 8h Lab — Macros and Dynamic Content 2026-07-12",
+              "Confluence 8h Lab — Text and Structure 2026-07-12",
+              "Confluence 8h Undefined Page Fixture"
+            ],
+            "tags": {
+              "a": 5,
+              "ac:caption": 1,
+              "ac:image": 3,
+              "ac:link": 8,
+              "ac:link-body": 2,
+              "ac:parameter": 5,
+              "ac:plain-text-link-body": 5,
+              "ac:structured-macro": 2,
+              "h2": 6,
+              "li": 5,
+              "p": 13,
+              "ri:attachment": 8,
+              "ri:page": 3,
+              "ul": 1
+            }
+          },
+          "verified_at": "2026-07-13T02:59:54.389958Z"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "preflight": {
+    "path": "C:\\Users\\villa\\dev\\knowledge\\evaluations\\confluence-8h-live\\batch\\campaign\\batch-plan.json",
+    "status": "verified"
+  },
+  "rate_limited": false,
+  "resumed": true,
+  "rollback_attempted": false,
+  "schema_version": "1.0",
+  "status": "verified",
+  "updated_at": "2026-07-13T02:59:54.843425Z"
+}

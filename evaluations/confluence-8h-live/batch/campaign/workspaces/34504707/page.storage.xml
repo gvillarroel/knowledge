@@ -1,0 +1,40 @@
+<h2>Campaign baseline</h2>
+<p>This page is a minimal live target. All capability content will be added from a local workspace through the round-trip skill.</p>
+<h2>External, email, and Smart Links</h2>
+<p><a href="https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/">External HTTPS documentation link</a></p>
+<p><a href="mailto:villarroel.gj@gmail.com?subject=Confluence%20round-trip%20fixture">Email link fixture</a></p>
+<p><a data-card-appearance="inline" href="https://support.atlassian.com/confluence-cloud/docs/work-with-images-videos-and-files/">Inline Smart Link fixture</a></p>
+<p><a data-card-appearance="block" href="https://support.atlassian.com/confluence-cloud/docs/simplify-data-with-tables/">Block Smart Link fixture</a></p>
+<h2>Internal and anchor links</h2>
+<p><ac:link><ri:page ri:content-title="Confluence 8h Lab — Text and Structure 2026-07-12" /><ac:link-body>Open the text and structure laboratory</ac:link-body></ac:link></p>
+<p><ac:link><ri:page ri:content-title="Confluence 8h Undefined Page Fixture" /><ac:link-body>Undefined page creation link fixture</ac:link-body></ac:link></p>
+<p><a href="#campaign-media-anchor">Jump to the media anchor</a></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">campaign-media-anchor</ac:parameter></ac:structured-macro>
+<h2>Cross-page reusable content</h2>
+<p>The following macro consumes the excerpt published by the macros laboratory:</p>
+<ac:structured-macro ac:name="excerpt-include"><ac:parameter ac:name=""><ac:link><ri:page ri:content-title="Confluence 8h Lab — Macros and Dynamic Content 2026-07-12" /></ac:link></ac:parameter></ac:structured-macro>
+<h2>Image attachments and controls</h2>
+<p>PNG with center alignment, border, width, alt text, and caption:</p>
+<ac:image ac:align="center" ac:border="true" ac:width="720">
+  <ri:attachment ri:filename="campaign-diagram.png" />
+  <ac:parameter ac:name="alt">Confluence round-trip architecture campaign diagram</ac:parameter>
+  <ac:caption><p>PNG attachment with explicit storage controls.</p></ac:caption>
+</ac:image>
+<p>JPEG resized and right aligned:</p>
+<ac:image ac:align="right" ac:width="360">
+  <ri:attachment ri:filename="campaign-photo.jpg" />
+  <ac:parameter ac:name="alt">JPEG conversion of the campaign architecture diagram</ac:parameter>
+</ac:image>
+<p>Animated GIF:</p>
+<ac:image ac:align="center" ac:width="640">
+  <ri:attachment ri:filename="campaign-animation.gif" />
+  <ac:parameter ac:name="alt">Animated campaign diagram color transition</ac:parameter>
+</ac:image>
+<h2>Generic files and previews</h2>
+<ul>
+  <li><ac:link><ri:attachment ri:filename="campaign-preview.pdf" /><ac:plain-text-link-body><![CDATA[Open PDF preview fixture]]></ac:plain-text-link-body></ac:link></li>
+  <li><ac:link><ri:attachment ri:filename="campaign-video.mp4" /><ac:plain-text-link-body><![CDATA[Open MP4 video fixture]]></ac:plain-text-link-body></ac:link></li>
+  <li><ac:link><ri:attachment ri:filename="campaign-audio.mp3" /><ac:plain-text-link-body><![CDATA[Open MP3 audio fixture]]></ac:plain-text-link-body></ac:link></li>
+  <li><ac:link><ri:attachment ri:filename="campaign-data.csv" /><ac:plain-text-link-body><![CDATA[Open CSV data fixture]]></ac:plain-text-link-body></ac:link></li>
+  <li><ac:link><ri:attachment ri:filename="campaign-notes.txt" /><ac:plain-text-link-body><![CDATA[Open plain-text fixture]]></ac:plain-text-link-body></ac:link></li>
+</ul>

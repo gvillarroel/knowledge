@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "generator": "pi 0.80.6",
+  "skill": "skills/roundtrip-confluence-pages",
+  "generation_mode": "direct PI read/edit tool calls after reading the skill and tenant-proven storage reference",
+  "powershell_note": "The comma-separated --tools allowlist must be quoted in PowerShell; the unquoted form was parsed incorrectly and exposed no usable edit tool.",
+  "dbees_observation": "No local PI package, Codex skill, Agents skill, or credible public skill named dbees was discoverable; it was not silently substituted.",
+  "page_id": "34471938",
+  "remote_version": 3,
+  "operation_id": "84a840da-91f1-4782-ab84-e3d628d85df0",
+  "workspace": "pi-openrouter-workspace",
+  "artifacts": {
+    "storage": {
+      "path": "pi-openrouter-workspace/page.storage.xml",
+      "sha256": "eaa5198ae0baa400922d550ae4162c2d9f88a1eeafed4eeddb73faab41a1f444"
+    },
+    "api_report": {
+      "path": "pi-openrouter-workspace/verification/report.json",
+      "sha256": "b2734feeaf7c429a68e061982ff01948f7e816ab05af758877f2d71c9c1bbacb"
+    },
+    "browser_ground_truth": {
+      "path": "pi-openrouter-workspace/verification/browser-ground-truth.json",
+      "sha256": "3608c446bf2791569ca3692d3c1a1aac6fcaf751ee2e1c1381456d3ffc112120"
+    },
+    "noop_dry_run": {
+      "path": "pi-openrouter-workspace/verification/noop-dry-run.json",
+      "sha256": "a07d9af0e82cee7b06de9e531a25679edb3ef37e881f89ff8437211bac0100d9"
+    }
+  },
+  "verified_surfaces": [
+    "direct model filesystem edit",
+    "preserved original storage paragraphs",
+    "information panel and inline status",
+    "task and tenant-proven decision nodes",
+    "nested interactive expands",
+    "Python code block",
+    "merged-header table and two-column layout",
+    "external and dynamic internal links",
+    "read-only restrictions preserved",
+    "reviewed reconciliation with the second batch operation",
+    "post-upload no-op convergence"
+  ]
+}

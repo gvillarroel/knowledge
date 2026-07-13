@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "page_id": "34373703",
+  "operation_id": "f39703c1-cf1e-418e-bafd-6288c1338908",
+  "browser_gt_sha256": "41d57e89ec4cebf89d051cc8829bc13c30a98634606618d8ef1a46ca5dc44c70",
+  "observed_at": "2026-07-13T05:43:08Z",
+  "checks": [
+    {
+      "id": "rendered-page",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The uploaded native-editor fixture renders without an error.",
+      "actual": "The page title and final acceptance marker were present in the authenticated page.",
+      "screenshot": {"path": "browser-headings-formatting.png", "sha256": "e1602e545d8e44125804df29872cc1cdcd6a58084ba94bb8ec819c0989f769e3"}
+    },
+    {
+      "id": "heading-hierarchy",
+      "passed": true,
+      "method": "authenticated-role-and-text-query",
+      "assertion": "Heading fixtures from level 1 through level 6 are visible with descending hierarchy.",
+      "actual": {"heading_levels": [1, 2, 3, 4, 5, 6], "level_6_exact_count": 1},
+      "screenshot": {"path": "browser-headings-formatting.png", "sha256": "e1602e545d8e44125804df29872cc1cdcd6a58084ba94bb8ec819c0989f769e3"}
+    },
+    {
+      "id": "inline-formatting",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "Bold, italic, underline, strike, super/subscript, code, color, highlight, alignment, quote, preformatted text, line break, and rule render visibly.",
+      "actual": "All configured inline and block formatting markers rendered without a conversion error.",
+      "screenshot": {"path": "browser-headings-formatting.png", "sha256": "e1602e545d8e44125804df29872cc1cdcd6a58084ba94bb8ec819c0989f769e3"}
+    },
+    {
+      "id": "nested-lists-tasks",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "Nested ordered/unordered lists plus incomplete and complete tasks render, including assignee and due date.",
+      "actual": {"task_text_exact_count": 1, "incomplete_checkbox_visible": true, "complete_checkbox_visible": true, "assignee_visible": true, "due_date_visible": true, "toggle_evidence": "browser-task-toggle.json"},
+      "screenshot": {"path": "browser-tasks-table.png", "sha256": "9e43d4ffe8fb866b1dfb3d50360d76bdf16edcb248d50fdbc9203724f433db96"}
+    },
+    {
+      "id": "rich-table",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The table renders its spanning header, row-spanning storage cell, owner mention, and date.",
+      "actual": "The complete three-column verification matrix was visible with the expected merged cells and values.",
+      "screenshot": {"path": "browser-tasks-table.png", "sha256": "9e43d4ffe8fb866b1dfb3d50360d76bdf16edcb248d50fdbc9203724f433db96"}
+    },
+    {
+      "id": "dates-mentions-status",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "The mention, milestone date, emoji, and green NATIVE READY status render.",
+      "actual": {"mention_visible": true, "date_visible": true, "emoji_visible": true, "status_exact_count": 1},
+      "screenshot": {"path": "browser-layouts.png", "sha256": "1d6a5e71a2453a3ea5f631a10dcd34f15ae5769e7bb46dd26711bf70ec186fc8"}
+    },
+    {
+      "id": "one-through-five-columns",
+      "passed": true,
+      "method": "authenticated-dom-and-screenshot",
+      "assertion": "Single, equal and sidebar two/three-column layouts, plus four- and five-column rows, retain their visual column geometry.",
+      "actual": {"layout_sections": 8, "layout_columns": 22, "five_e_exact_count": 1, "geometry_evidence": "browser-layout-geometry.json"},
+      "screenshot": {"path": "browser-layouts.png", "sha256": "1d6a5e71a2453a3ea5f631a10dcd34f15ae5769e7bb46dd26711bf70ec186fc8"}
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 4,
+    "minimumTaskFamilies": 3,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "preserve-dynamic-page-edit",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "page-body-roundtrip"
+    },
+    {
+      "promptId": "replace-architecture-attachment",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "attachment-metadata-update"
+    },
+    {
+      "promptId": "resumable-reviewed-page-batch",
+      "caseKind": "generalization",
+      "taskFamily": "batch-resume"
+    },
+    {
+      "promptId": "concurrent-version-conflict",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "concurrency-authority-boundary"
+    }
+  ]
+}

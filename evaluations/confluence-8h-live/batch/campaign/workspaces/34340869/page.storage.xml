@@ -1,0 +1,64 @@
+<h2>Campaign baseline</h2>
+<p>This page is a minimal live target. All capability content will be added from a local workspace through the round-trip skill.</p>
+<h2>Typography and inline content</h2>
+<p><strong>Bold specimen</strong> · <em>Italic specimen</em> · <u>Underline specimen</u> · <s>Strike specimen</s> · <code>inline_code()</code> · H<sub>2</sub>O · x<sup>2</sup></p>
+<p style="text-align: center;"><span style="color: rgb(0, 82, 204);">Centered blue text</span> and <span style="background-color: rgb(255, 235, 230);">highlighted text</span></p>
+<p style="margin-left: 60px;">Indented paragraph preserved through storage XML.</p>
+<h3>Heading level three</h3>
+<h4>Heading level four</h4>
+<blockquote><p>Quoted content remains visually distinct.</p></blockquote>
+<hr />
+<h2>Lists and tasks</h2>
+<ul>
+  <li>Bullet item one</li>
+  <li>Bullet item two<ul><li>Nested bullet</li></ul></li>
+</ul>
+<ol>
+  <li>Numbered item one</li>
+  <li>Numbered item two<ol><li>Nested numbered item</li></ol></li>
+</ol>
+<ac:task-list ac:task-list-id="campaign-task-list">
+  <ac:task>
+    <ac:task-id>8001</ac:task-id>
+    <ac:task-status>incomplete</ac:task-status>
+    <ac:task-body>Verify local-to-Confluence task preservation</ac:task-body>
+  </ac:task>
+</ac:task-list>
+<h2>Panels, dates, emoji, and status</h2>
+<ac:structured-macro ac:name="info"><ac:rich-text-body><p>Information panel from local storage.</p></ac:rich-text-body></ac:structured-macro>
+<ac:structured-macro ac:name="note"><ac:rich-text-body><p>Note panel from local storage.</p></ac:rich-text-body></ac:structured-macro>
+<ac:structured-macro ac:name="warning"><ac:rich-text-body><p>Warning panel from local storage.</p></ac:rich-text-body></ac:structured-macro>
+<ac:structured-macro ac:name="tip"><ac:rich-text-body><p>Tip panel from local storage.</p></ac:rich-text-body></ac:structured-macro>
+<p>Calendar date: <time datetime="2026-07-12" /> Emoji: <ac:emoticon ac:name="smile" /> Inline status: <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">STRUCTURE READY</ac:parameter><ac:parameter ac:name="colour">Green</ac:parameter></ac:structured-macro></p>
+<h2>Expand and code</h2>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">Open nested verification content</ac:parameter>
+  <ac:rich-text-body>
+    <p>Expandable body survived the local round trip.</p>
+    <ac:structured-macro ac:name="expand">
+      <ac:parameter ac:name="title">Nested expand</ac:parameter>
+      <ac:rich-text-body><p>Nested expandable content is functional.</p></ac:rich-text-body>
+    </ac:structured-macro>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="code">
+  <ac:parameter ac:name="language">python</ac:parameter>
+  <ac:parameter ac:name="title">Round-trip pseudocode</ac:parameter>
+  <ac:plain-text-body><![CDATA[workspace = download(page_id)
+validate(workspace)
+upload(workspace)]]></ac:plain-text-body>
+</ac:structured-macro>
+<h2>Tables and layouts</h2>
+<table data-layout="default" data-table-width="760">
+  <tbody>
+    <tr><th><p>Capability</p></th><th><p>Storage form</p></th><th><p>Result</p></th></tr>
+    <tr><td rowspan="2"><p>Merged rows</p></td><td><p>rowspan=2</p></td><td><p>PASS A</p></td></tr>
+    <tr><td colspan="2"><p>Merged columns with colspan=2</p></td></tr>
+  </tbody>
+</table>
+<ac:layout>
+  <ac:layout-section ac:type="two_equal">
+    <ac:layout-cell><p>Left layout column</p></ac:layout-cell>
+    <ac:layout-cell><p>Right layout column</p></ac:layout-cell>
+  </ac:layout-section>
+</ac:layout>

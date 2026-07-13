@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "verified_at": "2026-07-13T01:37:56.0075377Z",
+  "status": "verified",
+  "page_id": "34275329",
+  "page_url": "https://villarroelgj-1774746765908.atlassian.net/wiki/spaces/~701216ec7fd06929c4771add0ec012097b466/pages/34275329/Confluence+Round-Trip+Live+Acceptance+Luna+Revision+2026-07-12",
+  "baseline": {
+    "path": "../../live-baseline.png",
+    "sha256": "86e26036557c0fd5867b38c0dbcc4b6e96675524f328796257046310793d3e17",
+    "viewport": "1918x958"
+  },
+  "final_screenshots": [
+    {
+      "path": "../../live-final-section.png",
+      "sha256": "f3ff081ebf9664c975194ac70d0a32a7a0bb07b0ebcd8b2c8d96a208dbd12751",
+      "viewport": "1918x958"
+    },
+    {
+      "path": "../../live-final-lower.png",
+      "sha256": "5eec71d0d95c1ca4bab06857590778e5b3ee40b67f0ea914e9d5432d84fdcf18",
+      "viewport": "1918x958"
+    },
+    {
+      "path": "../../live-final-image.png",
+      "sha256": "c0bc57e56328ac8ad29241357e542301f6191557cbc3608f46c7977a5cd230d5",
+      "viewport": "1918x958"
+    }
+  ],
+  "checks": [
+    {
+      "name": "edited-title",
+      "passed": true,
+      "detail": "Published H1 is Confluence Round-Trip Live Acceptance — Luna Revision 2026-07-12."
+    },
+    {
+      "name": "page-content-state",
+      "passed": true,
+      "detail": "The page-level Verificado state is visible."
+    },
+    {
+      "name": "baseline-structures-preserved",
+      "passed": true,
+      "detail": "The original 3x3 table, information panel, Minutas dynamic link, Expand macro, unchecked task, and baseline text remain rendered."
+    },
+    {
+      "name": "expand-interaction",
+      "passed": true,
+      "detail": "Expandable verification details changed aria-expanded from false to true after an authenticated browser click."
+    },
+    {
+      "name": "new-macros-and-table",
+      "passed": true,
+      "detail": "Release readiness, the information panel, green READY status, and both non-empty table rows are visible."
+    },
+    {
+      "name": "block-smart-link",
+      "passed": true,
+      "detail": "The Confluence Cloud REST API card rendered and resolved to https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-attachment/."
+    },
+    {
+      "name": "dynamic-internal-link",
+      "passed": true,
+      "detail": "Clicking Confluence Round-Trip Link Target 2026-07-12 navigated to page 34471938 and its matching H1 rendered."
+    },
+    {
+      "name": "attachment-image",
+      "passed": true,
+      "detail": "The authenticated article image completed with natural dimensions 1280x720; the API byte hash also matched the local PNG."
+    },
+    {
+      "name": "labels",
+      "passed": true,
+      "detail": "luna-edited and roundtrip-validated are visible on the page."
+    },
+    {
+      "name": "api-verification",
+      "passed": true,
+      "detail": "verification/report.json has status verified for remote version 3."
+    }
+  ]
+}

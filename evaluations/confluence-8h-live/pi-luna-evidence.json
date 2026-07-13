@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "status": "verified",
+  "model": "openai-codex/gpt-5.6-luna",
+  "generator": "pi 0.80.6",
+  "skill": "skills/roundtrip-confluence-pages",
+  "generation_mode": "read-only file attachments with a strict JSON title/storage response",
+  "filesystem_tool_observation": "The installed PI runtime did not expose built-in filesystem tools to this model, so the returned JSON was applied as a reviewable patch before deterministic validation.",
+  "dbees_observation": "No local PI package, Codex skill, Agents skill, or credible public skill named dbees was discoverable; it was not silently substituted.",
+  "page_id": "34570271",
+  "remote_version": 42,
+  "operation_id": "8a78ce08-6113-4d22-9307-f083bf67cddf",
+  "workspace": "pi-luna-workspace",
+  "artifacts": {
+    "storage": {
+      "path": "pi-luna-workspace/page.storage.xml",
+      "sha256": "1ac824605079c5ba04fdcb6a801e8e68b464af02928465373757e87071cd20de"
+    },
+    "api_report": {
+      "path": "pi-luna-workspace/verification/report.json",
+      "sha256": "a2134ff74f63f8a9bf8165a94e8ba6168bcecc140baef12d9f28ed09410aec34"
+    },
+    "browser_ground_truth": {
+      "path": "pi-luna-workspace/verification/browser-ground-truth.json",
+      "sha256": "1964188c8ace1ab14fc80f5f043531def31d76b00ef86d41a756cfe7b44bb07a"
+    },
+    "noop_dry_run": {
+      "path": "pi-luna-workspace/verification/noop-dry-run.json",
+      "sha256": "8ee325df587b7a31c402a0ae1fb35cb1fe9afd0a1a0ae3d33cdc6717ace1a4b6"
+    },
+    "refreshed_space_inventory": {
+      "path": "space-inventory-refresh.json",
+      "sha256": "a9e299a7665c2f2e0aeab0fc029cb6e8c4922b0aec9333ee7aa6e2c3297b221d",
+      "pages": 14
+    },
+    "persisted_local_exploration": {
+      "path": "pi-luna-explore.json",
+      "sha256": "f9fbee1eff939df7703fe1228d3b03ed434d484c590a52f5fec11af2f482abb7",
+      "matched_page_ids": ["34570271"]
+    }
+  },
+  "verified_surfaces": [
+    "heading hierarchy and inline marks",
+    "information panel and inline status",
+    "task item and nested lists",
+    "nested interactive expands",
+    "code block",
+    "rowspan and colspan table",
+    "two-column layout",
+    "external, anchor, and internal links",
+    "modern dynamic Task Report output"
+  ]
+}

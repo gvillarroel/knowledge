@@ -1,0 +1,94 @@
+{
+  "campaign_id": "confluence-8h-2026-07-12-draft",
+  "ended_at": "2026-07-12T23:36:51-04:00",
+  "minimum_duration_hours": 8,
+  "multi_page_workflow": {
+    "report": "evidence/multi-page-workflow/report.json"
+  },
+  "phases": [
+    {
+      "ended_at": "2026-07-12T23:36:51-04:00",
+      "id": "live-roundtrip-verification",
+      "name": "Live multi-page round-trip verification",
+      "started_at": "2026-07-12T21:57:14-04:00",
+      "test_cases": [
+        {
+          "coverage_categories": [
+            "text-and-marks",
+            "structure",
+            "inline-elements",
+            "containers"
+          ],
+          "evidence": {
+            "api_report": "evidence/text-and-structure/report.json",
+            "browser_ground_truth": "evidence/text-and-structure/browser-ground-truth.json",
+            "noop_dry_run": "evidence/text-and-structure/noop-dry-run.json"
+          },
+          "id": "text-and-structure",
+          "name": "Text and structure round-trip",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "links",
+            "smart-links",
+            "media",
+            "attachments"
+          ],
+          "evidence": {
+            "api_report": "evidence/links-and-media/report.json",
+            "browser_ground_truth": "evidence/links-and-media/browser-ground-truth.json",
+            "noop_dry_run": "evidence/links-and-media/noop-dry-run.json"
+          },
+          "id": "links-and-media",
+          "name": "Links, media, and attachments round-trip",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "core-dynamic-macros",
+            "marketplace-and-custom-extensions"
+          ],
+          "evidence": {
+            "api_report": "evidence/macros-and-dynamic-content/report.json",
+            "browser_ground_truth": "evidence/macros-and-dynamic-content/browser-ground-truth.json",
+            "noop_dry_run": "evidence/macros-and-dynamic-content/noop-dry-run.json"
+          },
+          "id": "macros-and-dynamic-content",
+          "name": "Dynamic macro and extension round-trip",
+          "status": "passed"
+        },
+        {
+          "coverage_categories": [
+            "page-metadata",
+            "immutable-and-preserved-surfaces"
+          ],
+          "evidence": {
+            "api_report": "evidence/metadata-and-safety/report.json",
+            "browser_ground_truth": "evidence/metadata-and-safety/browser-ground-truth.json",
+            "noop_dry_run": "evidence/metadata-and-safety/noop-dry-run.json"
+          },
+          "id": "metadata-and-safety",
+          "name": "Metadata and preserved-surface round-trip",
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "required_coverage_categories": [
+    "text-and-marks",
+    "structure",
+    "inline-elements",
+    "containers",
+    "links",
+    "smart-links",
+    "media",
+    "core-dynamic-macros",
+    "marketplace-and-custom-extensions",
+    "page-metadata",
+    "attachments",
+    "immutable-and-preserved-surfaces"
+  ],
+  "schema_version": "1.0",
+  "started_at": "2026-07-12T21:57:14-04:00"
+}

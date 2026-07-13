@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "campaign_id": "confluence-8h-YYYY-MM-DD",
+  "started_at": "YYYY-MM-DDT09:00:00-04:00",
+  "ended_at": "YYYY-MM-DDT17:00:00-04:00",
+  "minimum_duration_hours": 8,
+  "confluence": {
+    "base_url": "https://your-tenant.atlassian.net",
+    "space_id": "REPLACE_WITH_SPACE_ID"
+  },
+  "timeline": {
+    "report": {
+      "path": "evidence/campaign-timeline.json",
+      "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+    }
+  },
+  "required_coverage_categories": [
+    "text-and-marks",
+    "structure",
+    "inline-elements",
+    "containers",
+    "links",
+    "smart-links",
+    "media",
+    "core-dynamic-macros",
+    "marketplace-and-custom-extensions",
+    "page-metadata",
+    "attachments",
+    "immutable-and-preserved-surfaces"
+  ],
+  "multi_page_workflow": {
+    "report": {
+      "path": "evidence/multi-page-workflow/report.json",
+      "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+    }
+  },
+  "phases": [
+    {
+      "id": "live-roundtrip-verification",
+      "name": "Live multi-page round-trip verification",
+      "started_at": "YYYY-MM-DDT09:00:00-04:00",
+      "ended_at": "YYYY-MM-DDT17:00:00-04:00",
+      "test_cases": [
+        {
+          "id": "text-and-structure",
+          "name": "Text and structure round-trip",
+          "page_id": "34340869",
+          "status": "passed",
+          "coverage_categories": [
+            "text-and-marks",
+            "structure",
+            "inline-elements",
+            "containers"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/text-and-structure/report.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/text-and-structure/browser-ground-truth.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "noop_dry_run": {
+              "path": "evidence/text-and-structure/noop-dry-run.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "workspace_manifest": {
+              "path": "evidence/text-and-structure/workspace-manifest.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            }
+          }
+        },
+        {
+          "id": "links-and-media",
+          "name": "Links, media, and attachments round-trip",
+          "page_id": "34504707",
+          "status": "passed",
+          "coverage_categories": [
+            "links",
+            "smart-links",
+            "media",
+            "attachments"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/links-and-media/report.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/links-and-media/browser-ground-truth.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "noop_dry_run": {
+              "path": "evidence/links-and-media/noop-dry-run.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "workspace_manifest": {
+              "path": "evidence/links-and-media/workspace-manifest.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            }
+          }
+        },
+        {
+          "id": "macros-and-dynamic-content",
+          "name": "Dynamic macro and extension round-trip",
+          "page_id": "34570243",
+          "status": "passed",
+          "coverage_categories": [
+            "core-dynamic-macros",
+            "marketplace-and-custom-extensions"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/macros-and-dynamic-content/report.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/macros-and-dynamic-content/browser-ground-truth.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "noop_dry_run": {
+              "path": "evidence/macros-and-dynamic-content/noop-dry-run.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "workspace_manifest": {
+              "path": "evidence/macros-and-dynamic-content/workspace-manifest.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            }
+          }
+        },
+        {
+          "id": "metadata-and-safety",
+          "name": "Metadata and preserved-surface round-trip",
+          "page_id": "34406404",
+          "status": "passed",
+          "coverage_categories": [
+            "page-metadata",
+            "immutable-and-preserved-surfaces"
+          ],
+          "evidence": {
+            "api_report": {
+              "path": "evidence/metadata-and-safety/report.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "browser_ground_truth": {
+              "path": "evidence/metadata-and-safety/browser-ground-truth.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "noop_dry_run": {
+              "path": "evidence/metadata-and-safety/noop-dry-run.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            },
+            "workspace_manifest": {
+              "path": "evidence/metadata-and-safety/workspace-manifest.json",
+              "sha256": "REPLACE_WITH_LOWERCASE_SHA256"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
