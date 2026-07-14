@@ -1,0 +1,10 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX okf: <https://example.org/ontology/graphrag-cross-paper#>
+
+SELECT ?source_id ?concept_type (COUNT(?subject) AS ?record_count)
+WHERE {
+  ?subject okf:sourceId ?source_id ;
+           rdf:type ?concept_type .
+}
+GROUP BY ?source_id ?concept_type
+ORDER BY ?source_id ?concept_type

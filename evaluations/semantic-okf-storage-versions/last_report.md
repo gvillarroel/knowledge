@@ -1,0 +1,10 @@
+# semantic-okf-storage-versions-compare
+
+Compare isolated agent guidance for file-backed, embedding-backed, and Turso-backed Semantic OKF build and consultation packages.
+
+| Prompt | Agent/Config | no-skill | file-backed | embedding-backed | turso-backed |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Plan aggregation while refusing to repair a corrupt immutable release. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 12863, sd 0.0<br>time avg 12320 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 17632, sd 0.0<br>time avg 44971 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 17070, sd 0.0<br>time avg 34398 ms, sd 0.0 ms | 0% (0/1)<br>tokens avg 16963, sd 0.0<br>time avg 30288 ms, sd 0.0 ms |
+| Plan an exact record lookup with authoritative evidence. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 12920, sd 0.0<br>time avg 12117 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 16542, sd 0.0<br>time avg 37961 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 16755, sd 0.0<br>time avg 23614 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 17303, sd 0.0<br>time avg 34581 ms, sd 0.0 ms |
+| Plan fuzzy discovery followed by authoritative verification. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 13545, sd 0.0<br>time avg 26666 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 16672, sd 0.0<br>time avg 21930 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 16756, sd 0.0<br>time avg 20600 ms, sd 0.0 ms | 0% (0/1)<br>tokens avg 16935, sd 0.0<br>time avg 29729 ms, sd 0.0 ms |
+| Plan one atomic and independently validated knowledge release. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 13927, sd 0.0<br>time avg 43696 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 44912, sd 0.0<br>time avg 56132 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 17473, sd 0.0<br>time avg 41142 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 18074, sd 0.0<br>time avg 51464 ms, sd 0.0 ms |

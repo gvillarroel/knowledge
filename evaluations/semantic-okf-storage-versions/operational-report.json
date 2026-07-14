@@ -1,0 +1,278 @@
+{
+  "corpus": {
+    "records": 874,
+    "sample": {
+      "concept_id": "concepts/analysis-vocabulary/dimension-comparison-84a97f66f9",
+      "record_id": "dimension-comparison",
+      "source_id": "analysis-vocabulary"
+    },
+    "sources": 31
+  },
+  "environment": {
+    "implementation": "CPython",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.3"
+  },
+  "generated_at": "2026-07-14T11:13:41.449790Z",
+  "inputs": {
+    "aggregate_query": {
+      "path": "evaluations/semantic-okf-storage-versions/queries/count-by-source-and-type.rq",
+      "sha256": "2e9fc6bf15a240909976856417e5588cb9fc27bfac537785b89df65d67258813"
+    },
+    "comparator": {
+      "path": "evaluations/semantic-okf-storage-versions/scripts/compare_operational.py",
+      "sha256": "fd2ec0d6c28f62259de121ebf5ba76983286604bd0739b1119e2fc857eb1c20d"
+    },
+    "iterations": 5,
+    "manifest": {
+      "path": "evaluations/graphrag-cross-paper/manifest.json",
+      "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37"
+    },
+    "skill_packages": {
+      "embedding-backed": {
+        "build": {
+          "file_count": 20,
+          "logical_tree_sha256": "45e5aece1fe9423a29fb3eff093219065930f034dd04d8fd11a5ce7440969d98",
+          "total_bytes": 229676
+        },
+        "consult": {
+          "file_count": 11,
+          "logical_tree_sha256": "12a604b8aed36c5631a5ff8c5badee77f7f2017e34f72a1787167002fdf801f5",
+          "total_bytes": 74214
+        }
+      },
+      "file-backed": {
+        "build": {
+          "file_count": 15,
+          "logical_tree_sha256": "cc207898739f3a29386b321027c2d5d4bee9f54919d1f0b7336636700280e2e5",
+          "total_bytes": 208688
+        },
+        "consult": {
+          "file_count": 13,
+          "logical_tree_sha256": "5fb9a9b362b9b9bcb4e0e5334b7b25ac070ae2335df8e0d4ee8ff9957fbb5b39",
+          "total_bytes": 98881
+        }
+      },
+      "turso-backed": {
+        "build": {
+          "file_count": 19,
+          "logical_tree_sha256": "f10b55b2b43fe618428becb173f41345e4626be82100053d81ff5ae049884457",
+          "total_bytes": 270183
+        },
+        "consult": {
+          "file_count": 10,
+          "logical_tree_sha256": "39185e44d4545bd4d4bfe1c1c9f920d7a780653e6729616d24359a044e02a56d",
+          "total_bytes": 49568
+        }
+      }
+    }
+  },
+  "operational_queries": {
+    "aggregate": {
+      "file-backed": {
+        "iterations": 5,
+        "max_ms": 628.8702000165358,
+        "mean_ms": 615.045899990946,
+        "median_ms": 617.8595999954268,
+        "min_ms": 601.4757000375539,
+        "p95_ms": 627.3221800103784,
+        "samples_ms": [
+          605.8938999194652,
+          617.8595999954268,
+          601.4757000375539,
+          621.1300999857485,
+          628.8702000165358
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      },
+      "groups": 31,
+      "result_parity": true,
+      "turso-backed": {
+        "iterations": 5,
+        "max_ms": 502.5055999867618,
+        "mean_ms": 486.66288000531495,
+        "median_ms": 484.3091999646276,
+        "min_ms": 467.426500050351,
+        "p95_ms": 502.13355999439955,
+        "samples_ms": [
+          502.5055999867618,
+          484.3091999646276,
+          500.6454000249505,
+          467.426500050351,
+          478.42769999988377
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      }
+    },
+    "exact_record": {
+      "file-backed": {
+        "iterations": 5,
+        "max_ms": 611.643600044772,
+        "mean_ms": 340.35962000489235,
+        "median_ms": 276.11149998847395,
+        "min_ms": 257.93800002429634,
+        "p95_ms": 547.3264600383117,
+        "samples_ms": [
+          266.04709995444864,
+          290.0579000124708,
+          611.643600044772,
+          276.11149998847395,
+          257.93800002429634
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      },
+      "result_parity": true,
+      "turso-backed": {
+        "iterations": 5,
+        "max_ms": 474.60059996228665,
+        "mean_ms": 465.2747000101954,
+        "median_ms": 472.5311000365764,
+        "min_ms": 449.90440004039556,
+        "p95_ms": 474.3236999725923,
+        "samples_ms": [
+          474.60059996228665,
+          456.1212999979034,
+          472.5311000365764,
+          449.90440004039556,
+          473.21610001381487
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      }
+    }
+  },
+  "parity": {
+    "authoritative_core": true,
+    "queries": true,
+    "read_only": true,
+    "records": true,
+    "turso_database_sha256_after": "36151831e70ca03a7bac4ae3b709457afaf152ed1f8d9dee75bfbe53d3544659",
+    "turso_database_sha256_before": "36151831e70ca03a7bac4ae3b709457afaf152ed1f8d9dee75bfbe53d3544659"
+  },
+  "schema_version": "1.0",
+  "status": "pass",
+  "versions": {
+    "embedding-backed": {
+      "build_ms": {
+        "max": 190313.6018998921,
+        "mean": 176755.20949997008,
+        "min": 163196.81710004807,
+        "samples": [
+          163196.81710004807,
+          190313.6018998921
+        ]
+      },
+      "bundle": {
+        "file_count": 888,
+        "logical_tree_sha256": "1a1f4883a9824fa44b1ec039ff37b9e86a5a04239c6b3ebce2493df66321b920",
+        "total_bytes": 21808060
+      },
+      "core_semantic_parity": "pass",
+      "deterministic_rebuild": true,
+      "evidence_paths": {
+        "report": {
+          "path": "evaluations/semantic-okf-embeddings/comparison-report.json",
+          "sha256": "08a83e45c8596743170c7ccb05015019c3cc0d00b7167f8432ba2c76fd07114c"
+        },
+        "run_manifest": {
+          "path": "evaluations/semantic-okf-embeddings/results/runs/20260713-compact-final/run-manifest.json",
+          "sha256": "a8cd2924c2cda5b7b2c911491582791ffb4e980e7a8ec5697381cdee9058120b"
+        }
+      },
+      "model": {
+        "dimension": 384,
+        "loading": "explicit, local-only, offline; weights are an external preloaded input",
+        "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "normalize": true,
+        "provider": "sentence-transformers",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+      },
+      "routes": {
+        "hybrid": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 6254.711480007973,
+          "mrr_at_10": 0.888888888888889,
+          "ndcg_at_10": 0.538126106287542,
+          "p95_ms": 6572.885115019744,
+          "recall_at_10": 0.42725228475228477
+        },
+        "legacy_lexical": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 2.592456682274739,
+          "mrr_at_10": 0.861111111111111,
+          "ndcg_at_10": 0.8002286135412666,
+          "p95_ms": 3.704310016473755,
+          "recall_at_10": 0.7885954785954786
+        },
+        "new_lexical": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 1240.2094133392286,
+          "mrr_at_10": 0.9166666666666666,
+          "ndcg_at_10": 0.5930744147115519,
+          "p95_ms": 1427.5983350467864,
+          "recall_at_10": 0.48496392496392493
+        },
+        "vector": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 6100.025843336091,
+          "mrr_at_10": 0.8277777777777777,
+          "ndcg_at_10": 0.5533737199568237,
+          "p95_ms": 6396.263345051557,
+          "recall_at_10": 0.46865440115440116
+        }
+      },
+      "status": "pass",
+      "timing_warning": "reported latency is operational end-to-end latency, not an isolated algorithm-speed comparison; legacy and new route timings have intentionally different execution scopes."
+    },
+    "file-backed": {
+      "build_ms": {
+        "max": 16681.197199970484,
+        "mean": 16253.279450000264,
+        "min": 15825.361700030044,
+        "samples": [
+          16681.197199970484,
+          15825.361700030044
+        ]
+      },
+      "bundle": {
+        "file_count": 884,
+        "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+        "total_bytes": 10888503
+      },
+      "core_semantic_parity": "baseline",
+      "deterministic_rebuild": true
+    },
+    "turso-backed": {
+      "build_ms": {
+        "max": 20309.539600042626,
+        "mean": 19765.35739999963,
+        "min": 19221.175199956633,
+        "samples": [
+          20309.539600042626,
+          19221.175199956633
+        ]
+      },
+      "bundle": {
+        "file_count": 885,
+        "logical_tree_sha256": "a3f2687b5c6943f4f0411ecdc195131c2f550d1c6df4f4f5cb1078c534109d96",
+        "total_bytes": 52405559
+      },
+      "core_semantic_parity": "pass",
+      "database_logical_sha256": "f0f6d96b3c31d2dfa3d71c302f7044e980979241bf843ef3574b82b493be565a",
+      "database_summary": {
+        "artifacts": 10,
+        "attributes": 8574,
+        "concepts": 874,
+        "records": 874,
+        "sources": 31,
+        "statements": 18435
+      },
+      "database_validation_ms": 1061.3400000147521,
+      "deterministic_rebuild": true
+    }
+  },
+  "work_root": "tmp/semantic-okf-storage-version-run-20260714-4"
+}

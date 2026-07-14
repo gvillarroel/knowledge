@@ -1,0 +1,268 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-storage-versions-compare
+  description: Compare isolated agent guidance for file-backed, embedding-backed, and Turso-backed Semantic OKF build and consultation packages.
+  tags:
+    - semantic-okf
+    - storage
+    - versions
+    - compare
+task:
+  prompts:
+    - id: build-validated-release
+      description: Plan one atomic and independently validated knowledge release.
+      prompt: |-
+        Plan how to build a new local Semantic OKF release from a reviewed manifest using the installed knowledge skills. Include every additional declared input required by that version, independent validation, a deterministic rebuild check, and the principal published artifacts. Do not execute commands or use the network.
+
+        Return JSON only with exactly these keys in this order: {"task":"build-validated-release","version":"short storage description","commands":["command or check", "..."],"artifacts":["path or artifact", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: build-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.commands, ...value.artifacts, ...value.safety].join('\n').toLowerCase();
+                const fileBacked = text.includes('build_semantic_okf.py')
+                  && text.includes('validate_semantic_okf.py')
+                  && text.includes('records.jsonl');
+                const embeddingBacked = text.includes('build_semantic_okf_embeddings.py')
+                  && text.includes('validate_semantic_okf_embeddings.py')
+                  && text.includes('retrieval-plan')
+                  && text.includes('retrieval/');
+                const tursoBacked = text.includes('build_semantic_okf.py')
+                  && text.includes('knowledge.db')
+                  && (text.includes('validate_turso_store.py') || text.includes('validate_semantic_okf.py'));
+                return value.task === 'build-validated-release'
+                  && (fileBacked || embeddingBacked || tursoBacked)
+                  && (text.includes('determin') || text.includes('rebuild'))
+                  && (text.includes('atomic')
+                    || text.includes('new output')
+                    || text.includes('must not already exist')
+                    || text.includes('new versioned candidate')
+                    || text.includes('new directory')
+                    || text.includes('indivisible release'));
+              } catch { return false; }
+    - id: exact-record-evidence
+      description: Plan an exact record lookup with authoritative evidence.
+      prompt: |-
+        Plan a read-only lookup in an existing validated release for one exact source ID and record ID. Return the authoritative title, type, attributes, and literal concept path, then verify the supporting content before answering. The release must remain byte-for-byte unchanged. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"task":"exact-record-evidence","version":"short storage description","commands":["command or check", "..."],"artifacts":["path or artifact", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: exact-evidence-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.commands, ...value.artifacts, ...value.safety].join('\n').toLowerCase();
+                const supportedRoute = text.includes('query_semantic_okf.py')
+                  || text.includes('records.jsonl')
+                  || text.includes('query_turso_knowledge.py')
+                  || (text.includes('knowledge.db')
+                    && (text.includes('parameterized select') || text.includes('exact-record helper')));
+                return value.task === 'exact-record-evidence'
+                  && supportedRoute
+                  && text.includes('concept')
+                  && (text.includes('source-id') || text.includes('source_id'))
+                  && (text.includes('record-id') || text.includes('record_id'))
+                  && (text.includes('read-only') || text.includes('immutable') || text.includes('unchanged'));
+              } catch { return false; }
+    - id: conceptual-discovery
+      description: Plan fuzzy discovery followed by authoritative verification.
+      prompt: |-
+        A user asks for records about a concept using wording that may not occur verbatim in the corpus. Plan the best discovery route available in the installed version, disclose any fallback, and verify every selected claim against authoritative evidence before citing it. Do not execute commands or use external knowledge.
+
+        Return JSON only with exactly these keys in this order: {"task":"conceptual-discovery","version":"short storage description","commands":["command or check", "..."],"artifacts":["path or artifact", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: discovery-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.commands, ...value.artifacts, ...value.safety].join('\n').toLowerCase();
+                const supportedRoute = text.includes('query_semantic_okf.py')
+                  || text.includes('query_semantic_okf_embeddings.py')
+                  || text.includes('query_turso_knowledge.py')
+                  || text.includes('records.jsonl')
+                  || (text.includes('knowledge.db') && text.includes('records --contains'));
+                return value.task === 'conceptual-discovery'
+                  && supportedRoute
+                  && (text.includes('contains') || text.includes('lexical') || text.includes('vector') || text.includes('hybrid') || text.includes('sql'))
+                  && (text.includes('concept') || text.includes('record'))
+                  && (text.includes('authoritative') || text.includes('evidence'))
+                  && (text.includes('fallback') || text.includes('no candidate') || text.includes('zero'));
+              } catch { return false; }
+    - id: aggregate-and-corruption-boundary
+      description: Plan aggregation while refusing to repair a corrupt immutable release.
+      prompt: |-
+        Plan a grouped count by source and type over accepted domain facts in an immutable release. Before trusting the result, detect whether the release or its derived index has been tampered with. If validation fails, stop and report the condition without repairing, rebuilding, or mutating anything. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"task":"aggregate-and-corruption-boundary","version":"short storage description","commands":["command or check", "..."],"artifacts":["path or artifact", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: aggregation-boundary-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.commands, ...value.artifacts, ...value.safety].join('\n').toLowerCase();
+                const fileOrEmbeddingRoute = text.includes('data.ttl')
+                  && (text.includes('sparql') || text.includes('provenance.ttl'));
+                const tursoRoute = text.includes('knowledge.db')
+                  && (text.includes('records') || text.includes('rdf_statements'))
+                  && text.includes('group by');
+                return value.task === 'aggregate-and-corruption-boundary'
+                  && (fileOrEmbeddingRoute || tursoRoute)
+                  && (text.includes('validate') || text.includes('verify') || text.includes('inspect'))
+                  && (text.includes('stop') || text.includes('fail'))
+                  && (text.includes('do not repair') || text.includes('without repair') || text.includes('never repair'))
+                  && !text.includes('refresh_semantic_okf.py');
+              } catch { return false; }
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 5
+            && keys[0] === 'task'
+            && keys[1] === 'version'
+            && keys[2] === 'commands'
+            && keys[3] === 'artifacts'
+            && keys[4] === 'safety'
+            && typeof value.task === 'string'
+            && typeof value.version === 'string'
+            && value.version.length > 0
+            && Array.isArray(value.commands)
+            && value.commands.length > 0
+            && value.commands.every((item) => typeof item === 'string')
+            && Array.isArray(value.artifacts)
+            && value.artifacts.length > 0
+            && value.artifacts.every((item) => typeof item === 'string')
+            && Array.isArray(value.safety)
+            && value.safety.length > 0
+            && value.safety.every((item) => typeof item === 'string');
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without Semantic OKF instructions or tools.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          storage_version: none
+    - id: file-backed
+      description: Current file-backed Semantic OKF builder and consultant.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf
+              skillId: build-semantic-okf
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf
+              skillId: consult-semantic-okf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - file-backed
+        labels:
+          storage_version: file-backed
+    - id: embedding-backed
+      description: Semantic OKF core plus a hash-bound embedding retrieval projection.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf-embeddings
+              skillId: build-semantic-okf-embeddings
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-embeddings
+              skillId: consult-semantic-okf-embeddings
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - embedding-backed
+        labels:
+          storage_version: embedding-backed
+    - id: turso-backed
+      description: Semantic OKF core plus a validated local Turso Database consultation projection.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf-turso
+              skillId: build-semantic-okf-turso
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-turso
+              skillId: consult-semantic-okf-turso
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - turso-backed
+        labels:
+          storage_version: turso-backed
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol
