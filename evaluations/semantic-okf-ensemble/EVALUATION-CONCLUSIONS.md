@@ -1,5 +1,55 @@
 # Semantic OKF Evaluation Conclusions
 
+> **Current versus historical boundary:** the active
+> `consult-semantic-okf-ensemble` skill is CLI-only and makes zero MCP calls. All
+> MCP v1.5.0 Skill Arena results below are preserved historical experiment evidence
+> from commit `3a5df66baf99c6c34ef6ff96d35aa44740b906c6`, not measurements of the current
+> transport. ADR 0027 supersedes ADR 0026 for current operation without invalidating
+> ADRs 0023–0026 or changing any historical report, hash, or metric.
+
+## Current CLI-only evidence
+
+The difficult `q031-graph-routing-boundary` question was verified through the local
+CLI only. Deep validation passed, the `quality` policy materially used adaptive,
+BM25, embedding, and entity-graph routes, and the bounded coverage pages contained
+`[48, 48, 48, 48, 14]` claims for 206 unique reviewed claims. The run recorded
+coverage SHA-256 `881dec7d573003631c7ee5bb6c55ba4568393df1f911c26dbaa7bfa5c0619ac7`
+and priority-order SHA-256
+`9ec21df4d02d0e1fba2a9dac3555c68e424968d347ff4d48d8df768351e1b25b`.
+It covered 4/4 atomic answer groups, 1/1 important-negative group, 3/3 required
+papers, and four authoritative evidence bindings with zero MCP calls. End-to-end
+validation, coverage, and answer preparation took approximately 66.23 seconds; the
+captured final output SHA-256 was
+`e052575835024481527ed7f07c80242a2ab414370f8868323861945931e43d50`.
+
+This proves that the active definitive consultant can execute one difficult case
+without MCP while retaining its retrieval and evidence gates. It does not transfer
+the historical MCP publication guarantees or establish new aggregate CLI-only
+answer-quality metrics. The retrieval comparison remains applicable to the same
+deterministic algorithms; the 90-answer contract, grounding, correctness, and
+completeness table remains explicitly historical.
+
+The [exact q031 consultation comparison](cli-q031-comparison.md) preserves the full
+responses from legacy, embedding, classical, entity-graph, adaptive, and current
+definitive consultation. Under the five retained mechanical gates, the direct
+current CLI finalizer passes 5/5 (`1.0`), embeddings passes 3/5 (`0.6`), and the
+other four predecessor rows pass 2/5 (`0.4`). These cross-run rows are descriptive,
+not causal.
+
+A fresh, paired, MCP-free Skill Arena diagnostic used the checked
+[`cli-q031.yaml`](skill-arena/cli-q031.yaml) configuration. The first attempt is
+rejected because the treatment hit the adapter's 240-second limit. With the
+adapter limit aligned to the existing 600-second evaluation timeout, the control
+scored `0.6` and the treatment scored `0.8`: the treatment passed response format,
+response contract, atomic completeness, and the important negative, but failed
+evidence validity after the agent changed exactly two authoritative source paths
+from `2506.05690v3.jsonl` to the nonexistent `2506-05690v3.jsonl`. The deterministic
+CLI output itself retained the correct paths and passed all five gates. The
+[compact diagnostic](cli-q031-skill-arena-diagnostic.md) therefore establishes a
+sharp boundary: MCP is not required for retrieval, coverage, or deterministic
+finalization, but CLI-only skill instructions do not mechanically guarantee that a
+host agent will publish the finalizer bytes unchanged.
+
 ## Conclusion
 
 The definitive ensemble `quality` policy is the strongest observed direct-ranking option on the frozen 40-question benchmark. It preserves the adaptive incumbent's paper Recall@10 and 100% evidence validity while improving the order of relevant papers: all-40 MRR@10 rises from 95.83% to 100.00% and nDCG@10 from 83.43% to 85.20%; hard-10 MRR@10 rises from 95.00% to 100.00% and nDCG@10 from 84.98% to 88.27%.
@@ -135,7 +185,7 @@ The accepted semantic route has lower standalone group coverage than the earlier
 
 The [pre-diversification report](hard10-coverage-pack-multisignal-publication-gate-final.md), SHA-256 `fdf3f6a96b242dec2b1534746648589597871de65afcadd736628e44352b1e96`, and [machine-readable companion](hard10-coverage-pack-multisignal-publication-gate-final.json), SHA-256 `b477a5a51f7ccaef9695d496c57f79ae8c515b365745f26ded987c12b2637c60`, remain append-only diagnostic evidence. Earlier 41/44 and 198-claim MCP reports used the parent expected-ID interpretation and an older runtime; they remain historical and are not the accepted reviewed-coverage result.
 
-The historical [manual q031 verification](manual-query-verification-final.md), [machine-readable report](manual-query-verification-final.json), and [checked draft](manual-query-q031-draft.json) still prove one earlier finalizer path could reconstruct exact bindings and cover all four q031 groups without mutating the bundle. The later q031 MCP v1.3.1 publication preflight used the current 206-claim, five-page diversified pack and established the recoverable four-tool transaction shape: any failed prepare or confirm publishes nothing, the final clean suffix begins with a fresh successful prepare, and exactly one successful confirm is terminal. That intermediate protocol still required copying the complete candidate into confirmation. It is historical runtime preflight evidence, not the active v1.5.0 protocol or an aggregate answer-quality result.
+The historical [manual q031 verification](manual-query-verification-final.md), [machine-readable report](manual-query-verification-final.json), and [checked draft](manual-query-q031-draft.json) still prove one earlier finalizer path could reconstruct exact bindings and cover all four q031 groups without mutating the bundle. The later q031 MCP v1.3.1 publication preflight used the 206-claim, five-page diversified pack and established the recoverable four-tool transaction shape: any failed prepare or confirm published nothing, the final clean suffix began with a fresh successful prepare, and exactly one successful confirm was terminal. That intermediate protocol still required copying the complete candidate into confirmation. It is historical runtime preflight evidence, not the later historical v1.5.0 protocol or an aggregate answer-quality result.
 
 The original [expected-ID audit](EXPECTED-ID-AUDIT.md) found all 44 parent atomic mappings and 13 important-negative sets coherent. The reviewed benchmark does not declare those mappings wrong: it preserves them and adds independently sufficient alternatives. The reviewed manifest records 113 total option links, 68 unique reviewed IDs, 71 evidence objects, and 38 explicitly rejected close alternatives. Two qualifications matter:
 
@@ -153,7 +203,7 @@ Four rejected or interrupted live diagnostics are deliberately excluded from ans
 - The [long-candidate confirmation diagnostic](long-candidate-confirmation-diagnostic-20260715.md) records frozen full-run attempt `2026-07-15T13-50-35-550Z-compare` (`eval-d9Z-2026-07-15T13:50:43`). It exercised the historical v1.3.1 protocol; its first treatment prepared successfully, failed to copy the long candidate into confirmation, and did not recover. Execution stopped at that first treatment protocol failure, so the attempt is rejected and contributes no benchmark row or metric.
 - The [skill-bootstrap isolation diagnostic](skill-bootstrap-isolation-diagnostic-20260715.md) records partial v1.4.0 run `2026-07-15T14-29-07-959Z-compare` (`eval-T27-2026-07-15T14:29:15`). It persisted 17/90 rows before the stop. One treatment used a faithful but uncontracted shell read of the mounted skill, so none of its rows or metrics are eligible for the accepted comparison.
 
-The definitive path therefore uses the five-tool MCP v1.5.0 server and a hash-bound host wrapper. A no-argument, one-shot bootstrap returns the exact frozen `SKILL.md` body through `semantic-okf-skill-bootstrap/1.0` before inspect; every later treatment tool is gated on that success, and the treatment host disables the general shell tool. Prepare returns the canonical closed `semantic-okf-prepared-answer/1.0` envelope with exactly `schema`, `candidate_json`, `response_sha256`, and `byte_count`; confirm accepts only the envelope's 64-character lowercase hexadecimal `response_sha256`, never the long candidate. For treatment rows the wrapper parses and verifies the strict envelope, candidate canonicality, digest, UTF-8 length, final clean suffix, and receipt binding, then atomically publishes the exact `candidate_json` bytes; controls remain transparent pass-throughs. Any bootstrap binding failure or replay, tool before bootstrap, failed prepare or confirm, earlier successful confirm, confirm without a fresh prepare after failure, stale or mismatched digest, repeated confirm, non-canonical candidate, trailing tool call, or envelope, length, hash, or receipt mismatch fails closed. These diagnostics motivated the gate but contribute no benchmark row. The complete v1.5.0 generation, review, aggregation, and independent trace-attestation stages all passed.
+The historical definitive treatment therefore used the five-tool MCP v1.5.0 server and a hash-bound host wrapper. A no-argument, one-shot bootstrap returned the exact frozen `SKILL.md` body through `semantic-okf-skill-bootstrap/1.0` before inspect; every later treatment tool was gated on that success, and the treatment host disabled the general shell tool. Prepare returned the canonical closed `semantic-okf-prepared-answer/1.0` envelope with exactly `schema`, `candidate_json`, `response_sha256`, and `byte_count`; confirm accepted only the envelope's 64-character lowercase hexadecimal `response_sha256`, never the long candidate. For treatment rows the wrapper parsed and verified the strict envelope, candidate canonicality, digest, UTF-8 length, final clean suffix, and receipt binding, then atomically published the exact `candidate_json` bytes; controls remained transparent pass-throughs. Any bootstrap binding failure or replay, tool before bootstrap, failed prepare or confirm, earlier successful confirm, confirm without a fresh prepare after failure, stale or mismatched digest, repeated confirm, non-canonical candidate, trailing tool call, or envelope, length, hash, or receipt mismatch failed closed. These diagnostics motivated the gate but contribute no benchmark row. The complete v1.5.0 generation, review, aggregation, and independent trace-attestation stages all passed.
 
 ## Selection and interpretation limits
 

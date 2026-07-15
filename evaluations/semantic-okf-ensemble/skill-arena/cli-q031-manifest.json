@@ -1,0 +1,74 @@
+{
+  "benchmark_id": "semantic-okf-ensemble-cli-q031-paired",
+  "config": {
+    "gate_count": 5,
+    "path": "evaluations/semantic-okf-ensemble/skill-arena/cli-q031.yaml",
+    "profile_ids": [
+      "knowledge-only-control",
+      "ensemble-cli-consult-treatment"
+    ],
+    "sha256": "eb16c6ace4e7559340268d06c2329fc871191369b0ec2e9b70c78145a7d46cb5",
+    "variant_id": "pi-luna-only"
+  },
+  "generator": {
+    "check_mode": true,
+    "deterministic": true,
+    "path": "evaluations/semantic-okf-ensemble/scripts/generate_cli_q031_skill_arena_config.py",
+    "sha256": "0543f9d0ee0c8729ebd427396c5e090b28d39928e3782f9a64abdd7a950bcc36"
+  },
+  "prompt": {
+    "assertions_sha256": "666073d14b114fc18ea984ba44c3a6ad52af49ef182f7abfd003168977fae0db",
+    "id": "q031-graph-routing-boundary",
+    "per_prompt_assertion_count": 4,
+    "prompt_sha256": "b6e648bb8c32c1c4edcb557192b89d7ce9ad95fe50b9d46141be451cad77fb04",
+    "source_config_path": "evaluations/semantic-okf-ensemble/skill-arena/ensemble-hard10.yaml",
+    "source_config_sha256": "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac"
+  },
+  "runtime_contract": {
+    "consult_transport": "bounded-cli",
+    "mcp_agent_config": false,
+    "mcp_capabilities": 0,
+    "mcp_free": true,
+    "mcp_sources": 0,
+    "network_access_enabled": true,
+    "offline_knowledge_environment": true,
+    "read_only": true,
+    "required_host_environment_variables": [
+      "SEMANTIC_OKF_PYTHON",
+      "SEMANTIC_OKF_HF_HUB_CACHE"
+    ],
+    "web_search_enabled": false
+  },
+  "schema_version": "semantic-okf-ensemble-cli-q031-config-manifest/1.0",
+  "status": "generated",
+  "treatment_skill": {
+    "byte_count": 330556,
+    "file_count": 18,
+    "path": "skills/consult-semantic-okf-ensemble",
+    "skill_id": "consult-semantic-okf-ensemble",
+    "skill_md_sha256": "63ece4967bf9b1906c80bd2982d3f5e7373f6222f8ee457d2d75417f1c0932b9",
+    "tree_sha256": "0a24658b072df3094b37d5453bacf86d81af9a583a952cc6656c3855b6e73aaf"
+  },
+  "tree_hash_algorithm": "SHA-256 over sorted source-relative-path NUL file-SHA-256 newline rows; __pycache__ directories and .pyc files excluded",
+  "workspace_sources": [
+    {
+      "byte_count": 64607729,
+      "file_count": 904,
+      "id": "semantic-okf-ensemble-final-workspace",
+      "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a",
+      "role": "pinned-knowledge-workspace",
+      "target": "/",
+      "tree_sha256": "8d29d335cb84b56b8e198f17d066f934d07c846364df875c03d2637b9735a8a2"
+    },
+    {
+      "byte_count": 5333,
+      "file_count": 1,
+      "id": "pi-luna-runner-only",
+      "path": "evaluations/semantic-okf-adaptive/results/runs/20260714-adaptive-final-05/workspaces/arena/bin",
+      "role": "runner-only-not-knowledge",
+      "runner_sha256": "6fad208c56322d67d7779a0a5c90434cc823da3a5ba18d8f3d7e0bbcbda24c18",
+      "target": "/bin",
+      "tree_sha256": "9e82bc87e18a56d8057bb0319e991023f45d8d971599772f7be172165fd2ae2a"
+    }
+  ]
+}

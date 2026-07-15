@@ -23,7 +23,9 @@ if ($env:SEMANTIC_OKF_PYTHON) {
         throw 'SEMANTIC_OKF_PYTHON must resolve to a regular file'
     }
 } else {
-    $python = (Get-Command python -CommandType Application -ErrorAction Stop).Source
+    $pythonCommand = Get-Command python -CommandType Application -ErrorAction Stop |
+        Select-Object -First 1
+    $python = $pythonCommand.Source
 }
 
 if ($env:SEMANTIC_OKF_HF_HUB_CACHE) {

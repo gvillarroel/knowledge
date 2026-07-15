@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 import sys
 from pathlib import Path
 from types import ModuleType
@@ -33,43 +34,18 @@ def validator() -> ModuleType:
 
 def test_final_scaffold_and_integrity_reports_pass(
     validator: ModuleType,
-    monkeypatch: pytest.MonkeyPatch,
-    tmp_path: Path,
 ) -> None:
-    answer_json = tmp_path / "answer-output-comparison-final.json"
-    answer_markdown = tmp_path / "answer-output-comparison-final.md"
-    attestation_json = tmp_path / "skill-arena-mcp-runtime-attestation-final.json"
-    attestation_markdown = tmp_path / "skill-arena-mcp-runtime-attestation-final.md"
-    answer_json.write_text("{}\n", encoding="utf-8", newline="\n")
-    answer_markdown.write_text("fixture\n", encoding="utf-8", newline="\n")
-    attestation_json.write_text("{}\n", encoding="utf-8", newline="\n")
-    attestation_markdown.write_text("fixture\n", encoding="utf-8", newline="\n")
-    monkeypatch.setattr(validator, "ANSWER_OUTPUT_REPORT", answer_json)
-    monkeypatch.setattr(validator, "ANSWER_OUTPUT_MARKDOWN", answer_markdown)
-    monkeypatch.setattr(validator, "MCP_RUNTIME_ATTESTATION", attestation_json)
-    monkeypatch.setattr(
-        validator, "MCP_RUNTIME_ATTESTATION_MARKDOWN", attestation_markdown
-    )
-    monkeypatch.setattr(
-        validator,
-        "validate_checked_answer_output_report",
-        lambda: {"answer_count": 90},
-    )
-    monkeypatch.setattr(
-        validator,
-        "validate_checked_mcp_runtime_attestation",
-        lambda _answer_report: {"aggregates": {"trace_count": 90}},
-    )
-
     report = validator.validate()
     assert report["status"] == "pass"
     assert report["candidate_count"] == 10
     assert report["answer_output_answer_count"] == 90
-    assert report["answer_output_report_sha256"] == validator.sha256(answer_json)
-    assert report["answer_output_markdown_sha256"] == validator.sha256(answer_markdown)
     assert report["mcp_runtime_attested_trace_count"] == 90
-    assert report["mcp_runtime_attestation_sha256"] == validator.sha256(
-        attestation_json
+    assert report["historical_mcp_source_commit"] == (
+        "3a5df66baf99c6c34ef6ff96d35aa44740b906c6"
+    )
+    assert report["active_consult_transport"] == "cli-only"
+    assert report["active_consult_skill_tree_sha256"] == validator.skill_tree_sha256(
+        validator.ACTIVE_CONSULT_SKILL
     )
     assert report["frozen_benchmark_sha256"] == validator.validate_frozen()[
         "manifest_sha256"
@@ -233,73 +209,144 @@ def test_checked_answer_report_surfaces_aggregate_binding_failures(
         validator.validate_checked_answer_output_report()
 
 
-def _install_checked_attestation_fixture(
+def test_historical_mcp_evidence_is_immutable_and_commit_bound(
     validator: ModuleType,
-    monkeypatch: pytest.MonkeyPatch,
-    tmp_path: Path,
-    *,
-    json_text: str | None = None,
-    markdown_text: str | None = None,
-) -> tuple[dict[str, object], dict[str, object]]:
-    report: dict[str, object] = {
-        "schema_version": "fixture/1.0",
-        "aggregates": {"trace_count": 90},
-    }
-    expected_markdown = "# Fixture trace attestation\n"
-    report_path = tmp_path / "skill-arena-mcp-runtime-attestation-final.json"
-    markdown_path = tmp_path / "skill-arena-mcp-runtime-attestation-final.md"
-    report_path.write_text(
-        json_text
-        if json_text is not None
-        else json.dumps(report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
-    markdown_path.write_text(
-        markdown_text if markdown_text is not None else expected_markdown,
-        encoding="utf-8",
-        newline="\n",
-    )
-    monkeypatch.setattr(validator, "MCP_RUNTIME_ATTESTATION", report_path)
-    monkeypatch.setattr(
-        validator, "MCP_RUNTIME_ATTESTATION_MARKDOWN", markdown_path
-    )
-    monkeypatch.setattr(
-        validator,
-        "load_answer_output_contract",
-        lambda _path: {"contract": "fixture"},
-    )
-    observed: dict[str, object] = {}
-    module = ModuleType("fixture_trace_attestor")
+) -> None:
+    binding = validator.validate_historical_mcp_evidence_binding()
 
-    def validate_report(value: object, contract: object, **kwargs: object) -> object:
-        observed["report"] = value
-        observed["contract"] = contract
-        observed["answer_report"] = kwargs["answer_report"]
-        return value
-
-    module.validate_report = validate_report  # type: ignore[attr-defined]
-    module.render_markdown = lambda _value: expected_markdown  # type: ignore[attr-defined]
-    monkeypatch.setattr(validator, "module_from_path", lambda _name, _path: module)
-    return report, observed
+    assert binding["status"] == "retired-immutable-evidence"
+    assert binding["source_commit"] == (
+        "3a5df66baf99c6c34ef6ff96d35aa44740b906c6"
+    )
+    assert binding["active_runtime_required"] is False
+    assert set(binding["artifacts"]) == set(validator.HISTORICAL_MCP_ARTIFACTS)
 
 
-def test_checked_trace_attestation_delegates_schema_and_answer_binding(
+def test_historical_mcp_evidence_rejects_commit_drift(
     validator: ModuleType,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    report, observed = _install_checked_attestation_fixture(
-        validator, monkeypatch, tmp_path
+    source = json.loads(
+        validator.HISTORICAL_MCP_EVIDENCE.read_text(encoding="utf-8")
     )
-    answer_report = {"answer_count": 90, "status": "pass"}
+    source["source_commit"] = "0" * 40
+    tampered = tmp_path / "historical-mcp-evaluation-binding.json"
+    tampered.write_text(
+        json.dumps(source, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    monkeypatch.setattr(validator, "HISTORICAL_MCP_EVIDENCE", tampered)
 
-    assert validator.validate_checked_mcp_runtime_attestation(answer_report) == report
-    assert observed == {
-        "report": report,
-        "contract": {"contract": "fixture"},
-        "answer_report": answer_report,
+    with pytest.raises(validator.EvaluationError, match="identity differs"):
+        validator.validate_historical_mcp_evidence_binding()
+
+
+def test_checked_historical_trace_attestation_passes_without_active_runtime(
+    validator: ModuleType,
+) -> None:
+    report = validator.validate_checked_mcp_runtime_attestation(
+        {"answer_count": 90}
+    )
+
+    assert report["status"] == "pass"
+    assert report["aggregates"]["trace_count"] == 90
+    assert report["aggregates"]["confirmed_treatment_count"] == 30
+
+
+def test_historical_evidence_validation_is_detached_from_active_skill(
+    validator: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    monkeypatch.setattr(
+        validator,
+        "ACTIVE_CONSULT_SKILL",
+        tmp_path / "deliberately-absent-active-skill",
+    )
+
+    assert validator.validate_historical_mcp_evidence_binding()["status"] == (
+        "retired-immutable-evidence"
+    )
+    assert validator.validate_skill_arena_manifest()["run_id"] == (
+        "20260715-ensemble-final-03"
+    )
+    assert validator.validate_checked_mcp_runtime_attestation(
+        {"answer_count": 90}
+    )["status"] == "pass"
+
+
+def test_active_consult_package_is_cli_only_and_hash_reported(
+    validator: ModuleType,
+) -> None:
+    report = validator.validate_active_cli_consult_skill()
+
+    assert report == {
+        "schema_version": "semantic-okf-active-cli-consult-validation/1.0",
+        "status": "pass",
+        "skill_id": "consult-semantic-okf-ensemble",
+        "path": "skills/consult-semantic-okf-ensemble",
+        "tree_sha256": validator.skill_tree_sha256(validator.ACTIVE_CONSULT_SKILL),
+        "retired_runtime_directories_present": [],
+        "retired_transport_marker_count": 0,
+        "commands": ["inspect", "search", "coverage-brief", "finalize-answer"],
     }
+
+
+def _copy_active_consult_package(validator: ModuleType, tmp_path: Path) -> Path:
+    copied = tmp_path / "consult-semantic-okf-ensemble"
+    shutil.copytree(validator.ACTIVE_CONSULT_SKILL, copied)
+    return copied
+
+
+def test_active_consult_package_rejects_retired_runtime_directory(
+    validator: ModuleType,
+    tmp_path: Path,
+) -> None:
+    copied = _copy_active_consult_package(validator, tmp_path)
+    (copied / "mcp-runtime").mkdir()
+
+    with pytest.raises(validator.EvaluationError, match="retired runtime directories"):
+        validator.validate_active_cli_consult_skill(copied)
+
+
+def test_active_consult_package_rejects_transport_marker(
+    validator: ModuleType,
+    tmp_path: Path,
+) -> None:
+    copied = _copy_active_consult_package(validator, tmp_path)
+    skill = copied / "SKILL.md"
+    skill.write_text(
+        skill.read_text(encoding="utf-8") + "\nsemantic_okf_prepare_answer\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    with pytest.raises(validator.EvaluationError, match="transport markers"):
+        validator.validate_active_cli_consult_skill(copied)
+
+
+def test_active_consult_package_rejects_missing_cli_gate(
+    validator: ModuleType,
+    tmp_path: Path,
+) -> None:
+    copied = _copy_active_consult_package(validator, tmp_path)
+    skill = copied / "SKILL.md"
+    skill.write_text(
+        skill.read_text(encoding="utf-8").replace(
+            "last successful finalizer JSON verbatim",
+            "successful JSON",
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    with pytest.raises(
+        validator.EvaluationError,
+        match="omits required consultation gates",
+    ):
+        validator.validate_active_cli_consult_skill(copied)
 
 
 @pytest.mark.parametrize("missing", ["json", "markdown"])
@@ -330,14 +377,17 @@ def test_checked_trace_attestation_rejects_markdown_drift(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    _install_checked_attestation_fixture(
-        validator,
-        monkeypatch,
-        tmp_path,
-        markdown_text="# Drifted trace report\n",
+    markdown_path = tmp_path / "attestation.md"
+    markdown_path.write_text(
+        "# Drifted trace report\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    monkeypatch.setattr(
+        validator, "MCP_RUNTIME_ATTESTATION_MARKDOWN", markdown_path
     )
 
-    with pytest.raises(validator.EvaluationError, match="Markdown differs"):
+    with pytest.raises(validator.EvaluationError, match="Markdown SHA-256 differs"):
         validator.validate_checked_mcp_runtime_attestation({"answer_count": 90})
 
 
@@ -701,7 +751,7 @@ def test_manual_report_rejects_changed_draft_binding(
         validator.validate_final_integrity_reports(plan)
 
 
-def test_skill_arena_manifest_rejects_stale_skill_tree_binding(
+def test_historical_skill_arena_manifest_rejects_any_artifact_drift(
     validator: ModuleType,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
@@ -712,7 +762,10 @@ def test_skill_arena_manifest_rejects_stale_skill_tree_binding(
     tampered.write_text(json.dumps(source), encoding="utf-8")
     monkeypatch.setattr(validator, "SKILL_ARENA_MANIFEST", tampered)
 
-    with pytest.raises(validator.EvaluationError, match="skill tree SHA-256"):
+    with pytest.raises(
+        validator.EvaluationError,
+        match="historical Skill Arena manifest SHA-256",
+    ):
         validator.validate_skill_arena_manifest()
 
 

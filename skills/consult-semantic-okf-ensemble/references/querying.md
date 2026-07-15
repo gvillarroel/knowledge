@@ -78,28 +78,12 @@ the established response contract:
 
 Structural success does not prove the prose is entailed. Check every atomic statement,
 requested condition, comparison baseline, exclusion, and important negative manually.
-MCP runtime version 1.5.0 first exposes the no-argument,
-non-idempotent `semantic_okf_bootstrap_skill` tool. It reads only the installed
-`consult-semantic-okf-ensemble/SKILL.md`, verifies its frozen raw-byte SHA-256 and
-UTF-8 length, and returns the exact body in the closed
-`semantic-okf-skill-bootstrap/1.0` envelope. Call it exactly once and before inspect;
-the server rejects replay or any consultation call before bootstrap. The treatment
-host disables the general shell tool, while both control command paths remain
-unchanged. After bootstrap, preparation and confirmation remain separate closed-schema
-tools. Preparation returns a canonical closed envelope with schema
-`semantic-okf-prepared-answer/1.0` and exactly `schema`, `candidate_json`,
-`response_sha256`, and `byte_count`. Review the exact `candidate_json` string, but
-confirm only the envelope's 64-character lowercase hexadecimal `response_sha256`.
-Never copy the candidate or envelope into confirmation. Confirmation is
-non-idempotent and is the terminal tool call. A failed prepare or failed confirmation
-publishes nothing and abandons the active transaction. Recovery begins only with a
-fresh successful preparation and its new digest. The host publisher verifies the
-closed envelope, canonical candidate JSON, UTF-8 digest and byte count, terminal
-receipt binding, and transaction order before atomically publishing the exact
-`candidate_json` bytes. It rejects stale or mismatched digests, repeated successful
-confirmations, missing fresh preparation, non-canonical candidates, trailing calls,
-or any other envelope, receipt, length, or ordering inconsistency rather than guessing
-which candidate to publish.
+The packaged CLI is the only answer transport. Pipe an in-memory draft to
+`finalize-answer --draft -`, keep stdout and stderr separate, require a zero exit, and
+parse stdout before returning it verbatim. The finalizer recomputes the unpaged
+coverage union, rejects unsupported claims, and constructs every contract-sensitive
+identity from verified bindings. A caller must not hand-author or reserialize the
+accepted response.
 
 ## Failure behavior
 

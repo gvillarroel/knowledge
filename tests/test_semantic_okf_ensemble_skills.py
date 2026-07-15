@@ -70,31 +70,18 @@ def test_consult_skill_mandates_in_memory_finalizer_stdout_gate() -> None:
     skill = (CONSULT_ROOT / "SKILL.md").read_text(encoding="utf-8")
 
     required = [
+        "Enforce the CLI-only structured-answer gate",
+        "Use only the packaged read-only CLI",
+        "Deep-validate the bundle before retrieval",
+        "Read every `coverage-brief` page",
+        "full-coverage and priority-order",
         "finalize-answer --draft -",
-        "Return the last successful finalizer JSON verbatim",
+        "Return the last successful finalizer JSON verbatim without modification",
         "never merge stderr with `2>&1`",
         "Do not hand-author a non-null contracted response as a fallback",
-        "semantic_okf_bootstrap_skill",
-        "semantic-okf-skill-bootstrap/1.0",
-        "semantic_okf_inspect",
-        "semantic_okf_coverage_brief",
-        "semantic_okf_prepare_answer",
-        "semantic_okf_confirm_answer",
-        "successful confirmation is terminal",
-        "make no further tool call",
-        "prepared envelope's `candidate_json` string as the final response",
-        "Never emit the envelope, digest, receipt",
-        "one clean initial call",
-        "only after materially revising the draft",
-        "including `page_size`",
         "Never skip, repeat, or reorder a page",
-        "exact unchanged UTF-8 string",
-        "without reserialization",
-        "Do not run shell commands",
-        "semantic-okf-prepared-answer/1.0",
-        "Never copy `candidate_json`",
-        "64 lowercase hexadecimal",
-        "stale digest",
+        "Keep stdout and stderr separate",
+        "without parsing and reserializing it",
         "$DraftJson",
         "$LASTEXITCODE -ne 0",
         "--summary-min-words",
@@ -102,6 +89,19 @@ def test_consult_skill_mandates_in_memory_finalizer_stdout_gate() -> None:
     ]
     assert all(text in skill for text in required)
     assert "Get-Content answer-draft.json" not in skill
+    forbidden = [
+        "semantic_okf_bootstrap_skill",
+        "semantic_okf_inspect",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_prepare_answer",
+        "semantic_okf_confirm_answer",
+        "semantic-okf-prepared-answer",
+        "mcp-runtime",
+        "publication-runtime",
+    ]
+    assert all(text not in skill.casefold() for text in forbidden)
+    assert not (CONSULT_ROOT / "mcp-runtime").exists()
+    assert not (CONSULT_ROOT / "publication-runtime").exists()
 
 
 def test_consult_launcher_uses_explicit_absolute_python_and_fails_closed(tmp_path: Path) -> None:
@@ -109,6 +109,8 @@ def test_consult_launcher_uses_explicit_absolute_python_and_fails_closed(tmp_pat
     if pwsh is None:
         pytest.skip("PowerShell 7 is required for the packaged Windows launcher")
     launcher = CONSULT_SCRIPTS / "run_query.ps1"
+    launcher_text = launcher.read_text(encoding="utf-8")
+    assert "Select-Object -First 1" in launcher_text
     environment = os.environ.copy()
     environment["SEMANTIC_OKF_PYTHON"] = sys.executable
     environment["SEMANTIC_OKF_HF_HUB_CACHE"] = str(tmp_path.resolve())

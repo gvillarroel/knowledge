@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 import re
@@ -44,6 +45,9 @@ SKILL_ARENA_CONFIG = EVALUATION_ROOT / "skill-arena/ensemble-hard10.yaml"
 SKILL_ARENA_MANIFEST = EVALUATION_ROOT / "skill-arena/config-manifest.json"
 MCP_RUNTIME_ATTESTATION = EVALUATION_ROOT / "skill-arena-mcp-runtime-attestation-final.json"
 MCP_RUNTIME_ATTESTATION_MARKDOWN = EVALUATION_ROOT / "skill-arena-mcp-runtime-attestation-final.md"
+HISTORICAL_MCP_EVIDENCE = EVALUATION_ROOT / "historical-mcp-evaluation-binding.json"
+HISTORICAL_MCP_SOURCE_COMMIT = "3a5df66baf99c6c34ef6ff96d35aa44740b906c6"
+ACTIVE_CONSULT_SKILL = REPO_ROOT / "skills/consult-semantic-okf-ensemble"
 FINALIZER_COPY_DIAGNOSTIC = EVALUATION_ROOT / "finalizer-copy-integrity-diagnostic-20260715.json"
 FINALIZER_COPY_DIAGNOSTIC_MARKDOWN = EVALUATION_ROOT / "finalizer-copy-integrity-diagnostic-20260715.md"
 FINALIZER_COPY_DIAGNOSTIC_SHA256 = "0ce8e9df47ed3f226acbaa254143f528473331cfc9ce78222a96d4c0f41026f3"
@@ -162,6 +166,53 @@ SKILL_ARENA_MANIFEST_KEYS = {
     "consult_skills",
     "skill_tree_hash_algorithm",
 }
+HISTORICAL_MCP_ARTIFACTS = {
+    "skill_arena_config": SKILL_ARENA_CONFIG,
+    "skill_arena_manifest": SKILL_ARENA_MANIFEST,
+    "answer_output_report": ANSWER_OUTPUT_REPORT,
+    "answer_output_markdown": ANSWER_OUTPUT_MARKDOWN,
+    "runtime_attestation_report": MCP_RUNTIME_ATTESTATION,
+    "runtime_attestation_markdown": MCP_RUNTIME_ATTESTATION_MARKDOWN,
+    "runtime_attestor": (
+        EVALUATION_ROOT / "scripts/attest_skill_arena_mcp_runtime.py"
+    ),
+}
+HISTORICAL_MCP_ARTIFACT_SHA256 = {
+    "skill_arena_config": (
+        "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac"
+    ),
+    "skill_arena_manifest": (
+        "e9c5a337a28384bc9b59d6d583bb624077d76cf1362ffb506f21039385066bdf"
+    ),
+    "answer_output_report": (
+        "6f48c963e8c1f85f9c1355a2d1d796ff8821239c05fb19ad72f78488a6acd5ae"
+    ),
+    "answer_output_markdown": (
+        "2e37ec6602839d89ee27e1eb6fe6b8a8f1a8b3da24dbd5576ecaef08dad10178"
+    ),
+    "runtime_attestation_report": (
+        "8085e666cced0d8b6d5a0b32095c29d836756bf67d1a515412c3ce7d9df5d77d"
+    ),
+    "runtime_attestation_markdown": (
+        "4644215daeb3be1e5435ce31123cc5a5c01d7a620c7931f688474db54eba1a14"
+    ),
+    "runtime_attestor": (
+        "38bcdb15311cace85f1bdc3a3952c6b73f39f7267cfbc5501bb2f42b3eece3a9"
+    ),
+}
+HISTORICAL_ENSEMBLE_SKILL_BINDING = {
+    "skill_id": "consult-semantic-okf-ensemble",
+    "path": "skills/consult-semantic-okf-ensemble",
+    "tree_sha256": "8b5a8200a5049b9613e7b6cd5e6afb63405b3702deee13bc9f4c86603d8f1649",
+    "skill_md_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2",
+}
+MCP_TRANSPORT_MARKERS = {
+    "semantic_okf_bootstrap_skill",
+    "semantic_okf_inspect",
+    "semantic_okf_coverage_brief",
+    "semantic_okf_prepare_answer",
+    "semantic_okf_confirm_answer",
+}
 
 
 def exact_keys(value: Any, expected: set[str], label: str) -> dict[str, Any]:
@@ -208,6 +259,206 @@ def skill_tree_sha256(root: Path) -> str:
         relative = path.relative_to(root).as_posix().encode("utf-8")
         rows.append(relative + b"\0" + sha256(path).encode("ascii") + b"\n")
     return hashlib.sha256(b"".join(rows)).hexdigest()
+
+
+def validate_historical_mcp_evidence_binding() -> dict[str, Any]:
+    """Bind retired MCP evaluation evidence without consulting an active runtime."""
+
+    binding = load_json(HISTORICAL_MCP_EVIDENCE)
+    exact_keys(
+        binding,
+        {
+            "schema_version",
+            "status",
+            "source_commit",
+            "active_runtime_required",
+            "artifacts",
+        },
+        "historical MCP evaluation binding",
+    )
+    if (
+        binding["schema_version"]
+        != "semantic-okf-historical-mcp-evaluation-binding/1.0"
+        or binding["status"] != "retired-immutable-evidence"
+        or binding["source_commit"] != HISTORICAL_MCP_SOURCE_COMMIT
+        or binding["active_runtime_required"] is not False
+    ):
+        raise EvaluationError("historical MCP evaluation identity differs")
+    artifacts = exact_keys(
+        binding["artifacts"],
+        set(HISTORICAL_MCP_ARTIFACTS),
+        "historical MCP evaluation artifacts",
+    )
+    for name, expected_path in HISTORICAL_MCP_ARTIFACTS.items():
+        artifact = exact_keys(
+            artifacts[name],
+            {"path", "sha256"},
+            f"historical MCP evaluation artifact {name}",
+        )
+        expected_relative = expected_path.relative_to(REPO_ROOT).as_posix()
+        expected_sha256 = HISTORICAL_MCP_ARTIFACT_SHA256[name]
+        if artifact != {"path": expected_relative, "sha256": expected_sha256}:
+            raise EvaluationError(
+                f"historical MCP evaluation artifact binding differs: {name}"
+            )
+        if bound_file(artifact, f"historical MCP evaluation artifact {name}") != (
+            expected_path.resolve()
+        ):
+            raise EvaluationError(
+                f"historical MCP evaluation artifact path differs: {name}"
+            )
+    expected_bytes = (
+        json.dumps(binding, indent=2, ensure_ascii=False) + "\n"
+    ).encode("utf-8")
+    if HISTORICAL_MCP_EVIDENCE.read_bytes() != expected_bytes:
+        raise EvaluationError(
+            "historical MCP evaluation binding is not canonical JSON"
+        )
+    return binding
+
+
+def validate_active_cli_consult_skill(
+    skill_root: Path = ACTIVE_CONSULT_SKILL,
+) -> dict[str, Any]:
+    """Require the current definitive consultation package to be CLI-only."""
+
+    root = skill_root.resolve(strict=True)
+    forbidden_directories = ["mcp-runtime", "publication-runtime"]
+    present_forbidden = [
+        name for name in forbidden_directories if (root / name).exists()
+    ]
+    if present_forbidden:
+        raise EvaluationError(
+            "active CLI-only consult package contains retired runtime directories: "
+            f"{present_forbidden}"
+        )
+
+    required = {
+        "skill": root / "SKILL.md",
+        "launcher": root / "scripts/run_query.ps1",
+        "query_cli": root / "scripts/query_semantic_okf_ensemble.py",
+        "finalizer": root / "scripts/_ensemble_snapshot.py",
+    }
+    missing = sorted(name for name, path in required.items() if not path.is_file())
+    if missing:
+        raise EvaluationError(
+            f"active CLI-only consult package is missing required files: {missing}"
+        )
+
+    text_suffixes = {
+        ".cmd",
+        ".in",
+        ".json",
+        ".md",
+        ".ps1",
+        ".py",
+        ".txt",
+        ".yaml",
+        ".yml",
+    }
+    transport_occurrences: list[str] = []
+    for path in sorted(root.rglob("*")):
+        if (
+            not path.is_file()
+            or path.suffix.lower() not in text_suffixes
+            or "__pycache__" in path.parts
+        ):
+            continue
+        text = path.read_text(encoding="utf-8")
+        markers = sorted(marker for marker in MCP_TRANSPORT_MARKERS if marker in text)
+        if markers:
+            transport_occurrences.append(
+                f"{path.relative_to(root).as_posix()}:{','.join(markers)}"
+            )
+    if transport_occurrences:
+        raise EvaluationError(
+            "active CLI-only consult package contains retired semantic_okf transport "
+            f"markers: {transport_occurrences}"
+        )
+
+    skill_text = required["skill"].read_text(encoding="utf-8")
+    required_skill_markers = {
+        "CLI-only structured-answer gate",
+        "--deep-validation inspect",
+        "coverage-brief",
+        "finalize-answer --draft -",
+        "last successful finalizer JSON verbatim",
+    }
+    missing_skill_markers = sorted(
+        marker for marker in required_skill_markers if marker not in skill_text
+    )
+    if missing_skill_markers:
+        raise EvaluationError(
+            "active CLI-only SKILL.md omits required consultation gates: "
+            f"{missing_skill_markers}"
+        )
+
+    query_text = required["query_cli"].read_text(encoding="utf-8")
+    try:
+        query_tree = ast.parse(query_text, filename=required["query_cli"].as_posix())
+    except SyntaxError as exc:
+        raise EvaluationError(f"active consultation query CLI is invalid: {exc}") from exc
+    string_literals = {
+        node.value
+        for node in ast.walk(query_tree)
+        if isinstance(node, ast.Constant) and isinstance(node.value, str)
+    }
+    required_cli_literals = {
+        "--deep-validation",
+        "inspect",
+        "search",
+        "coverage-brief",
+        "finalize-answer",
+        "--draft",
+        "--question-id",
+        "--query",
+    }
+    missing_cli_literals = sorted(required_cli_literals - string_literals)
+    required_query_contract = {
+        "draft_payload=sys.stdin.read()",
+        'sort_keys=args.command != "finalize-answer"',
+    }
+    missing_query_contract = sorted(
+        marker for marker in required_query_contract if marker not in query_text
+    )
+    if missing_cli_literals or missing_query_contract:
+        raise EvaluationError(
+            "active consultation query CLI omits the required finalizer contract: "
+            f"literals={missing_cli_literals}, code={missing_query_contract}"
+        )
+
+    launcher_text = required["launcher"].read_text(encoding="utf-8")
+    required_launcher_markers = {
+        "query_semantic_okf_ensemble.py",
+        "SEMANTIC_OKF_PYTHON",
+        "SEMANTIC_OKF_HF_HUB_CACHE",
+        "$PipelineInput | & $python $queryScript @QueryArguments",
+        "exit $LASTEXITCODE",
+    }
+    missing_launcher_markers = sorted(
+        marker for marker in required_launcher_markers if marker not in launcher_text
+    )
+    if missing_launcher_markers or "2>&1" in launcher_text:
+        raise EvaluationError(
+            "active consultation launcher violates the CLI-only stdout/stderr contract: "
+            f"missing={missing_launcher_markers}"
+        )
+
+    return {
+        "schema_version": "semantic-okf-active-cli-consult-validation/1.0",
+        "status": "pass",
+        "skill_id": "consult-semantic-okf-ensemble",
+        "path": root.relative_to(REPO_ROOT.resolve()).as_posix(),
+        "tree_sha256": skill_tree_sha256(root),
+        "retired_runtime_directories_present": [],
+        "retired_transport_marker_count": 0,
+        "commands": [
+            "inspect",
+            "search",
+            "coverage-brief",
+            "finalize-answer",
+        ],
+    }
 
 
 def validate_reviewed_benchmark() -> dict[str, Any]:
@@ -328,8 +579,16 @@ def validate_generated_skill_arena_artifacts() -> dict[str, str]:
 
 
 def validate_skill_arena_manifest() -> dict[str, Any]:
-    """Validate every frozen file and skill identity used by Skill Arena."""
+    """Validate the retired Skill Arena experiment as immutable historical evidence."""
 
+    if sha256(SKILL_ARENA_MANIFEST) != HISTORICAL_MCP_ARTIFACT_SHA256[
+        "skill_arena_manifest"
+    ]:
+        raise EvaluationError("historical Skill Arena manifest SHA-256 differs")
+    if sha256(SKILL_ARENA_CONFIG) != HISTORICAL_MCP_ARTIFACT_SHA256[
+        "skill_arena_config"
+    ]:
+        raise EvaluationError("historical Skill Arena config SHA-256 differs")
     manifest = load_json(SKILL_ARENA_MANIFEST)
     exact_keys(manifest, SKILL_ARENA_MANIFEST_KEYS, "Skill Arena config manifest")
     if manifest["schema_version"] != "semantic-okf-hard-answer-configs/2.2":
@@ -583,12 +842,11 @@ def validate_skill_arena_manifest() -> dict[str, Any]:
         },
         "Skill Arena MCP runtime",
     )
-    mcp_root = REPO_ROOT / "skills/consult-semantic-okf-ensemble/mcp-runtime"
     if mcp != {
         "path": "skills/consult-semantic-okf-ensemble/mcp-runtime",
-        "tree_sha256": skill_tree_sha256(mcp_root),
-        "server_sha256": sha256(mcp_root / "semantic_okf_mcp_server.py"),
-        "launcher_sha256": sha256(mcp_root / "run_server.cmd"),
+        "tree_sha256": "a1d75372355b9d44f1fa8fa4f29585cd1cb8744bcf7fa0e5ce36b0f9706d51ee",
+        "server_sha256": "bef33f807ad339563a076402edf96b65c9cd66f81eb0af3484a49a8945d940c2",
+        "launcher_sha256": "d2527a45a76e1eab182acff7c545ab8092a3301cdcdb81f3990c0423533289a2",
         "server_version": "1.5.0",
         "allowed_skill_id": "consult-semantic-okf-ensemble",
         "controls_expose_tools": False,
@@ -649,69 +907,7 @@ def validate_skill_arena_manifest() -> dict[str, Any]:
             "semantic_okf_confirm_answer",
         ],
     }:
-        raise EvaluationError("Skill Arena MCP runtime contract differs")
-    mcp_module = module_from_path(
-        "semantic_okf_ensemble_checked_mcp_server",
-        mcp_root / "semantic_okf_mcp_server.py",
-    )
-    advertised_tools = getattr(mcp_module, "ENSEMBLE_TOOLS", None)
-    if (
-        getattr(mcp_module, "SERVER_VERSION", None) != mcp["server_version"]
-        or getattr(mcp_module, "PREPARED_ANSWER_SCHEMA", None)
-        != mcp["prepared_answer_schema"]
-        or getattr(mcp_module, "CONFIRMATION_SCHEMA", None)
-        != mcp["confirmation_receipt_schema"]
-        or getattr(mcp_module, "BOOTSTRAP_SCHEMA", None) != mcp["bootstrap_schema"]
-        or getattr(mcp_module, "BOOTSTRAP_SKILL_SHA256", None)
-        != mcp["bootstrap_skill_sha256"]
-        or getattr(mcp_module, "BOOTSTRAP_SKILL_BYTE_COUNT", None)
-        != mcp["bootstrap_skill_byte_count"]
-        or not isinstance(advertised_tools, list)
-        or [tool.get("name") for tool in advertised_tools] != mcp["tools"]
-    ):
-        raise EvaluationError("Skill Arena MCP advertised tool identity differs")
-    by_name = {tool["name"]: tool for tool in advertised_tools}
-    for tool_name, tool in by_name.items():
-        expected_idempotent = tool_name not in {
-            "semantic_okf_bootstrap_skill",
-            "semantic_okf_confirm_answer",
-        }
-        if tool.get("annotations") != {
-            "readOnlyHint": True,
-            "destructiveHint": False,
-            "idempotentHint": expected_idempotent,
-            "openWorldHint": False,
-        }:
-            raise EvaluationError(f"Skill Arena MCP annotations differ: {tool_name}")
-    bootstrap_schema = by_name["semantic_okf_bootstrap_skill"].get("inputSchema")
-    prepare_schema = by_name["semantic_okf_prepare_answer"].get("inputSchema")
-    confirm_schema = by_name["semantic_okf_confirm_answer"].get("inputSchema")
-    if (
-        bootstrap_schema
-        != {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": False,
-        }
-        or not isinstance(prepare_schema, dict)
-        or prepare_schema.get("required") != ["question_id", "query", "draft"]
-        or prepare_schema.get("additionalProperties") is not False
-        or "mode" in prepare_schema.get("properties", {})
-        or confirm_schema
-        != {
-            "type": "object",
-            "properties": {
-                "response_sha256": {
-                    "type": "string",
-                    "pattern": "^[0-9a-f]{64}$",
-                }
-            },
-            "required": ["response_sha256"],
-            "additionalProperties": False,
-        }
-    ):
-        raise EvaluationError("Skill Arena MCP prepare/confirm input schema differs")
+        raise EvaluationError("historical Skill Arena MCP runtime contract differs")
     publication = exact_keys(
         manifest["publication_runtime"],
         {
@@ -747,14 +943,11 @@ def validate_skill_arena_manifest() -> dict[str, Any]:
         },
         "Skill Arena publication runtime",
     )
-    publication_root = (
-        REPO_ROOT / "skills/consult-semantic-okf-ensemble/publication-runtime"
-    )
     if publication != {
         "path": "skills/consult-semantic-okf-ensemble/publication-runtime",
-        "tree_sha256": skill_tree_sha256(publication_root),
-        "script_sha256": sha256(publication_root / "confirmed_output_gate.py"),
-        "launcher_sha256": sha256(publication_root / "run_codex.cmd"),
+        "tree_sha256": "b8a6e9117df4bd9b7608547eaef4ce55609e01c02cb69a263c60c6e78b0624fc",
+        "script_sha256": "6db622318acba2301b272504e6687bb34055d2704a0ce4f1c7425ee9bb8570b1",
+        "launcher_sha256": "9ae819d2814490a1f9c990aae2617a9bc2873f370d7b3c8cbaf52d3bb6b5f443",
         "command_path": "publication-runtime\\run_codex.cmd",
         "protocol_tools": [
             "semantic_okf_prepare_answer",
@@ -802,28 +995,7 @@ def validate_skill_arena_manifest() -> dict[str, Any]:
         "controls_shell_policy_unchanged": True,
         "controls_transparent": True,
     }:
-        raise EvaluationError("Skill Arena publication runtime contract differs")
-    publication_module = module_from_path(
-        "semantic_okf_ensemble_checked_publication_gate",
-        publication_root / "confirmed_output_gate.py",
-    )
-    if (
-        getattr(publication_module, "PREPARE_TOOL", None)
-        != publication["protocol_tools"][0]
-        or getattr(publication_module, "CONFIRM_TOOL", None)
-        != publication["protocol_tools"][1]
-        or getattr(publication_module, "PROTOCOL_TOOLS", None)
-        != set(publication["protocol_tools"])
-        or getattr(publication_module, "CONFIRMATION_SCHEMA", None)
-        != publication["confirmation_receipt_schema"]
-        or getattr(publication_module, "PREPARED_ANSWER_SCHEMA", None)
-        != publication["prepared_answer_schema"]
-        or getattr(publication_module, "SHELL_ISOLATION_SCHEMA", None)
-        != publication["shell_isolation_receipt_schema"]
-        or getattr(publication_module, "ENSEMBLE_SKILL", None)
-        != publication["treatment_skill_id"]
-    ):
-        raise EvaluationError("Skill Arena publication protocol identity differs")
+        raise EvaluationError("historical Skill Arena publication runtime contract differs")
     runtime = exact_keys(
         manifest["embedding_runtime"],
         {
@@ -857,21 +1029,25 @@ def validate_skill_arena_manifest() -> dict[str, Any]:
     skill_entries = manifest["consult_skills"]
     if not isinstance(skill_entries, list) or len(skill_entries) != 2:
         raise EvaluationError("Skill Arena consult-skill set differs")
-    expected_skills = ["consult-semantic-okf-adaptive", "consult-semantic-okf-ensemble"]
-    for entry, skill_id in zip(skill_entries, expected_skills, strict=True):
+    expected_skill_bindings = [
+        {
+            "skill_id": "consult-semantic-okf-adaptive",
+            "path": "skills/consult-semantic-okf-adaptive",
+            "tree_sha256": "731318f38a09113b57792c6e3cd93801eedb08a1cb0e7ef9cf72e19e4fe9cdac",
+            "skill_md_sha256": "c1bbbca6d96d9ce514de39b79db60625ed162d0ed33c396e3ce6a25e26a96fa5",
+        },
+        HISTORICAL_ENSEMBLE_SKILL_BINDING,
+    ]
+    for entry, expected in zip(skill_entries, expected_skill_bindings, strict=True):
         binding = exact_keys(
             entry,
             {"skill_id", "path", "tree_sha256", "skill_md_sha256"},
-            f"Skill Arena skill {skill_id}",
+            f"historical Skill Arena skill {expected['skill_id']}",
         )
-        expected_path = f"skills/{skill_id}"
-        if binding["skill_id"] != skill_id or binding["path"] != expected_path:
-            raise EvaluationError(f"Skill Arena skill identity differs: {skill_id}")
-        root = (REPO_ROOT / expected_path).resolve(strict=True)
-        if binding["tree_sha256"] != skill_tree_sha256(root):
-            raise EvaluationError(f"Skill Arena skill tree SHA-256 differs: {skill_id}")
-        if binding["skill_md_sha256"] != sha256(root / "SKILL.md"):
-            raise EvaluationError(f"Skill Arena SKILL.md SHA-256 differs: {skill_id}")
+        if binding != expected:
+            raise EvaluationError(
+                f"historical Skill Arena skill binding differs: {expected['skill_id']}"
+            )
     if manifest["skill_tree_hash_algorithm"] != (
         "SHA-256 over sorted package-relative-path NUL file-SHA-256 newline rows; "
         "generated __pycache__ and .pyc files excluded"
@@ -1262,7 +1438,7 @@ def validate_checked_answer_output_report() -> dict[str, Any]:
 def validate_checked_mcp_runtime_attestation(
     answer_output_report: dict[str, Any],
 ) -> dict[str, Any]:
-    """Validate the compact 90-trace attestation and exact publication bytes."""
+    """Validate retired MCP evidence without resolving the retired active runtime."""
 
     if not MCP_RUNTIME_ATTESTATION.is_file():
         raise EvaluationError(
@@ -1274,46 +1450,117 @@ def validate_checked_mcp_runtime_attestation(
             "checked Skill Arena MCP runtime attestation Markdown is missing: "
             f"{MCP_RUNTIME_ATTESTATION_MARKDOWN.as_posix()}"
         )
-    attestor_path = EVALUATION_ROOT / "scripts/attest_skill_arena_mcp_runtime.py"
-    attestor = module_from_path(
-        "semantic_okf_ensemble_checked_mcp_runtime_attestor",
-        attestor_path,
-    )
-    report = load_json(MCP_RUNTIME_ATTESTATION)
-    contract = load_answer_output_contract(ANSWER_OUTPUT_CONTRACT)
-    try:
-        checked = attestor.validate_report(
-            report,
-            contract,
-            answer_report=answer_output_report,
-            contract_path=ANSWER_OUTPUT_CONTRACT,
-            config_path=SKILL_ARENA_CONFIG,
-            manifest_path=SKILL_ARENA_MANIFEST,
-            answer_report_path=ANSWER_OUTPUT_REPORT,
-            attestor_path=attestor_path,
-            repository_root=REPO_ROOT,
+    if sha256(MCP_RUNTIME_ATTESTATION) != HISTORICAL_MCP_ARTIFACT_SHA256[
+        "runtime_attestation_report"
+    ]:
+        raise EvaluationError(
+            "checked historical MCP runtime attestation SHA-256 differs"
         )
-    except (OSError, UnicodeError, ValueError) as exc:
+    if sha256(MCP_RUNTIME_ATTESTATION_MARKDOWN) != HISTORICAL_MCP_ARTIFACT_SHA256[
+        "runtime_attestation_markdown"
+    ]:
         raise EvaluationError(
-            f"checked Skill Arena MCP runtime attestation is invalid: {exc}"
-        ) from exc
-    if not isinstance(checked, dict) or checked != report:
+            "checked historical MCP runtime attestation Markdown SHA-256 differs"
+        )
+    report = load_json(MCP_RUNTIME_ATTESTATION)
+    exact_keys(
+        report,
+        {
+            "schema_version",
+            "status",
+            "benchmark",
+            "inputs",
+            "implementation",
+            "trace_contract",
+            "gates",
+            "aggregates",
+            "rows",
+        },
+        "historical MCP runtime attestation",
+    )
+    if (
+        report["schema_version"]
+        != "semantic-okf-ensemble-skill-arena-mcp-runtime-attestation/1.7"
+        or report["status"] != "pass"
+    ):
         raise EvaluationError(
-            "checked Skill Arena MCP runtime attestation validator did not preserve the report"
+            "checked historical MCP runtime attestation identity differs"
+        )
+    benchmark = report["benchmark"]
+    if not isinstance(benchmark, dict) or benchmark.get("answer_count") != 90:
+        raise EvaluationError("checked historical MCP runtime benchmark differs")
+    inputs = report["inputs"]
+    if not isinstance(inputs, dict) or inputs.get("answer_output_report") != {
+        "path": ANSWER_OUTPUT_REPORT.relative_to(REPO_ROOT).as_posix(),
+        "sha256": HISTORICAL_MCP_ARTIFACT_SHA256["answer_output_report"],
+    }:
+        raise EvaluationError(
+            "checked historical MCP runtime answer-report binding differs"
+        )
+    if inputs.get("skill_arena_config") != {
+        "path": SKILL_ARENA_CONFIG.relative_to(REPO_ROOT).as_posix(),
+        "sha256": HISTORICAL_MCP_ARTIFACT_SHA256["skill_arena_config"],
+    } or inputs.get("skill_arena_manifest") != {
+        "path": SKILL_ARENA_MANIFEST.relative_to(REPO_ROOT).as_posix(),
+        "sha256": HISTORICAL_MCP_ARTIFACT_SHA256["skill_arena_manifest"],
+    }:
+        raise EvaluationError(
+            "checked historical MCP runtime Skill Arena binding differs"
+        )
+    implementation = report["implementation"]
+    if implementation != {
+        "path": HISTORICAL_MCP_ARTIFACTS["runtime_attestor"]
+        .relative_to(REPO_ROOT)
+        .as_posix(),
+        "sha256": HISTORICAL_MCP_ARTIFACT_SHA256["runtime_attestor"],
+    }:
+        raise EvaluationError(
+            "checked historical MCP runtime attestor binding differs"
+        )
+    gates = report["gates"]
+    if not isinstance(gates, dict) or not gates or any(
+        value is not True for value in gates.values()
+    ):
+        raise EvaluationError("checked historical MCP runtime contains a failed gate")
+    aggregates = report["aggregates"]
+    if not isinstance(aggregates, dict) or {
+        "answer_count": aggregates.get("answer_count"),
+        "trace_count": aggregates.get("trace_count"),
+        "archived_trace_count": aggregates.get("archived_trace_count"),
+        "unique_trace_sha256_count": aggregates.get("unique_trace_sha256_count"),
+        "treatment_answer_count": aggregates.get("treatment_answer_count"),
+        "confirmed_treatment_count": aggregates.get("confirmed_treatment_count"),
+    } != {
+        "answer_count": 90,
+        "trace_count": 90,
+        "archived_trace_count": 90,
+        "unique_trace_sha256_count": 90,
+        "treatment_answer_count": 30,
+        "confirmed_treatment_count": 30,
+    }:
+        raise EvaluationError("checked historical MCP runtime aggregate differs")
+    rows = report["rows"]
+    if not isinstance(rows, list) or len(rows) != 90:
+        raise EvaluationError("checked historical MCP runtime row count differs")
+    identities = {
+        (row.get("profile_id"), row.get("question_id"), row.get("repetition"))
+        for row in rows
+        if isinstance(row, dict)
+    }
+    if len(identities) != 90:
+        raise EvaluationError("checked historical MCP runtime row identities differ")
+    if answer_output_report.get("answer_count") != 90:
+        raise EvaluationError(
+            "checked historical MCP runtime answer count is not bound to the answer report"
         )
     expected_json = (
-        json.dumps(checked, indent=2, ensure_ascii=False) + "\n"
+        json.dumps(report, indent=2, ensure_ascii=False) + "\n"
     ).encode("utf-8")
     if MCP_RUNTIME_ATTESTATION.read_bytes() != expected_json:
         raise EvaluationError(
             "checked Skill Arena MCP runtime attestation JSON differs from canonical publication bytes"
         )
-    expected_markdown = attestor.render_markdown(checked).encode("utf-8")
-    if MCP_RUNTIME_ATTESTATION_MARKDOWN.read_bytes() != expected_markdown:
-        raise EvaluationError(
-            "checked Skill Arena MCP runtime attestation Markdown differs from the validated JSON"
-        )
-    return checked
+    return report
 
 
 def _reject_absolute_paths(value: Any, label: str = "diagnostic") -> None:
@@ -1598,31 +1845,14 @@ def validate_bootstrap_isolation_technical_preflight() -> dict[str, Any]:
         ),
         "skill_byte_count": 15699,
     }
-    skill_path = REPO_ROOT / "skills/consult-semantic-okf-ensemble/SKILL.md"
-    mcp_server_path = (
-        REPO_ROOT
-        / "skills/consult-semantic-okf-ensemble/mcp-runtime/semantic_okf_mcp_server.py"
-    )
-    publication_path = (
-        REPO_ROOT
-        / "skills/consult-semantic-okf-ensemble/publication-runtime/confirmed_output_gate.py"
-    )
-    if inputs != expected_inputs or {
-        "source_full_config_sha256": sha256(SKILL_ARENA_CONFIG),
-        "mcp_server_sha256": sha256(mcp_server_path),
-        "publication_script_sha256": sha256(publication_path),
-        "skill_sha256": sha256(skill_path),
-        "skill_byte_count": len(skill_path.read_bytes()),
-    } != {
-        key: expected_inputs[key]
-        for key in (
-            "source_full_config_sha256",
-            "mcp_server_sha256",
-            "publication_script_sha256",
-            "skill_sha256",
-            "skill_byte_count",
-        )
-    }:
+    # The MCP, publication wrapper, and treatment skill bindings describe the
+    # immutable historical run. They intentionally are not re-resolved against the
+    # active CLI-only package after runtime retirement.
+    if (
+        inputs != expected_inputs
+        or sha256(SKILL_ARENA_CONFIG)
+        != expected_inputs["source_full_config_sha256"]
+    ):
         raise EvaluationError("bootstrap-isolation technical preflight source binding differs")
 
     retained = exact_keys(
@@ -2907,6 +3137,8 @@ def validate() -> dict[str, Any]:
     """Validate every checked-in scaffold contract without writing state."""
 
     validate_frozen()
+    historical_mcp_evidence = validate_historical_mcp_evidence_binding()
+    active_cli_consult = validate_active_cli_consult_skill()
     reviewed_benchmark = validate_reviewed_benchmark()
     plan = validate_builder_plan()
     validate_policy(plan)
@@ -2963,6 +3195,10 @@ def validate() -> dict[str, Any]:
         "answer_output_report_sha256": sha256(ANSWER_OUTPUT_REPORT),
         "answer_output_markdown_sha256": sha256(ANSWER_OUTPUT_MARKDOWN),
         "answer_output_answer_count": answer_output_report["answer_count"],
+        "historical_mcp_source_commit": historical_mcp_evidence["source_commit"],
+        "historical_mcp_evidence_binding_sha256": sha256(
+            HISTORICAL_MCP_EVIDENCE
+        ),
         "mcp_runtime_attestation_sha256": sha256(MCP_RUNTIME_ATTESTATION),
         "mcp_runtime_attestation_markdown_sha256": sha256(
             MCP_RUNTIME_ATTESTATION_MARKDOWN
@@ -2970,6 +3206,8 @@ def validate() -> dict[str, Any]:
         "mcp_runtime_attested_trace_count": mcp_runtime_attestation["aggregates"][
             "trace_count"
         ],
+        "active_consult_transport": "cli-only",
+        "active_consult_skill_tree_sha256": active_cli_consult["tree_sha256"],
         "finalizer_copy_diagnostic_sha256": sha256(FINALIZER_COPY_DIAGNOSTIC),
         "finalizer_copy_diagnostic_markdown_sha256": sha256(
             FINALIZER_COPY_DIAGNOSTIC_MARKDOWN

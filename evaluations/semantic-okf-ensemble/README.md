@@ -1,10 +1,58 @@
 # Semantic OKF Definitive Ensemble Evaluation
 
+> **Current operational boundary:** `consult-semantic-okf-ensemble` is now
+> CLI-only. It requires no MCP server, MCP session, digest confirmation, or
+> confirmed-output host wrapper. The MCP v1.5.0 material in this directory records
+> the completed historical experiment at commit
+> `3a5df66baf99c6c34ef6ff96d35aa44740b906c6`; its reports, hashes, and metrics are
+> preserved and must not be attributed to the current CLI-only runtime. ADR 0027
+> supersedes ADR 0026 for current operation while retaining ADRs 0023–0026 as
+> historical design evidence.
+
 Status: **complete for build, deterministic retrieval, population selection, reviewed answer-evidence coverage, and accepted answer-output evaluation**. The paper-diversified coverage union reaches 44/44 atomic groups, 13/13 important-negative groups, all required papers, and 713/713 valid bindings. The isolated v1.5.0 Skill Arena comparison completed 90/90 answers, 90 blinded reviews, compact aggregation, and an independent passing 90-trace attestation.
 
 This directory evaluates the standalone `build-semantic-okf-ensemble` and `consult-semantic-okf-ensemble` skill pair. The pair combines adaptive lexical retrieval, entity-section graph retrieval, BM25, and a pinned offline embedding route behind closed quality gates. It does not modify the legacy, embedding, classical, entity-graph, or adaptive packages.
 
 The concise interpretation and complete cross-family metric table are in [EVALUATION-CONCLUSIONS.md](EVALUATION-CONCLUSIONS.md).
+
+## Current CLI-only verification
+
+The active consultant invokes its packaged deterministic Python runner directly and
+retains deep bundle validation, the `quality`/`fast`/`robust` policies, bounded
+coverage, authoritative evidence paths and locators, text-hash checks, and read-only
+operation. It does not discover or call MCP tools and has no automatic MCP fallback.
+
+The hard `q031-graph-routing-boundary` trial exercised this path end to end. Deep
+validation passed; `quality` used adaptive, BM25, embedding, and entity-graph
+signals; five pages contained `[48, 48, 48, 48, 14]` claims; and deduplication
+produced 206 unique reviewed claims. The run recorded coverage SHA-256
+`881dec7d573003631c7ee5bb6c55ba4568393df1f911c26dbaa7bfa5c0619ac7`
+and priority-order SHA-256
+`9ec21df4d02d0e1fba2a9dac3555c68e424968d347ff4d48d8df768351e1b25b`.
+It covered 4/4 atomic groups, 1/1 important-negative group, 3/3 required papers, and
+four authoritative evidence bindings with zero MCP calls. The complete trial took
+approximately 66.23 seconds in its measured environment, and its captured final
+output SHA-256 was
+`e052575835024481527ed7f07c80242a2ab414370f8868323861945931e43d50`.
+
+This is a manual operational verification of one difficult question, not a new
+40-question retrieval benchmark or aggregate answer-output evaluation. The direct
+retrieval tables below remain valid measurements of the deterministic algorithms.
+The 90-answer response-contract, grounding, correctness, and completeness results
+remain historical MCP-treatment evidence until a fresh CLI-only answer experiment
+is completed.
+
+The checked [q031 cross-family report](cli-q031-comparison.md) contains every exact
+answer and its full machine-readable response. The current deterministic CLI output
+passes all five retained q031 mechanical gates. A separate fresh
+[MCP-free Skill Arena diagnostic](cli-q031-skill-arena-diagnostic.md) distinguishes
+that core result from agent publication behavior: after rejecting one 240-second
+adapter timeout, the retry scored `0.6` for the knowledge-only control and `0.8` for
+the CLI-skill treatment. The treatment missed only evidence validity because its
+final message changed two dot-preserving authoritative filenames to hyphenated,
+nonexistent paths. The CLI finalizer had emitted the correct paths. This one-pair
+diagnostic is not an aggregate or causal quality estimate; it documents the exact
+publication-integrity limitation that remains after removing MCP.
 
 ## Authority and frozen boundary
 
@@ -91,11 +139,11 @@ The `adaptive-paper-conditioned-claim-diversification-v1` reranker retains a six
 
 The accepted semantic component alone covers 39/44 groups versus 42/44 before diversification, but it is less redundant with adaptive and graph candidates and raises union coverage to 100%. This variable-budget union must not be described as Recall@30. These are candidate-availability and exact-identity measurements, not generated-answer correctness, completeness, or entailment.
 
-The bounded `semantic_okf_coverage_brief` MCP tool exposes the complete deduplicated union without sending one unbounded result. The current diversified q031 pack contains 206 claims and remains within the five-page protocol. The stateful treatment protocol requires one first `semantic_okf_bootstrap_skill` call, `semantic_okf_inspect`, every coverage page for identical parameters, and a final clean transaction consisting of one or more successful `semantic_okf_prepare_answer` calls while the draft is still being reviewed followed by exactly one successful `semantic_okf_confirm_answer` call as the terminal tool call. Preparation independently recomputes the unpaged pack and constructs the contracted answer from reviewed bindings.
+In the historical v1.5.0 treatment, the bounded `semantic_okf_coverage_brief` MCP tool exposed the complete deduplicated union without sending one unbounded result. The diversified q031 pack contained 206 claims and remained within the five-page protocol. The stateful treatment protocol required one first `semantic_okf_bootstrap_skill` call, `semantic_okf_inspect`, every coverage page for identical parameters, and a final clean transaction consisting of one or more successful `semantic_okf_prepare_answer` calls while the draft was still being reviewed followed by exactly one successful `semantic_okf_confirm_answer` call as the terminal tool call. Preparation independently recomputed the unpaged pack and constructed the contracted answer from reviewed bindings.
 
-The isolated runtime is the profile-gated, read-only MCP server version 1.5.0. The knowledge-only and adaptive controls receive an empty tool list; only the ensemble treatment receives `semantic_okf_bootstrap_skill`, `semantic_okf_inspect`, `semantic_okf_coverage_brief`, `semantic_okf_prepare_answer`, and `semantic_okf_confirm_answer`. All five tools are read-only, non-destructive, and closed-world. Bootstrap and confirm are deliberately non-idempotent; inspect, coverage, and prepare are idempotent. Bootstrap accepts no arguments, resolves only the installed skill under `CODEX_HOME`, verifies its frozen raw-byte identity, and returns its exact UTF-8 body through `semantic-okf-skill-bootstrap/1.0`. It must succeed exactly once before every other Semantic OKF call. The treatment host disables the general shell tool before Codex starts, while both controls retain the shared baseline command behavior. The prepare schema has no `mode` and returns the canonical closed `semantic-okf-prepared-answer/1.0` envelope with exactly `schema`, `candidate_json`, `response_sha256`, and `byte_count`. Confirm accepts only `response_sha256`, which must be 64 lowercase hexadecimal characters. `SEMANTIC_OKF_PYTHON` must identify the exact absolute Python executable bound by the config manifest, while `SEMANTIC_OKF_HF_HUB_CACHE` must identify an absolute directory containing the pinned model revision. Relative or missing paths fail closed. Skill Arena disables network and web search and sets the Hugging Face and Transformers offline controls, so an unavailable runtime or model cache is an error rather than a download or lexical substitution. No host-specific absolute path is checked into the evaluation.
+That isolated runtime was the profile-gated, read-only MCP server version 1.5.0. The knowledge-only and adaptive controls received an empty tool list; only the ensemble treatment received `semantic_okf_bootstrap_skill`, `semantic_okf_inspect`, `semantic_okf_coverage_brief`, `semantic_okf_prepare_answer`, and `semantic_okf_confirm_answer`. All five tools were read-only, non-destructive, and closed-world. Bootstrap and confirm were deliberately non-idempotent; inspect, coverage, and prepare were idempotent. Bootstrap accepted no arguments, resolved only the installed skill under `CODEX_HOME`, verified its frozen raw-byte identity, and returned its exact UTF-8 body through `semantic-okf-skill-bootstrap/1.0`. It had to succeed exactly once before every other Semantic OKF call. The treatment host disabled the general shell tool before Codex started, while both controls retained the shared baseline command behavior. The prepare schema had no `mode` and returned the canonical closed `semantic-okf-prepared-answer/1.0` envelope with exactly `schema`, `candidate_json`, `response_sha256`, and `byte_count`. Confirm accepted only `response_sha256`, which had to be 64 lowercase hexadecimal characters. `SEMANTIC_OKF_PYTHON` identified the exact absolute Python executable bound by the config manifest, while `SEMANTIC_OKF_HF_HUB_CACHE` identified an absolute directory containing the pinned model revision. Relative or missing paths failed closed. Skill Arena disabled network and web search and set the Hugging Face and Transformers offline controls, so an unavailable runtime or model cache was an error rather than a download or lexical substitution. No host-specific absolute path was checked into the evaluation.
 
-The treatment is published through a separate confirmed-output host gate. The agent reviews the exact `candidate_json` string inside the prepared envelope, then sends only that envelope's short `response_sha256` to confirm; it never copies the candidate or envelope into the confirm call. The server verifies the outstanding digest, consumes the candidate, and returns a closed receipt binding the exact candidate hash and UTF-8 byte count. Confirm must succeed exactly once and be the terminal tool call. Any failed answer-protocol call—prepare or confirm—publishes nothing and abandons the active transaction. Recovery requires a fresh successful prepare and its new digest; a prior envelope is no longer eligible. The wrapper parses the strict envelope, verifies its schema and exact keys, candidate canonicality, digest, byte count, terminal receipt, and transaction order, then atomically publishes the exact `candidate_json` bytes. Any earlier successful confirm, confirm without a fresh prepare after failure, stale or mismatched digest, repeated confirm, trailing tool call, non-canonical candidate, or envelope, protocol, hash, length, receipt, or terminal-sequence mismatch fails closed. Controls remain transparent pass-throughs.
+Historical treatment outputs were published through a separate confirmed-output host gate. The agent reviewed the exact `candidate_json` string inside the prepared envelope, then sent only that envelope's short `response_sha256` to confirm; it never copied the candidate or envelope into the confirm call. The server verified the outstanding digest, consumed the candidate, and returned a closed receipt binding the exact candidate hash and UTF-8 byte count. Confirm had to succeed exactly once and be the terminal tool call. Any failed answer-protocol call—prepare or confirm—published nothing and abandoned the active transaction. Recovery required a fresh successful prepare and its new digest; a prior envelope was no longer eligible. The wrapper parsed the strict envelope, verified its schema and exact keys, candidate canonicality, digest, byte count, terminal receipt, and transaction order, then atomically published the exact `candidate_json` bytes. Any earlier successful confirm, confirm without a fresh prepare after failure, stale or mismatched digest, repeated confirm, trailing tool call, non-canonical candidate, or envelope, protocol, hash, length, receipt, or terminal-sequence mismatch failed closed. Controls remained transparent pass-throughs.
 
 The [bootstrap and shell-isolation technical preflight](bootstrap-isolation-technical-preflight-final.md) exercised the real provider once on q031. It observed zero command-execution events, the exact 15,699-byte skill bootstrap, five coverage pages, a clean digest confirmation, the canonical `shell_tool_disabled: true` receipt, and byte-identical host publication. The host corrected a differing raw agent message. All prompt assertions passed, but the treatment-only one-row smoke is explicitly non-causal and supplies no aggregate answer metric.
 
@@ -232,7 +280,7 @@ Strict full pass requires every independent contract, evidence, and semantic gat
 
 Correctness, completeness, and important-negative coverage are model-judged under a fixed blinded rubric. They are comparative evidence, not mechanical truth. Contract, evidence validity, grounding, exact identities, paper, and source metrics are mechanically recomputed against the frozen bundle. These answer metrics must also remain separate from Recall@10, MRR@10, and nDCG@10: retrieval measures which papers were found and ordered, while the answer report measures the generated synthesis.
 
-The isolated estimand is the full definitive consultation capability: the skill, digest-bound bootstrap, profile-gated MCP transport, mandatory inspect/all-pages/prepare/digest-confirm workflow, treatment shell restriction, and exact confirmed-output host publication. It is not an estimate of the skill text alone. The passing attestation records 30/30 exact treatment bootstrap/terminal-confirm sequences, zero treatment shell execution, 16 host publication corrections, and three clean recoveries after failed protocol attempts. One adaptive-control q040 trace has a superseded command start followed by an exact successful retry; the closed attestor reports it as one bounded control-runtime diagnostic and forbids it in treatment traces. The four rejected diagnostics—including the partial v1.4.0 bootstrap run—remain excluded from every result above. The all-skills portfolio remains descriptive rather than causal.
+The historical isolated estimand was the full then-definitive consultation capability: the skill, digest-bound bootstrap, profile-gated MCP transport, mandatory inspect/all-pages/prepare/digest-confirm workflow, treatment shell restriction, and exact confirmed-output host publication. It was not an estimate of the skill text alone. The passing attestation records 30/30 exact treatment bootstrap/terminal-confirm sequences, zero treatment shell execution, 16 host publication corrections, and three clean recoveries after failed protocol attempts. One adaptive-control q040 trace has a superseded command start followed by an exact successful retry; the closed attestor reports it as one bounded control-runtime diagnostic and forbids it in treatment traces. The four rejected diagnostics—including the partial v1.4.0 bootstrap run—remain excluded from every result above. The all-skills portfolio remains descriptive rather than causal.
 
 The ensemble is the best observed candidate on this frozen benchmark, not a universal winner. The weights were selected on the same target, semantic metrics use a model judge, and only ten hard questions support the answer-output contrast. The checked conclusion document records the complete interpretation boundary and historical comparisons.
 
