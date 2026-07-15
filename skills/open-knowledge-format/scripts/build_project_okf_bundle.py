@@ -40,6 +40,13 @@ def render_concept(frontmatter: dict[str, Any], body: str) -> str:
     return f"---\n{metadata}\n---\n\n{body.rstrip()}\n"
 
 
+def rebase_skill_reference_links(body: str, skill_dir: Path) -> str:
+    """Keep package reference links resolvable from the flat OKF projection."""
+
+    prefix = f"../../skills/{skill_dir.name}/references/"
+    return re.sub(r"\]\((?:\./)?references/", f"]({prefix}", body)
+
+
 def expected_bundle_files(project_root: Path) -> dict[Path, str]:
     """Return the complete deterministic Markdown projection for a project."""
     project_root = project_root.resolve()
@@ -108,7 +115,7 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
                 "skill_name": skill_name.strip(),
                 "source_path": relative_source,
             },
-            body,
+            rebase_skill_reference_links(body, skill_file.parent),
         )
         skill_entries.append((display_name, output_name, skill_description.strip()))
 

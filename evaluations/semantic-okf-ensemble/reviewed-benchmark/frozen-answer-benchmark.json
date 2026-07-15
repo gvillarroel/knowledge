@@ -1,0 +1,127 @@
+{
+  "amendments": {
+    "path": "evaluations/semantic-okf-ensemble/reviewed-answer-benchmark-amendments.json",
+    "sha256": "c712218b0ac1fe6b4e6a4f820f82af1d87fa4e606576b75081df5eeccbfad6aa"
+  },
+  "audit_summary": {
+    "added_authoritative_evidence_objects": 27,
+    "added_unique_claim_ids": 26,
+    "appended_atomic_option_links": 22,
+    "appended_negative_option_links": 19,
+    "atomic_answer_claims": 44,
+    "important_negatives": 13,
+    "parent_authoritative_evidence_objects": 44,
+    "parent_expected_id_links": 72,
+    "parent_unique_expected_claim_ids": 42,
+    "questions": 10,
+    "rejected_close_alternatives": 38,
+    "reviewed_authoritative_evidence_objects": 71,
+    "reviewed_expected_id_links": 113,
+    "reviewed_unique_expected_claim_ids": 68
+  },
+  "benchmark_id": "semantic-okf-ensemble-reviewed-answer-40-plus-hard10-v1",
+  "cohorts": {
+    "hard_ground_truth": {
+      "count": 10,
+      "ordered_ids": [
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ],
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+      "sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451"
+    },
+    "hard_questions": {
+      "count": 10,
+      "ordered_ids": [
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ],
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-questions.jsonl",
+      "sha256": "59b41fe5f81141ee2fc9ab04e61751c474d97e17eb8eead7aaf432ecd47259ca"
+    },
+    "retrieval_questions": {
+      "count": 40,
+      "ordered_ids": [
+        "q001-methodology-taxonomy",
+        "q002-common-pipeline",
+        "q003-graph-origin-representation",
+        "q004-retrieval-units",
+        "q005-community-hierarchy",
+        "q006-path-subgraph-reasoning",
+        "q007-diffusion-versus-traversal",
+        "q008-local-global-queries",
+        "q009-query-processing-routing",
+        "q010-context-organization",
+        "q011-vector-graph-hybrid",
+        "q012-llm-roles",
+        "q013-offline-construction-cost",
+        "q014-online-efficiency",
+        "q015-incremental-updates",
+        "q016-noise-redundancy",
+        "q017-imperfect-graphs",
+        "q018-grounding-safety",
+        "q019-external-parametric-balance",
+        "q020-domain-adaptation",
+        "q021-fact-checking-versus-qa",
+        "q022-long-context-sensemaking",
+        "q023-method-task-matrix",
+        "q024-evaluation-practices",
+        "q025-benchmark-bias",
+        "q026-explainability-evidence",
+        "q027-community-construction",
+        "q028-optimization-operators",
+        "q029-static-agentic-retrieval",
+        "q030-design-decision-framework",
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ],
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/retrieval-questions.jsonl",
+      "sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec"
+    }
+  },
+  "frozen_on": "2026-07-15",
+  "generator": {
+    "path": "evaluations/semantic-okf-ensemble/scripts/generate_reviewed_answer_benchmark.py",
+    "sha256": "ac0643a59fa72cd92322a08ec77c330cc3ec30000d4d67f2e6d34611481fd16f"
+  },
+  "invariants": {
+    "append_only_option_sets": "Every parent statement and evidence option remains in order; only the independently approved claim IDs are appended to named OR groups.",
+    "authoritative_evidence_derivation": "Every newly needed evidence object is rederived from pinned reviewed claim JSONL lines and exact Markdown PDF-page segments with Unicode offsets and SHA-256 hashes.",
+    "or_option_semantics": "Each appended ID independently supports its complete atomic or negative group; partial claims are never combined as if an OR option were an AND bundle.",
+    "parent_files_unchanged": "The generator reads the frozen adaptive benchmark only and writes exclusively to the new reviewed-benchmark directory.",
+    "qrel_identity": "Every reviewed ground-truth row preserves the parent's required paper and source identities, so independently derived qrels are unchanged.",
+    "question_content_identity": "Hard-question and retrieval-question bytes are identical to the parent cohorts."
+  },
+  "mutation_policy": "Never edit this reviewed benchmark or its parent in place. A correction requires a new benchmark ID, a new closed amendments document, regenerated outputs, and a new frozen manifest.",
+  "parent_frozen_benchmark": {
+    "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "path": "evaluations/semantic-okf-adaptive-evolution/frozen-benchmark.json",
+    "sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414"
+  },
+  "schema_version": "semantic-okf-frozen-answer-benchmark/1.0",
+  "status": "frozen"
+}

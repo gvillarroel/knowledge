@@ -1,0 +1,72 @@
+{
+  "schema_version": "semantic-okf-adaptive-manual-query-verification/1.0",
+  "run_id": "20260714-adaptive-final-05",
+  "status": "pass",
+  "bundle": "evaluations/semantic-okf-adaptive/results/runs/20260714-adaptive-final-05/workspaces/adaptive/knowledge",
+  "inspection": {
+    "command": ".venv/Scripts/python.exe -B skills/consult-semantic-okf-adaptive/scripts/query_semantic_okf_adaptive.py BUNDLE inspect --deep-validation",
+    "status": "pass",
+    "structural": true,
+    "independent_rederivation": true,
+    "documents": 1135,
+    "records": 846,
+    "terms": 96799,
+    "topics": 16,
+    "association_terms": 3000
+  },
+  "query": {
+    "question_id": "q032-incremental-update-maturity",
+    "text": "Classify the corpus evidence about changing knowledge into explicit add-only behavior, architectural update claims, and unimplemented or unspecified lifecycle work. Which systems support each class, and why does none of that evidence establish a complete deletion, provenance-repair, and re-indexing protocol?",
+    "requested_mode": "adaptive",
+    "effective_mode": "adaptive",
+    "top_k": 10,
+    "aspects": [
+      "Classify the corpus evidence about changing knowledge into explicit add-only behavior, architectural update claims",
+      "and unimplemented or unspecified lifecycle work Which systems support each class",
+      "and why does none of that evidence establish a complete deletion, provenance-repair and re-indexing protocol"
+    ],
+    "returned_paper_ids": [
+      "2507.03226v3",
+      "2408.08535v1",
+      "2508.19855v3",
+      "2409.13731v3",
+      "2404.16130v2",
+      "2402.07630v3",
+      "2405.14831v3",
+      "2503.06474v2",
+      "2506.05690v3",
+      "2410.05779v3"
+    ],
+    "required_paper_ids": [
+      "2405.14831v3",
+      "2408.04187v2",
+      "2408.08535v1",
+      "2410.05779v3",
+      "2507.03226v3"
+    ],
+    "required_papers_returned": 4,
+    "paper_recall_at_10": 0.8,
+    "evidence_row_count": 10,
+    "evidence_rows_complete": true,
+    "locator_kinds": ["character-range", "record"],
+    "evidence_contract": {
+      "adapter": "exact-authoritative-fields-v2",
+      "copy_fields_only": true,
+      "authoritative_verification_required": true,
+      "locator_basis": "semantic/records.jsonl record.body"
+    }
+  },
+  "snapshot": {
+    "adaptive_index_sha256": "3fd7400b6429575458e5674a80886718ce62f7adfecfae07b1b0be16b2780c88",
+    "adaptive_plan_sha256": "075f172a21566ec828aa11a759e6f16ab3592628fad0867e0686730ddcf9739b",
+    "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+  },
+  "read_only_check": {
+    "fingerprint_algorithm": "SHA-256 over sorted relative path, size, mtime_ns, and file-SHA-256 rows",
+    "files_before": 890,
+    "files_after": 890,
+    "fingerprint_before": "652446627a839d6e7eee643258682cb8e86e0b65f754035482911888c07f3515",
+    "fingerprint_after": "652446627a839d6e7eee643258682cb8e86e0b65f754035482911888c07f3515",
+    "unchanged": true
+  }
+}

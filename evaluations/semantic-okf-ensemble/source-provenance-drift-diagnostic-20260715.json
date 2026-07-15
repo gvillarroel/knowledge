@@ -1,0 +1,60 @@
+{
+  "schema_version": "semantic-okf-ensemble-source-provenance-drift-diagnostic/1.0",
+  "status": "rejected",
+  "evidence_class": "diagnostic-only-non-benchmark",
+  "date": "2026-07-15",
+  "comparison": {
+    "run_id": "2026-07-15T13-25-43-918Z-compare",
+    "promptfoo_eval_id": "eval-UTJ-2026-07-15T13:25:51",
+    "planned_answer_count": 90,
+    "stop_decision_completed_row_count": 10,
+    "persisted_row_count_after_process_exit": 12,
+    "termination": "intentional-source-provenance-gate-stop",
+    "benchmark_eligible": false,
+    "exclusion_reason": "The consultation skill instructions changed after workspace materialization, so the materialized treatment was not byte-identical to the final frozen package."
+  },
+  "provenance": {
+    "execution_log": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T13-25-43-918Z-compare/execution.log",
+      "sha256": "e1bd818fc25027974e0ffa8cf10ccc45acf2c92c251da8b46c9ce01f58d669f2"
+    },
+    "generated_promptfoo_config": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T13-25-43-918Z-compare/promptfooconfig.yaml",
+      "sha256": "c704483180a81d0ce3eb09f0d28d64812be4b78693dadf28b62bb58a2f2b30db"
+    },
+    "database_projection": {
+      "description": "Canonical JSON projection of eval ID plus row ID, profile ID, test index, created_at, and updated_at; answer, score, assertion, and reviewer fields are excluded.",
+      "sha256": "f97f3375224396265c361dfcb5126250a06bb0691c57f6548ba9e1d0e12cb0b6",
+      "row_count": 12
+    },
+    "promptfoo_results_file_present": false
+  },
+  "materialized_source": {
+    "skill_arena_config_sha256": "be443278a2eab287a78945f5bf8f42a5bcb7f49153476901b042b8aeb2d9564b",
+    "skill_arena_config_manifest_sha256": "aef045edf27f97f608ac51b760147396e9c8781703419b50ac9d4c8137f90c97",
+    "consult_skill_tree_sha256": "e99b40283a67a2c801cee7cc4815e07015b400c802d02d00756d6731e8f52544",
+    "consult_skill_md_sha256": "fe975a3ef7f525bbe5355ccacce359312bd61fdc1bb315febd04e1894998f7f8"
+  },
+  "final_frozen_source": {
+    "skill_arena_config_sha256": "be443278a2eab287a78945f5bf8f42a5bcb7f49153476901b042b8aeb2d9564b",
+    "skill_arena_config_manifest_sha256": "4d4eea215d8b819baf363c0e52cbe974fa57f90757ce4a43a4a59fd2bcb85235",
+    "consult_skill_tree_sha256": "773b36e85d761f9d1bff1c46840386ec4c3c027e9aca906ee8612827883ddf37",
+    "consult_skill_md_sha256": "5d5970fcd4bc7a4fff655da06ddc41dcc7f8c2e10438b3d2e8731f720e5a09be",
+    "querying_reference_sha256": "84e906c78e9c0f7a72f5ca270d777c0ab850efc534e802b63ecbfc150d82b635"
+  },
+  "persisted_rows": {
+    "total": 12,
+    "by_profile": {
+      "knowledge-only-control": 4,
+      "adaptive-consult-control": 4,
+      "ensemble-consult-treatment": 4
+    },
+    "quality_metrics_published": false
+  },
+  "decision": {
+    "observed_failure": "Source provenance drift occurred after the isolated workspaces were materialized.",
+    "acceptance_rule": "A causal run is eligible only when every materialized skill, runtime, config, and bundle identity matches the frozen checked-in manifest for the complete run.",
+    "remediation": "Rebind the final source identities, validate them, freeze all bound sources, and rerun all 90 cells from a new isolated comparison directory."
+  },
+  "raw_retention": "The interrupted run directory and Promptfoo database rows remain append-only and ignored. They are retained only for provenance audit and must not be merged into benchmark metrics."
+}

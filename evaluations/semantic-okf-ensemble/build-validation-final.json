@@ -1,0 +1,70 @@
+{
+  "schema_version": "semantic-okf-ensemble-build-validation/1.0",
+  "status": "pass",
+  "run_id": "20260715-ensemble-final-03",
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "Windows",
+    "network_during_build": false
+  },
+  "inputs": {
+    "manifest": {
+      "path": "evaluations/graphrag-cross-paper/manifest.json",
+      "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37",
+      "source_count": 31,
+      "paper_markdown_count": 15,
+      "claim_jsonl_count": 15,
+      "auxiliary_vocabulary_count": 1
+    },
+    "ensemble_plan": {
+      "path": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+      "file_sha256": "0f30f15f4156223a72200544ec07ffab33ee3d2a92aac09424f8444ad38339f5",
+      "canonical_sha256": "cbbc28d140667670621260513d08998a740227f2bdf93f4dce754f4c996dd8eb"
+    },
+    "locks": {
+      "base_sha256": "9f820affeaabd1a61f3b627e5ae960ecc3b21885b094d74668f83d75b8a24128",
+      "llamaindex_sha256": "2ce746cf948432b1f6c840fe5c5cf8d40eab16d7cb798f10a5e86dedec3aa43f",
+      "sentence_transformers_sha256": "74f624b118f6a2331039fb3a0e6945e6f50901a96c675d63bb923a5f9c17ea5b"
+    }
+  },
+  "publication": {
+    "authoritative": false,
+    "discovery_only": true,
+    "atomic": true,
+    "independently_validated": true,
+    "file_count": 904,
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939",
+    "component_index_sha256": {
+      "adaptive": "7b8c1a16d29e9c0bf7a14fbf06e676850a2c6a29387afdfd0c248ab2e5888e5c",
+      "entity_graph": "208e267df72acfc22cc99589e814f4338e3d899ca8ab500db2383ede23a83867",
+      "embedding": "9c2ad31535a12320bd9a49ed6d91037bcce3a11307caf840c350aecbac6beb2c"
+    }
+  },
+  "authoritative_core": {
+    "record_count": 874,
+    "records_sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc",
+    "tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "matches_preexisting_alternatives": true
+  },
+  "deterministic_rebuild": {
+    "build_count": 2,
+    "build_a_seconds": 305.77,
+    "build_b_seconds": 298.467,
+    "independent_validation_a_seconds": 23.844,
+    "independent_validation_b_seconds": 26.713,
+    "files_a": 904,
+    "files_b": 904,
+    "path_or_sha256_differences": 0,
+    "exact_match": true
+  },
+  "gates": {
+    "closed_schemas": true,
+    "component_plan_parity": true,
+    "core_parity": true,
+    "exact_source_selection": true,
+    "question_id_leakage_absent": true,
+    "pinned_embedding_revision": true,
+    "independent_validation": true,
+    "deterministic_rebuild": true
+  }
+}

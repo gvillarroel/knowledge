@@ -1,0 +1,56 @@
+{
+  "schema_version": "semantic-okf-adaptive-answer-diagnostic/1.0",
+  "status": "superseded-after-diagnostic-fix",
+  "eval_id": "eval-jJp-2026-07-14T17:09:19",
+  "compare_run": "results/semantic-okf-adaptive-hard10-paired/2026-07-14T17-09-14-476Z-compare",
+  "cells": {
+    "requested": 20,
+    "completed": 20,
+    "errors": 0,
+    "strict_passes": 0
+  },
+  "bindings": {
+    "summary_sha256": "b2b798dd3c30825b92eea6ebf6c24989803fa2742945d390a67b0304a312dbdb",
+    "promptfoo_results_sha256": "347b9e4002bdb2698cc28a4634a9e5dc385be9417bfe91eddcb0d1daf4d7d8cd",
+    "merged_report_sha256": "0eecb3030acc1874fb29472c4775e4918ce9c139e04c2cea177f5d644c42fe50",
+    "consult_skill_tree_sha256": "53c0ec5acece5a006c939b0d9257d749e7f16b93efdb4144ff2661bdeb891c66",
+    "consult_skill_md_sha256": "4220d25524142ec1c47fbca8c29a90728881a2257732c4fe6b05089d9f6fec81",
+    "blinded_reviews_sha256": "100611dd23967d310ea2747daad5490f308cc39260993ffe48a52772e74dc18c"
+  },
+  "control_metrics": {
+    "response_contract": 0.4,
+    "evidence_validity": 0.86802198,
+    "grounding": 0.86802198,
+    "claim_correctness": 0.97916667,
+    "semantic_completeness": 0.7575,
+    "exact_atomic_evidence_coverage": 0.6,
+    "required_paper_coverage": 0.78833333,
+    "required_source_coverage": 0.755,
+    "important_negative_coverage": 0.975
+  },
+  "treatment_metrics": {
+    "response_contract": 0.2,
+    "evidence_validity": 0.41388889,
+    "grounding": 0.42166667,
+    "claim_correctness": 0.9275,
+    "semantic_completeness": 0.7525,
+    "exact_atomic_evidence_coverage": 0.22,
+    "required_paper_coverage": 0.78,
+    "required_source_coverage": 0.59,
+    "important_negative_coverage": 1.0
+  },
+  "treatment_minus_control": {
+    "response_contract": -0.2,
+    "evidence_validity": -0.45413309,
+    "grounding": -0.44635531,
+    "claim_correctness": -0.05166667,
+    "semantic_completeness": -0.005,
+    "exact_atomic_evidence_coverage": -0.38,
+    "required_paper_coverage": -0.00833333,
+    "required_source_coverage": -0.165,
+    "important_negative_coverage": 0.025
+  },
+  "diagnosis": "The treatment often copied authoritative PDF locator strings such as sources/...#PDF-page-N into response fields that explicitly required integer pages. Retrieval evidence remained valid, but response serialization invalidated evidence and grounding.",
+  "remediation": "The consult skill now gives the user's response schema precedence, distinguishes retrieval passage locators from reviewed-claim evidence locators, permits only lossless #PDF-page-N to integer conversion, and requires a final type, sorting, grounding, and citation-agreement pass.",
+  "interpretation_boundary": "The same ten questions were used to diagnose and patch the instruction. The follow-up run measures regression repair on this fixed benchmark and is not an untouched generalization estimate."
+}

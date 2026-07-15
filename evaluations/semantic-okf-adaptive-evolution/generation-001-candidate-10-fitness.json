@@ -1,0 +1,183 @@
+{
+  "benchmark": {
+    "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "bound_files": 17,
+    "hard_questions": 10,
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "retrieval_questions": 40,
+    "schema_version": "semantic-okf-adaptive-frozen-benchmark/1.0",
+    "status": "pass"
+  },
+  "candidate": "candidate-10-facet-coverage-finalizer",
+  "fitness": {
+    "components": {
+      "answer_claim_recall": 18.0,
+      "evidence_contract_validity": 15.0,
+      "important_negative_recall": 11.25,
+      "operational_efficiency": 2.6722125503593466,
+      "required_paper_recall": 14.700000000000001,
+      "retrieval_ndcg": 9.999999999553982,
+      "retrieval_recall": 9.999999963157205
+    },
+    "maximum": 100.0,
+    "score": 81.62221251307054
+  },
+  "hard_gates": {
+    "checks": {
+      "answer_evidence_validity": {
+        "detail": "1.000000000",
+        "pass": true
+      },
+      "core_parity": {
+        "detail": "pass",
+        "pass": true
+      },
+      "frozen_benchmark": {
+        "detail": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+        "pass": true
+      },
+      "question_id_isolation": {
+        "detail": "leaked IDs: []",
+        "pass": true
+      },
+      "read_only": {
+        "detail": "891 files unchanged",
+        "pass": true
+      },
+      "retrieval_evidence_validity": {
+        "detail": "1.0",
+        "pass": true
+      },
+      "retrieval_ndcg_no_regression": {
+        "detail": "candidate 0.834272030; incumbent 0.834272030",
+        "pass": true
+      },
+      "retrieval_recall_no_regression": {
+        "detail": "candidate 0.838161977; incumbent 0.838161980",
+        "pass": true
+      }
+    },
+    "status": "pass"
+  },
+  "inputs": {
+    "answer_binding_count": 831,
+    "bundle": "evaluations/semantic-okf-adaptive-evolution/results/population-runs/generation-000/candidate-07",
+    "ground_truth_sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388",
+    "questions_sha256": "59b41fe5f81141ee2fc9ab04e61751c474d97e17eb8eead7aaf432ecd47259ca",
+    "repetitions_per_question": 3,
+    "retrieval_report_sha256": "88528f4fe1595003346b5247d29b488b9a644600de415610187e311dee201d61",
+    "runtime": "skills/consult-semantic-okf-adaptive/scripts/_adaptive_snapshot.py",
+    "top_k": 30
+  },
+  "metrics": {
+    "answer_claim_recall_at_30": 0.6,
+    "evidence_contract_validity": 1.0,
+    "evidence_pack_latency_ms": {
+      "incumbent_adaptive_search_mean": 296.4521,
+      "maximum": 736.4636000711471,
+      "mean": 554.6940866663741,
+      "median": 547.0307999639772
+    },
+    "important_negative_recall_at_30": 0.75,
+    "required_paper_recall_at_30": 0.9800000000000001,
+    "retrieval": {
+      "incumbent_ndcg_at_10": 0.83427203,
+      "incumbent_recall_at_10": 0.83816198,
+      "ndcg_at_10": 0.8342720299627899,
+      "recall_at_10": 0.8381619769119769
+    }
+  },
+  "questions": [
+    {
+      "answer_claim_recall_at_30": 0.5,
+      "evidence_contract_validity": 1.0,
+      "id": "q031-graph-routing-boundary",
+      "important_negative_recall_at_30": 1.0,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.6,
+      "evidence_contract_validity": 1.0,
+      "id": "q032-incremental-update-maturity",
+      "important_negative_recall_at_30": 1.0,
+      "issues": [],
+      "required_paper_recall_at_30": 0.8,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.5,
+      "evidence_contract_validity": 1.0,
+      "id": "q033-corruption-specific-defenses",
+      "important_negative_recall_at_30": 1.0,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.5,
+      "evidence_contract_validity": 1.0,
+      "id": "q034-nonmonotonic-context-budget",
+      "important_negative_recall_at_30": 0.5,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.5,
+      "evidence_contract_validity": 1.0,
+      "id": "q035-lossless-enough-evidence-organization",
+      "important_negative_recall_at_30": 0.3333333333333333,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.8,
+      "evidence_contract_validity": 1.0,
+      "id": "q036-evaluation-leakage-and-stage-separation",
+      "important_negative_recall_at_30": 1.0,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.8,
+      "evidence_contract_validity": 1.0,
+      "id": "q037-domain-construction-under-constraints",
+      "important_negative_recall_at_30": 1.0,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.75,
+      "evidence_contract_validity": 1.0,
+      "id": "q038-failure-aware-query-router",
+      "important_negative_recall_at_30": 0.6666666666666666,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.8,
+      "evidence_contract_validity": 1.0,
+      "id": "q039-baseline-bound-efficiency-claims",
+      "important_negative_recall_at_30": 0.6666666666666666,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    },
+    {
+      "answer_claim_recall_at_30": 0.25,
+      "evidence_contract_validity": 1.0,
+      "id": "q040-answer-source-control",
+      "important_negative_recall_at_30": 0.3333333333333333,
+      "issues": [],
+      "required_paper_recall_at_30": 1.0,
+      "returned": 30
+    }
+  ],
+  "schema_version": "semantic-okf-adaptive-candidate-fitness/1.0"
+}

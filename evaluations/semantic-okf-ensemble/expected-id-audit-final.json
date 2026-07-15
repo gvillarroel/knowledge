@@ -1,0 +1,68 @@
+{
+  "schema_version": "semantic-okf-ensemble-expected-id-audit/1.1",
+  "status": "pass",
+  "run_id": "20260715-ensemble-final-03",
+  "reviewed_benchmark_id": "semantic-okf-ensemble-reviewed-answer-40-plus-hard10-v1",
+  "inputs": {
+    "audit_script": {
+      "path": "evaluations/semantic-okf-adaptive-evolution/scripts/audit_expected_ids.py",
+      "sha256": "a051433fc30ba899a7d1c64532bb5ade43e96d52619f18f38afb79eabc2c8e66"
+    },
+    "frozen_benchmark": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/frozen-answer-benchmark.json",
+      "sha256": "257997cc2da3d9afae596ac8b46551a1b1fa73480f15861a25f262bb85a91f62"
+    },
+    "hard_ground_truth_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth-manifest.json",
+      "sha256": "450a25cd9fed0009bf2145067f15e6c7f3f58249ed7ce75afaf9897ccc185003"
+    },
+    "hard_ground_truth": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+      "sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451"
+    },
+    "skill_arena_config": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/ensemble-hard10.yaml",
+      "sha256": "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac"
+    },
+    "answer_bindings": {
+      "bundle_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+      "path": "adaptive/answer-bindings.jsonl",
+      "sha256": "7ff6a6673ffb38d8ec2dc7ba03827ec036137397e4626bc99a408af473084bed",
+      "count": 831
+    },
+    "authoritative_records": {
+      "bundle_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+      "path": "semantic/records.jsonl",
+      "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc",
+      "count": 874
+    }
+  },
+  "counts": {
+    "questions": 10,
+    "atomic_answer_groups": 44,
+    "important_negative_groups": 13,
+    "reviewed_expected_id_links": 113,
+    "unique_authoritative_claims": 68,
+    "authoritative_evidence_objects": 71,
+    "config_question_checks": 10,
+    "config_assertion_blocks": 40
+  },
+  "gates": {
+    "claim_ids_exist": true,
+    "paper_identities_match": true,
+    "source_identities_match": true,
+    "paths_exist": true,
+    "locators_and_text_hashes_match": true,
+    "exact_or_option_membership_matches": true,
+    "or_option_order_is_semantically_irrelevant": true,
+    "answer_binding_identities_match": true,
+    "full_answer_binding_universe_matches": true,
+    "skill_arena_assertions_match_reviewed_ground_truth": true,
+    "frozen_benchmark_cohorts_match": true
+  },
+  "report_markdown": {
+    "path": "evaluations/semantic-okf-ensemble/EXPECTED-ID-AUDIT.md",
+    "sha256": "04a31aed29ae01e4943fedd0606f524ec5505688f22e360bf2a3fd15cecb79b2"
+  },
+  "conclusion": "Every reviewed expected identifier and generated Skill Arena assertion resolves to the intended authoritative claim, paper, source, path, locator, and reviewed text; exact OR-option membership is preserved while order and duplicates remain evaluator-irrelevant."
+}

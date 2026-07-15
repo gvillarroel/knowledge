@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -239,6 +240,24 @@ def test_repository_skills_keep_native_frontmatter_and_have_okf_projections() ->
         assert projected_frontmatter["type"] == "Agent Skill"
         assert projected_frontmatter["skill_name"] == frontmatter["name"]
         assert projected_frontmatter["source_path"] == f"skills/{skill_file.parent.name}/SKILL.md"
+
+
+def test_projected_skill_reference_links_resolve_to_package_files() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    projection_root = repo_root / "okf" / "skills"
+    link_pattern = re.compile(r"\]\((?!https?://|#|/)([^)\s]+)\)")
+    checked = 0
+
+    for projection in sorted(projection_root.glob("*.md")):
+        for target in link_pattern.findall(projection.read_text(encoding="utf-8")):
+            if target.endswith(".md") and target != projection.name:
+                assert (projection.parent / target).resolve().is_file(), (
+                    projection,
+                    target,
+                )
+                checked += 1
+
+    assert checked >= 50
 
 
 def test_project_okf_bundle_is_current_and_conformant() -> None:

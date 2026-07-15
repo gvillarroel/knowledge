@@ -41,9 +41,9 @@ Answer from one published Semantic OKF snapshot while preserving its revision an
 
 ## Required references
 
-- Read [querying.md](references/querying.md) before choosing a layer or writing a query.
-- Read [source-boundaries.md](references/source-boundaries.md) when a bundle contains separate authorities, homogeneous partitions, or cross-bundle evidence.
-- Read [cross-source-synthesis.md](references/cross-source-synthesis.md) before comparing, aggregating, or citing multiple sources.
+- Read [querying.md](../../skills/consult-semantic-okf/references/querying.md) before choosing a layer or writing a query.
+- Read [source-boundaries.md](../../skills/consult-semantic-okf/references/source-boundaries.md) when a bundle contains separate authorities, homogeneous partitions, or cross-bundle evidence.
+- Read [cross-source-synthesis.md](../../skills/consult-semantic-okf/references/cross-source-synthesis.md) before comparing, aggregating, or citing multiple sources.
 
 ## Environment
 

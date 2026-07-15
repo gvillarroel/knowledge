@@ -1,0 +1,172 @@
+{
+  "schema_version": "semantic-okf-adaptive-frozen-benchmark/1.0",
+  "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+  "status": "frozen",
+  "frozen_on": "2026-07-14",
+  "mutation_policy": "Never edit a bound question, ground-truth, assertion, evaluator, corpus inventory, or incumbent report in place. A legitimate benchmark correction requires a new benchmark ID and a new manifest; skill evolution must continue to score against this version unchanged.",
+  "cohorts": {
+    "retrieval_questions": {
+      "path": "evaluations/semantic-okf-adaptive/retrieval-questions.jsonl",
+      "sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+      "count": 40,
+      "ordered_ids": [
+        "q001-methodology-taxonomy",
+        "q002-common-pipeline",
+        "q003-graph-origin-representation",
+        "q004-retrieval-units",
+        "q005-community-hierarchy",
+        "q006-path-subgraph-reasoning",
+        "q007-diffusion-versus-traversal",
+        "q008-local-global-queries",
+        "q009-query-processing-routing",
+        "q010-context-organization",
+        "q011-vector-graph-hybrid",
+        "q012-llm-roles",
+        "q013-offline-construction-cost",
+        "q014-online-efficiency",
+        "q015-incremental-updates",
+        "q016-noise-redundancy",
+        "q017-imperfect-graphs",
+        "q018-grounding-safety",
+        "q019-external-parametric-balance",
+        "q020-domain-adaptation",
+        "q021-fact-checking-versus-qa",
+        "q022-long-context-sensemaking",
+        "q023-method-task-matrix",
+        "q024-evaluation-practices",
+        "q025-benchmark-bias",
+        "q026-explainability-evidence",
+        "q027-community-construction",
+        "q028-optimization-operators",
+        "q029-static-agentic-retrieval",
+        "q030-design-decision-framework",
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ]
+    },
+    "hard_questions": {
+      "path": "evaluations/semantic-okf-adaptive/hard-questions.jsonl",
+      "sha256": "59b41fe5f81141ee2fc9ab04e61751c474d97e17eb8eead7aaf432ecd47259ca",
+      "count": 10,
+      "ordered_ids": [
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ]
+    },
+    "hard_ground_truth": {
+      "path": "evaluations/semantic-okf-adaptive/hard-ground-truth.jsonl",
+      "sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388",
+      "count": 10,
+      "ordered_ids": [
+        "q031-graph-routing-boundary",
+        "q032-incremental-update-maturity",
+        "q033-corruption-specific-defenses",
+        "q034-nonmonotonic-context-budget",
+        "q035-lossless-enough-evidence-organization",
+        "q036-evaluation-leakage-and-stage-separation",
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router",
+        "q039-baseline-bound-efficiency-claims",
+        "q040-answer-source-control"
+      ]
+    }
+  },
+  "support_files": [
+    {
+      "role": "original-thirty-question-cohort",
+      "path": "evaluations/semantic-okf-embeddings/retrieval-questions.jsonl",
+      "sha256": "fc583fc4cfdb8c392b8e53e929b5b052a86b0d288297a1d73723ee53feec175a"
+    },
+    {
+      "role": "hard-question-evidence-blueprint",
+      "path": "evaluations/semantic-okf-classical/hard-question-evidence.json",
+      "sha256": "2502bb01aec2a93ed9cc4181f23a2243b8e8ba9dff8dc2ae98a3706ed880be51"
+    },
+    {
+      "role": "hard-ground-truth-generation-manifest",
+      "path": "evaluations/semantic-okf-adaptive/hard-ground-truth-manifest.json",
+      "sha256": "0d664c251a8d80fcac18e136418b5cc9fc24ed11e6ecc749567e81c93278a817"
+    },
+    {
+      "role": "authoritative-corpus-inventory",
+      "path": "evaluations/semantic-okf-embeddings/input-inventory.json",
+      "sha256": "007a2c4ecbb7802fbb2ea2ca4dc57d3dbf96189d12f19d2db3e5b934bd0207a0"
+    },
+    {
+      "role": "authoritative-build-manifest",
+      "path": "evaluations/graphrag-cross-paper/manifest.json",
+      "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37"
+    },
+    {
+      "role": "hard-answer-skill-arena-config",
+      "path": "evaluations/semantic-okf-adaptive/skill-arena/adaptive-hard10.yaml",
+      "sha256": "e7c9f3447d6fe37532d9d0dd745cd756b3794ab630de373875fee8012458d1be"
+    },
+    {
+      "role": "hard-answer-prompt-coverage",
+      "path": "evaluations/semantic-okf-adaptive/skill-arena/prompt-coverage.json",
+      "sha256": "45626a846531df72517208a4dc61f2c6cb4e648e03677e6cbe4ea84e62cfbc24"
+    }
+  ],
+  "evaluator_files": [
+    {
+      "role": "retrieval-comparator",
+      "path": "evaluations/semantic-okf-adaptive/scripts/compare_retrieval.py",
+      "sha256": "500648d0c0e11fb08e2bdf1ea9f74f79a4d5ebf02978395586de888a46c82ee9"
+    },
+    {
+      "role": "retrieval-summary-contract",
+      "path": "evaluations/semantic-okf-adaptive/scripts/summarize_retrieval.py",
+      "sha256": "a8b4a9aaed2557c092e4be27956955e30eb3b831300be9ec504ed27483048710"
+    },
+    {
+      "role": "grounded-answer-scorer",
+      "path": "evaluations/semantic-okf-entity-graph/scripts/evaluate_grounded_answers.py",
+      "sha256": "17e817a1a86b942f70862e4a8491005be76ccb49154d37b7716f77e792a6d94a"
+    },
+    {
+      "role": "blinded-answer-reviewer",
+      "path": "evaluations/semantic-okf-entity-graph/scripts/review_grounded_answers.py",
+      "sha256": "51d71bc820c984d960b3e6f2f404c65a73ee4e8435e73b2582006e048e2991ea"
+    }
+  ],
+  "incumbent_reports": [
+    {
+      "role": "retrieval-incumbent",
+      "path": "evaluations/semantic-okf-adaptive/retrieval-summary.json",
+      "sha256": "14dd37e137c84ef6ea81f96fbdb70e796a8d65fb68509ba463181bf0fdef8152"
+    },
+    {
+      "role": "grounded-answer-incumbent",
+      "path": "evaluations/semantic-okf-adaptive/grounded-answer-summary.json",
+      "sha256": "869fc030d3e5a744c871929afd972085cffee613e2597449d0a2eaf32585c7bf"
+    },
+    {
+      "role": "accepted-answer-run-binding",
+      "path": "evaluations/semantic-okf-adaptive/skill-arena/final-run-summary.json",
+      "sha256": "3afc6a63049ac5db3934a789cf28668728fec6d7619bc6b041e6357eef9e0450"
+    }
+  ],
+  "invariants": {
+    "retrieval_composition": "The first thirty retrieval rows equal the original cohort byte-for-byte by parsed JSON value; the final ten equal hard-questions.jsonl in order.",
+    "ground_truth_alignment": "Hard-question and hard-ground-truth IDs and question text match one-to-one in order, and qrels equal the required paper and source identities.",
+    "prompt_isolation": "Question rows contain only id, qrels, and question. Atomic answers and derivations remain only in hard-ground-truth.jsonl and evaluator assertions.",
+    "fitness_boundary": "Skill candidates may change only their standalone build or consult package. Bound benchmark files remain read-only during a population-search generation."
+  }
+}

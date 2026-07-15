@@ -1,0 +1,91 @@
+{
+  "schema_version": "semantic-okf-adaptive-validation-summary/1.0",
+  "status": "pass",
+  "validated_on": "2026-07-14",
+  "accepted_run_id": "20260714-adaptive-final-05",
+  "checks": {
+    "skill_creator_quick_validate": {
+      "status": "pass",
+      "packages": [
+        "skills/build-semantic-okf-adaptive",
+        "skills/consult-semantic-okf-adaptive"
+      ]
+    },
+    "published_bundle_validation": {
+      "status": "pass",
+      "schema_version": "1.1",
+      "errors": 0,
+      "warnings": 0,
+      "records": 846,
+      "documents": 1135,
+      "terms": 96799,
+      "topics": 16,
+      "association_terms": 3000
+    },
+    "hard_ground_truth": {
+      "status": "pass",
+      "questions": 10,
+      "benchmark_composition": "30+10",
+      "authoritative_locator_and_hash_validation": true,
+      "deterministic_generation_check": true
+    },
+    "manual_read_only_query": {
+      "status": "pass",
+      "mode": "adaptive",
+      "returned": 3,
+      "algorithm": "protected-full-query-plus-aspect-rrf-v2",
+      "evidence_adapter": "exact-authoritative-fields-v2",
+      "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+    },
+    "okf_project_bundle": {
+      "status": "pass",
+      "documents": 20,
+      "check_mode_current": true
+    },
+    "focused_adaptive_tests": {
+      "status": "pass",
+      "passed": 48,
+      "failed": 0,
+      "duration_seconds": 8.13
+    },
+    "full_repository_tests": {
+      "status": "pass",
+      "passed": 1203,
+      "failed": 0,
+      "duration_seconds": 150.32
+    },
+    "application_coverage_gate": {
+      "status": "pass",
+      "command": "python scripts/check_coverage.py --threshold 80",
+      "instrumented_tests_passed": 1123,
+      "application_coverage_percent": 90.9,
+      "threshold_percent": 80.0,
+      "duration_seconds": 194.72
+    },
+    "retrieval_evaluation": {
+      "status": "pass",
+      "questions": 40,
+      "routes": 13,
+      "query_errors": 0,
+      "all_evidence_valid": true
+    },
+    "grounded_answer_evaluation": {
+      "status": "pass",
+      "questions": 10,
+      "methods": 5,
+      "profiles_per_method": 2,
+      "answers": 100,
+      "blinded_reviews": 100
+    }
+  },
+  "bindings": {
+    "retrieval_summary_sha256": "14dd37e137c84ef6ea81f96fbdb70e796a8d65fb68509ba463181bf0fdef8152",
+    "grounded_answer_summary_sha256": "869fc030d3e5a744c871929afd972085cffee613e2597449d0a2eaf32585c7bf",
+    "grounded_answer_markdown_sha256": "a91152b01113f88945bd59248ed639c33a1c9c98aaf2bdcf84286ad52f3cc377",
+    "evaluation_conclusions_sha256": "9468e628593a653f2ef670bb87dc0fabc8bf888ff1f8abd450631a73b27c6767",
+    "answer_final_run_summary_sha256": "3afc6a63049ac5db3934a789cf28668728fec6d7619bc6b041e6357eef9e0450",
+    "evaluation_environment_sha256": "4ba011f1ab9dc1fc546b29cae4c8f377891d0c57703884c6916051bdca46cd74",
+    "adaptive_evaluation_tests_sha256": "7cab2561ec5761bf2d2ce5c18c1d0baaf3d1a3a14a3ca7457ce0936e0ee33e91",
+    "adr_sha256": "e3f850f3f00f6e7586c0c77bd2b7b9a920b9e25ccc6267dbe6b95c26b985a990"
+  }
+}

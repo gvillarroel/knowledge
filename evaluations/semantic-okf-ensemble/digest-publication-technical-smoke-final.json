@@ -1,0 +1,243 @@
+{
+  "schema_version": "semantic-okf-ensemble-digest-publication-technical-smoke/1.0",
+  "status": "accepted",
+  "classification": {
+    "kind": "non-causal-technical-smoke",
+    "causal_evidence": false,
+    "causal_answer_metrics": false,
+    "purpose": "Retained live-run evidence that the MCP 1.4.0 digest preparation, confirmation, and host publication path works end to end."
+  },
+  "benchmark": {
+    "id": "semantic-okf-ensemble-q031-digest-publication-smoke-v4",
+    "eval_id": "eval-7Np-2026-07-15T14:20:47",
+    "question_id": "q031-graph-routing-boundary",
+    "profile_id": "ensemble-consult-treatment",
+    "variant_id": "codex-luna-tools",
+    "repetitions": 3
+  },
+  "bindings": {
+    "full_comparison_config": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/ensemble-hard10.yaml",
+      "sha256": "be443278a2eab287a78945f5bf8f42a5bcb7f49153476901b042b8aeb2d9564b"
+    },
+    "config_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/config-manifest.json",
+      "sha256": "46fc4604289410de0acfc294a92eb72c941179f361aa6a3c66742487ac144b29"
+    },
+    "answer_output_contract": {
+      "path": "evaluations/semantic-okf-ensemble/answer-output-evaluation-contract.json",
+      "sha256": "f87cb914a0961bf4a1e3264fb0ca635d1a28426d200074500478f8a9e940e09a"
+    },
+    "frozen_attestor": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/attest_skill_arena_mcp_runtime.py",
+      "sha256": "146a301d39fac6018288ba83a48ef8a1e5aaeac8a057454cd4d0bc88dfd14fe6"
+    },
+    "smoke_config": {
+      "path": "results/q031-digest-publication-smoke-v4.yaml",
+      "sha256": "ab8db143851bcb4e07b435739b4670ef8475125c21b6cc0a9ead924b6bc5bc23"
+    },
+    "promptfoo_results": {
+      "path": "results/semantic-okf-ensemble-q031-digest-publication-smoke-v4/2026-07-15T14-20-42-509Z-compare/promptfoo-results.json",
+      "sha256": "0898100ffc69bb71820609f941b91c8eb2db07826ab1874621c2d4f696b90cb1"
+    }
+  },
+  "validation": {
+    "method": "Read-only replay through the frozen attestor helpers _trace_events, _paired_calls, and _attest_treatment.",
+    "source_artifacts_mutated": false,
+    "mcp_server_version": "1.4.0",
+    "prepared_envelope_schema": "semantic-okf-prepared-answer/1.0",
+    "confirmation_receipt_schema": "semantic-okf-answer-confirmation-receipt/1.0",
+    "confirm_argument_keys": [
+      "response_sha256"
+    ],
+    "coverage_priority_order": "persisted-idf-facet-consensus-priority-v1",
+    "coverage_priority_order_sha256": "9ec21df4d02d0e1fba2a9dac3555c68e424968d347ff4d48d8df768351e1b25b"
+  },
+  "rows": [
+    {
+      "repetition": 1,
+      "technical_contract_pass": true,
+      "assertion_score": 1.0,
+      "assertion_pass": true,
+      "assertions": {
+        "response-format": true,
+        "response-contract": true,
+        "evidence-validity": true,
+        "atomic-answer-completeness": true,
+        "important-negative-coverage": true
+      },
+      "missed_atomic_option_set": null,
+      "output_sha256": "a4dcf2087c8de2cf48aec1edd2e24bf394d15acd15c98f0afef43f4cefe12a2f",
+      "confirmation_sha256": "a4dcf2087c8de2cf48aec1edd2e24bf394d15acd15c98f0afef43f4cefe12a2f",
+      "byte_count": 8125,
+      "trace": {
+        "path": "results/semantic-okf-ensemble-q031-digest-publication-smoke-v4/2026-07-15T14-20-42-516Z-bf74e858-0ff3-463e-b694-0738781c3277-codex-luna-tools-ensemble-consult-treatment/workspace/.skill-arena/hooks/execution-events/2026-07-15T14-23-00.024Z-codex-9f0b0e41-87f5-4f85-a9f1-e8abec0ac9d6.json",
+        "sha256": "6c748ec75c6ade24f0b999a706e55a04858598fbfe66419c5f06a3f5bb2ac593"
+      },
+      "coverage_pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "coverage_total_pages": 5,
+      "protocol_sequence": [
+        "semantic_okf_inspect",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_prepare_answer",
+        "semantic_okf_confirm_answer"
+      ],
+      "protocol_outcomes": [
+        "prepare:success",
+        "confirm:success"
+      ],
+      "failed_mcp_calls": 0,
+      "recovered_protocol_failures": 0,
+      "shell_or_command_calls": 0,
+      "publication_corrected": true
+    },
+    {
+      "repetition": 2,
+      "technical_contract_pass": true,
+      "assertion_score": 0.8,
+      "assertion_pass": false,
+      "assertions": {
+        "response-format": true,
+        "response-contract": true,
+        "evidence-validity": true,
+        "atomic-answer-completeness": false,
+        "important-negative-coverage": true
+      },
+      "missed_atomic_option_set": [
+        "claim-2503-13804v1-037",
+        "claim-2503-13804v1-038"
+      ],
+      "output_sha256": "529d1561c90341adf61e3ca685144458e1e16ecc413fb82abb033645547dd099",
+      "confirmation_sha256": "529d1561c90341adf61e3ca685144458e1e16ecc413fb82abb033645547dd099",
+      "byte_count": 8078,
+      "trace": {
+        "path": "results/semantic-okf-ensemble-q031-digest-publication-smoke-v4/2026-07-15T14-20-42-516Z-bf74e858-0ff3-463e-b694-0738781c3277-codex-luna-tools-ensemble-consult-treatment/workspace/.skill-arena/hooks/execution-events/2026-07-15T14-23-10.968Z-codex-ff8bd225-1514-489f-b9ed-08bff4041e09.json",
+        "sha256": "20982ce51d263da3c0c51c98ef03fe718c84b6cee8a1f3a7f4bee03d397ea6f4"
+      },
+      "coverage_pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "coverage_total_pages": 5,
+      "protocol_sequence": [
+        "semantic_okf_inspect",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_prepare_answer",
+        "semantic_okf_confirm_answer"
+      ],
+      "protocol_outcomes": [
+        "prepare:success",
+        "confirm:success"
+      ],
+      "failed_mcp_calls": 0,
+      "recovered_protocol_failures": 0,
+      "shell_or_command_calls": 0,
+      "publication_corrected": true
+    },
+    {
+      "repetition": 3,
+      "technical_contract_pass": true,
+      "assertion_score": 1.0,
+      "assertion_pass": true,
+      "assertions": {
+        "response-format": true,
+        "response-contract": true,
+        "evidence-validity": true,
+        "atomic-answer-completeness": true,
+        "important-negative-coverage": true
+      },
+      "missed_atomic_option_set": null,
+      "output_sha256": "a87dd68d2c414a41a35023eb287188122c6625f5dd38681e0f1dfd2bdfcb19fe",
+      "confirmation_sha256": "a87dd68d2c414a41a35023eb287188122c6625f5dd38681e0f1dfd2bdfcb19fe",
+      "byte_count": 7687,
+      "trace": {
+        "path": "results/semantic-okf-ensemble-q031-digest-publication-smoke-v4/2026-07-15T14-20-42-516Z-bf74e858-0ff3-463e-b694-0738781c3277-codex-luna-tools-ensemble-consult-treatment/workspace/.skill-arena/hooks/execution-events/2026-07-15T14-25-03.866Z-codex-24f4bea3-f94a-4776-9cec-b49a4d8dd2f9.json",
+        "sha256": "4da23666fdca02321e29c04faa276d2e249803d6d8cffada56e8eafa014a2f6f"
+      },
+      "coverage_pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "coverage_total_pages": 5,
+      "protocol_sequence": [
+        "semantic_okf_inspect",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_prepare_answer",
+        "semantic_okf_confirm_answer"
+      ],
+      "protocol_outcomes": [
+        "prepare:success",
+        "confirm:success"
+      ],
+      "failed_mcp_calls": 0,
+      "recovered_protocol_failures": 0,
+      "shell_or_command_calls": 0,
+      "publication_corrected": true
+    }
+  ],
+  "aggregates": {
+    "technical_contract_pass_count": 3,
+    "technical_contract_total": 3,
+    "assertion_full_pass_count": 2,
+    "assertion_full_pass_total": 3,
+    "assertion_scores": [
+      1.0,
+      0.8,
+      1.0
+    ],
+    "metric_pass_counts": {
+      "response-format": "3/3",
+      "response-contract": "3/3",
+      "evidence-validity": "3/3",
+      "atomic-answer-completeness": "2/3",
+      "important-negative-coverage": "3/3"
+    },
+    "digest_confirmation_output_match_count": 3,
+    "complete_priority_coverage_count": 3,
+    "publication_correction_count": 3,
+    "failed_mcp_call_count": 0,
+    "protocol_recovery_count": 0,
+    "shell_or_command_call_count": 0
+  },
+  "gates": {
+    "all_three_technical_contracts_pass": true,
+    "all_confirmations_bind_prepared_digest": true,
+    "all_receipts_bind_digest_and_byte_count": true,
+    "all_published_outputs_match_confirmed_candidate_bytes": true,
+    "all_coverage_sessions_read_pages_1_through_5": true,
+    "all_coverage_sessions_bind_exact_priority_order": true,
+    "all_protocol_suffixes_are_prepare_then_terminal_confirm": true,
+    "no_failed_mcp_calls": true,
+    "no_protocol_recovery_required": true,
+    "no_shell_or_command_calls": true,
+    "all_response_contract_assertions_pass": true,
+    "all_evidence_validity_assertions_pass": true,
+    "all_important_negative_assertions_pass": true,
+    "non_causal_scope_explicit": true
+  },
+  "interpretation": "Accepted only as a live technical smoke for digest-confirmed publication. Repetition 2 misses the exact reviewed atomic option set claim-2503-13804v1-037|claim-2503-13804v1-038; every publication, response-contract, evidence-validity, and important-negative gate still passes. This one-profile, one-question repeated smoke provides no causal answer-quality comparison or alternative-ranking metric."
+}

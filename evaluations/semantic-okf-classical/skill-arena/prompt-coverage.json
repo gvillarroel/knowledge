@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 10,
+    "minimumTaskFamilies": 6,
+    "maximumPromptWords": 210,
+    "maximumPairwiseJaccard": 0.65,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "q031-graph-routing-boundary",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "retrieval-routing"
+    },
+    {
+      "promptId": "q032-incremental-update-maturity",
+      "caseKind": "generalization",
+      "taskFamily": "knowledge-lifecycle"
+    },
+    {
+      "promptId": "q033-corruption-specific-defenses",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "robustness-defense"
+    },
+    {
+      "promptId": "q034-nonmonotonic-context-budget",
+      "caseKind": "generalization",
+      "taskFamily": "context-budgeting"
+    },
+    {
+      "promptId": "q035-lossless-enough-evidence-organization",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "evidence-organization"
+    },
+    {
+      "promptId": "q036-evaluation-leakage-and-stage-separation",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "evaluation-design"
+    },
+    {
+      "promptId": "q037-domain-construction-under-constraints",
+      "caseKind": "generalization",
+      "taskFamily": "graph-construction"
+    },
+    {
+      "promptId": "q038-failure-aware-query-router",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "retrieval-routing"
+    },
+    {
+      "promptId": "q039-baseline-bound-efficiency-claims",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "efficiency-comparison"
+    },
+    {
+      "promptId": "q040-answer-source-control",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "answer-grounding-policy"
+    }
+  ]
+}

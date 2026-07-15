@@ -1,0 +1,149 @@
+{
+  "benchmark": {
+    "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "bound_files": 17,
+    "hard_questions": 10,
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "retrieval_questions": 40,
+    "schema_version": "semantic-okf-adaptive-frozen-benchmark/1.0",
+    "status": "pass"
+  },
+  "candidate": "candidate-11-minimal-direct-support",
+  "hard_gates": {
+    "candidate_binding_validity": 1.0,
+    "deterministic": true,
+    "frozen_benchmark": true,
+    "question_id_isolation": true,
+    "read_only": true
+  },
+  "inputs": {
+    "answer_binding_count": 831,
+    "bundle": "evaluations/semantic-okf-adaptive-evolution/results/population-runs/generation-000/candidate-07",
+    "ground_truth_sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388",
+    "questions_sha256": "59b41fe5f81141ee2fc9ab04e61751c474d97e17eb8eead7aaf432ecd47259ca",
+    "runtime": "skills/consult-semantic-okf-adaptive/scripts/_adaptive_snapshot.py",
+    "runtime_sha256": "66176ef1652bad03d3390137854823b9d9a03fa6f209594444c395ebd5943032"
+  },
+  "metrics": {
+    "facet_count": {
+      "maximum": 9,
+      "mean": 7.1,
+      "minimum": 6
+    },
+    "facet_union_answer_claim_coverage": 0.765,
+    "facet_union_important_negative_coverage": 0.8833333333333334,
+    "facet_union_required_paper_coverage": 1.0,
+    "latency_ms": {
+      "maximum": 1742.3617000458762,
+      "mean": 1338.1253266745869,
+      "median": 1352.814199985005
+    },
+    "primary_answer_claim_recall_at_30": 0.6,
+    "unique_candidate_claims": {
+      "maximum": 97,
+      "mean": 81.0,
+      "minimum": 62
+    }
+  },
+  "protocol": {
+    "candidate_budget_warning": "facet union has a larger variable budget and is not Recall@30",
+    "maximum_facets": 12,
+    "per_facet": 12,
+    "primary_top_k": 30,
+    "repetitions_per_question": 3
+  },
+  "questions": [
+    {
+      "facet_count": 8,
+      "facet_union_answer_claim_coverage": 0.75,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q031-graph-routing-boundary",
+      "primary_answer_claim_recall_at_30": 0.5,
+      "unique_candidate_claims": 96
+    },
+    {
+      "facet_count": 7,
+      "facet_union_answer_claim_coverage": 0.8,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q032-incremental-update-maturity",
+      "primary_answer_claim_recall_at_30": 0.6,
+      "unique_candidate_claims": 71
+    },
+    {
+      "facet_count": 6,
+      "facet_union_answer_claim_coverage": 0.5,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q033-corruption-specific-defenses",
+      "primary_answer_claim_recall_at_30": 0.5,
+      "unique_candidate_claims": 76
+    },
+    {
+      "facet_count": 6,
+      "facet_union_answer_claim_coverage": 0.5,
+      "facet_union_important_negative_coverage": 0.5,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q034-nonmonotonic-context-budget",
+      "primary_answer_claim_recall_at_30": 0.5,
+      "unique_candidate_claims": 62
+    },
+    {
+      "facet_count": 7,
+      "facet_union_answer_claim_coverage": 0.75,
+      "facet_union_important_negative_coverage": 0.6666666666666666,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q035-lossless-enough-evidence-organization",
+      "primary_answer_claim_recall_at_30": 0.5,
+      "unique_candidate_claims": 73
+    },
+    {
+      "facet_count": 6,
+      "facet_union_answer_claim_coverage": 0.8,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q036-evaluation-leakage-and-stage-separation",
+      "primary_answer_claim_recall_at_30": 0.8,
+      "unique_candidate_claims": 72
+    },
+    {
+      "facet_count": 9,
+      "facet_union_answer_claim_coverage": 0.8,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q037-domain-construction-under-constraints",
+      "primary_answer_claim_recall_at_30": 0.8,
+      "unique_candidate_claims": 97
+    },
+    {
+      "facet_count": 7,
+      "facet_union_answer_claim_coverage": 0.75,
+      "facet_union_important_negative_coverage": 0.6666666666666666,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q038-failure-aware-query-router",
+      "primary_answer_claim_recall_at_30": 0.75,
+      "unique_candidate_claims": 85
+    },
+    {
+      "facet_count": 8,
+      "facet_union_answer_claim_coverage": 1.0,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q039-baseline-bound-efficiency-claims",
+      "primary_answer_claim_recall_at_30": 0.8,
+      "unique_candidate_claims": 96
+    },
+    {
+      "facet_count": 7,
+      "facet_union_answer_claim_coverage": 1.0,
+      "facet_union_important_negative_coverage": 1.0,
+      "facet_union_required_paper_coverage": 1.0,
+      "id": "q040-answer-source-control",
+      "primary_answer_claim_recall_at_30": 0.25,
+      "unique_candidate_claims": 82
+    }
+  ],
+  "schema_version": "semantic-okf-adaptive-coverage-pack-evaluation/1.0",
+  "status": "pass"
+}

@@ -1,0 +1,205 @@
+{
+  "schema_version": "semantic-okf-hard-answer-configs/2.2",
+  "status": "validated-dry-run",
+  "reviewed_benchmark": {
+    "benchmark_id": "semantic-okf-ensemble-reviewed-answer-40-plus-hard10-v1",
+    "frozen_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/frozen-answer-benchmark.json",
+      "sha256": "257997cc2da3d9afae596ac8b46551a1b1fa73480f15861a25f262bb85a91f62"
+    },
+    "ground_truth": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+      "sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451",
+      "canonical_sha256": "1dd5f52b8fa9ec9cee2b1ee64d8c5c5ab3ef0cf3e3ef81da0e610b94d3c02dab",
+      "schema_version": "semantic-okf-hard-ground-truth/1.0"
+    },
+    "ground_truth_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth-manifest.json",
+      "sha256": "450a25cd9fed0009bf2145067f15e6c7f3f58249ed7ce75afaf9897ccc185003"
+    }
+  },
+  "question_count": 10,
+  "run_id": "20260715-ensemble-final-03",
+  "config_generator": {
+    "path": "evaluations/semantic-okf-ensemble/scripts/generate_skill_arena_config.py",
+    "sha256": "c77d0717ef57b2c3ac0fe2bd77a9e238f79a4e764d4d571167b3d899b3c30857",
+    "deterministic": true,
+    "check_mode": true
+  },
+  "configs": [
+    {
+      "method": "ensemble_three_arm",
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/ensemble-hard10.yaml",
+      "sha256": "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac"
+    }
+  ],
+  "coverage_path": "evaluations/semantic-okf-ensemble/skill-arena/prompt-coverage.json",
+  "coverage_sha256": "45626a846531df72517208a4dc61f2c6cb4e648e03677e6cbe4ea84e62cfbc24",
+  "workspace_bundle": {
+    "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+    "target": "/knowledge",
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939"
+  },
+  "profiles": [
+    "knowledge-only-control",
+    "adaptive-consult-control",
+    "ensemble-consult-treatment"
+  ],
+  "variant": {
+    "id": "codex-luna-tools",
+    "adapter": "codex",
+    "command_path": "publication-runtime\\run_codex.cmd",
+    "model": "gpt-5.6-luna",
+    "sandbox_mode": "workspace-write",
+    "web_search_enabled": false,
+    "network_access_enabled": false,
+    "requests_per_cell": 3,
+    "maximum_concurrency": 2,
+    "no_cache": true
+  },
+  "required_host_environment_variables": [
+    "SEMANTIC_OKF_PYTHON",
+    "SEMANTIC_OKF_HF_HUB_CACHE"
+  ],
+  "mcp_runtime": {
+    "path": "skills/consult-semantic-okf-ensemble/mcp-runtime",
+    "tree_sha256": "a1d75372355b9d44f1fa8fa4f29585cd1cb8744bcf7fa0e5ce36b0f9706d51ee",
+    "server_sha256": "bef33f807ad339563a076402edf96b65c9cd66f81eb0af3484a49a8945d940c2",
+    "launcher_sha256": "d2527a45a76e1eab182acff7c545ab8092a3301cdcdb81f3990c0423533289a2",
+    "server_version": "1.5.0",
+    "allowed_skill_id": "consult-semantic-okf-ensemble",
+    "controls_expose_tools": false,
+    "bootstrap_tool": "semantic_okf_bootstrap_skill",
+    "bootstrap_schema": "semantic-okf-skill-bootstrap/1.0",
+    "bootstrap_key_order": [
+      "schema",
+      "skill_id",
+      "skill_sha256",
+      "byte_count",
+      "skill_markdown"
+    ],
+    "bootstrap_skill_id": "consult-semantic-okf-ensemble",
+    "bootstrap_skill_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2",
+    "bootstrap_skill_byte_count": 15699,
+    "bootstrap_exactly_once": true,
+    "bootstrap_first": true,
+    "bootstrap_failure_poison": true,
+    "protocol_tools": [
+      "semantic_okf_prepare_answer",
+      "semantic_okf_confirm_answer"
+    ],
+    "mode_argument": false,
+    "minimum_successful_prepares": 1,
+    "prepared_answer_schema": "semantic-okf-prepared-answer/1.0",
+    "prepared_answer_key_order": [
+      "schema",
+      "candidate_json",
+      "response_sha256",
+      "byte_count"
+    ],
+    "candidate_digest_binding": "sha256-lowercase-hex-of-utf8-candidate-json",
+    "confirmation_argument": "response_sha256",
+    "confirmation_argument_pattern": "^[0-9a-f]{64}$",
+    "confirmation_receipt_schema": "semantic-okf-answer-confirmation-receipt/1.0",
+    "confirmation_receipt_key_order": [
+      "schema",
+      "status",
+      "response_sha256",
+      "byte_count"
+    ],
+    "confirmation_one_use": true,
+    "confirmation_terminal": true,
+    "confirmation_idempotent": false,
+    "failed_protocol_call_publishes": false,
+    "failed_protocol_call_clears_transaction": true,
+    "failure_requires_fresh_prepare": true,
+    "final_transaction_must_be_clean": true,
+    "coverage_priority_order": "persisted-idf-facet-consensus-priority-v1",
+    "priority_order_session_bound": true,
+    "tools": [
+      "semantic_okf_bootstrap_skill",
+      "semantic_okf_inspect",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_prepare_answer",
+      "semantic_okf_confirm_answer"
+    ]
+  },
+  "publication_runtime": {
+    "path": "skills/consult-semantic-okf-ensemble/publication-runtime",
+    "tree_sha256": "b8a6e9117df4bd9b7608547eaef4ce55609e01c02cb69a263c60c6e78b0624fc",
+    "script_sha256": "6db622318acba2301b272504e6687bb34055d2704a0ce4f1c7425ee9bb8570b1",
+    "launcher_sha256": "9ae819d2814490a1f9c990aae2617a9bc2873f370d7b3c8cbaf52d3bb6b5f443",
+    "command_path": "publication-runtime\\run_codex.cmd",
+    "protocol_tools": [
+      "semantic_okf_prepare_answer",
+      "semantic_okf_confirm_answer"
+    ],
+    "mode_argument": false,
+    "prepared_answer_schema": "semantic-okf-prepared-answer/1.0",
+    "prepared_answer_key_order": [
+      "schema",
+      "candidate_json",
+      "response_sha256",
+      "byte_count"
+    ],
+    "candidate_digest_binding": "sha256-lowercase-hex-of-utf8-candidate-json",
+    "confirmation_argument": "response_sha256",
+    "confirmation_argument_pattern": "^[0-9a-f]{64}$",
+    "confirmation_receipt_schema": "semantic-okf-answer-confirmation-receipt/1.0",
+    "confirmation_receipt_key_order": [
+      "schema",
+      "status",
+      "response_sha256",
+      "byte_count"
+    ],
+    "confirmation_terminal": true,
+    "confirmation_idempotent": false,
+    "failed_protocol_call_publishes": false,
+    "failed_protocol_call_clears_transaction": true,
+    "failure_requires_fresh_prepare": true,
+    "final_transaction_must_be_clean": true,
+    "published_bytes_source": "prepared-envelope-candidate-json-bytes",
+    "confirmed_bytes_atomic_replace": true,
+    "treatment_skill_id": "consult-semantic-okf-ensemble",
+    "treatment_shell_tool_disabled": true,
+    "shell_disable_arguments": [
+      "--disable",
+      "shell_tool"
+    ],
+    "shell_isolation_receipt_schema": "semantic-okf-shell-isolation-receipt/1.0",
+    "shell_isolation_receipt_key_order": [
+      "schema",
+      "skill_id",
+      "shell_tool_disabled"
+    ],
+    "controls_shell_policy_unchanged": true,
+    "controls_transparent": true
+  },
+  "embedding_runtime": {
+    "environment_variable": "SEMANTIC_OKF_PYTHON",
+    "model_cache_environment_variable": "SEMANTIC_OKF_HF_HUB_CACHE",
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "python_version": "3.12.13",
+    "python_executable_sha256": "b2e61d457cf26a449ac044769222720af5fd73d6f197bfa67591d4119001d0ea",
+    "sentence_transformers_version": "5.6.0",
+    "huggingface_hub_version": "1.23.0",
+    "offline": true,
+    "build_lock_sha256": "74f624b118f6a2331039fb3a0e6945e6f50901a96c675d63bb923a5f9c17ea5b"
+  },
+  "consult_skills": [
+    {
+      "skill_id": "consult-semantic-okf-adaptive",
+      "path": "skills/consult-semantic-okf-adaptive",
+      "tree_sha256": "731318f38a09113b57792c6e3cd93801eedb08a1cb0e7ef9cf72e19e4fe9cdac",
+      "skill_md_sha256": "c1bbbca6d96d9ce514de39b79db60625ed162d0ed33c396e3ce6a25e26a96fa5"
+    },
+    {
+      "skill_id": "consult-semantic-okf-ensemble",
+      "path": "skills/consult-semantic-okf-ensemble",
+      "tree_sha256": "8b5a8200a5049b9613e7b6cd5e6afb63405b3702deee13bc9f4c86603d8f1649",
+      "skill_md_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2"
+    }
+  ],
+  "skill_tree_hash_algorithm": "SHA-256 over sorted package-relative-path NUL file-SHA-256 newline rows; generated __pycache__ and .pyc files excluded"
+}

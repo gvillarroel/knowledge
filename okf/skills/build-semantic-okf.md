@@ -36,11 +36,11 @@ Do not infer classes, relations, rules, identity matches, or source precedence f
 
 ## Required references
 
-- Read [source-combination.md](references/source-combination.md) before combining more than one physical source.
-- Read [manifest.md](references/manifest.md) before writing or changing a manifest.
-- Read [coherence-contract.md](references/coherence-contract.md) before changing mappings, materialization, or validation behavior.
-- Read [python-runtime.md](references/python-runtime.md) before installing or running the scripts.
-- Read [refreshing.md](references/refreshing.md) before updating an existing snapshot.
+- Read [source-combination.md](../../skills/build-semantic-okf/references/source-combination.md) before combining more than one physical source.
+- Read [manifest.md](../../skills/build-semantic-okf/references/manifest.md) before writing or changing a manifest.
+- Read [coherence-contract.md](../../skills/build-semantic-okf/references/coherence-contract.md) before changing mappings, materialization, or validation behavior.
+- Read [python-runtime.md](../../skills/build-semantic-okf/references/python-runtime.md) before installing or running the scripts.
+- Read [refreshing.md](../../skills/build-semantic-okf/references/refreshing.md) before updating an existing snapshot.
 
 ## Environment
 

@@ -1,0 +1,316 @@
+{
+  "schema_version": "semantic-okf-ensemble-population-search-results/1.0",
+  "status": "pass",
+  "search_id": "semantic-okf-ensemble-offline-population-v1",
+  "bindings": {
+    "frozen_benchmark": {
+      "path": "evaluations/semantic-okf-adaptive-evolution/frozen-benchmark.json",
+      "sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414"
+    },
+    "ensemble_plan": {
+      "path": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+      "sha256": "0f30f15f4156223a72200544ec07ffab33ee3d2a92aac09424f8444ad38339f5"
+    },
+    "evaluation_contract": {
+      "path": "evaluations/semantic-okf-ensemble/evaluation-contract.json",
+      "sha256": "951c1d70c2dbede690b5b423a30e9bfbded4945ed3a9ecdd075c23871d2d300e"
+    },
+    "population_config": {
+      "path": "evaluations/semantic-okf-ensemble/population-search.json",
+      "sha256": "ff3dcab02a7b697fe63ff6d624578b397e17000c25a46c1c5a4781bc3c62b1d3"
+    },
+    "generation_zero": {
+      "path": "evaluations/semantic-okf-ensemble/generation-000.json",
+      "sha256": "412e88561c8baf56de9640f2172487f90ea45650e9e7e26b793902c31ff26d6b"
+    },
+    "raw_replay_report": {
+      "role": "Pre-winner evidence-valid component route trace used only for deterministic candidate replay.",
+      "sha256": "6fd09e9f613088c8f3d57fb65076d403d52180c4b36ed153d87a6833d4ab0dd0"
+    }
+  },
+  "selection_scope": {
+    "benchmark_role": "Frozen optimization and regression target; not an untouched holdout.",
+    "method": "Deterministic offline replay over one fixed set of real component route rankings.",
+    "retrieval_ranking_selected": true,
+    "live_runtime_measured": false,
+    "grounded_answers_evaluated": false,
+    "skill_arena_causality_evaluated": false,
+    "later_validation_rule": "Real runtime, grounded-answer, and isolated Skill Arena results are separate evidence and must not be inferred from this report.",
+    "post_selection_change": "The final-03 reviewed semantic-claim coverage gate is non-ranking answer preparation. It was evaluated separately and does not alter the selected paper-ranking policy or replay metrics."
+  },
+  "execution": {
+    "completed_generations": 4,
+    "candidates_per_generation": 10,
+    "candidate_evaluations": 40,
+    "repetitions_per_candidate": 3,
+    "replay_requests": 120,
+    "questions_per_repetition": 40,
+    "question_rankings": 4800,
+    "effective_parallelism": 1,
+    "pass_outcomes": 37,
+    "fail_outcomes": 3,
+    "all_outcomes_binary": true
+  },
+  "pre_winner_route_trace": {
+    "role": "Fixed component rankings, protected candidate sets, and inherited evidence-validity input for offline policy replay.",
+    "accepted_policy": false,
+    "algorithm": "protected-multisignal-paper-rerank-v1",
+    "routes": [
+      "adaptive",
+      "graph_fusion",
+      "bm25",
+      "embedding_hybrid"
+    ],
+    "weights": [1, 2, 3, 2],
+    "rrf_k": 0,
+    "question_count": 40,
+    "error_count": 0,
+    "evidence_validity": {
+      "returned": 400,
+      "valid": 400,
+      "invalid": 0,
+      "ratio": 1.0
+    },
+    "sha256": "6fd09e9f613088c8f3d57fb65076d403d52180c4b36ed153d87a6833d4ab0dd0"
+  },
+  "accepted_current_policy": {
+    "algorithm": "protected-multisignal-paper-rerank-v2",
+    "policy": {
+      "routes": [
+        "adaptive",
+        "graph_fusion",
+        "bm25",
+        "embedding_hybrid"
+      ],
+      "weights": [4, 1, 5, 1],
+      "rrf_k": 7,
+      "protected_route": "adaptive",
+      "promotion": {
+        "route": "graph_lexical",
+        "confirmation_routes": [
+          "adaptive",
+          "graph_lexical",
+          "graph_fusion",
+          "bm25",
+          "embedding_hybrid"
+        ],
+        "confirmation_depth": 3,
+        "minimum_confirmations": 3,
+        "maximum_protected_rank": 10
+      }
+    },
+    "tie_break": [
+      "fused_score_desc",
+      "best_active_component_rank_asc",
+      "active_component_rank_sum_asc",
+      "active_route_presence_desc",
+      "paper_id_asc"
+    ],
+    "promotion_description": "Promote the graph-lexical rank-one protected paper only with at least three confirmations among five routes within depth three.",
+    "protected_candidate_set": "adaptive"
+  },
+  "generations": [
+    {
+      "generation": 0,
+      "candidate_count": 10,
+      "pass_count": 7,
+      "fail_count": 3,
+      "survivors": [
+        "generation-000/candidate-04",
+        "generation-000/candidate-06"
+      ],
+      "best_variant": "generation-000/candidate-04",
+      "best_fitness": 91.72489055128797,
+      "result_set_sha256": "ca695e0b51402e543aedbec0d41e846d9d90b043784c55db96b9257d7f70717d"
+    },
+    {
+      "generation": 1,
+      "candidate_count": 10,
+      "pass_count": 10,
+      "fail_count": 0,
+      "survivors": [
+        "generation-001/candidate-02",
+        "generation-001/candidate-05"
+      ],
+      "best_variant": "generation-001/candidate-02",
+      "best_fitness": 91.88915060557923,
+      "result_set_sha256": "2334865578965f4d67ffc169379482113e6838f845906337deb4c9086eedd2ed"
+    },
+    {
+      "generation": 2,
+      "candidate_count": 10,
+      "pass_count": 10,
+      "fail_count": 0,
+      "survivors": [
+        "generation-002/candidate-00",
+        "generation-002/candidate-04"
+      ],
+      "best_variant": "generation-002/candidate-00",
+      "best_fitness": 91.88915060557923,
+      "result_set_sha256": "a951eeecbce42e31c65da0c18cd7ae4edcec1e18d09ec1a5b09f45ac05993ac6"
+    },
+    {
+      "generation": 3,
+      "candidate_count": 10,
+      "pass_count": 10,
+      "fail_count": 0,
+      "survivors": [
+        "generation-003/candidate-00",
+        "generation-003/candidate-02"
+      ],
+      "best_variant": "generation-003/candidate-00",
+      "best_fitness": 91.88915060557923,
+      "result_set_sha256": "f01987342b674b719439d5ee383cd1b45a8ec979d21a79c97e2d3e8009675447"
+    }
+  ],
+  "winner": {
+    "variant": "generation-001/candidate-02",
+    "carried_as": [
+      "generation-002/candidate-00",
+      "generation-003/candidate-00"
+    ],
+    "decision": "keep",
+    "fitness": 91.88915060557923,
+    "policy": {
+      "promotion": {
+        "confirmation_depth": 3,
+        "confirmation_routes": [
+          "adaptive",
+          "graph_lexical",
+          "graph_fusion",
+          "bm25",
+          "embedding_hybrid"
+        ],
+        "maximum_protected_rank": 10,
+        "minimum_confirmations": 3,
+        "route": "graph_lexical"
+      },
+      "protected_route": "adaptive",
+      "routes": [
+        "adaptive",
+        "graph_fusion",
+        "bm25",
+        "embedding_hybrid"
+      ],
+      "rrf_k": 7,
+      "weights": [4, 1, 5, 1]
+    },
+    "tie_break": "consensus",
+    "metrics": {
+      "all_mrr_at_10": 1.0,
+      "all_ndcg_at_10": 0.8520010047809912,
+      "all_recall_at_10": 0.8381619769119769,
+      "hard_mrr_at_10": 1.0,
+      "hard_ndcg_at_10": 0.8827017520626285,
+      "hard_recall_at_10": 0.9550000000000001
+    },
+    "ranking_sha256": "ddf33168e17483ffc30f37c7dcb8247f988fabbde1c559ae716e97944f5f9935",
+    "gates": {
+      "deterministic_three_repetitions": true,
+      "evidence_validity_inherited": true,
+      "metric_floors": {
+        "all_mrr_at_10": true,
+        "all_ndcg_at_10": true,
+        "all_recall_at_10": true,
+        "hard_mrr_at_10": true,
+        "hard_ndcg_at_10": true,
+        "hard_recall_at_10": true
+      },
+      "protected_set_preserved": true
+    },
+    "evidence_validity": {
+      "returned": 400,
+      "valid": 400,
+      "invalid": 0,
+      "ratio": 1.0,
+      "source": "inherited from the fixed pre-winner route trace"
+    },
+    "reason": "It passed every binary gate, produced MRR@10 of 1.0 on both cohorts, had the highest balanced six-metric fitness, and remained unchanged through two later generations."
+  },
+  "plateau": {
+    "required_non_improving_generations": 2,
+    "best_fitness_by_generation": [
+      91.72489055128797,
+      91.88915060557923,
+      91.88915060557923,
+      91.88915060557923
+    ],
+    "last_improvement_generation": 1,
+    "non_improving_generations_after_winner": [2, 3],
+    "stop_reason": "two-generation-plateau",
+    "satisfied": true
+  },
+  "rejected_variant_families": [
+    {
+      "family": "hard-gate failures",
+      "representatives": [
+        "generation-000/candidate-03",
+        "generation-000/candidate-07",
+        "generation-000/candidate-08"
+      ],
+      "best_fitness": 0.0,
+      "outcome": "discard",
+      "reason": "Adaptive-only missed the all-question nDCG floor; semantic-heavy and the initial smoothed RRF missed the hard-ten nDCG floor."
+    },
+    {
+      "family": "route and promotion ablations",
+      "representatives": [
+        "generation-000/candidate-01",
+        "generation-000/candidate-02",
+        "generation-000/candidate-09"
+      ],
+      "best_fitness": 90.30202789810488,
+      "outcome": "discard",
+      "reason": "Removing semantic scoring, using the fast route set, or removing graph promotion all passed gates but ranked below the accepted policy."
+    },
+    {
+      "family": "single-signal emphasis",
+      "representatives": [
+        "generation-000/candidate-05",
+        "generation-000/candidate-06"
+      ],
+      "best_fitness": 91.45797778565891,
+      "outcome": "discard",
+      "reason": "BM25-heavy and graph-heavy generation-zero policies did not beat the later balanced lexical policy."
+    },
+    {
+      "family": "local weight neighbors",
+      "representatives": [
+        "generation-002/candidate-04",
+        "generation-002/candidate-09",
+        "generation-002/candidate-08",
+        "generation-002/candidate-06"
+      ],
+      "best_fitness": 91.85852985374896,
+      "outcome": "discard",
+      "reason": "Nearby adaptive, graph, semantic, BM25, and smoothing changes passed but reduced balanced fitness."
+    },
+    {
+      "family": "larger smoothing constants",
+      "representatives": [
+        "generation-003/candidate-07",
+        "generation-003/candidate-08"
+      ],
+      "best_fitness": 91.87046635531036,
+      "outcome": "discard",
+      "reason": "RRF constants eight and nine were stable but scored below seven."
+    },
+    {
+      "family": "ratio-equivalent scaling",
+      "representatives": ["generation-003/candidate-02"],
+      "best_fitness": 91.88915060557923,
+      "outcome": "discard",
+      "reason": "Doubling every weight reproduced the winner exactly, so the simpler 4:1:5:1 representation won the deterministic simplicity tie."
+    }
+  ],
+  "validation": {
+    "closed_candidate_results": true,
+    "deterministic_three_repetitions_for_every_candidate": true,
+    "protected_set_preserved_for_every_candidate": true,
+    "evidence_validity_inherited_from_bound_trace": true,
+    "generation_zero_matches_raw_results": true,
+    "current_plan_matches_winner": true,
+    "portable_paths_only": true,
+    "timestamps_omitted": true
+  }
+}

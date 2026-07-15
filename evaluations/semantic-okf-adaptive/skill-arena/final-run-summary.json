@@ -1,0 +1,69 @@
+{
+  "schema_version": "semantic-okf-adaptive-answer-final-run/1.0",
+  "status": "accepted-final-observation",
+  "eval_id": "eval-Iue-2026-07-14T17:50:18",
+  "compare_run": "results/semantic-okf-adaptive-hard10-paired/2026-07-14T17-50-14-025Z-compare",
+  "cells": {
+    "requested": 20,
+    "completed": 20,
+    "errors": 0,
+    "strict_passes": 0,
+    "duration_ms": 1029977
+  },
+  "runtime": {
+    "model": "openai-codex/gpt-5.6-luna",
+    "promptfoo": "0.121.2",
+    "profiles": [
+      "knowledge-only-control",
+      "adaptive-consult-treatment"
+    ]
+  },
+  "bindings": {
+    "skill_arena_config_sha256": "e7c9f3447d6fe37532d9d0dd745cd756b3794ab630de373875fee8012458d1be",
+    "consult_skill_tree_sha256": "e520ac45d7e1d01608be56b82d8be3a444a04c29a18b4448e454fcbacc2070f4",
+    "consult_skill_md_sha256": "d44f364fc50d3c41721d12f5ea782036c1192ad6bdd4b2254dce42d956c6afbb",
+    "summary_sha256": "28c9513290e00b6836dc0d1656afa097641effbd3b29588574920ec28e01e445",
+    "promptfoo_results_sha256": "029cd2636f5438601a016bd47603860f14c201e177d641251f524666ba0dc492",
+    "merged_report_sha256": "2a4c73e2efa5daebc5a476e034f396cc1fd3eb77ec1a8b388d5812900d7bcd0e",
+    "merged_summary_sha256": "9435bf71428b555a31cc25afa94bb4ef129f174fd0bf9a0edfe8a1f2e1637f6a",
+    "blinded_reviews_sha256": "72a35867064dc3ac98692dfdf65395cec4d08fcb7515f151b3116a7a863fee45",
+    "grounded_answer_summary_sha256": "869fc030d3e5a744c871929afd972085cffee613e2597449d0a2eaf32585c7bf",
+    "grounded_answer_markdown_sha256": "a91152b01113f88945bd59248ed639c33a1c9c98aaf2bdcf84286ad52f3cc377"
+  },
+  "control_metrics": {
+    "response_contract": 0.4,
+    "evidence_validity": 0.93233364,
+    "grounding": 0.9332265,
+    "claim_correctness": 0.975,
+    "semantic_completeness": 0.9025,
+    "exact_atomic_evidence_coverage": 0.735,
+    "required_paper_coverage": 0.88333333,
+    "required_source_coverage": 0.88333333,
+    "important_negative_coverage": 1.0
+  },
+  "treatment_metrics": {
+    "response_contract": 0.2,
+    "evidence_validity": 0.59333333,
+    "grounding": 0.6,
+    "claim_correctness": 0.93583333,
+    "semantic_completeness": 0.5725,
+    "exact_atomic_evidence_coverage": 0.195,
+    "required_paper_coverage": 0.69666667,
+    "required_source_coverage": 0.56916667,
+    "important_negative_coverage": 1.0
+  },
+  "treatment_minus_control": {
+    "response_contract": -0.2,
+    "evidence_validity": -0.33900031,
+    "grounding": -0.3332265,
+    "claim_correctness": -0.03916667,
+    "semantic_completeness": -0.33,
+    "exact_atomic_evidence_coverage": -0.54,
+    "required_paper_coverage": -0.18666666,
+    "required_source_coverage": -0.31416666,
+    "important_negative_coverage": 0.0
+  },
+  "interpretation": "The adaptive bundle produced a strong knowledge-only control, but adding the consult skill reduced answer completeness, exact evidence coverage, grounding, and source coverage on this fixed ten-question run. Four treatment answers still serialized source locator strings into integer page fields, and several omitted required facets even when their stated claims were mostly correct.",
+  "strict_score_note": "A zero strict full-pass rate means that every answer missed at least one sub-contract; it does not mean that every semantic claim was wrong. Component metrics are the diagnostic evidence.",
+  "selection_boundary": "The same ten questions were used for the earlier diagnostic and instruction repair. This accepted run measures fixed-benchmark behavior after that repair, not untouched generalization, and it does not establish that the repair caused differences from the diagnostic run."
+}

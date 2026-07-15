@@ -1,0 +1,219 @@
+{
+  "schema_version": "semantic-okf-ensemble-host-publication-mutation-diagnostic/1.0",
+  "status": "rejected",
+  "evidence_class": "diagnostic-only-non-benchmark",
+  "date": "2026-07-15",
+  "comparison": {
+    "run_id": "2026-07-15T11-08-27-398Z-compare",
+    "promptfoo_eval_id": "eval-RBD-2026-07-15T11:08:32",
+    "planned_answer_count": 90,
+    "completed_answer_count_at_interruption": 38,
+    "termination": "intentional-quality-gate-stop",
+    "benchmark_eligible": false,
+    "exclusion_reason": "The run was incomplete and used the pre-gate free-form host publication path."
+  },
+  "provenance": {
+    "execution_log": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T11-08-27-398Z-compare/execution.log",
+      "sha256": "ac44e2df4cb36ee221b34df5bf6272e8c691590a79815d9b8e021348de8b63dc"
+    },
+    "generated_promptfoo_config": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T11-08-27-398Z-compare/promptfooconfig.yaml",
+      "sha256": "b5c24502dab70cfed883befb7cd66094137b558ac4fc76ba743dfbf4b86d69df"
+    },
+    "database_source": "local Promptfoo SQLite eval_results rows selected by evaluation, question, and profile identities",
+    "database_projection": "SHA-256 of canonical UTF-8 JSON with sorted keys over id, exact stored response text, and exact stored metadata text",
+    "trace_projection": "SHA-256 and byte count of each ignored raw execution-trace file"
+  },
+  "scope": {
+    "question_id": "q031-graph-routing-boundary",
+    "profile_id": "ensemble-consult-treatment",
+    "treatment_row_count": 3
+  },
+  "aggregates": {
+    "canonical_prepare_confirmation_success_count": 3,
+    "receipt_binding_pass_count": 3,
+    "host_output_matches_final_agent_message_count": 3,
+    "host_output_matches_confirmed_candidate_count": 0,
+    "host_publication_mutation_row_count": 3,
+    "mutated_field_count": 6,
+    "terminal_prepare_confirm_sequence_count": 2,
+    "post_confirmation_prepare_row_count": 1,
+    "free_form_publication_failure_rate": 1.0,
+    "observed_trace_command": "codex"
+  },
+  "rows": [
+    {
+      "raw_row_id": "356bb471-f92b-4798-9ddc-6322636eb4cc",
+      "database_projection_sha256": "2fb273f578a8fe43a4f3c99a985e8eae66fb898fddf6063d0050fbca55df7007",
+      "database_response_sha256": "c8226e81b8101f46fadf55ead54c8f1bbc41a3f0b5c60a7641b0f32a4ed19448",
+      "database_metadata_sha256": "b83583c375b923e313eda371e1cf3a14b504ef34d4707f40c31c39185350bf89",
+      "trace_sha256": "c9ccedaace112f3baedfe4afa1e4d89d8076c22dcd4358856919087a8bad1211",
+      "trace_byte_count": 1022820,
+      "trace_event_count": 30,
+      "trace_tool_event_count": 24,
+      "trace_command": "codex",
+      "finalizer_completed_sequence": [
+        "prepare:failed",
+        "prepare:completed",
+        "prepare:completed",
+        "confirm:completed"
+      ],
+      "successful_prepare_count": 2,
+      "failed_prepare_count": 1,
+      "confirmation_count": 1,
+      "post_confirmation_prepare_count": 0,
+      "confirmed_candidate": {
+        "sha256": "95c736003003a3c48082eeab1524e8af927e4475f72e80171238f9b083a90ae6",
+        "byte_count": 7006,
+        "canonical_json": true
+      },
+      "confirmation_receipt": {
+        "schema": "semantic-okf-answer-confirmation-receipt/1.0",
+        "status": "confirmed",
+        "sha256": "49f42ee3f7c6e2646af9b7fe3ee3bc3810dbd28bf823475b0a341bc6b38f8177",
+        "byte_count": 181,
+        "matches_candidate": true
+      },
+      "final_agent_message": {
+        "sha256": "d757eba83ac60fb3fd2a6bb9d9d79e2140fcf8e5489f063607821c8d2025fc81",
+        "byte_count": 7018
+      },
+      "host_published_output": {
+        "sha256": "d757eba83ac60fb3fd2a6bb9d9d79e2140fcf8e5489f063607821c8d2025fc81",
+        "byte_count": 7018,
+        "matches_final_agent_message": true,
+        "matches_confirmed_candidate": false
+      },
+      "mutations": [
+        {
+          "path": "$.evidence[7].source_path",
+          "confirmed": "sources/claims/2506.05690v3.jsonl",
+          "host_published": "sources/claims/2506-05690v3-018-fae0afbb44.md"
+        }
+      ]
+    },
+    {
+      "raw_row_id": "89a04468-9b9c-439b-9b0f-7f92de84b048",
+      "database_projection_sha256": "db5089c74526e112c24bf677f99daad52b8df05d7d0cf91c16de9753e02d54ae",
+      "database_response_sha256": "558d7a29251395eeb7227b92c84cdd98aacc21455189c8e942279598e7d24212",
+      "database_metadata_sha256": "19895e083989d44060b6b08cf0d6fc98907d1513b38ea023c19e8db2bf38d83a",
+      "trace_sha256": "5d4beb64daef791c849bcad32df245f6cc138024bab54accdf13efe5929c9961",
+      "trace_byte_count": 1053150,
+      "trace_event_count": 30,
+      "trace_tool_event_count": 24,
+      "trace_command": "codex",
+      "finalizer_completed_sequence": [
+        "prepare:failed",
+        "prepare:completed",
+        "prepare:completed",
+        "confirm:completed"
+      ],
+      "successful_prepare_count": 2,
+      "failed_prepare_count": 1,
+      "confirmation_count": 1,
+      "post_confirmation_prepare_count": 0,
+      "confirmed_candidate": {
+        "sha256": "c7d9e703979c7f4bf6ac50a59693fbbff18fd3ce9c10e1d2e23e441c24e96882",
+        "byte_count": 8177,
+        "canonical_json": true
+      },
+      "confirmation_receipt": {
+        "schema": "semantic-okf-answer-confirmation-receipt/1.0",
+        "status": "confirmed",
+        "sha256": "599499ef10eb081e0c3389b8aeb1f2103b777f861ab134c805bb91805df36dca",
+        "byte_count": 181,
+        "matches_candidate": true
+      },
+      "final_agent_message": {
+        "sha256": "6c52137ae08d760335b3991d2aba04c5620acd03099d76d939d436f35d55204d",
+        "byte_count": 8198
+      },
+      "host_published_output": {
+        "sha256": "6c52137ae08d760335b3991d2aba04c5620acd03099d76d939d436f35d55204d",
+        "byte_count": 8198,
+        "matches_final_agent_message": true,
+        "matches_confirmed_candidate": false
+      },
+      "mutations": [
+        {
+          "path": "$.evidence[12].source_path",
+          "confirmed": "sources/claims/2506.05690v3.jsonl",
+          "host_published": "sources/claims/claims-2506.05690v3.jsonl"
+        },
+        {
+          "path": "$.evidence[13].source_path",
+          "confirmed": "sources/claims/2506.05690v3.jsonl",
+          "host_published": "sources/claims/claims-2506.05690v3.jsonl"
+        },
+        {
+          "path": "$.evidence[14].source_path",
+          "confirmed": "sources/claims/2506.05690v3.jsonl",
+          "host_published": "sources/claims/claims-2506.05690v3.jsonl"
+        }
+      ]
+    },
+    {
+      "raw_row_id": "f55afa84-1165-41f5-9d3f-ac1b227faa5f",
+      "database_projection_sha256": "d46d5d379648ae7ecd162331a8d2d95afb96ede736b9e66ad75481d0d0bc1e40",
+      "database_response_sha256": "1d6785724b37d30d3afe68efac0ed5933417b3647f691c7a8c075aa2730069d5",
+      "database_metadata_sha256": "dcd8a4ee4aeb4eb598c11ac31f1c4e6a855ea3be08c2d508d8a7af01012e7300",
+      "trace_sha256": "029575ad71138e5a5b57d78be7aea0a0908e914b73d53e6aa3ea7002c180c04c",
+      "trace_byte_count": 1242674,
+      "trace_event_count": 36,
+      "trace_tool_event_count": 30,
+      "trace_command": "codex",
+      "finalizer_completed_sequence": [
+        "prepare:failed",
+        "prepare:completed",
+        "prepare:completed",
+        "confirm:completed",
+        "prepare:completed"
+      ],
+      "successful_prepare_count": 3,
+      "failed_prepare_count": 1,
+      "confirmation_count": 1,
+      "post_confirmation_prepare_count": 1,
+      "confirmed_candidate": {
+        "sha256": "186073f94a2416fed2da41e156f80a43684daa27a742d4556c3fe9d8cbb7ca7d",
+        "byte_count": 6666,
+        "canonical_json": true
+      },
+      "confirmation_receipt": {
+        "schema": "semantic-okf-answer-confirmation-receipt/1.0",
+        "status": "confirmed",
+        "sha256": "b7f831d1eb4b18eb8ed05a9211a86979da9865503cea65505bcce763ca4622b5",
+        "byte_count": 181,
+        "matches_candidate": true
+      },
+      "final_agent_message": {
+        "sha256": "e4d8cc3701df5769484d8c13457cab0faccf9554f6c1944c8639aaa5167f1ab7",
+        "byte_count": 6687
+      },
+      "host_published_output": {
+        "sha256": "e4d8cc3701df5769484d8c13457cab0faccf9554f6c1944c8639aaa5167f1ab7",
+        "byte_count": 6687,
+        "matches_final_agent_message": true,
+        "matches_confirmed_candidate": false
+      },
+      "mutations": [
+        {
+          "path": "$.evidence[5].source_path",
+          "confirmed": "sources/claims/2506.05690v3.jsonl",
+          "host_published": "sources/claims/2506-05690v3.jsonl"
+        },
+        {
+          "path": "$.evidence[10].paper_id",
+          "confirmed": "2506.05690v3",
+          "host_published": "sources/claims/2506.05690v3.jsonl"
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "observed_failure": "The pre-gate host published each free-form final agent message even though it differed from the candidate already bound by a successful prepare and confirmation receipt.",
+    "remediation": "Route Codex through a host publication wrapper that atomically replaces the treatment output with the exact confirmed candidate bytes and fails closed on protocol drift.",
+    "acceptance_rule": "Only a fresh complete run with the publication wrapper and independent 90-trace attestation can contribute benchmark evidence."
+  },
+  "raw_retention": "Raw Promptfoo database rows and execution traces remain append-only and ignored. This compact diagnostic publishes only identities, hashes, counts, and the six changed field values; it contains no full answer or machine path."
+}

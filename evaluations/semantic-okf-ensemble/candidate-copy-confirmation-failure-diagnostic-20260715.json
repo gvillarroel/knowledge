@@ -1,0 +1,92 @@
+{
+  "schema_version": "semantic-okf-ensemble-candidate-copy-confirmation-failure-diagnostic/1.0",
+  "status": "rejected",
+  "evidence_class": "diagnostic-only-non-benchmark",
+  "date": "2026-07-15",
+  "comparison": {
+    "run_id": "2026-07-15T13-50-35-550Z-compare",
+    "promptfoo_eval_id": "eval-d9Z-2026-07-15T13:50:43",
+    "planned_answer_count": 90,
+    "stop_decision_completed_row_count": 4,
+    "persisted_row_count_after_process_exit": 5,
+    "termination": "intentional-protocol-quality-gate-stop",
+    "benchmark_eligible": false,
+    "exclusion_reason": "The first ensemble-treatment row failed long candidate_json confirmation, so the incomplete comparison does not satisfy the publication protocol gate."
+  },
+  "provenance": {
+    "execution_log": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T13-50-35-550Z-compare/execution.log",
+      "sha256": "b762ea1763d3b169369a9e68adbf39531ef47061906a1b93f5c3c261e5a17b1b"
+    },
+    "generated_promptfoo_config": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T13-50-35-550Z-compare/promptfooconfig.yaml",
+      "sha256": "31ce9b7ae940bc5ba99e547679bf065afe04593861dd9e4d1d2efdb4c18b065b"
+    },
+    "database_projection": {
+      "description": "Canonical JSON projection of eval ID plus row ID, profile ID, test index, created_at, and updated_at; answer, score, assertion, and reviewer fields are excluded.",
+      "sha256": "332e7fcea3d167b2e3baace36965ab058a21862b1e9caef1ee9c98138a27d6a6",
+      "row_count": 5
+    },
+    "promptfoo_results_file_present": false
+  },
+  "materialized_source": {
+    "skill_arena_config_sha256": "be443278a2eab287a78945f5bf8f42a5bcb7f49153476901b042b8aeb2d9564b",
+    "skill_arena_config_manifest_sha256": "4d4eea215d8b819baf363c0e52cbe974fa57f90757ce4a43a4a59fd2bcb85235",
+    "consult_skill_tree_sha256": "773b36e85d761f9d1bff1c46840386ec4c3c027e9aca906ee8612827883ddf37",
+    "consult_skill_md_sha256": "5d5970fcd4bc7a4fff655da06ddc41dcc7f8c2e10438b3d2e8731f720e5a09be",
+    "mcp_server_version": "1.3.1",
+    "mcp_runtime_tree_sha256": "f2dd193140a092dc1ac7497605f3f06c6e5b51ef7048bc8ea1c72ef77c57782b",
+    "mcp_server_sha256": "4dcdc12980754d1ce9a757fa62a1ca3a38b0e3fd6157f70a2d5f3a536faeca00",
+    "publication_runtime_tree_sha256": "e4afa47f3d576d0cc86d4eb26684c3db2325d82113a0dbabaa4ca2a07a9e281e",
+    "publication_script_sha256": "27be691c18f76f364bf4910b905e54ad6bbaa15f38b8ca948676318fe6c553a5"
+  },
+  "observed_failure": {
+    "profile_id": "ensemble-consult-treatment",
+    "question_id": "q031-graph-routing-boundary",
+    "test_index": 0,
+    "classification": "long-candidate-confirmation-copy-failure",
+    "protocol_sequence": "[prepare:completed:no-error,confirm:failed:no-error]",
+    "provider_error_sha256": "5a22fed71c603b03d6523cb294c60135fd3ccd8a4ea900a6d07202e298a7a19e",
+    "provider_error_byte_count": 160
+  },
+  "replacement_protocol": {
+    "mcp_server_version": "1.4.0",
+    "mcp_runtime_tree_sha256": "8c499ee0b485c3abc9f1883e199b2b2131dfe062642740e9072ea7cda088386b",
+    "mcp_server_sha256": "1a0f4f952934dcd6f5bfa8ac08a5817c8e5dd8a9e0d44d1e67ad0737d6522cd4",
+    "publication_runtime_tree_sha256": "f020129e302ebe52c0d6d55978a559a7a40c8081d38bcdd5c031680ad004cbf2",
+    "publication_script_sha256": "f8d420ce792ccd72fb0ed187462ae9c467f850af422739deca61e4d1b058ff95",
+    "prepared_answer_schema": "semantic-okf-prepared-answer/1.0",
+    "prepared_answer_key_order": [
+      "schema",
+      "candidate_json",
+      "response_sha256",
+      "byte_count"
+    ],
+    "candidate_digest_binding": "sha256-lowercase-hex-of-utf8-candidate-json",
+    "confirmation_argument": "response_sha256",
+    "confirmation_argument_pattern": "^[0-9a-f]{64}$",
+    "confirmation_receipt_schema": "semantic-okf-answer-confirmation-receipt/1.0",
+    "confirmation_receipt_key_order": [
+      "schema",
+      "status",
+      "response_sha256",
+      "byte_count"
+    ],
+    "published_bytes_source": "prepared-envelope-candidate-json-bytes"
+  },
+  "persisted_rows": {
+    "total": 5,
+    "by_profile": {
+      "knowledge-only-control": 2,
+      "adaptive-consult-control": 2,
+      "ensemble-consult-treatment": 1
+    },
+    "quality_metrics_published": false
+  },
+  "decision": {
+    "observed_failure": "Copying the full canonical candidate back into the confirmation call produced a failed confirmation in the first treatment row.",
+    "acceptance_rule": "Every treatment row must publish bytes bound through a successful terminal confirmation before a causal comparison is eligible.",
+    "remediation": "Return a canonical prepared-answer envelope, confirm only its short response_sha256 digest, validate the receipt against the envelope, and atomically publish the stored candidate bytes."
+  },
+  "raw_retention": "The interrupted run directory and Promptfoo database rows remain append-only and ignored. They are retained only for protocol audit and must not be merged into benchmark metrics."
+}
