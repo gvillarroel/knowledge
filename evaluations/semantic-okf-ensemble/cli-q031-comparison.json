@@ -1,0 +1,1414 @@
+{
+  "schema_version": "semantic-okf-cli-q031-comparison/1.0",
+  "question": {
+    "id": "q031-graph-routing-boundary",
+    "text": "A production router must choose among question-only or standalone-model answering, basic RAG, and GraphRAG before generation. Derive an evidence-based decision boundary for simple facts, interconnected synthesis, and noisy graph evidence, and explain why an always-use-the-graph policy is unsupported.",
+    "ground_truth_path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+    "ground_truth_sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451"
+  },
+  "comparison_policy": {
+    "gate_order": [
+      "response-format",
+      "response-contract",
+      "evidence-validity",
+      "atomic-answer-completeness",
+      "important-negative-coverage"
+    ],
+    "score_definition": "unweighted mean of the five binary q031 mechanical gates",
+    "cross_family_interpretation": "descriptive only; rows came from separate retained treatment runs and the current definitive row is a direct deterministic finalizer run",
+    "causal_claim": false
+  },
+  "main_alternatives": [
+    {
+      "id": "legacy",
+      "display_name": "Legacy lexical",
+      "evaluation_status": "archived Skill Arena treatment row",
+      "provenance": {
+        "kind": "archived-skill-arena-treatment",
+        "artifact_path": "results/semantic-okf-legacy-hard10-paired/2026-07-14T10-44-29-188Z-compare/promptfoo-results.json",
+        "artifact_sha256": "86e8d9b14ae1fe5d37a290bfeecee908e7cc060a947a6291532ecab68ef848d5",
+        "provider_id": "legacy-consult-treatment",
+        "result_id": "0f1c8221-5945-41be-92c1-6baf3eca219a",
+        "canonical_response_sha256": "918b46b2219f4e81fd7efce8e027c467d3045645319f29e374819f66b40dc0ef",
+        "summary_sha256": "9f27c06c78ddd57dd146cf62f7fa692ba885b45d84c986b01423cdf52806ad2c"
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 0,
+        "evidence-validity": 0,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 1
+      },
+      "passed_gate_count": 2,
+      "gate_count": 5,
+      "score": 0.4,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "Use the least powerful retrieval mode that matches the question’s evidence structure. For a simple, isolated fact, prefer question-only or standalone-model answering when the fact is already reliable in the model; otherwise basic RAG is the strong default because it directly retrieves discrete information, and the snapshot reports that basic RAG is comparable to or better than GraphRAG for simple fact retrieval. For interconnected questions—multi-hop reasoning, cross-document dependency, or contextual synthesis—route to GraphRAG, since its advantage is explicitly tied to traversing connections rather than ranking isolated chunks. The boundary is therefore structural: graph retrieval is justified when answer completeness depends on linked entities, relations, or evidence paths, not merely because a graph exists. Treat noisy graph evidence as a rejection or downgrade condition. Adding an entire noisy graph can underperform answering from the question alone, and increasing retrieved-path counts eventually reduces performance as irrelevant paths accumulate. The router should therefore inspect evidence quality and confidence before generation: retain GraphRAG only when retrieved context supports the query, filter or bound the graph context when it does not, and fall back to basic RAG or standalone answering. This conditional policy is supported by the reported complementarity of intrinsic reasoning and retrieval, and by evidence that GraphRAG can both correct standalone errors and corrupt answers that were initially correct. An always-use-the-graph policy is consequently unsupported: graph structure helps selectively, while unnecessary expansion adds noise and can reduce accuracy.",
+          "claims": [
+            {
+              "statement": "For simple fact retrieval requiring isolated knowledge and minimal reasoning, standalone answering or basic RAG is preferable to automatically invoking GraphRAG; basic RAG is reported as comparable to or better than GraphRAG on this task.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-017",
+                "claim-2506-05690v3-043"
+              ]
+            },
+            {
+              "statement": "GraphRAG should be preferred when the answer requires interconnected contextual analysis, complex reasoning chains, or synthesis across linked evidence rather than direct access to a discrete fact.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-018",
+                "claim-2506-05690v3-038",
+                "claim-2506-05690v3-044"
+              ]
+            },
+            {
+              "statement": "Graph retrieval is not universally beneficial: adding an entire noisy textual graph can underperform answering from the question alone.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-039"
+              ]
+            },
+            {
+              "statement": "The router should bound or filter graph expansion because too many retrieved candidates or paths introduce distracting information and reduce performance.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-037",
+                "claim-2503-13804v1-039"
+              ]
+            },
+            {
+              "statement": "A production decision boundary should treat standalone reasoning and retrieval as complementary, rather than always preferring graph evidence.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-016",
+                "claim-2503-13804v1-037"
+              ]
+            },
+            {
+              "statement": "Before generation, the system should verify that retrieved context supports the query and combine only retained graph and standalone candidates.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-044",
+                "claim-2503-06474v2-056"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2402.07630v3",
+            "2503.13804v1",
+            "2503.06474v2",
+            "2506.05690v3"
+          ],
+          "citations": [
+            {
+              "paper_id": "2402.07630v3",
+              "pages": [
+                8,
+                18
+              ]
+            },
+            {
+              "paper_id": "2503.06474v2",
+              "pages": [
+                6,
+                10
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                3,
+                4,
+                6
+              ]
+            },
+            {
+              "paper_id": "2506.05690v3",
+              "pages": [
+                4,
+                7,
+                8
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2402-07630v3-037",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-037-bd8e65f14a.md",
+            "paper_id": "2402.07630v3",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "locators": [
+              18
+            ]
+          },
+          {
+            "claim_id": "claim-2402-07630v3-039",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+            "paper_id": "2402.07630v3",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "locators": [
+              8
+            ]
+          },
+          {
+            "claim_id": "claim-2503-06474v2-056",
+            "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-056-be1951afee.md",
+            "paper_id": "2503.06474v2",
+            "source_path": "sources/claims/2503.06474v2.jsonl",
+            "locators": [
+              10
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-016",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-016-0d224e7938.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              3,
+              6
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-037",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              1,
+              3
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-039",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-039-fd9f8f1c4a.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              4
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-044",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-044-a617451c21.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              6
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-017",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-017-0c7a953898.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              4
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-018",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-018-fae0afbb44.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              4
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-043",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              7,
+              8
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-044",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              7,
+              8
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-038",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              3
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "embeddings",
+      "display_name": "Embeddings",
+      "evaluation_status": "archived Skill Arena treatment row",
+      "provenance": {
+        "kind": "archived-skill-arena-treatment",
+        "artifact_path": "results/semantic-okf-embedding-hard10-paired-retry-01/2026-07-14T10-55-43-243Z-compare/promptfoo-results.json",
+        "artifact_sha256": "40f6fdae547c25767a3f9737d45f99fb83031a46e3f09e95aa5b75aedc18c0f5",
+        "provider_id": "embedding-consult-treatment",
+        "result_id": "03080c33-0b9c-4ee6-abd6-4f5a8fe394c0",
+        "canonical_response_sha256": "4a6a6cbb9a023fbed2b06423fd67a2687b0aa96a319cd173bfc622da02f6d2a8",
+        "summary_sha256": "9dcdef7e9749f3a8c7af22de02b2c0f549639c65e5951a1921b2e4550dcd21c0"
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 1
+      },
+      "passed_gate_count": 3,
+      "gate_count": 5,
+      "score": 0.6,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "Use the least elaborate answering path that matches the question’s evidence structure. For an isolated, simple fact, prefer standalone answering when its confidence is high and use basic RAG when external grounding is required; graph expansion is unnecessary and can introduce irrelevant neighbors. For interconnected, multi-hop reasoning or broad synthesis that must combine evidence across documents, route to GraphRAG, because its advantage is connecting distant segments and relational chains. The boundary is therefore structural rather than a fixed hop count: choose GraphRAG when the answer depends on relationships among dispersed facts, not merely on retrieving several independent facts. If the graph is noisy, incomplete, or produced by unreliable extraction or decomposition, do not automatically route to GraphRAG. Prefer standalone answering or focused basic RAG, or require graph/path filtering and confidence checks before using graph evidence. This is a conditional policy, not a claim that one method always wins. Basic RAG is reported as comparable to or better than GraphRAG for simple fact retrieval, while graph expansion may add noise. Moreover, GraphRAG can correct standalone errors but can also turn correct standalone answers into incorrect ones, and extraction, decomposition, verifier, and retrieval errors can propagate into generation. Thus, an always-use-the-graph policy is unsupported: graph benefits are concentrated in relational synthesis, whereas its overhead and failure modes are material outside that regime.",
+          "claims": [
+            {
+              "statement": "For simple fact retrieval whose evidence is localized, route to standalone answering when confidence is high or to basic RAG when grounding is needed; GraphRAG is not the default.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-037",
+                "claim-2506-05690v3-043"
+              ]
+            },
+            {
+              "statement": "For interconnected multi-hop reasoning and cross-document synthesis, route to GraphRAG because its advantage is integrating evidence through logical connections.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-018",
+                "claim-2506-05690v3-044"
+              ]
+            },
+            {
+              "statement": "When graph evidence is noisy or incomplete, require filtering and confidence checks or prefer standalone/basic RAG, because extraction, decomposition, verifier, and retrieval errors can propagate into inaccurate generation.",
+              "supporting_claim_ids": [
+                "claim-2503-06474v2-038",
+                "claim-2503-06474v2-058",
+                "claim-2503-13804v1-044"
+              ]
+            },
+            {
+              "statement": "An always-use-the-graph policy is unsupported because GraphRAG can damage an initially correct standalone answer and graph expansion can add noise on simple facts.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-037",
+                "claim-2506-05690v3-043"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2503.06474v2",
+            "2503.13804v1",
+            "2506.05690v3"
+          ],
+          "citations": [
+            {
+              "paper_id": "2503.06474v2",
+              "pages": [
+                7
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                1,
+                3,
+                6
+              ]
+            },
+            {
+              "paper_id": "2506.05690v3",
+              "pages": [
+                4,
+                7,
+                8
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2503-06474v2-038",
+            "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-038-92a897d9db.md",
+            "paper_id": "2503.06474v2",
+            "source_path": "sources/claims/2503.06474v2.jsonl",
+            "locators": [
+              7
+            ]
+          },
+          {
+            "claim_id": "claim-2503-06474v2-058",
+            "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-058-c97f2ef1c5.md",
+            "paper_id": "2503.06474v2",
+            "source_path": "sources/claims/2503.06474v2.jsonl",
+            "locators": [
+              7
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-037",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              1,
+              3
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-044",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-044-a617451c21.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              6
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-018",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-018-fae0afbb44.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              4
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-043",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              7,
+              8
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-044",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              7,
+              8
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "classical",
+      "display_name": "Classical text processing",
+      "evaluation_status": "archived Skill Arena treatment row",
+      "provenance": {
+        "kind": "archived-skill-arena-treatment",
+        "artifact_path": "results/semantic-okf-classical-hard10-paired/2026-07-14T10-24-08-885Z-compare/promptfoo-results.json",
+        "artifact_sha256": "95d9af45ea3e59d6dcfc735819de936a498acda12f5b41a5dddb14339587a2a2",
+        "provider_id": "classical-consult-treatment",
+        "result_id": "d93aedfb-6991-4b38-be7c-7f2df24ec88f",
+        "canonical_response_sha256": "768127e9bf0af794c401cf73024a6e71f72d5b1babea4068c38a6b7d9df86b9e",
+        "summary_sha256": "911176ae9e278176fec99eaebde1022f658d9362f726fcaf81cb42e3d9ce0abb"
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 0,
+        "evidence-validity": 0,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 1
+      },
+      "passed_gate_count": 2,
+      "gate_count": 5,
+      "score": 0.4,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "Use task structure and graph quality as the routing boundary, not a universal GraphRAG default. For a localized simple fact, prefer question-only answering when no retrieval is needed; if grounding in the corpus is required, use basic vector RAG. The snapshot identifies localized fact questions as a comparative strength of conventional vector RAG rather than GraphRAG’s global-search target. For interconnected synthesis—questions requiring themes, connections, or corpus-wide coverage—select GraphRAG or another graph-based retriever, because global approaches outperform vector search on comprehensiveness and diversity across the reported datasets. The graph route should nevertheless be conditional on evidence quality and retrieval economy. Noisy or redundant graph neighborhoods are a stop or fallback condition: adding an entire noisy textual graph can perform worse than answering from the question alone, and redundant graph information can be a more important failure source than insufficient information. Extraction, decomposition, and retrieval errors can also propagate into generation. Thus the production boundary is a quality-aware cascade: standalone for sufficiently local questions, basic RAG for localized corpus facts, graph retrieval for genuinely connected or global synthesis, and fallback or pruning when graph evidence is noisy, redundant, incomplete, or costly. An always-use-the-graph policy is unsupported because GraphRAG has asymmetric effects: it corrects some standalone errors but can also corrupt answers that standalone answering got right; the reported preliminary comparison found both substantial corrections and a meaningful standalone-superiority category.",
+          "claims": [
+            {
+              "statement": "For localized simple facts, question-only answering or basic vector RAG should be preferred over GraphRAG; conventional vector RAG is presented as the comparative strength for localized fact questions.",
+              "supporting_claim_ids": [
+                "claim-2404-16130v2-025"
+              ]
+            },
+            {
+              "statement": "For interconnected or corpus-wide synthesis requiring themes, connections, or broad coverage, route to GraphRAG or another global graph-based approach because global approaches outperform vector semantic search on comprehensiveness and diversity.",
+              "supporting_claim_ids": [
+                "claim-2404-16130v2-053"
+              ]
+            },
+            {
+              "statement": "Treat noisy, redundant, incomplete, or error-prone graph evidence as a fallback or pruning boundary rather than forcing graph retrieval, since noisy graph context can underperform question-only answering and redundancy can degrade graph-RAG performance.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-039",
+                "claim-2502-14902v2-040",
+                "claim-2503-06474v2-038"
+              ]
+            },
+            {
+              "statement": "An always-use-the-graph policy is unsupported because GraphRAG can correct standalone errors but can also turn originally correct standalone answers into wrong ones.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-037",
+                "claim-2503-13804v1-038"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2402.07630v3",
+            "2404.16130v2",
+            "2502.14902v2",
+            "2503.06474v2",
+            "2503.13804v1"
+          ],
+          "citations": [
+            {
+              "paper_id": "2402.07630v3",
+              "pages": [
+                8
+              ]
+            },
+            {
+              "paper_id": "2404.16130v2",
+              "pages": [
+                2,
+                9,
+                10
+              ]
+            },
+            {
+              "paper_id": "2502.14902v2",
+              "pages": [
+                1,
+                2
+              ]
+            },
+            {
+              "paper_id": "2503.06474v2",
+              "pages": [
+                7
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2402-07630v3-039",
+            "concept_path": "knowledge/concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+            "paper_id": "2402.07630v3",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "locators": [
+              8
+            ]
+          },
+          {
+            "claim_id": "claim-2404-16130v2-025",
+            "concept_path": "knowledge/concepts/claims-2404-16130v2/claim-2404-16130v2-025-0a3bd45760.md",
+            "paper_id": "2404.16130v2",
+            "source_path": "sources/claims/2404.16130v2.jsonl",
+            "locators": [
+              2
+            ]
+          },
+          {
+            "claim_id": "claim-2404-16130v2-053",
+            "concept_path": "knowledge/concepts/claims-2404-16130v2/claim-2404-16130v2-053-452e9364e5.md",
+            "paper_id": "2404.16130v2",
+            "source_path": "sources/claims/2404.16130v2.jsonl",
+            "locators": [
+              9,
+              10
+            ]
+          },
+          {
+            "claim_id": "claim-2502-14902v2-040",
+            "concept_path": "knowledge/concepts/claims-2502-14902v2/claim-2502-14902v2-040-4b8d3f8d3f.md",
+            "paper_id": "2502.14902v2",
+            "source_path": "sources/claims/2502.14902v2.jsonl",
+            "locators": [
+              1,
+              2
+            ]
+          },
+          {
+            "claim_id": "claim-2503-06474v2-038",
+            "concept_path": "knowledge/concepts/claims-2503-06474v2/claim-2503-06474v2-038-92a897d9db.md",
+            "paper_id": "2503.06474v2",
+            "source_path": "sources/claims/2503.06474v2.jsonl",
+            "locators": [
+              7
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-037",
+            "concept_path": "knowledge/concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              1,
+              3
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-038",
+            "concept_path": "knowledge/concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              3
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "entity_graph",
+      "display_name": "Entity graph",
+      "evaluation_status": "archived Skill Arena treatment row",
+      "provenance": {
+        "kind": "archived-skill-arena-treatment",
+        "artifact_path": "results/semantic-okf-entity-graph-hard10-paired/2026-07-14T13-24-34-018Z-compare/promptfoo-results.json",
+        "artifact_sha256": "14331ea8e4d7e0315268501c0c2e2191cd4e4bede9b863353e7a59634f6f3633",
+        "provider_id": "entity-graph-consult-treatment",
+        "result_id": "e241c82b-bd52-484f-bc5a-6d190f64ca9c",
+        "canonical_response_sha256": "4411617a9549894099a3d1d44f34854fc9c0f4538437425f8f0a0ea4aff8d6d9",
+        "summary_sha256": "66450b373dacdc74212c003f39b87e6fd257d233328e4a7ca2b63a8f6188403d"
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0
+      },
+      "passed_gate_count": 2,
+      "gate_count": 5,
+      "score": 0.4,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "The snapshot supports a conditional router, not a universal GraphRAG default. For a simple, single-fact question, use question-only or a standalone model when its answer is sufficiently trusted; otherwise use basic RAG. The evidence specifically reports that basic RAG is comparable to or better than GraphRAG for simple fact retrieval because graph expansion can add noise. For questions requiring relationships across multiple passages, cross-document traversal, or global synthesis across database segments, route to GraphRAG: these are precisely the settings in which relational structure and multi-hop retrieval address the limitations of flat retrieval. However, graph evidence must pass a quality or confidence gate. Redundant graph context and too many initial nodes can introduce irrelevant material, with the latter especially harmful for single-hop questions; filtering, pruning, or falling back to basic RAG or standalone answering is therefore justified. An always-use-the-graph policy is unsupported for two independent reasons: simple facts do not consistently benefit from graph expansion, and GraphRAG can change an originally correct standalone answer into an incorrect one. The reported comparison also includes cases where the standalone model outperformed GraphRAG. Thus the boundary is task structure plus evidence quality: standalone/question-only for trusted atomic facts, basic RAG for clean isolated external facts, GraphRAG for genuinely interconnected or global synthesis, and fallback when graph noise or confidence failure dominates.",
+          "claims": [
+            {
+              "statement": "For simple fact retrieval, prefer question-only or standalone answering when sufficiently trusted, or basic RAG when external grounding is needed; GraphRAG is not the default because basic RAG is comparable to or better than GraphRAG and graph expansion can add noise.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-043-862c0ca707"
+              ]
+            },
+            {
+              "statement": "Route interconnected synthesis to GraphRAG when answering requires integrating facts across multiple passages or addressing global questions spanning multiple database segments.",
+              "supporting_claim_ids": [
+                "claim-2405-14831v3-022-a2d66c052c",
+                "claim-2502-14902v2-022-e3dab8c825"
+              ]
+            },
+            {
+              "statement": "Treat noisy graph evidence as a reason to prune, filter, or fall back: redundant retrieved graph information can dominate failure, and too many initial nodes introduce noise, especially for single-hop questions.",
+              "supporting_claim_ids": [
+                "claim-2406-14550v2-038-9d0f6a6ab1",
+                "claim-2502-14902v2-040-4b8d3f8d3f"
+              ]
+            },
+            {
+              "statement": "An always-use-the-graph policy is unsupported because GraphRAG can correct standalone errors but can also turn originally correct standalone answers wrong, while some samples favor the standalone model.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-037-95ffd986bd",
+                "claim-2503-13804v1-038-9479e2cab6"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2405.14831v3",
+            "2406.14550v2",
+            "2502.14902v2",
+            "2503.13804v1",
+            "2506.05690v3"
+          ],
+          "citations": [
+            {
+              "paper_id": "2405.14831v3",
+              "pages": [
+                1,
+                2,
+                5
+              ]
+            },
+            {
+              "paper_id": "2406.14550v2",
+              "pages": [
+                7
+              ]
+            },
+            {
+              "paper_id": "2502.14902v2",
+              "pages": [
+                1,
+                2,
+                4
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                1,
+                3
+              ]
+            },
+            {
+              "paper_id": "2506.05690v3",
+              "pages": [
+                7,
+                8
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2405-14831v3-022-a2d66c052c",
+            "concept_path": "concepts/claims-2405-14831v3/claim-2405-14831v3-022-a2d66c052c.md",
+            "paper_id": "2405.14831v3",
+            "source_path": "sources/markdown/2405.14831v3.md",
+            "locators": [
+              "PDF-page-1",
+              "PDF-page-2",
+              "PDF-page-5"
+            ]
+          },
+          {
+            "claim_id": "claim-2406-14550v2-038-9d0f6a6ab1",
+            "concept_path": "concepts/claims-2406-14550v2/claim-2406-14550v2-038-9d0f6a6ab1.md",
+            "paper_id": "2406.14550v2",
+            "source_path": "sources/markdown/2406.14550v2.md",
+            "locators": [
+              "PDF-page-7"
+            ]
+          },
+          {
+            "claim_id": "claim-2502-14902v2-022-e3dab8c825",
+            "concept_path": "concepts/claims-2502-14902v2/claim-2502-14902v2-022-e3dab8c825.md",
+            "paper_id": "2502.14902v2",
+            "source_path": "sources/markdown/2502.14902v2.md",
+            "locators": [
+              "PDF-page-1",
+              "PDF-page-2",
+              "PDF-page-4"
+            ]
+          },
+          {
+            "claim_id": "claim-2502-14902v2-040-4b8d3f8d3f",
+            "concept_path": "concepts/claims-2502-14902v2/claim-2502-14902v2-040-4b8d3f8d3f.md",
+            "paper_id": "2502.14902v2",
+            "source_path": "sources/markdown/2502.14902v2.md",
+            "locators": [
+              "PDF-page-1",
+              "PDF-page-2"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-037-95ffd986bd",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/markdown/2503.13804v1.md",
+            "locators": [
+              "PDF-page-1",
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-038-9479e2cab6",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/markdown/2503.13804v1.md",
+            "locators": [
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-043-862c0ca707",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/markdown/2506.05690v3.md",
+            "locators": [
+              "PDF-page-7",
+              "PDF-page-8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adaptive",
+      "display_name": "Adaptive hybrid",
+      "evaluation_status": "archived Skill Arena treatment row",
+      "provenance": {
+        "kind": "archived-skill-arena-treatment",
+        "artifact_path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T15-24-19-159Z-compare/promptfoo-results.json",
+        "artifact_sha256": "9b8d91b4641e49306ce80afdb79207bdaa30f523c3237763b00cd0b76370d2db",
+        "provider_id": "adaptive-consult-control",
+        "result_id": "7119644d-9130-4635-91c6-3e64370f465b",
+        "canonical_response_sha256": "67e287097b6c52c03ca10579e6c28a377a24b6eeb50bffe4ff5d5499523145fd",
+        "summary_sha256": "41d51499dda8c8a60fb0a036d55716f85cc33c27598b95409e1cfee3201f6bbb"
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 0,
+        "evidence-validity": 0,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 1
+      },
+      "passed_gate_count": 2,
+      "gate_count": 5,
+      "score": 0.4,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "The snapshot supports a conditional router rather than universal GraphRAG. For a simple, directly answerable fact, use question-only answering when trusted graph evidence is absent or noisy; otherwise basic RAG is the appropriate retrieval option because it directly accesses discrete information and is reported as comparable to or better than GraphRAG on simple fact retrieval. Graph expansion can add irrelevant context without improving the answer. For interconnected synthesis—especially questions involving indirect dependencies, multi-hop relations, or contextual analysis—route to GraphRAG, whose intended advantage is connecting evidence and exposing relational structure that a single semantic match or ordinary retrieval may miss. The graph should be treated as a qualified evidence source, however: moderate retrieval can help, while additional paths eventually introduce noise, and an entire noisy textual graph can perform worse than answering from the question alone. Therefore the production boundary should include evidence-quality and graph-complexity checks, with filtering, fallback, or answer integration when graph confidence is weak. An always-use-the-graph policy is unsupported because the reviewed evidence explicitly says retrieval and parametric reasoning are complementary, GraphRAG can correct standalone errors but can also corrupt initially correct standalone answers, and simpler methods can win on direct facts. The result is a routing rule based on relational necessity and evidence reliability, not graph presence alone.",
+          "claims": [
+            {
+              "statement": "For simple fact retrieval, basic RAG is comparable to or better than GraphRAG, because graph expansion can add noise.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-043"
+              ]
+            },
+            {
+              "statement": "For direct discrete information, vanilla/basic RAG is the suited retrieval approach, whereas GraphRAG's proposed advantage is interconnected contextual analysis.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-038"
+              ]
+            },
+            {
+              "statement": "For interconnected or multi-hop synthesis, GraphRAG is appropriate because it targets relational evidence and context that a single semantic match can miss.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-038",
+                "claim-2408-08535v1-022"
+              ]
+            },
+            {
+              "statement": "Noisy graph evidence can make graph-based answering worse than question-only answering, and increasing retrieved path counts eventually reduces performance because added paths introduce noise.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-039",
+                "claim-2503-13804v1-039"
+              ]
+            },
+            {
+              "statement": "An always-use-the-graph policy is unsupported because external retrieval and parametric reasoning are complementary, and GraphRAG can turn initially correct standalone answers into wrong ones.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-016",
+                "claim-2503-13804v1-037"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2402.07630v3",
+            "2408.08535v1",
+            "2503.13804v1",
+            "2506.05690v3"
+          ],
+          "citations": [
+            {
+              "paper_id": "2402.07630v3",
+              "pages": [
+                8
+              ]
+            },
+            {
+              "paper_id": "2408.08535v1",
+              "pages": [
+                2,
+                3
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                1,
+                3,
+                4
+              ]
+            },
+            {
+              "paper_id": "2506.05690v3",
+              "pages": [
+                3,
+                7,
+                8
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2402-07630v3-039",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+            "paper_id": "2402.07630v3",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "locators": [
+              "PDF-page-8"
+            ]
+          },
+          {
+            "claim_id": "claim-2408-08535v1-022",
+            "concept_path": "concepts/claims-2408-08535v1/claim-2408-08535v1-022-69cb89e12d.md",
+            "paper_id": "2408.08535v1",
+            "source_path": "sources/claims/2408.08535v1.jsonl",
+            "locators": [
+              "PDF-page-2",
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-016",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-016-0d224e7938.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              "PDF-page-3",
+              "PDF-page-6"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-037",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              "PDF-page-1",
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-039",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-039-fd9f8f1c4a.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              "PDF-page-4"
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-038",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-043",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              "PDF-page-7",
+              "PDF-page-8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "definitive_ensemble_cli",
+      "display_name": "Definitive ensemble (current CLI-only)",
+      "evaluation_status": "direct deterministic finalizer run; not fresh Skill Arena/model generation",
+      "provenance": {
+        "kind": "current-cli-finalizer",
+        "artifact_path": "evaluations/semantic-okf-ensemble/cli-q031-current-output.json",
+        "artifact_sha256": "835373a04c8467b9c4aef2bbf59d4167f67aee7c8b27563816d180b7eea89896",
+        "provider_id": "consult-semantic-okf-ensemble/finalize-answer",
+        "result_id": null,
+        "canonical_response_sha256": "817f51c5954eddd04668b3b31b919d0e205a99d83e4e9e59fabdb45124c6075e",
+        "finalizer_stdout_without_newline_sha256": "e052575835024481527ed7f07c80242a2ab414370f8868323861945931e43d50",
+        "summary_sha256": "fbded7c7121e181498497a82bf198c206aea1adbf2f7c850ffdab29aec6e4e23",
+        "run_id": "20260715-ensemble-final-03",
+        "bundle_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+        "bundle_tree_sha256": "ed9386b63e4e087eea0fe62cd53eeb22e8f9cc4d5973b45eae7d736d9b77f868",
+        "coverage_pack_sha256": "881dec7d573003631c7ee5bb6c55ba4568393df1f911c26dbaa7bfa5c0619ac7",
+        "priority_order_sha256": "9ec21df4d02d0e1fba2a9dac3555c68e424968d347ff4d48d8df768351e1b25b",
+        "mcp_used": false,
+        "model_generation": false
+      },
+      "named_gates": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 1,
+        "atomic-answer-completeness": 1,
+        "important-negative-coverage": 1
+      },
+      "passed_gate_count": 5,
+      "gate_count": 5,
+      "score": 1.0,
+      "response": {
+        "question_id": "q031-graph-routing-boundary",
+        "answer": {
+          "summary": "Route by evidence structure and expected noise, not by a blanket preference for graphs. For a simple fact, begin with basic RAG when compact textual retrieval can directly answer the question; the corpus reports that this route can match or outperform GraphRAG because graph expansion may introduce distracting material. Keep the standalone model as a competing answer source when retrieval is weak, because reported cases show that GraphRAG corrects some standalone errors but also reverses some initially correct answers. For interconnected synthesis, GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation, so relational or multi-part questions are the strongest candidates for graph-assisted retrieval before generation. If graph evidence is noisy, prefer pruning or fall back to question-only or basic retrieval: supplying a whole noisy textual graph has been observed to underperform the question alone. The production boundary is therefore conditional: direct factual evidence favors basic RAG; complex, interconnected synthesis can justify GraphRAG; uncertain or noisy graph evidence requires filtering, comparison with non-graph candidates, or abstention. An always-use-the-graph policy is unsupported because graph expansion can add noise and graph retrieval and standalone reasoning have complementary, rather than uniformly ordered, error profiles. The router should preserve the underlying authoritative text bindings and make the selected route answerable to evidence rather than assuming that added structure is automatically useful.",
+          "claims": [
+            {
+              "statement": "Graph retrieval and standalone reasoning have complementary error profiles, so question-only reasoning remains a legitimate competing route.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-038"
+              ]
+            },
+            {
+              "statement": "Reported results show both GraphRAG corrections and cases where the standalone model performs better.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-038"
+              ]
+            },
+            {
+              "statement": "Basic RAG can be comparable to or better than GraphRAG for simple fact retrieval because graph expansion can add noise.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-043"
+              ]
+            },
+            {
+              "statement": "GraphRAG is most justified before generation for complex reasoning, contextual summarization, and creative generation, while its error profile remains complementary to standalone reasoning.",
+              "supporting_claim_ids": [
+                "claim-2503-13804v1-038",
+                "claim-2506-05690v3-044"
+              ]
+            },
+            {
+              "statement": "Simple fact retrieval favors basic RAG when graph expansion would add noise.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-043"
+              ]
+            },
+            {
+              "statement": "GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation, which supplies the positive boundary for interconnected synthesis.",
+              "supporting_claim_ids": [
+                "claim-2506-05690v3-044"
+              ]
+            },
+            {
+              "statement": "Providing an entire noisy textual graph can underperform answering from the question alone.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-039"
+              ]
+            },
+            {
+              "statement": "Graph expansion can add noise and graph retrieval can lose cases that standalone reasoning answers correctly.",
+              "supporting_claim_ids": [
+                "claim-2402-07630v3-039",
+                "claim-2503-13804v1-038",
+                "claim-2506-05690v3-043"
+              ]
+            }
+          ],
+          "paper_ids": [
+            "2402.07630v3",
+            "2503.13804v1",
+            "2506.05690v3"
+          ],
+          "citations": [
+            {
+              "paper_id": "2402.07630v3",
+              "pages": [
+                8
+              ]
+            },
+            {
+              "paper_id": "2503.13804v1",
+              "pages": [
+                3
+              ]
+            },
+            {
+              "paper_id": "2506.05690v3",
+              "pages": [
+                7,
+                8
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "claim_id": "claim-2402-07630v3-039",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+            "paper_id": "2402.07630v3",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "locators": [
+              "PDF-page-8"
+            ]
+          },
+          {
+            "claim_id": "claim-2503-13804v1-038",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md",
+            "paper_id": "2503.13804v1",
+            "source_path": "sources/claims/2503.13804v1.jsonl",
+            "locators": [
+              "PDF-page-3"
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-043",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              "PDF-page-7",
+              "PDF-page-8"
+            ]
+          },
+          {
+            "claim_id": "claim-2506-05690v3-044",
+            "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md",
+            "paper_id": "2506.05690v3",
+            "source_path": "sources/claims/2506.05690v3.jsonl",
+            "locators": [
+              "PDF-page-7",
+              "PDF-page-8"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "historical_reference": {
+    "id": "historical_mcp_ensemble",
+    "display_name": "Historical definitive ensemble (retired MCP runtime)",
+    "evaluation_status": "historical reference only; depended on the retired MCP runtime",
+    "provenance": {
+      "kind": "archived-skill-arena-treatment",
+      "artifact_path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T15-24-19-159Z-compare/promptfoo-results.json",
+      "artifact_sha256": "9b8d91b4641e49306ce80afdb79207bdaa30f523c3237763b00cd0b76370d2db",
+      "provider_id": "ensemble-consult-treatment",
+      "result_id": "3f118e39-ac2e-4b43-8b8c-f16319c06b93",
+      "canonical_response_sha256": "38685ce0dd67c356ebcf3ba3bbfb5ab9cd89a7f64e5bb6bc1df28115ecb1db57",
+      "summary_sha256": "6d68994dd0819e97a8701c09182523ce0efb19114e54c73525f2e0ec0478641c"
+    },
+    "named_gates": {
+      "response-format": 1,
+      "response-contract": 1,
+      "evidence-validity": 1,
+      "atomic-answer-completeness": 1,
+      "important-negative-coverage": 1
+    },
+    "passed_gate_count": 5,
+    "gate_count": 5,
+    "score": 1.0,
+    "response": {
+      "question_id": "q031-graph-routing-boundary",
+      "answer": {
+        "summary": "The snapshot supports routing by evidence structure, not by a blanket preference for graphs. For a simple, localized fact, use question-only or the standalone model when the model is reliable and no external grounding is required; if the fact is discrete but needs authoritative support, basic RAG is the default. This boundary is supported by results that basic RAG is comparable to or better than GraphRAG for simple fact retrieval, and by the characterization of vanilla RAG as suited to direct access to discrete information. For interconnected synthesis—multi-hop, cross-document, global, or summary-like questions—route to GraphRAG or a graph-mediated hybrid: its explicit relations, ordered paths, subgraphs, and community summaries expose dependencies that isolated chunk retrieval can miss. Before generation, filter, rank, prune, or verify the graph evidence; pre-generation checking and path reliability ordering are supported safeguards. If the graph is noisy, incomplete, redundant, or costly, do not force GraphRAG: whole noisy graphs can underperform question-only answering, extraction and decomposition errors propagate, and graph expansion adds noise, latency, tokens, and preprocessing cost. Use basic RAG, standalone answering, a hybrid fallback, or abstention according to confidence. Thus the production boundary is conditional on question breadth/depth, evidence quality, expected grounding value, and budget. The literature supports adaptive selection and complementary evidence sources, not an always-use-the-graph policy; reported advantages are also conditional on corpora, models, prompts, and metrics.",
+        "claims": [
+          {
+            "statement": "The router should retain question-only answering as a valid route when graph or retrieved context is noisy, because adding an entire noisy textual graph can underperform answering from the question alone.",
+            "supporting_claim_ids": [
+              "claim-2402-07630v3-039"
+            ]
+          },
+          {
+            "statement": "Standalone-model answering should remain a competing route: GraphRAG can correct some standalone errors but can also turn originally correct standalone answers into wrong ones, and reported results include cases where standalone answers outperform GraphRAG.",
+            "supporting_claim_ids": [
+              "claim-2503-13804v1-037",
+              "claim-2503-13804v1-038"
+            ]
+          },
+          {
+            "statement": "Basic RAG is the preferred low-complexity grounded route for localized discrete facts because it is comparable to or better than GraphRAG on simple fact retrieval and is suited to direct access to discrete information.",
+            "supporting_claim_ids": [
+              "claim-2506-05690v3-038",
+              "claim-2506-05690v3-043"
+            ]
+          },
+          {
+            "statement": "When GraphRAG is selected, the router should perform evidence checking or filtering before generation, because pre-generation argument checking is preferred in the reported study and GraphRAG pipelines have interdependent extraction, construction, decomposition, retrieval, verification, and generation stages.",
+            "supporting_claim_ids": [
+              "claim-2503-06474v2-024",
+              "claim-2503-06474v2-044"
+            ]
+          },
+          {
+            "statement": "Simple facts should trigger question-only or basic RAG rather than automatic graph expansion: graph use is justified only when the expected grounding benefit exceeds its noise and cost, since basic RAG matches or beats GraphRAG on simple retrieval and graph expansion can add noise.",
+            "supporting_claim_ids": [
+              "claim-2506-05690v3-034",
+              "claim-2506-05690v3-043"
+            ]
+          },
+          {
+            "statement": "Interconnected, multi-hop, cross-document, or global synthesis is the strongest case for GraphRAG or a graph-mediated hybrid, because self-contained subgraphs support basic retrieval while reconstructed multi-hop relational sequences support deeper reasoning, and GraphRAG shows clearest advantages on complex reasoning and contextual summarization.",
+            "supporting_claim_ids": [
+              "claim-2502-14902v2-024",
+              "claim-2506-05690v3-002",
+              "claim-2506-05690v3-044"
+            ]
+          },
+          {
+            "statement": "Noisy graph evidence should cause filtering, pruning, hybrid fallback, or question-only routing rather than unconditional GraphRAG: noisy-graph additions can hurt, retrieval and decomposition errors propagate, and redundant graph information can be a major failure source.",
+            "supporting_claim_ids": [
+              "claim-2402-07630v3-039",
+              "claim-2502-14902v2-040",
+              "claim-2503-06474v2-038"
+            ]
+          },
+          {
+            "statement": "Always-use-the-graph is unsupported because external retrieval and parametric reasoning are complementary rather than retrieval-always-preferred, graph methods trade comprehensiveness or faithfulness against directness, cost, relevance, or coverage, and conclusions about when to use graphs are conditional on corpora, models, prompts, and metrics.",
+            "supporting_claim_ids": [
+              "claim-2503-13804v1-016",
+              "claim-2504-02112v2-054",
+              "claim-2506-05690v3-033",
+              "claim-2506-05690v3-045"
+            ]
+          }
+        ],
+        "paper_ids": [
+          "2402.07630v3",
+          "2502.14902v2",
+          "2503.06474v2",
+          "2503.13804v1",
+          "2504.02112v2",
+          "2506.05690v3"
+        ],
+        "citations": [
+          {
+            "paper_id": "2402.07630v3",
+            "pages": [
+              8
+            ]
+          },
+          {
+            "paper_id": "2502.14902v2",
+            "pages": [
+              1,
+              2,
+              5,
+              6
+            ]
+          },
+          {
+            "paper_id": "2503.06474v2",
+            "pages": [
+              1,
+              2,
+              6,
+              7,
+              10
+            ]
+          },
+          {
+            "paper_id": "2503.13804v1",
+            "pages": [
+              1,
+              3,
+              6
+            ]
+          },
+          {
+            "paper_id": "2504.02112v2",
+            "pages": [
+              15,
+              16,
+              17
+            ]
+          },
+          {
+            "paper_id": "2506.05690v3",
+            "pages": [
+              3,
+              5,
+              6,
+              7,
+              8,
+              9,
+              33
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "claim_id": "claim-2402-07630v3-039",
+          "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+          "paper_id": "2402.07630v3",
+          "source_path": "sources/claims/2402.07630v3.jsonl",
+          "locators": [
+            "PDF-page-8"
+          ]
+        },
+        {
+          "claim_id": "claim-2502-14902v2-024",
+          "concept_path": "concepts/claims-2502-14902v2/claim-2502-14902v2-024-c7fb3c0f92.md",
+          "paper_id": "2502.14902v2",
+          "source_path": "sources/claims/2502.14902v2.jsonl",
+          "locators": [
+            "PDF-page-1",
+            "PDF-page-2",
+            "PDF-page-5",
+            "PDF-page-6"
+          ]
+        },
+        {
+          "claim_id": "claim-2502-14902v2-040",
+          "concept_path": "concepts/claims-2502-14902v2/claim-2502-14902v2-040-4b8d3f8d3f.md",
+          "paper_id": "2502.14902v2",
+          "source_path": "sources/claims/2502.14902v2.jsonl",
+          "locators": [
+            "PDF-page-1",
+            "PDF-page-2"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-06474v2-024",
+          "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-024-1aca6457ee.md",
+          "paper_id": "2503.06474v2",
+          "source_path": "sources/claims/2503.06474v2.jsonl",
+          "locators": [
+            "PDF-page-10",
+            "PDF-page-6"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-06474v2-038",
+          "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-038-92a897d9db.md",
+          "paper_id": "2503.06474v2",
+          "source_path": "sources/claims/2503.06474v2.jsonl",
+          "locators": [
+            "PDF-page-7"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-06474v2-044",
+          "concept_path": "concepts/claims-2503-06474v2/claim-2503-06474v2-044-f0e5cc4945.md",
+          "paper_id": "2503.06474v2",
+          "source_path": "sources/claims/2503.06474v2.jsonl",
+          "locators": [
+            "PDF-page-1",
+            "PDF-page-2"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-13804v1-016",
+          "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-016-0d224e7938.md",
+          "paper_id": "2503.13804v1",
+          "source_path": "sources/claims/2503.13804v1.jsonl",
+          "locators": [
+            "PDF-page-3",
+            "PDF-page-6"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-13804v1-037",
+          "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md",
+          "paper_id": "2503.13804v1",
+          "source_path": "sources/claims/2503.13804v1.jsonl",
+          "locators": [
+            "PDF-page-1",
+            "PDF-page-3"
+          ]
+        },
+        {
+          "claim_id": "claim-2503-13804v1-038",
+          "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md",
+          "paper_id": "2503.13804v1",
+          "source_path": "sources/claims/2503.13804v1.jsonl",
+          "locators": [
+            "PDF-page-3"
+          ]
+        },
+        {
+          "claim_id": "claim-2504-02112v2-054",
+          "concept_path": "concepts/claims-2504-02112v2/claim-2504-02112v2-054-fbac4429ae.md",
+          "paper_id": "2504.02112v2",
+          "source_path": "sources/claims/2504.02112v2.jsonl",
+          "locators": [
+            "PDF-page-15",
+            "PDF-page-16",
+            "PDF-page-17"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-002",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-002-58f51434ce.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-6"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-033",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-033-77a005d898.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-33",
+            "PDF-page-5",
+            "PDF-page-6",
+            "PDF-page-7",
+            "PDF-page-8",
+            "PDF-page-9"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-034",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-034-171157f4cf.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-3",
+            "PDF-page-9"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-038",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-3"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-043",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-7",
+            "PDF-page-8"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-044",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-7",
+            "PDF-page-8"
+          ]
+        },
+        {
+          "claim_id": "claim-2506-05690v3-045",
+          "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-045-28cb1be071.md",
+          "paper_id": "2506.05690v3",
+          "source_path": "sources/claims/2506.05690v3.jsonl",
+          "locators": [
+            "PDF-page-8"
+          ]
+        }
+      ]
+    }
+  },
+  "observations": [
+    "The current CLI-only definitive finalizer passes all five mechanical gates (1.0).",
+    "Embeddings has the strongest retained non-ensemble row (0.6); the other pre-definitive rows score 0.4 on this question.",
+    "The historical MCP ensemble also scored 1.0, but it is retained only as historical evidence and is not the current runtime.",
+    "These gates test JSON shape, exact evidence bindings, atomic ground-truth coverage, and the required negative; they are not a blinded semantic-quality review."
+  ]
+}
