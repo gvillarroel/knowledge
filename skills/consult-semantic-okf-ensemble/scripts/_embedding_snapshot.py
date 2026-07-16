@@ -1114,6 +1114,7 @@ def _hit(
         "chunk_id": chunk_id,
         "source_id": chunk["source_id"],
         "record_id": chunk["record_id"],
+        "record_sha256": chunk["record_sha256"],
         "concept_id": chunk["concept_id"],
         "concept_type": record.get("concept_type"),
         "concept_path": chunk["concept_path"],

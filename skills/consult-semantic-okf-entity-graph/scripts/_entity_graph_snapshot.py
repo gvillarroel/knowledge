@@ -3,17 +3,19 @@
 
 from __future__ import annotations
 
+import copy
 import math
+import threading
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from _entity_graph_model import (
-    ALGORITHMS,
-    SCHEMA_VERSION,
+    GENERIC_SCHEMA_VERSION,
     EntityGraphError,
     EntityGraphPlan,
+    algorithms_for,
     content_tokens,
     core_tree_sha256,
     derive_projection,
@@ -69,6 +71,23 @@ class EntityGraphSnapshot:
     edges: list[dict[str, Any]]
     lexicon: dict[str, Any]
     deep_validation: bool
+
+
+@dataclass(frozen=True)
+class _QueryComputation:
+    """Keep one query's discovery signals internal to the read-only runtime."""
+
+    resolved: list[dict[str, Any]]
+    route_scores: dict[str, dict[str, float]]
+    component_ranks: dict[str, dict[str, int]]
+    path_edges: dict[str, set[str]]
+    edges_by_section: dict[str, list[str]]
+
+
+_QUERY_CACHE_LOCK = threading.RLock()
+_LAST_QUERY_CACHE: (
+    tuple[EntityGraphSnapshot, tuple[Any, ...], _QueryComputation] | None
+) = None
 
 
 def _artifact(root: Path, relative: str, count: int | None = None) -> dict[str, Any]:
@@ -141,10 +160,33 @@ def _verify_authoritative_bindings(
         record = record_by_identity.get((section["source_id"], section["record_id"]))
         if record is None or record.get("record_sha256") != section["record_sha256"]:
             raise SnapshotError("section record binding is absent or stale")
+        if "document_identity" in section:
+            expected_fields = {
+                "source_id": record.get("source_id"),
+                "record_id": record.get("record_id"),
+                "record_sha256": record.get("record_sha256"),
+                "source_content_sha256": record.get("source_content_sha256"),
+                "subject_iri": record.get("subject_iri"),
+                "concept_id": record.get("concept_id"),
+                "concept_type": record.get("concept_type"),
+                "concept_path": record.get("concept_path"),
+                "source_path": record.get("source_path"),
+            }
+            if any(section.get(name) != value for name, value in expected_fields.items()):
+                raise SnapshotError("generic section identity differs from its authoritative record")
+            expected_identity = {
+                "kind": "source-record",
+                "source_id": record.get("source_id"),
+                "record_id": record.get("record_id"),
+            }
+            if section.get("document_identity") != expected_identity:
+                raise SnapshotError("generic section document identity is stale")
         body = record.get("body")
         locator = section["locator"]
         if not isinstance(body, str) or body[locator["start"] : locator["end"]] != section["text"]:
             raise SnapshotError("section character locator does not reconstruct exact authoritative text")
+        if "document_identity" in section and locator.get("target") != "record-body":
+            raise SnapshotError("generic section locator does not target the authoritative record body")
         concept = section["concept_path"]
         path = (Path(record.get("concept_path", "")))
         if concept != path.as_posix():
@@ -169,11 +211,11 @@ def load_snapshot(root: Path, *, deep_validation: bool = False) -> EntityGraphSn
         index = read_json(graph / "index.json", "entity-graph/index.json")
         if not isinstance(index, dict) or set(index) != INDEX_KEYS:
             raise SnapshotError("entity-graph index has an invalid closed schema")
-        if index["schema_version"] != SCHEMA_VERSION or index["authoritative"] is not False or index["discovery_only"] is not True:
-            raise SnapshotError("entity-graph index version or authority markers are invalid")
-        if index["algorithms"] != ALGORITHMS:
-            raise SnapshotError("entity-graph algorithm identities are invalid")
         plan = parse_plan(index["plan"])
+        if index["schema_version"] != plan.schema_version or index["authoritative"] is not False or index["discovery_only"] is not True:
+            raise SnapshotError("entity-graph index version or authority markers are invalid")
+        if index["algorithms"] != algorithms_for(plan):
+            raise SnapshotError("entity-graph algorithm identities are invalid")
         if index["entity_graph_plan_sha256"] != plan.sha256:
             raise SnapshotError("entity-graph plan digest is invalid")
         records, sources = load_core(root)
@@ -202,7 +244,7 @@ def load_snapshot(root: Path, *, deep_validation: bool = False) -> EntityGraphSn
                 raise SnapshotError("entity-graph index differs from independent deterministic rederivation")
         report = read_json(graph / "build-report.json", "entity-graph/build-report.json")
         expected_report = {
-            "schema_version": SCHEMA_VERSION,
+            "schema_version": plan.schema_version,
             "valid": True,
             "status": "pass",
             "errors": [],
@@ -241,7 +283,7 @@ def inspect_snapshot(snapshot: EntityGraphSnapshot) -> dict[str, Any]:
     """Describe one validated snapshot and its authority boundary."""
 
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": snapshot.plan.schema_version,
         "status": "pass",
         "authoritative": False,
         "discovery_only": True,
@@ -251,7 +293,7 @@ def inspect_snapshot(snapshot: EntityGraphSnapshot) -> dict[str, Any]:
         "core": snapshot.index["core"],
         "entity_graph_index_sha256": snapshot.index_sha256,
         "entity_graph_plan_sha256": snapshot.plan.sha256,
-        "algorithms": ALGORITHMS,
+        "algorithms": algorithms_for(snapshot.plan),
     }
 
 
@@ -331,23 +373,39 @@ def _resolve_entities(snapshot: EntityGraphSnapshot, query: str) -> list[dict[st
         if best_score > 0:
             identity = entity["authoritative_identity"]
             record = None if identity is None else record_by_identity.get((identity["source_id"], identity["record_id"]))
-            result.append(
-                {
-                    "entity_id": entity["entity_id"],
-                    "entity_type": entity["entity_type"],
-                    "canonical_label": entity["canonical_label"],
-                    "review_state": entity["review_state"],
-                    "matched_terms": sorted(matched),
-                    "score": round(best_score, 12),
-                    "record_id": None if identity is None else identity["record_id"],
-                    "concept_path": None if identity is None else identity["concept_path"],
-                    "record_source_path": None if record is None else record["source_path"],
-                    "claim_evidence": sorted(
-                        claim_evidence.get(entity["entity_id"], []),
-                        key=lambda item: (item["paper_id"], item["locator"], item["section_id"]),
-                    ),
-                }
-            )
+            row = {
+                "entity_id": entity["entity_id"],
+                "entity_type": entity["entity_type"],
+                "canonical_label": entity["canonical_label"],
+                "review_state": entity["review_state"],
+                "matched_terms": sorted(matched),
+                "score": round(best_score, 12),
+                "record_id": None if identity is None else identity["record_id"],
+                "concept_path": None if identity is None else identity["concept_path"],
+                "record_source_path": None if record is None else record["source_path"],
+                "claim_evidence": sorted(
+                    claim_evidence.get(entity["entity_id"], []),
+                    key=lambda item: (item["paper_id"], item["locator"], item["section_id"]),
+                ),
+            }
+            if snapshot.plan.schema_version == GENERIC_SCHEMA_VERSION:
+                row.update(
+                    {
+                        "source_id": None if identity is None else identity["source_id"],
+                        "record_sha256": None if identity is None else identity["record_sha256"],
+                        "document_id": entity["entity_id"] if entity["entity_type"] == "document" else None,
+                        "document_identity": (
+                            None
+                            if identity is None
+                            else {
+                                "kind": "source-record",
+                                "source_id": identity["source_id"],
+                                "record_id": identity["record_id"],
+                            }
+                        ),
+                    }
+                )
+            result.append(row)
     result.sort(key=lambda row: (-row["score"], row["review_state"] != "reviewed", row["entity_id"]))
     return result[: int(snapshot.plan.raw["query"]["resolved_entities"])]
 
@@ -365,6 +423,9 @@ def _direct_entity_scores(snapshot: EntityGraphSnapshot, resolved: Sequence[dict
         if mention["entity_id"] in start:
             scores[mention["section_id"]] += start[mention["entity_id"]] * mention_weight * (1.0 + math.log1p(mention["count"]))
     for edge in snapshot.edges:
+        if edge["predicate"] == "partOfDocument" and edge["target_node"] in start:
+            scores[edge["source_node"]] += start[edge["target_node"]] * 2.0
+            continue
         if edge["source_node"] not in start:
             continue
         if edge["predicate"] == "supportedBySection":
@@ -426,18 +487,156 @@ def _rrf(rankings: Sequence[Sequence[str]], k: int) -> dict[str, float]:
     return dict(scores)
 
 
+def _query_cache_key(
+    snapshot: EntityGraphSnapshot,
+    query: str,
+    source_filter: set[str],
+    paper_filter: set[str],
+    document_filter: set[str],
+    record_filter: set[str],
+) -> tuple[Any, ...]:
+    """Bind the bounded cache to one loaded snapshot, query, and filter set."""
+
+    return (
+        id(snapshot),
+        snapshot.root.as_posix(),
+        snapshot.index_sha256,
+        snapshot.index["core"]["tree_sha256"],
+        snapshot.plan.sha256,
+        query,
+        tuple(sorted(source_filter)),
+        tuple(sorted(paper_filter)),
+        tuple(sorted(document_filter)),
+        tuple(sorted(record_filter)),
+    )
+
+
+def _compute_query(
+    snapshot: EntityGraphSnapshot,
+    query: str,
+    source_filter: set[str],
+    paper_filter: set[str],
+    document_filter: set[str],
+    record_filter: set[str],
+) -> _QueryComputation:
+    """Derive every route's exact scores once for a validated query context."""
+
+    generic = snapshot.plan.schema_version == GENERIC_SCHEMA_VERSION
+    if generic:
+        eligible = {
+            section["section_id"]
+            for section in snapshot.sections
+            if (not source_filter or section["source_id"] in source_filter)
+            and (not document_filter or section["document_id"] in document_filter)
+            and (not record_filter or section["record_id"] in record_filter)
+        }
+    else:
+        eligible = {
+            section["section_id"]
+            for section in snapshot.sections
+            if (not source_filter or section["source_id"] in source_filter)
+            and (not paper_filter or section["paper_id"] in paper_filter)
+        }
+    query_weights = Counter(content_tokens(query, snapshot.plan))
+    lexical = {
+        key: value
+        for key, value in _bm25_scores(snapshot, query_weights).items()
+        if key in eligible
+    }
+    resolved = _resolve_entities(snapshot, query)
+    entity = {
+        key: value
+        for key, value in _direct_entity_scores(snapshot, resolved).items()
+        if key in eligible
+    }
+    traversal, path_edges = _traversal_scores(snapshot, resolved)
+    traversal = {
+        key: value for key, value in traversal.items() if key in eligible
+    }
+    fusion = _rrf(
+        [_rank(lexical), _rank(entity), _rank(traversal)],
+        int(snapshot.plan.raw["query"]["rrf_k"]),
+    )
+    route_scores = {
+        "lexical": lexical,
+        "entity": entity,
+        "traversal": traversal,
+        "fusion": fusion,
+    }
+    component_ranks = {
+        name: {
+            identifier: rank
+            for rank, identifier in enumerate(_rank(values), start=1)
+        }
+        for name, values in route_scores.items()
+    }
+    edges_by_section: dict[str, list[str]] = defaultdict(list)
+    for edge in snapshot.edges:
+        for section_id in edge["evidence_section_ids"]:
+            edges_by_section[section_id].append(edge["edge_id"])
+    return _QueryComputation(
+        resolved=resolved,
+        route_scores=route_scores,
+        component_ranks=component_ranks,
+        path_edges=path_edges,
+        edges_by_section=dict(edges_by_section),
+    )
+
+
+def _cached_query_computation(
+    snapshot: EntityGraphSnapshot,
+    query: str,
+    source_filter: set[str],
+    paper_filter: set[str],
+    document_filter: set[str],
+    record_filter: set[str],
+) -> _QueryComputation:
+    """Reuse only the immediately preceding discovery computation in memory."""
+
+    global _LAST_QUERY_CACHE
+    key = _query_cache_key(
+        snapshot,
+        query,
+        source_filter,
+        paper_filter,
+        document_filter,
+        record_filter,
+    )
+    with _QUERY_CACHE_LOCK:
+        if (
+            _LAST_QUERY_CACHE is not None
+            and _LAST_QUERY_CACHE[0] is snapshot
+            and _LAST_QUERY_CACHE[1] == key
+        ):
+            return _LAST_QUERY_CACHE[2]
+        computation = _compute_query(
+            snapshot,
+            query,
+            source_filter,
+            paper_filter,
+            document_filter,
+            record_filter,
+        )
+        _LAST_QUERY_CACHE = (snapshot, key, computation)
+        return computation
+
+
 def _diversify(snapshot: EntityGraphSnapshot, scores: Mapping[str, float], top_k: int) -> list[dict[str, Any]]:
     by_id = {section["section_id"]: section for section in snapshot.sections}
     pool = _rank(scores)[: int(snapshot.plan.raw["query"]["candidate_pool"])]
     selected: list[dict[str, Any]] = []
-    paper_counts: Counter[str] = Counter()
-    maximum = int(snapshot.plan.raw["query"]["max_per_paper"])
+    identity_counts: Counter[str] = Counter()
+    generic = snapshot.plan.schema_version == GENERIC_SCHEMA_VERSION
+    maximum = int(
+        snapshot.plan.raw["query"]["max_per_document" if generic else "max_per_paper"]
+    )
     for identifier in pool:
         section = by_id[identifier]
-        if paper_counts[section["paper_id"]] >= maximum:
+        evidence_identity = section["document_id"] if generic else section["paper_id"]
+        if identity_counts[evidence_identity] >= maximum:
             continue
         selected.append(section)
-        paper_counts[section["paper_id"]] += 1
+        identity_counts[evidence_identity] += 1
         if len(selected) >= top_k:
             break
     return selected
@@ -451,6 +650,8 @@ def search_snapshot(
     *,
     source_ids: Sequence[str] = (),
     paper_ids: Sequence[str] = (),
+    document_ids: Sequence[str] = (),
+    record_ids: Sequence[str] = (),
 ) -> dict[str, Any]:
     """Search exact sections by lexical, entity, traversal, or fused graph ranking."""
 
@@ -461,36 +662,59 @@ def search_snapshot(
     if isinstance(top_k, bool) or not isinstance(top_k, int) or not 1 <= top_k <= 1000:
         raise SnapshotError("top-k must be an integer from 1 through 1000")
     source_filter, paper_filter = set(source_ids), set(paper_ids)
-    eligible = {
-        section["section_id"]
-        for section in snapshot.sections
-        if (not source_filter or section["source_id"] in source_filter)
-        and (not paper_filter or section["paper_id"] in paper_filter)
-    }
-    query_weights = Counter(content_tokens(query, snapshot.plan))
-    lexical = {key: value for key, value in _bm25_scores(snapshot, query_weights).items() if key in eligible}
-    resolved = _resolve_entities(snapshot, query)
-    entity = {key: value for key, value in _direct_entity_scores(snapshot, resolved).items() if key in eligible}
-    traversal, path_edges = _traversal_scores(snapshot, resolved)
-    traversal = {key: value for key, value in traversal.items() if key in eligible}
-    fusion = _rrf([_rank(lexical), _rank(entity), _rank(traversal)], int(snapshot.plan.raw["query"]["rrf_k"]))
-    route_scores = {"lexical": lexical, "entity": entity, "traversal": traversal, "fusion": fusion}
+    document_filter, record_filter = set(document_ids), set(record_ids)
+    generic = snapshot.plan.schema_version == GENERIC_SCHEMA_VERSION
+    if generic and paper_filter:
+        raise SnapshotError("paper-id filters apply only to legacy schema 1.0 snapshots")
+    if not generic and (document_filter or record_filter):
+        raise SnapshotError("document-id and record-id filters require a generic schema 2.0 snapshot")
+    computation = _cached_query_computation(
+        snapshot,
+        query,
+        source_filter,
+        paper_filter,
+        document_filter,
+        record_filter,
+    )
+    route_scores = computation.route_scores
     scores = route_scores[mode]
     selected = _diversify(snapshot, scores, top_k)
-    component_ranks = {
-        name: {identifier: rank for rank, identifier in enumerate(_rank(values), start=1)}
-        for name, values in route_scores.items()
-    }
-    edges_by_section: dict[str, list[str]] = defaultdict(list)
-    for edge in snapshot.edges:
-        for section_id in edge["evidence_section_ids"]:
-            edges_by_section[section_id].append(edge["edge_id"])
+    component_ranks = computation.component_ranks
     results = []
     for rank, section in enumerate(selected, start=1):
         identifier = section["section_id"]
-        supporting = sorted(set(edges_by_section.get(identifier, [])) | path_edges.get(identifier, set()))[:20]
-        results.append(
-            {
+        supporting = sorted(
+            set(computation.edges_by_section.get(identifier, []))
+            | computation.path_edges.get(identifier, set())
+        )[:20]
+        if generic:
+            row = {
+                "rank": rank,
+                "section_id": identifier,
+                "document_id": section["document_id"],
+                "document_identity": dict(section["document_identity"]),
+                "source_id": section["source_id"],
+                "record_id": section["record_id"],
+                "record_sha256": section["record_sha256"],
+                "source_content_sha256": section["source_content_sha256"],
+                "subject_iri": section["subject_iri"],
+                "concept_id": section["concept_id"],
+                "concept_type": section["concept_type"],
+                "concept_path": section["concept_path"],
+                "source_path": section["source_path"],
+                "ordinal": section["ordinal"],
+                "heading": section["heading"],
+                "heading_path": list(section["heading_path"]),
+                "locator": dict(section["locator"]),
+                "text": section["text"],
+                "text_sha256": section["text_sha256"],
+                "score": scores.get(identifier, 0.0),
+                "scores": {name: values.get(identifier) for name, values in route_scores.items()},
+                "ranks": {name: ranks.get(identifier) for name, ranks in component_ranks.items()},
+                "supporting_edge_ids": supporting,
+            }
+        else:
+            row = {
                 "rank": rank,
                 "section_id": identifier,
                 "document_id": identifier,
@@ -516,9 +740,18 @@ def search_snapshot(
                 "ranks": {name: ranks.get(identifier) for name, ranks in component_ranks.items()},
                 "supporting_edge_ids": supporting,
             }
-        )
+        results.append(row)
+    filters = (
+        {
+            "source_ids": sorted(source_filter),
+            "document_ids": sorted(document_filter),
+            "record_ids": sorted(record_filter),
+        }
+        if generic
+        else {"source_ids": sorted(source_filter), "paper_ids": sorted(paper_filter)}
+    )
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": snapshot.plan.schema_version,
         "status": "pass",
         "authoritative": False,
         "discovery_only": True,
@@ -527,8 +760,8 @@ def search_snapshot(
         "effective_mode": mode,
         "top_k": top_k,
         "returned": len(results),
-        "filters": {"source_ids": sorted(source_filter), "paper_ids": sorted(paper_filter)},
-        "resolved_entities": resolved,
+        "filters": filters,
+        "resolved_entities": copy.deepcopy(computation.resolved),
         "snapshot": {
             "core_tree_sha256": snapshot.index["core"]["tree_sha256"],
             "entity_graph_index_sha256": snapshot.index_sha256,

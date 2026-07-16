@@ -2,9 +2,11 @@
 type: Agent Skill
 title: Consult Semantic OKF Ensemble
 description: Consult a published definitive Semantic OKF ensemble read-only. Use for
-  evidence-grounded retrieval or multi-paper synthesis when the bundle contains adaptive
-  lexical, entity-graph, embedding, and ensemble projections and the answer must preserve
-  exact claim IDs, paths, locators, citations, hashes, exclusions, and response contracts.
+  evidence-grounded multi-document retrieval or legacy multi-paper synthesis when
+  the bundle contains adaptive lexical, entity-graph, embedding, exact identity-crosswalk,
+  and ensemble projections and the response must preserve authoritative identities,
+  paths, locators, text hashes, citations when available, exclusions, and quality
+  gates.
 tags:
 - codex
 - skill
@@ -21,28 +23,41 @@ Never edit, repair, or cache inside the supplied bundle.
 ## Enforce the CLI-only structured-answer gate
 
 Use only the packaged read-only CLI. This package deliberately exposes no server,
-host publication wrapper, or alternate answer transport. When the task requests the
-`question_id`, `answer`, `evidence` JSON contract, apply this gate to every non-null
-answer:
+host publication wrapper, or alternate answer transport. Resolve the launcher.
+Deep-validate the bundle before retrieval, and read `inspect` before drafting. Stop on
+any validation failure.
 
-1. Resolve the package-local launcher through the bounded workspace paths below.
-2. Deep-validate the bundle before retrieval and stop on any validation failure.
-3. Read every `coverage-brief` page for the exact question once, in ascending page
+When `finalize-answer.mode` is `reviewed-exact-answer-bindings`, apply the reviewed
+claim gate:
+
+1. Read every `coverage-brief` page for the exact question once, in ascending page
    order, with identical parameters. Require the full-coverage and priority-order
    hashes, facets, route counts, and claim totals to agree across pages.
-4. Account for every derived facet and draft only statements supported by reviewed
+2. Account for every derived facet and draft only statements supported by reviewed
    claim IDs exposed across those pages. Keep the draft in memory and never write it
    into the bundle.
-5. Pipe the draft to `finalize-answer --draft -`. Let the deterministic finalizer,
-   not the model, construct `paper_ids`, `citations`, `evidence`, paths, locator order,
-   and field order from verified bindings.
-6. Keep stdout and stderr separate, never merge stderr with `2>&1`, stop on a nonzero
-   exit, and accept only stdout that parses as the exact requested contract. Return
-   the last successful finalizer JSON verbatim without parsing and reserializing it.
+3. Pipe the draft to `finalize-answer --draft -`. Let the deterministic finalizer
+   construct paper IDs, citations, evidence, paths, locator order, and field order.
 
-If validation, coverage, drafting, or CLI finalization
-cannot complete, return the task's exact null-answer object instead. Never return a
-diagnostic or the finalizer's exit-2 error object as an answer.
+When `finalize-answer.mode` is `exact-evidence-id-and-verbatim-support`, apply the
+source-generic gate:
+
+1. Run `answer-brief` for the exact question with `--top-k 30 --per-facet 4
+   --maximum-facets 12`. Review each facet, support quote, and authoritative source
+   text before making a statement.
+2. Draft exactly `summary` and `claims`. Each claim contains exactly `statement` and
+   `supporting_evidence`; each support contains exactly one `support_id` copied from
+   the brief. Use the fewest support rows that fully support the statement.
+3. Pipe the draft to `finalize-answer --draft -` with the identical query, top-k, and
+   requested summary word bounds. The finalizer rejects unknown IDs, non-verbatim
+   quotes, malformed drafts, and evidence outside the gated pack, then constructs the
+   exact `question_id`, `answer`, and `evidence` response contract.
+
+For both modes, observe the same transport discipline. Keep stdout and stderr separate,
+never merge stderr with `2>&1`, stop on a nonzero exit, and return the last successful
+finalizer JSON verbatim without parsing and reserializing it. If validation, evidence review, drafting, or CLI
+finalization cannot complete, return the task's exact null-answer object instead.
+Never return a diagnostic or an exit-2 error object as an answer.
 Do not hand-author a non-null contracted response as a fallback.
 
 ## Resolve the packaged CLI without broad scans
@@ -80,11 +95,28 @@ Run deep validation once for every new, release, or benchmark snapshot:
 ```
 
 Stop on any closed-schema, component-hash, core-parity, claim-binding, model-revision,
-or build-report failure. Do not fall back to an unvalidated scan.
+child-plan, identity-crosswalk, component-record-parity, or build-report failure. Do
+not fall back to an unvalidated scan. This package is a local CLI and requires no MCP
+server.
+
+Inspect `schema_version` and `capabilities` before choosing the workflow. Schema `1.0`
+uses the frozen paper and reviewed-claim contract below. Schema `2.0` uses exact
+source-record groups. When its claim-only capabilities are unavailable, use:
+
+```powershell
+& $QueryCommand $Bundle evidence-pack `
+  --query "QUESTION" --top-k 10
+```
+
+Verify every returned `source_id`, `record_id`, `record_sha256`, `concept_path`,
+`source_path`, explicit `record-body` character-range locator, text hash, evidence ID,
+and group ID. Never infer equivalence from a shared path, prefix, title, filename, URL,
+paper-like token, or bare record ID.
 
 ## Choose a retrieval policy explicitly
 
-Use `quality` for the strongest direct ordering. It preserves the adaptive paper set,
+Use `quality` for the strongest direct ordering. It preserves the adaptive paper or
+identity-group set,
 combines adaptive, BM25, graph, and exact pinned embedding ranks, and applies a
 consensus promotion gate. It fails closed when the pinned offline embedding runtime is
 unavailable.
@@ -102,7 +134,64 @@ Review `candidate_set_gate`, `promotion_gate`, and `route_rankings`. A high scor
 graph path is not evidence. Open returned `concept_path` and `source_path`, then verify
 the exact authoritative record, locator, and text hash before using a statement.
 
-## Close answer coverage before drafting
+## Finalize a source-generic answer
+
+When inspection reports `exact-evidence-id-and-verbatim-support`, retrieve a compact,
+bounded answer brief with the unchanged full question:
+
+```powershell
+$BriefJson = & $QueryCommand $Bundle answer-brief `
+  --query "QUESTION" --top-k 30 --per-facet 4 --maximum-facets 12
+if ($LASTEXITCODE -ne 0) { throw 'source-generic answer brief failed' }
+$Brief = $BriefJson | ConvertFrom-Json -Depth 100
+```
+
+Review every facet and its bounded exact support quotes before drafting. Open the
+listed authoritative paths when more context is needed. Copy support IDs only from
+`facets[*].supports`; do not invent an ID or infer a locator.
+Use this closed in-memory draft shape:
+
+```json
+{
+  "summary": "A synthesis within the requested word bound.",
+  "claims": [
+    {
+      "statement": "One atomic statement supported by the selected passages.",
+      "supporting_evidence": [
+        {
+          "support_id": "support-example"
+        }
+      ]
+    }
+  ]
+}
+```
+
+```powershell
+$FinalJson = $DraftJson | & $QueryCommand $Bundle finalize-answer `
+  --draft - --question-id QUESTION_ID --query "QUESTION" `
+  --top-k 30 --per-facet 4 --maximum-facets 12 `
+  --summary-min-words 160 --summary-max-words 320
+if ($LASTEXITCODE -ne 0) { throw 'source-generic answer finalization failed' }
+```
+
+After this command succeeds, stop all synthesis. Do not parse, convert, inspect,
+reconstruct, reorder, or copy fields from `$FinalJson`. The entire next assistant
+message must be the raw `$FinalJson` string byte-for-byte; even moving `claims` outside
+`answer` or changing one brace fails the response contract.
+
+Pipe it to `finalize-answer` with the identical query, top-k, per-facet, and maximum
+facet parameters. Pass the task's word bounds explicitly when they differ from
+180-320. The finalizer independently rebuilds the brief and underlying pack, verifies
+every support ID and quote hash, deduplicates evidence in first-use order, and emits
+`evidence_indices` plus exact authoritative paths, locators, and hashes. It does not
+prove semantic entailment, so keep every statement atomic and revise any claim whose
+displayed exact quote does not fully support it.
+
+## Close legacy claim-answer coverage before drafting
+
+Use this section only when inspection confirms the claim-only capabilities are
+available. A schema `2.0` claimless snapshot uses the source-generic gate above instead.
 
 For synthesis, comparisons, conditions, exclusions, mechanisms, or important
 negatives, request the first compact page:

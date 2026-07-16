@@ -8,7 +8,11 @@ The `adaptive/` tree is derived discovery data. It does not define record identi
 
 The directory contains exactly `index.json`, `documents.jsonl`, `answer-bindings.jsonl`, `lexicon.json`, `associations.jsonl`, `topics.json`, and `build-report.json`. All are regular non-symlink files.
 
-Each document row contains one exact passage plus source, record, concept ID and type, source-path, paper, ordinal, text-digest, title/body term counts, lengths, and topic weights. A locator is exactly `{"kind":"record"}` or `{"kind":"character-range","start":N,"end":M}`.
+Each document row contains one exact passage plus source, record, concept ID and type,
+source path, optional paper identity, ordinal, text digest, title/body term counts,
+lengths, and topic weights. A null paper identity is valid for source-generic records.
+A locator is exactly `{"kind":"record"}` or
+`{"kind":"character-range","start":N,"end":M}`.
 
 Each answer-binding row is a deterministic, non-authoritative projection of one reviewed record with unambiguous page evidence. It keeps the record and concept identities, claim-source path, paper identity, reviewed interpretation, exact evidence-source paths, canonical string locator tokens such as `PDF-page-7`, integer citation pages such as `7`, and their hashes. Those two page representations are intentionally distinct. The builder emits no row when any source fragment is malformed, the mapped paper identity differs, or the referenced `## PDF page N` heading is absent.
 

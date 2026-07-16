@@ -5,7 +5,12 @@ from __future__ import annotations
 
 import json
 
-from _entity_graph_model import ALGORITHMS, SCHEMA_VERSION
+from _entity_graph_model import (
+    ALGORITHMS,
+    GENERIC_ALGORITHMS,
+    GENERIC_SCHEMA_VERSION,
+    SCHEMA_VERSION,
+)
 
 
 def main() -> int:
@@ -15,12 +20,15 @@ def main() -> int:
         json.dumps(
             {
                 "status": "pass",
-                "schema_version": SCHEMA_VERSION,
+                "schema_versions": [SCHEMA_VERSION, GENERIC_SCHEMA_VERSION],
                 "runtime": "semantic-okf-entity-graph-query-python",
                 "model_required": False,
                 "network_required": False,
                 "read_only": True,
-                "algorithms": ALGORITHMS,
+                "algorithms": {
+                    SCHEMA_VERSION: ALGORITHMS,
+                    GENERIC_SCHEMA_VERSION: GENERIC_ALGORITHMS,
+                },
             },
             sort_keys=True,
         )

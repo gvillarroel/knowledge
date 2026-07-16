@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import json
 
+from _entity_graph_model import GENERIC_SCHEMA_VERSION, SCHEMA_VERSION
+
 
 def main() -> int:
     """Import required packages and report the offline runtime."""
@@ -18,6 +20,7 @@ def main() -> int:
             {
                 "status": "pass",
                 "runtime": "semantic-okf-entity-graph-python",
+                "schema_versions": [SCHEMA_VERSION, GENERIC_SCHEMA_VERSION],
                 "model_required": False,
                 "network_required": False,
                 "packages": {

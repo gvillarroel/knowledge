@@ -1,6 +1,6 @@
 ---
 name: build-semantic-okf-entity-graph
-description: Build and independently validate an atomic Semantic OKF snapshot plus a deterministic, non-authoritative entity, reviewed-claim, mention, co-mention, and exact-section graph. Use when Codex must extract candidate entities directly from documents, connect reviewed relations to precise file sections, create a graph retrieval index, or reproduce offline entity-first retrieval. This standalone skill owns construction only and never answers from a published snapshot.
+description: Build and independently validate an atomic Semantic OKF snapshot plus a deterministic, non-authoritative document, entity, mention, co-mention, and exact-section graph over arbitrary declared sources. Use when Codex must extract candidate entities from Markdown, CSV, JSON, or RDF records, connect source-scoped records to precise evidence sections, preserve a legacy reviewed-claim graph, or reproduce offline entity-first retrieval. This standalone skill owns construction only and never answers from a published snapshot.
 ---
 
 # Build Semantic OKF Entity Graph
@@ -14,7 +14,7 @@ Build the authoritative Semantic OKF core unchanged, then derive an entity-first
 - Do not import or execute a sibling skill, repository helper, evaluation fixture, or root document.
 - Own source processing, core materialization, graph derivation, validation, and atomic publication.
 - Do not search, answer, compare, cite, or synthesize from a published snapshot.
-- Preserve reviewed claim semantics exactly. Never promote extracted phrases, matched mentions, or co-mentions to authoritative facts.
+- Preserve reviewed claim semantics exactly in legacy plans. Never promote document prose, extracted phrases, matched mentions, or co-mentions to authoritative facts.
 
 ## Required references
 
@@ -29,14 +29,14 @@ Build the authoritative Semantic OKF core unchanged, then derive an entity-first
 
 1. Define source authority, exact physical inputs, identity scope, competency questions, and evidence identities.
 2. Inspect source schemas and write the closed Semantic OKF manifest. Keep entity fusion upstream when records need reconciliation.
-3. Write a closed entity-graph plan with explicit paper, reviewed-claim, and auxiliary-vocabulary source IDs.
+3. Write a closed plan. Prefer source-generic schema `2.0` with explicit `source_ids`; use legacy schema `1.0` only to reproduce the pinned paper/claim/vocabulary graph.
 4. Pin sectioning, tokenization, candidate extraction, BM25, co-mention, traversal, fusion, and diversity parameters.
 5. Install only `scripts/requirements.txt`; the graph derivation is deterministic, offline, and model-free.
 6. Build into an absent path. The command materializes the core, rederives the complete graph, validates it, and publishes with one final rename.
 7. Run the independent validator and a second clean build. Require identical sorted path-and-byte hashes.
-8. Open representative claim paths and section locators. Confirm exact record slices and reviewed graph joins.
+8. Open representative concept paths and section locators. Confirm exact `record.body` slices, source-record identities, and graph joins. For legacy plans, also confirm reviewed claim paths.
 
-Never accept unknown plan members, partial source selection, unreviewed claims as accepted edges, missing evidence sections, approximate locators, symlinks, stale hashes, or an existing destination.
+Never accept unknown plan members, partial source selection, source/record identity collisions, approximate locators, symlinks, stale hashes, or an existing destination. In legacy mode, also reject unreviewed claims and missing evidence sections.
 
 ## Build and validate
 
@@ -65,7 +65,7 @@ semantic-okf-entity-graph/
     build-report.json
 ```
 
-Reviewed method, dimension, paper, and claim nodes retain authoritative record identities. Candidate phrase nodes record their deterministic extraction statistics. Section nodes are exact PDF-page character ranges. Reviewed claim edges connect method → claim → dimension/paper/section. Candidate mention and co-mention edges remain explicitly labeled.
+In schema `2.0`, every selected ledger record becomes a collision-safe document node keyed by `(source_id, record_id)`. Heading-aware sections are bounded exact character ranges over authoritative `record.body`; headerless records use the same bounded fallback. `partOfDocument` is an authoritative structural binding, while phrase mentions and co-mentions remain candidates. Schema `1.0` retains the original reviewed method, dimension, paper, claim, and PDF-page projection unchanged.
 
 ## Completion gate
 
@@ -75,11 +75,12 @@ Before delivery, confirm:
 - every selected source is eligible and exclusions are explicit;
 - authoritative core validation and graph rederivation pass;
 - the closed graph directory has no unknown file or symlink;
-- every reviewed entity binds to one ledger record and concept;
-- every section reconstructs an exact authoritative body slice and text hash;
-- every reviewed claim resolves every declared locator, including multi-page evidence;
+- every authoritative document entity binds to one source-scoped ledger record and concept;
+- every section reconstructs an exact authoritative `record.body` slice and text hash;
+- every schema `2.0` section preserves source, record, source-content, record, concept, and locator bindings;
+- every schema `1.0` reviewed claim resolves every declared locator, including multi-page evidence;
 - candidate phrases, mentions, and co-mentions are labeled non-authoritative;
 - artifact hashes, summary counts, index, and build report agree;
 - failure leaves no destination or private candidate;
 - two unchanged builds are byte-identical; and
-- representative entity, traversal, and fusion queries return verifiable file and section locators.
+- after publication, an independently installed `consult-semantic-okf-entity-graph` package can run representative entity, traversal, and fusion queries that return verifiable file and section locators. The build package itself does not query the published snapshot.

@@ -1,0 +1,58 @@
+{
+  "build_report": {
+    "path": "evaluations/semantic-okf-astro/reports/build-comparison.json",
+    "run_dir": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01",
+    "sha256": "76d189ae10d34ff8b328c920bcc9b8d5bca03055090fdf605529f2a0b44aaba7"
+  },
+  "bundle": {
+    "path": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a",
+    "tree_sha256": "23473bc95b393ce62c94ac2395fa7b8525c2378c0150d4cea49776d3f4e9dfb9"
+  },
+  "config": {
+    "path": "evaluations/semantic-okf-astro/skill-arena/q039-ensemble-holdout.yaml",
+    "sha256": "6fe54755b1165c5e147255f431e088e19639bf7b61ded7df19827be80c20054e"
+  },
+  "holdout_protocol": {
+    "frozen_before_live_execution": true,
+    "live_evaluation_executed_by_generator": false,
+    "mcp_enabled": false,
+    "profiles": [
+      "knowledge-only-control",
+      "ensemble-consult-treatment"
+    ],
+    "result_inspection_authorized": false,
+    "same_bundle": true,
+    "same_model": true,
+    "skill_changes_authorized": false
+  },
+  "interpretation": "A frozen post-tuning q039 causal holdout: the only profile difference is installation of consult-semantic-okf-ensemble. No live result is part of this manifest.",
+  "model": "openai-codex/gpt-5.6-luna",
+  "prompt": {
+    "coverage_path": "evaluations/semantic-okf-astro/skill-arena/q039-ensemble-holdout-prompt-coverage.json",
+    "coverage_sha256": "5fca2ca7f682aaac10a5b62a07d94e16057d7dd029330b6345344b31f3f3f68c",
+    "id": "q039",
+    "sha256": "e6182136b6e9674d9b4fec26c585d26f2215fc2cc6655dd0d38e3f7abd900e70"
+  },
+  "question": {
+    "id": "q039",
+    "question": "After enabling ClientRouter, a page initializer fires twice on some navigations and not at all on others. Derive a script-loading contract covering processed module deduplication, inline scripts, data-astro-rerun, lifecycle events, and guards for persistent global listeners.",
+    "question_type": "hard"
+  },
+  "question_source": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-questions.jsonl",
+    "qrels_in_prompt": false,
+    "sha256": "781b68739af5f5867dc67189dc08ab25ccca0ce809c89543709961bacdd7c948"
+  },
+  "requests_per_cell": 1,
+  "runner": {
+    "path": "evaluations/semantic-okf-builder/fixtures/workspaces/base/bin/pi-luna.ps1",
+    "sha256": "6fad208c56322d67d7779a0a5c90434cc823da3a5ba18d8f3d7e0bbcbda24c18"
+  },
+  "schema_version": "semantic-okf-astro-q039-ensemble-holdout-manifest/1.0",
+  "status": "pass",
+  "treatment_skill": {
+    "id": "consult-semantic-okf-ensemble",
+    "path": "skills/consult-semantic-okf-ensemble",
+    "tree_sha256": "ab66ade281810abc10ff626d3189d78314f8c939874c3aed86634e1023f8fe19"
+  }
+}

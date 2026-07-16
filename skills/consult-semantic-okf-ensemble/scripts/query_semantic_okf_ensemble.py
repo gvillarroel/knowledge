@@ -13,6 +13,7 @@ from _ensemble_snapshot import (
     build_coverage_brief,
     build_coverage_pack,
     build_evidence_pack,
+    build_source_answer_brief,
     finalize_answer,
     inspect_snapshot,
     load_snapshot,
@@ -54,14 +55,23 @@ def build_parser() -> argparse.ArgumentParser:
 
     evidence = commands.add_parser(
         "evidence-pack",
-        help="rank exact reviewed records for compact answer synthesis",
+        help="rank exact reviewed claims or source-generic authoritative passages",
     )
     evidence.add_argument("--query", required=True)
     evidence.add_argument("--top-k", type=int, default=30)
 
+    answer_brief = commands.add_parser(
+        "answer-brief",
+        help="derive compact exact support handles for a source-generic answer",
+    )
+    answer_brief.add_argument("--query", required=True)
+    answer_brief.add_argument("--top-k", type=int, default=30)
+    answer_brief.add_argument("--per-facet", type=int, default=4)
+    answer_brief.add_argument("--maximum-facets", type=int, default=12)
+
     coverage = commands.add_parser(
         "coverage-pack",
-        help="combine lexical facets with bounded reviewed graph-claim expansion",
+        help="combine lexical facets with reviewed claims (requires exact bindings)",
     )
     coverage.add_argument("--query", required=True)
     coverage.add_argument("--top-k", type=int, default=30)
@@ -70,7 +80,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     brief = commands.add_parser(
         "coverage-brief",
-        help="compute full multisignal coverage and emit a compact reviewed-claim projection",
+        help="page reviewed-claim coverage (requires exact bindings)",
     )
     brief.add_argument("--query", required=True)
     brief.add_argument("--top-k", type=int, default=30)
@@ -86,7 +96,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     finalize = commands.add_parser(
         "finalize-answer",
-        help="gate every derived facet and rebuild exact evidence and citations",
+        help=(
+            "finalize from reviewed claims, or from exact evidence IDs and "
+            "verbatim support in a source-generic snapshot"
+        ),
     )
     finalize.add_argument(
         "--draft",
@@ -124,6 +137,14 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "evidence-pack":
             result = build_evidence_pack(snapshot, args.query, args.top_k)
+        elif args.command == "answer-brief":
+            result = build_source_answer_brief(
+                snapshot,
+                args.query,
+                args.top_k,
+                args.per_facet,
+                args.maximum_facets,
+            )
         elif args.command == "coverage-pack":
             result = build_coverage_pack(
                 snapshot,

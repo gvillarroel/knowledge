@@ -78,6 +78,10 @@ Every `embeddings.jsonl` row contains exactly `chunk_id` and `vector`. Its order
 - `selection.input_sha256` hashes sorted canonical rows `{source_id, content_sha256}` from the eligible entries in `semantic/source-manifest.json`.
 - Every chunk repeats the authoritative record digest and exact concept path.
 
+In ensemble schema `2.0`, consultation also exposes the chunk's persisted
+`record_sha256` in every route hit and resolves it only through the ensemble identity
+crosswalk. A shared record ID or source path is never sufficient for a join.
+
 This graph is acyclic: the retrieval index binds the already complete core, while the core digest excludes `retrieval/`.
 
 ## 6. Failure policy

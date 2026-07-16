@@ -32,6 +32,8 @@ def build_parser() -> argparse.ArgumentParser:
     search.add_argument("--top-k", type=int, default=10)
     search.add_argument("--source-id", action="append", default=[])
     search.add_argument("--paper-id", action="append", default=[])
+    search.add_argument("--document-id", action="append", default=[])
+    search.add_argument("--record-id", action="append", default=[])
     return parser
 
 
@@ -52,6 +54,8 @@ def main(argv: list[str] | None = None) -> int:
                 args.top_k,
                 source_ids=args.source_id,
                 paper_ids=args.paper_id,
+                document_ids=args.document_id,
+                record_ids=args.record_id,
             )
     except (SnapshotError, OSError, UnicodeError, ValueError, TypeError, KeyError, IndexError) as exc:
         print(json.dumps({"status": "error", "code": "entity-graph-error", "error": str(exc)}, ensure_ascii=False, sort_keys=True))

@@ -14,10 +14,15 @@ from typing import Any, Iterable, Mapping, Sequence
 
 
 SCHEMA_VERSION = "1.0"
+GENERIC_SCHEMA_VERSION = "2.0"
 TOKENIZER_ID = "ascii-alphanumeric-v1"
 STOPWORDS_ID = "english-v1"
 TOKEN_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
 PAGE_RE = re.compile(r"(?m)^## PDF page (?P<page>\d+)\s*$")
+ATX_HEADING_RE = re.compile(
+    r"^[ \t]{0,3}(?P<marks>#{1,6})[ \t]+(?P<title>.*?)(?:[ \t]+#+[ \t]*)?$"
+)
+FENCE_RE = re.compile(r"^[ \t]{0,3}(?P<marker>`{3,}|~{3,})")
 HEX_64 = re.compile(r"[0-9a-f]{64}")
 
 STOPWORDS = frozenset(
@@ -82,6 +87,31 @@ SECTION_KEYS = {
     "length",
 }
 LOCATOR_KEYS = {"kind", "start", "end", "fragment"}
+GENERIC_SECTION_KEYS = {
+    "section_id",
+    "document_entity_id",
+    "document_id",
+    "document_identity",
+    "source_id",
+    "record_id",
+    "record_sha256",
+    "source_content_sha256",
+    "subject_iri",
+    "concept_id",
+    "concept_type",
+    "concept_path",
+    "source_path",
+    "ordinal",
+    "heading",
+    "heading_path",
+    "locator",
+    "text",
+    "text_sha256",
+    "terms",
+    "length",
+}
+DOCUMENT_IDENTITY_KEYS = {"kind", "source_id", "record_id"}
+GENERIC_LOCATOR_KEYS = {"target", "kind", "start", "end", "fragment"}
 MENTION_KEYS = {
     "mention_id",
     "entity_id",
@@ -99,6 +129,16 @@ EDGE_KEYS = {
     "review_state",
     "semantic_source",
     "claim_record_id",
+    "evidence_section_ids",
+    "weight",
+}
+GENERIC_EDGE_KEYS = {
+    "edge_id",
+    "source_node",
+    "predicate",
+    "target_node",
+    "review_state",
+    "semantic_source",
     "evidence_section_ids",
     "weight",
 }
@@ -124,6 +164,19 @@ ALGORITHMS = {
     "reranking": "source-diversified-ranking-v1",
 }
 
+GENERIC_ALGORITHMS = {
+    "sectioning": "markdown-atx-heading-or-bounded-record-character-range-v1",
+    "entity_extraction": "bounded-corpus-salient-ngram-v1",
+    "mention_matching": "normalized-longest-phrase-match-v1",
+    "reviewed_relations": "semantic-okf-record-section-binding-v1",
+    "candidate_relations": "section-co-mention-v1",
+    "lexical_scoring": "okapi-bm25-v1",
+    "entity_scoring": "alias-overlap-plus-mention-evidence-v1",
+    "graph_scoring": "bounded-provenance-aware-traversal-v1",
+    "fusion": "reciprocal-rank-fusion-v1",
+    "reranking": "source-record-diversified-ranking-v1",
+}
+
 PREDICATES = {
     "hasReviewedClaim",
     "objectTerm",
@@ -133,6 +186,7 @@ PREDICATES = {
     "mentionedInSection",
     "coMentionedWith",
 }
+GENERIC_PREDICATES = {"partOfDocument", "mentionedInSection", "coMentionedWith"}
 
 
 class EntityGraphError(RuntimeError):
@@ -148,12 +202,22 @@ class EntityGraphPlan:
     paper_source_ids: tuple[str, ...]
     claim_source_ids: tuple[str, ...]
     vocabulary_source_id: str
+    generic_source_ids: tuple[str, ...] = ()
+    schema_version: str = SCHEMA_VERSION
 
     @property
     def source_ids(self) -> tuple[str, ...]:
         """Return every selected source ID in deterministic order."""
 
+        if self.schema_version == GENERIC_SCHEMA_VERSION:
+            return self.generic_source_ids
         return tuple(sorted((*self.paper_source_ids, *self.claim_source_ids, self.vocabulary_source_id)))
+
+
+def algorithms_for(plan: EntityGraphPlan) -> dict[str, str]:
+    """Return the closed algorithm identities for a validated plan version."""
+
+    return GENERIC_ALGORITHMS if plan.schema_version == GENERIC_SCHEMA_VERSION else ALGORITHMS
 
 
 def canonical_json(value: Any) -> str:
@@ -238,8 +302,8 @@ def _source_id_list(value: Any, label: str) -> tuple[str, ...]:
     return tuple(value)
 
 
-def parse_plan(value: Any) -> EntityGraphPlan:
-    """Validate one closed plan object."""
+def _parse_legacy_plan(value: Any) -> EntityGraphPlan:
+    """Validate one closed legacy paper/claim plan object."""
 
     if not isinstance(value, dict):
         raise EntityGraphError("entity-graph plan root must be an object")
@@ -357,7 +421,154 @@ def parse_plan(value: Any) -> EntityGraphPlan:
     _plain_int(query["rrf_k"], "query.rrf_k", 1, 10000)
 
     normalized = json.loads(canonical_json(value))
-    return EntityGraphPlan(normalized, sha256_canonical(normalized), papers, claims, vocabulary)
+    return EntityGraphPlan(
+        normalized,
+        sha256_canonical(normalized),
+        papers,
+        claims,
+        vocabulary,
+        schema_version=SCHEMA_VERSION,
+    )
+
+
+def _parse_generic_plan(value: Any) -> EntityGraphPlan:
+    """Validate one closed source-generic entity-graph plan object."""
+
+    exact_keys(value, PLAN_KEYS, "entity-graph plan")
+    selection = value["selection"]
+    if not isinstance(selection, dict):
+        raise EntityGraphError("selection must be an object")
+    exact_keys(selection, {"source_ids"}, "selection")
+    source_ids = _source_id_list(selection["source_ids"], "selection.source_ids")
+
+    sectioning = value["sectioning"]
+    if not isinstance(sectioning, dict):
+        raise EntityGraphError("sectioning must be an object")
+    exact_keys(sectioning, {"strategy", "maximum_characters"}, "sectioning")
+    if sectioning["strategy"] != "markdown-headings-or-bounded-record-v1":
+        raise EntityGraphError(
+            "sectioning.strategy must be markdown-headings-or-bounded-record-v1"
+        )
+    _plain_int(
+        sectioning["maximum_characters"],
+        "sectioning.maximum_characters",
+        64,
+        1_000_000,
+    )
+
+    tokenization = value["tokenization"]
+    if not isinstance(tokenization, dict):
+        raise EntityGraphError("tokenization must be an object")
+    exact_keys(tokenization, {"tokenizer", "stopwords", "min_token_length"}, "tokenization")
+    if tokenization["tokenizer"] != TOKENIZER_ID or tokenization["stopwords"] != STOPWORDS_ID:
+        raise EntityGraphError("tokenization identifiers are unsupported")
+    _plain_int(tokenization["min_token_length"], "tokenization.min_token_length", 1, 20)
+
+    extraction = value["extraction"]
+    if not isinstance(extraction, dict):
+        raise EntityGraphError("extraction must be an object")
+    exact_keys(
+        extraction,
+        {
+            "ngram_range",
+            "minimum_section_frequency",
+            "maximum_section_fraction",
+            "maximum_candidates",
+            "top_candidates_per_section",
+        },
+        "extraction",
+    )
+    ngram_range = extraction["ngram_range"]
+    if (
+        not isinstance(ngram_range, list)
+        or len(ngram_range) != 2
+        or any(isinstance(item, bool) or not isinstance(item, int) for item in ngram_range)
+        or not 1 <= ngram_range[0] <= ngram_range[1] <= 5
+    ):
+        raise EntityGraphError("extraction.ngram_range must be two ordered integers from 1 through 5")
+    _plain_int(extraction["minimum_section_frequency"], "extraction.minimum_section_frequency", 1, 1000)
+    _finite(extraction["maximum_section_fraction"], "extraction.maximum_section_fraction", 0.01, 1.0)
+    _plain_int(extraction["maximum_candidates"], "extraction.maximum_candidates", 1, 100000)
+    _plain_int(extraction["top_candidates_per_section"], "extraction.top_candidates_per_section", 1, 1000)
+
+    bm25 = value["bm25"]
+    if not isinstance(bm25, dict):
+        raise EntityGraphError("bm25 must be an object")
+    exact_keys(bm25, {"k1", "b"}, "bm25")
+    _finite(bm25["k1"], "bm25.k1", 0.01, 10.0)
+    _finite(bm25["b"], "bm25.b", 0.0, 1.0)
+
+    graph = value["graph"]
+    if not isinstance(graph, dict):
+        raise EntityGraphError("graph must be an object")
+    exact_keys(
+        graph,
+        {
+            "max_co_mentions_per_section",
+            "minimum_co_mention_sections",
+            "max_co_mention_neighbors",
+            "max_edge_evidence_sections",
+        },
+        "graph",
+    )
+    _plain_int(graph["max_co_mentions_per_section"], "graph.max_co_mentions_per_section", 2, 100)
+    _plain_int(graph["minimum_co_mention_sections"], "graph.minimum_co_mention_sections", 1, 1000)
+    _plain_int(graph["max_co_mention_neighbors"], "graph.max_co_mention_neighbors", 1, 1000)
+    _plain_int(graph["max_edge_evidence_sections"], "graph.max_edge_evidence_sections", 1, 1000)
+
+    query = value["query"]
+    if not isinstance(query, dict):
+        raise EntityGraphError("query must be an object")
+    exact_keys(
+        query,
+        {
+            "resolved_entities",
+            "max_hops",
+            "hop_decay",
+            "reviewed_edge_weight",
+            "candidate_edge_weight",
+            "mention_weight",
+            "candidate_pool",
+            "max_per_document",
+            "rrf_k",
+        },
+        "query",
+    )
+    _plain_int(query["resolved_entities"], "query.resolved_entities", 1, 1000)
+    _plain_int(query["max_hops"], "query.max_hops", 1, 6)
+    _finite(query["hop_decay"], "query.hop_decay", 0.01, 1.0)
+    _finite(query["reviewed_edge_weight"], "query.reviewed_edge_weight", 0.01, 10.0)
+    _finite(query["candidate_edge_weight"], "query.candidate_edge_weight", 0.0, 10.0)
+    _finite(query["mention_weight"], "query.mention_weight", 0.01, 10.0)
+    _plain_int(query["candidate_pool"], "query.candidate_pool", 1, 10000)
+    _plain_int(query["max_per_document"], "query.max_per_document", 1, 1000)
+    _plain_int(query["rrf_k"], "query.rrf_k", 1, 10000)
+
+    normalized = json.loads(canonical_json(value))
+    return EntityGraphPlan(
+        normalized,
+        sha256_canonical(normalized),
+        (),
+        (),
+        "",
+        generic_source_ids=source_ids,
+        schema_version=GENERIC_SCHEMA_VERSION,
+    )
+
+
+def parse_plan(value: Any) -> EntityGraphPlan:
+    """Validate one closed plan object and dispatch by explicit schema version."""
+
+    if not isinstance(value, dict):
+        raise EntityGraphError("entity-graph plan root must be an object")
+    version = value.get("schema_version")
+    if version == SCHEMA_VERSION:
+        return _parse_legacy_plan(value)
+    if version == GENERIC_SCHEMA_VERSION:
+        return _parse_generic_plan(value)
+    raise EntityGraphError(
+        f"entity-graph plan schema_version must be {SCHEMA_VERSION} or {GENERIC_SCHEMA_VERSION}"
+    )
 
 
 def load_plan(path: Path) -> EntityGraphPlan:
@@ -458,15 +669,24 @@ def select_records(
     ]
     if any(not HEX_64.fullmatch(str(row["content_sha256"])) for row in inventory):
         raise EntityGraphError("selected source inventory contains an invalid content digest")
-    selection = {
-        "paper_source_ids": list(plan.paper_source_ids),
-        "claim_source_ids": list(plan.claim_source_ids),
-        "vocabulary_source_id": plan.vocabulary_source_id,
-        "eligible_source_ids": eligible,
-        "excluded_source_ids": sorted(set(source_by_id) - set(plan.source_ids)),
-        "input_count": len(inventory),
-        "input_sha256": sha256_canonical(inventory),
-    }
+    if plan.schema_version == GENERIC_SCHEMA_VERSION:
+        selection = {
+            "requested_source_ids": list(plan.source_ids),
+            "eligible_source_ids": eligible,
+            "excluded_source_ids": sorted(set(source_by_id) - set(plan.source_ids)),
+            "input_count": len(inventory),
+            "input_sha256": sha256_canonical(inventory),
+        }
+    else:
+        selection = {
+            "paper_source_ids": list(plan.paper_source_ids),
+            "claim_source_ids": list(plan.claim_source_ids),
+            "vocabulary_source_id": plan.vocabulary_source_id,
+            "eligible_source_ids": eligible,
+            "excluded_source_ids": sorted(set(source_by_id) - set(plan.source_ids)),
+            "input_count": len(inventory),
+            "input_sha256": sha256_canonical(inventory),
+        }
     return sorted(selected, key=lambda row: (str(row.get("source_id")), str(row.get("record_id")))), selection
 
 
@@ -582,6 +802,218 @@ def derive_sections(
                 }
             )
     result.sort(key=lambda row: (row["source_id"], row["ordinal"], row["section_id"]))
+    if not result:
+        raise EntityGraphError("section derivation produced no eligible sections")
+    return result
+
+
+def _document_identity(record: Mapping[str, Any]) -> dict[str, str]:
+    """Return the collision-safe public identity for one generic source record."""
+
+    source_id = record.get("source_id")
+    record_id = record.get("record_id")
+    if not isinstance(source_id, str) or not source_id or not isinstance(record_id, str) or not record_id:
+        raise EntityGraphError("selected record lacks a source-scoped document identity")
+    return {"kind": "source-record", "source_id": source_id, "record_id": record_id}
+
+
+def _document_id(record: Mapping[str, Any]) -> str:
+    identity = _document_identity(record)
+    return _stable_id("document", identity["source_id"], identity["record_id"])
+
+
+def _trimmed_range(body: str, start: int, end: int) -> tuple[int, int] | None:
+    while start < end and body[start].isspace():
+        start += 1
+    while end > start and body[end - 1].isspace():
+        end -= 1
+    return (start, end) if start < end else None
+
+
+def _bounded_ranges(body: str, start: int, end: int, maximum: int) -> list[tuple[int, int]]:
+    """Split a body interval at stable whitespace boundaries without losing non-space text."""
+
+    ranges: list[tuple[int, int]] = []
+    cursor = start
+    while end - cursor > maximum:
+        limit = cursor + maximum
+        lower = cursor + maximum // 2
+        paragraph = body.rfind("\n\n", lower, limit)
+        if paragraph >= lower:
+            cut = paragraph + 2
+        else:
+            newline = body.rfind("\n", lower, limit)
+            cut = newline + 1 if newline >= lower else limit
+        trimmed = _trimmed_range(body, cursor, cut)
+        if trimmed is not None:
+            ranges.append(trimmed)
+        cursor = cut
+    trimmed = _trimmed_range(body, cursor, end)
+    if trimmed is not None:
+        ranges.append(trimmed)
+    return ranges
+
+
+def _markdown_heading_blocks(
+    body: str, fallback_heading: str
+) -> list[tuple[int, int, str, list[str]]]:
+    """Return exact non-overlapping ATX-heading blocks while ignoring fenced code."""
+
+    headings: list[tuple[int, int, str, list[str]]] = []
+    stack: list[tuple[int, str]] = []
+    fence_character: str | None = None
+    fence_length = 0
+    offset = 0
+    for raw_line in body.splitlines(keepends=True):
+        line = raw_line.rstrip("\r\n")
+        stripped = line.lstrip(" \t")
+        if fence_character is not None:
+            run = len(stripped) - len(stripped.lstrip(fence_character))
+            if run >= fence_length and not stripped[run:].strip():
+                fence_character = None
+                fence_length = 0
+            offset += len(raw_line)
+            continue
+        fence = FENCE_RE.match(line)
+        if fence is not None:
+            marker = fence.group("marker")
+            fence_character = marker[0]
+            fence_length = len(marker)
+            offset += len(raw_line)
+            continue
+        heading = ATX_HEADING_RE.match(line)
+        if heading is not None:
+            title = " ".join(heading.group("title").split())
+            if title:
+                level = len(heading.group("marks"))
+                stack = [item for item in stack if item[0] < level]
+                stack.append((level, title))
+                headings.append((offset, level, title, [item[1] for item in stack]))
+        offset += len(raw_line)
+
+    if not headings:
+        return [(0, len(body), fallback_heading, [fallback_heading])]
+    blocks: list[tuple[int, int, str, list[str]]] = []
+    first_start = headings[0][0]
+    if first_start > 0 and _trimmed_range(body, 0, first_start) is not None:
+        blocks.append((0, first_start, fallback_heading, [fallback_heading]))
+    for index, (start, _level, title, path) in enumerate(headings):
+        end = headings[index + 1][0] if index + 1 < len(headings) else len(body)
+        blocks.append((start, end, title, path))
+    return blocks
+
+
+def derive_generic_reviewed_entities(
+    records: Sequence[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], dict[tuple[str, str], str]]:
+    """Project every selected record as an authoritative document-identity node."""
+
+    entities: list[dict[str, Any]] = []
+    by_document: dict[tuple[str, str], str] = {}
+    for record in records:
+        identity = _record_identity(record)
+        title = record.get("title")
+        if not isinstance(title, str) or not title.strip():
+            raise EntityGraphError(
+                f"record {identity['source_id']}/{identity['record_id']} has no document title"
+            )
+        key = (identity["source_id"], identity["record_id"])
+        entity_id = _document_id(record)
+        if key in by_document:
+            raise EntityGraphError(f"duplicate source-scoped document identity: {key!r}")
+        by_document[key] = entity_id
+        entities.append(
+            {
+                "entity_id": entity_id,
+                "entity_type": "document",
+                "canonical_label": " ".join(title.split()),
+                "aliases": _aliases(title, identity["record_id"], identity["subject_iri"]),
+                "review_state": "reviewed",
+                "authoritative_identity": identity,
+                "extraction": None,
+            }
+        )
+    return sorted(entities, key=lambda row: row["entity_id"]), by_document
+
+
+def derive_generic_sections(
+    records: Sequence[dict[str, Any]],
+    plan: EntityGraphPlan,
+    document_entities: Mapping[tuple[str, str], str],
+) -> list[dict[str, Any]]:
+    """Derive exact heading-aware, bounded record-body sections for arbitrary sources."""
+
+    result: list[dict[str, Any]] = []
+    maximum = int(plan.raw["sectioning"]["maximum_characters"])
+    required = (
+        "source_id",
+        "record_id",
+        "record_sha256",
+        "source_content_sha256",
+        "subject_iri",
+        "concept_id",
+        "concept_type",
+        "concept_path",
+        "source_path",
+        "title",
+        "body",
+    )
+    for record in records:
+        if any(not isinstance(record.get(name), str) or not record[name] for name in required):
+            raise EntityGraphError("selected generic record has an invalid required identity or body")
+        source_id = str(record["source_id"])
+        record_id = str(record["record_id"])
+        key = (source_id, record_id)
+        document_entity_id = document_entities.get(key)
+        if document_entity_id is None:
+            raise EntityGraphError(f"record {source_id}/{record_id} has no document entity")
+        body = str(record["body"])
+        ordinal = 0
+        for block_start, block_end, heading, heading_path in _markdown_heading_blocks(
+            body, str(record["title"])
+        ):
+            for start, end in _bounded_ranges(body, block_start, block_end, maximum):
+                text = body[start:end]
+                fragment = _stable_id("record-body", source_id, record_id, start, end)
+                identity = _document_identity(record)
+                terms = content_tokens(text, plan)
+                result.append(
+                    {
+                        "section_id": _stable_id(
+                            "section", source_id, record_id, start, end, fragment
+                        ),
+                        "document_entity_id": document_entity_id,
+                        "document_id": _document_id(record),
+                        "document_identity": identity,
+                        "source_id": source_id,
+                        "record_id": record_id,
+                        "record_sha256": record["record_sha256"],
+                        "source_content_sha256": record["source_content_sha256"],
+                        "subject_iri": record["subject_iri"],
+                        "concept_id": record["concept_id"],
+                        "concept_type": record["concept_type"],
+                        "concept_path": record["concept_path"],
+                        "source_path": record["source_path"],
+                        "ordinal": ordinal,
+                        "heading": heading,
+                        "heading_path": heading_path,
+                        "locator": {
+                            "target": "record-body",
+                            "kind": "character-range",
+                            "start": start,
+                            "end": end,
+                            "fragment": fragment,
+                        },
+                        "text": text,
+                        "text_sha256": sha256_bytes(text.encode("utf-8")),
+                        "terms": _counter_object(terms),
+                        "length": len(terms),
+                    }
+                )
+                ordinal += 1
+        if ordinal == 0:
+            raise EntityGraphError(f"record {source_id}/{record_id} has no indexable text")
+    result.sort(key=lambda row: (row["source_id"], row["record_id"], row["ordinal"]))
     if not result:
         raise EntityGraphError("section derivation produced no eligible sections")
     return result
@@ -942,7 +1374,130 @@ def derive_edges(
     return result
 
 
-def derive_lexicon(sections: Sequence[dict[str, Any]]) -> dict[str, Any]:
+def _generic_edge(
+    source: str,
+    predicate: str,
+    target: str,
+    review_state: str,
+    semantic_source: str,
+    evidence: Sequence[str],
+    *,
+    weight: float = 1.0,
+) -> dict[str, Any]:
+    if predicate not in GENERIC_PREDICATES:
+        raise EntityGraphError(f"unsupported generic graph predicate: {predicate}")
+    evidence_ids = sorted(set(evidence))
+    return {
+        "edge_id": _stable_id("edge", source, predicate, target, evidence_ids),
+        "source_node": source,
+        "predicate": predicate,
+        "target_node": target,
+        "review_state": review_state,
+        "semantic_source": semantic_source,
+        "evidence_section_ids": evidence_ids,
+        "weight": round(float(weight), 8),
+    }
+
+
+def derive_generic_edges(
+    sections: Sequence[dict[str, Any]],
+    entities: Sequence[dict[str, Any]],
+    mentions: Sequence[dict[str, Any]],
+    plan: EntityGraphPlan,
+) -> list[dict[str, Any]]:
+    """Derive document bindings and candidate mention/co-mention graph paths."""
+
+    result: list[dict[str, Any]] = []
+    entity_by_id = {entity["entity_id"]: entity for entity in entities}
+    section_by_id = {section["section_id"]: section for section in sections}
+    for section in sections:
+        result.append(
+            _generic_edge(
+                section["section_id"],
+                "partOfDocument",
+                section["document_entity_id"],
+                "reviewed",
+                GENERIC_ALGORITHMS["reviewed_relations"],
+                [section["section_id"]],
+            )
+        )
+    for mention in mentions:
+        result.append(
+            _generic_edge(
+                mention["entity_id"],
+                "mentionedInSection",
+                mention["section_id"],
+                "candidate",
+                GENERIC_ALGORITHMS["mention_matching"],
+                [mention["section_id"]],
+                weight=1.0 + math.log1p(mention["count"]),
+            )
+        )
+
+    mention_by_section: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for mention in mentions:
+        mention_by_section[mention["section_id"]].append(mention)
+    pair_sections: dict[tuple[str, str], list[str]] = defaultdict(list)
+    max_per_section = int(plan.raw["graph"]["max_co_mentions_per_section"])
+    for section_id, rows in mention_by_section.items():
+        ranked = sorted(
+            rows,
+            key=lambda row: (
+                entity_by_id[row["entity_id"]]["review_state"] != "reviewed",
+                -row["count"],
+                row["entity_id"],
+            ),
+        )[:max_per_section]
+        ids = sorted(row["entity_id"] for row in ranked)
+        for left_index, left in enumerate(ids):
+            for right in ids[left_index + 1 :]:
+                pair_sections[(left, right)].append(section_id)
+    minimum = int(plan.raw["graph"]["minimum_co_mention_sections"])
+    max_neighbors = int(plan.raw["graph"]["max_co_mention_neighbors"])
+    max_evidence = int(plan.raw["graph"]["max_edge_evidence_sections"])
+    eligible_pairs = {
+        pair: sorted(set(values))
+        for pair, values in pair_sections.items()
+        if len(set(values)) >= minimum
+    }
+    neighbor_rank: dict[str, list[tuple[int, str]]] = defaultdict(list)
+    for (left, right), evidence in eligible_pairs.items():
+        neighbor_rank[left].append((len(evidence), right))
+        neighbor_rank[right].append((len(evidence), left))
+    allowed = {
+        (node, neighbor)
+        for node, values in neighbor_rank.items()
+        for _, neighbor in sorted(values, key=lambda item: (-item[0], item[1]))[:max_neighbors]
+    }
+    for (left, right), evidence in sorted(eligible_pairs.items()):
+        if (left, right) not in allowed and (right, left) not in allowed:
+            continue
+        result.append(
+            _generic_edge(
+                left,
+                "coMentionedWith",
+                right,
+                "candidate",
+                GENERIC_ALGORITHMS["candidate_relations"],
+                evidence[:max_evidence],
+                weight=math.log1p(len(evidence)),
+            )
+        )
+    result.sort(key=lambda row: row["edge_id"])
+    if len({row["edge_id"] for row in result}) != len(result):
+        raise EntityGraphError("derived generic graph contains duplicate edge IDs")
+    if any(
+        section_id not in section_by_id
+        for row in result
+        for section_id in row["evidence_section_ids"]
+    ):
+        raise EntityGraphError("derived generic graph edge cites an unknown section")
+    return result
+
+
+def derive_lexicon(
+    sections: Sequence[dict[str, Any]], *, schema_version: str = SCHEMA_VERSION
+) -> dict[str, Any]:
     """Derive persisted section-level BM25 statistics."""
 
     document_count = len(sections)
@@ -957,13 +1512,164 @@ def derive_lexicon(sections: Sequence[dict[str, Any]]) -> dict[str, Any]:
         for term, frequency in sorted(document_frequency.items())
     }
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": schema_version,
         "tokenizer": TOKENIZER_ID,
         "stopwords": STOPWORDS_ID,
         "document_count": document_count,
         "average_length": round(sum(section["length"] for section in sections) / document_count, 12),
         "terms": terms,
     }
+
+
+def validate_generic_rows(
+    entities: Sequence[dict[str, Any]],
+    sections: Sequence[dict[str, Any]],
+    mentions: Sequence[dict[str, Any]],
+    edges: Sequence[dict[str, Any]],
+    lexicon: Mapping[str, Any],
+) -> None:
+    """Validate the closed source-generic row schemas and references."""
+
+    entity_ids: set[str] = set()
+    document_entities: dict[str, dict[str, Any]] = {}
+    for number, entity in enumerate(entities, start=1):
+        exact_keys(entity, ENTITY_KEYS, f"entities.jsonl:{number}")
+        entity_id = entity.get("entity_id")
+        if not isinstance(entity_id, str) or not entity_id or entity_id in entity_ids:
+            raise EntityGraphError("generic entity IDs must be nonempty and unique")
+        entity_ids.add(entity_id)
+        if entity["entity_type"] not in {"document", "candidate-phrase"}:
+            raise EntityGraphError("generic entity type is invalid")
+        if entity["review_state"] not in {"reviewed", "candidate"}:
+            raise EntityGraphError("generic entity review state is invalid")
+        if not isinstance(entity["aliases"], list) or not entity["aliases"] or any(
+            not isinstance(alias, str) or not alias for alias in entity["aliases"]
+        ):
+            raise EntityGraphError("generic entity aliases must be nonempty strings")
+        if entity["entity_type"] == "document":
+            identity = entity["authoritative_identity"]
+            if entity["review_state"] != "reviewed" or entity["extraction"] is not None:
+                raise EntityGraphError("document entities require an authoritative identity")
+            if not isinstance(identity, dict):
+                raise EntityGraphError("document entity identity must be an object")
+            exact_keys(identity, IDENTITY_KEYS, "document entity identity")
+            expected_id = _stable_id("document", identity["source_id"], identity["record_id"])
+            if entity_id != expected_id:
+                raise EntityGraphError("document entity ID is not derived from source-record identity")
+            document_entities[entity_id] = identity
+        else:
+            if entity["review_state"] != "candidate" or entity["authoritative_identity"] is not None:
+                raise EntityGraphError("candidate phrases must not claim authoritative identity")
+            if not isinstance(entity["extraction"], dict):
+                raise EntityGraphError("candidate phrase extraction must be an object")
+            exact_keys(entity["extraction"], EXTRACTION_KEYS, "candidate extraction")
+
+    section_ids: set[str] = set()
+    document_ids: set[str] = set()
+    for number, section in enumerate(sections, start=1):
+        exact_keys(section, GENERIC_SECTION_KEYS, f"sections.jsonl:{number}")
+        section_id = section.get("section_id")
+        if not isinstance(section_id, str) or not section_id or section_id in section_ids:
+            raise EntityGraphError("generic section IDs must be nonempty and unique")
+        section_ids.add(section_id)
+        entity_identity = document_entities.get(section["document_entity_id"])
+        if entity_identity is None:
+            raise EntityGraphError("section document entity does not exist")
+        identity = section["document_identity"]
+        if not isinstance(identity, dict):
+            raise EntityGraphError("section document identity must be an object")
+        exact_keys(identity, DOCUMENT_IDENTITY_KEYS, f"sections.jsonl:{number}.document_identity")
+        if identity.get("kind") != "source-record":
+            raise EntityGraphError("section document identity kind is invalid")
+        if identity.get("source_id") != section["source_id"] or identity.get("record_id") != section["record_id"]:
+            raise EntityGraphError("section document identity differs from its flat binding")
+        expected_document_id = _stable_id("document", section["source_id"], section["record_id"])
+        if section["document_id"] != expected_document_id or section["document_entity_id"] != expected_document_id:
+            raise EntityGraphError("section document ID is not collision-safe source-record identity")
+        document_ids.add(expected_document_id)
+        if any(
+            entity_identity[name] != section[name]
+            for name in ("source_id", "record_id", "record_sha256", "concept_id", "concept_path", "subject_iri")
+        ):
+            raise EntityGraphError("section differs from its authoritative document entity")
+        if not HEX_64.fullmatch(str(section["record_sha256"])) or not HEX_64.fullmatch(
+            str(section["source_content_sha256"])
+        ):
+            raise EntityGraphError("section source or record digest is invalid")
+        for path_name in ("concept_path", "source_path"):
+            safe_relative(section[path_name], f"section {path_name}")
+        _plain_int(section["ordinal"], "section ordinal", 0, 1_000_000_000)
+        if not isinstance(section["heading"], str) or not section["heading"]:
+            raise EntityGraphError("section heading must be nonempty")
+        if not isinstance(section["heading_path"], list) or not section["heading_path"] or any(
+            not isinstance(item, str) or not item for item in section["heading_path"]
+        ):
+            raise EntityGraphError("section heading path must contain nonempty strings")
+        locator = section["locator"]
+        if not isinstance(locator, dict):
+            raise EntityGraphError("section locator must be an object")
+        exact_keys(locator, GENERIC_LOCATOR_KEYS, f"sections.jsonl:{number}.locator")
+        if locator.get("target") != "record-body" or locator.get("kind") != "character-range":
+            raise EntityGraphError("generic section locator target or kind is invalid")
+        start = _plain_int(locator.get("start"), "section locator start", 0, 1_000_000_000)
+        end = _plain_int(locator.get("end"), "section locator end", 1, 1_000_000_000)
+        if end <= start or not isinstance(locator.get("fragment"), str) or not locator["fragment"]:
+            raise EntityGraphError("generic section locator range or fragment is invalid")
+        if not isinstance(section["text"], str) or not section["text"]:
+            raise EntityGraphError("generic section text must be nonempty")
+        if sha256_bytes(section["text"].encode("utf-8")) != section["text_sha256"]:
+            raise EntityGraphError("section text digest is invalid")
+        if not isinstance(section["terms"], dict) or any(
+            not isinstance(term, str)
+            or not term
+            or isinstance(count, bool)
+            or not isinstance(count, int)
+            or count <= 0
+            for term, count in section["terms"].items()
+        ):
+            raise EntityGraphError("section term counts are invalid")
+        length = _plain_int(section["length"], "section length", 0, 1_000_000_000)
+        if length != sum(section["terms"].values()):
+            raise EntityGraphError("section length differs from persisted term counts")
+
+    mention_ids: set[str] = set()
+    for number, mention in enumerate(mentions, start=1):
+        exact_keys(mention, MENTION_KEYS, f"mentions.jsonl:{number}")
+        mention_id = mention.get("mention_id")
+        if not isinstance(mention_id, str) or not mention_id or mention_id in mention_ids:
+            raise EntityGraphError("generic mention IDs must be nonempty and unique")
+        mention_ids.add(mention_id)
+        if mention["entity_id"] not in entity_ids or mention["section_id"] not in section_ids:
+            raise EntityGraphError("generic mention refers to an unknown entity or section")
+        if mention["review_state"] != "candidate" or mention["semantic_source"] != GENERIC_ALGORITHMS["mention_matching"]:
+            raise EntityGraphError("generic mention authority or algorithm marker is invalid")
+        _plain_int(mention["count"], "mention count", 1, 100_000_000)
+
+    node_ids = entity_ids | section_ids
+    edge_ids: set[str] = set()
+    for number, edge in enumerate(edges, start=1):
+        exact_keys(edge, GENERIC_EDGE_KEYS, f"edges.jsonl:{number}")
+        edge_id = edge.get("edge_id")
+        if not isinstance(edge_id, str) or not edge_id or edge_id in edge_ids:
+            raise EntityGraphError("generic edge IDs must be nonempty and unique")
+        edge_ids.add(edge_id)
+        if edge["source_node"] not in node_ids or edge["target_node"] not in node_ids:
+            raise EntityGraphError("generic edge refers to an unknown graph node")
+        if edge["predicate"] not in GENERIC_PREDICATES or edge["review_state"] not in {"reviewed", "candidate"}:
+            raise EntityGraphError("generic edge predicate or review state is invalid")
+        if any(section_id not in section_ids for section_id in edge["evidence_section_ids"]):
+            raise EntityGraphError("generic edge evidence refers to an unknown section")
+        if edge["predicate"] == "partOfDocument" and edge["review_state"] != "reviewed":
+            raise EntityGraphError("document-section bindings must be reviewed structural edges")
+        if edge["predicate"] != "partOfDocument" and edge["review_state"] != "candidate":
+            raise EntityGraphError("mention and co-mention edges must remain candidates")
+        _finite(edge["weight"], "edge weight", 0.0, 1_000_000_000.0)
+
+    exact_keys(lexicon, LEXICON_KEYS, "lexicon")
+    if lexicon["schema_version"] != GENERIC_SCHEMA_VERSION or lexicon["document_count"] != len(sections):
+        raise EntityGraphError("generic lexicon version or document count is invalid")
+    if lexicon["tokenizer"] != TOKENIZER_ID or lexicon["stopwords"] != STOPWORDS_ID:
+        raise EntityGraphError("generic lexicon tokenizer contract is invalid")
 
 
 def validate_rows(
@@ -974,6 +1680,10 @@ def validate_rows(
     lexicon: Mapping[str, Any],
 ) -> None:
     """Validate closed row schemas and graph referential integrity."""
+
+    if lexicon.get("schema_version") == GENERIC_SCHEMA_VERSION:
+        validate_generic_rows(entities, sections, mentions, edges, lexicon)
+        return
 
     entity_ids: set[str] = set()
     for number, entity in enumerate(entities, start=1):
@@ -1047,6 +1757,37 @@ def derive_projection(root: Path, plan: EntityGraphPlan) -> dict[str, Any]:
 
     records, sources = load_core(root)
     selected, selection = select_records(records, sources, plan)
+    if plan.schema_version == GENERIC_SCHEMA_VERSION:
+        reviewed, document_entities = derive_generic_reviewed_entities(selected)
+        sections = derive_generic_sections(selected, plan, document_entities)
+        candidates = derive_candidate_entities(sections, reviewed, plan)
+        entities = sorted([*reviewed, *candidates], key=lambda row: row["entity_id"])
+        mentions = derive_mentions(sections, entities, plan)
+        edges = derive_generic_edges(sections, entities, mentions, plan)
+        lexicon = derive_lexicon(sections, schema_version=GENERIC_SCHEMA_VERSION)
+        validate_rows(entities, sections, mentions, edges, lexicon)
+        summary = {
+            "inputs": selection["input_count"],
+            "selected_records": len(selected),
+            "sections": len(sections),
+            "entities": len(entities),
+            "reviewed_entities": sum(entity["review_state"] == "reviewed" for entity in entities),
+            "candidate_entities": sum(entity["review_state"] == "candidate" for entity in entities),
+            "mentions": len(mentions),
+            "edges": len(edges),
+            "reviewed_edges": sum(edge["review_state"] == "reviewed" for edge in edges),
+            "candidate_edges": sum(edge["review_state"] == "candidate" for edge in edges),
+            "lexicon_terms": len(lexicon["terms"]),
+        }
+        return {
+            "selection": selection,
+            "summary": summary,
+            "entities": entities,
+            "sections": sections,
+            "mentions": mentions,
+            "edges": edges,
+            "lexicon": lexicon,
+        }
     reviewed, iri_entities = derive_reviewed_entities(selected, plan)
     paper_entities = {
         entity["authoritative_identity"]["subject_iri"]: entity["entity_id"]

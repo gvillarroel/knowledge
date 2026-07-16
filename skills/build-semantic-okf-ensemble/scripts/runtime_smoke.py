@@ -15,8 +15,16 @@ def main() -> int:
 
     from _adaptive_retrieval import SCHEMA_VERSION as adaptive_schema
     from _embedding_retrieval import SCHEMA_VERSION as embedding_schema
-    from _ensemble_build import ALGORITHM_ID, SCHEMA_VERSION as ensemble_schema
-    from _entity_graph_model import SCHEMA_VERSION as entity_graph_schema
+    from _ensemble_build import (
+        ALGORITHM_ID,
+        GENERIC_ALGORITHM_ID,
+        GENERIC_SCHEMA_VERSION as generic_ensemble_schema,
+        SCHEMA_VERSION as ensemble_schema,
+    )
+    from _entity_graph_model import (
+        GENERIC_SCHEMA_VERSION as generic_entity_graph_schema,
+        SCHEMA_VERSION as entity_graph_schema,
+    )
 
     print(
         json.dumps(
@@ -25,12 +33,15 @@ def main() -> int:
                 "runtime": "semantic-okf-ensemble-build-python",
                 "base_model_required": False,
                 "optional_model_backends": True,
-                "ensemble_schema": ensemble_schema,
-                "algorithm": ALGORITHM_ID,
+                "ensemble_schemas": [ensemble_schema, generic_ensemble_schema],
+                "algorithms": {
+                    "legacy_direct_search": ALGORITHM_ID,
+                    "generic_direct_search": GENERIC_ALGORITHM_ID,
+                },
                 "components": {
                     "adaptive": adaptive_schema,
                     "embedding": embedding_schema,
-                    "entity_graph": entity_graph_schema,
+                    "entity_graph": [entity_graph_schema, generic_entity_graph_schema],
                 },
                 "packages": {
                     "pyshacl": getattr(pyshacl, "__version__", "unknown"),

@@ -1468,7 +1468,7 @@ def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: 
             Path(args[-1]).mkdir(parents=True, exist_ok=True)
             return SimpleNamespace(stdout="")
         if args[:4] == ["git", "ls-tree", "-r", "--name-only"]:
-            return SimpleNamespace(stdout="README.md\nimage.png\nsrc/app.py\n")
+            return SimpleNamespace(stdout="README.md\ndocs/guide.mdx\nimage.png\nsrc/app.py\n")
         if args[:2] == ["git", "show"]:
             return SimpleNamespace(stdout="content\n")
         if args[:3] == ["git", "fetch", "--all"]:
@@ -1478,9 +1478,10 @@ def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: 
     monkeypatch.setattr(subprocess, "run", fake_run)
     payload = GitHubRepoSource(source, store).sync()
 
-    assert payload["files"] == 2
+    assert payload["files"] == 3
     assert any(args[:3] == ["git", "clone", "--mirror"] for args in calls)
     assert (store.source_raw_dir(source) / "main" / "README.md").exists()
+    assert (store.source_raw_dir(source) / "main" / "docs" / "guide.mdx").exists()
     assert not (store.source_raw_dir(source) / "main" / "image.png").exists()
 
 

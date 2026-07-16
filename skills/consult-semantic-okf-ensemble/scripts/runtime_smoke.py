@@ -9,6 +9,10 @@ from _ensemble_snapshot import (
     ALGORITHM_ID,
     ANSWER_GATE_ID,
     COVERAGE_ALGORITHM_ID,
+    GENERIC_ALGORITHM_ID,
+    GENERIC_ANSWER_BRIEF_ALGORITHM_ID,
+    GENERIC_ANSWER_GATE_ID,
+    GENERIC_SCHEMA_VERSION,
     SCHEMA_VERSION,
 )
 
@@ -20,14 +24,17 @@ def main() -> int:
         json.dumps(
             {
                 "status": "pass",
-                "schema_version": SCHEMA_VERSION,
+                "schema_versions": [SCHEMA_VERSION, GENERIC_SCHEMA_VERSION],
                 "runtime": "semantic-okf-ensemble-query-python",
                 "model_required": "quality-policy-only",
                 "network_required": False,
                 "algorithms": {
                     "direct_search": ALGORITHM_ID,
+                    "generic_direct_search": GENERIC_ALGORITHM_ID,
                     "coverage": COVERAGE_ALGORITHM_ID,
                     "answer_gate": ANSWER_GATE_ID,
+                    "generic_answer_gate": GENERIC_ANSWER_GATE_ID,
+                    "generic_answer_brief": GENERIC_ANSWER_BRIEF_ALGORITHM_ID,
                 },
             },
             sort_keys=True,

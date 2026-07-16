@@ -19,6 +19,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 BUILD_ROOT = REPO_ROOT / "skills" / "build-semantic-okf-ensemble"
 CONSULT_ROOT = REPO_ROOT / "skills" / "consult-semantic-okf-ensemble"
 CONSULT_SCRIPTS = CONSULT_ROOT / "scripts"
+BUILD = BUILD_ROOT / "scripts" / "build_semantic_okf_ensemble.py"
+VALIDATE = BUILD_ROOT / "scripts" / "validate_semantic_okf_ensemble.py"
+CORPUS_ROOT = REPO_ROOT / "evaluations" / "graphrag-cross-paper"
+ENSEMBLE_PLAN_TEMPLATE = (
+    REPO_ROOT / "evaluations" / "semantic-okf-ensemble" / "ensemble-plan.json"
+)
 FINAL_BUNDLE = (
     REPO_ROOT
     / "evaluations"
@@ -64,6 +70,156 @@ def _tree(root: Path) -> dict[str, str]:
         for path in sorted(root.rglob("*"))
         if path.is_file()
     }
+
+
+def _jsonl(path: Path) -> list[dict[str, Any]]:
+    return [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+
+
+def _write_generic_ensemble_fixture(root: Path) -> tuple[Path, Path]:
+    manifest = json.loads((CORPUS_ROOT / "manifest.json").read_text(encoding="utf-8"))
+    manifest["bundle"].update(
+        {
+            "title": "Source-generic ensemble fixture",
+            "description": "Overlapping Markdown records with exact source-record identity.",
+            "base_iri": "https://example.org/ensemble-generic/",
+            "ontology_iri": "https://example.org/ontology/ensemble-generic",
+            "version_iri": "https://example.org/ontology/ensemble-generic/2.0.0",
+        }
+    )
+    source_template = {
+        "kind": "markdown",
+        "concept_type": "Technical Document",
+        "ontology_class": "AnalysisTerm",
+        "fields": {"title": "termLabel"},
+    }
+    manifest["sources"] = [
+        {"id": "generic-a", "path": "sources/*.md", **source_template},
+        {"id": "generic-b", "path": "sources/shared.md", **source_template},
+    ]
+    sources = root / "sources"
+    sources.mkdir(parents=True, exist_ok=True)
+    (sources / "shared.md").write_text(
+        """---
+title: Portable Routing Guide
+---
+
+# Portable Routing Guide
+
+The island architecture routes UI components through explicit adapters.
+
+## Endpoint adapters
+
+Endpoint adapters preserve request context and deterministic route priority.
+
+## Rendering boundaries
+
+Rendering boundaries isolate server output from client hydration behavior.
+""",
+        encoding="utf-8",
+    )
+    (sources / "headerless.md").write_text(
+        "---\ntitle: Headerless Deployment Notes\n---\n\n"
+        "Headerless deployment material still becomes exact bounded evidence. "
+        + "Deterministic adapters preserve source identity across repeated records. " * 8,
+        encoding="utf-8",
+    )
+    graph_plan = {
+        "schema_version": "2.0",
+        "selection": {"source_ids": ["generic-a", "generic-b"]},
+        "sectioning": {
+            "strategy": "markdown-headings-or-bounded-record-v1",
+            "maximum_characters": 160,
+        },
+        "tokenization": {
+            "tokenizer": "ascii-alphanumeric-v1",
+            "stopwords": "english-v1",
+            "min_token_length": 2,
+        },
+        "extraction": {
+            "ngram_range": [1, 3],
+            "minimum_section_frequency": 1,
+            "maximum_section_fraction": 1.0,
+            "maximum_candidates": 200,
+            "top_candidates_per_section": 12,
+        },
+        "bm25": {"k1": 1.2, "b": 0.75},
+        "graph": {
+            "max_co_mentions_per_section": 12,
+            "minimum_co_mention_sections": 1,
+            "max_co_mention_neighbors": 12,
+            "max_edge_evidence_sections": 8,
+        },
+        "query": {
+            "resolved_entities": 32,
+            "max_hops": 3,
+            "hop_decay": 0.65,
+            "reviewed_edge_weight": 1.0,
+            "candidate_edge_weight": 0.3,
+            "mention_weight": 1.0,
+            "candidate_pool": 150,
+            "max_per_document": 2,
+            "rrf_k": 60,
+        },
+    }
+    plan = json.loads(ENSEMBLE_PLAN_TEMPLATE.read_text(encoding="utf-8"))
+    plan["schema_version"] = "2.0"
+    plan["adaptive"]["selection"]["source_ids"] = ["generic-a", "generic-b"]
+    plan["adaptive"]["passages"]["markdown_pdf_page_source_ids"] = []
+    plan["adaptive"]["evidence_identity"]["paper_ids_by_source"] = {}
+    plan["entity_graph"] = graph_plan
+    plan["embedding"]["selection"]["source_ids"] = ["generic-a", "generic-b"]
+    plan["embedding"]["embedding"] = {
+        "provider": "hashing",
+        "model_id": "knowledge-hashing-embedding",
+        "revision": "1",
+        "dimension": 32,
+        "normalize": True,
+    }
+    plan["identity"] = {"default_grouping": "source-record-v1", "overrides": []}
+    for name in (
+        "require_child_plan_parity",
+        "require_total_identity_crosswalk",
+        "require_component_group_parity",
+        "require_exact_passage_evidence",
+        "claim_only_coverage_requires_bindings",
+    ):
+        plan["quality_gates"][name] = True
+    manifest_path = root / "manifest.json"
+    plan_path = root / "ensemble-plan.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    plan_path.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8")
+    return manifest_path, plan_path
+
+
+def _run_ensemble_build(manifest: Path, plan: Path, output: Path) -> dict[str, Any]:
+    environment = os.environ.copy()
+    environment.pop("PYTHONPATH", None)
+    environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(BUILD),
+            str(manifest),
+            str(plan),
+            str(output),
+            "--output-format",
+            "json",
+        ],
+        cwd=manifest.parent,
+        env=environment,
+        text=True,
+        capture_output=True,
+        encoding="utf-8",
+        timeout=120,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    return json.loads(completed.stdout)
 
 
 def test_consult_skill_mandates_in_memory_finalizer_stdout_gate() -> None:
@@ -208,6 +364,17 @@ def runtime() -> Iterator[ModuleType]:
             sys.modules.pop(name, None)
             if previous[name] is not None:
                 sys.modules[name] = previous[name]
+
+
+@pytest.fixture(scope="module")
+def generic_ensemble_fixture(
+    tmp_path_factory: pytest.TempPathFactory,
+) -> dict[str, Path]:
+    root = tmp_path_factory.mktemp("semantic-okf-ensemble-v2")
+    manifest, plan = _write_generic_ensemble_fixture(root)
+    bundle = root / "bundle-a"
+    _run_ensemble_build(manifest, plan, bundle)
+    return {"root": root, "manifest": manifest, "plan": plan, "bundle": bundle}
 
 
 def _policy(
@@ -465,6 +632,467 @@ def test_closed_index_load_is_read_only_and_rejects_unknown_artifacts(
         runtime.load_snapshot(tmp_path)
 
 
+def test_v2_plan_accepts_generic_records_without_arxiv_identity_and_is_closed(
+    runtime: ModuleType,
+    generic_ensemble_fixture: dict[str, Path],
+) -> None:
+    plan = json.loads(generic_ensemble_fixture["plan"].read_text(encoding="utf-8"))
+    assert plan["adaptive"]["evidence_identity"]["paper_ids_by_source"] == {}
+    assert plan["adaptive"]["passages"]["markdown_pdf_page_source_ids"] == []
+    assert runtime._validate_plan(plan) == plan
+
+    unknown_identity_field = copy.deepcopy(plan)
+    unknown_identity_field["identity"]["inferred_prefixes"] = ["sources/"]
+    with pytest.raises(runtime.SnapshotError, match="closed schema"):
+        runtime._validate_plan(unknown_identity_field)
+
+    missing_gate = copy.deepcopy(plan)
+    del missing_gate["quality_gates"]["require_total_identity_crosswalk"]
+    with pytest.raises(runtime.SnapshotError, match="closed schema"):
+        runtime._validate_plan(missing_gate)
+
+    page_heuristic = copy.deepcopy(plan)
+    page_heuristic["adaptive"]["passages"]["markdown_pdf_page_source_ids"] = [
+        "generic-a"
+    ]
+    with pytest.raises(runtime.SnapshotError, match="exact full records"):
+        runtime._validate_plan(page_heuristic)
+
+    explicit_join = copy.deepcopy(plan)
+    explicit_join["identity"]["overrides"] = [
+        {
+            "source_id": "generic-a",
+            "record_id": "sources/shared",
+            "namespace": "docs.route",
+            "value": "portable-routing-guide",
+        },
+        {
+            "source_id": "generic-b",
+            "record_id": "sources/shared",
+            "namespace": "docs.route",
+            "value": "portable-routing-guide",
+        },
+    ]
+    runtime._validate_plan(explicit_join)
+    derived = runtime._derive_identity_crosswalk(
+        generic_ensemble_fixture["bundle"], explicit_join
+    )
+    shared_groups = {
+        row["group_id"] for row in derived if row["record_id"] == "sources/shared"
+    }
+    assert len(shared_groups) == 1
+
+
+def test_v2_build_is_deterministic_total_collision_safe_and_hash_bound(
+    generic_ensemble_fixture: dict[str, Path],
+) -> None:
+    second = generic_ensemble_fixture["root"] / "bundle-b"
+    report = _run_ensemble_build(
+        generic_ensemble_fixture["manifest"],
+        generic_ensemble_fixture["plan"],
+        second,
+    )
+    first = generic_ensemble_fixture["bundle"]
+    assert _tree(first) == _tree(second)
+    assert report["schema_version"] == "2.0"
+    crosswalk = _jsonl(first / "ensemble" / "identity-crosswalk.jsonl")
+    records = _jsonl(first / "semantic" / "records.jsonl")
+    assert len(crosswalk) == len(records) == 3
+    assert {
+        (row["source_id"], row["record_id"], row["record_sha256"])
+        for row in crosswalk
+    } == {
+        (row["source_id"], row["record_id"], row["record_sha256"])
+        for row in records
+    }
+    shared = [row for row in crosswalk if row["record_id"] == "sources/shared"]
+    assert len(shared) == 2
+    assert len({row["group_id"] for row in shared}) == 2
+    assert {row["source_id"] for row in shared} == {"generic-a", "generic-b"}
+    for row in crosswalk:
+        assert set(row) == runtime_crosswalk_keys()
+        assert row["locator"] == {
+            "target": "record-body",
+            "kind": "character-range",
+            "start": 0,
+            "end": row["locator"]["end"],
+            "fragment": None,
+        }
+        source = generic_ensemble_fixture["root"] / row["source_path"]
+        assert source.is_file()
+        assert len(row["text_sha256"]) == 64
+
+
+def runtime_crosswalk_keys() -> set[str]:
+    return {
+        "source_id",
+        "record_id",
+        "record_sha256",
+        "concept_id",
+        "concept_type",
+        "concept_path",
+        "source_path",
+        "group_namespace",
+        "group_key",
+        "group_id",
+        "evidence_id",
+        "locator",
+        "text_sha256",
+    }
+
+
+def test_v2_consult_preserves_groups_and_exposes_claimless_passage_evidence(
+    runtime: ModuleType,
+    generic_ensemble_fixture: dict[str, Path],
+) -> None:
+    bundle = generic_ensemble_fixture["bundle"]
+    before = _tree(bundle)
+    snapshot = runtime.load_snapshot(bundle, deep_validation=True)
+    inspected = runtime.inspect_snapshot(snapshot)
+    assert inspected["schema_version"] == "2.0"
+    assert inspected["capabilities"]["search"]["available"] is True
+    assert inspected["capabilities"]["coverage-pack"]["available"] is False
+    assert inspected["capabilities"]["answer-brief"] == {
+        "available": True,
+        "algorithm": runtime.GENERIC_ANSWER_BRIEF_ALGORITHM_ID,
+        "evidence": "bounded-verbatim-support-identifiers",
+    }
+    assert inspected["capabilities"]["finalize-answer"] == {
+        "available": True,
+        "algorithm": runtime.GENERIC_ANSWER_GATE_ID,
+        "mode": "exact-evidence-id-and-verbatim-support",
+        "requires": "source-generic evidence pack with exact quoted support",
+    }
+    assert inspected["components"]["adaptive"]["artifact_schema_version"] == "1.2"
+    assert inspected["components"]["adaptive"]["child_plan_schema_version"] == "1.1"
+    assert inspected["components"]["entity_graph"]["artifact_schema_version"] == "2.0"
+    assert inspected["components"]["entity_graph"]["child_plan_schema_version"] == "2.0"
+    assert inspected["components"]["embedding"]["artifact_schema_version"] == "1.0"
+    assert inspected["components"]["embedding"]["child_plan_schema_version"] == "1.0"
+
+    result = runtime.search_snapshot(
+        snapshot,
+        "endpoint adapters preserve request context",
+        "quality",
+        3,
+    )
+    gate = result["candidate_set_gate"]
+    assert gate["preserved_exactly"] is True
+    assert set(gate["protected_group_ids"]) == set(gate["selected_group_ids"])
+    assert result["policy"]["algorithm"] == runtime.GENERIC_ALGORITHM_ID
+    assert len(result["evidence_rows"]) == result["returned"] == 3
+    assert "answer_evidence_contract" not in result
+    assert "verified-pdf-page-bindings-v1" not in _canonical(result)
+    assert all(row["locator"]["target"] == "record-body" for row in result["results"])
+    assert all(row["evidence_id"].startswith("evidence-") for row in result["results"])
+    for row in result["evidence_rows"]:
+        assert hashlib.sha256(row["text"].encode("utf-8")).hexdigest() == row[
+            "text_sha256"
+        ]
+        assert row["locator"]["target"] == "record-body"
+        assert row["locator"]["kind"] == "character-range"
+        assert (generic_ensemble_fixture["root"] / row["source_path"]).is_file()
+        assert row["group_id"] in gate["selected_group_ids"]
+
+    evidence = runtime.build_evidence_pack(
+        snapshot, "endpoint adapters preserve request context", 3
+    )
+    assert evidence["status"] == "pass"
+    assert evidence["evidence_kind"] == "authoritative-record-body-passages"
+    assert evidence["claim_binding_gate"]["available"] is False
+    assert len(evidence["evidence_rows"]) == 3
+    with pytest.raises(runtime.SnapshotError, match="claim-only"):
+        runtime.build_coverage_pack(snapshot, "endpoint adapters", 3, 2, 2)
+    assert _tree(bundle) == before
+
+
+def test_v2_finalizer_rebuilds_exact_evidence_and_rejects_unsupported_support(
+    runtime: ModuleType,
+    generic_ensemble_fixture: dict[str, Path],
+) -> None:
+    bundle = generic_ensemble_fixture["bundle"]
+    before = _tree(bundle)
+    snapshot = runtime.load_snapshot(bundle, deep_validation=True)
+    query = "endpoint adapters preserve request context"
+    pack = runtime.build_evidence_pack(snapshot, query, 3)
+    quote = "Endpoint adapters preserve request context and deterministic route priority."
+    selected = next(row for row in pack["evidence_rows"] if quote in row["text"])
+    brief = runtime.build_source_answer_brief(snapshot, query, 3, 2, 4)
+    assert brief == runtime.build_source_answer_brief(snapshot, query, 3, 2, 4)
+    assert brief["schema_version"] == runtime.GENERIC_ANSWER_BRIEF_SCHEMA_VERSION
+    support = next(
+        support
+        for facet in brief["facets"]
+        for support in facet["supports"]
+        if quote in support["quote"]
+    )
+    assert support["evidence_id"] == selected["evidence_id"]
+    assert hashlib.sha256(support["quote"].encode("utf-8")).hexdigest() == support[
+        "quote_sha256"
+    ]
+    draft = {
+        "summary": "Use explicit endpoint adapters to retain deterministic request routing boundaries.",
+        "claims": [
+            {
+                "statement": "Endpoint adapters preserve request context and route priority.",
+                "supporting_evidence": [
+                    {"support_id": support["support_id"]}
+                ],
+            }
+        ],
+    }
+
+    answer = runtime.finalize_answer(
+        snapshot,
+        None,
+        "q999",
+        query,
+        5,
+        20,
+        top_k=3,
+        draft_payload=json.dumps(draft),
+    )
+    assert list(answer) == ["question_id", "answer", "evidence"]
+    assert answer["question_id"] == "q999"
+    assert answer["answer"]["claims"] == [
+        {
+            "statement": "Endpoint adapters preserve request context and route priority.",
+            "evidence_indices": [0],
+        }
+    ]
+    assert set(answer["evidence"][0]) == {
+        "source_id",
+        "record_id",
+        "concept_path",
+        "source_path",
+        "record_sha256",
+        "locator",
+        "text_sha256",
+    }
+    assert answer["evidence"][0]["record_sha256"] == selected["record_sha256"]
+    assert answer["evidence"][0]["text_sha256"] == selected["text_sha256"]
+
+    bad_quote = copy.deepcopy(draft)
+    bad_quote["claims"][0]["supporting_evidence"] = [
+        {
+            "evidence_id": selected["evidence_id"],
+            "quote": "This sentence does not occur in the governed evidence row.",
+        }
+    ]
+    with pytest.raises(runtime.SnapshotError, match="not an exact substring"):
+        runtime.finalize_answer(
+            snapshot,
+            None,
+            "q999",
+            query,
+            5,
+            20,
+            top_k=3,
+            draft_payload=json.dumps(bad_quote),
+        )
+
+    unknown = copy.deepcopy(draft)
+    unknown["claims"][0]["supporting_evidence"][0]["support_id"] = "support-unknown"
+    with pytest.raises(runtime.SnapshotError, match="outside the gated answer brief"):
+        runtime.finalize_answer(
+            snapshot,
+            None,
+            "q999",
+            query,
+            5,
+            20,
+            top_k=3,
+            draft_payload=json.dumps(unknown),
+        )
+    assert _tree(bundle) == before
+
+
+def test_v2_policy_cache_reuses_routes_without_changing_or_exposing_payloads(
+    runtime: ModuleType,
+    generic_ensemble_fixture: dict[str, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    snapshot = runtime.load_snapshot(
+        generic_ensemble_fixture["bundle"], deep_validation=True
+    )
+    query = "endpoint adapters preserve request context"
+    policies = ("quality", "fast", "robust")
+
+    uncached: dict[str, dict[str, Any]] = {}
+    for policy in policies:
+        runtime._LAST_ROUTE_PAYLOAD_CACHE = None
+        uncached[policy] = runtime.search_snapshot(snapshot, query, policy, 3)
+
+    original = runtime._run_route
+    calls: list[tuple[int, str, str, tuple[str, ...]]] = []
+
+    def counted(
+        active_snapshot,
+        route,
+        active_query,
+        top_k,
+        *,
+        source_ids,
+        concept_ids,
+        concept_types,
+    ):
+        calls.append(
+            (id(active_snapshot), route, active_query, tuple(sorted(source_ids)))
+        )
+        return original(
+            active_snapshot,
+            route,
+            active_query,
+            top_k,
+            source_ids=source_ids,
+            concept_ids=concept_ids,
+            concept_types=concept_types,
+        )
+
+    monkeypatch.setattr(runtime, "_run_route", counted)
+    runtime._LAST_ROUTE_PAYLOAD_CACHE = None
+    cached = {
+        policy: runtime.search_snapshot(snapshot, query, policy, 3)
+        for policy in policies
+    }
+    assert cached == uncached
+    required_routes = set()
+    for policy in snapshot.index["plan"]["policies"].values():
+        if not isinstance(policy, dict):
+            continue
+        required_routes.update(policy["routes"])
+        required_routes.add(policy["promotion"]["route"])
+        required_routes.update(policy["promotion"]["confirmation_routes"])
+    assert [row[1] for row in calls] == sorted(required_routes)
+
+    cached["quality"]["results"][0]["record_id"] = "caller-mutation"
+    repeated = runtime.search_snapshot(snapshot, query, "quality", 3)
+    assert all(row["record_id"] != "caller-mutation" for row in repeated["results"])
+    assert len(calls) == len(required_routes)
+
+    runtime.search_snapshot(snapshot, query + " changed", "quality", 3)
+    assert len(calls) == 2 * len(required_routes)
+    runtime.search_snapshot(
+        snapshot,
+        query + " changed",
+        "quality",
+        3,
+        source_ids=["generic-a"],
+    )
+    assert len(calls) == 3 * len(required_routes)
+
+    second_snapshot = runtime.load_snapshot(
+        generic_ensemble_fixture["bundle"], deep_validation=True
+    )
+    fast_policy = second_snapshot.index["plan"]["policies"]["fast"]
+    fast_routes = set(fast_policy["routes"])
+    fast_routes.add(fast_policy["promotion"]["route"])
+    fast_routes.update(fast_policy["promotion"]["confirmation_routes"])
+    runtime.search_snapshot(
+        second_snapshot,
+        query + " changed",
+        "fast",
+        3,
+        source_ids=["generic-a"],
+    )
+    assert len(calls) == 3 * len(required_routes) + len(fast_routes)
+
+
+def test_v2_crosswalk_and_child_plan_tampering_fail_closed(
+    runtime: ModuleType,
+    generic_ensemble_fixture: dict[str, Path],
+    tmp_path: Path,
+) -> None:
+    changed = tmp_path / "changed-crosswalk"
+    shutil.copytree(generic_ensemble_fixture["bundle"], changed)
+    crosswalk_path = changed / "ensemble" / "identity-crosswalk.jsonl"
+    rows = _jsonl(crosswalk_path)
+    rows[0]["group_key"] = "fabricated-prefix-join"
+    rows[0]["group_id"] = runtime._group_id(
+        rows[0]["group_namespace"], rows[0]["group_key"]
+    )
+    crosswalk_path.write_text(
+        "".join(_canonical(row) + "\n" for row in rows), encoding="utf-8"
+    )
+    index_path = changed / "ensemble" / "index.json"
+    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index["identity_crosswalk"] = runtime._counted_artifact(
+        changed, "ensemble/identity-crosswalk.jsonl", len(rows)
+    )
+    _write_json(index_path, index)
+    report_path = changed / "ensemble" / "build-report.json"
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report["artifacts"]["identity_crosswalk"] = index["identity_crosswalk"]
+    report["artifacts"]["index"] = runtime._artifact(changed, "ensemble/index.json")
+    _write_json(report_path, report)
+    with pytest.raises(runtime.SnapshotError, match="authoritative derivation"):
+        runtime.load_snapshot(changed, deep_validation=True)
+
+    changed_plan = tmp_path / "changed-child-plan"
+    shutil.copytree(generic_ensemble_fixture["bundle"], changed_plan)
+    index_path = changed_plan / "ensemble" / "index.json"
+    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index["child_plan_sha256s"]["adaptive"] = "0" * 64
+    _write_json(index_path, index)
+    with pytest.raises(runtime.SnapshotError, match="child-plan digest binding"):
+        runtime.load_snapshot(changed_plan, deep_validation=True)
+
+    crosswalk = _jsonl(
+        generic_ensemble_fixture["bundle"]
+        / "ensemble"
+        / "identity-crosswalk.jsonl"
+    )
+    exact = {
+        key: crosswalk[0][key]
+        for key in ("source_id", "record_id", "record_sha256")
+    }
+    with pytest.raises(runtime.SnapshotError, match="component group parity"):
+        runtime._verify_component_group_parity(
+            [crosswalk[0]],
+            SimpleNamespace(documents=[exact]),
+            SimpleNamespace(sections=[]),
+            SimpleNamespace(chunks=[exact]),
+        )
+
+
+def test_v2_group_join_never_infers_from_path_or_prefix(runtime: ModuleType) -> None:
+    crosswalk = {
+        "source_id": "source-a",
+        "record_id": "sources/shared",
+        "record_sha256": "a" * 64,
+        "group_id": "group-exact",
+    }
+    snapshot = SimpleNamespace(identity_crosswalk=(crosswalk,))
+    with pytest.raises(runtime.SnapshotError, match="lacks source_id"):
+        runtime._group_ranking(
+            snapshot,
+            {
+                "results": [
+                    {
+                        "source_id": "source-a",
+                        "record_id": "sources/shared",
+                        "source_path": "sources/shared.md",
+                        "paper_id": "shared",
+                    }
+                ]
+            },
+        )
+    ranking, representatives = runtime._group_ranking(
+        snapshot,
+        {
+            "results": [
+                {
+                    "source_id": "source-a",
+                    "record_id": "sources/shared",
+                    "record_sha256": "a" * 64,
+                }
+            ]
+        },
+    )
+    assert ranking == ["group-exact"]
+    assert set(representatives) == {"group-exact"}
+
+
 def test_protected_set_reranking_and_bounded_promotion(
     runtime: ModuleType,
     monkeypatch: pytest.MonkeyPatch,
@@ -479,6 +1107,7 @@ def test_protected_set_reranking_and_bounded_promotion(
         },
     )
     promoted = runtime.search_snapshot(_snapshot(), "graph retrieval", "quality", 4)
+    assert promoted["answer_evidence_contract"] == {"exact_bindings": True}
     assert promoted["candidate_set_gate"] == {
         "protected_route": "adaptive",
         "protected_paper_ids": adaptive,

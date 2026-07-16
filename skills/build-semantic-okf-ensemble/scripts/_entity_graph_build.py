@@ -11,9 +11,9 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from _entity_graph_model import (
-    ALGORITHMS,
     SCHEMA_VERSION,
     EntityGraphError,
+    algorithms_for,
     canonical_json,
     core_tree_sha256,
     derive_projection,
@@ -93,14 +93,14 @@ def build_projection(root: Path, plan_path: Path) -> dict[str, Any]:
     core = _core_binding(root)
     artifacts = _artifact_manifest(root, derived)
     index = {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": plan.schema_version,
         "authoritative": False,
         "discovery_only": True,
         "core": core,
         "entity_graph_plan_sha256": plan.sha256,
         "plan": plan.raw,
         "selection": derived["selection"],
-        "algorithms": ALGORITHMS,
+        "algorithms": algorithms_for(plan),
         "artifacts": artifacts,
         "summary": derived["summary"],
     }
@@ -109,7 +109,7 @@ def build_projection(root: Path, plan_path: Path) -> dict[str, Any]:
     if not initial["valid"]:
         raise EntityGraphError(initial["errors"][0]["message"])
     report = {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": plan.schema_version,
         "valid": True,
         "status": "pass",
         "errors": [],
@@ -165,11 +165,11 @@ def _validate_or_raise(root: Path, *, require_build_report: bool) -> dict[str, A
     }
     if not isinstance(index, dict) or set(index) != expected_index_keys:
         raise EntityGraphError("entity-graph index has an invalid closed schema")
-    if index["schema_version"] != SCHEMA_VERSION or index["authoritative"] is not False or index["discovery_only"] is not True:
-        raise EntityGraphError("entity-graph index version or authority markers are invalid")
-    if index["algorithms"] != ALGORITHMS:
-        raise EntityGraphError("entity-graph algorithm identities are invalid")
     plan = parse_plan(index["plan"])
+    if index["schema_version"] != plan.schema_version or index["authoritative"] is not False or index["discovery_only"] is not True:
+        raise EntityGraphError("entity-graph index version or authority markers are invalid")
+    if index["algorithms"] != algorithms_for(plan):
+        raise EntityGraphError("entity-graph algorithm identities are invalid")
     if index["entity_graph_plan_sha256"] != plan.sha256:
         raise EntityGraphError("entity-graph plan digest is invalid")
     derived = derive_projection(root, plan)
@@ -195,7 +195,7 @@ def _validate_or_raise(root: Path, *, require_build_report: bool) -> dict[str, A
     if index["summary"] != derived["summary"]:
         raise EntityGraphError("entity-graph summary is invalid")
     expected_report = {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": plan.schema_version,
         "valid": True,
         "status": "pass",
         "errors": [],
@@ -216,7 +216,7 @@ def _validate_or_raise(root: Path, *, require_build_report: bool) -> dict[str, A
         if report != expected_report:
             raise EntityGraphError("entity-graph build report differs from live validation")
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": plan.schema_version,
         "valid": True,
         "status": "pass",
         "errors": [],

@@ -1,0 +1,123 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-astro-q040-ensemble-paired
+  description: A one-question isolated knowledge-only versus ensemble consultation diagnostic on frozen Astro q040.
+  tags:
+    - compare
+    - semantic-okf
+    - astro
+    - q040
+    - paired
+    - isolated
+    - cli
+    - no-mcp
+task:
+  prompts:
+    - id: q040
+      description: hard conditional synthesis over three Astro documentation pages
+      prompt: 'Answer the Astro technical question below using only the published Semantic OKF snapshot at `knowledge/`. Do not use the web, model memory, or guesses. The snapshot is immutable; do not write into it. Use the available consultation skill if one is installed. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+
+
+        Question: A primarily static Astro site needs one cookie-aware account page and one request-time API route, while all other routes should stay prerendered. Derive the output, adapter, per-route, endpoint, and request-feature configuration, including the inverse design if server output becomes the default.
+
+
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q040`. A non-null `answer` must contain `summary` and `claims`, in that order. Give a precise 160-320 word synthesis that covers output mode, adapter, route prerendering, endpoint behavior, request-time cookies, and the inverse server-default design. Each claim must contain exactly `statement` and `evidence_indices`; indices are zero-based references into `evidence`. Every evidence row must contain exactly `source_id`, `record_id`, `concept_path`, `source_path`, `record_sha256`, `locator`, and `text_sha256`, copied from an exact validated consultation hit. Keep evidence in first-use order. Do not include benchmark-only relevance labels or unsupported facts.'
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: "try {\n  const value = JSON.parse(output.trim());\n  if (JSON.stringify(Object.keys(value)) !== JSON.stringify(['question_id','answer','evidence'])) return false;\n  if (value.question_id !== 'q040' || !Array.isArray(value.evidence)) return false;\n  if (value.answer === null) return value.evidence.length === 0;\n  if (JSON.stringify(Object.keys(value.answer)) !== JSON.stringify(['summary','claims'])) return false;\n  if (typeof value.answer.summary !== 'string' || !value.answer.summary.trim() || !Array.isArray(value.answer.claims)) return false;\n  if (!value.answer.claims.every((row) => JSON.stringify(Object.keys(row)) === JSON.stringify(['statement','evidence_indices']) && typeof row.statement === 'string' && row.statement.trim() && Array.isArray(row.evidence_indices) && row.evidence_indices.every(Number.isInteger))) return false;\n  return value.evidence.every((row) => JSON.stringify(Object.keys(row)) === JSON.stringify(['source_id','record_id','concept_path','source_path','record_sha256','locator','text_sha256'])\
+              \ && typeof row.source_id === 'string' && typeof row.record_id === 'string' && typeof row.concept_path === 'string' && typeof row.source_path === 'string' && /^[0-9a-f]{64}$/.test(row.record_sha256) && row.locator && typeof row.locator === 'object' && /^[0-9a-f]{64}$/.test(row.text_sha256));\n} catch { return false; }"
+          - type: javascript
+            metric: grounded-answer
+            value: "try {\n  const value = JSON.parse(output.trim());\n  if (value.answer === null || !Array.isArray(value.evidence) || value.evidence.length === 0) return false;\n  if (!Array.isArray(value.answer.claims) || value.answer.claims.length === 0) return false;\n  return value.answer.claims.every((claim) => claim.evidence_indices.length > 0 && claim.evidence_indices.every((index) => index >= 0 && index < value.evidence.length));\n} catch { return false; }"
+workspace:
+  sources:
+    - id: ensemble-bundle
+      type: local-path
+      path: evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a
+      target: /knowledge
+    - id: pi-luna-runner
+      type: local-path
+      path: evaluations/semantic-okf-builder/fixtures/workspaces/base/bin
+      target: /bin
+  setup:
+    initializeGit: true
+    env:
+      HF_HUB_OFFLINE: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      SEMANTIC_OKF_BUNDLE: $WORKSPACE/knowledge
+      TRANSFORMERS_OFFLINE: '1'
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+  requests: 1
+  timeoutMs: 600000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: knowledge-only-control
+      description: Same immutable bundle with no declared consultation skill.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - knowledge-only
+        labels:
+          capability: none
+          causal_role: passive-control
+    - id: ensemble-consult-treatment
+      description: Same immutable bundle with only consult-semantic-okf-ensemble installed.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-ensemble
+              skillId: consult-semantic-okf-ensemble
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - ensemble
+          - cli
+          - no-mcp
+        labels:
+          capability: consult-semantic-okf-ensemble
+          causal_role: treatment
+  variants:
+    - id: pi-luna-only
+      description: The same PI GPT-5.6 Luna route for both isolated cells.
+      agent:
+        adapter: pi
+        model: openai-codex/gpt-5.6-luna
+        executionMethod: command
+        commandPath: bin/pi-luna.ps1
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: true
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv:
+          PI_MODEL_TIMEOUT_SECONDS: '600'
+        envPassthrough:
+          - SEMANTIC_OKF_PYTHON
+          - SEMANTIC_OKF_HF_HUB_CACHE
+        config: {}
+      output:
+        tags:
+          - pi
+          - gpt-5.6-luna
+          - isolated
+          - cli
+          - no-mcp
+        labels:
+          variantDisplayName: PI GPT-5.6 Luna

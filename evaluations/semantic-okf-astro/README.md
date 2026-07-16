@@ -20,6 +20,36 @@ This evaluation transfers every Semantic OKF retrieval family to a frozen techni
 
 The MDX pages are authoritative. A validated Semantic OKF core is their authoritative projection. Plans, sectioning, graph edges, embeddings, lexical statistics, query expansion, rankings, qrels, answer packs, and scores are derived and non-authoritative.
 
+## Accepted results
+
+The full interpretation, ID audit, and recommendation are in
+[Evaluation Conclusions](EVALUATION-CONCLUSIONS.md). The accepted compact reports are:
+
+- [build comparison](reports/build-comparison.md) and its
+  [machine-readable JSON](reports/build-comparison.json);
+- [40-question retrieval comparison](reports/retrieval-comparison.md) and its
+  [machine-readable JSON](reports/retrieval-comparison.json); and
+- [10-hard-question answer comparison](reports/hard-answer-comparison.md) and its
+  [machine-readable JSON](reports/hard-answer-comparison.json);
+- [manual q040 query verification](reports/manual-query-verification.md) and its
+  [machine-readable JSON](reports/manual-query-verification.json);
+- [all-family live q040 answer comparison](reports/skill-arena-q040-comparison.md)
+  and its [machine-readable JSON](reports/skill-arena-q040-comparison.json); and
+- [isolated q040 Skill Arena result](reports/skill-arena-q040-ensemble.md) and its
+  [machine-readable JSON](reports/skill-arena-q040-ensemble.json); and
+- [frozen post-tuning q039 holdout](reports/skill-arena-q039-holdout.md) and its
+  [machine-readable JSON](reports/skill-arena-q039-holdout.json).
+
+All six families pass deterministic double builds, package validation, common-core
+parity, and 100% evidence validity in the deterministic retrieval evaluation. The
+separate live-answer report retains model-side contract and evidence transcription
+failures instead of treating a shape-only harness pass as authoritative validity.
+No single retrieval route wins every metric.
+Embedding hybrid has the highest overall Recall@10 (90.4%), embedding lexical/hybrid
+has the highest hard Recall@10 (80.8%), BM25 has the highest MRR@10 (0.921), and
+association has the highest nDCG@10 (0.835). Ensemble `quality` is the recommended
+governed default, not a claim of universal metric dominance.
+
 ## Layout
 
 - `corpus/acquisition-manifest.json` binds the official repository commit, accepted ignored Know export, byte total, section counts, and authoritative tree digest.
@@ -31,7 +61,8 @@ The MDX pages are authoritative. A validated Semantic OKF core is their authorit
 - `benchmark/hard-ground-truth.jsonl` contains evaluator-only claims, negatives, joins, acceptable variants, failure conditions, and exact evidence bindings.
 - `plans/` contains complete-corpus plans for every plan-driven builder.
 - `results/runs/` is reserved for ignored, append-only bundles and detailed executions.
-- Compact build, retrieval, and answer reports are published separately after an accepted run.
+- `reports/` contains compact checked build, retrieval, and answer reports for an accepted run.
+- `LEGACY-GREP-INVESTIGATION.md` separates the optional documented `rg` procedure from the evaluator's in-memory TF-IDF legacy route.
 
 ## Reproduce acquisition without MCP
 
@@ -73,3 +104,45 @@ The independent validator does not read the ignored Know store. It re-derives ro
 Only each question string is supplied to a consultant. Qrels, source IDs, document routes, evidence paths, locators, hashes, claims, negatives, and derivation logic remain evaluator-only. Retrieval metrics and answer metrics must be reported separately: retrieving a relevant page does not prove that an answer used the required evidence or satisfied every atomic claim.
 
 The checked plans are benchmark-independent and select all 416 sources. No plan contains question IDs or labels. The source-generic ensemble uses an empty identity override list, so distinct records are never merged by filename or title heuristics.
+
+## Identity crosswalk rule
+
+`document_id`, `source_id`, and `record_id` are distinct namespaces. Resolve a bundle
+hit only through the exact `(source_id, record_id) -> document_id` mapping in
+`corpus/source-combination.json`. The independently sorted `required_document_ids`
+and `required_source_ids` arrays in hard ground truth are sets and must never be
+zipped by position. The independent validator re-derives and checks all 416 joins.
+
+## Reproduce the accepted comparison shape
+
+Use a fresh run ID because generated bundles and raw reports are append-only. This
+example writes candidate compact reports into the ignored run; compare them with the
+checked reports before accepting or publishing a replacement.
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path src).Path
+$python = (Resolve-Path .venv/Scripts/python.exe).Path
+$runId = "astro-reproduction-$([DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ'))"
+$runDir = "evaluations/semantic-okf-astro/results/runs/$runId"
+
+& $python evaluations/semantic-okf-astro/scripts/run_builds.py `
+  --run-id $runId --python $python `
+  --report "$runDir/build-comparison.json" `
+  --markdown "$runDir/build-comparison.md"
+
+& $python evaluations/semantic-okf-astro/scripts/evaluate_retrieval.py `
+  --run-dir $runDir --python $python --timeout 300 `
+  --raw-output "$runDir/retrieval/detailed-report.json" `
+  --compact-json "$runDir/retrieval/compact-report.json" `
+  --compact-markdown "$runDir/retrieval/compact-report.md"
+
+& $python evaluations/semantic-okf-astro/scripts/compare_hard_answers.py `
+  --run-dir $runDir `
+  --retrieval-report "$runDir/retrieval/detailed-report.json" `
+  --output-json "$runDir/answers/hard-answer-comparison.json" `
+  --output-markdown "$runDir/answers/hard-answer-comparison.md"
+```
+
+See [Evaluation Conclusions](EVALUATION-CONCLUSIONS.md) for timing boundaries, the
+hard-answer metric definitions, the audited `q040` identity crosswalk, the no-MCP
+boundary, the legacy `grep`/`rg` finding, and the definitive ensemble quality gates.

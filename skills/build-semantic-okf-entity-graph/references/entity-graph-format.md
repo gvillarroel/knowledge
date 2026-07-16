@@ -1,23 +1,41 @@
 # Entity-Graph Format
 
-`entity-graph/` is a closed, non-authoritative retrieval projection bound to the authoritative core tree, record ledger digest, exact selected-source inventory, complete plan, algorithm identifiers, artifact hashes, and summary counts.
+`entity-graph/` is a closed, non-authoritative retrieval projection bound to the authoritative core tree, record-ledger digest, exact selected-source inventory, complete plan, algorithm identifiers, artifact hashes, and summary counts.
 
 ## Artifacts
 
-- `entities.jsonl`: reviewed method, dimension, paper, and claim identities plus extracted candidate phrases. Reviewed rows bind exact source, record, concept, subject IRI, and record digest. Candidate rows contain extraction statistics instead.
-- `sections.jsonl`: exact paper-page text, character range, fragment, record and concept identities, text hash, token counts, and paper identity.
-- `mentions.jsonl`: deterministic normalized phrase matches from an entity to a section. All mention assertions are candidates.
-- `edges.jsonl`: graph edges with review state, semantic source, optional claim record ID, exact evidence section IDs, and weight.
-- `lexicon.json`: section-level BM25 document frequency, inverse document frequency, and average length.
-- `index.json`: authority marker, core and source bindings, plan, algorithms, artifacts, and summary.
-- `build-report.json`: independently reproduced validation result.
+- `entities.jsonl` stores authoritative document identities and extracted candidate phrases in schema `2.0`. Legacy `1.0` stores reviewed methods, dimensions, papers, and claims.
+- `sections.jsonl` stores exact `record.body` text, character locators, source-scoped document identity, source and record digests, concept identity, heading path, token counts, and text hash. Legacy `1.0` retains PDF-page rows.
+- `mentions.jsonl` stores deterministic normalized phrase matches. Every mention is a candidate discovery assertion.
+- `edges.jsonl` stores exact evidence-section references and weights. Schema `2.0` uses `partOfDocument`, `mentionedInSection`, and `coMentionedWith`; legacy `1.0` retains its reviewed-claim predicates.
+- `lexicon.json` stores section-level BM25 document frequency, inverse document frequency, and average length.
+- `index.json` stores authority markers, core and source bindings, the plan, algorithm identities, artifact bindings, and summary.
+- `build-report.json` stores the independently reproduced validation result.
 
-## Edge semantics
+## Schema 2.0 identity and locator contract
 
-Reviewed claim projection uses `hasReviewedClaim`, `objectTerm`, `aboutPaper`, and `supportedBySection`. `partOfPaper` binds exact page sections to their authoritative paper. `mentionedInSection` and `coMentionedWith` are deterministic candidates. Every edge remains part of a discovery projection even when it mirrors a reviewed core fact.
+The durable document identity is `(source_id, record_id)`. `document_id` is a deterministic hash-derived spelling of that tuple, not a substitute for the structured identity. `record_sha256` binds the normalized ledger record, while `source_content_sha256` independently binds the complete physical source membership and bytes.
 
-Multi-page claims create one `supportedBySection` edge per page. The other reviewed claim edges retain the complete evidence-section set.
+Each section locator has the closed form:
+
+```json
+{
+  "target": "record-body",
+  "kind": "character-range",
+  "start": 0,
+  "end": 120,
+  "fragment": "record-body-..."
+}
+```
+
+The exact evidence text must equal `record.body[start:end]` and its UTF-8 SHA-256 must equal `text_sha256`. `source_path` identifies the physical origin, and `concept_path` identifies its authoritative readable mirror; the character offsets address neither of those files directly.
+
+`partOfDocument` is reviewed only as a structural identity binding. It does not assert that document prose is externally true. Candidate phrases, mentions, co-mentions, weights, paths, and rankings remain discovery-only.
+
+## Legacy schema 1.0
+
+Legacy reviewed-claim projection uses `hasReviewedClaim`, `objectTerm`, `aboutPaper`, `supportedBySection`, and `partOfPaper`. Multi-page claims create one `supportedBySection` edge per page. This representation remains accepted to reproduce frozen bundles.
 
 ## Validation
 
-Validation rejects unknown files, symlinks, unsafe paths, duplicate IDs, broken references, stale core or source hashes, invalid text slices, non-finite weights, missing evidence, schema drift, non-reviewed accepted claims, artifact mismatch, and any difference from full deterministic rederivation.
+Validation rejects unknown files or keys, links, unsafe paths, duplicate or collision-prone identities, broken references, stale core/source/record hashes, invalid body ranges, mismatched text hashes, non-finite weights, schema drift, artifact mismatch, and any difference from complete deterministic rederivation.
