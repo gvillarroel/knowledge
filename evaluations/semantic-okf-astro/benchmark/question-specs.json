@@ -1,0 +1,651 @@
+{
+  "schema_version": "semantic-okf-astro-question-specs/1.0",
+  "questions": [
+    {
+      "id": "q001",
+      "question": "Which directories and files in a standard Astro project have special meanings, and where should pages, components, public assets, and source assets be placed?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/basics/project-structure.mdx"]
+    },
+    {
+      "id": "q002",
+      "question": "How are Astro components structured, how do they receive props, and how can named and default slots compose child content?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/basics/astro-components.mdx"]
+    },
+    {
+      "id": "q003",
+      "question": "How does Astro turn files in src/pages into routes, and which page file types can generate HTML or endpoint responses?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/basics/astro-pages.mdx"]
+    },
+    {
+      "id": "q004",
+      "question": "What are client islands and server islands in Astro, and how do they differ in where and when interactive or personalized content is rendered?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/concepts/islands.mdx"]
+    },
+    {
+      "id": "q005",
+      "question": "How do Astro Actions define validated server operations, return data and errors, accept HTML form submissions, and enforce authorization?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/actions.mdx"]
+    },
+    {
+      "id": "q006",
+      "question": "How are Astro sessions configured and accessed from pages, endpoints, actions, and middleware?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/sessions.mdx"]
+    },
+    {
+      "id": "q007",
+      "question": "How does Astro middleware use context, locals, chaining, and rewrites to affect a request and response?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/middleware.mdx"]
+    },
+    {
+      "id": "q008",
+      "question": "How do server islands defer rendering, display fallback content, transfer props, and interact with caching and deployment encryption keys?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/server-islands.mdx"]
+    },
+    {
+      "id": "q009",
+      "question": "How do build-time and live content collections differ in configuration, loaders, query APIs, execution time, and storage behavior?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/content-collections.mdx"]
+    },
+    {
+      "id": "q010",
+      "question": "What image workflows does Astro provide for local, public, remote, Markdown, MDX, and content-collection images?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/images.mdx"]
+    },
+    {
+      "id": "q011",
+      "question": "How is internationalized routing configured in Astro, including locale prefixes, fallback behavior, custom locale paths, and domains?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/internationalization.mdx"]
+    },
+    {
+      "id": "q012",
+      "question": "How does Astro resolve static, dynamic, rest-parameter, redirect, rewrite, and reserved routes, and what priority order applies when routes conflict?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/routing.mdx"]
+    },
+    {
+      "id": "q013",
+      "question": "How do Astro static file endpoints and on-demand server endpoints define methods, access params and requests, and return responses?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/endpoints.mdx"]
+    },
+    {
+      "id": "q014",
+      "question": "How are environment variables loaded and accessed in Astro, and how can astro:env schemas enforce type, context, and access constraints?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/environment-variables.mdx"]
+    },
+    {
+      "id": "q015",
+      "question": "How does Astro's ClientRouter perform client-side navigation, preserve state, control transitions, and expose lifecycle events?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/view-transitions.mdx"]
+    },
+    {
+      "id": "q016",
+      "question": "What TypeScript support and configuration does Astro provide, and how should component props, imported types, and strictness presets be handled?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/typescript.mdx"]
+    },
+    {
+      "id": "q017",
+      "question": "How do Astro projects import local files, npm packages, aliases, JSON, and other assets?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/imports.mdx"]
+    },
+    {
+      "id": "q018",
+      "question": "How does Astro render Markdown content, expose frontmatter and headings, configure remark and rehype plugins, and mix Markdown with MDX?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/guides/markdown-content.mdx"]
+    },
+    {
+      "id": "q019",
+      "question": "Which major behaviors can astro.config control for output, adapters, routing, build paths, images, i18n, security, sessions, and integrations?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/reference/configuration-reference.mdx"]
+    },
+    {
+      "id": "q020",
+      "question": "What do Astro's common, client, server, script, and style directives do, and which constraints apply to their values?",
+      "question_type": "direct",
+      "documents": ["src/content/docs/en/reference/directives-reference.mdx"]
+    },
+    {
+      "id": "q021",
+      "question": "How should content collections and Astro routing be combined to generate static collection pages versus request-time dynamic collection routes?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/content-collections.mdx",
+        "src/content/docs/en/guides/routing.mdx",
+        "src/content/docs/en/reference/routing-reference.mdx"
+      ]
+    },
+    {
+      "id": "q022",
+      "question": "How can actions, sessions, and middleware cooperate on authenticated form handling while keeping per-action authorization explicit?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/actions.mdx",
+        "src/content/docs/en/guides/middleware.mdx",
+        "src/content/docs/en/guides/sessions.mdx"
+      ]
+    },
+    {
+      "id": "q023",
+      "question": "How should an Astro content collection represent and render local or remote images while preserving image optimization and correct dimensions?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/content-collections.mdx",
+        "src/content/docs/en/guides/images.mdx",
+        "src/content/docs/en/reference/modules/astro-assets.mdx"
+      ]
+    },
+    {
+      "id": "q024",
+      "question": "How do i18n route configuration, route rendering mode, and astro:i18n URL helpers work together when locale domains are enabled?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/internationalization.mdx",
+        "src/content/docs/en/reference/modules/astro-i18n.mdx",
+        "src/content/docs/en/reference/routing-reference.mdx"
+      ]
+    },
+    {
+      "id": "q025",
+      "question": "What must be configured to add a server island to an otherwise static page, and how do the adapter, server:defer directive, and request-time features divide responsibility?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/on-demand-rendering.mdx",
+        "src/content/docs/en/guides/server-islands.mdx",
+        "src/content/docs/en/reference/directives-reference.mdx"
+      ]
+    },
+    {
+      "id": "q026",
+      "question": "How should client-side scripts be authored when ClientRouter is enabled so initialization runs at the correct lifecycle point without accidental duplication?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/client-side-scripts.mdx",
+        "src/content/docs/en/guides/view-transitions.mdx",
+        "src/content/docs/en/reference/directives-reference.mdx"
+      ]
+    },
+    {
+      "id": "q027",
+      "question": "When should an Astro route be a page, a static endpoint, or a server endpoint, and how do filename parameters and rendering mode affect each choice?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/basics/astro-pages.mdx",
+        "src/content/docs/en/guides/endpoints.mdx",
+        "src/content/docs/en/guides/routing.mdx"
+      ]
+    },
+    {
+      "id": "q028",
+      "question": "How should a deployment provide typed runtime secrets to request-time code and a session driver without unintentionally inlining replaceable configuration at build time?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/environment-variables.mdx",
+        "src/content/docs/en/guides/sessions.mdx",
+        "src/content/docs/en/reference/modules/astro-env.mdx"
+      ]
+    },
+    {
+      "id": "q029",
+      "question": "How do pages, components, and layouts compose a reusable Astro site, and where do props and slots cross each boundary?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/basics/astro-components.mdx",
+        "src/content/docs/en/basics/astro-pages.mdx",
+        "src/content/docs/en/basics/layouts.mdx"
+      ]
+    },
+    {
+      "id": "q030",
+      "question": "How do output mode, an adapter, per-route prerender settings, and deployment-provider support determine whether an Astro project can serve static and request-time routes together?",
+      "question_type": "cross-document",
+      "documents": [
+        "src/content/docs/en/guides/deploy/index.mdx",
+        "src/content/docs/en/guides/on-demand-rendering.mdx",
+        "src/content/docs/en/reference/configuration-reference.mdx",
+        "src/content/docs/en/reference/routing-reference.mdx"
+      ]
+    },
+    {
+      "id": "q031",
+      "question": "A member-only settings form calls an Astro Action and may rewrite unauthenticated submissions to a login page. Design the authorization, session, and rewrite boundaries so an attacker cannot bypass permissions and an HTML form body is not consumed by an unsafe middleware rewrite.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/actions.mdx",
+        "src/content/docs/en/guides/middleware.mdx",
+        "src/content/docs/en/guides/sessions.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q031-e1", "role": "action authorization boundary", "upstream_path": "src/content/docs/en/guides/actions.mdx", "heading": "Security when using actions", "occurrence": 1},
+          {"id": "q031-e2", "role": "rewrite execution and request-body constraint", "upstream_path": "src/content/docs/en/guides/middleware.mdx", "heading": "Rewriting", "occurrence": 1},
+          {"id": "q031-e3", "role": "session driver and runtime configuration", "upstream_path": "src/content/docs/en/guides/sessions.mdx", "heading": "Configuring sessions", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q031-a1", "statement": "Treat every Action as a public endpoint and perform authentication, permission, and rate-limit checks inside the individual action handler.", "evidence_ids": ["q031-e1"]},
+          {"id": "q031-a2", "statement": "Middleware may reject broad classes of action requests that lack a session, but session presence is not a substitute for secure per-action authorization.", "evidence_ids": ["q031-e1"]},
+          {"id": "q031-a3", "statement": "Use a configured session driver and expose the session to the action or middleware only as request state; adapters differ in whether they supply a default driver.", "evidence_ids": ["q031-e3"]},
+          {"id": "q031-a4", "statement": "A context.rewrite starts a new rendering phase and reruns middleware, whereas passing a new path or Request to next rewrites in place without rerunning the chain.", "evidence_ids": ["q031-e2"]},
+          {"id": "q031-a5", "statement": "For an Action submitted by an HTML form, avoid a next(Request-or-path) middleware rewrite when the body may be consumed; handle the rewrite from the Astro template with Astro.rewrite instead.", "evidence_ids": ["q031-e2"]}
+        ],
+        "derivation": [
+          {"operation": "join", "inputs": ["q031-a1", "q031-a2", "q031-a3"], "conclusion": "The session establishes request identity, middleware can provide a coarse gate, and the action remains the final authorization boundary."},
+          {"operation": "conditional", "inputs": ["q031-a4", "q031-a5"], "conclusion": "Choose rewrite behavior according to whether middleware must rerun and whether an HTML form body is present; the in-place next rewrite is unsafe for the body-consuming case."}
+        ],
+        "acceptable_variants": [
+          "Authentication may be implemented with an external library if authorization still occurs in the action handler.",
+          "An unauthenticated form can return a redirect instead of rewriting when that better preserves request semantics."
+        ],
+        "failure_conditions": [
+          "The answer relies only on a cookie or middleware gate and omits per-action authorization.",
+          "The answer recommends consuming the form body around next(Request) or next(path).",
+          "The answer confuses context.rewrite with the no-rerun next rewrite."
+        ],
+        "important_negatives": [
+          {"id": "q031-n1", "statement": "Do not treat the presence of a session as proof that the user has permission to invoke every action.", "evidence_ids": ["q031-e1"]},
+          {"id": "q031-n2", "statement": "Do not use the in-place next rewrite for an HTML Action form when Request.body must be consumed.", "evidence_ids": ["q031-e2"]}
+        ]
+      }
+    },
+    {
+      "id": "q032",
+      "question": "A mostly static product page uses a cacheable personalized server island behind a CDN during rolling multi-region deployments. Derive the minimum adapter, prop, URL, request-size, caching, and encryption-key rules needed to keep the island correct and cacheable.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/server-islands.mdx",
+        "src/content/docs/en/guides/on-demand-rendering.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q032-e1", "role": "server island execution contract", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Server island components", "occurrence": 1},
+          {"id": "q032-e2", "role": "prop serialization constraint", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Passing props to server islands", "occurrence": 1},
+          {"id": "q032-e3", "role": "GET-to-POST cache boundary", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Caching", "occurrence": 1},
+          {"id": "q032-e4", "role": "page URL isolation", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Accessing the page URL in a server island", "occurrence": 1},
+          {"id": "q032-e5", "role": "deployment encryption key", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Reusing the encryption key", "occurrence": 1},
+          {"id": "q032-e6", "role": "adapter requirement", "upstream_path": "src/content/docs/en/guides/on-demand-rendering.mdx", "heading": "Server adapters", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q032-a1", "statement": "Install a server adapter and mark the component with server:defer so only the island is rendered on demand while the surrounding page remains static.", "evidence_ids": ["q032-e1", "q032-e6"]},
+          {"id": "q032-a2", "statement": "Pass only supported serializable props; functions and circular structures cannot cross the island boundary.", "evidence_ids": ["q032-e2"]},
+          {"id": "q032-a3", "statement": "Keep encrypted props small enough for the GET query to remain below the practical 2048-byte URL limit; otherwise Astro switches to POST and browser caching no longer applies.", "evidence_ids": ["q032-e3"]},
+          {"id": "q032-a4", "statement": "Do not interpret Astro.url inside the island as the product-page URL because it identifies the special island endpoint; pass page data explicitly or derive it from the Referer header when appropriate.", "evidence_ids": ["q032-e4"]},
+          {"id": "q032-a5", "statement": "Generate and persist ASTRO_KEY across builds so old CDN pages and different deployment regions can decrypt the same prop payload during a rollout.", "evidence_ids": ["q032-e5"]}
+        ],
+        "derivation": [
+          {"operation": "join", "inputs": ["q032-a1", "q032-a2", "q032-a3"], "conclusion": "The cacheable design requires an adapter-backed deferred island with a compact, serializable prop envelope that stays on the GET path."},
+          {"operation": "join", "inputs": ["q032-a4", "q032-a5"], "conclusion": "Correct personalization across isolated requests and mixed deployment generations requires explicit page identity and a stable shared encryption key."}
+        ],
+        "acceptable_variants": [
+          "Page identity may be passed as a prop instead of being recovered from Referer.",
+          "The CDN may cache the GET response using an explicit Cache-Control policy."
+        ],
+        "failure_conditions": [
+          "The answer claims POST island requests retain ordinary browser caching.",
+          "The answer uses Astro.url as if it were always the containing page URL.",
+          "The answer omits a stable ASTRO_KEY for rolling or multi-region deployment."
+        ],
+        "important_negatives": [
+          {"id": "q032-n1", "statement": "Do not send entire data objects when a small identifier is enough, because crossing the URL limit changes the request method and cache behavior.", "evidence_ids": ["q032-e3"]},
+          {"id": "q032-n2", "statement": "Do not rely on the default random per-build encryption key when frontend and backend generations can overlap.", "evidence_ids": ["q032-e5"]}
+        ]
+      }
+    },
+    {
+      "id": "q033",
+      "question": "An Astro storefront has versioned MDX product descriptions and optimized local images, but inventory and price must be fresh on every request. Design the collection split, configuration files, loaders, query APIs, rendering mode, and error behavior without pretending both data classes have the same lifecycle.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/content-collections.mdx",
+        "src/content/docs/en/reference/modules/astro-content.mdx",
+        "src/content/docs/en/guides/on-demand-rendering.mdx",
+        "src/content/docs/en/guides/images.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q033-e1", "role": "collection lifecycle distinction", "upstream_path": "src/content/docs/en/guides/content-collections.mdx", "heading": "Types of collections", "occurrence": 1},
+          {"id": "q033-e2", "role": "live collection configuration and limitations", "upstream_path": "src/content/docs/en/guides/content-collections.mdx", "heading": "Live content collections", "occurrence": 1},
+          {"id": "q033-e3", "role": "live query result contract", "upstream_path": "src/content/docs/en/reference/modules/astro-content.mdx", "heading": "`getLiveCollection()`", "occurrence": 1},
+          {"id": "q033-e4", "role": "request-time runtime requirement", "upstream_path": "src/content/docs/en/guides/on-demand-rendering.mdx", "heading": "Enabling on-demand rendering", "occurrence": 1},
+          {"id": "q033-e5", "role": "content image integration", "upstream_path": "src/content/docs/en/guides/images.mdx", "heading": "Images in content collections", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q033-a1", "statement": "Keep stable MDX descriptions and local image metadata in a build-time collection so Astro can validate, persist, render, and optimize them during the build.", "evidence_ids": ["q033-e1", "q033-e5"]},
+          {"id": "q033-a2", "statement": "Define inventory and price as a separate live collection in src/live.config.ts with defineLiveCollection and a custom or third-party live loader.", "evidence_ids": ["q033-e2"]},
+          {"id": "q033-a3", "statement": "Query live values with getLiveCollection or getLiveEntry at request time and handle the returned entries and error explicitly.", "evidence_ids": ["q033-e2", "q033-e3"]},
+          {"id": "q033-a4", "statement": "Install an adapter and render the route on demand, using server output or a per-route prerender=false override as appropriate.", "evidence_ids": ["q033-e2", "q033-e4"]},
+          {"id": "q033-a5", "statement": "Join stable content to live commerce data by a shared product identifier in application code rather than forcing fresh values into the persisted build-time store.", "evidence_ids": ["q033-e1", "q033-e2", "q033-e3"]}
+        ],
+        "derivation": [
+          {"operation": "partition", "inputs": ["q033-a1", "q033-a2"], "conclusion": "Lifecycle, not superficial schema similarity, determines the build-time versus live collection boundary."},
+          {"operation": "join", "inputs": ["q033-a3", "q033-a4", "q033-a5"], "conclusion": "The request-time route fetches live values, handles failures, and joins them to build-time content by an explicit stable key."}
+        ],
+        "acceptable_variants": [
+          "A single live entry may be fetched with getLiveEntry instead of fetching the full inventory.",
+          "The route may use global server output or a hybrid per-route prerender override."
+        ],
+        "failure_conditions": [
+          "The answer places MDX and optimized local images exclusively in a live collection without addressing its limitations.",
+          "The answer expects live values to persist in Astro's build-time data store.",
+          "The answer omits the adapter or request-time rendering requirement."
+        ],
+        "important_negatives": [
+          {"id": "q033-n1", "statement": "Do not use a live collection merely as a drop-in replacement for build-time MDX and image processing.", "evidence_ids": ["q033-e1", "q033-e2", "q033-e5"]},
+          {"id": "q033-n2", "statement": "Do not assume getLiveCollection returns only data; its error result must be handled.", "evidence_ids": ["q033-e3"]}
+        ]
+      }
+    },
+    {
+      "id": "q034",
+      "question": "A catalog mixes imported images from src, passthrough files in public, and remote CMS images whose dimensions are not known. Derive a secure image policy that states which assets Astro processes, when dimensions are mandatory or inferable, and which remote URLs may be optimized.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/images.mdx",
+        "src/content/docs/en/reference/modules/astro-assets.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q034-e1", "role": "local asset processing boundary", "upstream_path": "src/content/docs/en/guides/images.mdx", "heading": "`src/` vs `public/`", "occurrence": 1},
+          {"id": "q034-e2", "role": "remote source authorization", "upstream_path": "src/content/docs/en/guides/images.mdx", "heading": "Authorizing remote images", "occurrence": 1},
+          {"id": "q034-e3", "role": "public image dimension contract", "upstream_path": "src/content/docs/en/reference/modules/astro-assets.mdx", "heading": "`width` and `height` (required for images in `public/`)", "occurrence": 1},
+          {"id": "q034-e4", "role": "remote dimension inference", "upstream_path": "src/content/docs/en/reference/modules/astro-assets.mdx", "heading": "`inferSize`", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q034-a1", "statement": "Prefer imported local images under src when transformation, optimization, bundling, and automatic metadata are desired.", "evidence_ids": ["q034-e1"]},
+          {"id": "q034-a2", "statement": "Use public only for assets intentionally copied and served as-is; Astro cannot inspect those files, so Image or Picture requires explicit width and height.", "evidence_ids": ["q034-e1", "q034-e3"]},
+          {"id": "q034-a3", "statement": "Authorize CMS origins narrowly with image.domains or image.remotePatterns before allowing Astro's image service to process them.", "evidence_ids": ["q034-e2"]},
+          {"id": "q034-a4", "statement": "For an authorized remote image with unknown dimensions, use inferSize or inferRemoteSize; otherwise provide both dimensions explicitly.", "evidence_ids": ["q034-e2", "q034-e4"]},
+          {"id": "q034-a5", "statement": "An unauthorized remote image is displayed without optimization, although Image can still reserve layout space to reduce cumulative layout shift.", "evidence_ids": ["q034-e2"]}
+        ],
+        "derivation": [
+          {"operation": "classification", "inputs": ["q034-a1", "q034-a2"], "conclusion": "Local file location is an intentional processing boundary: src enters the asset pipeline and public bypasses it."},
+          {"operation": "conditional", "inputs": ["q034-a3", "q034-a4", "q034-a5"], "conclusion": "Remote optimization and dimension inference are allowed only after the source passes the configured authorization boundary."}
+        ],
+        "acceptable_variants": [
+          "A tightly scoped remotePattern can be preferred over a whole-domain allowlist.",
+          "Remote dimensions may be supplied manually instead of inferred."
+        ],
+        "failure_conditions": [
+          "The answer claims public assets are optimized automatically.",
+          "The answer allows arbitrary remote origins to be optimized.",
+          "The answer omits required public image dimensions."
+        ],
+        "important_negatives": [
+          {"id": "q034-n1", "statement": "Do not use public for images that require Astro transformation or automatic dimension analysis.", "evidence_ids": ["q034-e1", "q034-e3"]},
+          {"id": "q034-n2", "statement": "Do not treat inferSize as permission to fetch and optimize any untrusted remote URL.", "evidence_ids": ["q034-e2", "q034-e4"]}
+        ]
+      }
+    },
+    {
+      "id": "q035",
+      "question": "An Astro site maps locales to different production domains and needs helpers to generate absolute localized links. Derive the required output, site, adapter, and prerender configuration, and explain the proxy-header and unsupported-adapter failure modes.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/internationalization.mdx",
+        "src/content/docs/en/reference/modules/astro-i18n.mdx",
+        "src/content/docs/en/reference/errors/no-prerendered-routes-with-domains.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q035-e1", "role": "domain routing requirements", "upstream_path": "src/content/docs/en/guides/internationalization.mdx", "heading": "`domains`", "occurrence": 1},
+          {"id": "q035-e2", "role": "domain routing limitations", "upstream_path": "src/content/docs/en/guides/internationalization.mdx", "heading": "Limitations", "occurrence": 1},
+          {"id": "q035-e3", "role": "absolute localized URL helper", "upstream_path": "src/content/docs/en/reference/modules/astro-i18n.mdx", "heading": "`getAbsoluteLocaleUrl()`", "occurrence": 1},
+          {"id": "q035-e4", "role": "prerender incompatibility error", "upstream_path": "src/content/docs/en/reference/errors/no-prerendered-routes-with-domains.mdx", "heading": "What went wrong?", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q035-a1", "statement": "Set a canonical site URL and configure i18n.domains with the locale-to-domain mappings.", "evidence_ids": ["q035-e1"]},
+          {"id": "q035-a2", "statement": "Use server output with a supported Node or Vercel adapter; domain routing is not a purely static prerender feature.", "evidence_ids": ["q035-e1", "q035-e4"]},
+          {"id": "q035-a3", "statement": "Disable prerendering for routes under domain-based i18n because Astro must inspect the request host at runtime.", "evidence_ids": ["q035-e1", "q035-e4"]},
+          {"id": "q035-a4", "statement": "Generate cross-domain locale links with getAbsoluteLocaleUrl so the configured domain mapping participates in the result.", "evidence_ids": ["q035-e3"]},
+          {"id": "q035-a5", "statement": "When deployed behind a reverse proxy, forward the original host and protocol headers; otherwise domain matching and URL generation can fail or produce a 404.", "evidence_ids": ["q035-e2"]}
+        ],
+        "derivation": [
+          {"operation": "join", "inputs": ["q035-a1", "q035-a2", "q035-a3"], "conclusion": "Domain-aware locale selection is a request-time routing feature bound to the configured public site and a compatible server adapter."},
+          {"operation": "conditional", "inputs": ["q035-a4", "q035-a5"], "conclusion": "Absolute helper output is trustworthy only when the runtime sees the original host and protocol through the deployment boundary."}
+        ],
+        "acceptable_variants": [
+          "The answer may name either the Node or Vercel adapter as the supported deployment choice.",
+          "Forwarded host and protocol may be described using the deployment platform's conventional header names."
+        ],
+        "failure_conditions": [
+          "The answer recommends fully prerendered domain routing.",
+          "The answer treats any adapter as automatically compatible.",
+          "The answer uses only relative URL helpers for cross-domain links."
+        ],
+        "important_negatives": [
+          {"id": "q035-n1", "statement": "Do not prerender routes that depend on i18n domain matching.", "evidence_ids": ["q035-e4"]},
+          {"id": "q035-n2", "statement": "Do not discard original host or protocol information at a proxy boundary.", "evidence_ids": ["q035-e2"]}
+        ]
+      }
+    },
+    {
+      "id": "q036",
+      "question": "A server-rendered Astro application needs a private API token at request time and a Redis-backed session driver whose host can change after build. Design the environment schema and access points, then explain which configuration locations would inline or expose the values incorrectly.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/environment-variables.mdx",
+        "src/content/docs/en/guides/sessions.mdx",
+        "src/content/docs/en/reference/modules/astro-env.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q036-e1", "role": "environment access modes", "upstream_path": "src/content/docs/en/guides/environment-variables.mdx", "heading": "Getting environment variables", "occurrence": 1},
+          {"id": "q036-e2", "role": "typed environment schema", "upstream_path": "src/content/docs/en/guides/environment-variables.mdx", "heading": "Type safe environment variables", "occurrence": 1},
+          {"id": "q036-e3", "role": "astro env limitations", "upstream_path": "src/content/docs/en/guides/environment-variables.mdx", "heading": "Limitations", "occurrence": 1},
+          {"id": "q036-e4", "role": "runtime session driver override", "upstream_path": "src/content/docs/en/guides/sessions.mdx", "heading": "Configuring sessions", "occurrence": 1},
+          {"id": "q036-e5", "role": "dynamic secret retrieval", "upstream_path": "src/content/docs/en/reference/modules/astro-env.mdx", "heading": "`getSecret()`", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q036-a1", "statement": "Declare the API token as a server secret in the astro:env schema so it is unavailable to client code and is not bundled into client output.", "evidence_ids": ["q036-e2"]},
+          {"id": "q036-a2", "statement": "Read a dynamically supplied secret in server request code through astro:env or getSecret when adapter/runtime support is required.", "evidence_ids": ["q036-e1", "q036-e5"]},
+          {"id": "q036-a3", "statement": "Do not import astro:env virtual modules from astro.config or other unsupported contexts; configuration-time values use the environment mechanism available to the config process.", "evidence_ids": ["q036-e3"]},
+          {"id": "q036-a4", "statement": "Session driver options declared directly in astro.config are build-time configuration and environment values used there are inlined, so they cannot be replaced after build.", "evidence_ids": ["q036-e4"]},
+          {"id": "q036-a5", "statement": "Put Redis driver construction in a separate session-driver entrypoint that reads runtime values, and reference that entrypoint from session.driver.", "evidence_ids": ["q036-e4"]}
+        ],
+        "derivation": [
+          {"operation": "partition", "inputs": ["q036-a1", "q036-a2", "q036-a3"], "conclusion": "Secret visibility and evaluation time are separate gates: keep the token server-only and read it only from supported runtime code."},
+          {"operation": "contrast", "inputs": ["q036-a4", "q036-a5"], "conclusion": "Direct session config freezes values at build time, while a custom driver entrypoint defers construction so deployment-time Redis settings can change."}
+        ],
+        "acceptable_variants": [
+          "The token may be imported from astro:env/server or read with getSecret when the selected adapter supports it.",
+          "Redis connection fields may be server-public within server code if they are not credentials; credentials remain secret."
+        ],
+        "failure_conditions": [
+          "The answer exposes the private token through a client import or PUBLIC_ variable.",
+          "The answer expects an environment value inlined into astro.config session options to change at runtime.",
+          "The answer imports astro:env from an unsupported config context."
+        ],
+        "important_negatives": [
+          {"id": "q036-n1", "statement": "Do not mark the private API token as client-accessible.", "evidence_ids": ["q036-e2"]},
+          {"id": "q036-n2", "statement": "Do not place replaceable Redis runtime configuration only in build-time session driver options.", "evidence_ids": ["q036-e4"]}
+        ]
+      }
+    },
+    {
+      "id": "q037",
+      "question": "A project contains a literal /products/new page, a prerendered /products/[id] page, an on-demand /products/[...slug] page, a redirect, and an API endpoint that can overlap. Determine route priority and state when getStaticPaths is required versus when params can be read directly at request time.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/routing.mdx",
+        "src/content/docs/en/guides/endpoints.mdx",
+        "src/content/docs/en/reference/routing-reference.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q037-e1", "role": "route conflict priority", "upstream_path": "src/content/docs/en/guides/routing.mdx", "heading": "Route Priority Order", "occurrence": 1},
+          {"id": "q037-e2", "role": "server endpoint parameter behavior", "upstream_path": "src/content/docs/en/guides/endpoints.mdx", "heading": "Server Endpoints (API Routes)", "occurrence": 1},
+          {"id": "q037-e3", "role": "static path generation contract", "upstream_path": "src/content/docs/en/reference/routing-reference.mdx", "heading": "`getStaticPaths()`", "occurrence": 1},
+          {"id": "q037-e4", "role": "per-route rendering override", "upstream_path": "src/content/docs/en/reference/routing-reference.mdx", "heading": "`prerender`", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q037-a1", "statement": "A literal static route such as /products/new outranks dynamic named and rest routes that could match the same URL.", "evidence_ids": ["q037-e1"]},
+          {"id": "q037-a2", "statement": "Among dynamic routes, named parameters outrank rest parameters; prerendered dynamic routes outrank server dynamic routes, and endpoints outrank pages when the earlier rules do not decide the match.", "evidence_ids": ["q037-e1"]},
+          {"id": "q037-a3", "statement": "A dynamic page or static endpoint built ahead of time must export getStaticPaths to enumerate valid parameter combinations and optional props.", "evidence_ids": ["q037-e3"]},
+          {"id": "q037-a4", "statement": "An on-demand server endpoint can read matched params from context.params without getStaticPaths because the route is resolved at request time.", "evidence_ids": ["q037-e2", "q037-e4"]},
+          {"id": "q037-a5", "statement": "Use prerender=false for the request-time rest route or endpoint in an otherwise static project, or server output where request-time rendering is the default.", "evidence_ids": ["q037-e2", "q037-e4"]}
+        ],
+        "derivation": [
+          {"operation": "ordering", "inputs": ["q037-a1", "q037-a2"], "conclusion": "Resolve the literal route first, then named before rest matches, while respecting the documented prerendered/server and page/endpoint ordering."},
+          {"operation": "conditional", "inputs": ["q037-a3", "q037-a4", "q037-a5"], "conclusion": "The need for getStaticPaths follows from build-time enumeration, not merely from bracket syntax; request-time server handlers consume params directly."}
+        ],
+        "acceptable_variants": [
+          "The answer may describe output static plus prerender=false or output server plus the opposite per-route override.",
+          "The exact route list can be expressed as a precedence chain if all relevant classes are ordered correctly."
+        ],
+        "failure_conditions": [
+          "The answer lets a rest route shadow the literal /products/new page.",
+          "The answer requires getStaticPaths for every request-time server endpoint.",
+          "The answer omits getStaticPaths for a prerendered dynamic route."
+        ],
+        "important_negatives": [
+          {"id": "q037-n1", "statement": "Do not infer that file discovery order determines route priority.", "evidence_ids": ["q037-e1"]},
+          {"id": "q037-n2", "statement": "Do not use getStaticPaths as a request-time authorization or validation mechanism.", "evidence_ids": ["q037-e2", "q037-e3"]}
+        ]
+      }
+    },
+    {
+      "id": "q038",
+      "question": "A static marketing page needs one interactive framework widget and one personalized account panel. Decide which should be a client island and which a server island, including hydration directives, SSR behavior, serializable props, fallback UI, adapter requirements, and the no-JavaScript default.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/concepts/islands.mdx",
+        "src/content/docs/en/reference/directives-reference.mdx",
+        "src/content/docs/en/guides/server-islands.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q038-e1", "role": "client island execution model", "upstream_path": "src/content/docs/en/concepts/islands.mdx", "heading": "Client Islands", "occurrence": 1},
+          {"id": "q038-e2", "role": "server island execution model", "upstream_path": "src/content/docs/en/concepts/islands.mdx", "heading": "Server islands", "occurrence": 1},
+          {"id": "q038-e3", "role": "client hydration choices", "upstream_path": "src/content/docs/en/reference/directives-reference.mdx", "heading": "Client Directives", "occurrence": 1},
+          {"id": "q038-e4", "role": "server defer directive", "upstream_path": "src/content/docs/en/reference/directives-reference.mdx", "heading": "Server Directives", "occurrence": 1},
+          {"id": "q038-e5", "role": "server island props", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Passing props to server islands", "occurrence": 1},
+          {"id": "q038-e6", "role": "server island fallback", "upstream_path": "src/content/docs/en/guides/server-islands.mdx", "heading": "Server island fallback content", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q038-a1", "statement": "Astro renders framework components as static HTML with no client JavaScript unless a client directive explicitly hydrates them.", "evidence_ids": ["q038-e1", "q038-e3"]},
+          {"id": "q038-a2", "statement": "Make the interactive widget a client island and choose client:load, client:idle, client:visible, client:media, or client:only according to when hydration is needed.", "evidence_ids": ["q038-e1", "q038-e3"]},
+          {"id": "q038-a3", "statement": "Use client:only only when server rendering must be skipped, and provide the framework hint because Astro cannot infer it from an unrendered component.", "evidence_ids": ["q038-e3"]},
+          {"id": "q038-a4", "statement": "Make the personalized account panel a server island with server:defer and an adapter so it renders independently on demand without hydrating the entire page.", "evidence_ids": ["q038-e2", "q038-e4"]},
+          {"id": "q038-a5", "statement": "Pass only supported serializable props to the server island and provide slot=fallback content that ships with the static page until the personalized HTML arrives.", "evidence_ids": ["q038-e5", "q038-e6"]}
+        ],
+        "derivation": [
+          {"operation": "classification", "inputs": ["q038-a1", "q038-a2", "q038-a3"], "conclusion": "Browser interaction drives the client-island decision and hydration timing; the rest of the framework output remains static."},
+          {"operation": "classification", "inputs": ["q038-a4", "q038-a5"], "conclusion": "Personalized server data drives the deferred server-island decision, with an adapter, a network-safe prop boundary, and immediate fallback UI."}
+        ],
+        "acceptable_variants": [
+          "The client hydration directive depends on UX priority; client:visible is appropriate for below-the-fold widgets.",
+          "The server island can read cookies directly instead of receiving identity secrets as props."
+        ],
+        "failure_conditions": [
+          "The answer hydrates the whole page by default.",
+          "The answer uses a client island for protected server-only personalization without explaining the data boundary.",
+          "The answer passes functions or circular objects to server:defer."
+        ],
+        "important_negatives": [
+          {"id": "q038-n1", "statement": "Do not add a client directive to components that need no browser interactivity.", "evidence_ids": ["q038-e1", "q038-e3"]},
+          {"id": "q038-n2", "statement": "Do not pass functions or circular references as server-island props.", "evidence_ids": ["q038-e5"]}
+        ]
+      }
+    },
+    {
+      "id": "q039",
+      "question": "After enabling ClientRouter, a page initializer fires twice on some navigations and not at all on others. Derive a script-loading contract covering processed module deduplication, inline scripts, data-astro-rerun, lifecycle events, and guards for persistent global listeners.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/client-side-scripts.mdx",
+        "src/content/docs/en/guides/view-transitions.mdx",
+        "src/content/docs/en/reference/directives-reference.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q039-e1", "role": "processed script behavior", "upstream_path": "src/content/docs/en/guides/client-side-scripts.mdx", "heading": "Script processing", "occurrence": 1},
+          {"id": "q039-e2", "role": "router script execution", "upstream_path": "src/content/docs/en/guides/view-transitions.mdx", "heading": "Script behavior with view transitions", "occurrence": 1},
+          {"id": "q039-e3", "role": "router lifecycle", "upstream_path": "src/content/docs/en/guides/view-transitions.mdx", "heading": "Lifecycle events", "occurrence": 1},
+          {"id": "q039-e4", "role": "inline directive consequences", "upstream_path": "src/content/docs/en/reference/directives-reference.mdx", "heading": "Script & Style Directives", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q039-a1", "statement": "A normal Astro script is processed as a bundled module, supports TypeScript and imports, and is deduplicated when the component appears multiple times.", "evidence_ids": ["q039-e1"]},
+          {"id": "q039-a2", "statement": "With ClientRouter, bundled module scripts execute once, so per-navigation initialization belongs in an Astro lifecycle listener such as astro:page-load.", "evidence_ids": ["q039-e2", "q039-e3"]},
+          {"id": "q039-a3", "statement": "An is:inline script bypasses bundling, import resolution, and deduplication and can run again when its markup appears after navigation.", "evidence_ids": ["q039-e1", "q039-e4"]},
+          {"id": "q039-a4", "statement": "data-astro-rerun explicitly opts an inline script into rerunning after navigation; it should be used only for intentionally repeatable initialization.", "evidence_ids": ["q039-e2"]},
+          {"id": "q039-a5", "statement": "Make repeated initialization idempotent and guard persistent globals or remove old listeners so each navigation does not accumulate duplicate handlers.", "evidence_ids": ["q039-e2", "q039-e3"]}
+        ],
+        "derivation": [
+          {"operation": "contrast", "inputs": ["q039-a1", "q039-a2", "q039-a3", "q039-a4"], "conclusion": "One-time module loading and per-navigation page initialization are different lifecycles; choose processed or inline execution deliberately."},
+          {"operation": "failure-prevention", "inputs": ["q039-a5"], "conclusion": "Idempotence and listener cleanup prevent the duplicate behavior even when navigation initialization legitimately repeats."}
+        ],
+        "acceptable_variants": [
+          "Another appropriate Astro router lifecycle event may be used when initialization must occur before or after a specific swap phase.",
+          "A module-level boolean or custom-element registration guard may provide idempotence."
+        ],
+        "failure_conditions": [
+          "The answer assumes bundled module scripts automatically rerun after every navigation.",
+          "The answer uses is:inline without acknowledging loss of processing and deduplication.",
+          "The answer adds a global listener on every navigation without cleanup or a guard."
+        ],
+        "important_negatives": [
+          {"id": "q039-n1", "statement": "Do not expect a processed bundled module to rerun merely because ClientRouter swapped page content.", "evidence_ids": ["q039-e2"]},
+          {"id": "q039-n2", "statement": "Do not use data-astro-rerun on non-idempotent initialization that accumulates global state.", "evidence_ids": ["q039-e2", "q039-e3"]}
+        ]
+      }
+    },
+    {
+      "id": "q040",
+      "question": "A primarily static Astro site needs one cookie-aware account page and one request-time API route, while all other routes should stay prerendered. Derive the output, adapter, per-route, endpoint, and request-feature configuration, including the inverse design if server output becomes the default.",
+      "question_type": "hard",
+      "documents": [
+        "src/content/docs/en/guides/on-demand-rendering.mdx",
+        "src/content/docs/en/reference/routing-reference.mdx",
+        "src/content/docs/en/guides/endpoints.mdx"
+      ],
+      "ground_truth": {
+        "evidence": [
+          {"id": "q040-e1", "role": "adapter responsibility", "upstream_path": "src/content/docs/en/guides/on-demand-rendering.mdx", "heading": "Server adapters", "occurrence": 1},
+          {"id": "q040-e2", "role": "rendering mode selection", "upstream_path": "src/content/docs/en/guides/on-demand-rendering.mdx", "heading": "Enabling on-demand rendering", "occurrence": 1},
+          {"id": "q040-e3", "role": "per-route prerender switch", "upstream_path": "src/content/docs/en/reference/routing-reference.mdx", "heading": "`prerender`", "occurrence": 1},
+          {"id": "q040-e4", "role": "request-time endpoint behavior", "upstream_path": "src/content/docs/en/guides/endpoints.mdx", "heading": "Server Endpoints (API Routes)", "occurrence": 1},
+          {"id": "q040-e5", "role": "request-time cookies feature", "upstream_path": "src/content/docs/en/guides/on-demand-rendering.mdx", "heading": "Cookies", "occurrence": 1}
+        ],
+        "answer_claims": [
+          {"id": "q040-a1", "statement": "Install the deployment adapter that implements request-time rendering for the target host.", "evidence_ids": ["q040-e1"]},
+          {"id": "q040-a2", "statement": "Keep static output as the default and export prerender=false from only the account page and request-time endpoint.", "evidence_ids": ["q040-e2", "q040-e3", "q040-e4"]},
+          {"id": "q040-a3", "statement": "The account page can read cookies during its request because it is rendered on demand rather than at build time.", "evidence_ids": ["q040-e5"]},
+          {"id": "q040-a4", "statement": "The server endpoint exports HTTP method handlers and can inspect the incoming Request and params at runtime.", "evidence_ids": ["q040-e4"]},
+          {"id": "q040-a5", "statement": "If server output becomes the global default, invert the exception by exporting prerender=true from routes that should still be generated at build time.", "evidence_ids": ["q040-e2", "q040-e3"]}
+        ],
+        "derivation": [
+          {"operation": "minimize-runtime-surface", "inputs": ["q040-a1", "q040-a2", "q040-a3", "q040-a4"], "conclusion": "The adapter exists, but only the two routes that need request state leave the static build path."},
+          {"operation": "inversion", "inputs": ["q040-a5"], "conclusion": "Changing the global output default reverses the per-route flag while preserving the intended static-versus-runtime partition."}
+        ],
+        "acceptable_variants": [
+          "The project may use global server output if static routes explicitly opt back into prerendering.",
+          "The endpoint may expose only the HTTP methods required by the application."
+        ],
+        "failure_conditions": [
+          "The answer omits an adapter for request-time rendering.",
+          "The answer tries to read per-user cookies in a build-time prerendered account page.",
+          "The answer forces every route to runtime without explaining why the static majority cannot remain prerendered."
+        ],
+        "important_negatives": [
+          {"id": "q040-n1", "statement": "Do not expect request-specific cookies to exist during build-time prerendering.", "evidence_ids": ["q040-e3", "q040-e5"]},
+          {"id": "q040-n2", "statement": "Do not confuse installing an adapter with automatically opting every route into request-time rendering.", "evidence_ids": ["q040-e1", "q040-e2", "q040-e3"]}
+        ]
+      }
+    }
+  ]
+}

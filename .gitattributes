@@ -3,3 +3,5 @@ evaluations/** whitespace=cr-at-eol,-blank-at-eof
 evaluations/graphrag-cross-paper/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
 # BioC table passages can contain evidence-significant trailing tabs/spaces.
 evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+# The Astro evaluation freezes accepted Know bytes, including CRLF line endings.
+evaluations/semantic-okf-astro/corpus/sources/mdx/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
