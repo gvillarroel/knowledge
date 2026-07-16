@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 5,
+    "minimumTaskFamilies": 5,
+    "maximumPromptWords": 360,
+    "maximumPairwiseJaccard": 0.75,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "q026-receptor-to-gestation-boundary",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "receptor-outcome-chain"
+    },
+    {
+      "promptId": "q027-feminine-risk-reconciliation",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "cross-matrix-risk"
+    },
+    {
+      "promptId": "q028-phthalate-name-normalization",
+      "caseKind": "generalization",
+      "taskFamily": "chemical-name-normalization"
+    },
+    {
+      "promptId": "q029-label-gate-validity",
+      "caseKind": "generalization",
+      "taskFamily": "label-validity-contrast"
+    },
+    {
+      "promptId": "q030-causal-evidence-map",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "causal-evidence-synthesis"
+    }
+  ]
+}

@@ -1,0 +1,1513 @@
+{
+  "benchmark": {
+    "candidate_pool": 100,
+    "hard_question_count": 5,
+    "paper_deduplication": "first occurrence before metric cutoffs",
+    "question_count": 30,
+    "questions_path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/retrieval-questions.jsonl",
+    "questions_sha256": "14feb35ffb3560d0899f4bd057c40ad3103b3ec8a7023bbb8ffa33f2a4bdeb40"
+  },
+  "families": [
+    {
+      "best_route": "legacy_lexical",
+      "family": "legacy",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.8,
+          "ndcg_at_10": 0.8416224826093591,
+          "recall_at_1": 0.18333333333333332,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.5452380952380953,
+          "recall_at_5": 0.8357142857142857
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.8,
+          "ndcg_at_10": 0.5637782925804359,
+          "recall_at_1": 0.09166666666666666,
+          "recall_at_10": 0.48571428571428565,
+          "recall_at_3": 0.27261904761904765,
+          "recall_at_5": 0.41785714285714287
+        },
+        "timing_ms": {
+          "mean": 0.6520200011436827,
+          "median": 0.6559000030392781,
+          "p95": 0.7373600019491278,
+          "total": 3.2601000057184137
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2410,
+          "valid": 2410
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9666666666666667,
+          "ndcg_at_10": 0.9473376396083998,
+          "recall_at_1": 0.6338888888888888,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8003174603174603,
+          "recall_at_5": 0.910952380952381
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9666666666666667,
+          "ndcg_at_10": 0.5985728234630152,
+          "recall_at_1": 0.3169444444444444,
+          "recall_at_10": 0.49428571428571433,
+          "recall_at_3": 0.40015873015873016,
+          "recall_at_5": 0.4554761904761905
+        },
+        "timing_ms": {
+          "mean": 0.5800066671023766,
+          "median": 0.5818000026920345,
+          "p95": 0.7849450023059032,
+          "total": 17.4002000130713
+        }
+      },
+      "reason": null,
+      "status": "pass"
+    },
+    {
+      "best_route": "lexical",
+      "family": "embeddings",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.9580069635886188,
+          "recall_at_1": 0.2785714285714286,
+          "recall_at_10": 1.0,
+          "recall_at_3": 0.7357142857142857,
+          "recall_at_5": 0.8357142857142857
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7291138838984825,
+          "recall_at_1": 0.1392857142857143,
+          "recall_at_10": 0.6166666666666666,
+          "recall_at_3": 0.3678571428571428,
+          "recall_at_5": 0.48452380952380947
+        },
+        "timing_ms": {
+          "mean": 32.05676000070525,
+          "median": 31.591999999363907,
+          "p95": 33.916580003278796,
+          "total": 160.28380000352627
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9333333333333333,
+          "ndcg_at_10": 0.9282483993493433,
+          "recall_at_1": 0.6086507936507937,
+          "recall_at_10": 0.9866666666666667,
+          "recall_at_3": 0.812063492063492,
+          "recall_at_5": 0.8737301587301587
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9333333333333333,
+          "ndcg_at_10": 0.7018609902815449,
+          "recall_at_1": 0.30432539682539683,
+          "recall_at_10": 0.6863888888888888,
+          "recall_at_3": 0.48936507936507934,
+          "recall_at_5": 0.5479761904761904
+        },
+        "timing_ms": {
+          "mean": 33.39973000038299,
+          "median": 32.70649999831221,
+          "p95": 35.98649000232399,
+          "total": 1001.9919000114896
+        }
+      },
+      "reason": null,
+      "status": "pass"
+    },
+    {
+      "best_route": "bm25",
+      "family": "classical",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9190506973643136,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7246169091664162,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.65,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4654761904761905
+        },
+        "timing_ms": {
+          "mean": 19.66600000305334,
+          "median": 20.191800002066884,
+          "p95": 20.723940004245378,
+          "total": 98.3300000152667
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2418,
+          "valid": 2418
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.9534538834223429,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.732681384625748,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7380555555555556,
+          "recall_at_3": 0.47003968253968254,
+          "recall_at_5": 0.5811904761904763
+        },
+        "timing_ms": {
+          "mean": 19.004589999773696,
+          "median": 18.88920000055805,
+          "p95": 20.620740004233085,
+          "total": 570.1376999932108
+        }
+      },
+      "reason": null,
+      "status": "pass"
+    },
+    {
+      "best_route": null,
+      "family": "entity-graph",
+      "reason": "paper record sources/markdown/PMC11764522 has no PDF page headings",
+      "status": "not-applicable"
+    },
+    {
+      "best_route": "bm25",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9190506973643136,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7246169091664162,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.65,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4654761904761905
+        },
+        "timing_ms": {
+          "mean": 25.544280000030994,
+          "median": 25.262600000132807,
+          "p95": 29.760339998756535,
+          "total": 127.72140000015497
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2418,
+          "valid": 2418
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.9534538834223429,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.732681384625748,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7380555555555556,
+          "recall_at_3": 0.47003968253968254,
+          "recall_at_5": 0.5811904761904763
+        },
+        "timing_ms": {
+          "mean": 24.02769000036642,
+          "median": 23.66875000006985,
+          "p95": 26.34584000079485,
+          "total": 720.8307000109926
+        }
+      },
+      "reason": null,
+      "status": "pass"
+    },
+    {
+      "best_route": null,
+      "family": "ensemble",
+      "reason": "ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs",
+      "status": "not-applicable"
+    }
+  ],
+  "inspections": {
+    "adaptive": {
+      "adaptive_index_sha256": "316a566266e3a263f859e14f9d9ac5b4212b80b2e65dab824b714ed5b79128cc",
+      "adaptive_plan_sha256": "c7847e96242772429ab481b81b4642458abae2a029199d4628d21f83b14bab14",
+      "authoritative": false,
+      "authoritative_paths": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "records": "semantic/records.jsonl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "capabilities": [
+        "bm25",
+        "topic",
+        "association",
+        "fusion",
+        "adaptive",
+        "evidence_rows",
+        "answer_evidence_pack",
+        "facet_coverage_pack",
+        "authoritative_answer_finalizer"
+      ],
+      "core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+      "discovery_only": true,
+      "schema_version": "1.2",
+      "status": "pass",
+      "summary": {
+        "answer_bindings": 0,
+        "association_terms": 3000,
+        "documents": 108,
+        "inputs": 30,
+        "records": 108,
+        "terms": 58567,
+        "topics": 16
+      },
+      "validation": {
+        "independent_rederivation": true,
+        "structural": true
+      }
+    },
+    "classical": {
+      "authoritative": false,
+      "authoritative_paths": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "records": "semantic/records.jsonl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "capabilities": [
+        "bm25",
+        "topic",
+        "association",
+        "fusion"
+      ],
+      "classical_index_sha256": "243677340de40ba9bc6d0337da52134d223ab4e65d693455fd22d6746fcb6e95",
+      "classical_plan_sha256": "c91863f4e9251a3f1d3b771e027ac6d117bf79f017f692b4773db22b42d6c40a",
+      "core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+      "discovery_only": true,
+      "schema_version": "1.0",
+      "status": "pass",
+      "summary": {
+        "association_terms": 3000,
+        "documents": 108,
+        "inputs": 30,
+        "records": 108,
+        "terms": 58567,
+        "topics": 16
+      },
+      "validation": {
+        "independent_rederivation": true,
+        "structural": true
+      }
+    },
+    "embeddings": {
+      "authoritative": false,
+      "authoritative_layers": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ledger": "semantic/records.jsonl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "chunking": {
+        "breakpoint_percentile_threshold": 90.0,
+        "buffer_size": 1,
+        "implementation": "llamaindex",
+        "strategy": "semantic"
+      },
+      "counts": {
+        "chunks": 442,
+        "embeddings": 442,
+        "records": 133,
+        "sources": 30
+      },
+      "discovery_only": true,
+      "embedding": {
+        "dimension": 384,
+        "encoding": {
+          "document": "symmetric",
+          "query": "symmetric"
+        },
+        "metric": "cosine",
+        "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "normalize": true,
+        "provider": "sentence-transformers",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "runtime": "local-model-required",
+        "vector_precision": 8
+      },
+      "hashes": {
+        "chunks_sha256": "5e4c3cd48b7d1bca52b409d56d34f46ac47264b7fde8cd77862762208c852f89",
+        "core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "embeddings_sha256": "900dab8b48de58f396902c00f10c7b69d60f918928873438f14de41b06486fb2",
+        "index_sha256": "d3e140e2919dc8ecab72c19b91eb27bbd9b3d2178d1b5e78bbd9a139899762b4",
+        "input_sha256": "a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11",
+        "records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5",
+        "retrieval_build_report_sha256": "701e1f1948647e497acb43725b5e1d0f7ac763104dae644a04e1d4fc2d11d24a",
+        "retrieval_plan_sha256": "1b3df5c08c22be33c6fa49fcc20ba98fadd2cf01292fe5f8700fe5b7623b2410",
+        "source_manifest_sha256": "85cb39ea4a9447622507b8c044c78ecf8ec7beaf4c372a4aa69f33faa4404fd3"
+      },
+      "mode": "inspect",
+      "read_only": true,
+      "schema_version": "1.0",
+      "selection": {
+        "eligible_source_ids": [
+          "claims-pmc11764522",
+          "claims-pmc4016195",
+          "claims-pmc4724203",
+          "claims-pmc4997468",
+          "claims-pmc5047791",
+          "claims-pmc5376243",
+          "claims-pmc5783668",
+          "claims-pmc6037613",
+          "claims-pmc6504186",
+          "claims-pmc7958867",
+          "claims-pmc8316883",
+          "claims-pmc8810700",
+          "claims-pmc8812815",
+          "claims-pmc9566193",
+          "claims-pmc9764248",
+          "paper-pmc11764522",
+          "paper-pmc4016195",
+          "paper-pmc4724203",
+          "paper-pmc4997468",
+          "paper-pmc5047791",
+          "paper-pmc5376243",
+          "paper-pmc5783668",
+          "paper-pmc6037613",
+          "paper-pmc6504186",
+          "paper-pmc7958867",
+          "paper-pmc8316883",
+          "paper-pmc8810700",
+          "paper-pmc8812815",
+          "paper-pmc9566193",
+          "paper-pmc9764248"
+        ],
+        "excluded_source_ids": [
+          "analysis-vocabulary"
+        ],
+        "input_count": 30,
+        "input_sha256": "a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11",
+        "requested_source_ids": [
+          "claims-pmc11764522",
+          "claims-pmc4016195",
+          "claims-pmc4724203",
+          "claims-pmc4997468",
+          "claims-pmc5047791",
+          "claims-pmc5376243",
+          "claims-pmc5783668",
+          "claims-pmc6037613",
+          "claims-pmc6504186",
+          "claims-pmc7958867",
+          "claims-pmc8316883",
+          "claims-pmc8810700",
+          "claims-pmc8812815",
+          "claims-pmc9566193",
+          "claims-pmc9764248",
+          "paper-pmc11764522",
+          "paper-pmc4016195",
+          "paper-pmc4724203",
+          "paper-pmc4997468",
+          "paper-pmc5047791",
+          "paper-pmc5376243",
+          "paper-pmc5783668",
+          "paper-pmc6037613",
+          "paper-pmc6504186",
+          "paper-pmc7958867",
+          "paper-pmc8316883",
+          "paper-pmc8810700",
+          "paper-pmc8812815",
+          "paper-pmc9566193",
+          "paper-pmc9764248"
+        ]
+      },
+      "status": "pass"
+    },
+    "legacy": {
+      "ledger_command": "validated",
+      "record_count": 133,
+      "status": "pass"
+    }
+  },
+  "routes": [
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "legacy",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.8,
+          "ndcg_at_10": 0.8416224826093591,
+          "recall_at_1": 0.18333333333333332,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.5452380952380953,
+          "recall_at_5": 0.8357142857142857
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.8,
+          "ndcg_at_10": 0.5637782925804359,
+          "recall_at_1": 0.09166666666666666,
+          "recall_at_10": 0.48571428571428565,
+          "recall_at_3": 0.27261904761904765,
+          "recall_at_5": 0.41785714285714287
+        },
+        "timing_ms": {
+          "mean": 0.6520200011436827,
+          "median": 0.6559000030392781,
+          "p95": 0.7373600019491278,
+          "total": 3.2601000057184137
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2410,
+          "valid": 2410
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9666666666666667,
+          "ndcg_at_10": 0.9473376396083998,
+          "recall_at_1": 0.6338888888888888,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8003174603174603,
+          "recall_at_5": 0.910952380952381
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9666666666666667,
+          "ndcg_at_10": 0.5985728234630152,
+          "recall_at_1": 0.3169444444444444,
+          "recall_at_10": 0.49428571428571433,
+          "recall_at_3": 0.40015873015873016,
+          "recall_at_5": 0.4554761904761905
+        },
+        "timing_ms": {
+          "mean": 0.5800066671023766,
+          "median": 0.5818000026920345,
+          "p95": 0.7849450023059032,
+          "total": 17.4002000130713
+        }
+      },
+      "route": "legacy_lexical",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "embeddings",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.9580069635886188,
+          "recall_at_1": 0.2785714285714286,
+          "recall_at_10": 1.0,
+          "recall_at_3": 0.7357142857142857,
+          "recall_at_5": 0.8357142857142857
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7291138838984825,
+          "recall_at_1": 0.1392857142857143,
+          "recall_at_10": 0.6166666666666666,
+          "recall_at_3": 0.3678571428571428,
+          "recall_at_5": 0.48452380952380947
+        },
+        "timing_ms": {
+          "mean": 32.05676000070525,
+          "median": 31.591999999363907,
+          "p95": 33.916580003278796,
+          "total": 160.28380000352627
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9333333333333333,
+          "ndcg_at_10": 0.9282483993493433,
+          "recall_at_1": 0.6086507936507937,
+          "recall_at_10": 0.9866666666666667,
+          "recall_at_3": 0.812063492063492,
+          "recall_at_5": 0.8737301587301587
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9333333333333333,
+          "ndcg_at_10": 0.7018609902815449,
+          "recall_at_1": 0.30432539682539683,
+          "recall_at_10": 0.6863888888888888,
+          "recall_at_3": 0.48936507936507934,
+          "recall_at_5": 0.5479761904761904
+        },
+        "timing_ms": {
+          "mean": 33.39973000038299,
+          "median": 32.70649999831221,
+          "p95": 35.98649000232399,
+          "total": 1001.9919000114896
+        }
+      },
+      "route": "lexical",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "embeddings",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7321767029960327,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.7976190476190477,
+          "recall_at_3": 0.4238095238095238,
+          "recall_at_5": 0.5857142857142856
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.5807984497888072,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.5238095238095238,
+          "recall_at_3": 0.25595238095238093,
+          "recall_at_5": 0.30357142857142855
+        },
+        "timing_ms": {
+          "mean": 71.7819999990752,
+          "median": 41.12879999593133,
+          "p95": 164.14472000178645,
+          "total": 358.909999995376
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.8048148148148149,
+          "ndcg_at_10": 0.8045878178602368,
+          "recall_at_1": 0.5038888888888889,
+          "recall_at_10": 0.9418253968253968,
+          "recall_at_3": 0.6556349206349206,
+          "recall_at_5": 0.7503968253968254
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.8011111111111112,
+          "ndcg_at_10": 0.6528264163913619,
+          "recall_at_1": 0.25194444444444447,
+          "recall_at_10": 0.692579365079365,
+          "recall_at_3": 0.4351587301587302,
+          "recall_at_5": 0.5255952380952381
+        },
+        "timing_ms": {
+          "mean": 45.13768333296563,
+          "median": 40.04880000138655,
+          "p95": 49.968040000021546,
+          "total": 1354.130499988969
+        }
+      },
+      "route": "vector",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "embeddings",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.8537582893775841,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9428571428571428,
+          "recall_at_3": 0.5285714285714286,
+          "recall_at_5": 0.7404761904761905
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.6414612719595023,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.5821428571428571,
+          "recall_at_3": 0.2976190476190476,
+          "recall_at_5": 0.3892857142857143
+        },
+        "timing_ms": {
+          "mean": 97.17012000182876,
+          "median": 97.75179999996908,
+          "p95": 101.51668000180507,
+          "total": 485.8506000091438
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.8584005769049996,
+          "recall_at_1": 0.5438888888888889,
+          "recall_at_10": 0.9593650793650794,
+          "recall_at_3": 0.6992063492063492,
+          "recall_at_5": 0.8245238095238094
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.6934934939078908,
+          "recall_at_1": 0.27194444444444443,
+          "recall_at_10": 0.731468253968254,
+          "recall_at_3": 0.4718253968253968,
+          "recall_at_5": 0.5709920634920634
+        },
+        "timing_ms": {
+          "mean": 92.07473999946767,
+          "median": 92.49350000027334,
+          "p95": 101.32878000076744,
+          "total": 2762.24219998403
+        }
+      },
+      "route": "hybrid",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "classical",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9190506973643136,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7246169091664162,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.65,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4654761904761905
+        },
+        "timing_ms": {
+          "mean": 19.66600000305334,
+          "median": 20.191800002066884,
+          "p95": 20.723940004245378,
+          "total": 98.3300000152667
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2418,
+          "valid": 2418
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.9534538834223429,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.732681384625748,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7380555555555556,
+          "recall_at_3": 0.47003968253968254,
+          "recall_at_5": 0.5811904761904763
+        },
+        "timing_ms": {
+          "mean": 19.004589999773696,
+          "median": 18.88920000055805,
+          "p95": 20.620740004233085,
+          "total": 570.1376999932108
+        }
+      },
+      "route": "bm25",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "classical",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 150,
+          "valid": 150
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9230719888075063,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7238042594641875,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.6440476190476191,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 81.50911999837263,
+          "median": 81.99839999724645,
+          "p95": 86.793919999036,
+          "total": 407.5455999918631
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 900,
+          "valid": 900
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9277777777777777,
+          "ndcg_at_10": 0.9401866306501077,
+          "recall_at_1": 0.615,
+          "recall_at_10": 0.9819047619047618,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9277777777777777,
+          "ndcg_at_10": 0.7394568974934213,
+          "recall_at_1": 0.3075,
+          "recall_at_10": 0.7470634920634921,
+          "recall_at_3": 0.5033730158730159,
+          "recall_at_5": 0.5867460317460317
+        },
+        "timing_ms": {
+          "mean": 82.52392333354994,
+          "median": 83.1685999983165,
+          "p95": 90.62420499903965,
+          "total": 2475.7177000064985
+        }
+      },
+      "route": "topic",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "classical",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 149,
+          "valid": 149
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9232758570468622,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.765034260471178,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.7083333333333333,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 85.35631999839097,
+          "median": 91.54809999745339,
+          "p95": 94.02839999820571,
+          "total": 426.78159999195486
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 872,
+          "valid": 872
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.9517896683955712,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9952380952380953,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.7554988986990199,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7561111111111111,
+          "recall_at_3": 0.5033730158730159,
+          "recall_at_5": 0.6034126984126984
+        },
+        "timing_ms": {
+          "mean": 71.11714333271568,
+          "median": 76.48794999840902,
+          "p95": 91.7651849988033,
+          "total": 2133.5142999814707
+        }
+      },
+      "route": "association",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "classical",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 150,
+          "valid": 150
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9296706779539777,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.7404761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7718288664753515,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.7083333333333333,
+          "recall_at_3": 0.37023809523809526,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 81.77364000148373,
+          "median": 81.44539999921108,
+          "p95": 84.83609999966575,
+          "total": 408.86820000741864
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 900,
+          "valid": 900
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.9489288620332214,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8484126984126984,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.7666460115671848,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7644444444444445,
+          "recall_at_3": 0.5242063492063492,
+          "recall_at_5": 0.6089682539682539
+        },
+        "timing_ms": {
+          "mean": 82.36944333427043,
+          "median": 83.66785000180244,
+          "p95": 91.84067499809316,
+          "total": 2471.0833000281127
+        }
+      },
+      "route": "fusion",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "entity-graph",
+      "hard": null,
+      "overall": null,
+      "reason": "paper record sources/markdown/PMC11764522 has no PDF page headings",
+      "route": "lexical",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "entity-graph",
+      "hard": null,
+      "overall": null,
+      "reason": "paper record sources/markdown/PMC11764522 has no PDF page headings",
+      "route": "entity",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "entity-graph",
+      "hard": null,
+      "overall": null,
+      "reason": "paper record sources/markdown/PMC11764522 has no PDF page headings",
+      "route": "traversal",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "entity-graph",
+      "hard": null,
+      "overall": null,
+      "reason": "paper record sources/markdown/PMC11764522 has no PDF page headings",
+      "route": "fusion",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 470,
+          "valid": 470
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9190506973643136,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7246169091664162,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.65,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4654761904761905
+        },
+        "timing_ms": {
+          "mean": 25.544280000030994,
+          "median": 25.262600000132807,
+          "p95": 29.760339998756535,
+          "total": 127.72140000015497
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2418,
+          "valid": 2418
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.9534538834223429,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.732681384625748,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7380555555555556,
+          "recall_at_3": 0.47003968253968254,
+          "recall_at_5": 0.5811904761904763
+        },
+        "timing_ms": {
+          "mean": 24.02769000036642,
+          "median": 23.66875000006985,
+          "p95": 26.34584000079485,
+          "total": 720.8307000109926
+        }
+      },
+      "route": "bm25",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9230719888075063,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7238042594641875,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.6440476190476191,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 505.8212399992044,
+          "median": 504.23289999889676,
+          "p95": 520.2379599999404,
+          "total": 2529.106199996022
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9277777777777777,
+          "ndcg_at_10": 0.9401866306501077,
+          "recall_at_1": 0.615,
+          "recall_at_10": 0.9819047619047618,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9277777777777777,
+          "ndcg_at_10": 0.7394568974934213,
+          "recall_at_1": 0.3075,
+          "recall_at_10": 0.7470634920634921,
+          "recall_at_3": 0.5033730158730159,
+          "recall_at_5": 0.5867460317460317
+        },
+        "timing_ms": {
+          "mean": 508.6248466662558,
+          "median": 507.91354999455507,
+          "p95": 530.3548550014966,
+          "total": 15258.745399987674
+        }
+      },
+      "route": "topic",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 471,
+          "valid": 471
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9232758570468622,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.6904761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.765034260471178,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.7083333333333333,
+          "recall_at_3": 0.34523809523809523,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 442.3142400002689,
+          "median": 494.7171000021626,
+          "p95": 513.5076600039611,
+          "total": 2211.5712000013446
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2446,
+          "valid": 2446
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.9517896683955712,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9952380952380953,
+          "recall_at_3": 0.8400793650793651,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.7554988986990199,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7561111111111111,
+          "recall_at_3": 0.5033730158730159,
+          "recall_at_5": 0.6034126984126984
+        },
+        "timing_ms": {
+          "mean": 339.56468999943655,
+          "median": 485.6608999980381,
+          "p95": 516.3944400013861,
+          "total": 10186.940699983097
+        }
+      },
+      "route": "association",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9296706779539777,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.7404761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7718288664753515,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.7083333333333333,
+          "recall_at_3": 0.37023809523809526,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 515.1664200006053,
+          "median": 518.7521000043489,
+          "p95": 531.5448199995444,
+          "total": 2575.8321000030264
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.9489288620332214,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8484126984126984,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.7666460115671848,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7644444444444445,
+          "recall_at_3": 0.5242063492063492,
+          "recall_at_5": 0.6089682539682539
+        },
+        "timing_ms": {
+          "mean": 510.8838266668802,
+          "median": 510.1000499998918,
+          "p95": 534.1239600013068,
+          "total": 15326.514800006407
+        }
+      },
+      "route": "fusion",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "read-only consultation runtime loaded once after CLI inspection",
+      "family": "adaptive",
+      "hard": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 500,
+          "valid": 500
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.9296706779539777,
+          "recall_at_1": 0.25,
+          "recall_at_10": 0.9714285714285713,
+          "recall_at_3": 0.7404761904761905,
+          "recall_at_5": 0.8642857142857142
+        },
+        "query_count": 5,
+        "source_metrics": {
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.7718288664753515,
+          "recall_at_1": 0.125,
+          "recall_at_10": 0.7083333333333333,
+          "recall_at_3": 0.37023809523809526,
+          "recall_at_5": 0.4988095238095238
+        },
+        "timing_ms": {
+          "mean": 1799.9738400016213,
+          "median": 1972.6905999996234,
+          "p95": 2034.5699800061993,
+          "total": 8999.869200008106
+        }
+      },
+      "overall": {
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3000,
+          "valid": 3000
+        },
+        "paper_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.9487935917235029,
+          "recall_at_1": 0.6216666666666666,
+          "recall_at_10": 0.9885714285714287,
+          "recall_at_3": 0.8484126984126984,
+          "recall_at_5": 0.929047619047619
+        },
+        "query_count": 30,
+        "source_metrics": {
+          "mrr_at_10": 0.9444444444444444,
+          "ndcg_at_10": 0.7666460115671848,
+          "recall_at_1": 0.3108333333333333,
+          "recall_at_10": 0.7644444444444445,
+          "recall_at_3": 0.5242063492063492,
+          "recall_at_5": 0.6089682539682539
+        },
+        "timing_ms": {
+          "mean": 1671.5739399999923,
+          "median": 1949.6304500025872,
+          "p95": 2050.1434050012904,
+          "total": 50147.21819999977
+        }
+      },
+      "route": "adaptive",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "ensemble",
+      "hard": null,
+      "overall": null,
+      "reason": "ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs",
+      "route": "quality",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "ensemble",
+      "hard": null,
+      "overall": null,
+      "reason": "ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs",
+      "route": "fast",
+      "status": "not-applicable"
+    },
+    {
+      "candidate_pool": null,
+      "execution": null,
+      "family": "ensemble",
+      "hard": null,
+      "overall": null,
+      "reason": "ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs",
+      "route": "robust",
+      "status": "not-applicable"
+    }
+  ],
+  "run_dir": "evaluations/semantic-okf-endocrine-hygiene/results/runs/20260715-endocrine-builds-05",
+  "schema_version": "semantic-okf-endocrine-hygiene-retrieval-report/1.0",
+  "source_identity_path": "evaluations/semantic-okf-endocrine-hygiene/corpus/source-combination.json",
+  "status": "pass"
+}

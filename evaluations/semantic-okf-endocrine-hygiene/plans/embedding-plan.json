@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "selection": {
+    "source_ids": [
+      "claims-pmc11764522",
+      "claims-pmc4016195",
+      "claims-pmc4724203",
+      "claims-pmc4997468",
+      "claims-pmc5047791",
+      "claims-pmc5376243",
+      "claims-pmc5783668",
+      "claims-pmc6037613",
+      "claims-pmc6504186",
+      "claims-pmc7958867",
+      "claims-pmc8316883",
+      "claims-pmc8810700",
+      "claims-pmc8812815",
+      "claims-pmc9566193",
+      "claims-pmc9764248",
+      "paper-pmc11764522",
+      "paper-pmc4016195",
+      "paper-pmc4724203",
+      "paper-pmc4997468",
+      "paper-pmc5047791",
+      "paper-pmc5376243",
+      "paper-pmc5783668",
+      "paper-pmc6037613",
+      "paper-pmc6504186",
+      "paper-pmc7958867",
+      "paper-pmc8316883",
+      "paper-pmc8810700",
+      "paper-pmc8812815",
+      "paper-pmc9566193",
+      "paper-pmc9764248"
+    ]
+  },
+  "chunking": {
+    "implementation": "llamaindex",
+    "strategy": "semantic",
+    "buffer_size": 1,
+    "breakpoint_percentile_threshold": 90
+  },
+  "embedding": {
+    "provider": "sentence-transformers",
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384,
+    "normalize": true
+  }
+}

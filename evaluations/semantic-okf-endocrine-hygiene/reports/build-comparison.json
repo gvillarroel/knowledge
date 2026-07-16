@@ -1,0 +1,1221 @@
+{
+  "schema_version": "semantic-okf-endocrine-hygiene-build-comparison/1.0",
+  "status": "pass",
+  "run_id": "20260715-endocrine-builds-05",
+  "started_at": "2026-07-15T23:35:38.374579Z",
+  "completed_at": "2026-07-15T23:38:57.803138Z",
+  "run_directory": "evaluations/semantic-okf-endocrine-hygiene/results/runs/20260715-endocrine-builds-05",
+  "repository": {
+    "commit": "6156f36914e739417945e635c00004a3046f8420"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "packages": {
+      "llama-index-core": "0.14.23",
+      "numpy": "2.5.1",
+      "pyshacl": "0.40.0",
+      "rdflib": "7.6.0",
+      "sentence-transformers": "5.6.0",
+      "torch": "2.13.0"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.13",
+    "executable": {
+      "path": ".venv/Scripts/python.exe",
+      "bytes": 262144,
+      "sha256": "b2e61d457cf26a449ac044769222720af5fd73d6f197bfa67591d4119001d0ea"
+    },
+    "offline_embedding_environment": true
+  },
+  "inputs": {
+    "manifest": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+      "bytes": 40103,
+      "sha256": "33b2be1a01b6b99880cf4ae9dfcf4585344dc22199eed4e56674079ff28da990"
+    },
+    "plans": [
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/adaptive-plan.json",
+        "bytes": 2161,
+        "sha256": "6e80eba430ae1294299ccca105d56151d41650dc33cb189c09e3cef6f8a565fc"
+      },
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/classical-plan.json",
+        "bytes": 1718,
+        "sha256": "7f432a6555504c18b5e2577039ee5371fe4e9d964e0cde10294d652706fd11d6"
+      },
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/embedding-plan.json",
+        "bytes": 1248,
+        "sha256": "f5c98be9afc4c0a2374e8db0b180566c7bc94326aacfe5a523e8bd2701023ca9"
+      },
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/ensemble-plan.json",
+        "bytes": 9219,
+        "sha256": "50ad4f0cd483ba9b17933aa3c6a1a76d529ebd7e68b92b3193e9e538ff305b72"
+      },
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/entity-graph-plan.json",
+        "bytes": 1835,
+        "sha256": "79d0e20c7f41a8af78391e0ab4f56eeb02823e1553c851acaef09b639338b5d9"
+      },
+      {
+        "path": "evaluations/semantic-okf-endocrine-hygiene/plans/legacy-plan.json",
+        "bytes": 1095,
+        "sha256": "841569a6c5c641fa61c999fed210fbb22b85521ab85f19afc54fed362f7c0447"
+      }
+    ],
+    "corpus": {
+      "paper_count": 15,
+      "source_count": 31,
+      "paper_ids": [
+        "PMC11764522",
+        "PMC4016195",
+        "PMC4724203",
+        "PMC4997468",
+        "PMC5047791",
+        "PMC5376243",
+        "PMC5783668",
+        "PMC6037613",
+        "PMC6504186",
+        "PMC7958867",
+        "PMC8316883",
+        "PMC8810700",
+        "PMC8812815",
+        "PMC9566193",
+        "PMC9764248"
+      ],
+      "files": [
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+          "bytes": 40103,
+          "sha256": "33b2be1a01b6b99880cf4ae9dfcf4585344dc22199eed4e56674079ff28da990"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC11764522.jsonl",
+          "bytes": 5579,
+          "sha256": "3aa4ed1f60f40824fd12c059cc5f01f66ac1a97f54052f3fa882509a11b99b88"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC4016195.jsonl",
+          "bytes": 5732,
+          "sha256": "7adc352e139931f37db8bdf0ddb11e33d74e8c268c85c61bee007400b1514959"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC4724203.jsonl",
+          "bytes": 5626,
+          "sha256": "5064686051d5a5319520d6db3c51ad03e45b5c949d00f67bcb902248649d502f"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC4997468.jsonl",
+          "bytes": 5499,
+          "sha256": "d35c3fdbc1c74632584f7d2c7396f26dfb495207fcd9366040587efca00b37ad"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC5047791.jsonl",
+          "bytes": 5680,
+          "sha256": "3fe282371607308bc6daabb0e18eb4c3c45d2c7bce29aeb0278d1121e1098424"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC5376243.jsonl",
+          "bytes": 5532,
+          "sha256": "d86a9b60fa74f9d9bad30dc2986f42a643ca20bff5f07d1022fc650889fa0a16"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC5783668.jsonl",
+          "bytes": 5661,
+          "sha256": "a3da89564b658e9d571276a861c59251259a030b7caab0e4c1c809a18e8a86d4"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC6037613.jsonl",
+          "bytes": 5524,
+          "sha256": "a780bf457ca5c96110692aa101c1d73c09d6bd2eb45f449fd535226bace011f0"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC6504186.jsonl",
+          "bytes": 7908,
+          "sha256": "fba1844bf1020c311fd7d45f95e44c00212c8acce053ae41f5a9dd4886366547"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC7958867.jsonl",
+          "bytes": 5476,
+          "sha256": "2b51e44547cbdcca96b8a75cbdd0ec095e0182d3ded24c2549a99e26c8183589"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC8316883.jsonl",
+          "bytes": 5626,
+          "sha256": "b17d0c70e03a01e82412133c574c3c029a58330fb9a7a5c7f9fef11d623aaed3"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC8810700.jsonl",
+          "bytes": 5423,
+          "sha256": "5d5e00cc9bafae51f0ea3481bb5ccfc1d174a13df158852988b08dec8d8e22be"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC8812815.jsonl",
+          "bytes": 5522,
+          "sha256": "8dfc3d57f9a2e5056ed9165f66baa8f80cc333588ea55aec6b695c095faf3083"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC9566193.jsonl",
+          "bytes": 6548,
+          "sha256": "3f9d266d49db145fb62e1056ad6d123b8539ebea087d1261db15d824ee5d5eac"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/claims/PMC9764248.jsonl",
+          "bytes": 4521,
+          "sha256": "45ac5b636b46cc3aa070e9061d47600b44b0c45e6fca9e358461b534e011e203"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC11764522.md",
+          "bytes": 72620,
+          "sha256": "7edbc042021838a8c5523888547de7530dfde1f97490630892be8a2c2f6e3e4a"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC4016195.md",
+          "bytes": 63668,
+          "sha256": "e58b9d6af26ecca91cc1f37d7881aa61e2e119f33ef639a37471614858cc3116"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC4724203.md",
+          "bytes": 65173,
+          "sha256": "b4a3fd10d768f0e73e2111b9bac516057d4da0543791823ba5e0b58c621ba57e"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC4997468.md",
+          "bytes": 53038,
+          "sha256": "0e14f22edfaef2aedab8729128496af20fd75525e13cb0017ad6c565cdbcb41b"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC5047791.md",
+          "bytes": 77580,
+          "sha256": "7aadf38d7f2003403e1af52e5e20dc30541e80c761528bf5b914801650cfcd65"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC5376243.md",
+          "bytes": 51492,
+          "sha256": "d348ba2e3fb845354b81629646da9bb67d47f03d40800d4479c1182302df9ce5"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC5783668.md",
+          "bytes": 76541,
+          "sha256": "d492791a89f62fe9433b7467d540b731aa37c8a9322bbdf996100f235f92ccde"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC6037613.md",
+          "bytes": 73563,
+          "sha256": "d5ba44df59b752327f906dbde71b031be8216f4371680f793a87baec355ee58b"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC6504186.md",
+          "bytes": 70637,
+          "sha256": "7ece3f173bcbd5898d53196bd5be724380f7d70ae0f3a998dbf8321eaad33d14"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC7958867.md",
+          "bytes": 66366,
+          "sha256": "e6f016368d2012b4fb02525ef13a95d45f8fb3c0ee558197a6045c95a979da70"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC8316883.md",
+          "bytes": 66830,
+          "sha256": "9878a88257f0f6272e722c62ea824a93f0531f236a19e77b3486d0a07270d6f8"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC8810700.md",
+          "bytes": 58980,
+          "sha256": "39748c0f8b0eb9e84eaef0f3e51073cec02b25722e6d21741f27c3438e595b2d"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC8812815.md",
+          "bytes": 63264,
+          "sha256": "5e3dfc07a22212aeff8005b81d9227c2aee5fed3f7335a07d4dfe57ff4674354"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC9566193.md",
+          "bytes": 63761,
+          "sha256": "ab793757dad6360528ec543c14c68abb0e451615a46795be01e3190c343b2b1e"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/markdown/PMC9764248.md",
+          "bytes": 50947,
+          "sha256": "e4d22b97c0cc222a99612d565ab030c656457de0f0b4b3704cfad6ce25aa476b"
+        },
+        {
+          "path": "evaluations/semantic-okf-endocrine-hygiene/corpus/sources/semantic/analysis-vocabulary.jsonl",
+          "bytes": 6268,
+          "sha256": "3cc5cc19f3581e2d10bc2a2a0fd5f1921308159b5fe05807ab892ffcadeeb2ce"
+        }
+      ],
+      "logical_input_tree_sha256": "d5f7374c7322d85b529fe360458cedd9e3b1e04ea4c57736174391062634dbcd"
+    }
+  },
+  "families": {
+    "legacy": {
+      "expected": "success",
+      "observed": "success",
+      "gate": "pass",
+      "builds_pass": true,
+      "validations_pass": true,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two LF-normalized bundle-tree and authoritative-core hashes",
+        "logical_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262"
+      },
+      "core": {
+        "file_count": 143,
+        "total_bytes": 3302653,
+        "logical_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "core_file_count": 143,
+        "core_total_bytes": 3302653,
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "failure_contract": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf/scripts/build_semantic_okf.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$RUN/bundles/legacy-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 2682.512,
+            "stdout": {
+              "path": "logs/legacy-a/build.stdout.txt",
+              "bytes": 386,
+              "sha256": "43f727cf6386c488e3d4967dcd3b610e7d5446f195e740ba9497579fb1d57bd4"
+            },
+            "stderr": {
+              "path": "logs/legacy-a/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"errors\": [], \"processor\": {\"contract_version\": \"1.0\", \"name\": \"semantic-okf-python\", \"records\": 133, \"sources\": 31}, \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"concepts\": 133, \"data_subjects\": 133, \"ontology_classes\": 3, \"owl_consistency\": \"not_checked\", \"owl_profile\": \"not_checked\", \"records\": 133, \"shacl\": \"conformant\", \"sources\": 31}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf/scripts/validate_semantic_okf.py",
+                "$RUN/bundles/legacy-a",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 871.765,
+              "stdout": {
+                "path": "logs/legacy-a/validate-family.stdout.txt",
+                "bytes": 332,
+                "sha256": "a27c535be09735814d4697dd45a4f866f60e1e8e40149be58d607a6d3d70132a"
+              },
+              "stderr": {
+                "path": "logs/legacy-a/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\n  \"errors\": [],\n  \"schema_version\": \"1.0\",\n  \"status\": \"pass\",\n  \"summary\": {\n    \"concepts\": 133,\n    \"data_subjects\": 133,\n    \"ontology_classes\": 3,\n    \"owl_consistency\": \"not_checked\",\n    \"owl_profile\": \"not_checked\",\n    \"records\": 133,\n    \"shacl\": \"conformant\",\n    \"sources\": 31\n  },\n  \"valid\": true,\n  \"warnings\": []\n}"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 143,
+            "total_bytes": 3302653,
+            "logical_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf/scripts/build_semantic_okf.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$RUN/bundles/legacy-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 2448.635,
+            "stdout": {
+              "path": "logs/legacy-b/build.stdout.txt",
+              "bytes": 386,
+              "sha256": "43f727cf6386c488e3d4967dcd3b610e7d5446f195e740ba9497579fb1d57bd4"
+            },
+            "stderr": {
+              "path": "logs/legacy-b/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"errors\": [], \"processor\": {\"contract_version\": \"1.0\", \"name\": \"semantic-okf-python\", \"records\": 133, \"sources\": 31}, \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"concepts\": 133, \"data_subjects\": 133, \"ontology_classes\": 3, \"owl_consistency\": \"not_checked\", \"owl_profile\": \"not_checked\", \"records\": 133, \"shacl\": \"conformant\", \"sources\": 31}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf/scripts/validate_semantic_okf.py",
+                "$RUN/bundles/legacy-b",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 883.85,
+              "stdout": {
+                "path": "logs/legacy-b/validate-family.stdout.txt",
+                "bytes": 332,
+                "sha256": "a27c535be09735814d4697dd45a4f866f60e1e8e40149be58d607a6d3d70132a"
+              },
+              "stderr": {
+                "path": "logs/legacy-b/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\n  \"errors\": [],\n  \"schema_version\": \"1.0\",\n  \"status\": \"pass\",\n  \"summary\": {\n    \"concepts\": 133,\n    \"data_subjects\": 133,\n    \"ontology_classes\": 3,\n    \"owl_consistency\": \"not_checked\",\n    \"owl_profile\": \"not_checked\",\n    \"records\": 133,\n    \"shacl\": \"conformant\",\n    \"sources\": 31\n  },\n  \"valid\": true,\n  \"warnings\": []\n}"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 143,
+            "total_bytes": 3302653,
+            "logical_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        }
+      ]
+    },
+    "embeddings": {
+      "expected": "success",
+      "observed": "success",
+      "gate": "pass",
+      "builds_pass": true,
+      "validations_pass": true,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two LF-normalized bundle-tree and authoritative-core hashes",
+        "logical_tree_sha256": "e38af0dc3a6de50bb6c529879fcdb14a33aa5162b59576781dc285773fa5f659"
+      },
+      "core": {
+        "file_count": 147,
+        "total_bytes": 6586855,
+        "logical_tree_sha256": "e38af0dc3a6de50bb6c529879fcdb14a33aa5162b59576781dc285773fa5f659",
+        "core_file_count": 143,
+        "core_total_bytes": 3302653,
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "failure_contract": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-embeddings/scripts/build_semantic_okf_embeddings.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/embedding-plan.json",
+              "$RUN/bundles/embeddings-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 64897.572,
+            "stdout": {
+              "path": "logs/embeddings-a/build.stdout.txt",
+              "bytes": 2348,
+              "sha256": "1f3d7515de94a019c70acc807689c8d3e3ed1e8f89e205ae7a73794b3239eca2"
+            },
+            "stderr": {
+              "path": "logs/embeddings-a/build.stderr.txt",
+              "bytes": 148,
+              "sha256": "6ae19fa6cdc85fd5253e502abc25a616d824b15da4b220a00a5e75cafac1a6af"
+            },
+            "diagnostic_excerpt": "{\"artifacts\": {\"chunks\": {\"count\": 442, \"path\": \"retrieval/chunks.jsonl\", \"sha256\": \"5e4c3cd48b7d1bca52b409d56d34f46ac47264b7fde8cd77862762208c852f89\"}, \"embeddings\": {\"count\": 442, \"path\": \"retrieval/embeddings.jsonl\", \"sha256\": \"900dab8b48de58f396902c00f10c7b69d60f918928873438f14de41b06486fb2\"}, \"index\": {\"path\": \"retrieval/index.json\", \"sha256\": \"d3e140e2919dc8ecab72c19b91eb27bbd9b3d2178d1b5e78bbd9a139899762b4\"}}, \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"retrieval_plan_sha256\": \"1b3df5c08c22be33c6fa49fcc20ba98fadd2cf01292fe5f8700fe5b7623b2410\", \"schema_version\": \"1.0\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"chunks\": 442, \"dimension\": 384, \"embeddings\": 442, \"inputs\": 30, \"records\": 108}, \"valid\": true, \"warnings\": []}\nLoading weights:   0%|          | 0/103 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 103/103 [00:00<00:00, 11217.63it/s]"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-embeddings/scripts/validate_semantic_okf_embeddings.py",
+                "$RUN/bundles/embeddings-a",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 1124.174,
+              "stdout": {
+                "path": "logs/embeddings-a/validate-family.stdout.txt",
+                "bytes": 184,
+                "sha256": "d29c61634c9c3f7a158d87806b9fbc3cb3818649a2e9bccceb8c1df0fe97b1ed"
+              },
+              "stderr": {
+                "path": "logs/embeddings-a/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"chunks\": 442, \"dimension\": 384, \"embeddings\": 442, \"inputs\": 30, \"records\": 108}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-embeddings/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/embeddings-a"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 189.621,
+              "stdout": {
+                "path": "logs/embeddings-a/validate-deep.stdout.txt",
+                "bytes": 194,
+                "sha256": "55fb010e417e9a60daaf8c62be2a8ebeabcd7e06556f615311681a6ff5e365d2"
+              },
+              "stderr": {
+                "path": "logs/embeddings-a/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\embeddings-a"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 147,
+            "total_bytes": 6586855,
+            "logical_tree_sha256": "e38af0dc3a6de50bb6c529879fcdb14a33aa5162b59576781dc285773fa5f659",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-embeddings/scripts/build_semantic_okf_embeddings.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/embedding-plan.json",
+              "$RUN/bundles/embeddings-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 80766.079,
+            "stdout": {
+              "path": "logs/embeddings-b/build.stdout.txt",
+              "bytes": 2348,
+              "sha256": "1f3d7515de94a019c70acc807689c8d3e3ed1e8f89e205ae7a73794b3239eca2"
+            },
+            "stderr": {
+              "path": "logs/embeddings-b/build.stderr.txt",
+              "bytes": 148,
+              "sha256": "632425791b6a3f38820619fcd1a725324c9a456a70a0ffdc0d49a24baeaf8e88"
+            },
+            "diagnostic_excerpt": "{\"artifacts\": {\"chunks\": {\"count\": 442, \"path\": \"retrieval/chunks.jsonl\", \"sha256\": \"5e4c3cd48b7d1bca52b409d56d34f46ac47264b7fde8cd77862762208c852f89\"}, \"embeddings\": {\"count\": 442, \"path\": \"retrieval/embeddings.jsonl\", \"sha256\": \"900dab8b48de58f396902c00f10c7b69d60f918928873438f14de41b06486fb2\"}, \"index\": {\"path\": \"retrieval/index.json\", \"sha256\": \"d3e140e2919dc8ecab72c19b91eb27bbd9b3d2178d1b5e78bbd9a139899762b4\"}}, \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"retrieval_plan_sha256\": \"1b3df5c08c22be33c6fa49fcc20ba98fadd2cf01292fe5f8700fe5b7623b2410\", \"schema_version\": \"1.0\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"chunks\": 442, \"dimension\": 384, \"embeddings\": 442, \"inputs\": 30, \"records\": 108}, \"valid\": true, \"warnings\": []}\nLoading weights:   0%|          | 0/103 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 103/103 [00:00<00:00, 12097.15it/s]"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-embeddings/scripts/validate_semantic_okf_embeddings.py",
+                "$RUN/bundles/embeddings-b",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 1105.766,
+              "stdout": {
+                "path": "logs/embeddings-b/validate-family.stdout.txt",
+                "bytes": 184,
+                "sha256": "d29c61634c9c3f7a158d87806b9fbc3cb3818649a2e9bccceb8c1df0fe97b1ed"
+              },
+              "stderr": {
+                "path": "logs/embeddings-b/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"chunks\": 442, \"dimension\": 384, \"embeddings\": 442, \"inputs\": 30, \"records\": 108}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-embeddings/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/embeddings-b"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 192.821,
+              "stdout": {
+                "path": "logs/embeddings-b/validate-deep.stdout.txt",
+                "bytes": 194,
+                "sha256": "bf63d3ed7d9bd849817da8550d4ea60b8311c5a8d1793ede6ca074d5364b1a2a"
+              },
+              "stderr": {
+                "path": "logs/embeddings-b/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\embeddings-b"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 147,
+            "total_bytes": 6586855,
+            "logical_tree_sha256": "e38af0dc3a6de50bb6c529879fcdb14a33aa5162b59576781dc285773fa5f659",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        }
+      ]
+    },
+    "classical": {
+      "expected": "success",
+      "observed": "success",
+      "gate": "pass",
+      "builds_pass": true,
+      "validations_pass": true,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two LF-normalized bundle-tree and authoritative-core hashes",
+        "logical_tree_sha256": "4db97b2c71c8e5d510f56cde6e63be08e5ca4c4074f14db7ae03fd5da968aaff"
+      },
+      "core": {
+        "file_count": 149,
+        "total_bytes": 16426985,
+        "logical_tree_sha256": "4db97b2c71c8e5d510f56cde6e63be08e5ca4c4074f14db7ae03fd5da968aaff",
+        "core_file_count": 143,
+        "core_total_bytes": 3302653,
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "failure_contract": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-classical/scripts/build_semantic_okf_classical.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/classical-plan.json",
+              "$RUN/bundles/classical-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 7218.21,
+            "stdout": {
+              "path": "logs/classical-a/build.stdout.txt",
+              "bytes": 2745,
+              "sha256": "fe24b1e40e66350f45ae607c330b64676a9ca17f13aea2f52ce24f58bec565ea"
+            },
+            "stderr": {
+              "path": "logs/classical-a/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"artifacts\": {\"associations\": {\"bytes\": 1480148, \"count\": 3000, \"path\": \"classical/associations.jsonl\", \"sha256\": \"4c2dd76215d5bdc1eadc4ca158a72c1832576fe55ffddb2270e8cd3b0c0cba04\"}, \"documents\": {\"bytes\": 3151444, \"count\": 108, \"path\": \"classical/documents.jsonl\", \"sha256\": \"df9d909934d21551e3918154e794bbf7f6c2ac9605b75650cf22b7b6f09f9939\"}, \"index\": {\"bytes\": 5665, \"path\": \"classical/index.json\", \"sha256\": \"243677340de40ba9bc6d0337da52134d223ab4e65d693455fd22d6746fcb6e95\"}, \"lexicon\": {\"bytes\": 8236567, \"count\": 58567, \"path\": \"classical/lexicon.json\", \"sha256\": \"897aafd1d1bf812bb146a149ab57c98b3d78ad04d21e59e7e57da49a0e7e89b8\"}, \"topics\": {\"bytes\": 246998, \"count\": 16, \"path\": \"classical/topics.json\", \"sha256\": \"14e558caac630a5810da8e2551d06fe96c9bee80ab11bec4f9ccb95f15ba66da\"}}, \"classical_plan_sha256\": \"c91863f4e9251a3f1d3b771e027ac6d117bf79f017f692b4773db22b42d6c40a\", \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"schema_version\": \"1.0\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-classical/scripts/validate_semantic_okf_classical.py",
+                "$RUN/bundles/classical-a",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 1981.239,
+              "stdout": {
+                "path": "logs/classical-a/validate-family.stdout.txt",
+                "bytes": 207,
+                "sha256": "3e4f29a967550ea9ca01f13460b54f56a329174f9ff5973900bab92fe03d3dcd"
+              },
+              "stderr": {
+                "path": "logs/classical-a/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-classical/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/classical-a"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 193.02,
+              "stdout": {
+                "path": "logs/classical-a/validate-deep.stdout.txt",
+                "bytes": 193,
+                "sha256": "20dcb9c4df543340ba4083874516c1598cf72fa81a34d3970576161c20e9dc92"
+              },
+              "stderr": {
+                "path": "logs/classical-a/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\classical-a"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 149,
+            "total_bytes": 16426985,
+            "logical_tree_sha256": "4db97b2c71c8e5d510f56cde6e63be08e5ca4c4074f14db7ae03fd5da968aaff",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-classical/scripts/build_semantic_okf_classical.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/classical-plan.json",
+              "$RUN/bundles/classical-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 7023.336,
+            "stdout": {
+              "path": "logs/classical-b/build.stdout.txt",
+              "bytes": 2745,
+              "sha256": "fe24b1e40e66350f45ae607c330b64676a9ca17f13aea2f52ce24f58bec565ea"
+            },
+            "stderr": {
+              "path": "logs/classical-b/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"artifacts\": {\"associations\": {\"bytes\": 1480148, \"count\": 3000, \"path\": \"classical/associations.jsonl\", \"sha256\": \"4c2dd76215d5bdc1eadc4ca158a72c1832576fe55ffddb2270e8cd3b0c0cba04\"}, \"documents\": {\"bytes\": 3151444, \"count\": 108, \"path\": \"classical/documents.jsonl\", \"sha256\": \"df9d909934d21551e3918154e794bbf7f6c2ac9605b75650cf22b7b6f09f9939\"}, \"index\": {\"bytes\": 5665, \"path\": \"classical/index.json\", \"sha256\": \"243677340de40ba9bc6d0337da52134d223ab4e65d693455fd22d6746fcb6e95\"}, \"lexicon\": {\"bytes\": 8236567, \"count\": 58567, \"path\": \"classical/lexicon.json\", \"sha256\": \"897aafd1d1bf812bb146a149ab57c98b3d78ad04d21e59e7e57da49a0e7e89b8\"}, \"topics\": {\"bytes\": 246998, \"count\": 16, \"path\": \"classical/topics.json\", \"sha256\": \"14e558caac630a5810da8e2551d06fe96c9bee80ab11bec4f9ccb95f15ba66da\"}}, \"classical_plan_sha256\": \"c91863f4e9251a3f1d3b771e027ac6d117bf79f017f692b4773db22b42d6c40a\", \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"schema_version\": \"1.0\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-classical/scripts/validate_semantic_okf_classical.py",
+                "$RUN/bundles/classical-b",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 1958.046,
+              "stdout": {
+                "path": "logs/classical-b/validate-family.stdout.txt",
+                "bytes": 207,
+                "sha256": "3e4f29a967550ea9ca01f13460b54f56a329174f9ff5973900bab92fe03d3dcd"
+              },
+              "stderr": {
+                "path": "logs/classical-b/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.0\", \"status\": \"pass\", \"summary\": {\"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-classical/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/classical-b"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 202.039,
+              "stdout": {
+                "path": "logs/classical-b/validate-deep.stdout.txt",
+                "bytes": 193,
+                "sha256": "c5de3f5f0c1678ad6e3ac87c73fc8eb8adfe1a827021ed30329f88d9d7e3614b"
+              },
+              "stderr": {
+                "path": "logs/classical-b/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\classical-b"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 149,
+            "total_bytes": 16426985,
+            "logical_tree_sha256": "4db97b2c71c8e5d510f56cde6e63be08e5ca4c4074f14db7ae03fd5da968aaff",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        }
+      ]
+    },
+    "entity-graph": {
+      "expected": "incompatible",
+      "observed": "expected-incompatibility",
+      "gate": "pass",
+      "builds_pass": false,
+      "validations_pass": null,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two independently observed, contract-matched incompatibility failures",
+        "logical_tree_sha256": null
+      },
+      "core": null,
+      "failure_contract": {
+        "patterns": [
+          "has no PDF page headings"
+        ],
+        "matched": [
+          "has no PDF page headings",
+          "has no PDF page headings"
+        ],
+        "diagnostics": [
+          "{\"code\": \"entity-graph-error\", \"error\": \"paper record sources/markdown/PMC11764522 has no PDF page headings\", \"status\": \"error\"}",
+          "{\"code\": \"entity-graph-error\", \"error\": \"paper record sources/markdown/PMC11764522 has no PDF page headings\", \"status\": \"error\"}"
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-entity-graph/scripts/build_semantic_okf_entity_graph.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/entity-graph-plan.json",
+              "$RUN/bundles/entity-graph-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 2,
+            "timed_out": false,
+            "elapsed_ms": 2599.398,
+            "stdout": {
+              "path": "logs/entity-graph-a/build.stdout.txt",
+              "bytes": 129,
+              "sha256": "d3a9fdecfd521d8faaa297e7740bee1814fe426dd75db2ff94362acf90dba721"
+            },
+            "stderr": {
+              "path": "logs/entity-graph-a/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"code\": \"entity-graph-error\", \"error\": \"paper record sources/markdown/PMC11764522 has no PDF page headings\", \"status\": \"error\"}"
+          },
+          "output_published": false,
+          "matched_expected_failure": "has no PDF page headings",
+          "validators": [],
+          "fingerprint": null
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-entity-graph/scripts/build_semantic_okf_entity_graph.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/entity-graph-plan.json",
+              "$RUN/bundles/entity-graph-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 2,
+            "timed_out": false,
+            "elapsed_ms": 2630.678,
+            "stdout": {
+              "path": "logs/entity-graph-b/build.stdout.txt",
+              "bytes": 129,
+              "sha256": "d3a9fdecfd521d8faaa297e7740bee1814fe426dd75db2ff94362acf90dba721"
+            },
+            "stderr": {
+              "path": "logs/entity-graph-b/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"code\": \"entity-graph-error\", \"error\": \"paper record sources/markdown/PMC11764522 has no PDF page headings\", \"status\": \"error\"}"
+          },
+          "output_published": false,
+          "matched_expected_failure": "has no PDF page headings",
+          "validators": [],
+          "fingerprint": null
+        }
+      ]
+    },
+    "adaptive": {
+      "expected": "success",
+      "observed": "success",
+      "gate": "pass",
+      "builds_pass": true,
+      "validations_pass": true,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two LF-normalized bundle-tree and authoritative-core hashes",
+        "logical_tree_sha256": "507fe6ff0ddc34e53927323a16637ca28e0d67a043a2df882abebc663d5ad7b4"
+      },
+      "core": {
+        "file_count": 150,
+        "total_bytes": 16428195,
+        "logical_tree_sha256": "507fe6ff0ddc34e53927323a16637ca28e0d67a043a2df882abebc663d5ad7b4",
+        "core_file_count": 143,
+        "core_total_bytes": 3302653,
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "failure_contract": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-adaptive/scripts/build_semantic_okf_adaptive.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/adaptive-plan.json",
+              "$RUN/bundles/adaptive-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 7447.12,
+            "stdout": {
+              "path": "logs/adaptive-a/build.stdout.txt",
+              "bytes": 2926,
+              "sha256": "e9429a33e0c8fdb953d40cb32c541467734f736aca8540386d4fbd2ea1567ab4"
+            },
+            "stderr": {
+              "path": "logs/adaptive-a/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"adaptive_plan_sha256\": \"c7847e96242772429ab481b81b4642458abae2a029199d4628d21f83b14bab14\", \"artifacts\": {\"answer_bindings\": {\"bytes\": 0, \"count\": 0, \"path\": \"adaptive/answer-bindings.jsonl\", \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, \"associations\": {\"bytes\": 1480148, \"count\": 3000, \"path\": \"adaptive/associations.jsonl\", \"sha256\": \"4c2dd76215d5bdc1eadc4ca158a72c1832576fe55ffddb2270e8cd3b0c0cba04\"}, \"documents\": {\"bytes\": 3151444, \"count\": 108, \"path\": \"adaptive/documents.jsonl\", \"sha256\": \"df9d909934d21551e3918154e794bbf7f6c2ac9605b75650cf22b7b6f09f9939\"}, \"index\": {\"bytes\": 6649, \"path\": \"adaptive/index.json\", \"sha256\": \"316a566266e3a263f859e14f9d9ac5b4212b80b2e65dab824b714ed5b79128cc\"}, \"lexicon\": {\"bytes\": 8236567, \"count\": 58567, \"path\": \"adaptive/lexicon.json\", \"sha256\": \"593c6396002e0b4657fb09e2985a8b0dba823500992388cfc8daba2cbd59f89c\"}, \"topics\": {\"bytes\": 246998, \"count\": 16, \"path\": \"adaptive/topics.json\", \"sha256\": \"ed81e19e265c7d22906e76f88e1de39848e9e3d58ba3e5cb93d40ddbaa630eac\"}}, \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"schema_version\": \"1.2\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"answer_bindings\": 0, \"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-adaptive/scripts/validate_semantic_okf_adaptive.py",
+                "$RUN/bundles/adaptive-a",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 2023.345,
+              "stdout": {
+                "path": "logs/adaptive-a/validate-family.stdout.txt",
+                "bytes": 229,
+                "sha256": "02f1dd86f4c671d38aefe20b96996bf055d05c3cb74a8569a9caad8ddbbae69a"
+              },
+              "stderr": {
+                "path": "logs/adaptive-a/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.2\", \"status\": \"pass\", \"summary\": {\"answer_bindings\": 0, \"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-adaptive/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/adaptive-a"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 185.371,
+              "stdout": {
+                "path": "logs/adaptive-a/validate-deep.stdout.txt",
+                "bytes": 192,
+                "sha256": "63830f29c5685640ac4935925bbe7fd0a5367576d5283225c188a58afa370833"
+              },
+              "stderr": {
+                "path": "logs/adaptive-a/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\adaptive-a"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 150,
+            "total_bytes": 16428195,
+            "logical_tree_sha256": "507fe6ff0ddc34e53927323a16637ca28e0d67a043a2df882abebc663d5ad7b4",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-adaptive/scripts/build_semantic_okf_adaptive.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/adaptive-plan.json",
+              "$RUN/bundles/adaptive-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_ms": 7232.457,
+            "stdout": {
+              "path": "logs/adaptive-b/build.stdout.txt",
+              "bytes": 2926,
+              "sha256": "e9429a33e0c8fdb953d40cb32c541467734f736aca8540386d4fbd2ea1567ab4"
+            },
+            "stderr": {
+              "path": "logs/adaptive-b/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"adaptive_plan_sha256\": \"c7847e96242772429ab481b81b4642458abae2a029199d4628d21f83b14bab14\", \"artifacts\": {\"answer_bindings\": {\"bytes\": 0, \"count\": 0, \"path\": \"adaptive/answer-bindings.jsonl\", \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"}, \"associations\": {\"bytes\": 1480148, \"count\": 3000, \"path\": \"adaptive/associations.jsonl\", \"sha256\": \"4c2dd76215d5bdc1eadc4ca158a72c1832576fe55ffddb2270e8cd3b0c0cba04\"}, \"documents\": {\"bytes\": 3151444, \"count\": 108, \"path\": \"adaptive/documents.jsonl\", \"sha256\": \"df9d909934d21551e3918154e794bbf7f6c2ac9605b75650cf22b7b6f09f9939\"}, \"index\": {\"bytes\": 6649, \"path\": \"adaptive/index.json\", \"sha256\": \"316a566266e3a263f859e14f9d9ac5b4212b80b2e65dab824b714ed5b79128cc\"}, \"lexicon\": {\"bytes\": 8236567, \"count\": 58567, \"path\": \"adaptive/lexicon.json\", \"sha256\": \"593c6396002e0b4657fb09e2985a8b0dba823500992388cfc8daba2cbd59f89c\"}, \"topics\": {\"bytes\": 246998, \"count\": 16, \"path\": \"adaptive/topics.json\", \"sha256\": \"ed81e19e265c7d22906e76f88e1de39848e9e3d58ba3e5cb93d40ddbaa630eac\"}}, \"core\": {\"record_count\": 133, \"records_sha256\": \"5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5\", \"tree_sha256\": \"a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262\"}, \"errors\": [], \"schema_version\": \"1.2\", \"selection\": {\"eligible_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"], \"excluded_source_ids\": [\"analysis-vocabulary\"], \"input_count\": 30, \"input_sha256\": \"a1ed3269b89bfc206948791a5a2a6c4eeea9247104b9ca9cc4f72e20a0fcbf11\", \"requested_source_ids\": [\"claims-pmc11764522\", \"claims-pmc4016195\", \"claims-pmc4724203\", \"claims-pmc4997468\", \"claims-pmc5047791\", \"claims-pmc5376243\", \"claims-pmc5783668\", \"claims-pmc6037613\", \"claims-pmc6504186\", \"claims-pmc7958867\", \"claims-pmc8316883\", \"claims-pmc8810700\", \"claims-pmc8812815\", \"claims-pmc9566193\", \"claims-pmc9764248\", \"paper-pmc11764522\", \"paper-pmc4016195\", \"paper-pmc4724203\", \"paper-pmc4997468\", \"paper-pmc5047791\", \"paper-pmc5376243\", \"paper-pmc5783668\", \"paper-pmc6037613\", \"paper-pmc6504186\", \"paper-pmc7958867\", \"paper-pmc8316883\", \"paper-pmc8810700\", \"paper-pmc8812815\", \"paper-pmc9566193\", \"paper-pmc9764248\"]}, \"status\": \"pass\", \"summary\": {\"answer_bindings\": 0, \"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+          },
+          "output_published": true,
+          "matched_expected_failure": null,
+          "validators": [
+            {
+              "kind": "family",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-adaptive/scripts/validate_semantic_okf_adaptive.py",
+                "$RUN/bundles/adaptive-b",
+                "--output-format",
+                "json"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 1956.503,
+              "stdout": {
+                "path": "logs/adaptive-b/validate-family.stdout.txt",
+                "bytes": 229,
+                "sha256": "02f1dd86f4c671d38aefe20b96996bf055d05c3cb74a8569a9caad8ddbbae69a"
+              },
+              "stderr": {
+                "path": "logs/adaptive-b/validate-family.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "{\"errors\": [], \"schema_version\": \"1.2\", \"status\": \"pass\", \"summary\": {\"answer_bindings\": 0, \"association_terms\": 3000, \"documents\": 108, \"inputs\": 30, \"records\": 108, \"terms\": 58567, \"topics\": 16}, \"valid\": true, \"warnings\": []}"
+            },
+            {
+              "kind": "deep",
+              "command": [
+                "$REPO/.venv/Scripts/python.exe",
+                "$REPO/skills/build-semantic-okf-adaptive/scripts/validate_okf_bundle.py",
+                "$RUN/bundles/adaptive-b"
+              ],
+              "returncode": 0,
+              "timed_out": false,
+              "elapsed_ms": 190.016,
+              "stdout": {
+                "path": "logs/adaptive-b/validate-deep.stdout.txt",
+                "bytes": 192,
+                "sha256": "ccc1d92698d12dd000b2e05a6c389c5de9fd7e40b2f4a9b7dc8ecfee7e40f518"
+              },
+              "stderr": {
+                "path": "logs/adaptive-b/validate-deep.stderr.txt",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "diagnostic_excerpt": "OKF validation passed: $RUN\\bundles\\adaptive-b"
+            }
+          ],
+          "fingerprint": {
+            "file_count": 150,
+            "total_bytes": 16428195,
+            "logical_tree_sha256": "507fe6ff0ddc34e53927323a16637ca28e0d67a043a2df882abebc663d5ad7b4",
+            "core_file_count": 143,
+            "core_total_bytes": 3302653,
+            "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+            "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+          }
+        }
+      ]
+    },
+    "ensemble": {
+      "expected": "incompatible",
+      "observed": "expected-incompatibility",
+      "gate": "pass",
+      "builds_pass": false,
+      "validations_pass": null,
+      "deterministic_rebuild": {
+        "status": "pass",
+        "basis": "two independently observed, contract-matched incompatibility failures",
+        "logical_tree_sha256": null
+      },
+      "core": null,
+      "failure_contract": {
+        "patterns": [
+          "paper identity mappings must contain canonical versioned arXiv IDs"
+        ],
+        "matched": [
+          "paper identity mappings must contain canonical versioned arXiv IDs",
+          "paper identity mappings must contain canonical versioned arXiv IDs"
+        ],
+        "diagnostics": [
+          "{\"code\": \"ensemble-error\", \"error\": \"ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs\", \"status\": \"error\", \"valid\": false}",
+          "{\"code\": \"ensemble-error\", \"error\": \"ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs\", \"status\": \"error\", \"valid\": false}"
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-ensemble/scripts/build_semantic_okf_ensemble.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/ensemble-plan.json",
+              "$RUN/bundles/ensemble-a",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 2,
+            "timed_out": false,
+            "elapsed_ms": 359.782,
+            "stdout": {
+              "path": "logs/ensemble-a/build.stdout.txt",
+              "bytes": 186,
+              "sha256": "d24b9c9f674d0032e0bad59d7f56ca4e7492edaff7bd5055b35ccd3e44efea69"
+            },
+            "stderr": {
+              "path": "logs/ensemble-a/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"code\": \"ensemble-error\", \"error\": \"ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs\", \"status\": \"error\", \"valid\": false}"
+          },
+          "output_published": false,
+          "matched_expected_failure": "paper identity mappings must contain canonical versioned arXiv IDs",
+          "validators": [],
+          "fingerprint": null
+        },
+        {
+          "attempt": 2,
+          "build": {
+            "command": [
+              "$REPO/.venv/Scripts/python.exe",
+              "$REPO/skills/build-semantic-okf-ensemble/scripts/build_semantic_okf_ensemble.py",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/corpus/manifest.json",
+              "$REPO/evaluations/semantic-okf-endocrine-hygiene/plans/ensemble-plan.json",
+              "$RUN/bundles/ensemble-b",
+              "--output-format",
+              "json"
+            ],
+            "returncode": 2,
+            "timed_out": false,
+            "elapsed_ms": 356.83,
+            "stdout": {
+              "path": "logs/ensemble-b/build.stdout.txt",
+              "bytes": 186,
+              "sha256": "d24b9c9f674d0032e0bad59d7f56ca4e7492edaff7bd5055b35ccd3e44efea69"
+            },
+            "stderr": {
+              "path": "logs/ensemble-b/build.stderr.txt",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "diagnostic_excerpt": "{\"code\": \"ensemble-error\", \"error\": \"ensemble component plan adaptive is invalid: paper identity mappings must contain canonical versioned arXiv IDs\", \"status\": \"error\", \"valid\": false}"
+          },
+          "output_published": false,
+          "matched_expected_failure": "paper identity mappings must contain canonical versioned arXiv IDs",
+          "validators": [],
+          "fingerprint": null
+        }
+      ]
+    }
+  },
+  "core_parity": {
+    "status": "pass",
+    "contract": "Every compatible builder must publish the same LF-normalized non-derived core tree and byte-identical semantic records.",
+    "expected_families": [
+      "adaptive",
+      "classical",
+      "embeddings",
+      "legacy"
+    ],
+    "observed_families": [
+      "adaptive",
+      "classical",
+      "embeddings",
+      "legacy"
+    ],
+    "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+    "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5",
+    "per_family": {
+      "adaptive": {
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "classical": {
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "embeddings": {
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      },
+      "legacy": {
+        "logical_core_tree_sha256": "a94509f0580c9cc2e7d917a1b07279adb8b8f5abf13a5b96c73b7f015f015262",
+        "semantic_records_sha256": "5bb09f5b4a7eb86c9f9e69c2e78c77d04a9530c5b305f3725c7ec3ef859913f5"
+      }
+    }
+  }
+}

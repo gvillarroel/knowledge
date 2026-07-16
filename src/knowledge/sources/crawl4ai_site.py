@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import os
 import random
@@ -290,6 +291,38 @@ class SiteSource(SourceAdapter):
                 raise
             return self._fetch_readable_proxy(url), []
 
+        content_type = str(response.headers.get("Content-Type") or "")
+        if _is_json_content_type(content_type):
+            response_content = getattr(response, "content", None)
+            raw_content = response_content if isinstance(response_content, bytes) else response.text.encode("utf-8")
+            try:
+                payload = raw_content.decode("utf-8")
+            except UnicodeDecodeError as exc:
+                raise _SkippablePageError(url, f"invalid_json_encoding:{exc.reason}") from exc
+            try:
+                json.loads(payload)
+            except json.JSONDecodeError as exc:
+                raise _SkippablePageError(url, f"invalid_json:{exc.msg}") from exc
+            return (
+                {
+                    "url": url,
+                    "title": url,
+                    "markdown": payload,
+                    "metadata": {
+                        "url": url,
+                        "title": url,
+                        "fetched_via": _active_http_fetch_mode(),
+                        "content_scope": "document",
+                        "content_type": content_type,
+                        "content_format": "json",
+                        "raw_content_bytes": len(raw_content),
+                        "raw_content_sha256": hashlib.sha256(raw_content).hexdigest(),
+                        "status_code": getattr(response, "status_code", 200),
+                    },
+                },
+                [],
+            )
+
         html = response.text
         title = _extract_html_title(html) or url
         markdown = _html_to_primary_text(html)
@@ -424,6 +457,13 @@ def _normalize_url(value: str) -> str:
     parsed = urlparse(value)
     cleaned = parsed._replace(fragment="", query="")
     return urldefrag(cleaned.geturl().rstrip("/"))[0]
+
+
+def _is_json_content_type(value: str) -> bool:
+    """Return whether an HTTP media type carries JSON content."""
+
+    media_type = value.partition(";")[0].strip().casefold()
+    return media_type == "application/json" or media_type.endswith("+json")
 
 
 def _allowed_path_prefixes(start_url: str) -> list[str]:
