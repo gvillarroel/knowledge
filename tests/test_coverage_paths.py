@@ -1664,15 +1664,23 @@ def test_television_sync_writes_channel_bundle(tmp_path: Path) -> None:
     payload = TelevisionSource(source, store).sync()
 
     channel_file = store.source_raw_dir(source) / "knowledge-sources.toml"
+    manifest_file = store.source_raw_dir(source) / "commands.json"
+    readme_file = store.source_raw_dir(source) / "README.md"
     metadata_file = store.source_raw_dir(source) / "source-metadata.yaml"
 
-    assert payload["files"] == 1
+    assert payload["files"] == 3
     assert channel_file.exists()
+    assert manifest_file.exists()
+    assert readme_file.exists()
     assert metadata_file.exists()
     channel_text = channel_file.read_text(encoding="utf-8")
     assert 'name = "knowledge-sources"' in channel_text
     assert 'command = "know list sources --key automation --json"' in channel_text
     assert 'ctrl-o = "actions:open"' in channel_text
+    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    assert "TELEVISION_CONFIG" in manifest["install_macos"]
+    assert "LOCALAPPDATA" in manifest["install_windows"]
+    assert "Install on Windows PowerShell" in readme_file.read_text(encoding="utf-8")
 
 
 def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

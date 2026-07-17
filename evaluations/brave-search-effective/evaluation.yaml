@@ -1,0 +1,190 @@
+schemaVersion: 1
+benchmark:
+  id: brave-search-effective-offline-planning-compare
+  description: Compare isolated offline Brave Search planning with and without the standalone brave-search-effective skill.
+  tags:
+    - brave-search
+    - planning
+    - offline
+    - compare
+task:
+  prompts:
+    - id: recent-launch-news
+      description: Plan a recent-news research workflow on an unfamiliar installation.
+      prompt: |-
+        Prepare an offline command plan for an analyst on an unfamiliar laptop to research coverage from the last 14 days of the Northstar Atlas product launch. The eventual brief should cite a small set of relevant links and use absolute publication dates. Do not run any command or invent results.
+
+        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"fallback":["recovery action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: recent-news-plan
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const plan = value.plan.join("\n").toLowerCase();
+                const fallback = value.fallback.join("\n").toLowerCase();
+                const safety = value.safety.join("\n").toLowerCase();
+                const all = `${plan}\n${fallback}\n${safety}`;
+                return plan.includes("bx --help")
+                  && plan.includes("bx config --help")
+                  && plan.includes("bx news")
+                  && plan.includes("northstar atlas")
+                  && fallback.includes("bx web")
+                  && /absolute.{0,24}date|date.{0,24}absolute/.test(all)
+                  && (/do not (run|execute)|not (run|executed)|offline/.test(safety)
+                    || (/no (?:cli command|network call|search)/.test(safety) && safety.includes('executed')))
+                  && /do not (invent|fabricate)|not (invented|fabricated)/.test(safety);
+              } catch { return false; }
+    - id: visual-tutorial-shortlist
+      description: Plan a compact image and video discovery workflow.
+      prompt: |-
+        Plan, without executing searches, how a designer would find three reusable image references and two technical walkthrough videos for compact solar inverters. The final shortlist must preserve each candidate's title and URL. Do not claim that any item was found.
+
+        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"fallback":["recovery action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: multimedia-plan
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const plan = value.plan.join("\n").toLowerCase();
+                const fallback = value.fallback.join("\n").toLowerCase();
+                const all = `${plan}\n${fallback}\n${value.safety.join("\n").toLowerCase()}`;
+                return plan.includes("bx images")
+                  && plan.includes("bx videos")
+                  && /solar.{0,24}inverter|inverter.{0,24}solar/.test(plan)
+                  && all.includes("title")
+                  && all.includes("url")
+                  && /\b(3|three)\b/.test(all)
+                  && /\b(2|two)\b/.test(all)
+                  && fallback.includes("bx web")
+                  && /do not claim|not claim|no (?:item|result)|not claimed as found|without executing|offline/.test(all);
+              } catch { return false; }
+    - id: local-accessibility-research
+      description: Generalize the planning workflow to local and authoritative web research.
+      prompt: |-
+        Create an offline plan for a conference organizer to find wheelchair-accessible dinner venues near Shinjuku Station and confirm details against authoritative web pages. Start broad, then refine only if results are noisy. No CLI command or network/search call may be executed.
+
+        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"fallback":["recovery action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: local-research-plan
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const plan = value.plan.join("\n").toLowerCase();
+                const fallback = value.fallback.join("\n").toLowerCase();
+                const all = `${plan}\n${fallback}\n${value.safety.join("\n").toLowerCase()}`;
+                return plan.includes("bx places")
+                  && plan.includes("-q")
+                  && plan.includes("--location")
+                  && plan.includes("shinjuku")
+                  && plan.includes("bx web")
+                  && /site:|site restriction|official (?:site|page)|authoritative (?:site|page)/.test(all)
+                  && /no (?:phone )?calls|no cli command|no (?:network call|search).{0,24}executed|do not (?:run|execute)|offline/.test(all);
+              } catch { return false; }
+    - id: unavailable-feature-recovery
+      description: Recover safely from unavailable commands and rejected local-search syntax.
+      prompt: |-
+        An existing Brave CLI plan failed: `bx answers` returned `OPTION_NOT_IN_PLAN`, and a places query rejected positional input. Produce an offline recovery plan for summarizing launch coverage and locating nearby press venues in Boston. Do not retry unavailable features or fabricate results.
+
+        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"fallback":["recovery action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: unavailable-feature-recovery
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const plan = value.plan.join("\n").toLowerCase();
+                const fallback = value.fallback.join("\n").toLowerCase();
+                const safety = value.safety.join("\n").toLowerCase();
+                const all = `${plan}\n${fallback}\n${safety}`;
+                return !plan.includes("bx answers")
+                  && (plan.includes("bx web") || plan.includes("bx news"))
+                  && plan.includes("bx places")
+                  && plan.includes("-q")
+                  && plan.includes("--location")
+                  && plan.includes("boston")
+                  && (all.includes("option_not_in_plan") || all.includes("unavailable"))
+                  && (fallback.includes("bx web") || fallback.includes("working search subcommands"))
+                  && /do not (retry|fabricate)|not (retry|fabricate)|no fabricated/.test(`${fallback}\n${safety}`);
+              } catch { return false; }
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 4
+            && keys[0] === "skill"
+            && keys[1] === "plan"
+            && keys[2] === "fallback"
+            && keys[3] === "safety"
+            && value.skill === "brave-search-effective"
+            && [value.plan, value.fallback, value.safety].every(
+              (items) => Array.isArray(items)
+                && items.length > 0
+                && items.every((item) => typeof item === "string" && item.trim().length > 0)
+            );
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without Brave Search workflow instructions.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local brave-search-effective skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/brave-search-effective
+              skillId: brave-search-effective
+            install:
+              strategy: workspace-overlay
+      output:
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol offline planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

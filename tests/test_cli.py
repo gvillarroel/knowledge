@@ -1253,7 +1253,14 @@ def test_sync_television_writes_channel_bundle(tmp_path: Path) -> None:
 
     source_dir = tmp_path / "automation" / "television" / "television-knowledge-sources"
     assert (source_dir / "knowledge-sources.toml").exists()
+    manifest = json.loads((source_dir / "commands.json").read_text(encoding="utf-8"))
+    readme = (source_dir / "README.md").read_text(encoding="utf-8")
     assert (source_dir / "source-metadata.yaml").exists()
+    assert "TELEVISION_CONFIG" in manifest["install_macos"]
+    assert "LOCALAPPDATA" in manifest["install_windows"]
+    assert manifest["run_after_install"] == "tv knowledge-sources"
+    assert "Install on macOS" in readme
+    assert "Install on Windows PowerShell" in readme
 
 
 def test_export_generates_frontmatter_and_zip_archive(tmp_path: Path, capsys) -> None:

@@ -470,14 +470,23 @@ def test_skill_metadata_and_locked_dependencies_are_complete() -> None:
     assert "semantic-plan.json" in skill
     assert "refresh_semantic_okf.py" in skill
     assert "query_semantic_okf.py" not in skill
-    assert "$consult-semantic-okf" in skill
+    assert "consult-semantic-okf" not in skill
+    assert "Standalone boundary" in skill
+    assert "construction and maintenance only" in skill
     assert "source-combination.md" in skill
     assert "partition union" in skill
     assert "$build-semantic-okf" in metadata
-    assert "Create and refresh semantic knowledge snapshots" in metadata
+    assert "Build and maintain semantic knowledge folders" in metadata
     assert (SKILL_ROOT / "references" / "refreshing.md").is_file()
     assert (SKILL_ROOT / "references" / "python-runtime.md").is_file()
     assert (SCRIPTS / "runtime_smoke.py").is_file()
+    assert (SCRIPTS / "validate_okf_bundle.py").is_file()
+    assert "source .venv/bin/activate" in skill
+    assert r".\.venv\Scripts\Activate.ps1" in skill
+    assert "CPython 3.12 is the compatibility baseline" in skill
+    assert "python scripts/validate_okf_bundle.py semantic-okf-output" in skill
+    assert skill.index("source .venv/bin/activate") < skill.index("python -m pip install")
+    assert skill.index("python -m pip install") < skill.index("python scripts/runtime_smoke.py")
     assert not (SCRIPTS / "query_semantic_okf.py").exists()
     assert not (SKILL_ROOT / "references" / "querying.md").exists()
     assert not (SKILL_ROOT / "references" / "cross-source-synthesis.md").exists()
@@ -486,7 +495,8 @@ def test_skill_metadata_and_locked_dependencies_are_complete() -> None:
     protocol = combination.read_text(encoding="utf-8")
     assert "Separate bundles" in protocol
     assert "homogeneous partition union" in protocol
-    assert "Consultation handoff" in protocol
+    assert "Publication gate" in protocol
+    assert "consult-semantic-okf" not in protocol
     assert "upstream canonicalization" in protocol
     assert direct == [
         "PyYAML==6.0.3",
@@ -496,6 +506,104 @@ def test_skill_metadata_and_locked_dependencies_are_complete() -> None:
     ]
     for requirement in ("pyyaml==6.0.3", "rdflib==7.6.0", "pyshacl==0.40.0", "owlrl==7.6.2"):
         assert requirement in compiled.lower()
+
+    runtime = (SKILL_ROOT / "references" / "python-runtime.md").read_text(encoding="utf-8")
+    assert "source .venv/bin/activate" in runtime
+    assert r".\.venv\Scripts\Activate.ps1" in runtime
+    assert "exact locked dependencies" in runtime
+    assert runtime.index("source .venv/bin/activate") < runtime.index("python -m pip install")
+
+
+def test_builder_package_has_no_external_skill_or_repository_references() -> None:
+    forbidden = {
+        "consult-semantic-okf",
+        "extract-ontologies",
+        "open-knowledge-format",
+        "spec.md",
+        "readme.md",
+        "evaluations/",
+        "evaluations\\",
+    }
+    suffixes = {".md", ".py", ".txt", ".yaml", ".yml"}
+    violations: list[str] = []
+    for path in sorted(SKILL_ROOT.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in suffixes:
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        matches = sorted(token for token in forbidden if token in text)
+        if matches:
+            violations.append(f"{path.relative_to(SKILL_ROOT).as_posix()}: {matches}")
+    assert violations == []
+
+
+def test_builder_runs_after_its_folder_is_copied_outside_the_repository(tmp_path: Path) -> None:
+    standalone = tmp_path / "build-semantic-okf"
+    shutil.copytree(SKILL_ROOT, standalone)
+    manifest = write_fixture(tmp_path / "inputs")
+    output = tmp_path / "knowledge"
+
+    build = subprocess.run(
+        [
+            sys.executable,
+            str(standalone / "scripts" / "build_semantic_okf.py"),
+            str(manifest),
+            str(output),
+            "--output-format",
+            "json",
+        ],
+        cwd=standalone,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=120,
+        check=False,
+    )
+    assert build.returncode == 0, build.stderr
+
+    refresh = subprocess.run(
+        [
+            sys.executable,
+            str(standalone / "scripts" / "refresh_semantic_okf.py"),
+            "update",
+            str(manifest),
+            str(output),
+            "--check",
+            "--output-format",
+            "json",
+        ],
+        cwd=standalone,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=120,
+        check=False,
+    )
+    assert refresh.returncode == 0, refresh.stderr
+    assert json.loads(refresh.stdout)["status"] == "unchanged"
+
+
+def test_bundled_okf_validator_rejects_invalid_concepts(tmp_path: Path) -> None:
+    validator = load_script("validate_okf_bundle.py")
+    bundle = tmp_path / "bundle"
+    concepts = bundle / "concepts"
+    concepts.mkdir(parents=True)
+    (bundle / "index.md").write_text(
+        '---\nokf_version: "0.1"\n---\n\n# Concepts\n\n* [Example](concepts/example.md)\n',
+        encoding="utf-8",
+    )
+    concept = concepts / "example.md"
+    concept.write_text("---\ntitle: Example\n---\n\n# Example\n", encoding="utf-8")
+
+    errors = validator.validate_bundle(bundle)
+    assert [error.message for error in errors] == [
+        "concept frontmatter must include a non-empty top-level 'type'"
+    ]
+
+    concept.write_text(
+        "---\ntype: Example\ntitle: Example\n---\n\n# Example\n",
+        encoding="utf-8",
+    )
+    assert validator.validate_bundle(bundle) == []
 
 
 def test_production_skill_has_no_distributed_runtime_implementation_tokens() -> None:

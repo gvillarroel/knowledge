@@ -14,12 +14,25 @@ SUMMARY_RE = re.compile(
     r"^\s*(?P<lines>\d+)\s+(?P<pct>\d+(?:\.\d+)?)%\s+(?P<module>[\w\.]+)\s+\((?P<path>.+)\)\s*$"
 )
 NON_APPLICATION_TESTS = (
+    "tests/test_build_semantic_okf_embeddings_skill.py",
     "tests/test_build_semantic_okf_skill.py",
+    "tests/test_consult_semantic_okf_embeddings_skill.py",
     "tests/test_consult_semantic_okf_skill.py",
     "tests/test_extract_ontologies_skill.py",
+    "tests/test_graphify_semantic_okf_skills.py",
+    "tests/test_graphify_storage_comparison.py",
+    "tests/test_graphrag_okf_graphify.py",
+    "tests/test_roundtrip_confluence_pages_skill.py",
+    "tests/test_roundtrip_confluence_batch_skill.py",
+    "tests/test_confluence_8h_campaign.py",
+    "tests/test_confluence_8h_live_fixtures.py",
+    "tests/test_skill_independence.py",
     "tests/test_graphrag_cross_paper_benchmark.py",
     "tests/test_semantic_okf_builder_benchmark.py",
+    "tests/test_semantic_okf_embeddings_comparison.py",
     "tests/test_semantic_okf_reader_benchmark.py",
+    "tests/test_semantic_okf_storage_versions_comparison.py",
+    "tests/test_turso_semantic_okf_skills.py",
 )
 
 
@@ -74,7 +87,20 @@ def coverage_pytest_args(args: argparse.Namespace) -> list[str]:
     ]
 
 
+def trace_environment(repo_root: Path) -> dict[str, str]:
+    """Prioritize this checkout over an unrelated editable installation."""
+
+    env = os.environ.copy()
+    local_paths = [str(repo_root / "src"), str(repo_root)]
+    inherited = env.get("PYTHONPATH")
+    if inherited:
+        local_paths.append(inherited)
+    env["PYTHONPATH"] = os.pathsep.join(local_paths)
+    return env
+
+
 def run_trace(coverdir: Path, pytest_args: list[str]) -> str:
+    repo_root = Path(__file__).resolve().parents[1]
     python_lib = Path(sys.base_prefix) / "Lib"
     site_packages = python_lib / "site-packages"
     ignore_dirs = os.pathsep.join(
@@ -101,7 +127,8 @@ def run_trace(coverdir: Path, pytest_args: list[str]) -> str:
     ]
     result = subprocess.run(
         command,
-        cwd=Path(__file__).resolve().parents[1],
+        cwd=repo_root,
+        env=trace_environment(repo_root),
         capture_output=True,
         text=True,
         check=False,

@@ -44,7 +44,7 @@ know add aha PROD --key research
 know add arxiv https://arxiv.org/abs/1706.03762 --key research
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
-know add tv research-sources --key research --source-command "know list sources --key research --json"
+know add tv research-sources --key research --source-command "know list sources --key research --format json"
 know list sources --key research
 know search confluence "incident postmortem"
 know search arxiv "attention is all you need" --max-results 5 --sort-by submittedDate
@@ -211,7 +211,10 @@ tv \
 know add tv
 ```
 
-This copies the repository's pre-built `.toml` channel files into `~/.config/television/cable/`.
+This copies the repository's pre-built `.toml` channel files into the active
+Television cable directories. It honors `TELEVISION_CONFIG`, uses
+`%LOCALAPPDATA%\television\config\cable` on Windows, and also supports the
+macOS/Unix `$HOME/.config/television/cable` location.
 
 ### Create a reusable Television channel from `know list sources`
 
@@ -233,7 +236,9 @@ know add tv arxiv-transformers --key research \
 know sync television arxiv-transformers --key research
 ```
 
-After sync, the generated Television source writes a `channel.toml`, a command manifest, and a short README under the source raw directory. You can either copy the generated channel into `~/.config/television/cable/` or run the inline command from the manifest.
+After sync, the generated Television source writes a `channel.toml`, a command
+manifest, and a short README under the source raw directory. Use the platform
+installer in `commands.json`, or run the inline command from the manifest.
 
 ### Pre-built cables
 
@@ -256,9 +261,11 @@ Install them all at once:
 mkdir -p ~/.config/television/cable
 cp cables/*.toml ~/.config/television/cable/
 
-# PowerShell
-New-Item -ItemType Directory -Force -Path $HOME/.config/television/cable | Out-Null
-Copy-Item cables/*.toml $HOME/.config/television/cable/
+# Windows PowerShell
+$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'television' } else { Join-Path $env:LOCALAPPDATA 'television\config' }
+$CableDir = Join-Path $ConfigDir 'cable'
+New-Item -ItemType Directory -Force -Path $CableDir | Out-Null
+Copy-Item cables/*.toml $CableDir/
 ```
 
 Then run any channel:
@@ -286,6 +293,17 @@ python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --outp
 python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf --check
 python skills/open-knowledge-format/scripts/validate_okf_bundle.py okf
 ```
+
+## Semantic OKF embedding retrieval
+
+The repository includes a second standalone Semantic OKF skill pair for local embedding-based discovery:
+
+- `build-semantic-okf-embeddings` builds the unchanged authoritative OKF/RDF snapshot plus a hash-bound retrieval projection with native or LlamaIndex chunking and explicit embedding providers resolved from immutable, preloaded offline model snapshots.
+- `consult-semantic-okf-embeddings` performs read-only lexical, exact-vector, or hybrid retrieval and returns the authoritative concept paths and locators that must be opened before citation.
+
+The embedding projection is a discovery index, not a replacement for `records.jsonl`, concept Markdown, RDF, provenance, or validation evidence. The deterministic `build-semantic-okf` and `consult-semantic-okf` pair remains available as the lightweight baseline.
+
+The pinned 30-input GraphRAG comparison, reproducible runner, raw metrics, and interpretation are under [`evaluations/semantic-okf-embeddings/`](evaluations/semantic-okf-embeddings/summary.md).
 
 ## Notes
 

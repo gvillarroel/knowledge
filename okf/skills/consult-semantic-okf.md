@@ -1,13 +1,12 @@
 ---
 type: Agent Skill
 title: Semantic OKF Consultant
-description: Consult existing validated Semantic OKF knowledge snapshots without modifying
-  them. Use when Codex needs to answer questions from an OKF bundle, choose between
-  the record ledger, concept Markdown, RDF data, ontology, provenance, SHACL, or validation
-  layers, run safe local SELECT or ASK queries, trace exact evidence paths, compare
-  multiple sources, or produce grounded cited synthesis. Do not use for adding or
-  changing sources, manifests, mappings, ontology terms, validation rules, or generated
-  snapshots; use build-semantic-okf for those lifecycle operations.
+description: Give an agent the general read-only context and local tools needed to
+  navigate and consult an existing Semantic OKF knowledge folder efficiently. Use
+  when Codex needs to discover records, read concepts, choose an authoritative semantic
+  layer, run safe local SELECT or ASK queries, trace provenance, compare sources,
+  or return grounded evidence. This skill never creates, repairs, refreshes, or modifies
+  knowledge.
 tags:
 - codex
 - skill
@@ -17,14 +16,21 @@ source_path: skills/consult-semantic-okf/SKILL.md
 
 # Consult Semantic OKF
 
-Answer from one published Semantic OKF snapshot while preserving its revision and evidence boundaries.
+Navigate and answer from one published Semantic OKF knowledge folder while preserving its revision and evidence boundaries.
+
+## Standalone boundary
+
+- Use only this skill's `SKILL.md`, `references/`, `scripts/`, and declared Python requirements.
+- Do not import scripts, instructions, validators, or conventions from sibling skills or repository files.
+- Treat the supplied knowledge folder as the only domain input; the skill itself contains no domain corpus.
+- Provide read-only navigation and consultation context only. Never create or maintain the knowledge folder.
 
 ## Read-only boundary
 
 - Treat the bundle, source manifest, concepts, and semantic graphs as immutable inputs.
 - Do not edit sources, manifests, mappings, ontology declarations, SHACL rules, ledgers, concepts, or generated graphs.
 - Do not run build, refresh, recovery, or promotion commands.
-- If the snapshot is missing, failed, stale, or requires source changes, stop consultation and hand the task to `$build-semantic-okf`.
+- If the snapshot is missing, failed, stale, or requires source changes, report that condition and stop without attempting a repair.
 - Do not use prior knowledge, the web, or guesses when the request limits answers to the snapshot.
 
 ## Workflow
@@ -35,9 +41,9 @@ Answer from one published Semantic OKF snapshot while preserving its revision an
 4. Discover exact identifiers and artifact paths through `semantic/records.jsonl` before opening large concepts or graphs.
 5. Read selected `concepts/` Markdown for full explanations and source-oriented context.
 6. Use `semantic/data.ttl` only when the question needs joins, traversal, grouping, aggregation, or typed values. Add other graphs only for their declared purpose.
-7. For multi-source questions, run the executable evidence planner before drafting; keep its relevance-ranked, page-grounded coverage ledger and source reserve.
+7. For multi-source questions, establish breadth and evidence coverage before reading any one source deeply.
 8. Verify every returned value, citation, page locator, and `concept_path` against the selected authoritative layer.
-9. Apply the requested response schema exactly, run the executable answer preflight, repair every reported failure, and rerun it until `status` is `pass`.
+9. Apply the requested response schema exactly and verify the final evidence paths before returning the answer.
 
 ## Required references
 
@@ -51,11 +57,25 @@ Run commands from the directory containing this `SKILL.md`, or prefix paths with
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows PowerShell, activate the same environment with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Then install and verify with the activated interpreter:
+
+```bash
 python -m pip install -r scripts/requirements.txt
 python scripts/runtime_smoke.py
 ```
 
-The helper is local and read-only. It does not perform network requests, mutation, entailment, build, refresh, or recovery.
+Keep the environment activated for every command below. CPython 3.12 is the compatibility baseline used to compile the lock; a newer CPython is supported only when `runtime_smoke.py` passes with the exact locked dependencies.
+
+The bundled Python helper is the supported baseline. `rg`, external reasoners, and persistent triplestores are optional tools, not package prerequisites. The helper is local and read-only; it does not perform network requests, mutation, entailment, build, refresh, or recovery.
 
 ## Choose the authoritative layer
 
@@ -78,13 +98,15 @@ python scripts/query_semantic_okf.py BUNDLE ledger \
   --contains "retrieval strategy" --show-content --format json
 
 python scripts/query_semantic_okf.py BUNDLE sparql \
-  --query-file queries/methods.rq --graph data --format json
+  --query-file PATH_TO_DATA_QUERY.rq --graph data --format json
 
 python scripts/query_semantic_okf.py BUNDLE sparql \
-  --query-file queries/lineage.rq --graph data --graph provenance --format json
+  --query-file PATH_TO_LINEAGE_QUERY.rq --graph data --graph provenance --format json
 ```
 
-Use `--validate` to parse the complete read surface before consultation. This verifies the ledger, exact concept paths, semantic plan, and local Turtle graphs. It does not replace the builder's full semantic, SHACL, and publication validator.
+Replace each `PATH_TO_*_QUERY.rq` placeholder with a query file you create outside the immutable bundle. No `queries/` directory or example query asset is supplied by this package.
+
+Use `--validate` to parse the complete read surface before consultation. This verifies the ledger, exact concept paths, semantic plan, and local Turtle graphs. It is a read-only integrity check, not a repair operation.
 
 ## Cross-source synthesis
 
@@ -92,34 +114,14 @@ Work breadth before depth. Convert the request into a clause checklist and build
 
 Copy artifact paths verbatim from ledger `concept_path` values. Never reconstruct hashes, shorten generated names, use wildcard paths, or substitute a topic-adjacent source for a relevant one. Keep source IDs, cited pages, and evidence paths aligned.
 
-For a cross-source answer with an exact output contract, the following script gate is mandatory. Pass every required controlled dimension and retain at least one verified source beyond the hard minimum when the snapshot permits it:
-
-```bash
-python scripts/prepare_cross_source_evidence.py BUNDLE \
-  --question-id QUESTION_ID --question "QUESTION" \
-  --dimension DIMENSION --dimension OTHER_DIMENSION \
-  --min-sources MINIMUM --reserve 5
-```
-
-Review the selected interpretations for semantic fit. If a ranked source is only topic-adjacent, replace it with a relevant `ranked_alternates` paper by rerunning the planner with repeated `--candidate-paper` values. Start from `response_seed`; replace only its summary placeholder unless verified evidence requires a reviewed reselection. Do not type or reconstruct IDs, pages, citations, or generated paths from memory.
-
-Before answering, pipe the single candidate JSON document to the preflight with the same question contract:
-
-```bash
-python scripts/validate_cross_source_answer.py BUNDLE --stdin \
-  --question-id QUESTION_ID --question "QUESTION" \
-  --dimension DIMENSION --dimension OTHER_DIMENSION \
-  --min-sources MINIMUM --reserve 5 < CANDIDATE.json
-```
-
-On failure, apply the reported repair. Use `normalized_response` for safe key ordering, sorting, deduplication, path-prefix cleanup, and citation merging; manually resolve semantic coverage gaps or unknown paths from the planner. Rerun the preflight after every repair. Return the candidate only when the latest report has `status: pass`. The scripts read the bundle without writing to it or using the network.
+Read [cross-source-synthesis.md](references/cross-source-synthesis.md) only when the request needs multi-source comparison or a strict evidence contract. Its optional helpers remain local and read-only.
 
 ## Completion gate
 
 Before returning an answer, confirm:
 
 - the snapshot passed the read-surface gate and was not modified;
-- every multi-source answer passed `validate_cross_source_answer.py` after its final repair;
+- any strict evidence contract passed its bundled read-only preflight after the final repair;
 - the chosen graph set matches the question and no unrelated graph was treated as domain evidence;
 - every requested operation, clause, controlled dimension, and source minimum is satisfied;
 - returned scalars, arrays, objects, RDF terms, datatypes, and nulls match the requested representation;

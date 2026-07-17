@@ -1,11 +1,17 @@
 ---
 name: know
-description: Use when needs to work with the `know` CLI in this repository to create knowledge keys, register sources, inspect configured sources, synchronize content into `~/.knowledge`, export normalized Markdown libraries, or import exported archives.
+description: Operate the `know` CLI to create local knowledge keys, register sources, inspect configuration, synchronize content into `~/.knowledge`, export normalized Markdown libraries, import archives, or connect Television output. Use when Codex needs to run or explain a reproducible `know` knowledge-base workflow.
 ---
 
-# Overview
+# Know CLI
 
 Use the `know` CLI to build and maintain a local, reproducible knowledge base inside `~/.knowledge`.
+
+## Standalone boundary
+
+- Treat the installed `know` executable, configured remote services, and user credentials as explicit external prerequisites.
+- Use this `SKILL.md` as the operational contract. Do not require root documentation, source modules, cable files, or another skill.
+- Run `know --help` and the relevant subcommand `--help` before using a command that is not covered below. If the executable or a requested integration is unavailable, return that diagnostic without searching a repository checkout for missing behavior.
 
 ## Follow the standard workflow
 
@@ -21,14 +27,14 @@ Use the `know` CLI to build and maintain a local, reproducible knowledge base in
 3. Inspect registered sources with `know list sources --key <KEY>`.
 
 
-## Preserve repository expectations
+## Preserve operational expectations
 
 - Keep documents in English.
 - Prefer the command shape `know <verb> <object>` consistently and avoid noun-first top-level forms such as `know key ...`.
 - Preserve source content under `<key>/<source-type>/<source-id>/`.
 - Ensure exported Markdown includes YAML frontmatter with source provenance.
 - Ensure exported Markdown remains Open Knowledge Format compatible: every concept document needs a non-empty `type` field and should preserve `resource`, `tags`, and `timestamp` when they can be derived.
-- Prefer the command shapes documented in `SPEC.md` and `docs/cli.md`.
+- Verify unfamiliar command shapes through the installed CLI's `--help` output.
 
 ## Use credentials and metadata consistently
 
@@ -44,7 +50,10 @@ Export normalized Markdown and a zip archive with `know export --key <KEY>`.
 Import an archive with `know import <ARCHIVE.zip>`.
 
 ## Useful flags
-- `--json` — Emit structured JSON output.
+
+Place global flags before the command name. For example, use `know --store ./stores/lab --json list sources --key research`, not `know list sources --store ./stores/lab --json`.
+
+- `--json` — Emit structured JSON output. It is a global flag, so place it before the command, for example `know --json list sources --key research`; use a subcommand's `--format json` option when available.
 - `--verbose` — Show progress messages during sync and export.
 - `--quiet` — Suppress non-error output.
 - `--store <PATH>` — Override the default `~/.knowledge` store path.
@@ -59,16 +68,7 @@ be wired directly into `tv` as source and preview commands.
 
 ### Cable files
 
-Pre-built cable TOML definitions live in `cables/` at the repository root.  Copy them into
-`~/.config/television/cable/` and run `tv <channel-name>`.
-
-Available cables:
-- `know-keys.toml` — Browse knowledge keys.
-- `know-sources.toml` — Browse all registered sources.
-- `know-credentials.toml` — Browse stored credentials.
-- `know-confluence.toml` — Search Confluence pages.
-- `know-jira.toml` — Search Jira issues.
-- `know-arxiv.toml` — Search arXiv papers.
+Generate reproducible cable files through `know add television` and `know sync television`, or use the inline commands below. Treat any pre-built cable supplied by a target project as optional user input, not as a prerequisite of this skill.
 
 ### Inline tv usage
 

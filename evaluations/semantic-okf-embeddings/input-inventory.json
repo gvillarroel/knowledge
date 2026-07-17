@@ -1,0 +1,315 @@
+{
+  "schema_version": "1.0",
+  "corpus_id": "graphrag-cross-paper-core-30",
+  "description": "The exact 15 paper Markdown files and 15 reviewed-claim JSONL files processed by the historical Semantic OKF GraphRAG build.",
+  "hash_contract": {
+    "file_algorithm": "sha256",
+    "tree_algorithm": "sha256(canonical JSON array of path and logical-file sha256 objects sorted by path)",
+    "text_normalization": "CRLF and CR are normalized to LF before logical-file hashing",
+    "rows_definition": "Logical adapter records: one per Markdown file and one per non-empty JSONL line."
+  },
+  "baseline": {
+    "commit": "fcb88d8a216e7a47667abbb87b4a841ba791a9a0",
+    "bundle_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "source_count": 31,
+    "record_count": 874,
+    "paper_record_count": 15,
+    "claim_record_count": 831,
+    "analysis_term_record_count": 28
+  },
+  "core_file_count": 30,
+  "core_total_bytes": 1845945,
+  "core_record_count": 846,
+  "core_tree_sha256": "25945882b73ca659230c8b8c66a58fa8418313f8a0233f57e85b0e48445f4328",
+  "files": [
+    {
+      "paper_id": "2402.07630v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2402.07630v3.md",
+      "bytes": 88131,
+      "rows": 1,
+      "sha256": "57e1202311e255a1122ab1cddd45091c16c444c6d9fc9c1ed92fed2afcec3df4"
+    },
+    {
+      "paper_id": "2404.16130v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2404.16130v2.md",
+      "bytes": 93248,
+      "rows": 1,
+      "sha256": "ca2e42637214642a1270b0ae88db396318d2708670066ccb602a06d78451b30b"
+    },
+    {
+      "paper_id": "2405.14831v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2405.14831v3.md",
+      "bytes": 106238,
+      "rows": 1,
+      "sha256": "ffe629305e99d4fc1b2e17bdf988029b8185227bb27536d190fb2be928201de8"
+    },
+    {
+      "paper_id": "2406.14550v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2406.14550v2.md",
+      "bytes": 87061,
+      "rows": 1,
+      "sha256": "4e1d6175774f5524580148586334b95470b737c87d1fb6ff50b175717fe986f6"
+    },
+    {
+      "paper_id": "2408.04187v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2408.04187v2.md",
+      "bytes": 43330,
+      "rows": 1,
+      "sha256": "fd5aabf01982adc274b170dbfbca42715454cbc756e0f28b3bed4063da279e0e"
+    },
+    {
+      "paper_id": "2408.08535v1",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2408.08535v1.md",
+      "bytes": 49263,
+      "rows": 1,
+      "sha256": "c5c57c2f8050b12049360ec14c4f817cab911da8227a3681faf483b6e7deffe4"
+    },
+    {
+      "paper_id": "2409.13731v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2409.13731v3.md",
+      "bytes": 123721,
+      "rows": 1,
+      "sha256": "cea7685951a16ceeff771d990bb8fd5472edbf1d3f6169b55dfb0e28f85e5e6d"
+    },
+    {
+      "paper_id": "2410.05779v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2410.05779v3.md",
+      "bytes": 63620,
+      "rows": 1,
+      "sha256": "2c1f8930e2645bc4be7395dd5d983f08aa552a20f3f1a67ad3a4b242847ae2fd"
+    },
+    {
+      "paper_id": "2502.14902v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2502.14902v2.md",
+      "bytes": 48410,
+      "rows": 1,
+      "sha256": "effce389bf7eb96a67ec8e4d5b2ae3b6e8e10899dea9aac440b165695c0dfb7f"
+    },
+    {
+      "paper_id": "2503.06474v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2503.06474v2.md",
+      "bytes": 40042,
+      "rows": 1,
+      "sha256": "7baad996435ed72738dd581dd508d0fcb08b4a48e3b473524c5683260242a1bd"
+    },
+    {
+      "paper_id": "2503.13804v1",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2503.13804v1.md",
+      "bytes": 43683,
+      "rows": 1,
+      "sha256": "a43bdfc3405988ddb1b03566804773d33838a79e339927c6b00364a801a7b78a"
+    },
+    {
+      "paper_id": "2504.02112v2",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2504.02112v2.md",
+      "bytes": 112674,
+      "rows": 1,
+      "sha256": "463d05c0784582840a84bc229846a71698adc3ac6254bca4e78538e1ab4133f9"
+    },
+    {
+      "paper_id": "2506.05690v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2506.05690v3.md",
+      "bytes": 120191,
+      "rows": 1,
+      "sha256": "6ae12ff0bf8d4b6d6c217939c46a2f33ec3372459f3102b44667db33517cd215"
+    },
+    {
+      "paper_id": "2507.03226v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2507.03226v3.md",
+      "bytes": 36960,
+      "rows": 1,
+      "sha256": "a6df804a1f65e7f26f6c214667e01b2e821f1ae96c26804f986ceeb022f7a8ee"
+    },
+    {
+      "paper_id": "2508.19855v3",
+      "role": "paper-markdown",
+      "kind": "markdown",
+      "path": "sources/markdown/2508.19855v3.md",
+      "bytes": 67855,
+      "rows": 1,
+      "sha256": "c432069629a76fdd6a6ef534c4dbd01860619272075df64764f3d78272daa4d4"
+    },
+    {
+      "paper_id": "2402.07630v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2402.07630v3.jsonl",
+      "bytes": 50172,
+      "rows": 59,
+      "sha256": "d8d6e4ecc38ec1e258ddf2eec35f861a5237919132cedee78232668c84f65228"
+    },
+    {
+      "paper_id": "2404.16130v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2404.16130v2.jsonl",
+      "bytes": 49700,
+      "rows": 57,
+      "sha256": "365adc88cfa6adca40299a0d6c37395a9bef03c7ab62176439805f75f8c6719d"
+    },
+    {
+      "paper_id": "2405.14831v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2405.14831v3.jsonl",
+      "bytes": 51988,
+      "rows": 60,
+      "sha256": "79529d8c0097e0497e913c5874c3f6f609325b7a56d75c36b1b2b5fd06a4430b"
+    },
+    {
+      "paper_id": "2406.14550v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2406.14550v2.jsonl",
+      "bytes": 50295,
+      "rows": 59,
+      "sha256": "f4c120b535ee3d9d069846dd5066a82fa162eb26d65e578a369bb316c3a383d0"
+    },
+    {
+      "paper_id": "2408.04187v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2408.04187v2.jsonl",
+      "bytes": 52534,
+      "rows": 60,
+      "sha256": "1155137b32ec2eb9f881a1f9b55abd34faf1c8d59401bdb97b65d34831811cac"
+    },
+    {
+      "paper_id": "2408.08535v1",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2408.08535v1.jsonl",
+      "bytes": 43076,
+      "rows": 50,
+      "sha256": "4bb716b6633f41470d1c70090243289f7bf2441a8ee961c28b78332dd240612d"
+    },
+    {
+      "paper_id": "2409.13731v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2409.13731v3.jsonl",
+      "bytes": 52713,
+      "rows": 58,
+      "sha256": "ac565daff4a5667effd6bf0538b11ca4470b0998c7dc7221464ea02aaa5b4bb1"
+    },
+    {
+      "paper_id": "2410.05779v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2410.05779v3.jsonl",
+      "bytes": 47132,
+      "rows": 55,
+      "sha256": "fcd6073f6c1f32ce8130bfce02df06787dad056ae1183632f15322253b45b7da"
+    },
+    {
+      "paper_id": "2502.14902v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2502.14902v2.jsonl",
+      "bytes": 46922,
+      "rows": 54,
+      "sha256": "ae80822bc0c56506c422b59b38ef3b5a5b9db2c596cb0cef84764dfeeffb5092"
+    },
+    {
+      "paper_id": "2503.06474v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2503.06474v2.jsonl",
+      "bytes": 51479,
+      "rows": 59,
+      "sha256": "e7cd07362dfffcc65946c0c71515eb7428e9e857fe40468efc4b559ad1522b30"
+    },
+    {
+      "paper_id": "2503.13804v1",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2503.13804v1.jsonl",
+      "bytes": 41383,
+      "rows": 49,
+      "sha256": "b9d9b96ee8a5d1368786f602a399ee7b9b7e18f1a8d9119e08820a22167188ef"
+    },
+    {
+      "paper_id": "2504.02112v2",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2504.02112v2.jsonl",
+      "bytes": 46020,
+      "rows": 54,
+      "sha256": "b2e4a23af1bf54b26493297374d1d78ae5f8f2bee2eda08515e4794917b0e878"
+    },
+    {
+      "paper_id": "2506.05690v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2506.05690v3.jsonl",
+      "bytes": 43987,
+      "rows": 50,
+      "sha256": "ee985029809e36444379d8558bb43ab4845408fd6953ae05dc2758ef4dac8186"
+    },
+    {
+      "paper_id": "2507.03226v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2507.03226v3.jsonl",
+      "bytes": 44208,
+      "rows": 51,
+      "sha256": "edcdb4eb9d51661dad3f5e2df64043e1c180fb291a4418fe89af6ee90752a361"
+    },
+    {
+      "paper_id": "2508.19855v3",
+      "role": "reviewed-claims",
+      "kind": "jsonl",
+      "path": "sources/claims/2508.19855v3.jsonl",
+      "bytes": 49909,
+      "rows": 56,
+      "sha256": "45d0d862b6b2645de583879c9b7c58c151ec9faf43921686b4d13eeba81a1ff3"
+    }
+  ],
+  "required_auxiliary": {
+    "reason": "The historical manifest declares a shared analysis vocabulary in addition to the 30 paper and claim inputs. It is required to keep claim object references valid and to reproduce all 874 records.",
+    "file": {
+      "role": "analysis-vocabulary",
+      "kind": "jsonl",
+      "path": "sources/semantic/analysis-vocabulary.jsonl",
+      "bytes": 5687,
+      "rows": 28,
+      "sha256": "512951d58fa9ed0b03e43bdd54f13b99c812660991be071760933afb031db59b"
+    },
+    "real_build_input_count": 31,
+    "real_build_record_count": 874,
+    "real_build_inputs_tree_sha256": "ab14c14f6471086a320f75350def889ba91f2bbd3b040f81fa4797814ce689ab",
+    "manifest": {
+      "path": "manifest.json",
+      "bytes": 36969,
+      "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: open-knowledge-format
-description: Use when Codex needs to validate, generate, repair, convert, or explain Google Cloud Open Knowledge Format (OKF) v0.1 bundles, including Markdown knowledge libraries, project documentation, Codex or agent skills that need a separate OKF projection, YAML frontmatter, reserved index.md/log.md files, citations, cross-links, or `know` CLI exports.
+description: Use when Codex needs to validate, generate, repair, convert, or explain Google Cloud Open Knowledge Format (OKF) v0.1 bundles, including Markdown knowledge libraries, project documentation, Codex or agent skills that need a separate OKF projection, YAML frontmatter, reserved index.md/log.md files, citations, cross-links, or generated Markdown exports.
 ---
 
 # Open Knowledge Format
@@ -8,6 +8,22 @@ description: Use when Codex needs to validate, generate, repair, convert, or exp
 ## Overview
 
 Use this skill to produce or audit Google Cloud Open Knowledge Format (OKF) v0.1 bundles: directory trees of Markdown concept documents with YAML frontmatter.
+
+## Standalone boundary
+
+The scripts require Python 3.11 or newer. After copying this skill directory, run all commands from the copied skill root and install its local dependency lock in an isolated environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment with `source .venv/bin/activate` on POSIX shells or `.venv\Scripts\Activate.ps1` in PowerShell, then install the pinned dependencies:
+
+```bash
+python -m pip install -r scripts/requirements.txt
+```
+
+Do not rely on a repository-level environment, lock file, or sibling skill.
 
 ## Workflow
 
@@ -23,37 +39,25 @@ Use this skill to produce or audit Google Cloud Open Knowledge Format (OKF) v0.1
 
 Do not add a top-level OKF `type` to a native Codex `SKILL.md`. Its frontmatter is a separate discovery contract and should contain only `name` and `description`.
 
-For a project with repo-local skills, generate a strict OKF subdirectory instead:
+For a project with project-local skills, generate a strict OKF subdirectory instead. Run these commands from this skill's root:
 
 ```bash
 python scripts/build_project_okf_bundle.py <project-root> --output <project-root>/okf
 python scripts/build_project_okf_bundle.py <project-root> --output <project-root>/okf --check
 ```
 
-The builder projects `README.md`, `SPEC.md` when present, and every `skills/*/SKILL.md` into ordinary OKF concept documents. It also creates reserved indexes and runs the bundled validator. Keep the generated bundle committed when the project treats it as an interoperability artifact.
+The builder projects `README.md`, `SPEC.md` when present, and every `skills/*/SKILL.md` into ordinary OKF concept documents. It also creates reserved indexes and runs the validator bundled in this directory. Keep the generated bundle committed when the project treats it as an interoperability artifact.
 
-## `know` CLI Mapping
+## Producer Metadata
 
-When working in this repository, prefer these OKF concept types for exported source documents:
-
-- `arxiv` -> `arXiv Paper`
-- `site` -> `Web Page`
-- `confluence` -> `Confluence Page`
-- `jira` -> `Jira Issue`
-- `aha` -> `Aha Feature`
-- `google_releases` -> `Google Cloud Release Note`
-- `video` -> `Video Transcript`
-- `github` -> `Repository File`
-- `television` -> `Television Channel`
-
-Keep existing provenance fields such as `knowledge_key`, `source_id`, `source_type`, `source_url`, `web_url`, `entry_url`, `paper_id`, and `issue_key`; OKF permits producer-defined fields.
+Choose short concept types that describe the source artifact without inventing a central taxonomy. Preserve existing producer-specific provenance fields because OKF permits unknown metadata keys.
 
 ## Validation
 
 Run:
 
 ```bash
-python skills/open-knowledge-format/scripts/validate_okf_bundle.py <bundle-root>
+python scripts/validate_okf_bundle.py <bundle-root>
 ```
 
 Treat validation failures as actionable:

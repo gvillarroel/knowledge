@@ -1,0 +1,107 @@
+schemaVersion: 1
+benchmark:
+  id: md2conf-evolution-v2-property-regression
+  description: Targeted post-development regression check for recursive global-property reconciliation; this is not a breadth benchmark.
+  tags:
+    - md2conf
+    - evolution-v2
+    - regression
+    - isolated
+task:
+  prompts:
+    - id: reconcile-global-properties-regression
+      description: Verify recursive property merging, replacement impact, and a complete safe close.
+      prompt: We would publish `property-merge/page.md` with `--global-properties property-merge/global-properties.yaml`. Use `property-merge/remote-state.json` to predict the desired property set and decide whether the preserve-all requirement is met. Do not contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: property-regression-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response blocks the preserve-all publication because the extension-owned workflow property is absent from the desired set, and explicitly requires either leaving properties unmanaged or reviewing a complete intended property set before any live command.
+          - type: llm-rubric
+            metric: property-regression-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response describes a recursive nullish merge in which document values win over global defaults, specifically derives layout width=narrow, theme=document, density=compact, owner team=docs, and retention years=7, and explains that full reconciliation removes unspecified `com.vendor.workflow` apart from md2conf's synchronization property.
+workspace:
+  sources:
+    - id: md2conf-v2-property-fixtures
+      type: local-path
+      path: evaluations/md2conf/fixtures/workspaces/v2-development
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: javascript
+      metric: non-empty-response
+      value: typeof output === "string" && output.trim().length >= 80
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without md2conf workflow guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags: [control, no-skill, regression]
+        labels:
+          skill_state: "off"
+    - id: frozen-v1
+      description: Frozen md2conf skill before the second evolution pass.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: evaluations/md2conf/fixtures/skills/md2conf-v1
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags: [frozen, md2conf-v1, regression]
+        labels:
+          skill_state: "frozen-v1"
+    - id: candidate
+      description: Frozen candidate after the second evolution pass.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/md2conf
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags: [candidate, md2conf-v2, regression]
+        labels:
+          skill_state: "candidate"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline regression route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags: [codex, sol, offline, regression]
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

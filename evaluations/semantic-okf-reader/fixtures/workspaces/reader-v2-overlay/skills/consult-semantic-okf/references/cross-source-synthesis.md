@@ -50,7 +50,9 @@ Apply these selection gates:
 4. Keep one additional verified source when a selected claim is borderline or indirect.
 5. Reject topic-adjacent padding: extra sources do not compensate for being below the relevant-source minimum.
 
-Only after the breadth gate passes should you open the selected claim and source concepts for close reading. Preserve real distinctions between sources; a shared dimension is an analysis axis, not proof that two methods are equivalent.
+Only after the breadth gate passes should you open the selected claim and source concepts for close reading. Preserve real distinctions between sources; a shared dimension is an analysis axis, not proof that two methods are equivalent. When relevant evidence permits, keep one additional verified source beyond the hard minimum. This reserve protects the answer from a borderline interpretation, but it must never be filled with topic-adjacent padding.
+
+For exact cross-source answer contracts, use `prepare_cross_source_evidence.py` to make this ledger executable. Its local BM25 rank is a discovery aid, not a relevance verdict: read each selected interpretation and use explicit `--candidate-paper` values to replace a weak selection. The script copies exact claim paths and parses page locators from the ledger, then emits a response seed whose source IDs, citations, dimensions, and evidence are already aligned.
 
 ## 4. Verify citations and artifact paths
 
@@ -63,11 +65,15 @@ For each selected source:
 3. retain an authoritative artifact type appropriate to the requested evidence contract;
 4. confirm every emitted path exists beneath the bundle root.
 
-Claim, source, paper, and method concepts may all be valid evidence when the bundle defines them as authoritative. Do not force one artifact type across every bundle. Do not emit glob characters, shortened filenames, placeholder suffixes, or guessed hashes.
+Claim, source, paper, and method concepts may all be valid evidence when the bundle defines them as authoritative. Prefer claim concepts for mechanism or operator statements, paper concepts for broad page-spanning verification, and both when the answer needs both specificity and readable context. Do not force one artifact type across every bundle. Do not emit glob characters, shortened filenames, placeholder suffixes, or guessed hashes.
 
-## 5. Synthesize, then run a deterministic preflight
+## 5. Synthesize, then run the deterministic preflight
 
 Write a comparative explanation organized by the question's clauses or method families. Explain differences in mechanism, retrieval or reasoning task, strengths, limitations, and trade-offs where the selected evidence supports them. Avoid a paper-by-paper inventory.
+
+For an exact cross-source response contract, run `validate_cross_source_answer.py` with the same question ID, question text, dimensions, source minimum, reserve, and word bounds used for preparation. The preflight rejects duplicate or trailing JSON, wrong key order and types, length errors, unsorted or duplicate arrays, uncontrolled dimensions, insufficient locally relevant sources, citation-page errors, unknown paths, source ownership mismatches, and missing claim coverage.
+
+The report deliberately separates three independent counts: listed paper IDs, citation sources, and paper-specific claim-evidence sources. All three must meet the source gate and refer to the same papers. A generic semantic graph path is supplemental evidence; it never substitutes for paper-specific evidence.
 
 Before returning the answer, check all of the following:
 
@@ -81,5 +87,4 @@ Before returning the answer, check all of the following:
 - every evidence item is a string copied from a verified `concept_path` and exists locally;
 - no wildcard, abbreviated generated name, placeholder, or synthesized hash appears.
 
-If any gate fails, repair the coverage ledger or output structure before emitting. Do not hide a coverage gap by adding unrelated sources or unverifiable paths.
-
+If any gate fails, repair the coverage ledger or output structure, then rerun the preflight. Safe structural repairs appear in `normalized_response`; guessed paths and semantic coverage gaps remain hard failures and require exact planner evidence. Do not hide a coverage gap by adding unrelated sources or unverifiable paths. A passing preflight proves structural and local evidence alignment, not that every prose sentence is semantically entailed; retain that responsibility during close reading.

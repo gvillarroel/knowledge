@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 8,
+    "minimumTaskFamilies": 8,
+    "requiredQualities": [
+      "channel-metadata",
+      "named-source-cycling",
+      "source-formatting",
+      "watch-and-ordering",
+      "preview-cycling",
+      "preview-metadata",
+      "ui-configuration",
+      "keybindings-and-actions",
+      "templating",
+      "macos-generation",
+      "windows-generation",
+      "three-level-chain",
+      "csv-preview",
+      "heterogeneous-previews",
+      "dependency-guidance",
+      "validation-and-recovery",
+      "know-lifecycle"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "complete-channel-spec",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "complete-channel-authoring",
+      "qualities": [
+        "channel-metadata",
+        "named-source-cycling",
+        "source-formatting",
+        "watch-and-ordering",
+        "preview-cycling",
+        "preview-metadata",
+        "ui-configuration",
+        "keybindings-and-actions",
+        "templating"
+      ]
+    },
+    {
+      "promptId": "macos-channel-config",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "macos-config-generation",
+      "qualities": [
+        "macos-generation",
+        "ui-configuration"
+      ]
+    },
+    {
+      "promptId": "windows-channel-config",
+      "caseKind": "generalization",
+      "taskFamily": "windows-config-generation",
+      "qualities": [
+        "windows-generation",
+        "ui-configuration"
+      ]
+    },
+    {
+      "promptId": "three-level-associated-chain",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "associated-channel-navigation",
+      "qualities": [
+        "three-level-chain",
+        "templating",
+        "keybindings-and-actions",
+        "macos-generation",
+        "windows-generation"
+      ]
+    },
+    {
+      "promptId": "mixed-data-previews",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "heterogeneous-preview-design",
+      "qualities": [
+        "csv-preview",
+        "heterogeneous-previews",
+        "dependency-guidance"
+      ]
+    },
+    {
+      "promptId": "know-channel-lifecycle",
+      "caseKind": "generalization",
+      "taskFamily": "know-backed-channel-lifecycle",
+      "qualities": [
+        "know-lifecycle",
+        "validation-and-recovery"
+      ]
+    },
+    {
+      "promptId": "preview-dependency-preflight",
+      "caseKind": "generalization",
+      "taskFamily": "preview-dependency-planning",
+      "qualities": [
+        "dependency-guidance",
+        "macos-generation",
+        "windows-generation"
+      ]
+    },
+    {
+      "promptId": "capability-drift-recovery",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "channel-drift-diagnosis",
+      "qualities": [
+        "validation-and-recovery",
+        "channel-metadata"
+      ]
+    }
+  ]
+}

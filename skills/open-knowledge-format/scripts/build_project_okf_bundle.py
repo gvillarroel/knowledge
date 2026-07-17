@@ -56,7 +56,7 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
                 "type": "Software Project",
                 "title": title,
                 "description": description,
-                "tags": ["knowledge", "cli", "okf"],
+                "tags": ["project", "okf"],
                 "source_path": "README.md",
             },
             readme,
@@ -68,13 +68,13 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
     if spec_path.is_file():
         spec_body = spec_path.read_text(encoding="utf-8")
         spec_title = f"{title} specification"
-        spec_description = "Requirements and architecture for the knowledge CLI."
+        spec_description = f"Requirements and architecture for {title}."
         files[Path("specification.md")] = render_concept(
             {
                 "type": "Project Specification",
                 "title": spec_title,
                 "description": spec_description,
-                "tags": ["knowledge", "requirements", "okf"],
+                "tags": ["requirements", "okf"],
                 "source_path": "SPEC.md",
             },
             spec_body,
@@ -171,14 +171,14 @@ def check_bundle(project_root: Path, output: Path) -> list[str]:
 def _project_metadata(project_root: Path) -> tuple[str, str]:
     pyproject_path = project_root / "pyproject.toml"
     if not pyproject_path.is_file():
-        return project_root.name, f"Project knowledge for {project_root.name}."
+        return project_root.name, f"Project documentation for {project_root.name}."
     with pyproject_path.open("rb") as handle:
         payload = tomllib.load(handle)
     project = payload.get("project") if isinstance(payload, dict) else None
     if not isinstance(project, dict):
-        return project_root.name, f"Project knowledge for {project_root.name}."
+        return project_root.name, f"Project documentation for {project_root.name}."
     name = str(project.get("name") or project_root.name)
-    description = str(project.get("description") or f"Project knowledge for {name}.")
+    description = str(project.get("description") or f"Project documentation for {name}.")
     return name, description
 
 

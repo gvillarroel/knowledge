@@ -1,0 +1,1481 @@
+{
+  "corpus": {
+    "questions": 30,
+    "records": 874,
+    "sources": 31
+  },
+  "inputs": {
+    "graphify_skills": {
+      "build": {
+        "file_count": 13,
+        "logical_tree_sha256": "b53140764be80302b7ff24f187e34699aacbedbcaf8b7d3a053af09b2c6861ec",
+        "total_bytes": 173247
+      },
+      "consult": {
+        "file_count": 9,
+        "logical_tree_sha256": "f27bf956b8656f62c3de8bf883a15a3cd3a60674826cabbf814f7b027f32917f",
+        "total_bytes": 40075
+      }
+    },
+    "manifest": {
+      "path": "evaluations/graphrag-cross-paper/manifest.json",
+      "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37"
+    },
+    "prior_report": {
+      "path": "evaluations/semantic-okf-storage-versions/operational-report.json",
+      "sha256": "6fe835c258e643052975dc4a4382383711cca2102074a7d9295ff29297f34cce"
+    },
+    "questions": {
+      "path": "evaluations/semantic-okf-embeddings/retrieval-questions.jsonl",
+      "sha256": "fc583fc4cfdb8c392b8e53e929b5b052a86b0d288297a1d73723ee53feec175a"
+    }
+  },
+  "methodology": {
+    "builds": "two fresh independent Graphify-backed builds",
+    "evidence": "every hit must match ledger identity and recomputed record digest, derive the same paper ID from the ledger, resolve through a safe exact concept-file locator, return byte-identical concept content, and contain the exact authoritative ledger body",
+    "operations": "5 fresh validated CLI subprocesses per authoritative operation",
+    "retrieval": "one fresh validated Graphify CLI subprocess per existing retrieval question",
+    "timing_warning": "latency scopes differ across historical routes; compare quality directly and latency only with the stated process boundary"
+  },
+  "operational_queries": {
+    "aggregate": {
+      "file-backed": {
+        "iterations": 5,
+        "max_ms": 628.8702000165358,
+        "mean_ms": 615.045899990946,
+        "median_ms": 617.8595999954268,
+        "min_ms": 601.4757000375539,
+        "p95_ms": 627.3221800103784,
+        "samples_ms": [
+          605.8938999194652,
+          617.8595999954268,
+          601.4757000375539,
+          621.1300999857485,
+          628.8702000165358
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      },
+      "graphify-backed": {
+        "max_ms": 1885.768799984362,
+        "mean_ms": 1534.6369799925014,
+        "median_ms": 1554.2886999901384,
+        "min_ms": 1304.8774999915622,
+        "p95_ms": 1821.8439599848352,
+        "samples_ms": [
+          1554.2886999901384,
+          1362.1053000097163,
+          1885.768799984362,
+          1566.1445999867283,
+          1304.8774999915622
+        ]
+      },
+      "groups": 31,
+      "result_parity": true,
+      "turso-backed": {
+        "iterations": 5,
+        "max_ms": 502.5055999867618,
+        "mean_ms": 486.66288000531495,
+        "median_ms": 484.3091999646276,
+        "min_ms": 467.426500050351,
+        "p95_ms": 502.13355999439955,
+        "samples_ms": [
+          502.5055999867618,
+          484.3091999646276,
+          500.6454000249505,
+          467.426500050351,
+          478.42769999988377
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      }
+    },
+    "exact_record": {
+      "file-backed": {
+        "iterations": 5,
+        "max_ms": 611.643600044772,
+        "mean_ms": 340.35962000489235,
+        "median_ms": 276.11149998847395,
+        "min_ms": 257.93800002429634,
+        "p95_ms": 547.3264600383117,
+        "samples_ms": [
+          266.04709995444864,
+          290.0579000124708,
+          611.643600044772,
+          276.11149998847395,
+          257.93800002429634
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      },
+      "graphify-backed": {
+        "max_ms": 1899.2003000166733,
+        "mean_ms": 1527.5379600119777,
+        "median_ms": 1442.2386000223923,
+        "min_ms": 1328.2644000137225,
+        "p95_ms": 1829.174200014677,
+        "samples_ms": [
+          1442.2386000223923,
+          1418.916700000409,
+          1899.2003000166733,
+          1549.0698000066914,
+          1328.2644000137225
+        ]
+      },
+      "result_parity": true,
+      "turso-backed": {
+        "iterations": 5,
+        "max_ms": 474.60059996228665,
+        "mean_ms": 465.2747000101954,
+        "median_ms": 472.5311000365764,
+        "min_ms": 449.90440004039556,
+        "p95_ms": 474.3236999725923,
+        "samples_ms": [
+          474.60059996228665,
+          456.1212999979034,
+          472.5311000365764,
+          449.90440004039556,
+          473.21610001381487
+        ],
+        "scope": "fresh CLI subprocess including startup, validation, query, serialization, and parsing"
+      }
+    }
+  },
+  "parity": {
+    "authoritative_core": true,
+    "deterministic": true,
+    "evidence": true,
+    "queries": true,
+    "read_only": true
+  },
+  "retrieval_routes": {
+    "graphify_structural": {
+      "cases": [
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q001-methodology-taxonomy",
+          "latency_ms": 2991.129500005627,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7273298443105218,
+          "paper_ids": [
+            "2402.07630v3",
+            "2408.04187v2",
+            "2404.16130v2",
+            "2504.02112v2",
+            "2410.05779v3",
+            "2507.03226v3"
+          ],
+          "recall_at_10": 0.4,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q002-common-pipeline",
+          "latency_ms": 3422.712200001115,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.4125317798925535,
+          "paper_ids": [
+            "2404.16130v2",
+            "2506.05690v3",
+            "2408.08535v1",
+            "2503.13804v1",
+            "2504.02112v2"
+          ],
+          "recall_at_10": 0.25,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q003-graph-origin-representation",
+          "latency_ms": 3128.5877999907825,
+          "mrr_at_10": 0.25,
+          "ndcg_at_10": 0.17993148201117176,
+          "paper_ids": [
+            "2506.05690v3",
+            "2504.02112v2",
+            "2503.13804v1",
+            "2402.07630v3",
+            "2410.05779v3"
+          ],
+          "recall_at_10": 0.2,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q004-retrieval-units",
+          "latency_ms": 2686.6830000071786,
+          "mrr_at_10": 0.3333333333333333,
+          "ndcg_at_10": 0.3683756341388872,
+          "paper_ids": [
+            "2506.05690v3",
+            "2408.08535v1",
+            "2404.16130v2",
+            "2405.14831v3",
+            "2410.05779v3",
+            "2402.07630v3"
+          ],
+          "recall_at_10": 0.36363636363636365,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q005-community-hierarchy",
+          "latency_ms": 2785.9104000090156,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.6608397947263839,
+          "paper_ids": [
+            "2409.13731v3",
+            "2408.08535v1",
+            "2506.05690v3",
+            "2410.05779v3",
+            "2404.16130v2",
+            "2503.13804v1",
+            "2402.07630v3"
+          ],
+          "recall_at_10": 0.8,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q006-path-subgraph-reasoning",
+          "latency_ms": 2973.9813999913167,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.4088509304831694,
+          "paper_ids": [
+            "2506.05690v3",
+            "2402.07630v3",
+            "2503.13804v1",
+            "2405.14831v3",
+            "2502.14902v2",
+            "2408.04187v2",
+            "2508.19855v3"
+          ],
+          "recall_at_10": 0.5,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q007-diffusion-versus-traversal",
+          "latency_ms": 2812.808699993184,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6548086577531307,
+          "paper_ids": [
+            "2405.14831v3",
+            "2404.16130v2",
+            "2402.07630v3",
+            "2508.19855v3",
+            "2507.03226v3",
+            "2410.05779v3",
+            "2503.13804v1",
+            "2408.08535v1"
+          ],
+          "recall_at_10": 0.6,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q008-local-global-queries",
+          "latency_ms": 2725.495500024408,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6238470455881189,
+          "paper_ids": [
+            "2410.05779v3",
+            "2502.14902v2",
+            "2504.02112v2",
+            "2503.06474v2",
+            "2406.14550v2",
+            "2402.07630v3"
+          ],
+          "recall_at_10": 0.5,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q009-query-processing-routing",
+          "latency_ms": 2855.054299987387,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7526136409516658,
+          "paper_ids": [
+            "2409.13731v3",
+            "2508.19855v3",
+            "2504.02112v2",
+            "2405.14831v3",
+            "2410.05779v3",
+            "2406.14550v2"
+          ],
+          "recall_at_10": 0.6666666666666666,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q010-context-organization",
+          "latency_ms": 3450.4465000063647,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.647939623894138,
+          "paper_ids": [
+            "2503.06474v2",
+            "2502.14902v2",
+            "2402.07630v3",
+            "2408.04187v2",
+            "2503.13804v1",
+            "2506.05690v3"
+          ],
+          "recall_at_10": 0.5,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q011-vector-graph-hybrid",
+          "latency_ms": 2931.4433000108693,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6730234638881232,
+          "paper_ids": [
+            "2507.03226v3",
+            "2410.05779v3",
+            "2508.19855v3",
+            "2402.07630v3",
+            "2405.14831v3",
+            "2503.13804v1"
+          ],
+          "recall_at_10": 0.5714285714285714,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q012-llm-roles",
+          "latency_ms": 2607.630699989386,
+          "mrr_at_10": 0.3333333333333333,
+          "ndcg_at_10": 0.2187513829195429,
+          "paper_ids": [
+            "2503.13804v1",
+            "2502.14902v2",
+            "2503.06474v2",
+            "2409.13731v3",
+            "2506.05690v3",
+            "2408.08535v1"
+          ],
+          "recall_at_10": 0.2222222222222222,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q013-offline-construction-cost",
+          "latency_ms": 2752.288200019393,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7380396325465056,
+          "paper_ids": [
+            "2404.16130v2",
+            "2506.05690v3",
+            "2508.19855v3",
+            "2405.14831v3",
+            "2402.07630v3",
+            "2410.05779v3",
+            "2408.08535v1"
+          ],
+          "recall_at_10": 0.625,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q014-online-efficiency",
+          "latency_ms": 2660.4082999983802,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.8006937664098819,
+          "paper_ids": [
+            "2504.02112v2",
+            "2502.14902v2",
+            "2503.06474v2",
+            "2405.14831v3",
+            "2508.19855v3",
+            "2410.05779v3",
+            "2503.13804v1",
+            "2408.08535v1"
+          ],
+          "recall_at_10": 0.7,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q015-incremental-updates",
+          "latency_ms": 3309.221900010016,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.5088279487803784,
+          "paper_ids": [
+            "2504.02112v2",
+            "2503.06474v2",
+            "2410.05779v3",
+            "2408.08535v1",
+            "2507.03226v3",
+            "2402.07630v3",
+            "2508.19855v3"
+          ],
+          "recall_at_10": 0.5714285714285714,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q016-noise-redundancy",
+          "latency_ms": 3414.225999993505,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.5958595188912911,
+          "paper_ids": [
+            "2503.13804v1",
+            "2502.14902v2",
+            "2409.13731v3",
+            "2405.14831v3",
+            "2507.03226v3",
+            "2410.05779v3",
+            "2506.05690v3"
+          ],
+          "recall_at_10": 0.5,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q017-imperfect-graphs",
+          "latency_ms": 3114.2634999996517,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7457912185292984,
+          "paper_ids": [
+            "2409.13731v3",
+            "2503.06474v2",
+            "2504.02112v2",
+            "2405.14831v3",
+            "2506.05690v3",
+            "2406.14550v2"
+          ],
+          "recall_at_10": 0.625,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q018-grounding-safety",
+          "latency_ms": 2676.5339999983553,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.48457138819693474,
+          "paper_ids": [
+            "2503.13804v1",
+            "2405.14831v3",
+            "2404.16130v2",
+            "2402.07630v3",
+            "2504.02112v2",
+            "2410.05779v3",
+            "2406.14550v2"
+          ],
+          "recall_at_10": 0.3333333333333333,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q019-external-parametric-balance",
+          "latency_ms": 3042.965300002834,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.5709662133861838,
+          "paper_ids": [
+            "2503.13804v1",
+            "2508.19855v3",
+            "2408.04187v2",
+            "2504.02112v2",
+            "2506.05690v3",
+            "2402.07630v3"
+          ],
+          "recall_at_10": 0.5,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q020-domain-adaptation",
+          "latency_ms": 2759.9091000156477,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6730234638881232,
+          "paper_ids": [
+            "2507.03226v3",
+            "2408.04187v2",
+            "2405.14831v3",
+            "2506.05690v3",
+            "2503.06474v2",
+            "2406.14550v2"
+          ],
+          "recall_at_10": 0.5714285714285714,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q021-fact-checking-versus-qa",
+          "latency_ms": 2924.1040000051726,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.31086582344538494,
+          "paper_ids": [
+            "2507.03226v3",
+            "2402.07630v3",
+            "2408.08535v1",
+            "2502.14902v2",
+            "2410.05779v3",
+            "2404.16130v2"
+          ],
+          "recall_at_10": 0.2857142857142857,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q022-long-context-sensemaking",
+          "latency_ms": 2882.6304000103846,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7409096387260824,
+          "paper_ids": [
+            "2406.14550v2",
+            "2405.14831v3",
+            "2504.02112v2",
+            "2410.05779v3",
+            "2506.05690v3"
+          ],
+          "recall_at_10": 0.6666666666666666,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q023-method-task-matrix",
+          "latency_ms": 2574.8740999842994,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6489315753318465,
+          "paper_ids": [
+            "2506.05690v3",
+            "2402.07630v3",
+            "2410.05779v3",
+            "2406.14550v2",
+            "2405.14831v3"
+          ],
+          "recall_at_10": 0.3333333333333333,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q024-evaluation-practices",
+          "latency_ms": 3190.7098999945447,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.5806020001118017,
+          "paper_ids": [
+            "2406.14550v2",
+            "2506.05690v3",
+            "2404.16130v2",
+            "2503.06474v2",
+            "2402.07630v3",
+            "2409.13731v3",
+            "2405.14831v3"
+          ],
+          "recall_at_10": 0.42857142857142855,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q025-benchmark-bias",
+          "latency_ms": 2864.9840999860317,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7042299872433241,
+          "paper_ids": [
+            "2506.05690v3",
+            "2503.06474v2",
+            "2408.04187v2",
+            "2502.14902v2",
+            "2504.02112v2",
+            "2408.08535v1",
+            "2404.16130v2",
+            "2507.03226v3"
+          ],
+          "recall_at_10": 0.8,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q026-explainability-evidence",
+          "latency_ms": 2291.8614000082016,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.6804426793756725,
+          "paper_ids": [
+            "2402.07630v3",
+            "2502.14902v2",
+            "2408.08535v1",
+            "2504.02112v2",
+            "2506.05690v3",
+            "2507.03226v3",
+            "2508.19855v3"
+          ],
+          "recall_at_10": 0.5555555555555556,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q027-community-construction",
+          "latency_ms": 2975.2640000078827,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.5531464700081437,
+          "paper_ids": [
+            "2408.08535v1",
+            "2508.19855v3",
+            "2409.13731v3",
+            "2503.06474v2",
+            "2406.14550v2"
+          ],
+          "recall_at_10": 0.4,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q028-optimization-operators",
+          "latency_ms": 2783.5014000011142,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7457912185292984,
+          "paper_ids": [
+            "2503.13804v1",
+            "2405.14831v3",
+            "2402.07630v3",
+            "2502.14902v2",
+            "2508.19855v3",
+            "2503.06474v2",
+            "2410.05779v3"
+          ],
+          "recall_at_10": 0.625,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q029-static-agentic-retrieval",
+          "latency_ms": 2223.505500005558,
+          "mrr_at_10": 0.5,
+          "ndcg_at_10": 0.5025272998721168,
+          "paper_ids": [
+            "2409.13731v3",
+            "2410.05779v3",
+            "2408.08535v1",
+            "2503.06474v2",
+            "2406.14550v2",
+            "2405.14831v3",
+            "2402.07630v3",
+            "2506.05690v3"
+          ],
+          "recall_at_10": 0.5555555555555556,
+          "returned_records": 10
+        },
+        {
+          "evidence_issues": [],
+          "evidence_valid": true,
+          "id": "q030-design-decision-framework",
+          "latency_ms": 2498.5190000152215,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.4690000933206748,
+          "paper_ids": [
+            "2506.05690v3",
+            "2408.04187v2",
+            "2408.08535v1"
+          ],
+          "recall_at_10": 0.2,
+          "returned_records": 10
+        }
+      ],
+      "errors": 0,
+      "evidence_total": 300,
+      "evidence_valid": 300,
+      "evidence_validity": 1.0,
+      "mean_ms": 2877.055113335761,
+      "mrr_at_10": 0.8305555555555556,
+      "ndcg_at_10": 0.5794354405716784,
+      "p95_ms": 3418.8934099976905,
+      "questions": 30,
+      "recall_at_10": 0.4950180375180375,
+      "scope": "fresh validated CLI subprocess; Graphify lexical scoring plus BFS depth 2; authoritative concept hydration",
+      "top_k": 10
+    },
+    "hybrid": {
+      "errors": 0,
+      "evidence_validity": 1.0,
+      "mean_ms": 6254.711480007973,
+      "mrr_at_10": 0.888888888888889,
+      "ndcg_at_10": 0.538126106287542,
+      "p95_ms": 6572.885115019744,
+      "recall_at_10": 0.42725228475228477
+    },
+    "legacy_lexical": {
+      "errors": 0,
+      "evidence_validity": 1.0,
+      "mean_ms": 2.592456682274739,
+      "mrr_at_10": 0.861111111111111,
+      "ndcg_at_10": 0.8002286135412666,
+      "p95_ms": 3.704310016473755,
+      "recall_at_10": 0.7885954785954786
+    },
+    "new_lexical": {
+      "errors": 0,
+      "evidence_validity": 1.0,
+      "mean_ms": 1240.2094133392286,
+      "mrr_at_10": 0.9166666666666666,
+      "ndcg_at_10": 0.5930744147115519,
+      "p95_ms": 1427.5983350467864,
+      "recall_at_10": 0.48496392496392493
+    },
+    "vector": {
+      "errors": 0,
+      "evidence_validity": 1.0,
+      "mean_ms": 6100.025843336091,
+      "mrr_at_10": 0.8277777777777777,
+      "ndcg_at_10": 0.5533737199568237,
+      "p95_ms": 6396.263345051557,
+      "recall_at_10": 0.46865440115440116
+    }
+  },
+  "schema_version": "1.0",
+  "status": "pass",
+  "versions": {
+    "embedding-backed": {
+      "build_ms": {
+        "max": 190313.6018998921,
+        "mean": 176755.20949997008,
+        "min": 163196.81710004807,
+        "samples": [
+          163196.81710004807,
+          190313.6018998921
+        ]
+      },
+      "bundle": {
+        "file_count": 888,
+        "logical_tree_sha256": "1a1f4883a9824fa44b1ec039ff37b9e86a5a04239c6b3ebce2493df66321b920",
+        "total_bytes": 21808060
+      },
+      "core_semantic_parity": "pass",
+      "deterministic_rebuild": true,
+      "evidence_paths": {
+        "report": {
+          "path": "evaluations/semantic-okf-embeddings/comparison-report.json",
+          "sha256": "08a83e45c8596743170c7ccb05015019c3cc0d00b7167f8432ba2c76fd07114c"
+        },
+        "run_manifest": {
+          "path": "evaluations/semantic-okf-embeddings/results/runs/20260713-compact-final/run-manifest.json",
+          "sha256": "a8cd2924c2cda5b7b2c911491582791ffb4e980e7a8ec5697381cdee9058120b"
+        }
+      },
+      "model": {
+        "dimension": 384,
+        "loading": "explicit, local-only, offline; weights are an external preloaded input",
+        "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "normalize": true,
+        "provider": "sentence-transformers",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+      },
+      "routes": {
+        "hybrid": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 6254.711480007973,
+          "mrr_at_10": 0.888888888888889,
+          "ndcg_at_10": 0.538126106287542,
+          "p95_ms": 6572.885115019744,
+          "recall_at_10": 0.42725228475228477
+        },
+        "legacy_lexical": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 2.592456682274739,
+          "mrr_at_10": 0.861111111111111,
+          "ndcg_at_10": 0.8002286135412666,
+          "p95_ms": 3.704310016473755,
+          "recall_at_10": 0.7885954785954786
+        },
+        "new_lexical": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 1240.2094133392286,
+          "mrr_at_10": 0.9166666666666666,
+          "ndcg_at_10": 0.5930744147115519,
+          "p95_ms": 1427.5983350467864,
+          "recall_at_10": 0.48496392496392493
+        },
+        "vector": {
+          "errors": 0,
+          "evidence_validity": 1.0,
+          "mean_ms": 6100.025843336091,
+          "mrr_at_10": 0.8277777777777777,
+          "ndcg_at_10": 0.5533737199568237,
+          "p95_ms": 6396.263345051557,
+          "recall_at_10": 0.46865440115440116
+        }
+      },
+      "status": "pass",
+      "timing_warning": "reported latency is operational end-to-end latency, not an isolated algorithm-speed comparison; legacy and new route timings have intentionally different execution scopes."
+    },
+    "file-backed": {
+      "build_ms": {
+        "max": 16681.197199970484,
+        "mean": 16253.279450000264,
+        "min": 15825.361700030044,
+        "samples": [
+          16681.197199970484,
+          15825.361700030044
+        ]
+      },
+      "bundle": {
+        "file_count": 884,
+        "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+        "total_bytes": 10888503
+      },
+      "core_semantic_parity": "baseline",
+      "deterministic_rebuild": true
+    },
+    "graphify-backed": {
+      "build_ms": {
+        "max_ms": 51110.705200000666,
+        "mean_ms": 50755.35699998727,
+        "median_ms": 50755.35699998727,
+        "min_ms": 50400.008799973875,
+        "p95_ms": 51075.17037999933,
+        "samples_ms": [
+          51110.705200000666,
+          50400.008799973875
+        ]
+      },
+      "bundle": {
+        "file_count": 886,
+        "logical_tree_sha256": "43315ae6e8010aa90bb31b0591e082a62dab9f05cffe773f06875493966b9fc7",
+        "total_bytes": 31704281
+      },
+      "core_bundle": {
+        "file_count": 884,
+        "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+        "total_bytes": 10888503
+      },
+      "core_semantic_parity": "pass",
+      "deterministic_rebuild": true,
+      "projection": {
+        "edges": 13289,
+        "logical_sha256": "e996aec29ca6d0f629edd218574d4bb99b09ac87bca9f536a057c02bfdf6ca95",
+        "nodes": 10797,
+        "orphans": 0,
+        "package": "graphifyy",
+        "path": "retrieval/graphify/graph.json",
+        "physical_sha256": "4451d0f1efce30dae5627dec681473686934d74eb241e5ff578d82692ebd4e34",
+        "validation_ms": 1226.6112999932375,
+        "version": "0.9.17"
+      },
+      "routes": {
+        "graphify_structural": {
+          "cases": [
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q001-methodology-taxonomy",
+              "latency_ms": 2991.129500005627,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7273298443105218,
+              "paper_ids": [
+                "2402.07630v3",
+                "2408.04187v2",
+                "2404.16130v2",
+                "2504.02112v2",
+                "2410.05779v3",
+                "2507.03226v3"
+              ],
+              "recall_at_10": 0.4,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q002-common-pipeline",
+              "latency_ms": 3422.712200001115,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.4125317798925535,
+              "paper_ids": [
+                "2404.16130v2",
+                "2506.05690v3",
+                "2408.08535v1",
+                "2503.13804v1",
+                "2504.02112v2"
+              ],
+              "recall_at_10": 0.25,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q003-graph-origin-representation",
+              "latency_ms": 3128.5877999907825,
+              "mrr_at_10": 0.25,
+              "ndcg_at_10": 0.17993148201117176,
+              "paper_ids": [
+                "2506.05690v3",
+                "2504.02112v2",
+                "2503.13804v1",
+                "2402.07630v3",
+                "2410.05779v3"
+              ],
+              "recall_at_10": 0.2,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q004-retrieval-units",
+              "latency_ms": 2686.6830000071786,
+              "mrr_at_10": 0.3333333333333333,
+              "ndcg_at_10": 0.3683756341388872,
+              "paper_ids": [
+                "2506.05690v3",
+                "2408.08535v1",
+                "2404.16130v2",
+                "2405.14831v3",
+                "2410.05779v3",
+                "2402.07630v3"
+              ],
+              "recall_at_10": 0.36363636363636365,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q005-community-hierarchy",
+              "latency_ms": 2785.9104000090156,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.6608397947263839,
+              "paper_ids": [
+                "2409.13731v3",
+                "2408.08535v1",
+                "2506.05690v3",
+                "2410.05779v3",
+                "2404.16130v2",
+                "2503.13804v1",
+                "2402.07630v3"
+              ],
+              "recall_at_10": 0.8,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q006-path-subgraph-reasoning",
+              "latency_ms": 2973.9813999913167,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.4088509304831694,
+              "paper_ids": [
+                "2506.05690v3",
+                "2402.07630v3",
+                "2503.13804v1",
+                "2405.14831v3",
+                "2502.14902v2",
+                "2408.04187v2",
+                "2508.19855v3"
+              ],
+              "recall_at_10": 0.5,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q007-diffusion-versus-traversal",
+              "latency_ms": 2812.808699993184,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6548086577531307,
+              "paper_ids": [
+                "2405.14831v3",
+                "2404.16130v2",
+                "2402.07630v3",
+                "2508.19855v3",
+                "2507.03226v3",
+                "2410.05779v3",
+                "2503.13804v1",
+                "2408.08535v1"
+              ],
+              "recall_at_10": 0.6,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q008-local-global-queries",
+              "latency_ms": 2725.495500024408,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6238470455881189,
+              "paper_ids": [
+                "2410.05779v3",
+                "2502.14902v2",
+                "2504.02112v2",
+                "2503.06474v2",
+                "2406.14550v2",
+                "2402.07630v3"
+              ],
+              "recall_at_10": 0.5,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q009-query-processing-routing",
+              "latency_ms": 2855.054299987387,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7526136409516658,
+              "paper_ids": [
+                "2409.13731v3",
+                "2508.19855v3",
+                "2504.02112v2",
+                "2405.14831v3",
+                "2410.05779v3",
+                "2406.14550v2"
+              ],
+              "recall_at_10": 0.6666666666666666,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q010-context-organization",
+              "latency_ms": 3450.4465000063647,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.647939623894138,
+              "paper_ids": [
+                "2503.06474v2",
+                "2502.14902v2",
+                "2402.07630v3",
+                "2408.04187v2",
+                "2503.13804v1",
+                "2506.05690v3"
+              ],
+              "recall_at_10": 0.5,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q011-vector-graph-hybrid",
+              "latency_ms": 2931.4433000108693,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6730234638881232,
+              "paper_ids": [
+                "2507.03226v3",
+                "2410.05779v3",
+                "2508.19855v3",
+                "2402.07630v3",
+                "2405.14831v3",
+                "2503.13804v1"
+              ],
+              "recall_at_10": 0.5714285714285714,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q012-llm-roles",
+              "latency_ms": 2607.630699989386,
+              "mrr_at_10": 0.3333333333333333,
+              "ndcg_at_10": 0.2187513829195429,
+              "paper_ids": [
+                "2503.13804v1",
+                "2502.14902v2",
+                "2503.06474v2",
+                "2409.13731v3",
+                "2506.05690v3",
+                "2408.08535v1"
+              ],
+              "recall_at_10": 0.2222222222222222,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q013-offline-construction-cost",
+              "latency_ms": 2752.288200019393,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7380396325465056,
+              "paper_ids": [
+                "2404.16130v2",
+                "2506.05690v3",
+                "2508.19855v3",
+                "2405.14831v3",
+                "2402.07630v3",
+                "2410.05779v3",
+                "2408.08535v1"
+              ],
+              "recall_at_10": 0.625,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q014-online-efficiency",
+              "latency_ms": 2660.4082999983802,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8006937664098819,
+              "paper_ids": [
+                "2504.02112v2",
+                "2502.14902v2",
+                "2503.06474v2",
+                "2405.14831v3",
+                "2508.19855v3",
+                "2410.05779v3",
+                "2503.13804v1",
+                "2408.08535v1"
+              ],
+              "recall_at_10": 0.7,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q015-incremental-updates",
+              "latency_ms": 3309.221900010016,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.5088279487803784,
+              "paper_ids": [
+                "2504.02112v2",
+                "2503.06474v2",
+                "2410.05779v3",
+                "2408.08535v1",
+                "2507.03226v3",
+                "2402.07630v3",
+                "2508.19855v3"
+              ],
+              "recall_at_10": 0.5714285714285714,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q016-noise-redundancy",
+              "latency_ms": 3414.225999993505,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.5958595188912911,
+              "paper_ids": [
+                "2503.13804v1",
+                "2502.14902v2",
+                "2409.13731v3",
+                "2405.14831v3",
+                "2507.03226v3",
+                "2410.05779v3",
+                "2506.05690v3"
+              ],
+              "recall_at_10": 0.5,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q017-imperfect-graphs",
+              "latency_ms": 3114.2634999996517,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7457912185292984,
+              "paper_ids": [
+                "2409.13731v3",
+                "2503.06474v2",
+                "2504.02112v2",
+                "2405.14831v3",
+                "2506.05690v3",
+                "2406.14550v2"
+              ],
+              "recall_at_10": 0.625,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q018-grounding-safety",
+              "latency_ms": 2676.5339999983553,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.48457138819693474,
+              "paper_ids": [
+                "2503.13804v1",
+                "2405.14831v3",
+                "2404.16130v2",
+                "2402.07630v3",
+                "2504.02112v2",
+                "2410.05779v3",
+                "2406.14550v2"
+              ],
+              "recall_at_10": 0.3333333333333333,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q019-external-parametric-balance",
+              "latency_ms": 3042.965300002834,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.5709662133861838,
+              "paper_ids": [
+                "2503.13804v1",
+                "2508.19855v3",
+                "2408.04187v2",
+                "2504.02112v2",
+                "2506.05690v3",
+                "2402.07630v3"
+              ],
+              "recall_at_10": 0.5,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q020-domain-adaptation",
+              "latency_ms": 2759.9091000156477,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6730234638881232,
+              "paper_ids": [
+                "2507.03226v3",
+                "2408.04187v2",
+                "2405.14831v3",
+                "2506.05690v3",
+                "2503.06474v2",
+                "2406.14550v2"
+              ],
+              "recall_at_10": 0.5714285714285714,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q021-fact-checking-versus-qa",
+              "latency_ms": 2924.1040000051726,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.31086582344538494,
+              "paper_ids": [
+                "2507.03226v3",
+                "2402.07630v3",
+                "2408.08535v1",
+                "2502.14902v2",
+                "2410.05779v3",
+                "2404.16130v2"
+              ],
+              "recall_at_10": 0.2857142857142857,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q022-long-context-sensemaking",
+              "latency_ms": 2882.6304000103846,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7409096387260824,
+              "paper_ids": [
+                "2406.14550v2",
+                "2405.14831v3",
+                "2504.02112v2",
+                "2410.05779v3",
+                "2506.05690v3"
+              ],
+              "recall_at_10": 0.6666666666666666,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q023-method-task-matrix",
+              "latency_ms": 2574.8740999842994,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6489315753318465,
+              "paper_ids": [
+                "2506.05690v3",
+                "2402.07630v3",
+                "2410.05779v3",
+                "2406.14550v2",
+                "2405.14831v3"
+              ],
+              "recall_at_10": 0.3333333333333333,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q024-evaluation-practices",
+              "latency_ms": 3190.7098999945447,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.5806020001118017,
+              "paper_ids": [
+                "2406.14550v2",
+                "2506.05690v3",
+                "2404.16130v2",
+                "2503.06474v2",
+                "2402.07630v3",
+                "2409.13731v3",
+                "2405.14831v3"
+              ],
+              "recall_at_10": 0.42857142857142855,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q025-benchmark-bias",
+              "latency_ms": 2864.9840999860317,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7042299872433241,
+              "paper_ids": [
+                "2506.05690v3",
+                "2503.06474v2",
+                "2408.04187v2",
+                "2502.14902v2",
+                "2504.02112v2",
+                "2408.08535v1",
+                "2404.16130v2",
+                "2507.03226v3"
+              ],
+              "recall_at_10": 0.8,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q026-explainability-evidence",
+              "latency_ms": 2291.8614000082016,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.6804426793756725,
+              "paper_ids": [
+                "2402.07630v3",
+                "2502.14902v2",
+                "2408.08535v1",
+                "2504.02112v2",
+                "2506.05690v3",
+                "2507.03226v3",
+                "2508.19855v3"
+              ],
+              "recall_at_10": 0.5555555555555556,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q027-community-construction",
+              "latency_ms": 2975.2640000078827,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.5531464700081437,
+              "paper_ids": [
+                "2408.08535v1",
+                "2508.19855v3",
+                "2409.13731v3",
+                "2503.06474v2",
+                "2406.14550v2"
+              ],
+              "recall_at_10": 0.4,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q028-optimization-operators",
+              "latency_ms": 2783.5014000011142,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.7457912185292984,
+              "paper_ids": [
+                "2503.13804v1",
+                "2405.14831v3",
+                "2402.07630v3",
+                "2502.14902v2",
+                "2508.19855v3",
+                "2503.06474v2",
+                "2410.05779v3"
+              ],
+              "recall_at_10": 0.625,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q029-static-agentic-retrieval",
+              "latency_ms": 2223.505500005558,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.5025272998721168,
+              "paper_ids": [
+                "2409.13731v3",
+                "2410.05779v3",
+                "2408.08535v1",
+                "2503.06474v2",
+                "2406.14550v2",
+                "2405.14831v3",
+                "2402.07630v3",
+                "2506.05690v3"
+              ],
+              "recall_at_10": 0.5555555555555556,
+              "returned_records": 10
+            },
+            {
+              "evidence_issues": [],
+              "evidence_valid": true,
+              "id": "q030-design-decision-framework",
+              "latency_ms": 2498.5190000152215,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.4690000933206748,
+              "paper_ids": [
+                "2506.05690v3",
+                "2408.04187v2",
+                "2408.08535v1"
+              ],
+              "recall_at_10": 0.2,
+              "returned_records": 10
+            }
+          ],
+          "errors": 0,
+          "evidence_total": 300,
+          "evidence_valid": 300,
+          "evidence_validity": 1.0,
+          "mean_ms": 2877.055113335761,
+          "mrr_at_10": 0.8305555555555556,
+          "ndcg_at_10": 0.5794354405716784,
+          "p95_ms": 3418.8934099976905,
+          "questions": 30,
+          "recall_at_10": 0.4950180375180375,
+          "scope": "fresh validated CLI subprocess; Graphify lexical scoring plus BFS depth 2; authoritative concept hydration",
+          "top_k": 10
+        }
+      },
+      "status": "pass"
+    },
+    "turso-backed": {
+      "build_ms": {
+        "max": 20309.539600042626,
+        "mean": 19765.35739999963,
+        "min": 19221.175199956633,
+        "samples": [
+          20309.539600042626,
+          19221.175199956633
+        ]
+      },
+      "bundle": {
+        "file_count": 885,
+        "logical_tree_sha256": "a3f2687b5c6943f4f0411ecdc195131c2f550d1c6df4f4f5cb1078c534109d96",
+        "total_bytes": 52405559
+      },
+      "core_semantic_parity": "pass",
+      "database_logical_sha256": "f0f6d96b3c31d2dfa3d71c302f7044e980979241bf843ef3574b82b493be565a",
+      "database_summary": {
+        "artifacts": 10,
+        "attributes": 8574,
+        "concepts": 874,
+        "records": 874,
+        "sources": 31,
+        "statements": 18435
+      },
+      "database_validation_ms": 1061.3400000147521,
+      "deterministic_rebuild": true
+    }
+  }
+}

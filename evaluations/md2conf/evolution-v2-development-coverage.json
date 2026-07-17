@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 7,
+    "minimumTaskFamilies": 7,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {"promptId": "reject-source-space-override", "caseKind": "boundary-recovery", "taskFamily": "source-level-space-routing"},
+    {"promptId": "reconcile-global-properties", "caseKind": "generalization", "taskFamily": "recursive-property-reconciliation"},
+    {"promptId": "block-label-prefix-collision", "caseKind": "boundary-recovery", "taskFamily": "label-prefix-collision"},
+    {"promptId": "guard-unmanaged-no-overwrite", "caseKind": "naturalistic-forward", "taskFamily": "unmanaged-page-conflict-protection"},
+    {"promptId": "protect-current-body-attachment", "caseKind": "generalization", "taskFamily": "attachment-cleanup-ordering"},
+    {"promptId": "resolve-mapping-precedence", "caseKind": "boundary-recovery", "taskFamily": "mapping-source-precedence"},
+    {"promptId": "repair-nested-ignore-rule", "caseKind": "naturalistic-forward", "taskFamily": "directory-ignore-and-link-contract"}
+  ]
+}

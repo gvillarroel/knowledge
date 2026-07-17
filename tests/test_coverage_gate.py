@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import os
 import sys
 from pathlib import Path
 from types import ModuleType
@@ -37,3 +38,16 @@ def test_coverage_scope_can_include_every_repository_test() -> None:
     args = argparse.Namespace(include_non_application_tests=True, tests_args=None)
 
     assert coverage.coverage_pytest_args(args) == []
+
+
+def test_trace_environment_prioritizes_the_current_checkout(
+    monkeypatch,
+) -> None:
+    coverage = load_coverage_script()
+    monkeypatch.setenv("PYTHONPATH", "C:/external/package")
+
+    env = coverage.trace_environment(REPO_ROOT)
+    entries = env["PYTHONPATH"].split(os.pathsep)
+
+    assert entries[:2] == [str(REPO_ROOT / "src"), str(REPO_ROOT)]
+    assert entries[2] == "C:/external/package"

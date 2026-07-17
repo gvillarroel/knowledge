@@ -1,0 +1,193 @@
+schemaVersion: 1
+benchmark:
+  id: extract-ontologies-isolated-planning-compare
+  description: Compare offline ontology-authoring plans with and without the standalone extract-ontologies skill.
+  tags:
+    - knowledge
+    - ontology
+    - planning
+    - isolated
+    - compare
+task:
+  prompts:
+    - id: procurement-evidence-model
+      description: Plan an evidence-led ontology bundle for procurement policy material.
+      prompt: |-
+        A procurement team has twelve policy documents and three vendor CSV schema notes. Prepare an offline ontology-authoring plan that turns their reviewed evidence into an auditable semantic-model bundle while keeping logical meaning, instance assertions, and data-quality validation distinct. Do not read the network or modify any knowledge snapshot. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"artifacts":["..."],"validation":["..."],"review":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: evidence-led-authoring
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.artifacts, ...value.validation, ...value.review].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && any(text, ['competency question', 'questions the model must answer', 'decision question'])
+                  && text.includes('evidence')
+                  && any(text, ['source locator', 'source location', 'citation', 'provenance'])
+                  && any(text, ['confidence', 'review state', 'human review'])
+                  && any(text, ['owl', 'tbox', 'logical meaning'])
+                  && any(text, ['abox', 'instance assertion', 'instance data'])
+                  && any(text, ['shacl', 'shape', 'data-quality validation'])
+                  && any(text, ['positive fixture', 'conforming fixture', 'valid fixture'])
+                  && any(text, ['negative fixture', 'non-conforming fixture', 'invalid fixture'])
+                  && any(text, ['conformant', 'non-conformant', 'processor failure']);
+              } catch { return false; }
+    - id: product-catalog-constraints
+      description: Plan an RDF catalog validation contract with conditional and missing data.
+      prompt: |-
+        A data steward needs a validation contract for an RDF product catalog where SKU is mandatory, discontinued dates are conditional, and suppliers may be missing. Plan the offline semantic artifacts and positive and negative test data needed to distinguish logical inference from record validation. Do not execute tools. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"artifacts":["..."],"validation":["..."],"review":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: constraint-semantics
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.artifacts, ...value.validation, ...value.review].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && text.includes('sku')
+                  && any(text, ['conditional', 'condition', 'discontinued'])
+                  && any(text, ['missing supplier', 'missing suppliers', 'supplier may be missing', 'optional supplier', 'supplier absence', 'without suppliers'])
+                  && any(text, ['open world', 'owl', 'logical inference'])
+                  && any(text, ['shacl', 'shape', 'record validation'])
+                  && any(text, ['positive', 'conforming', 'valid fixture'])
+                  && any(text, ['negative', 'non-conforming', 'invalid fixture'])
+                  && any(text, ['data graph', 'validated graph', 'validation graph', 'accepted data', 'data.ttl', 'abox', 'rdf graph'])
+                  && any(text, ['validation report', 'validation-report', 'machine-readable report', 'processor result'])
+                  && any(text, ['inference regime', 'entailment regime', 'inference mode']);
+              } catch { return false; }
+    - id: multilingual-logistics-alignment
+      description: Generalize semantic alignment across languages and heterogeneous exports.
+      prompt: |-
+        Three regional teams provide English and Spanish glossaries plus differently shaped JSON exports for the same logistics domain. Plan an offline reviewed alignment that preserves source language, handles homonyms, and avoids unsupported identity or equivalence claims. Do not fetch vocabularies or contexts. Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"artifacts":["..."],"validation":["..."],"review":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: alignment-generalization
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.artifacts, ...value.validation, ...value.review].join('\n').toLowerCase();
+                return value.status === 'planned'
+                  && any(text, ['english', 'spanish', 'language tag', 'source language'])
+                  && any(text, ['homonym', 'collision', 'ambiguous term'])
+                  && any(text, ['stable iri', 'stable concept iri', 'iri policy', 'identifier policy', 'stable concept identifier', 'stable identifier'])
+                  && any(text, ['mapping', 'alignment', 'crosswalk'])
+                  && any(text, ['sameas', 'equivalent', 'identity claim'])
+                  && any(text, ['uncertain', 'unsupported', 'human review', 'review required', 'unresolved', 'low-confidence'])
+                  && any(text, ['local import', 'pinned import', 'pinned input', 'versioned vocabulary', 'local copy', 'local-only', 'local file', 'no remote import', 'supplied local'])
+                  && any(text, ['do not dereference', 'without dereferencing', 'do not fetch', 'not fetched', 'no remote', 'no vocabulary', 'no external vocabulary', 'without network access', 'offline']);
+              } catch { return false; }
+    - id: published-snapshot-boundary
+      description: Refuse a request that combines snapshot mutation and consultation.
+      prompt: |-
+        An operator asks you to repair an already published Semantic OKF snapshot in place and answer questions from it. This evaluation permits ontology authoring only and no file or network access. Return a boundary diagnostic as JSON only with exactly these keys in this order: {"status":"out_of_scope","steps":["..."],"artifacts":["..."],"validation":["..."],"review":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: authority-boundary
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.steps, ...value.artifacts, ...value.validation, ...value.review].join('\n').toLowerCase();
+                return value.status === 'out_of_scope'
+                  && any(text, ['published snapshot', 'existing snapshot', 'semantic okf'])
+                  && text.includes('repair')
+                  && any(text, ['consult', 'consultation', 'answer questions', 'question answering', 'querying'])
+                  && any(text, ['ontology evidence', 'ontology extraction', 'ontology authoring', 'reviewed source evidence', 'user-supplied evidence', 'supplied source evidence', 'authoring input', 'source documents'])
+                  && !text.includes('build-semantic-okf')
+                  && !text.includes('consult-semantic-okf')
+                  && !text.includes('refresh_semantic_okf.py')
+                  && !text.includes('query_semantic_okf.py');
+              } catch { return false; }
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 5
+            && keys[0] === 'status'
+            && keys[1] === 'steps'
+            && keys[2] === 'artifacts'
+            && keys[3] === 'validation'
+            && keys[4] === 'review'
+            && typeof value.status === 'string'
+            && ['steps', 'artifacts', 'validation', 'review'].every((key) =>
+              Array.isArray(value[key])
+              && value[key].length > 0
+              && value[key].every((item) => typeof item === 'string' && item.trim().length > 0));
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without ontology-authoring guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local extract-ontologies skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/extract-ontologies
+              skillId: extract-ontologies
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - extract-ontologies
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+          - offline
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

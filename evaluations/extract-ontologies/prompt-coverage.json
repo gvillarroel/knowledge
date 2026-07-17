@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 4,
+    "minimumTaskFamilies": 3,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "procurement-evidence-model",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "evidence-led-modeling"
+    },
+    {
+      "promptId": "product-catalog-constraints",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "constraint-validation"
+    },
+    {
+      "promptId": "multilingual-logistics-alignment",
+      "caseKind": "generalization",
+      "taskFamily": "vocabulary-alignment"
+    },
+    {
+      "promptId": "published-snapshot-boundary",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "authority-boundary"
+    }
+  ]
+}

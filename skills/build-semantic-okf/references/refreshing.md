@@ -67,7 +67,7 @@ With `allow_empty: true`, a source glob may resolve to no files and contributes 
 
 There is intentionally no override for unmanaged or manually edited files in the generated tree. Preserve or audit such files elsewhere, then create a clean bundle at a new path or restore the current bundle from a known generated snapshot before refreshing.
 
-After promotion, rerun stored competency queries against the refreshed snapshot and compare their expected results. Refresh validates structure and graph coherence; it cannot decide whether domain answers remain correct.
+After promotion, rerun deterministic source, mapping, identity, and negative acceptance fixtures against the refreshed snapshot. Refresh validates structure and graph coherence; reviewed domain meaning remains an input to those fixtures rather than a query workflow owned by this skill.
 
 ## 4. Transaction and recovery
 

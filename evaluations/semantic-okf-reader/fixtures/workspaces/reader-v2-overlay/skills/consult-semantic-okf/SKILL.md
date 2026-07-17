@@ -1,18 +1,25 @@
 ---
 name: consult-semantic-okf
-description: Consult existing validated Semantic OKF knowledge snapshots without modifying them. Use when Codex needs to answer questions from an OKF bundle, choose between the record ledger, concept Markdown, RDF data, ontology, provenance, SHACL, or validation layers, run safe local SELECT or ASK queries, trace exact evidence paths, compare multiple sources, or produce grounded cited synthesis. Do not use for adding or changing sources, manifests, mappings, ontology terms, validation rules, or generated snapshots; use build-semantic-okf for those lifecycle operations.
+description: Give an agent the general read-only context and local tools needed to navigate and consult an existing Semantic OKF knowledge folder efficiently. Use when Codex needs to discover records, read concepts, choose an authoritative semantic layer, run safe local SELECT or ASK queries, trace provenance, compare sources, or return grounded evidence. This skill never creates, repairs, refreshes, or modifies knowledge.
 ---
 
 # Consult Semantic OKF
 
-Answer from one published Semantic OKF snapshot while preserving its revision and evidence boundaries.
+Navigate and answer from one published Semantic OKF knowledge folder while preserving its revision and evidence boundaries.
+
+## Standalone boundary
+
+- Use only this skill's `SKILL.md`, `references/`, `scripts/`, and declared Python requirements.
+- Do not import scripts, instructions, validators, or conventions from sibling skills or repository files.
+- Treat the supplied knowledge folder as the only domain input; the skill itself contains no domain corpus.
+- Provide read-only navigation and consultation context only. Never create or maintain the knowledge folder.
 
 ## Read-only boundary
 
 - Treat the bundle, source manifest, concepts, and semantic graphs as immutable inputs.
 - Do not edit sources, manifests, mappings, ontology declarations, SHACL rules, ledgers, concepts, or generated graphs.
 - Do not run build, refresh, recovery, or promotion commands.
-- If the snapshot is missing, failed, stale, or requires source changes, stop consultation and hand the task to `$build-semantic-okf`.
+- If the snapshot is missing, failed, stale, or requires source changes, report that condition and stop without attempting a repair.
 - Do not use prior knowledge, the web, or guesses when the request limits answers to the snapshot.
 
 ## Workflow
@@ -23,9 +30,9 @@ Answer from one published Semantic OKF snapshot while preserving its revision an
 4. Discover exact identifiers and artifact paths through `semantic/records.jsonl` before opening large concepts or graphs.
 5. Read selected `concepts/` Markdown for full explanations and source-oriented context.
 6. Use `semantic/data.ttl` only when the question needs joins, traversal, grouping, aggregation, or typed values. Add other graphs only for their declared purpose.
-7. For multi-source questions, build a coverage ledger before drafting the answer and meet relevance-backed source minimums breadth-first.
+7. For multi-source questions, establish breadth and evidence coverage before reading any one source deeply.
 8. Verify every returned value, citation, page locator, and `concept_path` against the selected authoritative layer.
-9. Apply the requested response schema exactly and perform a final read-only evidence check.
+9. Apply the requested response schema exactly and verify the final evidence paths before returning the answer.
 
 ## Required references
 
@@ -72,7 +79,7 @@ python scripts/query_semantic_okf.py BUNDLE sparql \
   --query-file queries/lineage.rq --graph data --graph provenance --format json
 ```
 
-Use `--validate` to parse the complete read surface before consultation. This verifies the ledger, exact concept paths, semantic plan, and local Turtle graphs. It does not replace the builder's full semantic, SHACL, and publication validator.
+Use `--validate` to parse the complete read surface before consultation. This verifies the ledger, exact concept paths, semantic plan, and local Turtle graphs. It is a read-only integrity check, not a repair operation.
 
 ## Cross-source synthesis
 
@@ -80,11 +87,14 @@ Work breadth before depth. Convert the request into a clause checklist and build
 
 Copy artifact paths verbatim from ledger `concept_path` values. Never reconstruct hashes, shorten generated names, use wildcard paths, or substitute a topic-adjacent source for a relevant one. Keep source IDs, cited pages, and evidence paths aligned.
 
+Read [cross-source-synthesis.md](references/cross-source-synthesis.md) only when the request needs multi-source comparison or a strict evidence contract. Its optional helpers remain local and read-only.
+
 ## Completion gate
 
 Before returning an answer, confirm:
 
 - the snapshot passed the read-surface gate and was not modified;
+- any strict evidence contract passed its bundled read-only preflight after the final repair;
 - the chosen graph set matches the question and no unrelated graph was treated as domain evidence;
 - every requested operation, clause, controlled dimension, and source minimum is satisfied;
 - returned scalars, arrays, objects, RDF terms, datatypes, and nulls match the requested representation;

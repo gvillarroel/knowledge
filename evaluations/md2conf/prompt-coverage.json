@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 4,
+    "minimumTaskFamilies": 4,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "publish-mapped-runbook",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "single-page-publication"
+    },
+    {
+      "promptId": "plan-directory-tree",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "directory-hierarchy-publication"
+    },
+    {
+      "promptId": "diagnose-release-drift",
+      "caseKind": "generalization",
+      "taskFamily": "installation-and-conversion-diagnosis"
+    },
+    {
+      "promptId": "refuse-native-page-overwrite",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "authority-boundary"
+    }
+  ]
+}

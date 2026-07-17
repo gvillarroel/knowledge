@@ -1,0 +1,249 @@
+schemaVersion: 1
+benchmark:
+  id: md2conf-isolated-offline-publishing-compare
+  description: Compare safe offline md2conf planning and diagnosis with and without the standalone md2conf skill.
+  tags:
+    - md2conf
+    - confluence
+    - publishing
+    - offline
+    - isolated
+    - compare
+task:
+  prompts:
+    - id: publish-mapped-runbook
+      description: Plan a single-page publication from an explicitly mapped Markdown source.
+      prompt: |-
+        Create an offline, review-ready plan to publish `single/guide.md` to its mapped Confluence Cloud page in space `OPS`. Markdown owns the page, but neither md2conf nor credentials are available in this workspace, and no remote call is allowed. Do not claim that anything was executed.
+
+        Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"commands":["..."],"risks":["..."],"verification":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: mapped-page-publishing-plan
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const all = [...value.steps, ...value.commands, ...value.risks, ...value.verification].join("\n").toLowerCase();
+                const commands = value.commands.join("\n").toLowerCase();
+                const hasMd2confFlag = (flag) => value.commands.some(
+                  (command) => /md2conf(?:\.exe)?\b/i.test(command) && command.toLowerCase().includes(flag)
+                );
+                return value.status === "planned"
+                  && all.includes("markdown-to-confluence")
+                  && !/pip\s+install\s+["']?md2conf(?:\s|[="']|$)/.test(all)
+                  && hasMd2confFlag("--version")
+                  && hasMd2confFlag("--help")
+                  && hasMd2confFlag("--local")
+                  && /(?:disposable|temporary).{0,40}(?:copy|location|staging|directory|review)/.test(all)
+                  && /(?:mapped.{0,20}page|page[-_\s]?id.{0,20}map|page_id)/.test(all)
+                  && all.includes("ops")
+                  && commands.includes("--no-overwrite")
+                  && commands.includes("--skip-update")
+                  && any(all, ["environment variable", "process environment", "secret manager"])
+                  && !/(?:^|\s)(?:-a|--api-key)\s+\S+/.test(commands)
+                  && all.includes("attachment")
+                  && /(?:complete(?:\s+\w+){0,3}\s+body|whole page body|regenerates? the page body)/.test(all)
+                  && any(all, ["unreferenced", "not referenced"])
+                  && any(all, ["label", "tags"])
+                  && any(all, ["browser", "rendered page", "visual verification", "resulting confluence subtree"])
+                  && /(?:future action|nothing (?:was|has been)|explicit publication authorization|approved connected environment|not executed|do not execute|offline|no remote call)/.test(all);
+              } catch { return false; }
+    - id: plan-directory-tree
+      description: Plan a directory publication with hierarchy, links, metadata, and assets.
+      prompt: |-
+        Prepare an offline publication plan for `tree/` under Confluence Cloud root page `900000` in space `DOCS`, keeping the directory hierarchy and relative page links. The whole tree is Markdown-owned, but publishing is not authorized in this task. Do not execute commands or contact Confluence.
+
+        Return JSON only with exactly these keys in this order: {"status":"planned","steps":["..."],"commands":["..."],"risks":["..."],"verification":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: directory-tree-plan
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const all = [...value.steps, ...value.commands, ...value.risks, ...value.verification].join("\n").toLowerCase();
+                const commands = value.commands.join("\n").toLowerCase();
+                return value.status === "planned"
+                  && commands.includes("--local")
+                  && commands.includes("--root-page 900000")
+                  && commands.includes("--keep-hierarchy")
+                  && commands.includes("--no-overwrite")
+                  && all.includes("docs")
+                  && any(all, ["relative link", "relative page link"])
+                  && all.includes(".mdignore")
+                  && any(all, ["--keep-update", "--skip-update"])
+                  && any(all, ["git diff", "source diff", "source updates", "markdown diff", "identifier injection", "page id injection", "inject page", "inject identifiers"])
+                  && all.includes("attachment")
+                  && any(all, ["delete", "deletion", "unreferenced"])
+                  && any(all, ["reorder", "sibling order", "page order", "move child", "hierarchy change"])
+                  && any(all, ["label", "tags"])
+                  && any(all, ["content propert", "properties"])
+                  && any(all, ["browser", "rendered page", "visual verification", "resulting confluence subtree", "representative pages"])
+                  && any(all, ["not authorized", "do not execute", "offline", "no remote call"]);
+              } catch { return false; }
+    - id: diagnose-release-drift
+      description: Diagnose package ambiguity, unreleased flags, and invalid source input.
+      prompt: |-
+        Diagnose the failed md2conf setup described in `diagnose/operator-notes.txt` and inspect the Markdown under `diagnose/`. Produce a safe offline recovery plan for the stable tool. Do not install packages, edit files, or run a conversion.
+
+        Return JSON only with exactly these keys in this order: {"status":"blocked","steps":["..."],"commands":["..."],"risks":["..."],"verification":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: release-and-input-diagnosis
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const all = [...value.steps, ...value.commands, ...value.risks, ...value.verification].join("\n").toLowerCase();
+                const hasMd2confFlag = (flag) => value.commands.some(
+                  (command) => /md2conf(?:\.exe)?\b/i.test(command) && command.toLowerCase().includes(flag)
+                );
+                return value.status === "blocked"
+                  && all.includes("markdown-to-confluence")
+                  && all.includes("0.6.1")
+                  && any(all, ["obsolete", "wrong package", "legacy package"])
+                  && hasMd2confFlag("--version")
+                  && hasMd2confFlag("--help")
+                  && any(all, ["--comments", "--user-mentions"])
+                  && any(all, ["unreleased", "development-only", "development branch", "absent from", "not available", "not support", "unsupported flag"])
+                  && any(all, ["duplicate page id", "duplicate page_id", "duplicate explicit page", "both files map to page", "page id 777", "page_id 777"])
+                  && any(all, ["unclosed", "well-formed xml", "xml-compatible", "<br>", "xhtml", "tag mismatch"])
+                  && any(all, ["missing.md", "missing relative link", "broken relative link", "invalid relative url"])
+                  && any(all, ["--local", "local conversion", "local mode"])
+                  && any(all, ["disposable copy", "disposable-corrected-copy", "temporary copy", "copied source", "copy of the source"])
+                  && any(all, ["not install", "do not install", "not executed", "do not run", "offline"]);
+              } catch { return false; }
+    - id: refuse-native-page-overwrite
+      description: Stop a Markdown publish when native Confluence content must remain authoritative.
+      prompt: |-
+        Decide whether `boundary/release.md` can be published over the page described in `boundary/current-page.json`. The requester requires every native macro, Smart Link, open inline comment, manual PDF attachment, and extension-owned property to survive. No remote call is allowed.
+
+        Return JSON only with exactly these keys in this order: {"status":"blocked","steps":["..."],"commands":["..."],"risks":["..."],"verification":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: authority-boundary
+            value: |
+              const any = (text, terms) => terms.some((term) => text.includes(term));
+              try {
+                const value = JSON.parse(output.trim());
+                const all = [...value.steps, ...value.commands, ...value.risks, ...value.verification].join("\n").toLowerCase();
+                const commands = value.commands.join("\n").toLowerCase();
+                const liveMd2conf = value.commands.some((command) => {
+                  const lower = command.toLowerCase();
+                  return /\bmd2conf\b/i.test(command)
+                    && !/--(?:version|help|local)\b/i.test(command)
+                    && !/^\s*(?:#|no\b|do not\b|never\b)/.test(lower)
+                    && !any(lower, ["do not run", "never run", "no live", "no non-local"]);
+                });
+                return value.status === "blocked"
+                  && !liveMd2conf
+                  && any(all, ["confluence-authoritative", "native-confluence-owned", "native page remains authoritative", "markdown is not authoritative", "source of truth", "authority conflict"])
+                  && any(all, ["complete body", "complete page body", "whole-page", "full-body", "regenerate", "replace the body"])
+                  && all.includes("macro")
+                  && any(all, ["smart link", "link card"])
+                  && all.includes("inline comment")
+                  && all.includes("pdf")
+                  && all.includes("attachment")
+                  && any(all, ["delete", "deletion", "unreferenced"])
+                  && any(all, ["content propert", "extension-owned property", "properties"])
+                  && all.includes("lossless")
+                  && any(all, ["stop", "refuse", "do not publish", "blocked"])
+                  && any(all, ["no remote call", "offline", "do not contact"]);
+              } catch { return false; }
+workspace:
+  sources:
+    - id: md2conf-fixtures
+      type: local-path
+      path: evaluations/md2conf/fixtures/workspaces/base
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 5
+            && keys[0] === "status"
+            && keys[1] === "steps"
+            && keys[2] === "commands"
+            && keys[3] === "risks"
+            && keys[4] === "verification"
+            && ["planned", "blocked"].includes(value.status)
+            && [value.steps, value.commands, value.risks, value.verification].every(
+              (items) => Array.isArray(items)
+                && items.every((item) => typeof item === "string" && item.trim().length > 0)
+            )
+            && value.steps.length > 0
+            && value.risks.length > 0
+            && value.verification.length > 0;
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without md2conf workflow guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local md2conf skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/md2conf
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - md2conf
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+          - offline
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

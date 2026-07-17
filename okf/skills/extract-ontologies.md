@@ -18,7 +18,14 @@ source_path: skills/extract-ontologies/SKILL.md
 
 # Ontology Extraction
 
-Use this skill to turn source evidence into a reviewed semantic model before lifecycle materialization. Hand approved mappings and constraints to the Semantic OKF builder. Use the dedicated consultation skill for read-only questions against an existing bundle.
+Turn source evidence into a reviewed semantic model before lifecycle materialization. Deliver approved mappings and constraints as ordinary output artifacts. For requests outside this authoring boundary, return an explicit diagnostic without importing or invoking another skill.
+
+## Standalone boundary
+
+- Use only this skill's `SKILL.md`, `references/`, `scripts/`, and declared Python requirements.
+- Treat source documents, local ontology imports, and any separately selected profile checker or reasoner as explicit user-supplied inputs or external tools.
+- Do not require a sibling skill, repository document, evaluation fixture, or repository-relative helper.
+- Keep the bundled scaffold and SHACL validator as the supported baseline. Do not make an optional reasoner or model-assisted workflow a prerequisite for producing and validating the core artifact set.
 
 ## Preserve the semantic boundaries
 
@@ -51,7 +58,7 @@ Create or adapt this bundle unless the user specifies another contract:
 
 ```text
 scope.md                  # domain boundary, consumers, profile, assumptions
-evidence.csv              # assertion-to-source review ledger
+evidence.csv              # exact source locator, interpretation, confidence, and review-state ledger
 ontology.ttl              # OWL 2 terminology and ontology metadata
 data.ttl                  # accepted instance assertions
 shapes.ttl                # SHACL validation contract
@@ -72,11 +79,18 @@ python scripts/scaffold_ontology_bundle.py OUTPUT_DIR \
 
 Do not publish the scaffold unchanged. Replace comments, fill the evidence ledger, and add positive and negative fixtures appropriate to the domain.
 
+For a plan-only request, keep the response compact: use 6–10 ordered steps, name each core artifact once, state each applicable bundled command once, and surface no more than five unresolved review decisions. Name `scaffold_ontology_bundle.py` and `validate_semantic_artifacts.py` directly when they apply. Include only safety boundaries triggered by the request instead of restating the complete policy.
+
+For offline or reproducible authoring, explicitly pin ontology sources, imports, and JSON-LD contexts to supplied local versions and forbid remote dereferencing during validation.
+
 ## Validate deterministically
 
 Install the pinned validator dependencies once in an isolated environment:
 
 ```bash
+python -m venv .venv
+# POSIX: . .venv/bin/activate
+# PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -r scripts/requirements.txt
 ```
 
@@ -96,7 +110,7 @@ Use `--inference rdfs`, `owlrl`, or `both` only when that entailment regime is p
 ## Enforce completion gates
 
 - Confirm every file parses in its declared RDF syntax and every IRI policy is documented.
-- Confirm the chosen OWL profile with a profile-aware tool; run a suitable reasoner separately when consistency or DL reasoning is required.
+- When the delivery claims OWL profile conformance, consistency, or DL reasoning, select a profile-aware external tool explicitly and record its name, version, import closure, and reasoning mode. Otherwise state that this optional check was not requested or available.
 - Confirm the import closure is local, pinned, complete, and free of conflicting ontology versions.
 - Confirm the shapes graph is well-formed and validation ends in one of three explicitly reported states: conformant, non-conformant, or processor failure.
 - Confirm validation records the exact data graph, shapes graph, entailment regime, processor version, and report artifact.

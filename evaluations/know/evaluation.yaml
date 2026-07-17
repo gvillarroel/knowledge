@@ -1,0 +1,203 @@
+schemaVersion: 1
+benchmark:
+  id: know-isolated-offline-compare
+  description: Compare isolated offline planning for reproducible know CLI workflows with and without the standalone know skill.
+  tags:
+    - knowledge
+    - know
+    - isolated-skill
+    - offline
+task:
+  prompts:
+    - id: local-source-registration
+      description: Plan a local key and source-registration workflow without synchronizing remote content.
+      prompt: |-
+        Prepare an offline command plan for a local `know` store at `./stores/lab`. Create the key `research`, register the local video `inputs/interview.mp4`, register `https://github.com/example/research.git` on branch `main`, and inspect the registered sources as JSON. Do not execute commands, synchronize sources, or contact remote services.
+
+        Return JSON only with exactly these keys in this order: {"commands":["command", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: source-registration-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commandLines = value.commands.map((item) => item.toLowerCase().replace(/\s+/g, ' ').trim());
+                const commands = commandLines.join('\n');
+                const listCommand = commandLines.find((item) => item.includes('list sources')) || '';
+                const jsonPositionIsValid = listCommand.includes('--format json')
+                  || (listCommand.includes('--json') && listCommand.indexOf('--json') < listCommand.indexOf('list sources'));
+                const safety = value.safety.join('\n').toLowerCase();
+                return commands.includes('know')
+                  && commands.includes('--store ./stores/lab')
+                  && commands.includes('add key research')
+                  && commands.includes('add video inputs/interview.mp4')
+                  && commands.includes('--key research')
+                  && commands.includes('add github-repo https://github.com/example/research.git')
+                  && commands.includes('--branch main')
+                  && commands.includes('list sources')
+                  && jsonPositionIsValid
+                  && !commands.includes(' sync ')
+                  && (safety.includes('offline') || safety.includes('remote'));
+              } catch { return false; }
+    - id: archive-transfer
+      description: Plan export and import across two explicit local stores with format checks.
+      prompt: |-
+        Plan an offline archive transfer for key `field-notes`: inspect it in `./stores/source`, export it, import `backup.zip` into `./stores/restored`, and inspect the restored sources. Include checks that exported Markdown remains traceable and Open Knowledge Format compatible. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"commands":["command", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: archive-transfer-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commands = value.commands.join('\n').toLowerCase().replace(/\s+/g, ' ');
+                const checks = value.checks.join('\n').toLowerCase();
+                return commands.includes('--store ./stores/source')
+                  && commands.includes('list sources')
+                  && commands.includes('--key field-notes')
+                  && commands.includes('export')
+                  && commands.includes('--store ./stores/restored')
+                  && commands.includes('import backup.zip')
+                  && (checks.includes('archive') || checks.includes('zip'))
+                  && checks.includes('frontmatter')
+                  && checks.includes('provenance')
+                  && checks.includes('type');
+              } catch { return false; }
+    - id: television-arxiv-workflow
+      description: Generalize know planning to a reproducible Television channel backed by arXiv output.
+      prompt: |-
+        Plan an offline Television channel named `papers` under key `research`. Its source command should list arXiv results for `retrieval augmented generation`, its preview should render the selected row, and the channel should be materialized reproducibly. Do not execute the plan or perform the search.
+
+        Return JSON only with exactly these keys in this order: {"commands":["command", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: television-workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.commands, ...value.checks, ...value.safety].join('\n').toLowerCase().replace(/\s+/g, ' ');
+                return (text.includes('know add television papers') || text.includes('know add tv papers'))
+                  && text.includes('--key research')
+                  && text.includes('know search arxiv')
+                  && text.includes('retrieval augmented generation')
+                  && text.includes('--format television')
+                  && text.includes('--format television-preview')
+                  && text.includes('--entry')
+                  && (text.includes('know sync television papers') || text.includes('know sync tv papers'))
+                  && (text.includes('offline') || text.includes('do not execute') || text.includes('not execute') || text.includes('do not run'));
+              } catch { return false; }
+    - id: missing-prerequisites
+      description: Recover safely when the executable or remote credentials may be unavailable.
+      prompt: |-
+        The `know` executable may be absent, and no Confluence credentials have been provided. Prepare an offline diagnostic plan for a requested Confluence registration and synchronization. Do not run commands, attempt a remote connection, install software, or invent credentials.
+
+        Return JSON only with exactly these keys in this order: {"commands":["command or conditional check", "..."],"checks":["diagnostic", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: prerequisite-recovery-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commands = value.commands.join('\n').toLowerCase();
+                const checks = value.checks.join('\n').toLowerCase();
+                const safety = value.safety.join('\n').toLowerCase();
+                const text = `${commands}\n${checks}\n${safety}`;
+                return commands.includes('know --help')
+                  && (commands.includes('know add confluence --help') || commands.includes('know sync confluence --help'))
+                  && (text.includes('missing') || text.includes('unavailable') || text.includes('not found') || text.includes('absent'))
+                  && (text.includes('credential') || text.includes('token'))
+                  && (text.includes('stop') || text.includes('do not proceed') || text.includes('not proceed') || text.includes('diagnostic'))
+                  && !text.includes('git clone')
+                  && !text.includes('src/knowledge')
+                  && !text.includes('pip install');
+              } catch { return false; }
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 3
+            && keys[0] === 'commands'
+            && keys[1] === 'checks'
+            && keys[2] === 'safety'
+            && Array.isArray(value.commands)
+            && value.commands.length > 0
+            && value.commands.every((item) => typeof item === 'string' && item.trim().length > 0)
+            && Array.isArray(value.checks)
+            && value.checks.length > 0
+            && value.checks.every((item) => typeof item === 'string' && item.trim().length > 0)
+            && Array.isArray(value.safety)
+            && value.safety.length > 0
+            && value.safety.every((item) => typeof item === 'string' && item.trim().length > 0);
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without repository skills.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+        labels:
+          skill_state: "off"
+    - id: know
+      description: Isolated treatment with only the standalone know skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/know
+              skillId: know
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - know
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

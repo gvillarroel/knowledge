@@ -1,0 +1,200 @@
+schemaVersion: 1
+benchmark:
+  id: open-knowledge-format-isolated-compare
+  description: Compare isolated planning for local Open Knowledge Format operations with and without the standalone skill.
+  tags:
+    - knowledge
+    - open-knowledge-format
+    - isolated-skill
+    - local-planning
+task:
+  prompts:
+    - id: repair-concept-frontmatter
+      description: Plan repair of a concept missing its required type while preserving producer metadata.
+      prompt: |-
+        Plan a local repair for the Open Knowledge Format bundle at `./input/bundle`. The concept `concepts/alpha.md` has valid YAML frontmatter but no `type`, and its producer-specific metadata must survive unchanged. Include a final compatibility check. Do not execute the plan.
+
+        Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: concept-repair-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const operations = value.operations.join('\n').toLowerCase();
+                const checks = value.checks.join('\n').toLowerCase();
+                const safety = value.safety.join('\n').toLowerCase();
+                const text = `${operations}\n${checks}\n${safety}`;
+                return text.includes('./input/bundle')
+                  && text.includes('concepts/alpha.md')
+                  && text.includes('type')
+                  && (text.includes('producer') || text.includes('unknown field') || text.includes('custom field'))
+                  && text.includes('validate_okf_bundle.py')
+                    && (text.includes('do not guess') || text.includes('without guessing') || text.includes('derive') || text.includes('without inventing') || text.includes('no guessed'))
+                  && (text.includes('short') || text.includes('descriptive'));
+              } catch { return false; }
+    - id: project-skill-projection
+      description: Plan generation and drift checking of a strict project projection.
+      prompt: |-
+        Plan a strict Open Knowledge Format projection from `./project` into `./project/okf`. The project contains `README.md`, `SPEC.md`, and project-local agent skills whose native discovery frontmatter must remain unchanged. Include validation and a non-writing drift check. Do not execute the plan.
+
+        Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: project-projection-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase().replace(/\s+/g, ' ');
+                return text.includes('build_project_okf_bundle.py')
+                  && text.includes('./project')
+                  && text.includes('--output ./project/okf')
+                  && text.includes('--check')
+                  && (text.includes('validate_okf_bundle.py') || text.includes('validat'))
+                  && text.includes('skill.md')
+                  && text.includes('name')
+                  && text.includes('description')
+                  && (text.includes('unchanged') || text.includes('do not add') || text.includes('separate projection'));
+              } catch { return false; }
+    - id: convert-nested-library
+      description: Generalize conversion planning to nested concepts, reserved files, links, and producer extensions.
+      prompt: |-
+        Plan conversion of the nested Markdown library at `./legacy-library` into an Open Knowledge Format v0.1 bundle. Preserve citations, cross-links, and unknown producer metadata; handle root `index.md` and `log.md` correctly; and add recommended metadata only when it can be derived. Do not execute the plan.
+
+        Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: nested-conversion-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase();
+                const recommended = ['title', 'description', 'resource', 'tags', 'timestamp'];
+                return text.includes('./legacy-library')
+                  && text.includes('frontmatter')
+                  && text.includes('type')
+                  && text.includes('index.md')
+                  && text.includes('log.md')
+                  && (text.includes('yyyy-mm-dd') || text.includes('date heading'))
+                  && text.includes('citation')
+                  && (text.includes('cross-link') || text.includes('cross link') || text.includes('internal link'))
+                  && (text.includes('unknown') || text.includes('producer'))
+                  && recommended.every((field) => text.includes(field))
+                  && (text.includes('derive') || text.includes('do not guess') || text.includes('without guessing'))
+                  && text.includes('validate_okf_bundle.py');
+              } catch { return false; }
+    - id: native-skill-and-reserved-index
+      description: Recover the native skill boundary and reserved-index contract without flattening content.
+      prompt: |-
+        A project-local `skills/widget/SKILL.md` was given an extra top-level `type`, while its generated OKF projection is stale and `okf/index.md` was authored as an ordinary concept. Plan the safe correction and drift verification without changing the skill body or deleting producer content. Do not execute the plan.
+
+        Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: native-boundary-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase();
+                return text.includes('skills/widget/skill.md')
+                  && text.includes('name')
+                  && text.includes('description')
+                  && text.includes('type')
+                  && (text.includes('remove') || text.includes('restore'))
+                  && (text.includes('body') && (text.includes('unchanged') || text.includes('preserve')))
+                  && text.includes('okf/index.md')
+                  && text.includes('reserved')
+                  && (text.includes('root') || text.includes('rename'))
+                  && text.includes('build_project_okf_bundle.py')
+                  && text.includes('--check')
+                  && (text.includes('projection') || text.includes('projected'));
+              } catch { return false; }
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 3
+            && keys[0] === 'operations'
+            && keys[1] === 'checks'
+            && keys[2] === 'safety'
+            && Array.isArray(value.operations)
+            && value.operations.length > 0
+            && value.operations.every((item) => typeof item === 'string' && item.trim().length > 0)
+            && Array.isArray(value.checks)
+            && value.checks.length > 0
+            && value.checks.every((item) => typeof item === 'string' && item.trim().length > 0)
+            && Array.isArray(value.safety)
+            && value.safety.length > 0
+            && value.safety.every((item) => typeof item === 'string' && item.trim().length > 0);
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without repository skills.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+        labels:
+          skill_state: "off"
+    - id: open-knowledge-format
+      description: Isolated treatment with only the standalone Open Knowledge Format skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/open-knowledge-format
+              skillId: open-knowledge-format
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - open-knowledge-format
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated local-planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

@@ -1,14 +1,12 @@
 ---
 type: Agent Skill
 title: Semantic OKF Builder
-description: Create, extend, rebuild, refresh, recover, audit, and validate coherent
-  Semantic OKF knowledge snapshots with deterministic Python adapters for Markdown,
-  CSV, JSON or JSONL, and RDF. Use when Codex needs to add, change, or remove declared
-  sources; choose source separation, homogeneous partition union, or upstream canonicalization;
-  review mappings, ontology terms, or SHACL rules; generate OKF concepts and semantic
-  graphs; reprocess all sources safely; or promote a validated replacement snapshot.
-  Do not use for answering questions from an existing snapshot; use consult-semantic-okf
-  for read-only knowledge consultation.
+description: Build and maintain a Semantic OKF source definition and its generated
+  knowledge folder with deterministic Python adapters for Markdown, CSV, JSON or JSONL,
+  and RDF. Use when Codex needs to create or change a manifest, source topology, mapping,
+  ontology, validation rule, generated snapshot, refresh, promotion, rollback, or
+  recovery. This skill owns construction and maintenance only; it does not answer
+  questions from the generated knowledge.
 tags:
 - codex
 - skill
@@ -18,18 +16,25 @@ source_path: skills/build-semantic-okf/SKILL.md
 
 # Build Semantic OKF
 
-Create one deterministic, validated knowledge snapshot from reviewed local sources. Keep source content, ontology, provenance, and validation evidence distinct.
+Create and maintain one deterministic, validated knowledge folder from reviewed local sources. Keep the complete construction contract inside this skill.
+
+## Standalone boundary
+
+- Use only this skill's `SKILL.md`, `references/`, `scripts/`, and declared Python requirements.
+- Do not import scripts, instructions, validators, or conventions from sibling skills or repository files.
+- Own source inspection, manifest authoring, materialization, validation, refresh, promotion, rollback, and recovery here.
+- Do not search, answer, compare, cite, or synthesize from a published knowledge folder.
 
 ## Workflow
 
 1. Write the scope and competency questions before defining the ontology.
-2. Choose a source-combination topology. Preserve independent authorities as separate declarations; use a glob only for homogeneous physical partitions; perform true entity reconciliation upstream.
+2. Choose a source-combination topology. Preserve independent authorities as separate declarations; use a glob only for a homogeneous partition union; perform true entity reconciliation upstream.
 3. Inspect the physical fields, identifiers, encodings, and data quality. Record any profiling command and result beside the manifest.
 4. Write a reviewed manifest with explicit classes, properties, source mappings, schemas, and evidence-backed SHACL rules.
 5. Verify the locked Python runtime.
 6. Build into a new output directory. The adapters parse every declared source strictly, normalize records, detect source changes, sort canonical records, and materialize the complete snapshot atomically.
 7. Validate the generated bundle independently.
-8. Hand the candidate snapshot to `$consult-semantic-okf` and test every competency query without mutating the candidate.
+8. Run deterministic acceptance fixtures against the generated artifacts without modifying the candidate.
 9. Refresh by rebuilding all declared sources and promoting only a validated replacement snapshot.
 
 Do not infer classes, relations, rules, identity matches, or source precedence from field names alone. Ask for review when the mapping would change domain meaning.
@@ -48,16 +53,29 @@ Run commands from the directory containing this `SKILL.md`, or prefix paths with
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows PowerShell, activate the same environment with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Then install and verify with the activated interpreter:
+
+```bash
 python -m pip install -r scripts/requirements.txt
 python scripts/runtime_smoke.py
 ```
 
-Use Python 3.12. No external data-processing engine is required.
+Keep the environment activated for every command below. CPython 3.12 is the compatibility baseline used to compile the lock; a newer CPython is supported only when `runtime_smoke.py` passes with the exact locked dependencies. No external data-processing engine is required.
 
 ## Build and validate
 
 ```bash
 python scripts/build_semantic_okf.py manifest.json semantic-okf-output
+python scripts/validate_okf_bundle.py semantic-okf-output
 python scripts/validate_semantic_okf.py semantic-okf-output --output-format json
 ```
 
@@ -79,7 +97,7 @@ semantic-okf-output/
     build-report.json
 ```
 
-Use `semantic/data.ttl` for asserted domain facts. Add `ontology.ttl` only for schema-aware work and `provenance.ttl` only for lineage. Never treat `shapes.ttl` or `validation-report.ttl` as domain knowledge.
+These artifacts are one release unit. The builder keeps asserted data, ontology, provenance, constraints, and validation results in separate files and validates their cross-layer coherence before publication.
 
 ## Refresh all sources
 
@@ -105,10 +123,6 @@ Omit an approval flag when that change class is not intended. Refresh never merg
 python scripts/refresh_semantic_okf.py recover semantic-okf-output
 ```
 
-## Consultation handoff
-
-Publish only a validated snapshot, then use `$consult-semantic-okf` for read-only competency queries, semantic lookup, provenance tracing, and cross-source synthesis. Keep consultation tooling out of this lifecycle skill so a reader cannot accidentally acquire source, manifest, refresh, recovery, or promotion commands.
-
 ## Source rules
 
 - `markdown`: one concept per file; mapped YAML values must be scalars; the body is preserved for reading.
@@ -128,6 +142,6 @@ Before delivery, confirm all of the following:
 - paper or document text remains readable in the generated concepts;
 - the source manifest reports stable content and record digests;
 - OKF concepts, ledger subjects, data subjects, provenance origins, ontology classes, and SHACL targets agree;
-- `$consult-semantic-okf` returns the reviewed result for every competency query without changing the snapshot;
+- all construction acceptance fixtures pass without changing the candidate snapshot;
 - a second build from unchanged inputs produces the same logical artifacts;
 - refresh preview reports additions, changes, and removals before promotion.

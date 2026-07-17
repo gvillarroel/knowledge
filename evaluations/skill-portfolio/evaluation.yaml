@@ -1,0 +1,328 @@
+schemaVersion: 1
+benchmark:
+  id: knowledge-skill-portfolio-smoke-compare
+  description: Compare isolated Codex planning across every current repository skill with and without the standalone skill portfolio.
+  tags:
+    - knowledge
+    - skills
+    - portfolio
+    - compare
+    - smoke
+task:
+  prompts:
+    - id: brave-mixed-research
+      description: Plan a mixed Brave Search workflow with an unavailable-feature fallback.
+      prompt: |-
+        Plan a current-research workflow that finds recent coverage of a product launch, a few reusable image references, and nearby launch-event venues in New York. Assume the Brave CLI may reject answer-generation features. Do not execute searches.
+
+        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'brave-search-effective'
+                  && text.includes('bx news')
+                  && text.includes('bx images')
+                  && text.includes('bx places')
+                  && text.includes('--location')
+                  && text.includes('-q')
+                  && (text.includes('bx web') || text.includes('manually synthesize') || text.includes('working search subcommands'));
+              } catch { return false; }
+    - id: know-reproducible-lifecycle
+      description: Plan a reproducible know key lifecycle.
+      prompt: |-
+        Plan the commands to create key `research`, attach Confluence space `ENG` and GitHub repository `https://github.com/example/repo.git` on branch `main`, inspect the registered sources, synchronize the key, export it, and import `backup.zip`. Do not execute commands or expose credentials.
+
+        Return JSON only with exactly these keys in this order: {"skill":"know","plan":["command", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = value.plan.join('\n').toLowerCase();
+                return value.skill === 'know'
+                  && text.includes('know add key research')
+                  && text.includes('know add confluence --space eng --key research')
+                  && text.includes('know add github-repo https://github.com/example/repo.git --key research --branch main')
+                  && text.includes('know list sources --key research')
+                  && text.includes('know sync --key research')
+                  && text.includes('know export --key research')
+                  && text.includes('know import backup.zip');
+              } catch { return false; }
+    - id: television-arxiv-channel
+      description: Plan a reproducible Television channel backed by arXiv search.
+      prompt: |-
+        Plan a Television channel named `arxiv-transformers` under key `research`. Its source should list arXiv transformer results and its preview should show the selected row. Include materialization and the first troubleshooting checks. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","plan":["command or check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'television'
+                  && text.includes('know add television arxiv-transformers --key research')
+                  && text.includes('know search arxiv')
+                  && text.includes('--format television')
+                  && text.includes('--format television-preview')
+                  && text.includes("--entry '{}'")
+                  && text.includes('know sync television arxiv-transformers --key research')
+                  && text.includes('--help');
+              } catch { return false; }
+    - id: semantic-okf-build-lifecycle
+      description: Plan safe Semantic OKF construction and refresh.
+      prompt: |-
+        Plan how to build a new Semantic OKF knowledge folder from a reviewed local manifest, validate it independently, preview a later full-source refresh, and recover an interrupted promotion. Keep consultation and question answering out of scope. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"skill":"build-semantic-okf","plan":["command or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'build-semantic-okf'
+                  && text.includes('build_semantic_okf.py')
+                  && text.includes('validate_okf_bundle.py')
+                  && text.includes('validate_semantic_okf.py')
+                  && text.includes('refresh_semantic_okf.py update')
+                  && text.includes('--check')
+                  && text.includes('refresh_semantic_okf.py recover')
+                  && !text.includes('query_semantic_okf.py');
+              } catch { return false; }
+    - id: semantic-okf-consult-layers
+      description: Choose authoritative read layers for Semantic OKF consultation.
+      prompt: |-
+        Plan a read-only consultation that first locates records by source and type, then answers a typed relation question, traces physical lineage, and reports validation outcomes. The knowledge folder is immutable. Do not execute commands or suggest repairs.
+
+        Return JSON only with exactly these keys in this order: {"skill":"consult-semantic-okf","plan":["layer or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'consult-semantic-okf'
+                  && text.includes('records.jsonl')
+                  && text.includes('data.ttl')
+                  && text.includes('provenance.ttl')
+                  && text.includes('validation-report.ttl')
+                  && (text.includes('read-only') || text.includes('immutable'))
+                  && (text.includes('do not union') || text.includes('not union') || text.includes('only required'))
+                  && !text.includes('refresh_semantic_okf.py');
+              } catch { return false; }
+    - id: ontology-evidence-authoring
+      description: Plan evidence-led ontology authoring and validation.
+      prompt: |-
+        Plan an evidence-led ontology deliverable from a small set of policy documents and tabular schemas. Include competency questions, traceable mappings, OWL and SHACL artifacts, validation fixtures, and explicit review boundaries. Do not build or refresh a Semantic OKF snapshot.
+
+        Return JSON only with exactly these keys in this order: {"skill":"extract-ontologies","plan":["artifact or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'extract-ontologies'
+                  && text.includes('competency')
+                  && text.includes('evidence')
+                  && text.includes('ontology.ttl')
+                  && text.includes('shapes.ttl')
+                  && text.includes('fixture')
+                  && (text.includes('pyshacl') || text.includes('validate_semantic_artifacts.py'))
+                  && !text.includes('build_semantic_okf.py');
+              } catch { return false; }
+    - id: okf-project-projection
+      description: Plan strict OKF validation and project-skill projection.
+      prompt: |-
+        Plan how to repair an OKF v0.1 bundle with one concept missing `type`, then generate and drift-check an OKF projection for a project whose native agent skills must keep their own discovery frontmatter unchanged. Do not execute commands.
+
+        Return JSON only with exactly these keys in this order: {"skill":"open-knowledge-format","plan":["command or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'open-knowledge-format'
+                  && text.includes('type')
+                  && text.includes('validate_okf_bundle.py')
+                  && text.includes('build_project_okf_bundle.py')
+                  && text.includes('--check')
+                  && text.includes('name')
+                  && text.includes('description')
+                  && (text.includes('do not add')
+                    || text.includes('do not modify')
+                    || text.includes('unchanged')
+                    || text.includes('separate projection')
+                    || text.includes('exclusively in the generated projection'));
+              } catch { return false; }
+    - id: confluence-conflict-recovery
+      description: Plan a safe Confluence page edit after a concurrent version change.
+      prompt: |-
+        A downloaded Confluence page contains an unknown macro and an attachment-backed image. The remote page version changed before upload. Plan a safe edit-and-verification workflow that preserves dynamic content and never changes restrictions or the page location. Do not contact Confluence or execute commands.
+
+        Return JSON only with exactly these keys in this order: {"skill":"roundtrip-confluence-pages","plan":["command or action", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: workflow-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
+                return value.skill === 'roundtrip-confluence-pages'
+                  && text.includes('page.storage.xml')
+                  && text.includes('download')
+                  && text.includes('upload')
+                  && (text.includes('--dry-run') || text.includes('upload dry run'))
+                  && (text.includes('browser-ground-truth.json')
+                    || text.includes('record-browser-gt')
+                    || text.includes('ground-truth.json'))
+                  && (text.includes('completion-gate') || text.includes('completion gate'))
+                  && text.includes('restrictions')
+                  && (text.includes('do not') || text.includes('never'));
+              } catch { return false; }
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          return keys.length === 3
+            && keys[0] === 'skill'
+            && keys[1] === 'plan'
+            && keys[2] === 'safety'
+            && typeof value.skill === 'string'
+            && Array.isArray(value.plan)
+            && value.plan.length > 0
+            && value.plan.every((item) => typeof item === 'string')
+            && Array.isArray(value.safety)
+            && value.safety.length > 0
+            && value.safety.every((item) => typeof item === 'string');
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without repository skills.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: "off"
+    - id: skill-portfolio
+      description: Isolated treatment with every current standalone repository skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/brave-search-effective
+              skillId: brave-search-effective
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf
+              skillId: build-semantic-okf
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf
+              skillId: consult-semantic-okf
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/extract-ontologies
+              skillId: extract-ontologies
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/know
+              skillId: know
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/open-knowledge-format
+              skillId: open-knowledge-format
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/roundtrip-confluence-pages
+              skillId: roundtrip-confluence-pages
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/television
+              skillId: television
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - skill-portfolio
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated planning route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

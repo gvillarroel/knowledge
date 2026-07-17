@@ -18,6 +18,12 @@ source_path: skills/brave-search-effective/SKILL.md
 
 Use `bx` as a fast search front-end. Optimize for useful queries, narrow result sets, and explicit fallback when a command is unavailable in the current plan.
 
+## Standalone boundary
+
+- Treat the `bx` executable, Brave API access, and its configured credentials as explicit external prerequisites.
+- Use only this `SKILL.md` and package-local references for the workflow; do not require repository files or another skill.
+- Run `bx --help` and `bx config --help` before the first search in an unfamiliar installation. If either the executable or authentication is unavailable, return that diagnostic instead of inferring repository-specific setup.
+
 ## Workflow
 
 1. Choose the narrowest working subcommand first.
@@ -25,6 +31,26 @@ Use `bx` as a fast search front-end. Optimize for useful queries, narrow result 
 3. Add site constraints only after a broad query is noisy.
 4. Inspect the JSON output and extract the relevant fields instead of dumping raw results.
 5. If a subcommand returns `OPTION_NOT_IN_PLAN`, switch to a working alternative and say so briefly.
+
+## Plan-only and offline requests
+
+When the user asks only for a plan, state that no CLI command, network call, or
+search was executed, no results were found, and every command is an example.
+For a broad multi-part request, present five to eight relevant examples in the
+order they would run. A seven-command template is:
+
+1. `bx --help`
+2. `bx config --help`
+3. `bx news "<entity> <event> <date context>"`
+4. `bx images "<entity> <visual need>"`
+5. `bx videos "<entity> <tutorial need>"`
+6. `bx places --location "<city region country>" -q "<place type>"`
+7. `bx web "site:<authoritative-domain> <entity> <verification need>"`
+
+Omit search commands unrelated to the request. Include a fallback only for a
+command in the plan or a failure named by the user; do not pad the plan with
+unsupported-feature fallbacks. Never present example links, dates, venues, or
+media as found results.
 
 ## Choose The Command
 
@@ -66,13 +92,13 @@ These behaviors were verified in this environment with the configured key:
 - Working: `bx images`
 - Working: `bx videos`
 - Working: `bx places` when invoked with `-q` and `--location`
-- Working: `bx config`
 - Not available in this plan: `bx context`
 - Not available in this plan: `bx answers`
 - Not available in this plan: `bx suggest`
 - Not available in this plan: `bx spellcheck`
 
 Treat these as environment-specific, not universal truths. Re-check if the key or plan changes.
+Inspect `bx config --help` for the configuration subcommands supported by the installed CLI.
 
 ## Fallback Rules
 

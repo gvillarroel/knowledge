@@ -1,0 +1,198 @@
+schemaVersion: 1
+benchmark:
+  id: md2conf-evolution-v2-development
+  description: Diagnose a second, distinct set of md2conf routing, reconciliation, ownership, and source-contract risks.
+  tags:
+    - md2conf
+    - confluence
+    - evolution-v2
+    - development
+    - isolated
+task:
+  prompts:
+    - id: reject-source-space-override
+      description: Detect a source-level space redirect before creating a page.
+      prompt: Review `space-routing/handbook.md` against `space-routing/approved-target.json`. We plan to run md2conf with `--space ENG --root-page 4100`; decide whether this source is safe to create and give the smallest safe correction. Stay offline and do not edit anything.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: source-space-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response blocks the proposed publication, identifies HR as outside the approved target, requires one unambiguous reviewed destination, and neither claims a live run nor relies on the command-line space flag as protection.
+          - type: llm-rubric
+            metric: source-space-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that document `space_key` or `confluence-space-key` participates in page routing and can override the site-level CLI/environment space for that document, then recommends removing or changing the source override to ENG only after review and re-running local validation on a disposable copy.
+    - id: reconcile-global-properties
+      description: Predict recursive property merging and replacement effects.
+      prompt: We would publish `property-merge/page.md` with `--global-properties property-merge/global-properties.yaml`. Use `property-merge/remote-state.json` to predict the desired property set and decide whether the preserve-all requirement is met. Do not contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: global-properties-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response blocks the preserve-all publication as currently specified because the extension-owned workflow property is absent from the desired set, and requires either leaving properties unmanaged or reviewing a complete intended property set before any live command.
+          - type: llm-rubric
+            metric: global-properties-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response describes a recursive nullish merge in which document values win over global defaults, specifically derives layout width=narrow, theme=document, density=compact, owner team=docs, and retention years=7, and explains that supplying the merged set triggers full property reconciliation that removes unspecified `com.vendor.workflow` apart from md2conf's synchronization property.
+    - id: block-label-prefix-collision
+      description: Protect same-name labels across Confluence prefixes.
+      prompt: Decide whether `label-collision/page.md` can satisfy `label-collision/remote-state.json` during a later update. Explain the exact stable-0.6.1 risk and the smallest safe source change. Keep the review offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: label-collision-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response blocks publication with supplied tags under the preserve-every-label requirement, does not promise prefix-safe deletion, and recommends omitting `tags` so labels remain unmanaged unless the entire collision is explicitly accepted.
+          - type: llm-rubric
+            metric: label-collision-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that stable 0.6.1 computes label differences with name and prefix but sends removals by label name only, so removing team/personal `release` is ambiguous and can affect the intended global `release`; it also recognizes `manual-review` as unmatched.
+    - id: guard-unmanaged-no-overwrite
+      description: Test the real boundary of the conflict flag.
+      prompt: The operator believes `--no-overwrite` makes `unmanaged-overwrite/page.md` safe to publish. Review the source and `unmanaged-overwrite/remote-state.json`, then decide whether that flag protects the manual page. Do not run md2conf.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: unmanaged-overwrite-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response refuses the publication because the page is Confluence-authored and its manual body must survive, requires an explicit authority or separate-page decision, and does not present `--no-overwrite` as an ownership guard.
+          - type: llm-rubric
+            metric: unmanaged-overwrite-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that stable 0.6.1's conflict check needs a prior md2conf synchronization property and matching recorded page version; with no synchronization property, a mapped changed page can proceed even when `--no-overwrite` is supplied.
+    - id: protect-current-body-attachment
+      description: Detect attachment cleanup when the generated body is current.
+      prompt: The body generated from `current-body-attachment/page.md` already matches Confluence. Use `current-body-attachment/remote-state.json` to decide whether a live md2conf run would be a no-op and whether the manual PDF is safe. Stay offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: current-attachment-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response says the run is not safe as a no-op, blocks it while the manual PDF must survive, and requires the Markdown source to own and reference the complete intended attachment set or the page to remain Confluence-authored.
+          - type: llm-rubric
+            metric: current-attachment-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that stable 0.6.1 inventories, uploads, and deletes unreferenced attachments even when body/title comparison reports no content change, and specifically identifies `signed-approval.pdf` as deletion-prone because the source references no attachments.
+    - id: resolve-mapping-precedence
+      description: Resolve conflicting comment and frontmatter mappings.
+      prompt: Review `mapping-precedence/conflicted.md` against `mapping-precedence/approved-target.json`, which authorizes only page 222 in ENG. Diagnose the effective mapping under stable md2conf 0.6.1 and give the smallest safe correction. Do not edit or publish.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: mapping-precedence-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response blocks publication because the effective mapping is unapproved, refuses to guess or rely on ordering, and requires deleting the stale comment mapping so one reviewed page/space identity remains.
+          - type: llm-rubric
+            metric: mapping-precedence-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that stable 0.6.1 extracts inline page/space comments before frontmatter and coalesces them with comment values taking precedence, making page 111 in HR effective rather than frontmatter page 222 in ENG.
+    - id: repair-nested-ignore-rule
+      description: Repair an invalid nested ignore and its dangling link.
+      prompt: Review `ignore-rules/` for a source-preserving local directory conversion. `drafts/obsolete.md` must be excluded. Diagnose the current `.mdignore`, the link from `index.md`, and the smallest correction. Do not run or edit md2conf inputs.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: nested-ignore-core-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response says the current tree is not conversion-ready, keeps the source unchanged now, and requires both a corrected ignore scope and removal or rewrite of the link to the excluded page before disposable-copy local validation.
+          - type: llm-rubric
+            metric: nested-ignore-mechanics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass when the response explains that stable 0.6.1 rejects `.mdignore` rules containing a path separator as unsupported nested matching, and prescribes a `drafts/.mdignore` containing `obsolete.md`; it also explains that strict link resolution cannot keep a relative page link to an excluded target.
+workspace:
+  sources:
+    - id: md2conf-v2-development-fixtures
+      type: local-path
+      path: evaluations/md2conf/fixtures/workspaces/v2-development
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: javascript
+      metric: non-empty-response
+      value: typeof output === "string" && output.trim().length >= 80
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without md2conf workflow guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags: [control, no-skill, evolution-v2]
+        labels:
+          skill_state: "off"
+    - id: current-v1
+      description: Frozen md2conf skill before the second evolution pass.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: evaluations/md2conf/fixtures/skills/md2conf-v1
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags: [treatment, md2conf, frozen-v1, evolution-v2]
+        labels:
+          skill_state: "current-v1"
+    - id: candidate-v2
+      description: Candidate md2conf skill after the second development pass.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/md2conf
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags: [treatment, md2conf, candidate-v2, evolution-v2]
+        labels:
+          skill_state: "candidate-v2"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline development route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags: [codex, sol, offline, evolution-v2]
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

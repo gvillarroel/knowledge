@@ -251,7 +251,7 @@ def _validate_snapshot(root: Path, code: str) -> dict[str, Any]:
     if not result.valid:
         messages = "; ".join(item["message"] for item in result.errors)
         raise RefreshError(code, f"semantic validation failed for {root}: {messages}")
-    validator = SCRIPT_DIR.parent.parent / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+    validator = SCRIPT_DIR / "validate_okf_bundle.py"
     completed = subprocess.run(
         [sys.executable, str(validator), str(root)],
         capture_output=True,

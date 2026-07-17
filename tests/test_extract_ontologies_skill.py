@@ -43,6 +43,14 @@ def test_skill_metadata_is_prebuild_ontology_authoring_only() -> None:
     assert "$consult-semantic-okf" not in metadata
 
 
+def test_offline_authoring_contract_pins_local_sources_and_contexts() -> None:
+    skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+
+    assert "pin ontology sources, imports, and JSON-LD contexts" in skill
+    assert "supplied local versions" in skill
+    assert "forbid remote dereferencing during validation" in skill
+
+
 def test_scaffold_builds_complete_bundle_without_overwriting(tmp_path: Path) -> None:
     scaffold = load_script("scaffold_ontology_bundle.py")
     parser = scaffold.build_parser()

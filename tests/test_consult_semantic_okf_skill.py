@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -150,20 +151,17 @@ def test_consult_skill_metadata_dependencies_and_command_boundary() -> None:
     compiled = (SCRIPTS / "requirements.txt").read_text(encoding="utf-8").lower()
     support = (SCRIPTS / "_consult_semantic_okf.py").read_text(encoding="utf-8")
     helper = (SCRIPTS / "query_semantic_okf.py").read_text(encoding="utf-8")
-    builder = REPO_ROOT / "skills" / "build-semantic-okf"
-
     assert "name: consult-semantic-okf" in skill
     assert "Read-only boundary" in skill
-    assert "$build-semantic-okf" in skill
+    assert "build-semantic-okf" not in skill
+    assert "Standalone boundary" in skill
+    assert "general read-only context" in skill
     assert "query_semantic_okf.py" in skill
-    assert "prepare_cross_source_evidence.py" in skill
-    assert "validate_cross_source_answer.py" in skill
-    assert "status: pass" in skill
     assert "cross-source-synthesis.md" in skill
     assert "source-boundaries.md" in skill
     assert "TODO" not in skill
     assert "$consult-semantic-okf" in metadata
-    assert "Query and synthesize validated semantic knowledge" in metadata
+    assert "Navigate and consult semantic knowledge folders" in metadata
     assert direct == ["rdflib==7.6.0"]
     assert "rdflib==7.6.0" in compiled
     assert "pyparsing==3.3.2" in compiled
@@ -173,12 +171,19 @@ def test_consult_skill_metadata_dependencies_and_command_boundary() -> None:
     assert (SCRIPTS / "prepare_cross_source_evidence.py").is_file()
     assert (SCRIPTS / "validate_cross_source_answer.py").is_file()
     assert (SCRIPTS / "runtime_smoke.py").is_file()
+    assert "source .venv/bin/activate" in skill
+    assert r".\.venv\Scripts\Activate.ps1" in skill
+    assert "CPython 3.12 is the compatibility baseline" in skill
+    assert "bundled Python helper is the supported baseline" in skill
+    assert "PATH_TO_DATA_QUERY.rq" in skill
+    assert "PATH_TO_LINEAGE_QUERY.rq" in skill
+    assert "queries/methods.rq" not in skill
+    assert "queries/lineage.rq" not in skill
+    assert skill.index("source .venv/bin/activate") < skill.index("python -m pip install")
+    assert skill.index("python -m pip install") < skill.index("python scripts/runtime_smoke.py")
     assert not (SCRIPTS / "build_semantic_okf.py").exists()
     assert not (SCRIPTS / "refresh_semantic_okf.py").exists()
     assert not (SCRIPTS / "validate_semantic_okf.py").exists()
-    assert (builder / "scripts" / "build_semantic_okf.py").is_file()
-    assert (builder / "scripts" / "refresh_semantic_okf.py").is_file()
-    assert not (builder / "scripts" / "query_semantic_okf.py").exists()
     assert "_semantic_okf" not in support
     assert "build-semantic-okf" not in support
     assert "from _consult_semantic_okf import" in helper
@@ -193,6 +198,54 @@ def test_consult_skill_metadata_dependencies_and_command_boundary() -> None:
         assert "refresh_semantic_okf" not in script
         assert "urllib" not in script
         assert "requests" not in script
+
+
+def test_consult_package_has_no_external_skill_or_repository_references() -> None:
+    forbidden = {
+        "build-semantic-okf",
+        "extract-ontologies",
+        "open-knowledge-format",
+        "spec.md",
+        "readme.md",
+        "evaluations/",
+        "evaluations\\",
+    }
+    suffixes = {".md", ".py", ".txt", ".yaml", ".yml"}
+    violations: list[str] = []
+    for path in sorted(SKILL_ROOT.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in suffixes:
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        matches = sorted(token for token in forbidden if token in text)
+        if matches:
+            violations.append(f"{path.relative_to(SKILL_ROOT).as_posix()}: {matches}")
+    assert violations == []
+
+
+def test_consult_runs_after_its_folder_is_copied_outside_the_repository(tmp_path: Path) -> None:
+    standalone = tmp_path / "consult-semantic-okf"
+    shutil.copytree(SKILL_ROOT, standalone)
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(standalone / "scripts" / "query_semantic_okf.py"),
+            str(BUNDLE),
+            "ledger",
+            "--source-id",
+            PAPER_SOURCE,
+            "--all",
+            "--format",
+            "json",
+        ],
+        cwd=standalone,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=120,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert json.loads(completed.stdout)["status"] == "pass"
 
 
 def test_consult_references_define_efficient_grounded_synthesis() -> None:
@@ -213,6 +266,15 @@ def test_consult_references_define_efficient_grounded_synthesis() -> None:
     assert "coverage ledger" in synthesis.lower()
     assert "deterministic preflight" in synthesis.lower()
     assert "normalized_response" in synthesis
+    assert "PATH_TO_DATA_QUERY.rq" in querying
+    assert "PATH_TO_LINEAGE_QUERY.rq" in querying
+    assert "PATH_TO_COVERAGE_QUERY.rq" in synthesis
+    assert "queries/active-projects.rq" not in querying
+    assert "queries/lineage.rq" not in querying
+    assert "queries/cross-source-coverage.rq" not in synthesis
+    assert "optional accelerator" in querying
+    assert "optional external workflow" in querying
+    assert "bundled Python helper" in querying
     assert "Separate authorities" in boundaries
     assert "Homogeneous partition union" in boundaries
     assert "Shared dimensions or matching strings" in boundaries

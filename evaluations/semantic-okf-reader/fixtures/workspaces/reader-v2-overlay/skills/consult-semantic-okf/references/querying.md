@@ -101,7 +101,7 @@ The helper injects standard `rdf`, `rdfs`, `owl`, `xsd`, `dcterms`, and `prov` p
 - Preserve requested scalar, array, and object shapes. Do not replace a requested scalar summary with an RDF-library object merely because the source term has structure.
 - Before answering, verify the exact key set, set ordering, typed values, and that every cited artifact directly supports the claim.
 - Keep the expected columns, rows, and entailment regime beside each competency query.
-- Rerun competency queries after every successful refresh.
+- Rerun competency queries whenever the pinned snapshot revision changes.
 - Treat `--limit` as an output cap, not an evaluation-cost limit; put `LIMIT` in SPARQL too.
 - The bundled helper uses entailment `none`. Run and record a separate reasoner workflow when RDFS or OWL entailment is required.
 
@@ -112,13 +112,12 @@ RDFLib reparses only the selected Turtle graphs for each invocation. This is app
 1. validate the promoted snapshot once;
 2. load `data.ttl` and only the required ontology/provenance graphs into an indexed persistent triplestore;
 3. record the source-manifest tree or revision digest with the loaded dataset;
-4. replace or version the entire loaded snapshot after refresh rather than incrementally mixing revisions.
+4. replace or version the entire loaded snapshot when its revision changes rather than mixing revisions.
 
 ## 7. Safety and limits
 
 - Only local read-only SPARQL `SELECT` and `ASK` are accepted.
 - `SERVICE`, `FROM`, and `FROM NAMED` are rejected; `--graph` is the only graph-selection mechanism.
 - Query text is limited to 64 KiB.
-- `--validate` parses the complete read surface before a query: the ledger, exact concept paths, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. This is not the builder's full semantic and SHACL publication validator; send moved, untrusted, or structurally changed snapshots through `$build-semantic-okf` before consultation.
+- `--validate` parses the complete read surface before a query: the ledger, exact concept paths, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. It is a read-only integrity gate; if the folder is moved, untrusted, structurally changed, or invalid, report the condition and stop.
 - The helper never mutates a bundle, dereferences ontology imports, or creates indexes inside it.
-

@@ -1,9 +1,8 @@
 ---
 type: Project Specification
 title: knowledge specification
-description: Requirements and architecture for the knowledge CLI.
+description: Requirements and architecture for knowledge.
 tags:
-- knowledge
 - requirements
 - okf
 source_path: SPEC.md
@@ -18,6 +17,7 @@ Build a Python CLI called `know` to manage a local knowledge base in `~/.knowled
 - creating named knowledge keys as independent local collections;
 - attaching external sources to a key through declarative metadata;
 - synchronizing content from multiple systems into a raw local store;
+- round-tripping published Confluence Cloud pages without flattening macros, Smart Links, statuses, images, attachments, labels, or dynamic extension data;
 - processing video sources by extracting or generating transcriptions;
 - exporting normalized Markdown documents with YAML frontmatter;
 - exporting Open Knowledge Format (OKF) v0.1-compatible Markdown concept documents;
@@ -25,6 +25,8 @@ Build a Python CLI called `know` to manage a local knowledge base in `~/.knowled
 - selecting a reviewed Semantic OKF source-combination topology that either preserves source boundaries or treats compatible physical partitions as one logical source;
 - refreshing generated Semantic OKF snapshots by fully reprocessing their declared sources;
 - consulting Semantic OKF knowledge efficiently through ledger, Markdown, and local SPARQL workflows;
+- optionally deriving hash-bound embedding retrieval projections without changing authoritative OKF records or RDF identities;
+- consulting embedding-enabled snapshots through explicit lexical, vector, and hybrid discovery followed by authoritative concept verification;
 - preserving traceability back to the original source;
 - supporting repeatable updates through explicit commands stored with each key;
 - browsing knowledge interactively with sync-status indicators;
@@ -46,16 +48,20 @@ Television channel definitions may also be attached when a key needs reproducibl
 - Exported Markdown should populate OKF `title`, `description`, `resource`, `tags`, and `timestamp` when those values can be derived from source metadata without guessing.
 - Integrations must support repeatable re-sync without manual intervention.
 - Optional dependencies must not block use of the base CLI.
+- Advanced Television skill bundles must remain usable without this checkout, generate separate macOS and Windows artifacts, and never install optional preview tools or replace user configuration implicitly.
 - The default user-facing command is `know`.
 - Command naming should remain short and task-oriented: `add`, `list`, `search`, `sync`, `export`, `browse`.
 - Video sources must be normalized through transcription before export so they can be consumed like the rest of the text-oriented library.
 - Cross-platform compatibility: use `tempfile.gettempdir()` instead of hard-coded paths.
 - Native `SKILL.md` frontmatter must remain limited to `name` and `description`; OKF skill interoperability is provided by a generated projection rather than nested compatibility metadata.
+- Every repository skill must be a standalone package by default: keep required instructions, references, scripts, assets, and dependency declarations inside its own directory, while treating explicitly declared tools, services, credentials, browsers, and user-supplied data as public inputs rather than hidden package dependencies.
 - Semantic OKF refreshes must rebuild complete snapshots, validate before promotion, report additions/changes/removals, and never merge generated trees in place.
 - Semantic OKF query workflows must select the cheapest authoritative layer and keep domain data, ontology, provenance, and validation graphs distinct unless a query explicitly requires their union.
 - Semantic OKF multi-input plans must distinguish source-scoped separation, homogeneous partition union, and upstream entity fusion; they must never silently deduplicate, select winners, or imply access isolation that the generated default data graph does not provide.
 - Semantic OKF CSV ingestion must match exact physical header names independently of JSON schema member order, apply deterministic strict Python scalar parsing, and reject ambiguous or lossy input.
 - Semantic OKF adapters must reprocess every declared source, detect both content changes and glob-membership changes, and remain deterministic without an external data-processing engine.
+- Semantic OKF embedding chunks and vectors are non-authoritative discovery projections: they must bind to exact records, concepts, source locators, input hashes, provider, model revision, dimensions, and chunking configuration.
+- Embedding workflows must keep a network-free deterministic baseline, require explicit allowlisted providers and implementations, and never select, download, or cache a model implicitly.
 
 ## Non-functional Requirements
 
@@ -494,7 +500,7 @@ Credentials are stored in `~/.knowledge/keys.yaml`. Sources reference them using
 
 ### Television (`sources/television.py`)
 - Generates a Television cable TOML file, command manifest, and README during sync.
-- Cable files can be installed into `~/.config/television/cable/` for `tv` discovery.
+- Manifest install commands honor `TELEVISION_CONFIG` and `XDG_CONFIG_HOME`, then use the platform default Television configuration directory.
 
 ## Television Integration
 
@@ -513,6 +519,17 @@ Television (`tv`) is a terminal fuzzy-finder. The `know` CLI integrates with it 
 ### 2. Television source adapter
 
 `know add tv` registers a persistent channel definition that generates a TOML cable file during sync.
+
+### 3. Standalone Television skill bundles
+
+The standalone `skills/television/` package provides deterministic advanced generation when a request exceeds the simple source adapter.
+
+- Input is a declarative JSON bundle specification.
+- Output may include `config.toml`, cable TOML files, a manifest, a dependency inventory, and installers for macOS and Windows.
+- Channel bundles support the complete source, preview, UI, history, keybinding, action, and template surface exposed by current Television channel types.
+- Associated Enter-driven navigation is a linear graph of one to three channels. Every transition must propagate a stable selected value; the third level cannot launch a fourth channel.
+- Preview recipes cover text, code, Markdown, JSON, YAML, CSV, TSV, directories, images, PDFs, media, and archives. CSV and TSV parsing must be table-aware rather than delimiter splitting.
+- Every invoked binary is declared in channel requirements. Optional preview-tool installation is explicit and user-authorized.
 
 ### Pre-built cables
 
@@ -559,9 +576,11 @@ Install cables:
 # Unix / macOS
 mkdir -p ~/.config/television/cable && cp cables/*.toml ~/.config/television/cable/
 
-# PowerShell (Windows)
-New-Item -ItemType Directory -Force -Path $HOME/.config/television/cable | Out-Null
-Copy-Item cables/*.toml $HOME/.config/television/cable/
+# PowerShell (Windows default; honor TELEVISION_CONFIG first when set)
+$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } else { Join-Path $env:LOCALAPPDATA 'television\config' }
+$CableDir = Join-Path $ConfigDir 'cable'
+New-Item -ItemType Directory -Force -Path $CableDir | Out-Null
+Copy-Item cables/*.toml $CableDir/
 ```
 
 ### Inline usage without cables
@@ -595,30 +614,70 @@ tv --source-command='know search jira "" --project KAN --format television' \
 
 ## Skill
 
+Every direct `skills/<name>/` package must remain usable after its directory is copied outside this repository. A skill may require the external executable or service named by its public purpose, but it must not require sibling skills, root documentation, repository source modules, fixtures, evaluation artifacts, or repository-relative runtime helpers. Bundled Python scripts must declare third-party packages within the same skill directory. Optional performance tools and model-assisted workflows must not replace the package's supported baseline. Portability tests must verify local links, dependency declarations, and copied-package entry points.
+
+Skill evolution must use isolated Skill Arena comparisons by default: one no-skill control versus one treatment containing exactly one copied canonical skill, with identical prompts and fixtures. The all-skills portfolio comparison is a routing smoke and must not be used as causal evidence for an individual skill. Broad-skill iteration suites must include naturalistic, generalization, and boundary or recovery cases while keeping evaluator knowledge outside task prompts.
+
 A `SKILL.md` file in `skills/know/` provides usage instructions for the CLI, including Television integration patterns and credential management.
 
 The repository also ships `skills/open-knowledge-format/`, which documents the reviewed Google Cloud OKF v0.1 contract and provides deterministic bundle generation and validation scripts.
 
-The repository must expose Semantic OKF lifecycle and consultation as two distinct skills with mutually exclusive mutation authority.
+The repository ships `skills/roundtrip-confluence-pages/` as an independent write-capable Confluence page skill. It must use storage XML as the editable body contract, retain ADF and rendered HTML as verification evidence, preserve attachment bytes, media types, and page metadata, reject concurrent page and attachment version conflicts by default, and require both a verified API report and a verified authenticated-browser ground-truth record before reporting a successful upload. It must not mutate page parent/space, restrictions, permissions, comments, watchers, likes, analytics, owners, classifications, or content properties.
+
+The repository also ships `skills/md2conf/` as a standalone Markdown-authoritative Confluence publishing skill. It must target the active `markdown-to-confluence` distribution, verify the installed CLI version and options, stage conversion with offline local output, expose whole-page replacement and source-update choices explicitly, and require review of attachment deletion, label/property replacement, mailto-driven user mentions and their notification effects, hierarchy changes, and partial-failure recovery before a live publish. It must not claim lossless preservation of native Confluence content or use a Markdown publication workflow when the existing page remains authoritative.
+
+The repository must expose Semantic OKF lifecycle and consultation as two standalone skills with mutually exclusive responsibilities and no dependency on files, scripts, instructions, or sibling skills outside their own directories. Third-party Python packages are permitted only when declared by the skill's bundled requirements files.
 
 The write-capable `skills/build-semantic-okf/` skill must:
 
+- exclusively own construction and maintenance of the reviewed source definition and generated knowledge folder;
 - choose and record whether multiple inputs remain separate, form one homogeneous partition union, or require upstream canonicalization;
 - create a new coherent bundle from a reviewed manifest;
 - add, change, or remove declared sources and their reviewed mappings without silently changing domain meaning;
 - refresh an existing bundle by reprocessing all original sources into a validated replacement snapshot; and
-- validate semantic, provenance, SHACL, and OKF coherence before publication or promotion.
+- validate semantic, provenance, SHACL, and OKF coherence before publication or promotion using only validators bundled in the skill;
+- exclude searching, answering, comparing, citing, and synthesis instructions or commands.
 
 The read-only `skills/consult-semantic-okf/` skill must:
 
+- exclusively provide general context and read-only local helpers for navigating an already generated knowledge folder efficiently;
 - consume an existing validated snapshot without modifying its manifest, sources, generated concepts, semantic graphs, or reports;
 - choose the cheapest authoritative consultation layer: `records.jsonl` for exact metadata, concept Markdown for lexical discovery and reading, and explicitly selected RDF graphs for joins, aggregation, schema, lineage, or validation questions;
 - answer and synthesize knowledge across one or more sources with verified citations, page locators, and exact artifact paths; and
-- keep domain data, ontology, provenance, shapes, and validation results distinct unless the question explicitly requires a reviewed union.
+- keep domain data, ontology, provenance, shapes, and validation results distinct unless the question explicitly requires a reviewed union;
+- exclude source acquisition, manifest authoring, materialization, validation repair, refresh, promotion, rollback, and recovery instructions or commands.
+
+Each skill must remain installable and executable when its directory is copied outside this repository. Neither skill may name the other skill as a prerequisite or handoff target. Invalid or missing inputs must produce an in-scope diagnostic instead of routing through an external skill.
 
 Requests that create, expand, reprocess, repair, or otherwise mutate a Semantic OKF snapshot must route to `build-semantic-okf`. Requests that search, query, compare, explain, or cite knowledge from an existing snapshot must route to `consult-semantic-okf`. Ontology learning and evidence-led semantic model authoring remain a separate pre-build responsibility of `extract-ontologies`.
 
 Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
+
+### Semantic OKF embedding retrieval
+
+The repository also ships `skills/build-semantic-okf-embeddings/` and `skills/consult-semantic-okf-embeddings/` as a second standalone pair for explicitly requested embedding, vector, hybrid, or LlamaIndex workflows. They do not replace or depend on the deterministic Semantic OKF skill pair.
+
+The write-capable embedding builder must:
+
+- materialize and validate the same authoritative Semantic OKF core before creating a retrieval projection;
+- keep retrieval chunks out of the OKF record ledger and RDF graphs unless their semantic identity is separately declared and reviewed;
+- write canonical, hash-bound retrieval artifacts under `retrieval/`, including chunks, embeddings, a closed index manifest, and a build report;
+- provide a deterministic local hashing and native-splitting baseline;
+- permit Sentence Transformers and LlamaIndex only as explicit, allowlisted, package-declared optional backends; a Sentence Transformers repository ID and immutable revision must resolve to that exact preloaded Hugging Face snapshot before only its local path is passed to the CPU model loader, with no implicit network, hosted provider, remote code, or cache writes; and
+- validate input coverage, record/chunk/vector bindings, ordering, counts, dimensions, finite normalized values, paths, artifact hashes, and deterministic rebuild behavior before publication.
+
+The read-only embedding consultant must:
+
+- inspect and validate the retrieval projection before using it;
+- provide deterministic lexical, exact-cosine vector, and reciprocal-rank-fusion hybrid discovery with filters applied before ranking and stable tie-breaking;
+- identify requested and effective modes, any explicit fallback, snapshot and index digests, and exact concept paths and locators in machine-readable output;
+- treat retrieval scores as discovery-only and require opening authoritative concept Markdown before citing a hit;
+- fail closed for a corrupt or stale declared index, and never download a model, create cache state, or mutate the snapshot; and
+- retain ledger, Markdown, and selected RDF graphs as the authoritative layers for exact facts, reading, joins, aggregation, schema, provenance, and validation questions.
+
+Requests that explicitly require embedding-based separation, LlamaIndex processing, vector retrieval, or hybrid retrieval must route to this pair. Other Semantic OKF lifecycle and consultation requests continue to route to the deterministic pair.
+
+The repository must keep a separate reproducible comparison under `evaluations/semantic-okf-embeddings/`. It must pin the fifteen GraphRAG Markdown files and fifteen corresponding claim JSONL files by path and SHA-256, retain the shared vocabulary as a separately identified required auxiliary input, preserve the historical snapshot, use append-only run directories for new large artifacts, and compare legacy lexical, new lexical, vector, and hybrid retrieval on identical questions. Reports must include source coverage, core semantic parity, artifact size and timing, Recall at fixed cutoffs, MRR, nDCG, and evidence validity against the authoritative ledger, identity fields, text digest, safe concept path, and exact record or character-range locator.
 
 ### Semantic OKF consultation benchmark
 

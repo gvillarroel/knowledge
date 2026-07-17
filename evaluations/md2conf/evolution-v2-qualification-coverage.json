@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 4,
+    "minimumTaskFamilies": 4,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {
+      "promptId": "protect-hierarchy-preview-checkout",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "hierarchy-source-mutation"
+    },
+    {
+      "promptId": "preserve-mixed-authority-placeholder",
+      "caseKind": "naturalistic-forward",
+      "taskFamily": "mixed-authority-placeholder"
+    },
+    {
+      "promptId": "resolve-single-file-page-link",
+      "caseKind": "boundary-recovery",
+      "taskFamily": "single-file-link-boundary"
+    },
+    {
+      "promptId": "plan-data-center-v1-target",
+      "caseKind": "generalization",
+      "taskFamily": "deployment-specific-authentication"
+    }
+  ]
+}

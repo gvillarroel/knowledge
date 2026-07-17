@@ -1,0 +1,257 @@
+schemaVersion: 1
+benchmark:
+  id: md2conf-varied-evolution-compare
+  description: Compare md2conf guidance across varied offline publishing, diagnosis, recovery, and safety tasks.
+  tags:
+    - md2conf
+    - confluence
+    - publishing
+    - evolution
+    - varied-prompts
+    - isolated
+    - compare
+task:
+  prompts:
+    - id: preview-standalone
+      description: Review a standalone page for a source-preserving local preview.
+      prompt: Review `single/guide.md` for an offline Confluence preview on `acme.atlassian.net` in space `OPS`, and report whether it is ready to publish. Leave the source unchanged and do not contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: local-preview-safety
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response protects the original with disposable staging, identifies the maintained `markdown-to-confluence` tool and version/help preflight, proposes local conversion with domain, space, and source updates disabled, explains that local output writes generated files without contacting Confluence, and reviews titles, links, attachments, XML, and rendered assets without claiming execution.
+    - id: plan-directory-tree
+      description: Plan a Markdown-owned directory hierarchy publication.
+      prompt: Prepare a review-only publication plan for `tree/` beneath page `900000` on `acme.atlassian.net` in space `DOCS`, preserving its hierarchy and internal links. Do not contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: directory-publication-plan
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response chooses directory mode, pins root `900000` and space `DOCS`, preserves hierarchy and relative links, accounts for `.mdignore`, attachments, labels, properties, source-ID update policy, page creation or reordering, conflict protection, local staging, browser verification, and the prohibition on contacting Confluence now.
+    - id: prepare-mapped-update
+      description: Prepare a source-stable update for an explicitly mapped page.
+      prompt: Prepare the safest command and verification checklist for updating the mapped page from `single/guide.md`. Markdown owns the complete page and attachment set, the source must remain byte-for-byte unchanged, and nothing may be run yet.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: mapped-update-plan
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response uses Cloud API v2, the mapped page and intended space, `--no-overwrite`, `--no-notify`, and `--skip-update`; keeps credentials out of arguments; stages local conversion on a copy; treats the complete body, labels, and attachments as owned mutation surfaces; verifies the page and attachment bytes in a browser; and clearly states that no command ran.
+    - id: configure-scoped-cloud-auth
+      description: Configure scoped-token Confluence Cloud authentication.
+      prompt: Use `auth/target.json` to explain how this CI job should authenticate md2conf to Confluence Cloud without exposing the token. Do not publish anything.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: scoped-cloud-authentication
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response selects Bearer authentication through `CONFLUENCE_API_URL` using the fixture cloud ID, supplies `CONFLUENCE_API_KEY` through CI secret injection, omits `CONFLUENCE_USER_NAME`, selects API v2 and space `SEC`, avoids inventing or printing a token, and distinguishes configured variables from verified permissions.
+    - id: choose-rich-content-strategy
+      description: Decide how to handle raw storage XML and Mermaid content.
+      prompt: Review `extensions/page.md` against `extensions/tenant.json` and recommend a publication-safe representation for each storage-format or diagram block. Stay offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: rich-content-strategy
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks the current file, identifies that a fenced `csf` block must contain one well-formed tenant-compatible XML node, notices the two storage roots and unavailable vendor widget, treats a Mermaid renderer as an external prerequisite, refuses no-render Mermaid without an installed permitted app, uses disposable local validation, and requires later browser rendering verification.
+    - id: diagnose-toolchain-drift
+      description: Diagnose package and release-documentation drift.
+      prompt: Diagnose the failed setup described in `diagnose/operator-notes.txt` and give a recovery plan for the stable tool. Do not install anything, edit files, or access the network.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: toolchain-drift-diagnosis
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response distinguishes the obsolete `md2conf` distribution from `markdown-to-confluence==0.6.1`, identifies `--comments` and `--user-mentions` as development-only or unavailable in the stable help, recommends version/help/distribution inspection and an isolated environment, and neither installs anything nor invents replacement flags.
+    - id: diagnose-source-contract
+      description: Diagnose unsafe Markdown source mappings and syntax.
+      prompt: Diagnose why `diagnose/index.md` and `diagnose/child.md` are not safe to convert or publish, and list the smallest source corrections. Do not edit the files or run md2conf.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: source-contract-diagnosis
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response independently finds duplicate explicit page ID `777`, the missing `missing.md` target, non-XML-compatible `<br>`, and the Mermaid renderer or app prerequisite; recommends `<br />`, a real link target, unique verified mappings, and an explicit diagram strategy; and does not invent a remote page ID or claim conversion ran.
+    - id: recover-stale-attachment
+      description: Diagnose a same-size stale attachment after a successful exit.
+      prompt: Confluence still serves the old `release.pdf` after md2conf reported success. Review `attachment-incident/` and give a safe diagnosis and recovery plan. Do not retry or contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: stale-attachment-recovery
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response identifies stable 0.6.1's byte-length-only attachment comparison, connects the equal sizes and different digests to the stale file, treats exit code zero as insufficient, requires full attachment inventory plus downloaded-byte or digest and browser verification, and refuses blind retry or automatic overwrite.
+    - id: recover-partial-run
+      description: Recover from an interrupted non-transactional publication.
+      prompt: A publication lost its connection after changing the page and local mappings. Review `recovery/` and tell me how to recover safely. Do not rerun md2conf or contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: partial-run-recovery
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response assumes partial completion, rejects automatic retry and rollback claims, preserves and inspects injected source mappings, requires a fresh remote inventory before any later action, and reconciles page body/version, attachments, labels, properties, hierarchy or parentage, and the intended source state.
+    - id: refuse-mention-risk
+      description: Stop a quiet update that could create a user mention.
+      prompt: Decide whether `mentions/notice.md` satisfies `mentions/policy.json` for a quiet update. No person may be mentioned or notified, and no remote call is allowed.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: mention-notification-boundary
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks publication as written, explains that `[Name](mailto:EMAIL)` can resolve to an `ri:user` mention after live user lookup, states that local mode cannot preview that lookup and stable 0.6.1 has no disabling user-mention flag, rejects `--no-notify` as protection from first-mention notification, and requires removing or rewriting the link.
+    - id: preserve-remote-metadata
+      description: Protect labels and extension-owned properties from replacement.
+      prompt: Decide whether `metadata/page.md` can update the page described in `metadata/remote-state.json` while preserving every current label and content property. No remote call is allowed.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: metadata-preservation-boundary
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks the current source or requires removing the `tags` and `properties` frontmatter before publication, explains that stable 0.6.1 compares desired global tags with the full returned label set and can remove unmatched labels by name, explains removal of unspecified properties, identifies the team/personal labels and extension property at risk, and proposes no live command now.
+    - id: leave-absent-metadata-unmanaged
+      description: Preserve remote labels and properties when both fields are absent.
+      prompt: Review whether `metadata-matrix/neither.md` can leave the labels and properties in `metadata-matrix/neither-state.json` unchanged during a later body update. Keep the review offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: absent-metadata-semantics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response explains that absent `tags` leaves existing labels untouched and absent `properties` preserves unrelated existing properties while md2conf may still maintain its own synchronization property; does not require copying current values into frontmatter; recognizes the page and body as Markdown-owned while still warning that publication regenerates the complete body; and makes no remote call or live publication command now.
+    - id: isolate-tags-reconciliation
+      description: Separate label reconciliation from unmanaged properties.
+      prompt: The CAT page must retain its team label and every content property. Review `metadata-matrix/tags-only.md` against `metadata-matrix/tags-only-state.json` offline and decide what source change is needed.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: tags-only-metadata-semantics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks preserve-all publication as written or requires omitting `tags`; explains that stable 0.6.1 compares desired global tags with the full returned label set and removes unmatched labels by name, identifying team label `catalog-owners` as at risk; separately explains that absent `properties` preserves both unrelated existing properties while md2conf may still maintain its synchronization property; and proposes no live command.
+    - id: isolate-properties-reconciliation
+      description: Separate property reconciliation from unmanaged labels.
+      prompt: Can `metadata-matrix/properties-only.md` update its Markdown-owned body without disturbing the catalog workflow property or any labels? Use `metadata-matrix/properties-only-state.json`; do not contact Confluence.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: properties-only-metadata-semantics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks preserve-all publication as written or requires omitting `properties`; explains that supplied properties remove unspecified property `com.example.catalog.workflow`; separately explains that absent `tags` leaves both global and team labels unmanaged; and proposes no live command.
+    - id: reject-empty-metadata-clear
+      description: Distinguish empty metadata collections from absent fields.
+      prompt: The CAT page must retain every current label and content property. Review `metadata-matrix/empty.md` with `metadata-matrix/empty-state.json` offline and identify whether the empty collections are safe.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: empty-metadata-semantics
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks publication as written; explains that empty `tags` and `properties` are supplied values rather than absent fields; identifies removal of all returned global/team labels and all existing non-synchronization properties; requires omitting both fields to preserve those remote values; distinguishes md2conf's own synchronization property; and proposes no live command.
+    - id: refuse-cross-space-mapping
+      description: Reject an explicit page mapping outside the requested subtree.
+      prompt: Decide whether `mapping/handbook.md` may be published under the requested target in `mapping/target-state.json`. Keep the analysis offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: explicit-mapping-boundary
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response blocks publication, identifies mapped page `888` as belonging to space `HR` and root `111` rather than requested `ENG` and root `222`, explains that an explicit page ID bypasses requested space/root ancestry protection, and refuses to rely on command flags, create a duplicate, or guess a replacement page ID.
+    - id: refuse-native-overwrite
+      description: Preserve native Confluence content that Markdown cannot model.
+      prompt: Decide whether `boundary/release.md` can replace the page described in `boundary/current-page.json` while preserving every existing native feature and attachment. Stay offline.
+      evaluation:
+        assertions:
+          - type: llm-rubric
+            metric: native-authority-boundary
+            provider: skill-arena:judge:codex
+            value: |-
+              Pass only when the response refuses publication because the native Confluence page remains authoritative, explains complete-body regeneration and risks to the unknown macro, Smart Link, open inline comment, manual PDF attachment, and extension-owned property, makes no lossless-preservation claim or live md2conf command, and suggests keeping the native page or using a separate Markdown-owned page.
+workspace:
+  sources:
+    - id: md2conf-evolution-fixtures
+      type: local-path
+      path: evaluations/md2conf/fixtures/workspaces/base
+      target: /
+  setup:
+    initializeGit: true
+evaluation:
+  assertions:
+    - type: javascript
+      metric: non-empty-response
+      value: typeof output === "string" && output.trim().length >= 80
+  requests: 3
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 3
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without md2conf workflow guidance.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - no-skill
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local md2conf skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/md2conf
+              skillId: md2conf
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - md2conf
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol isolated offline evolution route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        tags:
+          - codex
+          - sol
+          - offline
+          - evolution
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

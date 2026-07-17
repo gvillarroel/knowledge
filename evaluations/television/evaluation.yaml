@@ -1,0 +1,356 @@
+schemaVersion: 1
+benchmark:
+  id: television-portable-bundle-compare
+  description: Compare isolated Television artifact generation and recovery with and without the standalone television skill.
+  tags:
+    - television
+    - channels
+    - configuration
+    - previews
+    - offline
+    - compare
+task:
+  prompts:
+    - id: complete-channel-spec
+      description: Generate a channel that exercises the complete current cable surface.
+      prompt: |-
+        Create the complete `incident-monitor.toml` content for Television. Users must be able to cycle between named Active and All incident sources, keep server priority order, refresh every five seconds, see colored display rows while selecting a stable tab-separated incident ID, cycle between live summary and log previews, and use a landscape UI with a large titled preview. Enter should open selected incidents, including multiple selections. Include exact requirements and offline verification; do not run or install anything.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: complete-channel-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const cable = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const all = `${cable}\n${value.commands.join("\n")}\n${value.verification.join("\n")}`.toLowerCase();
+                return /incident-monitor\.toml/.test(cable)
+                  && cable.includes("[metadata]")
+                  && cable.includes("requirements")
+                  && cable.includes("active") && cable.includes("all")
+                  && (/\[\[source\.command\]\]/.test(cable) || /command\s*=\s*\[[\s\S]*active[\s\S]*all/.test(cable))
+                  && /watch\s*=\s*5(?:\.0)?/.test(cable)
+                  && /output\s*=/.test(cable)
+                  && /ansi\s*=\s*true/.test(cable)
+                  && /no_sort\s*=\s*true/.test(cable)
+                  && /summary|incidentctl\s+show|\bshow\b/.test(cable) && cable.includes("log")
+                  && /cached\s*=\s*false/.test(cable)
+                  && cable.includes("[ui.preview_panel]")
+                  && /layout\s*=\s*["']landscape["']/.test(cable)
+                  && /enter\s*=\s*["']actions:/.test(cable)
+                  && cable.includes("[actions.")
+                  && /separator\s*=/.test(cable)
+                  && /\{[^}]*split[^}]*\}/.test(cable)
+                  && /toml|tv --cable-dir|tv incident-monitor/.test(all)
+                  && !(/display\s*=/.test(cable) && /ansi\s*=\s*true/.test(cable));
+              } catch { return false; }
+    - id: macos-channel-config
+      description: Generate native macOS Television configuration and install guidance.
+      prompt: |-
+        Generate a macOS Television `config.toml` and a `project-files.toml` cable. Make `project-files` the default channel, use the Nord dark theme in landscape layout, include shell integration for zsh, and preview source files with color. Provide paths, an installer command that honors configuration overrides, and isolated verification. Do not install or overwrite anything.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: macos-config-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const commands = value.commands.join("\n").toLowerCase();
+                const dependencies = JSON.stringify(value.dependencies).toLowerCase();
+                const safety = value.safety.join("\n").toLowerCase();
+                const paths = `${files}\n${commands}`;
+                const macConfigPath = files.includes("config.toml")
+                  && (paths.includes(".config/television")
+                    || (paths.includes("$home/.config") && paths.includes("television")));
+                const macCablePath = /(?:cable\/)?project-files\.toml/.test(files)
+                  && (paths.includes(".config/television") || paths.includes("$home/.config"));
+                return macConfigPath
+                  && macCablePath
+                  && /default_channel\s*=\s*["']project-files["']/.test(files)
+                  && files.includes("nord-dark")
+                  && /(?:layout|orientation)\s*=\s*["']landscape["']/.test(files)
+                  && (files.includes("shell_integration") || (commands.includes("tv init") && commands.includes("zsh")))
+                  && dependencies.includes("brew install television")
+                  && commands.includes("tv init") && commands.includes("zsh")
+                  && commands.includes("television_config")
+                  && commands.includes("xdg_config_home")
+                  && /--cable-dir|--config-file|tv list-channels/.test(value.verification.join("\n").toLowerCase())
+                  && /overwrit|preserv|backup|opt-in/.test(safety);
+              } catch { return false; }
+    - id: windows-channel-config
+      description: Adapt native configuration and cable generation to Windows PowerShell.
+      prompt: |-
+        Generate a Windows PowerShell Television `config.toml` and `project-files.toml` cable equivalent to a native file browser with colored previews. Use the Windows default directories unless an override is present, make the channel the default, include shell integration, and provide installation plus isolated verification commands. Do not execute commands or replace an existing config.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: windows-config-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const commands = value.commands.join("\n").toLowerCase();
+                const checks = `${commands}\n${value.verification.join("\n")}`.toLowerCase();
+                const safety = value.safety.join("\n").toLowerCase();
+                const paths = `${files}\n${commands}`;
+                return /localappdata|%localappdata%/.test(paths)
+                  && /television[\\/]config/.test(paths)
+                  && files.includes("config.toml")
+                  && /(?:cable[\\/])?project-files\.toml/.test(files)
+                  && /default_channel\s*=\s*["']project-files["']/.test(files)
+                  && files.includes("shell_integration")
+                  && /winget install --exact --id alexpasmantier\.television|scoop install television/.test(commands)
+                  && checks.includes("get-command")
+                  && commands.includes("television_config")
+                  && commands.includes("tv init")
+                  && !commands.includes("mkdir -p")
+                  && !/\bcp\s+/.test(commands)
+                  && /replac|preserv|backup|opt-in/.test(safety);
+              } catch { return false; }
+    - id: three-level-associated-chain
+      description: Generate a bounded associated chain for both supported platforms.
+      prompt: |-
+        Generate both macOS and Windows Television cables for a three-level catalog: `accounts` → `account-projects` → `project-datasets`. On Enter, each of the first two channels must open the associated next picker using the selected stable ID; users must be able to close a child and return to its parent. The dataset level is terminal and must not open a fourth picker. Include all six cable contents and offline verification, but do not install them.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: three-level-chain-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const toml = value.files.filter((f) => /\.toml$/i.test(f.path));
+                const normalized = toml.map((f) => ({path: f.path.replaceAll("\\", "/").toLowerCase(), content: f.content.toLowerCase()}));
+                const all = normalized.map((f) => `${f.path}\n${f.content}`).join("\n");
+                const finals = normalized.filter((f) => f.path.endsWith("project-datasets.toml"));
+                return toml.length === 6
+                  && normalized.filter((f) => /(?:^|\/)macos\//.test(f.path)).length === 3
+                  && normalized.filter((f) => /(?:^|\/)windows\//.test(f.path)).length === 3
+                  && (all.match(/enter\s*=\s*["']actions:/g) || []).length === 4
+                  && (all.match(/mode\s*=\s*["']fork["']/g) || []).length >= 4
+                  && all.includes("tv account-projects")
+                  && all.includes("tv project-datasets")
+                  && /tv_account_id|account[_ -]?id/.test(all)
+                  && /tv_project_id|project[_ -]?id/.test(all)
+                  && /\{[^}]+\}/.test(all)
+                  && finals.length === 2
+                  && finals.every((f) => !/enter\s*=\s*["']actions:/.test(f.content))
+                  && !all.includes("level-4") && !all.includes("fourth");
+              } catch { return false; }
+    - id: mixed-data-previews
+      description: Generate finite preview recipes for heterogeneous local data.
+      prompt: |-
+        Prepare Television cable snippets for finite terminal previews of source code, Markdown, JSON, YAML, CSV, TSV, directories, images, PDFs, audio/video metadata, and an unknown file fallback. The commands must work with captured output, remain bounded, and be suitable for macOS and Windows where pipelines differ. Include exact dependency declarations and installation guidance; do not install anything.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: mixed-preview-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const dependencies = value.dependencies.map((d) => d.name.toLowerCase());
+                const all = `${files}\n${value.commands.join("\n")}`.toLowerCase();
+                const csvAware = /mlr\s+--i[ct]sv|qsv\s+(?:table|color)|xsv\s+table|import-csv|python[^\n]*csv/.test(all);
+                return all.includes("bat")
+                  && (all.includes("glow") || /bat[^\n]*markdown/.test(all))
+                  && all.includes("jq") && all.includes("yq")
+                  && csvAware
+                  && all.includes("eza") && all.includes("chafa")
+                  && all.includes("pdftotext") && all.includes("ffprobe")
+                  && /file|hexyl|format-hex/.test(all)
+                  && /head\s+-\d+|select-object\s+-first|head\s+-n|--max-count|-l\s+2/.test(all)
+                  && ["bat", "jq", "yq", "eza", "chafa", "pdftotext", "ffprobe"].every((name) => dependencies.includes(name))
+                  && (dependencies.includes("mlr") || dependencies.includes("qsv") || dependencies.includes("xsv"))
+                  && !/split\(["']?,["']?\)/.test(all)
+                  && !/csvlens|qsv\s+lens|\bless\b/.test(all);
+              } catch { return false; }
+    - id: know-channel-lifecycle
+      description: Preserve the simple know-backed generation lifecycle with real artifacts.
+      prompt: |-
+        Prepare, without executing commands, a reproducible Television channel named `arxiv-rag` under knowledge key `research`. Use the native `know search arxiv` Television output rather than a custom source implementation; runtime search may use the network. Browse results for retrieval-augmented generation, preview the selected row with `--format television-preview --entry '{}'`, materialize the channel through `know`, and identify the exact generated files plus platform-specific installation and verification commands.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: know-lifecycle-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commands = value.commands.join("\n").toLowerCase();
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const all = `${commands}\n${files}\n${value.verification.join("\n")}`;
+                return /know add (?:tv|television) arxiv-rag/.test(commands)
+                  && commands.includes("--key research")
+                  && commands.includes("know search arxiv")
+                  && commands.includes("retrieval-augmented generation")
+                  && commands.includes("--format television")
+                  && commands.includes("--format television-preview")
+                  && commands.includes("--entry")
+                  && commands.includes("know sync television arxiv-rag --key research")
+                  && files.includes(".toml")
+                  && files.includes("commands.json")
+                  && files.includes("readme.md")
+                  && files.includes("source-metadata.yaml")
+                  && /install_macos|macos/.test(all)
+                  && /install_windows|windows/.test(all)
+                  && /tv list-channels|tv arxiv-rag/.test(all);
+              } catch { return false; }
+    - id: preview-dependency-preflight
+      description: Classify and install only the preview tools a requested bundle needs.
+      prompt: |-
+        A team has Television, fd, bat, and ripgrep, but wants JSON, YAML, CSV, image, PDF, and media previews on both macOS and Windows. Prepare platform preflight scripts, a dependency inventory that distinguishes the existing baseline from missing preview requirements, authoritative install commands, and graceful fallback advice. Do not install packages.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: dependency-preflight-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commands = value.commands.join("\n").toLowerCase();
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const preflight = `${files}\n${commands}`;
+                const deps = value.dependencies.map((d) => {
+                  const name = d.name.toLowerCase();
+                  if (name === "television") return "tv";
+                  if (name === "ripgrep") return "rg";
+                  return name;
+                });
+                const safety = value.safety.join("\n").toLowerCase();
+                return preflight.includes("command -v")
+                  && preflight.includes("get-command")
+                  && /brew install/.test(commands)
+                  && /winget install|scoop install/.test(commands)
+                  && /existing|installed|baseline/.test(files + commands)
+                  && ["tv", "fd", "bat", "rg", "jq", "yq", "mlr", "chafa", "pdftotext", "ffprobe"].every((name) => deps.includes(name))
+                  && value.dependencies.every((d) => d.purpose && d.install && (d.install.macos || d.install.windows))
+                  && /fallback|fall back|missing-tool|missing tool/.test(files + safety)
+                  && /no [^.\n]*install|do not [^.\n]*install|not install|guidance only|user-authorized|explicit/.test(safety);
+              } catch { return false; }
+    - id: capability-drift-recovery
+      description: Diagnose version, schema, path, and preview drift without destructive edits.
+      prompt: |-
+        After a Television upgrade, a registered channel's source still lists rows but its preview exits nonzero, its Enter action no longer opens the child channel, and the effective cable directory is uncertain. Produce an offline diagnostic package that preserves the registered source and generated files while checking installed versions, command output, TOML shape, configuration overrides, platform paths, and an isolated channel load. Do not edit or execute anything.
+
+        Return JSON only with exactly these keys in this order: {"skill":"television","files":[{"path":"...","content":"..."}],"commands":["..."],"dependencies":[{"name":"...","purpose":"...","required":true,"install":{"macos":"...","windows":"..."}}],"verification":["..."],"safety":["..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: drift-recovery-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const commands = value.commands.join("\n").toLowerCase();
+                const verification = value.verification.join("\n").toLowerCase();
+                const safety = value.safety.join("\n").toLowerCase();
+                const files = value.files.map((f) => `${f.path}\n${f.content}`).join("\n").toLowerCase();
+                const all = `${files}\n${commands}\n${verification}\n${safety}`;
+                return commands.includes("tv --version")
+                  && commands.includes("tv --help")
+                  && /source command/.test(all)
+                  && /preview (?:command|template)|expanded preview/.test(all)
+                  && /exit code/.test(all)
+                  && (/stdout/.test(all) && /stderr/.test(all))
+                  && /toml/.test(all)
+                  && /television_config/.test(all) && /xdg_config_home/.test(all)
+                  && /localappdata/.test(all)
+                  && /--cable-dir|--config-file/.test(all)
+                  && /enter|actions:/.test(all)
+                  && /preserve|do not edit|not edit|read-only/.test(safety)
+                  && /registered[- ]source|registration|metadata/.test(all);
+              } catch { return false; }
+workspace:
+  sources: []
+  setup:
+    initializeGit: false
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+    - type: javascript
+      metric: response-contract
+      value: |
+        try {
+          const value = JSON.parse(output.trim());
+          const keys = Object.keys(value);
+          const stringArray = (items) => Array.isArray(items) && items.every(
+            (item) => typeof item === "string" && item.trim().length > 0
+          );
+          return keys.length === 6
+            && keys[0] === "skill"
+            && keys[1] === "files"
+            && keys[2] === "commands"
+            && keys[3] === "dependencies"
+            && keys[4] === "verification"
+            && keys[5] === "safety"
+            && value.skill === "television"
+            && Array.isArray(value.files)
+            && value.files.every((file) => file && typeof file.path === "string" && typeof file.content === "string")
+            && stringArray(value.commands)
+            && Array.isArray(value.dependencies)
+            && value.dependencies.every((dependency) => dependency && typeof dependency.name === "string" && typeof dependency.purpose === "string" && typeof dependency.required === "boolean" && dependency.install && typeof dependency.install === "object")
+            && stringArray(value.verification)
+            && stringArray(value.safety);
+        } catch { return false; }
+  requests: 1
+  timeoutMs: 300000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: no-skill
+      description: Isolated control without Television channel workflow instructions.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        labels:
+          skill_state: "off"
+    - id: skill
+      description: Isolated treatment with only the local television skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/television
+              skillId: television
+            install:
+              strategy: workspace-overlay
+      output:
+        labels:
+          skill_state: "on"
+  variants:
+    - id: codex-sol
+      description: Codex GPT-5.6 Sol offline artifact-generation route.
+      agent:
+        adapter: codex
+        model: gpt-5.6-sol
+        executionMethod: command
+        commandPath: codex
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: false
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        labels:
+          variantDisplayName: Codex GPT-5.6 Sol

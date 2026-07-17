@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumPrompts": 17,
+    "minimumTaskFamilies": 13,
+    "requiredCaseKinds": [
+      "naturalistic-forward",
+      "generalization",
+      "boundary-recovery"
+    ]
+  },
+  "cases": [
+    {"promptId": "preview-standalone", "caseKind": "naturalistic-forward", "taskFamily": "local-conversion-preview"},
+    {"promptId": "plan-directory-tree", "caseKind": "naturalistic-forward", "taskFamily": "directory-hierarchy-publication"},
+    {"promptId": "prepare-mapped-update", "caseKind": "naturalistic-forward", "taskFamily": "single-page-mutation-planning"},
+    {"promptId": "configure-scoped-cloud-auth", "caseKind": "generalization", "taskFamily": "scoped-cloud-authentication"},
+    {"promptId": "choose-rich-content-strategy", "caseKind": "generalization", "taskFamily": "storage-and-diagram-interoperability"},
+    {"promptId": "diagnose-toolchain-drift", "caseKind": "generalization", "taskFamily": "installation-and-release-diagnosis"},
+    {"promptId": "diagnose-source-contract", "caseKind": "generalization", "taskFamily": "markdown-contract-diagnosis"},
+    {"promptId": "recover-stale-attachment", "caseKind": "boundary-recovery", "taskFamily": "attachment-integrity-recovery"},
+    {"promptId": "recover-partial-run", "caseKind": "boundary-recovery", "taskFamily": "partial-publication-recovery"},
+    {"promptId": "refuse-mention-risk", "caseKind": "boundary-recovery", "taskFamily": "mention-notification-safety"},
+    {"promptId": "preserve-remote-metadata", "caseKind": "boundary-recovery", "taskFamily": "metadata-preservation"},
+    {"promptId": "leave-absent-metadata-unmanaged", "caseKind": "generalization", "taskFamily": "metadata-preservation"},
+    {"promptId": "isolate-tags-reconciliation", "caseKind": "generalization", "taskFamily": "metadata-preservation"},
+    {"promptId": "isolate-properties-reconciliation", "caseKind": "generalization", "taskFamily": "metadata-preservation"},
+    {"promptId": "reject-empty-metadata-clear", "caseKind": "boundary-recovery", "taskFamily": "metadata-preservation"},
+    {"promptId": "refuse-cross-space-mapping", "caseKind": "boundary-recovery", "taskFamily": "explicit-mapping-safety"},
+    {"promptId": "refuse-native-overwrite", "caseKind": "boundary-recovery", "taskFamily": "source-of-truth-authority"}
+  ]
+}

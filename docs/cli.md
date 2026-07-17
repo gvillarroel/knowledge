@@ -26,7 +26,7 @@ know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.x
 know add site https://openai.com/index/harness-engineering/ --key research
 know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
-know add tv research-sources --key research --source-command "know list sources --key research --json"
+know add tv research-sources --key research --source-command "know list sources --key research --format json"
 know list keys
 know list sources --key research
 know search confluence "incident postmortem" --space ENG --type page --label runbook
@@ -307,7 +307,7 @@ source and preview commands respectively.
 ### Ready-to-use cables
 
 Pre-built cable definitions ship with the project. Copy the bundled `.toml`
-files into `~/.config/television/cable/` and run `tv <channel-name>`.
+files into Television's platform cable directory and run `tv <channel-name>`.
 
 | Cable file | Channel | Description |
 |---|---|---|
@@ -321,10 +321,14 @@ files into `~/.config/television/cable/` and run `tv <channel-name>`.
 
 ```bash
 # Unix / macOS
+mkdir -p ~/.config/television/cable
 cp cables/*.toml ~/.config/television/cable/
 
-# PowerShell
-Copy-Item cables/*.toml $HOME/.config/television/cable/
+# Windows PowerShell
+$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'television' } else { Join-Path $env:LOCALAPPDATA 'television\config' }
+$CableDir = Join-Path $ConfigDir 'cable'
+New-Item -ItemType Directory -Force -Path $CableDir | Out-Null
+Copy-Item cables/*.toml $CableDir/
 ```
 
 ### Inline usage without installing cables

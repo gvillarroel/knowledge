@@ -1517,12 +1517,25 @@ class TestTelevisionSourceCoverage:
         adapter = TelevisionSource(source, store)
         manifest = adapter._build_command_manifest("knowledge-sources", Path("C:/tmp/knowledge-sources.toml"))
         assert manifest["sync"] == "know sync television knowledge-sources --key tv"
+        assert "install_macos" in manifest
+        assert "install_windows" in manifest
         assert "install_unix" in manifest
         assert "install_powershell" in manifest
+        assert "TELEVISION_CONFIG" in manifest["install_macos"]
+        assert "XDG_CONFIG_HOME" in manifest["install_macos"]
+        assert "LOCALAPPDATA" in manifest["install_windows"]
+        assert "television\\config" in manifest["install_windows"]
         assert manifest["run_after_install"] == "tv knowledge-sources"
         assert "--source-command=" in manifest["run_inline"]
         assert "--source-display=" in manifest["run_inline"]
         assert "--preview-command=" in manifest["run_inline"]
+
+        readme = adapter._build_readme(
+            "knowledge-sources", "knowledge-sources.toml", manifest
+        )
+        assert "commands.json" in readme
+        assert manifest["install_macos"] in readme
+        assert manifest["install_windows"] in readme
 
     def test_escape_toml_and_shell_quote(self):
         assert _escape_toml('a"b\\c') == 'a\\"b\\\\c'

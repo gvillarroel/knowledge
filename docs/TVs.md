@@ -26,8 +26,10 @@ cp cables/*.toml ~/.config/television/cable/
 
 ```powershell
 # Windows PowerShell
-New-Item -ItemType Directory -Force -Path $HOME/.config/television/cable | Out-Null
-Copy-Item cables/*.toml $HOME/.config/television/cable/
+$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'television' } else { Join-Path $env:LOCALAPPDATA 'television\config' }
+$CableDir = Join-Path $ConfigDir 'cable'
+New-Item -ItemType Directory -Force -Path $CableDir | Out-Null
+Copy-Item cables/*.toml $CableDir/
 ```
 
 ## Hub Channel
@@ -48,7 +50,8 @@ tv list-channels
 
 ## Bundled Channels
 
-These channels work after copying the bundled `.toml` files into `~/.config/television/cable/`.
+These channels work after copying the bundled `.toml` files into Television's
+platform cable directory as shown above.
 
 | `tv` command | Purpose | Backing `know` command |
 |---|---|---|

@@ -62,4 +62,4 @@ To exchange project skills through OKF:
 4. Copy the skill's Markdown instructions into the concept body.
 5. Regenerate and validate the projection whenever skills change.
 
-Use `../scripts/build_project_okf_bundle.py` for repositories that follow the `skills/<name>/SKILL.md` layout.
+From the copied skill root, use `python scripts/build_project_okf_bundle.py <project-root>` for projects that follow the `skills/<name>/SKILL.md` layout.

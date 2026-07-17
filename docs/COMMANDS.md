@@ -75,7 +75,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 `mkdir -p ~/.config/television/cable && cp cables/*.toml ~/.config/television/cable/`
 
 # Install the repository's pre-built Television cable files on Windows PowerShell
-`New-Item -ItemType Directory -Force -Path $HOME/.config/television/cable | Out-Null; Copy-Item cables/*.toml $HOME/.config/television/cable/`
+`$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'television' } else { Join-Path $env:LOCALAPPDATA 'television\config' }; $CableDir = Join-Path $ConfigDir 'cable'; New-Item -ItemType Directory -Force -Path $CableDir | Out-Null; Copy-Item cables/*.toml $CableDir/`
 
 # Register a video source from a URL or local path
 `know add video $URL_OR_PATH --key $KEY [--language $NAME ...]`

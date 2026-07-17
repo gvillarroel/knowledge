@@ -29,9 +29,11 @@ Constrain the query with `VALUES` for the requested dimensions or candidate sour
 
 ```bash
 python scripts/query_semantic_okf.py BUNDLE sparql \
-  --query-file queries/cross-source-coverage.rq \
+  --query-file PATH_TO_COVERAGE_QUERY.rq \
   --graph data --format json
 ```
+
+Create the coverage query outside the immutable bundle and replace `PATH_TO_COVERAGE_QUERY.rq` with its actual path. The package does not supply or require a `queries/` directory.
 
 Do not repeatedly parse the graph for one source at a time. For a large or repeatedly queried snapshot, load the validated revision into the persistent indexed store described in `querying.md`.
 

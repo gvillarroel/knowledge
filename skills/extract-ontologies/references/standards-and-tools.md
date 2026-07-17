@@ -53,7 +53,7 @@ It does not perform these checks:
 - SHACL-JS execution;
 - validation of an implicit union of RDF named graphs.
 
-Use a profile-aware OWL tool and an appropriate reasoner for the omitted OWL checks. Record its name, version, import closure, and reasoning mode independently from the SHACL result.
+When the delivery requires an OWL profile or consistency claim, select a profile-aware external tool and an appropriate reasoner explicitly. Record its name, version, import closure, and reasoning mode independently from the SHACL result. These tools are optional extensions; absence of one must not block the bundled RDF and SHACL validation baseline or be hidden behind a repository dependency.
 
 ## Security policy
 

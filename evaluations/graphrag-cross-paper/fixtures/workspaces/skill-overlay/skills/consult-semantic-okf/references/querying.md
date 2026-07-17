@@ -48,7 +48,14 @@ When output is truncated, `matched` is `null` because the streaming reader stops
 
 ## 3. Search and read Markdown
 
-Use fixed-string ripgrep for lexical search; it is faster and safer than treating user text as a regular expression:
+Use the bundled Python helper as the portable fixed-substring baseline:
+
+```bash
+python scripts/query_semantic_okf.py BUNDLE ledger \
+  --contains "retention policy" --show-content --format json
+```
+
+If `rg` is already available, it is an optional accelerator for searching concept Markdown directly. Keep the search fixed-string rather than treating user text as a regular expression:
 
 ```bash
 rg -i -n --glob '*.md' --fixed-strings -- 'retention policy' BUNDLE/concepts
@@ -62,9 +69,11 @@ Discover the bundle prefix, classes, properties, and source mappings in `semanti
 
 ```bash
 python scripts/query_semantic_okf.py BUNDLE sparql \
-  --query-file queries/active-projects.rq \
+  --query-file PATH_TO_DATA_QUERY.rq \
   --graph data --format json
 ```
+
+Create `PATH_TO_DATA_QUERY.rq` outside the immutable bundle and replace the placeholder with its actual path. The package does not depend on a pre-existing `queries/` directory.
 
 Example explicit-data query; replace the namespace with the bundle's ontology namespace:
 
@@ -85,7 +94,7 @@ Add provenance only for lineage queries:
 
 ```bash
 python scripts/query_semantic_okf.py BUNDLE sparql \
-  --query-file queries/lineage.rq \
+  --query-file PATH_TO_LINEAGE_QUERY.rq \
   --graph data --graph provenance --format json
 ```
 
@@ -101,24 +110,23 @@ The helper injects standard `rdf`, `rdfs`, `owl`, `xsd`, `dcterms`, and `prov` p
 - Preserve requested scalar, array, and object shapes. Do not replace a requested scalar summary with an RDF-library object merely because the source term has structure.
 - Before answering, verify the exact key set, set ordering, typed values, and that every cited artifact directly supports the claim.
 - Keep the expected columns, rows, and entailment regime beside each competency query.
-- Rerun competency queries after every successful refresh.
+- Rerun competency queries whenever the pinned snapshot revision changes.
 - Treat `--limit` as an output cap, not an evaluation-cost limit; put `LIMIT` in SPARQL too.
-- The bundled helper uses entailment `none`. Run and record a separate reasoner workflow when RDFS or OWL entailment is required.
+- The bundled helper uses entailment `none`. An RDFS or OWL reasoner is an optional external workflow, not a package prerequisite; select, install, and record one separately only when entailment is explicitly required.
 
 ## 6. Scale repeated queries
 
-RDFLib reparses only the selected Turtle graphs for each invocation. This is appropriate for small or occasional local queries. For large bundles, repeated queries, concurrent readers, or latency-sensitive use:
+RDFLib reparses only the selected Turtle graphs for each invocation. This bundled helper is the supported baseline for small or occasional local queries. A persistent indexed triplestore is an optional external accelerator for large bundles, repeated queries, concurrent readers, or latency-sensitive use. If one is deliberately selected:
 
 1. validate the promoted snapshot once;
 2. load `data.ttl` and only the required ontology/provenance graphs into an indexed persistent triplestore;
 3. record the source-manifest tree or revision digest with the loaded dataset;
-4. replace or version the entire loaded snapshot after refresh rather than incrementally mixing revisions.
+4. replace or version the entire loaded snapshot when its revision changes rather than mixing revisions.
 
 ## 7. Safety and limits
 
 - Only local read-only SPARQL `SELECT` and `ASK` are accepted.
 - `SERVICE`, `FROM`, and `FROM NAMED` are rejected; `--graph` is the only graph-selection mechanism.
 - Query text is limited to 64 KiB.
-- `--validate` parses the complete read surface before a query: the ledger, exact concept paths, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. This is not the builder's full semantic and SHACL publication validator; send moved, untrusted, or structurally changed snapshots through `$build-semantic-okf` before consultation.
+- `--validate` parses the complete read surface before a query: the ledger, exact concept paths, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. It is a read-only integrity gate; if the folder is moved, untrusted, structurally changed, or invalid, report the condition and stop.
 - The helper never mutates a bundle, dereferences ontology imports, or creates indexes inside it.
-

@@ -1,6 +1,6 @@
 ---
-adr: "0019"
-title: "ADR 0019: Add Turso-Backed Semantic OKF Build and Consultation Skills"
+adr: "0030"
+title: "ADR 0030: Add Turso-Backed Semantic OKF Build and Consultation Skills"
 summary: "Publish a local Turso Database projection with each Semantic OKF release and query it through a separate least-authority skill."
 status: "Accepted"
 date: 2026-07-14
@@ -16,7 +16,7 @@ tags:
   - skills
 ---
 
-# ADR 0019: Add Turso-Backed Semantic OKF Build and Consultation Skills
+# ADR 0030: Add Turso-Backed Semantic OKF Build and Consultation Skills
 
 ## Status
 

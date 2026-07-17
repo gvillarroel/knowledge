@@ -1,7 +1,7 @@
 schemaVersion: 1
 benchmark:
   id: semantic-okf-storage-versions-compare
-  description: Compare isolated agent guidance for file-backed, embedding-backed, and Turso-backed Semantic OKF build and consultation packages.
+  description: Compare isolated agent guidance for file-backed, embedding-backed, Turso-backed, and Graphify-backed Semantic OKF build and consultation packages.
   tags:
     - semantic-okf
     - storage
@@ -33,8 +33,12 @@ task:
                 const tursoBacked = text.includes('build_semantic_okf.py')
                   && text.includes('knowledge.db')
                   && (text.includes('validate_turso_store.py') || text.includes('validate_semantic_okf.py'));
+                const graphifyBacked = text.includes('build_semantic_okf_graphify.py')
+                  && text.includes('retrieval/graphify')
+                  && text.includes('graph.json')
+                  && text.includes('validate_semantic_okf_graphify.py');
                 return value.task === 'build-validated-release'
-                  && (fileBacked || embeddingBacked || tursoBacked)
+                  && (fileBacked || embeddingBacked || tursoBacked || graphifyBacked)
                   && (text.includes('determin') || text.includes('rebuild'))
                   && (text.includes('atomic')
                     || text.includes('new output')
@@ -60,6 +64,7 @@ task:
                 const supportedRoute = text.includes('query_semantic_okf.py')
                   || text.includes('records.jsonl')
                   || text.includes('query_turso_knowledge.py')
+                  || text.includes('query_semantic_okf_graphify.py')
                   || (text.includes('knowledge.db')
                     && (text.includes('parameterized select') || text.includes('exact-record helper')));
                 return value.task === 'exact-record-evidence'
@@ -86,11 +91,12 @@ task:
                 const supportedRoute = text.includes('query_semantic_okf.py')
                   || text.includes('query_semantic_okf_embeddings.py')
                   || text.includes('query_turso_knowledge.py')
+                  || text.includes('query_semantic_okf_graphify.py')
                   || text.includes('records.jsonl')
                   || (text.includes('knowledge.db') && text.includes('records --contains'));
                 return value.task === 'conceptual-discovery'
                   && supportedRoute
-                  && (text.includes('contains') || text.includes('lexical') || text.includes('vector') || text.includes('hybrid') || text.includes('sql'))
+                  && (text.includes('contains') || text.includes('lexical') || text.includes('vector') || text.includes('hybrid') || text.includes('sql') || text.includes('bfs') || text.includes('graph'))
                   && (text.includes('concept') || text.includes('record'))
                   && (text.includes('authoritative') || text.includes('evidence'))
                   && (text.includes('fallback') || text.includes('no candidate') || text.includes('zero'));
@@ -114,11 +120,18 @@ task:
                 const tursoRoute = text.includes('knowledge.db')
                   && (text.includes('records') || text.includes('rdf_statements'))
                   && text.includes('group by');
+                const graphifyRoute = text.includes('query_semantic_okf_graphify.py')
+                  && text.includes('aggregate')
+                  && text.includes('records.jsonl');
+                const refusesRepair = text.includes('do not repair')
+                  || text.includes('without repair')
+                  || text.includes('never repair')
+                  || /(?:do not|never)[^.\n]{0,100}\brepair\b/.test(text);
                 return value.task === 'aggregate-and-corruption-boundary'
-                  && (fileOrEmbeddingRoute || tursoRoute)
+                  && (fileOrEmbeddingRoute || tursoRoute || graphifyRoute)
                   && (text.includes('validate') || text.includes('verify') || text.includes('inspect'))
                   && (text.includes('stop') || text.includes('fail'))
-                  && (text.includes('do not repair') || text.includes('without repair') || text.includes('never repair'))
+                  && refusesRepair
                   && !text.includes('refresh_semantic_okf.py');
               } catch { return false; }
 workspace:
@@ -244,6 +257,30 @@ comparison:
           - turso-backed
         labels:
           storage_version: turso-backed
+    - id: graphify-backed
+      description: Semantic OKF core plus a hash-bound deterministic Graphify structural graph projection.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/build-semantic-okf-graphify
+              skillId: build-semantic-okf-graphify
+            install:
+              strategy: workspace-overlay
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-graphify
+              skillId: consult-semantic-okf-graphify
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - graphify-backed
+        labels:
+          storage_version: graphify-backed
   variants:
     - id: codex-sol
       description: Codex GPT-5.6 Sol isolated planning route.

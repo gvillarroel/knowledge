@@ -2,17 +2,29 @@
 
 ## Supported environment
 
-Use CPython 3.12 with the locked dependencies in `scripts/requirements.txt`. The builder uses the standard library for CSV, JSON, hashing, paths, and atomic staging; RDFLib for RDF parsing and graph construction; PyYAML for frontmatter; and pySHACL for validation.
+CPython 3.12 is the compatibility baseline used to compile `scripts/requirements.txt`. A newer CPython is supported only when the runtime smoke test passes with the exact locked dependencies. The builder uses the standard library for CSV, JSON, hashing, paths, and atomic staging; RDFLib for RDF parsing and graph construction; PyYAML for frontmatter; and pySHACL for validation.
 
 Install and verify the runtime:
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows PowerShell, activate the same environment with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Then keep the environment activated while installing and running the builder:
+
+```bash
 python -m pip install -r scripts/requirements.txt
 python scripts/runtime_smoke.py
 ```
 
-The smoke command imports every required library and emits one JSON document with the interpreter and dependency versions.
+The smoke command imports every required library and emits one JSON document with the interpreter and dependency versions. Treat a smoke failure on a newer interpreter as an unsupported runtime rather than bypassing the lock.
 
 ## Deterministic processing
 
