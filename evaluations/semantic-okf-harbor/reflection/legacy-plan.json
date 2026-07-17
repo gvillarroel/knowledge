@@ -1,0 +1,16 @@
+{
+  "benchmarkId": "semantic-okf-harbor-legacy-train-v1",
+  "targetCaseId": "q031",
+  "selectedParentId": "consult-semantic-okf-baseline",
+  "currentScore": 0,
+  "feedback": [
+    {
+      "caseId": "q031",
+      "outcome": "failure",
+      "diagnosis": "Retrieval found every required document, but manual answer assembly emitted an invalid locator type and source-file hashes rather than reconstructable evidence hashes.",
+      "evidence": "Harbor: recall=1.0, required_document_coverage=1.0, response_contract=0.0, all_evidence_valid=0.0, reward=0.0; 1,246,462 input tokens."
+    }
+  ],
+  "reflectionTask": "Propose one skill-bundle edit that addresses the verified diagnosis without changing the benchmark or weakening other cases.",
+  "mergePlan": null
+}

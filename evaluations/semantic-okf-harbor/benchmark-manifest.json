@@ -1,0 +1,33 @@
+{
+  "schema_version": "semantic-okf-harbor-benchmark-manifest/1.0",
+  "benchmark_id": "semantic-okf-astro-harbor-40-v1",
+  "source_benchmark_id": "semantic-okf-astro-benchmark-manifest/1.0",
+  "authority": "Pinned official Astro MDX is authoritative. Qrels, ground truth, retrieval artifacts, rankings, and scores are derived and non-authoritative.",
+  "prompt_isolation": "The agent receives the question, expected response ID, and source-generic response contract. It does not receive qrels, ground truth, derivation logic, expected evidence, or failure conditions.",
+  "questions": {
+    "ordered_ids": [
+      "q001", "q002", "q003", "q004", "q005", "q006", "q007", "q008", "q009", "q010",
+      "q011", "q012", "q013", "q014", "q015", "q016", "q017", "q018", "q019", "q020",
+      "q021", "q022", "q023", "q024", "q025", "q026", "q027", "q028", "q029", "q030",
+      "q031", "q032", "q033", "q034", "q035", "q036", "q037", "q038", "q039", "q040"
+    ],
+    "counts": {"all": 40, "direct": 20, "cross-document": 10, "hard": 10}
+  },
+  "hard_ground_truth_counts": {
+    "answer_claims": 50,
+    "important_negatives": 20,
+    "authoritative_evidence_bindings": 46
+  },
+  "frozen_files": {
+    "evaluations/semantic-okf-astro/benchmark/retrieval-questions.jsonl": "c15cd2c2f920e9e85bf62c45953d7cc4bb8b04570007d5d6fd8890aa7537b601",
+    "evaluations/semantic-okf-astro/benchmark/hard-questions.jsonl": "781b68739af5f5867dc67189dc08ab25ccca0ce809c89543709961bacdd7c948",
+    "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+  },
+  "question_specs_sha256": "4a72c77cb490812766ed63d8e00d9210ac76da9f52c6f3329acc5ba4f04d92c0",
+  "contamination": {
+    "q039": "inspected after the prior freeze and used in an ensemble diagnostic",
+    "q040": "used in prior one-question paired comparisons and tuning diagnostics",
+    "effect": "Both questions are train-only in this prospective evolution harness."
+  }
+}
+

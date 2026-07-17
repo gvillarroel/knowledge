@@ -1,0 +1,17 @@
+{
+  "benchmarkId": "semantic-okf-harbor-classical-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [{
+    "candidateId": "consult-semantic-okf-classical-baseline",
+    "parentIds": [],
+    "caseScores": {"q031": 0.9603907164478128},
+    "complexityDelta": 0,
+    "evaluationCost": 1163264,
+    "feedback": [{
+      "caseId": "q031",
+      "outcome": "success",
+      "diagnosis": "All hard evidence and contracts passed, but six cited documents for three relevant documents reduced precision and rank quality while consuming a very large context.",
+      "evidence": "Harbor: hard completeness=1.0, evidence_precision=0.5, MRR=0.3333, reward=0.9604; 1,163,264 input tokens."
+    }]
+  }]
+}

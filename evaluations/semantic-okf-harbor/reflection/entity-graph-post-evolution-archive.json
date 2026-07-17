@@ -1,0 +1,41 @@
+{
+  "benchmarkId": "semantic-okf-harbor-entity-graph-train-v1",
+  "caseIds": [
+    "q031"
+  ],
+  "evaluatedCandidates": 2,
+  "archiveSize": 1,
+  "bestByCase": {
+    "q031": 0.6221386072523303
+  },
+  "archive": [
+    {
+      "candidateId": "consult-semantic-okf-harbor-entity-graph-evolved",
+      "parentIds": [
+        "consult-semantic-okf-entity-graph-baseline"
+      ],
+      "caseScores": {
+        "q031": 0.6221386072523303
+      },
+      "complexityDelta": 525,
+      "evaluationCost": 606985,
+      "feedback": [
+        {
+          "caseId": "q031",
+          "outcome": "failure",
+          "diagnosis": "The bounded graph support pack avoided the timeout and produced a contract-valid, evidence-valid answer, but it still missed one of three required documents and hard evidence intervals.",
+          "evidence": "Harbor run 20260716-evolved-train-entity-graph-q031-auth-r1: quality_gate=1.0, recall=0.6666666666666666, authoritative completeness=0.6666666666666666, atomic completeness=0.6, reward=0.6221386072523303; 606,985 input tokens."
+        }
+      ],
+      "meanScore": 0.6221386072523303,
+      "worstCaseScore": 0.6221386072523303,
+      "ownedCases": [
+        "q031"
+      ]
+    }
+  ],
+  "robustCandidateId": "consult-semantic-okf-harbor-entity-graph-evolved",
+  "dominatedCandidateIds": [
+    "consult-semantic-okf-entity-graph-baseline"
+  ]
+}

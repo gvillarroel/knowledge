@@ -1,0 +1,110 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-harbor-q031-entity-graph-evolution
+  description: Frozen q031 causal pair for the entity-graph Semantic OKF consult skill and its single Harbor-guided evolution.
+  tags: [compare, semantic-okf, harbor, q031, entity-graph, paired, no-mcp]
+task:
+  prompts:
+    - id: q031
+      description: Frozen hard train question; identical in both cells.
+      prompt: |-
+        Use only the published Semantic OKF snapshot mounted read-only at `/knowledge`. Do not use the web, model memory, or guesses. You must use the sole installed consultation skill. Do not modify the snapshot. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+
+        Question: A member-only settings form calls an Astro Action and may rewrite unauthenticated submissions to a login page. Design the authorization, session, and rewrite boundaries so an attacker cannot bypass permissions and an HTML form body is not consumed by an unsafe middleware rewrite.
+
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q031`. A non-null `answer` must contain `summary` and `claims`, in that order. Keep the summary substantive and no longer than 450 words. Each claim must contain exactly `statement` and `evidence_indices`; indices are zero-based references into `evidence`. Every evidence row must contain exactly `source_id`, `record_id`, `concept_path`, `source_path`, `record_sha256`, `locator`, and `text_sha256`, copied from an exact validated consultation hit. Keep every evidence row in first-use order and use every row. Do not include benchmark relevance labels or unsupported facts.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const value = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(value)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (value.question_id !== 'q031' || !Array.isArray(value.evidence)) return false;
+                if (value.answer === null) return value.evidence.length === 0;
+                if (JSON.stringify(Object.keys(value.answer)) !== JSON.stringify(['summary','claims'])) return false;
+                if (typeof value.answer.summary !== 'string' || !value.answer.summary.trim() || value.answer.summary.trim().split(/\s+/).length > 450) return false;
+                if (!Array.isArray(value.answer.claims) || value.answer.claims.length === 0) return false;
+                const used = [];
+                for (const claim of value.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','evidence_indices'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.evidence_indices) || claim.evidence_indices.length === 0) return false;
+                  if (!claim.evidence_indices.every((index) => Number.isInteger(index) && index >= 0 && index < value.evidence.length)) return false;
+                  used.push(...claim.evidence_indices);
+                }
+                if (JSON.stringify([...new Set(used)]) !== JSON.stringify(value.evidence.map((_, index) => index))) return false;
+                return value.evidence.every((row) =>
+                  JSON.stringify(Object.keys(row)) === JSON.stringify(['source_id','record_id','concept_path','source_path','record_sha256','locator','text_sha256']) &&
+                  typeof row.source_id === 'string' && typeof row.record_id === 'string' && typeof row.concept_path === 'string' && typeof row.source_path === 'string' &&
+                  /^[0-9a-f]{64}$/.test(row.record_sha256) && row.locator && typeof row.locator === 'object' && /^[0-9a-f]{64}$/.test(row.text_sha256)
+                );
+              } catch { return false; }
+workspace:
+  sources:
+    - id: entity-graph-bundle
+      type: local-path
+      path: evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/entity-graph-a
+      target: /knowledge
+  setup:
+    initializeGit: true
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      SEMANTIC_OKF_BUNDLE: $WORKSPACE/knowledge
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+  requests: 1
+  timeoutMs: 600000
+  tracing: false
+  maxConcurrency: 1
+  noCache: true
+comparison:
+  profiles:
+    - id: entity-graph-baseline
+      description: Frozen entity-graph consult skill before Harbor-guided evolution.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-entity-graph
+              skillId: consult-semantic-okf-entity-graph
+            install:
+              strategy: workspace-overlay
+      output:
+        labels: {family: entity-graph, generation: baseline, causal_role: control}
+    - id: entity-graph-evolved
+      description: Frozen standalone entity-graph evolution produced from q031 Harbor feedback.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-harbor-entity-graph
+              skillId: consult-semantic-okf-harbor-entity-graph
+            install:
+              strategy: workspace-overlay
+      output:
+        labels: {family: entity-graph, generation: evolved, causal_role: treatment}
+  variants:
+    - id: pi-gpt-5-3-spark
+      description: Pi with GPT-5.3 Codex Spark for both paired cells.
+      agent:
+        adapter: pi
+        model: openai-codex/gpt-5.3-codex-spark
+        executionMethod: command
+        commandPath: pi
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: true
+        reasoningEffort: high
+        additionalDirectories: []
+        cliEnv: {}
+        config: {}
+      output:
+        labels: {variantDisplayName: Pi GPT-5.3 Codex Spark}

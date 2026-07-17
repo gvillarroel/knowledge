@@ -1,0 +1,373 @@
+{
+  "schema_version": "semantic-okf-harbor-semantic-review/1.0",
+  "question_id": "q031",
+  "ground_truth_binding": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+    "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+  },
+  "rubric": {
+    "item_scale": {
+      "0": "Absent, contradicted, or materially wrong.",
+      "0.5": "Present but incomplete, implicit, or missing an important condition.",
+      "1": "Explicit and semantically complete against the reviewed ground truth."
+    },
+    "summary_scale": {
+      "semantic_correctness": "Manual 0-1 judgment of whether the prose is materially true, independent of coverage and JSON validity.",
+      "completeness": "Deterministic mean of the five atomic claims, two important negatives, join, and conditional scores.",
+      "grounding": "Manual 0-1 judgment that substantive statements are supported by the answer's usable cited evidence; retrieval coverage alone is insufficient.",
+      "response_contract": "Exact Harbor response-contract result, 0 or 1."
+    },
+    "completeness_formula": "round((a1+a2+a3+a4+a5+n1+n2+join+conditional)/9, 6)",
+    "grounding_rule": "Evidence-validity and qrel coverage are inputs, not proof of entailment. Invalid or unusable evidence receives zero grounding even when prose is plausible."
+  },
+  "reviews": [
+    {
+      "family": "legacy",
+      "variant": "baseline",
+      "status": "contract_invalid",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-legacy-q031/q031__eQKCvsJ/result.json",
+        "sha256": "765414a1b19afed1cfcd5aa9fbc78cf6e22059f28fa1ff39a255b95f75a996c8"
+      },
+      "final_answer_sha256": "fd9f862f63a20ccc64fd94af8849fe0e7d957da00388f1143ee65f3ac7acd694",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It treats actions as public endpoints and checks authorization in each handler, but omits rate limiting."},
+        "q031-a2": {"score": 1, "rationale": "It explicitly makes middleware supplementary and the action the final permission boundary."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses server session state in actions and middleware but omits driver configuration and adapter-default differences."},
+        "q031-a4": {"score": 0, "rationale": "It does not contrast context.rewrite rerunning middleware with the in-place next rewrite not rerunning it."},
+        "q031-a5": {"score": 1, "rationale": "It rejects next-based middleware rewrites for Action forms and names template-side Astro.rewrite as the safe alternative."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It clearly says a session or middleware check cannot replace per-action permission enforcement."},
+        "q031-n2": {"score": 1, "rationale": "It explicitly rejects next(Request-or-path) middleware rewrites for body-backed Action forms."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "It joins session identity, a coarse middleware gate, and action-level authorization."},
+        "conditional": {"score": 0.5, "rationale": "It applies the HTML-form body condition but omits the middleware re-execution contrast."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.722222, "grounding": 0, "response_contract": 0},
+      "material_errors": ["All supplied evidence locators/hashes failed the closed evidence contract, so the plausible prose is not usable as a grounded answer."],
+      "review_note": "Semantically strong prose with invalid evidence references; Harbor correctly rejects the answer despite full qrel retrieval."
+    },
+    {
+      "family": "legacy",
+      "variant": "evolved",
+      "status": "invalid_json",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-legacy-q031/q031__xVidSzH/result.json",
+        "sha256": "ec92e7efd2466e5c575a31275c41f5e3beb28b40a529dad88eaa68be0f15dcb2"
+      },
+      "final_answer_sha256": "fec2704b450eed0f246a0d655edcea59cb469561e3c9e8c25579049cb8cf1a9f",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "The readable draft enforces authorization in the action path but omits the public-endpoint and rate-limit details."},
+        "q031-a2": {"score": 1, "rationale": "The readable draft describes middleware as a fast gate and repeats authorization inside the action."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses context.session as shared server state but does not cover configured drivers or adapter defaults."},
+        "q031-a4": {"score": 0.5, "rationale": "It correctly says next does not rerun middleware but omits the contrasting context.rewrite behavior."},
+        "q031-a5": {"score": 0.5, "rationale": "It warns against body-sensitive middleware rewrites but does not cleanly prescribe the template-side alternative."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "The draft requires authorization in the action rather than trusting session presence alone."},
+        "q031-n2": {"score": 0.5, "rationale": "It warns about next and consumed bodies, but the malformed output prevents an executable evidence-backed prohibition."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "The readable content joins session state, a middleware fast gate, and final action authorization."},
+        "conditional": {"score": 0.5, "rationale": "The form-body condition is present, but only half of the rewrite execution contrast is stated."}
+      },
+      "summary_scores": {"semantic_correctness": 0.8, "completeness": 0.666667, "grounding": 0, "response_contract": 0},
+      "material_errors": ["The final answer contains an ellipsis inside a quoted concept_path, producing invalid JSON and unusable evidence."],
+      "review_note": "The raw text is readable enough for semantic diagnosis, but it is not a valid answer artifact and cannot be grounded or consumed."
+    },
+    {
+      "family": "embeddings",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-embeddings-q031/q031__mG6oSUM/result.json",
+        "sha256": "f34947c0a3a884ee06526866a26e741489c294bf9e271364f5c6325f32a05c34"
+      },
+      "final_answer_sha256": "1845b4fb7f2d1ae6f16c1f8c02bbecaefa3028a011707dcbb94ef4249d45e831",
+      "harbor_metrics": {"reward": 0.27039180890341347, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It treats Action routes as public and enforces handler authorization, but omits rate limiting."},
+        "q031-a2": {"score": 1, "rationale": "It explicitly labels middleware checks supplementary to authorization in the handler."},
+        "q031-a3": {"score": 0.5, "rationale": "It relies on session-backed context but does not explain driver configuration or adapter defaults."},
+        "q031-a4": {"score": 0, "rationale": "It does not state the context.rewrite versus next middleware-reexecution distinction."},
+        "q031-a5": {"score": 1, "rationale": "It rejects unsafe middleware request reconstruction for Action forms and offers template rewrite or redirect handling."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It states that middleware/session gating cannot replace handler authorization."},
+        "q031-n2": {"score": 1, "rationale": "It explicitly prohibits next/new-Request middleware rewrites for HTML form Actions."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "It joins shared session identity, optional middleware gating, and the action as final security boundary."},
+        "conditional": {"score": 0.5, "rationale": "It handles the form-body condition correctly but omits the two rewrite modes' execution contrast."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.722222, "grounding": 0.9, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The answer is correct and usable, but the retrieved evidence misses the sessions document and the rewrite execution contrast."
+    },
+    {
+      "family": "embeddings",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-embeddings-q031/q031__FbEpHfa/result.json",
+        "sha256": "1f5e43ac2d92b84ff70353c8e3cb235c9f7baaae6083b57e2e3670efc3ab6451"
+      },
+      "final_answer_sha256": "6696e3ec4912a498b2137e9fa2037cc9b5d42710357d83c6ff801b2c30170a4c",
+      "harbor_metrics": {"reward": 0.9906025435534683, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It enforces member authorization in each action but omits explicit public-endpoint and rate-limit treatment."},
+        "q031-a2": {"score": 1, "rationale": "It calls middleware an authentication gate only and preserves action-level permission checks."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses the shared session surface but omits configured drivers and adapter-default differences."},
+        "q031-a4": {"score": 0.5, "rationale": "It says rewrite reruns middleware, but does not contrast this with in-place next not rerunning it."},
+        "q031-a5": {"score": 0.5, "rationale": "It protects body handling via cloning but does not clearly prohibit the in-place next rewrite and move handling to the template."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It explicitly says session presence at middleware is not the final permission check."},
+        "q031-n2": {"score": 0.5, "rationale": "It prohibits consuming the body before rewrite but does not precisely name the unsafe next form-rewrite boundary."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "It joins one session source, a coarse middleware gate, and action-level role authorization."},
+        "conditional": {"score": 0.5, "rationale": "It recognizes body-sensitive form handling and middleware reruns, but leaves the next contrast implicit."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.666667, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution fixes evidence coverage and contract behavior, while manual semantic completeness is slightly lower because the exact next/template condition is less explicit."
+    },
+    {
+      "family": "classical",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-classical-q031/q031__nSA8NQA/result.json",
+        "sha256": "c5b64e54803cbae0002c39d987f0123fd991ea2b5632ca2b5d0027303ee3acf2"
+      },
+      "final_answer_sha256": "8d7a7dbe1a37e9e29a1920abaccecb2523124a8f1e000576c85a9f702c217cfb",
+      "harbor_metrics": {"reward": 0.9603907164478128, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It requires direct action authorization before mutation but does not mention rate limiting."},
+        "q031-a2": {"score": 1, "rationale": "It uses middleware as an outer gate and repeats authorization in each action."},
+        "q031-a3": {"score": 0.5, "rationale": "It correctly shares server-side sessions but omits the driver and adapter qualification."},
+        "q031-a4": {"score": 0, "rationale": "It never explains rerunning context.rewrite versus in-place no-rerun next behavior."},
+        "q031-a5": {"score": 1, "rationale": "It keeps Action POSTs out of body-sensitive middleware rewrites and uses action-result/redirect flow instead."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It makes the action the final permission boundary, not the session or route gate."},
+        "q031-n2": {"score": 1, "rationale": "It rejects middleware rewiring of Action POST requests when the body is involved."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "The session, middleware gate, and action authorization roles are coherently joined."},
+        "conditional": {"score": 0.5, "rationale": "The Action-form body condition is correct, but rewrite execution behavior is not contrasted."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "This is the strongest baseline on evidence validity and ties the best manual completeness, though it misses a4 and rate-limit/driver details."
+    },
+    {
+      "family": "classical",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-classical-q031/q031__6Nyit4M/result.json",
+        "sha256": "00aef602d9a5776a8809fc0d94dc80eead8d0e66757461d11e431afb028b9004"
+      },
+      "final_answer_sha256": "8683cc55e9c787b9987b494324a228cfc85cc64f3be399fa64789f50f80e679e",
+      "harbor_metrics": {"reward": 0.9946902429525976, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It makes the handler the authorization boundary but omits explicit public-endpoint and rate-limit treatment."},
+        "q031-a2": {"score": 0.5, "rationale": "It says not to rely on middleware rewrites, but does not describe middleware's valid coarse-gate role."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses context.session in actions but omits driver configuration and adapter defaults."},
+        "q031-a4": {"score": 0, "rationale": "It omits the rerun versus no-rerun rewrite contrast."},
+        "q031-a5": {"score": 1, "rationale": "It avoids middleware Action-form rewrites and chooses redirect or ActionError handling, an accepted safe variant."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It clearly requires authorization inside the action rather than trusting shared session state."},
+        "q031-n2": {"score": 1, "rationale": "It explicitly avoids middleware rewrites for body-backed Action forms."}
+      },
+      "derivation_logic": {
+        "join": {"score": 0.5, "rationale": "It joins session identity and final action authorization but largely omits the middleware coarse gate."},
+        "conditional": {"score": 0.5, "rationale": "It applies the HTML-form condition but omits the two rewrite execution modes."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.611111, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The compact evolution is highly correct and fully grounded, but verifier reward overstates semantic completeness because several required nuances are absent."
+    },
+    {
+      "family": "adaptive",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-adaptive-q031/q031__ubMPbJd/result.json",
+        "sha256": "844780df7de140fc1ac50f9729485aec8a6d8f32f46247ab80c6d89613998167"
+      },
+      "final_answer_sha256": "75362505075b083a2eaac46c4578cd285e364fbfb8ec56f1316cbb0e03ad4bce",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It puts authorization in the action before mutation but omits public-endpoint and rate-limit details."},
+        "q031-a2": {"score": 1, "rationale": "It explicitly separates an outer middleware gate from the action as final authorization boundary."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses server-stored sessions but does not cover configured drivers or adapter defaults."},
+        "q031-a4": {"score": 0, "rationale": "It does not distinguish context.rewrite reruns from next no-rerun behavior."},
+        "q031-a5": {"score": 0.5, "rationale": "It avoids consuming a body before rewrite and suggests cloning, but does not clearly prohibit next and move rewriting to the template."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It names the action as final authority beyond session and middleware checks."},
+        "q031-n2": {"score": 0.5, "rationale": "It prevents body consumption before rewrite but does not explicitly ban the in-place next form rewrite."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "It joins session membership state, middleware route gating, and final action authorization."},
+        "conditional": {"score": 0.5, "rationale": "It recognizes the body-sensitive form case but omits rewrite execution semantics."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.611111, "grounding": 0.9, "response_contract": 1},
+      "material_errors": ["Evidence rows were not in first-use order, so the otherwise valid JSON fails the non-compensating quality gate."],
+      "review_note": "The prose is useful, but reference-order failure makes the grounded response operationally invalid under the benchmark contract."
+    },
+    {
+      "family": "adaptive",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-adaptive-q031/q031__DdjMH2e/result.json",
+        "sha256": "27a13695c54044a826ef02e808f11c0e9a1c6f0f199baab83b44bbe663452e88"
+      },
+      "final_answer_sha256": "ba4835d7976bfa35edbae231c5e73eb2a718fc6494854142533ffbd8c0e2f450",
+      "harbor_metrics": {"reward": 0.9946902429525976, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It enforces authorization in each action but omits rate limiting and the explicit public-endpoint premise."},
+        "q031-a2": {"score": 0.5, "rationale": "It makes action authorization primary but does not describe middleware's permissible coarse rejection role."},
+        "q031-a3": {"score": 0.5, "rationale": "It names a configured session driver but omits adapter-specific defaults."},
+        "q031-a4": {"score": 0, "rationale": "Pipeline-order commentary does not supply the required context.rewrite versus next contrast."},
+        "q031-a5": {"score": 0.5, "rationale": "It avoids or clones before middleware rewrites, but does not clearly select template-side rewriting for HTML Action forms."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It uses session identity as input while keeping authorization inside the action."},
+        "q031-n2": {"score": 0.5, "rationale": "It warns against body-dependent middleware rewriting but does not precisely ban in-place next for the form case."}
+      },
+      "derivation_logic": {
+        "join": {"score": 0.5, "rationale": "It joins session identity and action authorization but omits the intended middleware coarse-gate role."},
+        "conditional": {"score": 0.5, "rationale": "It includes the consumed-body condition without the complete rewrite-mode contrast."}
+      },
+      "summary_scores": {"semantic_correctness": 0.75, "completeness": 0.5, "grounding": 0.9, "response_contract": 1},
+      "material_errors": ["The categorical claim that user middleware runs after action execution is at least misleading for the documented middleware Action-context guard and weakens the boundary explanation."],
+      "review_note": "The evolution fixes first-use evidence ordering and earns a near-perfect verifier score, but is the clearest example of retrieval/contract improvement without semantic-completeness improvement."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "baseline",
+      "status": "timeout",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-entity-graph-q031/q031__UqPrUKk/result.json",
+        "sha256": "dadc43b56904665e4df9e7f0300a168384eba36152aebc18477a52370e402701"
+      },
+      "final_answer_sha256": null,
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0, "rationale": "No final answer was produced."},
+        "q031-a2": {"score": 0, "rationale": "No final answer was produced."},
+        "q031-a3": {"score": 0, "rationale": "No final answer was produced."},
+        "q031-a4": {"score": 0, "rationale": "No final answer was produced."},
+        "q031-a5": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 0, "rationale": "No final answer was produced."},
+        "q031-n2": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "derivation_logic": {
+        "join": {"score": 0, "rationale": "No final answer was produced."},
+        "conditional": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "summary_scores": {"semantic_correctness": 0, "completeness": 0, "grounding": 0, "response_contract": 0},
+      "material_errors": ["Agent execution exceeded the 600-second timeout and yielded no final answer."],
+      "review_note": "This is an execution failure, not evidence that the graph content was semantically wrong."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-entity-graph-q031-auth-r1/q031__MNFVPvx/result.json",
+        "sha256": "be56f627b5f4fcd233ae044e5714c10445d7172849eb4a719a9389a9e4636cca"
+      },
+      "final_answer_sha256": "d32a3d0d5a0062af0401cc47de0da873a185041fa69541522a85cd38e371a020",
+      "harbor_metrics": {"reward": 0.6221386072523303, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It requires authorization inside the Action before mutation but omits public-endpoint and rate-limit details."},
+        "q031-a2": {"score": 0.5, "rationale": "It keeps an action check beyond a route boundary, but does not clearly define middleware as only a coarse session gate."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses the server session in actions but omits configured drivers and adapter defaults."},
+        "q031-a4": {"score": 0, "rationale": "It does not state the context.rewrite rerun versus next no-rerun distinction."},
+        "q031-a5": {"score": 1, "rationale": "It explicitly rejects next middleware rewrites for HTML-form Action posts and moves handling to a safer page/action boundary."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It requires an action permission check rather than trusting session/token presence."},
+        "q031-n2": {"score": 1, "rationale": "It clearly rejects middleware next rewrites for body-backed Action forms."}
+      },
+      "derivation_logic": {
+        "join": {"score": 0.5, "rationale": "It joins session identity and action authorization, but the coarse middleware role remains under-specified."},
+        "conditional": {"score": 0.5, "rationale": "It gets the HTML-form body branch right without the complete rewrite execution contrast."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.611111, "grounding": 0.75, "response_contract": 1},
+      "material_errors": ["The answer does not cite the authoritative actions security document; its generic Action-boundary claim is instead assembled from sessions/API and Supabase material."],
+      "review_note": "The evolution converts a timeout into a valid, mostly correct answer, but source selection still misses one required paper and weakens grounding."
+    },
+    {
+      "family": "ensemble",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-smoke-ensemble-q031/q031__J7wjvXo/result.json",
+        "sha256": "0e93efa05dcb6e463924205bdd17e85f293dce78737b2fbc6fbe99cadd1d6968"
+      },
+      "final_answer_sha256": "b1fa984bb2672a2645d4ddce5bb63a5ef040e247b08e5ae1dd194ab84b7229bc",
+      "harbor_metrics": {"reward": 0.7665360636988622, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It independently enforces permission in each action but omits public-endpoint and rate-limit details."},
+        "q031-a2": {"score": 1, "rationale": "It explicitly says middleware/session checks cannot replace action authorization."},
+        "q031-a3": {"score": 0.5, "rationale": "It uses session identity but omits driver configuration and adapter defaults."},
+        "q031-a4": {"score": 0, "rationale": "It omits the rerun versus no-rerun rewrite contrast."},
+        "q031-a5": {"score": 1, "rationale": "It avoids next for HTML Action forms and chooses login redirect or safe clone/rewrite handling."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 1, "rationale": "It directly states session checks are not authorization."},
+        "q031-n2": {"score": 1, "rationale": "It directly warns that next middleware rewrites make the form body inaccessible."}
+      },
+      "derivation_logic": {
+        "join": {"score": 1, "rationale": "It coherently joins session identity, middleware route control, and action permission enforcement."},
+        "conditional": {"score": 0.5, "rationale": "It covers body-sensitive HTML forms without comparing both rewrite execution modes."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.722222, "grounding": 0.9, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "A strong and concise baseline; it retrieves only two of three required documents but still covers most security/rewrite semantics."
+    },
+    {
+      "family": "ensemble",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-train-ensemble-q031-auth-r1/q031__qK5sAS4/result.json",
+        "sha256": "83e2559514881cf0d363e0d1f24b1564e791d7a28ffca4e4801c4a5cc127980b"
+      },
+      "final_answer_sha256": "a3ed9f06ef63b72825804f0c72daf711f110f8ac33eb05d928ca8a92beff3c95",
+      "harbor_metrics": {"reward": 0.6027623703503218, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q031-a1": {"score": 0.5, "rationale": "It mentions session-backed checks in actions but does not clearly state that each public action is the final permission and rate-limit boundary."},
+        "q031-a2": {"score": 0.5, "rationale": "It says not to rely on middleware rewrites alone, but only implicitly preserves action-level authorization."},
+        "q031-a3": {"score": 0.5, "rationale": "It requires configured session drivers but does not mention adapter-specific defaults."},
+        "q031-a4": {"score": 0, "rationale": "It never contrasts context.rewrite rerunning middleware with next not rerunning it."},
+        "q031-a5": {"score": 1, "rationale": "It avoids next for Action forms, uses page-level redirects, and clones before body inspection when needed."}
+      },
+      "important_negatives": {
+        "q031-n1": {"score": 0.5, "rationale": "It distinguishes authentication from authorization, but does not explicitly say a present session proves no per-action permission."},
+        "q031-n2": {"score": 1, "rationale": "It explicitly connects next middleware rewrites with HTML-form body failure."}
+      },
+      "derivation_logic": {
+        "join": {"score": 0.5, "rationale": "It joins sessions with middleware/actions but does not clearly make the action the final authorization boundary."},
+        "conditional": {"score": 0.5, "rationale": "It handles the body/clone condition but omits the complete rerun/no-rerun contrast."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.555556, "grounding": 0.95, "response_contract": 1},
+      "material_errors": ["Two claims about upgrade-era redirect payloads and static-route rewrite restrictions are irrelevant to the asked authorization boundary."],
+      "review_note": "The evolution remains valid and grounded but retrieves nine records, lowers evidence precision/reward, and is less focused and complete than the ensemble baseline."
+    }
+  ]
+}

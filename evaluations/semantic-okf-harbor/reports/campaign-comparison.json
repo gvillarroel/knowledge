@@ -1,0 +1,4707 @@
+{
+  "aggregates": {
+    "dev": {
+      "adaptive": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 992000.0,
+              "observed_trials": 1,
+              "total": 992000.0
+            },
+            "input_tokens": {
+              "mean": 1063699.0,
+              "observed_trials": 1,
+              "total": 1063699.0
+            },
+            "latency_seconds": {
+              "mean": 147.944442,
+              "observed_trials": 1,
+              "total": 147.944442
+            },
+            "output_tokens": {
+              "mean": 15449.0,
+              "observed_trials": 1,
+              "total": 15449.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.8,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.8333333333333334,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.25,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 0.75,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.38685280723454163,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 452352.0,
+              "observed_trials": 1,
+              "total": 452352.0
+            },
+            "input_tokens": {
+              "mean": 494593.0,
+              "observed_trials": 1,
+              "total": 494593.0
+            },
+            "latency_seconds": {
+              "mean": 196.578191,
+              "observed_trials": 1,
+              "total": 196.578191
+            },
+            "output_tokens": {
+              "mean": 15702.0,
+              "observed_trials": 1,
+              "total": 15702.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "classical": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.8,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.8333333333333334,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6131471927654584,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.7263147192765459,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 175488.0,
+              "observed_trials": 1,
+              "total": 175488.0
+            },
+            "input_tokens": {
+              "mean": 221053.0,
+              "observed_trials": 1,
+              "total": 221053.0
+            },
+            "latency_seconds": {
+              "mean": 108.425695,
+              "observed_trials": 1,
+              "total": 108.425695
+            },
+            "output_tokens": {
+              "mean": 8386.0,
+              "observed_trials": 1,
+              "total": 8386.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 573184.0,
+              "observed_trials": 1,
+              "total": 573184.0
+            },
+            "input_tokens": {
+              "mean": 620709.0,
+              "observed_trials": 1,
+              "total": 620709.0
+            },
+            "latency_seconds": {
+              "mean": 128.480844,
+              "observed_trials": 1,
+              "total": 128.480844
+            },
+            "output_tokens": {
+              "mean": 9992.0,
+              "observed_trials": 1,
+              "total": 9992.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "embeddings": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.2,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.16666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.48500000000000004,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 357888.0,
+              "observed_trials": 1,
+              "total": 357888.0
+            },
+            "input_tokens": {
+              "mean": 430627.0,
+              "observed_trials": 1,
+              "total": 430627.0
+            },
+            "latency_seconds": {
+              "mean": 232.795166,
+              "observed_trials": 1,
+              "total": 232.795166
+            },
+            "output_tokens": {
+              "mean": 17652.0,
+              "observed_trials": 1,
+              "total": 17652.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.8,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.8333333333333334,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.38685280723454163,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.7036852807234542,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 633216.0,
+              "observed_trials": 1,
+              "total": 633216.0
+            },
+            "input_tokens": {
+              "mean": 687622.0,
+              "observed_trials": 1,
+              "total": 687622.0
+            },
+            "latency_seconds": {
+              "mean": 144.191492,
+              "observed_trials": 1,
+              "total": 144.191492
+            },
+            "output_tokens": {
+              "mean": 15655.0,
+              "observed_trials": 1,
+              "total": 15655.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "ensemble": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 357504.0,
+              "observed_trials": 1,
+              "total": 357504.0
+            },
+            "input_tokens": {
+              "mean": 422742.0,
+              "observed_trials": 1,
+              "total": 422742.0
+            },
+            "latency_seconds": {
+              "mean": 600.019192,
+              "observed_trials": 1,
+              "total": 600.019192
+            },
+            "output_tokens": {
+              "mean": 4841.0,
+              "observed_trials": 1,
+              "total": 4841.0
+            }
+          },
+          "runtime_errors": 1,
+          "runtime_errors_by_type": {
+            "AgentTimeoutError": 1
+          },
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9197207891481876,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9919720789148189,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 525184.0,
+              "observed_trials": 1,
+              "total": 525184.0
+            },
+            "input_tokens": {
+              "mean": 576139.0,
+              "observed_trials": 1,
+              "total": 576139.0
+            },
+            "latency_seconds": {
+              "mean": 250.193212,
+              "observed_trials": 1,
+              "total": 250.193212
+            },
+            "output_tokens": {
+              "mean": 15554.0,
+              "observed_trials": 1,
+              "total": 15554.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "entity-graph": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.2,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.16666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.8772153153380493,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.547721531533805,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 952704.0,
+              "observed_trials": 1,
+              "total": 952704.0
+            },
+            "input_tokens": {
+              "mean": 1032364.0,
+              "observed_trials": 1,
+              "total": 1032364.0
+            },
+            "latency_seconds": {
+              "mean": 181.927546,
+              "observed_trials": 1,
+              "total": 181.927546
+            },
+            "output_tokens": {
+              "mean": 19386.0,
+              "observed_trials": 1,
+              "total": 19386.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.8,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.8333333333333334,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6131471927654584,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.7263147192765459,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 852992.0,
+              "observed_trials": 1,
+              "total": 852992.0
+            },
+            "input_tokens": {
+              "mean": 921056.0,
+              "observed_trials": 1,
+              "total": 921056.0
+            },
+            "latency_seconds": {
+              "mean": 145.407014,
+              "observed_trials": 1,
+              "total": 145.407014
+            },
+            "output_tokens": {
+              "mean": 21380.0,
+              "observed_trials": 1,
+              "total": 21380.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "legacy": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 834432.0,
+              "observed_trials": 1,
+              "total": 834432.0
+            },
+            "input_tokens": {
+              "mean": 897389.0,
+              "observed_trials": 1,
+              "total": 897389.0
+            },
+            "latency_seconds": {
+              "mean": 57.748372,
+              "observed_trials": 1,
+              "total": 57.748372
+            },
+            "output_tokens": {
+              "mean": 12490.0,
+              "observed_trials": 1,
+              "total": 12490.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1144576.0,
+              "observed_trials": 1,
+              "total": 1144576.0
+            },
+            "input_tokens": {
+              "mean": 1215631.0,
+              "observed_trials": 1,
+              "total": 1215631.0
+            },
+            "latency_seconds": {
+              "mean": 114.089127,
+              "observed_trials": 1,
+              "total": 114.089127
+            },
+            "output_tokens": {
+              "mean": 14895.0,
+              "observed_trials": 1,
+              "total": 14895.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      }
+    },
+    "holdout": {
+      "adaptive": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1391232.0,
+              "observed_trials": 1,
+              "total": 1391232.0
+            },
+            "input_tokens": {
+              "mean": 1482269.0,
+              "observed_trials": 1,
+              "total": 1482269.0
+            },
+            "latency_seconds": {
+              "mean": 385.555139,
+              "observed_trials": 1,
+              "total": 385.555139
+            },
+            "output_tokens": {
+              "mean": 18860.0,
+              "observed_trials": 1,
+              "total": 18860.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 118272.0,
+              "observed_trials": 1,
+              "total": 118272.0
+            },
+            "input_tokens": {
+              "mean": 138941.0,
+              "observed_trials": 1,
+              "total": 138941.0
+            },
+            "latency_seconds": {
+              "mean": 101.479374,
+              "observed_trials": 1,
+              "total": 101.479374
+            },
+            "output_tokens": {
+              "mean": 4334.0,
+              "observed_trials": 1,
+              "total": 4334.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "classical": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1177600.0,
+              "observed_trials": 1,
+              "total": 1177600.0
+            },
+            "input_tokens": {
+              "mean": 1245939.0,
+              "observed_trials": 1,
+              "total": 1245939.0
+            },
+            "latency_seconds": {
+              "mean": 104.074125,
+              "observed_trials": 1,
+              "total": 104.074125
+            },
+            "output_tokens": {
+              "mean": 14396.0,
+              "observed_trials": 1,
+              "total": 14396.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 149248.0,
+              "observed_trials": 1,
+              "total": 149248.0
+            },
+            "input_tokens": {
+              "mean": 176840.0,
+              "observed_trials": 1,
+              "total": 176840.0
+            },
+            "latency_seconds": {
+              "mean": 55.057768,
+              "observed_trials": 1,
+              "total": 55.057768
+            },
+            "output_tokens": {
+              "mean": 6489.0,
+              "observed_trials": 1,
+              "total": 6489.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "embeddings": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.8772153153380493,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.657721531533805,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 518656.0,
+              "observed_trials": 1,
+              "total": 518656.0
+            },
+            "input_tokens": {
+              "mean": 608250.0,
+              "observed_trials": 1,
+              "total": 608250.0
+            },
+            "latency_seconds": {
+              "mean": 223.85979,
+              "observed_trials": 1,
+              "total": 223.85979
+            },
+            "output_tokens": {
+              "mean": 16148.0,
+              "observed_trials": 1,
+              "total": 16148.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.8772153153380493,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9877215315338049,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 174336.0,
+              "observed_trials": 1,
+              "total": 174336.0
+            },
+            "input_tokens": {
+              "mean": 198595.0,
+              "observed_trials": 1,
+              "total": 198595.0
+            },
+            "latency_seconds": {
+              "mean": 113.255735,
+              "observed_trials": 1,
+              "total": 113.255735
+            },
+            "output_tokens": {
+              "mean": 8688.0,
+              "observed_trials": 1,
+              "total": 8688.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "ensemble": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9197207891481876,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9919720789148189,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 380288.0,
+              "observed_trials": 1,
+              "total": 380288.0
+            },
+            "input_tokens": {
+              "mean": 415612.0,
+              "observed_trials": 1,
+              "total": 415612.0
+            },
+            "latency_seconds": {
+              "mean": 422.777208,
+              "observed_trials": 1,
+              "total": 422.777208
+            },
+            "output_tokens": {
+              "mean": 12522.0,
+              "observed_trials": 1,
+              "total": 12522.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 248960.0,
+              "observed_trials": 1,
+              "total": 248960.0
+            },
+            "input_tokens": {
+              "mean": 283644.0,
+              "observed_trials": 1,
+              "total": 283644.0
+            },
+            "latency_seconds": {
+              "mean": 244.953966,
+              "observed_trials": 1,
+              "total": 244.953966
+            },
+            "output_tokens": {
+              "mean": 9462.0,
+              "observed_trials": 1,
+              "total": 9462.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "entity-graph": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1420160.0,
+              "observed_trials": 1,
+              "total": 1420160.0
+            },
+            "input_tokens": {
+              "mean": 1484043.0,
+              "observed_trials": 1,
+              "total": 1484043.0
+            },
+            "latency_seconds": {
+              "mean": 190.356879,
+              "observed_trials": 1,
+              "total": 190.356879
+            },
+            "output_tokens": {
+              "mean": 17477.0,
+              "observed_trials": 1,
+              "total": 17477.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.6,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.2,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6131471927654584,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.46631471927654583,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1317248.0,
+              "observed_trials": 1,
+              "total": 1317248.0
+            },
+            "input_tokens": {
+              "mean": 1414088.0,
+              "observed_trials": 1,
+              "total": 1414088.0
+            },
+            "latency_seconds": {
+              "mean": 153.073029,
+              "observed_trials": 1,
+              "total": 153.073029
+            },
+            "output_tokens": {
+              "mean": 14981.0,
+              "observed_trials": 1,
+              "total": 14981.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "legacy": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1551488.0,
+              "observed_trials": 1,
+              "total": 1551488.0
+            },
+            "input_tokens": {
+              "mean": 1662200.0,
+              "observed_trials": 1,
+              "total": 1662200.0
+            },
+            "latency_seconds": {
+              "mean": 66.940519,
+              "observed_trials": 1,
+              "total": 66.940519
+            },
+            "output_tokens": {
+              "mean": 14931.0,
+              "observed_trials": 1,
+              "total": 14931.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9197207891481876,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9919720789148189,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 691712.0,
+              "observed_trials": 1,
+              "total": 691712.0
+            },
+            "input_tokens": {
+              "mean": 763307.0,
+              "observed_trials": 1,
+              "total": 763307.0
+            },
+            "latency_seconds": {
+              "mean": 53.48444,
+              "observed_trials": 1,
+              "total": 53.48444
+            },
+            "output_tokens": {
+              "mean": 15942.0,
+              "observed_trials": 1,
+              "total": 15942.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      }
+    },
+    "train": {
+      "adaptive": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.42857142857142855,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6978817289434457,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1465728.0,
+              "observed_trials": 1,
+              "total": 1465728.0
+            },
+            "input_tokens": {
+              "mean": 1534743.0,
+              "observed_trials": 1,
+              "total": 1534743.0
+            },
+            "latency_seconds": {
+              "mean": 506.429902,
+              "observed_trials": 1,
+              "total": 506.429902
+            },
+            "output_tokens": {
+              "mean": 22134.0,
+              "observed_trials": 1,
+              "total": 22134.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.6,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9469024295259745,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9946902429525976,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 316800.0,
+              "observed_trials": 1,
+              "total": 316800.0
+            },
+            "input_tokens": {
+              "mean": 346869.0,
+              "observed_trials": 1,
+              "total": 346869.0
+            },
+            "latency_seconds": {
+              "mean": 127.830116,
+              "observed_trials": 1,
+              "total": 127.830116
+            },
+            "output_tokens": {
+              "mean": 10064.0,
+              "observed_trials": 1,
+              "total": 10064.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "classical": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.3333333333333333,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6039071644781281,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9603907164478128,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1092992.0,
+              "observed_trials": 1,
+              "total": 1092992.0
+            },
+            "input_tokens": {
+              "mean": 1163264.0,
+              "observed_trials": 1,
+              "total": 1163264.0
+            },
+            "latency_seconds": {
+              "mean": 196.808137,
+              "observed_trials": 1,
+              "total": 196.808137
+            },
+            "output_tokens": {
+              "mean": 17523.0,
+              "observed_trials": 1,
+              "total": 17523.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9469024295259745,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9946902429525976,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 332032.0,
+              "observed_trials": 1,
+              "total": 332032.0
+            },
+            "input_tokens": {
+              "mean": 363528.0,
+              "observed_trials": 1,
+              "total": 363528.0
+            },
+            "latency_seconds": {
+              "mean": 153.931733,
+              "observed_trials": 1,
+              "total": 153.931733
+            },
+            "output_tokens": {
+              "mean": 7729.0,
+              "observed_trials": 1,
+              "total": 7729.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "embeddings": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.7039180890341347,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.27039180890341347,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 166016.0,
+              "observed_trials": 1,
+              "total": 166016.0
+            },
+            "input_tokens": {
+              "mean": 223775.0,
+              "observed_trials": 1,
+              "total": 223775.0
+            },
+            "latency_seconds": {
+              "mean": 108.404093,
+              "observed_trials": 1,
+              "total": 108.404093
+            },
+            "output_tokens": {
+              "mean": 14576.0,
+              "observed_trials": 1,
+              "total": 14576.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.9060254355346823,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.9906025435534683,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 84864.0,
+              "observed_trials": 1,
+              "total": 84864.0
+            },
+            "input_tokens": {
+              "mean": 108423.0,
+              "observed_trials": 1,
+              "total": 108423.0
+            },
+            "latency_seconds": {
+              "mean": 104.482166,
+              "observed_trials": 1,
+              "total": 104.482166
+            },
+            "output_tokens": {
+              "mean": 9054.0,
+              "observed_trials": 1,
+              "total": 9054.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "ensemble": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.8,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.7653606369886217,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.7665360636988622,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 262912.0,
+              "observed_trials": 1,
+              "total": 262912.0
+            },
+            "input_tokens": {
+              "mean": 293060.0,
+              "observed_trials": 1,
+              "total": 293060.0
+            },
+            "latency_seconds": {
+              "mean": 510.397687,
+              "observed_trials": 1,
+              "total": 510.397687
+            },
+            "output_tokens": {
+              "mean": 10638.0,
+              "observed_trials": 1,
+              "total": 10638.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.6,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.2222222222222222,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.4776237035032179,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.6027623703503218,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 797184.0,
+              "observed_trials": 1,
+              "total": 797184.0
+            },
+            "input_tokens": {
+              "mean": 857829.0,
+              "observed_trials": 1,
+              "total": 857829.0
+            },
+            "latency_seconds": {
+              "mean": 379.620811,
+              "observed_trials": 1,
+              "total": 379.620811
+            },
+            "output_tokens": {
+              "mean": 17311.0,
+              "observed_trials": 1,
+              "total": 17311.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "entity-graph": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": null,
+              "observed_trials": 0,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1484160.0,
+              "observed_trials": 1,
+              "total": 1484160.0
+            },
+            "input_tokens": {
+              "mean": 1605081.0,
+              "observed_trials": 1,
+              "total": 1605081.0
+            },
+            "latency_seconds": {
+              "mean": 600.100505,
+              "observed_trials": 1,
+              "total": 600.100505
+            },
+            "output_tokens": {
+              "mean": 4889.0,
+              "observed_trials": 1,
+              "total": 4889.0
+            }
+          },
+          "runtime_errors": 1,
+          "runtime_errors_by_type": {
+            "AgentTimeoutError": 1
+          },
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.6,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.4,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.5,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.6713860725233041,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.6666666666666666,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.6221386072523303,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 554112.0,
+              "observed_trials": 1,
+              "total": 554112.0
+            },
+            "input_tokens": {
+              "mean": 606985.0,
+              "observed_trials": 1,
+              "total": 606985.0
+            },
+            "latency_seconds": {
+              "mean": 141.121586,
+              "observed_trials": 1,
+              "total": 141.121586
+            },
+            "output_tokens": {
+              "mean": 15053.0,
+              "observed_trials": 1,
+              "total": 15053.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      },
+      "legacy": {
+        "baseline": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.75,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 1.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 1169792.0,
+              "observed_trials": 1,
+              "total": 1169792.0
+            },
+            "input_tokens": {
+              "mean": 1246462.0,
+              "observed_trials": 1,
+              "total": 1246462.0
+            },
+            "latency_seconds": {
+              "mean": 87.542529,
+              "observed_trials": 1,
+              "total": 87.542529
+            },
+            "output_tokens": {
+              "mean": 13422.0,
+              "observed_trials": 1,
+              "total": 13422.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        },
+        "evolved": {
+          "metrics": {
+            "all_evidence_valid": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "atomic_claim_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "authoritative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "complete_qrel_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_precision": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_recall": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "evidence_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "important_negative_evidence_completeness": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "mrr": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "ndcg": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "non_null_answer": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "quality_gate": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reference_validity": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "required_document_coverage": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "response_contract": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            },
+            "reward": {
+              "mean": 0.0,
+              "observed_trials": 1,
+              "total_trials": 1
+            }
+          },
+          "resources": {
+            "cache_tokens": {
+              "mean": 398080.0,
+              "observed_trials": 1,
+              "total": 398080.0
+            },
+            "input_tokens": {
+              "mean": 451356.0,
+              "observed_trials": 1,
+              "total": 451356.0
+            },
+            "latency_seconds": {
+              "mean": 60.259709,
+              "observed_trials": 1,
+              "total": 60.259709
+            },
+            "output_tokens": {
+              "mean": 14904.0,
+              "observed_trials": 1,
+              "total": 14904.0
+            }
+          },
+          "runtime_errors": 0,
+          "runtime_errors_by_type": {},
+          "trials": 1
+        }
+      }
+    }
+  },
+  "binding_ledger_sha256": "f5150b43ef5dc4b3dd0f6eab673205ddce605b1e2fd0226f2bcfd8a58f008acb",
+  "campaign_id": "20260716-pi-spark-one-evolution-pilot",
+  "campaign_sha256": "3776a7ac28790f71004836a46df96a951a433ab6bbee592aa17bed51344612b4",
+  "excluded_runs": [
+    {
+      "category": "pre_fix_grader",
+      "reason": "This run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-baseline-dev-classical-q032"
+    },
+    {
+      "category": "pre_fix_grader",
+      "reason": "This run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-baseline-dev-embeddings-q032"
+    },
+    {
+      "category": "pre_agent_auth_failure",
+      "reason": "Pi exited before agent execution because the ephemeral OpenAI Codex authentication mount was unavailable; the authenticated grader-r1 run is authoritative.",
+      "result_root": "results/20260716-baseline-dev-legacy-q032"
+    },
+    {
+      "category": "pre_fix_grader",
+      "reason": "This authenticated run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-baseline-dev-legacy-q032-auth-r1"
+    },
+    {
+      "category": "pre_fix_grader",
+      "reason": "This run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-dev-classical-q032"
+    },
+    {
+      "category": "pre_fix_grader",
+      "reason": "This run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-dev-embeddings-q032"
+    },
+    {
+      "category": "pre_agent_auth_failure",
+      "reason": "Pi exited before agent execution because the ephemeral OpenAI Codex authentication mount was unavailable; the authenticated grader-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-dev-legacy-q032"
+    },
+    {
+      "category": "pre_fix_grader",
+      "reason": "This authenticated run predates the EOF-normalization grader repair; the corresponding grader-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-dev-legacy-q032-auth-r1"
+    },
+    {
+      "category": "pre_agent_auth_failure",
+      "reason": "Pi exited before agent execution because the ephemeral OpenAI Codex authentication mount was unavailable; the auth-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-train-ensemble-q031"
+    },
+    {
+      "category": "delayed_duplicate",
+      "reason": "This redundant delayed retry never produced a terminal trial result; the completed auth-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-train-ensemble-q031-auth-r2"
+    },
+    {
+      "category": "pre_agent_auth_failure",
+      "reason": "Pi exited before agent execution because the ephemeral OpenAI Codex authentication mount was unavailable; the auth-r1 run is authoritative.",
+      "result_root": "results/20260716-evolved-train-entity-graph-q031"
+    }
+  ],
+  "interpretation": {
+    "promotion_scope": "Promotion applies only the declared mechanical gates; semantic answer review remains a separate evaluation dimension.",
+    "semantic_correctness_assessed": false,
+    "statement": "Harbor evidence sufficiency, retrieval, validity, and response-contract metrics are not a semantic correctness judgment."
+  },
+  "missing_bindings": [],
+  "paired_cases": 18,
+  "promotion": {
+    "adaptive": {
+      "checks": {
+        "all_evidence_valid_is_one": false,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": false,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": false,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": false,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "rejected",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    },
+    "classical": {
+      "checks": {
+        "all_evidence_valid_is_one": true,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": true,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": true,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": true,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "promoted",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    },
+    "embeddings": {
+      "checks": {
+        "all_evidence_valid_is_one": true,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": true,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": true,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": true,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "promoted",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    },
+    "ensemble": {
+      "checks": {
+        "all_evidence_valid_is_one": true,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": null,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": true,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": true,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "pending",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    },
+    "entity-graph": {
+      "checks": {
+        "all_evidence_valid_is_one": true,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": true,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": true,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": true,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "promoted",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    },
+    "legacy": {
+      "checks": {
+        "all_evidence_valid_is_one": true,
+        "deterministic_retrieval_no_regression": true,
+        "dev_hard_completeness_no_regression": true,
+        "dev_pair_available": true,
+        "dev_reward_no_regression": true,
+        "non_null_answer_is_one": true,
+        "quality_gate_is_one": true,
+        "reference_validity_is_one": true,
+        "response_contract_is_one": true,
+        "runtime_errors_zero": true
+      },
+      "decision": "promoted",
+      "note": "Passing evidence and contract gates does not establish semantic answer correctness.",
+      "semantic_correctness_assessed": false
+    }
+  },
+  "reward_dimensions": [
+    "reward",
+    "quality_gate",
+    "response_contract",
+    "non_null_answer",
+    "reference_validity",
+    "all_evidence_valid",
+    "evidence_validity",
+    "evidence_recall",
+    "evidence_precision",
+    "complete_qrel_coverage",
+    "mrr",
+    "ndcg",
+    "required_document_coverage",
+    "authoritative_evidence_completeness",
+    "atomic_claim_evidence_completeness",
+    "important_negative_evidence_completeness"
+  ],
+  "schema_version": "semantic-okf-harbor-campaign-summary/1.0",
+  "status": "complete",
+  "trials": [
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "baseline",
+      "job_lock_sha256": "23abc304b40abbcbfc8b759016252b1888d83644f890fd773c89b7e8a6751bc7",
+      "job_result_sha256": "46322a131d7cac1782ba35a7135ef5d7196ebeab9f2f397c7bbb73255ee73c51",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-adaptive-q031",
+      "skill_digest": "sha256:7cf1383f24444fd96f0242fbc2fd00d60a7cc426c48e7b2db74228e2829e78f2",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "5b767aa510e5a3eff3fbe473a77be32f98d1142b98c189b0d37eef8caab698b3",
+      "trial_relative_dir": "q031__ubMPbJd",
+      "trial_result_sha256": "844780df7de140fc1ac50f9729485aec8a6d8f32f46247ab80c6d89613998167"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "evolved",
+      "job_lock_sha256": "aa7f7b0d9b9a2ddcf85c487c3632a269afb3374be7b90f166753ccfb9d0b8881",
+      "job_result_sha256": "ba00ad86f16970221c0c67600c3dac3e08792af07bdb35ccd813533bcb8dd1fb",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-adaptive-q031",
+      "skill_digest": "sha256:4ca41fb0f7a6b2e56b12e7f865750c32544d6c902f617c840862c3a776538823",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "376b02f91ce41fd8faef07e8307e1be73910f231ce7adbe9f348bbac2bb0b70b",
+      "trial_relative_dir": "q031__DdjMH2e",
+      "trial_result_sha256": "27a13695c54044a826ef02e808f11c0e9a1c6f0f199baab83b44bbe663452e88"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "baseline",
+      "job_lock_sha256": "b37a5329fd7d173407fe04df1ff1a14a68e694ccd2c548b0fe0c9d0e8a4894d5",
+      "job_result_sha256": "2018bfb22b678dd1677b6a06126f7a46cd28dbca4dc444eca7f4895bf9031a4c",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-classical-q031",
+      "skill_digest": "sha256:ac71839558ee066d8b61fc1e9220f3b402ebd62ba56362b786e0ccdf5c089125",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "4604dc7b0b84dc988dd9557a0b2db90b26ab44a7cf3dc6086e828d4e23ea4355",
+      "trial_relative_dir": "q031__nSA8NQA",
+      "trial_result_sha256": "c5b64e54803cbae0002c39d987f0123fd991ea2b5632ca2b5d0027303ee3acf2"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "evolved",
+      "job_lock_sha256": "747acc805536bd8ffde26fd63a04e3deab73357649be023e07c6463b5b178282",
+      "job_result_sha256": "174c0ecc8ba3491bbfbf4f395a18125556b0d5f0bfb673dcf43507e245e314b9",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-classical-q031",
+      "skill_digest": "sha256:2e84695aa9e0f1afe9b8985902a147a35b99ebecb5f7ca387f8828426d9c9d02",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "6b433ef1446cdaeacd235d2d804316821cd051cc3ec4387115f8d4bf8e25158d",
+      "trial_relative_dir": "q031__6Nyit4M",
+      "trial_result_sha256": "00aef602d9a5776a8809fc0d94dc80eead8d0e66757461d11e431afb028b9004"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "baseline",
+      "job_lock_sha256": "25e6dd52c95049c577b00fdf77cf765efb40c254e8d7b63c55b8a9f6f9f198f2",
+      "job_result_sha256": "6c8921469404820cc5f89ae9e3fe9089cd569e054e0ec63128d78a52977397a0",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-embeddings-q031",
+      "skill_digest": "sha256:d421c800c230c09ef29f693f28e77e8ee934246853a9f551c6c08aa65e8e2a48",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "b2b600ef52e465fbccef6abacf0e37928184b002b574a08226f2382c05c8962d",
+      "trial_relative_dir": "q031__mG6oSUM",
+      "trial_result_sha256": "f34947c0a3a884ee06526866a26e741489c294bf9e271364f5c6325f32a05c34"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "evolved",
+      "job_lock_sha256": "5ce8d457be9fb45794b7c5d6256e92ff8eb449852e5943d3369b576709bdf5f5",
+      "job_result_sha256": "cf16cf388d69081b8a57e7465baf45dd48339202ef11131c6a5651e13e9da597",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-embeddings-q031",
+      "skill_digest": "sha256:d177c607b52951242400e75a7864fb4ffa8018dea9f91dec15034d95e877fa8e",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "550a3cff725bf7aca79a90edcf9a12004697b78ba3784bd94eee18837825b37d",
+      "trial_relative_dir": "q031__FbEpHfa",
+      "trial_result_sha256": "1f5e43ac2d92b84ff70353c8e3cb235c9f7baaae6083b57e2e3670efc3ab6451"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "ensemble",
+      "generation": "baseline",
+      "job_lock_sha256": "e68b3a4ea68cd75097717f20d20e66a46c01493b3b5eddd16481f9c357bc7269",
+      "job_result_sha256": "d94cbd75260395787b5e7a0db9a2c8190b4ff5e2d13ee4fa94bdc184a19a764a",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-ensemble-q031",
+      "skill_digest": "sha256:206b085c77ad250851d97a6853d220ce41628622087501a78cb4564974336fbd",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "8ff75a32b60b537fe6577557ae675f76e2c1aa798d5f2867043c9518f167e8d8",
+      "trial_relative_dir": "q031__J7wjvXo",
+      "trial_result_sha256": "0e93efa05dcb6e463924205bdd17e85f293dce78737b2fbc6fbe99cadd1d6968"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "ensemble",
+      "generation": "evolved",
+      "job_lock_sha256": "0f8337b6f83b403bb9d726acb093c920ab384c9e23c98db39c73480376db7471",
+      "job_result_sha256": "8b7d1feb456c73144c20e67b86db958a2f195ce2f38aa3a4d10dad893fb7eeea",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-ensemble-q031-auth-r1",
+      "skill_digest": "sha256:38a4514af634abdda0068f767f96fcfb98cc066f241f5558638ca86fd3c68d52",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "806be6bd141f2a3539d426d978c4d3ce42224c02f3e4a2e30953fdd4e47eceee",
+      "trial_relative_dir": "q031__qK5sAS4",
+      "trial_result_sha256": "83e2559514881cf0d363e0d1f24b1564e791d7a28ffca4e4801c4a5cc127980b"
+    },
+    {
+      "cohort": "train",
+      "exception_type": "AgentTimeoutError",
+      "family": "entity-graph",
+      "generation": "baseline",
+      "job_lock_sha256": "8069d81cc2fc3d8f19b5e02aae2f15f75c3d0329ed71d42d510bee3edb4033c5",
+      "job_result_sha256": "4fcc6ef7ac0a5b67bb29c2087ee380fed13a1fc3dc2fbea585f2b161c639b3b1",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-entity-graph-q031",
+      "skill_digest": "sha256:afc67d4af00d7b8e699a434227d33ddf00f0f72db3c9ecaa22b40483e48de09b",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "5aa51a2c50a458218e26f25e49b59c2eb41360bf470adea405a2d2c48053802d",
+      "trial_relative_dir": "q031__UqPrUKk",
+      "trial_result_sha256": "dadc43b56904665e4df9e7f0300a168384eba36152aebc18477a52370e402701"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "entity-graph",
+      "generation": "evolved",
+      "job_lock_sha256": "6184d07cb6bf979d050bf41bdec195431a2d37ab9ccf96075ed870de8c5aac95",
+      "job_result_sha256": "53d292c07321f4ac78f6758a8d7c30b97a2f34099c05c29062dd97a3da39d7ca",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-entity-graph-q031-auth-r1",
+      "skill_digest": "sha256:c2a45a66708e149d767c6eae5ec494895a98c477e060e8a89b305458b15c14b2",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "99597655798521a29609bb66b111bf423a2dc3a9ddc659ec3a006a20d5affda5",
+      "trial_relative_dir": "q031__MNFVPvx",
+      "trial_result_sha256": "be56f627b5f4fcd233ae044e5714c10445d7172849eb4a719a9389a9e4636cca"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "baseline",
+      "job_lock_sha256": "9610c016fb538d06d44d68da2d5f2d0b9a5a0933e2e76246e2e45497f4956652",
+      "job_result_sha256": "d4e0485c497bc3ace682fe2cfc36f0290c721e0c26b0c811b292106addcd8b6f",
+      "question_id": "q031",
+      "result_root": "results/20260716-baseline-smoke-legacy-q031",
+      "skill_digest": "sha256:5450ed7f7beac15fb3c96d1861147e4aa7aaf7f1cf94636cc6d5a940aec83e18",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "6c6806cd1337b8638a6fa9876f408400f08f24dccc70fddbc4866f8aebf39655",
+      "trial_relative_dir": "q031__eQKCvsJ",
+      "trial_result_sha256": "765414a1b19afed1cfcd5aa9fbc78cf6e22059f28fa1ff39a255b95f75a996c8"
+    },
+    {
+      "cohort": "train",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "evolved",
+      "job_lock_sha256": "a7763cd8621f5284ea310c48b899f7206649e36b2cc6c23a44780e67927a6f07",
+      "job_result_sha256": "5faaad19c87e5944a1f12dad08e8f96b5b418826e80975386671ce93ff0df1af",
+      "question_id": "q031",
+      "result_root": "results/20260716-evolved-train-legacy-q031",
+      "skill_digest": "sha256:503d52d3365dbdddec12b73bd033610c59b4875bc84d1cd1785e0f6d6cdf9d3e",
+      "task_checksum": "c921df7bc04c98cfcc54276fa60bea5567e861a78f6e26ddbe903acf45e99391",
+      "trial_lock_sha256": "82f027eed01ba3f9fa4623d37b9cf978930870f5b3191fa48f97efd86dd08f78",
+      "trial_relative_dir": "q031__xVidSzH",
+      "trial_result_sha256": "ec92e7efd2466e5c575a31275c41f5e3beb28b40a529dad88eaa68be0f15dcb2"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "baseline",
+      "job_lock_sha256": "c639b1e51b0891d6f0760ac67235638107e5244ec6a7504377a9ea3123df556c",
+      "job_result_sha256": "8c98995f5a02d942a59b96562472e0e26becfe3fd45bb5fa92cb1412b4416167",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-adaptive-q032-grader-r1",
+      "skill_digest": "sha256:7cf1383f24444fd96f0242fbc2fd00d60a7cc426c48e7b2db74228e2829e78f2",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "418e8d0a579aa0706b897d9e2fae68e362277791962f560ca8b260b26cbe612e",
+      "trial_relative_dir": "q032__FZdpqBc",
+      "trial_result_sha256": "4b7384d79493ce4cce63be8fc4ccac3835df02bd272e8adbf7d4d3cce48204b1"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "evolved",
+      "job_lock_sha256": "02d23ea1f2ab8d03fe0b9048b7f5b55a49e3f478e8dbc9eb3b6c4981e85a9478",
+      "job_result_sha256": "5f554ee32e3b8dadaff58966629b9df1ae55ca07686357ad0c78482db4dd928a",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-adaptive-q032-grader-r1",
+      "skill_digest": "sha256:4ca41fb0f7a6b2e56b12e7f865750c32544d6c902f617c840862c3a776538823",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "94f5cb00a7925b651474acfff544356e0ceeec7b49c7d5f9a2b9b5921fcd7304",
+      "trial_relative_dir": "q032__ReGHxze",
+      "trial_result_sha256": "88fa4815dd4bc79e298d6c54e94967c3b4c0bce01085fcc29340fe7c0fe8800a"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "baseline",
+      "job_lock_sha256": "ee59a1f6eebcc009c9ff17230c376d779acc2d186ee5b78feefb2c7c1ae7c505",
+      "job_result_sha256": "89cf3848199e9a1175a9a60a606da14c8621947b53fa65d06fb1c360b6cee395",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-classical-q032-grader-r1",
+      "skill_digest": "sha256:ac71839558ee066d8b61fc1e9220f3b402ebd62ba56362b786e0ccdf5c089125",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "73de0acde1dc0a77441fdb3342bac674950656bb9319af4a4dc38e30c8154b6f",
+      "trial_relative_dir": "q032__PiyjNhT",
+      "trial_result_sha256": "f9d087ac24d7fd287f64eb0d1b24015176d122744cec5a5a703e024d47b0acdd"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "evolved",
+      "job_lock_sha256": "fc0a974bef72e5c61fc9e816e844676ae0b9449fc39728da79cec195bc0a9e03",
+      "job_result_sha256": "4fcf26b28330f606a51c6c43634f43a454f151a335a88e1dadc6336ad38787a4",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-classical-q032-grader-r1",
+      "skill_digest": "sha256:2e84695aa9e0f1afe9b8985902a147a35b99ebecb5f7ca387f8828426d9c9d02",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "6f434545835314074dceb5a128f727d9cede1fbccf5710b0ec759c0a3f585603",
+      "trial_relative_dir": "q032__m8eFXqj",
+      "trial_result_sha256": "caa86ae70f481077fa63c6395ea514d005ac87618777c97c293a28811c90b330"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "baseline",
+      "job_lock_sha256": "304f3f3e2e7a607d201c67348c1e4c1421bd9e0f714ee79ac6a82893f398add0",
+      "job_result_sha256": "596f19edd374e2aab63f04993e2bfa33e307dd0f76c0cc3ba5a31f427577db2a",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-embeddings-q032-grader-r1",
+      "skill_digest": "sha256:d421c800c230c09ef29f693f28e77e8ee934246853a9f551c6c08aa65e8e2a48",
+      "task_checksum": "8f294be9d8b0a2f5cdf0f515c5ba0992a321c85b9e68c6ee7d31efa5a39bddfe",
+      "trial_lock_sha256": "8685d4e856179b4c37638defb1b785495217cbe3f8f540268c8785847d91de07",
+      "trial_relative_dir": "q032__QDvuHzZ",
+      "trial_result_sha256": "0a8f0356d14070a61394bb97f284480980a676714a0953a3c91c2dcf28d9182b"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "evolved",
+      "job_lock_sha256": "25c3a5f08c91ae7944d095e9a1b9611b587b26422bc1e84db812019dcff65137",
+      "job_result_sha256": "d0d39fd315e0e6ca159c3648782bf485ef458e81511b568a8d49d821593d8e10",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-embeddings-q032-grader-r1",
+      "skill_digest": "sha256:d177c607b52951242400e75a7864fb4ffa8018dea9f91dec15034d95e877fa8e",
+      "task_checksum": "8f294be9d8b0a2f5cdf0f515c5ba0992a321c85b9e68c6ee7d31efa5a39bddfe",
+      "trial_lock_sha256": "743f21e3a214961d9e961dfcba14621dbc2ec45fe3fc9f1466bf68fe2f7ca7b4",
+      "trial_relative_dir": "q032__c6LwUiS",
+      "trial_result_sha256": "d6f4383860ad1cac2f943f52863823c4c6c917b5b6af5c191c4d9087c93dee18"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": "AgentTimeoutError",
+      "family": "ensemble",
+      "generation": "baseline",
+      "job_lock_sha256": "0ba482837b99bfc32947e35807c268eb2bd9d1106b2b5876486acd689e8ae719",
+      "job_result_sha256": "00675881b3776e5558327836cf9a8de1e7c414bc885306ea591fa9ea74590b15",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-ensemble-q032-grader-r1",
+      "skill_digest": "sha256:206b085c77ad250851d97a6853d220ce41628622087501a78cb4564974336fbd",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "b88fb24353d0b4778e2e68abbe9f2475f0898f0fa2e2f0a5daa1a31d14f438fa",
+      "trial_relative_dir": "q032__BPAihgm",
+      "trial_result_sha256": "ef514706a0caa15955140556ec6cbefb23369a5920b4c363dc6fb927063c25bf"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "ensemble",
+      "generation": "evolved",
+      "job_lock_sha256": "9872109c283428b990d1df72f0d1b5fb4f12f17d6df82fcb34ba17c348439609",
+      "job_result_sha256": "1eb3b907f75f19945c701dc8ca80551b5f7a35d195a9612bd27f68e025e95d58",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-ensemble-q032-grader-r1",
+      "skill_digest": "sha256:38a4514af634abdda0068f767f96fcfb98cc066f241f5558638ca86fd3c68d52",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "d16fc3805e5c30402488581de5db1cda5df432f64f806dadd681cccd473f3bf1",
+      "trial_relative_dir": "q032__FjRPyMc",
+      "trial_result_sha256": "e7a25825b4df957b8a0d655e5481092db07b0b997554c743a5c3610909c54123"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "entity-graph",
+      "generation": "baseline",
+      "job_lock_sha256": "d058beae95ad0febb0195f4a9d15e0e0b1400a22788e89ddb62bf392dbfdb754",
+      "job_result_sha256": "44a9322978d0c2e96e8a51f4da29619ead01d544caae5030fbe0ea1af0c0b214",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-entity-graph-q032-grader-r1",
+      "skill_digest": "sha256:afc67d4af00d7b8e699a434227d33ddf00f0f72db3c9ecaa22b40483e48de09b",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "19b43a191de9452612df8cce9fe292e72ff02732d5a2ce2507e614791940270b",
+      "trial_relative_dir": "q032__bYYKbvf",
+      "trial_result_sha256": "04adedf4382e4a3443788577d6b4d7e270eb04e961bca99e821a54eb3a3e9668"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "entity-graph",
+      "generation": "evolved",
+      "job_lock_sha256": "baa9a49bd007ba4b900382d3f590279f1086b4eab64eb97762b265cfa284f80d",
+      "job_result_sha256": "280f3cd115686b59272dcaa84f86c3d47df5f74f334981399548aecec073179d",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-entity-graph-q032-grader-r1",
+      "skill_digest": "sha256:c2a45a66708e149d767c6eae5ec494895a98c477e060e8a89b305458b15c14b2",
+      "task_checksum": "f991261443f50051e98efb11850ac8b432c6a7d13e3aa9ed902e963857b1b2cf",
+      "trial_lock_sha256": "90bcf0d6888fed69b11caab60b440bef557e90eea2fc08d369b085fd9bc38aa1",
+      "trial_relative_dir": "q032__zCCdzyk",
+      "trial_result_sha256": "d731dd9a2237ffdf461710242f5ccd71231637bf48b0b003d7bb347761e06adc"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "baseline",
+      "job_lock_sha256": "33b298794bea91c9ee1b242c6c6d8393b00cf324af5e535a5d09a2e1a803da2a",
+      "job_result_sha256": "2d8bec0ebb44c8784416160bb83367628f960d07ee559f80c6c268121472c2b0",
+      "question_id": "q032",
+      "result_root": "results/20260716-baseline-dev-legacy-q032-grader-r1",
+      "skill_digest": "sha256:5450ed7f7beac15fb3c96d1861147e4aa7aaf7f1cf94636cc6d5a940aec83e18",
+      "task_checksum": "8f294be9d8b0a2f5cdf0f515c5ba0992a321c85b9e68c6ee7d31efa5a39bddfe",
+      "trial_lock_sha256": "a3b452ba60f1c4a9041ff5d1a1b6bcfe18837a0f595224a313bc42b1d1e49610",
+      "trial_relative_dir": "q032__3yWY4JD",
+      "trial_result_sha256": "e5d9e50f33057cbe55019739a2d3f417a42f0cdac9d1ce3036b1672b5f424214"
+    },
+    {
+      "cohort": "dev",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "evolved",
+      "job_lock_sha256": "0d81f42e88148100688cd82c8e187c7ff5af5ddcb7dccdef7dc69bb3aee2d0ec",
+      "job_result_sha256": "43fea8259fa58a271776f3b5f68e10b3f9852c24b0e722db75392d4f7169414e",
+      "question_id": "q032",
+      "result_root": "results/20260716-evolved-dev-legacy-q032-grader-r1",
+      "skill_digest": "sha256:503d52d3365dbdddec12b73bd033610c59b4875bc84d1cd1785e0f6d6cdf9d3e",
+      "task_checksum": "8f294be9d8b0a2f5cdf0f515c5ba0992a321c85b9e68c6ee7d31efa5a39bddfe",
+      "trial_lock_sha256": "a90d47dcd0699a220ef2a32537c7ce3372120c038d6225eff80cba59e5d57a3e",
+      "trial_relative_dir": "q032__suTsNF5",
+      "trial_result_sha256": "d8ad7d8e5cd5256872bb6af2a1c336c13acf0519a4cbf86e1cd3d2355d1c1659"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "baseline",
+      "job_lock_sha256": "c7bf28cbcd96d69bd5c3611bd94b96dafc8f39d586f0a91075e7637b28940bd1",
+      "job_result_sha256": "f8e95680296bc5d9df3e8bd01867736ca013bcd8cbea86b69cb2bb7559e25470",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-adaptive-q034",
+      "skill_digest": "sha256:7cf1383f24444fd96f0242fbc2fd00d60a7cc426c48e7b2db74228e2829e78f2",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "43963672a1f0c74c80ecfe8c57b03a4c997c3cfc875cf04f7a1e4297c452c06d",
+      "trial_relative_dir": "q034__9rQz5Mr",
+      "trial_result_sha256": "80aa55b9c2167a5bd10f685ae854b52d220abdeba71872ea79117a95b496388c"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "adaptive",
+      "generation": "evolved",
+      "job_lock_sha256": "f9e48f3ae039b1bfaa25f1f64036ecd90521b35a199c871156bc7c9cb890241b",
+      "job_result_sha256": "4e242318267f065885208dc644bd21ad9e070c5e6c2830909dcc36bbe282f69f",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-adaptive-q034",
+      "skill_digest": "sha256:4ca41fb0f7a6b2e56b12e7f865750c32544d6c902f617c840862c3a776538823",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "59c897bf55e1de25c63e8774722068fa8c879e5378b2e8a491f02aa1e45c7579",
+      "trial_relative_dir": "q034__6YPynEp",
+      "trial_result_sha256": "4dbea4aeff0b713017a918d032bb66bfcaab64c05a20fe6116c83f556ac358ba"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "baseline",
+      "job_lock_sha256": "a286dcf29fac55d571136f0864acc4e7608e710b4038eb0e84525c4e33df3ca1",
+      "job_result_sha256": "29e27c38880187e4c72003c936ef048eb7394c2a4c0ebe5f36b95ac527a66f30",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-classical-q034",
+      "skill_digest": "sha256:ac71839558ee066d8b61fc1e9220f3b402ebd62ba56362b786e0ccdf5c089125",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "1a1030d1ef6410b3fbc1008c59bd8116e89fb88d27fcaa739db29f53621cb5b9",
+      "trial_relative_dir": "q034__imQmB4m",
+      "trial_result_sha256": "299cbe9c86ee150b21a73acd214def5747e97efb891f327f5fdeadf634343b18"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "classical",
+      "generation": "evolved",
+      "job_lock_sha256": "1864e79953474df49ff9de74eebe490d1db66743ee6af0e5632ee5615bc0b70a",
+      "job_result_sha256": "91846dfaaad421366b8d13effe625bf0b0332fd55f0524d080ed39cb9d00a4ac",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-classical-q034",
+      "skill_digest": "sha256:2e84695aa9e0f1afe9b8985902a147a35b99ebecb5f7ca387f8828426d9c9d02",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "e89fc2b72841cb88768cd43a0c4976a7aea2f15d784633156e3f13e145c0ded8",
+      "trial_relative_dir": "q034__d42pdBy",
+      "trial_result_sha256": "ad8fa124c9c4d7121b8cd4161704321d07bbaf36bb8f0e401f9032cd595fcd97"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "baseline",
+      "job_lock_sha256": "5f895f0ebf45c88637035fdae700b73733f7fd768f1f5fa6f57e0e696bed8b31",
+      "job_result_sha256": "950b85e6d5c94121af5bb2d5f53ffa4b31eacb63e52f5a9af8b9757bfc22fc28",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-embeddings-q034",
+      "skill_digest": "sha256:d421c800c230c09ef29f693f28e77e8ee934246853a9f551c6c08aa65e8e2a48",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "4017fb311b0df2a97a391af6426e4bcb5e9b52726df978ac5e6d935570a93cfd",
+      "trial_relative_dir": "q034__zNBBJwy",
+      "trial_result_sha256": "0e4686211c7636eb71ed6f1d7ff244ba71c21b3d0e7cbdd9a06926277e592a30"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "embeddings",
+      "generation": "evolved",
+      "job_lock_sha256": "1c92f20b7c5aa5a48c6aae20ad0c59c04b4951beffec352b7714f2bc8674a7cc",
+      "job_result_sha256": "daf01fa2547499f2588b6fb91d695a44e33797c68f30eac1352a981bff55f90c",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-embeddings-q034",
+      "skill_digest": "sha256:d177c607b52951242400e75a7864fb4ffa8018dea9f91dec15034d95e877fa8e",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "1902abb1a81d74531609b304ac9439d2947a57fb397bdfcb17ea517ad5098fd8",
+      "trial_relative_dir": "q034__mteKK2W",
+      "trial_result_sha256": "e0bc652e812910c175a45290c9a3bb14844167ebb91fb1b80f32c31e0c9f7a92"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "ensemble",
+      "generation": "baseline",
+      "job_lock_sha256": "34522f734f9436356883f402b1c9e9ad328f9739de17fa6bb258487e88bc784a",
+      "job_result_sha256": "f5ac58e49cdd1b2ba1ed7b05b8793a563c33ca823e737444a4f6e5938f6c1470",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-ensemble-q034",
+      "skill_digest": "sha256:206b085c77ad250851d97a6853d220ce41628622087501a78cb4564974336fbd",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "ab73f20fd0551e45322a2d07a3bca822eb5689d18c30c9751555bfda6efd4636",
+      "trial_relative_dir": "q034__EZ5YZd9",
+      "trial_result_sha256": "9222787b5dc09b7a0d617cfef6be0f6f3fbc097f897406b73736e9bfcddeb87e"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "ensemble",
+      "generation": "evolved",
+      "job_lock_sha256": "46cc44f6dbfca4c5a52758278c61c62a799b35fabf3ab9c36e1c71562b577bf2",
+      "job_result_sha256": "20519af0f77ec1de710fbad5bc962c92c23c99754760bbebcbc5c58cdf46a964",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-ensemble-q034",
+      "skill_digest": "sha256:38a4514af634abdda0068f767f96fcfb98cc066f241f5558638ca86fd3c68d52",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "ee3b1f7118d841762699aeb82983e754217d1b84790c6c3fe67ddb57faadf1cf",
+      "trial_relative_dir": "q034__7mMRfnW",
+      "trial_result_sha256": "107d7316f77ec318e7a6f0c9cb72daedc6deebd1e63e24b370a6064592acd87e"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "entity-graph",
+      "generation": "baseline",
+      "job_lock_sha256": "d1f50d61bb59f0f45938c728e59e12382d997237b883845d9110f3ccb1ccc8f1",
+      "job_result_sha256": "d556541599c30d95f379fc0c4a33323e1a0c326af5d0d3d1a14c07eaf1987264",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-entity-graph-q034",
+      "skill_digest": "sha256:afc67d4af00d7b8e699a434227d33ddf00f0f72db3c9ecaa22b40483e48de09b",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "8855c63d1480e90781b8b6f233de9cb94cc8e028940daf1bfd3af6b84c0f5bcd",
+      "trial_relative_dir": "q034__KhV52a4",
+      "trial_result_sha256": "6f1486cbcd86ed2c6703f747be80e5a1f7a25e4db3441a7f61ca905cd60c246c"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "entity-graph",
+      "generation": "evolved",
+      "job_lock_sha256": "fe0fb527110a7c805229ce22a556ea5d302656844e088699ba95ce13e5c83a47",
+      "job_result_sha256": "c218be1e62beaf25019fe4964d665a044212a427937f66fa854c8fff32d438a0",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-entity-graph-q034",
+      "skill_digest": "sha256:c2a45a66708e149d767c6eae5ec494895a98c477e060e8a89b305458b15c14b2",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "def5bc5cd9c5fae80e1a90a14eb6db6723e84a26619bd45554cb5d924fe2737d",
+      "trial_relative_dir": "q034__UiKEcPf",
+      "trial_result_sha256": "c25ccd95e2db0d085fb8c051bb81ed943ed0f7d073841c7d99375548f4d02bad"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "baseline",
+      "job_lock_sha256": "8f855c09e039008505b1c538862b9417fc217acf855ae4f02f460ca09d485a5f",
+      "job_result_sha256": "14933e4e822bbe2b48193a05dab5c8be024f4091d67753f4f4c33f542576678a",
+      "question_id": "q034",
+      "result_root": "results/20260716-baseline-holdout-legacy-q034",
+      "skill_digest": "sha256:5450ed7f7beac15fb3c96d1861147e4aa7aaf7f1cf94636cc6d5a940aec83e18",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "204f71934767cfd591f79c17486edf0e2442fa01d00c6f175ce8730a63e787e6",
+      "trial_relative_dir": "q034__ifkC6NH",
+      "trial_result_sha256": "bbf45657f4e012322fbeb7f1d42e66820a3ad954e85395652a8fe497d6540e7a"
+    },
+    {
+      "cohort": "holdout",
+      "exception_type": null,
+      "family": "legacy",
+      "generation": "evolved",
+      "job_lock_sha256": "9c7f5d936b9e2e011075dbbe1bba3b59afbe4af407acdc10435414b2442d5b46",
+      "job_result_sha256": "9170589dd8eea9a9ae664451bf0f2aafc9561c950d6263b30a925a5762cea5d3",
+      "question_id": "q034",
+      "result_root": "results/20260716-evolved-holdout-legacy-q034",
+      "skill_digest": "sha256:503d52d3365dbdddec12b73bd033610c59b4875bc84d1cd1785e0f6d6cdf9d3e",
+      "task_checksum": "207c751c7d6db992f385a0fa159f6a44b2ce6ef7920e12ab69c6676556cde154",
+      "trial_lock_sha256": "a0244a9cd4faa4443ec6693b0110647dce5601b9db9360f6e9c89bb84f5640fd",
+      "trial_relative_dir": "q034__pV8HDqv",
+      "trial_result_sha256": "8b06b5853eb9d5cd3a27724cec76e6ea211a8a8f096b37ccef9ba23c65a2ffc5"
+    }
+  ]
+}

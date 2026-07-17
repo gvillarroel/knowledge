@@ -1,0 +1,41 @@
+{
+  "benchmarkId": "semantic-okf-harbor-classical-train-v1",
+  "caseIds": [
+    "q031"
+  ],
+  "evaluatedCandidates": 2,
+  "archiveSize": 1,
+  "bestByCase": {
+    "q031": 0.9946902429525976
+  },
+  "archive": [
+    {
+      "candidateId": "consult-semantic-okf-harbor-classical-evolved",
+      "parentIds": [
+        "consult-semantic-okf-classical-baseline"
+      ],
+      "caseScores": {
+        "q031": 0.9946902429525976
+      },
+      "complexityDelta": 596,
+      "evaluationCost": 363528,
+      "feedback": [
+        {
+          "caseId": "q031",
+          "outcome": "success",
+          "diagnosis": "The focused full-query and facet support pack preserved complete authoritative evidence while moving the first relevant source to rank one; citation precision remained 0.5.",
+          "evidence": "Harbor run 20260716-evolved-train-classical-q031: quality_gate=1.0, recall=1.0, authoritative and atomic completeness=1.0, MRR=1.0, nDCG=0.9469024295259745, reward=0.9946902429525976; 363,528 input tokens."
+        }
+      ],
+      "meanScore": 0.9946902429525976,
+      "worstCaseScore": 0.9946902429525976,
+      "ownedCases": [
+        "q031"
+      ]
+    }
+  ],
+  "robustCandidateId": "consult-semantic-okf-harbor-classical-evolved",
+  "dominatedCandidateIds": [
+    "consult-semantic-okf-classical-baseline"
+  ]
+}

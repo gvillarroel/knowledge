@@ -1,0 +1,37 @@
+{
+  "benchmarkId": "semantic-okf-harbor-entity-graph-train-v1",
+  "caseIds": [
+    "q031"
+  ],
+  "evaluatedCandidates": 1,
+  "archiveSize": 1,
+  "bestByCase": {
+    "q031": 0
+  },
+  "archive": [
+    {
+      "candidateId": "consult-semantic-okf-entity-graph-baseline",
+      "parentIds": [],
+      "caseScores": {
+        "q031": 0
+      },
+      "complexityDelta": 0,
+      "evaluationCost": 1605081,
+      "feedback": [
+        {
+          "caseId": "q031",
+          "outcome": "failure",
+          "diagnosis": "The model spent the full agent budget navigating a large graph result and never produced an answer artifact that could be graded.",
+          "evidence": "Harbor raised AgentTimeoutError at 600 seconds after 1,605,081 input tokens; reward=0.0."
+        }
+      ],
+      "meanScore": 0,
+      "worstCaseScore": 0,
+      "ownedCases": [
+        "q031"
+      ]
+    }
+  ],
+  "robustCandidateId": "consult-semantic-okf-entity-graph-baseline",
+  "dominatedCandidateIds": []
+}

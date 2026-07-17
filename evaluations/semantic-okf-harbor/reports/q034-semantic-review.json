@@ -1,0 +1,373 @@
+{
+  "schema_version": "semantic-okf-harbor-semantic-review/1.0",
+  "question_id": "q034",
+  "ground_truth_binding": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+    "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+  },
+  "rubric": {
+    "item_scale": {
+      "0": "Absent, contradicted, or materially wrong.",
+      "0.5": "Present but incomplete, implicit, or missing an important condition.",
+      "1": "Explicit and semantically complete against the reviewed ground truth."
+    },
+    "summary_scale": {
+      "semantic_correctness": "Manual 0-1 judgment of whether the prose is materially true, independent of coverage and JSON validity.",
+      "completeness": "Deterministic mean of the five atomic claims, two important negatives, processing-boundary derivation, and authorization-before-inference derivation.",
+      "grounding": "Manual 0-1 judgment that substantive statements are supported by the answer's usable cited evidence; retrieval coverage alone is insufficient.",
+      "response_contract": "Exact Harbor response-contract result, 0 or 1."
+    },
+    "completeness_formula": "round((a1+a2+a3+a4+a5+n1+n2+processing_boundary+authorization_before_inference)/9, 6)",
+    "grounding_rule": "Evidence-validity and qrel coverage are inputs, not proof of entailment. Invalid or unusable evidence receives zero grounding for the affected statements even when prose is plausible."
+  },
+  "reviews": [
+    {
+      "family": "legacy",
+      "variant": "baseline",
+      "status": "contract_invalid",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-legacy-q034/q034__ifkC6NH/result.json",
+        "sha256": "bbf45657f4e012322fbeb7f1d42e66820a3ad954e85395652a8fe497d6540e7a"
+      },
+      "final_answer_sha256": "d517711c069372ea64994a08ce415a12fefb3a41ea60a40c8f89fa19eeb067c7",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It explicitly places transformable, optimizable catalog assets in src and names Astro's image pipeline."},
+        "q034-a2": {"score": 1, "rationale": "It treats public as unchanged passthrough and requires explicit sizing because metadata cannot be inferred there."},
+        "q034-a3": {"score": 1, "rationale": "It narrowly authorizes remote hosts with image.domains or image.remotePatterns before optimization."},
+        "q034-a4": {"score": 1, "rationale": "It requires both dimensions or inferSize/inferRemoteSize and limits inference to authorized remotes."},
+        "q034-a5": {"score": 0.5, "rationale": "It says unauthorized remotes remain unoptimized and mentions CLS-safe Image behavior, but also leaves open that they may fail instead of being displayed."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It clearly separates optimizable src assets from unchanged public files."},
+        "q034-n2": {"score": 1, "rationale": "It explicitly restricts remote inference to authorized origins."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "The policy correctly derives src versus public behavior from the intentional processing boundary."},
+        "authorization_before_inference": {"score": 1, "rationale": "It joins remote authorization, optimization, and dimension inference in the required order."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.944444, "grounding": 0, "response_contract": 0},
+      "material_errors": ["All evidence rows fail the closed locator/hash contract, so the otherwise strong prose is unusable as grounded output."],
+      "review_note": "The answer is manually comprehensive, but Harbor correctly rejects its evidence artifact."
+    },
+    {
+      "family": "legacy",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-legacy-q034/q034__pV8HDqv/result.json",
+        "sha256": "8b06b5853eb9d5cd3a27724cec76e6ea211a8a8f096b37ccef9ba23c65a2ffc5"
+      },
+      "final_answer_sha256": "02788a5a345e8de67c658448f264b0f540dee6ddb3e8eaa320839fac89b4baa4",
+      "harbor_metrics": {"reward": 0.9919720789148189, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It makes src imports the image transformation and optimization path."},
+        "q034-a2": {"score": 1, "rationale": "It keeps public static and explicitly requires width and height because Astro cannot infer them."},
+        "q034-a3": {"score": 1, "rationale": "It requires image.domains or image.remotePatterns authorization for remote processing."},
+        "q034-a4": {"score": 1, "rationale": "It requires explicit dimensions or controlled inferSize/inferRemoteSize for approved remotes."},
+        "q034-a5": {"score": 0.5, "rationale": "It says unauthorized URLs pass through without optimization but omits the Image/CLS behavior and also mentions a not-allowed error."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It reserves public for passthrough assets rather than transformation."},
+        "q034-n2": {"score": 1, "rationale": "Its summary limits inference to approved remote origins."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It derives the local policy from src processing versus public passthrough."},
+        "authorization_before_inference": {"score": 1, "rationale": "It explicitly connects authorization to both optimization and size inference."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.944444, "grounding": 0.85, "response_contract": 1},
+      "material_errors": ["The public-dimension claim cites the failed-remote-dimension record rather than the public width/height contract that supports it."],
+      "review_note": "The evolution repairs the contract and preserves semantic coverage, but one claim-to-evidence mapping remains weak."
+    },
+    {
+      "family": "embeddings",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-embeddings-q034/q034__zNBBJwy/result.json",
+        "sha256": "0e4686211c7636eb71ed6f1d7ff244ba71c21b3d0e7cbdd9a06926277e592a30"
+      },
+      "final_answer_sha256": "1bb4e6ed41abeaa42c69de47eba405b933752a5510160e67d7c3c646058edd1c",
+      "harbor_metrics": {"reward": 0.657721531533805, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It places imported src assets in Astro's processing and optimization flow."},
+        "q034-a2": {"score": 1, "rationale": "It states that public is copied as-is and requires explicit dimensions because Astro cannot infer them."},
+        "q034-a3": {"score": 1, "rationale": "It gives exact-domain and pattern allowlists as the remote security boundary."},
+        "q034-a4": {"score": 1, "rationale": "It gives explicit dimensions or inferSize/inferRemoteSize and limits fetching to authorized domains."},
+        "q034-a5": {"score": 0, "rationale": "It substitutes a remote-image-not-allowed error for the required displayed-without-optimization and CLS behavior."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It keeps public assets outside the transformation path."},
+        "q034-n2": {"score": 1, "rationale": "It says inferSize can fetch only from authorized remote domains."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "The src/public classification is explicit and actionable."},
+        "authorization_before_inference": {"score": 1, "rationale": "It correctly joins allowlisting with both optimization and inference."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.888889, "grounding": 1, "response_contract": 1},
+      "material_errors": ["The unauthorized-remote outcome conflicts with the checked ground truth and omits the Image/CLS fallback."],
+      "review_note": "The low Harbor hard-claim proxy understates broad manual coverage, but the unauthorized-remote outcome is materially wrong."
+    },
+    {
+      "family": "embeddings",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-embeddings-q034/q034__mteKK2W/result.json",
+        "sha256": "e0bc652e812910c175a45290c9a3bb14844167ebb91fb1b80f32c31e0c9f7a92"
+      },
+      "final_answer_sha256": "044a021dc155eec586e90ed72b8c1d1e0f8bcdc6eb7edb0cd5315cccbd13a6a2",
+      "harbor_metrics": {"reward": 0.9877215315338049, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It assigns src imports to Astro's build-time transformation pipeline."},
+        "q034-a2": {"score": 0.5, "rationale": "It correctly treats public as passthrough but never states the mandatory public width and height rule."},
+        "q034-a3": {"score": 1, "rationale": "It prescribes a narrow image.domains/image.remotePatterns allowlist."},
+        "q034-a4": {"score": 1, "rationale": "It gives explicit remote dimensions or inferSize and explicitly requires authorization before fetching."},
+        "q034-a5": {"score": 0.5, "rationale": "It says outside URLs are neither optimized nor fetched, but omits display behavior and CLS mitigation."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It keeps static public files outside transformation."},
+        "q034-n2": {"score": 1, "rationale": "It explicitly prevents inference for URLs outside the allowed set."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "Its two-track src/public policy is explicit."},
+        "authorization_before_inference": {"score": 1, "rationale": "It directly links remote eligibility to both optimization and dimension fetches."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.888889, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution substantially improves Harbor evidence completeness while retaining strong manual coverage; public dimensions and CLS remain omitted."
+    },
+    {
+      "family": "classical",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-classical-q034/q034__imQmB4m/result.json",
+        "sha256": "299cbe9c86ee150b21a73acd214def5747e97efb891f327f5fdeadf634343b18"
+      },
+      "final_answer_sha256": "8bd5428ca8e8cdddaae4be954422aa86ee29ca67a02de68273544fa76e8bc109",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It explicitly recommends src for transformed, optimized, bundled catalog artwork."},
+        "q034-a2": {"score": 1, "rationale": "It states public passthrough and the mandatory width/height contract."},
+        "q034-a3": {"score": 1, "rationale": "It makes exact domains or URL patterns a required allowlist."},
+        "q034-a4": {"score": 1, "rationale": "It gives explicit dimensions or inferSize and limits inference to authorized domains."},
+        "q034-a5": {"score": 0.5, "rationale": "It says unauthorized remotes remain unprocessed passthrough, but also says they should fail and omits CLS mitigation."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It reserves public for truly static assets rather than transformable catalog images."},
+        "q034-n2": {"score": 1, "rationale": "It makes authorization a condition of remote inference."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It derives the local storage choice from processing intent."},
+        "authorization_before_inference": {"score": 1, "rationale": "It joins allowlisting to remote optimization and inferSize."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.944444, "grounding": 1, "response_contract": 1},
+      "material_errors": ["It ambiguously mixes unoptimized passthrough with a not-allowed failure for unauthorized remote images."],
+      "review_note": "Harbor 1.0 corresponds to strong coverage and grounding, but not to a fully correct unauthorized-remote outcome."
+    },
+    {
+      "family": "classical",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-classical-q034/q034__d42pdBy/result.json",
+        "sha256": "ad8fa124c9c4d7121b8cd4161704321d07bbaf36bb8f0e401f9032cd595fcd97"
+      },
+      "final_answer_sha256": "c56fa39aa7b5362832d4705ffddbf0295f8cf7695952a1ac47094b3e6c64f319",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It explicitly describes src processing and optimization."},
+        "q034-a2": {"score": 1, "rationale": "It says public is left unoptimized and requires width and height."},
+        "q034-a3": {"score": 1, "rationale": "It requires exact domains or permitted URL patterns for optimization."},
+        "q034-a4": {"score": 0.5, "rationale": "It gives explicit dimensions or inference but does not state that inference itself is restricted to authorized sources."},
+        "q034-a5": {"score": 0, "rationale": "It omits what happens when a remote image is unauthorized and omits the Image/CLS fallback."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It clearly keeps public assets out of optimization."},
+        "q034-n2": {"score": 0.5, "rationale": "Authorization and inferSize appear separately, so the prohibition on inferring untrusted URLs is only implicit."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "The src/public classification is complete."},
+        "authorization_before_inference": {"score": 0.5, "rationale": "The two controls are present but their required ordering is not explicit."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The concise evolution earns Harbor 1.0 but drops the unauthorized-remote branch and weakens the inference condition."
+    },
+    {
+      "family": "adaptive",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-adaptive-q034/q034__9rQz5Mr/result.json",
+        "sha256": "80aa55b9c2167a5bd10f685ae854b52d220abdeba71872ea79117a95b496388c"
+      },
+      "final_answer_sha256": "2b48017d7bdb86be100111e07ab3533f0256ddb67b8f7c79cd39c19a6113723c",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It makes imported src files the default optimized and bundled path."},
+        "q034-a2": {"score": 1, "rationale": "It describes public passthrough and its explicit dimension requirement."},
+        "q034-a3": {"score": 1, "rationale": "It requires strict domain or remote-pattern allowlists."},
+        "q034-a4": {"score": 1, "rationale": "It provides both explicit sizing and authorized inferSize/inferRemoteSize options."},
+        "q034-a5": {"score": 0.5, "rationale": "It includes no-optimization and Image/CLS behavior but also says unauthorized remotes should raise configuration errors."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It treats public as immutable delivery rather than an optimization source."},
+        "q034-n2": {"score": 1, "rationale": "It limits remote dimension fetching to authorized domains."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "The local processing classification is explicit."},
+        "authorization_before_inference": {"score": 1, "rationale": "It directly connects trust, optimization, and dimension fetches."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.944444, "grounding": 1, "response_contract": 1},
+      "material_errors": ["The asserted configuration-error outcome conflicts with the checked displayed-without-optimization behavior."],
+      "review_note": "The baseline is comprehensive and grounded, with one contradictory unauthorized-remote clause."
+    },
+    {
+      "family": "adaptive",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-adaptive-q034/q034__6YPynEp/result.json",
+        "sha256": "4dbea4aeff0b713017a918d032bb66bfcaab64c05a20fe6116c83f556ac358ba"
+      },
+      "final_answer_sha256": "2c4343f5598c8936f43b7ea1be16802df2689cc2dbf5ce3b923fca15cd3a6664",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It explicitly assigns src images to Astro's optimization path."},
+        "q034-a2": {"score": 1, "rationale": "It gives public passthrough plus mandatory public dimensions."},
+        "q034-a3": {"score": 1, "rationale": "It requires domains or remotePatterns for remote optimization."},
+        "q034-a4": {"score": 0.5, "rationale": "It gives explicit dimensions or inference but does not make authorization an explicit precondition of inference."},
+        "q034-a5": {"score": 0.5, "rationale": "It states that outside URLs are not optimized but omits display behavior and CLS mitigation."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It says public images are copied untouched and never optimized."},
+        "q034-n2": {"score": 0.5, "rationale": "The prohibition on inference for untrusted remotes is not explicit."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It cleanly separates src processing from public passthrough."},
+        "authorization_before_inference": {"score": 0.5, "rationale": "Allowlisting and inference are present but not explicitly coupled."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.777778, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution is operationally efficient and valid, but its shorter answer loses two security conditions."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-entity-graph-q034/q034__KhV52a4/result.json",
+        "sha256": "6f1486cbcd86ed2c6703f747be80e5a1f7a25e4db3441a7f61ca905cd60c246c"
+      },
+      "final_answer_sha256": "73b05a26d118f9e693927835fe0a1f4ae24220f412e3baae6b4f7d860a73b542",
+      "harbor_metrics": {"reward": 0.4, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It makes src the inferred-dimension, optimization-first workflow."},
+        "q034-a2": {"score": 1, "rationale": "It says public is copied unchanged and requires explicit width and height."},
+        "q034-a3": {"score": 1, "rationale": "It requires image.domains or image.remotePatterns before remote optimization."},
+        "q034-a4": {"score": 1, "rationale": "It gives both dimensions or inferSize and limits inference to authorized domains."},
+        "q034-a5": {"score": 0.5, "rationale": "It states no optimization outside the allowlist but adds rejection and omits the Image/CLS fallback."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It explicitly treats public as non-transformable passthrough."},
+        "q034-n2": {"score": 1, "rationale": "It restricts inferSize to authorized remote sources."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It derives storage location from whether processing is desired."},
+        "authorization_before_inference": {"score": 1, "rationale": "It orders authorization before both remote processing and inference."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.944444, "grounding": 1, "response_contract": 1},
+      "material_errors": ["It mixes the checked unoptimized-display behavior with a rejected/not-allowed outcome."],
+      "review_note": "Harbor's 0.4 evidence proxy sharply understates the answer's manual semantic coverage."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-entity-graph-q034/q034__UiKEcPf/result.json",
+        "sha256": "c25ccd95e2db0d085fb8c051bb81ed943ed0f7d073841c7d99375548f4d02bad"
+      },
+      "final_answer_sha256": "841931d6c0af85ebc1652ecafde8cbcbb87a08838fb66fe29582f951334a5b1f",
+      "harbor_metrics": {"reward": 0.46631471927654583, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It assigns intended local source assets to Astro's transformation pipeline."},
+        "q034-a2": {"score": 0.5, "rationale": "It states that public is copied untouched and cannot be inferred, but never explicitly requires width and height."},
+        "q034-a3": {"score": 1, "rationale": "It gives an explicit image.domains permit list for remote optimization."},
+        "q034-a4": {"score": 0.5, "rationale": "It gives dimensions or inferSize, while authorization as an inference precondition remains implicit."},
+        "q034-a5": {"score": 0.5, "rationale": "It states no optimization outside the permit list but omits display behavior and CLS mitigation."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It keeps public outside processing and automatic inference."},
+        "q034-n2": {"score": 0.5, "rationale": "It does not directly say inferSize cannot fetch an untrusted URL."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "The local classification is explicit."},
+        "authorization_before_inference": {"score": 0.5, "rationale": "It presents the two controls without fully joining them."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution modestly raises Harbor reward but retrieves one required document and loses manual policy detail."
+    },
+    {
+      "family": "ensemble",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-holdout-ensemble-q034/q034__EZ5YZd9/result.json",
+        "sha256": "9222787b5dc09b7a0d617cfef6be0f6f3fbc097f897406b73736e9bfcddeb87e"
+      },
+      "final_answer_sha256": "05f089f24049ce9cccaf7e457a3366fd9670d319c980e07374a3d45b5e2dda33",
+      "harbor_metrics": {"reward": 0.9919720789148189, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It correctly assigns transformable, optimized, bundled assets to src."},
+        "q034-a2": {"score": 1, "rationale": "It gives public passthrough and the explicit width/height requirement."},
+        "q034-a3": {"score": 0.5, "rationale": "It expresses a narrow domain allowlist but repeatedly calls the configuration key imageDomains instead of image.domains."},
+        "q034-a4": {"score": 1, "rationale": "It gives explicit dimensions or inferSize and limits fetching to authorized domains."},
+        "q034-a5": {"score": 0.5, "rationale": "It states that outside images are not fetched or optimized but omits display behavior and CLS mitigation."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It keeps public in raw delivery semantics."},
+        "q034-n2": {"score": 1, "rationale": "It directly says the same allowlist governs inferSize."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It cleanly derives src and public policy from processing intent."},
+        "authorization_before_inference": {"score": 1, "rationale": "It explicitly makes the remote allowlist govern both operations."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.888889, "grounding": 0.9, "response_contract": 1},
+      "material_errors": ["The deployable configuration key is image.domains, not imageDomains."],
+      "review_note": "The answer is broad and nearly complete, but a wrong configuration identifier is a concrete deployment defect."
+    },
+    {
+      "family": "ensemble",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-holdout-ensemble-q034/q034__7mMRfnW/result.json",
+        "sha256": "107d7316f77ec318e7a6f0c9cb72daedc6deebd1e63e24b370a6064592acd87e"
+      },
+      "final_answer_sha256": "92ea3207dad6f37a45611e22e4ef72aaaece1ec4a5a1c51a5b06971cb62a8659",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q034-a1": {"score": 1, "rationale": "It states that src files are processed, optimized, and bundled."},
+        "q034-a2": {"score": 1, "rationale": "It gives public passthrough and mandatory public dimensions."},
+        "q034-a3": {"score": 1, "rationale": "It correctly names image.domains and image.remotePatterns as the remote optimization boundary."},
+        "q034-a4": {"score": 0.5, "rationale": "It gives dimensions or inferSize, but does not explicitly restrict inferSize itself to an authorized source."},
+        "q034-a5": {"score": 0, "rationale": "It says an outside URL is blocked as not allowed and omits the displayed-unoptimized and CLS behavior."}
+      },
+      "important_negatives": {
+        "q034-n1": {"score": 1, "rationale": "It keeps public out of the build transformation path."},
+        "q034-n2": {"score": 0.5, "rationale": "Authorization and inference are stated separately rather than as an explicit prohibition."}
+      },
+      "derivation_logic": {
+        "processing_boundary": {"score": 1, "rationale": "It accurately classifies src and public behavior."},
+        "authorization_before_inference": {"score": 0.5, "rationale": "The required authorization-to-inference dependency remains implicit."}
+      },
+      "summary_scores": {"semantic_correctness": 0.85, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": ["It substitutes a blocked/not-allowed outcome for the checked unauthorized remote display behavior."],
+      "review_note": "The evolution reaches Harbor 1.0 and fixes the config key, but its concise output loses the remote fallback branch."
+    }
+  ]
+}

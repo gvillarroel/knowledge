@@ -1,0 +1,45 @@
+{
+  "schema_version": "semantic-okf-harbor-campaign/1.0",
+  "campaign_id": "20260716-pi-spark-one-evolution-pilot",
+  "purpose": "Run one Harbor-guided evolution per consultation family with a prospectively frozen train/dev/holdout pilot, then complement the live answer evidence with the frozen forty-question deterministic retrieval benchmark.",
+  "runtime": {
+    "harbor": "0.18.0",
+    "agent": "pi",
+    "pi_version": "0.73.1",
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "thinking": "high",
+    "mcp_used": false
+  },
+  "live_cases": {
+    "train": ["q031"],
+    "dev": ["q032"],
+    "holdout": ["q034"]
+  },
+  "attempts_per_case": 1,
+  "families": [
+    "legacy",
+    "embeddings",
+    "classical",
+    "adaptive",
+    "entity-graph",
+    "ensemble"
+  ],
+  "evolution_limit": "Exactly one independently named standalone candidate per family. No edits after holdout is opened.",
+  "promotion_gates": {
+    "runtime_errors": 0,
+    "response_contract": 1.0,
+    "non_null_answer": 1.0,
+    "reference_validity": 1.0,
+    "all_evidence_valid": 1.0,
+    "quality_gate": 1.0,
+    "dev_reward_may_not_regress": true,
+    "dev_hard_completeness_may_not_regress": true,
+    "deterministic_retrieval_may_not_regress": true
+  },
+  "network_isolation": {
+    "agent_network_enforcement": false,
+    "verifier_network_enforcement": false,
+    "reason": "Harbor 0.18.0 egress-control sidecars fail on the local WSL Docker host; both phases run public, while the verifier remains a separate offline-code image without bundle or authentication mounts."
+  },
+  "interpretation_limit": "This live campaign is a one-case-per-cohort pilot. It measures contract integrity, evidence validity and sufficiency, latency, and tokens; it is not a statistically powered estimate of semantic answer quality."
+}

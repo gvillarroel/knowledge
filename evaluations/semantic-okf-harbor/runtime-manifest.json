@@ -1,0 +1,60 @@
+{
+  "schema_version": "semantic-okf-harbor-runtime-manifest/1.0",
+  "harbor": {
+    "version": "0.18.0",
+    "task_schema": "1.3",
+    "environment": "docker",
+    "live_host": "WSL Ubuntu with Docker Engine",
+    "trial_lock_reuse": "Harbor lock.json binds Harbor, task, agent, model, and injected skill digests; reports must import those bindings rather than reconstruct them."
+  },
+  "agent": {
+    "name": "pi",
+    "implementation": "Harbor built-in Pi agent",
+    "version": "0.73.1",
+    "npm_package": "@mariozechner/pi-coding-agent",
+    "model_name": "openai-codex/gpt-5.3-codex-spark",
+    "thinking": "high",
+    "session_policy": "one --no-session request per question",
+    "custom_agent": false
+  },
+  "image": {
+    "tag": "semantic-okf-harbor-runtime:1.0",
+    "image_id": "sha256:5a6e31885c495758c9c979df71ae09aced5bb8869f3d6a54eb5706ba071a297c",
+    "dockerfile_sha256": "eb538090034640fcc4c9e97237074863acdd3586009eba1bae4dce696a54dfa0",
+    "requirements_sha256": "9638e7a41fdece1db52c2a27ba2298e2309636d45968c2d12e3a47c3a08f08f5",
+    "python": "3.12.13",
+    "model_weights_in_image": false,
+    "build_receipt": "evaluations/semantic-okf-harbor/runtime/build/runtime-build.json",
+    "build_receipt_checked_in": false,
+    "digest_requirement": "Record the local image ID and any RepoDigest before the first model call."
+  },
+  "verifier": {
+    "score_sha256": "ff6f2df1b796f2fc382cfa9ac10126a508c62e46c90c7788f73eb4888693b374",
+    "answer_schema_sha256": "19b7e9f3cfc72ac91e2db6984bfcc94f3b341e3510267c01baa3ba8747dd181b",
+    "test_entrypoint_sha256": "6c614bb9a00d22c3e2c2f0235b5f19c0881d91ac1269200e20d87228a9bfdf2d",
+    "generated_task_tree_sha256": "8e405ae2deed67b377d449c92ae053c540259e49434d81684032d10ac4bf16c4",
+    "hard_locator_policy": "Hash raw authoritative bytes first, normalize CRLF to LF for the derived record join, and remove only terminal publication blank lines when the exact evidence range reaches EOF.",
+    "oracle_gates": {"q031": 1.0, "q032": 1.0, "q034": 1.0}
+  },
+  "mounts": {
+    "knowledge": {"target": "/knowledge", "mode": "read-only", "one_family_per_job": true},
+    "embedding_cache": {"target": "/models/huggingface/hub", "mode": "read-only", "required_only_for": ["embeddings", "ensemble"]},
+    "pi_authentication": {"target": "/root/.pi/agent", "mode": "ephemeral per-job directory copy with auth.json mode 0600", "checked_in": false}
+  },
+  "network": {
+    "agent_environment_setup": "public because built-in Pi installs curl, NVM, Node, and the pinned npm package",
+    "agent_model_phase": {"mode": "public", "network_enforcement": false, "intended_allowlist_hosts": ["auth.openai.com", "chatgpt.com", "api.openai.com"]},
+    "verifier_default": "public",
+    "verifier_network_enforcement": false,
+    "verifier_isolation": "separate container; no knowledge, model-cache, or authentication mounts; grader performs no network operations",
+    "reason": "Harbor 0.18.0 egress sidecar fails to start for both allowlist and no-network policies on the current WSL Docker host.",
+    "compatible_host_option": "Regenerate with --agent-network-mode allowlist --verifier-network-mode no-network only after a disposable smoke succeeds."
+  },
+  "attempts": {
+    "train": 1,
+    "dev": 1,
+    "holdout": 1,
+    "retry_policy": "Retry transport or rate-limit failures only; never retry contract, semantic, retrieval, or grounding failures."
+  },
+  "paired_change": "For each family and question, baseline and evolved jobs differ only in the installed frozen skill snapshot."
+}

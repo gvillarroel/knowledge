@@ -1,0 +1,32 @@
+{
+  "benchmarkId": "semantic-okf-harbor-entity-graph-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [
+    {
+      "candidateId": "consult-semantic-okf-entity-graph-baseline",
+      "parentIds": [],
+      "caseScores": {"q031": 0.0},
+      "complexityDelta": 0,
+      "evaluationCost": 1605081,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The model spent the full agent budget navigating a large graph result and never produced an answer artifact that could be graded.",
+        "evidence": "Harbor raised AgentTimeoutError at 600 seconds after 1,605,081 input tokens; reward=0.0."
+      }]
+    },
+    {
+      "candidateId": "consult-semantic-okf-harbor-entity-graph-evolved",
+      "parentIds": ["consult-semantic-okf-entity-graph-baseline"],
+      "caseScores": {"q031": 0.6221386072523303},
+      "complexityDelta": 525,
+      "evaluationCost": 606985,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The bounded graph support pack avoided the timeout and produced a contract-valid, evidence-valid answer, but it still missed one of three required documents and hard evidence intervals.",
+        "evidence": "Harbor run 20260716-evolved-train-entity-graph-q031-auth-r1: quality_gate=1.0, recall=0.6666666666666666, authoritative completeness=0.6666666666666666, atomic completeness=0.6, reward=0.6221386072523303; 606,985 input tokens."
+      }]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "benchmarkId": "semantic-okf-harbor-ensemble-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [
+    {
+      "candidateId": "consult-semantic-okf-ensemble-baseline",
+      "parentIds": [],
+      "caseScores": {"q031": 0.7665360636988622},
+      "complexityDelta": 0,
+      "evaluationCost": 293060,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The closed finalizer passed, but the single full-query evidence pack missed one required document and one authoritative interval.",
+        "evidence": "Harbor: quality_gate=1.0, recall=0.6667, authoritative_evidence_completeness=0.6667, atomic_claim_evidence_completeness=0.8, reward=0.7665."
+      }]
+    },
+    {
+      "candidateId": "consult-semantic-okf-harbor-ensemble-evolved",
+      "parentIds": ["consult-semantic-okf-ensemble-baseline"],
+      "caseScores": {"q031": 0.6027623703503218},
+      "complexityDelta": 400,
+      "evaluationCost": 857829,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The focused ensemble answer remained contract-valid and evidence-valid, but it cited nine documents, covered only two of three required intervals, and regressed both reward and evaluation cost from the baseline.",
+        "evidence": "Harbor run 20260716-evolved-train-ensemble-q031-auth-r1: recall=0.6666666666666666, evidence_precision=0.2222222222222222, authoritative completeness=0.6666666666666666, atomic completeness=0.6, reward=0.6027623703503218; 857,829 input tokens."
+      }]
+    }
+  ]
+}

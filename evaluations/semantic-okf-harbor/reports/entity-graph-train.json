@@ -1,0 +1,77 @@
+{
+  "baseline": {
+    "mean_input_tokens": 1605081.0,
+    "mean_latency_seconds": 600.100505,
+    "mean_output_tokens": 4889.0,
+    "metrics": {
+      "quality_gate": 0.0,
+      "reward": 0.0
+    },
+    "runtime_errors": 1,
+    "total_cost_usd": 0,
+    "trials": 1
+  },
+  "evolved": {
+    "mean_input_tokens": 606985.0,
+    "mean_latency_seconds": 141.121586,
+    "mean_output_tokens": 15053.0,
+    "metrics": {
+      "all_evidence_valid": 1.0,
+      "atomic_claim_evidence_completeness": 0.6,
+      "authoritative_evidence_completeness": 0.6666666666666666,
+      "complete_qrel_coverage": 0.0,
+      "evidence_precision": 0.4,
+      "evidence_recall": 0.6666666666666666,
+      "evidence_validity": 1.0,
+      "important_negative_evidence_completeness": 0.5,
+      "mrr": 1.0,
+      "ndcg": 0.6713860725233041,
+      "non_null_answer": 1.0,
+      "quality_gate": 1.0,
+      "reference_validity": 1.0,
+      "required_document_coverage": 0.6666666666666666,
+      "response_contract": 1.0,
+      "reward": 0.6221386072523303
+    },
+    "runtime_errors": 0,
+    "total_cost_usd": 0,
+    "trials": 1
+  },
+  "evolved_minus_baseline": {
+    "quality_gate": 1.0,
+    "reward": 0.6221386072523303
+  },
+  "interpretation": "Deterministic evidence metrics remain separate from semantic answer correctness. A failed quality gate cannot be offset by another score.",
+  "missing_baseline": [],
+  "missing_evolved": [],
+  "paired": [
+    {
+      "attempt": 1,
+      "baseline_result_sha256": "dadc43b56904665e4df9e7f0300a168384eba36152aebc18477a52370e402701",
+      "evolved_result_sha256": "be56f627b5f4fcd233ae044e5714c10445d7172849eb4a719a9389a9e4636cca",
+      "metric_deltas": {
+        "all_evidence_valid": 1.0,
+        "atomic_claim_evidence_completeness": 0.6,
+        "authoritative_evidence_completeness": 0.6666666666666666,
+        "complete_qrel_coverage": 0.0,
+        "evidence_precision": 0.4,
+        "evidence_recall": 0.6666666666666666,
+        "evidence_validity": 1.0,
+        "important_negative_evidence_completeness": 0.5,
+        "mrr": 1.0,
+        "ndcg": 0.6713860725233041,
+        "non_null_answer": 1.0,
+        "quality_gate": 1.0,
+        "reference_validity": 1.0,
+        "required_document_coverage": 0.6666666666666666,
+        "response_contract": 1.0,
+        "reward": 0.6221386072523303
+      },
+      "question_id": "q031"
+    }
+  ],
+  "paired_trials": 1,
+  "schema_version": "semantic-okf-harbor-paired-summary/1.0",
+  "split": "train",
+  "status": "complete"
+}

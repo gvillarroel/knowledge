@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-okf-harbor-campaign-bindings.schema.json",
+  "title": "Semantic OKF Harbor campaign bindings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "campaign_id", "external_gates", "excluded_runs", "entries"],
+  "properties": {
+    "schema_version": {"const": "semantic-okf-harbor-campaign-bindings/1.0"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "external_gates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["deterministic_retrieval_no_regression"],
+        "properties": {
+          "deterministic_retrieval_no_regression": {"type": ["boolean", "null"]}
+        }
+      }
+    },
+    "excluded_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["result_root", "category", "reason"],
+        "properties": {
+          "result_root": {"$ref": "#/$defs/relativePath"},
+          "category": {
+            "enum": ["pre_agent_auth_failure", "delayed_duplicate", "pre_fix_grader"]
+          },
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "family",
+          "generation",
+          "cohort",
+          "question_id",
+          "result_root",
+          "job_result_sha256",
+          "job_lock_sha256",
+          "trial_relative_dir",
+          "trial_result_sha256",
+          "trial_lock_sha256"
+        ],
+        "properties": {
+          "family": {"type": "string", "minLength": 1},
+          "generation": {"enum": ["baseline", "evolved"]},
+          "cohort": {"enum": ["train", "dev", "holdout"]},
+          "question_id": {"type": "string", "pattern": "^q[0-9]{3}$"},
+          "result_root": {"$ref": "#/$defs/relativePath"},
+          "job_result_sha256": {"$ref": "#/$defs/sha256"},
+          "job_lock_sha256": {"$ref": "#/$defs/sha256"},
+          "trial_relative_dir": {"$ref": "#/$defs/relativePath"},
+          "trial_result_sha256": {"$ref": "#/$defs/sha256"},
+          "trial_lock_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    }
+  }
+}

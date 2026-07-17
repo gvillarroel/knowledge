@@ -1,0 +1,16 @@
+{
+  "benchmarkId": "semantic-okf-harbor-adaptive-train-v1",
+  "targetCaseId": "q031",
+  "selectedParentId": "consult-semantic-okf-adaptive-baseline",
+  "currentScore": 0,
+  "feedback": [
+    {
+      "caseId": "q031",
+      "outcome": "failure",
+      "diagnosis": "The answer retrieved and validated every hard evidence interval but manually serialized evidence in a different order than its first use in claims.",
+      "evidence": "Harbor: contract=1.0, all_evidence_valid=1.0, hard completeness=1.0, reference_validity=0.0, reward=0.0; first-use sequence was 4,1,3,2,5,6,0."
+    }
+  ],
+  "reflectionTask": "Propose one skill-bundle edit that addresses the verified diagnosis without changing the benchmark or weakening other cases.",
+  "mergePlan": null
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "semantic-okf-harbor-splits/1.0",
+  "benchmark_id": "semantic-okf-astro-harbor-40-v1",
+  "cohorts": {
+    "train": [
+      "q001",
+      "q002",
+      "q003",
+      "q005",
+      "q008",
+      "q009",
+      "q012",
+      "q013",
+      "q014",
+      "q015",
+      "q017",
+      "q019",
+      "q021",
+      "q022",
+      "q023",
+      "q024",
+      "q025",
+      "q028",
+      "q031",
+      "q035",
+      "q037",
+      "q038",
+      "q039",
+      "q040"
+    ],
+    "dev": [
+      "q004",
+      "q011",
+      "q018",
+      "q020",
+      "q027",
+      "q030",
+      "q032",
+      "q033"
+    ],
+    "holdout": [
+      "q006",
+      "q007",
+      "q010",
+      "q016",
+      "q026",
+      "q029",
+      "q034",
+      "q036"
+    ]
+  },
+  "counts": {
+    "train": 24,
+    "dev": 8,
+    "holdout": 8,
+    "direct": {"train": 12, "dev": 4, "holdout": 4},
+    "cross-document": {"train": 6, "dev": 2, "holdout": 2},
+    "hard": {"train": 6, "dev": 2, "holdout": 2}
+  },
+  "selection": {
+    "algorithm": "Within each question type, sort ascending by SHA-256 of UTF-8 'semantic-okf-astro-harbor-v1\\0' plus question ID, then allocate 60/20/20 percent.",
+    "contamination_override": "q039 and q040 were already inspected or used for tuning and are forced into train; the remaining hard slots retain deterministic hash order.",
+    "historical_secrecy": false,
+    "source_disjoint": false,
+    "prospective_holdout": true,
+    "warning": "The holdout is question-label-disjoint only. Ground truth is already checked in and authoritative Astro pages overlap cohorts."
+  }
+}
+
