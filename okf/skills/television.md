@@ -28,13 +28,13 @@ Create reproducible Television channels and configuration without assuming acces
 
 ## Choose the generation path
 
-1. Use `know add tv` plus `know sync television` for a simple persisted channel that needs one source, one preview, and at most the default action. Read [know-backed-channels.md](references/know-backed-channels.md) and reuse native `know --format television` output instead of rebuilding an available adapter.
+1. Use `know add tv` plus `know sync television` for a simple persisted channel that needs one source, one preview, and at most the default action. Read [know-backed-channels.md](../../skills/television/references/know-backed-channels.md) and reuse native `know --format television` output instead of rebuilding an available adapter.
 2. Use `scripts/generate_bundle.py` for `config.toml`, platform variants, named or cycling sources, rich UI, typed previews, arbitrary actions, or a chain of two or three associated channels.
 3. Keep generated macOS and Windows outputs separate whenever commands use platform-specific shells, paths, openers, pipelines, or quoting.
 
 ## Generate an advanced bundle
 
-Read [bundle-spec.md](references/bundle-spec.md), then create a JSON specification and run:
+Read [bundle-spec.md](../../skills/television/references/bundle-spec.md), then create a JSON specification and run:
 
 ```text
 python scripts/generate_bundle.py bundle.json --output output/television
@@ -45,7 +45,7 @@ The generator validates TOML, emits macOS and Windows cable trees, generates opt
 
 ## Cover the complete channel surface
 
-Before finalizing a channel, review [channel-capabilities.md](references/channel-capabilities.md). Decide explicitly whether the result needs:
+Before finalizing a channel, review [channel-capabilities.md](../../skills/television/references/channel-capabilities.md). Decide explicitly whether the result needs:
 
 - metadata and exact binary requirements;
 - one, multiple, or named source commands; display/output templates; ANSI; delimiters; ordering; frecency; or watch mode;
@@ -57,7 +57,7 @@ Do not combine `source.ansi = true` with `source.display`; transform ANSI output
 
 ## Build associated chains
 
-Read [platforms-and-chains.md](references/platforms-and-chains.md) whenever Enter opens another channel.
+Read [platforms-and-chains.md](../../skills/television/references/platforms-and-chains.md) whenever Enter opens another channel.
 
 - Generate one cable per level and stop at three levels.
 - Bind `enter` to a named action on levels one and two only.
@@ -68,7 +68,7 @@ Read [platforms-and-chains.md](references/platforms-and-chains.md) whenever Ente
 
 ## Select previews and dependencies
 
-Read [previews-and-tools.md](references/previews-and-tools.md) whenever a preview is requested or an existing preview fails.
+Read [previews-and-tools.md](../../skills/television/references/previews-and-tools.md) whenever a preview is requested or an existing preview fails.
 
 - Select a finite, non-interactive preview command for the real data type.
 - Use a table-aware parser for CSV or TSV; never split rows naively on commas or tabs.
@@ -103,7 +103,7 @@ Inspect the generated `<CHANNEL>.toml`, `commands.json`, `README.md`, and
 
 ## Diagnose an existing channel
 
-Read [diagnostics.md](references/diagnostics.md) when a source, preview, action,
+Read [diagnostics.md](../../skills/television/references/diagnostics.md) when a source, preview, action,
 or cable path changed after an upgrade. Capture the exact values of
 `TELEVISION_CONFIG`, `XDG_CONFIG_HOME`, `HOME`, and `LOCALAPPDATA` as applicable;
 generic searches for names containing `TELEVISION` are not sufficient evidence

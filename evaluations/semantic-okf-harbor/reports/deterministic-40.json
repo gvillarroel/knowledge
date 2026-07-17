@@ -1,0 +1,3343 @@
+{
+  "benchmark": {
+    "candidate_pool": 100,
+    "deduplication": "first occurrence before metric cutoff",
+    "hard_question_count": 10,
+    "primary_identity": "explicit document_id joined only through source-combination.json",
+    "question_count": 40,
+    "questions_path": "evaluations/semantic-okf-astro/benchmark/retrieval-questions.jsonl",
+    "questions_sha256": "c15cd2c2f920e9e85bf62c45953d7cc4bb8b04570007d5d6fd8890aa7537b601"
+  },
+  "families": [
+    {
+      "best_route": "legacy_tfidf",
+      "family": "legacy",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.5051190476190477,
+          "ndcg_at_10": 0.49498319002180224,
+          "recall_at_1": 0.10833333333333332,
+          "recall_at_10": 0.7166666666666666,
+          "recall_at_20": 0.8,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4083333333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.5051190476190477,
+          "ndcg_at_10": 0.49498319002180224,
+          "recall_at_1": 0.10833333333333332,
+          "recall_at_10": 0.7166666666666666,
+          "recall_at_20": 0.8,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4083333333333333
+        },
+        "timing_ms": {
+          "mean": 3.1487000000000003,
+          "median": 3.092,
+          "p95": 4.340799999999999,
+          "total": 31.487000000000002
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.7062797619047619,
+          "ndcg_at_10": 0.6849183561036187,
+          "recall_at_1": 0.4270833333333333,
+          "recall_at_10": 0.8229166666666666,
+          "recall_at_20": 0.91875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.6895833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3387,
+          "valid": 3387
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.7062797619047619,
+          "ndcg_at_10": 0.6849183561036187,
+          "recall_at_1": 0.4270833333333333,
+          "recall_at_10": 0.8229166666666666,
+          "recall_at_20": 0.91875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.6895833333333333
+        },
+        "timing_ms": {
+          "mean": 2.311525,
+          "median": 2.1980000000000004,
+          "p95": 3.2925999999999993,
+          "total": 92.461
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "best_route": "lexical",
+      "family": "embeddings",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.8166666666666667,
+          "ndcg_at_10": 0.737021114900955,
+          "recall_at_1": 0.2583333333333333,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.75
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.8166666666666667,
+          "ndcg_at_10": 0.737021114900955,
+          "recall_at_1": 0.2583333333333333,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.75
+        },
+        "timing_ms": {
+          "mean": 209.74499999999998,
+          "median": 177.2935,
+          "p95": 348.9013999999999,
+          "total": 2097.45
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8125,
+          "ndcg_at_10": 0.7829016438020053,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.8979166666666666,
+          "recall_at_20": 0.9291666666666666,
+          "recall_at_3": 0.7645833333333333,
+          "recall_at_5": 0.85
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8125,
+          "ndcg_at_10": 0.7829016438020053,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.8979166666666666,
+          "recall_at_20": 0.9291666666666666,
+          "recall_at_3": 0.7645833333333333,
+          "recall_at_5": 0.85
+        },
+        "timing_ms": {
+          "mean": 149.50595,
+          "median": 135.3775,
+          "p95": 231.3386999999997,
+          "total": 5980.238
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "best_route": "association",
+      "family": "classical",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1667.6508000000001,
+          "median": 1658.9209999999998,
+          "p95": 1765.0074499999998,
+          "total": 16676.508
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1655.260225,
+          "median": 1648.4070000000002,
+          "p95": 1795.65605,
+          "total": 66210.409
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "best_route": "association",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1426.0678,
+          "median": 1425.762,
+          "p95": 1492.72245,
+          "total": 14260.678
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1387.310625,
+          "median": 1398.5855000000001,
+          "p95": 1468.6139,
+          "total": 55492.425
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "best_route": "entity",
+      "family": "entity-graph",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.85,
+          "ndcg_at_10": 0.6888372411708061,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.7833333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.4333333333333333,
+          "recall_at_5": 0.6166666666666666
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 772,
+          "valid": 772
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.85,
+          "ndcg_at_10": 0.6888372411708061,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.7833333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.4333333333333333,
+          "recall_at_5": 0.6166666666666666
+        },
+        "timing_ms": {
+          "mean": 5.672,
+          "median": 5.221,
+          "p95": 8.349499999999995,
+          "total": 56.72
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.729265873015873,
+          "ndcg_at_10": 0.7062186959458152,
+          "recall_at_1": 0.37916666666666665,
+          "recall_at_10": 0.88125,
+          "recall_at_20": 0.9041666666666666,
+          "recall_at_3": 0.6375,
+          "recall_at_5": 0.7166666666666667
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3098,
+          "valid": 3098
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.729265873015873,
+          "ndcg_at_10": 0.7062186959458152,
+          "recall_at_1": 0.37916666666666665,
+          "recall_at_10": 0.88125,
+          "recall_at_20": 0.9041666666666666,
+          "recall_at_3": 0.6375,
+          "recall_at_5": 0.7166666666666667
+        },
+        "timing_ms": {
+          "mean": 5.43835,
+          "median": 5.0329999999999995,
+          "p95": 10.42,
+          "total": 217.534
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "best_route": "quality",
+      "family": "ensemble",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7662894527559269,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7662894527559269,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 10292.7336,
+          "median": 10473.655999999999,
+          "p95": 11771.50165,
+          "total": 102927.336
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8895833333333334,
+          "ndcg_at_10": 0.8187632561427056,
+          "recall_at_1": 0.5208333333333333,
+          "recall_at_10": 0.8958333333333334,
+          "recall_at_20": 0.94375,
+          "recall_at_3": 0.7458333333333333,
+          "recall_at_5": 0.8479166666666667
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8895833333333334,
+          "ndcg_at_10": 0.8187632561427056,
+          "recall_at_1": 0.5208333333333333,
+          "recall_at_10": 0.8958333333333334,
+          "recall_at_20": 0.94375,
+          "recall_at_3": 0.7458333333333333,
+          "recall_at_5": 0.8479166666666667
+        },
+        "timing_ms": {
+          "mean": 6938.3222,
+          "median": 7581.898499999999,
+          "p95": 11688.57165,
+          "total": 277532.888
+        }
+      },
+      "status": "pass"
+    }
+  ],
+  "inspections": {
+    "adaptive": {
+      "adaptive_index_sha256": "19dfccf1a9a2646fa7dfe49292c0eaa224465e3e78c14ed389fb0d85118be910",
+      "adaptive_plan_sha256": "6c7a14f12c34cf28e137708ee6a5093ce2b3ef76561c2c4c5413d29078dc3ae6",
+      "authoritative": false,
+      "authoritative_paths": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "records": "semantic/records.jsonl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "capabilities": [
+        "bm25",
+        "topic",
+        "association",
+        "fusion",
+        "adaptive",
+        "evidence_rows",
+        "answer_evidence_pack",
+        "facet_coverage_pack",
+        "authoritative_answer_finalizer"
+      ],
+      "core_tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9",
+      "discovery_only": true,
+      "schema_version": "1.2",
+      "status": "pass",
+      "summary": {
+        "answer_bindings": 0,
+        "association_terms": 4544,
+        "documents": 416,
+        "inputs": 416,
+        "records": 416,
+        "terms": 117128,
+        "topics": 24
+      },
+      "validation": {
+        "independent_rederivation": true,
+        "structural": true
+      }
+    },
+    "classical": {
+      "authoritative": false,
+      "authoritative_paths": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "records": "semantic/records.jsonl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "capabilities": [
+        "bm25",
+        "topic",
+        "association",
+        "fusion"
+      ],
+      "classical_index_sha256": "748d2bfa47775016a38fd5b6853f646f3b2019712d665ceec518e581ea5bdf5a",
+      "classical_plan_sha256": "ca975810b665a57daadb0f308b29b723e039cef0a834cd1ba66ceeb093ef8683",
+      "core_tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9",
+      "discovery_only": true,
+      "schema_version": "1.0",
+      "status": "pass",
+      "summary": {
+        "association_terms": 4544,
+        "documents": 416,
+        "inputs": 416,
+        "records": 416,
+        "terms": 117128,
+        "topics": 24
+      },
+      "validation": {
+        "independent_rederivation": true,
+        "structural": true
+      }
+    },
+    "embeddings": {
+      "authoritative": false,
+      "authoritative_layers": {
+        "concepts": "concepts/",
+        "data": "semantic/data.ttl",
+        "ledger": "semantic/records.jsonl",
+        "ontology": "semantic/ontology.ttl",
+        "provenance": "semantic/provenance.ttl",
+        "shapes": "semantic/shapes.ttl",
+        "validation": "semantic/validation-report.ttl"
+      },
+      "chunking": {
+        "breakpoint_percentile_threshold": 90.0,
+        "buffer_size": 1,
+        "implementation": "llamaindex",
+        "strategy": "semantic"
+      },
+      "counts": {
+        "chunks": 2037,
+        "embeddings": 2037,
+        "records": 416,
+        "sources": 416
+      },
+      "discovery_only": true,
+      "embedding": {
+        "dimension": 384,
+        "encoding": {
+          "document": "symmetric",
+          "query": "symmetric"
+        },
+        "metric": "cosine",
+        "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "normalize": true,
+        "provider": "sentence-transformers",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "runtime": "local-model-required",
+        "vector_precision": 8
+      },
+      "hashes": {
+        "chunks_sha256": "352cfa2280576c72424f5f6a363475496e281a734adec73c982f66de818664e1",
+        "core_tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9",
+        "embeddings_sha256": "784840f0bd2db62f6919b89be1d553a4ceaec3275ee1d379baee2b7f7c59a7bc",
+        "index_sha256": "bca1239396962ada8957180b17d1aa522f08d223a7b8cc1a9f8e540398865162",
+        "input_sha256": "7da7b628ea4ac82559cd55fb89e9e2e30d2990029704d3039e1a2edb5c348805",
+        "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+        "retrieval_build_report_sha256": "0d4115648a520119d9dd887a9ca9ea29423c8381ffec403fca66378dc7a1a116",
+        "retrieval_plan_sha256": "ecb01dc53135053eddf79969642a2d6d365a8768ee4a77a64fccc46f47e0156a",
+        "source_manifest_sha256": "45b2e8c737af82ac8b8f715c3ff22b99626fcc8bd94eca7429f90494182c21b9"
+      },
+      "mode": "inspect",
+      "read_only": true,
+      "schema_version": "1.0",
+      "selection": {
+        "eligible_source_ids": [
+          "astro-doc-008247650899f53f",
+          "astro-doc-0086eeed6b56aa9e",
+          "astro-doc-00ce3bdc15537490",
+          "astro-doc-0122b7b5dff4e827",
+          "astro-doc-0177759f1986f5d4",
+          "astro-doc-01ec223c48c6b6c3",
+          "astro-doc-0261e41a754c6ee1",
+          "astro-doc-029ced0b28b7cff0",
+          "astro-doc-0447a9012b628108",
+          "astro-doc-0545ce2a21bbc842",
+          "astro-doc-0716837c2e1c20bb",
+          "astro-doc-081593bf80a0721f",
+          "astro-doc-085e5540e76c89ca",
+          "astro-doc-08a92557027a42f0",
+          "astro-doc-0a2f12d253afabc9",
+          "astro-doc-0a36a5c2f17ef367",
+          "astro-doc-0a7210a14b5ce17a",
+          "astro-doc-0a973c1c86dbf2e7",
+          "astro-doc-0ab8ac1cceb4ead3",
+          "astro-doc-0b8873a418f93184",
+          "astro-doc-0bf8760a4f49167a",
+          "astro-doc-0c875f8ab91a7266",
+          "astro-doc-0cf158c0e9d44357",
+          "astro-doc-0d9c026cbf13f194",
+          "astro-doc-0e7d2f6e4594e0f0",
+          "astro-doc-0fa56c1c6343ddb4",
+          "astro-doc-11186d97b6354de9",
+          "astro-doc-1269cfbb4f20a502",
+          "astro-doc-13013edbfb75a68b",
+          "astro-doc-137750940c5d42be",
+          "astro-doc-145f28886974e526",
+          "astro-doc-166ae5a386d8dc38",
+          "astro-doc-16b8feb4d7e2595e",
+          "astro-doc-1795d3dd62c71f80",
+          "astro-doc-196b9ac6439e5489",
+          "astro-doc-1b7501e663e73db0",
+          "astro-doc-1bd1f549e59c701b",
+          "astro-doc-1d2b9b47562991d3",
+          "astro-doc-1e284ce4d882e113",
+          "astro-doc-1ea493299b7eb8e4",
+          "astro-doc-20a837523d54efcd",
+          "astro-doc-21e3dfd1c011e7b6",
+          "astro-doc-220605279672ed53",
+          "astro-doc-2210d4c6108c7618",
+          "astro-doc-22172a1fee4bc444",
+          "astro-doc-230e0054d76e06e4",
+          "astro-doc-23db134b6513189e",
+          "astro-doc-23ede36b00687313",
+          "astro-doc-244af314b4c8e564",
+          "astro-doc-24f99cffe1e411f7",
+          "astro-doc-255aea114a85fa0c",
+          "astro-doc-25bd4556c4a1d3d4",
+          "astro-doc-26e1acbaee593f28",
+          "astro-doc-276863fe42a6d428",
+          "astro-doc-28a985ec853e6e7c",
+          "astro-doc-29102751829d7567",
+          "astro-doc-2947d28b52946916",
+          "astro-doc-2964c0f16eba1603",
+          "astro-doc-297e113c92ad286e",
+          "astro-doc-2a101f72d8e7de7a",
+          "astro-doc-2a29a0904e3d8e6b",
+          "astro-doc-2a9b61ab94420eaa",
+          "astro-doc-2ba462cf2ef16ba3",
+          "astro-doc-2cdfcf933d1e61e4",
+          "astro-doc-2e284420e841ec03",
+          "astro-doc-2e9488e794ea5581",
+          "astro-doc-2eed51e6d013da1b",
+          "astro-doc-2ef370f82f420daf",
+          "astro-doc-2f72773430e2f30e",
+          "astro-doc-2fcbf08d866fe1b8",
+          "astro-doc-2ffcf009d0810249",
+          "astro-doc-308ec9ecadbd3f57",
+          "astro-doc-309f47e85bd54493",
+          "astro-doc-3164dd8e019fa7d7",
+          "astro-doc-333714182a4143fb",
+          "astro-doc-333e4508be72aae8",
+          "astro-doc-3373e6c487ff3333",
+          "astro-doc-33c3d8efc080bbdd",
+          "astro-doc-344b2d886502a62d",
+          "astro-doc-352138ab4dd13cf7",
+          "astro-doc-35cfe351f3665402",
+          "astro-doc-36d37dd840acd8f8",
+          "astro-doc-3791629bcd98518f",
+          "astro-doc-3879c65d56931730",
+          "astro-doc-392a7348bea82e9b",
+          "astro-doc-39c95619c21ddbfd",
+          "astro-doc-39e38ca5e033116c",
+          "astro-doc-39e56439264bac6b",
+          "astro-doc-3a09f9dd12334463",
+          "astro-doc-3a3c6dfc0a0bf3f5",
+          "astro-doc-3b4964ffda8c8a56",
+          "astro-doc-3b8f041a1f070d72",
+          "astro-doc-3c50462cdbdb7a32",
+          "astro-doc-3de584baeedd5dc4",
+          "astro-doc-3df66cd05cab232e",
+          "astro-doc-3e52e05d1987eb51",
+          "astro-doc-3f6b3c42890893b1",
+          "astro-doc-3fca369bc20fb21c",
+          "astro-doc-40a012bdbbbeb1ac",
+          "astro-doc-41b42c262a0bfcac",
+          "astro-doc-42d59df9320423ba",
+          "astro-doc-432f6a2cd2ca088a",
+          "astro-doc-436e5d4bd27dbea4",
+          "astro-doc-4389772a53ee1593",
+          "astro-doc-438eed120411951d",
+          "astro-doc-43bd0e6b215d8614",
+          "astro-doc-43c3efbe9c2b91e8",
+          "astro-doc-4438e8a8616b35df",
+          "astro-doc-4471269c7df2e9b1",
+          "astro-doc-47afd977576a54d4",
+          "astro-doc-47ec8da8761d587d",
+          "astro-doc-4819e040c8911f24",
+          "astro-doc-486d61c82cf2e8ef",
+          "astro-doc-4a551cd5a5a56a68",
+          "astro-doc-4a661782f26b2a49",
+          "astro-doc-4c34b3459d7a5995",
+          "astro-doc-4cc529e48c6cdd39",
+          "astro-doc-4e7ca58cc34c6aa0",
+          "astro-doc-4e90718133a2755b",
+          "astro-doc-4eef148d76b9fdea",
+          "astro-doc-4effbbdbfc72e2bc",
+          "astro-doc-504b128b748cf0a5",
+          "astro-doc-536b7dca8f36e8b7",
+          "astro-doc-53cc60d38143a7da",
+          "astro-doc-5468b7b8789e60cf",
+          "astro-doc-5481687f06535caa",
+          "astro-doc-5488b841d05b9ab4",
+          "astro-doc-551f838daab5d092",
+          "astro-doc-556b668dd4a90a7d",
+          "astro-doc-55dc7b702c793614",
+          "astro-doc-5610d7b89b633821",
+          "astro-doc-56a3d0f4f8f27279",
+          "astro-doc-56e26b0f8027b154",
+          "astro-doc-57528c9d7af43705",
+          "astro-doc-57a56cefdc65d6aa",
+          "astro-doc-57c48d53d432876e",
+          "astro-doc-582a30fb50e799ba",
+          "astro-doc-58ad3496f30a38f8",
+          "astro-doc-59553f593132a8c9",
+          "astro-doc-5962ef758012e71e",
+          "astro-doc-59f940bbd969dd98",
+          "astro-doc-59fce9026c3274de",
+          "astro-doc-5a70dc74d349b2bf",
+          "astro-doc-5b23a10e627fef94",
+          "astro-doc-5c8e2aa63c2f50ca",
+          "astro-doc-5d0eacfd035e2a60",
+          "astro-doc-5d67d4775dbca826",
+          "astro-doc-5dc2a3d58d618073",
+          "astro-doc-5e11ae5fe54970ae",
+          "astro-doc-5e5479fda4234a2b",
+          "astro-doc-5e6ab7f896c9ebba",
+          "astro-doc-5ec62d9ac01f8622",
+          "astro-doc-5ef38be5e8db33f7",
+          "astro-doc-5f27043a4415bfd8",
+          "astro-doc-5f321f900deb02e5",
+          "astro-doc-5feebcb4aaa31d5b",
+          "astro-doc-5ff7d4fb9ce698bd",
+          "astro-doc-60e7507194bf5ea2",
+          "astro-doc-60f0c061b04e7643",
+          "astro-doc-610221f814cec41c",
+          "astro-doc-6131826b7a7e321a",
+          "astro-doc-6223fc26d0231545",
+          "astro-doc-628722bfaf0211ee",
+          "astro-doc-62ba3eec80659f67",
+          "astro-doc-62e903e1a13ba5bf",
+          "astro-doc-63dbf41a10f7e1d4",
+          "astro-doc-63f66772e1104c52",
+          "astro-doc-649e630722fc2fbe",
+          "astro-doc-662f7a3937c6163a",
+          "astro-doc-663ea81d7c2a1f67",
+          "astro-doc-665deabb8e1855f8",
+          "astro-doc-67458ae49afefc50",
+          "astro-doc-67534e0b3afac4d4",
+          "astro-doc-68310ed12bbd5bd5",
+          "astro-doc-68d00186d25ab810",
+          "astro-doc-691cc5e120c0ae30",
+          "astro-doc-692e721c43b3f8b7",
+          "astro-doc-699b4eccf92fef79",
+          "astro-doc-69b7740573ede1ac",
+          "astro-doc-6b32f42a1e79117e",
+          "astro-doc-6cdc77179daee9ce",
+          "astro-doc-6d2760656a3fe940",
+          "astro-doc-6f260feb9507b7eb",
+          "astro-doc-71bd2338e0b5217d",
+          "astro-doc-7205d6a01925b590",
+          "astro-doc-7299f9f4d28b3eee",
+          "astro-doc-72b91c15585683fa",
+          "astro-doc-73261a1d521f0bca",
+          "astro-doc-74c927b586dc6784",
+          "astro-doc-761bd680e8b873dc",
+          "astro-doc-7629178e191c2933",
+          "astro-doc-76537500fb6f13a1",
+          "astro-doc-7671956e01e6ec5b",
+          "astro-doc-76f72bd41773bc4b",
+          "astro-doc-772704eaea82b6bc",
+          "astro-doc-7749a95ab931b470",
+          "astro-doc-7764e5b951c83eae",
+          "astro-doc-778debe1f3bfcf7f",
+          "astro-doc-77b0d2d1b7d8129e",
+          "astro-doc-77c25adf2ec80269",
+          "astro-doc-783853078b9fb0b3",
+          "astro-doc-789843aadc9803dc",
+          "astro-doc-7910a6cad978c3d1",
+          "astro-doc-791af8373986573f",
+          "astro-doc-7936ffc77e1e08e8",
+          "astro-doc-795a3825dab826b3",
+          "astro-doc-7a09994a53b36654",
+          "astro-doc-7a38062142d6ea23",
+          "astro-doc-7a88d9c37db20efe",
+          "astro-doc-7c0f541cb93d51c8",
+          "astro-doc-7ca36c5b7567388a",
+          "astro-doc-7d4ca1e17579dd7f",
+          "astro-doc-7d4e228df070438c",
+          "astro-doc-7e28d9da96b2da1f",
+          "astro-doc-80837c843c85cb02",
+          "astro-doc-809e77a0d18b15ff",
+          "astro-doc-80f514ff4f72ec07",
+          "astro-doc-8124cfdaaba10a09",
+          "astro-doc-817ff0516236cb1c",
+          "astro-doc-82ec5a4bd811db54",
+          "astro-doc-83a8ffc3304b5c44",
+          "astro-doc-856741d8d4e24d95",
+          "astro-doc-857ef74fefcafe75",
+          "astro-doc-85de3e4c2ae640a4",
+          "astro-doc-86951d3bd679a383",
+          "astro-doc-875f2b42a9161ea7",
+          "astro-doc-87a4fc518e5e572b",
+          "astro-doc-87d320ca9e98872d",
+          "astro-doc-8aa98ab02807f857",
+          "astro-doc-8adfc39a4779d74c",
+          "astro-doc-8b2b9e4fdf1d8a28",
+          "astro-doc-8b323315fd8ca6d4",
+          "astro-doc-8b578d148c73baa6",
+          "astro-doc-8b5d51a4cf39a2fc",
+          "astro-doc-8bc87fb25f0e40e5",
+          "astro-doc-8c034a83d19a09f1",
+          "astro-doc-8d3388d64c3f560f",
+          "astro-doc-8d7bfac1a21d7986",
+          "astro-doc-8ebc76066dbc9341",
+          "astro-doc-91277ed5b3c8ec0b",
+          "astro-doc-9211464a072ca9fa",
+          "astro-doc-93241d307a26cbab",
+          "astro-doc-936af6110bf8ab2f",
+          "astro-doc-939ca171536ec15e",
+          "astro-doc-951b150fbbe20af9",
+          "astro-doc-98c2210c139cf71d",
+          "astro-doc-9931b08868d6ceca",
+          "astro-doc-99abcfcf08b3ee5a",
+          "astro-doc-9b478f46eaeb9617",
+          "astro-doc-9b590c5669c724c3",
+          "astro-doc-9b6adac007161906",
+          "astro-doc-9c505e22ae287da6",
+          "astro-doc-9c5c6f414dd0a8d7",
+          "astro-doc-9d1356fdbc4f2371",
+          "astro-doc-9d7babd3c0cae378",
+          "astro-doc-9dc6b9663927049e",
+          "astro-doc-9f14083db1965a3a",
+          "astro-doc-9f59fc5d02404e0d",
+          "astro-doc-a0994f970dff7e18",
+          "astro-doc-a0a7da486f2a55c1",
+          "astro-doc-a0d06552c59148f6",
+          "astro-doc-a14fde53079a341c",
+          "astro-doc-a1b5b3c05184bfba",
+          "astro-doc-a1da7584d959b98d",
+          "astro-doc-a2c2744c0cf101df",
+          "astro-doc-a2c595b4cdd4223c",
+          "astro-doc-a401bf745f691221",
+          "astro-doc-a405643aacafc379",
+          "astro-doc-a488b4f45398290b",
+          "astro-doc-a5e4ba7f0d3666ac",
+          "astro-doc-a650c9cf66b50714",
+          "astro-doc-a83c6337554b2942",
+          "astro-doc-a93881357934417f",
+          "astro-doc-a9c018b2490c92b6",
+          "astro-doc-ab55638071af9d29",
+          "astro-doc-ab6080358dc27199",
+          "astro-doc-ac0126437ed32059",
+          "astro-doc-ae7e902e741ff811",
+          "astro-doc-b036bf63d26ad0a9",
+          "astro-doc-b20cdcd939470052",
+          "astro-doc-b2ddd741210ff01f",
+          "astro-doc-b37122666621249c",
+          "astro-doc-b3b782edb415fa9e",
+          "astro-doc-b4198d5db5d802fa",
+          "astro-doc-b454474e87c5e92e",
+          "astro-doc-b5747e8aa8ea1405",
+          "astro-doc-b5b0f0e73342cbe1",
+          "astro-doc-b6f8dd8a9ea0d380",
+          "astro-doc-b738e3204f57c745",
+          "astro-doc-b7785c8f1b40c71e",
+          "astro-doc-b7b2694fdc2ead06",
+          "astro-doc-b86ccd7b9de9fe79",
+          "astro-doc-ba4c9085b1d6f8bd",
+          "astro-doc-bbc8d096b215543f",
+          "astro-doc-bc111c6dc0571cb0",
+          "astro-doc-bcf1380bf7fe228f",
+          "astro-doc-bd238f8186c5ebd8",
+          "astro-doc-bdf91acd23c55e1e",
+          "astro-doc-be00bdd9070edc06",
+          "astro-doc-be5780517561a480",
+          "astro-doc-be76c4bc88ac20f7",
+          "astro-doc-be79e65ad5de870f",
+          "astro-doc-beb95583f7acff64",
+          "astro-doc-c028d50b5dd92e2b",
+          "astro-doc-c02a4840fedf6cba",
+          "astro-doc-c07c6005187a3155",
+          "astro-doc-c108d5e50aa8c9b5",
+          "astro-doc-c164f8f35001fa9a",
+          "astro-doc-c21bb94164385610",
+          "astro-doc-c2224d9dcde099a5",
+          "astro-doc-c2e604fac0e3b1a5",
+          "astro-doc-c3172d3ac5acbb45",
+          "astro-doc-c330086375541dd3",
+          "astro-doc-c33f0740569c9966",
+          "astro-doc-c3e1a652d88975b9",
+          "astro-doc-c4c855dfd02ef751",
+          "astro-doc-c5320ec830b046f3",
+          "astro-doc-c54fe004e47d9ef4",
+          "astro-doc-c58c6ca176fcdefc",
+          "astro-doc-c5a4dbfff28b752e",
+          "astro-doc-c5eb89828ef133dd",
+          "astro-doc-c7061aee3c19b05b",
+          "astro-doc-c71151ddd89f5e77",
+          "astro-doc-c7da98c9d907ee65",
+          "astro-doc-c7e068a76ce1efc2",
+          "astro-doc-c822609813bffc22",
+          "astro-doc-c84bb1a65d78a10b",
+          "astro-doc-c97e95595c4ea682",
+          "astro-doc-ca24509e8aced7ef",
+          "astro-doc-cacec89fe6f4b727",
+          "astro-doc-cb47f184918e7a9d",
+          "astro-doc-cbe28018e9d93cae",
+          "astro-doc-cbee6cc3eb0c4040",
+          "astro-doc-cce741b6d28ad6a4",
+          "astro-doc-cd3b38f232f0329c",
+          "astro-doc-cde7247b9702e3ab",
+          "astro-doc-ce28d398ddb16bae",
+          "astro-doc-ceb9c53809c92cfc",
+          "astro-doc-d11380383a872180",
+          "astro-doc-d114b73bcbd9f927",
+          "astro-doc-d13fefc3c7b49372",
+          "astro-doc-d14a19421a7c28c3",
+          "astro-doc-d1dbe9d7d10d203f",
+          "astro-doc-d1ff333af947fb48",
+          "astro-doc-d20b3b5e20469228",
+          "astro-doc-d2631195bf5f3449",
+          "astro-doc-d38edbec836b3390",
+          "astro-doc-d4d62ed5abd39f4c",
+          "astro-doc-d542a8586049213b",
+          "astro-doc-d5865a300d3a132c",
+          "astro-doc-d674712c81a28e44",
+          "astro-doc-d6a38360b89a2c4d",
+          "astro-doc-d6bee6279a720694",
+          "astro-doc-d6e95079dcee5dde",
+          "astro-doc-d88ec0b40d16b66b",
+          "astro-doc-d8a0f5c9dd6dcaed",
+          "astro-doc-d8fd2f8d881aa5e0",
+          "astro-doc-d9bbe10dac633731",
+          "astro-doc-db6497498426fbbc",
+          "astro-doc-db7b41aee88b9016",
+          "astro-doc-dbeef0cf6d3a292c",
+          "astro-doc-dbf724f2ff5c6f55",
+          "astro-doc-dc845367b4da3abc",
+          "astro-doc-dcc892e6e3da159b",
+          "astro-doc-de5efc3b0a23b2b3",
+          "astro-doc-de70e02584e1b7b1",
+          "astro-doc-dfde85cad69ec84d",
+          "astro-doc-e01465181aad8352",
+          "astro-doc-e08f2a8117bd2e37",
+          "astro-doc-e2481f4522ea23f4",
+          "astro-doc-e26b89b31bb1c96d",
+          "astro-doc-e32ccc7d481d877f",
+          "astro-doc-e40d4da18f4cbba2",
+          "astro-doc-e427d98487ae4d8e",
+          "astro-doc-e434a9e9a7172aad",
+          "astro-doc-e719f6a552d498c0",
+          "astro-doc-e78b4fcfb26083f0",
+          "astro-doc-e7a9314fe6e1d7cf",
+          "astro-doc-e8a2ade137fde2e8",
+          "astro-doc-ea41361af4c7d478",
+          "astro-doc-eb71b15e93c4b01c",
+          "astro-doc-ebc0427a6e7ede7a",
+          "astro-doc-ebfbc30499408a11",
+          "astro-doc-ec0c729d010d196a",
+          "astro-doc-ec6b8bbb3eb12004",
+          "astro-doc-ed7b0d0a27542ceb",
+          "astro-doc-edee4d931bfbee3d",
+          "astro-doc-ee1483f60c670a95",
+          "astro-doc-ee856176174bc1de",
+          "astro-doc-f06ef02e01af880c",
+          "astro-doc-f088f02ed022b5a7",
+          "astro-doc-f15bde898dc1d604",
+          "astro-doc-f24ad244debc4f5e",
+          "astro-doc-f2c4f55b67c70f34",
+          "astro-doc-f385ebfe28bf7f26",
+          "astro-doc-f3fcdc047f233fa7",
+          "astro-doc-f44a535e42e2df83",
+          "astro-doc-f4b02d196bbf3f01",
+          "astro-doc-f4c98fe687190c9f",
+          "astro-doc-f535d9ffb7c1698c",
+          "astro-doc-f6e3ab45a0031f7c",
+          "astro-doc-f70134d6bde3cab2",
+          "astro-doc-f7f58d8f2857f3ee",
+          "astro-doc-f98ed4302161eece",
+          "astro-doc-fa1230e8e8b11cd5",
+          "astro-doc-fa3477654ac24269",
+          "astro-doc-fae24aabdc168cb6",
+          "astro-doc-fb1180952923e082",
+          "astro-doc-fba8c43726c0b709",
+          "astro-doc-fc2d8d8ce7888d83",
+          "astro-doc-fc577cbfbfe65e38",
+          "astro-doc-fe235b0efdddfb84",
+          "astro-doc-fe3b887caa677a51",
+          "astro-doc-fe71607152e77e21",
+          "astro-doc-ff0554a50daa0620",
+          "astro-doc-ff2ab46d4388d605"
+        ],
+        "excluded_source_ids": [],
+        "input_count": 416,
+        "input_sha256": "7da7b628ea4ac82559cd55fb89e9e2e30d2990029704d3039e1a2edb5c348805",
+        "requested_source_ids": [
+          "astro-doc-008247650899f53f",
+          "astro-doc-0086eeed6b56aa9e",
+          "astro-doc-00ce3bdc15537490",
+          "astro-doc-0122b7b5dff4e827",
+          "astro-doc-0177759f1986f5d4",
+          "astro-doc-01ec223c48c6b6c3",
+          "astro-doc-0261e41a754c6ee1",
+          "astro-doc-029ced0b28b7cff0",
+          "astro-doc-0447a9012b628108",
+          "astro-doc-0545ce2a21bbc842",
+          "astro-doc-0716837c2e1c20bb",
+          "astro-doc-081593bf80a0721f",
+          "astro-doc-085e5540e76c89ca",
+          "astro-doc-08a92557027a42f0",
+          "astro-doc-0a2f12d253afabc9",
+          "astro-doc-0a36a5c2f17ef367",
+          "astro-doc-0a7210a14b5ce17a",
+          "astro-doc-0a973c1c86dbf2e7",
+          "astro-doc-0ab8ac1cceb4ead3",
+          "astro-doc-0b8873a418f93184",
+          "astro-doc-0bf8760a4f49167a",
+          "astro-doc-0c875f8ab91a7266",
+          "astro-doc-0cf158c0e9d44357",
+          "astro-doc-0d9c026cbf13f194",
+          "astro-doc-0e7d2f6e4594e0f0",
+          "astro-doc-0fa56c1c6343ddb4",
+          "astro-doc-11186d97b6354de9",
+          "astro-doc-1269cfbb4f20a502",
+          "astro-doc-13013edbfb75a68b",
+          "astro-doc-137750940c5d42be",
+          "astro-doc-145f28886974e526",
+          "astro-doc-166ae5a386d8dc38",
+          "astro-doc-16b8feb4d7e2595e",
+          "astro-doc-1795d3dd62c71f80",
+          "astro-doc-196b9ac6439e5489",
+          "astro-doc-1b7501e663e73db0",
+          "astro-doc-1bd1f549e59c701b",
+          "astro-doc-1d2b9b47562991d3",
+          "astro-doc-1e284ce4d882e113",
+          "astro-doc-1ea493299b7eb8e4",
+          "astro-doc-20a837523d54efcd",
+          "astro-doc-21e3dfd1c011e7b6",
+          "astro-doc-220605279672ed53",
+          "astro-doc-2210d4c6108c7618",
+          "astro-doc-22172a1fee4bc444",
+          "astro-doc-230e0054d76e06e4",
+          "astro-doc-23db134b6513189e",
+          "astro-doc-23ede36b00687313",
+          "astro-doc-244af314b4c8e564",
+          "astro-doc-24f99cffe1e411f7",
+          "astro-doc-255aea114a85fa0c",
+          "astro-doc-25bd4556c4a1d3d4",
+          "astro-doc-26e1acbaee593f28",
+          "astro-doc-276863fe42a6d428",
+          "astro-doc-28a985ec853e6e7c",
+          "astro-doc-29102751829d7567",
+          "astro-doc-2947d28b52946916",
+          "astro-doc-2964c0f16eba1603",
+          "astro-doc-297e113c92ad286e",
+          "astro-doc-2a101f72d8e7de7a",
+          "astro-doc-2a29a0904e3d8e6b",
+          "astro-doc-2a9b61ab94420eaa",
+          "astro-doc-2ba462cf2ef16ba3",
+          "astro-doc-2cdfcf933d1e61e4",
+          "astro-doc-2e284420e841ec03",
+          "astro-doc-2e9488e794ea5581",
+          "astro-doc-2eed51e6d013da1b",
+          "astro-doc-2ef370f82f420daf",
+          "astro-doc-2f72773430e2f30e",
+          "astro-doc-2fcbf08d866fe1b8",
+          "astro-doc-2ffcf009d0810249",
+          "astro-doc-308ec9ecadbd3f57",
+          "astro-doc-309f47e85bd54493",
+          "astro-doc-3164dd8e019fa7d7",
+          "astro-doc-333714182a4143fb",
+          "astro-doc-333e4508be72aae8",
+          "astro-doc-3373e6c487ff3333",
+          "astro-doc-33c3d8efc080bbdd",
+          "astro-doc-344b2d886502a62d",
+          "astro-doc-352138ab4dd13cf7",
+          "astro-doc-35cfe351f3665402",
+          "astro-doc-36d37dd840acd8f8",
+          "astro-doc-3791629bcd98518f",
+          "astro-doc-3879c65d56931730",
+          "astro-doc-392a7348bea82e9b",
+          "astro-doc-39c95619c21ddbfd",
+          "astro-doc-39e38ca5e033116c",
+          "astro-doc-39e56439264bac6b",
+          "astro-doc-3a09f9dd12334463",
+          "astro-doc-3a3c6dfc0a0bf3f5",
+          "astro-doc-3b4964ffda8c8a56",
+          "astro-doc-3b8f041a1f070d72",
+          "astro-doc-3c50462cdbdb7a32",
+          "astro-doc-3de584baeedd5dc4",
+          "astro-doc-3df66cd05cab232e",
+          "astro-doc-3e52e05d1987eb51",
+          "astro-doc-3f6b3c42890893b1",
+          "astro-doc-3fca369bc20fb21c",
+          "astro-doc-40a012bdbbbeb1ac",
+          "astro-doc-41b42c262a0bfcac",
+          "astro-doc-42d59df9320423ba",
+          "astro-doc-432f6a2cd2ca088a",
+          "astro-doc-436e5d4bd27dbea4",
+          "astro-doc-4389772a53ee1593",
+          "astro-doc-438eed120411951d",
+          "astro-doc-43bd0e6b215d8614",
+          "astro-doc-43c3efbe9c2b91e8",
+          "astro-doc-4438e8a8616b35df",
+          "astro-doc-4471269c7df2e9b1",
+          "astro-doc-47afd977576a54d4",
+          "astro-doc-47ec8da8761d587d",
+          "astro-doc-4819e040c8911f24",
+          "astro-doc-486d61c82cf2e8ef",
+          "astro-doc-4a551cd5a5a56a68",
+          "astro-doc-4a661782f26b2a49",
+          "astro-doc-4c34b3459d7a5995",
+          "astro-doc-4cc529e48c6cdd39",
+          "astro-doc-4e7ca58cc34c6aa0",
+          "astro-doc-4e90718133a2755b",
+          "astro-doc-4eef148d76b9fdea",
+          "astro-doc-4effbbdbfc72e2bc",
+          "astro-doc-504b128b748cf0a5",
+          "astro-doc-536b7dca8f36e8b7",
+          "astro-doc-53cc60d38143a7da",
+          "astro-doc-5468b7b8789e60cf",
+          "astro-doc-5481687f06535caa",
+          "astro-doc-5488b841d05b9ab4",
+          "astro-doc-551f838daab5d092",
+          "astro-doc-556b668dd4a90a7d",
+          "astro-doc-55dc7b702c793614",
+          "astro-doc-5610d7b89b633821",
+          "astro-doc-56a3d0f4f8f27279",
+          "astro-doc-56e26b0f8027b154",
+          "astro-doc-57528c9d7af43705",
+          "astro-doc-57a56cefdc65d6aa",
+          "astro-doc-57c48d53d432876e",
+          "astro-doc-582a30fb50e799ba",
+          "astro-doc-58ad3496f30a38f8",
+          "astro-doc-59553f593132a8c9",
+          "astro-doc-5962ef758012e71e",
+          "astro-doc-59f940bbd969dd98",
+          "astro-doc-59fce9026c3274de",
+          "astro-doc-5a70dc74d349b2bf",
+          "astro-doc-5b23a10e627fef94",
+          "astro-doc-5c8e2aa63c2f50ca",
+          "astro-doc-5d0eacfd035e2a60",
+          "astro-doc-5d67d4775dbca826",
+          "astro-doc-5dc2a3d58d618073",
+          "astro-doc-5e11ae5fe54970ae",
+          "astro-doc-5e5479fda4234a2b",
+          "astro-doc-5e6ab7f896c9ebba",
+          "astro-doc-5ec62d9ac01f8622",
+          "astro-doc-5ef38be5e8db33f7",
+          "astro-doc-5f27043a4415bfd8",
+          "astro-doc-5f321f900deb02e5",
+          "astro-doc-5feebcb4aaa31d5b",
+          "astro-doc-5ff7d4fb9ce698bd",
+          "astro-doc-60e7507194bf5ea2",
+          "astro-doc-60f0c061b04e7643",
+          "astro-doc-610221f814cec41c",
+          "astro-doc-6131826b7a7e321a",
+          "astro-doc-6223fc26d0231545",
+          "astro-doc-628722bfaf0211ee",
+          "astro-doc-62ba3eec80659f67",
+          "astro-doc-62e903e1a13ba5bf",
+          "astro-doc-63dbf41a10f7e1d4",
+          "astro-doc-63f66772e1104c52",
+          "astro-doc-649e630722fc2fbe",
+          "astro-doc-662f7a3937c6163a",
+          "astro-doc-663ea81d7c2a1f67",
+          "astro-doc-665deabb8e1855f8",
+          "astro-doc-67458ae49afefc50",
+          "astro-doc-67534e0b3afac4d4",
+          "astro-doc-68310ed12bbd5bd5",
+          "astro-doc-68d00186d25ab810",
+          "astro-doc-691cc5e120c0ae30",
+          "astro-doc-692e721c43b3f8b7",
+          "astro-doc-699b4eccf92fef79",
+          "astro-doc-69b7740573ede1ac",
+          "astro-doc-6b32f42a1e79117e",
+          "astro-doc-6cdc77179daee9ce",
+          "astro-doc-6d2760656a3fe940",
+          "astro-doc-6f260feb9507b7eb",
+          "astro-doc-71bd2338e0b5217d",
+          "astro-doc-7205d6a01925b590",
+          "astro-doc-7299f9f4d28b3eee",
+          "astro-doc-72b91c15585683fa",
+          "astro-doc-73261a1d521f0bca",
+          "astro-doc-74c927b586dc6784",
+          "astro-doc-761bd680e8b873dc",
+          "astro-doc-7629178e191c2933",
+          "astro-doc-76537500fb6f13a1",
+          "astro-doc-7671956e01e6ec5b",
+          "astro-doc-76f72bd41773bc4b",
+          "astro-doc-772704eaea82b6bc",
+          "astro-doc-7749a95ab931b470",
+          "astro-doc-7764e5b951c83eae",
+          "astro-doc-778debe1f3bfcf7f",
+          "astro-doc-77b0d2d1b7d8129e",
+          "astro-doc-77c25adf2ec80269",
+          "astro-doc-783853078b9fb0b3",
+          "astro-doc-789843aadc9803dc",
+          "astro-doc-7910a6cad978c3d1",
+          "astro-doc-791af8373986573f",
+          "astro-doc-7936ffc77e1e08e8",
+          "astro-doc-795a3825dab826b3",
+          "astro-doc-7a09994a53b36654",
+          "astro-doc-7a38062142d6ea23",
+          "astro-doc-7a88d9c37db20efe",
+          "astro-doc-7c0f541cb93d51c8",
+          "astro-doc-7ca36c5b7567388a",
+          "astro-doc-7d4ca1e17579dd7f",
+          "astro-doc-7d4e228df070438c",
+          "astro-doc-7e28d9da96b2da1f",
+          "astro-doc-80837c843c85cb02",
+          "astro-doc-809e77a0d18b15ff",
+          "astro-doc-80f514ff4f72ec07",
+          "astro-doc-8124cfdaaba10a09",
+          "astro-doc-817ff0516236cb1c",
+          "astro-doc-82ec5a4bd811db54",
+          "astro-doc-83a8ffc3304b5c44",
+          "astro-doc-856741d8d4e24d95",
+          "astro-doc-857ef74fefcafe75",
+          "astro-doc-85de3e4c2ae640a4",
+          "astro-doc-86951d3bd679a383",
+          "astro-doc-875f2b42a9161ea7",
+          "astro-doc-87a4fc518e5e572b",
+          "astro-doc-87d320ca9e98872d",
+          "astro-doc-8aa98ab02807f857",
+          "astro-doc-8adfc39a4779d74c",
+          "astro-doc-8b2b9e4fdf1d8a28",
+          "astro-doc-8b323315fd8ca6d4",
+          "astro-doc-8b578d148c73baa6",
+          "astro-doc-8b5d51a4cf39a2fc",
+          "astro-doc-8bc87fb25f0e40e5",
+          "astro-doc-8c034a83d19a09f1",
+          "astro-doc-8d3388d64c3f560f",
+          "astro-doc-8d7bfac1a21d7986",
+          "astro-doc-8ebc76066dbc9341",
+          "astro-doc-91277ed5b3c8ec0b",
+          "astro-doc-9211464a072ca9fa",
+          "astro-doc-93241d307a26cbab",
+          "astro-doc-936af6110bf8ab2f",
+          "astro-doc-939ca171536ec15e",
+          "astro-doc-951b150fbbe20af9",
+          "astro-doc-98c2210c139cf71d",
+          "astro-doc-9931b08868d6ceca",
+          "astro-doc-99abcfcf08b3ee5a",
+          "astro-doc-9b478f46eaeb9617",
+          "astro-doc-9b590c5669c724c3",
+          "astro-doc-9b6adac007161906",
+          "astro-doc-9c505e22ae287da6",
+          "astro-doc-9c5c6f414dd0a8d7",
+          "astro-doc-9d1356fdbc4f2371",
+          "astro-doc-9d7babd3c0cae378",
+          "astro-doc-9dc6b9663927049e",
+          "astro-doc-9f14083db1965a3a",
+          "astro-doc-9f59fc5d02404e0d",
+          "astro-doc-a0994f970dff7e18",
+          "astro-doc-a0a7da486f2a55c1",
+          "astro-doc-a0d06552c59148f6",
+          "astro-doc-a14fde53079a341c",
+          "astro-doc-a1b5b3c05184bfba",
+          "astro-doc-a1da7584d959b98d",
+          "astro-doc-a2c2744c0cf101df",
+          "astro-doc-a2c595b4cdd4223c",
+          "astro-doc-a401bf745f691221",
+          "astro-doc-a405643aacafc379",
+          "astro-doc-a488b4f45398290b",
+          "astro-doc-a5e4ba7f0d3666ac",
+          "astro-doc-a650c9cf66b50714",
+          "astro-doc-a83c6337554b2942",
+          "astro-doc-a93881357934417f",
+          "astro-doc-a9c018b2490c92b6",
+          "astro-doc-ab55638071af9d29",
+          "astro-doc-ab6080358dc27199",
+          "astro-doc-ac0126437ed32059",
+          "astro-doc-ae7e902e741ff811",
+          "astro-doc-b036bf63d26ad0a9",
+          "astro-doc-b20cdcd939470052",
+          "astro-doc-b2ddd741210ff01f",
+          "astro-doc-b37122666621249c",
+          "astro-doc-b3b782edb415fa9e",
+          "astro-doc-b4198d5db5d802fa",
+          "astro-doc-b454474e87c5e92e",
+          "astro-doc-b5747e8aa8ea1405",
+          "astro-doc-b5b0f0e73342cbe1",
+          "astro-doc-b6f8dd8a9ea0d380",
+          "astro-doc-b738e3204f57c745",
+          "astro-doc-b7785c8f1b40c71e",
+          "astro-doc-b7b2694fdc2ead06",
+          "astro-doc-b86ccd7b9de9fe79",
+          "astro-doc-ba4c9085b1d6f8bd",
+          "astro-doc-bbc8d096b215543f",
+          "astro-doc-bc111c6dc0571cb0",
+          "astro-doc-bcf1380bf7fe228f",
+          "astro-doc-bd238f8186c5ebd8",
+          "astro-doc-bdf91acd23c55e1e",
+          "astro-doc-be00bdd9070edc06",
+          "astro-doc-be5780517561a480",
+          "astro-doc-be76c4bc88ac20f7",
+          "astro-doc-be79e65ad5de870f",
+          "astro-doc-beb95583f7acff64",
+          "astro-doc-c028d50b5dd92e2b",
+          "astro-doc-c02a4840fedf6cba",
+          "astro-doc-c07c6005187a3155",
+          "astro-doc-c108d5e50aa8c9b5",
+          "astro-doc-c164f8f35001fa9a",
+          "astro-doc-c21bb94164385610",
+          "astro-doc-c2224d9dcde099a5",
+          "astro-doc-c2e604fac0e3b1a5",
+          "astro-doc-c3172d3ac5acbb45",
+          "astro-doc-c330086375541dd3",
+          "astro-doc-c33f0740569c9966",
+          "astro-doc-c3e1a652d88975b9",
+          "astro-doc-c4c855dfd02ef751",
+          "astro-doc-c5320ec830b046f3",
+          "astro-doc-c54fe004e47d9ef4",
+          "astro-doc-c58c6ca176fcdefc",
+          "astro-doc-c5a4dbfff28b752e",
+          "astro-doc-c5eb89828ef133dd",
+          "astro-doc-c7061aee3c19b05b",
+          "astro-doc-c71151ddd89f5e77",
+          "astro-doc-c7da98c9d907ee65",
+          "astro-doc-c7e068a76ce1efc2",
+          "astro-doc-c822609813bffc22",
+          "astro-doc-c84bb1a65d78a10b",
+          "astro-doc-c97e95595c4ea682",
+          "astro-doc-ca24509e8aced7ef",
+          "astro-doc-cacec89fe6f4b727",
+          "astro-doc-cb47f184918e7a9d",
+          "astro-doc-cbe28018e9d93cae",
+          "astro-doc-cbee6cc3eb0c4040",
+          "astro-doc-cce741b6d28ad6a4",
+          "astro-doc-cd3b38f232f0329c",
+          "astro-doc-cde7247b9702e3ab",
+          "astro-doc-ce28d398ddb16bae",
+          "astro-doc-ceb9c53809c92cfc",
+          "astro-doc-d11380383a872180",
+          "astro-doc-d114b73bcbd9f927",
+          "astro-doc-d13fefc3c7b49372",
+          "astro-doc-d14a19421a7c28c3",
+          "astro-doc-d1dbe9d7d10d203f",
+          "astro-doc-d1ff333af947fb48",
+          "astro-doc-d20b3b5e20469228",
+          "astro-doc-d2631195bf5f3449",
+          "astro-doc-d38edbec836b3390",
+          "astro-doc-d4d62ed5abd39f4c",
+          "astro-doc-d542a8586049213b",
+          "astro-doc-d5865a300d3a132c",
+          "astro-doc-d674712c81a28e44",
+          "astro-doc-d6a38360b89a2c4d",
+          "astro-doc-d6bee6279a720694",
+          "astro-doc-d6e95079dcee5dde",
+          "astro-doc-d88ec0b40d16b66b",
+          "astro-doc-d8a0f5c9dd6dcaed",
+          "astro-doc-d8fd2f8d881aa5e0",
+          "astro-doc-d9bbe10dac633731",
+          "astro-doc-db6497498426fbbc",
+          "astro-doc-db7b41aee88b9016",
+          "astro-doc-dbeef0cf6d3a292c",
+          "astro-doc-dbf724f2ff5c6f55",
+          "astro-doc-dc845367b4da3abc",
+          "astro-doc-dcc892e6e3da159b",
+          "astro-doc-de5efc3b0a23b2b3",
+          "astro-doc-de70e02584e1b7b1",
+          "astro-doc-dfde85cad69ec84d",
+          "astro-doc-e01465181aad8352",
+          "astro-doc-e08f2a8117bd2e37",
+          "astro-doc-e2481f4522ea23f4",
+          "astro-doc-e26b89b31bb1c96d",
+          "astro-doc-e32ccc7d481d877f",
+          "astro-doc-e40d4da18f4cbba2",
+          "astro-doc-e427d98487ae4d8e",
+          "astro-doc-e434a9e9a7172aad",
+          "astro-doc-e719f6a552d498c0",
+          "astro-doc-e78b4fcfb26083f0",
+          "astro-doc-e7a9314fe6e1d7cf",
+          "astro-doc-e8a2ade137fde2e8",
+          "astro-doc-ea41361af4c7d478",
+          "astro-doc-eb71b15e93c4b01c",
+          "astro-doc-ebc0427a6e7ede7a",
+          "astro-doc-ebfbc30499408a11",
+          "astro-doc-ec0c729d010d196a",
+          "astro-doc-ec6b8bbb3eb12004",
+          "astro-doc-ed7b0d0a27542ceb",
+          "astro-doc-edee4d931bfbee3d",
+          "astro-doc-ee1483f60c670a95",
+          "astro-doc-ee856176174bc1de",
+          "astro-doc-f06ef02e01af880c",
+          "astro-doc-f088f02ed022b5a7",
+          "astro-doc-f15bde898dc1d604",
+          "astro-doc-f24ad244debc4f5e",
+          "astro-doc-f2c4f55b67c70f34",
+          "astro-doc-f385ebfe28bf7f26",
+          "astro-doc-f3fcdc047f233fa7",
+          "astro-doc-f44a535e42e2df83",
+          "astro-doc-f4b02d196bbf3f01",
+          "astro-doc-f4c98fe687190c9f",
+          "astro-doc-f535d9ffb7c1698c",
+          "astro-doc-f6e3ab45a0031f7c",
+          "astro-doc-f70134d6bde3cab2",
+          "astro-doc-f7f58d8f2857f3ee",
+          "astro-doc-f98ed4302161eece",
+          "astro-doc-fa1230e8e8b11cd5",
+          "astro-doc-fa3477654ac24269",
+          "astro-doc-fae24aabdc168cb6",
+          "astro-doc-fb1180952923e082",
+          "astro-doc-fba8c43726c0b709",
+          "astro-doc-fc2d8d8ce7888d83",
+          "astro-doc-fc577cbfbfe65e38",
+          "astro-doc-fe235b0efdddfb84",
+          "astro-doc-fe3b887caa677a51",
+          "astro-doc-fe71607152e77e21",
+          "astro-doc-ff0554a50daa0620",
+          "astro-doc-ff2ab46d4388d605"
+        ]
+      },
+      "status": "pass"
+    },
+    "ensemble": {
+      "algorithms": {
+        "answer_gate": "facet-status-exact-binding-finalizer-v1",
+        "coverage": "bounded-reviewed-claim-multisignal-expansion-v2",
+        "direct_search": "protected-multisignal-group-rerank-v1",
+        "identity_crosswalk": "source-record-explicit-override-crosswalk-v1",
+        "passage_evidence": "exact-record-body-evidence-v1"
+      },
+      "authoritative": false,
+      "capabilities": {
+        "answer-brief": {
+          "algorithm": "idf-facet-bounded-verbatim-support-v1",
+          "available": true,
+          "evidence": "bounded-verbatim-support-identifiers"
+        },
+        "coverage-brief": {
+          "available": false,
+          "requires": "reviewed exact answer bindings"
+        },
+        "coverage-pack": {
+          "available": false,
+          "requires": "reviewed exact answer bindings"
+        },
+        "evidence-pack": {
+          "available": true,
+          "evidence": "exact-authoritative-passages"
+        },
+        "finalize-answer": {
+          "algorithm": "exact-evidence-id-verbatim-support-finalizer-v1",
+          "available": true,
+          "mode": "exact-evidence-id-and-verbatim-support",
+          "requires": "source-generic evidence pack with exact quoted support"
+        },
+        "search": {
+          "available": true,
+          "evidence": "exact-authoritative-passages"
+        }
+      },
+      "components": {
+        "adaptive": {
+          "artifact_schema_version": "1.2",
+          "authoritative": false,
+          "child_plan_schema_version": "1.1",
+          "core": {
+            "record_count": 416,
+            "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+            "tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9"
+          },
+          "index": {
+            "bytes": 51089,
+            "path": "adaptive/index.json",
+            "sha256": "19dfccf1a9a2646fa7dfe49292c0eaa224465e3e78c14ed389fb0d85118be910"
+          },
+          "name": "adaptive",
+          "schema_version": "1.2"
+        },
+        "embedding": {
+          "artifact_schema_version": "1.0",
+          "authoritative": false,
+          "child_plan_schema_version": "1.0",
+          "core": {
+            "record_count": 416,
+            "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+            "tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9"
+          },
+          "index": {
+            "bytes": 31479,
+            "path": "retrieval/index.json",
+            "sha256": "bca1239396962ada8957180b17d1aa522f08d223a7b8cc1a9f8e540398865162"
+          },
+          "name": "embedding",
+          "schema_version": "1.0"
+        },
+        "entity_graph": {
+          "artifact_schema_version": "2.0",
+          "authoritative": false,
+          "child_plan_schema_version": "2.0",
+          "core": {
+            "record_count": 416,
+            "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+            "tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9"
+          },
+          "index": {
+            "bytes": 50779,
+            "path": "entity-graph/index.json",
+            "sha256": "2580b2669e6abdc68def27de56879b0173561f416fc67253bc44edf1b94a4f7a"
+          },
+          "name": "entity_graph",
+          "schema_version": "2.0"
+        }
+      },
+      "core": {
+        "record_count": 416,
+        "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+        "tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9"
+      },
+      "deep_validation": true,
+      "discovery_only": true,
+      "ensemble_index_sha256": "82a1ce333b6e8daa868fa28443f30a421587928bc9f97a152e93cfd878dbf1d3",
+      "ensemble_plan_sha256": "7a5a3d7a38a575db3bbe5845e39c1427bbb2723587e5342dd34d52b8888ab37f",
+      "identity": {
+        "algorithm": "source-record-explicit-override-crosswalk-v1",
+        "crosswalk_sha256": "72db8215b265182016b08ee3a0db3f7c3cc085181432a09df4ad81cf5ad07bdf",
+        "groups": 416,
+        "records": 416
+      },
+      "policies": {
+        "available": [
+          "quality",
+          "fast",
+          "robust"
+        ],
+        "default": "quality"
+      },
+      "quality_gates": {
+        "candidate_edge_weight": 0.0,
+        "claim_only_coverage_requires_bindings": true,
+        "maximum_embedding_claims_per_facet": 20,
+        "maximum_embedding_claims_total": 240,
+        "maximum_graph_claims_per_facet": 8,
+        "maximum_graph_claims_total": 80,
+        "protect_candidate_set": true,
+        "require_child_plan_parity": true,
+        "require_component_group_parity": true,
+        "require_core_parity": true,
+        "require_exact_answer_bindings": true,
+        "require_exact_passage_evidence": true,
+        "require_facet_status": true,
+        "require_total_identity_crosswalk": true,
+        "required_components": [
+          "adaptive",
+          "entity_graph",
+          "embedding"
+        ],
+        "reviewed_embedding_claims_only": true,
+        "reviewed_graph_claims_only": true
+      },
+      "read_only": true,
+      "schema_version": "2.0",
+      "status": "pass"
+    },
+    "entity-graph": {
+      "algorithms": {
+        "candidate_relations": "section-co-mention-v1",
+        "entity_extraction": "bounded-corpus-salient-ngram-v1",
+        "entity_scoring": "alias-overlap-plus-mention-evidence-v1",
+        "fusion": "reciprocal-rank-fusion-v1",
+        "graph_scoring": "bounded-provenance-aware-traversal-v1",
+        "lexical_scoring": "okapi-bm25-v1",
+        "mention_matching": "normalized-longest-phrase-match-v1",
+        "reranking": "source-record-diversified-ranking-v1",
+        "reviewed_relations": "semantic-okf-record-section-binding-v1",
+        "sectioning": "markdown-atx-heading-or-bounded-record-character-range-v1"
+      },
+      "authoritative": false,
+      "core": {
+        "record_count": 416,
+        "records_sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b",
+        "tree_sha256": "b40abef5887a598063ca2979bb406dfc203c2fbef7c44ab30ec43544c17063e9"
+      },
+      "deep_validation": true,
+      "discovery_only": true,
+      "entity_graph_index_sha256": "2580b2669e6abdc68def27de56879b0173561f416fc67253bc44edf1b94a4f7a",
+      "entity_graph_plan_sha256": "5e2e7fcdedccdcbb74e083a096e4c41d2672ea699fb8acf7ad23a2066e4244eb",
+      "read_only": true,
+      "schema_version": "2.0",
+      "status": "pass",
+      "summary": {
+        "candidate_edges": 201977,
+        "candidate_entities": 3633,
+        "edges": 206080,
+        "entities": 4049,
+        "inputs": 416,
+        "lexicon_terms": 8516,
+        "mentions": 170644,
+        "reviewed_edges": 4103,
+        "reviewed_entities": 416,
+        "sections": 4103,
+        "selected_records": 416
+      }
+    },
+    "legacy": {
+      "kind": "complete validated authoritative ledger CLI read",
+      "record_count": 416,
+      "status": "pass"
+    }
+  },
+  "read_only": {
+    "adaptive": {
+      "after": {
+        "file_count": 433,
+        "total_bytes": 35435525,
+        "tree_sha256": "ec3907cbe7a33a04b2e4582ca87773e2135224308eb6f4de24589319e242e62e"
+      },
+      "before": {
+        "file_count": 433,
+        "total_bytes": 35435525,
+        "tree_sha256": "ec3907cbe7a33a04b2e4582ca87773e2135224308eb6f4de24589319e242e62e"
+      },
+      "unchanged": true
+    },
+    "classical": {
+      "after": {
+        "file_count": 432,
+        "total_bytes": 35434313,
+        "tree_sha256": "35d58754842a31e9d2c16e02a7c309a17f5745e82802dcfeaf42ba2e1600b0c7"
+      },
+      "before": {
+        "file_count": 432,
+        "total_bytes": 35434313,
+        "tree_sha256": "35d58754842a31e9d2c16e02a7c309a17f5745e82802dcfeaf42ba2e1600b0c7"
+      },
+      "unchanged": true
+    },
+    "embeddings": {
+      "after": {
+        "file_count": 430,
+        "total_bytes": 21970171,
+        "tree_sha256": "5cfb7c642b31f2319c7286d3ddcf17754f10c8d278993b734405bc05919d2d1a"
+      },
+      "before": {
+        "file_count": 430,
+        "total_bytes": 21970171,
+        "tree_sha256": "5cfb7c642b31f2319c7286d3ddcf17754f10c8d278993b734405bc05919d2d1a"
+      },
+      "unchanged": true
+    },
+    "ensemble": {
+      "after": {
+        "file_count": 447,
+        "total_bytes": 183942500,
+        "tree_sha256": "5c842b0dc4008f42a14cb7012e175565ef931ff72f6618efaa47e691ce699745"
+      },
+      "before": {
+        "file_count": 447,
+        "total_bytes": 183942500,
+        "tree_sha256": "5c842b0dc4008f42a14cb7012e175565ef931ff72f6618efaa47e691ce699745"
+      },
+      "unchanged": true
+    },
+    "entity-graph": {
+      "after": {
+        "file_count": 433,
+        "total_bytes": 143533327,
+        "tree_sha256": "4c7d60a9b23c46a0164306461c1faf72443b369725689d5933ab722666cfab04"
+      },
+      "before": {
+        "file_count": 433,
+        "total_bytes": 143533327,
+        "tree_sha256": "4c7d60a9b23c46a0164306461c1faf72443b369725689d5933ab722666cfab04"
+      },
+      "unchanged": true
+    },
+    "legacy": {
+      "after": {
+        "file_count": 426,
+        "total_bytes": 8718931,
+        "tree_sha256": "6e45d3b4c6ff49a37f9a088aa3411b090a150357ddb6e108ce806ef9885d5632"
+      },
+      "before": {
+        "file_count": 426,
+        "total_bytes": 8718931,
+        "tree_sha256": "6e45d3b4c6ff49a37f9a088aa3411b090a150357ddb6e108ce806ef9885d5632"
+      },
+      "unchanged": true
+    }
+  },
+  "routes": [
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process evaluator-side TF-IDF; one prebuilt index; query-major execution",
+      "family": "legacy",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.5051190476190477,
+          "ndcg_at_10": 0.49498319002180224,
+          "recall_at_1": 0.10833333333333332,
+          "recall_at_10": 0.7166666666666666,
+          "recall_at_20": 0.8,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4083333333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.5051190476190477,
+          "ndcg_at_10": 0.49498319002180224,
+          "recall_at_1": 0.10833333333333332,
+          "recall_at_10": 0.7166666666666666,
+          "recall_at_20": 0.8,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4083333333333333
+        },
+        "timing_ms": {
+          "mean": 3.1487000000000003,
+          "median": 3.092,
+          "p95": 4.340799999999999,
+          "total": 31.487000000000002
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.7062797619047619,
+          "ndcg_at_10": 0.6849183561036187,
+          "recall_at_1": 0.4270833333333333,
+          "recall_at_10": 0.8229166666666666,
+          "recall_at_20": 0.91875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.6895833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3387,
+          "valid": 3387
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.7062797619047619,
+          "ndcg_at_10": 0.6849183561036187,
+          "recall_at_1": 0.4270833333333333,
+          "recall_at_10": 0.8229166666666666,
+          "recall_at_20": 0.91875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.6895833333333333
+        },
+        "timing_ms": {
+          "mean": 2.311525,
+          "median": 2.1980000000000004,
+          "p95": 3.2925999999999993,
+          "total": 92.461
+        }
+      },
+      "route": "legacy_tfidf",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "embeddings",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.8166666666666667,
+          "ndcg_at_10": 0.737021114900955,
+          "recall_at_1": 0.2583333333333333,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.75
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.8166666666666667,
+          "ndcg_at_10": 0.737021114900955,
+          "recall_at_1": 0.2583333333333333,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.875,
+          "recall_at_3": 0.6,
+          "recall_at_5": 0.75
+        },
+        "timing_ms": {
+          "mean": 209.74499999999998,
+          "median": 177.2935,
+          "p95": 348.9013999999999,
+          "total": 2097.45
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8125,
+          "ndcg_at_10": 0.7829016438020053,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.8979166666666666,
+          "recall_at_20": 0.9291666666666666,
+          "recall_at_3": 0.7645833333333333,
+          "recall_at_5": 0.85
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8125,
+          "ndcg_at_10": 0.7829016438020053,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.8979166666666666,
+          "recall_at_20": 0.9291666666666666,
+          "recall_at_3": 0.7645833333333333,
+          "recall_at_5": 0.85
+        },
+        "timing_ms": {
+          "mean": 149.50595,
+          "median": 135.3775,
+          "p95": 231.3386999999997,
+          "total": 5980.238
+        }
+      },
+      "route": "lexical",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "embeddings",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.5900000000000001,
+          "ndcg_at_10": 0.4999687022139751,
+          "recall_at_1": 0.13333333333333333,
+          "recall_at_10": 0.65,
+          "recall_at_20": 0.7166666666666666,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4416666666666666
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.5900000000000001,
+          "ndcg_at_10": 0.4999687022139751,
+          "recall_at_1": 0.13333333333333333,
+          "recall_at_10": 0.65,
+          "recall_at_20": 0.7166666666666666,
+          "recall_at_3": 0.3083333333333333,
+          "recall_at_5": 0.4416666666666666
+        },
+        "timing_ms": {
+          "mean": 992.0816000000001,
+          "median": 949.3240000000001,
+          "p95": 1213.4197,
+          "total": 9920.816
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.5984325396825396,
+          "ndcg_at_10": 0.5804390878554555,
+          "recall_at_1": 0.23958333333333334,
+          "recall_at_10": 0.8,
+          "recall_at_20": 0.9145833333333334,
+          "recall_at_3": 0.5,
+          "recall_at_5": 0.58125
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.5984325396825396,
+          "ndcg_at_10": 0.5804390878554555,
+          "recall_at_1": 0.23958333333333334,
+          "recall_at_10": 0.8,
+          "recall_at_20": 0.9145833333333334,
+          "recall_at_3": 0.5,
+          "recall_at_5": 0.58125
+        },
+        "timing_ms": {
+          "mean": 804.355075,
+          "median": 892.3585,
+          "p95": 1165.1613,
+          "total": 32174.203
+        }
+      },
+      "route": "vector",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "embeddings",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.8476190476190476,
+          "ndcg_at_10": 0.7178002658617268,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.9083333333333334,
+          "recall_at_3": 0.45,
+          "recall_at_5": 0.65
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.8476190476190476,
+          "ndcg_at_10": 0.7178002658617268,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.8083333333333333,
+          "recall_at_20": 0.9083333333333334,
+          "recall_at_3": 0.45,
+          "recall_at_5": 0.65
+        },
+        "timing_ms": {
+          "mean": 1169.8938,
+          "median": 1248.708,
+          "p95": 1479.45215,
+          "total": 11698.938
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8125992063492063,
+          "ndcg_at_10": 0.7666062666100372,
+          "recall_at_1": 0.4375,
+          "recall_at_10": 0.9041666666666666,
+          "recall_at_20": 0.9458333333333334,
+          "recall_at_3": 0.6854166666666667,
+          "recall_at_5": 0.79375
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8125992063492063,
+          "ndcg_at_10": 0.7666062666100372,
+          "recall_at_1": 0.4375,
+          "recall_at_10": 0.9041666666666666,
+          "recall_at_20": 0.9458333333333334,
+          "recall_at_3": 0.6854166666666667,
+          "recall_at_5": 0.79375
+        },
+        "timing_ms": {
+          "mean": 945.5713,
+          "median": 1012.0825,
+          "p95": 1417.0039,
+          "total": 37822.852
+        }
+      },
+      "route": "hybrid",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "classical",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7193204480780361,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7193204480780361,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 72.9539,
+          "median": 71.2825,
+          "p95": 82.59795,
+          "total": 729.539
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9208333333333334,
+          "ndcg_at_10": 0.8312722975904278,
+          "recall_at_1": 0.5958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7208333333333333,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9208333333333334,
+          "ndcg_at_10": 0.8312722975904278,
+          "recall_at_1": 0.5958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7208333333333333,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 66.501475,
+          "median": 66.39949999999999,
+          "p95": 81.42344999999999,
+          "total": 2660.059
+        }
+      },
+      "route": "bm25",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "classical",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1671.3970000000002,
+          "median": 1654.775,
+          "p95": 1754.1842,
+          "total": 16713.97
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8344603848708771,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8344603848708771,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1700.9094,
+          "median": 1665.4175,
+          "p95": 1868.5451,
+          "total": 68036.376
+        }
+      },
+      "route": "topic",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "classical",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1667.6508000000001,
+          "median": 1658.9209999999998,
+          "p95": 1765.0074499999998,
+          "total": 16676.508
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1655.260225,
+          "median": 1648.4070000000002,
+          "p95": 1795.65605,
+          "total": 66210.409
+        }
+      },
+      "route": "association",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "classical",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1662.2429,
+          "median": 1682.6205,
+          "p95": 1744.82195,
+          "total": 16622.429
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "timing_ms": {
+          "mean": 1680.715775,
+          "median": 1686.2345,
+          "p95": 1876.57055,
+          "total": 67228.631
+        }
+      },
+      "route": "fusion",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7193204480780361,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7193204480780361,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 61.263099999999994,
+          "median": 61.1435,
+          "p95": 66.5091,
+          "total": 612.631
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9208333333333334,
+          "ndcg_at_10": 0.8312722975904278,
+          "recall_at_1": 0.5958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7208333333333333,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9208333333333334,
+          "ndcg_at_10": 0.8312722975904278,
+          "recall_at_1": 0.5958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7208333333333333,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 54.540175,
+          "median": 52.8595,
+          "p95": 63.96675,
+          "total": 2181.607
+        }
+      },
+      "route": "bm25",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1442.7604,
+          "median": 1436.806,
+          "p95": 1509.04265,
+          "total": 14427.604
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8344603848708771,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8344603848708771,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1411.3972250000002,
+          "median": 1413.7285,
+          "p95": 1465.24865,
+          "total": 56455.889
+        }
+      },
+      "route": "topic",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1426.0678,
+          "median": 1425.762,
+          "p95": 1492.72245,
+          "total": 14260.678
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8395833333333333
+        },
+        "timing_ms": {
+          "mean": 1387.310625,
+          "median": 1398.5855000000001,
+          "p95": 1468.6139,
+          "total": 55492.425
+        }
+      },
+      "route": "association",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 1442.183,
+          "median": 1452.161,
+          "p95": 1501.55855,
+          "total": 14421.83
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "timing_ms": {
+          "mean": 1407.8329250000002,
+          "median": 1411.5835000000002,
+          "p95": 1490.9743,
+          "total": 56313.317
+        }
+      },
+      "route": "fusion",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "adaptive",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 8757.8662,
+          "median": 8958.223,
+          "p95": 9995.19015,
+          "total": 87578.662
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "timing_ms": {
+          "mean": 5419.248799999999,
+          "median": 5928.2725,
+          "p95": 9884.304399999999,
+          "total": 216769.952
+        }
+      },
+      "route": "adaptive",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "entity-graph",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7117453127139606,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.6583333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.6583333333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 702,
+          "valid": 702
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7117453127139606,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.6583333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.6583333333333333
+        },
+        "timing_ms": {
+          "mean": 1160.7169,
+          "median": 1165.3555000000001,
+          "p95": 1564.08385,
+          "total": 11607.169
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8198214285714286,
+          "ndcg_at_10": 0.7265742489758826,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.825,
+          "recall_at_20": 0.9104166666666667,
+          "recall_at_3": 0.6645833333333333,
+          "recall_at_5": 0.7875
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 2882,
+          "valid": 2882
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8198214285714286,
+          "ndcg_at_10": 0.7265742489758826,
+          "recall_at_1": 0.4458333333333333,
+          "recall_at_10": 0.825,
+          "recall_at_20": 0.9104166666666667,
+          "recall_at_3": 0.6645833333333333,
+          "recall_at_5": 0.7875
+        },
+        "timing_ms": {
+          "mean": 1158.6528,
+          "median": 1168.5720000000001,
+          "p95": 1569.7529,
+          "total": 46346.112
+        }
+      },
+      "route": "lexical",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "entity-graph",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.85,
+          "ndcg_at_10": 0.6888372411708061,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.7833333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.4333333333333333,
+          "recall_at_5": 0.6166666666666666
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 772,
+          "valid": 772
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.85,
+          "ndcg_at_10": 0.6888372411708061,
+          "recall_at_1": 0.29166666666666663,
+          "recall_at_10": 0.7833333333333333,
+          "recall_at_20": 0.8083333333333333,
+          "recall_at_3": 0.4333333333333333,
+          "recall_at_5": 0.6166666666666666
+        },
+        "timing_ms": {
+          "mean": 5.672,
+          "median": 5.221,
+          "p95": 8.349499999999995,
+          "total": 56.72
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.729265873015873,
+          "ndcg_at_10": 0.7062186959458152,
+          "recall_at_1": 0.37916666666666665,
+          "recall_at_10": 0.88125,
+          "recall_at_20": 0.9041666666666666,
+          "recall_at_3": 0.6375,
+          "recall_at_5": 0.7166666666666667
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3098,
+          "valid": 3098
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.729265873015873,
+          "ndcg_at_10": 0.7062186959458152,
+          "recall_at_1": 0.37916666666666665,
+          "recall_at_10": 0.88125,
+          "recall_at_20": 0.9041666666666666,
+          "recall_at_3": 0.6375,
+          "recall_at_5": 0.7166666666666667
+        },
+        "timing_ms": {
+          "mean": 5.43835,
+          "median": 5.0329999999999995,
+          "p95": 10.42,
+          "total": 217.534
+        }
+      },
+      "route": "entity",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "entity-graph",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.6416666666666667,
+          "ndcg_at_10": 0.43929779745855974,
+          "recall_at_1": 0.175,
+          "recall_at_10": 0.4833333333333333,
+          "recall_at_20": 0.6,
+          "recall_at_3": 0.3333333333333333,
+          "recall_at_5": 0.36666666666666664
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 922,
+          "valid": 922
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.6416666666666667,
+          "ndcg_at_10": 0.43929779745855974,
+          "recall_at_1": 0.175,
+          "recall_at_10": 0.4833333333333333,
+          "recall_at_20": 0.6,
+          "recall_at_3": 0.3333333333333333,
+          "recall_at_5": 0.36666666666666664
+        },
+        "timing_ms": {
+          "mean": 8.166,
+          "median": 6.883,
+          "p95": 13.3835,
+          "total": 81.66
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.519265873015873,
+          "ndcg_at_10": 0.45997491712199173,
+          "recall_at_1": 0.23541666666666666,
+          "recall_at_10": 0.5875,
+          "recall_at_20": 0.6583333333333333,
+          "recall_at_3": 0.4083333333333333,
+          "recall_at_5": 0.4416666666666667
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3662,
+          "valid": 3662
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.519265873015873,
+          "ndcg_at_10": 0.45997491712199173,
+          "recall_at_1": 0.23541666666666666,
+          "recall_at_10": 0.5875,
+          "recall_at_20": 0.6583333333333333,
+          "recall_at_3": 0.4083333333333333,
+          "recall_at_5": 0.4416666666666667
+        },
+        "timing_ms": {
+          "mean": 17.253875,
+          "median": 7.059,
+          "p95": 13.710899999999999,
+          "total": 690.155
+        }
+      },
+      "route": "traversal",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "entity-graph",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.6956548734297944,
+          "recall_at_1": 0.275,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8416666666666666,
+          "recall_at_3": 0.4666666666666666,
+          "recall_at_5": 0.65
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 786,
+          "valid": 786
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.6956548734297944,
+          "recall_at_1": 0.275,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8416666666666666,
+          "recall_at_3": 0.4666666666666666,
+          "recall_at_5": 0.65
+        },
+        "timing_ms": {
+          "mean": 6.339499999999999,
+          "median": 5.9215,
+          "p95": 9.549249999999999,
+          "total": 63.394999999999996
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.7497916666666666,
+          "ndcg_at_10": 0.6849700962427321,
+          "recall_at_1": 0.3770833333333333,
+          "recall_at_10": 0.8291666666666666,
+          "recall_at_20": 0.9270833333333334,
+          "recall_at_3": 0.6083333333333333,
+          "recall_at_5": 0.725
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 3179,
+          "valid": 3179
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.7497916666666666,
+          "ndcg_at_10": 0.6849700962427321,
+          "recall_at_1": 0.3770833333333333,
+          "recall_at_10": 0.8291666666666666,
+          "recall_at_20": 0.9270833333333334,
+          "recall_at_3": 0.6083333333333333,
+          "recall_at_5": 0.725
+        },
+        "timing_ms": {
+          "mean": 15.85675,
+          "median": 6.011,
+          "p95": 11.032549999999997,
+          "total": 634.27
+        }
+      },
+      "route": "fusion",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "ensemble",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7662894527559269,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7662894527559269,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.775,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 10292.7336,
+          "median": 10473.655999999999,
+          "p95": 11771.50165,
+          "total": 102927.336
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8895833333333334,
+          "ndcg_at_10": 0.8187632561427056,
+          "recall_at_1": 0.5208333333333333,
+          "recall_at_10": 0.8958333333333334,
+          "recall_at_20": 0.94375,
+          "recall_at_3": 0.7458333333333333,
+          "recall_at_5": 0.8479166666666667
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8895833333333334,
+          "ndcg_at_10": 0.8187632561427056,
+          "recall_at_1": 0.5208333333333333,
+          "recall_at_10": 0.8958333333333334,
+          "recall_at_20": 0.94375,
+          "recall_at_3": 0.7458333333333333,
+          "recall_at_5": 0.8479166666666667
+        },
+        "timing_ms": {
+          "mean": 6938.3222,
+          "median": 7581.898499999999,
+          "p95": 11688.57165,
+          "total": 277532.888
+        }
+      },
+      "route": "quality",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "ensemble",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7535013883185382,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.6583333333333333
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7535013883185382,
+          "recall_at_1": 0.3583333333333333,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.6583333333333333
+        },
+        "timing_ms": {
+          "mean": 7.0735,
+          "median": 6.8505,
+          "p95": 8.115549999999999,
+          "total": 70.735
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.8729166666666666,
+          "ndcg_at_10": 0.8014110342082136,
+          "recall_at_1": 0.4958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8354166666666666
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.8729166666666666,
+          "ndcg_at_10": 0.8014110342082136,
+          "recall_at_1": 0.4958333333333333,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.8354166666666666
+        },
+        "timing_ms": {
+          "mean": 7.4459,
+          "median": 6.875,
+          "p95": 10.119549999999997,
+          "total": 297.836
+        }
+      },
+      "route": "fast",
+      "status": "pass"
+    },
+    {
+      "candidate_pool": 100,
+      "execution": "warm in-process; one deep-validated snapshot/model per family; query-major bounded-cache execution; no fallback",
+      "family": "ensemble",
+      "hard": {
+        "document_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 1000,
+          "valid": 1000
+        },
+        "query_count": 10,
+        "source_metrics": {
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.7317818321543348,
+          "recall_at_1": 0.325,
+          "recall_at_10": 0.7416666666666666,
+          "recall_at_20": 0.8666666666666666,
+          "recall_at_3": 0.5666666666666667,
+          "recall_at_5": 0.675
+        },
+        "timing_ms": {
+          "mean": 7.065299999999999,
+          "median": 7.036,
+          "p95": 7.7330499999999995,
+          "total": 70.65299999999999
+        }
+      },
+      "overall": {
+        "document_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "error_count": 0,
+        "evidence_validity": {
+          "invalid": 0,
+          "ratio": 1.0,
+          "returned": 4000,
+          "valid": 4000
+        },
+        "query_count": 40,
+        "source_metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.834369206755564,
+          "recall_at_1": 0.5875,
+          "recall_at_10": 0.8875,
+          "recall_at_20": 0.9354166666666666,
+          "recall_at_3": 0.7375,
+          "recall_at_5": 0.83125
+        },
+        "timing_ms": {
+          "mean": 7.195950000000001,
+          "median": 6.883,
+          "p95": 9.233299999999998,
+          "total": 287.838
+        }
+      },
+      "route": "robust",
+      "status": "pass"
+    }
+  ],
+  "run_dir": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01",
+  "runtime_setup": {
+    "adaptive": {
+      "elapsed_ms": 14290.806,
+      "included_in_query_timings": false,
+      "model_inference_warmup": false,
+      "model_loads": 0,
+      "snapshot_loads": 1
+    },
+    "classical": {
+      "elapsed_ms": 13728.989,
+      "included_in_query_timings": false,
+      "model_inference_warmup": false,
+      "model_loads": 0,
+      "snapshot_loads": 1
+    },
+    "embeddings": {
+      "elapsed_ms": 56107.44,
+      "included_in_query_timings": false,
+      "model_inference_warmup": true,
+      "model_loads": 1,
+      "snapshot_loads": 1
+    },
+    "ensemble": {
+      "elapsed_ms": 74069.968,
+      "included_in_query_timings": false,
+      "model_inference_warmup": true,
+      "model_loads": 1,
+      "snapshot_loads": 1
+    },
+    "entity-graph": {
+      "elapsed_ms": 16236.72,
+      "included_in_query_timings": false,
+      "model_inference_warmup": false,
+      "model_loads": 0,
+      "snapshot_loads": 1
+    },
+    "legacy": {
+      "elapsed_ms": 113.632,
+      "included_in_query_timings": false,
+      "model_inference_warmup": false,
+      "model_loads": 0,
+      "snapshot_loads": 1
+    }
+  },
+  "schema_version": "semantic-okf-astro-retrieval-comparison/1.0",
+  "source_combination": {
+    "path": "evaluations/semantic-okf-astro/corpus/source-combination.json",
+    "record_count": 416,
+    "sha256": "c09e952254e5f2a4673ec0864bb09be333d8e914a1d0c46284e33953296cb783"
+  },
+  "standalone_best_route_timing": {
+    "adaptive": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "warm in-process selected route alone; one query at a time; no sibling-route cache priming",
+      "family": "adaptive",
+      "query_count": 40,
+      "route": "association",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 1395.7087751500069,
+        "median": 1408.8522800000192,
+        "p95": 1468.676560850065,
+        "total": 55828.35100600027
+      }
+    },
+    "classical": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "warm in-process selected route alone; one query at a time; no sibling-route cache priming",
+      "family": "classical",
+      "query_count": 40,
+      "route": "association",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 1570.1686086249993,
+        "median": 1584.4136734999665,
+        "p95": 1669.8075267500485,
+        "total": 62806.74434499997
+      }
+    },
+    "embeddings": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "warm in-process selected route alone; one query at a time; no sibling-route cache priming",
+      "family": "embeddings",
+      "query_count": 40,
+      "route": "lexical",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 148.10116682500052,
+        "median": 142.86799600000677,
+        "p95": 175.85979665000755,
+        "total": 5924.046673000021
+      }
+    },
+    "ensemble": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "warm in-process selected route alone; one query at a time; no sibling-route cache priming",
+      "family": "ensemble",
+      "query_count": 40,
+      "route": "quality",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 7335.478080900003,
+        "median": 7446.274975999927,
+        "p95": 12758.173248949954,
+        "total": 293419.12323600013
+      }
+    },
+    "entity-graph": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "warm in-process selected route alone; one query at a time; no sibling-route cache priming",
+      "family": "entity-graph",
+      "query_count": 40,
+      "route": "entity",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 1147.992493875006,
+        "median": 1168.7703244998602,
+        "p95": 1545.9061753001606,
+        "total": 45919.69975500024
+      }
+    },
+    "legacy": {
+      "error_count": 0,
+      "errors": [],
+      "execution": "same sole-route pass; no sibling route exists",
+      "family": "legacy",
+      "query_count": 40,
+      "route": "legacy_tfidf",
+      "status": "pass",
+      "timing_ms": {
+        "mean": 2.311525,
+        "median": 2.1980000000000004,
+        "p95": 3.2925999999999993,
+        "total": 92.461
+      }
+    }
+  },
+  "status": "pass",
+  "timing_interpretation": {
+    "all_routes": "query-major marginal latency after one family setup; later sibling routes may reuse an exact bounded computation and are not standalone-latency comparable",
+    "comparability": "only standalone_best_route_timing values are compared as route latency; one-time setup latency is reported separately",
+    "standalone_best_route": "second pass over the selected route alone, warm in-process, with no sibling-route cache priming; used for the family comparison table"
+  }
+}

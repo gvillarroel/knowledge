@@ -46,9 +46,9 @@ Answer from one published `knowledge.db` using local Turso Database queries whil
 
 ## Required references
 
-- Read [querying.md](references/querying.md) before choosing a table or writing SQL.
-- Read [source-boundaries.md](references/source-boundaries.md) when authorities, partitions, permissions, or bundle boundaries matter.
-- Read [cross-source-synthesis.md](references/cross-source-synthesis.md) before comparing or citing multiple sources.
+- Read [querying.md](../../skills/consult-semantic-okf-turso/references/querying.md) before choosing a table or writing SQL.
+- Read [source-boundaries.md](../../skills/consult-semantic-okf-turso/references/source-boundaries.md) when authorities, partitions, permissions, or bundle boundaries matter.
+- Read [cross-source-synthesis.md](../../skills/consult-semantic-okf-turso/references/cross-source-synthesis.md) before comparing or citing multiple sources.
 
 ## Environment
 

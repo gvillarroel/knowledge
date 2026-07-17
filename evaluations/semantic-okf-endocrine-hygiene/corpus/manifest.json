@@ -1,0 +1,1329 @@
+{
+  "bundle": {
+    "base_iri": "https://example.org/endocrine-hygiene/",
+    "description": "Fifteen source-separated PMC papers with reviewed BioC-passage-grounded claims.",
+    "ontology_iri": "https://example.org/endocrine-hygiene/ontology",
+    "owl_profile": "rl",
+    "prefix": "endhyg",
+    "title": "Endocrine Disruption and Hygiene Products Semantic Corpus",
+    "version_iri": "https://example.org/endocrine-hygiene/ontology/1.0.0"
+  },
+  "ontology": {
+    "classes": [
+      {
+        "label": "research paper",
+        "name": "Paper"
+      },
+      {
+        "label": "analysis term",
+        "name": "AnalysisTerm"
+      },
+      {
+        "label": "paper semantic claim",
+        "name": "PaperSemanticClaim"
+      }
+    ],
+    "properties": [
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "paperTitle",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "selectionDimension",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "paperId",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "pmcid",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "pmid",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "doi",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "publicationYear",
+        "range": "xsd:integer"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "authors",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "sourceUrl",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "biocUrl",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "rawBiocSha256",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "rawBiocBytes",
+        "range": "xsd:integer"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "passageCount",
+        "range": "xsd:integer"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "extractedCharacters",
+        "range": "xsd:integer"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "license",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "corpusRole",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "Paper",
+        "kind": "datatype",
+        "name": "evidenceCaution",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "AnalysisTerm",
+        "kind": "datatype",
+        "name": "termLabel",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "AnalysisTerm",
+        "kind": "datatype",
+        "name": "termKind",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "AnalysisTerm",
+        "kind": "datatype",
+        "name": "termDefinition",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "object",
+        "name": "aboutPaper",
+        "range": "Paper"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "object",
+        "name": "subjectTerm",
+        "range": "AnalysisTerm"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "object",
+        "name": "objectTerm",
+        "range": "AnalysisTerm"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "claimKind",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "claimOrigin",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "evidenceLocator",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "interpretation",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "confidence",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "reviewState",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "claimBiocSha256",
+        "range": "xsd:string"
+      },
+      {
+        "domain": "PaperSemanticClaim",
+        "kind": "datatype",
+        "name": "evidenceTextSha256",
+        "range": "xsd:string"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every paper must retain its canonical PMCID.",
+      "min_count": 1,
+      "name": "PaperIdentifierRule",
+      "path": "paperId",
+      "pattern": "^PMC[1-9][0-9]*$",
+      "target_class": "Paper"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every paper must retain its accepted raw BioC digest.",
+      "min_count": 1,
+      "name": "PaperDigestRule",
+      "path": "rawBiocSha256",
+      "pattern": "^[0-9a-f]{64}$",
+      "target_class": "Paper"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every analysis term must have a label.",
+      "min_count": 1,
+      "name": "TermLabelRule",
+      "path": "termLabel",
+      "pattern": ".+",
+      "target_class": "AnalysisTerm"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "class": "Paper",
+      "max_count": 1,
+      "message": "Every claim must identify its source paper.",
+      "min_count": 1,
+      "name": "ClaimPaperRule",
+      "node_kind": "IRI",
+      "path": "aboutPaper",
+      "target_class": "PaperSemanticClaim"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "class": "AnalysisTerm",
+      "max_count": 1,
+      "message": "Every claim must identify its paper-specific study design.",
+      "min_count": 1,
+      "name": "ClaimSubjectRule",
+      "node_kind": "IRI",
+      "path": "subjectTerm",
+      "target_class": "PaperSemanticClaim"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "class": "AnalysisTerm",
+      "max_count": 1,
+      "message": "Every claim must identify one analysis dimension.",
+      "min_count": 1,
+      "name": "ClaimDimensionRule",
+      "node_kind": "IRI",
+      "path": "objectTerm",
+      "target_class": "PaperSemanticClaim"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every claim must use one reviewed claim kind.",
+      "min_count": 1,
+      "name": "ClaimKindRule",
+      "path": "claimKind",
+      "pattern": "^(methodology|exposure-association|intervention-effect|hormonal-mechanism|health-outcome|product-content|risk-assessment|disparity|limitation|null-result|comparison)$",
+      "target_class": "PaperSemanticClaim"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every claim must cite one exact BioC passage.",
+      "min_count": 1,
+      "name": "ClaimEvidenceRule",
+      "path": "evidenceLocator",
+      "pattern": "^sources/markdown/PMC[1-9][0-9]*\\.md#BioC-passage-[0-9]{4}$",
+      "target_class": "PaperSemanticClaim"
+    },
+    {
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "END-HYG-STUDY-1"
+        ]
+      },
+      "datatype": "xsd:string",
+      "max_count": 1,
+      "message": "Every accepted claim must be reviewed.",
+      "min_count": 1,
+      "name": "ClaimReviewRule",
+      "path": "reviewState",
+      "pattern": "^reviewed$",
+      "target_class": "PaperSemanticClaim"
+    }
+  ],
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc11764522",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC11764522.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc4016195",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC4016195.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc4724203",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC4724203.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc4997468",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC4997468.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc5047791",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC5047791.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc5376243",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC5376243.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc5783668",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC5783668.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc6037613",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC6037613.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc6504186",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC6504186.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc7958867",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC7958867.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc8316883",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC8316883.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc8810700",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC8810700.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc8812815",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC8812815.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc9566193",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC9566193.md"
+    },
+    {
+      "concept_type": "Research Paper",
+      "fields": {
+        "authors": "authors",
+        "bioc_url": "biocUrl",
+        "corpus_role": "corpusRole",
+        "description": "selectionDimension",
+        "doi": "doi",
+        "evidence_caution": "evidenceCaution",
+        "extracted_characters": "extractedCharacters",
+        "license": "license",
+        "paper_id": "paperId",
+        "passage_count": "passageCount",
+        "pmcid": "pmcid",
+        "pmid": "pmid",
+        "publication_year": "publicationYear",
+        "raw_bioc_bytes": "rawBiocBytes",
+        "raw_bioc_sha256": "rawBiocSha256",
+        "source_url": "sourceUrl",
+        "title": "paperTitle"
+      },
+      "id": "paper-pmc9764248",
+      "kind": "markdown",
+      "ontology_class": "Paper",
+      "path": "sources/markdown/PMC9764248.md"
+    },
+    {
+      "concept_type": "Analysis Term",
+      "fields": {
+        "definition": "termDefinition",
+        "label": "termLabel",
+        "term_kind": "termKind"
+      },
+      "id": "analysis-vocabulary",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "AnalysisTerm",
+      "path": "sources/semantic/analysis-vocabulary.jsonl",
+      "schema": {
+        "definition": "string",
+        "id": "string",
+        "label": "string",
+        "term_kind": "string"
+      },
+      "title_field": "label"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc11764522",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC11764522.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc4016195",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC4016195.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc4724203",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC4724203.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc4997468",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC4997468.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc5047791",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC5047791.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc5376243",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC5376243.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc5783668",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC5783668.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc6037613",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC6037613.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc6504186",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC6504186.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc7958867",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC7958867.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc8316883",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC8316883.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc8810700",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC8810700.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc8812815",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC8812815.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc9566193",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC9566193.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    },
+    {
+      "concept_type": "Paper Semantic Claim",
+      "fields": {
+        "bioc_sha256": "claimBiocSha256",
+        "claim_kind": "claimKind",
+        "claim_origin": "claimOrigin",
+        "confidence": "confidence",
+        "evidence_locator": "evidenceLocator",
+        "evidence_text_sha256": "evidenceTextSha256",
+        "interpretation": "interpretation",
+        "object_term_iri": "objectTerm",
+        "paper_iri": "aboutPaper",
+        "review_state": "reviewState",
+        "subject_term_iri": "subjectTerm"
+      },
+      "id": "claims-pmc9764248",
+      "id_field": "id",
+      "kind": "json",
+      "ontology_class": "PaperSemanticClaim",
+      "path": "sources/claims/PMC9764248.jsonl",
+      "schema": {
+        "bioc_sha256": "string",
+        "claim_kind": "string",
+        "claim_origin": "string",
+        "confidence": "string",
+        "evidence_locator": "string",
+        "evidence_text_sha256": "string",
+        "id": "string",
+        "interpretation": "string",
+        "object_term_iri": "string",
+        "paper_iri": "string",
+        "review_state": "string",
+        "subject_term_iri": "string",
+        "title": "string"
+      },
+      "title_field": "title"
+    }
+  ]
+}

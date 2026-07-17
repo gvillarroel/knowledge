@@ -1,0 +1,14 @@
+{
+  "schema_version": "semantic-okf-harbor-skill-snapshots/1.0",
+  "generation": "evolved",
+  "status": "frozen-before-dev",
+  "families": {
+    "legacy": {"skill_id": "consult-semantic-okf-harbor-legacy", "source_path": "skills/consult-semantic-okf-harbor-legacy", "tree_sha256": "888dcf5269a30325b5fea63a60f944d4f61db2f6fdc2f9a709a1f44ca14e7ce9"},
+    "embeddings": {"skill_id": "consult-semantic-okf-harbor-embeddings", "source_path": "skills/consult-semantic-okf-harbor-embeddings", "tree_sha256": "b5fe229bad47b2174c6d97c5340ba5eb4906692ba420b1ebfb2c152a66e63547"},
+    "classical": {"skill_id": "consult-semantic-okf-harbor-classical", "source_path": "skills/consult-semantic-okf-harbor-classical", "tree_sha256": "c25e0afb1c0c4e3dd9fbcec8c8ca143318fe79886328413e887b045d8ae3d78a"},
+    "adaptive": {"skill_id": "consult-semantic-okf-harbor-adaptive", "source_path": "skills/consult-semantic-okf-harbor-adaptive", "tree_sha256": "0a16b2d81addec7269eb617e7c9b82a3c6f819c17be20950ac0f2c3bba4f2705"},
+    "entity-graph": {"skill_id": "consult-semantic-okf-harbor-entity-graph", "source_path": "skills/consult-semantic-okf-harbor-entity-graph", "tree_sha256": "2f770d64ba9afe9b0abd53f166d9f992febbb6a98175eaa0fafa7f47d29a593b"},
+    "ensemble": {"skill_id": "consult-semantic-okf-harbor-ensemble", "source_path": "skills/consult-semantic-okf-harbor-ensemble", "tree_sha256": "e0936f7014c1a37041f736d43890a543111f54271c67f3ce21129e4db50cc379"}
+  },
+  "policy": "Add exactly one independently named, standalone candidate per family after inspecting train only. Freeze its tree hash before dev; never overwrite a baseline snapshot."
+}

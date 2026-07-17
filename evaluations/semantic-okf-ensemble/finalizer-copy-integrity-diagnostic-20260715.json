@@ -1,0 +1,66 @@
+{
+  "schema_version": "semantic-okf-ensemble-finalizer-copy-integrity-diagnostic/1.0",
+  "status": "rejected",
+  "date": "2026-07-15",
+  "comparison": {
+    "run_id": "2026-07-15T09-58-38-815Z-compare",
+    "promptfoo_eval_id": "eval-C2x-2026-07-15T09:58:45",
+    "planned_answer_count": 90,
+    "completed_answer_count": 46,
+    "termination": "intentional-quality-gate-stop"
+  },
+  "bindings": {
+    "skill_arena_config_sha256": "561a1938b68f454f1fa0cf21772552841eabcd500023e1e9432136eb8437fa75",
+    "skill_arena_config_manifest_sha256": "195bc0d1273c44892ca2ad0410c827fa399553e926e1a5b35111f7f13bf32169",
+    "consult_skill_package_tree_sha256": "14498e049b3d10ce3ec1ecc134e15d7df60bc0491a6395de4c478bedf13876ec",
+    "consult_skill_sha256": "20e2eaabdc6266a36a724ca1ae968deaf244619d31f74874ed3103436486c618",
+    "mcp_runtime_tree_sha256": "049c81230c2c11e417d8510e38d2bb0379ccb44dc081bc5797f0020933ec10d1",
+    "mcp_server_sha256": "398bbdc1748327afecdd2cc27c85eff3b8f8bbfe93ed43d86ced68e28f489dfb"
+  },
+  "completed_rows": {
+    "knowledge-only-control": 16,
+    "adaptive-consult-control": 15,
+    "ensemble-consult-treatment": 15
+  },
+  "treatment_copy_integrity": {
+    "completed_single_phase_finalizer_calls": 15,
+    "exact_visible_output_matches": 5,
+    "mismatches": 10,
+    "exact_match_rate": 0.33333333,
+    "comparison": "UTF-8 finalizer text and visible model output after trimming outer whitespace"
+  },
+  "per_question": [
+    {
+      "question_id": "q031-graph-routing-boundary",
+      "treatment_rows": 3,
+      "exact_matches": 0
+    },
+    {
+      "question_id": "q032-incremental-update-maturity",
+      "treatment_rows": 3,
+      "exact_matches": 2
+    },
+    {
+      "question_id": "q033-corruption-specific-defenses",
+      "treatment_rows": 3,
+      "exact_matches": 1
+    },
+    {
+      "question_id": "q034-nonmonotonic-context-budget",
+      "treatment_rows": 3,
+      "exact_matches": 1
+    },
+    {
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "treatment_rows": 3,
+      "exact_matches": 1
+    }
+  ],
+  "observed_failure": {
+    "class": "post-finalizer-copy-mutation",
+    "example": "A q031 response changed a versioned source-path separator from a dot to a hyphen while preserving the output length.",
+    "impact": "The visible answer can invalidate an otherwise authoritative finalizer binding.",
+    "required_remediation": "Two-phase finalization with byte-exact candidate confirmation and a visible-output hash attestation."
+  },
+  "raw_retention": "Promptfoo rows and Codex traces remain append-only and ignored; no raw answer or machine path is published here."
+}

@@ -1,0 +1,461 @@
+{
+  "schema_version": "semantic-okf-astro-q039-holdout-result/1.0",
+  "status": "pass",
+  "holdout": {
+    "post_tuning": true,
+    "frozen_before_live_execution": true,
+    "completed_live_evaluations": 1,
+    "skill_changed_after_result": false,
+    "executed_skill_tree_sha256": "ab66ade281810abc10ff626d3189d78314f8c939874c3aed86634e1023f8fe19",
+    "causal_scope": "one same-model, same-bundle q039 control/treatment pair"
+  },
+  "accepted_run": {
+    "run_id": "2026-07-16T11-59-44-962Z-compare",
+    "eval_id": "eval-jIy-2026-07-16T11:59:52",
+    "benchmark_id": "semantic-okf-astro-q039-ensemble-post-tuning-holdout",
+    "question_id": "q039",
+    "variant_id": "pi-luna-only",
+    "compare_directory": "results/semantic-okf-astro-q039-ensemble-post-tuning-holdout/2026-07-16T11-59-44-962Z-compare"
+  },
+  "outcome": {
+    "control_pass_rate": 1.0,
+    "treatment_pass_rate": 1.0,
+    "absolute_percentage_point_delta": 0.0,
+    "control_evidence_status": "pass",
+    "treatment_evidence_status": "pass",
+    "interpretation": "The treatment passes the frozen response-contract and evidence-validity gates, but the control also passes. This is contract-level no-regression evidence, not evidence of superiority or exact ground-truth sufficiency parity."
+  },
+  "profiles": [
+    {
+      "profile_id": "knowledge-only-control",
+      "causal_role": "passive-control",
+      "skill_enabled": false,
+      "pass": true,
+      "pass_rate": 1,
+      "score": 1,
+      "latency_ms": 75842,
+      "assertions": [
+        {
+          "metric": "response-format",
+          "type": "is-json",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "0ef2d47bb00024c2c952b999392fcbfb76f48a0b7a28190b0b11c26b9e18dece"
+        },
+        {
+          "metric": "response-contract",
+          "type": "javascript",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "977f4893abbf26dfe6aa229274d8ce27b400746ecc66b3701fb458b93b583cf4"
+        },
+        {
+          "metric": "grounded-answer",
+          "type": "javascript",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "321f7093a796942cc610a421cdf59e1410463650808229b7fafe0e66b6fdaffb"
+        }
+      ],
+      "response_metadata": {
+        "output_bytes": 3343,
+        "output_sha256": "9adc81bb995792c601fa959b75a61da56e782eada518c2fba4569a9372f5b387",
+        "strict_json": true,
+        "trailing_character_count": 0,
+        "trailing_text_sha256": null,
+        "top_level_key_order": [
+          "question_id",
+          "answer",
+          "evidence"
+        ]
+      },
+      "parsed_response": {
+        "question_id": "q039",
+        "answer": {
+          "summary": "With ClientRouter, treat scripts as either once-only modules or navigation-time inline code. Keep initialization idempotent and choose lifecycle hooks according to whether it targets persistent or replaced DOM.",
+          "claims": [
+            {
+              "statement": "Astro processes attribute-free scripts (apart from src) as bundled TypeScript modules, automatically makes them type=\"module\", bundles imports, and deduplicates component scripts per page. Under ClientRouter, bundled module scripts execute only once; later transitions ignore them even when present again.",
+              "evidence_indices": [
+                0
+              ]
+            },
+            {
+              "statement": "Inline scripts are a separate contract: is:inline leaves code unprocessed and exactly where authored, and inline elements are not deduplicated, so component instances can duplicate execution. Inline code can re-execute when revisiting a page; data-astro-rerun forces an inline script to execute after every transition. Any script attribute implicitly makes the script inline, so data-astro-rerun is unavailable to processed modules.",
+              "evidence_indices": [
+                0,
+                1
+              ]
+            },
+            {
+              "statement": "For navigation-time initialization, use Astro lifecycle events rather than DOMContentLoaded. Events occur in order: astro:before-preparation, astro:after-preparation, astro:before-swap, astro:after-swap, then astro:page-load. After the swap, Astro executes new scripts, and astro:page-load fires at navigation completion; it fires on the initial prerendered page and subsequent forward or backward navigations.",
+              "evidence_indices": [
+                0
+              ]
+            },
+            {
+              "statement": "Because window is preserved across transitions, persistent global state and global listener installation must be guarded by a window sentinel (or equivalent idempotence check) so revisited/rerun inline code cannot register the same persistent listener repeatedly. Page-local handlers that target replaced DOM should instead be attached from astro:page-load and made safe for repeated setup.",
+              "evidence_indices": [
+                0
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "source_id": "astro-doc-39e56439264bac6b",
+            "record_id": "sources/mdx/guides/client-side-scripts",
+            "concept_path": "concepts/astro-doc-39e56439264bac6b/sources-mdx-guides-client-side-scripts-fd26b88d3f.md",
+            "source_path": "sources/mdx/guides/client-side-scripts.mdx",
+            "record_sha256": "6b5168e85cacfe35442d51f14441908cd2b568b760e0eff46370dfdd51e27d04",
+            "locator": {
+              "kind": "record"
+            },
+            "text_sha256": "6005f2ad5bfdfb05a4f239899fdd5f8c333454f050781b7b06d7b7a378a1d93c"
+          },
+          {
+            "source_id": "astro-doc-4effbbdbfc72e2bc",
+            "record_id": "sources/mdx/reference/directives-reference",
+            "concept_path": "concepts/astro-doc-4effbbdbfc72e2bc/sources-mdx-reference-directives-reference-ee8120f3db.md",
+            "source_path": "sources/mdx/reference/directives-reference.mdx",
+            "record_sha256": "60f7c17ee18edc6294307977abc7811d5efc47fea49bf638d924712d56daea4f",
+            "locator": {
+              "kind": "record"
+            },
+            "text_sha256": "4fa58142469ab25e244f408e34f0733fce259ef9dba035e01261828c5be50674"
+          },
+          {
+            "source_id": "astro-doc-2a9b61ab94420eaa",
+            "record_id": "sources/mdx/guides/view-transitions",
+            "concept_path": "concepts/astro-doc-2a9b61ab94420eaa/sources-mdx-guides-view-transitions-3f0328ca64.md",
+            "source_path": "sources/mdx/guides/view-transitions.mdx",
+            "record_sha256": "eb24a05cc6004b8e177277a0efc03535679107df65b0ce141f3c98969b89cf5a",
+            "locator": {
+              "kind": "record"
+            },
+            "text_sha256": "9182c5295dda1a5ab1a867367187f4d563b06257d30b2497ff6636d46390ed83"
+          }
+        ]
+      },
+      "evidence_validation": {
+        "status": "pass",
+        "returned": 3,
+        "valid": 3,
+        "invalid": 0,
+        "all_valid": true,
+        "rows": [
+          {
+            "index": 0,
+            "valid": true,
+            "document_id": "/en/guides/client-side-scripts/",
+            "issues": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "document_id": "/en/reference/directives-reference/",
+            "issues": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "document_id": "/en/guides/view-transitions/",
+            "issues": []
+          }
+        ]
+      },
+      "benchmark_evidence_audit": {
+        "response_contract": 1.0,
+        "grounding": 1.0,
+        "evidence_validity": 1.0,
+        "required_document_coverage": 1.0,
+        "authoritative_evidence_completeness": 1.0,
+        "atomic_claim_evidence_completeness": 1.0,
+        "important_negative_evidence_completeness": 1.0,
+        "covered_evidence_ids": [
+          "q039-e1",
+          "q039-e2",
+          "q039-e3",
+          "q039-e4"
+        ],
+        "missing_evidence_ids": [],
+        "covered_document_ids": [
+          "/en/guides/client-side-scripts/",
+          "/en/guides/view-transitions/",
+          "/en/reference/directives-reference/"
+        ]
+      }
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "causal_role": "treatment",
+      "skill_enabled": true,
+      "pass": true,
+      "pass_rate": 1,
+      "score": 1,
+      "latency_ms": 162166,
+      "assertions": [
+        {
+          "metric": "response-format",
+          "type": "is-json",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "0ef2d47bb00024c2c952b999392fcbfb76f48a0b7a28190b0b11c26b9e18dece"
+        },
+        {
+          "metric": "response-contract",
+          "type": "javascript",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "977f4893abbf26dfe6aa229274d8ce27b400746ecc66b3701fb458b93b583cf4"
+        },
+        {
+          "metric": "grounded-answer",
+          "type": "javascript",
+          "pass": true,
+          "score": 1,
+          "reason_summary": "Assertion passed",
+          "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+          "definition_sha256": "321f7093a796942cc610a421cdf59e1410463650808229b7fafe0e66b6fdaffb"
+        }
+      ],
+      "response_metadata": {
+        "output_bytes": 3973,
+        "output_sha256": "c434007c2ae59f9067954e6831c1fd0e796d6fc0b7f68b5b16e11f07f886bc1a",
+        "strict_json": true,
+        "trailing_character_count": 0,
+        "trailing_text_sha256": null,
+        "top_level_key_order": [
+          "question_id",
+          "answer",
+          "evidence"
+        ]
+      },
+      "parsed_response": {
+        "question_id": "q039",
+        "answer": {
+          "summary": "With ClientRouter, treat Astro scripts as two distinct classes. A normal component script is processed as a module: Astro bundles imports, emits type=module behavior, deduplicates the component script when the component is used repeatedly, and may inline small output. That is a build-time inclusion guarantee, not a promise that page-specific initialization will run on every client-side navigation. An explicitly inline script is different: is:inline prevents bundling and processing. Moreover, adding any script attribute implicitly makes it inline, so data-astro-rerun belongs to that unprocessed class. Use data-astro-rerun only when the inline body must execute after every transition; otherwise a script already present in the current document is not executed again. For navigation-aware initialization, replace DOMContentLoaded with Astro’s lifecycle mechanism, specifically astro:page-load, so the setup runs on initial load and after client-side navigation. Finally, separate persistent global infrastructure from page-local setup: install a global listener behind a stable once-only guard (or remove it before re-adding), and keep DOM binding and teardown in the page-load handler. This contract prevents duplicate global registrations while still allowing each newly swapped page to initialize. It also makes intentional reruns explicit rather than relying on whether Astro retained, replaced, or recognized a script.",
+          "claims": [
+            {
+              "statement": "Processed component scripts are bundled as modules, deduplicated when their component is used multiple times on a page, and may be automatically inlined when small.",
+              "evidence_indices": [
+                0
+              ]
+            },
+            {
+              "statement": "is:inline and script attributes select unprocessed inline behavior; data-astro-rerun forces such an inline script to execute after every transition, while scripts already present and not flagged are not executed again.",
+              "evidence_indices": [
+                1,
+                2
+              ]
+            },
+            {
+              "statement": "Navigation-aware initialization should use Astro lifecycle events, replacing DOMContentLoaded with astro:page-load for execution on every page load during client-side navigation.",
+              "evidence_indices": [
+                1
+              ]
+            },
+            {
+              "statement": "Persistent global listener installation should be guarded as one-time infrastructure, while page-local event binding belongs in the navigation lifecycle handler.",
+              "evidence_indices": [
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "source_id": "astro-doc-39e56439264bac6b",
+            "record_id": "sources/mdx/guides/client-side-scripts",
+            "concept_path": "concepts/astro-doc-39e56439264bac6b/sources-mdx-guides-client-side-scripts-fd26b88d3f.md",
+            "source_path": "sources/mdx/guides/client-side-scripts.mdx",
+            "record_sha256": "6b5168e85cacfe35442d51f14441908cd2b568b760e0eff46370dfdd51e27d04",
+            "locator": {
+              "end": 10087,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "text_sha256": "6005f2ad5bfdfb05a4f239899fdd5f8c333454f050781b7b06d7b7a378a1d93c"
+          },
+          {
+            "source_id": "astro-doc-2a9b61ab94420eaa",
+            "record_id": "sources/mdx/guides/view-transitions",
+            "concept_path": "concepts/astro-doc-2a9b61ab94420eaa/sources-mdx-guides-view-transitions-3f0328ca64.md",
+            "source_path": "sources/mdx/guides/view-transitions.mdx",
+            "record_sha256": "eb24a05cc6004b8e177277a0efc03535679107df65b0ce141f3c98969b89cf5a",
+            "locator": {
+              "end": 38104,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "text_sha256": "9182c5295dda1a5ab1a867367187f4d563b06257d30b2497ff6636d46390ed83"
+          },
+          {
+            "source_id": "astro-doc-c2224d9dcde099a5",
+            "record_id": "sources/mdx/reference/modules/astro-transitions",
+            "concept_path": "concepts/astro-doc-c2224d9dcde099a5/sources-mdx-reference-modules-astro-transitions-5aab131a08.md",
+            "source_path": "sources/mdx/reference/modules/astro-transitions.mdx",
+            "record_sha256": "96dc4aa58614cb2c48f95810dafc7e92b6c784c29fbe84cd804fb5fcb8ad3ed4",
+            "locator": {
+              "end": 17913,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "text_sha256": "c3989633051cb76e1da81a26dc35fbc4c55996f878d802a108da9a7117ad3116"
+          }
+        ]
+      },
+      "evidence_validation": {
+        "status": "pass",
+        "returned": 3,
+        "valid": 3,
+        "invalid": 0,
+        "all_valid": true,
+        "rows": [
+          {
+            "index": 0,
+            "valid": true,
+            "document_id": "/en/guides/client-side-scripts/",
+            "issues": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "document_id": "/en/guides/view-transitions/",
+            "issues": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "document_id": "/en/reference/modules/astro-transitions/",
+            "issues": []
+          }
+        ]
+      },
+      "benchmark_evidence_audit": {
+        "response_contract": 1.0,
+        "grounding": 1.0,
+        "evidence_validity": 1.0,
+        "required_document_coverage": 0.6666666666666666,
+        "authoritative_evidence_completeness": 0.75,
+        "atomic_claim_evidence_completeness": 0.8,
+        "important_negative_evidence_completeness": 1.0,
+        "covered_evidence_ids": [
+          "q039-e1",
+          "q039-e2",
+          "q039-e3"
+        ],
+        "missing_evidence_ids": [
+          "q039-e4"
+        ],
+        "covered_document_ids": [
+          "/en/guides/client-side-scripts/",
+          "/en/guides/view-transitions/"
+        ]
+      }
+    }
+  ],
+  "source_artifacts": {
+    "holdout_config": {
+      "path": "evaluations/semantic-okf-astro/skill-arena/q039-ensemble-holdout.yaml",
+      "bytes": 6410,
+      "sha256": "6fe54755b1165c5e147255f431e088e19639bf7b61ded7df19827be80c20054e"
+    },
+    "holdout_manifest": {
+      "path": "evaluations/semantic-okf-astro/skill-arena/q039-ensemble-holdout-manifest.json",
+      "bytes": 2680,
+      "sha256": "f4052b587a8767dfa3a6549a693d8b48d3cb82a7541c42ac1562e1652f3f4a59"
+    },
+    "prompt_coverage": {
+      "path": "evaluations/semantic-okf-astro/skill-arena/q039-ensemble-holdout-prompt-coverage.json",
+      "bytes": 444,
+      "sha256": "5fca2ca7f682aaac10a5b62a07d94e16057d7dd029330b6345344b31f3f3f68c"
+    },
+    "promptfoo_results": {
+      "path": "results/semantic-okf-astro-q039-ensemble-post-tuning-holdout/2026-07-16T11-59-44-962Z-compare/promptfoo-results.json",
+      "bytes": 51277,
+      "sha256": "e19850e9cdf89b6b578a1a2de4032e0c49dcde4e6c139465596bfc7f8fba7856"
+    },
+    "promptfoo_config": {
+      "path": "results/semantic-okf-astro-q039-ensemble-post-tuning-holdout/2026-07-16T11-59-44-962Z-compare/promptfooconfig.yaml",
+      "bytes": 10632,
+      "sha256": "4a8af58d33dee1e8d4ca5f83d9e5b6adc87560db22aed66930a3bb44953b089d"
+    },
+    "skill_arena_summary": {
+      "path": "results/semantic-okf-astro-q039-ensemble-post-tuning-holdout/2026-07-16T11-59-44-962Z-compare/summary.json",
+      "bytes": 36233,
+      "sha256": "da5e80d8df65973d86c57be4686860951c905f62ae9b4f2ce8457adf7683cc70"
+    },
+    "authoritative_records": {
+      "path": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a/semantic/records.jsonl",
+      "bytes": 3455749,
+      "sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b"
+    },
+    "source_crosswalk": {
+      "path": "evaluations/semantic-okf-astro/corpus/source-combination.json",
+      "bytes": 438819,
+      "sha256": "c09e952254e5f2a4673ec0864bb09be333d8e914a1d0c46284e33953296cb783"
+    },
+    "hard_answer_ground_truth": {
+      "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+      "bytes": 58514,
+      "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+    }
+  },
+  "execution_traces": [
+    {
+      "run_id": "2026-07-16T11-53-25-376Z-compare",
+      "accepted": false,
+      "started_live_evaluation": false,
+      "completed_live_evaluation": false,
+      "classification": "incomplete preflight; no model evaluation",
+      "execution_log_sha256": "57c3d5a5036d4e0bef75768ed50dcfab7c48f8a844d82846a341b747bfa034d4"
+    },
+    {
+      "run_id": "2026-07-16T11-53-54-729Z-compare",
+      "accepted": false,
+      "started_live_evaluation": false,
+      "completed_live_evaluation": false,
+      "classification": "preflight dry-run; no model evaluation",
+      "execution_log_sha256": "94c5d1f4b018eb5cd5d7b17450cdaa30ce75f04285a36dfd53d5e13f7d1d125a"
+    },
+    {
+      "run_id": "2026-07-16T11-55-49-877Z-compare",
+      "accepted": false,
+      "started_live_evaluation": false,
+      "completed_live_evaluation": false,
+      "classification": "preflight dry-run; no model evaluation",
+      "execution_log_sha256": "1010f33733a857f5ddc21a24da51b2faebd7f27803f2e7d78966a8a3691957da"
+    },
+    {
+      "run_id": "2026-07-16T11-59-44-962Z-compare",
+      "accepted": true,
+      "started_live_evaluation": true,
+      "completed_live_evaluation": true,
+      "classification": "accepted completed live holdout",
+      "execution_log_sha256": "232ed111a851d2bce900398edd33a8cf26d9a3c812aa45b9b232f517a44f07ae"
+    }
+  ],
+  "privacy": {
+    "raw_environment_copied": false,
+    "raw_workspace_paths_copied": false,
+    "parsed_model_responses_retained_exactly": true
+  }
+}

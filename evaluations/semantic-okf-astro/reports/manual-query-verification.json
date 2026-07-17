@@ -1,0 +1,1128 @@
+{
+  "execution_contract": {
+    "answer_method": "ground-truth-blind diversified query-overlap extract",
+    "candidate_pool": 100,
+    "mcp_dependency": false,
+    "network": "offline",
+    "question_id": "q040",
+    "repeat_count": 2,
+    "route_selection": "best family routes frozen by retrieval-comparison schema 1.0"
+  },
+  "families": [
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/reference/configuration-reference/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi…"
+            },
+            {
+              "document_id": "/en/guides/upgrade-to/v5/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "Astro v5.0 merges the `output: 'hybrid'` and `output: 'static'` configurations into one single configuration (now called `'static'`) that works the same way as the previous hybrid option."
+            },
+            {
+              "document_id": "/en/reference/integrations-reference/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "```ts\ninterface AstroIntegration {\n  name: string;\n  hooks: {\n    'astro:config:setup'?: (options: {\n      config: AstroConfig;\n      command: 'dev' | 'build' | 'preview' | 'sync';\n      isRestart: boolean;\n      updateConfig: (newConfig: DeepPartial<AstroConfig>) => AstroConfig…"
+            },
+            {
+              "document_id": "/en/guides/upgrade-to/v6/",
+              "evidence_rank": 4,
+              "id": "extract-04",
+              "statement": "Astro 6.0 uses Vite's new Environment API for build configuration and dev server interactions."
+            },
+            {
+              "document_id": "/en/guides/routing/",
+              "evidence_rank": 5,
+              "id": "extract-05",
+              "statement": "In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option."
+            }
+          ],
+          "document_ids": [
+            "/en/guides/routing/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/guides/upgrade-to/v6/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/integrations-reference/"
+          ],
+          "summary": "[/en/reference/configuration-reference/] ```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi… [/en/guides/upgrade-to/v5/] Astro v5.0 merges the `output: 'hybrid'` and `output: 'static'` configurations into one single configuration (now called `'static'`) that works the same way as the previous hybrid option. [/en/reference/integrations-reference/] ```ts\ninterface AstroIntegration {\n  name: string;\n  hooks: {\n    'astro:config:setup'?: (options: {\n      config: AstroConfig;\n      command: 'dev' | 'build' | 'preview' | 'sync';\n      isRestart: boolean;\n      updateConfig: (newConfig: DeepPartial<AstroConfig>) => AstroConfig… [/en/guides/upgrade-to/v6/] Astro 6.0 uses Vite's new Environment API for build configuration and dev server interactions. [/en/guides/routing/] In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option."
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+            "document_id": "/en/reference/configuration-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/configuration-reference",
+            "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+            "source_id": "astro-doc-3c50462cdbdb7a32",
+            "source_path": "sources/mdx/reference/configuration-reference.mdx",
+            "text_sha256": "c69c4ecedb148c9c163e730641e0711829bc1166ef65a559b6c6592542b7e865"
+          },
+          {
+            "concept_path": "concepts/astro-doc-60e7507194bf5ea2/sources-mdx-guides-upgrade-to-v5-b791353c5f.md",
+            "document_id": "/en/guides/upgrade-to/v5/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/upgrade-to/v5",
+            "record_sha256": "e509c1c555389d67a2808cb269633f34de2a2472fc060e0c3f6589728336227f",
+            "source_id": "astro-doc-60e7507194bf5ea2",
+            "source_path": "sources/mdx/guides/upgrade-to/v5.mdx",
+            "text_sha256": "be03c6bc217eebb084efea3a0af8c7f8d989a90b086ca8d8429d3cec5340deb3"
+          },
+          {
+            "concept_path": "concepts/astro-doc-16b8feb4d7e2595e/sources-mdx-reference-integrations-reference-c343421f83.md",
+            "document_id": "/en/reference/integrations-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/integrations-reference",
+            "record_sha256": "7c5f502dfde1aaa78422bc08c1d9ed9c6f3521c98d9f676b7e9639f32fd5a6b6",
+            "source_id": "astro-doc-16b8feb4d7e2595e",
+            "source_path": "sources/mdx/reference/integrations-reference.mdx",
+            "text_sha256": "7d237457030f9c5bdc67aa4fa49b8457cec441ad38c910e41b3bca37f4c4f23f"
+          },
+          {
+            "concept_path": "concepts/astro-doc-c21bb94164385610/sources-mdx-guides-upgrade-to-v6-35acdcfc48.md",
+            "document_id": "/en/guides/upgrade-to/v6/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/upgrade-to/v6",
+            "record_sha256": "6e41406aeeb27e9fd9649a9b087376d2c2496f0de4db4f57ed56c3520154bc31",
+            "source_id": "astro-doc-c21bb94164385610",
+            "source_path": "sources/mdx/guides/upgrade-to/v6.mdx",
+            "text_sha256": "bfe97fb05d86f17c6bf73432a7bdd964983c84307e878b70f6b61efd27f36f65"
+          },
+          {
+            "concept_path": "concepts/astro-doc-edee4d931bfbee3d/sources-mdx-guides-routing-3c3bf608b2.md",
+            "document_id": "/en/guides/routing/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/routing",
+            "record_sha256": "148fcf47d972efebb5aabf92fa829b6391078e38a526ffa5845dee15e1077da0",
+            "source_id": "astro-doc-edee4d931bfbee3d",
+            "source_path": "sources/mdx/guides/routing.mdx",
+            "text_sha256": "7e04a2569f02611cd11bbfa9fb4aae7a208712f472244bedb7f9ef402f4e1782"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 426,
+        "total_bytes": 8718931,
+        "tree_sha256": "6e45d3b4c6ff49a37f9a088aa3411b090a150357ddb6e108ce806ef9885d5632"
+      },
+      "bundle_identity_before": {
+        "file_count": 426,
+        "total_bytes": 8718931,
+        "tree_sha256": "6e45d3b4c6ff49a37f9a088aa3411b090a150357ddb6e108ce806ef9885d5632"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated reads of one evaluator-side deterministic TF-IDF index",
+      "family": "legacy",
+      "ranking_deterministic": true,
+      "route": "legacy_tfidf",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "eb577b0f0e93d12d3c00ff9325a18319170c87217c2a6ebd6284cf3fa8cd2429",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "e22426636809ce4eb474400a2c9b9cd1f8833e92a9dd19e461f50d037d54393a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/reference/configuration-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/integrations-reference/",
+            "/en/guides/upgrade-to/v6/",
+            "/en/guides/routing/",
+            "/en/guides/content-collections/",
+            "/en/reference/routing-reference/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/upgrade-to/v1/",
+            "/en/guides/caching/"
+          ],
+          "valid_evidence": 100
+        },
+        {
+          "evidence_signature_sha256": "eb577b0f0e93d12d3c00ff9325a18319170c87217c2a6ebd6284cf3fa8cd2429",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "e22426636809ce4eb474400a2c9b9cd1f8833e92a9dd19e461f50d037d54393a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/reference/configuration-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/integrations-reference/",
+            "/en/guides/upgrade-to/v6/",
+            "/en/guides/routing/",
+            "/en/guides/content-collections/",
+            "/en/reference/routing-reference/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/upgrade-to/v1/",
+            "/en/guides/caching/"
+          ],
+          "valid_evidence": 100
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/reference/routing-reference/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```astro title=\"src/pages/static-about-page.astro\" {3}\n---\n// with `output: 'server'` configured\nexport const prerender = true\n---\n<!-- My static about page -->\n<!-- All other pages are rendered on demand -->\n```"
+            },
+            {
+              "document_id": "/en/guides/on-demand-rendering/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static!"
+            },
+            {
+              "document_id": "/en/guides/upgrade-to/v5/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "Astro v5.0 merges the `output: 'hybrid'` and `output: 'static'` configurations into one single configuration (now called `'static'`) that works the same way as the previous hybrid option."
+            },
+            {
+              "document_id": "/en/guides/endpoints/",
+              "evidence_rank": 5,
+              "id": "extract-04",
+              "statement": "## Server Endpoints (API Routes)"
+            },
+            {
+              "document_id": "/en/reference/modules/astro-static-paths/",
+              "evidence_rank": 6,
+              "id": "extract-05",
+              "statement": "export function createHandler(app) {\n  return async (request) => {\n    const { pathname } = new URL(request.url);\n    \n    // Endpoint to collect static paths during build\n    if (pathname === '/__astro_static_paths') {\n      const staticPaths = new StaticPaths(app);\n      const…"
+            }
+          ],
+          "document_ids": [
+            "/en/guides/endpoints/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/modules/astro-static-paths/",
+            "/en/reference/routing-reference/"
+          ],
+          "summary": "[/en/reference/routing-reference/] ```astro title=\"src/pages/static-about-page.astro\" {3}\n---\n// with `output: 'server'` configured\nexport const prerender = true\n---\n<!-- My static about page -->\n<!-- All other pages are rendered on demand -->\n``` [/en/guides/on-demand-rendering/] ```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static! [/en/guides/upgrade-to/v5/] Astro v5.0 merges the `output: 'hybrid'` and `output: 'static'` configurations into one single configuration (now called `'static'`) that works the same way as the previous hybrid option. [/en/guides/endpoints/] ## Server Endpoints (API Routes) [/en/reference/modules/astro-static-paths/] export function createHandler(app) {\n  return async (request) => {\n    const { pathname } = new URL(request.url);\n    \n    // Endpoint to collect static paths during build\n    if (pathname === '/__astro_static_paths') {\n      const staticPaths = new StaticPaths(app);\n      const…"
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-ed7b0d0a27542ceb/sources-mdx-reference-routing-reference-315c04b052.md",
+            "document_id": "/en/reference/routing-reference/",
+            "locator": {
+              "end": 3825,
+              "kind": "character-range",
+              "start": 0
+            },
+            "record_id": "sources/mdx/reference/routing-reference",
+            "record_sha256": "a2c19f8c3c653f3d3e5457adbc855842ca1ad1f7cdcebafe0ccbda63852cecb8",
+            "source_id": "astro-doc-ed7b0d0a27542ceb",
+            "source_path": "sources/mdx/reference/routing-reference.mdx",
+            "text_sha256": "e961e628506f38198060853a90b9087c6a28a80bb868de6ae442cd664b5974f9"
+          },
+          {
+            "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+            "document_id": "/en/guides/on-demand-rendering/",
+            "locator": {
+              "end": 5626,
+              "kind": "character-range",
+              "start": 3922
+            },
+            "record_id": "sources/mdx/guides/on-demand-rendering",
+            "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+            "source_id": "astro-doc-67458ae49afefc50",
+            "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+            "text_sha256": "dadff917854661ded6a3491bff9307a5965a12909f162393d06696aa92f741c0"
+          },
+          {
+            "concept_path": "concepts/astro-doc-60e7507194bf5ea2/sources-mdx-guides-upgrade-to-v5-b791353c5f.md",
+            "document_id": "/en/guides/upgrade-to/v5/",
+            "locator": {
+              "end": 19246,
+              "kind": "character-range",
+              "start": 15702
+            },
+            "record_id": "sources/mdx/guides/upgrade-to/v5",
+            "record_sha256": "e509c1c555389d67a2808cb269633f34de2a2472fc060e0c3f6589728336227f",
+            "source_id": "astro-doc-60e7507194bf5ea2",
+            "source_path": "sources/mdx/guides/upgrade-to/v5.mdx",
+            "text_sha256": "7e2d6741b13529afb53c69f92b571e48c5f40406b369ab5e8af8eae2594d09b4"
+          },
+          {
+            "concept_path": "concepts/astro-doc-db7b41aee88b9016/sources-mdx-guides-endpoints-526d039df3.md",
+            "document_id": "/en/guides/endpoints/",
+            "locator": {
+              "end": 4956,
+              "kind": "character-range",
+              "start": 3534
+            },
+            "record_id": "sources/mdx/guides/endpoints",
+            "record_sha256": "e1a30889b018d330ddcc2d29d2dcb60a2886d6b2361d0af7180c21459e5a6140",
+            "source_id": "astro-doc-db7b41aee88b9016",
+            "source_path": "sources/mdx/guides/endpoints.mdx",
+            "text_sha256": "39a45f987a3d5b4b0247a95d5d8a270af49b7db72637c15b3f4c0e1c404db51b"
+          },
+          {
+            "concept_path": "concepts/astro-doc-d2631195bf5f3449/sources-mdx-reference-modules-astro-static-paths-72e0e94b05.md",
+            "document_id": "/en/reference/modules/astro-static-paths/",
+            "locator": {
+              "end": 2567,
+              "kind": "character-range",
+              "start": 247
+            },
+            "record_id": "sources/mdx/reference/modules/astro-static-paths",
+            "record_sha256": "7d060f1fea3287f9f2ceeea0c1e8ad7185c2dbdedf34b13e11a66392c01f68a8",
+            "source_id": "astro-doc-d2631195bf5f3449",
+            "source_path": "sources/mdx/reference/modules/astro-static-paths.mdx",
+            "text_sha256": "15eef56232745a455af825282f56a871577c030de9dfa59d2972649a9ccde295"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 430,
+        "total_bytes": 21970171,
+        "tree_sha256": "5cfb7c642b31f2319c7286d3ddcf17754f10c8d278993b734405bc05919d2d1a"
+      },
+      "bundle_identity_before": {
+        "file_count": 430,
+        "total_bytes": 21970171,
+        "tree_sha256": "5cfb7c642b31f2319c7286d3ddcf17754f10c8d278993b734405bc05919d2d1a"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated warm in-process reads of one deep-validated published bundle; no route fallback",
+      "family": "embeddings",
+      "ranking_deterministic": true,
+      "route": "lexical",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "662e59cdc955e41d4053100b1ac89f3790463cd4897bbf86b64c2572fc15b2e6",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "96565c094a95e184ae1d8952d5b2122837835870f44b78e7ee3199b881fd704f",
+          "required_document_recall_at_10": 1.0,
+          "returned": 100,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/reference/routing-reference/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/guides/endpoints/",
+            "/en/reference/modules/astro-static-paths/",
+            "/en/guides/content-collections/",
+            "/en/reference/integrations-reference/",
+            "/en/reference/configuration-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/guides/integrations-guide/netlify/"
+          ],
+          "valid_evidence": 100
+        },
+        {
+          "evidence_signature_sha256": "662e59cdc955e41d4053100b1ac89f3790463cd4897bbf86b64c2572fc15b2e6",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "96565c094a95e184ae1d8952d5b2122837835870f44b78e7ee3199b881fd704f",
+          "required_document_recall_at_10": 1.0,
+          "returned": 100,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/reference/routing-reference/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/guides/endpoints/",
+            "/en/reference/modules/astro-static-paths/",
+            "/en/guides/content-collections/",
+            "/en/reference/integrations-reference/",
+            "/en/reference/configuration-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/guides/integrations-guide/netlify/"
+          ],
+          "valid_evidence": 100
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/guides/on-demand-rendering/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static!"
+            },
+            {
+              "document_id": "/en/guides/routing/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option."
+            },
+            {
+              "document_id": "/en/guides/caching/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request."
+            },
+            {
+              "document_id": "/en/reference/configuration-reference/",
+              "evidence_rank": 4,
+              "id": "extract-04",
+              "statement": "```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi…"
+            },
+            {
+              "document_id": "/en/reference/adapter-reference/",
+              "evidence_rank": 5,
+              "id": "extract-05",
+              "statement": "The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+            }
+          ],
+          "document_ids": [
+            "/en/guides/caching/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/reference/adapter-reference/",
+            "/en/reference/configuration-reference/"
+          ],
+          "summary": "[/en/guides/on-demand-rendering/] ```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static! [/en/guides/routing/] In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option. [/en/guides/caching/] You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request. [/en/reference/configuration-reference/] ```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi… [/en/reference/adapter-reference/] The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+            "document_id": "/en/guides/on-demand-rendering/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/on-demand-rendering",
+            "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+            "source_id": "astro-doc-67458ae49afefc50",
+            "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+            "text_sha256": "64f3baf78b0b04488a1f7ae89d042371fd56028ecf5444776753cae8b0128002"
+          },
+          {
+            "concept_path": "concepts/astro-doc-edee4d931bfbee3d/sources-mdx-guides-routing-3c3bf608b2.md",
+            "document_id": "/en/guides/routing/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/routing",
+            "record_sha256": "148fcf47d972efebb5aabf92fa829b6391078e38a526ffa5845dee15e1077da0",
+            "source_id": "astro-doc-edee4d931bfbee3d",
+            "source_path": "sources/mdx/guides/routing.mdx",
+            "text_sha256": "7e04a2569f02611cd11bbfa9fb4aae7a208712f472244bedb7f9ef402f4e1782"
+          },
+          {
+            "concept_path": "concepts/astro-doc-6cdc77179daee9ce/sources-mdx-guides-caching-cc4b0fd2c1.md",
+            "document_id": "/en/guides/caching/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/caching",
+            "record_sha256": "90e524f13c922afdd467f533536d611b33655bf344e5abb80054155609630582",
+            "source_id": "astro-doc-6cdc77179daee9ce",
+            "source_path": "sources/mdx/guides/caching.mdx",
+            "text_sha256": "d26040d4197ad1f982298b70eccacb0b30dbebe1c009deaefb90873195e0c498"
+          },
+          {
+            "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+            "document_id": "/en/reference/configuration-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/configuration-reference",
+            "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+            "source_id": "astro-doc-3c50462cdbdb7a32",
+            "source_path": "sources/mdx/reference/configuration-reference.mdx",
+            "text_sha256": "c69c4ecedb148c9c163e730641e0711829bc1166ef65a559b6c6592542b7e865"
+          },
+          {
+            "concept_path": "concepts/astro-doc-1269cfbb4f20a502/sources-mdx-reference-adapter-reference-0c0f5e5ae3.md",
+            "document_id": "/en/reference/adapter-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/adapter-reference",
+            "record_sha256": "56f26dc20c99636b51d78f603152e5f83b6ca632b28ec0187ea1c286da70777b",
+            "source_id": "astro-doc-1269cfbb4f20a502",
+            "source_path": "sources/mdx/reference/adapter-reference.mdx",
+            "text_sha256": "f6c8dc78c4a7d6352f891d6715265031f1268f842760b7d14e7e4e57ddf9562a"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 432,
+        "total_bytes": 35434313,
+        "tree_sha256": "35d58754842a31e9d2c16e02a7c309a17f5745e82802dcfeaf42ba2e1600b0c7"
+      },
+      "bundle_identity_before": {
+        "file_count": 432,
+        "total_bytes": 35434313,
+        "tree_sha256": "35d58754842a31e9d2c16e02a7c309a17f5745e82802dcfeaf42ba2e1600b0c7"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated warm in-process reads of one deep-validated published bundle; no route fallback",
+      "family": "classical",
+      "ranking_deterministic": true,
+      "route": "association",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "e2127753ae7838a389fe4ea242e91657d1d1046a6f5d53ecb2faa4a2f45fef0f",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "f557d9f81d2d27db18a982dee360caeb3cecab50a2bab8ab88385edaa3f31a8a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/routing-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/modules/astro-app/",
+            "/en/reference/integrations-reference/"
+          ],
+          "valid_evidence": 100
+        },
+        {
+          "evidence_signature_sha256": "e2127753ae7838a389fe4ea242e91657d1d1046a6f5d53ecb2faa4a2f45fef0f",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "f557d9f81d2d27db18a982dee360caeb3cecab50a2bab8ab88385edaa3f31a8a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/routing-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/modules/astro-app/",
+            "/en/reference/integrations-reference/"
+          ],
+          "valid_evidence": 100
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/guides/on-demand-rendering/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static!"
+            },
+            {
+              "document_id": "/en/guides/routing/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option."
+            },
+            {
+              "document_id": "/en/guides/caching/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request."
+            },
+            {
+              "document_id": "/en/reference/configuration-reference/",
+              "evidence_rank": 4,
+              "id": "extract-04",
+              "statement": "```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi…"
+            },
+            {
+              "document_id": "/en/reference/adapter-reference/",
+              "evidence_rank": 5,
+              "id": "extract-05",
+              "statement": "The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+            }
+          ],
+          "document_ids": [
+            "/en/guides/caching/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/reference/adapter-reference/",
+            "/en/reference/configuration-reference/"
+          ],
+          "summary": "[/en/guides/on-demand-rendering/] ```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static! [/en/guides/routing/] In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option. [/en/guides/caching/] You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request. [/en/reference/configuration-reference/] ```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi… [/en/reference/adapter-reference/] The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+            "document_id": "/en/guides/on-demand-rendering/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/on-demand-rendering",
+            "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+            "source_id": "astro-doc-67458ae49afefc50",
+            "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+            "text_sha256": "64f3baf78b0b04488a1f7ae89d042371fd56028ecf5444776753cae8b0128002"
+          },
+          {
+            "concept_path": "concepts/astro-doc-edee4d931bfbee3d/sources-mdx-guides-routing-3c3bf608b2.md",
+            "document_id": "/en/guides/routing/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/routing",
+            "record_sha256": "148fcf47d972efebb5aabf92fa829b6391078e38a526ffa5845dee15e1077da0",
+            "source_id": "astro-doc-edee4d931bfbee3d",
+            "source_path": "sources/mdx/guides/routing.mdx",
+            "text_sha256": "7e04a2569f02611cd11bbfa9fb4aae7a208712f472244bedb7f9ef402f4e1782"
+          },
+          {
+            "concept_path": "concepts/astro-doc-6cdc77179daee9ce/sources-mdx-guides-caching-cc4b0fd2c1.md",
+            "document_id": "/en/guides/caching/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/guides/caching",
+            "record_sha256": "90e524f13c922afdd467f533536d611b33655bf344e5abb80054155609630582",
+            "source_id": "astro-doc-6cdc77179daee9ce",
+            "source_path": "sources/mdx/guides/caching.mdx",
+            "text_sha256": "d26040d4197ad1f982298b70eccacb0b30dbebe1c009deaefb90873195e0c498"
+          },
+          {
+            "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+            "document_id": "/en/reference/configuration-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/configuration-reference",
+            "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+            "source_id": "astro-doc-3c50462cdbdb7a32",
+            "source_path": "sources/mdx/reference/configuration-reference.mdx",
+            "text_sha256": "c69c4ecedb148c9c163e730641e0711829bc1166ef65a559b6c6592542b7e865"
+          },
+          {
+            "concept_path": "concepts/astro-doc-1269cfbb4f20a502/sources-mdx-reference-adapter-reference-0c0f5e5ae3.md",
+            "document_id": "/en/reference/adapter-reference/",
+            "locator": {
+              "kind": "record"
+            },
+            "record_id": "sources/mdx/reference/adapter-reference",
+            "record_sha256": "56f26dc20c99636b51d78f603152e5f83b6ca632b28ec0187ea1c286da70777b",
+            "source_id": "astro-doc-1269cfbb4f20a502",
+            "source_path": "sources/mdx/reference/adapter-reference.mdx",
+            "text_sha256": "f6c8dc78c4a7d6352f891d6715265031f1268f842760b7d14e7e4e57ddf9562a"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 433,
+        "total_bytes": 35435525,
+        "tree_sha256": "ec3907cbe7a33a04b2e4582ca87773e2135224308eb6f4de24589319e242e62e"
+      },
+      "bundle_identity_before": {
+        "file_count": 433,
+        "total_bytes": 35435525,
+        "tree_sha256": "ec3907cbe7a33a04b2e4582ca87773e2135224308eb6f4de24589319e242e62e"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated warm in-process reads of one deep-validated published bundle; no route fallback",
+      "family": "adaptive",
+      "ranking_deterministic": true,
+      "route": "association",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "e2127753ae7838a389fe4ea242e91657d1d1046a6f5d53ecb2faa4a2f45fef0f",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "f557d9f81d2d27db18a982dee360caeb3cecab50a2bab8ab88385edaa3f31a8a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/routing-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/modules/astro-app/",
+            "/en/reference/integrations-reference/"
+          ],
+          "valid_evidence": 100
+        },
+        {
+          "evidence_signature_sha256": "e2127753ae7838a389fe4ea242e91657d1d1046a6f5d53ecb2faa4a2f45fef0f",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "f557d9f81d2d27db18a982dee360caeb3cecab50a2bab8ab88385edaa3f31a8a",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/routing-reference/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/modules/astro-app/",
+            "/en/reference/integrations-reference/"
+          ],
+          "valid_evidence": 100
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/guides/on-demand-rendering/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static!"
+            },
+            {
+              "document_id": "/en/reference/error-reference/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "- [**AdapterSupportOutputMismatch**](/en/reference/errors/adapter-support-output-mismatch/)<br/>Adapter does not support server output."
+            },
+            {
+              "document_id": "/en/reference/configuration-reference/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi…"
+            },
+            {
+              "document_id": "/en/reference/routing-reference/",
+              "evidence_rank": 4,
+              "id": "extract-04",
+              "statement": "```astro title=\"src/pages/static-about-page.astro\" {3}\n---\n// with `output: 'server'` configured\nexport const prerender = true\n---\n<!-- My static about page -->\n<!-- All other pages are rendered on demand -->\n```"
+            },
+            {
+              "document_id": "/en/guides/routing/",
+              "evidence_rank": 5,
+              "id": "extract-05",
+              "statement": "When running `astro build`, Astro will output HTML files with the [meta refresh](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#examples) tag by default."
+            }
+          ],
+          "document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/error-reference/",
+            "/en/reference/routing-reference/"
+          ],
+          "summary": "[/en/guides/on-demand-rendering/] ```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static! [/en/reference/error-reference/] - [**AdapterSupportOutputMismatch**](/en/reference/errors/adapter-support-output-mismatch/)<br/>Adapter does not support server output. [/en/reference/configuration-reference/] ```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi… [/en/reference/routing-reference/] ```astro title=\"src/pages/static-about-page.astro\" {3}\n---\n// with `output: 'server'` configured\nexport const prerender = true\n---\n<!-- My static about page -->\n<!-- All other pages are rendered on demand -->\n``` [/en/guides/routing/] When running `astro build`, Astro will output HTML files with the [meta refresh](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#examples) tag by default."
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+            "document_id": "/en/guides/on-demand-rendering/",
+            "locator": {
+              "end": 5891,
+              "fragment": "record-body-9f0a49f62846ce43e60cedc2",
+              "kind": "character-range",
+              "start": 4388,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/guides/on-demand-rendering",
+            "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+            "source_id": "astro-doc-67458ae49afefc50",
+            "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+            "text_sha256": "5824627aa1d60f925fbed752a048308e9bed56dfc28f0717b1e94c2026ebe0bd"
+          },
+          {
+            "concept_path": "concepts/astro-doc-d6bee6279a720694/sources-mdx-reference-error-reference-fbe90a9c1a.md",
+            "document_id": "/en/reference/error-reference/",
+            "locator": {
+              "end": 4297,
+              "fragment": "record-body-bdfe14f718efba0e13503f42",
+              "kind": "character-range",
+              "start": 310,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/reference/error-reference",
+            "record_sha256": "99c44981eb6971645d6989ed761c48c2c12336b9bf4ed88e8edc466cce5329a0",
+            "source_id": "astro-doc-d6bee6279a720694",
+            "source_path": "sources/mdx/reference/error-reference.mdx",
+            "text_sha256": "cc6afc2308abda0e7c2a3009549369e4043f36f46abd334f3b1ee0fc92a9e609"
+          },
+          {
+            "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+            "document_id": "/en/reference/configuration-reference/",
+            "locator": {
+              "end": 67441,
+              "fragment": "record-body-57a0fd6d75a36f42ed05a0b3",
+              "kind": "character-range",
+              "start": 66015,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/reference/configuration-reference",
+            "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+            "source_id": "astro-doc-3c50462cdbdb7a32",
+            "source_path": "sources/mdx/reference/configuration-reference.mdx",
+            "text_sha256": "f39f03ee292d3ddafbb99691d4136a0e09d7eee233d07404ead4b6dd5cb43bf0"
+          },
+          {
+            "concept_path": "concepts/astro-doc-ed7b0d0a27542ceb/sources-mdx-reference-routing-reference-315c04b052.md",
+            "document_id": "/en/reference/routing-reference/",
+            "locator": {
+              "end": 2232,
+              "fragment": "record-body-e9458942fa7b457dd24ee7ec",
+              "kind": "character-range",
+              "start": 1599,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/reference/routing-reference",
+            "record_sha256": "a2c19f8c3c653f3d3e5457adbc855842ca1ad1f7cdcebafe0ccbda63852cecb8",
+            "source_id": "astro-doc-ed7b0d0a27542ceb",
+            "source_path": "sources/mdx/reference/routing-reference.mdx",
+            "text_sha256": "cbbc4457158df5ea0d53bcac01e3dd6ea0647028194fd00f227bcc8ecd75e82d"
+          },
+          {
+            "concept_path": "concepts/astro-doc-edee4d931bfbee3d/sources-mdx-guides-routing-3c3bf608b2.md",
+            "document_id": "/en/guides/routing/",
+            "locator": {
+              "end": 10987,
+              "fragment": "record-body-ace4c74e6c2b8b231ffdf5bd",
+              "kind": "character-range",
+              "start": 8987,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/guides/routing",
+            "record_sha256": "148fcf47d972efebb5aabf92fa829b6391078e38a526ffa5845dee15e1077da0",
+            "source_id": "astro-doc-edee4d931bfbee3d",
+            "source_path": "sources/mdx/guides/routing.mdx",
+            "text_sha256": "d46a29df01278ad23beb7064dd1ce2d1861c6a07164ea575265b04545c6c4e50"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 433,
+        "total_bytes": 143533327,
+        "tree_sha256": "4c7d60a9b23c46a0164306461c1faf72443b369725689d5933ab722666cfab04"
+      },
+      "bundle_identity_before": {
+        "file_count": 433,
+        "total_bytes": 143533327,
+        "tree_sha256": "4c7d60a9b23c46a0164306461c1faf72443b369725689d5933ab722666cfab04"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated warm in-process reads of one deep-validated published bundle; no route fallback",
+      "family": "entity-graph",
+      "ranking_deterministic": true,
+      "route": "entity",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "a365c5df7ddade926454b0c331c713570149c3597903b00aa8a504291c4d2890",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "8541d61b0ca3cfe9d91d580e8ef823ec154030e9c8716f40ce17067607a675af",
+          "required_document_recall_at_10": 1.0,
+          "returned": 72,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/reference/error-reference/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/routing-reference/",
+            "/en/guides/routing/",
+            "/en/guides/content-collections/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/endpoints/",
+            "/en/reference/programmatic-reference/"
+          ],
+          "valid_evidence": 72
+        },
+        {
+          "evidence_signature_sha256": "a365c5df7ddade926454b0c331c713570149c3597903b00aa8a504291c4d2890",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "8541d61b0ca3cfe9d91d580e8ef823ec154030e9c8716f40ce17067607a675af",
+          "required_document_recall_at_10": 1.0,
+          "returned": 72,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/reference/error-reference/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/routing-reference/",
+            "/en/guides/routing/",
+            "/en/guides/content-collections/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/reference/adapter-reference/",
+            "/en/guides/endpoints/",
+            "/en/reference/programmatic-reference/"
+          ],
+          "valid_evidence": 72
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "all_evidence_valid": true,
+      "answer_pack": {
+        "answer": {
+          "claims": [
+            {
+              "document_id": "/en/guides/on-demand-rendering/",
+              "evidence_rank": 1,
+              "id": "extract-01",
+              "statement": "```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static!"
+            },
+            {
+              "document_id": "/en/guides/routing/",
+              "evidence_rank": 2,
+              "id": "extract-02",
+              "statement": "In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option."
+            },
+            {
+              "document_id": "/en/guides/caching/",
+              "evidence_rank": 3,
+              "id": "extract-03",
+              "statement": "You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request."
+            },
+            {
+              "document_id": "/en/reference/configuration-reference/",
+              "evidence_rank": 4,
+              "id": "extract-04",
+              "statement": "```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi…"
+            },
+            {
+              "document_id": "/en/reference/adapter-reference/",
+              "evidence_rank": 5,
+              "id": "extract-05",
+              "statement": "The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+            }
+          ],
+          "document_ids": [
+            "/en/guides/caching/",
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/reference/adapter-reference/",
+            "/en/reference/configuration-reference/"
+          ],
+          "summary": "[/en/guides/on-demand-rendering/] ```astro title=\"src/pages/about-my-app.astro\" ins={2}\n---\nexport const prerender = true\n---\n<html>\n<!--\n`output: 'server'` is configured, but this page is static! [/en/guides/routing/] In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option. [/en/guides/caching/] You can then use [`Astro.cache`](/en/reference/api-reference/#cache) in your `.astro` pages (or `context.cache` for API routes and middleware) to control caching per request. [/en/reference/configuration-reference/] ```js\n//astro.config.mjs\nexport default defineConfig({\n\t site: \"https://example.com\",\n\t output: \"server\", // required, with no prerendered pages\n\t adapter: node({\n\t   mode: 'standalone',\n\t }),\n\t i18n: {\n    defaultLocale: \"en\",\n    locales: [\"en\", \"fr\", \"pt-br\", \"es\"],\n    prefi… [/en/reference/adapter-reference/] The following example creates an adapter with a server entrypoint and stable support for Astro static output:"
+        },
+        "evidence": [
+          {
+            "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+            "document_id": "/en/guides/on-demand-rendering/",
+            "locator": {
+              "end": 11578,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/guides/on-demand-rendering",
+            "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+            "source_id": "astro-doc-67458ae49afefc50",
+            "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+            "text_sha256": "64f3baf78b0b04488a1f7ae89d042371fd56028ecf5444776753cae8b0128002"
+          },
+          {
+            "concept_path": "concepts/astro-doc-edee4d931bfbee3d/sources-mdx-guides-routing-3c3bf608b2.md",
+            "document_id": "/en/guides/routing/",
+            "locator": {
+              "end": 29204,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/guides/routing",
+            "record_sha256": "148fcf47d972efebb5aabf92fa829b6391078e38a526ffa5845dee15e1077da0",
+            "source_id": "astro-doc-edee4d931bfbee3d",
+            "source_path": "sources/mdx/guides/routing.mdx",
+            "text_sha256": "7e04a2569f02611cd11bbfa9fb4aae7a208712f472244bedb7f9ef402f4e1782"
+          },
+          {
+            "concept_path": "concepts/astro-doc-6cdc77179daee9ce/sources-mdx-guides-caching-cc4b0fd2c1.md",
+            "document_id": "/en/guides/caching/",
+            "locator": {
+              "end": 11209,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/guides/caching",
+            "record_sha256": "90e524f13c922afdd467f533536d611b33655bf344e5abb80054155609630582",
+            "source_id": "astro-doc-6cdc77179daee9ce",
+            "source_path": "sources/mdx/guides/caching.mdx",
+            "text_sha256": "d26040d4197ad1f982298b70eccacb0b30dbebe1c009deaefb90873195e0c498"
+          },
+          {
+            "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+            "document_id": "/en/reference/configuration-reference/",
+            "locator": {
+              "end": 77315,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/reference/configuration-reference",
+            "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+            "source_id": "astro-doc-3c50462cdbdb7a32",
+            "source_path": "sources/mdx/reference/configuration-reference.mdx",
+            "text_sha256": "c69c4ecedb148c9c163e730641e0711829bc1166ef65a559b6c6592542b7e865"
+          },
+          {
+            "concept_path": "concepts/astro-doc-1269cfbb4f20a502/sources-mdx-reference-adapter-reference-0c0f5e5ae3.md",
+            "document_id": "/en/reference/adapter-reference/",
+            "locator": {
+              "end": 36781,
+              "fragment": null,
+              "kind": "character-range",
+              "start": 0,
+              "target": "record-body"
+            },
+            "record_id": "sources/mdx/reference/adapter-reference",
+            "record_sha256": "56f26dc20c99636b51d78f603152e5f83b6ca632b28ec0187ea1c286da70777b",
+            "source_id": "astro-doc-1269cfbb4f20a502",
+            "source_path": "sources/mdx/reference/adapter-reference.mdx",
+            "text_sha256": "f6c8dc78c4a7d6352f891d6715265031f1268f842760b7d14e7e4e57ddf9562a"
+          }
+        ],
+        "method": "ground-truth-blind diversified query-overlap extract"
+      },
+      "bundle_identity_after": {
+        "file_count": 447,
+        "total_bytes": 183942500,
+        "tree_sha256": "5c842b0dc4008f42a14cb7012e175565ef931ff72f6618efaa47e691ce699745"
+      },
+      "bundle_identity_before": {
+        "file_count": 447,
+        "total_bytes": 183942500,
+        "tree_sha256": "5c842b0dc4008f42a14cb7012e175565ef931ff72f6618efaa47e691ce699745"
+      },
+      "bundle_unchanged": true,
+      "evidence_deterministic": true,
+      "execution": "two repeated warm in-process reads of one deep-validated published bundle; no route fallback",
+      "family": "ensemble",
+      "ranking_deterministic": true,
+      "route": "quality",
+      "run_count": 2,
+      "runs": [
+        {
+          "evidence_signature_sha256": "0fc1fb518814dc93746dfaa529f1e0ab5dc6bf1eee6eeb5a5bb085f6ee9a2977",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "77eefdc62720976e842510679858c37dad4074379234b79c34e6ddb75c9b2a08",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 1,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/reference/routing-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/integrations-reference/",
+            "/en/reference/modules/astro-app/"
+          ],
+          "valid_evidence": 100
+        },
+        {
+          "evidence_signature_sha256": "0fc1fb518814dc93746dfaa529f1e0ab5dc6bf1eee6eeb5a5bb085f6ee9a2977",
+          "invalid_evidence": 0,
+          "ranking_signature_sha256": "77eefdc62720976e842510679858c37dad4074379234b79c34e6ddb75c9b2a08",
+          "required_document_recall_at_10": 0.6666666666666666,
+          "returned": 100,
+          "run": 2,
+          "top_10_document_ids": [
+            "/en/guides/on-demand-rendering/",
+            "/en/guides/routing/",
+            "/en/guides/caching/",
+            "/en/reference/configuration-reference/",
+            "/en/reference/adapter-reference/",
+            "/en/reference/routing-reference/",
+            "/en/guides/upgrade-to/v5/",
+            "/en/guides/integrations-guide/vercel/",
+            "/en/reference/integrations-reference/",
+            "/en/reference/modules/astro-app/"
+          ],
+          "valid_evidence": 100
+        }
+      ],
+      "status": "pass"
+    }
+  ],
+  "inputs": {
+    "questions": {
+      "path": "evaluations/semantic-okf-astro/benchmark/retrieval-questions.jsonl",
+      "sha256": "c15cd2c2f920e9e85bf62c45953d7cc4bb8b04570007d5d6fd8890aa7537b601"
+    },
+    "retrieval_report": {
+      "path": "evaluations/semantic-okf-astro/reports/retrieval-comparison.json",
+      "sha256": "5a2e0a61fa7a8308693dfec5fe68220e80989f5aa0127496de4cd3cb8da0044b"
+    },
+    "run_dir": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01",
+    "source_combination": {
+      "path": "evaluations/semantic-okf-astro/corpus/source-combination.json",
+      "sha256": "c09e952254e5f2a4673ec0864bb09be333d8e914a1d0c46284e33953296cb783"
+    }
+  },
+  "question": {
+    "id": "q040",
+    "required_document_ids": [
+      "/en/guides/endpoints/",
+      "/en/guides/on-demand-rendering/",
+      "/en/reference/routing-reference/"
+    ],
+    "required_source_ids": [
+      "astro-doc-67458ae49afefc50",
+      "astro-doc-db7b41aee88b9016",
+      "astro-doc-ed7b0d0a27542ceb"
+    ],
+    "sha256": "23ebbd5caecc5d00544c6fd18c914fcfc85ee44562420a054be6aeb6a4012924",
+    "text": "A primarily static Astro site needs one cookie-aware account page and one request-time API route, while all other routes should stay prerendered. Derive the output, adapter, per-route, endpoint, and request-feature configuration, including the inverse design if server output becomes the default.",
+    "type": "hard"
+  },
+  "schema_version": "semantic-okf-astro-manual-query-verification/1.0",
+  "status": "pass"
+}

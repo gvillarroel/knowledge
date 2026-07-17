@@ -1,0 +1,170 @@
+{
+  "schema_version": "semantic-okf-ensemble-answer-evaluation-contract/1.5",
+  "benchmark": {
+    "id": "semantic-okf-ensemble-hard10-three-arm",
+    "profiles": [
+      "knowledge-only-control",
+      "adaptive-consult-control",
+      "ensemble-consult-treatment"
+    ],
+    "variant_id": "codex-luna-tools",
+    "command_path": "publication-runtime\\run_codex.cmd",
+    "question_ids": [
+      "q031-graph-routing-boundary",
+      "q032-incremental-update-maturity",
+      "q033-corruption-specific-defenses",
+      "q034-nonmonotonic-context-budget",
+      "q035-lossless-enough-evidence-organization",
+      "q036-evaluation-leakage-and-stage-separation",
+      "q037-domain-construction-under-constraints",
+      "q038-failure-aware-query-router",
+      "q039-baseline-bound-efficiency-claims",
+      "q040-answer-source-control"
+    ],
+    "repetitions_per_cell": 3,
+    "total_answers": 90
+  },
+  "bundle": {
+    "run_id": "20260715-ensemble-final-03",
+    "repository_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+    "file_count": 904,
+    "tree_sha256": "ed9386b63e4e087eea0fe62cd53eeb22e8f9cc4d5973b45eae7d736d9b77f868",
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939",
+    "ensemble_plan_sha256": "cbbc28d140667670621260513d08998a740227f2bdf93f4dce754f4c996dd8eb",
+    "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "records_sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc",
+    "record_count": 874,
+    "source_manifest_sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+  },
+  "ground_truth": {
+    "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+    "sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451",
+    "schema_version": "semantic-okf-hard-ground-truth/1.0",
+    "benchmark_manifest_path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/frozen-answer-benchmark.json",
+    "benchmark_manifest_sha256": "257997cc2da3d9afae596ac8b46551a1b1fa73480f15861a25f262bb85a91f62",
+    "benchmark_id": "semantic-okf-ensemble-reviewed-answer-40-plus-hard10-v1"
+  },
+  "response_contract": {
+    "top_level_keys": [
+      "question_id",
+      "answer",
+      "evidence"
+    ],
+    "answer_keys": [
+      "summary",
+      "claims",
+      "paper_ids",
+      "citations"
+    ],
+    "claim_keys": [
+      "statement",
+      "supporting_claim_ids"
+    ],
+    "citation_keys": [
+      "paper_id",
+      "pages"
+    ],
+    "evidence_keys": [
+      "claim_id",
+      "concept_path",
+      "paper_id",
+      "source_path",
+      "locators"
+    ],
+    "summary_min_words": 180,
+    "summary_max_words": 320
+  },
+  "review": {
+    "schema_version": "semantic-okf-ensemble-answer-review/1.1",
+    "model": "openai-codex/gpt-5.6-luna",
+    "blinded": true,
+    "score_values": [
+      0,
+      0.5,
+      1
+    ],
+    "maximum_note_words": 35
+  },
+  "metrics": [
+    "response_contract",
+    "evidence_validity",
+    "grounding",
+    "claim_correctness",
+    "semantic_completeness",
+    "exact_atomic_evidence_coverage",
+    "required_paper_coverage",
+    "required_source_coverage",
+    "important_negative_coverage",
+    "exact_negative_evidence_coverage"
+  ],
+  "publication": {
+    "raw_root": "evaluations/semantic-okf-ensemble/results",
+    "raw_outputs_ignored": true,
+    "compact_schema_version": "semantic-okf-ensemble-answer-output-comparison/1.2",
+    "append_only": true,
+    "mcp_protocol": {
+      "tools": [
+        "semantic_okf_bootstrap_skill",
+        "semantic_okf_inspect",
+        "semantic_okf_coverage_brief",
+        "semantic_okf_prepare_answer",
+        "semantic_okf_confirm_answer"
+      ],
+      "bootstrap_schema": "semantic-okf-skill-bootstrap/1.0",
+      "bootstrap_key_order": [
+        "schema",
+        "skill_id",
+        "skill_sha256",
+        "byte_count",
+        "skill_markdown"
+      ],
+      "bootstrap_skill_id": "consult-semantic-okf-ensemble",
+      "bootstrap_skill_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2",
+      "bootstrap_skill_byte_count": 15699,
+      "bootstrap_exactly_once": true,
+      "bootstrap_first": true,
+      "treatment_shell_tool_disabled": true,
+      "treatment_skill_id": "consult-semantic-okf-ensemble",
+      "shell_disable_arguments": [
+        "--disable",
+        "shell_tool"
+      ],
+      "shell_isolation_receipt_schema": "semantic-okf-shell-isolation-receipt/1.0",
+      "shell_isolation_receipt_key_order": [
+        "schema",
+        "skill_id",
+        "shell_tool_disabled"
+      ],
+      "controls_shell_policy_unchanged": true,
+      "mode_argument": false,
+      "minimum_successful_prepares": 1,
+      "prepared_answer_schema": "semantic-okf-prepared-answer/1.0",
+      "prepared_answer_key_order": [
+        "schema",
+        "candidate_json",
+        "response_sha256",
+        "byte_count"
+      ],
+      "candidate_digest_binding": "sha256-lowercase-hex-of-utf8-candidate-json",
+      "confirm_argument": "response_sha256",
+      "confirm_argument_pattern": "^[0-9a-f]{64}$",
+      "confirmation_receipt_schema": "semantic-okf-answer-confirmation-receipt/1.0",
+      "confirmation_receipt_key_order": [
+        "schema",
+        "status",
+        "response_sha256",
+        "byte_count"
+      ],
+      "publication_source": "prepared-envelope-candidate-json-bytes",
+      "confirm_exactly_once": true,
+      "confirm_terminal": true,
+      "confirm_idempotent": false,
+      "failed_protocol_call_publishes": false,
+      "failed_protocol_call_clears_transaction": true,
+      "failure_requires_fresh_prepare": true,
+      "final_transaction_must_be_clean": true,
+      "coverage_priority_order": "persisted-idf-facet-consensus-priority-v1",
+      "priority_order_session_bound": true
+    }
+  }
+}

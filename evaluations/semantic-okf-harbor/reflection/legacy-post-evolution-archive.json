@@ -1,0 +1,39 @@
+{
+  "benchmarkId": "semantic-okf-harbor-legacy-train-v1",
+  "caseIds": [
+    "q031"
+  ],
+  "evaluatedCandidates": 2,
+  "archiveSize": 1,
+  "bestByCase": {
+    "q031": 0
+  },
+  "archive": [
+    {
+      "candidateId": "consult-semantic-okf-baseline",
+      "parentIds": [],
+      "caseScores": {
+        "q031": 0
+      },
+      "complexityDelta": 0,
+      "evaluationCost": 1246462,
+      "feedback": [
+        {
+          "caseId": "q031",
+          "outcome": "failure",
+          "diagnosis": "Retrieval found every required document, but manual answer assembly emitted an invalid locator type and source-file hashes rather than reconstructable evidence hashes.",
+          "evidence": "Harbor: recall=1.0, required_document_coverage=1.0, response_contract=0.0, all_evidence_valid=0.0, reward=0.0; 1,246,462 input tokens."
+        }
+      ],
+      "meanScore": 0,
+      "worstCaseScore": 0,
+      "ownedCases": [
+        "q031"
+      ]
+    }
+  ],
+  "robustCandidateId": "consult-semantic-okf-baseline",
+  "dominatedCandidateIds": [
+    "consult-semantic-okf-harbor-legacy-evolved"
+  ]
+}

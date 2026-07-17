@@ -1,0 +1,2099 @@
+{
+  "schema_version": "semantic-okf-grounded-answer-comparison/1.0",
+  "question_count": 10,
+  "answer_count": 60,
+  "method_count": 3,
+  "profiles_per_method": 2,
+  "review": {
+    "model": "openai-codex/gpt-5.6-luna",
+    "blinded": true,
+    "review_count": 60,
+    "sha256": "9e7cbb5fd482ea8b7a0e8fb339f231a95d1393cab296093cbbbf0abed116083d"
+  },
+  "inputs": [
+    {
+      "method": "legacy",
+      "path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "sha256": "330600c3fc42d5697aac16d6d084f8c24d414075a88d4152b717a372a86de7d3"
+    },
+    {
+      "method": "embedding",
+      "path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "sha256": "babdf528564eb7d726295423ee7298e33772349d77ede8d7772455446bc2b347"
+    },
+    {
+      "method": "classical",
+      "path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "sha256": "95d9af45ea3e59d6dcfc735819de936a498acda12f5b41a5dddb14339587a2a2"
+    }
+  ],
+  "metric_contract": {
+    "response_contract": "Skill Arena strict response-contract assertion",
+    "evidence_validity": "independent exact ledger/concept/source/paper/page validation",
+    "grounding": "supporting claim IDs represented by independently valid evidence items",
+    "claim_correctness": "blinded reviewer fidelity of candidate claims to cited reviewed records",
+    "semantic_completeness": "blinded reviewer coverage of atomic ground-truth claims",
+    "exact_atomic_evidence_coverage": "exact curated evidence-claim identity coverage",
+    "required_paper_coverage": "required paper IDs present in answer and citations",
+    "required_source_coverage": "required claim and paper source IDs represented",
+    "important_negative_coverage": "blinded reviewer coverage of important failure conditions"
+  },
+  "aggregates": {
+    "legacy": {
+      "legacy-consult-treatment": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.1,
+          "evidence_validity": 0.84265152,
+          "grounding": 0.83461538,
+          "claim_correctness": 0.8875,
+          "semantic_completeness": 0.75,
+          "exact_atomic_evidence_coverage": 0.505,
+          "required_paper_coverage": 0.75,
+          "required_source_coverage": 0.74,
+          "important_negative_coverage": 0.9
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "21f14fe57fc9dca318202e8ea0bbf73949e299ddaf38e944468aa341e1412a8d",
+          "36861980ddb1d3d369ce35ebea1cb14b6b7cfa976996e06ef595aff210fed048",
+          "6954bc075a2353ee3c6e8b1bf8cb360b03b721dfa612181ec99923fdcfb0b4c2",
+          "7e0e1e8aa1d5d2da2b45073771f925618bdae583c1a26f7700a6d78b13561fbe",
+          "918b46b2219f4e81fd7efce8e027c467d3045645319f29e374819f66b40dc0ef",
+          "957b3645ee9fa88535f247332b75d684d479d5eae618d297db68979b2d2e4672",
+          "ab96f51c65c4addbdc0f423af467a4f69a7131e14b5fe48297635b1782a71a49",
+          "c727f3020e4d634e9e078afd839e5d0d9d9d689c4f87a266953039893cb10ec1",
+          "d346673d25ffa1a49a074e2b2cf919449793e02d1558576142936471f9c81369",
+          "f3a8324978c1ee099ab5ba22603b42ed2aeb5fc55c2fa7a323b42798649c3f6c"
+        ]
+      },
+      "knowledge-only-control": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.4,
+          "evidence_validity": 0.82604276,
+          "grounding": 0.82842371,
+          "claim_correctness": 0.94,
+          "semantic_completeness": 0.8325,
+          "exact_atomic_evidence_coverage": 0.575,
+          "required_paper_coverage": 0.82166667,
+          "required_source_coverage": 0.7925,
+          "important_negative_coverage": 1.0
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "197db28f8eaa03da6b3f128c2a25a4a36f33756d84279b0e1e1c730c2dec2dfa",
+          "35b6858a73b8a61b92d1f651bea9750d01bbf13ebfc4cdec292c9fea7f988552",
+          "3b9d59b19b41aa88bc014e42f86a6a1c149b556e3fc26daa534186b4c5f6434f",
+          "52bb2b091cd4176409d6ef591eacb6673c294cea0b1eada0c0f94d428f14006b",
+          "7c3b5e97b8041dabeef0d80860272223a0bc639c0a5fd5adb193a9643a4f520c",
+          "880ccdadc0c05866da92380483a66842944918afbd054fbdc81e21d4bb24a400",
+          "8e746000df7322b213d2c938404edfb87af717b7f0be3b1375b3de8ef64f6ea7",
+          "93899eff4dcdfe8923aa18afbcd7fba8c4afe30a8990930f1463f9e5b2e87536",
+          "bccdb99cac129027109a366e3d79db3bacb70300f19d68644faf7e99f3da5036",
+          "ecd3a1b810ac697b152d78b51663d5d1602af84d4210ca2867b065d5235a74de"
+        ]
+      }
+    },
+    "embedding": {
+      "embedding-consult-treatment": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.4,
+          "evidence_validity": 0.83597222,
+          "grounding": 0.83375,
+          "claim_correctness": 0.9625,
+          "semantic_completeness": 0.8275,
+          "exact_atomic_evidence_coverage": 0.485,
+          "required_paper_coverage": 0.89166667,
+          "required_source_coverage": 0.85416667,
+          "important_negative_coverage": 1.0
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "0d0c63c3d839e5ceccf94e6c8aa14a6858e5f346ae57319c889f805153e27edb",
+          "4697d615d47943cc95ad5be0f7171d883611b0aefe041c7d59ea26f865c001ff",
+          "4a8ec29f6edf1b017d8ac60c90167ae940126f47a2289611b9e9a5d5e2d9b0a2",
+          "6b8bacb77ce88d327a2dc43553fb7218034db7cb17b71e349c77b98d45e2a561",
+          "a7a8c1657f53370ceb082080f5c27b86edd8cb6e152e0634de7efc97028c9213",
+          "a981d068e2c5b71be1122904758881c375c7b83ca692e574e46e16715fed2d6d",
+          "ae345c91d588696317602ecc0f470bef810cd04241d5b98ae3b1cd9cd95c50a7",
+          "b973ae787e5a1c9052dc30a7017e8290f5f2e74f7b9973f585a2334c09005f56",
+          "d4254c151e856eb3d736a08c54f0026095dd7f4c26de29cf2dfc9d0618145253",
+          "df217024d0b87c2be1a6cce51910c2ace4f1ce51223fac519a16b7fda0b9b253"
+        ]
+      },
+      "knowledge-only-control": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.2,
+          "evidence_validity": 0.7085524,
+          "grounding": 0.71020075,
+          "claim_correctness": 0.9525,
+          "semantic_completeness": 0.8075,
+          "exact_atomic_evidence_coverage": 0.425,
+          "required_paper_coverage": 0.775,
+          "required_source_coverage": 0.725,
+          "important_negative_coverage": 0.975
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "00c9a427e41c3cbe35f22b5d75e57e45cb6a99c403285b4c7120eef35a1f829c",
+          "0c024bdc3091088c6f9399e58d00bae36e5a26e5b0b2c94d175b2f60b473fac6",
+          "135025d69bd2d94961b2df688010a0a460b70c893d3a15897f6e1b879ca617bf",
+          "5358de1fe4adccac04a9577bd3462489f834ebf98e158ca345532f635170cdbd",
+          "687bb11dad32a354c4a3a25c2795bbfce110bfcdfbdfcce6a189b19c550ed57c",
+          "7bd5c515983bc81f0defff183815a69d1154c6a5ebd4bf4bf92df5c4c3ef7ee1",
+          "87fa73155047b5e4c4efe27e6fd9aa643f6c0acab545e302ee0ed858bae93b44",
+          "a15c3c0e83ca7538fca2faf1ffb811b97ea88018c8486e851fc727c41d03475f",
+          "b2563cae3a8214a679b9bece66ad04ae13b8c688c59d9361ad0af9f4861d2bc7",
+          "cacb3a6915e592ccd6ea77413c15ce826f0f970b2df769f6a0a07d28a70c0ba4"
+        ]
+      }
+    },
+    "classical": {
+      "knowledge-only-control": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.2,
+          "evidence_validity": 0.83926074,
+          "grounding": 0.83376623,
+          "claim_correctness": 0.955,
+          "semantic_completeness": 0.8225,
+          "exact_atomic_evidence_coverage": 0.495,
+          "required_paper_coverage": 0.79666667,
+          "required_source_coverage": 0.74666667,
+          "important_negative_coverage": 1.0
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "00e555878c47f3242e84ce753c32d3799fa644b6c08cb20d3357ac45b1b8da37",
+          "27bc90d04d6e22933dec14fa417025e94a693093bf977cb0c7aabd7ebedffc4c",
+          "395431122235ba9d15f3c0564a4d558de3720d31f2745019dc787979c69316f4",
+          "5e1666168abd0d485721b078ec3dfafdf871894f3053c01d023158661cce627f",
+          "610fc4bc4aaa3be626c1c37e903b5990a15a849fcb5ae5e91304145409287f2e",
+          "6fd858052dcf102207e8a6383ad094f1028150bc657f9d3035ce6b00c0904f26",
+          "88fdee3f24d8dde868c98dd3dd33138d217010c6c86db5fd2765c62dcb22be17",
+          "c3d7d8449623427b0ede8d9c2dfd139f28e6d699eaabc30f55709a6d88fa0c6a",
+          "d61c4d228bf5eff9b305b725bd98f56775816bf7296e5dfd431e71f96ba1fcac",
+          "ef615089513fda01502f58dab4f450726592b5e65a63122ff7d56ab7fac626a2"
+        ]
+      },
+      "classical-consult-treatment": {
+        "answer_count": 10,
+        "metrics": {
+          "response_contract": 0.3,
+          "evidence_validity": 0.80438312,
+          "grounding": 0.79739011,
+          "claim_correctness": 0.915,
+          "semantic_completeness": 0.8225,
+          "exact_atomic_evidence_coverage": 0.37,
+          "required_paper_coverage": 0.86666667,
+          "required_source_coverage": 0.79166667,
+          "important_negative_coverage": 0.95
+        },
+        "strict_full_pass_rate": 0.0,
+        "output_hashes": [
+          "1350e688e83029d3edf1a12fd8854340b0d2e3926538e5262a05002f6a55cba3",
+          "3bdc62e9d3b9333d7bbadcdf70f92758ac325496e26f440f62819730cde1775f",
+          "64133889ffaf8e085cea18ce2c11bc88641887ba64b625950a7ab69342f745f9",
+          "6cc1ded3e11ab7f490b5e105e8728f445d73dea49d939737073a74f8f985a8cc",
+          "768127e9bf0af794c401cf73024a6e71f72d5b1babea4068c38a6b7d9df86b9e",
+          "ac68f9074081c29adeb813ee8d1f5e8d8c85da0800d26dba3791d459d53f1aa2",
+          "af9dc53ca361efdce5824bcdceccc9861752feecd3005a69b8f02623747a22f4",
+          "b8428aa7ab2195e62ab7076afa06b5feed29ade6a9c053dc10276cb73d9778b6",
+          "c11e53ac76a2c03aaa24df578b01579f2bf34db7e07c687057a901a255f583bc",
+          "f8eec6cb5eb3495c66820350ad6cec1a14c1af1327f9ec9b465618c263a88061"
+        ]
+      }
+    }
+  },
+  "paired_deltas": {
+    "legacy": {
+      "response_contract": -0.3,
+      "evidence_validity": 0.01660876,
+      "grounding": 0.00619167,
+      "claim_correctness": -0.0525,
+      "semantic_completeness": -0.0825,
+      "exact_atomic_evidence_coverage": -0.07,
+      "required_paper_coverage": -0.07166667,
+      "required_source_coverage": -0.0525,
+      "important_negative_coverage": -0.1
+    },
+    "embedding": {
+      "response_contract": 0.2,
+      "evidence_validity": 0.12741982,
+      "grounding": 0.12354925,
+      "claim_correctness": 0.01,
+      "semantic_completeness": 0.02,
+      "exact_atomic_evidence_coverage": 0.06,
+      "required_paper_coverage": 0.11666667,
+      "required_source_coverage": 0.12916667,
+      "important_negative_coverage": 0.025
+    },
+    "classical": {
+      "response_contract": 0.1,
+      "evidence_validity": -0.03487762,
+      "grounding": -0.03637612,
+      "claim_correctness": -0.04,
+      "semantic_completeness": 0.0,
+      "exact_atomic_evidence_coverage": -0.125,
+      "required_paper_coverage": 0.07,
+      "required_source_coverage": 0.045,
+      "important_negative_coverage": -0.05
+    }
+  },
+  "answers": [
+    {
+      "answer_id": "ca133731d1d661ad0635ba27",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "768127e9bf0af794c401cf73024a6e71f72d5b1babea4068c38a6b7d9df86b9e",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.66666667,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 7,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Provides an appropriate quality-aware routing policy and supports the negative case, but does not fully state GraphRAG’s reported advantages for contextual summarization and creative generation."
+    },
+    {
+      "answer_id": "499b0042d55248da144bc3f2",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "c11e53ac76a2c03aaa24df578b01579f2bf34db7e07c687057a901a255f583bc",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 6,
+        "supporting_claim_references": 10,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 0,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "The classification and lifecycle limitations are comprehensively supported; MedGraphRAG's specific future-work and non-implementation/non-measurement point is only implicit."
+    },
+    {
+      "answer_id": "6d4888e37f255bec1fc8a4ba",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "3bdc62e9d3b9333d7bbadcdf70f92758ac325496e26f440f62819730cde1775f",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.71428571,
+        "grounding": 0.71428571,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 7,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 5,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The corruption-specific defenses are accurate, but the answer omits the 30-path detail and that graph-only reasoning is faster."
+    },
+    {
+      "answer_id": "94c3cabc18f950178750a380",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "1350e688e83029d3edf1a12fd8854340b0d2e3926538e5262a05002f6a55cba3",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 8,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "All four ablations and their recurring context-versus-noise or extraction trade-offs are conveyed faithfully, with appropriate caution against universal optima."
+    },
+    {
+      "answer_id": "3b9ced62b4ee462326cc302f",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "af9dc53ca361efdce5824bcdceccc9861752feecd3005a69b8f02623747a22f4",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 8,
+        "valid_supporting_claim_identities": 8,
+        "evidence_items": 8,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The proposed contract correctly preserves structure and source detail, but it only implicitly covers KAG’s combination and the specific examples, quotations, and citations lost in summaries."
+    },
+    {
+      "answer_id": "ff2d7da84b40d8b8a3376565",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "6cc1ded3e11ab7f490b5e105e8728f445d73dea49d939737073a74f8f985a8cc",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.45454545,
+        "grounding": 0.38461538,
+        "claim_correctness": 0.8,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.4,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 13,
+        "valid_supporting_claim_identities": 11,
+        "evidence_items": 11,
+        "valid_evidence_items": 5,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The protocol is largely faithful and covers the main safeguards, but objective/anonymized variants and some triangulation components exceed the supplied support; the LLM-judge scope limitation is only implicit."
+    },
+    {
+      "answer_id": "3bd4caf09310511effa4aa45",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "b8428aa7ab2195e62ab7076afa06b5feed29ade6a9c053dc10276cb73d9778b6",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.875,
+        "grounding": 0.875,
+        "claim_correctness": 0.8,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 8,
+        "valid_supporting_claim_identities": 8,
+        "evidence_items": 8,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Strong staged policy and schema-alignment discussion; it only partially conveys interchangeable extraction modes and OpenIE alignment problems plus expert schema cost."
+    },
+    {
+      "answer_id": "8a2c782f512e42680c754477",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "64133889ffaf8e085cea18ce2c11bc88641887ba64b625950a7ab69342f745f9",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.8,
+        "semantic_completeness": 0.5,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 7,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Strong failure-aware routing and fallback coverage, but it omits LightRAG’s key routing and Youtu-GraphRAG’s specific route types."
+    },
+    {
+      "answer_id": "de065ef923814492d7f896c7",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "ac68f9074081c29adeb813ee8d1f5e8d8c85da0800d26dba3791d459d53f1aa2",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 15,
+        "valid_supporting_claim_identities": 15,
+        "evidence_items": 15,
+        "valid_evidence_items": 15,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The answer accurately preserves each mechanism, baseline, quantitative comparison, and quality trade-off, while explicitly rejecting cross-paper ranking."
+    },
+    {
+      "answer_id": "f6285a300413d1bfa87e98f4",
+      "method": "classical",
+      "profile": "classical-consult-treatment",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "f8eec6cb5eb3495c66820350ad6cec1a14c1af1327f9ec9b465618c263a88061",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 0.5
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 4,
+        "valid_supporting_claim_identities": 4,
+        "evidence_items": 4,
+        "valid_evidence_items": 4,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "It accurately states open/reject policies, pre-generation support checking, its advantage over post-generation checking, and three-way verification, but omits separate GraphRAG/standalone confidence thresholds and conflates gating concepts."
+    },
+    {
+      "answer_id": "bf26edd12a98242f2d08b0b0",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "d61c4d228bf5eff9b305b725bd98f56775816bf7296e5dfd431e71f96ba1fcac",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.625,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.66666667,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The conditional router and noisy-graph fallback are accurately stated; comparative advantages and reciprocal correction are conveyed less explicitly than the ground truth."
+    },
+    {
+      "answer_id": "976dd7a787a8bd9e632121fc",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "c3d7d8449623427b0ede8d9c2dfd139f28e6d699eaabc30f55709a6d88fa0c6a",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 0.8,
+        "required_source_coverage": 0.8,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "Claims accurately classify add-only, architectural, and unspecified update evidence, but omit the practical dependency-based framework and its refresh limitations."
+    },
+    {
+      "answer_id": "3af333039abd7235d8df99de",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "610fc4bc4aaa3be626c1c37e903b5990a15a849fcb5ae5e91304145409287f2e",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.76923077,
+        "grounding": 0.71428571,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 13,
+        "evidence_items": 13,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The answer accurately matches each corruption to a defense and explicitly limits the robustness claims. It omits the injected experiment's specific 30-path and partial-recovery details."
+    },
+    {
+      "answer_id": "f6ab215a3017bff954f95b5b",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "395431122235ba9d15f3c0564a4d558de3720d31f2745019dc787979c69316f4",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 1.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 15,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "All four ablations and their system-specific trade-offs are accurately conveyed, including every reported optimum."
+    },
+    {
+      "answer_id": "2b7b87ba138af8b2c5e25b7f",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "88fdee3f24d8dde868c98dd3dd33138d217010c6c86db5fd2765c62dcb22be17",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 6,
+        "valid_supporting_claim_identities": 6,
+        "evidence_items": 6,
+        "valid_evidence_items": 6,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The answer faithfully explains complementarity, relational structure, and summary limitations, but omits KAG’s combination of structured graph results with original chunks."
+    },
+    {
+      "answer_id": "749d2d5a3b14474d7d529e52",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "27bc90d04d6e22933dec14fa417025e94a693093bf977cb0c7aabd7ebedffc4c",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.8,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "It gives a strong stage-separated and open/reject protocol, but contamination-aware domain selection and reference auditing are only partially addressed."
+    },
+    {
+      "answer_id": "7175330e5dfd715350b4b4c7",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "ef615089513fda01502f58dab4f450726592b5e65a63122ff7d56ab7fac626a2",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.71428571,
+        "grounding": 0.71428571,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 14,
+        "evidence_items": 14,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Strong staged policy and alignment guidance; it slightly overstates co-optimization and omits the explicit expert-labor cost of rigorous schema-constrained extraction."
+    },
+    {
+      "answer_id": "b8de15cda9d467d3301eab5a",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "6fd858052dcf102207e8a6383ad094f1028150bc657f9d3035ce6b00c0904f26",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.90909091,
+        "grounding": 0.90909091,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 11,
+        "evidence_items": 11,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The routing and fallback policy is faithful and detailed, but it does not fully convey LightRAG's entity-versus-relation key framing or Youtu-GraphRAG's full schema-valid route set."
+    },
+    {
+      "answer_id": "15aac7ebd9ec12febc4abb3e",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "00e555878c47f3242e84ce753c32d3799fa644b6c08cb20d3357ac45b1b8da37",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 10,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 0,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The baseline-bound comparisons, mechanisms, quality trade-offs, and non-ranking conclusion are accurately presented; HippoRAG's OpenIE detail is not directly supported by the cited record."
+    },
+    {
+      "answer_id": "075bed9e083f28a47438ec38",
+      "method": "classical",
+      "profile": "knowledge-only-control",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "5e1666168abd0d485721b078ec3dfafdf871894f3053c01d023158661cce627f",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/classical/promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.625,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 8,
+        "evidence_items": 8,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Policies, abstention, and three-way verification are well covered, but separate candidate confidence thresholds and the pre-generation advantage over post-generation checking are not fully conveyed."
+    },
+    {
+      "answer_id": "e14371399ed44010699238f6",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "6b8bacb77ce88d327a2dc43553fb7218034db7cb17b71e349c77b98d45e2a561",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.88888889,
+        "grounding": 0.9,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.66666667,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 10,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The routing recommendation is well supported, but creative generation and the entire-noisy-graph comparison are only implicit or omitted."
+    },
+    {
+      "answer_id": "ce398b0278172447354c52c3",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "d4254c151e856eb3d736a08c54f0026095dd7f4c26de29cf2dfc9d0618145253",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 11,
+        "evidence_items": 11,
+        "valid_evidence_items": 11,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "Comprehensively distinguishes add-only mechanisms, architectural adaptability, deferred maintenance, and the absence of full deletion and provenance repair."
+    },
+    {
+      "answer_id": "0570ca5346888cd879957b64",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "a981d068e2c5b71be1122904758881c375c7b83ca692e574e46e16715fed2d6d",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.7,
+        "grounding": 0.66666667,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The matching is strong and distinguishes corruption mechanisms. The first claim slightly overstates cited support by specifying flow-based pruning, and chunk supplementation is implied rather than fully stated."
+    },
+    {
+      "answer_id": "5ea81c9cfe70a507057f10ab",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "b973ae787e5a1c9052dc30a7017e8290f5f2e74f7b9973f585a2334c09005f56",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.375,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 5,
+        "valid_supporting_claim_identities": 4,
+        "evidence_items": 4,
+        "valid_evidence_items": 0,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The answer accurately covers three ablations and the non-universal-optimum warning, but omits the ground-truth trade-off involving too few retrieval candidates."
+    },
+    {
+      "answer_id": "f99288f955ae6df5a99cad33",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "a7a8c1657f53370ceb082080f5c27b86edd8cb6e152e0634de7efc97028c9213",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The contract and ablation reasoning are faithful and comprehensive. The community-summary limitation is conveyed generally, but specific examples and quotations are not stated explicitly."
+    },
+    {
+      "answer_id": "44969e1a9584d01617491e1a",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "4a8ec29f6edf1b017d8ac60c90167ae940126f47a2289611b9e9a5d5e2d9b0a2",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.83333333,
+        "grounding": 0.83333333,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 12,
+        "evidence_items": 12,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The protocol fully covers the required safeguards and negatives. The first claim slightly expands the cited stage-specific records by explicitly naming graph quality/completeness metrics."
+    },
+    {
+      "answer_id": "8f8cc24ffe317f93241035eb",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "ae345c91d588696317602ecc0f470bef810cd04241d5b98ae3b1cd9cd95c50a7",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 8,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Well-supported staged construction policy with schema alignment and cost controls; implicit-relation limitations and domain-shift interdependence are present mainly by implication."
+    },
+    {
+      "answer_id": "d65dad6cbf455e98398d6d0a",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "df217024d0b87c2be1a6cce51910c2ace4f1ce51223fac519a16b7fda0b9b253",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 20,
+        "valid_supporting_claim_identities": 18,
+        "evidence_items": 18,
+        "valid_evidence_items": 18,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The router and fallback are faithful; decomposition is covered, but the specific entity, triple, community, and bounded-path execution routes are not enumerated."
+    },
+    {
+      "answer_id": "acb435f4a203f1d96bc5d877",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "4697d615d47943cc95ad5be0f7171d883611b0aefe041c7d59ea26f865c001ff",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.9375,
+        "grounding": 0.9375,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.6,
+        "exact_atomic_evidence_coverage": 0.4,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 16,
+        "valid_supporting_claim_identities": 16,
+        "evidence_items": 16,
+        "valid_evidence_items": 15,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Claims are faithful to their cited records, but the answer omits the separate GraphRAG root-report findings required by the ground truth."
+    },
+    {
+      "answer_id": "02ca85c669995f5894aeaa2c",
+      "method": "embedding",
+      "profile": "embedding-consult-treatment",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "0d0c63c3d839e5ceccf94e6c8aa14a6858e5f346ae57319c889f805153e27edb",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 6,
+        "valid_supporting_claim_identities": 6,
+        "evidence_items": 6,
+        "valid_evidence_items": 6,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Covers the two policies, explicit NEI handling, and pre-generation controls; separate source thresholds and the reported pre-generation performance advantage are not fully explicit."
+    },
+    {
+      "answer_id": "1c735b1374099daca325f3cd",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "5358de1fe4adccac04a9577bd3462489f834ebf98e158ca345532f635170cdbd",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.5,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.0,
+        "required_source_coverage": 0.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 16,
+        "valid_supporting_claim_identities": 16,
+        "evidence_items": 16,
+        "valid_evidence_items": 0,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The routing recommendation is well supported, but several ground-truth specifics—comparative simple-fact performance, creative generation, and noisy-graph underperformance—are only implicit or absent."
+    },
+    {
+      "answer_id": "6886ac379b2d428578a54e64",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "a15c3c0e83ca7538fca2faf1ffb811b97ea88018c8486e851fc727c41d03475f",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 1.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "Accurately distinguishes demonstrated add-only behavior, architectural claims, deferred work, and the absence of complete deletion and repair protocols."
+    },
+    {
+      "answer_id": "ab8c9c6b2b13f74182df0c5b",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "87fa73155047b5e4c4efe27e6fd9aa643f6c0acab545e302ee0ed858bae93b44",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.88888889,
+        "grounding": 0.88888889,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 3,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The matching and distinctions are well supported; the answer omits the specific 30-path quantity and that the graph-only route is faster."
+    },
+    {
+      "answer_id": "adc1426b493aba314d528090",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "7bd5c515983bc81f0defff183815a69d1154c6a5ebd4bf4bf92df5c4c3ef7ee1",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "All four ablations and their recurring coverage-versus-noise or extraction trade-offs are faithfully conveyed, with reported settings correctly treated as system-specific."
+    },
+    {
+      "answer_id": "ddd8235f2e5b26113d02e7d4",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "687bb11dad32a354c4a3a25c2795bbfce110bfcdfbdfcce6a189b19c550ed57c",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.88888889,
+        "grounding": 0.88888889,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.625,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The layered evidence contract is well supported, but it omits KAG's original-chunk recovery point and only indirectly conveys community-summary loss of specific citations and examples."
+    },
+    {
+      "answer_id": "acfffc1be203d438dd78409c",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "cacb3a6915e592ccd6ea77413c15ce826f0f970b2df769f6a0a07d28a70c0ba4",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.91666667,
+        "grounding": 0.91666667,
+        "claim_correctness": 0.75,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 12,
+        "evidence_items": 12,
+        "valid_evidence_items": 11,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Strong stage and prompt-mode protocol, but contamination-aware reference verification is missing; some recommendations about objective and human corroboration extend beyond the cited records."
+    },
+    {
+      "answer_id": "fad659b1691b273520a65cc7",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "0c024bdc3091088c6f9399e58d00bae36e5a26e5b0b2c94d175b2f60b473fac6",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.76923077,
+        "grounding": 0.78571429,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.2,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 13,
+        "evidence_items": 13,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "A strong staged policy covering cost, implicit relations, extraction risks, schema sharing, and hybrid retrieval; controlled schema expansion and isolation under domain shift are only partly explicit."
+    },
+    {
+      "answer_id": "ffa6ccc3184f79d7d6ca035d",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "00c9a427e41c3cbe35f22b5d75e57e45cb6a99c403285b4c7120eef35a1f829c",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.76470588,
+        "grounding": 0.76470588,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 17,
+        "valid_supporting_claim_identities": 17,
+        "evidence_items": 17,
+        "valid_evidence_items": 13,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The proposed router is well supported by its cited records, but it does not explicitly identify LightRAG’s key routing or Youtu-GraphRAG’s full set of route types."
+    },
+    {
+      "answer_id": "a1513fcb3f76107f74e8e764",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "b2563cae3a8214a679b9bece66ad04ae13b8c688c59d9361ad0af9f4861d2bc7",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 14,
+        "evidence_items": 14,
+        "valid_evidence_items": 0,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "All mechanisms, baselines, numerical comparisons, and quality trade-offs are accurately preserved, with an explicit warning against cross-paper ranking."
+    },
+    {
+      "answer_id": "8e5a5cae4af44a13bc7fcf74",
+      "method": "embedding",
+      "profile": "knowledge-only-control",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "135025d69bd2d94961b2df688010a0a460b70c893d3a15897f6e1b879ca617bf",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/embedding/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.85714286,
+        "grounding": 0.85714286,
+        "claim_correctness": 0.9,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 0.75
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 7,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 6,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The answer accurately covers source policies, gating, three-way verification, and leakage, but omits the specific ROGRAG pre-generation finding and only implicitly distinguishes all checking stages."
+    },
+    {
+      "answer_id": "c09730a09fb608a4afaeb144",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "197db28f8eaa03da6b3f128c2a25a4a36f33756d84279b0e1e1c730c2dec2dfa",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.66666667,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The routing boundary and noise caveat are well supported, but the answer omits evidence that graph retrieval and standalone reasoning each uniquely correct errors."
+    },
+    {
+      "answer_id": "de7bafdbbecfccc68f69f3a8",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "8e746000df7322b213d2c938404edfb87af717b7f0be3b1375b3de8ef64f6ea7",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 0.8,
+        "required_source_coverage": 0.8,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 7,
+        "evidence_items": 7,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "The classification is strong and appropriately distinguishes incomplete lifecycle support, but MedGraphRAG's explicitly deferred real-time updates are omitted; HippoRAG's add-only characterization is somewhat broad."
+    },
+    {
+      "answer_id": "33a347f16116bf16896a4398",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "ecd3a1b810ac697b152d78b51663d5d1602af84d4210ca2867b065d5235a74de",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.33333333,
+        "grounding": 0.35714286,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.83333333,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 3,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Claims are well matched to the records and distinguish failure modes. The injected-path result omits the specific 30-path condition and partial-recovery wording."
+    },
+    {
+      "answer_id": "128c53e0e7791904e6fba13b",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "52bb2b091cd4176409d6ef591eacb6673c294cea0b1eada0c0f94d428f14006b",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.88888889,
+        "grounding": 0.88888889,
+        "claim_correctness": 0.75,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The first three ablation claims are supported and correctly identify non-monotonic trade-offs. The GraphRAG 8k claim is unsupported by its cited records and does not address the required ROGRAG comparison."
+    },
+    {
+      "answer_id": "c0c065b969f475af3c1c4730",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "3b9d59b19b41aa88bc014e42f86a6a1c149b556e3fc26daa534186b4c5f6434f",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.90909091,
+        "grounding": 0.90909091,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 11,
+        "evidence_items": 11,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Well-supported loss-aware contract and representation critique; KAG’s explicit structured-plus-original-chunk evidence and community-summary citation losses are only implicit."
+    },
+    {
+      "answer_id": "b926a1b070a523dbbefe9a8a",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "7c3b5e97b8041dabeef0d80860272223a0bc639c0a5fd5adb193a9643a4f520c",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.64285714,
+        "grounding": 0.64285714,
+        "claim_correctness": 0.9,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.625,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 14,
+        "valid_supporting_claim_identities": 14,
+        "evidence_items": 14,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Strongly covers stage separation, prompt controls, reference auditing, and judge limitations; evidence-based corroboration is somewhat broader than the cited support."
+    },
+    {
+      "answer_id": "aac855b5082687baa3a1a86f",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "bccdb99cac129027109a366e3d79db3bacb70300f19d68644faf7e99f3da5036",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.88888889,
+        "grounding": 0.88888889,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 6,
+        "supporting_claim_references": 18,
+        "valid_supporting_claim_identities": 18,
+        "evidence_items": 18,
+        "valid_evidence_items": 16,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "All atomic claims and negatives are conveyed with faithful support, including selective escalation, schema constraints, and construction-retrieval alignment."
+    },
+    {
+      "answer_id": "4d9ebbcc64408a2f45f7073c",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "880ccdadc0c05866da92380483a66842944918afbd054fbdc81e21d4bb24a400",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.65,
+        "grounding": 0.65,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 20,
+        "valid_supporting_claim_identities": 20,
+        "evidence_items": 20,
+        "valid_evidence_items": 13,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The proposed router accurately covers LightRAG, PolyG, and ROGRAG, but omits Youtu-GraphRAG's schema-valid atomic-subquery decomposition and routes."
+    },
+    {
+      "answer_id": "f7a95f014e0a56039fed4d07",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "93899eff4dcdfe8923aa18afbcd7fba8c4afe30a8990930f1463f9e5b2e87536",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 0.94736842,
+        "grounding": 0.94736842,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.9,
+        "exact_atomic_evidence_coverage": 0.8,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 19,
+        "valid_supporting_claim_identities": 19,
+        "evidence_items": 19,
+        "valid_evidence_items": 18,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The answer accurately preserves mechanisms, baselines, ratios, and trade-offs; it omits GraphRAG’s reported advantage over vector RAG."
+    },
+    {
+      "answer_id": "aaecd03c020d1e2d2737100c",
+      "method": "legacy",
+      "profile": "knowledge-only-control",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "35b6858a73b8a61b92d1f651bea9750d01bbf13ebfc4cdec292c9fea7f988552",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 6,
+        "valid_supporting_claim_identities": 6,
+        "evidence_items": 6,
+        "valid_evidence_items": 6,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The policies, independent gating, verification labels, and abstention behavior are accurately covered, but the specific ROGRAG pre-generation support-checking result is omitted."
+    },
+    {
+      "answer_id": "40538e8d500b94e6ff51653b",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q031-graph-routing-boundary",
+      "output_sha256": "918b46b2219f4e81fd7efce8e027c467d3045645319f29e374819f66b40dc0ef",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.83333333,
+        "grounding": 0.83333333,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 6,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 12,
+        "evidence_items": 12,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Accurately derives a conditional boundary among standalone, basic RAG, and GraphRAG, including noise gating; the reciprocal-correction point is only partially explicit."
+    },
+    {
+      "answer_id": "67e9856488503457cc5842ee",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q032-incremental-update-maturity",
+      "output_sha256": "36861980ddb1d3d369ce35ebea1cb14b6b7cfa976996e06ef595aff210fed048",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.875,
+        "grounding": 0.84615385,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.9,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 13,
+        "valid_supporting_claim_identities": 8,
+        "evidence_items": 8,
+        "valid_evidence_items": 7,
+        "required_atomic_claims": 5,
+        "required_papers": 5,
+        "required_sources": 10
+      },
+      "review_note": "The answer correctly distinguishes add-only mechanisms, architectural claims, and deferred or unspecified lifecycle work, without inferring deletion, provenance repair, or re-indexing support."
+    },
+    {
+      "answer_id": "3979b1cb6bb007bd23f01c76",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q033-corruption-specific-defenses",
+      "output_sha256": "ab96f51c65c4addbdc0f423af467a4f69a7131e14b5fe48297635b1782a71a49",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.9,
+        "grounding": 0.83333333,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 4,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "Correctly matches each corruption to a distinct defense and avoids universal robustness claims; the injected-path result omits the specific 30-path quantity."
+    },
+    {
+      "answer_id": "9f1039c5822130d1db03ec24",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "output_sha256": "6954bc075a2353ee3c6e8b1bf8cb360b03b721dfa612181ec99923fdcfb0b4c2",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.25,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 6,
+        "evidence_items": 6,
+        "valid_evidence_items": 6,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Accurately synthesizes three relevant ablations, but omits GraphReader’s distinct five-node and 2k-token optima."
+    },
+    {
+      "answer_id": "45f9bce0eec9dbe43c471ce3",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "output_sha256": "f3a8324978c1ee099ab5ba22603b42ed2aeb5fc55c2fa7a323b42798649c3f6c",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.81818182,
+        "grounding": 0.83333333,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 12,
+        "valid_supporting_claim_identities": 11,
+        "evidence_items": 11,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "All claims faithfully synthesize the cited limitations and preserve the required complementarity between structure, paths, summaries, and source-level evidence."
+    },
+    {
+      "answer_id": "72c9df6b4f9392a7c1572766",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "output_sha256": "21f14fe57fc9dca318202e8ea0bbf73949e299ddaf38e944468aa341e1412a8d",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.2,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.7,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 6,
+        "supporting_claim_references": 11,
+        "valid_supporting_claim_identities": 10,
+        "evidence_items": 10,
+        "valid_evidence_items": 10,
+        "required_atomic_claims": 5,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Comprehensive protocol covering stage metrics, grounding controls, leakage, and judge uncertainty; it omits the contamination-aware UltraDomain check and only partially captures the specific pairwise-judge limitation."
+    },
+    {
+      "answer_id": "c5c2450f8b7f45dbeabb7e29",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q037-domain-construction-under-constraints",
+      "output_sha256": "c727f3020e4d634e9e078afd839e5d0d9d9d689c4f87a266953039893cb10ec1",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.6,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 9,
+        "valid_supporting_claim_identities": 9,
+        "evidence_items": 9,
+        "valid_evidence_items": 9,
+        "required_atomic_claims": 5,
+        "required_papers": 3,
+        "required_sources": 6
+      },
+      "review_note": "The staged extraction policy and construction–retrieval alignment are faithful, but the answer omits the shared schema's role in constraining extraction and query decomposition."
+    },
+    {
+      "answer_id": "2da7dc388175c9a5f6934c86",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q038-failure-aware-query-router",
+      "output_sha256": "957b3645ee9fa88535f247332b75d684d479d5eae618d297db68979b2d2e4672",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.6,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.625,
+        "exact_atomic_evidence_coverage": 0.5,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 5,
+        "supporting_claim_references": 13,
+        "valid_supporting_claim_identities": 13,
+        "evidence_items": 13,
+        "valid_evidence_items": 13,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "The router is detailed and failure-aware, but omits PolyG's missing-component-dependent traversal and does not explicitly state LightRAG's relation/theme-key routing."
+    },
+    {
+      "answer_id": "b0e02a95323ad3156da4f486",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "output_sha256": "7e0e1e8aa1d5d2da2b45073771f925618bdae583c1a26f7700a6d78b13561fbe",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.0,
+        "semantic_completeness": 0.0,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.0,
+        "required_source_coverage": 0.0,
+        "important_negative_coverage": 0.0
+      },
+      "counts": {},
+      "review_note": "No candidate answer was supplied."
+    },
+    {
+      "answer_id": "ac62c241b5c3610267997d48",
+      "method": "legacy",
+      "profile": "legacy-consult-treatment",
+      "question_id": "q040-answer-source-control",
+      "output_sha256": "d346673d25ffa1a49a074e2b2cf919449793e02d1558576142936471f9c81369",
+      "result_path": "evaluations/semantic-okf-classical/results/runs/20260714-classical-final-01/skill-arena/legacy/merged-promptfoo-results.json",
+      "strict_skill_arena_score": 0.4,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 1.0
+      },
+      "counts": {
+        "answer_claims": 4,
+        "supporting_claim_references": 8,
+        "valid_supporting_claim_identities": 8,
+        "evidence_items": 8,
+        "valid_evidence_items": 8,
+        "required_atomic_claims": 4,
+        "required_papers": 4,
+        "required_sources": 8
+      },
+      "review_note": "Accurately distinguishes source policies and independent gating, with clear three-way verification; it does not state the reported superiority of pre-generation checking over post-generation checking."
+    }
+  ]
+}

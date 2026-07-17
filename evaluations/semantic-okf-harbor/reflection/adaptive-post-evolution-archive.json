@@ -1,0 +1,41 @@
+{
+  "benchmarkId": "semantic-okf-harbor-adaptive-train-v1",
+  "caseIds": [
+    "q031"
+  ],
+  "evaluatedCandidates": 2,
+  "archiveSize": 1,
+  "bestByCase": {
+    "q031": 0.9946902429525976
+  },
+  "archive": [
+    {
+      "candidateId": "consult-semantic-okf-harbor-adaptive-evolved",
+      "parentIds": [
+        "consult-semantic-okf-adaptive-baseline"
+      ],
+      "caseScores": {
+        "q031": 0.9946902429525976
+      },
+      "complexityDelta": 584,
+      "evaluationCost": 346869,
+      "feedback": [
+        {
+          "caseId": "q031",
+          "outcome": "success",
+          "diagnosis": "Closed finalization repaired first-use evidence order while the adaptive support allocation covered every required source and hard interval; five citations for three relevant documents left precision at 0.6.",
+          "evidence": "Harbor run 20260716-evolved-train-adaptive-q031: response_contract=1.0, reference_validity=1.0, recall=1.0, authoritative and atomic completeness=1.0, reward=0.9946902429525976; 346,869 input tokens."
+        }
+      ],
+      "meanScore": 0.9946902429525976,
+      "worstCaseScore": 0.9946902429525976,
+      "ownedCases": [
+        "q031"
+      ]
+    }
+  ],
+  "robustCandidateId": "consult-semantic-okf-harbor-adaptive-evolved",
+  "dominatedCandidateIds": [
+    "consult-semantic-okf-adaptive-baseline"
+  ]
+}

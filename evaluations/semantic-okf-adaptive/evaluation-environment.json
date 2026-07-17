@@ -1,0 +1,51 @@
+{
+  "schema_version": "semantic-okf-adaptive-evaluation-environment/1.0",
+  "run_id": "20260714-adaptive-final-05",
+  "retrieval_runtime": {
+    "invocation": ".venv/Scripts/python.exe",
+    "implementation": "cpython",
+    "python": "3.13.12 (main, Mar 10 2026, 18:14:40) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "numpy": "2.5.1",
+      "pyshacl": "0.40.0",
+      "PyYAML": "6.0.3",
+      "rdflib": "7.6.0",
+      "scikit-learn": "1.9.0",
+      "sentence-transformers": "5.6.0",
+      "torch": "2.13.0",
+      "transformers": "5.13.1"
+    }
+  },
+  "skill_arena_runtime": {
+    "skill_arena": "0.1.0",
+    "node": "24.14.0",
+    "promptfoo": "0.121.2",
+    "accepted_eval_id": "eval-Iue-2026-07-14T17:50:18",
+    "accepted_compare_run": "results/semantic-okf-adaptive-hard10-paired/2026-07-14T17-50-14-025Z-compare",
+    "completed_cells": 20,
+    "execution_errors": 0
+  },
+  "validation_runtime": {
+    "invocation": "python",
+    "implementation": "cpython",
+    "python": "3.14.3",
+    "purpose": "repository unit tests and coverage gate"
+  },
+  "bindings": {
+    "raw_comparison_sha256": "88528f4fe1595003346b5247d29b488b9a644600de415610187e311dee201d61",
+    "comparator_sha256": "500648d0c0e11fb08e2bdf1ea9f74f79a4d5ebf02978395586de888a46c82ee9",
+    "adaptive_runtime_module_sha256": "877e06a1e553d3afa625aed2e40dbf596940ac142665446b045821ae42778057",
+    "adaptive_index_sha256": "3fd7400b6429575458e5674a80886718ce62f7adfecfae07b1b0be16b2780c88",
+    "adaptive_plan_sha256": "075f172a21566ec828aa11a759e6f16ab3592628fad0867e0686730ddcf9739b",
+    "authoritative_core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "skill_arena_config_sha256": "e7c9f3447d6fe37532d9d0dd745cd756b3794ab630de373875fee8012458d1be",
+    "consult_skill_tree_sha256": "e520ac45d7e1d01608be56b82d8be3a444a04c29a18b4448e454fcbacc2070f4",
+    "consult_skill_md_sha256": "d44f364fc50d3c41721d12f5ea782036c1192ad6bdd4b2254dce42d956c6afbb",
+    "grounded_answer_summary_sha256": "869fc030d3e5a744c871929afd972085cffee613e2597449d0a2eaf32585c7bf",
+    "answer_final_run_summary_sha256": "3afc6a63049ac5db3934a789cf28668728fec6d7619bc6b041e6357eef9e0450",
+    "blinded_answer_reviews_sha256": "72a35867064dc3ac98692dfdf65395cec4d08fcb7515f151b3116a7a863fee45"
+  },
+  "timing_note": "Retrieval latency is an in-process diagnostic. Route execution scopes and dependency costs differ, so latency is not a portable hardware benchmark."
+}

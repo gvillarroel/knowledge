@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-okf-source-generic-answer/1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_id", "answer", "evidence"],
+  "properties": {
+    "question_id": {"type": "string", "pattern": "^q[0-9]{3}$"},
+    "answer": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["summary", "claims"],
+          "properties": {
+            "summary": {"type": "string", "minLength": 1},
+            "claims": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["statement", "evidence_indices"],
+                "properties": {
+                  "statement": {"type": "string", "minLength": 1},
+                  "evidence_indices": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"type": "integer", "minimum": 0}
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "record_id", "concept_path", "source_path", "record_sha256", "locator", "text_sha256"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "record_id": {"type": "string", "minLength": 1},
+          "concept_path": {"type": "string", "minLength": 1},
+          "source_path": {"type": "string", "minLength": 1},
+          "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "locator": {"type": "object"},
+          "text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}

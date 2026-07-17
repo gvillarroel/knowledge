@@ -1,0 +1,16 @@
+{
+  "benchmarkId": "semantic-okf-harbor-ensemble-train-v1",
+  "targetCaseId": "q031",
+  "selectedParentId": "consult-semantic-okf-ensemble-baseline",
+  "currentScore": 0.7665360636988622,
+  "feedback": [
+    {
+      "caseId": "q031",
+      "outcome": "failure",
+      "diagnosis": "The closed finalizer passed, but the single full-query evidence pack missed one required document and one authoritative interval.",
+      "evidence": "Harbor: quality_gate=1.0, recall=0.6667, authoritative_evidence_completeness=0.6667, atomic_claim_evidence_completeness=0.8, reward=0.7665."
+    }
+  ],
+  "reflectionTask": "Propose one skill-bundle edit that addresses the verified diagnosis without changing the benchmark or weakening other cases.",
+  "mergePlan": null
+}

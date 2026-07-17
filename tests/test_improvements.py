@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from argparse import Namespace
 from pathlib import Path
@@ -49,6 +50,7 @@ from knowledge.sources.crawl4ai_site import (
     _http_session,
     _http_get_with_backoff,
     _html_to_primary_text,
+    _is_json_content_type,
     _normalize_url,
     _page_anti_bot_reason,
     _prefer_cdp_bfs,
@@ -496,6 +498,83 @@ class TestCrawl4aiSiteCoverage:
         result = adapter._fetch_single_page("https://example.com")
         assert result["title"] == "Example"
         assert "Hello World" in result["markdown"]
+
+    def test_fetch_single_page_preserves_json_without_html_extraction(self, tmp_path, monkeypatch):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://example.com/data.json",
+            config={"url": "https://example.com/data.json", "max_depth": 0, "max_pages": 1},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+        body = json.dumps(
+            [{"documents": [{"passages": [{"text": "A <table> value"}, {"text": "second"}]}]}],
+            ensure_ascii=False,
+        )
+
+        class FakeResp:
+            text = body
+            content = body.encode("utf-8")
+            status_code = 200
+            headers = {"Content-Type": "application/json; charset=utf-8"}
+
+            def raise_for_status(self):
+                return None
+
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeResp())
+        result = adapter._fetch_single_page("https://example.com/data.json")
+
+        assert result["markdown"] == body
+        assert json.loads(result["markdown"]) == json.loads(body)
+        assert result["metadata"]["content_format"] == "json"
+        assert result["metadata"]["raw_content_bytes"] == len(body.encode("utf-8"))
+        assert result["metadata"]["raw_content_sha256"] == hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+    @pytest.mark.parametrize(
+        ("content_type", "expected"),
+        [
+            ("application/json", True),
+            ("application/json; charset=UTF-8", True),
+            ("application/vnd.ncbi.bioc+json", True),
+            ("text/json", False),
+            ("text/html", False),
+        ],
+    )
+    def test_json_content_type_detection(self, content_type, expected):
+        assert _is_json_content_type(content_type) is expected
+
+    @pytest.mark.parametrize(
+        ("content", "reason"),
+        [
+            (b"\xff", "invalid_json_encoding"),
+            (b'{"documents":', "invalid_json"),
+        ],
+    )
+    def test_fetch_single_page_rejects_invalid_json_bytes(self, tmp_path, monkeypatch, content, reason):
+        store = make_store(tmp_path)
+        store.create_collection_key("k")
+        source = store.add_collection_source(
+            "k", "site", title="https://example.com/data.json",
+            config={"url": "https://example.com/data.json", "max_depth": 0, "max_pages": 1},
+            update_command="sync", delete_command="del",
+        )
+        adapter = SiteSource(source, store)
+
+        class FakeResp:
+            text = "unused"
+            status_code = 200
+            headers = {"Content-Type": "application/vnd.ncbi.bioc+json"}
+
+            def __init__(self):
+                self.content = content
+
+            def raise_for_status(self):
+                return None
+
+        monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *a, **kw: FakeResp())
+        with pytest.raises(_SkippablePageError, match=reason):
+            adapter._fetch_single_page("https://example.com/data.json")
 
     def test_fetch_single_page_403_falls_back_to_proxy(self, tmp_path, monkeypatch):
         import requests as req

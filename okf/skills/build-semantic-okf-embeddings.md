@@ -29,11 +29,11 @@ Build one authoritative Semantic OKF core and one derived retrieval projection a
 
 ## Required references
 
-- Read [source-combination.md](references/source-combination.md) before combining physical sources.
-- Read [manifest.md](references/manifest.md) before writing or changing the Semantic OKF manifest.
-- Read [coherence-contract.md](references/coherence-contract.md) before changing core mappings or validation.
-- Read [retrieval-plan.md](references/retrieval-plan.md) before choosing sources, chunking, or embeddings.
-- Read [python-runtime.md](references/python-runtime.md) before installing or running the package.
+- Read [source-combination.md](../../skills/build-semantic-okf-embeddings/references/source-combination.md) before combining physical sources.
+- Read [manifest.md](../../skills/build-semantic-okf-embeddings/references/manifest.md) before writing or changing the Semantic OKF manifest.
+- Read [coherence-contract.md](../../skills/build-semantic-okf-embeddings/references/coherence-contract.md) before changing core mappings or validation.
+- Read [retrieval-plan.md](../../skills/build-semantic-okf-embeddings/references/retrieval-plan.md) before choosing sources, chunking, or embeddings.
+- Read [python-runtime.md](../../skills/build-semantic-okf-embeddings/references/python-runtime.md) before installing or running the package.
 
 ## Workflow
 

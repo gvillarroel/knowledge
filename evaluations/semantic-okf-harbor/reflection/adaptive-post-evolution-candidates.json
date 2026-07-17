@@ -1,0 +1,32 @@
+{
+  "benchmarkId": "semantic-okf-harbor-adaptive-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [
+    {
+      "candidateId": "consult-semantic-okf-adaptive-baseline",
+      "parentIds": [],
+      "caseScores": {"q031": 0.0},
+      "complexityDelta": 0,
+      "evaluationCost": 1534743,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The answer retrieved and validated every hard evidence interval but manually serialized evidence in a different order than its first use in claims.",
+        "evidence": "Harbor: contract=1.0, all_evidence_valid=1.0, hard completeness=1.0, reference_validity=0.0, reward=0.0; first-use sequence was 4,1,3,2,5,6,0."
+      }]
+    },
+    {
+      "candidateId": "consult-semantic-okf-harbor-adaptive-evolved",
+      "parentIds": ["consult-semantic-okf-adaptive-baseline"],
+      "caseScores": {"q031": 0.9946902429525976},
+      "complexityDelta": 584,
+      "evaluationCost": 346869,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "success",
+        "diagnosis": "Closed finalization repaired first-use evidence order while the adaptive support allocation covered every required source and hard interval; five citations for three relevant documents left precision at 0.6.",
+        "evidence": "Harbor run 20260716-evolved-train-adaptive-q031: response_contract=1.0, reference_validity=1.0, recall=1.0, authoritative and atomic completeness=1.0, reward=0.9946902429525976; 346,869 input tokens."
+      }]
+    }
+  ]
+}

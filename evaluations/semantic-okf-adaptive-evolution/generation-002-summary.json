@@ -1,0 +1,88 @@
+{
+  "schema_version": "semantic-okf-adaptive-evolution-generation/1.0",
+  "generation": 2,
+  "candidate": "candidate-11-minimal-direct-support",
+  "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+  "frozen_manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+  "skill_bindings": {
+    "build_skill_tree_sha256": "c836ead20f0a4187760f97dcc9280168d4c3dbbddef5236fc2cc2af0f6c93223",
+    "consult_skill_tree_sha256": "731318f38a09113b57792c6e3cd93801eedb08a1cb0e7ef9cf72e19e4fe9cdac",
+    "consult_skill_md_sha256": "c1bbbca6d96d9ce514de39b79db60625ed162d0ed33c396e3ce6a25e26a96fa5",
+    "consult_runtime_sha256": "66176ef1652bad03d3390137854823b9d9a03fa6f209594444c395ebd5943032",
+    "consult_cli_sha256": "f97cdce5ee44e262c80422283f471262c14a8b9ffbc78bf74b3f85944f0b6e76"
+  },
+  "offline": {
+    "fitness": 81.622213,
+    "all_40_recall_at_10": 0.8381619769119769,
+    "all_40_ndcg_at_10": 0.8342720299627899,
+    "primary_answer_claim_recall_at_30": 0.6,
+    "important_negative_recall_at_30": 0.75,
+    "required_paper_recall_at_30": 0.98,
+    "evidence_contract_validity": 1.0,
+    "facet_union_answer_claim_coverage": 0.765,
+    "facet_union_important_negative_coverage": 0.8833333333333334,
+    "facet_union_required_paper_coverage": 1.0,
+    "facet_union_unique_candidate_claims_mean": 81.0,
+    "facet_union_budget_warning": "The facet union has a larger variable budget and is not Recall@30.",
+    "coverage_report_sha256": "cfcb835e63f5064b0bd2ead7c460da9ec32b35e696adf6c95b68bc5b93201149"
+  },
+  "skill_arena": {
+    "config": "evaluations/semantic-okf-adaptive-evolution/skill-arena/g002-candidate11-hard10.yaml",
+    "config_sha256": "fb0347ff30f2380e07d141f1e7d7e1ba0a022d378b066274f3f2af6a19281eba",
+    "task_canonical_sha256": "da2fffaf3ea60976802ed6782633e9b2f079a6ddf65510d98a8c426c854d4a4b",
+    "run": "results/semantic-okf-adaptive-evolution-g002-candidate11-hard10-paired/2026-07-15T00-01-22-546Z-compare",
+    "eval_id": "eval-tu4-2026-07-15T00:01:27",
+    "promptfoo_results_sha256": "06c4e3d61026b43ac327a8567a767c93dbf8e9e8264252730935ba1435348e5b",
+    "requested_cells": 20,
+    "completed_cells": 20,
+    "execution_errors": 0,
+    "reused_scenarios": 0,
+    "strict_passes": 0,
+    "treatment_assertion_rates": {
+      "response_format": 1.0,
+      "response_contract": 1.0,
+      "evidence_validity_exact_expected_set": 0.0,
+      "atomic_answer_completeness_exact_ids": 0.0,
+      "important_negative_coverage": 0.9
+    }
+  },
+  "blinded_grounded_answers": {
+    "reviews_sha256": "b9c12d8a3fcf873371fa8b46659ff53d7bafd66d827f015a3b16a22a0fca2bb0",
+    "summary_sha256": "af90c67236feb1c21d4ec60ad7145bdd148c664b48b7dd36a16a8c98e19261b4",
+    "control": {
+      "response_contract": 0.1,
+      "evidence_validity": 0.73541667,
+      "grounding": 0.72569445,
+      "claim_correctness": 0.9875,
+      "semantic_completeness": 0.89,
+      "exact_atomic_evidence_coverage": 0.495,
+      "required_paper_coverage": 0.89166667,
+      "required_source_coverage": 0.79166667,
+      "important_negative_coverage": 1.0
+    },
+    "treatment": {
+      "response_contract": 1.0,
+      "evidence_validity": 0.94404762,
+      "grounding": 0.9368254,
+      "claim_correctness": 0.98,
+      "semantic_completeness": 0.8475,
+      "exact_atomic_evidence_coverage": 0.535,
+      "required_paper_coverage": 0.93,
+      "required_source_coverage": 0.91333333,
+      "important_negative_coverage": 1.0
+    },
+    "treatment_minus_control": {
+      "response_contract": 0.9,
+      "evidence_validity": 0.20863095,
+      "grounding": 0.21113095,
+      "claim_correctness": -0.0075,
+      "semantic_completeness": -0.0425,
+      "exact_atomic_evidence_coverage": 0.04,
+      "required_paper_coverage": 0.03833333,
+      "required_source_coverage": 0.12166666,
+      "important_negative_coverage": 0.0
+    }
+  },
+  "decision": "keep-pareto-survivor",
+  "decision_reason": "The minimal-direct-support policy removed the unsupported full abstention, achieved 100% response-contract compliance, preserved 98% correctness and 100% negative coverage, and causally improved evidence validity and grounding by about 21 points. It trades 4.25 points of paired completeness and remains below generation 0 on exact evidence validity and grounding, so both variants remain complementary survivors."
+}

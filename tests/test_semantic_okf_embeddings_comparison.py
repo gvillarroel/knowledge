@@ -15,9 +15,11 @@ EVALUATION_ROOT = REPO_ROOT / "evaluations" / "semantic-okf-embeddings"
 HISTORICAL_ROOT = REPO_ROOT / "evaluations" / "graphrag-cross-paper"
 COMPARATOR = EVALUATION_ROOT / "scripts" / "compare_retrieval.py"
 ORCHESTRATOR = EVALUATION_ROOT / "scripts" / "run_evaluation.py"
+SUMMARIZER = EVALUATION_ROOT / "scripts" / "summarize_comparison_reports.py"
 INVENTORY = EVALUATION_ROOT / "input-inventory.json"
 QUESTIONS = EVALUATION_ROOT / "retrieval-questions.jsonl"
 HISTORICAL_QUESTIONS = HISTORICAL_ROOT / "questions.jsonl"
+COMPACT_SUMMARY = EVALUATION_ROOT / "comparison-summary.json"
 
 
 def load_comparator() -> ModuleType:
@@ -44,6 +46,18 @@ def load_orchestrator() -> ModuleType:
     return module
 
 
+def load_summarizer() -> ModuleType:
+    """Load the compact-report summarizer without packaging it."""
+
+    module_name = "semantic_okf_embeddings_summary"
+    spec = importlib.util.spec_from_file_location(module_name, SUMMARIZER)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def read_jsonl(path: Path) -> list[dict[str, object]]:
     """Read a compact JSONL fixture."""
 
@@ -55,6 +69,112 @@ def write_json(path: Path, value: object) -> None:
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _comparison_fixture(top_k: int) -> dict[str, object]:
+    questions = [f"q{index:03d}" for index in range(1, 31)]
+    routes = []
+    for name in ("legacy_lexical", "new_lexical", "vector", "hybrid"):
+        routes.append(
+            {
+                "name": name,
+                "query_count": 30,
+                "error_count": 0,
+                "errors": [],
+                "setup_ms": 0.0,
+                "timing_scope": "fixture",
+                "timing_ms": {"mean": 1.0, "p95": 1.0},
+                "paper_metrics": {"recall_at_10": 1.0},
+                "source_metrics": {"recall_at_10": 1.0},
+                "evidence_validity": {"ratio": 1.0},
+                "queries": [
+                    {
+                        "question_id": question_id,
+                        "elapsed_ms": 1.0,
+                        "error": None,
+                        "hit_count": 1,
+                        "hits": [{"large": "payload"}],
+                        "paper_ids": ["paper-a"],
+                        "source_ids": ["source-a"],
+                        "paper_metrics": {"recall_at_10": 1.0},
+                        "source_metrics": {"recall_at_10": 1.0},
+                        "evidence_validity": {"ratio": 1.0},
+                    }
+                    for question_id in questions
+                ],
+            }
+        )
+    return {
+        "schema_version": "1.2",
+        "top_k": top_k,
+        "routes": routes,
+        "inputs": {"questions": {"sha256": "a" * 64}},
+        "bundles": {"legacy": {}, "new": {}},
+        "core_semantic_parity": {
+            "status": "pass",
+            "authoritative_file_set": {"equal": True},
+            "logical_core_tree_equal": True,
+            "key_artifacts_equal": True,
+        },
+        "metric_contract": {"primary_identity": "paper_id"},
+        "evidence_contract": {"exact_bindings": True},
+        "timing_methodology": {"scope": "fixture"},
+    }
+
+
+def test_compact_summary_preserves_metrics_and_drops_hit_payloads(tmp_path: Path) -> None:
+    summarizer = load_summarizer()
+    primary = tmp_path / "primary.json"
+    diagnostic = tmp_path / "diagnostic.json"
+    write_json(primary, _comparison_fixture(100))
+    write_json(diagnostic, _comparison_fixture(10))
+
+    summary = summarizer.summarize(primary, diagnostic)
+
+    assert summary["status"] == "pass"
+    assert summary["gates"]["all_retained_evidence_valid"] is True
+    assert summary["cohorts"]["primary_identity_collapsed"]["query_count"] == 30
+    query = summary["cohorts"]["primary_identity_collapsed"]["routes"][0]["queries"][0]
+    assert query["paper_ids"] == ["paper-a"]
+    assert "hits" not in query
+    assert summary["source_reports"]["primary"]["sha256"] == summarizer.sha256(primary)
+
+
+def test_checked_compact_summary_retains_the_accepted_result_contract() -> None:
+    summary = json.loads(COMPACT_SUMMARY.read_text(encoding="utf-8"))
+
+    assert summary["schema_version"] == "semantic-okf-embeddings-comparison-summary/1.0"
+    assert summary["status"] == "pass"
+    assert all(summary["gates"].values())
+    assert summary["source_reports"]["primary"]["sha256"] == (
+        "8dc000d04568753d18b0c744b25b269001d9b3ff2eb986c03c0670192c988d23"
+    )
+    assert summary["source_reports"]["diagnostic"]["sha256"] == (
+        "08a83e45c8596743170c7ccb05015019c3cc0d00b7167f8432ba2c76fd07114c"
+    )
+    primary = summary["cohorts"]["primary_identity_collapsed"]
+    assert primary["query_count"] == 30
+    assert len(primary["question_ids"]) == len(set(primary["question_ids"])) == 30
+    assert [route["name"] for route in primary["routes"]] == [
+        "legacy_lexical",
+        "new_lexical",
+        "vector",
+        "hybrid",
+    ]
+    expected_recall = {
+        "legacy_lexical": 0.7885954785954786,
+        "new_lexical": 0.7813323713323713,
+        "vector": 0.7392147667147667,
+        "hybrid": 0.7728270803270803,
+    }
+    for route in primary["routes"]:
+        assert route["query_count"] == 30
+        assert route["error_count"] == 0
+        assert route["evidence_validity"]["ratio"] == 1.0
+        assert route["paper_metrics"]["recall_at_10"] == pytest.approx(
+            expected_recall[route["name"]]
+        )
+        assert all("hits" not in query for query in route["queries"])
 
 
 def test_input_inventory_freezes_exact_historical_core() -> None:

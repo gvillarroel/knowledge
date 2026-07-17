@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "selection": {
+    "source_ids": [
+      "claims-pmc11764522",
+      "claims-pmc4016195",
+      "claims-pmc4724203",
+      "claims-pmc4997468",
+      "claims-pmc5047791",
+      "claims-pmc5376243",
+      "claims-pmc5783668",
+      "claims-pmc6037613",
+      "claims-pmc6504186",
+      "claims-pmc7958867",
+      "claims-pmc8316883",
+      "claims-pmc8810700",
+      "claims-pmc8812815",
+      "claims-pmc9566193",
+      "claims-pmc9764248",
+      "paper-pmc11764522",
+      "paper-pmc4016195",
+      "paper-pmc4724203",
+      "paper-pmc4997468",
+      "paper-pmc5047791",
+      "paper-pmc5376243",
+      "paper-pmc5783668",
+      "paper-pmc6037613",
+      "paper-pmc6504186",
+      "paper-pmc7958867",
+      "paper-pmc8316883",
+      "paper-pmc8810700",
+      "paper-pmc8812815",
+      "paper-pmc9566193",
+      "paper-pmc9764248"
+    ]
+  },
+  "tokenization": {
+    "tokenizer": "ascii-alphanumeric-v1",
+    "stopwords": "english-v1",
+    "min_token_length": 2,
+    "ngram_range": [1, 2]
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "title_weight": 2.0,
+    "body_weight": 1.0
+  },
+  "associations": {
+    "window_size": 8,
+    "min_document_frequency": 2,
+    "min_cooccurrence": 2,
+    "max_vocabulary": 3000,
+    "max_neighbors": 8,
+    "minimum_ppmi": 0.0
+  },
+  "topics": {
+    "topic_count": 16,
+    "max_iterations": 20,
+    "top_terms": 20
+  },
+  "expansion": {
+    "association_terms": 6,
+    "topic_terms": 6,
+    "association_weight": 0.35,
+    "topic_weight": 0.2
+  },
+  "reranking": {
+    "candidate_pool": 100,
+    "relevance_weight": 0.7,
+    "topic_novelty_weight": 0.15,
+    "source_novelty_weight": 0.15,
+    "max_per_evidence_identity": 1,
+    "rrf_k": 60
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "schema_version": "semantic-okf-adaptive-evolution-final-validation/1.0",
+  "status": "pass",
+  "validated_on": "2026-07-15",
+  "benchmark": {
+    "id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "bound_files": 17,
+    "retrieval_questions": 40,
+    "hard_questions": 10,
+    "status": "pass"
+  },
+  "checks": {
+    "skill_creator_quick_validate": {
+      "status": "pass",
+      "packages": [
+        "skills/build-semantic-okf-adaptive",
+        "skills/consult-semantic-okf-adaptive"
+      ]
+    },
+    "package_runtime_smoke": {
+      "status": "pass",
+      "builder_model_required": false,
+      "consult_model_required": false,
+      "consult_network_required": false,
+      "schema_version": "1.2"
+    },
+    "expected_id_audit": {
+      "status": "pass",
+      "atomic_answer_claims": 44,
+      "important_negatives": 13,
+      "unique_expected_claim_ids": 42,
+      "config_question_checks": 40,
+      "mismatches": 0
+    },
+    "deterministic_real_rebuild": {
+      "status": "pass",
+      "first": "evaluations/semantic-okf-adaptive-evolution/results/final-validation-20260715-a",
+      "second": "evaluations/semantic-okf-adaptive-evolution/results/final-validation-20260715-b",
+      "schema_version": "1.2",
+      "file_count_each": 891,
+      "relative_path_sets_equal": true,
+      "differing_file_hashes": 0,
+      "tree_manifest_sha256": "2e6d30ad79b34d91c3b2f90761dd51107568785e0d26ab44c5d4255e965b3539",
+      "tree_manifest_algorithm": "SHA-256 over sorted relative-path NUL file-SHA-256 newline rows",
+      "adaptive_index_sha256": "7b8c1a16d29e9c0bf7a14fbf06e676850a2c6a29387afdfd0c248ab2e5888e5c",
+      "authoritative_core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+      "records": 846,
+      "documents": 1135,
+      "answer_bindings": 831,
+      "terms": 96799,
+      "association_terms": 3000,
+      "topics": 16,
+      "independent_validations": 2,
+      "validation_errors": 0,
+      "validation_warnings": 0
+    },
+    "manual_read_only_query": {
+      "status": "pass",
+      "question_id": "q040-answer-source-control",
+      "facet_count": 7,
+      "unique_candidate_claims": 82,
+      "expected_claims_found": 4,
+      "expected_claims_total": 4,
+      "draft_summary_words": 197,
+      "finalized_evidence": 4,
+      "finalized_papers": 4,
+      "canonical_locator_types": true,
+      "bundle_files_changed": 0
+    },
+    "offline_candidate_replay": {
+      "status": "pass",
+      "fitness": 81.45830724215877,
+      "fitness_note": "The five-point operational component is latency-sensitive; survivor quality metrics reproduced exactly.",
+      "all_40_recall_at_10": 0.8381619769119769,
+      "all_40_ndcg_at_10": 0.8342720299627899,
+      "answer_claim_recall_at_30": 0.6,
+      "important_negative_recall_at_30": 0.75,
+      "required_paper_recall_at_30": 0.9800000000000001,
+      "evidence_contract_validity": 1.0,
+      "read_only": true,
+      "question_id_isolation": true,
+      "core_parity": true
+    },
+    "facet_coverage_replay": {
+      "status": "pass",
+      "repetitions_per_question": 3,
+      "primary_top_k": 30,
+      "facet_union_budget_is_larger": true,
+      "primary_answer_claim_recall_at_30": 0.6,
+      "facet_union_answer_claim_coverage": 0.765,
+      "facet_union_important_negative_coverage": 0.8833333333333334,
+      "facet_union_required_paper_coverage": 1.0,
+      "unique_candidate_claims_mean": 81.0,
+      "facet_count_mean": 7.1,
+      "mean_latency_ms": 1340.863636667685
+    },
+    "skill_arena_configs": {
+      "status": "pass",
+      "configs_validated": 3,
+      "prompts_per_config": 10,
+      "profiles_per_config": 2,
+      "variants_per_config": 1,
+      "todos": 0,
+      "unsupported_cells": 0,
+      "generation_2_dry_run_cells": 20,
+      "canonical_task_sha256": "da2fffaf3ea60976802ed6782633e9b2f079a6ddf65510d98a8c426c854d4a4b",
+      "design_task_families": 9,
+      "design_case_kinds": 3,
+      "maximum_prompt_words": 198,
+      "maximum_pairwise_jaccard": 0.609
+    },
+    "okf_project_bundle": {
+      "status": "pass",
+      "documents": 20,
+      "check_mode_current": true
+    },
+    "focused_adaptive_tests": {
+      "status": "pass",
+      "passed": 71,
+      "failed": 0
+    },
+    "full_repository_tests": {
+      "status": "pass",
+      "passed": 1226,
+      "failed": 0,
+      "duration_seconds": 186.78
+    },
+    "application_coverage_gate": {
+      "status": "pass",
+      "command": "python scripts/check_coverage.py --threshold 80",
+      "instrumented_tests_passed": 1146,
+      "application_coverage_percent": 90.9,
+      "threshold_percent": 80.0,
+      "duration_seconds": 229.7
+    }
+  },
+  "bindings": {
+    "expected_id_audit_sha256": "cf9a165611f54a16246a39e5e0929b2887776ceff9b64d891624d43462c0c835",
+    "evaluation_conclusions_sha256": "556250570bcac9dd76fd0f54ab400698037cf3f1d9b4293511eb1ec32c279a13",
+    "evolution_readme_sha256": "dfd7de965f064d2822e58ae70cbf937bff8c783beb08a3d6168ed47e8fe02ffc",
+    "generation_2_summary_sha256": "53287d52820086fa3358a5fb7344ed739369ee9fb4b5180428a63bfcccec71d1",
+    "coverage_pack_summary_sha256": "cfcb835e63f5064b0bd2ead7c460da9ec32b35e696adf6c95b68bc5b93201149",
+    "adr_0022_sha256": "e5734c947bbb96419d340bc722ccbcfdf753db1d137ca802559906a5e5e90189",
+    "build_skill_md_sha256": "70c65fe73bd1abc15f318fddf82612e01682a23b079b4a279b13207006bf688d",
+    "consult_skill_md_sha256": "c1bbbca6d96d9ce514de39b79db60625ed162d0ed33c396e3ce6a25e26a96fa5",
+    "ignored_final_coverage_replay_sha256": "ec9db8af64b2b36eaa4e7569a782c15afdc31c75feea80374f206ffd0c155a1b",
+    "ignored_final_fitness_replay_sha256": "c0c17e239d51d365bf16a59ccd3200441d031fa427d62b677c91e87bef74259d",
+    "ignored_final_expected_id_replay_sha256": "2b1ca89e920d756625132c7314d97e37bcb5f05f546e8c73bcb0cbd33902e184"
+  }
+}

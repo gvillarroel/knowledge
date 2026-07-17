@@ -78,8 +78,9 @@ Keep embeddings optional and preserve lexical retrieval as a first-class route. 
 
 Machine-readable and generated reports:
 
-- `comparison-report-pool100.json` and `comparison-report-pool100.md`: primary identity-collapsed evaluation;
-- `comparison-report.json` and `comparison-report.md`: first-10-chunk concentration diagnostic;
+- `comparison-summary.json`: checked-in compact machine-readable primary and diagnostic results, including per-question metrics and ranked identities but excluding repeated hit payloads;
+- `comparison-report-pool100.md`: checked-in primary identity-collapsed table; its full JSON is a local ignored artifact bound by the append-only run manifest and compact summary;
+- `comparison-report.md`: checked-in first-10-chunk concentration table; its full JSON is a local ignored artifact bound by the append-only run manifest and compact summary;
 - `input-inventory.json`: exact input hashes and auxiliary contract;
 - `retrieval-questions.jsonl`: the 30 questions and reviewed qrels;
 - `retrieval-plan.json`: the pinned splitter and embedding configuration.

@@ -1,0 +1,142 @@
+{
+  "schema_version": "semantic-okf-ensemble-evaluation-contract/1.0",
+  "scope": {
+    "purpose": "Evaluation-only bindings, gates, and scoring rules for the standalone Semantic OKF ensemble",
+    "builder_input": false,
+    "contains_results": false
+  },
+  "frozen_benchmark": {
+    "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "path": "evaluations/semantic-okf-adaptive-evolution/frozen-benchmark.json",
+    "sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "retrieval_question_count": 40,
+    "hard_question_count": 10,
+    "mutation_policy": "read-only"
+  },
+  "ensemble_plan": {
+    "path": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+    "sha256": "0f30f15f4156223a72200544ec07ffab33ee3d2a92aac09424f8444ad38339f5"
+  },
+  "component_plans": {
+    "adaptive": {
+      "path": "evaluations/semantic-okf-adaptive/adaptive-plan.json",
+      "sha256": "daac9da8631ca59040d9647d3b183e8e7b7037df10064a19bd5866a93c08da9a"
+    },
+    "entity_graph": {
+      "path": "evaluations/semantic-okf-entity-graph/entity-graph-plan.json",
+      "sha256": "aa2f94b07009433111e17336965f41c551195d8b92231c663842f734b8825d27"
+    },
+    "embedding": {
+      "path": "evaluations/semantic-okf-embeddings/retrieval-plan.json",
+      "sha256": "91f13e4e364b33a818bbee49f2a9726cad014d3ef85c4f4877f7db6b2100078b"
+    }
+  },
+  "authority": {
+    "authoritative_roots": ["semantic", "concepts"],
+    "derived_roots": ["adaptive", "entity-graph", "retrieval", "ensemble"],
+    "publication": "validate a complete staging tree before one atomic rename",
+    "consultation": "read-only",
+    "evidence_copy_rule": "copy exact authoritative evidence fields only from a validated component hit"
+  },
+  "route_bindings": {
+    "adaptive": {"component": "adaptive", "route": "adaptive_fusion"},
+    "graph_fusion": {"component": "entity_graph", "route": "entity_graph_fusion"},
+    "graph_lexical": {"component": "entity_graph", "route": "entity_graph_lexical"},
+    "bm25": {"component": "adaptive", "route": "classical_bm25"},
+    "embedding_hybrid": {"component": "embedding", "route": "hybrid"}
+  },
+  "ranking_contract": {
+    "identity": "deduplicate by paper_id before final top-k while preserving component evidence identity",
+    "stable_tie_break": [
+      "fused_score_desc",
+      "best_active_component_rank_asc",
+      "active_component_rank_sum_asc",
+      "active_route_presence_desc",
+      "paper_id_asc"
+    ],
+    "missing_route": "quality and fast fail closed; robust is available only when adaptive validates",
+    "promotion": "a graph-lexical candidate may move only after the active policy confirmation rule succeeds and never beyond its maximum protected rank"
+  },
+  "protocol": {
+    "top_k": 10,
+    "deterministic_repetitions": 3,
+    "retrieval_cohorts": ["all_40", "hard_10"],
+    "retrieval_metrics": ["recall_at_10", "mrr_at_10", "ndcg_at_10"],
+    "answer_metrics": [
+      "response_contract",
+      "evidence_validity",
+      "grounding",
+      "claim_correctness",
+      "semantic_completeness",
+      "exact_atomic_evidence_coverage",
+      "required_paper_coverage",
+      "required_source_coverage",
+      "important_negative_coverage"
+    ],
+    "causal_claim_rule": "Only paired Skill Arena control and treatment cells that differ by the named skill may support causal claims. Portfolio comparisons are descriptive."
+  },
+  "hard_gates": {
+    "frozen_benchmark_valid": true,
+    "component_plan_parity": true,
+    "authoritative_core_parity": true,
+    "evidence_validity": 1.0,
+    "query_error_count": 0,
+    "deterministic_rankings": true,
+    "response_contract_valid": true,
+    "exact_answer_bindings_valid": true,
+    "all_40_non_regression": {
+      "recall_at_10": 0.83816198,
+      "mrr_at_10": 0.95833333,
+      "ndcg_at_10": 0.83427203
+    },
+    "hard_10_non_regression": {
+      "recall_at_10": 0.955,
+      "mrr_at_10": 0.95,
+      "ndcg_at_10": 0.8498475
+    }
+  },
+  "objective_reference_observations": {
+    "adaptive_retrieval_incumbent": {
+      "source": "evaluations/semantic-okf-adaptive/retrieval-summary.json",
+      "sha256": "14dd37e137c84ef6ea81f96fbdb70e796a8d65fb68509ba463181bf0fdef8152",
+      "all_40": {"recall_at_10": 0.83816198, "mrr_at_10": 0.95833333, "ndcg_at_10": 0.83427203},
+      "hard_10": {"recall_at_10": 0.955, "mrr_at_10": 0.95, "ndcg_at_10": 0.8498475},
+      "p95_latency_ms": 407.5597
+    },
+    "best_observed_all_40_mrr": {
+      "route": "entity_graph_lexical",
+      "mrr_at_10": 0.96666667
+    },
+    "knowledge_only_answer_control": {
+      "source": "evaluations/semantic-okf-adaptive/skill-arena/final-run-summary.json",
+      "sha256": "3afc6a63049ac5db3934a789cf28668728fec6d7619bc6b041e6357eef9e0450",
+      "response_contract": 0.4,
+      "evidence_validity": 0.93233364,
+      "grounding": 0.9332265,
+      "claim_correctness": 0.975,
+      "semantic_completeness": 0.9025,
+      "exact_atomic_evidence_coverage": 0.735,
+      "required_paper_coverage": 0.88333333,
+      "required_source_coverage": 0.88333333,
+      "important_negative_coverage": 1.0
+    }
+  },
+  "population_objectives": {
+    "direction": "maximize",
+    "aggregation": "geometric_mean_after_all_hard_gates_pass",
+    "dimensions": [
+      "all_40_recall_at_10",
+      "all_40_mrr_at_10",
+      "all_40_ndcg_at_10",
+      "hard_10_recall_at_10",
+      "hard_10_mrr_at_10",
+      "hard_10_ndcg_at_10",
+      "hard_10_answer_correctness",
+      "hard_10_answer_completeness",
+      "hard_10_grounding",
+      "hard_10_response_contract",
+      "latency_efficiency"
+    ],
+    "tie_break": ["worst_objective_desc", "geometric_mean_desc", "p95_latency_ms_asc", "candidate_id_asc"]
+  }
+}

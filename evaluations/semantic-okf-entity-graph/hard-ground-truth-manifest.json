@@ -1,0 +1,43 @@
+{
+  "contracts": {
+    "claim_record": "one non-empty logical JSONL line without its LF terminator",
+    "evidence_offsets": "zero-based Unicode code-point offsets over UTF-8 text after CRLF/CR normalization to LF; char_end is exclusive",
+    "paper_segment": "from the exact PDF-page heading through the character before the next PDF-page heading, or EOF",
+    "question_prompt": "question text only; evaluator ground truth is never exposed"
+  },
+  "generator": "scripts/generate_hard_questions.py",
+  "inputs": {
+    "baseline_questions": {
+      "count": 30,
+      "path": "evaluations/semantic-okf-embeddings/retrieval-questions.jsonl",
+      "sha256": "fc583fc4cfdb8c392b8e53e929b5b052a86b0d288297a1d73723ee53feec175a"
+    },
+    "blueprint": {
+      "path": "evaluations/semantic-okf-classical/hard-question-evidence.json",
+      "sha256": "2502bb01aec2a93ed9cc4181f23a2243b8e8ba9dff8dc2ae98a3706ed880be51"
+    },
+    "corpus_inventory": {
+      "core_file_count": 30,
+      "path": "evaluations/semantic-okf-embeddings/input-inventory.json",
+      "sha256": "007a2c4ecbb7802fbb2ea2ca4dc57d3dbf96189d12f19d2db3e5b934bd0207a0"
+    }
+  },
+  "outputs": {
+    "hard-ground-truth.jsonl": {
+      "count": 10,
+      "path": "evaluations/semantic-okf-classical/hard-ground-truth.jsonl",
+      "sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388"
+    },
+    "hard-questions.jsonl": {
+      "count": 10,
+      "path": "evaluations/semantic-okf-classical/hard-questions.jsonl",
+      "sha256": "59b41fe5f81141ee2fc9ab04e61751c474d97e17eb8eead7aaf432ecd47259ca"
+    },
+    "retrieval-questions.jsonl": {
+      "count": 40,
+      "path": "evaluations/semantic-okf-classical/retrieval-questions.jsonl",
+      "sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec"
+    }
+  },
+  "schema_version": "semantic-okf-hard-ground-truth-manifest/1.0"
+}

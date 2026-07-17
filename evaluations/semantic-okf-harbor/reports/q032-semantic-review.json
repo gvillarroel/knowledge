@@ -1,0 +1,376 @@
+{
+  "schema_version": "semantic-okf-harbor-semantic-review/1.0",
+  "question_id": "q032",
+  "ground_truth_binding": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+    "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+  },
+  "rubric": {
+    "item_scale": {
+      "0": "Absent, contradicted, or materially wrong.",
+      "0.5": "Present but incomplete, implicit, or missing an important condition.",
+      "1": "Explicit and semantically complete against the reviewed ground truth."
+    },
+    "summary_scale": {
+      "semantic_correctness": "Manual 0-1 judgment of whether the prose is materially true, independent of coverage and JSON validity.",
+      "completeness": "Deterministic mean of the five atomic claims, two important negatives, cacheable-design derivation, and deployment-correctness derivation.",
+      "grounding": "Manual 0-1 judgment that substantive statements are supported by the answer's usable cited evidence; retrieval coverage alone is insufficient.",
+      "response_contract": "Exact Harbor response-contract result, 0 or 1."
+    },
+    "completeness_formula": "round((a1+a2+a3+a4+a5+n1+n2+cacheable_design+deployment_correctness)/9, 6)",
+    "grounding_rule": "Evidence-validity and qrel coverage are inputs, not proof of entailment. Invalid or unusable evidence receives zero grounding for the affected statements even when prose is plausible."
+  },
+  "reviews": [
+    {
+      "family": "legacy",
+      "variant": "baseline",
+      "status": "contract_invalid",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-legacy-q032-grader-r1/q032__3yWY4JD/result.json",
+        "sha256": "e5d9e50f33057cbe55019739a2d3f417a42f0cdac9d1ce3036b1672b5f424214"
+      },
+      "final_answer_sha256": "1a8c7b223f1092facaa0ceefe6a7ba21996db05987c4179077fa15eaf2420bdf",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 1, "rationale": "It requires a deployment adapter, names server:defer, and keeps the rest of the page mostly static."},
+        "q032-a2": {"score": 1, "rationale": "It limits props to supported serializable values and explicitly excludes functions and circular structures."},
+        "q032-a3": {"score": 1, "rationale": "It states the 2048-byte practical limit, GET-to-POST fallback, and loss of browser caching."},
+        "q032-a4": {"score": 0.5, "rationale": "It identifies Astro.url as the special island endpoint but does not prescribe explicit page props or Referer recovery."},
+        "q032-a5": {"score": 1, "rationale": "It requires a persistent ASTRO_KEY across rolling, multi-region, and CDN overlap windows."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It asks for minimal props but does not explicitly reject whole objects when a compact identifier would suffice."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires key continuity without explaining that Astro's default key is newly randomized for every build."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "The summary joins adapter execution, minimal serializable props, bounded GET URLs, and cache behavior."},
+        "deployment_correctness": {"score": 0.5, "rationale": "Stable-key reasoning is present, but page identity is not recovered from props or Referer."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.777778, "grounding": 0, "response_contract": 0},
+      "material_errors": ["All four evidence rows fail the closed locator/hash contract, so none of the otherwise plausible prose is usable as grounded output."],
+      "review_note": "The prose is the most complete legacy answer on this case, but Harbor correctly rejects its evidence artifact."
+    },
+    {
+      "family": "legacy",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-legacy-q032-grader-r1/q032__suTsNF5/result.json",
+        "sha256": "d8ad7d8e5cd5256872bb6af2a1c336c13acf0519a4cbf86e1cd3d2355d1c1659"
+      },
+      "final_answer_sha256": "ecaa31ed48542ecbbc043595cee6b1c6758a32737d9f1c9265c7a6990813f857",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It requires an adapter for delayed island rendering and preserves a mostly static page, but never explicitly instructs marking the component server:defer."},
+        "q032-a2": {"score": 1, "rationale": "It gives the serializable-prop boundary and excludes functions and circular references."},
+        "q032-a3": {"score": 1, "rationale": "It connects compact encrypted GET props, the 2048-byte limit, POST fallback, and loss of browser caching."},
+        "q032-a4": {"score": 0, "rationale": "It omits the isolated Astro.url endpoint and the explicit-prop or Referer alternatives."},
+        "q032-a5": {"score": 1, "rationale": "It prescribes astro create-key and a shared ASTRO_KEY across overlapping deployments and regions."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 1, "rationale": "It explicitly says to avoid whole objects or arrays so the query remains small."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires a constant rollout key but does not explicitly contrast it with the default random per-build key."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "Its summary coherently joins adapter execution, minimal serializable props, bounded GET transport, and caching."},
+        "deployment_correctness": {"score": 0.5, "rationale": "It derives encryption-key continuity but omits the independent page-identity requirement."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 0.95, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution repairs every evidence and contract failure and earns Harbor 1.0, while manual review still finds the page-URL rule absent."
+    },
+    {
+      "family": "embeddings",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-embeddings-q032-grader-r1/q032__QDvuHzZ/result.json",
+        "sha256": "0a8f0356d14070a61394bb97f284480980a676714a0953a3c91c2dcf28d9182b"
+      },
+      "final_answer_sha256": "9ecbc7388016e6d99d1da414ed1276319d23264533421457c643c8e4d6e01c71",
+      "harbor_metrics": {"reward": 0.485, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 1, "rationale": "It requires an adapter for server:defer while retaining a mostly static page with one deferred island."},
+        "q032-a2": {"score": 1, "rationale": "It explicitly restricts props to serializable types and excludes functions and circular references."},
+        "q032-a3": {"score": 1, "rationale": "It completely states GET query transport, the 2048-byte boundary, POST fallback, and cache loss."},
+        "q032-a4": {"score": 0, "rationale": "It supplies no rule for Astro.url isolation or page-identity recovery."},
+        "q032-a5": {"score": 1, "rationale": "It requires a reusable ASTRO_KEY across build, runtime, regions, and cached generations."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It says to minimize payloads but does not explicitly replace whole objects with compact identifiers."},
+        "q032-n2": {"score": 0.5, "rationale": "It calls for a constant key during overlap without naming the random-per-build default."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "The summary joins adapter, serialization, small GET payloads, and Cache-Control behavior."},
+        "deployment_correctness": {"score": 0.5, "rationale": "The key-continuity half is correct, but the page-identity half is absent."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The low Harbor atomic-evidence proxy reflects claim alignment, not poor prose: the cited chunks directly support its stated rules, but the answer omits a4."
+    },
+    {
+      "family": "embeddings",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-embeddings-q032-grader-r1/q032__c6LwUiS/result.json",
+        "sha256": "d6f4383860ad1cac2f943f52863823c4c6c917b5b6af5c191c4d9087c93dee18"
+      },
+      "final_answer_sha256": "544bce90e1a8d13c5e39a495f88f49cd68a45260c171b84504bb9bab077b95be",
+      "harbor_metrics": {"reward": 0.703685280723454, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It gives a valid Node adapter example and delayed rendering, but does not explicitly say to mark only the island server:defer while retaining the static shell."},
+        "q032-a2": {"score": 1, "rationale": "It names the serialization boundary and both prohibited examples."},
+        "q032-a3": {"score": 1, "rationale": "It links the 2048-byte GET boundary to POST fallback and unavailable browser caching."},
+        "q032-a4": {"score": 1, "rationale": "It explicitly rejects Astro.url as page identity and uses a parsed Referer instead."},
+        "q032-a5": {"score": 1, "rationale": "It requires one generated ASTRO_KEY shared across builds, runtime, regions, and CDN overlap."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It requires small payloads but does not directly reject whole objects when an identifier is sufficient."},
+        "q032-n2": {"score": 0.5, "rationale": "It prescribes a constant key without stating that the unpinned default changes each build."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "Across summary and claims it joins adapter execution, serializable props, bounded GET transport, and caching."},
+        "deployment_correctness": {"score": 1, "rationale": "It supplies both isolated-request page identity through Referer and stable cross-generation keying."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.833333, "grounding": 0.95, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution adds the missing page-identity rule and improves both Harbor reward and manual completeness, despite retrieving only one required document identity."
+    },
+    {
+      "family": "classical",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-classical-q032-grader-r1/q032__PiyjNhT/result.json",
+        "sha256": "f9d087ac24d7fd287f64eb0d1b24015176d122744cec5a5a703e024d47b0acdd"
+      },
+      "final_answer_sha256": "31403ed6812870fcca6e725e83b880901fafd7f600cb9a2edcc6ef0ca1106683",
+      "harbor_metrics": {"reward": 0.726314719276546, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It requires the correct adapter but does not explicitly connect server:defer to an on-demand island inside a static shell."},
+        "q032-a2": {"score": 1, "rationale": "It requires serializable props and explicitly prohibits functions and circular references."},
+        "q032-a3": {"score": 1, "rationale": "It states encrypted GET props, the 2048-byte limit, POST fallback, and loss of caching."},
+        "q032-a4": {"score": 0, "rationale": "It never distinguishes the island endpoint URL from the containing product-page URL."},
+        "q032-a5": {"score": 1, "rationale": "It explains the random-per-build default and prescribes a reusable ASTRO_KEY for overlap."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It recommends payload minimization without the explicit whole-object versus small-ID prohibition."},
+        "q032-n2": {"score": 1, "rationale": "It explicitly rejects relying on Astro's new random key per build during overlap."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "Its summary joins adapter, serialization, compact GET queries, Cache-Control, and POST avoidance."},
+        "deployment_correctness": {"score": 0.5, "rationale": "Stable keying is correctly derived, but page identity is omitted."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "This is a well-grounded baseline whose main semantic gap is the isolated page-URL rule."
+    },
+    {
+      "family": "classical",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-classical-q032-grader-r1/q032__m8eFXqj/result.json",
+        "sha256": "caa86ae70f481077fa63c6395ea514d005ac87618777c97c293a28811c90b330"
+      },
+      "final_answer_sha256": "c02359fe3610289dfac95771617de98059eb6e560452b828d4bcd5c82592d210",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 1, "rationale": "It explicitly combines a mostly static site, an adapter, and server:defer for the island."},
+        "q032-a2": {"score": 0.5, "rationale": "It minimizes props and rejects whole objects but omits the supported-serialization boundary and prohibited functions/cycles."},
+        "q032-a3": {"score": 1, "rationale": "It completely states encrypted GET transport, the 2048-byte boundary, POST fallback, and cache loss."},
+        "q032-a4": {"score": 0, "rationale": "It omits Astro.url isolation and both accepted page-identity alternatives."},
+        "q032-a5": {"score": 1, "rationale": "It requires astro create-key and a shared ASTRO_KEY across rolling, regional, and cached generations."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 1, "rationale": "It explicitly says not to pass whole objects or arrays when keeping the request URL small."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires stable keying during overlap but does not name the random-per-build default."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "It joins adapter-backed deferral, minimized props, bounded GET requests, and cache behavior."},
+        "deployment_correctness": {"score": 0.5, "rationale": "It derives key continuity but not page identity across isolated island requests."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.722222, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution reaches Harbor 1.0 by improving evidence coverage, while manual completeness is unchanged because a2 loses detail and a4 remains absent."
+    },
+    {
+      "family": "adaptive",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-adaptive-q032-grader-r1/q032__FZdpqBc/result.json",
+        "sha256": "4b7384d79493ce4cce63be8fc4ccac3835df02bd272e8adbf7d4d3cce48204b1"
+      },
+      "final_answer_sha256": "a05fd40a52a5b1de599d09e907a9ee4e5de37913b8c746fdb644592829281a5b",
+      "harbor_metrics": {"reward": 1, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It requires an adapter for an otherwise static site but does not explicitly instruct server:defer on only the island."},
+        "q032-a2": {"score": 1, "rationale": "It gives the serialization rule and excludes functions and circular objects."},
+        "q032-a3": {"score": 1, "rationale": "It fully connects encrypted GET props, URL size, POST fallback, and broken browser caching."},
+        "q032-a4": {"score": 0, "rationale": "It gives no warning about Astro.url inside the isolated island request."},
+        "q032-a5": {"score": 1, "rationale": "It pins a reusable ASTRO_KEY across front-end/back-end generations and regions."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It says to keep payloads minimal but does not explicitly reject entire objects in favor of a compact identifier."},
+        "q032-n2": {"score": 0.5, "rationale": "It prescribes reuse during stale-version overlap without identifying the random-per-build default."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "The summary joins adapter runtime, serializable compact props, GET transport, and edge caching."},
+        "deployment_correctness": {"score": 0.5, "rationale": "The key portion is present, but the page-identity portion is absent."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.666667, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "Harbor's perfect score reflects complete required evidence; manual review still penalizes the missing server:defer specificity and page-URL rule."
+    },
+    {
+      "family": "adaptive",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-adaptive-q032-grader-r1/q032__ReGHxze/result.json",
+        "sha256": "88fa4815dd4bc79e298d6c54e94967c3b4c0bce01085fcc29340fe7c0fe8800a"
+      },
+      "final_answer_sha256": "85f855f6301ca29c1ff8bc80f1807e4c7f211659c53f9256b10f5046eb5fc3d8",
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0.75, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It supplies an adapter but over-prescribes output: server and omits the minimum server:defer static-shell design."},
+        "q032-a2": {"score": 0.5, "rationale": "It minimizes props but never states the serialization boundary or excludes functions and cycles."},
+        "q032-a3": {"score": 1, "rationale": "It clearly connects small GET queries, the 2048-byte limit, POST fallback, and cache loss."},
+        "q032-a4": {"score": 0, "rationale": "It omits Astro.url isolation and page-identity recovery."},
+        "q032-a5": {"score": 1, "rationale": "It requires a generated, constant ASTRO_KEY across builds and regions."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 1, "rationale": "It explicitly says to avoid sending whole objects or arrays."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires a constant cross-build key without explaining the default per-build random key."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 0.5, "rationale": "It joins adapter and compact GET transport, but omits serialization and unnecessarily moves the page toward server-default output."},
+        "deployment_correctness": {"score": 0.5, "rationale": "It covers stable encryption only; page identity is absent."}
+      },
+      "summary_scores": {"semantic_correctness": 0.8, "completeness": 0.611111, "grounding": 0.75, "response_contract": 1},
+      "material_errors": [
+        "The minimum server-island design does not require output: server for the surrounding mostly static page; an adapter plus server:defer is sufficient.",
+        "Evidence row 3 fails the closed evidence contract, so its adapter-level CDN-cache claim is not usable as grounded support."
+      ],
+      "review_note": "The evolution regresses from a perfect Harbor baseline: the JSON contract remains valid, but an invalid evidence row triggers the non-compensating quality gate."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "baseline",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-entity-graph-q032-grader-r1/q032__bYYKbvf/result.json",
+        "sha256": "04adedf4382e4a3443788577d6b4d7e270eb04e961bca99e821a54eb3a3e9668"
+      },
+      "final_answer_sha256": "eed55e5312696728b69fb3ae15b47cf71149a30f31dada4b1c4ac832f5d56d24",
+      "harbor_metrics": {"reward": 0.547721531533805, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 1, "rationale": "It explicitly combines an adapter, server:defer, and an otherwise static page."},
+        "q032-a2": {"score": 0.5, "rationale": "It minimizes props but omits serialization support and the functions/circular-reference exclusions."},
+        "q032-a3": {"score": 1, "rationale": "It states encrypted GET transport, the 2048-byte limit, POST fallback, and broken caching."},
+        "q032-a4": {"score": 0, "rationale": "It supplies no page-URL isolation rule."},
+        "q032-a5": {"score": 1, "rationale": "It requires a constant ASTRO_KEY across rolling, regional, and CDN overlap cohorts."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 1, "rationale": "It explicitly says not to send full data objects or arrays."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires key reuse during overlap without contrasting the default random key."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 0.5, "rationale": "It joins adapter, minimal props, and GET caching, but never states that props must be serializable."},
+        "deployment_correctness": {"score": 0.5, "rationale": "It derives key continuity but not page identity."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.666667, "grounding": 0.95, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The graph baseline retrieves both required documents and produces useful prose, but misses serialization detail and the entire isolated-URL branch."
+    },
+    {
+      "family": "entity-graph",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-entity-graph-q032-grader-r1/q032__zCCdzyk/result.json",
+        "sha256": "d731dd9a2237ffdf461710242f5ccd71231637bf48b0b003d7bb347761e06adc"
+      },
+      "final_answer_sha256": "0a0b247e01cece3d213e8ca0140121c24c9fb2ce66f637e97fce414c2d0ada2e",
+      "harbor_metrics": {"reward": 0.726314719276546, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 1, "rationale": "It explicitly uses an adapter-backed server:defer island split from the initial page pass."},
+        "q032-a2": {"score": 1, "rationale": "It restricts props to supported serialization and excludes functions and circular objects."},
+        "q032-a3": {"score": 1, "rationale": "It joins small encrypted GET props, POST fallback, and lost browser caching."},
+        "q032-a4": {"score": 1, "rationale": "It explicitly rejects Astro.url for the outer page and prescribes a parsed Referer."},
+        "q032-a5": {"score": 1, "rationale": "It requires astro create-key and ASTRO_KEY across front-end/back-end versions."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It calls for small props but does not explicitly replace whole objects with an identifier."},
+        "q032-n2": {"score": 0.5, "rationale": "It requires a reusable cross-build key without naming Astro's random-per-build default."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "The summary joins adapter-backed deferral, safe compact serialization, GET caching, and POST avoidance."},
+        "deployment_correctness": {"score": 1, "rationale": "The answer supplies both explicit page identity through Referer and stable cross-generation keying."}
+      },
+      "summary_scores": {"semantic_correctness": 0.95, "completeness": 0.888889, "grounding": 1, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "This is the manually most complete q032 answer; its one cited full record directly supports every substantive rule despite only one required document identity."
+    },
+    {
+      "family": "ensemble",
+      "variant": "baseline",
+      "status": "timeout",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-baseline-dev-ensemble-q032-grader-r1/q032__BPAihgm/result.json",
+        "sha256": "ef514706a0caa15955140556ec6cbefb23369a5920b4c363dc6fb927063c25bf"
+      },
+      "final_answer_sha256": null,
+      "harbor_metrics": {"reward": 0, "quality_gate": 0, "evidence_validity": 0, "response_contract": 0},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0, "rationale": "No final answer was produced."},
+        "q032-a2": {"score": 0, "rationale": "No final answer was produced."},
+        "q032-a3": {"score": 0, "rationale": "No final answer was produced."},
+        "q032-a4": {"score": 0, "rationale": "No final answer was produced."},
+        "q032-a5": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0, "rationale": "No final answer was produced."},
+        "q032-n2": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 0, "rationale": "No final answer was produced."},
+        "deployment_correctness": {"score": 0, "rationale": "No final answer was produced."}
+      },
+      "summary_scores": {"semantic_correctness": 0, "completeness": 0, "grounding": 0, "response_contract": 0},
+      "material_errors": ["Agent execution exceeded the 600-second timeout and yielded no final answer."],
+      "review_note": "This is an execution failure, not a semantic judgment about the ensemble's retrieved content."
+    },
+    {
+      "family": "ensemble",
+      "variant": "evolved",
+      "status": "valid_answer",
+      "result_binding": {
+        "path": "evaluations/semantic-okf-harbor/results/20260716-evolved-dev-ensemble-q032-grader-r1/q032__FjRPyMc/result.json",
+        "sha256": "e7a25825b4df957b8a0d655e5481092db07b0b997554c743a5c3610909c54123"
+      },
+      "final_answer_sha256": "4b084a8782bce3e9132f5d93ef34ebc95f93902517b3638cfaba8d87929fb9c6",
+      "harbor_metrics": {"reward": 0.991972078914819, "quality_gate": 1, "evidence_validity": 1, "response_contract": 1},
+      "atomic_answer_claims": {
+        "q032-a1": {"score": 0.5, "rationale": "It requires a suitable adapter but never explicitly marks only the island server:defer within a static page."},
+        "q032-a2": {"score": 1, "rationale": "It gives the serialization constraint and both prohibited examples."},
+        "q032-a3": {"score": 1, "rationale": "It completely links the 2048-byte GET boundary, POST fallback, and loss of browser caching."},
+        "q032-a4": {"score": 0.5, "rationale": "It recommends Referer because the island is outside page context but does not explicitly warn that Astro.url identifies the special endpoint."},
+        "q032-a5": {"score": 1, "rationale": "It requires a generated constant ASTRO_KEY across builds, regions, and cached pages."}
+      },
+      "important_negatives": {
+        "q032-n1": {"score": 0.5, "rationale": "It requires a small query but does not explicitly reject whole objects in favor of identifiers."},
+        "q032-n2": {"score": 0.5, "rationale": "It prescribes a constant overlap key without naming the random-per-build default."}
+      },
+      "derivation_logic": {
+        "cacheable_design": {"score": 1, "rationale": "Its summary joins adapter execution, serializable compact props, bounded GET URLs, and caching."},
+        "deployment_correctness": {"score": 0.5, "rationale": "Referer and stable keying are both mentioned, but the page-identity premise is only implicit."}
+      },
+      "summary_scores": {"semantic_correctness": 0.9, "completeness": 0.722222, "grounding": 0.95, "response_contract": 1},
+      "material_errors": [],
+      "review_note": "The evolution converts a timeout into a nearly perfect Harbor result and a strong grounded answer, though its server:defer and Astro.url wording remains incomplete."
+    }
+  ]
+}

@@ -62,6 +62,8 @@ Television channel definitions may also be attached when a key needs reproducibl
 - Semantic OKF adapters must reprocess every declared source, detect both content changes and glob-membership changes, and remain deterministic without an external data-processing engine.
 - Semantic OKF embedding chunks and vectors are non-authoritative discovery projections: they must bind to exact records, concepts, source locators, input hashes, provider, model revision, dimensions, and chunking configuration.
 - Embedding workflows must keep a network-free deterministic baseline, require explicit allowlisted providers and implementations, and never select, download, or cache a model implicitly.
+- GitHub repository synchronization must retain Markdown-compatible MDX files as text inputs so documentation repositories can be acquired at an exact commit without a rendered-site dependency.
+- Derived Semantic OKF retrieval packages must preserve their accepted version-1 contracts while offering a version-2 source-generic contract that never infers paper, arXiv, PDF, filename-prefix, or title identities.
 
 ## Non-functional Requirements
 
@@ -649,6 +651,16 @@ The read-only `skills/consult-semantic-okf/` skill must:
 
 Each skill must remain installable and executable when its directory is copied outside this repository. Neither skill may name the other skill as a prerequisite or handoff target. Invalid or missing inputs must produce an in-scope diagnostic instead of routing through an external skill.
 
+The source-generic entity-graph and definitive-ensemble skill pairs must:
+
+- use the authoritative `(source_id, record_id)` ledger identity, plus the authoritative record hash, as the only default document identity;
+- support arbitrary selected sources, multiple records per source, claimless corpora, Markdown headings, and deterministic bounded record-body passages;
+- bind every returned passage to an exact `semantic/records.jsonl` body range and text hash that independent validation can rederive;
+- treat graph nodes, mentions, co-mentions, lexical statistics, embeddings, crosswalks, and rankings as derived and non-authoritative;
+- publish closed, hash-bound schemas atomically and validate child-plan parity, authoritative-core parity, complete identity coverage, component group parity, locator validity, and deterministic rebuilds;
+- allow explicit identity overrides only through a closed reviewed crosswalk, never through filename or title heuristics; and
+- reject claim-only coverage when the authoritative corpus supplies no exact reviewed answer bindings, while retaining read-only passage retrieval and permitting deterministic source-generic finalization only from full-query support IDs bound to exact supporting substrings and independently reconstructed authoritative identity fields.
+
 Requests that create, expand, reprocess, repair, or otherwise mutate a Semantic OKF snapshot must route to `build-semantic-okf`. Requests that search, query, compare, explain, or cite knowledge from an existing snapshot must route to `consult-semantic-okf`. Ontology learning and evidence-led semantic model authoring remain a separate pre-build responsibility of `extract-ontologies`.
 
 Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
@@ -679,6 +691,17 @@ Requests that explicitly require embedding-based separation, LlamaIndex processi
 
 The repository must keep a separate reproducible comparison under `evaluations/semantic-okf-embeddings/`. It must pin the fifteen GraphRAG Markdown files and fifteen corresponding claim JSONL files by path and SHA-256, retain the shared vocabulary as a separately identified required auxiliary input, preserve the historical snapshot, use append-only run directories for new large artifacts, and compare legacy lexical, new lexical, vector, and hybrid retrieval on identical questions. Reports must include source coverage, core semantic parity, artifact size and timing, Recall at fixed cutoffs, MRR, nDCG, and evidence validity against the authoritative ledger, identity fields, text digest, safe concept path, and exact record or character-range locator.
 
+### Semantic OKF Graphify retrieval
+
+The repository also ships `skills/build-semantic-okf-graphify/` and `skills/consult-semantic-okf-graphify/` as a standalone pair for deterministic Markdown-graph discovery. The pair must preserve a byte-identical authoritative Semantic OKF core and publish Graphify only as a derived retrieval projection.
+
+- The builder must pin `graphifyy==0.9.17`, use structural Markdown extraction without semantic LLM extraction or clustering, expose reviewed record values through deterministic temporary headings, neutralize Markdown structural punctuation in scalar text, expose reviewed object-IRI relationships through builder-generated local links, and verify deletion of every temporary view and cache before publication.
+- `retrieval/graphify/index.json` must bind the native node-link graph to the complete core tree, record ledger, per-record and derived paper identity, record digest, deterministic view-input digest, node and edge counts, and graph physical and logical digests.
+- Validation must regenerate every view digest from the authoritative ledger and reject runtime drift, changed core bytes, derived identity drift, missing record coverage, malformed closed schemas, unsafe or missing source paths, duplicate nodes, dangling edges, orphan nodes, invalid counts, and graph or index tampering with a classified diagnostic.
+- The consultant must validate the complete binding, run pinned Graphify scoring and bounded BFS in memory, return deterministic structured traversal output with exact concept-file evidence locators, hydrate every selected `concept_path`, and leave every published byte unchanged.
+- Exact identity and grouped counts remain ledger operations. Graphify labels, scores, and edges are discovery evidence rather than authoritative domain facts, and fallback to another route must be explicit.
+- The storage-version comparison must reuse the frozen 31-source, 874-record GraphRAG corpus, its existing 30 retrieval questions, and a digest-frozen historical baseline so core parity, determinism, size, build time, exact lookup, aggregation, structural discovery quality, and evidence validity are directly comparable. Graphify hit validity must prove complete ledger identity, a recomputed record digest, ledger-derived paper identity, a safe exact concept locator, byte-identical content, and the exact authoritative record body.
+
 ### Semantic OKF consultation benchmark
 
 The repository must keep an isolated Skill Arena benchmark under `evaluations/semantic-okf-reader/` that evaluates grounded semantic correctness across the consultation layers of a pinned Semantic OKF snapshot.
@@ -698,6 +721,18 @@ The repository must keep an isolated Skill Arena benchmark under `evaluations/se
 - Query-layer labels demonstrate coverage only. Runtime efficiency, latency, tokens, and tool calls are outside this benchmark until tracing and explicit efficiency assertions are added.
 
 This two-arm design estimates the value of the complete consultation-skill-and-knowledge access path. A future causal study that needs to isolate procedural skill value must add a third profile with the same knowledge snapshot but no consultation skill.
+
+### Source-generic Astro documentation benchmark
+
+The repository must keep a reproducible source-generic comparison under `evaluations/semantic-okf-astro/`.
+
+- Acquisition must use the `know` CLI against the official `withastro/docs` GitHub repository at a recorded immutable commit and freeze the complete English technical-documentation set selected from `src/content/docs/en/**/*.mdx`.
+- The corpus manifest, input inventory, acquisition metadata, plans, compact reports, and checked-in documentation must bind file counts, paths, byte sizes, and SHA-256 hashes. Large run bundles remain append-only and ignored.
+- One shared battery contains 40 stable questions: 30 normal questions plus 10 evidence-first hard questions requiring multi-document synthesis, exclusions, conditional reasoning, or mechanism comparison.
+- Every hard ground truth records atomic answer claims, required source-record identities, exact authoritative evidence paths and body locators or text hashes, derivation or join logic, acceptable variants, and important negatives. A validator must independently rederive every locator and hash before evaluation.
+- Direct retrieval evaluation must exercise every compatible route in the legacy, embedding, classical, adaptive, entity-graph, and definitive-ensemble families with the same questions, candidate pool, identity grouping, cutoffs, and independent evidence-validity checks. Retrieval quality, grounded answer quality, response-contract compliance, build validity, deterministic rebuilds, latency, and authoritative-core parity remain separate metrics.
+- At least one hard question must retain the actual grounded answer returned by every compatible consultation alternative so qualitative differences can be inspected beside the numeric results.
+- Any Skill Arena comparison used as causal evidence must isolate one consultation treatment against a knowledge-identical control; an all-skills portfolio is descriptive only. Config generation, validation, dry-run, execution, and result aggregation follow the checked-in Skill Arena workflows and must not require MCP.
 
 ## Project OKF Bundle
 

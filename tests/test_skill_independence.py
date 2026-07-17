@@ -17,6 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILLS_ROOT = REPO_ROOT / "skills"
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REQUIREMENT_NAME_RE = re.compile(r"^([A-Za-z0-9_.-]+)")
+STANDALONE_BOUNDARY_RE = re.compile(r"^## Standalone(?: [^\n]+)? boundary$", re.MULTILINE)
 IMPORT_TO_DISTRIBUTION = {
     "PIL": "Pillow",
     "pyparsing": "pyparsing",
@@ -54,7 +55,7 @@ def test_skill_package_declares_a_standalone_boundary(skill_root: Path) -> None:
     assert set(metadata) == {"name", "description"}
     assert metadata["name"] == skill_root.name
     assert isinstance(metadata["description"], str) and metadata["description"].strip()
-    assert "## Standalone boundary" in skill
+    assert STANDALONE_BOUNDARY_RE.search(skill)
     assert interface_path.is_file()
 
     interface = yaml.safe_load(interface_path.read_text(encoding="utf-8"))["interface"]

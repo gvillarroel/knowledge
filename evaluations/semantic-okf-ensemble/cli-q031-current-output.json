@@ -1,0 +1,125 @@
+{
+  "question_id": "q031-graph-routing-boundary",
+  "answer": {
+    "summary": "Route by evidence structure and expected noise, not by a blanket preference for graphs. For a simple fact, begin with basic RAG when compact textual retrieval can directly answer the question; the corpus reports that this route can match or outperform GraphRAG because graph expansion may introduce distracting material. Keep the standalone model as a competing answer source when retrieval is weak, because reported cases show that GraphRAG corrects some standalone errors but also reverses some initially correct answers. For interconnected synthesis, GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation, so relational or multi-part questions are the strongest candidates for graph-assisted retrieval before generation. If graph evidence is noisy, prefer pruning or fall back to question-only or basic retrieval: supplying a whole noisy textual graph has been observed to underperform the question alone. The production boundary is therefore conditional: direct factual evidence favors basic RAG; complex, interconnected synthesis can justify GraphRAG; uncertain or noisy graph evidence requires filtering, comparison with non-graph candidates, or abstention. An always-use-the-graph policy is unsupported because graph expansion can add noise and graph retrieval and standalone reasoning have complementary, rather than uniformly ordered, error profiles. The router should preserve the underlying authoritative text bindings and make the selected route answerable to evidence rather than assuming that added structure is automatically useful.",
+    "claims": [
+      {
+        "statement": "Graph retrieval and standalone reasoning have complementary error profiles, so question-only reasoning remains a legitimate competing route.",
+        "supporting_claim_ids": [
+          "claim-2503-13804v1-038"
+        ]
+      },
+      {
+        "statement": "Reported results show both GraphRAG corrections and cases where the standalone model performs better.",
+        "supporting_claim_ids": [
+          "claim-2503-13804v1-038"
+        ]
+      },
+      {
+        "statement": "Basic RAG can be comparable to or better than GraphRAG for simple fact retrieval because graph expansion can add noise.",
+        "supporting_claim_ids": [
+          "claim-2506-05690v3-043"
+        ]
+      },
+      {
+        "statement": "GraphRAG is most justified before generation for complex reasoning, contextual summarization, and creative generation, while its error profile remains complementary to standalone reasoning.",
+        "supporting_claim_ids": [
+          "claim-2503-13804v1-038",
+          "claim-2506-05690v3-044"
+        ]
+      },
+      {
+        "statement": "Simple fact retrieval favors basic RAG when graph expansion would add noise.",
+        "supporting_claim_ids": [
+          "claim-2506-05690v3-043"
+        ]
+      },
+      {
+        "statement": "GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation, which supplies the positive boundary for interconnected synthesis.",
+        "supporting_claim_ids": [
+          "claim-2506-05690v3-044"
+        ]
+      },
+      {
+        "statement": "Providing an entire noisy textual graph can underperform answering from the question alone.",
+        "supporting_claim_ids": [
+          "claim-2402-07630v3-039"
+        ]
+      },
+      {
+        "statement": "Graph expansion can add noise and graph retrieval can lose cases that standalone reasoning answers correctly.",
+        "supporting_claim_ids": [
+          "claim-2402-07630v3-039",
+          "claim-2503-13804v1-038",
+          "claim-2506-05690v3-043"
+        ]
+      }
+    ],
+    "paper_ids": [
+      "2402.07630v3",
+      "2503.13804v1",
+      "2506.05690v3"
+    ],
+    "citations": [
+      {
+        "paper_id": "2402.07630v3",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "paper_id": "2503.13804v1",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "paper_id": "2506.05690v3",
+        "pages": [
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "claim_id": "claim-2402-07630v3-039",
+      "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md",
+      "paper_id": "2402.07630v3",
+      "source_path": "sources/claims/2402.07630v3.jsonl",
+      "locators": [
+        "PDF-page-8"
+      ]
+    },
+    {
+      "claim_id": "claim-2503-13804v1-038",
+      "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md",
+      "paper_id": "2503.13804v1",
+      "source_path": "sources/claims/2503.13804v1.jsonl",
+      "locators": [
+        "PDF-page-3"
+      ]
+    },
+    {
+      "claim_id": "claim-2506-05690v3-043",
+      "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md",
+      "paper_id": "2506.05690v3",
+      "source_path": "sources/claims/2506.05690v3.jsonl",
+      "locators": [
+        "PDF-page-7",
+        "PDF-page-8"
+      ]
+    },
+    {
+      "claim_id": "claim-2506-05690v3-044",
+      "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md",
+      "paper_id": "2506.05690v3",
+      "source_path": "sources/claims/2506.05690v3.jsonl",
+      "locators": [
+        "PDF-page-7",
+        "PDF-page-8"
+      ]
+    }
+  ]
+}

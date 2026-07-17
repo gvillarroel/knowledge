@@ -1,0 +1,32 @@
+{
+  "benchmarkId": "semantic-okf-harbor-legacy-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [
+    {
+      "candidateId": "consult-semantic-okf-baseline",
+      "parentIds": [],
+      "caseScores": {"q031": 0.0},
+      "complexityDelta": 0,
+      "evaluationCost": 1246462,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "Retrieval found every required document, but manual answer assembly emitted an invalid locator type and source-file hashes rather than reconstructable evidence hashes.",
+        "evidence": "Harbor: recall=1.0, required_document_coverage=1.0, response_contract=0.0, all_evidence_valid=0.0, reward=0.0; 1,246,462 input tokens."
+      }]
+    },
+    {
+      "candidateId": "consult-semantic-okf-harbor-legacy-evolved",
+      "parentIds": ["consult-semantic-okf-baseline"],
+      "caseScores": {"q031": 0.0},
+      "complexityDelta": 526,
+      "evaluationCost": 451356,
+      "feedback": [{
+        "caseId": "q031",
+        "outcome": "failure",
+        "diagnosis": "The closed compiler produced a parseable draft in the execution trace, but the submitted answer was malformed JSON, so the evolution did not repair the live response contract.",
+        "evidence": "Harbor run 20260716-evolved-train-legacy-q031: parse_error=JSONDecodeError, response_contract=0.0, quality_gate=0.0, reward=0.0; 451,356 input tokens."
+      }]
+    }
+  ]
+}

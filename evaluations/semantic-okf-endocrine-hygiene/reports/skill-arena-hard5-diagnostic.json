@@ -1,0 +1,573 @@
+{
+  "schema_version": "semantic-okf-endocrine-hygiene-skill-arena-diagnostic/1.1",
+  "status": "pass",
+  "interpretation_status": "descriptive-paired-diagnostic",
+  "eval_id": "eval-v8v-2026-07-15T23:49:40",
+  "benchmark_id": "semantic-okf-endocrine-hygiene-classical-hard5-paired",
+  "execution": {
+    "requested": 10,
+    "completed": 10,
+    "errors": 0,
+    "mcp_used": false,
+    "requests_per_cell": 1,
+    "prompt_count": 5,
+    "cells_per_profile": 5,
+    "profile_ids": [
+      "knowledge-only-control",
+      "classical-cli-consult-treatment"
+    ],
+    "variant_ids": [
+      "pi-luna-only"
+    ],
+    "variant_models": {
+      "pi-luna-only": "openai-codex/gpt-5.6-luna"
+    },
+    "variant_adapters": {
+      "pi-luna-only": "pi"
+    },
+    "metric_ids": [
+      "response-format",
+      "response-contract",
+      "evidence-validity",
+      "claim-fidelity",
+      "atomic-answer-completeness",
+      "important-negative-coverage",
+      "required-paper-coverage"
+    ],
+    "reviewed_ledger_claim_count": 93
+  },
+  "binding": {
+    "status": "pass",
+    "checks": [
+      "source config digest equals generated manifest",
+      "bundle tree equals generated manifest",
+      "compiled Promptfoo config is embedded in raw results",
+      "benchmark, prompt, assertion, profile, variant, and model identities match",
+      "result cells are the unique complete Cartesian product"
+    ],
+    "source_config": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/skill-arena/classical-hard4.yaml",
+      "bytes": 275259,
+      "sha256": "389e1c8a8c080688caf636d03f10c07e2490aed1f9a189aed9dfc7f27398007a"
+    },
+    "generated_config_manifest": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/skill-arena/classical-hard4-manifest.json",
+      "bytes": 2540,
+      "sha256": "b368238493b94cd263c435e20826824bebe7fc6e2eb33db7e777ca982345b39d"
+    },
+    "raw_promptfoo_config": {
+      "path": "results/semantic-okf-endocrine-hygiene-classical-hard5-paired/2026-07-15T23-49-37-118Z-compare/promptfooconfig.yaml",
+      "bytes": 280667,
+      "sha256": "d7444acdbdf7af6ffb2ca00a72ebff6671fd0cbd664a225fe91da7ab6999de5c"
+    },
+    "raw_embedded_config_sha256": "a436e0afb7e8509439d73e5924a5a0a5f569957def0cb10ea810049c867a1d7b",
+    "bundle": {
+      "tree_sha256": "17c540c3638e05fe6ee07d7e91dbab6a156e9837e46a79f838e713024e61a0c7",
+      "file_count": 149,
+      "bytes": 16426985
+    }
+  },
+  "raw_results": {
+    "path": "results/semantic-okf-endocrine-hygiene-classical-hard5-paired/2026-07-15T23-49-37-118Z-compare/promptfoo-results.json",
+    "bytes": 1913318,
+    "sha256": "76eaa01d264e8e460d432537f13586a1498488dc8efeff09606031268d09b430"
+  },
+  "superseded_run": {
+    "eval_id": "eval-yHh-2026-07-15T23:05:59",
+    "artifact": {
+      "path": "results/semantic-okf-endocrine-hygiene-classical-hard4-paired/2026-07-15T23-05-55-681Z-compare/promptfoo-results.json",
+      "bytes": 954040,
+      "sha256": "8d310d66b733aaffb6c0a7064b119576e52b35caca029fba0486b7a14a9f50be"
+    },
+    "disposition": "excluded from causal interpretation",
+    "reason": "a previous evaluator generation did not enforce the final exact reviewed-claim contract"
+  },
+  "aggregate": {
+    "knowledge-only-control": {
+      "cells": 5,
+      "compound_passes": 0,
+      "mean_score": 0.6571428571428571,
+      "mean_latency_ms": 72613.6,
+      "metric_pass_counts": {
+        "response-format": 5,
+        "response-contract": 5,
+        "evidence-validity": 2,
+        "claim-fidelity": 5,
+        "atomic-answer-completeness": 1,
+        "important-negative-coverage": 1,
+        "required-paper-coverage": 4
+      },
+      "metric_pass_rates": {
+        "response-format": 1.0,
+        "response-contract": 1.0,
+        "evidence-validity": 0.4,
+        "claim-fidelity": 1.0,
+        "atomic-answer-completeness": 0.2,
+        "important-negative-coverage": 0.2,
+        "required-paper-coverage": 0.8
+      }
+    },
+    "classical-cli-consult-treatment": {
+      "cells": 5,
+      "compound_passes": 0,
+      "mean_score": 0.5428571428571428,
+      "mean_latency_ms": 117635.4,
+      "metric_pass_counts": {
+        "response-format": 5,
+        "response-contract": 4,
+        "evidence-validity": 1,
+        "claim-fidelity": 5,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 4
+      },
+      "metric_pass_rates": {
+        "response-format": 1.0,
+        "response-contract": 0.8,
+        "evidence-validity": 0.2,
+        "claim-fidelity": 1.0,
+        "atomic-answer-completeness": 0.0,
+        "important-negative-coverage": 0.0,
+        "required-paper-coverage": 0.8
+      }
+    },
+    "treatment_minus_control": {
+      "mean_score": -0.11428571428571432,
+      "mean_latency_ms": 45021.79999999999,
+      "metric_pass_rates": {
+        "response-format": 0.0,
+        "response-contract": -0.19999999999999996,
+        "evidence-validity": -0.2,
+        "claim-fidelity": 0.0,
+        "atomic-answer-completeness": -0.2,
+        "important-negative-coverage": -0.2,
+        "required-paper-coverage": 0.0
+      }
+    }
+  },
+  "cells": [
+    {
+      "prompt_id": "q026-receptor-to-gestation-boundary",
+      "profile_id": "knowledge-only-control",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.8571428571428571,
+      "latency_ms": 91924,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 1,
+        "important-negative-coverage": 1,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc4997468-003.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc4997468-004.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc4997468-005.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc4997468-006.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc8316883-001.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-003.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-004.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-005.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-006.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8812815-001.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-002.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-003.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-006.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "3ecaecd5fc964960b6cfaeacc6ce811006c3e527abe5c23610c3497ec543433d",
+      "answer_summary_word_count": 229,
+      "claim_count": 13,
+      "evidence_count": 13,
+      "paper_ids": [
+        "PMC4997468",
+        "PMC8316883",
+        "PMC8812815"
+      ]
+    },
+    {
+      "prompt_id": "q026-receptor-to-gestation-boundary",
+      "profile_id": "classical-cli-consult-treatment",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 99107,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc4997468-003.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc4997468-004.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc4997468-006.source_path: expected 'sources/claims/PMC4997468.jsonl', found 'sources/markdown/PMC4997468.md'",
+        "claim-pmc8316883-003.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-005.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8316883-006.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8812815-001.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-002.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-003.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "271838d64698b9a243e898545b28890d21f6d5ceaf83e316ce4fe26185728685",
+      "answer_summary_word_count": 217,
+      "claim_count": 9,
+      "evidence_count": 9,
+      "paper_ids": [
+        "PMC4997468",
+        "PMC8316883",
+        "PMC8812815"
+      ]
+    },
+    {
+      "prompt_id": "q027-feminine-risk-reconciliation",
+      "profile_id": "knowledge-only-control",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.7142857142857143,
+      "latency_ms": 62532,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 1,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": true,
+      "evidence_errors": [],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "519918033b88c39c3077bb286790302faad086265c2ec6d4f3448402a9d6bfff",
+      "answer_summary_word_count": 232,
+      "claim_count": 8,
+      "evidence_count": 8,
+      "paper_ids": [
+        "PMC6504186",
+        "PMC7958867",
+        "PMC9764248"
+      ]
+    },
+    {
+      "prompt_id": "q027-feminine-risk-reconciliation",
+      "profile_id": "classical-cli-consult-treatment",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 136739,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc6504186-001.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-002.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-004.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-005.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-006.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc7958867-002.source_path: expected 'sources/claims/PMC7958867.jsonl', found 'sources/markdown/PMC7958867.md'",
+        "claim-pmc7958867-004.source_path: expected 'sources/claims/PMC7958867.jsonl', found 'sources/markdown/PMC7958867.md'",
+        "claim-pmc7958867-005.source_path: expected 'sources/claims/PMC7958867.jsonl', found 'sources/markdown/PMC7958867.md'",
+        "claim-pmc7958867-006.source_path: expected 'sources/claims/PMC7958867.jsonl', found 'sources/markdown/PMC7958867.md'",
+        "claim-pmc9764248-001.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'",
+        "claim-pmc9764248-002.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'",
+        "claim-pmc9764248-004.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'",
+        "claim-pmc9764248-005.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "bbb2d772b0aec4583a8e674ea44767c72d04b6fe2a2cd6320dd718906aaeb6fb",
+      "answer_summary_word_count": 251,
+      "claim_count": 13,
+      "evidence_count": 13,
+      "paper_ids": [
+        "PMC6504186",
+        "PMC7958867",
+        "PMC9764248"
+      ]
+    },
+    {
+      "prompt_id": "q028-phthalate-name-normalization",
+      "profile_id": "knowledge-only-control",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 73891,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc6504186-002.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-004.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc9566193-003.source_path: expected 'sources/claims/PMC9566193.jsonl', found 'sources/markdown/PMC9566193.md'",
+        "claim-pmc9764248-002.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'",
+        "claim-pmc9764248-005.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "0adfc568cec30416858f9e5382c56891770b354ab3d6a35f056db92717dfc385",
+      "answer_summary_word_count": 213,
+      "claim_count": 5,
+      "evidence_count": 5,
+      "paper_ids": [
+        "PMC6504186",
+        "PMC9566193",
+        "PMC9764248"
+      ]
+    },
+    {
+      "prompt_id": "q028-phthalate-name-normalization",
+      "profile_id": "classical-cli-consult-treatment",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 108445,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc6504186-002.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-004.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-008.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc6504186-009.source_path: expected 'sources/claims/PMC6504186.jsonl', found 'sources/markdown/PMC6504186.md'",
+        "claim-pmc9566193-003.source_path: expected 'sources/claims/PMC9566193.jsonl', found 'sources/markdown/PMC9566193.md'",
+        "claim-pmc9764248-002.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'",
+        "claim-pmc9764248-005.source_path: expected 'sources/claims/PMC9764248.jsonl', found 'sources/markdown/PMC9764248.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "9f21e7b614538394de9f0104917a21e2d9e58bb1b2cbcbc399eb2dcb71427489",
+      "answer_summary_word_count": 211,
+      "claim_count": 7,
+      "evidence_count": 7,
+      "paper_ids": [
+        "PMC6504186",
+        "PMC9566193",
+        "PMC9764248"
+      ]
+    },
+    {
+      "prompt_id": "q029-label-gate-validity",
+      "profile_id": "knowledge-only-control",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 64945,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc5047791-001.source_path: expected 'sources/claims/PMC5047791.jsonl', found 'sources/markdown/PMC5047791.md'",
+        "claim-pmc5047791-003.source_path: expected 'sources/claims/PMC5047791.jsonl', found 'sources/markdown/PMC5047791.md'",
+        "claim-pmc5047791-006.source_path: expected 'sources/claims/PMC5047791.jsonl', found 'sources/markdown/PMC5047791.md'",
+        "claim-pmc7958867-003.source_path: expected 'sources/claims/PMC7958867.jsonl', found 'sources/markdown/PMC7958867.md'",
+        "claim-pmc8316883-003.source_path: expected 'sources/claims/PMC8316883.jsonl', found 'sources/markdown/PMC8316883.md'",
+        "claim-pmc8812815-005.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc8812815-006.source_path: expected 'sources/claims/PMC8812815.jsonl', found 'sources/markdown/PMC8812815.md'",
+        "claim-pmc9566193-007.source_path: expected 'sources/claims/PMC9566193.jsonl', found 'sources/markdown/PMC9566193.md'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "12cfda5b9e40716256f6aedaef28897233157afa17765c319897f718b65871f1",
+      "answer_summary_word_count": 203,
+      "claim_count": 8,
+      "evidence_count": 8,
+      "paper_ids": [
+        "PMC5047791",
+        "PMC7958867",
+        "PMC8316883",
+        "PMC8812815",
+        "PMC9566193"
+      ]
+    },
+    {
+      "prompt_id": "q029-label-gate-validity",
+      "profile_id": "classical-cli-consult-treatment",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 127663,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 0,
+        "evidence-validity": 1,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 1
+      },
+      "independent_ledger_evidence_valid": true,
+      "evidence_errors": [],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "38127d40c93be01ac691d13d2f31fd9092efe513d7caa0bd61e7e1840de5f0af",
+      "answer_summary_word_count": 207,
+      "claim_count": 13,
+      "evidence_count": 13,
+      "paper_ids": [
+        "PMC4016195",
+        "PMC5047791",
+        "PMC6037613",
+        "PMC7958867",
+        "PMC8812815",
+        "PMC9566193"
+      ]
+    },
+    {
+      "prompt_id": "q030-causal-evidence-map",
+      "profile_id": "knowledge-only-control",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.5714285714285714,
+      "latency_ms": 69776,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 1,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 0
+      },
+      "independent_ledger_evidence_valid": true,
+      "evidence_errors": [],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "52b050c4bba34eb753cea011099f317bfeb03709952bdf203a3cc8b32b37359e",
+      "answer_summary_word_count": 253,
+      "claim_count": 7,
+      "evidence_count": 7,
+      "paper_ids": [
+        "PMC4997468",
+        "PMC6504186",
+        "PMC8316883",
+        "PMC8812815",
+        "PMC9566193",
+        "PMC9764248"
+      ],
+      "actual_answer_summary": "The snapshot provides a layered but incomplete evidence map. Product testing found DBP and DEHP in all 11 tested sanitary-pad brands, while package air was sampled for volatile compounds. Workplace sampling found six phthalates in every tested nail salon, with DEHP highest on silicone wristbands. Human biomonitoring detected DEP, DBP, and DEHP in all 20 menstrual-blood samples and BPA in 13. Receptor bioassays showed estrogen agonism in three tested hair-product samples. Epidemiologically, daily hair-oil use near 36 weeks was associated with 8.3 fewer gestational days after adjustment for race. A mechanistic review found anti-androgenic activity for BP-1, BP-2, and BP-3 in cited assays. Together, these findings support product presence, environmental and biological exposure, biological activity, and an association with a health outcome, but they do not establish that one specific product caused that outcome. The evidence remains limited by small or selected samples, self-reported or incompletely characterized product use, unknown formulations and doses, possible exposure from non-product sources, and assay or sampling limitations. Minimum additional evidence would be a chemically verified, product-specific exposure assessment linking the product to internal dose; a replicated prospective epidemiologic design with temporally appropriate repeated biomarkers, a defined health outcome, adequate size, and control of major confounding; and convergent experimental evidence showing that exposure levels plausibly reached by users produce the relevant receptor or mechanistic effect and outcome. Ideally, product removal or replacement would reduce exposure and risk. Without that chain from verified product composition to dose, mechanism, temporality, and replicated outcome, a product-specific causal health claim is unsupported.",
+      "claim_ids": [
+        "claim-pmc4997468-003",
+        "claim-pmc6504186-001",
+        "claim-pmc6504186-002",
+        "claim-pmc8316883-003",
+        "claim-pmc8812815-002",
+        "claim-pmc9566193-003",
+        "claim-pmc9764248-002"
+      ],
+      "evidence_claim_ids": [
+        "claim-pmc4997468-003",
+        "claim-pmc6504186-001",
+        "claim-pmc6504186-002",
+        "claim-pmc8316883-003",
+        "claim-pmc8812815-002",
+        "claim-pmc9566193-003",
+        "claim-pmc9764248-002"
+      ]
+    },
+    {
+      "prompt_id": "q030-causal-evidence-map",
+      "profile_id": "classical-cli-consult-treatment",
+      "variant_id": "pi-luna-only",
+      "success": false,
+      "score": 0.42857142857142855,
+      "latency_ms": 116223,
+      "metrics": {
+        "response-format": 1,
+        "response-contract": 1,
+        "evidence-validity": 0,
+        "claim-fidelity": 1,
+        "atomic-answer-completeness": 0,
+        "important-negative-coverage": 0,
+        "required-paper-coverage": 0
+      },
+      "independent_ledger_evidence_valid": false,
+      "evidence_errors": [
+        "claim-pmc8316883-006.concept_path: expected 'concepts/claims-pmc8316883/claim-pmc8316883-006-c0c6156bca.md', found 'concepts/claims-pmc8316883/claim-pmc8316883-006-9e4783d2be.md'",
+        "claim-pmc8316883-006.evidence_text_sha256: expected '2c15eb4ee2b34a66d390f5b436289405bc9332060bd529446efac99bdef355e4', found '1fda3c1b8ad9a2c7f0e4b68d0f3d1d0a2c4f8b9e1a6d5c3b7e9f0a1d2c3b4a5'"
+      ],
+      "independent_reviewed_claim_fidelity": true,
+      "claim_fidelity_errors": [],
+      "output_sha256": "1cec0a636b1c980e3c25b6c049d3b505f81cac59eb4925bf9d66a772b69510f6",
+      "answer_summary_word_count": 245,
+      "claim_count": 9,
+      "evidence_count": 9,
+      "paper_ids": [
+        "PMC11764522",
+        "PMC4997468",
+        "PMC6504186",
+        "PMC8316883",
+        "PMC8812815",
+        "PMC9566193"
+      ],
+      "actual_answer_summary": "The snapshot supplies a partial evidence chain, not a product-specific causal case. Product-content testing found DBP and DEHP in all 11 tested sanitary-pad brands, while package air was sampled by gas chromatography for volatile compounds. Workplace sampling documented volatile-organic-compound badges and silicone-wristband phthalate assessment in nail salons. Human biomonitoring linked recent product use and label-derived ingredients to urinary endocrine-disrupting-chemical biomarkers, but this was a pilot. Receptor bioassays showed estrogen agonism in three tested hair-product samples, and a mechanistic review synthesized endocrine evidence for several ultraviolet-filter and related chemical classes. Epidemiologic evidence was associative: daily hair-oil use near 36 weeks corresponded to fewer gestational days after adjustment for race.\n\nImportant limitations remain. The product and workplace results do not demonstrate absorbed dose from one named product, the biomonitoring study was exploratory, and the epidemiologic result involved self-reported exposure without brands, dose, or chemical composition in a small, incompletely adjusted pilot. The review also states that molecular initiating events and atomic-level mechanisms remain insufficiently characterized. Thus, the minimum additional evidence is a product-specific package: validated chemical and emission characterization of the exact formulation and normal-use scenario; repeated, temporally aligned internal-dose biomarkers in exposed users; receptor and cellular effects at achieved human-relevant concentrations with identified active constituents; and a prospective, adequately powered epidemiologic study linking measured product-specific exposure to a prespecified health outcome while controlling alternative sources and confounding. Stronger causal support would additionally require reproducible dose-response and temporal ordering, triangulated across cohorts or a credible intervention/dechallenge design.",
+      "claim_ids": [
+        "claim-pmc11764522-001",
+        "claim-pmc4997468-001",
+        "claim-pmc4997468-006",
+        "claim-pmc6504186-001",
+        "claim-pmc6504186-002",
+        "claim-pmc8316883-003",
+        "claim-pmc8316883-006",
+        "claim-pmc8812815-002",
+        "claim-pmc9566193-001"
+      ],
+      "evidence_claim_ids": [
+        "claim-pmc11764522-001",
+        "claim-pmc4997468-001",
+        "claim-pmc4997468-006",
+        "claim-pmc6504186-001",
+        "claim-pmc6504186-002",
+        "claim-pmc8316883-003",
+        "claim-pmc8316883-006",
+        "claim-pmc8812815-002",
+        "claim-pmc9566193-001"
+      ]
+    }
+  ],
+  "limitations": [
+    "n=5 questions per profile and one request per cell",
+    "development questions rather than an untouched holdout",
+    "compound pass requires every strict binary component gate",
+    "one model family and one consultation-skill treatment only"
+  ]
+}

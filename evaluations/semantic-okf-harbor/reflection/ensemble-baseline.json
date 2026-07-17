@@ -1,0 +1,17 @@
+{
+  "benchmarkId": "semantic-okf-harbor-ensemble-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [{
+    "candidateId": "consult-semantic-okf-ensemble-baseline",
+    "parentIds": [],
+    "caseScores": {"q031": 0.7665360636988622},
+    "complexityDelta": 0,
+    "evaluationCost": 293060,
+    "feedback": [{
+      "caseId": "q031",
+      "outcome": "failure",
+      "diagnosis": "The closed finalizer passed, but the single full-query evidence pack missed one required document and one authoritative interval.",
+      "evidence": "Harbor: quality_gate=1.0, recall=0.6667, authoritative_evidence_completeness=0.6667, atomic_claim_evidence_completeness=0.8, reward=0.7665."
+    }]
+  }]
+}

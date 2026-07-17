@@ -47,9 +47,9 @@ Navigate and answer from one published Semantic OKF knowledge folder while prese
 
 ## Required references
 
-- Read [querying.md](references/querying.md) before choosing a layer or writing a query.
-- Read [source-boundaries.md](references/source-boundaries.md) when a bundle contains separate authorities, homogeneous partitions, or cross-bundle evidence.
-- Read [cross-source-synthesis.md](references/cross-source-synthesis.md) before comparing, aggregating, or citing multiple sources.
+- Read [querying.md](../../skills/consult-semantic-okf/references/querying.md) before choosing a layer or writing a query.
+- Read [source-boundaries.md](../../skills/consult-semantic-okf/references/source-boundaries.md) when a bundle contains separate authorities, homogeneous partitions, or cross-bundle evidence.
+- Read [cross-source-synthesis.md](../../skills/consult-semantic-okf/references/cross-source-synthesis.md) before comparing, aggregating, or citing multiple sources.
 
 ## Environment
 
@@ -114,7 +114,7 @@ Work breadth before depth. Convert the request into a clause checklist and build
 
 Copy artifact paths verbatim from ledger `concept_path` values. Never reconstruct hashes, shorten generated names, use wildcard paths, or substitute a topic-adjacent source for a relevant one. Keep source IDs, cited pages, and evidence paths aligned.
 
-Read [cross-source-synthesis.md](references/cross-source-synthesis.md) only when the request needs multi-source comparison or a strict evidence contract. Its optional helpers remain local and read-only.
+Read [cross-source-synthesis.md](../../skills/consult-semantic-okf/references/cross-source-synthesis.md) only when the request needs multi-source comparison or a strict evidence contract. Its optional helpers remain local and read-only.
 
 ## Completion gate
 

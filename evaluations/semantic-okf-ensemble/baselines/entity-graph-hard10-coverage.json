@@ -1,0 +1,720 @@
+{
+  "schema_version": "semantic-okf-ensemble-hard10-graph-coverage/1.0",
+  "status": "pass",
+  "candidate_label": "entity-graph-fusion-reference",
+  "route": "entity_graph_fusion",
+  "benchmark": {
+    "id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "hard_question_count": 10
+  },
+  "inputs": {
+    "candidate_report": "evaluations/semantic-okf-entity-graph/results/runs/20260714-entity-graph-final-01/retrieval/top10/comparison.json",
+    "candidate_report_sha256": "f1be9f51e0839a4a9d5ed5fb44f1575af7f2194ef1af0b023e6b81a43eadf7ca",
+    "sections": "evaluations/semantic-okf-entity-graph/results/runs/20260714-entity-graph-final-01/workspaces/entity-graph/knowledge/entity-graph/sections.jsonl",
+    "sections_sha256": "2d0be04edf86b8994c74a6a8e6deae1b129983b5d2a1825dc182647f34520d4c",
+    "ensemble_plan": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+    "ensemble_plan_sha256": "fd9a27d073ac5aacb509348da0bd42d5dd36c750cbcef4313d41f6b7185133fe"
+  },
+  "metric_contract": {
+    "exact_locator_identity": "paper_id plus PDF-page-N fragment",
+    "claim_any": "at least one declared locator for one acceptable evidence claim",
+    "claim_all": "every declared locator for one acceptable evidence claim",
+    "all_source_note": "graph section routes can cover paper sources without directly returning claim-source records"
+  },
+  "evidence_validity": {
+    "returned": 100,
+    "valid": 100,
+    "invalid": 0,
+    "ratio": 1.0
+  },
+  "page_locator_mapping": {
+    "mapped": 100,
+    "unmapped": 0,
+    "ratio": 1.0
+  },
+  "metrics": {
+    "required_paper_coverage": 0.9166666666666666,
+    "required_paper_source_coverage": 0.9166666666666666,
+    "required_all_source_coverage": 0.4583333333333333,
+    "exact_locator_recall": 0.11103896103896105,
+    "answer_claim_any_locator_coverage": 0.215,
+    "answer_claim_all_locator_coverage": 0.065,
+    "important_negative_any_locator_coverage": 0.5,
+    "important_negative_all_locator_coverage": 0.25
+  },
+  "issues": [],
+  "questions": [
+    {
+      "id": "q031-graph-routing-boundary",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 0.6666666666666666,
+      "required_paper_source_coverage": 0.6666666666666666,
+      "required_all_source_coverage": 0.3333333333333333,
+      "exact_locator_recall": 0.0,
+      "answer_claim_any_locator_coverage": 0.0,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.0,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 4,
+      "returned_expected_locator_count": 0,
+      "answer_claims": [
+        {
+          "id": "q031-a1",
+          "claim_options": [
+            "claim-2506-05690v3-043"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q031-a2",
+          "claim_options": [
+            "claim-2506-05690v3-044"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q031-a3",
+          "claim_options": [
+            "claim-2402-07630v3-039"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q031-a4",
+          "claim_options": [
+            "claim-2503-13804v1-038"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q031-n1",
+          "claim_options": [
+            "claim-2402-07630v3-039",
+            "claim-2506-05690v3-043"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q032-incremental-update-maturity",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.14285714285714285,
+      "answer_claim_any_locator_coverage": 0.2,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 1.0,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 7,
+      "returned_expected_locator_count": 1,
+      "answer_claims": [
+        {
+          "id": "q032-a1",
+          "claim_options": [
+            "claim-2410-05779v3-039"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q032-a2",
+          "claim_options": [
+            "claim-2405-14831v3-058"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q032-a3",
+          "claim_options": [
+            "claim-2408-08535v1-035"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q032-a4",
+          "claim_options": [
+            "claim-2408-04187v2-045"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q032-a5",
+          "claim_options": [
+            "claim-2507-03226v3-037"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q032-n1",
+          "claim_options": [
+            "claim-2408-08535v1-035",
+            "claim-2507-03226v3-037"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q033-corruption-specific-defenses",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.0,
+      "answer_claim_any_locator_coverage": 0.0,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.0,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 8,
+      "returned_expected_locator_count": 0,
+      "answer_claims": [
+        {
+          "id": "q033-a1",
+          "claim_options": [
+            "claim-2502-14902v2-051"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q033-a2",
+          "claim_options": [
+            "claim-2503-13804v1-047"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q033-a3",
+          "claim_options": [
+            "claim-2409-13731v3-054"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q033-a4",
+          "claim_options": [
+            "claim-2409-13731v3-022"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q033-n1",
+          "claim_options": [
+            "claim-2502-14902v2-051",
+            "claim-2409-13731v3-054"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q034-nonmonotonic-context-budget",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.0,
+      "answer_claim_any_locator_coverage": 0.0,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.0,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 6,
+      "returned_expected_locator_count": 0,
+      "answer_claims": [
+        {
+          "id": "q034-a1",
+          "claim_options": [
+            "claim-2402-07630v3-056"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q034-a2",
+          "claim_options": [
+            "claim-2406-14550v2-055"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q034-a3",
+          "claim_options": [
+            "claim-2408-08535v1-046"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q034-a4",
+          "claim_options": [
+            "claim-2503-06474v2-053"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q034-n1",
+          "claim_options": [
+            "claim-2406-14550v2-055",
+            "claim-2503-06474v2-053"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q035-lossless-enough-evidence-organization",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 0.75,
+      "required_paper_source_coverage": 0.75,
+      "required_all_source_coverage": 0.375,
+      "exact_locator_recall": 0.0,
+      "answer_claim_any_locator_coverage": 0.0,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.0,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 8,
+      "returned_expected_locator_count": 0,
+      "answer_claims": [
+        {
+          "id": "q035-a1",
+          "claim_options": [
+            "claim-2402-07630v3-034"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q035-a2",
+          "claim_options": [
+            "claim-2502-14902v2-050"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q035-a3",
+          "claim_options": [
+            "claim-2409-13731v3-022"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q035-a4",
+          "claim_options": [
+            "claim-2404-16130v2-036"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q035-n1",
+          "claim_options": [
+            "claim-2402-07630v3-034",
+            "claim-2404-16130v2-036",
+            "claim-2502-14902v2-050"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q036-evaluation-leakage-and-stage-separation",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.25,
+      "answer_claim_any_locator_coverage": 0.6,
+      "answer_claim_all_locator_coverage": 0.2,
+      "important_negative_any_locator_coverage": 1.0,
+      "important_negative_all_locator_coverage": 0.5,
+      "expected_locator_count": 8,
+      "returned_expected_locator_count": 2,
+      "answer_claims": [
+        {
+          "id": "q036-a1",
+          "claim_options": [
+            "claim-2506-05690v3-015"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q036-a2",
+          "claim_options": [
+            "claim-2508-19855v3-036"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        },
+        {
+          "id": "q036-a3",
+          "claim_options": [
+            "claim-2508-19855v3-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q036-a4",
+          "claim_options": [
+            "claim-2503-06474v2-031"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q036-a5",
+          "claim_options": [
+            "claim-2410-05779v3-035"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q036-n1",
+          "claim_options": [
+            "claim-2508-19855v3-036",
+            "claim-2508-19855v3-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        },
+        {
+          "id": "q036-n2",
+          "claim_options": [
+            "claim-2410-05779v3-035",
+            "claim-2503-06474v2-031"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q037-domain-construction-under-constraints",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.18181818181818182,
+      "answer_claim_any_locator_coverage": 0.4,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.5,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 11,
+      "returned_expected_locator_count": 2,
+      "answer_claims": [
+        {
+          "id": "q037-a1",
+          "claim_options": [
+            "claim-2507-03226v3-040"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q037-a2",
+          "claim_options": [
+            "claim-2507-03226v3-050"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q037-a3",
+          "claim_options": [
+            "claim-2409-13731v3-038"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q037-a4",
+          "claim_options": [
+            "claim-2508-19855v3-044"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q037-a5",
+          "claim_options": [
+            "claim-2508-19855v3-043"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q037-n1",
+          "claim_options": [
+            "claim-2507-03226v3-050",
+            "claim-2409-13731v3-038"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q037-n2",
+          "claim_options": [
+            "claim-2508-19855v3-043",
+            "claim-2508-19855v3-044"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        }
+      ]
+    },
+    {
+      "id": "q038-failure-aware-query-router",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.25,
+      "answer_claim_any_locator_coverage": 0.5,
+      "answer_claim_all_locator_coverage": 0.25,
+      "important_negative_any_locator_coverage": 1.0,
+      "important_negative_all_locator_coverage": 1.0,
+      "expected_locator_count": 8,
+      "returned_expected_locator_count": 2,
+      "answer_claims": [
+        {
+          "id": "q038-a1",
+          "claim_options": [
+            "claim-2410-05779v3-055"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q038-a2",
+          "claim_options": [
+            "claim-2504-02112v2-029"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q038-a3",
+          "claim_options": [
+            "claim-2503-06474v2-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        },
+        {
+          "id": "q038-a4",
+          "claim_options": [
+            "claim-2508-19855v3-048"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q038-n1",
+          "claim_options": [
+            "claim-2410-05779v3-055",
+            "claim-2504-02112v2-029",
+            "claim-2503-06474v2-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        }
+      ]
+    },
+    {
+      "id": "q039-baseline-bound-efficiency-claims",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 1.0,
+      "required_paper_source_coverage": 1.0,
+      "required_all_source_coverage": 0.5,
+      "exact_locator_recall": 0.14285714285714285,
+      "answer_claim_any_locator_coverage": 0.2,
+      "answer_claim_all_locator_coverage": 0.2,
+      "important_negative_any_locator_coverage": 1.0,
+      "important_negative_all_locator_coverage": 1.0,
+      "expected_locator_count": 7,
+      "returned_expected_locator_count": 1,
+      "answer_claims": [
+        {
+          "id": "q039-a1",
+          "claim_options": [
+            "claim-2404-16130v2-032"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q039-a2",
+          "claim_options": [
+            "claim-2404-16130v2-054"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q039-a3",
+          "claim_options": [
+            "claim-2410-05779v3-032"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        },
+        {
+          "id": "q039-a4",
+          "claim_options": [
+            "claim-2405-14831v3-042"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q039-a5",
+          "claim_options": [
+            "claim-2406-14550v2-056"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q039-n1",
+          "claim_options": [
+            "claim-2404-16130v2-032",
+            "claim-2405-14831v3-042",
+            "claim-2410-05779v3-032"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": true
+        }
+      ]
+    },
+    {
+      "id": "q040-answer-source-control",
+      "returned_hits": 10,
+      "valid_hits": 10,
+      "mapped_page_hits": 10,
+      "required_paper_coverage": 0.75,
+      "required_paper_source_coverage": 0.75,
+      "required_all_source_coverage": 0.375,
+      "exact_locator_recall": 0.14285714285714285,
+      "answer_claim_any_locator_coverage": 0.25,
+      "answer_claim_all_locator_coverage": 0.0,
+      "important_negative_any_locator_coverage": 0.5,
+      "important_negative_all_locator_coverage": 0.0,
+      "expected_locator_count": 7,
+      "returned_expected_locator_count": 1,
+      "answer_claims": [
+        {
+          "id": "q040-a1",
+          "claim_options": [
+            "claim-2503-13804v1-044"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q040-a2",
+          "claim_options": [
+            "claim-2503-06474v2-056"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q040-a3",
+          "claim_options": [
+            "claim-2408-08535v1-021"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q040-a4",
+          "claim_options": [
+            "claim-2508-19855v3-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q040-n1",
+          "claim_options": [
+            "claim-2508-19855v3-050"
+          ],
+          "any_locator_covered": true,
+          "all_locators_covered": false
+        },
+        {
+          "id": "q040-n2",
+          "claim_options": [
+            "claim-2503-06474v2-056",
+            "claim-2503-13804v1-044"
+          ],
+          "any_locator_covered": false,
+          "all_locators_covered": false
+        }
+      ]
+    }
+  ]
+}

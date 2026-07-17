@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "selection": {
+    "paper_source_ids": [
+      "paper-pmc11764522",
+      "paper-pmc4016195",
+      "paper-pmc4724203",
+      "paper-pmc4997468",
+      "paper-pmc5047791",
+      "paper-pmc5376243",
+      "paper-pmc5783668",
+      "paper-pmc6037613",
+      "paper-pmc6504186",
+      "paper-pmc7958867",
+      "paper-pmc8316883",
+      "paper-pmc8810700",
+      "paper-pmc8812815",
+      "paper-pmc9566193",
+      "paper-pmc9764248"
+    ],
+    "claim_source_ids": [
+      "claims-pmc11764522",
+      "claims-pmc4016195",
+      "claims-pmc4724203",
+      "claims-pmc4997468",
+      "claims-pmc5047791",
+      "claims-pmc5376243",
+      "claims-pmc5783668",
+      "claims-pmc6037613",
+      "claims-pmc6504186",
+      "claims-pmc7958867",
+      "claims-pmc8316883",
+      "claims-pmc8810700",
+      "claims-pmc8812815",
+      "claims-pmc9566193",
+      "claims-pmc9764248"
+    ],
+    "vocabulary_source_id": "analysis-vocabulary"
+  },
+  "sectioning": {
+    "strategy": "pdf-page-headings-v1",
+    "minimum_characters": 32
+  },
+  "tokenization": {
+    "tokenizer": "ascii-alphanumeric-v1",
+    "stopwords": "english-v1",
+    "min_token_length": 2
+  },
+  "extraction": {
+    "ngram_range": [1, 3],
+    "minimum_section_frequency": 2,
+    "maximum_section_fraction": 0.35,
+    "maximum_candidates": 1200,
+    "top_candidates_per_section": 12
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75
+  },
+  "graph": {
+    "max_co_mentions_per_section": 12,
+    "minimum_co_mention_sections": 2,
+    "max_co_mention_neighbors": 12,
+    "max_edge_evidence_sections": 8
+  },
+  "query": {
+    "resolved_entities": 32,
+    "max_hops": 3,
+    "hop_decay": 0.65,
+    "reviewed_edge_weight": 1.0,
+    "candidate_edge_weight": 0.3,
+    "mention_weight": 1.0,
+    "candidate_pool": 150,
+    "max_per_paper": 1,
+    "rrf_k": 60
+  }
+}

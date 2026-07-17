@@ -1,0 +1,76 @@
+{
+  "build_report": {
+    "path": "evaluations/semantic-okf-astro/reports/build-comparison.json",
+    "run_dir": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01",
+    "sha256": "76d189ae10d34ff8b328c920bcc9b8d5bca03055090fdf605529f2a0b44aaba7"
+  },
+  "comparisons": [
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/legacy-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-legacy-paired.yaml",
+      "config_sha256": "ef6c6fcb763faa4dbef8cbc4d7021e35edb38572401578140162bbc24b3e3834",
+      "family": "legacy",
+      "skill_id": "consult-semantic-okf",
+      "skill_tree_sha256": "20adba845218f74b699fb494273aa809b4fd737548b8c778539cd2a33c731af2"
+    },
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/embeddings-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-embeddings-paired.yaml",
+      "config_sha256": "de31702236c5397b2ed6e4a034c39986dd5f8e8590110f5eefd0f82e5eb89bf1",
+      "family": "embeddings",
+      "skill_id": "consult-semantic-okf-embeddings",
+      "skill_tree_sha256": "b91bba8bda26d1cc66a5b95cea57c8ec899d290ab67d6c525120ba526030586d"
+    },
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/classical-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-classical-paired.yaml",
+      "config_sha256": "a3ff6e1a09493c2169dd6433c1291a23ccf9cff80c5952b66cecba7ab014d8e8",
+      "family": "classical",
+      "skill_id": "consult-semantic-okf-classical",
+      "skill_tree_sha256": "38be4d461e917aa981937ffdc1c862b297fa313f5ae20ab0dd557dc19000990f"
+    },
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/adaptive-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-adaptive-paired.yaml",
+      "config_sha256": "69f2f05804d19401d9f16a575625defbb89964de88919e19d027b89fb43531cb",
+      "family": "adaptive",
+      "skill_id": "consult-semantic-okf-adaptive",
+      "skill_tree_sha256": "6c01147b32bc324a1049b9439ad0a31ac8f5631edaf1c2e41bcbd6d6493b0519"
+    },
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/entity-graph-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-entity-graph-paired.yaml",
+      "config_sha256": "3c607a4dc605ae8d3029c424925048bc995229e8583c018689f40223c58e8117",
+      "family": "entity-graph",
+      "skill_id": "consult-semantic-okf-entity-graph",
+      "skill_tree_sha256": "0e4525b87dbfc704b6ec667efab6bbc5d9f1f464522704e631f2174243b593f4"
+    },
+    {
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a",
+      "config": "evaluations/semantic-okf-astro/skill-arena/q040-ensemble-paired.yaml",
+      "config_sha256": "43f534139ceed478b036fd2b2213183bd35b8360fb863674ba8eb60139469ad6",
+      "family": "ensemble",
+      "skill_id": "consult-semantic-okf-ensemble",
+      "skill_tree_sha256": "ab66ade281810abc10ff626d3189d78314f8c939874c3aed86634e1023f8fe19"
+    }
+  ],
+  "interpretation": "Each file is an isolated same-bundle knowledge-only control versus one-skill treatment. The six files are separate paired diagnostics, never an all-skills causal portfolio.",
+  "model": "openai-codex/gpt-5.6-luna",
+  "prompt_coverage": {
+    "path": "evaluations/semantic-okf-astro/skill-arena/prompt-coverage.json",
+    "scope": "one-question boundary diagnostic, not an aggregate capability estimate",
+    "sha256": "15f7979632518181b867b7d8d4e658f844f0a21750b31a3e665abbea5b749869"
+  },
+  "question": {
+    "id": "q040",
+    "question": "A primarily static Astro site needs one cookie-aware account page and one request-time API route, while all other routes should stay prerendered. Derive the output, adapter, per-route, endpoint, and request-feature configuration, including the inverse design if server output becomes the default.",
+    "question_type": "hard"
+  },
+  "question_source": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-questions.jsonl",
+    "sha256": "781b68739af5f5867dc67189dc08ab25ccca0ce809c89543709961bacdd7c948"
+  },
+  "requests_per_cell": 1,
+  "schema_version": "semantic-okf-astro-skill-arena-config-manifest/1.0",
+  "status": "pass"
+}

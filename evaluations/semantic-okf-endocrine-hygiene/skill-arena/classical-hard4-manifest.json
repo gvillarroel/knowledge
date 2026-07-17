@@ -1,0 +1,80 @@
+{
+  "assertion_metrics": [
+    "response-format",
+    "response-contract",
+    "evidence-validity",
+    "claim-fidelity",
+    "atomic-answer-completeness",
+    "important-negative-coverage",
+    "required-paper-coverage"
+  ],
+  "benchmark_id": "semantic-okf-endocrine-hygiene-classical-hard5-paired",
+  "bundle": {
+    "bytes": 16426985,
+    "file_count": 149,
+    "tree_sha256": "17c540c3638e05fe6ee07d7e91dbab6a156e9837e46a79f838e713024e61a0c7"
+  },
+  "causal_scope": "paired five-question diagnostic only; not a portfolio ranking or stable aggregate estimate",
+  "config": {
+    "path": "evaluations/semantic-okf-endocrine-hygiene/skill-arena/classical-hard4.yaml",
+    "sha256": "389e1c8a8c080688caf636d03f10c07e2490aed1f9a189aed9dfc7f27398007a"
+  },
+  "consult_skill": {
+    "bytes": 72366,
+    "file_count": 9,
+    "tree_sha256": "fd2a6ed9b91111e77c31e3f847c1ca8246a9f7c0ee343a6794a745916eae9058"
+  },
+  "hard_claim_requirements": {
+    "path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/hard-claim-requirements.json",
+    "sha256": "72528dd260d5848d0fb1eac0e2c284190d3adff926a2d2876d64344f6b89cee6"
+  },
+  "profiles": [
+    "knowledge-only-control",
+    "classical-cli-consult-treatment"
+  ],
+  "prompt_coverage": {
+    "path": "evaluations/semantic-okf-endocrine-hygiene/skill-arena/prompt-coverage.json",
+    "sha256": "5579aa9f4e88b04a86b90008bbd37d8c822389877e8b3f2b8fc26bd7ed462c9b"
+  },
+  "prompt_ids": [
+    "q026-receptor-to-gestation-boundary",
+    "q027-feminine-risk-reconciliation",
+    "q028-phthalate-name-normalization",
+    "q029-label-gate-validity",
+    "q030-causal-evidence-map"
+  ],
+  "requests_per_cell": 1,
+  "required_claim_count_by_prompt": {
+    "q026-receptor-to-gestation-boundary": {
+      "answer_distinct": 11,
+      "negative_distinct": 7,
+      "union_distinct": 11
+    },
+    "q027-feminine-risk-reconciliation": {
+      "answer_distinct": 13,
+      "negative_distinct": 6,
+      "union_distinct": 13
+    },
+    "q028-phthalate-name-normalization": {
+      "answer_distinct": 10,
+      "negative_distinct": 6,
+      "union_distinct": 10
+    },
+    "q029-label-gate-validity": {
+      "answer_distinct": 8,
+      "negative_distinct": 4,
+      "union_distinct": 8
+    },
+    "q030-causal-evidence-map": {
+      "answer_distinct": 23,
+      "negative_distinct": 13,
+      "union_distinct": 23
+    }
+  },
+  "reviewed_ledger_claim_count": 93,
+  "schema_version": "semantic-okf-endocrine-hygiene-skill-arena-config/2.0",
+  "status": "pass",
+  "varied_capability_surfaces": [
+    "skills"
+  ]
+}

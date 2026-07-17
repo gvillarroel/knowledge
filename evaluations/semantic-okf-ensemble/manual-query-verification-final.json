@@ -1,0 +1,83 @@
+{
+  "schema_version": "semantic-okf-ensemble-manual-query-verification/1.0",
+  "status": "pass",
+  "run_id": "20260715-ensemble-final-03",
+  "question": {
+    "id": "q031-graph-routing-boundary",
+    "source_path": "evaluations/semantic-okf-adaptive/retrieval-questions.jsonl",
+    "source_sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec"
+  },
+  "bundle": {
+    "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+    "recursive_sha256_before": "ed9386b63e4e087eea0fe62cd53eeb22e8f9cc4d5973b45eae7d736d9b77f868",
+    "recursive_sha256_after": "ed9386b63e4e087eea0fe62cd53eeb22e8f9cc4d5973b45eae7d736d9b77f868",
+    "unchanged": true,
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939",
+    "ensemble_plan_sha256": "cbbc28d140667670621260513d08998a740227f2bdf93f4dce754f4c996dd8eb",
+    "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "deep_validation": true,
+    "read_only": true
+  },
+  "search": {
+    "status": "pass",
+    "policy": "quality",
+    "algorithm": "protected-multisignal-paper-rerank-v2",
+    "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+    "weights": [4, 1, 5, 1],
+    "rrf_k": 7,
+    "protected_candidate_set_preserved": true,
+    "promotion_gate_passed": true,
+    "returned": 10,
+    "paper_ids": [
+      "2506.05690v3",
+      "2402.07630v3",
+      "2408.04187v2",
+      "2406.14550v2",
+      "2504.02112v2",
+      "2502.14902v2",
+      "2410.05779v3",
+      "2404.16130v2",
+      "2507.03226v3",
+      "2503.13804v1"
+    ],
+    "required_papers_returned": 3,
+    "required_papers_expected": 3
+  },
+  "coverage": {
+    "status": "pass",
+    "algorithm": "bounded-reviewed-claim-multisignal-expansion-v2",
+    "report_path": "evaluations/semantic-okf-ensemble/hard10-coverage-pack-multisignal-final.json",
+    "report_sha256": "ffc96b1cb52f66868aa0794e520f19fd3853a7078d3457b4f7cb9400bfc14f20",
+    "adaptive_candidate_claims": 96,
+    "graph_candidate_claims": 57,
+    "embedding_candidate_claims": 142,
+    "adaptive_graph_overlap_claims": 32,
+    "adaptive_embedding_overlap_claims": 56,
+    "graph_embedding_overlap_claims": 34,
+    "all_three_overlap_claims": 25,
+    "union_candidate_claims": 198,
+    "answer_option_groups_covered": 4,
+    "answer_option_groups_expected": 4,
+    "important_negative_groups_covered": 1,
+    "important_negative_groups_expected": 1,
+    "required_paper_coverage": 1.0
+  },
+  "finalizer": {
+    "status": "pass",
+    "algorithm": "facet-status-exact-binding-finalizer-v1",
+    "draft_path": "evaluations/semantic-okf-ensemble/manual-query-q031-draft.json",
+    "draft_sha256": "e6764ad7bf74a985c403401f5c3d4fcfc1a1842711f21e23a82056c88321772f",
+    "summary_words": 221,
+    "facet_count": 8,
+    "supported_facets": 7,
+    "partial_facets": 1,
+    "unresolved_facets": 0,
+    "emitted_claims": 8,
+    "evidence_bindings": 4,
+    "paper_ids": ["2402.07630v3", "2503.13804v1", "2506.05690v3"],
+    "citation_pages_are_integers": true,
+    "evidence_paths_are_relative": true,
+    "only_gated_claim_ids_used": true
+  },
+  "conclusion": "The real immutable bundle passed deep validation, preserved the protected candidate set, recovered every required paper and answer group, closed the previously unresolved synthesis facet through the bounded reviewed semantic route, and emitted only exact authoritative evidence bindings."
+}

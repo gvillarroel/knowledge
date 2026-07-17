@@ -1,0 +1,107 @@
+{
+  "schema_version": "semantic-okf-ensemble-population-search/1.1",
+  "search_id": "semantic-okf-ensemble-offline-population-v1",
+  "status": "complete",
+  "bindings": {
+    "frozen_benchmark": {
+      "path": "evaluations/semantic-okf-adaptive-evolution/frozen-benchmark.json",
+      "sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414"
+    },
+    "ensemble_plan": {
+      "path": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+      "sha256": "0f30f15f4156223a72200544ec07ffab33ee3d2a92aac09424f8444ad38339f5"
+    },
+    "evaluation_contract": {
+      "path": "evaluations/semantic-okf-ensemble/evaluation-contract.json",
+      "sha256": "951c1d70c2dbede690b5b423a30e9bfbded4945ed3a9ecdd075c23871d2d300e"
+    },
+    "raw_replay_report": {
+      "role": "Pre-winner evidence-valid component route trace used only for deterministic candidate replay.",
+      "sha256": "6fd09e9f613088c8f3d57fb65076d403d52180c4b36ed153d87a6833d4ab0dd0"
+    }
+  },
+  "population": {
+    "size": 10,
+    "survivors": 2,
+    "offspring_per_generation": 8,
+    "repetitions_per_candidate": 3,
+    "questions_per_repetition": 40,
+    "effective_parallelism": 1,
+    "plateau_generations": 2,
+    "maximum_generations": 6,
+    "completed_generations": 4
+  },
+  "candidate_boundary": {
+    "allowed": [
+      "standalone ensemble policy values",
+      "standalone ensemble consultation ranking and deterministic tie behavior",
+      "derived-artifact limits that preserve the closed builder schema"
+    ],
+    "forbidden": [
+      "frozen benchmark files or hashes inside candidate packages",
+      "authoritative Semantic OKF core records",
+      "question IDs, qrels, answer keys, expected papers, or ground truth in candidate packages",
+      "existing legacy, embedding, classical, entity-graph, or adaptive skill packages"
+    ]
+  },
+  "result_schema": {
+    "schema_version": "semantic-okf-ensemble-population-candidate/1.0",
+    "exact_root_keys": [
+      "schema_version",
+      "status",
+      "candidate_id",
+      "fitness",
+      "policy",
+      "tie_break",
+      "requests",
+      "query_count_per_request",
+      "effective_parallelism",
+      "ranking_sha256",
+      "metrics",
+      "gates"
+    ],
+    "gate_keys": [
+      "deterministic_three_repetitions",
+      "protected_set_preserved",
+      "evidence_validity_inherited",
+      "metric_floors"
+    ],
+    "metric_keys": [
+      "all_recall_at_10",
+      "all_mrr_at_10",
+      "all_ndcg_at_10",
+      "hard_recall_at_10",
+      "hard_mrr_at_10",
+      "hard_ndcg_at_10"
+    ],
+    "policy_keys": [
+      "routes",
+      "weights",
+      "rrf_k",
+      "protected_route",
+      "promotion"
+    ]
+  },
+  "selection": {
+    "failed_gate_fitness": 0.0,
+    "passing_fitness": "100 times the geometric mean of the six frozen retrieval metrics",
+    "ranking": [
+      "fitness_desc",
+      "candidate_id_asc"
+    ],
+    "keep": 2,
+    "discard": 8,
+    "simplicity_tie_rule": "Prefer the simpler policy when rankings and fitness are identical.",
+    "plateau_rule": "Stop after two consecutive completed generations without an increase in the best passing fitness."
+  },
+  "completion": {
+    "candidate_evaluations": 40,
+    "replay_requests": 120,
+    "question_rankings": 4800,
+    "stop_reason": "two-generation-plateau",
+    "compact_results": {
+      "json": "evaluations/semantic-okf-ensemble/population-search-results.json",
+      "markdown": "evaluations/semantic-okf-ensemble/population-search-results.md"
+    }
+  }
+}

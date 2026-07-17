@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-okf-harbor-q032-semantic-review/1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "question_id", "ground_truth_binding", "rubric", "reviews"],
+  "properties": {
+    "schema_version": {"const": "semantic-okf-harbor-semantic-review/1.0"},
+    "question_id": {"const": "q032"},
+    "ground_truth_binding": {"$ref": "#/$defs/file_binding"},
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item_scale", "summary_scale", "completeness_formula", "grounding_rule"],
+      "properties": {
+        "item_scale": {"type": "object", "additionalProperties": {"type": "string"}},
+        "summary_scale": {"type": "object", "additionalProperties": {"type": "string"}},
+        "completeness_formula": {"type": "string", "minLength": 1},
+        "grounding_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {"$ref": "#/$defs/review"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "item_score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "rationale"],
+      "properties": {
+        "score": {"enum": [0, 0.5, 1]},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "variant", "status", "result_binding", "final_answer_sha256", "harbor_metrics", "atomic_answer_claims", "important_negatives", "derivation_logic", "summary_scores", "material_errors", "review_note"],
+      "properties": {
+        "family": {"enum": ["legacy", "embeddings", "classical", "adaptive", "entity-graph", "ensemble"]},
+        "variant": {"enum": ["baseline", "evolved"]},
+        "status": {"enum": ["valid_answer", "contract_invalid", "invalid_json", "timeout"]},
+        "result_binding": {"$ref": "#/$defs/file_binding"},
+        "final_answer_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+        "harbor_metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reward", "quality_gate", "evidence_validity", "response_contract"],
+          "properties": {
+            "reward": {"type": "number", "minimum": 0, "maximum": 1},
+            "quality_gate": {"enum": [0, 1]},
+            "evidence_validity": {"type": "number", "minimum": 0, "maximum": 1},
+            "response_contract": {"enum": [0, 1]}
+          }
+        },
+        "atomic_answer_claims": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["q032-a1", "q032-a2", "q032-a3", "q032-a4", "q032-a5"],
+          "properties": {
+            "q032-a1": {"$ref": "#/$defs/item_score"},
+            "q032-a2": {"$ref": "#/$defs/item_score"},
+            "q032-a3": {"$ref": "#/$defs/item_score"},
+            "q032-a4": {"$ref": "#/$defs/item_score"},
+            "q032-a5": {"$ref": "#/$defs/item_score"}
+          }
+        },
+        "important_negatives": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["q032-n1", "q032-n2"],
+          "properties": {
+            "q032-n1": {"$ref": "#/$defs/item_score"},
+            "q032-n2": {"$ref": "#/$defs/item_score"}
+          }
+        },
+        "derivation_logic": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cacheable_design", "deployment_correctness"],
+          "properties": {
+            "cacheable_design": {"$ref": "#/$defs/item_score"},
+            "deployment_correctness": {"$ref": "#/$defs/item_score"}
+          }
+        },
+        "summary_scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["semantic_correctness", "completeness", "grounding", "response_contract"],
+          "properties": {
+            "semantic_correctness": {"type": "number", "minimum": 0, "maximum": 1},
+            "completeness": {"type": "number", "minimum": 0, "maximum": 1},
+            "grounding": {"type": "number", "minimum": 0, "maximum": 1},
+            "response_contract": {"enum": [0, 1]}
+          }
+        },
+        "material_errors": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "review_note": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

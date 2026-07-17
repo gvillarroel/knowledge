@@ -1,0 +1,88 @@
+{
+  "schema_version": "semantic-okf-harbor-skill-arena-configs/1.0",
+  "status": "validated-dry-run-only",
+  "date": "2026-07-16",
+  "skill_arena_version": "0.1.0",
+  "prompt": {
+    "id": "q031",
+    "source_path": "evaluations/semantic-okf-harbor/generated/tasks/train/q031/instruction.md",
+    "sha256": "264153ac8fcc9a0297ff67811f15551546b86be4d918d738bc236f2f9f46e826"
+  },
+  "variant": {
+    "id": "pi-gpt-5-3-spark",
+    "adapter": "pi",
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "reasoning_effort": "high"
+  },
+  "policy": {
+    "comparison": "one baseline and one evolved skill from the same family",
+    "requests_per_cell": 1,
+    "live_skill_arena_execution": false,
+    "primary_live_evaluator": "Harbor",
+    "skill_source_kind": "checked-in-local-path",
+    "qrel_or_answer_leakage": false,
+    "mcp_declared": false
+  },
+  "comparisons": [
+    {
+      "family": "adaptive",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-adaptive-paired.yaml",
+      "config_sha256": "166251a9e943a9414bd8f43ec85fd7718853145acef4c5c5343b4a22cc7c8d77",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/adaptive-a",
+      "baseline_source_path": "skills/consult-semantic-okf-adaptive",
+      "baseline_tree_sha256": "6c01147b32bc324a1049b9439ad0a31ac8f5631edaf1c2e41bcbd6d6493b0519",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-adaptive",
+      "evolved_tree_sha256": "0a16b2d81addec7269eb617e7c9b82a3c6f819c17be20950ac0f2c3bba4f2705"
+    },
+    {
+      "family": "classical",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-classical-paired.yaml",
+      "config_sha256": "e997120a103296780df81cb382c3769300cae333737892028f1f51d5679a9879",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/classical-a",
+      "baseline_source_path": "skills/consult-semantic-okf-classical",
+      "baseline_tree_sha256": "38be4d461e917aa981937ffdc1c862b297fa313f5ae20ab0dd557dc19000990f",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-classical",
+      "evolved_tree_sha256": "c25e0afb1c0c4e3dd9fbcec8c8ca143318fe79886328413e887b045d8ae3d78a"
+    },
+    {
+      "family": "embeddings",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-embeddings-paired.yaml",
+      "config_sha256": "e4147c7be7c34a6f635292320bd7644f793448dd293c2c38bce708e1f2838302",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/embeddings-a",
+      "baseline_source_path": "skills/consult-semantic-okf-embeddings",
+      "baseline_tree_sha256": "b91bba8bda26d1cc66a5b95cea57c8ec899d290ab67d6c525120ba526030586d",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-embeddings",
+      "evolved_tree_sha256": "b5fe229bad47b2174c6d97c5340ba5eb4906692ba420b1ebfb2c152a66e63547"
+    },
+    {
+      "family": "ensemble",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-ensemble-paired.yaml",
+      "config_sha256": "d0227c607836ec1e76611a1315a708fa67eabec7504254feb97a597d7e7ea40e",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a",
+      "baseline_source_path": "skills/consult-semantic-okf-ensemble",
+      "baseline_tree_sha256": "ab66ade281810abc10ff626d3189d78314f8c939874c3aed86634e1023f8fe19",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-ensemble",
+      "evolved_tree_sha256": "e0936f7014c1a37041f736d43890a543111f54271c67f3ce21129e4db50cc379"
+    },
+    {
+      "family": "entity-graph",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-entity-graph-paired.yaml",
+      "config_sha256": "494b0ee125b650351c1bb0f6b838bd9538494de9fba50f50b5e433ba47505d4b",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/entity-graph-a",
+      "baseline_source_path": "skills/consult-semantic-okf-entity-graph",
+      "baseline_tree_sha256": "0e4525b87dbfc704b6ec667efab6bbc5d9f1f464522704e631f2174243b593f4",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-entity-graph",
+      "evolved_tree_sha256": "2f770d64ba9afe9b0abd53f166d9f992febbb6a98175eaa0fafa7f47d29a593b"
+    },
+    {
+      "family": "legacy",
+      "config": "evaluations/semantic-okf-harbor/skill-arena/q031-legacy-paired.yaml",
+      "config_sha256": "5101cd431f1cd28b3722eddf5a6cc5f54bfcdaa1712e91efa7d5181667762d07",
+      "bundle": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/legacy-a",
+      "baseline_source_path": "skills/consult-semantic-okf",
+      "baseline_tree_sha256": "20adba845218f74b699fb494273aa809b4fd737548b8c778539cd2a33c731af2",
+      "evolved_source_path": "skills/consult-semantic-okf-harbor-legacy",
+      "evolved_tree_sha256": "888dcf5269a30325b5fea63a60f944d4f61db2f6fdc2f9a709a1f44ca14e7ce9"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "contracts": {
+    "authority": "Pinned official Astro MDX is authoritative; benchmark labels and all retrieval artifacts are derived.",
+    "evidence_locator": "Every hard evidence binding names the exact repo path, heading path, character interval, file digest, and selected-text digest.",
+    "prompt_isolation": "Only the question string is supplied to a consultation alternative; qrels and ground truth remain evaluator-only.",
+    "qrels": "Qrels contain canonical English documentation routes and their opaque manifest source IDs."
+  },
+  "counts": {
+    "answer_claims": 50,
+    "cross_document": 10,
+    "direct": 20,
+    "evidence_bindings": 46,
+    "hard": 10,
+    "important_negatives": 20,
+    "questions": 40
+  },
+  "files": {
+    "hard-ground-truth.jsonl": {
+      "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+      "row_count": 10,
+      "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d"
+    },
+    "hard-questions.jsonl": {
+      "path": "evaluations/semantic-okf-astro/benchmark/hard-questions.jsonl",
+      "row_count": 10,
+      "sha256": "781b68739af5f5867dc67189dc08ab25ccca0ce809c89543709961bacdd7c948"
+    },
+    "retrieval-questions.jsonl": {
+      "path": "evaluations/semantic-okf-astro/benchmark/retrieval-questions.jsonl",
+      "row_count": 40,
+      "sha256": "c15cd2c2f920e9e85bf62c45953d7cc4bb8b04570007d5d6fd8890aa7537b601"
+    }
+  },
+  "question_specs_sha256": "4a72c77cb490812766ed63d8e00d9210ac76da9f52c6f3329acc5ba4f04d92c0",
+  "schema_version": "semantic-okf-astro-benchmark-manifest/1.0"
+}

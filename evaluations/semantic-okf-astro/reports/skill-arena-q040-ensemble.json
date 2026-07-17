@@ -1,0 +1,506 @@
+{
+  "schema_version": "semantic-okf-astro-skill-arena-q040-paired-runs/1.0",
+  "status": "pass",
+  "family_count": 1,
+  "families": [
+    {
+      "family": "ensemble",
+      "accepted_run": {
+        "accepted": true,
+        "run_id": "2026-07-16T11-38-31-783Z-compare",
+        "compare_directory": "results/semantic-okf-astro-q040-ensemble-paired/2026-07-16T11-38-31-783Z-compare",
+        "eval_id": "eval-EG6-2026-07-16T11:38:39",
+        "benchmark_id": "semantic-okf-astro-q040-ensemble-paired",
+        "prompt_id": "q040",
+        "variant_id": "pi-luna-only"
+      },
+      "source_artifacts": {
+        "promptfoo_results": {
+          "path": "results/semantic-okf-astro-q040-ensemble-paired/2026-07-16T11-38-31-783Z-compare/promptfoo-results.json",
+          "bytes": 56732,
+          "sha256": "5c4de2563c728916edcf0ee9224d5459fb9aafc26d01bc0c16388d23c1bbbc46"
+        },
+        "promptfoo_config": {
+          "path": "results/semantic-okf-astro-q040-ensemble-paired/2026-07-16T11-38-31-783Z-compare/promptfooconfig.yaml",
+          "bytes": 10795,
+          "sha256": "c025b17a2a3f11a2affe7b2f4f94741bc360f38b1123f04367313150451fe7dc"
+        },
+        "skill_arena_summary": {
+          "path": "results/semantic-okf-astro-q040-ensemble-paired/2026-07-16T11-38-31-783Z-compare/summary.json",
+          "bytes": 39693,
+          "sha256": "34e0a85ef781b1904de3ef4df2b02cea318f182a37f9d0a5a51a6b7a905e1bd7"
+        },
+        "authoritative_records": {
+          "path": "evaluations/semantic-okf-astro/results/runs/20260716-astro-generic-01/bundles/ensemble-a/semantic/records.jsonl",
+          "bytes": 3455749,
+          "sha256": "ef87105fe99c64683f21848810e82166ff54633095a28ab1cfa681984262cf0b"
+        },
+        "source_combination": {
+          "path": "evaluations/semantic-okf-astro/corpus/source-combination.json",
+          "bytes": 438819,
+          "sha256": "c09e952254e5f2a4673ec0864bb09be333d8e914a1d0c46284e33953296cb783"
+        }
+      },
+      "outcome": {
+        "control_pass_rate": 0.0,
+        "treatment_pass_rate": 1.0,
+        "absolute_percentage_point_delta": 100.0,
+        "control_evidence_status": "pass",
+        "treatment_evidence_status": "pass",
+        "prompt_count": 1,
+        "causal_scope": "one paired q040 boundary diagnostic; not an aggregate 40-question result"
+      },
+      "harness_interpretation": {
+        "derived_overall_status": "FAILED",
+        "all_cells_passed": false,
+        "successes": 1,
+        "failures": 1,
+        "errors": 0,
+        "accepted_pairwise_result": true,
+        "explanation": "The overall harness can display FAILED because its all-cells rule counts the intentionally failing knowledge-only control. The accepted comparison is the profile delta: control 0%, treatment 100%."
+      },
+      "profiles": [
+        {
+          "profile_id": "knowledge-only-control",
+          "causal_role": "passive-control",
+          "skill_enabled": false,
+          "pass": false,
+          "pass_rate": 0,
+          "score": 0,
+          "latency_ms": 114571,
+          "assertions": [
+            {
+              "metric": "response-format",
+              "type": "is-json",
+              "pass": false,
+              "score": 0,
+              "reason_summary": "Expected output to be valid JSON",
+              "reason_sha256": "faaf38831040175bf7e7320fa74f8c2fa21c3b47393ed64a4946d9693b9322b7",
+              "definition_sha256": "0ef2d47bb00024c2c952b999392fcbfb76f48a0b7a28190b0b11c26b9e18dece"
+            },
+            {
+              "metric": "response-contract",
+              "type": "javascript",
+              "pass": false,
+              "score": 0,
+              "reason_summary": "Custom function returned false",
+              "reason_sha256": "525f5f1bc91f49bc70c95f58d7c19722574570769b35129b26a547ce92cc27c3",
+              "definition_sha256": "d0e4a9fe48f39746b685dfd9d196a9c11000bf1d8ead60d360712d7e547bb30b"
+            },
+            {
+              "metric": "grounded-answer",
+              "type": "javascript",
+              "pass": false,
+              "score": 0,
+              "reason_summary": "Custom function returned false",
+              "reason_sha256": "787dbf982d123016c5a5fe1c2e90acf81f4b729960d85368b0439f7d03607938",
+              "definition_sha256": "321f7093a796942cc610a421cdf59e1410463650808229b7fafe0e66b6fdaffb"
+            }
+          ],
+          "response_metadata": {
+            "output_bytes": 3745,
+            "output_sha256": "98e2856c750b0ab8df5da2ced64c2c144df880a36d16c0f7f675d2b9fd35c8a8",
+            "strict_json": false,
+            "trailing_character_count": 1,
+            "trailing_text_sha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2",
+            "top_level_key_order": [
+              "question_id",
+              "answer",
+              "evidence"
+            ]
+          },
+          "parsed_response": {
+            "question_id": "q040",
+            "answer": {
+              "summary": "Use hybrid rendering: configure `output: 'static'` (the default behavior), install an adapter for the deployment runtime, and opt only the account page and API endpoint out of prerendering with `export const prerender = false`. The account page can then read request-time cookies through `Astro.cookies` and personalize its response. The API route should be a server endpoint exporting its HTTP method function, such as `GET`, and return a `Response`; in on-demand mode it is built when requested and can inspect the full incoming `Request`. Every other route remains prerendered at build time. If server output becomes the default, change configuration to `output: 'server'` with the same adapter: routes become on-demand by default, so retain request-time behavior for the account page and API route without `prerender = false`, and explicitly add `export const prerender = true` to every route that must remain static, including the rest of the site and any static endpoint.",
+              "claims": [
+                {
+                  "statement": "The primarily static design is `output: 'static'` with a server-capable adapter, using `prerender = false` only on the account page and request-time API route; all other routes stay static.",
+                  "evidence_indices": [
+                    0
+                  ]
+                },
+                {
+                  "statement": "The account page can read, set, get, and delete cookies at request time through `Astro.cookies` once it is on-demand rendered.",
+                  "evidence_indices": [
+                    1
+                  ]
+                },
+                {
+                  "statement": "The API route should export an HTTP method handler such as `GET` and return a `Response`; on-demand endpoints are built when requested and can use the full request object.",
+                  "evidence_indices": [
+                    2
+                  ]
+                },
+                {
+                  "statement": "With `output: 'server'`, all routes are on-demand by default; routes that should remain static must explicitly export `prerender = true`.",
+                  "evidence_indices": [
+                    3
+                  ]
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "source_id": "astro-doc-67458ae49afefc50",
+                "record_id": "sources/mdx/guides/on-demand-rendering",
+                "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+                "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+                "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+                "locator": {
+                  "end": 3921,
+                  "kind": "character-range",
+                  "start": 1272
+                },
+                "text_sha256": "b465cc2f85513f3f99eede0264ec7468587abde4659584c529590c143c8016be"
+              },
+              {
+                "source_id": "astro-doc-67458ae49afefc50",
+                "record_id": "sources/mdx/guides/on-demand-rendering",
+                "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+                "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+                "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+                "locator": {
+                  "end": 7714,
+                  "kind": "character-range",
+                  "start": 5628
+                },
+                "text_sha256": "589f4fc0d0d9792678ff92e2dc057187fd42a2fe9d81d0f9e7b2f0328b1ebd4c"
+              },
+              {
+                "source_id": "astro-doc-db7b41aee88b9016",
+                "record_id": "sources/mdx/guides/endpoints",
+                "concept_path": "concepts/astro-doc-db7b41aee88b9016/sources-mdx-guides-endpoints-526d039df3.md",
+                "source_path": "sources/mdx/guides/endpoints.mdx",
+                "record_sha256": "e1a30889b018d330ddcc2d29d2dcb60a2886d6b2361d0af7180c21459e5a6140",
+                "locator": {
+                  "end": 4956,
+                  "kind": "character-range",
+                  "start": 3534
+                },
+                "text_sha256": "39a45f987a3d5b4b0247a95d5d8a270af49b7db72637c15b3f4c0e1c404db51b"
+              },
+              {
+                "source_id": "astro-doc-67458ae49afefc50",
+                "record_id": "sources/mdx/guides/on-demand-rendering",
+                "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+                "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+                "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+                "locator": {
+                  "end": 5626,
+                  "kind": "character-range",
+                  "start": 3922
+                },
+                "text_sha256": "dadff917854661ded6a3491bff9307a5965a12909f162393d06696aa92f741c0"
+              }
+            ]
+          },
+          "evidence_validation": {
+            "status": "pass",
+            "returned": 4,
+            "valid": 4,
+            "invalid": 0,
+            "all_valid": true,
+            "rows": [
+              {
+                "index": 0,
+                "valid": true,
+                "document_id": "/en/guides/on-demand-rendering/",
+                "issues": []
+              },
+              {
+                "index": 1,
+                "valid": true,
+                "document_id": "/en/guides/on-demand-rendering/",
+                "issues": []
+              },
+              {
+                "index": 2,
+                "valid": true,
+                "document_id": "/en/guides/endpoints/",
+                "issues": []
+              },
+              {
+                "index": 3,
+                "valid": true,
+                "document_id": "/en/guides/on-demand-rendering/",
+                "issues": []
+              }
+            ]
+          }
+        },
+        {
+          "profile_id": "ensemble-consult-treatment",
+          "causal_role": "treatment",
+          "skill_enabled": true,
+          "pass": true,
+          "pass_rate": 1,
+          "score": 1,
+          "latency_ms": 271042,
+          "assertions": [
+            {
+              "metric": "response-format",
+              "type": "is-json",
+              "pass": true,
+              "score": 1,
+              "reason_summary": "Assertion passed",
+              "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+              "definition_sha256": "0ef2d47bb00024c2c952b999392fcbfb76f48a0b7a28190b0b11c26b9e18dece"
+            },
+            {
+              "metric": "response-contract",
+              "type": "javascript",
+              "pass": true,
+              "score": 1,
+              "reason_summary": "Assertion passed",
+              "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+              "definition_sha256": "d0e4a9fe48f39746b685dfd9d196a9c11000bf1d8ead60d360712d7e547bb30b"
+            },
+            {
+              "metric": "grounded-answer",
+              "type": "javascript",
+              "pass": true,
+              "score": 1,
+              "reason_summary": "Assertion passed",
+              "reason_sha256": "0404989363b634336cf16164350433710f10866e0eaf074c56760be728385e0b",
+              "definition_sha256": "321f7093a796942cc610a421cdf59e1410463650808229b7fafe0e66b6fdaffb"
+            }
+          ],
+          "response_metadata": {
+            "output_bytes": 4976,
+            "output_sha256": "ab1cc824733b90d2a511166b819db408fe80a3cf6c5abb78fe411425732a804e",
+            "strict_json": true,
+            "trailing_character_count": 0,
+            "trailing_text_sha256": null,
+            "top_level_key_order": [
+              "question_id",
+              "answer",
+              "evidence"
+            ]
+          },
+          "parsed_response": {
+            "question_id": "q040",
+            "answer": {
+              "summary": "For a predominantly static Astro site, configure `output: 'static'` in `astro.config.mjs`; this is the static default and keeps pages and endpoints prerendered at build time. Because two routes need server behavior, add a server-capable adapter, for example `@astrojs/node`, and configure its standalone mode. In `src/pages/account.astro`, export `const prerender = false`; this opts that page out of prerendering so it is generated on demand. Apply the same export in the request-time API endpoint, such as `src/pages/api/account.ts`, so the endpoint runs per request rather than becoming a build artifact. The account page and endpoint can then use request-time features: `Astro.cookies` can check, get, set, or delete cookies, and request headers are available through `Astro.request.headers` (including the cookie header). Leave every other page and endpoint without that opt-out, preserving static generation. The inverse design starts with a server default: set `output: 'server'` and use the server adapter; routes are then generated on request by default. Mark routes that should remain static with `export const prerender = true`, including the otherwise-static pages and any static endpoint. In server mode, do not add `prerender = false` to dynamic routes because it is already the default; use `true` only for the static exceptions.",
+              "claims": [
+                {
+                  "statement": "Use `output: 'static'` and keep ordinary pages and endpoints prerendered; static output supports opting individual routes into on-demand rendering.",
+                  "evidence_indices": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "statement": "Install a server adapter such as `@astrojs/node` and configure its Node adapter in standalone mode for the on-demand routes.",
+                  "evidence_indices": [
+                    2
+                  ]
+                },
+                {
+                  "statement": "Export `const prerender = false` in the cookie-aware account page and request-time API endpoint; the remaining site stays statically generated.",
+                  "evidence_indices": [
+                    3,
+                    4
+                  ]
+                },
+                {
+                  "statement": "On-demand pages and API endpoints can use `Astro.cookies`, while request headers such as the cookie are available through `Astro.request.headers`.",
+                  "evidence_indices": [
+                    3
+                  ]
+                },
+                {
+                  "statement": "For the inverse server-default design, set `output: 'server'`; use `export const prerender = true` on static exceptions, leaving other routes on-demand by default.",
+                  "evidence_indices": [
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "source_id": "astro-doc-3c50462cdbdb7a32",
+                "record_id": "sources/mdx/reference/configuration-reference",
+                "concept_path": "concepts/astro-doc-3c50462cdbdb7a32/sources-mdx-reference-configuration-reference-b734a501a7.md",
+                "source_path": "sources/mdx/reference/configuration-reference.mdx",
+                "record_sha256": "09aeb7984eb813a284eb3ed10e6378a0ce05380a9e9c1e8985e3e812a2e823a0",
+                "locator": {
+                  "end": 77315,
+                  "fragment": null,
+                  "kind": "character-range",
+                  "start": 0,
+                  "target": "record-body"
+                },
+                "text_sha256": "c69c4ecedb148c9c163e730641e0711829bc1166ef65a559b6c6592542b7e865"
+              },
+              {
+                "source_id": "astro-doc-ed7b0d0a27542ceb",
+                "record_id": "sources/mdx/reference/routing-reference",
+                "concept_path": "concepts/astro-doc-ed7b0d0a27542ceb/sources-mdx-reference-routing-reference-315c04b052.md",
+                "source_path": "sources/mdx/reference/routing-reference.mdx",
+                "record_sha256": "a2c19f8c3c653f3d3e5457adbc855842ca1ad1f7cdcebafe0ccbda63852cecb8",
+                "locator": {
+                  "end": 12656,
+                  "fragment": null,
+                  "kind": "character-range",
+                  "start": 0,
+                  "target": "record-body"
+                },
+                "text_sha256": "e9c7951303b435bed3bb9d9964091ea4aef87db13643b05f6e4016f948ec46c1"
+              },
+              {
+                "source_id": "astro-doc-8aa98ab02807f857",
+                "record_id": "sources/mdx/guides/integrations-guide/node",
+                "concept_path": "concepts/astro-doc-8aa98ab02807f857/sources-mdx-guides-integrations-guide-node-49b507ef1d.md",
+                "source_path": "sources/mdx/guides/integrations-guide/node.mdx",
+                "record_sha256": "5af13752fc7aea5fa9b4c3b2eea5cdce9ece6a6f4f92c5194683ead8cdd43b81",
+                "locator": {
+                  "end": 10697,
+                  "fragment": null,
+                  "kind": "character-range",
+                  "start": 0,
+                  "target": "record-body"
+                },
+                "text_sha256": "1dfbdfe58f8174d9d93bd899d96092fd663277e77079a5182dcebb0739c0aa9d"
+              },
+              {
+                "source_id": "astro-doc-67458ae49afefc50",
+                "record_id": "sources/mdx/guides/on-demand-rendering",
+                "concept_path": "concepts/astro-doc-67458ae49afefc50/sources-mdx-guides-on-demand-rendering-821fb8d2c7.md",
+                "source_path": "sources/mdx/guides/on-demand-rendering.mdx",
+                "record_sha256": "daafa8646f81d0b02c913c1e27d289b5f7f1ccdf892d8e2308a6f4dd58761ee3",
+                "locator": {
+                  "end": 11578,
+                  "fragment": null,
+                  "kind": "character-range",
+                  "start": 0,
+                  "target": "record-body"
+                },
+                "text_sha256": "64f3baf78b0b04488a1f7ae89d042371fd56028ecf5444776753cae8b0128002"
+              },
+              {
+                "source_id": "astro-doc-60e7507194bf5ea2",
+                "record_id": "sources/mdx/guides/upgrade-to/v5",
+                "concept_path": "concepts/astro-doc-60e7507194bf5ea2/sources-mdx-guides-upgrade-to-v5-b791353c5f.md",
+                "source_path": "sources/mdx/guides/upgrade-to/v5.mdx",
+                "record_sha256": "e509c1c555389d67a2808cb269633f34de2a2472fc060e0c3f6589728336227f",
+                "locator": {
+                  "end": 58389,
+                  "fragment": null,
+                  "kind": "character-range",
+                  "start": 0,
+                  "target": "record-body"
+                },
+                "text_sha256": "be03c6bc217eebb084efea3a0af8c7f8d989a90b086ca8d8429d3cec5340deb3"
+              }
+            ]
+          },
+          "evidence_validation": {
+            "status": "pass",
+            "returned": 5,
+            "valid": 5,
+            "invalid": 0,
+            "all_valid": true,
+            "rows": [
+              {
+                "index": 0,
+                "valid": true,
+                "document_id": "/en/reference/configuration-reference/",
+                "issues": []
+              },
+              {
+                "index": 1,
+                "valid": true,
+                "document_id": "/en/reference/routing-reference/",
+                "issues": []
+              },
+              {
+                "index": 2,
+                "valid": true,
+                "document_id": "/en/guides/integrations-guide/node/",
+                "issues": []
+              },
+              {
+                "index": 3,
+                "valid": true,
+                "document_id": "/en/guides/on-demand-rendering/",
+                "issues": []
+              },
+              {
+                "index": 4,
+                "valid": true,
+                "document_id": "/en/guides/upgrade-to/v5/",
+                "issues": []
+              }
+            ]
+          }
+        }
+      ],
+      "non_accepted_traces": [
+        {
+          "run_id": "2026-07-16T09-54-39-228Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": false
+        },
+        {
+          "run_id": "2026-07-16T10-58-21-214Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": true,
+          "eval_id": "eval-cak-2026-07-16T10:58:31",
+          "successes": 0,
+          "failures": 2,
+          "errors": 0
+        },
+        {
+          "run_id": "2026-07-16T11-12-46-713Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": false
+        },
+        {
+          "run_id": "2026-07-16T11-13-07-640Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": true,
+          "eval_id": "eval-ru9-2026-07-16T11:13:13",
+          "successes": 1,
+          "failures": 1,
+          "errors": 0
+        },
+        {
+          "run_id": "2026-07-16T11-30-25-441Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": false
+        },
+        {
+          "run_id": "2026-07-16T11-30-35-958Z-compare",
+          "accepted": false,
+          "classification": "developmental trace only; excluded from accepted metrics",
+          "summary_available": true,
+          "eval_id": "eval-hJ4-2026-07-16T11:30:46",
+          "successes": 0,
+          "failures": 2,
+          "errors": 0
+        }
+      ]
+    }
+  ],
+  "aggregate_interpretation": {
+    "accepted_runs_only": true,
+    "paired_result_count": 1,
+    "all_treatments_passed": true,
+    "all_controls_failed": true,
+    "all_treatment_evidence_valid": true,
+    "scope": "each family remains a separate one-prompt paired q040 diagnostic"
+  },
+  "privacy": {
+    "raw_environment_copied": false,
+    "raw_workspace_paths_copied": false,
+    "source_files_represented_by_hashes_only": true,
+    "parsed_model_responses_retained_exactly": true
+  }
+}

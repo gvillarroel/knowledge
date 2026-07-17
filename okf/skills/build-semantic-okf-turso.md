@@ -34,7 +34,7 @@ Build one complete Semantic OKF release and its local `semantic/knowledge.db` pr
 - Bind database rows to the bundle with artifact hashes, concept hashes, source hashes, record hashes, row counts, schema digest, and one logical database digest.
 - Reject any database-to-bundle drift. Never repair one side in place.
 
-Turso Database is the ground-up Rust rewrite of SQLite. `libSQL` is the older SQLite fork. This package intentionally uses the `pyturso` distribution and `turso` Python module, not `sqlite3` or the legacy `libsql` client. Read [turso-storage.md](references/turso-storage.md) before changing the schema, engine, database lifecycle, or cloud boundary.
+Turso Database is the ground-up Rust rewrite of SQLite. `libSQL` is the older SQLite fork. This package intentionally uses the `pyturso` distribution and `turso` Python module, not `sqlite3` or the legacy `libsql` client. Read [turso-storage.md](../../skills/build-semantic-okf-turso/references/turso-storage.md) before changing the schema, engine, database lifecycle, or cloud boundary.
 
 ## Workflow
 
@@ -52,12 +52,12 @@ Do not infer classes, identity matches, source precedence, mappings, or validati
 
 ## Required references
 
-- Read [source-combination.md](references/source-combination.md) before combining physical sources.
-- Read [manifest.md](references/manifest.md) before creating or changing a manifest.
-- Read [coherence-contract.md](references/coherence-contract.md) before changing mapping or validation behavior.
-- Read [turso-storage.md](references/turso-storage.md) before changing database materialization or schema.
-- Read [python-runtime.md](references/python-runtime.md) before installing or executing scripts.
-- Read [refreshing.md](references/refreshing.md) before updating a published release.
+- Read [source-combination.md](../../skills/build-semantic-okf-turso/references/source-combination.md) before combining physical sources.
+- Read [manifest.md](../../skills/build-semantic-okf-turso/references/manifest.md) before creating or changing a manifest.
+- Read [coherence-contract.md](../../skills/build-semantic-okf-turso/references/coherence-contract.md) before changing mapping or validation behavior.
+- Read [turso-storage.md](../../skills/build-semantic-okf-turso/references/turso-storage.md) before changing database materialization or schema.
+- Read [python-runtime.md](../../skills/build-semantic-okf-turso/references/python-runtime.md) before installing or executing scripts.
+- Read [refreshing.md](../../skills/build-semantic-okf-turso/references/refreshing.md) before updating a published release.
 
 ## Environment
 

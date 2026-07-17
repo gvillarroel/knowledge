@@ -109,4 +109,4 @@ Inspect `bx config --help` for the configuration subcommands supported by the in
 
 ## Reference
 
-Read [recipes.md](./references/recipes.md) for tested command patterns and example queries before doing multi-step research.
+Read [recipes.md](../../skills/brave-search-effective/references/recipes.md) for tested command patterns and example queries before doing multi-step research.

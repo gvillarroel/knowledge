@@ -1,0 +1,209 @@
+{
+  "schema_version": "semantic-okf-ensemble-population-generation/1.1",
+  "search_id": "semantic-okf-ensemble-offline-population-v1",
+  "generation": 0,
+  "status": "complete",
+  "benchmark_visibility": "Candidates received the corpus and standalone skill only. The frozen benchmark remained evaluator-only and was not copied into candidate packages.",
+  "execution": {
+    "candidate_count": 10,
+    "repetitions_per_candidate": 3,
+    "questions_per_repetition": 40,
+    "effective_parallelism": 1
+  },
+  "survivors": [
+    "candidate-04",
+    "candidate-06"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "candidate-00",
+      "parent_ids": [],
+      "operator": {
+        "type": "baseline",
+        "focus": "control",
+        "hypothesis": "Preserve the incoming skill unchanged as the control."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 2, 3, 2],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 90.43696244978342,
+      "failed_metric_floors": [],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-01",
+      "parent_ids": [],
+      "operator": {
+        "type": "ablation",
+        "focus": "embedding",
+        "hypothesis": "Remove semantic scoring to measure its marginal ranking contribution."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25"],
+        "weights": [1, 2, 3],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 90.30202789810488,
+      "failed_metric_floors": [],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-02",
+      "parent_ids": [],
+      "operator": {
+        "type": "ablation",
+        "focus": "fast-policy",
+        "hypothesis": "Use the cheaper adaptive-plus-graph policy and measure the quality/latency tradeoff."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_lexical"],
+        "weights": [4, 1],
+        "rrf_k": 5
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 90.10563256560783,
+      "failed_metric_floors": [],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-03",
+      "parent_ids": [],
+      "operator": {
+        "type": "ablation",
+        "focus": "adaptive-only",
+        "hypothesis": "Preserve adaptive ordering to establish the protected-set incumbent."
+      },
+      "policy": {
+        "routes": ["adaptive"],
+        "weights": [1],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "fail",
+      "fitness": 0.0,
+      "failed_metric_floors": ["all_ndcg_at_10"],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-04",
+      "parent_ids": [],
+      "operator": {
+        "type": "mutation",
+        "focus": "consensus-tie-break",
+        "hypothesis": "Break exact fused-score ties by best component rank, rank sum, and route presence before paper identity."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 2, 3, 2],
+        "rrf_k": 0
+      },
+      "tie_break": "consensus",
+      "gate_status": "pass",
+      "fitness": 91.72489055128797,
+      "failed_metric_floors": [],
+      "decision": "keep"
+    },
+    {
+      "candidate_id": "candidate-05",
+      "parent_ids": [],
+      "operator": {
+        "type": "mutation",
+        "focus": "bm25-heavy",
+        "hypothesis": "Increase BM25 weight to test whether exact lexical evidence should dominate."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 1, 4, 1],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 90.53405521427655,
+      "failed_metric_floors": [],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-06",
+      "parent_ids": [],
+      "operator": {
+        "type": "mutation",
+        "focus": "graph-heavy",
+        "hypothesis": "Increase graph-fusion weight to test whether structural consensus should dominate."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 4, 2, 1],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 91.45797778565891,
+      "failed_metric_floors": [],
+      "decision": "keep"
+    },
+    {
+      "candidate_id": "candidate-07",
+      "parent_ids": [],
+      "operator": {
+        "type": "mutation",
+        "focus": "semantic-heavy",
+        "hypothesis": "Increase embedding weight to test paraphrase recovery against ranking noise."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 1, 2, 4],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "fail",
+      "fitness": 0.0,
+      "failed_metric_floors": ["hard_ndcg_at_10"],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-08",
+      "parent_ids": [],
+      "operator": {
+        "type": "mutation",
+        "focus": "rrf-smoothing",
+        "hypothesis": "Apply RRF k=5 to test whether rank smoothing improves balance."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 2, 3, 2],
+        "rrf_k": 5
+      },
+      "tie_break": "paper_id",
+      "gate_status": "fail",
+      "fitness": 0.0,
+      "failed_metric_floors": ["hard_ndcg_at_10"],
+      "decision": "discard"
+    },
+    {
+      "candidate_id": "candidate-09",
+      "parent_ids": [],
+      "operator": {
+        "type": "ablation",
+        "focus": "no-promotion",
+        "hypothesis": "Remove graph promotion to isolate the consensus gate's contribution."
+      },
+      "policy": {
+        "routes": ["adaptive", "graph_fusion", "bm25", "embedding_hybrid"],
+        "weights": [1, 2, 3, 2],
+        "rrf_k": 0
+      },
+      "tie_break": "paper_id",
+      "gate_status": "pass",
+      "fitness": 89.9109393662253,
+      "failed_metric_floors": [],
+      "decision": "discard"
+    }
+  ]
+}

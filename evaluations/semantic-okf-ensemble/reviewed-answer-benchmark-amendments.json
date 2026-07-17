@@ -1,0 +1,443 @@
+{
+  "addition_policy": {
+    "atomic_or_equivalence": "Each appended claim must independently support the complete atomic statement; two partial claims cannot be combined inside one OR option.",
+    "negative_or_equivalence": "Each appended claim must independently anchor the declared exclusion, contrast, or failure boundary.",
+    "operation": "Append the listed claim IDs to the named option groups while preserving every parent option and statement unchanged.",
+    "paper_identity": "Every atomic alternative remains in the same required paper as the parent anchor so required-paper and required-source identities remain unchanged.",
+    "partial_conjunctions": "A claim that supports only one conjunct is rejected even when another reviewed claim could supply the missing conjunct."
+  },
+  "additions": [
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-13804v1-037",
+          "or_equivalence_rationale": "It directly states that GraphRAG corrects some standalone-model errors but also turns some originally correct standalone answers wrong, establishing bidirectional complementarity and no universal winner."
+        }
+      ],
+      "group_id": "q031-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q031-graph-routing-boundary"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2506-05690v3-029",
+          "or_equivalence_rationale": "It explicitly describes the evidence as conditional guidance rather than proof that GraphRAG is universally superior."
+        }
+      ],
+      "group_id": "q031-n1",
+      "group_kind": "important_negative",
+      "question_id": "q031-graph-routing-boundary"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2410-05779v3-010",
+          "or_equivalence_rationale": "It independently specifies applying the indexing pipeline to a new document and unioning the new nodes and edges with the existing graph."
+        },
+        {
+          "claim_id": "claim-2410-05779v3-053",
+          "or_equivalence_rationale": "It independently states that new extracted nodes and edges are added without reconstructing the existing index graph."
+        }
+      ],
+      "group_id": "q032-a1",
+      "group_kind": "answer_claim",
+      "question_id": "q032-incremental-update-maturity"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2405-14831v3-044",
+          "or_equivalence_rationale": "It directly contrasts adding knowledge as graph associations with rerunning hierarchical summarization over the corpus."
+        }
+      ],
+      "group_id": "q032-a2",
+      "group_kind": "answer_claim",
+      "question_id": "q032-incremental-update-maturity"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2408-04187v2-037",
+          "or_equivalence_rationale": "It independently says real-time updates are future work and that incremental-update latency and consistency were not benchmarked."
+        }
+      ],
+      "group_id": "q032-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q032-incremental-update-maturity"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2502-14902v2-033",
+          "or_equivalence_rationale": "It explicitly reports degradation as graph edges are removed, so it independently refutes zero degradation and universal robustness."
+        },
+        {
+          "claim_id": "claim-2409-13731v3-039",
+          "or_equivalence_rationale": "It independently establishes that wrong or incomplete triples propagate into answer errors, demonstrating a corruption mode not covered by the edge-removal result."
+        }
+      ],
+      "group_id": "q033-n1",
+      "group_kind": "important_negative",
+      "question_id": "q033-corruption-specific-defenses"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2402-07630v3-037",
+          "or_equivalence_rationale": "It independently states both sides of the candidate-count trade-off: too few omit evidence and too many introduce distraction."
+        }
+      ],
+      "group_id": "q034-a1",
+      "group_kind": "answer_claim",
+      "question_id": "q034-nonmonotonic-context-budget"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2408-08535v1-032",
+          "or_equivalence_rationale": "It directly reports non-monotonic sensitivity to sentence inclusion, including the noise-before-benefit pattern."
+        }
+      ],
+      "group_id": "q034-a3",
+      "group_kind": "answer_claim",
+      "question_id": "q034-nonmonotonic-context-budget"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-06474v2-042",
+          "or_equivalence_rationale": "It independently reports that 32k outperformed 64k and attributes the loss to diluted subtle extraction signals."
+        }
+      ],
+      "group_id": "q034-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q034-nonmonotonic-context-budget"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2406-14550v2-039",
+          "or_equivalence_rationale": "It shows that both larger and smaller chunks can lose information, anchoring the warning that a reported chunk optimum is not monotonic or universal."
+        },
+        {
+          "claim_id": "claim-2503-06474v2-042",
+          "or_equivalence_rationale": "It supplies a direct within-system counterexample in which a larger context window performs worse, anchoring the non-generalization warning."
+        }
+      ],
+      "group_id": "q034-n1",
+      "group_kind": "important_negative",
+      "question_id": "q034-nonmonotonic-context-budget"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2402-07630v3-019",
+          "or_equivalence_rationale": "It independently distinguishes structural pooling in the graph token from node-and-edge detail preserved by textualization, establishing complementary evidence roles."
+        },
+        {
+          "claim_id": "claim-2402-07630v3-055",
+          "or_equivalence_rationale": "It independently reports substantial ablation losses when either the graph encoder or textualized graph is removed, directly supporting complementarity."
+        }
+      ],
+      "group_id": "q035-a1",
+      "group_kind": "answer_claim",
+      "question_id": "q035-lossless-enough-evidence-organization"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2502-14902v2-031",
+          "or_equivalence_rationale": "It directly reports that path-organized prompts outperform flat organization and attributes the result to preserved relational order."
+        }
+      ],
+      "group_id": "q035-a2",
+      "group_kind": "answer_claim",
+      "question_id": "q035-lossless-enough-evidence-organization"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2404-16130v2-057",
+          "or_equivalence_rationale": "It independently limits thematic summaries to global coverage rather than precise local citation recovery, supporting the need to retain citation-level detail."
+        }
+      ],
+      "group_id": "q035-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q035-lossless-enough-evidence-organization"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2402-07630v3-019",
+          "or_equivalence_rationale": "Its distinct structural-token and explicit-detail roles independently refute the claim that structure alone preserves every answer-relevant detail."
+        },
+        {
+          "claim_id": "claim-2402-07630v3-055",
+          "or_equivalence_rationale": "Its two removal ablations independently refute treating either representation as sufficient by itself."
+        },
+        {
+          "claim_id": "claim-2502-14902v2-031",
+          "or_equivalence_rationale": "Its path-versus-flat result independently refutes treating flattened facts as lossless for relational reasoning."
+        },
+        {
+          "claim_id": "claim-2404-16130v2-057",
+          "or_equivalence_rationale": "Its global-summary versus precise-citation boundary independently refutes treating high-level summaries as sufficient for every answer."
+        }
+      ],
+      "group_id": "q035-n1",
+      "group_kind": "important_negative",
+      "question_id": "q035-lossless-enough-evidence-organization"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2506-05690v3-042",
+          "or_equivalence_rationale": "It independently states that stage-specific metrics distinguish graph-construction, retrieval, and generation failures."
+        }
+      ],
+      "group_id": "q036-a1",
+      "group_kind": "answer_claim",
+      "question_id": "q036-evaluation-leakage-and-stage-separation"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-029",
+          "or_equivalence_rationale": "It independently defines open mode as permitting parametric knowledge and reject mode as requiring abstention when retrieval is insufficient."
+        }
+      ],
+      "group_id": "q036-a3",
+      "group_kind": "answer_claim",
+      "question_id": "q036-evaluation-leakage-and-stage-separation"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2410-05779v3-054",
+          "or_equivalence_rationale": "It independently states that corpus-level questions lack straightforward ground truth and therefore the study relies on an LLM judge."
+        }
+      ],
+      "group_id": "q036-a5",
+      "group_kind": "answer_claim",
+      "question_id": "q036-evaluation-leakage-and-stage-separation"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-029",
+          "or_equivalence_rationale": "The open-versus-reject distinction independently anchors the warning that permissive answer accuracy is not proof of successful retrieval."
+        }
+      ],
+      "group_id": "q036-n1",
+      "group_kind": "important_negative",
+      "question_id": "q036-evaluation-leakage-and-stage-separation"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2410-05779v3-054",
+          "or_equivalence_rationale": "Its explicit no-straightforward-ground-truth and LLM-judge dependence independently anchor the warning not to treat the judge as unquestionable truth."
+        }
+      ],
+      "group_id": "q036-n2",
+      "group_kind": "important_negative",
+      "question_id": "q036-evaluation-leakage-and-stage-separation"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2507-03226v3-031",
+          "or_equivalence_rationale": "It independently states that dependency parsing misses implicit or context-dependent relations absent from surface syntax."
+        }
+      ],
+      "group_id": "q037-a2",
+      "group_kind": "answer_claim",
+      "question_id": "q037-domain-construction-under-constraints"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-031",
+          "or_equivalence_rationale": "It independently states that sharing a schema aligns graph extraction with query decomposition."
+        }
+      ],
+      "group_id": "q037-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q037-domain-construction-under-constraints"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2507-03226v3-031",
+          "or_equivalence_rationale": "It directly anchors the negative boundary that surface-syntax dependency parsing cannot be assumed to capture implicit relations."
+        }
+      ],
+      "group_id": "q037-n1",
+      "group_kind": "important_negative",
+      "question_id": "q037-domain-construction-under-constraints"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-031",
+          "or_equivalence_rationale": "Its extraction-to-query schema alignment independently anchors the warning against optimizing an index whose vocabulary the query decomposer cannot address."
+        }
+      ],
+      "group_id": "q037-n2",
+      "group_kind": "important_negative",
+      "question_id": "q037-domain-construction-under-constraints"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-06474v2-018",
+          "or_equivalence_rationale": "It independently specifies logic-form decomposition first and dual-level fuzzy fallback when decomposition or verification fails."
+        }
+      ],
+      "group_id": "q038-a3",
+      "group_kind": "answer_claim",
+      "question_id": "q038-failure-aware-query-router"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-06474v2-018",
+          "or_equivalence_rationale": "Its explicit structured-first and fuzzy-fallback contract independently anchors the warning not to collapse failure fallback into undifferentiated graph search."
+        }
+      ],
+      "group_id": "q038-n1",
+      "group_kind": "important_negative",
+      "question_id": "q038-failure-aware-query-router"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2410-05779v3-040",
+          "or_equivalence_rationale": "It independently reports the Legal example's fewer-than-100 keyword tokens and one call, together with the exact GraphRAG 610-report comparison."
+        }
+      ],
+      "group_id": "q039-a3",
+      "group_kind": "answer_claim",
+      "question_id": "q039-baseline-bound-efficiency-claims"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2404-16130v2-041",
+          "or_equivalence_rationale": "It independently binds GraphRAG's token percentages to its graph-free source-text summarization baseline, anchoring the baseline-specific caution."
+        },
+        {
+          "claim_id": "claim-2410-05779v3-040",
+          "or_equivalence_rationale": "It independently binds LightRAG's cost figures to a specific GraphRAG Legal example, anchoring the warning against cross-study league tables."
+        }
+      ],
+      "group_id": "q039-n1",
+      "group_kind": "important_negative",
+      "question_id": "q039-baseline-bound-efficiency-claims"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-13804v1-015",
+          "or_equivalence_rationale": "It independently specifies filtering GraphRAG and standalone-model answer sets by logits and combining the retained candidates."
+        }
+      ],
+      "group_id": "q040-a1",
+      "group_kind": "answer_claim",
+      "question_id": "q040-answer-source-control"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-06474v2-024",
+          "or_equivalence_rationale": "It independently reports that pre-generation argument checking is preferred over post-generation result checking."
+        }
+      ],
+      "group_id": "q040-a2",
+      "group_kind": "answer_claim",
+      "question_id": "q040-answer-source-control"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-029",
+          "or_equivalence_rationale": "It independently defines the open policy and the retrieval-grounded reject policy with mandatory abstention on insufficient evidence."
+        }
+      ],
+      "group_id": "q040-a4",
+      "group_kind": "answer_claim",
+      "question_id": "q040-answer-source-control"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2508-19855v3-029",
+          "or_equivalence_rationale": "Its reject-mode abstention requirement directly anchors the prohibition on silently substituting parametric knowledge when evidence is insufficient."
+        }
+      ],
+      "group_id": "q040-n1",
+      "group_kind": "important_negative",
+      "question_id": "q040-answer-source-control"
+    },
+    {
+      "append_claims": [
+        {
+          "claim_id": "claim-2503-13804v1-015",
+          "or_equivalence_rationale": "Its confidence-filtered answer-set fusion independently anchors the distinction between candidate confidence fusion and support verification."
+        },
+        {
+          "claim_id": "claim-2503-06474v2-024",
+          "or_equivalence_rationale": "Its direct pre-generation versus post-generation comparison independently anchors the distinction between evidence support and completed-answer checking."
+        }
+      ],
+      "group_id": "q040-n2",
+      "group_kind": "important_negative",
+      "question_id": "q040-answer-source-control"
+    }
+  ],
+  "amendment_id": "semantic-okf-reviewed-expected-id-amendments-20260715-v1",
+  "language": "en",
+  "parent_benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+  "rejected_close_alternatives": [
+    {"claim_id":"claim-2506-05690v3-038","group_id":"q031-a1","question_id":"q031-graph-routing-boundary","reason":"It does not independently state both the basic-RAG comparability result and graph-expansion noise."},
+    {"claim_id":"claim-2506-05690v3-040","group_id":"q031-a2","question_id":"q031-graph-routing-boundary","reason":"It classifies task levels but does not independently report GraphRAG's advantage."},
+    {"claim_id":"claim-2409-13731v3-043","group_id":"q032-a3","question_id":"q032-incremental-update-maturity","reason":"It concerns a different system and does not establish CommunityKG-RAG's rapid-update claim and missing protocol."},
+    {"claim_id":"claim-2503-06474v2-040","group_id":"q032-a5","question_id":"q032-incremental-update-maturity","reason":"It concerns a different system and not the dependency framework's unspecified lifecycle."},
+    {"claim_id":"claim-2503-13804v1-036","group_id":"q032-a5","question_id":"q032-incremental-update-maturity","reason":"It concerns a different system and does not establish deletion, provenance-repair, or re-indexing behavior."},
+    {"claim_id":"claim-2508-19855v3-041","group_id":"q032-a5","question_id":"q032-incremental-update-maturity","reason":"It is a different system's limitation and is not OR-equivalent to the named dependency framework claim."},
+    {"claim_id":"claim-2502-14902v2-033","group_id":"q033-a1","question_id":"q033-corruption-specific-defenses","reason":"It omits the exact 50 percent condition and the named LightRAG and NaiveRAG baselines, although it is sufficient for q033-n1."},
+    {"claim_id":"claim-2503-13804v1-028","group_id":"q033-a2","question_id":"q033-corruption-specific-defenses","reason":"It omits the exact 30-path condition and the quantitative recovery details."},
+    {"claim_id":"claim-2409-13731v3-039","group_id":"q033-a3","question_id":"q033-corruption-specific-defenses","reason":"It establishes error propagation but omits the faster graph-only route conjunct, although it is sufficient for q033-n1."},
+    {"claim_id":"claim-2409-13731v3-042","group_id":"q033-a3","question_id":"q033-corruption-specific-defenses","reason":"It establishes the speed trade-off but omits wrong or incomplete SPO facts as the cause."},
+    {"claim_id":"claim-2409-13731v3-058","group_id":"q033-a4","question_id":"q033-corruption-specific-defenses","reason":"It broadly coordinates resources but does not independently state that original chunks recover missing detail and generation context."},
+    {"claim_id":"claim-2402-07630v3-016","group_id":"q034-a1","question_id":"q034-nonmonotonic-context-budget","reason":"It states the large-k distraction side but not the too-few-candidates omission side as completely as the approved claim."},
+    {"claim_id":"claim-2406-14550v2-038","group_id":"q034-a2","question_id":"q034-nonmonotonic-context-budget","reason":"It supports only the excessive-initial-node conjunct."},
+    {"claim_id":"claim-2406-14550v2-039","group_id":"q034-a2","question_id":"q034-nonmonotonic-context-budget","reason":"It supports only the chunk-size conjunct and cannot satisfy the composite atomic group by itself."},
+    {"claim_id":"claim-2408-08535v1-047","group_id":"q034-a3","question_id":"q034-nonmonotonic-context-budget","reason":"It states a best configuration but not the non-monotonic sentence-inclusion result."},
+    {"claim_id":"claim-2402-07630v3-003","group_id":"q035-a1","question_id":"q035-lossless-enough-evidence-organization","reason":"It establishes two representations but not their complementary contribution."},
+    {"claim_id":"claim-2502-14902v2-041","group_id":"q035-a2","question_id":"q035-lossless-enough-evidence-organization","reason":"It explains information loss from flattening but does not independently report the path-versus-flat outperforming result."},
+    {"claim_id":"claim-2409-13731v3-058","group_id":"q035-a3","question_id":"q035-lossless-enough-evidence-organization","reason":"It is a broad resource-organization synthesis and does not independently establish missing-detail recovery through original chunks."},
+    {"claim_id":"claim-2506-05690v3-027","group_id":"q036-a1","question_id":"q036-evaluation-leakage-and-stage-separation","reason":"It states stage diagnosis but omits the required metric families."},
+    {"claim_id":"claim-2508-19855v3-029","group_id":"q036-a2","question_id":"q036-evaluation-leakage-and-stage-separation","reason":"It defines open and reject modes but does not independently state that permissive prompting can mask retrieval failure; it is approved for q036-a3 and q036-n1."},
+    {"claim_id":"claim-2502-14902v2-034","group_id":"q036-a5","question_id":"q036-evaluation-leakage-and-stage-separation","reason":"It is semantically close but belongs to another paper, which would break the frozen required-paper and required-source identity contract."},
+    {"claim_id":"claim-2504-02112v2-035","group_id":"q036-a5","question_id":"q036-evaluation-leakage-and-stage-separation","reason":"It is semantically close but belongs to another paper, which would break the frozen required-paper and required-source identity contract."},
+    {"claim_id":"claim-2507-03226v3-034","group_id":"q036-a5","question_id":"q036-evaluation-leakage-and-stage-separation","reason":"It concerns general LLM-judge uncertainty in another paper and does not preserve the atomic group's required source identity."},
+    {"claim_id":"claim-2507-03226v3-028","group_id":"q037-a1","question_id":"q037-domain-construction-under-constraints","reason":"It reports cost-performance behavior but not interchangeable dependency and LLM construction modes."},
+    {"claim_id":"claim-2507-03226v3-035","group_id":"q037-a1","question_id":"q037-domain-construction-under-constraints","reason":"It motivates dependency extraction for cost and refresh but not the complete interchangeable-mode contract."},
+    {"claim_id":"claim-2409-13731v3-008","group_id":"q037-a3","question_id":"q037-domain-construction-under-constraints","reason":"It supports only one side of the open-extraction alignment versus schema-expert-cost contrast."},
+    {"claim_id":"claim-2409-13731v3-009","group_id":"q037-a3","question_id":"q037-domain-construction-under-constraints","reason":"It supports only one side of the open-extraction alignment versus schema-expert-cost contrast."},
+    {"claim_id":"claim-2410-05779v3-011","group_id":"q038-a1","question_id":"q038-failure-aware-query-router","reason":"It covers only the entity-key routing branch."},
+    {"claim_id":"claim-2410-05779v3-012","group_id":"q038-a1","question_id":"q038-failure-aware-query-router","reason":"It covers only the relation-or-theme routing branch."},
+    {"claim_id":"claim-2508-19855v3-013","group_id":"q038-a4","question_id":"q038-failure-aware-query-router","reason":"It covers schema-valid decomposition but not all execution routes; pairing it with another claim is not valid OR semantics."},
+    {"claim_id":"claim-2508-19855v3-014","group_id":"q038-a4","question_id":"q038-failure-aware-query-router","reason":"It covers the execution routes but not schema-valid decomposition; pairing it with another claim is not valid OR semantics."},
+    {"claim_id":"claim-2404-16130v2-041","group_id":"q039-a1","question_id":"q039-baseline-bound-efficiency-claims","reason":"It supplies the token percentages but omits the reported vector-RAG quality advantage; it is approved for q039-n1."},
+    {"claim_id":"claim-2405-14831v3-033","group_id":"q039-a4","question_id":"q039-baseline-bound-efficiency-claims","reason":"It omits the exact 10-to-30-times cheaper and 6-to-13-times faster ratios."},
+    {"claim_id":"claim-2406-14550v2-042","group_id":"q039-a5","question_id":"q039-baseline-bound-efficiency-claims","reason":"It reports token use but omits the substantially stronger task-score trade-off."},
+    {"claim_id":"claim-2503-13804v1-003","group_id":"q040-a1","question_id":"q040-answer-source-control","reason":"It establishes separate answer sources but not confidence thresholds and retained-candidate fusion."},
+    {"claim_id":"claim-2503-13804v1-009","group_id":"q040-a1","question_id":"q040-answer-source-control","reason":"It discusses candidate answers but not the complete threshold-and-fusion policy."},
+    {"claim_id":"claim-2503-06474v2-019","group_id":"q040-a2","question_id":"q040-answer-source-control","reason":"It describes the checking procedure but not the reported pre-generation versus post-generation comparison."},
+    {"claim_id":"claim-2508-19855v3-036","group_id":"q040-a4","question_id":"q040-answer-source-control","reason":"It establishes prompt leakage but not the reject-mode retrieval-grounding and abstention contract."}
+  ],
+  "schema_version": "semantic-okf-reviewed-benchmark-amendments/1.0"
+}

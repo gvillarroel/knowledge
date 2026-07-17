@@ -1,0 +1,920 @@
+{
+  "schema_version": "semantic-okf-ensemble-answer-output-comparison/1.2",
+  "status": "pass",
+  "answer_count": 90,
+  "contract": {
+    "path": "evaluations/semantic-okf-ensemble/answer-output-evaluation-contract.json",
+    "sha256": "42cfd3f4e8d454ac8a46eaa60a22b93f2afa3fc836b654bff13352d20b434190"
+  },
+  "benchmark": {
+    "id": "semantic-okf-ensemble-hard10-three-arm",
+    "profiles": [
+      "knowledge-only-control",
+      "adaptive-consult-control",
+      "ensemble-consult-treatment"
+    ],
+    "variant_id": "codex-luna-tools",
+    "question_ids": [
+      "q031-graph-routing-boundary",
+      "q032-incremental-update-maturity",
+      "q033-corruption-specific-defenses",
+      "q034-nonmonotonic-context-budget",
+      "q035-lossless-enough-evidence-organization",
+      "q036-evaluation-leakage-and-stage-separation",
+      "q037-domain-construction-under-constraints",
+      "q038-failure-aware-query-router",
+      "q039-baseline-bound-efficiency-claims",
+      "q040-answer-source-control"
+    ],
+    "repetitions_per_cell": 3,
+    "answer_count": 90
+  },
+  "bundle": {
+    "run_id": "20260715-ensemble-final-03",
+    "repository_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/workspace-a/knowledge",
+    "file_count": 904,
+    "tree_sha256": "ed9386b63e4e087eea0fe62cd53eeb22e8f9cc4d5973b45eae7d736d9b77f868",
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939",
+    "ensemble_plan_sha256": "cbbc28d140667670621260513d08998a740227f2bdf93f4dce754f4c996dd8eb",
+    "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424",
+    "records_sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc",
+    "record_count": 874,
+    "source_manifest_sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+  },
+  "ground_truth": {
+    "path": "evaluations/semantic-okf-ensemble/reviewed-benchmark/hard-ground-truth.jsonl",
+    "sha256": "c656fc575b0c7e06cd386093d975cd74ef9c9aead743312e3aadec1cbdc08451"
+  },
+  "skill_arena": {
+    "config": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/ensemble-hard10.yaml",
+      "sha256": "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac"
+    },
+    "config_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/config-manifest.json",
+      "sha256": "e9c5a337a28384bc9b59d6d583bb624077d76cf1362ffb506f21039385066bdf"
+    },
+    "profiles": [
+      "knowledge-only-control",
+      "adaptive-consult-control",
+      "ensemble-consult-treatment"
+    ],
+    "consult_skills": [
+      {
+        "skill_id": "consult-semantic-okf-adaptive",
+        "path": "skills/consult-semantic-okf-adaptive",
+        "tree_sha256": "731318f38a09113b57792c6e3cd93801eedb08a1cb0e7ef9cf72e19e4fe9cdac",
+        "skill_md_sha256": "c1bbbca6d96d9ce514de39b79db60625ed162d0ed33c396e3ce6a25e26a96fa5"
+      },
+      {
+        "skill_id": "consult-semantic-okf-ensemble",
+        "path": "skills/consult-semantic-okf-ensemble",
+        "tree_sha256": "8b5a8200a5049b9613e7b6cd5e6afb63405b3702deee13bc9f4c86603d8f1649",
+        "skill_md_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2"
+      }
+    ]
+  },
+  "implementation": {
+    "mechanical_runtime": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/_answer_output.py",
+      "sha256": "0f5a554f24b4cbb1fddf8e25e794f0f582e36d4d81f7c7af6ad83789191b2529"
+    },
+    "preparer": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/prepare_answer_output_evaluation.py",
+      "sha256": "4165511791c907d133e341b5da742651867aa2f9e6c9faf712ecc6247d8eb41b"
+    },
+    "reviewer": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/run_blinded_answer_reviews.py",
+      "sha256": "7a024e9cd36d180bb82f26ce10dda47730ed444de4c3c096b2894541856fa3fe"
+    },
+    "aggregator": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/aggregate_answer_output_evaluation.py",
+      "sha256": "8423338b29b256f8634de9c90d32398d512579cd10543aa32428d748adda678d"
+    }
+  },
+  "inputs": {
+    "promptfoo": {
+      "path": "results/semantic-okf-ensemble-hard10-three-arm/2026-07-15T15-24-19-159Z-compare/promptfoo-results.json",
+      "sha256": "9b8d91b4641e49306ce80afdb79207bdaa30f523c3237763b00cd0b76370d2db",
+      "promptfoo_eval_id": "eval-RTd-2026-07-15T15:24:26",
+      "effective_config_sha256": "9d5c7fa97ab14a14f7d243ef361c9aa6120d6ee815f9c51877c2a4501b9ea013"
+    },
+    "review_tasks": {
+      "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/answer-output/live-published-confirmed-01/review-tasks.jsonl",
+      "sha256": "fc28014b736187eda8660d6717753331892c2747a20c858b2d4d5512a551a848"
+    },
+    "review_manifest": {
+      "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/answer-output/live-published-confirmed-01/review-manifest.json",
+      "sha256": "312e14e6320c4fccd5e35369ea27a5a045d2d489aef85c5bc9ffca57337d4eff"
+    },
+    "mechanical_results": {
+      "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/answer-output/live-published-confirmed-01/mechanical-results.json",
+      "sha256": "488a8ad5a53365c8f66f0ac39f9847bfaa09e85d363dcc38efb41f0708b0ab05"
+    },
+    "reviews": {
+      "path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/answer-output/live-published-confirmed-01/reviews.json",
+      "sha256": "5982337d4c9c35a29c601461ec3c48390697e8a6106e99355a18346370dc8ffa"
+    }
+  },
+  "review": {
+    "model": "openai-codex/gpt-5.6-luna",
+    "blinded": true,
+    "model_judged": true,
+    "review_count": 90,
+    "score_values": [
+      0,
+      0.5,
+      1
+    ],
+    "task_sha256": "fc28014b736187eda8660d6717753331892c2747a20c858b2d4d5512a551a848"
+  },
+  "metric_contract": {
+    "response_contract": "independent exact ordered JSON response schema and word-bound validation",
+    "evidence_validity": "exact reviewed ledger, concept, source, paper, and cited-page binding per evidence item",
+    "grounding": "supporting claim references represented by independently valid evidence items",
+    "exact_atomic_evidence_coverage": "curated atomic claim identity represented in support and valid evidence",
+    "required_paper_coverage": "required paper identity represented in paper_ids and citations",
+    "required_source_coverage": "required reviewed-claim and paper source identities represented",
+    "exact_negative_evidence_coverage": "curated important-negative identity represented in support and valid evidence",
+    "claim_correctness": "blinded fixed-rubric fidelity of each candidate claim to supplied authoritative support records",
+    "semantic_completeness": "blinded fixed-rubric coverage of every atomic ground-truth claim",
+    "important_negative_coverage": "blinded fixed-rubric coverage of important exclusions and failure conditions"
+  },
+  "profile_order": [
+    "knowledge-only-control",
+    "adaptive-consult-control",
+    "ensemble-consult-treatment"
+  ],
+  "aggregates": {
+    "knowledge-only-control": {
+      "answer_count": 30,
+      "question_count": 10,
+      "repetitions_per_question": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.13333333,
+        "evidence_validity": 0.05555555,
+        "grounding": 0.05416667,
+        "claim_correctness": 0.90583333,
+        "semantic_completeness": 0.75083333,
+        "exact_atomic_evidence_coverage": 0.03666667,
+        "required_paper_coverage": 0.75333333,
+        "required_source_coverage": 0.3975,
+        "important_negative_coverage": 0.94166667,
+        "exact_negative_evidence_coverage": 0.05
+      },
+      "metric_population_stddev": {
+        "response_contract": 0.22110832,
+        "evidence_validity": 0.11385501,
+        "grounding": 0.11188101,
+        "claim_correctness": 0.10375251,
+        "semantic_completeness": 0.13871684,
+        "exact_atomic_evidence_coverage": 0.07371115,
+        "required_paper_coverage": 0.16017352,
+        "required_source_coverage": 0.07100958,
+        "important_negative_coverage": 0.075,
+        "exact_negative_evidence_coverage": 0.10671874
+      },
+      "worst_question_metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.63333333,
+        "semantic_completeness": 0.5,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.29166667,
+        "important_negative_coverage": 0.83333333,
+        "exact_negative_evidence_coverage": 0.0
+      }
+    },
+    "adaptive-consult-control": {
+      "answer_count": 30,
+      "question_count": 10,
+      "repetitions_per_question": 3,
+      "parseable_rate": 0.9,
+      "strict_full_pass_rate": 0.03333333,
+      "metrics": {
+        "response_contract": 0.23333333,
+        "evidence_validity": 0.82610155,
+        "grounding": 0.82546031,
+        "claim_correctness": 0.83041666,
+        "semantic_completeness": 0.72666667,
+        "exact_atomic_evidence_coverage": 0.55333333,
+        "required_paper_coverage": 0.76,
+        "required_source_coverage": 0.7475,
+        "important_negative_coverage": 0.86666667,
+        "exact_negative_evidence_coverage": 0.78333333
+      },
+      "metric_population_stddev": {
+        "response_contract": 0.26034166,
+        "evidence_validity": 0.21411968,
+        "grounding": 0.21248764,
+        "claim_correctness": 0.20730157,
+        "semantic_completeness": 0.20185941,
+        "exact_atomic_evidence_coverage": 0.22837591,
+        "required_paper_coverage": 0.2338064,
+        "required_source_coverage": 0.2373219,
+        "important_negative_coverage": 0.21147629,
+        "exact_negative_evidence_coverage": 0.1979057
+      },
+      "worst_question_metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.33333333,
+        "grounding": 0.33333333,
+        "claim_correctness": 0.33333333,
+        "semantic_completeness": 0.26666667,
+        "exact_atomic_evidence_coverage": 0.13333333,
+        "required_paper_coverage": 0.26666667,
+        "required_source_coverage": 0.26666667,
+        "important_negative_coverage": 0.33333333,
+        "exact_negative_evidence_coverage": 0.33333333
+      }
+    },
+    "ensemble-consult-treatment": {
+      "answer_count": 30,
+      "question_count": 10,
+      "repetitions_per_question": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.53333333,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.96739418,
+        "semantic_completeness": 0.91083333,
+        "exact_atomic_evidence_coverage": 0.86,
+        "required_paper_coverage": 0.985,
+        "required_source_coverage": 0.985,
+        "important_negative_coverage": 0.99166667,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "metric_population_stddev": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.03415677,
+        "semantic_completeness": 0.06530378,
+        "exact_atomic_evidence_coverage": 0.12719189,
+        "required_paper_coverage": 0.0302306,
+        "required_source_coverage": 0.0302306,
+        "important_negative_coverage": 0.025,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "worst_question_metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.79166667,
+        "exact_atomic_evidence_coverage": 0.66666667,
+        "required_paper_coverage": 0.91666667,
+        "required_source_coverage": 0.91666667,
+        "important_negative_coverage": 0.91666667,
+        "exact_negative_evidence_coverage": 1.0
+      }
+    }
+  },
+  "profile_question_metrics": [
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q031-graph-routing-boundary",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.66666667,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.33333333,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "7075610a4212c9f5e72959459cc9fa76d091e51ed110e46951d22ed08ab8724f"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q032-incremental-update-maturity",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.95833333,
+        "semantic_completeness": 0.86666667,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.86666667,
+        "required_source_coverage": 0.43333333,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "c818a8ec41cfdfba40a2542c0a0fab48531ae8a6aaeb82a9b3ac0a3b50086af7"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q033-corruption-specific-defenses",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.66666667,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.79166667,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 0.83333333,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "4adec6b47bba20410bad9059359316152039e6e81021fa03d28c79cdbb26698b"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.63333333,
+        "semantic_completeness": 0.79166667,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.83333333,
+        "required_source_coverage": 0.41666667,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "bbbee2b6ac24c7d4e303cfc4cdb8145b0839e6a6dff6ee2083b7f094f7086509"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.96666667,
+        "semantic_completeness": 0.58333333,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.375,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "b5314f7d9cec6bbcb0cafebe783914fd7302f1375fe9862527f6e98a43c17ccd"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.22222222,
+        "grounding": 0.20833333,
+        "claim_correctness": 0.91666667,
+        "semantic_completeness": 0.86666667,
+        "exact_atomic_evidence_coverage": 0.2,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.45833333,
+        "important_negative_coverage": 0.91666667,
+        "exact_negative_evidence_coverage": 0.33333333
+      },
+      "output_identity_sha256": "db1bd9a213b6752e6f1f3ad512c98288bc13c092b4685779ef3cc08b6d66f8dc"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q037-domain-construction-under-constraints",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.91666667,
+        "semantic_completeness": 0.73333333,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.33333333,
+        "important_negative_coverage": 0.83333333,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "0032b07811645d7ef415dd34c6b9a363595c51c9baef565ff3bf61e0516f19a8"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q038-failure-aware-query-router",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.33333333,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 0.95833333,
+        "semantic_completeness": 0.70833333,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 0.58333333,
+        "required_source_coverage": 0.29166667,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "f073a642bf7aea0fb686aa37454af95545a662e1700a226c5f42a8e151642225"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.33333333,
+        "evidence_validity": 0.0,
+        "grounding": 0.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 0.5,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.0
+      },
+      "output_identity_sha256": "0078ff969e06e017dacce42397714d81747aea1f9039cc26b3c54d5ead5f9f22"
+    },
+    {
+      "profile_id": "knowledge-only-control",
+      "question_id": "q040-answer-source-control",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.33333333,
+        "grounding": 0.33333333,
+        "claim_correctness": 0.83333333,
+        "semantic_completeness": 0.5,
+        "exact_atomic_evidence_coverage": 0.16666667,
+        "required_paper_coverage": 0.5,
+        "required_source_coverage": 0.33333333,
+        "important_negative_coverage": 0.83333333,
+        "exact_negative_evidence_coverage": 0.16666667
+      },
+      "output_identity_sha256": "3ab5b7b259e7b3ed1b3c9c3dda47950210e50c402da8a82ba4647f7cf6dd80ee"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q031-graph-routing-boundary",
+      "answer_count": 3,
+      "parseable_rate": 0.66666667,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.61904762,
+        "grounding": 0.625,
+        "claim_correctness": 0.66666667,
+        "semantic_completeness": 0.45833333,
+        "exact_atomic_evidence_coverage": 0.33333333,
+        "required_paper_coverage": 0.44444444,
+        "required_source_coverage": 0.44444444,
+        "important_negative_coverage": 0.66666667,
+        "exact_negative_evidence_coverage": 0.66666667
+      },
+      "output_identity_sha256": "27174f570de5fe6c6aa40328f5860e97eae42060ecbb96a457c1dc3a36a8824d"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q032-incremental-update-maturity",
+      "answer_count": 3,
+      "parseable_rate": 0.33333333,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.33333333,
+        "grounding": 0.33333333,
+        "claim_correctness": 0.33333333,
+        "semantic_completeness": 0.26666667,
+        "exact_atomic_evidence_coverage": 0.13333333,
+        "required_paper_coverage": 0.26666667,
+        "required_source_coverage": 0.26666667,
+        "important_negative_coverage": 0.33333333,
+        "exact_negative_evidence_coverage": 0.33333333
+      },
+      "output_identity_sha256": "8af376fb8eb22c30a182601d7a6b300d98fc118582b716e2fec8a6bb58504d17"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q033-corruption-specific-defenses",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.66666667,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.83333333,
+        "exact_atomic_evidence_coverage": 0.58333333,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "f19cf8f205b8f38558fcadfb2c232dbd38c8a0ad1e4ac69a560e43cfb8372afb"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.93333333,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.91666667,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "83abf721df91d1af76327a3dd1e0c5777731801f2c44f2424d9a004d81def488"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.625,
+        "grounding": 0.63333333,
+        "claim_correctness": 0.63333333,
+        "semantic_completeness": 0.70833333,
+        "exact_atomic_evidence_coverage": 0.41666667,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.625,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.66666667
+      },
+      "output_identity_sha256": "e82c080744a0b6a0b8b1c1b750f41e44a9134696b6e7ba0f8b6fcef479387750"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.0,
+        "evidence_validity": 0.91666667,
+        "grounding": 0.91880342,
+        "claim_correctness": 0.86944444,
+        "semantic_completeness": 0.86666667,
+        "exact_atomic_evidence_coverage": 0.73333333,
+        "required_paper_coverage": 0.83333333,
+        "required_source_coverage": 0.83333333,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.83333333
+      },
+      "output_identity_sha256": "c1187ab561b32b346c6a21867d265166c6daaf3d5821d8d6c6e6e473b0515d99"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q037-domain-construction-under-constraints",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.33333333,
+        "evidence_validity": 0.87878788,
+        "grounding": 0.85497836,
+        "claim_correctness": 0.95138889,
+        "semantic_completeness": 0.8,
+        "exact_atomic_evidence_coverage": 0.66666667,
+        "required_paper_coverage": 0.88888889,
+        "required_source_coverage": 0.88888889,
+        "important_negative_coverage": 0.91666667,
+        "exact_negative_evidence_coverage": 0.83333333
+      },
+      "output_identity_sha256": "8b44cffa92943f33733ea40f3d2fd53fea61b97510b2e4f7735c05be8ed308ca"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q038-failure-aware-query-router",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.66666667,
+        "evidence_validity": 0.98148148,
+        "grounding": 0.98245614,
+        "claim_correctness": 0.95833333,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.33333333,
+        "required_paper_coverage": 0.66666667,
+        "required_source_coverage": 0.66666667,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 0.66666667
+      },
+      "output_identity_sha256": "8f87dbfa76100eb33abade3e15eb87ac4e3145cd7cce5fe9beb306fc3b72756b"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.33333333,
+      "metrics": {
+        "response_contract": 0.33333333,
+        "evidence_validity": 0.90669856,
+        "grounding": 0.90669856,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.83333333,
+        "exact_atomic_evidence_coverage": 0.66666667,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "fcf7da8a202cf34eba0d9ff6817ea1a4ba1267f384cd74ef5f99cf7e7f6db9fc"
+    },
+    {
+      "profile_id": "adaptive-consult-control",
+      "question_id": "q040-answer-source-control",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 0.33333333,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.95833333,
+        "semantic_completeness": 0.75,
+        "exact_atomic_evidence_coverage": 0.75,
+        "required_paper_coverage": 0.75,
+        "required_source_coverage": 0.75,
+        "important_negative_coverage": 0.75,
+        "exact_negative_evidence_coverage": 0.83333333
+      },
+      "output_identity_sha256": "d8c546820a885aa4f7cd7dac57e8060d04ca942c3d8ba351e286f50cb64fb2a3"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q031-graph-routing-boundary",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 1.0,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.875,
+        "semantic_completeness": 0.95833333,
+        "exact_atomic_evidence_coverage": 1.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "65737db7641b617981d8d69d9b46914c81a4273cd940eac90736da4fec06278a"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q032-incremental-update-maturity",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.66666667,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.86666667,
+        "exact_atomic_evidence_coverage": 0.93333333,
+        "required_paper_coverage": 0.93333333,
+        "required_source_coverage": 0.93333333,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "efad85a3f74264a6548b3b2adec5d8c8978595327f8a9e97c1575293f70c4ade"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q033-corruption-specific-defenses",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.33333333,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.97222222,
+        "semantic_completeness": 0.91666667,
+        "exact_atomic_evidence_coverage": 0.66666667,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "315298cd64001ff4a43fa56bf4d02d0d33d058a25f5b416a6657668de70c3844"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q034-nonmonotonic-context-budget",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 1.0,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.97222222,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 1.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "cacd2b46795cc27ec0ce7f54d4a13911f8d302a24d4c45c2ad12d5e464399757"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q035-lossless-enough-evidence-organization",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 1.0,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.97619048,
+        "semantic_completeness": 0.875,
+        "exact_atomic_evidence_coverage": 1.0,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "b698db37046f7e2dd00ba6d69f4aaf68ac40a8769b6d10fb32abb211a8c671c6"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q036-evaluation-leakage-and-stage-separation",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.66666667,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.94444445,
+        "semantic_completeness": 0.83333333,
+        "exact_atomic_evidence_coverage": 0.93333333,
+        "required_paper_coverage": 0.91666667,
+        "required_source_coverage": 0.91666667,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "5bc2a8da29141ff37646f826da8206c3fc020c6321441c5953178d19b7c87119"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q037-domain-construction-under-constraints",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.98148148,
+        "semantic_completeness": 0.93333333,
+        "exact_atomic_evidence_coverage": 0.66666667,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 0.91666667,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "9396a495f565873b36c20bdf61bba49ab2e65dc37586a043c3cc8f17b1b676f2"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q038-failure-aware-query-router",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.33333333,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.97619048,
+        "semantic_completeness": 1.0,
+        "exact_atomic_evidence_coverage": 0.83333333,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "24d17bde8a4bd90dcb5566401a5897f119ffd06d7759e0625aaca9f8da5aa3e3"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q039-baseline-bound-efficiency-claims",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.0,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 1.0,
+        "semantic_completeness": 0.93333333,
+        "exact_atomic_evidence_coverage": 0.73333333,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "c7cad215b10c12afeb51ead2cf6d94c1e5a9dac5d64797017e5ee11d6f6fa6dd"
+    },
+    {
+      "profile_id": "ensemble-consult-treatment",
+      "question_id": "q040-answer-source-control",
+      "answer_count": 3,
+      "parseable_rate": 1.0,
+      "strict_full_pass_rate": 0.33333333,
+      "metrics": {
+        "response_contract": 1.0,
+        "evidence_validity": 1.0,
+        "grounding": 1.0,
+        "claim_correctness": 0.97619048,
+        "semantic_completeness": 0.79166667,
+        "exact_atomic_evidence_coverage": 0.83333333,
+        "required_paper_coverage": 1.0,
+        "required_source_coverage": 1.0,
+        "important_negative_coverage": 1.0,
+        "exact_negative_evidence_coverage": 1.0
+      },
+      "output_identity_sha256": "426584ad83ad669de8b1018043525f8017140625aa8f7dd47a34d5e884a24550"
+    }
+  ],
+  "paired_deltas": {
+    "ensemble_vs_knowledge_only": {
+      "treatment_profile": "ensemble-consult-treatment",
+      "control_profile": "knowledge-only-control",
+      "matched_question_count": 10,
+      "strict_full_pass_rate": 0.53333333,
+      "metrics": {
+        "response_contract": 0.86666667,
+        "evidence_validity": 0.94444445,
+        "grounding": 0.94583333,
+        "claim_correctness": 0.06156085,
+        "semantic_completeness": 0.16,
+        "exact_atomic_evidence_coverage": 0.82333333,
+        "required_paper_coverage": 0.23166667,
+        "required_source_coverage": 0.5875,
+        "important_negative_coverage": 0.05,
+        "exact_negative_evidence_coverage": 0.95
+      }
+    },
+    "ensemble_vs_adaptive": {
+      "treatment_profile": "ensemble-consult-treatment",
+      "control_profile": "adaptive-consult-control",
+      "matched_question_count": 10,
+      "strict_full_pass_rate": 0.5,
+      "metrics": {
+        "response_contract": 0.76666667,
+        "evidence_validity": 0.17389845,
+        "grounding": 0.17453969,
+        "claim_correctness": 0.13697752,
+        "semantic_completeness": 0.18416667,
+        "exact_atomic_evidence_coverage": 0.30666667,
+        "required_paper_coverage": 0.225,
+        "required_source_coverage": 0.2375,
+        "important_negative_coverage": 0.125,
+        "exact_negative_evidence_coverage": 0.21666667
+      }
+    }
+  },
+  "answer_identity_sha256": "e5443dcd7bea545cbbda0d98a41816b8cd12b9ea72d764b55c7db2efb0f18e38"
+}

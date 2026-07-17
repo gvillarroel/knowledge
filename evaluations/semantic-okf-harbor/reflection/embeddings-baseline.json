@@ -1,0 +1,17 @@
+{
+  "benchmarkId": "semantic-okf-harbor-embeddings-train-v1",
+  "cases": [{"caseId": "q031", "weight": 1}],
+  "candidates": [{
+    "candidateId": "consult-semantic-okf-embeddings-baseline",
+    "parentIds": [],
+    "caseScores": {"q031": 0.27039180890341347},
+    "complexityDelta": 0,
+    "evaluationCost": 223775,
+    "feedback": [{
+      "caseId": "q031",
+      "outcome": "failure",
+      "diagnosis": "The response contract and chunk evidence were valid, but the answer missed one required source and no cited chunk covered a complete authoritative hard-evidence interval.",
+      "evidence": "Harbor: quality_gate=1.0, recall=0.6667, authoritative_evidence_completeness=0.0, atomic_claim_evidence_completeness=0.0, reward=0.2704."
+    }]
+  }]
+}

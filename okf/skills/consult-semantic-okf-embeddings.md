@@ -44,7 +44,7 @@ Discover relevant chunks in an immutable Semantic OKF snapshot, then verify clai
 6. Use the ledger for exact metadata or RDF for joins, aggregation, schema, lineage, shapes, or validation.
 7. Cite authoritative artifacts; never cite a similarity score as support.
 
-Read [retrieval-format.md](references/retrieval-format.md) when inspecting integrity or diagnosing a bundle. Read [querying.md](references/querying.md) before choosing a search mode or interpreting fallback and scores.
+Read [retrieval-format.md](../../skills/consult-semantic-okf-embeddings/references/retrieval-format.md) when inspecting integrity or diagnosing a bundle. Read [querying.md](../../skills/consult-semantic-okf-embeddings/references/querying.md) before choosing a search mode or interpreting fallback and scores.
 
 ## Environment
 

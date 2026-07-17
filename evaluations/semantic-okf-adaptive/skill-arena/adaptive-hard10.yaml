@@ -1,0 +1,914 @@
+schemaVersion: 1
+benchmark:
+  id: semantic-okf-adaptive-hard10-paired
+  description: Paired knowledge-only control and adaptive consult-skill treatment over the same pinned Semantic OKF bundle
+    and ten hard synthesis questions.
+  tags:
+    - compare
+    - semantic-okf
+    - hard-questions
+    - paired
+    - adaptive
+task:
+  prompts:
+    - id: q031-graph-routing-boundary
+      description: 'boundary-recovery: retrieval-routing'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: A production router must choose among question-only or standalone-model answering, basic RAG, and GraphRAG before generation. Derive an evidence-based decision boundary for simple facts, interconnected synthesis, and noisy graph evidence, and explain why an always-use-the-graph policy is unsupported.
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q031-graph-routing-boundary`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q031-graph-routing-boundary" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2402-07630v3-039":{"concept_path":"concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md","locators":["PDF-page-8"],"paper_id":"2402.07630v3","source_path":"sources/claims/2402.07630v3.jsonl"},"claim-2503-13804v1-038":{"concept_path":"concepts/claims-2503-13804v1/claim-2503-13804v1-038-9479e2cab6.md","locators":["PDF-page-3"],"paper_id":"2503.13804v1","source_path":"sources/claims/2503.13804v1.jsonl"},"claim-2506-05690v3-043":{"concept_path":"concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md","locators":["PDF-page-7","PDF-page-8"],"paper_id":"2506.05690v3","source_path":"sources/claims/2506.05690v3.jsonl"},"claim-2506-05690v3-044":{"concept_path":"concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md","locators":["PDF-page-7","PDF-page-8"],"paper_id":"2506.05690v3","source_path":"sources/claims/2506.05690v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2402.07630v3","2503.13804v1","2506.05690v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2506-05690v3-043"],["claim-2506-05690v3-044"],["claim-2402-07630v3-039"],["claim-2503-13804v1-038"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2402-07630v3-039","claim-2506-05690v3-043"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q032-incremental-update-maturity
+      description: 'generalization: knowledge-lifecycle'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Classify the corpus evidence about changing knowledge into explicit add-only behavior, architectural update claims, and unimplemented or unspecified lifecycle work. Which systems support each class, and why does none of that evidence establish a complete deletion, provenance-repair, and re-indexing protocol?
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q032-incremental-update-maturity`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q032-incremental-update-maturity" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2405-14831v3-058":{"concept_path":"concepts/claims-2405-14831v3/claim-2405-14831v3-058-290ad794af.md","locators":["PDF-page-9"],"paper_id":"2405.14831v3","source_path":"sources/claims/2405.14831v3.jsonl"},"claim-2408-04187v2-045":{"concept_path":"concepts/claims-2408-04187v2/claim-2408-04187v2-045-2931ba66fb.md","locators":["PDF-page-8"],"paper_id":"2408.04187v2","source_path":"sources/claims/2408.04187v2.jsonl"},"claim-2408-08535v1-035":{"concept_path":"concepts/claims-2408-08535v1/claim-2408-08535v1-035-3cded89e5d.md","locators":["PDF-page-2","PDF-page-9"],"paper_id":"2408.08535v1","source_path":"sources/claims/2408.08535v1.jsonl"},"claim-2410-05779v3-039":{"concept_path":"concepts/claims-2410-05779v3/claim-2410-05779v3-039-30ce92aa19.md","locators":["PDF-page-4"],"paper_id":"2410.05779v3","source_path":"sources/claims/2410.05779v3.jsonl"},"claim-2507-03226v3-037":{"concept_path":"concepts/claims-2507-03226v3/claim-2507-03226v3-037-6e0c51cd4b.md","locators":["PDF-page-2","PDF-page-3"],"paper_id":"2507.03226v3","source_path":"sources/claims/2507.03226v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2405.14831v3","2408.04187v2","2408.08535v1","2410.05779v3","2507.03226v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2410-05779v3-039"],["claim-2405-14831v3-058"],["claim-2408-08535v1-035"],["claim-2408-04187v2-045"],["claim-2507-03226v3-037"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2408-08535v1-035","claim-2507-03226v3-037"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q033-corruption-specific-defenses
+      description: 'boundary-recovery: robustness-defense'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: A graph index can fail through random edge deletion, injected irrelevant or incorrect paths, or wrong and incomplete extracted triples. Match each corruption type to the strongest defense actually supported by the corpus, and explain why the three robustness claims are not interchangeable.
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q033-corruption-specific-defenses`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q033-corruption-specific-defenses" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2409-13731v3-022":{"concept_path":"concepts/claims-2409-13731v3/claim-2409-13731v3-022-718491094b.md","locators":["PDF-page-10","PDF-page-11","PDF-page-22","PDF-page-23"],"paper_id":"2409.13731v3","source_path":"sources/claims/2409.13731v3.jsonl"},"claim-2409-13731v3-054":{"concept_path":"concepts/claims-2409-13731v3/claim-2409-13731v3-054-631be346cd.md","locators":["PDF-page-20","PDF-page-21"],"paper_id":"2409.13731v3","source_path":"sources/claims/2409.13731v3.jsonl"},"claim-2502-14902v2-051":{"concept_path":"concepts/claims-2502-14902v2/claim-2502-14902v2-051-cd8eca586e.md","locators":["PDF-page-7"],"paper_id":"2502.14902v2","source_path":"sources/claims/2502.14902v2.jsonl"},"claim-2503-13804v1-047":{"concept_path":"concepts/claims-2503-13804v1/claim-2503-13804v1-047-7aadbe01d1.md","locators":["PDF-page-8"],"paper_id":"2503.13804v1","source_path":"sources/claims/2503.13804v1.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2409.13731v3","2502.14902v2","2503.13804v1"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2502-14902v2-051"],["claim-2503-13804v1-047"],["claim-2409-13731v3-054"],["claim-2409-13731v3-022"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2409-13731v3-054","claim-2502-14902v2-051"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q034-nonmonotonic-context-budget
+      description: 'generalization: context-budgeting'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Use four distinct ablations to refute the rule that retrieval quality must improve whenever a system increases candidates, chunk size, sentence coverage, or context-window size. What trade-off recurs, and which reported optima must remain system-specific?
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q034-nonmonotonic-context-budget`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q034-nonmonotonic-context-budget" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2402-07630v3-056":{"concept_path":"concepts/claims-2402-07630v3/claim-2402-07630v3-056-36cd1392e0.md","locators":["PDF-page-18"],"paper_id":"2402.07630v3","source_path":"sources/claims/2402.07630v3.jsonl"},"claim-2406-14550v2-055":{"concept_path":"concepts/claims-2406-14550v2/claim-2406-14550v2-055-6f08c2c3bf.md","locators":["PDF-page-7"],"paper_id":"2406.14550v2","source_path":"sources/claims/2406.14550v2.jsonl"},"claim-2408-08535v1-046":{"concept_path":"concepts/claims-2408-08535v1/claim-2408-08535v1-046-72fe9ee626.md","locators":["PDF-page-7","PDF-page-8"],"paper_id":"2408.08535v1","source_path":"sources/claims/2408.08535v1.jsonl"},"claim-2503-06474v2-053":{"concept_path":"concepts/claims-2503-06474v2/claim-2503-06474v2-053-6efb8aa7b6.md","locators":["PDF-page-10","PDF-page-5"],"paper_id":"2503.06474v2","source_path":"sources/claims/2503.06474v2.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2402.07630v3","2406.14550v2","2408.08535v1","2503.06474v2"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2402-07630v3-056"],["claim-2406-14550v2-055"],["claim-2408-08535v1-046"],["claim-2503-06474v2-053"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2406-14550v2-055","claim-2503-06474v2-053"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q035-lossless-enough-evidence-organization
+      description: 'naturalistic-forward: evidence-organization'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Design a minimal evidence-organization contract that must support both relational reasoning and citation-level detail. Which ablations or limitations show that a learned structural token, a flat fact list, a path summary, or a community summary cannot safely serve as the only representation?
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q035-lossless-enough-evidence-organization`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q035-lossless-enough-evidence-organization" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2402-07630v3-034":{"concept_path":"concepts/claims-2402-07630v3/claim-2402-07630v3-034-ed54762ee0.md","locators":["PDF-page-9"],"paper_id":"2402.07630v3","source_path":"sources/claims/2402.07630v3.jsonl"},"claim-2404-16130v2-036":{"concept_path":"concepts/claims-2404-16130v2/claim-2404-16130v2-036-0c91904c96.md","locators":["PDF-page-10","PDF-page-9"],"paper_id":"2404.16130v2","source_path":"sources/claims/2404.16130v2.jsonl"},"claim-2409-13731v3-022":{"concept_path":"concepts/claims-2409-13731v3/claim-2409-13731v3-022-718491094b.md","locators":["PDF-page-10","PDF-page-11","PDF-page-22","PDF-page-23"],"paper_id":"2409.13731v3","source_path":"sources/claims/2409.13731v3.jsonl"},"claim-2502-14902v2-050":{"concept_path":"concepts/claims-2502-14902v2/claim-2502-14902v2-050-f8397fe629.md","locators":["PDF-page-6"],"paper_id":"2502.14902v2","source_path":"sources/claims/2502.14902v2.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2402.07630v3","2404.16130v2","2409.13731v3","2502.14902v2"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2402-07630v3-034"],["claim-2502-14902v2-050"],["claim-2409-13731v3-022"],["claim-2404-16130v2-036"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2402-07630v3-034","claim-2404-16130v2-036","claim-2502-14902v2-050"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q036-evaluation-leakage-and-stage-separation
+      description: 'naturalistic-forward: evaluation-design'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Specify an evaluation protocol that can tell retrieval success from parametric-knowledge success. It must address pipeline-stage metrics, open versus grounding-required prompts, questionable reference answers, and LLM-judge dependence; explain the failure each safeguard prevents.
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q036-evaluation-leakage-and-stage-separation`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q036-evaluation-leakage-and-stage-separation" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2410-05779v3-035":{"concept_path":"concepts/claims-2410-05779v3/claim-2410-05779v3-035-511ea3d559.md","locators":["PDF-page-6"],"paper_id":"2410.05779v3","source_path":"sources/claims/2410.05779v3.jsonl"},"claim-2503-06474v2-031":{"concept_path":"concepts/claims-2503-06474v2/claim-2503-06474v2-031-b28e3316cd.md","locators":["PDF-page-2","PDF-page-3"],"paper_id":"2503.06474v2","source_path":"sources/claims/2503.06474v2.jsonl"},"claim-2506-05690v3-015":{"concept_path":"concepts/claims-2506-05690v3/claim-2506-05690v3-015-d730073807.md","locators":["PDF-page-5","PDF-page-6","PDF-page-7"],"paper_id":"2506.05690v3","source_path":"sources/claims/2506.05690v3.jsonl"},"claim-2508-19855v3-036":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-036-b73082a230.md","locators":["PDF-page-9"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"},"claim-2508-19855v3-050":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-050-8df7fabca2.md","locators":["PDF-page-17","PDF-page-9"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2410.05779v3","2503.06474v2","2506.05690v3","2508.19855v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2506-05690v3-015"],["claim-2508-19855v3-036"],["claim-2508-19855v3-050"],["claim-2503-06474v2-031"],["claim-2410-05779v3-035"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2508-19855v3-036","claim-2508-19855v3-050"],["claim-2410-05779v3-035","claim-2503-06474v2-031"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q037-domain-construction-under-constraints
+      description: 'generalization: graph-construction'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: For a changing professional corpus with a limited construction budget, implicit relations, and domain shift, derive a staged graph-construction policy. When should dependency extraction, LLM or open extraction, and schema-constrained work be used, and what must stay aligned with query-time retrieval?
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q037-domain-construction-under-constraints`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q037-domain-construction-under-constraints" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2409-13731v3-038":{"concept_path":"concepts/claims-2409-13731v3/claim-2409-13731v3-038-cc599f226d.md","locators":["PDF-page-25","PDF-page-26"],"paper_id":"2409.13731v3","source_path":"sources/claims/2409.13731v3.jsonl"},"claim-2507-03226v3-040":{"concept_path":"concepts/claims-2507-03226v3/claim-2507-03226v3-040-d7f5b9106b.md","locators":["PDF-page-3","PDF-page-5","PDF-page-6"],"paper_id":"2507.03226v3","source_path":"sources/claims/2507.03226v3.jsonl"},"claim-2507-03226v3-050":{"concept_path":"concepts/claims-2507-03226v3/claim-2507-03226v3-050-86725f0a3d.md","locators":["PDF-page-11"],"paper_id":"2507.03226v3","source_path":"sources/claims/2507.03226v3.jsonl"},"claim-2508-19855v3-043":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-043-e15add7abb.md","locators":["PDF-page-1","PDF-page-14","PDF-page-2"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"},"claim-2508-19855v3-044":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-044-67800aa8a2.md","locators":["PDF-page-1","PDF-page-2","PDF-page-4","PDF-page-8"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2409.13731v3","2507.03226v3","2508.19855v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2507-03226v3-040"],["claim-2507-03226v3-050"],["claim-2409-13731v3-038"],["claim-2508-19855v3-044"],["claim-2508-19855v3-043"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2409-13731v3-038","claim-2507-03226v3-050"],["claim-2508-19855v3-043","claim-2508-19855v3-044"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q038-failure-aware-query-router
+      description: 'boundary-recovery: retrieval-routing'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Construct a failure-aware query router for detailed entity questions, abstract thematic questions, partially specified triples, and complex decomposable questions. State the initial route for each case and the fallback when structured decomposition or verification fails.
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q038-failure-aware-query-router`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q038-failure-aware-query-router" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2410-05779v3-055":{"concept_path":"concepts/claims-2410-05779v3/claim-2410-05779v3-055-fa4f7f7bfc.md","locators":["PDF-page-3","PDF-page-4","PDF-page-5"],"paper_id":"2410.05779v3","source_path":"sources/claims/2410.05779v3.jsonl"},"claim-2503-06474v2-050":{"concept_path":"concepts/claims-2503-06474v2/claim-2503-06474v2-050-64b3aec48a.md","locators":["PDF-page-2"],"paper_id":"2503.06474v2","source_path":"sources/claims/2503.06474v2.jsonl"},"claim-2504-02112v2-029":{"concept_path":"concepts/claims-2504-02112v2/claim-2504-02112v2-029-b81a316180.md","locators":["PDF-page-4","PDF-page-7"],"paper_id":"2504.02112v2","source_path":"sources/claims/2504.02112v2.jsonl"},"claim-2508-19855v3-048":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-048-f1ba3cfd11.md","locators":["PDF-page-8","PDF-page-9"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2410.05779v3","2503.06474v2","2504.02112v2","2508.19855v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2410-05779v3-055"],["claim-2504-02112v2-029"],["claim-2503-06474v2-050"],["claim-2508-19855v3-048"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2410-05779v3-055","claim-2503-06474v2-050","claim-2504-02112v2-029"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q039-baseline-bound-efficiency-claims
+      description: 'naturalistic-forward: efficiency-comparison'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Reconcile the corpus's strongest online-efficiency claims without turning incomparable numbers into a league table. For GraphRAG reports, LightRAG, HippoRAG, and GraphReader, identify the mechanism, exact comparison baseline, and any quality trade-off that must travel with the cost claim.
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q039-baseline-bound-efficiency-claims`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q039-baseline-bound-efficiency-claims" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2404-16130v2-032":{"concept_path":"concepts/claims-2404-16130v2/claim-2404-16130v2-032-9ddd091a15.md","locators":["PDF-page-10"],"paper_id":"2404.16130v2","source_path":"sources/claims/2404.16130v2.jsonl"},"claim-2404-16130v2-054":{"concept_path":"concepts/claims-2404-16130v2/claim-2404-16130v2-054-06f3e07b73.md","locators":["PDF-page-10"],"paper_id":"2404.16130v2","source_path":"sources/claims/2404.16130v2.jsonl"},"claim-2405-14831v3-042":{"concept_path":"concepts/claims-2405-14831v3/claim-2405-14831v3-042-4b6442a1e4.md","locators":["PDF-page-2","PDF-page-7","PDF-page-8"],"paper_id":"2405.14831v3","source_path":"sources/claims/2405.14831v3.jsonl"},"claim-2406-14550v2-056":{"concept_path":"concepts/claims-2406-14550v2/claim-2406-14550v2-056-07d13e9871.md","locators":["PDF-page-7","PDF-page-8"],"paper_id":"2406.14550v2","source_path":"sources/claims/2406.14550v2.jsonl"},"claim-2410-05779v3-032":{"concept_path":"concepts/claims-2410-05779v3/claim-2410-05779v3-032-a2acb28a7e.md","locators":["PDF-page-9"],"paper_id":"2410.05779v3","source_path":"sources/claims/2410.05779v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2404.16130v2","2405.14831v3","2406.14550v2","2410.05779v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2404-16130v2-032"],["claim-2404-16130v2-054"],["claim-2410-05779v3-032"],["claim-2405-14831v3-042"],["claim-2406-14550v2-056"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2404-16130v2-032","claim-2405-14831v3-042","claim-2410-05779v3-032"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+    - id: q040-answer-source-control
+      description: 'boundary-recovery: answer-grounding-policy'
+      prompt: |-
+        Answer the following research-synthesis question using only the published Semantic OKF snapshot available at `knowledge/`. Do not use the web, model memory, or guesses. If the snapshot cannot support an answer, return `answer: null` and an empty `evidence` array.
+        Question: Define two answer-source policies: one for open answering that may combine retrieved and parametric knowledge, and one for retrieval-grounded answering that must abstain when evidence is insufficient. Where should support checking and confidence gating occur, and how should fact verification represent insufficient evidence?
+        Return JSON only with top-level keys `question_id`, `answer`, and `evidence`, in that order. Set `question_id` to `q040-answer-source-control`. A non-null `answer` must contain `summary`, `claims`, `paper_ids`, and `citations`, in that order. Write a comparative 180-320 word `summary`. Each `claims` item must have exactly `statement` and `supporting_claim_ids`; use the exact authoritative claim record IDs that support the statement. Use sorted, unique versioned arXiv IDs in `paper_ids`. Sort `citations` by `paper_id`; each item must have exactly `paper_id` and sorted unique integer PDF `pages`. Sort `evidence` by `claim_id`; each item must have exactly `claim_id`, `concept_path`, `paper_id`, `source_path`, and sorted unique page `locators`. Every path must exist in the snapshot, and every conclusion must be traceable to the listed evidence.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: response-contract
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (JSON.stringify(Object.keys(actual)) !== JSON.stringify(['question_id','answer','evidence'])) return false;
+                if (actual.question_id !== "q040-answer-source-control" || !Array.isArray(actual.evidence)) return false;
+                if (actual.answer === null) return actual.evidence.length === 0;
+                if (JSON.stringify(Object.keys(actual.answer)) !== JSON.stringify(['summary','claims','paper_ids','citations'])) return false;
+                const words = typeof actual.answer.summary === 'string' ? actual.answer.summary.trim().split(/\s+/).filter(Boolean).length : 0;
+                if (words < 180 || words > 320 || !Array.isArray(actual.answer.claims) || actual.answer.claims.length === 0) return false;
+                if (!Array.isArray(actual.answer.paper_ids) || !Array.isArray(actual.answer.citations) || actual.evidence.length === 0) return false;
+                const sortedUnique = (items) => new Set(items).size === items.length && JSON.stringify([...items].sort()) === JSON.stringify(items);
+                if (!actual.answer.paper_ids.every((item) => typeof item === 'string') || !sortedUnique(actual.answer.paper_ids)) return false;
+                for (const claim of actual.answer.claims) {
+                  if (JSON.stringify(Object.keys(claim)) !== JSON.stringify(['statement','supporting_claim_ids'])) return false;
+                  if (typeof claim.statement !== 'string' || !claim.statement.trim() || !Array.isArray(claim.supporting_claim_ids) || !sortedUnique(claim.supporting_claim_ids)) return false;
+                }
+                const cited = actual.answer.citations.map((item) => item.paper_id);
+                if (!sortedUnique(cited)) return false;
+                for (const item of actual.answer.citations) {
+                  if (JSON.stringify(Object.keys(item)) !== JSON.stringify(['paper_id','pages'])) return false;
+                  if (!actual.answer.paper_ids.includes(item.paper_id) || !Array.isArray(item.pages) || item.pages.length === 0) return false;
+                  if (new Set(item.pages).size !== item.pages.length || JSON.stringify([...item.pages].sort((a,b) => a-b)) !== JSON.stringify(item.pages)) return false;
+                  if (!item.pages.every((page) => Number.isInteger(page) && page > 0)) return false;
+                }
+                const evidenceIds = actual.evidence.map((item) => item.claim_id);
+                if (!sortedUnique(evidenceIds)) return false;
+                return actual.evidence.every((item) =>
+                  JSON.stringify(Object.keys(item)) === JSON.stringify(['claim_id','concept_path','paper_id','source_path','locators']) &&
+                  typeof item.claim_id === 'string' && typeof item.concept_path === 'string' && typeof item.paper_id === 'string' &&
+                  typeof item.source_path === 'string' && Array.isArray(item.locators) && sortedUnique(item.locators)
+                );
+              } catch { return false; }
+          - type: javascript
+            metric: evidence-validity
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const allowed = {"claim-2408-08535v1-021":{"concept_path":"concepts/claims-2408-08535v1/claim-2408-08535v1-021-524b3f1970.md","locators":["PDF-page-3","PDF-page-5"],"paper_id":"2408.08535v1","source_path":"sources/claims/2408.08535v1.jsonl"},"claim-2503-06474v2-056":{"concept_path":"concepts/claims-2503-06474v2/claim-2503-06474v2-056-be1951afee.md","locators":["PDF-page-10","PDF-page-6"],"paper_id":"2503.06474v2","source_path":"sources/claims/2503.06474v2.jsonl"},"claim-2503-13804v1-044":{"concept_path":"concepts/claims-2503-13804v1/claim-2503-13804v1-044-a617451c21.md","locators":["PDF-page-6"],"paper_id":"2503.13804v1","source_path":"sources/claims/2503.13804v1.jsonl"},"claim-2508-19855v3-050":{"concept_path":"concepts/claims-2508-19855v3/claim-2508-19855v3-050-8df7fabca2.md","locators":["PDF-page-17","PDF-page-9"],"paper_id":"2508.19855v3","source_path":"sources/claims/2508.19855v3.jsonl"}};
+                for (const item of actual.evidence) {
+                  const expected = allowed[item.claim_id];
+                  if (!expected) return false;
+                  if (item.concept_path !== expected.concept_path || item.paper_id !== expected.paper_id || item.source_path !== expected.source_path) return false;
+                  if (!item.locators.every((locator) => expected.locators.includes(locator))) return false;
+                }
+                const citedPages = new Map(actual.answer.citations.map((item) => [item.paper_id, new Set(item.pages.map((page) => `PDF-page-${page}`))]));
+                return actual.evidence.every((item) => item.locators.every((locator) => citedPages.get(item.paper_id)?.has(locator)));
+              } catch { return false; }
+          - type: javascript
+            metric: atomic-answer-completeness
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const requiredPapers = ["2408.08535v1","2503.06474v2","2503.13804v1","2508.19855v3"];
+                if (!requiredPapers.every((paper) => actual.answer.paper_ids.includes(paper))) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2503-13804v1-044"],["claim-2503-06474v2-056"],["claim-2408-08535v1-021"],["claim-2508-19855v3-050"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+          - type: javascript
+            metric: important-negative-coverage
+            value: |-
+              try {
+                const actual = JSON.parse(output.trim());
+                if (actual.answer === null) return false;
+                const used = new Set(actual.answer.claims.flatMap((item) => item.supporting_claim_ids));
+                const evidence = new Set(actual.evidence.map((item) => item.claim_id));
+                const expectedSets = [["claim-2508-19855v3-050"],["claim-2503-06474v2-056","claim-2503-13804v1-044"]];
+                return expectedSets.every((options) => options.some((claimId) => used.has(claimId) && evidence.has(claimId)));
+              } catch { return false; }
+workspace:
+  sources:
+    - id: adaptive-pinned-workspace
+      type: local-path
+      path: evaluations/semantic-okf-adaptive/results/runs/20260714-adaptive-final-05/workspaces/arena
+      target: /
+  setup:
+    initializeGit: true
+    env:
+      HF_HUB_OFFLINE: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      SEMANTIC_OKF_BUNDLE: $WORKSPACE/knowledge
+      TRANSFORMERS_OFFLINE: '1'
+evaluation:
+  assertions:
+    - type: is-json
+      metric: response-format
+  requests: 1
+  timeoutMs: 600000
+  tracing: false
+  maxConcurrency: 2
+  noCache: true
+comparison:
+  profiles:
+    - id: knowledge-only-control
+      description: Isolated control with the pinned bundle and no declared consult skill.
+      isolation:
+        inheritSystem: false
+      capabilities: {}
+      output:
+        tags:
+          - control
+          - adaptive
+          - knowledge-on
+        labels:
+          capability: none
+          bundle_kind: adaptive-text-derived
+    - id: adaptive-consult-treatment
+      description: Isolated treatment with only the standalone consult-semantic-okf-adaptive skill.
+      isolation:
+        inheritSystem: false
+      capabilities:
+        skills:
+          - source:
+              type: local-path
+              path: skills/consult-semantic-okf-adaptive
+              skillId: consult-semantic-okf-adaptive
+            install:
+              strategy: workspace-overlay
+      output:
+        tags:
+          - treatment
+          - adaptive
+          - knowledge-on
+        labels:
+          capability: consult-semantic-okf-adaptive
+          bundle_kind: adaptive-text-derived
+  variants:
+    - id: pi-luna-only
+      description: PI with the same GPT-5.6 Luna route for every isolated answer request.
+      agent:
+        adapter: pi
+        model: openai-codex/gpt-5.6-luna
+        executionMethod: command
+        commandPath: bin/pi-luna.ps1
+        sandboxMode: read-only
+        approvalPolicy: never
+        webSearchEnabled: false
+        networkAccessEnabled: true
+        reasoningEffort: medium
+        additionalDirectories: []
+        cliEnv:
+          PI_MODEL_TIMEOUT_SECONDS: '240'
+        config: {}
+      output:
+        tags:
+          - pi
+          - gpt-5.6-luna
+          - isolated
+        labels:
+          variantDisplayName: PI GPT-5.6 Luna

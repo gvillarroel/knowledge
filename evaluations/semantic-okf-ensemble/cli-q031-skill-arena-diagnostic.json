@@ -1,0 +1,286 @@
+{
+  "accepted_treatment_evidence_diagnostic": {
+    "all_other_evidence_fields_match": true,
+    "evidence_item_count": 11,
+    "field_check_count": 55,
+    "mismatch_count": 2,
+    "mismatches": [
+      {
+        "actual": "sources/claims/2506-05690v3.jsonl",
+        "claim_id": "claim-2506-05690v3-002",
+        "expected": "sources/claims/2506.05690v3.jsonl",
+        "field": "source_path"
+      },
+      {
+        "actual": "sources/claims/2506-05690v3.jsonl",
+        "claim_id": "claim-2506-05690v3-044",
+        "expected": "sources/claims/2506.05690v3.jsonl",
+        "field": "source_path"
+      }
+    ],
+    "passed_field_check_count": 53
+  },
+  "configuration": {
+    "config": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/cli-q031.yaml",
+      "sha256": "eb16c6ace4e7559340268d06c2329fc871191369b0ec2e9b70c78145a7d46cb5"
+    },
+    "generator": {
+      "path": "evaluations/semantic-okf-ensemble/scripts/generate_cli_q031_skill_arena_config.py",
+      "sha256": "788dae3798909d1df5b44e1d40b41da29dfc09b429c22c5a9ea45ed1bffc3396"
+    },
+    "manifest": {
+      "path": "evaluations/semantic-okf-ensemble/skill-arena/cli-q031-manifest.json",
+      "sha256": "5d81f1a07f97af010805ea6329daeb08c20605fbc275016c9354639bba250f8b"
+    },
+    "manifest_recorded_hashes": {
+      "config_sha256": "eb16c6ace4e7559340268d06c2329fc871191369b0ec2e9b70c78145a7d46cb5",
+      "generator_sha256": "788dae3798909d1df5b44e1d40b41da29dfc09b429c22c5a9ea45ed1bffc3396"
+    }
+  },
+  "direct_cli_finalizer_reference": {
+    "artifact_path": "evaluations/semantic-okf-ensemble/cli-q031-comparison.json",
+    "artifact_sha256": "594204f2a78d2eac79a3e821698025c0e1c00435acaf508651125d1bd4801a36",
+    "mcp_used": false,
+    "named_gates": {
+      "atomic-answer-completeness": 1,
+      "evidence-validity": 1,
+      "important-negative-coverage": 1,
+      "response-contract": 1,
+      "response-format": 1
+    },
+    "output_sha256": "e052575835024481527ed7f07c80242a2ab414370f8868323861945931e43d50",
+    "score": 1.0,
+    "summary": "Route by evidence structure and expected noise, not by a blanket preference for graphs. For a simple fact, begin with basic RAG when compact textual retrieval can directly answer the question; the corpus reports that this route can match or outperform GraphRAG because graph expansion may introduce distracting material. Keep the standalone model as a competing answer source when retrieval is weak, because reported cases show that GraphRAG corrects some standalone errors but also reverses some initially correct answers. For interconnected synthesis, GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation, so relational or multi-part questions are the strongest candidates for graph-assisted retrieval before generation. If graph evidence is noisy, prefer pruning or fall back to question-only or basic retrieval: supplying a whole noisy textual graph has been observed to underperform the question alone. The production boundary is therefore conditional: direct factual evidence favors basic RAG; complex, interconnected synthesis can justify GraphRAG; uncertain or noisy graph evidence requires filtering, comparison with non-graph candidates, or abstention. An always-use-the-graph policy is unsupported because graph expansion can add noise and graph retrieval and standalone reasoning have complementary, rather than uniformly ordered, error profiles. The router should preserve the underlying authoritative text bindings and make the selected route answerable to evidence rather than assuming that added structure is automatically useful."
+  },
+  "hash_contract": "SHA-256; response hashes use canonical UTF-8 JSON with sorted keys and compact separators; file and output hashes use exact bytes.",
+  "interpretation": {
+    "accepted_pair": "In the accepted fresh pair, treatment scored 0.8 versus control 0.6. This is one isolated question, not a general superiority claim.",
+    "cross_family": "The broader alternative comparison remains descriptive because its rows come from separate retained runs and bundles.",
+    "publication_boundary": "The CLI retrieval/finalization core passes all five gates in the deterministic direct run, while the fresh agent treatment changed two authoritative source_path bytes after consultation and therefore failed evidence validity."
+  },
+  "no_mcp_attestation": {
+    "authored_config_mcp_token_occurrences": [],
+    "declared_treatment_capabilities": [
+      "skills"
+    ],
+    "materialized_config_mcp_token_occurrences": {
+      "accepted-diagnostic": [],
+      "rejected-timeout": []
+    },
+    "method": "Recursive, case-insensitive scan of every mapping key and string value in the authored and materialized YAML config structures.",
+    "passed": true
+  },
+  "question_id": "q031-graph-routing-boundary",
+  "runs": [
+    {
+      "artifacts": {
+        "materialized_config": {
+          "mcp_token_occurrences": [],
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-00-29-037Z-compare/promptfooconfig.yaml",
+          "sha256": "69d06a753aaf126de2362da1cd8f2d3dbfa39a8f179815e9f0c4b633478ac8c3"
+        },
+        "promptfoo_results": {
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-00-29-037Z-compare/promptfoo-results.json",
+          "sha256": "340888543b467cc44018717e53bc478f68fc623753228ac7146814cc17472443"
+        },
+        "summary": {
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-00-29-037Z-compare/summary.json",
+          "sha256": "c0b1ac390adef6bd2b4283d51870ab8123fcd4c42b082502c1a758716485ce3d"
+        }
+      },
+      "cells": {
+        "ensemble-cli-consult-treatment": {
+          "error": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only failed=true exit=124\r\nPI Luna attempt timed out after 240 seconds.",
+          "failure_summary": "adapter execution error",
+          "latency_ms": 242451,
+          "named_scores": {},
+          "output_sha256": null,
+          "provider_id": "ensemble-cli-consult-treatment",
+          "response": {
+            "error": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only failed=true exit=124\r\nPI Luna attempt timed out after 240 seconds.",
+            "metadata": {
+              "backend": "command",
+              "executionEventHook": {
+                "eventCount": 0,
+                "path": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-WEDqyy\\workspace\\.skill-arena\\hooks\\execution-events\\2026-07-15T20-06-15.909Z-pi-c0962887-3356-4a02-bee5-9077b4e829cb.json",
+                "relativePath": ".skill-arena/hooks/execution-events/2026-07-15T20-06-15.909Z-pi-c0962887-3356-4a02-bee5-9077b4e829cb.json",
+                "toolEventCount": 0
+              },
+              "profileId": "ensemble-cli-consult-treatment",
+              "scenarioDescription": null,
+              "scenarioId": "pi-luna-only-ensemble-cli-consult-treatment",
+              "sessionUsage": null,
+              "skillModeId": "ensemble-cli-consult-treatment",
+              "stderr": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only failed=true exit=124\r\nPI Luna attempt timed out after 240 seconds.",
+              "variantDisplayName": "PI GPT-5.6 Luna",
+              "variantId": "pi-luna-only",
+              "workingDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-WEDqyy\\workspace",
+              "workspaceDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-WEDqyy\\workspace"
+            }
+          },
+          "response_sha256": "404a8909f85421cc9a8ba796a360b32fe0d21cc27936571930114a894c7893d3",
+          "result_id": "cacb2d12-a87a-4976-8439-227c5ec45526",
+          "score": 0,
+          "success": false,
+          "summary": null,
+          "summary_sha256": null
+        },
+        "knowledge-only-control": {
+          "failure_summary": "failed mechanical gates: response-contract, evidence-validity, atomic-answer-completeness",
+          "latency_ms": 94681,
+          "named_scores": {
+            "atomic-answer-completeness": 0,
+            "evidence-validity": 0,
+            "important-negative-coverage": 1,
+            "response-contract": 0,
+            "response-format": 1
+          },
+          "output_sha256": "0b4afd6151eea3f73d71141bb7926a91b11e318b76ce884248025aa4e31b90fe",
+          "provider_id": "knowledge-only-control",
+          "response": {
+            "metadata": {
+              "backend": "command",
+              "executionEventHook": {
+                "eventCount": 1,
+                "path": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-Nn1Xxb\\workspace\\.skill-arena\\hooks\\execution-events\\2026-07-15T20-02-13.405Z-pi-3a459718-df1d-4e4e-bfcc-945b4b8a6994.json",
+                "relativePath": ".skill-arena/hooks/execution-events/2026-07-15T20-02-13.405Z-pi-3a459718-df1d-4e4e-bfcc-945b4b8a6994.json",
+                "toolEventCount": 0
+              },
+              "profileId": "knowledge-only-control",
+              "scenarioDescription": null,
+              "scenarioId": "pi-luna-only-knowledge-only-control",
+              "sessionUsage": null,
+              "skillModeId": "knowledge-only-control",
+              "stderr": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only",
+              "variantDisplayName": "PI GPT-5.6 Luna",
+              "variantId": "pi-luna-only",
+              "workingDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-Nn1Xxb\\workspace",
+              "workspaceDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-Nn1Xxb\\workspace"
+            },
+            "output": "{\"question_id\":\"q031-graph-routing-boundary\",\"answer\":{\"summary\":\"Use the least structured route that matches the question and the evidence quality. For a simple, discrete fact, prefer question-only or standalone-model answering when the fact is already reliable internally; otherwise use basic RAG. The snapshot reports that basic RAG is comparable to or better than GraphRAG for simple fact retrieval because graph expansion can add noise, and vanilla RAG is suited to direct access to discrete information. Route interconnected contextual synthesis to GraphRAG when relevant, coherent multi-hop evidence is available: its advantage is representing relationships, connected evidence subgraphs, and reconstructed relational sequences rather than merely retrieving isolated facts. For noisy, irrelevant, or misleading graph evidence, do not force GraphRAG. Fall back to standalone answering or basic RAG, or filter and confidence-weight graph and standalone candidates before generation. The evidence shows that adding a noisy textual graph can underperform question-only answering; GraphRAG can correct some standalone errors but can also corrupt originally correct answers. Filtering noisy paths improves results, while GraphRAG-Integration explicitly balances graph outputs with standalone answers. Thus the production boundary is conditional: graph route only when expected relational value exceeds noise and retrieval cost; otherwise use the simpler route. An always-use-the-graph policy is unsupported because graph benefit is task- and corpus-dependent, basic RAG can win on simple facts, and noisy graph context can reduce accuracy.\",\"claims\":[{\"statement\":\"For simple, discrete facts, question-only or standalone answering is appropriate when internal knowledge is sufficient; otherwise basic RAG is preferred over graph expansion because basic RAG is comparable to or better than GraphRAG and graph expansion can add noise.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-038\",\"claim-2506-05690v3-043\"]},{\"statement\":\"For interconnected contextual synthesis, GraphRAG is the appropriate route when relevant graph evidence can expose connected or multi-hop relations rather than isolated facts.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-002\",\"claim-2506-05690v3-019\",\"claim-2402-07630v3-018\"]},{\"statement\":\"When graph evidence is noisy, irrelevant, or misleading, route to standalone answering or basic RAG, or filter and confidence-weight graph and standalone candidates before generation.\",\"supporting_claim_ids\":[\"claim-2402-07630v3-039\",\"claim-2503-13804v1-037\",\"claim-2503-13804v1-044\",\"claim-2503-13804v1-047\"]},{\"statement\":\"An always-use-the-graph policy is unsupported because graph benefits and harms are conditional: GraphRAG can correct standalone errors but can also turn correct standalone answers wrong, while conclusions depend on corpus, models, prompts, and metrics.\",\"supporting_claim_ids\":[\"claim-2503-13804v1-037\",\"claim-2506-05690v3-033\"]}],\"paper_ids\":[\"2402.07630v3\",\"2503.13804v1\",\"2506.05690v3\"],\"citations\":[{\"paper_id\":\"2402.07630v3\",\"pages\":[7,8]},{\"paper_id\":\"2503.13804v1\",\"pages\":[1,3,4,6,8]},{\"paper_id\":\"2506.05690v3\",\"pages\":[2,3,4,6,7,8]}]},\"evidence\":[{\"claim_id\":\"claim-2402-07630v3-018\",\"concept_path\":\"concepts/claims-2402-07630v3/claim-2402-07630v3-018-36c763137a.md\",\"paper_id\":\"2402.07630v3\",\"source_path\":\"sources/claims/2402.07630v3.jsonl\",\"locators\":[\"sources/markdown/2402.07630v3.md#PDF-page-7\"]},{\"claim_id\":\"claim-2402-07630v3-039\",\"concept_path\":\"concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md\",\"paper_id\":\"2402.07630v3\",\"source_path\":\"sources/claims/2402.07630v3.jsonl\",\"locators\":[\"sources/markdown/2402.07630v3.md#PDF-page-8\"]},{\"claim_id\":\"claim-2503-13804v1-037\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"sources/markdown/2503.13804v1.md#PDF-page-1\",\"sources/markdown/2503.13804v1.md#PDF-page-3\"]},{\"claim_id\":\"claim-2503-13804v1-044\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-044-a617451c21.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"sources/markdown/2503.13804v1.md#PDF-page-6\"]},{\"claim_id\":\"claim-2503-13804v1-047\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-047-7aadbe01d1.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"sources/markdown/2503.13804v1.md#PDF-page-8\"]},{\"claim_id\":\"claim-2506-05690v3-002\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-002-58f51434ce.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"sources/markdown/2506.05690v3.md#PDF-page-6\"]},{\"claim_id\":\"claim-2506-05690v3-019\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-019-afdda502ed.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"sources/markdown/2506.05690v3.md#PDF-page-4\"]},{\"claim_id\":\"claim-2506-05690v3-033\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-033-77a005d898.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"sources/markdown/2506.05690v3.md#PDF-page-5\",\"sources/markdown/2506.05690v3.md#PDF-page-6\",\"sources/markdown/2506.05690v3.md#PDF-page-7\",\"sources/markdown/2506.05690v3.md#PDF-page-8\",\"sources/markdown/2506.05690v3.md#PDF-page-9\",\"sources/markdown/2506.05690v3.md#PDF-page-33\"]},{\"claim_id\":\"claim-2506-05690v3-038\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"sources/markdown/2506.05690v3.md#PDF-page-3\"]},{\"claim_id\":\"claim-2506-05690v3-043\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506-05690v3.jsonl\",\"locators\":[\"sources/markdown/2506.05690v3.md#PDF-page-7\",\"sources/markdown/2506.05690v3.md#PDF-page-8\"]}]}"
+          },
+          "response_sha256": "5134b140937f70f114fbb0a96c5d7ec84e744a4f31143a97689c7b0f28f51cb8",
+          "result_id": "29be40b8-5d6b-44d7-a7ec-203597ebdcff",
+          "score": 0.4,
+          "success": false,
+          "summary": "Use the least structured route that matches the question and the evidence quality. For a simple, discrete fact, prefer question-only or standalone-model answering when the fact is already reliable internally; otherwise use basic RAG. The snapshot reports that basic RAG is comparable to or better than GraphRAG for simple fact retrieval because graph expansion can add noise, and vanilla RAG is suited to direct access to discrete information. Route interconnected contextual synthesis to GraphRAG when relevant, coherent multi-hop evidence is available: its advantage is representing relationships, connected evidence subgraphs, and reconstructed relational sequences rather than merely retrieving isolated facts. For noisy, irrelevant, or misleading graph evidence, do not force GraphRAG. Fall back to standalone answering or basic RAG, or filter and confidence-weight graph and standalone candidates before generation. The evidence shows that adding a noisy textual graph can underperform question-only answering; GraphRAG can correct some standalone errors but can also corrupt originally correct answers. Filtering noisy paths improves results, while GraphRAG-Integration explicitly balances graph outputs with standalone answers. Thus the production boundary is conditional: graph route only when expected relational value exceeds noise and retrieval cost; otherwise use the simpler route. An always-use-the-graph policy is unsupported because graph benefit is task- and corpus-dependent, basic RAG can win on simple facts, and noisy graph context can reduce accuracy.",
+          "summary_sha256": "67e5fd3e5736452c79a1a586bd52e6e95bdc36c9adc67f9663387df9089df5e6"
+        }
+      },
+      "compare_directory": "2026-07-15T20-00-29-037Z-compare",
+      "disposition": "rejected",
+      "eval_id": "eval-vuT-2026-07-15T20:00:38",
+      "id": "rejected-timeout",
+      "reason": "Treatment timed out at the 240-second adapter limit and produced no evaluable output."
+    },
+    {
+      "artifacts": {
+        "materialized_config": {
+          "mcp_token_occurrences": [],
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-07-14-326Z-compare/promptfooconfig.yaml",
+          "sha256": "840e53ba536c43ca9289a527e0adafb65be88462254a8e89435b5220024e35c9"
+        },
+        "promptfoo_results": {
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-07-14-326Z-compare/promptfoo-results.json",
+          "sha256": "bff95bc28c3a9a737f8bd26109184f87f199b202755c1060d08c031972365da6"
+        },
+        "summary": {
+          "path": "results/semantic-okf-ensemble-cli-q031-paired/2026-07-15T20-07-14-326Z-compare/summary.json",
+          "sha256": "a6051e408b100a5c637ebde8ef332873b0a2f89a78aa9eeca5aba94b5e92f4c2"
+        }
+      },
+      "cells": {
+        "ensemble-cli-consult-treatment": {
+          "failure_summary": "failed mechanical gates: evidence-validity",
+          "latency_ms": 250181,
+          "named_scores": {
+            "atomic-answer-completeness": 1,
+            "evidence-validity": 0,
+            "important-negative-coverage": 1,
+            "response-contract": 1,
+            "response-format": 1
+          },
+          "output_sha256": "5b169907768c63bd493c1c764dfbf6adf54dea320a4b257ecc8138fb5752c1cd",
+          "provider_id": "ensemble-cli-consult-treatment",
+          "response": {
+            "metadata": {
+              "backend": "command",
+              "executionEventHook": {
+                "eventCount": 1,
+                "path": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-6iJEe4\\workspace\\.skill-arena\\hooks\\execution-events\\2026-07-15T20-12-42.812Z-pi-3049e773-ae70-4d01-814c-bb471ff1fc7d.json",
+                "relativePath": ".skill-arena/hooks/execution-events/2026-07-15T20-12-42.812Z-pi-3049e773-ae70-4d01-814c-bb471ff1fc7d.json",
+                "toolEventCount": 0
+              },
+              "profileId": "ensemble-cli-consult-treatment",
+              "scenarioDescription": null,
+              "scenarioId": "pi-luna-only-ensemble-cli-consult-treatment",
+              "sessionUsage": null,
+              "skillModeId": "ensemble-cli-consult-treatment",
+              "stderr": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only",
+              "variantDisplayName": "PI GPT-5.6 Luna",
+              "variantId": "pi-luna-only",
+              "workingDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-6iJEe4\\workspace",
+              "workspaceDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-6iJEe4\\workspace"
+            },
+            "output": "{\"question_id\":\"q031-graph-routing-boundary\",\"answer\":{\"summary\":\"Route by the question's information need and evidence reliability, not by a blanket preference for graph context. For a simple, discrete fact with no evident multi-hop dependency, prefer question-only or a standalone model when its parametric knowledge is adequate; if external grounding is needed, basic RAG is the safer default. The snapshot explicitly reports that vanilla/basic RAG is suited to direct discrete information and is comparable to or better than GraphRAG on simple fact retrieval, where graph expansion can add noise. Escalate to GraphRAG when the answer requires interconnected contextual analysis, cross-document logical connections, contextual summarization, or other complex reasoning for which graph structure can expose relational paths. Treat graph evidence as conditional: noisy or incomplete corpora, extraction, decomposition, retrieval, and verifier errors can propagate into generation. If the graph is noisy, keep question-only/standalone or basic RAG when they are sufficient, or use GraphRAG only with filtering and verification; the evidence reports that filtering helps under added noisy paths. An always-use-the-graph policy is therefore unsupported: GraphRAG can fix standalone errors but can also corrupt originally correct answers, and an entire noisy textual graph can underperform the question alone. A production boundary should consequently compare expected relational benefit against graph-noise and pipeline costs, using graph routing only when multi-hop value is material and evidence passes quality checks.\",\"claims\":[{\"statement\":\"The evidence supports routing among question-only or standalone answering, basic RAG, and GraphRAG according to the task and evidence conditions rather than always preferring retrieval.\",\"supporting_claim_ids\":[\"claim-2503-13804v1-016\",\"claim-2503-13804v1-037\"]},{\"statement\":\"Question-only or standalone answering remains a viable route when graph evidence is unnecessary or potentially harmful.\",\"supporting_claim_ids\":[\"claim-2402-07630v3-039\",\"claim-2503-13804v1-037\"]},{\"statement\":\"Basic/vanilla RAG is suited to direct discrete information and can match or outperform GraphRAG on simple facts.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-038\",\"claim-2506-05690v3-043\"]},{\"statement\":\"GraphRAG should be considered before generation when relational structure supplies evidence for the answer, especially for interconnected or complex reasoning.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-002\",\"claim-2506-05690v3-018\",\"claim-2506-05690v3-044\"]},{\"statement\":\"For simple, discrete facts, prefer question-only/standalone answering when sufficient and otherwise basic RAG before GraphRAG.\",\"supporting_claim_ids\":[\"claim-2402-07630v3-039\",\"claim-2506-05690v3-038\",\"claim-2506-05690v3-043\"]},{\"statement\":\"For interconnected synthesis and complex reasoning across documents, GraphRAG has the clearest reported advantage.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-018\",\"claim-2506-05690v3-038\",\"claim-2506-05690v3-044\"]},{\"statement\":\"When graph evidence is noisy or incomplete, routing should require filtering and verification or fall back to simpler routes because graph errors can propagate into generation.\",\"supporting_claim_ids\":[\"claim-2503-06474v2-038\",\"claim-2503-06474v2-058\",\"claim-2503-13804v1-047\"]},{\"statement\":\"Always using the graph is unsupported because graph augmentation can add noise, underperform the question alone, and turn correct standalone answers into wrong ones.\",\"supporting_claim_ids\":[\"claim-2402-07630v3-039\",\"claim-2503-13804v1-037\",\"claim-2506-05690v3-043\"]}],\"paper_ids\":[\"2402.07630v3\",\"2503.06474v2\",\"2503.13804v1\",\"2506.05690v3\"],\"citations\":[{\"paper_id\":\"2402.07630v3\",\"pages\":[8]},{\"paper_id\":\"2503.06474v2\",\"pages\":[7]},{\"paper_id\":\"2503.13804v1\",\"pages\":[1,3,6,8]},{\"paper_id\":\"2506.05690v3\",\"pages\":[3,4,6,7,8]}]},\"evidence\":[{\"claim_id\":\"claim-2402-07630v3-039\",\"concept_path\":\"concepts/claims-2402-07630v3/claim-2402-07630v3-039-d27e10fdca.md\",\"paper_id\":\"2402.07630v3\",\"source_path\":\"sources/claims/2402.07630v3.jsonl\",\"locators\":[\"PDF-page-8\"]},{\"claim_id\":\"claim-2503-06474v2-038\",\"concept_path\":\"concepts/claims-2503-06474v2/claim-2503-06474v2-038-92a897d9db.md\",\"paper_id\":\"2503.06474v2\",\"source_path\":\"sources/claims/2503.06474v2.jsonl\",\"locators\":[\"PDF-page-7\"]},{\"claim_id\":\"claim-2503-06474v2-058\",\"concept_path\":\"concepts/claims-2503-06474v2/claim-2503-06474v2-058-c97f2ef1c5.md\",\"paper_id\":\"2503.06474v2\",\"source_path\":\"sources/claims/2503.06474v2.jsonl\",\"locators\":[\"PDF-page-7\"]},{\"claim_id\":\"claim-2503-13804v1-016\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-016-0d224e7938.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"PDF-page-3\",\"PDF-page-6\"]},{\"claim_id\":\"claim-2503-13804v1-037\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"PDF-page-1\",\"PDF-page-3\"]},{\"claim_id\":\"claim-2503-13804v1-047\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-047-7aadbe01d1.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/claims/2503.13804v1.jsonl\",\"locators\":[\"PDF-page-8\"]},{\"claim_id\":\"claim-2506-05690v3-002\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-002-58f51434ce.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506-05690v3.jsonl\",\"locators\":[\"PDF-page-6\"]},{\"claim_id\":\"claim-2506-05690v3-018\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-018-fae0afbb44.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"PDF-page-4\"]},{\"claim_id\":\"claim-2506-05690v3-038\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"PDF-page-3\"]},{\"claim_id\":\"claim-2506-05690v3-043\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506.05690v3.jsonl\",\"locators\":[\"PDF-page-7\",\"PDF-page-8\"]},{\"claim_id\":\"claim-2506-05690v3-044\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/claims/2506-05690v3.jsonl\",\"locators\":[\"PDF-page-7\",\"PDF-page-8\"]}]}"
+          },
+          "response_sha256": "89e80a21649964c8ebe6af9d563a6b12d58bc3b03ccdaae3af8dfa8bb4dc8776",
+          "result_id": "1c2311f5-5cbd-41e4-b654-5ac3ffb8a405",
+          "score": 0.8,
+          "success": false,
+          "summary": "Route by the question's information need and evidence reliability, not by a blanket preference for graph context. For a simple, discrete fact with no evident multi-hop dependency, prefer question-only or a standalone model when its parametric knowledge is adequate; if external grounding is needed, basic RAG is the safer default. The snapshot explicitly reports that vanilla/basic RAG is suited to direct discrete information and is comparable to or better than GraphRAG on simple fact retrieval, where graph expansion can add noise. Escalate to GraphRAG when the answer requires interconnected contextual analysis, cross-document logical connections, contextual summarization, or other complex reasoning for which graph structure can expose relational paths. Treat graph evidence as conditional: noisy or incomplete corpora, extraction, decomposition, retrieval, and verifier errors can propagate into generation. If the graph is noisy, keep question-only/standalone or basic RAG when they are sufficient, or use GraphRAG only with filtering and verification; the evidence reports that filtering helps under added noisy paths. An always-use-the-graph policy is therefore unsupported: GraphRAG can fix standalone errors but can also corrupt originally correct answers, and an entire noisy textual graph can underperform the question alone. A production boundary should consequently compare expected relational benefit against graph-noise and pipeline costs, using graph routing only when multi-hop value is material and evidence passes quality checks.",
+          "summary_sha256": "c0058339a9e178469d27f30fca85215e600aaed233784a7e4911f0980828c7eb"
+        },
+        "knowledge-only-control": {
+          "failure_summary": "failed mechanical gates: evidence-validity, atomic-answer-completeness",
+          "latency_ms": 72190,
+          "named_scores": {
+            "atomic-answer-completeness": 0,
+            "evidence-validity": 0,
+            "important-negative-coverage": 1,
+            "response-contract": 1,
+            "response-format": 1
+          },
+          "output_sha256": "7cb6ed92623c2baaf0583c1d5b19457d92ae0fda5ba1bb84a94460e5c974bbc9",
+          "provider_id": "knowledge-only-control",
+          "response": {
+            "metadata": {
+              "backend": "command",
+              "executionEventHook": {
+                "eventCount": 1,
+                "path": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-gwag0M\\workspace\\.skill-arena\\hooks\\execution-events\\2026-07-15T20-08-32.607Z-pi-175aefc1-650a-4bc2-b788-0bd475c33dca.json",
+                "relativePath": ".skill-arena/hooks/execution-events/2026-07-15T20-08-32.607Z-pi-175aefc1-650a-4bc2-b788-0bd475c33dca.json",
+                "toolEventCount": 0
+              },
+              "profileId": "knowledge-only-control",
+              "scenarioDescription": null,
+              "scenarioId": "pi-luna-only-knowledge-only-control",
+              "sessionUsage": null,
+              "skillModeId": "knowledge-only-control",
+              "stderr": "skill-arena-model=openai-codex/gpt-5.6-luna routing=luna-only",
+              "variantDisplayName": "PI GPT-5.6 Luna",
+              "variantId": "pi-luna-only",
+              "workingDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-gwag0M\\workspace",
+              "workspaceDirectory": "C:\\Users\\villa\\AppData\\Local\\Temp\\skill-arena-execution-gwag0M\\workspace"
+            },
+            "output": "{\"question_id\":\"q031-graph-routing-boundary\",\"answer\":{\"summary\":\"Use task structure and evidence quality as the routing boundary, not a universal GraphRAG default. For a simple fact requiring isolated knowledge and minimal reasoning, prefer question-only answering when the model is sufficiently reliable; otherwise use basic RAG. The snapshot characterizes vanilla/basic RAG as suited to direct access to discrete information and reports that basic RAG is comparable to or better than GraphRAG on simple fact retrieval, where graph expansion can add noise. For interconnected synthesis—especially when the answer must chain evidence across documents or reconcile multiple related concepts—route to GraphRAG, because its advantage is explicitly tied to interconnected contextual analysis and the evaluation reports its clearest gains on complex reasoning and contextual synthesis. However, graph use should be gated by graph and context quality. If graph expansion produces redundant, irrelevant, or noisy evidence, retain basic RAG or the standalone answer rather than expanding the graph; longer prompts can reduce relevance, and the authors recommend bounded context growth and tightly connected useful graphs. Thus the operational boundary is: isolated fact plus clean direct evidence → question-only/basic RAG; multi-source, relational synthesis with a trustworthy connected graph → GraphRAG; noisy or low-confidence graph evidence → do not force GraphRAG. An always-use-the-graph policy is unsupported because GraphRAG can add noise on simple retrieval and can even turn a correct standalone-LLM answer into an incorrect one. The snapshot therefore supports conditional routing, not graph dominance.\",\"claims\":[{\"statement\":\"For isolated simple facts requiring minimal reasoning, question-only answering or basic RAG is preferred over automatic graph expansion; basic RAG is reported as comparable to or better than GraphRAG for simple fact retrieval.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-017\",\"claim-2506-05690v3-038\",\"claim-2506-05690v3-043\"]},{\"statement\":\"For interconnected, multi-source synthesis that requires chaining evidence across documents, GraphRAG is the appropriate route because its advantage is associated with interconnected contextual analysis and complex reasoning.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-018\",\"claim-2506-05690v3-038\",\"claim-2506-05690v3-044\"]},{\"statement\":\"When graph expansion creates redundant or noisy context, the router should avoid unconditional GraphRAG and bound context growth or use a more selective retrieval route.\",\"supporting_claim_ids\":[\"claim-2506-05690v3-035\",\"claim-2506-05690v3-043\",\"claim-2506-05690v3-049\"]},{\"statement\":\"Always using the graph is unsupported because GraphRAG can change an originally correct standalone-LLM answer into an incorrect answer.\",\"supporting_claim_ids\":[\"claim-2503-13804v1-037\"]}],\"paper_ids\":[\"2503.13804v1\",\"2506.05690v3\"],\"citations\":[{\"paper_id\":\"2503.13804v1\",\"pages\":[1,3]},{\"paper_id\":\"2506.05690v3\",\"pages\":[3,4,7,8,9,19]}]},\"evidence\":[{\"claim_id\":\"claim-2503-13804v1-037\",\"concept_path\":\"concepts/claims-2503-13804v1/claim-2503-13804v1-037-95ffd986bd.md\",\"paper_id\":\"2503.13804v1\",\"source_path\":\"sources/markdown/2503.13804v1.md\",\"locators\":[1,3]},{\"claim_id\":\"claim-2506-05690v3-017\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-017-0c7a953898.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[4]},{\"claim_id\":\"claim-2506-05690v3-018\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-018-fae0afbb44.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[4]},{\"claim_id\":\"claim-2506-05690v3-035\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-035-05e9de369b.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[9]},{\"claim_id\":\"claim-2506-05690v3-038\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-038-bf78856d2b.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[3]},{\"claim_id\":\"claim-2506-05690v3-043\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-043-862c0ca707.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[7,8]},{\"claim_id\":\"claim-2506-05690v3-044\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-044-a72d99898c.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[7,8]},{\"claim_id\":\"claim-2506-05690v3-049\",\"concept_path\":\"concepts/claims-2506-05690v3/claim-2506-05690v3-049-567f229f1a.md\",\"paper_id\":\"2506.05690v3\",\"source_path\":\"sources/markdown/2506.05690v3.md\",\"locators\":[19]}]}"
+          },
+          "response_sha256": "bd93930de0b8b9a9cc71ed1cba59be0aa0fc1237b59a2c4a777608dc38578383",
+          "result_id": "7cf563d8-1245-4435-a8e2-e092c6c983c8",
+          "score": 0.6,
+          "success": false,
+          "summary": "Use task structure and evidence quality as the routing boundary, not a universal GraphRAG default. For a simple fact requiring isolated knowledge and minimal reasoning, prefer question-only answering when the model is sufficiently reliable; otherwise use basic RAG. The snapshot characterizes vanilla/basic RAG as suited to direct access to discrete information and reports that basic RAG is comparable to or better than GraphRAG on simple fact retrieval, where graph expansion can add noise. For interconnected synthesis—especially when the answer must chain evidence across documents or reconcile multiple related concepts—route to GraphRAG, because its advantage is explicitly tied to interconnected contextual analysis and the evaluation reports its clearest gains on complex reasoning and contextual synthesis. However, graph use should be gated by graph and context quality. If graph expansion produces redundant, irrelevant, or noisy evidence, retain basic RAG or the standalone answer rather than expanding the graph; longer prompts can reduce relevance, and the authors recommend bounded context growth and tightly connected useful graphs. Thus the operational boundary is: isolated fact plus clean direct evidence → question-only/basic RAG; multi-source, relational synthesis with a trustworthy connected graph → GraphRAG; noisy or low-confidence graph evidence → do not force GraphRAG. An always-use-the-graph policy is unsupported because GraphRAG can add noise on simple retrieval and can even turn a correct standalone-LLM answer into an incorrect one. The snapshot therefore supports conditional routing, not graph dominance.",
+          "summary_sha256": "ae18582a1843baa1ce493ab751b039dc44d0c1751c005efe795703147a409b5f"
+        }
+      },
+      "compare_directory": "2026-07-15T20-07-14-326Z-compare",
+      "disposition": "accepted-diagnostic",
+      "eval_id": "eval-3TJ-2026-07-15T20:07:20",
+      "id": "accepted-diagnostic",
+      "reason": "Both cells produced evaluable outputs; the treatment passed four of five mechanical gates."
+    }
+  ],
+  "schema_version": "semantic-okf-ensemble-cli-q031-skill-arena-diagnostic/1.0",
+  "scope": "Two fresh isolated MCP-free Skill Arena runs of the current CLI-only consult treatment and its knowledge-only control."
+}

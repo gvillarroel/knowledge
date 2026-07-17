@@ -22,6 +22,7 @@ TEXT_SUFFIXES = {
     ".json",
     ".jsx",
     ".md",
+    ".mdx",
     ".mjs",
     ".py",
     ".rb",

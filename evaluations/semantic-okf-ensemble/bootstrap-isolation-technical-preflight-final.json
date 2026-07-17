@@ -1,0 +1,77 @@
+{
+  "schema_version": "semantic-okf-ensemble-bootstrap-isolation-preflight/1.0",
+  "status": "pass",
+  "evidence_class": "non-causal-technical-preflight",
+  "date": "2026-07-15",
+  "scope": {
+    "benchmark_id": "semantic-okf-ensemble-bootstrap-q031-preflight-v1",
+    "compare_run": "2026-07-15T15-19-09-193Z-compare",
+    "evaluation_id": "eval-jpH-2026-07-15T15:19:14",
+    "profile_id": "ensemble-consult-treatment",
+    "question_id": "q031-graph-routing-boundary",
+    "requested_answers": 1,
+    "completed_answers": 1,
+    "causal_or_portfolio_metric": false
+  },
+  "inputs": {
+    "source_full_config_sha256": "5042a9dae24bdac352ddf1c1f7482a5fe9cf76b0b771ae6d606a514eff5ad4ac",
+    "derived_preflight_config_sha256": "77eb06df24b2846054d72bf693ea4e6e080f58a6d371c6dff28d62498bd6d26c",
+    "mcp_server_version": "1.5.0",
+    "mcp_server_sha256": "bef33f807ad339563a076402edf96b65c9cd66f81eb0af3484a49a8945d940c2",
+    "publication_script_sha256": "6db622318acba2301b272504e6687bb34055d2704a0ce4f1c7425ee9bb8570b1",
+    "skill_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2",
+    "skill_byte_count": 15699
+  },
+  "retained_raw_bindings": {
+    "promptfoo_results_path": "results/semantic-okf-ensemble-bootstrap-q031-preflight-v1/2026-07-15T15-19-09-193Z-compare/promptfoo-results.json",
+    "promptfoo_results_sha256": "e264e3324fb59e007d891f3b9ac451b3d094fb028d3a9e44c586c1b05198b979",
+    "trace_sha256": "b30b316958f9cdf02e6d7c59e64e210e0cef664df5617a0dbfb5b16698b16405",
+    "raw_artifacts_ignored": true
+  },
+  "runtime": {
+    "process_exit_code": 0,
+    "provider_errors": 0,
+    "latency_ms": 153486,
+    "command_execution_count": 0,
+    "semantic_tool_order": [
+      "semantic_okf_bootstrap_skill",
+      "semantic_okf_inspect",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_coverage_brief",
+      "semantic_okf_prepare_answer",
+      "semantic_okf_confirm_answer"
+    ],
+    "bootstrap": {
+      "schema": "semantic-okf-skill-bootstrap/1.0",
+      "skill_sha256": "ec80687beb701f5fc8b6cd13d5ec779cbe5e1f52baffbf3a4a41db4f390717c2",
+      "byte_count": 15699
+    },
+    "shell_isolation": {
+      "schema": "semantic-okf-shell-isolation-receipt/1.0",
+      "skill_id": "consult-semantic-okf-ensemble",
+      "shell_tool_disabled": true,
+      "canonical_receipt_sha256": "c6f4c5a149e6ca02048cd8942c7f4c6c6514372f175127202e0227fe275f61fc",
+      "canonical_receipt_byte_count": 123
+    }
+  },
+  "publication": {
+    "prepared_candidate_sha256": "a6bf8dfd8438b181f343fffbb46aa496d49790bb27abdf4716a372e69433bdf7",
+    "confirmation_receipt_sha256": "a6bf8dfd8438b181f343fffbb46aa496d49790bb27abdf4716a372e69433bdf7",
+    "published_output_sha256": "a6bf8dfd8438b181f343fffbb46aa496d49790bb27abdf4716a372e69433bdf7",
+    "published_byte_count": 8872,
+    "published_equals_prepared_candidate": true,
+    "raw_agent_message_equals_prepared_candidate": false,
+    "host_publication_correction_applied": true
+  },
+  "promptfoo_assertions": {
+    "response_format": 1,
+    "response_contract": 1,
+    "evidence_validity": 1,
+    "atomic_answer_completeness": 1,
+    "important_negative_coverage": 1
+  },
+  "decision": "The live provider path is ready for a fresh full 90-answer run. This one-row preflight validates transport and isolation only and must not be presented as causal or aggregate answer-quality evidence."
+}

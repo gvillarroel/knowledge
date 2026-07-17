@@ -81,7 +81,7 @@ Never install the obsolete PyPI distribution named `md2conf`. Confirm that help 
 4. Inspect the target page or subtree for manual content, attachments, labels, content properties, inline comments, approved mention recipients, sibling order, and any prior md2conf synchronization property and recorded page version before any live run.
 5. Record whether md2conf may edit the Markdown source to inject page and space identifiers.
 
-Read [markdown-contract.md](references/markdown-contract.md) for page mapping, hierarchy, links, metadata, attachments, and extension syntax. Read [publishing-safety.md](references/publishing-safety.md) before designing or executing any live publication.
+Read [markdown-contract.md](../../skills/md2conf/references/markdown-contract.md) for page mapping, hierarchy, links, metadata, attachments, and extension syntax. Read [publishing-safety.md](../../skills/md2conf/references/publishing-safety.md) before designing or executing any live publication.
 
 ## Convert locally first
 

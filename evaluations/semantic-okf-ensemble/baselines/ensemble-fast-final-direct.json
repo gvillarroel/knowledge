@@ -1,0 +1,1953 @@
+{
+  "schema_version": "semantic-okf-ensemble-direct-retrieval-comparison/1.0",
+  "status": "pass",
+  "candidate_label": "ensemble-fast-real-final",
+  "route": "ensemble_fast",
+  "benchmark": {
+    "id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "question_count": 40
+  },
+  "inputs": {
+    "candidate_report": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-01/retrieval/top10-repeated/comparison.json",
+    "candidate_report_sha256": "3693c00a3aa2c46191ad63718a97402ea0e258f749642a56f962357787cb8958",
+    "candidate_report_schema": "semantic-okf-ensemble-retrieval-run/1.0",
+    "extends_evidence_schema": "1.2",
+    "incumbent_summary": "evaluations/semantic-okf-adaptive/retrieval-summary.json",
+    "incumbent_summary_sha256": "14dd37e137c84ef6ea81f96fbdb70e796a8d65fb68509ba463181bf0fdef8152",
+    "ensemble_plan": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+    "ensemble_plan_sha256": "fd9a27d073ac5aacb509348da0bd42d5dd36c750cbcef4313d41f6b7185133fe"
+  },
+  "contract": {
+    "top_k": 10,
+    "paper_identity": "first occurrence of paper_id",
+    "source_identity": "first occurrence of source_id",
+    "metric_recomputation": true,
+    "raw_text_copied": false
+  },
+  "evidence_validity": {
+    "returned": 400,
+    "valid": 400,
+    "invalid": 0,
+    "ratio": 1.0
+  },
+  "timing_ms": {
+    "mean": 423.9580625027884,
+    "median": 419.44644995965064,
+    "p95": 521.7628799786326
+  },
+  "cohorts": {
+    "all_40": {
+      "question_count": 40,
+      "paper_metrics": {
+        "recall_at_1": 0.157390873015873,
+        "recall_at_3": 0.38451569264069263,
+        "recall_at_5": 0.5268686868686869,
+        "recall_at_10": 0.8381619769119769,
+        "mrr_at_10": 0.975,
+        "ndcg_at_10": 0.8430482010169056
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0786954365079365,
+        "recall_at_3": 0.19225784632034632,
+        "recall_at_5": 0.26343434343434347,
+        "recall_at_10": 0.41908098845598846,
+        "mrr_at_10": 0.975,
+        "ndcg_at_10": 0.6734533881033773
+      }
+    },
+    "original_30": {
+      "question_count": 30,
+      "paper_metrics": {
+        "recall_at_1": 0.12818783068783068,
+        "recall_at_3": 0.32157647907647907,
+        "recall_at_5": 0.47804713804713805,
+        "recall_at_10": 0.7992159692159693,
+        "mrr_at_10": 0.9833333333333333,
+        "ndcg_at_10": 0.8386481921996771
+      },
+      "source_metrics": {
+        "recall_at_1": 0.06409391534391534,
+        "recall_at_3": 0.16078823953823954,
+        "recall_at_5": 0.23902356902356903,
+        "recall_at_10": 0.39960798460798463,
+        "mrr_at_10": 0.9833333333333333,
+        "ndcg_at_10": 0.7132626944099582
+      }
+    },
+    "hard_10": {
+      "question_count": 10,
+      "paper_metrics": {
+        "recall_at_1": 0.24500000000000002,
+        "recall_at_3": 0.5733333333333334,
+        "recall_at_5": 0.6733333333333333,
+        "recall_at_10": 0.9550000000000001,
+        "mrr_at_10": 0.95,
+        "ndcg_at_10": 0.8562482274685914
+      },
+      "source_metrics": {
+        "recall_at_1": 0.12250000000000001,
+        "recall_at_3": 0.2866666666666667,
+        "recall_at_5": 0.33666666666666667,
+        "recall_at_10": 0.47750000000000004,
+        "mrr_at_10": 0.95,
+        "ndcg_at_10": 0.5540254691836346
+      }
+    }
+  },
+  "paper_metric_deltas_vs_adaptive_incumbent": {
+    "all_40": {
+      "recall_at_10": -3.0880230594831914e-09,
+      "mrr_at_10": 0.016666669999999995,
+      "ndcg_at_10": 0.008776171016905532
+    },
+    "hard_10": {
+      "recall_at_10": 1.1102230246251565e-16,
+      "mrr_at_10": 0.0,
+      "ndcg_at_10": 0.006400727468591438
+    }
+  },
+  "issues": [],
+  "questions": [
+    {
+      "id": "q001-methodology-taxonomy",
+      "paper_ids": [
+        "2404.16130v2",
+        "2507.03226v3",
+        "2504.02112v2",
+        "2408.04187v2",
+        "2506.05690v3",
+        "2508.19855v3",
+        "2409.13731v3",
+        "2405.14831v3",
+        "2502.14902v2",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2404-16130v2",
+        "paper-2507-03226v3",
+        "paper-2504-02112v2",
+        "paper-2408-04187v2",
+        "paper-2506-05690v3",
+        "paper-2508-19855v3",
+        "paper-2409-13731v3",
+        "claims-2405-14831v3",
+        "paper-2502-14902v2",
+        "claims-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.06666666666666667,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "source_metrics": {
+        "recall_at_1": 0.03333333333333333,
+        "recall_at_3": 0.1,
+        "recall_at_5": 0.16666666666666666,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 419.1197999753058
+    },
+    {
+      "id": "q002-common-pipeline",
+      "paper_ids": [
+        "2508.19855v3",
+        "2502.14902v2",
+        "2506.05690v3",
+        "2507.03226v3",
+        "2503.13804v1",
+        "2404.16130v2",
+        "2410.05779v3",
+        "2406.14550v2",
+        "2504.02112v2",
+        "2409.13731v3"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2502-14902v2",
+        "paper-2506-05690v3",
+        "paper-2507-03226v3",
+        "paper-2503-13804v1",
+        "paper-2404-16130v2",
+        "paper-2410-05779v3",
+        "paper-2406-14550v2",
+        "paper-2504-02112v2",
+        "paper-2409-13731v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.375,
+        "recall_at_10": 0.75,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.735881628121405
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0625,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.1875,
+        "recall_at_10": 0.375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6403089930936581
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 409.88649998325855
+    },
+    {
+      "id": "q003-graph-origin-representation",
+      "paper_ids": [
+        "2408.08535v1",
+        "2402.07630v3",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2405.14831v3",
+        "2503.13804v1",
+        "2408.04187v2",
+        "2503.06474v2",
+        "2508.19855v3",
+        "2504.02112v2"
+      ],
+      "source_ids": [
+        "paper-2408-08535v1",
+        "paper-2402-07630v3",
+        "claims-2506-05690v3",
+        "paper-2409-13731v3",
+        "paper-2405-14831v3",
+        "paper-2503-13804v1",
+        "paper-2408-04187v2",
+        "paper-2503-06474v2",
+        "paper-2508-19855v3",
+        "paper-2504-02112v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.6,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6785038377365555
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05,
+        "recall_at_3": 0.1,
+        "recall_at_5": 0.2,
+        "recall_at_10": 0.3,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6785038377365555
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 360.8044000575319
+    },
+    {
+      "id": "q004-retrieval-units",
+      "paper_ids": [
+        "2506.05690v3",
+        "2507.03226v3",
+        "2504.02112v2",
+        "2508.19855v3",
+        "2402.07630v3",
+        "2410.05779v3",
+        "2406.14550v2",
+        "2502.14902v2",
+        "2404.16130v2",
+        "2408.08535v1"
+      ],
+      "source_ids": [
+        "claims-2506-05690v3",
+        "paper-2507-03226v3",
+        "paper-2504-02112v2",
+        "paper-2508-19855v3",
+        "claims-2402-07630v3",
+        "paper-2410-05779v3",
+        "paper-2406-14550v2",
+        "claims-2502-14902v2",
+        "claims-2404-16130v2",
+        "claims-2408-08535v1"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.0,
+        "recall_at_3": 0.18181818181818182,
+        "recall_at_5": 0.36363636363636365,
+        "recall_at_10": 0.7272727272727273,
+        "mrr_at_10": 0.5,
+        "ndcg_at_10": 0.7162874455029681
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0,
+        "recall_at_3": 0.09090909090909091,
+        "recall_at_5": 0.18181818181818182,
+        "recall_at_10": 0.36363636363636365,
+        "mrr_at_10": 0.5,
+        "ndcg_at_10": 0.7162874455029681
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 510.55760006420314
+    },
+    {
+      "id": "q005-community-hierarchy",
+      "paper_ids": [
+        "2506.05690v3",
+        "2404.16130v2",
+        "2409.13731v3",
+        "2408.08535v1",
+        "2507.03226v3",
+        "2508.19855v3",
+        "2410.05779v3",
+        "2406.14550v2",
+        "2408.04187v2",
+        "2502.14902v2"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2404-16130v2",
+        "claims-2409-13731v3",
+        "claims-2408-08535v1",
+        "paper-2507-03226v3",
+        "paper-2508-19855v3",
+        "claims-2410-05779v3",
+        "paper-2406-14550v2",
+        "claims-2408-04187v2",
+        "paper-2502-14902v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.2,
+        "recall_at_3": 0.4,
+        "recall_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9330795243082164
+      },
+      "source_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.3,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6055047656192208
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 374.7325000585988
+    },
+    {
+      "id": "q006-path-subgraph-reasoning",
+      "paper_ids": [
+        "2402.07630v3",
+        "2406.14550v2",
+        "2506.05690v3",
+        "2508.19855v3",
+        "2504.02112v2",
+        "2405.14831v3",
+        "2507.03226v3",
+        "2502.14902v2",
+        "2404.16130v2",
+        "2409.13731v3"
+      ],
+      "source_ids": [
+        "paper-2402-07630v3",
+        "paper-2406-14550v2",
+        "paper-2506-05690v3",
+        "paper-2508-19855v3",
+        "paper-2504-02112v2",
+        "paper-2405-14831v3",
+        "paper-2507-03226v3",
+        "paper-2502-14902v2",
+        "paper-2404-16130v2",
+        "paper-2409-13731v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.8333333333333334,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7329209197380233
+      },
+      "source_metrics": {
+        "recall_at_1": 0.08333333333333333,
+        "recall_at_3": 0.08333333333333333,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.4166666666666667,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5330752584449809
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 419.7730999439955
+    },
+    {
+      "id": "q007-diffusion-versus-traversal",
+      "paper_ids": [
+        "2508.19855v3",
+        "2504.02112v2",
+        "2405.14831v3",
+        "2507.03226v3",
+        "2410.05779v3",
+        "2409.13731v3",
+        "2402.07630v3",
+        "2408.08535v1",
+        "2503.13804v1",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2504-02112v2",
+        "claims-2405-14831v3",
+        "paper-2507-03226v3",
+        "claims-2410-05779v3",
+        "paper-2409-13731v3",
+        "paper-2402-07630v3",
+        "paper-2408-08535v1",
+        "paper-2503-13804v1",
+        "paper-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.2,
+        "recall_at_3": 0.6,
+        "recall_at_5": 0.6,
+        "recall_at_10": 0.8,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8357799744028238
+      },
+      "source_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.3,
+        "recall_at_5": 0.3,
+        "recall_at_10": 0.4,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5423640154200348
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 337.7073999727145
+    },
+    {
+      "id": "q008-local-global-queries",
+      "paper_ids": [
+        "2506.05690v3",
+        "2404.16130v2",
+        "2410.05779v3",
+        "2502.14902v2",
+        "2402.07630v3",
+        "2408.04187v2",
+        "2507.03226v3",
+        "2405.14831v3",
+        "2504.02112v2",
+        "2409.13731v3"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2404-16130v2",
+        "claims-2410-05779v3",
+        "claims-2502-14902v2",
+        "claims-2402-07630v3",
+        "paper-2408-04187v2",
+        "paper-2507-03226v3",
+        "paper-2405-14831v3",
+        "paper-2504-02112v2",
+        "claims-2409-13731v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.6666666666666666,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7751482523375256
+      },
+      "source_metrics": {
+        "recall_at_1": 0.08333333333333333,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5637884576902256
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 373.3619999838993
+    },
+    {
+      "id": "q009-query-processing-routing",
+      "paper_ids": [
+        "2409.13731v3",
+        "2508.19855v3",
+        "2504.02112v2",
+        "2406.14550v2",
+        "2506.05690v3",
+        "2503.06474v2",
+        "2402.07630v3",
+        "2503.13804v1",
+        "2404.16130v2",
+        "2502.14902v2"
+      ],
+      "source_ids": [
+        "paper-2409-13731v3",
+        "paper-2508-19855v3",
+        "paper-2504-02112v2",
+        "paper-2406-14550v2",
+        "paper-2506-05690v3",
+        "paper-2503-06474v2",
+        "paper-2402-07630v3",
+        "paper-2503-13804v1",
+        "paper-2404-16130v2",
+        "paper-2502-14902v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9783978399515039
+      },
+      "source_metrics": {
+        "recall_at_1": 0.08333333333333333,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7116179486056782
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 431.86730006709695
+    },
+    {
+      "id": "q010-context-organization",
+      "paper_ids": [
+        "2502.14902v2",
+        "2410.05779v3",
+        "2409.13731v3",
+        "2506.05690v3",
+        "2508.19855v3",
+        "2408.04187v2",
+        "2503.13804v1",
+        "2504.02112v2",
+        "2404.16130v2",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2502-14902v2",
+        "paper-2410-05779v3",
+        "claims-2409-13731v3",
+        "paper-2506-05690v3",
+        "paper-2508-19855v3",
+        "paper-2408-04187v2",
+        "paper-2503-13804v1",
+        "paper-2504-02112v2",
+        "claims-2404-16130v2",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.375,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.875,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8762149137252037
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0625,
+        "recall_at_3": 0.1875,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.4375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7624164915943118
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 440.24919997900724
+    },
+    {
+      "id": "q011-vector-graph-hybrid",
+      "paper_ids": [
+        "2507.03226v3",
+        "2508.19855v3",
+        "2506.05690v3",
+        "2402.07630v3",
+        "2409.13731v3",
+        "2408.08535v1",
+        "2404.16130v2",
+        "2405.14831v3",
+        "2503.06474v2",
+        "2410.05779v3"
+      ],
+      "source_ids": [
+        "paper-2507-03226v3",
+        "paper-2508-19855v3",
+        "claims-2506-05690v3",
+        "paper-2402-07630v3",
+        "paper-2409-13731v3",
+        "paper-2408-08535v1",
+        "paper-2404-16130v2",
+        "paper-2405-14831v3",
+        "paper-2503-06474v2",
+        "claims-2410-05779v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.14285714285714285,
+        "recall_at_3": 0.2857142857142857,
+        "recall_at_5": 0.5714285714285714,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8859509025892363
+      },
+      "source_metrics": {
+        "recall_at_1": 0.07142857142857142,
+        "recall_at_3": 0.14285714285714285,
+        "recall_at_5": 0.2857142857142857,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7093753650484099
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 457.7617000322789
+    },
+    {
+      "id": "q012-llm-roles",
+      "paper_ids": [
+        "2507.03226v3",
+        "2503.06474v2",
+        "2409.13731v3",
+        "2506.05690v3",
+        "2508.19855v3",
+        "2502.14902v2",
+        "2504.02112v2",
+        "2406.14550v2",
+        "2402.07630v3",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2507-03226v3",
+        "claims-2503-06474v2",
+        "claims-2409-13731v3",
+        "paper-2506-05690v3",
+        "paper-2508-19855v3",
+        "paper-2502-14902v2",
+        "claims-2504-02112v2",
+        "paper-2406-14550v2",
+        "paper-2402-07630v3",
+        "paper-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1111111111111111,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.4444444444444444,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7338856015142214
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05555555555555555,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.2222222222222222,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6871952210980248
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 437.2666999697685
+    },
+    {
+      "id": "q013-offline-construction-cost",
+      "paper_ids": [
+        "2409.13731v3",
+        "2503.13804v1",
+        "2408.08535v1",
+        "2503.06474v2",
+        "2408.04187v2",
+        "2406.14550v2",
+        "2507.03226v3",
+        "2405.14831v3",
+        "2410.05779v3",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2409-13731v3",
+        "paper-2503-13804v1",
+        "claims-2408-08535v1",
+        "paper-2503-06474v2",
+        "paper-2408-04187v2",
+        "paper-2406-14550v2",
+        "paper-2507-03226v3",
+        "paper-2405-14831v3",
+        "paper-2410-05779v3",
+        "claims-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.75,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.664163249382445
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0625,
+        "recall_at_3": 0.0625,
+        "recall_at_5": 0.125,
+        "recall_at_10": 0.375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5779050396291793
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 417.4930000444874
+    },
+    {
+      "id": "q014-online-efficiency",
+      "paper_ids": [
+        "2504.02112v2",
+        "2405.14831v3",
+        "2502.14902v2",
+        "2508.19855v3",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2507.03226v3",
+        "2410.05779v3",
+        "2503.13804v1",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2504-02112v2",
+        "paper-2405-14831v3",
+        "paper-2502-14902v2",
+        "paper-2508-19855v3",
+        "paper-2506-05690v3",
+        "paper-2409-13731v3",
+        "claims-2507-03226v3",
+        "paper-2410-05779v3",
+        "paper-2503-13804v1",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.3,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.8,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8364586133797036
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05,
+        "recall_at_3": 0.15,
+        "recall_at_5": 0.2,
+        "recall_at_10": 0.4,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8364586133797036
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 372.0999000361189
+    },
+    {
+      "id": "q015-incremental-updates",
+      "paper_ids": [
+        "2410.05779v3",
+        "2504.02112v2",
+        "2404.16130v2",
+        "2409.13731v3",
+        "2507.03226v3",
+        "2402.07630v3",
+        "2503.06474v2",
+        "2506.05690v3",
+        "2405.14831v3",
+        "2508.19855v3"
+      ],
+      "source_ids": [
+        "paper-2410-05779v3",
+        "claims-2504-02112v2",
+        "paper-2404-16130v2",
+        "paper-2409-13731v3",
+        "paper-2507-03226v3",
+        "claims-2402-07630v3",
+        "paper-2503-06474v2",
+        "paper-2506-05690v3",
+        "paper-2405-14831v3",
+        "paper-2508-19855v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.14285714285714285,
+        "recall_at_3": 0.14285714285714285,
+        "recall_at_5": 0.42857142857142855,
+        "recall_at_10": 0.8571428571428571,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7534243519427347
+      },
+      "source_metrics": {
+        "recall_at_1": 0.07142857142857142,
+        "recall_at_3": 0.07142857142857142,
+        "recall_at_5": 0.21428571428571427,
+        "recall_at_10": 0.42857142857142855,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6032621820619527
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 477.9366001021117
+    },
+    {
+      "id": "q016-noise-redundancy",
+      "paper_ids": [
+        "2507.03226v3",
+        "2502.14902v2",
+        "2503.13804v1",
+        "2506.05690v3",
+        "2410.05779v3",
+        "2408.04187v2",
+        "2508.19855v3",
+        "2404.16130v2",
+        "2409.13731v3",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2507-03226v3",
+        "paper-2502-14902v2",
+        "paper-2503-13804v1",
+        "paper-2506-05690v3",
+        "paper-2410-05779v3",
+        "paper-2408-04187v2",
+        "paper-2508-19855v3",
+        "claims-2404-16130v2",
+        "claims-2409-13731v3",
+        "claims-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.3,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.9,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.933745776545611
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05,
+        "recall_at_3": 0.15,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.45,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.933745776545611
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 445.10949996765703
+    },
+    {
+      "id": "q017-imperfect-graphs",
+      "paper_ids": [
+        "2506.05690v3",
+        "2404.16130v2",
+        "2508.19855v3",
+        "2409.13731v3",
+        "2406.14550v2",
+        "2503.06474v2",
+        "2408.08535v1",
+        "2504.02112v2",
+        "2408.04187v2",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2404-16130v2",
+        "paper-2508-19855v3",
+        "claims-2409-13731v3",
+        "paper-2406-14550v2",
+        "paper-2503-06474v2",
+        "paper-2408-08535v1",
+        "paper-2504-02112v2",
+        "paper-2408-04187v2",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.375,
+        "recall_at_10": 0.75,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.734388434701441
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0625,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.1875,
+        "recall_at_10": 0.375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6390097281865127
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 333.5100000258535
+    },
+    {
+      "id": "q018-grounding-safety",
+      "paper_ids": [
+        "2408.04187v2",
+        "2506.05690v3",
+        "2402.07630v3",
+        "2409.13731v3",
+        "2404.16130v2",
+        "2504.02112v2",
+        "2503.06474v2",
+        "2502.14902v2",
+        "2508.19855v3",
+        "2406.14550v2"
+      ],
+      "source_ids": [
+        "claims-2408-04187v2",
+        "paper-2506-05690v3",
+        "paper-2402-07630v3",
+        "paper-2409-13731v3",
+        "paper-2404-16130v2",
+        "paper-2504-02112v2",
+        "paper-2503-06474v2",
+        "paper-2502-14902v2",
+        "paper-2508-19855v3",
+        "paper-2406-14550v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1111111111111111,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.4444444444444444,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7511984400967532
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05555555555555555,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.2222222222222222,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7034066032439746
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 406.0930999694392
+    },
+    {
+      "id": "q019-external-parametric-balance",
+      "paper_ids": [
+        "2503.13804v1",
+        "2410.05779v3",
+        "2408.04187v2",
+        "2405.14831v3",
+        "2508.19855v3",
+        "2404.16130v2",
+        "2409.13731v3",
+        "2506.05690v3",
+        "2503.06474v2",
+        "2507.03226v3"
+      ],
+      "source_ids": [
+        "paper-2503-13804v1",
+        "paper-2410-05779v3",
+        "paper-2408-04187v2",
+        "paper-2405-14831v3",
+        "paper-2508-19855v3",
+        "paper-2404-16130v2",
+        "paper-2409-13731v3",
+        "paper-2506-05690v3",
+        "paper-2503-06474v2",
+        "paper-2507-03226v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.5,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8716476936377875
+      },
+      "source_metrics": {
+        "recall_at_1": 0.08333333333333333,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6339753813071974
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 374.15369995869696
+    },
+    {
+      "id": "q020-domain-adaptation",
+      "paper_ids": [
+        "2507.03226v3",
+        "2506.05690v3",
+        "2408.04187v2",
+        "2409.13731v3",
+        "2404.16130v2",
+        "2508.19855v3",
+        "2503.06474v2",
+        "2405.14831v3",
+        "2410.05779v3",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "claims-2507-03226v3",
+        "paper-2506-05690v3",
+        "paper-2408-04187v2",
+        "paper-2409-13731v3",
+        "paper-2404-16130v2",
+        "claims-2508-19855v3",
+        "claims-2503-06474v2",
+        "claims-2405-14831v3",
+        "paper-2410-05779v3",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.14285714285714285,
+        "recall_at_3": 0.42857142857142855,
+        "recall_at_5": 0.5714285714285714,
+        "recall_at_10": 0.8571428571428571,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8936633189697701
+      },
+      "source_metrics": {
+        "recall_at_1": 0.07142857142857142,
+        "recall_at_3": 0.21428571428571427,
+        "recall_at_5": 0.2857142857142857,
+        "recall_at_10": 0.42857142857142855,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7155506487682609
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 428.23540000244975
+    },
+    {
+      "id": "q021-fact-checking-versus-qa",
+      "paper_ids": [
+        "2408.08535v1",
+        "2402.07630v3",
+        "2508.19855v3",
+        "2408.04187v2",
+        "2504.02112v2",
+        "2506.05690v3",
+        "2507.03226v3",
+        "2502.14902v2",
+        "2406.14550v2",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2408-08535v1",
+        "paper-2402-07630v3",
+        "paper-2508-19855v3",
+        "claims-2408-04187v2",
+        "paper-2504-02112v2",
+        "paper-2506-05690v3",
+        "paper-2507-03226v3",
+        "paper-2502-14902v2",
+        "paper-2406-14550v2",
+        "paper-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.14285714285714285,
+        "recall_at_3": 0.2857142857142857,
+        "recall_at_5": 0.5714285714285714,
+        "recall_at_10": 0.7142857142857143,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7709363892380909
+      },
+      "source_metrics": {
+        "recall_at_1": 0.07142857142857142,
+        "recall_at_3": 0.14285714285714285,
+        "recall_at_5": 0.2857142857142857,
+        "recall_at_10": 0.35714285714285715,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6172839611614818
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 371.7032000422478
+    },
+    {
+      "id": "q022-long-context-sensemaking",
+      "paper_ids": [
+        "2404.16130v2",
+        "2406.14550v2",
+        "2405.14831v3",
+        "2410.05779v3",
+        "2503.06474v2",
+        "2508.19855v3",
+        "2506.05690v3",
+        "2507.03226v3",
+        "2408.04187v2",
+        "2502.14902v2"
+      ],
+      "source_ids": [
+        "paper-2404-16130v2",
+        "paper-2406-14550v2",
+        "paper-2405-14831v3",
+        "claims-2410-05779v3",
+        "paper-2503-06474v2",
+        "paper-2508-19855v3",
+        "paper-2506-05690v3",
+        "paper-2507-03226v3",
+        "paper-2408-04187v2",
+        "paper-2502-14902v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9838048780283076
+      },
+      "source_metrics": {
+        "recall_at_1": 0.08333333333333333,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7155506487682609
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 468.3188999770209
+    },
+    {
+      "id": "q023-method-task-matrix",
+      "paper_ids": [
+        "2408.08535v1",
+        "2406.14550v2",
+        "2506.05690v3",
+        "2405.14831v3",
+        "2508.19855v3",
+        "2402.07630v3",
+        "2404.16130v2",
+        "2408.04187v2",
+        "2409.13731v3",
+        "2502.14902v2"
+      ],
+      "source_ids": [
+        "paper-2408-08535v1",
+        "paper-2406-14550v2",
+        "paper-2506-05690v3",
+        "claims-2405-14831v3",
+        "paper-2508-19855v3",
+        "paper-2402-07630v3",
+        "paper-2404-16130v2",
+        "claims-2408-04187v2",
+        "paper-2409-13731v3",
+        "paper-2502-14902v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.06666666666666667,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "source_metrics": {
+        "recall_at_1": 0.03333333333333333,
+        "recall_at_3": 0.1,
+        "recall_at_5": 0.16666666666666666,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 379.73909999709576
+    },
+    {
+      "id": "q024-evaluation-practices",
+      "paper_ids": [
+        "2506.05690v3",
+        "2410.05779v3",
+        "2508.19855v3",
+        "2503.06474v2",
+        "2507.03226v3",
+        "2409.13731v3",
+        "2408.04187v2",
+        "2406.14550v2",
+        "2404.16130v2",
+        "2504.02112v2"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2410-05779v3",
+        "paper-2508-19855v3",
+        "paper-2503-06474v2",
+        "paper-2507-03226v3",
+        "paper-2409-13731v3",
+        "claims-2408-04187v2",
+        "paper-2406-14550v2",
+        "paper-2404-16130v2",
+        "paper-2504-02112v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.07142857142857142,
+        "recall_at_3": 0.21428571428571427,
+        "recall_at_5": 0.35714285714285715,
+        "recall_at_10": 0.6428571428571429,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9305687780632227
+      },
+      "source_metrics": {
+        "recall_at_1": 0.03571428571428571,
+        "recall_at_3": 0.10714285714285714,
+        "recall_at_5": 0.17857142857142858,
+        "recall_at_10": 0.32142857142857145,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9305687780632227
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 409.00810004677624
+    },
+    {
+      "id": "q025-benchmark-bias",
+      "paper_ids": [
+        "2506.05690v3",
+        "2402.07630v3",
+        "2404.16130v2",
+        "2405.14831v3",
+        "2507.03226v3",
+        "2504.02112v2",
+        "2508.19855v3",
+        "2503.06474v2",
+        "2409.13731v3",
+        "2410.05779v3"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2402-07630v3",
+        "paper-2404-16130v2",
+        "paper-2405-14831v3",
+        "paper-2507-03226v3",
+        "paper-2504-02112v2",
+        "claims-2508-19855v3",
+        "claims-2503-06474v2",
+        "paper-2409-13731v3",
+        "claims-2410-05779v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.2,
+        "recall_at_3": 0.4,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.8,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7275908964412754
+      },
+      "source_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.2,
+        "recall_at_10": 0.4,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.4721567066247473
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 362.47529997490346
+    },
+    {
+      "id": "q026-explainability-evidence",
+      "paper_ids": [
+        "2508.19855v3",
+        "2402.07630v3",
+        "2504.02112v2",
+        "2404.16130v2",
+        "2503.13804v1",
+        "2406.14550v2",
+        "2409.13731v3",
+        "2410.05779v3",
+        "2405.14831v3",
+        "2408.08535v1"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "claims-2402-07630v3",
+        "paper-2504-02112v2",
+        "paper-2404-16130v2",
+        "paper-2503-13804v1",
+        "claims-2406-14550v2",
+        "paper-2409-13731v3",
+        "paper-2410-05779v3",
+        "paper-2405-14831v3",
+        "claims-2408-08535v1"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1111111111111111,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7179132328027437
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05555555555555555,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.16666666666666666,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6722390270733756
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 391.9127999106422
+    },
+    {
+      "id": "q027-community-construction",
+      "paper_ids": [
+        "2508.19855v3",
+        "2404.16130v2",
+        "2408.08535v1",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2408.04187v2",
+        "2502.14902v2",
+        "2410.05779v3",
+        "2507.03226v3",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2404-16130v2",
+        "paper-2408-08535v1",
+        "paper-2506-05690v3",
+        "paper-2409-13731v3",
+        "paper-2408-04187v2",
+        "paper-2502-14902v2",
+        "claims-2410-05779v3",
+        "claims-2507-03226v3",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.2,
+        "recall_at_3": 0.6,
+        "recall_at_5": 0.8,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.975788054854922
+      },
+      "source_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.3,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6332196796270029
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 405.34269995987415
+    },
+    {
+      "id": "q028-optimization-operators",
+      "paper_ids": [
+        "2502.14902v2",
+        "2503.13804v1",
+        "2507.03226v3",
+        "2406.14550v2",
+        "2402.07630v3",
+        "2409.13731v3",
+        "2504.02112v2",
+        "2506.05690v3",
+        "2508.19855v3",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2502-14902v2",
+        "paper-2503-13804v1",
+        "claims-2507-03226v3",
+        "paper-2406-14550v2",
+        "claims-2402-07630v3",
+        "paper-2409-13731v3",
+        "paper-2504-02112v2",
+        "paper-2506-05690v3",
+        "paper-2508-19855v3",
+        "paper-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.375,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.875,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8874123095371794
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0625,
+        "recall_at_3": 0.1875,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.4375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7721596254947202
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 407.79680002015084
+    },
+    {
+      "id": "q029-static-agentic-retrieval",
+      "paper_ids": [
+        "2508.19855v3",
+        "2405.14831v3",
+        "2406.14550v2",
+        "2504.02112v2",
+        "2402.07630v3",
+        "2503.06474v2",
+        "2409.13731v3",
+        "2408.04187v2",
+        "2507.03226v3",
+        "2410.05779v3"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2405-14831v3",
+        "paper-2406-14550v2",
+        "paper-2504-02112v2",
+        "paper-2402-07630v3",
+        "claims-2503-06474v2",
+        "claims-2409-13731v3",
+        "paper-2408-04187v2",
+        "paper-2507-03226v3",
+        "paper-2410-05779v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.1111111111111111,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.5555555555555556,
+        "recall_at_10": 0.7777777777777778,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8446905084406405
+      },
+      "source_metrics": {
+        "recall_at_1": 0.05555555555555555,
+        "recall_at_3": 0.16666666666666666,
+        "recall_at_5": 0.2777777777777778,
+        "recall_at_10": 0.3888888888888889,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7909506325094736
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 353.6658000666648
+    },
+    {
+      "id": "q030-design-decision-framework",
+      "paper_ids": [
+        "2408.04187v2",
+        "2502.14902v2",
+        "2406.14550v2",
+        "2503.06474v2",
+        "2506.05690v3",
+        "2410.05779v3",
+        "2507.03226v3",
+        "2409.13731v3",
+        "2504.02112v2",
+        "2404.16130v2"
+      ],
+      "source_ids": [
+        "paper-2408-04187v2",
+        "paper-2502-14902v2",
+        "paper-2406-14550v2",
+        "claims-2503-06474v2",
+        "paper-2506-05690v3",
+        "claims-2410-05779v3",
+        "paper-2507-03226v3",
+        "paper-2409-13731v3",
+        "claims-2504-02112v2",
+        "paper-2404-16130v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.06666666666666667,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.6666666666666666,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "source_metrics": {
+        "recall_at_1": 0.03333333333333333,
+        "recall_at_3": 0.1,
+        "recall_at_5": 0.16666666666666666,
+        "recall_at_10": 0.3333333333333333,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 456.1276000458747
+    },
+    {
+      "id": "q031-graph-routing-boundary",
+      "paper_ids": [
+        "2506.05690v3",
+        "2408.04187v2",
+        "2402.07630v3",
+        "2406.14550v2",
+        "2410.05779v3",
+        "2503.13804v1",
+        "2404.16130v2",
+        "2504.02112v2",
+        "2502.14902v2",
+        "2507.03226v3"
+      ],
+      "source_ids": [
+        "paper-2506-05690v3",
+        "paper-2408-04187v2",
+        "paper-2402-07630v3",
+        "paper-2406-14550v2",
+        "paper-2410-05779v3",
+        "paper-2503-13804v1",
+        "paper-2404-16130v2",
+        "paper-2504-02112v2",
+        "claims-2502-14902v2",
+        "paper-2507-03226v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.3333333333333333,
+        "recall_at_3": 0.6666666666666666,
+        "recall_at_5": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8710785440003369
+      },
+      "source_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5616927747727312
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 432.96480004210025
+    },
+    {
+      "id": "q032-incremental-update-maturity",
+      "paper_ids": [
+        "2408.08535v1",
+        "2507.03226v3",
+        "2409.13731v3",
+        "2404.16130v2",
+        "2508.19855v3",
+        "2405.14831v3",
+        "2506.05690v3",
+        "2503.06474v2",
+        "2402.07630v3",
+        "2410.05779v3"
+      ],
+      "source_ids": [
+        "paper-2408-08535v1",
+        "claims-2507-03226v3",
+        "paper-2409-13731v3",
+        "paper-2404-16130v2",
+        "claims-2508-19855v3",
+        "claims-2405-14831v3",
+        "paper-2506-05690v3",
+        "paper-2503-06474v2",
+        "claims-2402-07630v3",
+        "paper-2410-05779v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.2,
+        "recall_at_3": 0.4,
+        "recall_at_5": 0.4,
+        "recall_at_10": 0.8,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.771997058538995
+      },
+      "source_metrics": {
+        "recall_at_1": 0.1,
+        "recall_at_3": 0.2,
+        "recall_at_5": 0.2,
+        "recall_at_10": 0.4,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5009732673492617
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 437.78429995290935
+    },
+    {
+      "id": "q033-corruption-specific-defenses",
+      "paper_ids": [
+        "2503.13804v1",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2404.16130v2",
+        "2504.02112v2",
+        "2408.08535v1",
+        "2508.19855v3",
+        "2502.14902v2",
+        "2503.06474v2",
+        "2507.03226v3"
+      ],
+      "source_ids": [
+        "claims-2503-13804v1",
+        "paper-2506-05690v3",
+        "claims-2409-13731v3",
+        "paper-2404-16130v2",
+        "paper-2504-02112v2",
+        "paper-2408-08535v1",
+        "paper-2508-19855v3",
+        "paper-2502-14902v2",
+        "paper-2503-06474v2",
+        "claims-2507-03226v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.3333333333333333,
+        "recall_at_3": 0.6666666666666666,
+        "recall_at_5": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8519590445170673
+      },
+      "source_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.3333333333333333,
+        "recall_at_5": 0.3333333333333333,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5493640533376876
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 430.3977999370545
+    },
+    {
+      "id": "q034-nonmonotonic-context-budget",
+      "paper_ids": [
+        "2404.16130v2",
+        "2406.14550v2",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2503.06474v2",
+        "2410.05779v3",
+        "2402.07630v3",
+        "2405.14831v3",
+        "2507.03226v3",
+        "2408.08535v1"
+      ],
+      "source_ids": [
+        "paper-2404-16130v2",
+        "paper-2406-14550v2",
+        "paper-2506-05690v3",
+        "paper-2409-13731v3",
+        "paper-2503-06474v2",
+        "paper-2410-05779v3",
+        "paper-2402-07630v3",
+        "paper-2405-14831v3",
+        "claims-2507-03226v3",
+        "paper-2408-08535v1"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.0,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.5,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 0.5,
+        "ndcg_at_10": 0.640293831648171
+      },
+      "source_metrics": {
+        "recall_at_1": 0.0,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 0.5,
+        "ndcg_at_10": 0.4148717444598524
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 383.40980000793934
+    },
+    {
+      "id": "q035-lossless-enough-evidence-organization",
+      "paper_ids": [
+        "2502.14902v2",
+        "2404.16130v2",
+        "2410.05779v3",
+        "2508.19855v3",
+        "2506.05690v3",
+        "2408.08535v1",
+        "2409.13731v3",
+        "2408.04187v2",
+        "2406.14550v2",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2502-14902v2",
+        "paper-2404-16130v2",
+        "claims-2410-05779v3",
+        "paper-2508-19855v3",
+        "claims-2506-05690v3",
+        "paper-2408-08535v1",
+        "paper-2409-13731v3",
+        "claims-2408-04187v2",
+        "paper-2406-14550v2",
+        "claims-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.25,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.5,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.8796542634124676
+      },
+      "source_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5699628525923492
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 469.6718000341207
+    },
+    {
+      "id": "q036-evaluation-leakage-and-stage-separation",
+      "paper_ids": [
+        "2508.19855v3",
+        "2507.03226v3",
+        "2504.02112v2",
+        "2506.05690v3",
+        "2404.16130v2",
+        "2410.05779v3",
+        "2409.13731v3",
+        "2503.13804v1",
+        "2503.06474v2",
+        "2402.07630v3"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2507-03226v3",
+        "paper-2504-02112v2",
+        "paper-2506-05690v3",
+        "paper-2404-16130v2",
+        "claims-2410-05779v3",
+        "paper-2409-13731v3",
+        "paper-2503-13804v1",
+        "claims-2503-06474v2",
+        "paper-2402-07630v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.25,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.5,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.815079870530422
+      },
+      "source_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.5281225447551643
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 527.7760000899434
+    },
+    {
+      "id": "q037-domain-construction-under-constraints",
+      "paper_ids": [
+        "2508.19855v3",
+        "2507.03226v3",
+        "2409.13731v3",
+        "2506.05690v3",
+        "2404.16130v2",
+        "2410.05779v3",
+        "2408.08535v1",
+        "2405.14831v3",
+        "2408.04187v2",
+        "2502.14902v2"
+      ],
+      "source_ids": [
+        "claims-2508-19855v3",
+        "paper-2507-03226v3",
+        "claims-2409-13731v3",
+        "paper-2506-05690v3",
+        "claims-2404-16130v2",
+        "claims-2410-05779v3",
+        "paper-2408-08535v1",
+        "paper-2405-14831v3",
+        "paper-2408-04187v2",
+        "claims-2502-14902v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.3333333333333333,
+        "recall_at_3": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "source_metrics": {
+        "recall_at_1": 0.16666666666666666,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.644824486427155
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 558.4864999400452
+    },
+    {
+      "id": "q038-failure-aware-query-router",
+      "paper_ids": [
+        "2508.19855v3",
+        "2503.06474v2",
+        "2504.02112v2",
+        "2410.05779v3",
+        "2408.08535v1",
+        "2404.16130v2",
+        "2409.13731v3",
+        "2506.05690v3",
+        "2507.03226v3",
+        "2408.04187v2"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "claims-2503-06474v2",
+        "paper-2504-02112v2",
+        "claims-2410-05779v3",
+        "paper-2408-08535v1",
+        "paper-2404-16130v2",
+        "paper-2409-13731v3",
+        "paper-2506-05690v3",
+        "paper-2507-03226v3",
+        "claims-2408-04187v2"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.25,
+        "recall_at_3": 0.75,
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0
+      },
+      "source_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.375,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.647939623894138
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 444.462199928239
+    },
+    {
+      "id": "q039-baseline-bound-efficiency-claims",
+      "paper_ids": [
+        "2405.14831v3",
+        "2406.14550v2",
+        "2410.05779v3",
+        "2506.05690v3",
+        "2404.16130v2",
+        "2508.19855v3",
+        "2504.02112v2",
+        "2502.14902v2",
+        "2409.13731v3",
+        "2507.03226v3"
+      ],
+      "source_ids": [
+        "paper-2405-14831v3",
+        "paper-2406-14550v2",
+        "paper-2410-05779v3",
+        "paper-2506-05690v3",
+        "paper-2404-16130v2",
+        "claims-2508-19855v3",
+        "claims-2504-02112v2",
+        "paper-2502-14902v2",
+        "paper-2409-13731v3",
+        "claims-2507-03226v3"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.25,
+        "recall_at_3": 0.75,
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9828920819566879
+      },
+      "source_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.375,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.5,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.6368547259115426
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 518.113199970685
+    },
+    {
+      "id": "q040-answer-source-control",
+      "paper_ids": [
+        "2508.19855v3",
+        "2408.08535v1",
+        "2506.05690v3",
+        "2409.13731v3",
+        "2402.07630v3",
+        "2507.03226v3",
+        "2406.14550v2",
+        "2404.16130v2",
+        "2405.14831v3",
+        "2503.13804v1"
+      ],
+      "source_ids": [
+        "paper-2508-19855v3",
+        "paper-2408-08535v1",
+        "paper-2506-05690v3",
+        "paper-2409-13731v3",
+        "paper-2402-07630v3",
+        "paper-2507-03226v3",
+        "paper-2406-14550v2",
+        "paper-2404-16130v2",
+        "claims-2405-14831v3",
+        "paper-2503-13804v1"
+      ],
+      "paper_metrics": {
+        "recall_at_1": 0.25,
+        "recall_at_3": 0.5,
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.75,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7495275800817669
+      },
+      "source_metrics": {
+        "recall_at_1": 0.125,
+        "recall_at_3": 0.25,
+        "recall_at_5": 0.25,
+        "recall_at_10": 0.375,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.48564861833646344
+      },
+      "returned": 10,
+      "valid_evidence": 10,
+      "elapsed_ms": 521.4463999727741
+    }
+  ]
+}

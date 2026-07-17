@@ -1,0 +1,47 @@
+{
+  "schema_version": "semantic-okf-ensemble-ranking-determinism/1.0",
+  "status": "pass",
+  "benchmark": {
+    "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+    "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+    "question_count": 40,
+    "top_k": 10
+  },
+  "bundle": {
+    "ensemble_index_sha256": "9ce8bac88df8621fd870d718d1166e706516f4c4d56497eecc080d454453e939",
+    "ensemble_plan_sha256": "cbbc28d140667670621260513d08998a740227f2bdf93f4dce754f4c996dd8eb",
+    "core_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+  },
+  "runtime": {
+    "ensemble_runtime_sha256": "4d122213b2d8e55200fe2d4081354971965484761f7dc635cfc045a4b8fe0998",
+    "evidence_evaluator_sha256": "013fcde325f50557c0ad143cabf1e7b93525d30d091722d8134d91bec632b824"
+  },
+  "policies": {
+    "fast": {
+      "scope": "three repetitions in one fresh process",
+      "report_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/retrieval/fast-three-repetitions.json",
+      "report_sha256": "10e489fafe3a01250552812ec90ba7416053a905da32afc911424ef42c3b5001",
+      "repetitions": 3,
+      "all_rankings_equal": true,
+      "rankings_sha256": "58ffec9f7ec18413e3cd397f874be81014976b850f8f9b168637d038b8e3d835"
+    },
+    "robust": {
+      "scope": "three repetitions in one fresh process",
+      "report_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/retrieval/robust-three-repetitions.json",
+      "report_sha256": "0e3097e870fd7cbcae464a560f3e3fccd4273f7818869a7636da2594cfd0f3ec",
+      "repetitions": 3,
+      "all_rankings_equal": true,
+      "rankings_sha256": "1cd400efd0d3b936cacb7a8bbc98b7d3053265256c0b58b4ce7c8ee2e8a3c90c"
+    },
+    "quality": {
+      "scope": "three repetitions in one fresh process plus one repetition in a second fresh process",
+      "primary_report_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/retrieval/quality-three-repetitions.json",
+      "primary_report_sha256": "6ee9b8a2d2c9f8c4a0588a05bdc064052363c2e14241671789e24621dc65afeb",
+      "second_process_report_path": "evaluations/semantic-okf-ensemble/results/runs/20260715-ensemble-final-03/retrieval/quality-fresh-process.json",
+      "second_process_report_sha256": "a16b4723126baa53175cb7958b83d0a6bc21ad9ee44eac046fc67b17b7c7d7c8",
+      "repetitions": 4,
+      "all_rankings_equal": true,
+      "rankings_sha256": "a8c94ecbe6967993a7920edd06e62c4cbefad27513b9445740294684329c3346"
+    }
+  }
+}

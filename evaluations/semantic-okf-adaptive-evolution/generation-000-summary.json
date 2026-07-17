@@ -1,0 +1,143 @@
+{
+  "schema_version": "semantic-okf-adaptive-population-summary/1.0",
+  "generation": 0,
+  "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+  "frozen_manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+  "evaluation_policy": {
+    "fitness_contract": "evaluations/semantic-okf-adaptive-evolution/FITNESS.md",
+    "hard_question_count": 10,
+    "top_k": 30,
+    "repetitions_per_question": 3,
+    "candidate_execution": "sequential",
+    "standard_retrieval_policy": "All answer-ranking variants retain byte-identical ordinary search code. Candidate 07 received the complete frozen 13-route replay; its shared all-40 no-regression result applies to candidates 01 through 09, whose isolated diffs are limited to answer-ranking constants and bound algorithm identity.",
+    "all_40_adaptive_recall_at_10": 0.8381619769119769,
+    "all_40_adaptive_ndcg_at_10": 0.8342720299627899,
+    "retrieval_evidence_validity": 1.0
+  },
+  "candidates": [
+    {
+      "id": "candidate-00",
+      "policy": "untouched schema-1.1 incumbent",
+      "gate_status": "fail",
+      "fitness": 0.0,
+      "decision": "discard",
+      "reason": "The frozen control has no verified answer-binding artifact or evidence-pack capability, so it cannot pass the answer-evidence-validity gate. Its ordinary retrieval remains the bound incumbent."
+    },
+    {
+      "id": "candidate-01",
+      "policy": "full record only; unbounded paper contribution",
+      "gate_status": "pass",
+      "fitness": 79.47457282367583,
+      "answer_claim_recall_at_30": 0.5349999999999999,
+      "important_negative_recall_at_30": 0.6666666666666667,
+      "required_paper_recall_at_30": 0.905,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 305.64764000785846,
+      "decision": "discard"
+    },
+    {
+      "id": "candidate-02",
+      "policy": "full record only; initial cap of three claims per paper",
+      "gate_status": "pass",
+      "fitness": 81.56219396926355,
+      "answer_claim_recall_at_30": 0.5599999999999999,
+      "important_negative_recall_at_30": 0.675,
+      "required_paper_recall_at_30": 1.0,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 319.6459966750505,
+      "decision": "keep",
+      "reason": "Highest scalar fitness and complete required-paper recall at approximately single-view latency."
+    },
+    {
+      "id": "candidate-03",
+      "policy": "reviewed interpretation only; unbounded paper contribution",
+      "gate_status": "pass",
+      "fitness": 81.21255469095881,
+      "answer_claim_recall_at_30": 0.5549999999999999,
+      "important_negative_recall_at_30": 0.7166666666666667,
+      "required_paper_recall_at_30": 0.93,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 304.83163333653164,
+      "decision": "discard"
+    },
+    {
+      "id": "candidate-04",
+      "policy": "reviewed interpretation only; initial cap of three claims per paper",
+      "gate_status": "pass",
+      "fitness": 81.08897949226241,
+      "answer_claim_recall_at_30": 0.515,
+      "important_negative_recall_at_30": 0.7166666666666667,
+      "required_paper_recall_at_30": 1.0,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 303.18402665434405,
+      "decision": "discard"
+    },
+    {
+      "id": "candidate-05",
+      "policy": "equal dual view; unbounded paper contribution",
+      "gate_status": "pass",
+      "fitness": 79.39906441238689,
+      "answer_claim_recall_at_30": 0.5549999999999999,
+      "important_negative_recall_at_30": 0.725,
+      "required_paper_recall_at_30": 0.9550000000000001,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 581.4919666658776,
+      "decision": "discard"
+    },
+    {
+      "id": "candidate-06",
+      "policy": "equal dual view; initial cap of three claims per paper",
+      "gate_status": "pass",
+      "fitness": 79.29793203308324,
+      "answer_claim_recall_at_30": 0.54,
+      "important_negative_recall_at_30": 0.7166666666666667,
+      "required_paper_recall_at_30": 0.9800000000000001,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 559.7804099981053,
+      "decision": "discard"
+    },
+    {
+      "id": "candidate-07",
+      "policy": "full record 2:1 reviewed interpretation; initial cap of three claims per paper",
+      "gate_status": "pass",
+      "fitness": 81.46056870898688,
+      "answer_claim_recall_at_30": 0.6,
+      "important_negative_recall_at_30": 0.75,
+      "required_paper_recall_at_30": 0.9800000000000001,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 590.4082500026561,
+      "decision": "keep",
+      "reason": "Best answer-claim and important-negative recall; retained as the complementary quality survivor despite higher latency."
+    },
+    {
+      "id": "candidate-08",
+      "policy": "full record 3:1 reviewed interpretation; initial cap of three claims per paper",
+      "gate_status": "pass",
+      "fitness": 81.43921638745947,
+      "answer_claim_recall_at_30": 0.6,
+      "important_negative_recall_at_30": 0.75,
+      "required_paper_recall_at_30": 0.9800000000000001,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 595.4727299977094,
+      "decision": "discard",
+      "reason": "Same quality as candidate 07 with slightly greater measured latency."
+    },
+    {
+      "id": "candidate-09",
+      "policy": "full record 2:1 reviewed interpretation; initial cap of four claims per paper",
+      "gate_status": "pass",
+      "fitness": 80.27534444920198,
+      "answer_claim_recall_at_30": 0.575,
+      "important_negative_recall_at_30": 0.75,
+      "required_paper_recall_at_30": 0.9550000000000001,
+      "evidence_contract_validity": 1.0,
+      "latency_mean_ms": 604.9192299988741,
+      "decision": "discard"
+    }
+  ],
+  "survivors": [
+    "candidate-02",
+    "candidate-07"
+  ],
+  "conclusion": "Paper-aware diversification is the consistent gain. Candidate 02 is the efficiency survivor; candidate 07 is the evidence-coverage survivor. The untouched control is preserved but cannot satisfy the new verified answer-evidence contract."
+}

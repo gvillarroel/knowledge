@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.1",
+  "selection": {
+    "source_ids": [
+      "claims-2402-07630v3",
+      "claims-2404-16130v2",
+      "claims-2405-14831v3",
+      "claims-2406-14550v2",
+      "claims-2408-04187v2",
+      "claims-2408-08535v1",
+      "claims-2409-13731v3",
+      "claims-2410-05779v3",
+      "claims-2502-14902v2",
+      "claims-2503-06474v2",
+      "claims-2503-13804v1",
+      "claims-2504-02112v2",
+      "claims-2506-05690v3",
+      "claims-2507-03226v3",
+      "claims-2508-19855v3",
+      "paper-2402-07630v3",
+      "paper-2404-16130v2",
+      "paper-2405-14831v3",
+      "paper-2406-14550v2",
+      "paper-2408-04187v2",
+      "paper-2408-08535v1",
+      "paper-2409-13731v3",
+      "paper-2410-05779v3",
+      "paper-2502-14902v2",
+      "paper-2503-06474v2",
+      "paper-2503-13804v1",
+      "paper-2504-02112v2",
+      "paper-2506-05690v3",
+      "paper-2507-03226v3",
+      "paper-2508-19855v3"
+    ]
+  },
+  "passages": {
+    "default_mode": "full-record",
+    "markdown_pdf_page_source_ids": [
+      "paper-2402-07630v3",
+      "paper-2404-16130v2",
+      "paper-2405-14831v3",
+      "paper-2406-14550v2",
+      "paper-2408-04187v2",
+      "paper-2408-08535v1",
+      "paper-2409-13731v3",
+      "paper-2410-05779v3",
+      "paper-2502-14902v2",
+      "paper-2503-06474v2",
+      "paper-2503-13804v1",
+      "paper-2504-02112v2",
+      "paper-2506-05690v3",
+      "paper-2507-03226v3",
+      "paper-2508-19855v3"
+    ]
+  },
+  "evidence_identity": {
+    "default_mode": "source-record",
+    "paper_ids_by_source": {
+      "claims-2402-07630v3": "2402.07630v3",
+      "claims-2404-16130v2": "2404.16130v2",
+      "claims-2405-14831v3": "2405.14831v3",
+      "claims-2406-14550v2": "2406.14550v2",
+      "claims-2408-04187v2": "2408.04187v2",
+      "claims-2408-08535v1": "2408.08535v1",
+      "claims-2409-13731v3": "2409.13731v3",
+      "claims-2410-05779v3": "2410.05779v3",
+      "claims-2502-14902v2": "2502.14902v2",
+      "claims-2503-06474v2": "2503.06474v2",
+      "claims-2503-13804v1": "2503.13804v1",
+      "claims-2504-02112v2": "2504.02112v2",
+      "claims-2506-05690v3": "2506.05690v3",
+      "claims-2507-03226v3": "2507.03226v3",
+      "claims-2508-19855v3": "2508.19855v3",
+      "paper-2402-07630v3": "2402.07630v3",
+      "paper-2404-16130v2": "2404.16130v2",
+      "paper-2405-14831v3": "2405.14831v3",
+      "paper-2406-14550v2": "2406.14550v2",
+      "paper-2408-04187v2": "2408.04187v2",
+      "paper-2408-08535v1": "2408.08535v1",
+      "paper-2409-13731v3": "2409.13731v3",
+      "paper-2410-05779v3": "2410.05779v3",
+      "paper-2502-14902v2": "2502.14902v2",
+      "paper-2503-06474v2": "2503.06474v2",
+      "paper-2503-13804v1": "2503.13804v1",
+      "paper-2504-02112v2": "2504.02112v2",
+      "paper-2506-05690v3": "2506.05690v3",
+      "paper-2507-03226v3": "2507.03226v3",
+      "paper-2508-19855v3": "2508.19855v3"
+    }
+  },
+  "tokenization": {
+    "tokenizer": "ascii-alphanumeric-v1",
+    "stopwords": "english-v1",
+    "min_token_length": 2,
+    "ngram_range": [1, 2]
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "title_weight": 2.0,
+    "body_weight": 1.0
+  },
+  "associations": {
+    "window_size": 8,
+    "min_document_frequency": 2,
+    "min_cooccurrence": 2,
+    "max_vocabulary": 3000,
+    "max_neighbors": 8,
+    "minimum_ppmi": 0.0
+  },
+  "topics": {
+    "topic_count": 16,
+    "max_iterations": 20,
+    "top_terms": 20
+  },
+  "expansion": {
+    "association_terms": 6,
+    "topic_terms": 6,
+    "association_weight": 0.35,
+    "topic_weight": 0.2
+  },
+  "reranking": {
+    "candidate_pool": 100,
+    "relevance_weight": 0.7,
+    "topic_novelty_weight": 0.15,
+    "source_novelty_weight": 0.15,
+    "max_per_evidence_identity": 1,
+    "rrf_k": 60
+  },
+  "adaptive": {
+    "maximum_aspects": 8,
+    "minimum_aspect_tokens": 4,
+    "full_query_weight": 2.0,
+    "aspect_weight": 0.25,
+    "best_aspect_weight": 0.0,
+    "rrf_k": 0,
+    "protected_full_results": 9,
+    "maximum_novel_aspect_rank": 1
+  }
+}

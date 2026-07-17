@@ -1,0 +1,71 @@
+{
+  "schema_version": "semantic-okf-adaptive-evolution-generation/1.0",
+  "generation": 1,
+  "candidate": "candidate-10-facet-coverage-finalizer",
+  "benchmark_id": "semantic-okf-adaptive-frozen-40-plus-hard10-v1",
+  "frozen_manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+  "offline": {
+    "fitness": 81.622213,
+    "all_40_recall_at_10": 0.8381619769119769,
+    "all_40_ndcg_at_10": 0.8342720299627899,
+    "primary_answer_claim_recall_at_30": 0.6,
+    "important_negative_recall_at_30": 0.75,
+    "required_paper_recall_at_30": 0.98,
+    "evidence_contract_validity": 1.0
+  },
+  "skill_arena": {
+    "config": "evaluations/semantic-okf-adaptive-evolution/skill-arena/g001-candidate10-hard10.yaml",
+    "config_sha256": "aa7523c8ef6b64a786fb897b0979a246b7c912635d291d31a1025545f203cb2f",
+    "task_canonical_sha256": "da2fffaf3ea60976802ed6782633e9b2f079a6ddf65510d98a8c426c854d4a4b",
+    "run": "results/semantic-okf-adaptive-evolution-g001-candidate10-hard10-paired/2026-07-14T23-35-44-569Z-compare",
+    "eval_id": "eval-5yR-2026-07-14T23:35:49",
+    "promptfoo_results_sha256": "758f0cbe16a42ebf5373bc665a426c926224f740e4592b3d7d45e386ac6847d8",
+    "requested_cells": 20,
+    "completed_cells": 20,
+    "execution_errors": 0,
+    "strict_passes": 0,
+    "treatment_assertion_rates": {
+      "response_format": 1.0,
+      "response_contract": 1.0,
+      "evidence_validity_exact_expected_set": 0.0,
+      "atomic_answer_completeness_exact_ids": 0.0,
+      "important_negative_coverage": 0.8
+    }
+  },
+  "blinded_grounded_answers": {
+    "reviews_sha256": "a0f4ab515482b03d83d700e489c94c680585257b5f42490f46c32332cc5f3242",
+    "summary_sha256": "4c7021e26ae4d3af7f4cadc4dd4e8b918d2f857a5c05ebd533d501db7163bbfb",
+    "control": {
+      "response_contract": 0.3,
+      "evidence_validity": 0.91891775,
+      "grounding": 0.92556818,
+      "claim_correctness": 0.97083333,
+      "semantic_completeness": 0.835,
+      "exact_atomic_evidence_coverage": 0.625,
+      "required_paper_coverage": 0.83166667,
+      "important_negative_coverage": 1.0
+    },
+    "treatment": {
+      "response_contract": 0.9,
+      "evidence_validity": 0.85757576,
+      "grounding": 0.86730769,
+      "claim_correctness": 0.87083333,
+      "semantic_completeness": 0.8075,
+      "exact_atomic_evidence_coverage": 0.495,
+      "required_paper_coverage": 0.875,
+      "important_negative_coverage": 0.9
+    },
+    "treatment_minus_control": {
+      "response_contract": 0.6,
+      "evidence_validity": -0.06134199,
+      "grounding": -0.05826049,
+      "claim_correctness": -0.1,
+      "semantic_completeness": -0.0275,
+      "exact_atomic_evidence_coverage": -0.13,
+      "required_paper_coverage": 0.04333333,
+      "important_negative_coverage": -0.1
+    }
+  },
+  "decision": "discard-policy-retain-mechanisms",
+  "decision_reason": "Facet expansion and response finalization fixed the formal contract but unrestricted candidate retention reduced correctness, completeness, validity, grounding, and negative coverage. The deterministic finalizer and facet candidate generator remain useful components; facet expansion is not sufficient evidence selection."
+}

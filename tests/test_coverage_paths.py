@@ -1468,7 +1468,7 @@ def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: 
             Path(args[-1]).mkdir(parents=True, exist_ok=True)
             return SimpleNamespace(stdout="")
         if args[:4] == ["git", "ls-tree", "-r", "--name-only"]:
-            return SimpleNamespace(stdout="README.md\nimage.png\nsrc/app.py\n")
+            return SimpleNamespace(stdout="README.md\ndocs/guide.mdx\nimage.png\nsrc/app.py\n")
         if args[:2] == ["git", "show"]:
             return SimpleNamespace(stdout="content\n")
         if args[:3] == ["git", "fetch", "--all"]:
@@ -1478,9 +1478,10 @@ def test_github_sync_clones_and_exports_text_files(tmp_path: Path, monkeypatch: 
     monkeypatch.setattr(subprocess, "run", fake_run)
     payload = GitHubRepoSource(source, store).sync()
 
-    assert payload["files"] == 2
+    assert payload["files"] == 3
     assert any(args[:3] == ["git", "clone", "--mirror"] for args in calls)
     assert (store.source_raw_dir(source) / "main" / "README.md").exists()
+    assert (store.source_raw_dir(source) / "main" / "docs" / "guide.mdx").exists()
     assert not (store.source_raw_dir(source) / "main" / "image.png").exists()
 
 
@@ -1723,6 +1724,43 @@ def test_site_sync_fetches_single_page_without_crawl4ai(tmp_path: Path, monkeypa
     assert "content_scope: primary" in page_md
     assert "fetched_via: http_bfs" in page_md
     assert "pages: 1" in source_metadata
+
+
+def test_site_sync_writes_lossless_json_body(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    store = make_store(tmp_path)
+    store.create_collection_key("sites")
+    url = "https://example.com/bioc.json"
+    source = store.add_collection_source(
+        "sites",
+        "site",
+        title=url,
+        config={"url": url, "max_depth": 0, "max_pages": 1},
+        update_command="sync",
+        delete_command="del",
+    )
+    body = json.dumps(
+        [{"documents": [{"passages": [{"offset": 0, "text": "First"}, {"offset": 5, "text": "Table <x>"}]}]}],
+        ensure_ascii=False,
+    )
+
+    class Response:
+        text = body
+        content = body.encode("utf-8")
+        status_code = 200
+        headers = {"Content-Type": "application/json"}
+
+        def raise_for_status(self) -> None:
+            return None
+
+    monkeypatch.setattr("knowledge.sources.crawl4ai_site.requests.get", lambda *_args, **_kwargs: Response())
+    payload = SiteSource(source, store).sync()
+
+    assert payload["pages"] == 1
+    page = next((store.source_raw_dir(source) / "pages").glob("*.md")).read_text(encoding="utf-8")
+    saved_body = page.split("\n---\n", 1)[1].removeprefix("\n").rstrip("\n")
+    assert saved_body == body
+    assert json.loads(saved_body) == json.loads(body)
+    assert "content_format: json" in page
 
 
 def test_site_sync_falls_back_to_readable_proxy_after_403(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

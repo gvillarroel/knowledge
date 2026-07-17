@@ -1,0 +1,42 @@
+{
+  "schema_version": "semantic-okf-ensemble-skill-bootstrap-isolation-diagnostic/1.0",
+  "status": "rejected-diagnostic",
+  "date": "2026-07-15",
+  "scope": {
+    "compare_run": "2026-07-15T14-29-07-959Z-compare",
+    "evaluation_id": "eval-T27-2026-07-15T14:29:15",
+    "planned_answers": 90,
+    "persisted_rows_at_stop": 17,
+    "accepted_benchmark_rows": 0,
+    "quality_metrics_published": false
+  },
+  "persisted_rows": {
+    "knowledge-only-control": 6,
+    "adaptive-consult-control": 6,
+    "ensemble-consult-treatment": 5,
+    "provider_response_errors": 0
+  },
+  "trigger": {
+    "row_id": "ed9ff150-11ec-4ce3-870b-6f7c95cf2523",
+    "profile_id": "ensemble-consult-treatment",
+    "question_id": "q032-incremental-update-maturity",
+    "test_index": 4,
+    "classification": "uncontracted-skill-bootstrap-shell-read",
+    "command_shape": "Get-Content -LiteralPath '<isolated CODEX_HOME>/skills/consult-semantic-okf-ensemble/SKILL.md' -Raw",
+    "command_exit_code": 0,
+    "command_status": "completed",
+    "command_output_binding": "frozen SKILL.md UTF-8 bytes followed by one PowerShell CRLF",
+    "later_semantic_protocol_completed": true,
+    "host_publication_completed": true,
+    "response_contract_score": 1,
+    "evidence_validity_score": 1,
+    "atomic_answer_completeness_score": 0,
+    "important_negative_coverage_score": 1
+  },
+  "decision": {
+    "reason": "The frozen v1.4.0 attestor required zero treatment command-execution events. Skill Arena supplied the skill identity and path but not the full SKILL.md body, so the faithful bootstrap read violated that predeclared gate even though it was read-only and the later publication transaction succeeded.",
+    "remediation": "Replace shell bootstrap with the no-argument, digest-bound, one-shot semantic_okf_bootstrap_skill tool; disable the general shell tool for the exact treatment; require bootstrap before every consultation call; and rerun all 90 answers under MCP v1.5.0.",
+    "causal_use": "None. The partial run is retained only as design evidence and must not be merged with the replacement run."
+  },
+  "raw_retention": "The append-only raw compare directory and Promptfoo database rows remain ignored. This compact report contains no answer text, temporary absolute path, or accepted quality aggregate."
+}

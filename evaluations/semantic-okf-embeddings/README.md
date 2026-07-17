@@ -33,10 +33,13 @@ authoritative ledger body and locator, verify both lengths, and recompute the re
 avoids repeating complete paper bodies for legacy record-level hits while preserving the evidence
 audit.
 
-The checked-in comparison reports were recomputed with this stronger contract on July 13, 2026.
-Every retained hit in both the top-10 and top-100 reports passed the ledger, identity, text-hash,
-concept-path, and exact-locator checks. The append-only local run manifest for that recomputation
-is `results/runs/20260713-compact-final/run-manifest.json`.
+The checked-in Markdown comparisons and `comparison-summary.json` were recomputed with this
+stronger contract on July 13, 2026. The compact JSON retains aggregate and per-question metrics,
+ranked paper/source identities, full provenance, and source-report hashes, but deliberately omits
+the repeated per-hit payloads. Every retained hit in both the local top-10 and top-100 source
+reports passed the ledger, identity, text-hash, concept-path, and exact-locator checks. The
+append-only local run manifest for that recomputation is
+`results/runs/20260713-compact-final/run-manifest.json`.
 
 ## Append-only orchestration
 
@@ -75,3 +78,17 @@ starting a build.
 
 Fresh comparator reports use schema version 1.2. Input fingerprints contain portable POSIX paths,
 byte counts, and SHA-256 values, including a fingerprint of the comparator itself.
+
+After a complete run, derive the checked-in compact result without copying the full hit arrays
+into Git:
+
+```powershell
+python evaluations/semantic-okf-embeddings/scripts/summarize_comparison_reports.py `
+  --primary evaluations/semantic-okf-embeddings/comparison-report-pool100.json `
+  --diagnostic evaluations/semantic-okf-embeddings/comparison-report.json `
+  --output evaluations/semantic-okf-embeddings/comparison-summary.json
+```
+
+The two full-detail JSON reports are ignored local artifacts. The summarizer refuses to overwrite
+an existing compact summary, binds both source files by byte hash, requires the same 30 questions
+and four routes, and fails unless query-error, evidence-validity, and authoritative-core gates pass.

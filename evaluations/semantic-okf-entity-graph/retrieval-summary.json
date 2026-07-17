@@ -1,0 +1,3654 @@
+{
+  "schema_version": "semantic-okf-entity-graph-retrieval-summary/1.0",
+  "comparison": "semantic-okf-legacy-embedding-classical-entity-graph-retrieval",
+  "question_count": 40,
+  "cohorts": {
+    "original_30": 30,
+    "hard_10": 10
+  },
+  "route_order": [
+    "legacy_lexical",
+    "new_lexical",
+    "vector",
+    "hybrid",
+    "entity_graph_lexical",
+    "entity_graph_entity",
+    "entity_graph_traversal",
+    "entity_graph_fusion",
+    "classical_bm25",
+    "classical_topic",
+    "classical_association",
+    "classical_fusion"
+  ],
+  "runs": {
+    "top10": {
+      "path": "tmp/entity-graph-comparison-top10-v2.json",
+      "sha256": "f1be9f51e0839a4a9d5ed5fb44f1575af7f2194ef1af0b023e6b81a43eadf7ca",
+      "top_k": 10,
+      "query_count": 40,
+      "core_semantic_parity": {
+        "pairs": {
+          "classical_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "embedding_vs_classical": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "embedding_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_classical": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_embedding": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          }
+        },
+        "status": "pass"
+      },
+      "raw_input_verification": null,
+      "route_contracts": {
+        "classical": {
+          "routes": [
+            "classical_bm25",
+            "classical_topic",
+            "classical_association",
+            "classical_fusion"
+          ],
+          "validation": "one independent full rederivation before any timed search"
+        },
+        "embedding": {
+          "command": "PYTHON SCRIPT BUNDLE search --query QUERY --mode MODE --top-k K",
+          "routes": [
+            "new_lexical",
+            "vector",
+            "hybrid"
+          ]
+        },
+        "entity_graph": {
+          "authority": "reviewed claim edges mirror authoritative facts; mentions, candidates, co-mentions, and scores are discovery-only",
+          "routes": [
+            "entity_graph_lexical",
+            "entity_graph_entity",
+            "entity_graph_traversal",
+            "entity_graph_fusion"
+          ],
+          "validation": "one independent full entity, mention, relation, and section rederivation before any timed search"
+        },
+        "legacy_lexical": "The evaluator's in-process deterministic TF-IDF-like token-overlap index; this is not rg or grep."
+      },
+      "timing_warning": "Latency scopes differ by route family and are operational diagnostics, not a causal algorithm-speed ranking.",
+      "routes": {
+        "legacy_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.09621032,
+              "recall_at_3": 0.28468434,
+              "recall_at_5": 0.45604527,
+              "recall_at_10": 0.79311328,
+              "mrr_at_10": 0.78958333,
+              "ndcg_at_10": 0.7421923
+            },
+            "source": {
+              "recall_at_1": 0.04810516,
+              "recall_at_3": 0.14234217,
+              "recall_at_5": 0.22802264,
+              "recall_at_10": 0.39655664,
+              "mrr_at_10": 0.78958333,
+              "ndcg_at_10": 0.60141554
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.09772487,
+              "recall_at_3": 0.29791246,
+              "recall_at_5": 0.47361592,
+              "recall_at_10": 0.78859548,
+              "mrr_at_10": 0.86111111,
+              "ndcg_at_10": 0.80022861
+            },
+            "source": {
+              "recall_at_1": 0.04886243,
+              "recall_at_3": 0.14895623,
+              "recall_at_5": 0.23680796,
+              "recall_at_10": 0.39429774,
+              "mrr_at_10": 0.86111111,
+              "ndcg_at_10": 0.67939873
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.09166667,
+              "recall_at_3": 0.245,
+              "recall_at_5": 0.40333333,
+              "recall_at_10": 0.80666667,
+              "mrr_at_10": 0.575,
+              "ndcg_at_10": 0.56808337
+            },
+            "source": {
+              "recall_at_1": 0.04583333,
+              "recall_at_3": 0.1225,
+              "recall_at_5": 0.20166667,
+              "recall_at_10": 0.40333333,
+              "mrr_at_10": 0.575,
+              "ndcg_at_10": 0.36746597
+            }
+          }
+        },
+        "new_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.12766865,
+              "recall_at_3": 0.33992244,
+              "recall_at_5": 0.48948683,
+              "recall_at_10": 0.54747294,
+              "mrr_at_10": 0.88833333,
+              "ndcg_at_10": 0.60924437
+            },
+            "source": {
+              "recall_at_1": 0.06383433,
+              "recall_at_3": 0.16996122,
+              "recall_at_5": 0.2411765,
+              "recall_at_10": 0.28019481,
+              "mrr_at_10": 0.8875,
+              "ndcg_at_10": 0.48527975
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11078042,
+              "recall_at_3": 0.30489658,
+              "recall_at_5": 0.43098244,
+              "recall_at_10": 0.48496392,
+              "mrr_at_10": 0.91666667,
+              "ndcg_at_10": 0.59307441
+            },
+            "source": {
+              "recall_at_1": 0.05539021,
+              "recall_at_3": 0.15244829,
+              "recall_at_5": 0.214902,
+              "recall_at_10": 0.24692641,
+              "mrr_at_10": 0.91666667,
+              "ndcg_at_10": 0.5028016
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.17833333,
+              "recall_at_3": 0.445,
+              "recall_at_5": 0.665,
+              "recall_at_10": 0.735,
+              "mrr_at_10": 0.80333333,
+              "ndcg_at_10": 0.65775426
+            },
+            "source": {
+              "recall_at_1": 0.08916667,
+              "recall_at_3": 0.2225,
+              "recall_at_5": 0.32,
+              "recall_at_10": 0.38,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.43271421
+            }
+          }
+        },
+        "vector": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.10373106,
+              "recall_at_3": 0.26271014,
+              "recall_at_5": 0.4279789,
+              "recall_at_10": 0.5039908,
+              "mrr_at_10": 0.7875,
+              "ndcg_at_10": 0.54765904
+            },
+            "source": {
+              "recall_at_1": 0.05186553,
+              "recall_at_3": 0.14480745,
+              "recall_at_5": 0.22595824,
+              "recall_at_10": 0.29591901,
+              "mrr_at_10": 0.78333333,
+              "ndcg_at_10": 0.48197814
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.09386364,
+              "recall_at_3": 0.25472463,
+              "recall_at_5": 0.40341631,
+              "recall_at_10": 0.4686544,
+              "mrr_at_10": 0.82777778,
+              "ndcg_at_10": 0.55337372
+            },
+            "source": {
+              "recall_at_1": 0.04693182,
+              "recall_at_3": 0.13140993,
+              "recall_at_5": 0.21127766,
+              "recall_at_10": 0.27900313,
+              "mrr_at_10": 0.82222222,
+              "ndcg_at_10": 0.51447383
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.13333333,
+              "recall_at_3": 0.28666667,
+              "recall_at_5": 0.50166667,
+              "recall_at_10": 0.61,
+              "mrr_at_10": 0.66666667,
+              "ndcg_at_10": 0.53051499
+            },
+            "source": {
+              "recall_at_1": 0.06666667,
+              "recall_at_3": 0.185,
+              "recall_at_5": 0.27,
+              "recall_at_10": 0.34666667,
+              "mrr_at_10": 0.66666667,
+              "ndcg_at_10": 0.38449107
+            }
+          }
+        },
+        "hybrid": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.13357143,
+              "recall_at_3": 0.31575487,
+              "recall_at_5": 0.42988366,
+              "recall_at_10": 0.48335588,
+              "mrr_at_10": 0.88541667,
+              "ndcg_at_10": 0.56508222
+            },
+            "source": {
+              "recall_at_1": 0.06678571,
+              "recall_at_3": 0.15674107,
+              "recall_at_5": 0.2321388,
+              "recall_at_10": 0.27244183,
+              "mrr_at_10": 0.88333333,
+              "ndcg_at_10": 0.47555572
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.1047619,
+              "recall_at_3": 0.27989538,
+              "recall_at_5": 0.37928932,
+              "recall_at_10": 0.42725228,
+              "mrr_at_10": 0.88888889,
+              "ndcg_at_10": 0.53812611
+            },
+            "source": {
+              "recall_at_1": 0.05238095,
+              "recall_at_3": 0.13843254,
+              "recall_at_5": 0.2070184,
+              "recall_at_10": 0.23936688,
+              "mrr_at_10": 0.88611111,
+              "ndcg_at_10": 0.48394716
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.22,
+              "recall_at_3": 0.42333333,
+              "recall_at_5": 0.58166667,
+              "recall_at_10": 0.65166667,
+              "mrr_at_10": 0.875,
+              "ndcg_at_10": 0.64595057
+            },
+            "source": {
+              "recall_at_1": 0.11,
+              "recall_at_3": 0.21166667,
+              "recall_at_5": 0.3075,
+              "recall_at_10": 0.37166667,
+              "mrr_at_10": 0.875,
+              "ndcg_at_10": 0.4503814
+            }
+          }
+        },
+        "entity_graph_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.1534136,
+              "recall_at_3": 0.35457522,
+              "recall_at_5": 0.53221591,
+              "recall_at_10": 0.79756764,
+              "mrr_at_10": 0.96666667,
+              "ndcg_at_10": 0.81142655
+            },
+            "source": {
+              "recall_at_1": 0.0767068,
+              "recall_at_3": 0.17728761,
+              "recall_at_5": 0.26610795,
+              "recall_at_10": 0.39878382,
+              "mrr_at_10": 0.96666667,
+              "ndcg_at_10": 0.6524629
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.13121813,
+              "recall_at_3": 0.31610029,
+              "recall_at_5": 0.4935101,
+              "recall_at_10": 0.7812013,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.83366697
+            },
+            "source": {
+              "recall_at_1": 0.06560907,
+              "recall_at_3": 0.15805014,
+              "recall_at_5": 0.24675505,
+              "recall_at_10": 0.39060065,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.70934721
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.22,
+              "recall_at_3": 0.47,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.84666667,
+              "mrr_at_10": 0.86666667,
+              "ndcg_at_10": 0.74470526
+            },
+            "source": {
+              "recall_at_1": 0.11,
+              "recall_at_3": 0.235,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.42333333,
+              "mrr_at_10": 0.86666667,
+              "ndcg_at_10": 0.48180996
+            }
+          }
+        },
+        "entity_graph_entity": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.11230249,
+              "recall_at_3": 0.32645022,
+              "recall_at_5": 0.48881313,
+              "recall_at_10": 0.79581079,
+              "mrr_at_10": 0.86041667,
+              "ndcg_at_10": 0.76722666
+            },
+            "source": {
+              "recall_at_1": 0.05615124,
+              "recall_at_3": 0.16322511,
+              "recall_at_5": 0.24440657,
+              "recall_at_10": 0.39790539,
+              "mrr_at_10": 0.86041667,
+              "ndcg_at_10": 0.62043151
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.10695887,
+              "recall_at_3": 0.31748918,
+              "recall_at_5": 0.47175084,
+              "recall_at_10": 0.77774772,
+              "mrr_at_10": 0.90833333,
+              "ndcg_at_10": 0.80269732
+            },
+            "source": {
+              "recall_at_1": 0.05347944,
+              "recall_at_3": 0.15874459,
+              "recall_at_5": 0.23587542,
+              "recall_at_10": 0.38887386,
+              "mrr_at_10": 0.90833333,
+              "ndcg_at_10": 0.68470922
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.12833333,
+              "recall_at_3": 0.35333333,
+              "recall_at_5": 0.54,
+              "recall_at_10": 0.85,
+              "mrr_at_10": 0.71666667,
+              "ndcg_at_10": 0.66081469
+            },
+            "source": {
+              "recall_at_1": 0.06416667,
+              "recall_at_3": 0.17666667,
+              "recall_at_5": 0.27,
+              "recall_at_10": 0.425,
+              "mrr_at_10": 0.71666667,
+              "ndcg_at_10": 0.4275984
+            }
+          }
+        },
+        "entity_graph_traversal": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.10411797,
+              "recall_at_3": 0.30074585,
+              "recall_at_5": 0.47259289,
+              "recall_at_10": 0.78490711,
+              "mrr_at_10": 0.80208333,
+              "ndcg_at_10": 0.74025707
+            },
+            "source": {
+              "recall_at_1": 0.05205898,
+              "recall_at_3": 0.15037293,
+              "recall_at_5": 0.23629645,
+              "recall_at_10": 0.39245355,
+              "mrr_at_10": 0.80208333,
+              "ndcg_at_10": 0.59647285
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.08604618,
+              "recall_at_3": 0.26655002,
+              "recall_at_5": 0.43345719,
+              "recall_at_10": 0.75765392,
+              "mrr_at_10": 0.81944444,
+              "ndcg_at_10": 0.75484135
+            },
+            "source": {
+              "recall_at_1": 0.04302309,
+              "recall_at_3": 0.13327501,
+              "recall_at_5": 0.2167286,
+              "recall_at_10": 0.37882696,
+              "mrr_at_10": 0.81944444,
+              "ndcg_at_10": 0.64503946
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.15833333,
+              "recall_at_3": 0.40333333,
+              "recall_at_5": 0.59,
+              "recall_at_10": 0.86666667,
+              "mrr_at_10": 0.75,
+              "ndcg_at_10": 0.69650422
+            },
+            "source": {
+              "recall_at_1": 0.07916667,
+              "recall_at_3": 0.20166667,
+              "recall_at_5": 0.295,
+              "recall_at_10": 0.43333333,
+              "mrr_at_10": 0.75,
+              "ndcg_at_10": 0.45077301
+            }
+          }
+        },
+        "entity_graph_fusion": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.1390386,
+              "recall_at_3": 0.32433712,
+              "recall_at_5": 0.50811869,
+              "recall_at_10": 0.80841991,
+              "mrr_at_10": 0.93125,
+              "ndcg_at_10": 0.79862241
+            },
+            "source": {
+              "recall_at_1": 0.0695193,
+              "recall_at_3": 0.16216856,
+              "recall_at_5": 0.25405934,
+              "recall_at_10": 0.40420996,
+              "mrr_at_10": 0.93125,
+              "ndcg_at_10": 0.6424677
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11482924,
+              "recall_at_3": 0.30633838,
+              "recall_at_5": 0.48915825,
+              "recall_at_10": 0.77233766,
+              "mrr_at_10": 0.94166667,
+              "ndcg_at_10": 0.81043231
+            },
+            "source": {
+              "recall_at_1": 0.05741462,
+              "recall_at_3": 0.15316919,
+              "recall_at_5": 0.24457912,
+              "recall_at_10": 0.38616883,
+              "mrr_at_10": 0.94166667,
+              "ndcg_at_10": 0.69199134
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.21166667,
+              "recall_at_3": 0.37833333,
+              "recall_at_5": 0.565,
+              "recall_at_10": 0.91666667,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.76319272
+            },
+            "source": {
+              "recall_at_1": 0.10583333,
+              "recall_at_3": 0.18916667,
+              "recall_at_5": 0.2825,
+              "recall_at_10": 0.45833333,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.4938968
+            }
+          }
+        },
+        "classical_bm25": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15381944,
+              "recall_at_3": 0.36483315,
+              "recall_at_5": 0.45727453,
+              "recall_at_10": 0.49719877,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.60936988
+            },
+            "source": {
+              "recall_at_1": 0.07690972,
+              "recall_at_3": 0.18284271,
+              "recall_at_5": 0.2413456,
+              "recall_at_10": 0.27898133,
+              "mrr_at_10": 0.95416667,
+              "ndcg_at_10": 0.51150084
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.12342593,
+              "recall_at_3": 0.29533309,
+              "recall_at_5": 0.41025493,
+              "recall_at_10": 0.45237614,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.58144537
+            },
+            "source": {
+              "recall_at_1": 0.06171296,
+              "recall_at_3": 0.14823473,
+              "recall_at_5": 0.20957191,
+              "recall_at_10": 0.24197511,
+              "mrr_at_10": 0.95555556,
+              "ndcg_at_10": 0.51411486
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.57333333,
+              "recall_at_5": 0.59833333,
+              "recall_at_10": 0.63166667,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.69314339
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.28666667,
+              "recall_at_5": 0.33666667,
+              "recall_at_10": 0.39,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.50365877
+            }
+          }
+        },
+        "classical_topic": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.14756944,
+              "recall_at_3": 0.37986291,
+              "recall_at_5": 0.51895202,
+              "recall_at_10": 0.82417388,
+              "mrr_at_10": 0.93333333,
+              "ndcg_at_10": 0.82249675
+            },
+            "source": {
+              "recall_at_1": 0.07378472,
+              "recall_at_3": 0.18993146,
+              "recall_at_5": 0.25947601,
+              "recall_at_10": 0.41208694,
+              "mrr_at_10": 0.93333333,
+              "ndcg_at_10": 0.65752717
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11509259,
+              "recall_at_3": 0.31370611,
+              "recall_at_5": 0.47582492,
+              "recall_at_10": 0.78889851,
+              "mrr_at_10": 0.92777778,
+              "ndcg_at_10": 0.81750147
+            },
+            "source": {
+              "recall_at_1": 0.0575463,
+              "recall_at_3": 0.15685305,
+              "recall_at_5": 0.23791246,
+              "recall_at_10": 0.39444925,
+              "mrr_at_10": 0.92777778,
+              "ndcg_at_10": 0.69608323
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.57833333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.83748258
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.28916667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.465,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54185899
+            }
+          }
+        },
+        "classical_association": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15069444,
+              "recall_at_3": 0.38382125,
+              "recall_at_5": 0.51458694,
+              "recall_at_10": 0.82560245,
+              "mrr_at_10": 0.94583333,
+              "ndcg_at_10": 0.82582417
+            },
+            "source": {
+              "recall_at_1": 0.07534722,
+              "recall_at_3": 0.19191062,
+              "recall_at_5": 0.25729347,
+              "recall_at_10": 0.41280123,
+              "mrr_at_10": 0.94583333,
+              "ndcg_at_10": 0.6596464
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11925926,
+              "recall_at_3": 0.31231722,
+              "recall_at_5": 0.47000481,
+              "recall_at_10": 0.79080327,
+              "mrr_at_10": 0.94444444,
+              "ndcg_at_10": 0.81857406
+            },
+            "source": {
+              "recall_at_1": 0.05962963,
+              "recall_at_3": 0.15615861,
+              "recall_at_5": 0.23500241,
+              "recall_at_10": 0.39540164,
+              "mrr_at_10": 0.94444444,
+              "ndcg_at_10": 0.69673433
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.59833333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.8475745
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.29916667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.465,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54838261
+            }
+          }
+        },
+        "classical_fusion": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 400,
+            "valid": 400,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15381944,
+              "recall_at_3": 0.38451569,
+              "recall_at_5": 0.51642226,
+              "recall_at_10": 0.83459055,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.8322856
+            },
+            "source": {
+              "recall_at_1": 0.07690972,
+              "recall_at_3": 0.19225785,
+              "recall_at_5": 0.25821113,
+              "recall_at_10": 0.41729527,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.66522894
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.12342593,
+              "recall_at_3": 0.32157648,
+              "recall_at_5": 0.4724519,
+              "recall_at_10": 0.79445406,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.82643164
+            },
+            "source": {
+              "recall_at_1": 0.06171296,
+              "recall_at_3": 0.16078824,
+              "recall_at_5": 0.23622595,
+              "recall_at_10": 0.39722703,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.70367875
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.57333333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.955,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.8498475
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.28666667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.4775,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54987953
+            }
+          }
+        }
+      }
+    },
+    "pool100": {
+      "path": "tmp/entity-graph-comparison-pool100.json",
+      "sha256": "d6532164a6ca2185636b9af8fdebffbcb7e74095b67206ca4e2c4b0d11f05c5e",
+      "top_k": 100,
+      "query_count": 40,
+      "core_semantic_parity": {
+        "pairs": {
+          "classical_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "embedding_vs_classical": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "embedding_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_classical": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_embedding": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          },
+          "legacy_vs_entity_graph": {
+            "authoritative_file_set": {
+              "equal": true,
+              "legacy_count": 884,
+              "missing_from_new": [],
+              "new_count": 884,
+              "unexpected_in_new": []
+            },
+            "key_artifacts": {
+              "semantic/data.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "new": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                }
+              },
+              "semantic/ontology.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "new": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                }
+              },
+              "semantic/provenance.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "new": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                }
+              },
+              "semantic/records.jsonl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "new": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                }
+              },
+              "semantic/shapes.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "new": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                }
+              },
+              "semantic/source-manifest.json": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "new": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                }
+              },
+              "semantic/validation-report.ttl": {
+                "equal": true,
+                "legacy": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                },
+                "new": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              }
+            },
+            "key_artifacts_equal": true,
+            "legacy": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "logical_core_tree_equal": true,
+            "new": {
+              "file_count": 884,
+              "key_artifacts": {
+                "semantic/data.ttl": {
+                  "bytes": 3286367,
+                  "sha256": "87afa329979d5936ea8c32c54ff1d311f1189f5d112262cda896599de5575380"
+                },
+                "semantic/ontology.ttl": {
+                  "bytes": 18989,
+                  "sha256": "5f580f034208333e9236379efe13aff2b479a47c9db0a268f3b1238a90a25669"
+                },
+                "semantic/provenance.ttl": {
+                  "bytes": 980231,
+                  "sha256": "3cbb460c271a74c8bb2b727162e64e72d36f9e8943517de539d4535619e20fd3"
+                },
+                "semantic/records.jsonl": {
+                  "bytes": 3600057,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "semantic/shapes.ttl": {
+                  "bytes": 20523,
+                  "sha256": "cc0c8850d4ab649090bb68cb95083041c4179ff1eb8d8a9d757864f57e523c98"
+                },
+                "semantic/source-manifest.json": {
+                  "bytes": 12022,
+                  "sha256": "42753ac5051dd53ed936f3edf3d236936d41d27d010388fe9aa870a9526c5da8"
+                },
+                "semantic/validation-report.ttl": {
+                  "bytes": 201,
+                  "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+                }
+              },
+              "logical_tree_sha256": "331af2f1064463484f64dfaa58bc17d6c6b2f75ef3fca9d371473450deb84424"
+            },
+            "status": "pass"
+          }
+        },
+        "status": "pass"
+      },
+      "raw_input_verification": null,
+      "route_contracts": {
+        "classical": {
+          "routes": [
+            "classical_bm25",
+            "classical_topic",
+            "classical_association",
+            "classical_fusion"
+          ],
+          "validation": "one independent full rederivation before any timed search"
+        },
+        "embedding": {
+          "command": "PYTHON SCRIPT BUNDLE search --query QUERY --mode MODE --top-k K",
+          "routes": [
+            "new_lexical",
+            "vector",
+            "hybrid"
+          ]
+        },
+        "entity_graph": {
+          "authority": "reviewed claim edges mirror authoritative facts; mentions, candidates, co-mentions, and scores are discovery-only",
+          "routes": [
+            "entity_graph_lexical",
+            "entity_graph_entity",
+            "entity_graph_traversal",
+            "entity_graph_fusion"
+          ],
+          "validation": "one independent full entity, mention, relation, and section rederivation before any timed search"
+        },
+        "legacy_lexical": "The evaluator's in-process deterministic TF-IDF-like token-overlap index; this is not rg or grep."
+      },
+      "timing_warning": "Latency scopes differ by route family and are operational diagnostics, not a causal algorithm-speed ranking.",
+      "routes": {
+        "legacy_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 3980,
+            "valid": 3980,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.09621032,
+              "recall_at_3": 0.28468434,
+              "recall_at_5": 0.45604527,
+              "recall_at_10": 0.79311328,
+              "mrr_at_10": 0.78958333,
+              "ndcg_at_10": 0.7421923
+            },
+            "source": {
+              "recall_at_1": 0.04810516,
+              "recall_at_3": 0.14234217,
+              "recall_at_5": 0.22802264,
+              "recall_at_10": 0.39655664,
+              "mrr_at_10": 0.78958333,
+              "ndcg_at_10": 0.60141554
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.09772487,
+              "recall_at_3": 0.29791246,
+              "recall_at_5": 0.47361592,
+              "recall_at_10": 0.78859548,
+              "mrr_at_10": 0.86111111,
+              "ndcg_at_10": 0.80022861
+            },
+            "source": {
+              "recall_at_1": 0.04886243,
+              "recall_at_3": 0.14895623,
+              "recall_at_5": 0.23680796,
+              "recall_at_10": 0.39429774,
+              "mrr_at_10": 0.86111111,
+              "ndcg_at_10": 0.67939873
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.09166667,
+              "recall_at_3": 0.245,
+              "recall_at_5": 0.40333333,
+              "recall_at_10": 0.80666667,
+              "mrr_at_10": 0.575,
+              "ndcg_at_10": 0.56808337
+            },
+            "source": {
+              "recall_at_1": 0.04583333,
+              "recall_at_3": 0.1225,
+              "recall_at_5": 0.20166667,
+              "recall_at_10": 0.40333333,
+              "mrr_at_10": 0.575,
+              "ndcg_at_10": 0.36746597
+            }
+          }
+        },
+        "new_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 4000,
+            "valid": 4000,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.12766865,
+              "recall_at_3": 0.33992244,
+              "recall_at_5": 0.52564755,
+              "recall_at_10": 0.81849928,
+              "mrr_at_10": 0.88833333,
+              "ndcg_at_10": 0.79125743
+            },
+            "source": {
+              "recall_at_1": 0.06383433,
+              "recall_at_3": 0.16996122,
+              "recall_at_5": 0.26134019,
+              "recall_at_10": 0.43592578,
+              "mrr_at_10": 0.8875,
+              "ndcg_at_10": 0.64904229
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11078042,
+              "recall_at_3": 0.30489658,
+              "recall_at_5": 0.4708634,
+              "recall_at_10": 0.78133237,
+              "mrr_at_10": 0.91666667,
+              "ndcg_at_10": 0.8027886
+            },
+            "source": {
+              "recall_at_1": 0.05539021,
+              "recall_at_3": 0.15244829,
+              "recall_at_5": 0.23762025,
+              "recall_at_10": 0.40401215,
+              "mrr_at_10": 0.91666667,
+              "ndcg_at_10": 0.68870088
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.17833333,
+              "recall_at_3": 0.445,
+              "recall_at_5": 0.69,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.80333333,
+              "ndcg_at_10": 0.75666392
+            },
+            "source": {
+              "recall_at_1": 0.08916667,
+              "recall_at_3": 0.2225,
+              "recall_at_5": 0.3325,
+              "recall_at_10": 0.53166667,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.53006655
+            }
+          }
+        },
+        "vector": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 4000,
+            "valid": 4000,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.10373106,
+              "recall_at_3": 0.26271014,
+              "recall_at_5": 0.44193723,
+              "recall_at_10": 0.74941108,
+              "mrr_at_10": 0.7875,
+              "ndcg_at_10": 0.7114773
+            },
+            "source": {
+              "recall_at_1": 0.05186553,
+              "recall_at_3": 0.14480745,
+              "recall_at_5": 0.23043741,
+              "recall_at_10": 0.40311282,
+              "mrr_at_10": 0.78333333,
+              "ndcg_at_10": 0.59976594
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.09386364,
+              "recall_at_3": 0.25472463,
+              "recall_at_5": 0.42202742,
+              "recall_at_10": 0.73921477,
+              "mrr_at_10": 0.82777778,
+              "ndcg_at_10": 0.74363681
+            },
+            "source": {
+              "recall_at_1": 0.04693182,
+              "recall_at_3": 0.13140993,
+              "recall_at_5": 0.21724988,
+              "recall_at_10": 0.39220599,
+              "mrr_at_10": 0.82222222,
+              "ndcg_at_10": 0.65287763
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.13333333,
+              "recall_at_3": 0.28666667,
+              "recall_at_5": 0.50166667,
+              "recall_at_10": 0.78,
+              "mrr_at_10": 0.66666667,
+              "ndcg_at_10": 0.6149988
+            },
+            "source": {
+              "recall_at_1": 0.06666667,
+              "recall_at_3": 0.185,
+              "recall_at_5": 0.27,
+              "recall_at_10": 0.43583333,
+              "mrr_at_10": 0.66666667,
+              "ndcg_at_10": 0.44043086
+            }
+          }
+        },
+        "hybrid": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 4000,
+            "valid": 4000,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.13357143,
+              "recall_at_3": 0.31575487,
+              "recall_at_5": 0.45071699,
+              "recall_at_10": 0.80587031,
+              "mrr_at_10": 0.88541667,
+              "ndcg_at_10": 0.77360485
+            },
+            "source": {
+              "recall_at_1": 0.06678571,
+              "recall_at_3": 0.15674107,
+              "recall_at_5": 0.23297213,
+              "recall_at_10": 0.46858451,
+              "mrr_at_10": 0.88333333,
+              "ndcg_at_10": 0.66312091
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.1047619,
+              "recall_at_3": 0.27989538,
+              "recall_at_5": 0.39595599,
+              "recall_at_10": 0.77282708,
+              "mrr_at_10": 0.88888889,
+              "ndcg_at_10": 0.77356922
+            },
+            "source": {
+              "recall_at_1": 0.05238095,
+              "recall_at_3": 0.13843254,
+              "recall_at_5": 0.20812951,
+              "recall_at_10": 0.43089045,
+              "mrr_at_10": 0.88611111,
+              "ndcg_at_10": 0.69223637
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.22,
+              "recall_at_3": 0.42333333,
+              "recall_at_5": 0.615,
+              "recall_at_10": 0.905,
+              "mrr_at_10": 0.875,
+              "ndcg_at_10": 0.77371173
+            },
+            "source": {
+              "recall_at_1": 0.11,
+              "recall_at_3": 0.21166667,
+              "recall_at_5": 0.3075,
+              "recall_at_10": 0.58166667,
+              "mrr_at_10": 0.875,
+              "ndcg_at_10": 0.5757745
+            }
+          }
+        },
+        "entity_graph_lexical": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 599,
+            "valid": 599,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.1534136,
+              "recall_at_3": 0.35457522,
+              "recall_at_5": 0.53221591,
+              "recall_at_10": 0.79756764,
+              "mrr_at_10": 0.96666667,
+              "ndcg_at_10": 0.81142655
+            },
+            "source": {
+              "recall_at_1": 0.0767068,
+              "recall_at_3": 0.17728761,
+              "recall_at_5": 0.26610795,
+              "recall_at_10": 0.39878382,
+              "mrr_at_10": 0.96666667,
+              "ndcg_at_10": 0.6524629
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.13121813,
+              "recall_at_3": 0.31610029,
+              "recall_at_5": 0.4935101,
+              "recall_at_10": 0.7812013,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.83366697
+            },
+            "source": {
+              "recall_at_1": 0.06560907,
+              "recall_at_3": 0.15805014,
+              "recall_at_5": 0.24675505,
+              "recall_at_10": 0.39060065,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.70934721
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.22,
+              "recall_at_3": 0.47,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.84666667,
+              "mrr_at_10": 0.86666667,
+              "ndcg_at_10": 0.74470526
+            },
+            "source": {
+              "recall_at_1": 0.11,
+              "recall_at_3": 0.235,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.42333333,
+              "mrr_at_10": 0.86666667,
+              "ndcg_at_10": 0.48180996
+            }
+          }
+        },
+        "entity_graph_entity": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 599,
+            "valid": 599,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.11230249,
+              "recall_at_3": 0.32645022,
+              "recall_at_5": 0.48881313,
+              "recall_at_10": 0.79581079,
+              "mrr_at_10": 0.86041667,
+              "ndcg_at_10": 0.76722666
+            },
+            "source": {
+              "recall_at_1": 0.05615124,
+              "recall_at_3": 0.16322511,
+              "recall_at_5": 0.24440657,
+              "recall_at_10": 0.39790539,
+              "mrr_at_10": 0.86041667,
+              "ndcg_at_10": 0.62043151
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.10695887,
+              "recall_at_3": 0.31748918,
+              "recall_at_5": 0.47175084,
+              "recall_at_10": 0.77774772,
+              "mrr_at_10": 0.90833333,
+              "ndcg_at_10": 0.80269732
+            },
+            "source": {
+              "recall_at_1": 0.05347944,
+              "recall_at_3": 0.15874459,
+              "recall_at_5": 0.23587542,
+              "recall_at_10": 0.38887386,
+              "mrr_at_10": 0.90833333,
+              "ndcg_at_10": 0.68470922
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.12833333,
+              "recall_at_3": 0.35333333,
+              "recall_at_5": 0.54,
+              "recall_at_10": 0.85,
+              "mrr_at_10": 0.71666667,
+              "ndcg_at_10": 0.66081469
+            },
+            "source": {
+              "recall_at_1": 0.06416667,
+              "recall_at_3": 0.17666667,
+              "recall_at_5": 0.27,
+              "recall_at_10": 0.425,
+              "mrr_at_10": 0.71666667,
+              "ndcg_at_10": 0.4275984
+            }
+          }
+        },
+        "entity_graph_traversal": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 599,
+            "valid": 599,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.10411797,
+              "recall_at_3": 0.30074585,
+              "recall_at_5": 0.47259289,
+              "recall_at_10": 0.78490711,
+              "mrr_at_10": 0.80208333,
+              "ndcg_at_10": 0.74025707
+            },
+            "source": {
+              "recall_at_1": 0.05205898,
+              "recall_at_3": 0.15037293,
+              "recall_at_5": 0.23629645,
+              "recall_at_10": 0.39245355,
+              "mrr_at_10": 0.80208333,
+              "ndcg_at_10": 0.59647285
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.08604618,
+              "recall_at_3": 0.26655002,
+              "recall_at_5": 0.43345719,
+              "recall_at_10": 0.75765392,
+              "mrr_at_10": 0.81944444,
+              "ndcg_at_10": 0.75484135
+            },
+            "source": {
+              "recall_at_1": 0.04302309,
+              "recall_at_3": 0.13327501,
+              "recall_at_5": 0.2167286,
+              "recall_at_10": 0.37882696,
+              "mrr_at_10": 0.81944444,
+              "ndcg_at_10": 0.64503946
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.15833333,
+              "recall_at_3": 0.40333333,
+              "recall_at_5": 0.59,
+              "recall_at_10": 0.86666667,
+              "mrr_at_10": 0.75,
+              "ndcg_at_10": 0.69650422
+            },
+            "source": {
+              "recall_at_1": 0.07916667,
+              "recall_at_3": 0.20166667,
+              "recall_at_5": 0.295,
+              "recall_at_10": 0.43333333,
+              "mrr_at_10": 0.75,
+              "ndcg_at_10": 0.45077301
+            }
+          }
+        },
+        "entity_graph_fusion": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 600,
+            "valid": 600,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.1390386,
+              "recall_at_3": 0.32433712,
+              "recall_at_5": 0.50811869,
+              "recall_at_10": 0.80841991,
+              "mrr_at_10": 0.93125,
+              "ndcg_at_10": 0.79862241
+            },
+            "source": {
+              "recall_at_1": 0.0695193,
+              "recall_at_3": 0.16216856,
+              "recall_at_5": 0.25405934,
+              "recall_at_10": 0.40420996,
+              "mrr_at_10": 0.93125,
+              "ndcg_at_10": 0.6424677
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11482924,
+              "recall_at_3": 0.30633838,
+              "recall_at_5": 0.48915825,
+              "recall_at_10": 0.77233766,
+              "mrr_at_10": 0.94166667,
+              "ndcg_at_10": 0.81043231
+            },
+            "source": {
+              "recall_at_1": 0.05741462,
+              "recall_at_3": 0.15316919,
+              "recall_at_5": 0.24457912,
+              "recall_at_10": 0.38616883,
+              "mrr_at_10": 0.94166667,
+              "ndcg_at_10": 0.69199134
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.21166667,
+              "recall_at_3": 0.37833333,
+              "recall_at_5": 0.565,
+              "recall_at_10": 0.91666667,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.76319272
+            },
+            "source": {
+              "recall_at_1": 0.10583333,
+              "recall_at_3": 0.18916667,
+              "recall_at_5": 0.2825,
+              "recall_at_10": 0.45833333,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.4938968
+            }
+          }
+        },
+        "classical_bm25": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 4000,
+            "valid": 4000,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15381944,
+              "recall_at_3": 0.38798791,
+              "recall_at_5": 0.53046898,
+              "recall_at_10": 0.8263961,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.8330769
+            },
+            "source": {
+              "recall_at_1": 0.07690972,
+              "recall_at_3": 0.19442009,
+              "recall_at_5": 0.2920202,
+              "recall_at_10": 0.48372339,
+              "mrr_at_10": 0.95416667,
+              "ndcg_at_10": 0.71994844
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.12342593,
+              "recall_at_3": 0.31787278,
+              "recall_at_5": 0.49118086,
+              "recall_at_10": 0.79186147,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.82633781
+            },
+            "source": {
+              "recall_at_1": 0.06171296,
+              "recall_at_3": 0.15950457,
+              "recall_at_5": 0.25908249,
+              "recall_at_10": 0.42829786,
+              "mrr_at_10": 0.95555556,
+              "ndcg_at_10": 0.73437862
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.59833333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.85329418
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.29916667,
+              "recall_at_5": 0.39083333,
+              "recall_at_10": 0.65,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.67665789
+            }
+          }
+        },
+        "classical_topic": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 564,
+            "valid": 564,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.14756944,
+              "recall_at_3": 0.37986291,
+              "recall_at_5": 0.51895202,
+              "recall_at_10": 0.82417388,
+              "mrr_at_10": 0.93333333,
+              "ndcg_at_10": 0.82249675
+            },
+            "source": {
+              "recall_at_1": 0.07378472,
+              "recall_at_3": 0.18993146,
+              "recall_at_5": 0.25947601,
+              "recall_at_10": 0.41208694,
+              "mrr_at_10": 0.93333333,
+              "ndcg_at_10": 0.65752717
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11509259,
+              "recall_at_3": 0.31370611,
+              "recall_at_5": 0.47582492,
+              "recall_at_10": 0.78889851,
+              "mrr_at_10": 0.92777778,
+              "ndcg_at_10": 0.81750147
+            },
+            "source": {
+              "recall_at_1": 0.0575463,
+              "recall_at_3": 0.15685305,
+              "recall_at_5": 0.23791246,
+              "recall_at_10": 0.39444925,
+              "mrr_at_10": 0.92777778,
+              "ndcg_at_10": 0.69608323
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.57833333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.83748258
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.28916667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.465,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54185899
+            }
+          }
+        },
+        "classical_association": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 555,
+            "valid": 555,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15069444,
+              "recall_at_3": 0.38382125,
+              "recall_at_5": 0.51458694,
+              "recall_at_10": 0.82560245,
+              "mrr_at_10": 0.94583333,
+              "ndcg_at_10": 0.82582417
+            },
+            "source": {
+              "recall_at_1": 0.07534722,
+              "recall_at_3": 0.19191062,
+              "recall_at_5": 0.25729347,
+              "recall_at_10": 0.41280123,
+              "mrr_at_10": 0.94583333,
+              "ndcg_at_10": 0.6596464
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.11925926,
+              "recall_at_3": 0.31231722,
+              "recall_at_5": 0.47000481,
+              "recall_at_10": 0.79080327,
+              "mrr_at_10": 0.94444444,
+              "ndcg_at_10": 0.81857406
+            },
+            "source": {
+              "recall_at_1": 0.05962963,
+              "recall_at_3": 0.15615861,
+              "recall_at_5": 0.23500241,
+              "recall_at_10": 0.39540164,
+              "mrr_at_10": 0.94444444,
+              "ndcg_at_10": 0.69673433
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.59833333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.93,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.8475745
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.29916667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.465,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54838261
+            }
+          }
+        },
+        "classical_fusion": {
+          "query_count": 40,
+          "error_count": 0,
+          "evidence_validity": {
+            "returned": 557,
+            "valid": 557,
+            "invalid": 0,
+            "ratio": 1.0
+          },
+          "all_40": {
+            "paper": {
+              "recall_at_1": 0.15381944,
+              "recall_at_3": 0.38451569,
+              "recall_at_5": 0.51642226,
+              "recall_at_10": 0.83459055,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.8322856
+            },
+            "source": {
+              "recall_at_1": 0.07690972,
+              "recall_at_3": 0.19225785,
+              "recall_at_5": 0.25821113,
+              "recall_at_10": 0.41729527,
+              "mrr_at_10": 0.95833333,
+              "ndcg_at_10": 0.66522894
+            }
+          },
+          "original_30": {
+            "paper": {
+              "recall_at_1": 0.12342593,
+              "recall_at_3": 0.32157648,
+              "recall_at_5": 0.4724519,
+              "recall_at_10": 0.79445406,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.82643164
+            },
+            "source": {
+              "recall_at_1": 0.06171296,
+              "recall_at_3": 0.16078824,
+              "recall_at_5": 0.23622595,
+              "recall_at_10": 0.39722703,
+              "mrr_at_10": 0.96111111,
+              "ndcg_at_10": 0.70367875
+            }
+          },
+          "hard_10": {
+            "paper": {
+              "recall_at_1": 0.245,
+              "recall_at_3": 0.57333333,
+              "recall_at_5": 0.64833333,
+              "recall_at_10": 0.955,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.8498475
+            },
+            "source": {
+              "recall_at_1": 0.1225,
+              "recall_at_3": 0.28666667,
+              "recall_at_5": 0.32416667,
+              "recall_at_10": 0.4775,
+              "mrr_at_10": 0.95,
+              "ndcg_at_10": 0.54987953
+            }
+          }
+        }
+      }
+    }
+  },
+  "methodology": {
+    "primary_identity": "versioned arXiv paper id",
+    "authority": "retrieval artifacts are derived and scores are discovery-only",
+    "timing": "diagnostic only; setup and execution scopes differ by route"
+  },
+  "winners": {
+    "top10": {
+      "all_40": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.83459055
+        },
+        "mrr_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 0.96666667
+        },
+        "ndcg_at_10": {
+          "route": "classical_fusion",
+          "value": 0.8322856
+        }
+      },
+      "original_30": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.79445406
+        },
+        "mrr_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 1.0
+        },
+        "ndcg_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 0.83366697
+        }
+      },
+      "hard_10": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.955
+        },
+        "mrr_at_10": {
+          "route": "classical_bm25",
+          "value": 0.95
+        },
+        "ndcg_at_10": {
+          "route": "classical_fusion",
+          "value": 0.8498475
+        }
+      }
+    },
+    "pool100": {
+      "all_40": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.83459055
+        },
+        "mrr_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 0.96666667
+        },
+        "ndcg_at_10": {
+          "route": "classical_bm25",
+          "value": 0.8330769
+        }
+      },
+      "original_30": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.79445406
+        },
+        "mrr_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 1.0
+        },
+        "ndcg_at_10": {
+          "route": "entity_graph_lexical",
+          "value": 0.83366697
+        }
+      },
+      "hard_10": {
+        "recall_at_10": {
+          "route": "classical_fusion",
+          "value": 0.955
+        },
+        "mrr_at_10": {
+          "route": "classical_bm25",
+          "value": 0.95
+        },
+        "ndcg_at_10": {
+          "route": "classical_bm25",
+          "value": 0.85329418
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "contracts": {
+    "authority": "Normalized NCBI BioC passage text and reviewed claim records are authoritative; benchmark labels and retrieval indexes are derived.",
+    "evidence_locator": "Each hard-ground-truth citation uses a one-based BioC passage number, the deterministic Markdown path, and the SHA-256 of exact passage text.",
+    "qrels": "Paper IDs are canonical uppercase PMCIDs, while source IDs are the corresponding lowercase manifest IDs for both paper and claim sources.",
+    "question_prompt": "Only the question string is supplied to a consultation alternative; qrels, answer claims, derivations, negatives, and evidence hashes remain evaluator-only."
+  },
+  "counts": {
+    "cross_paper": 10,
+    "direct": 15,
+    "distinct_required_claims": 37,
+    "hard": 5,
+    "hard_answer_claims": 27,
+    "hard_claim_requirement_records": 5,
+    "hard_evidence_bindings": 60,
+    "hard_ground_truth": 5,
+    "hard_important_negatives": 15,
+    "hard_required_claim_bindings": 128,
+    "distinct_authoritative_passages": 34,
+    "questions": 30
+  },
+  "files": {
+    "hard-claim-requirements.json": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/hard-claim-requirements.json",
+      "row_count": 5,
+      "sha256": "72528dd260d5848d0fb1eac0e2c284190d3adff926a2d2876d64344f6b89cee6"
+    },
+    "hard-ground-truth.jsonl": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/hard-ground-truth.jsonl",
+      "row_count": 5,
+      "sha256": "a5fe0f6a80ff54f0793b2ebf8d6d10c6c378fc5542d45332bfe4f7949db8cf8c"
+    },
+    "hard-questions.jsonl": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/hard-questions.jsonl",
+      "row_count": 5,
+      "sha256": "81ccd6d783e1308d0f9ff50bf71f71b80a237aeb455202b1ff750790a4f8e36e"
+    },
+    "retrieval-questions.jsonl": {
+      "path": "evaluations/semantic-okf-endocrine-hygiene/benchmark/retrieval-questions.jsonl",
+      "row_count": 30,
+      "sha256": "14feb35ffb3560d0899f4bd057c40ad3103b3ec8a7023bbb8ffa33f2a4bdeb40"
+    }
+  },
+  "schema_version": "semantic-okf-endocrine-hygiene-benchmark-manifest/1.0"
+}
