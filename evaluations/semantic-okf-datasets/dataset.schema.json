@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-okf-evaluation-dataset/1.0",
+  "title": "Semantic OKF evaluation dataset descriptor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "title",
+    "question_format",
+    "source_manifest",
+    "questions",
+    "hard_ground_truth",
+    "cohorts",
+    "partition_cohorts",
+    "plans"
+  ],
+  "properties": {
+    "schema_version": {"const": "semantic-okf-evaluation-dataset/1.0"},
+    "dataset_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "question_format": {"enum": ["document-qrels", "paper-qrels"]},
+    "source_manifest": {"$ref": "#/$defs/pinnedFile"},
+    "questions": {
+      "allOf": [
+        {"$ref": "#/$defs/pinnedFile"},
+        {"type": "object", "required": ["count"]}
+      ]
+    },
+    "hard_ground_truth": {
+      "allOf": [
+        {"$ref": "#/$defs/pinnedFile"},
+        {
+          "type": "object",
+          "required": ["count", "format"],
+          "properties": {"format": {"enum": ["harbor", "paper"]}}
+        }
+      ]
+    },
+    "semantic_rubric": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "allOf": [
+            {"$ref": "#/$defs/pinnedFile"},
+            {"type": "object", "required": ["count", "format"]}
+          ]
+        }
+      ]
+    },
+    "source_combination": {
+      "oneOf": [{"type": "null"}, {"$ref": "#/$defs/pinnedFile"}]
+    },
+    "reference_bundle": {"type": ["string", "null"]},
+    "cohorts": {"$ref": "#/$defs/pinnedFile"},
+    "partition_cohorts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "plans": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [{"type": "null"}, {"$ref": "#/$defs/pinnedFile"}]
+      }
+    }
+  },
+  "$defs": {
+    "pinnedFile": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "count": {"type": "integer", "minimum": 0},
+        "format": {"type": "string"}
+      }
+    }
+  }
+}

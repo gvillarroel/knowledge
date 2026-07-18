@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semantic-okf.local/schemas/harbor-pinned-runtime-build-2.0.json",
+  "title": "Semantic OKF Harbor pinned runtime build receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "image_tag",
+    "image_id",
+    "repo_digests",
+    "base_image",
+    "input_files",
+    "python",
+    "node",
+    "pi_coding_agent",
+    "model_weights_in_image"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "semantic-okf-harbor-pinned-runtime-build/2.0"
+    },
+    "image_tag": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image_id": {
+      "$ref": "#/$defs/image_id"
+    },
+    "repo_digests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[^@]+@sha256:[0-9a-f]{64}$"
+      },
+      "uniqueItems": true
+    },
+    "base_image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference", "digest"],
+      "properties": {
+        "reference": {
+          "const": "python:3.12.13-slim-bookworm"
+        },
+        "digest": {
+          "$ref": "#/$defs/image_id"
+        }
+      }
+    },
+    "input_files": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dockerfile",
+        "requirements",
+        "package_json",
+        "package_lock",
+        "receipt_schema"
+      ],
+      "properties": {
+        "dockerfile": {
+          "$ref": "#/$defs/input_file"
+        },
+        "requirements": {
+          "$ref": "#/$defs/input_file"
+        },
+        "package_json": {
+          "$ref": "#/$defs/input_file"
+        },
+        "package_lock": {
+          "$ref": "#/$defs/input_file"
+        },
+        "receipt_schema": {
+          "$ref": "#/$defs/input_file"
+        }
+      }
+    },
+    "python": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "observed_version"],
+      "properties": {
+        "version": {
+          "const": "3.12.13"
+        },
+        "observed_version": {
+          "const": "3.12.13"
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "observed_version",
+        "archive_url",
+        "archive_sha256",
+        "npm_version",
+        "observed_npm_version"
+      ],
+      "properties": {
+        "version": {
+          "const": "22.23.1"
+        },
+        "observed_version": {
+          "const": "22.23.1"
+        },
+        "archive_url": {
+          "const": "https://nodejs.org/dist/v22.23.1/node-v22.23.1-linux-x64.tar.xz"
+        },
+        "archive_sha256": {
+          "const": "9749e988f437343b7fa832c69ded82a312e41a03116d766797ac14f6f9eee578"
+        },
+        "npm_version": {
+          "const": "10.9.8"
+        },
+        "observed_npm_version": {
+          "const": "10.9.8"
+        }
+      }
+    },
+    "pi_coding_agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "version",
+        "observed_version",
+        "integrity",
+        "locked_package_count"
+      ],
+      "properties": {
+        "package": {
+          "const": "@mariozechner/pi-coding-agent"
+        },
+        "version": {
+          "const": "0.73.1"
+        },
+        "observed_version": {
+          "const": "0.73.1"
+        },
+        "integrity": {
+          "const": "sha512-gXQh3SaZmWTfVMc4Ao5+LGbVeKvzyO7tolok0nLsZgq9nGjZx/EEU3NM8C+qUnB4Nvs2rswG5qOVgLzQkq0fHQ=="
+        },
+        "locked_package_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "model_weights_in_image": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "image_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "input_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "semantic-okf-evaluation-dataset/1.0",
+  "dataset_id": "astro-40",
+  "title": "Astro documentation 40-question benchmark",
+  "description": "Pinned official English Astro documentation with direct, cross-document, and hard questions.",
+  "question_format": "document-qrels",
+  "source_manifest": {
+    "path": "evaluations/semantic-okf-astro/corpus/manifest.json",
+    "sha256": "eddee30248eceb76fec85ea0ff9f9e0666dd8801d6a5fead2125fbdaaf1141bd",
+    "count": 416
+  },
+  "questions": {
+    "path": "evaluations/semantic-okf-astro/benchmark/retrieval-questions.jsonl",
+    "sha256": "c15cd2c2f920e9e85bf62c45953d7cc4bb8b04570007d5d6fd8890aa7537b601",
+    "count": 40
+  },
+  "hard_ground_truth": {
+    "path": "evaluations/semantic-okf-astro/benchmark/hard-ground-truth.jsonl",
+    "sha256": "c265b1f232a7a8b44ff652a45782a4998ad8fbe72ac9004a5283a06b1539557d",
+    "count": 10,
+    "format": "harbor"
+  },
+  "source_combination": {
+    "path": "evaluations/semantic-okf-astro/corpus/source-combination.json",
+    "sha256": "c09e952254e5f2a4673ec0864bb09be333d8e914a1d0c46284e33953296cb783"
+  },
+  "reference_bundle": null,
+  "cohorts": {
+    "path": "evaluations/semantic-okf-datasets/datasets/astro-40-cohorts.json",
+    "sha256": "fef7a3094d4a3ad624692ee1b9552dc778ef8ff72ec26dc29c6aff01518f0c5b"
+  },
+  "partition_cohorts": ["train", "dev", "holdout"],
+  "plans": {
+    "adaptive": {
+      "path": "evaluations/semantic-okf-astro/plans/adaptive-plan.json",
+      "sha256": "f6ea6e40f49284ed33d174af52699bc61aaddbcd50adfdf1f9200bb8da7056de"
+    },
+    "classical": {
+      "path": "evaluations/semantic-okf-astro/plans/classical-plan.json",
+      "sha256": "af433aff4ff94a6cc78e3e0965da6d5b8d02e6a08acc0e7863acaffe60d83da6"
+    },
+    "embeddings": {
+      "path": "evaluations/semantic-okf-astro/plans/embedding-plan.json",
+      "sha256": "cf007d43960cebba74a14b782e7f40facf7a33e2d495aa3940ece36faae3f6e0"
+    },
+    "ensemble": {
+      "path": "evaluations/semantic-okf-astro/plans/ensemble-plan.json",
+      "sha256": "1d91e95711d9bc01a2160c2afab523528e86359f683b326adb0553dee103178f"
+    },
+    "entity-graph": {
+      "path": "evaluations/semantic-okf-astro/plans/entity-graph-plan.json",
+      "sha256": "e2c2269b16e51967bbeb2edeb575cdb271c1f83d031efb9e41e5d08905d9f440"
+    },
+    "graphify": null,
+    "legacy": null,
+    "turso": null
+  }
+}
+

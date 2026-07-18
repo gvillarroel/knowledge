@@ -1,0 +1,96 @@
+{
+  "schema_version": "semantic-okf-consult-campaign-readiness/1.0",
+  "campaign_id": "20260723-papers-consult-gpt53-spark-04",
+  "current_status": "scheduled-awaiting-provider-reset",
+  "evaluation_started": false,
+  "evaluation_complete": false,
+  "ranking_eligible": false,
+  "dataset_id": "graphrag-papers-40",
+  "mode": "consult-only",
+  "schedule": {
+    "cell_count": 320,
+    "sha256": "f202c3c8744cc8259fddce586826768c90e896c8c180a0b2e96a0a88aaf70f7d"
+  },
+  "input_binding": {
+    "sha256": "d28382315291d0003687d04c7b0b4aa3bcb6738f8db10a9bcce34be6c5ad440a",
+    "windows_dry_run": "pass",
+    "wsl_dry_run": "pass"
+  },
+  "runtime": {
+    "image_id": "sha256:1315195dcef58980e6d2620eaa41062ea6edc15c3eb8ed47d42c143be57aded5",
+    "live_tag_binding_check": "pass"
+  },
+  "validation": {
+    "application_coverage_percent": 90.9,
+    "coverage_scope_tests_passed": 719,
+    "coverage_threshold_percent": 80.0,
+    "dataset_registry": "pass",
+    "diff_check": "pass",
+    "family_count": 8,
+    "focused_regression_tests_passed": 42,
+    "full_repository_tests_passed": 1841,
+    "full_repository_tests_skipped": 10,
+    "python_files_compiled": 14,
+    "tasks_per_family": 40,
+    "exact_bundle_tasks_passed": 320,
+    "exact_bundle_tasks_total": 320
+  },
+  "execution_artifacts": {
+    "runs": 0,
+    "terminal_outcomes": 0,
+    "checkpoints": 0,
+    "model_calls": 0
+  },
+  "deferred_execution": {
+    "task_name": "SemanticOKF-Campaign04",
+    "task_state": "Ready",
+    "task_enabled": true,
+    "task_last_result": "0x00041303-not-yet-run",
+    "scheduled_at": "2026-07-23T14:26:00+00:00",
+    "scheduled_local_at": "2026-07-23T10:26:00-04:00",
+    "seconds_after_provider_reset": 88,
+    "launcher_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260723-papers-consult-gpt53-spark-04/launch-after-reset.sh",
+    "launcher_sha256": "ef14cc83353a618e1e63c6a15a16e121d9c437c0041e4e867a939b43fcc3ad06",
+    "syntax_and_input_validation": "pass",
+    "early_start_guard": {
+      "status": "pass",
+      "exit_code": 75,
+      "runs_created": 0,
+      "outcomes_created": 0
+    },
+    "multiple_instances": "IgnoreNew",
+    "wsl_lock": "nonblocking-flock",
+    "start_when_available": true,
+    "wake_to_run": true,
+    "restart_count": 3,
+    "restart_interval": "PT15M",
+    "execution_time_limit": "PT72H",
+    "logon_type": "InteractiveToken",
+    "post_run_audit": {
+      "forensic_summary": "always",
+      "forensic_flags": [
+        "--allow-partial",
+        "--allow-invalid",
+        "--rescore"
+      ],
+      "strict_summary": "completed-checkpoint-only",
+      "strict_failure_is_nonzero": true,
+      "reports_exist_before_execution": false
+    }
+  },
+  "provider_reset": {
+    "at": "2026-07-23T14:24:32+00:00",
+    "local_at": "2026-07-23T10:24:32-04:00",
+    "local_timezone": "EDT"
+  },
+  "abandoned_preparation": {
+    "campaign_id": "20260723-papers-consult-gpt53-spark-03",
+    "input_binding_sha256": "20117467fdd966b0600067d88118f9eac73f93afaebcfb0f23ad733532de840b",
+    "reason": "WSL rejected the pre-canonical cross-platform tree digest before any model call",
+    "runs": 0,
+    "terminal_outcomes": 0,
+    "checkpoints": 0,
+    "append_only": true
+  },
+  "next_action": "The registered task runs one counted synchronous preflight after the provider reset and continues only if it succeeds"
+}

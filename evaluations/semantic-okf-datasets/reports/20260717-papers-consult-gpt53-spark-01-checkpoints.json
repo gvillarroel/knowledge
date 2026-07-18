@@ -1,0 +1,170 @@
+{
+  "schema_version": "semantic-okf-consult-campaign-checkpoints/1.0",
+  "campaign_id": "20260717-papers-consult-gpt53-spark-01",
+  "dataset_id": "graphrag-papers-40",
+  "mode": "consult-only",
+  "model": "openai-codex/gpt-5.3-codex-spark",
+  "pi_version": "0.73.1",
+  "thinking": "high",
+  "attempts": 1,
+  "expected_trials": 320,
+  "current_status": {
+    "checkpoint_id": "evaluator-audit-invalidated",
+    "structurally_complete": true,
+    "evaluation_complete": false,
+    "ranking_eligible": false,
+    "winner": null,
+    "reason": "Provider quota and execution failures left only 32 complete final responses."
+  },
+  "records_sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc",
+  "runtime": {
+    "image": "semantic-okf-harbor-runtime:1.0",
+    "image_id": "sha256:1315195dcef58980e6d2620eaa41062ea6edc15c3eb8ed47d42c143be57aded5",
+    "requirements_sha256": "2361f6b8e49cecea6ba1f5e676d54ed87c2b6279665a4a895a317de2896a57e8"
+  },
+  "validation": {
+    "bundle_validators_passed": 8,
+    "oracle_quality_gates_passed": 320,
+    "oracle_quality_gates_expected": 320,
+    "repository_tests_passed": 691,
+    "application_coverage_percent": 90.9,
+    "coverage_threshold_percent": 80.0
+  },
+  "checkpoints": [
+    {
+      "id": "holdout-complete",
+      "result_trials": 48,
+      "cohort": "holdout",
+      "expected_trials_per_family": 6,
+      "families": {
+        "adaptive": {"reward_mean": 0.09546348171284014, "quality_gate_rate": 0.16666666666666666, "response_contract_rate": 0.16666666666666666, "technical_failures": 3, "failure_types": {"AgentTimeoutError": 2, "VerifierError": 1}},
+        "classical": {"reward_mean": 0.2933513942300782, "quality_gate_rate": 0.5, "response_contract_rate": 0.8333333333333334, "technical_failures": 1, "failure_types": {"AgentTimeoutError": 1}},
+        "embeddings": {"reward_mean": 0.14001717740116396, "quality_gate_rate": 0.16666666666666666, "response_contract_rate": 0.3333333333333333, "technical_failures": 2, "failure_types": {"AgentTimeoutError": 1, "VerifierError": 1}},
+        "ensemble": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 6, "failure_types": {"AgentTimeoutError": 6}},
+        "entity-graph": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.16666666666666666, "technical_failures": 3, "failure_types": {"AgentTimeoutError": 3}},
+        "graphify": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 6, "failure_types": {"AgentTimeoutError": 6}},
+        "legacy": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 3, "failure_types": {"VerifierError": 3}},
+        "turso": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 0, "failure_types": {}}
+      }
+    },
+    {
+      "id": "discovery-wave-1-complete",
+      "result_trials": 96,
+      "cohort": "discovery",
+      "expected_trials_per_family": 24,
+      "families": {
+        "adaptive": {"reward_mean": 0.01196673618560636, "quality_gate_rate": 0.041666666666666664, "response_contract_rate": 0.08333333333333333, "technical_failures": 22, "failure_types": {"AgentTimeoutError": 1, "VerifierError": 21}, "retrieval_metric_observations": 2},
+        "classical": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 23, "failure_types": {"AgentTimeoutError": 2, "VerifierError": 21}, "retrieval_metric_observations": 1},
+        "embeddings": {"reward_mean": 0.0199035942938121, "quality_gate_rate": 0.041666666666666664, "response_contract_rate": 0.041666666666666664, "technical_failures": 23, "failure_types": {"VerifierError": 23}, "retrieval_metric_observations": 1},
+        "legacy": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 20, "failure_types": {"VerifierError": 20}, "retrieval_metric_observations": 4}
+      }
+    },
+    {
+      "id": "live-progress-159",
+      "recorded_at": "2026-07-17T15:37:17.9510206Z",
+      "result_trials": 159,
+      "complete": false,
+      "cohort_counts": {
+        "holdout": 48,
+        "discovery": 111,
+        "hard": 0
+      },
+      "discovery_family_counts": {
+        "adaptive": 24,
+        "classical": 24,
+        "embeddings": 24,
+        "ensemble": 6,
+        "entity-graph": 6,
+        "graphify": 2,
+        "legacy": 24,
+        "turso": 1
+      }
+    },
+    {
+      "id": "discovery-complete",
+      "recorded_at": "2026-07-17T16:13:09.0235804Z",
+      "result_trials": 192,
+      "cohort": "discovery",
+      "expected_trials_per_family": 24,
+      "families": {
+        "adaptive": {"reward_mean": 0.01196673618560636, "quality_gate_rate": 0.041666666666666664, "response_contract_rate": 0.08333333333333333, "technical_failures": 22, "failure_types": {"AgentTimeoutError": 1, "VerifierError": 21}, "retrieval_metric_observations": 2},
+        "classical": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 23, "failure_types": {"AgentTimeoutError": 2, "VerifierError": 21}, "retrieval_metric_observations": 1},
+        "embeddings": {"reward_mean": 0.0199035942938121, "quality_gate_rate": 0.041666666666666664, "response_contract_rate": 0.041666666666666664, "technical_failures": 23, "failure_types": {"VerifierError": 23}, "retrieval_metric_observations": 1},
+        "ensemble": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 24, "failure_types": {"VerifierError": 24}, "retrieval_metric_observations": 0},
+        "entity-graph": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 24, "failure_types": {"VerifierError": 24}, "retrieval_metric_observations": 0},
+        "graphify": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 24, "failure_types": {"VerifierError": 24}, "retrieval_metric_observations": 0},
+        "legacy": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 20, "failure_types": {"VerifierError": 20}, "retrieval_metric_observations": 4},
+        "turso": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 24, "failure_types": {"VerifierError": 24}, "retrieval_metric_observations": 0}
+      }
+    },
+    {
+      "id": "final-complete",
+      "recorded_at": "2026-07-17T16:44:59.2758597Z",
+      "result_trials": 320,
+      "complete": true,
+      "run_receipts": 24,
+      "final_report_json_sha256": "e26c40bac73edab1c8e360eb0d10e994acd399d8de16b1313770fde52f3f73e7",
+      "final_report_markdown_sha256": "af4b294df41ac70298c29fdf35de3b4f8e1dbaa1e96da2778832649a2eab8ee4",
+      "families": {
+        "adaptive": {"reward_mean": 0.021499563968289837, "quality_gate_rate": 0.05, "response_contract_rate": 0.075, "technical_failures": 35, "failure_types": {"AgentTimeoutError": 3, "VerifierError": 32}},
+        "classical": {"reward_mean": 0.04400270913451173, "quality_gate_rate": 0.075, "response_contract_rate": 0.125, "technical_failures": 34, "failure_types": {"AgentTimeoutError": 3, "VerifierError": 31}},
+        "embeddings": {"reward_mean": 0.03294473318646185, "quality_gate_rate": 0.05, "response_contract_rate": 0.075, "technical_failures": 35, "failure_types": {"AgentTimeoutError": 1, "VerifierError": 34}},
+        "ensemble": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 40, "failure_types": {"AgentTimeoutError": 6, "VerifierError": 34}},
+        "entity-graph": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.025, "technical_failures": 37, "failure_types": {"AgentTimeoutError": 3, "VerifierError": 34}},
+        "graphify": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 40, "failure_types": {"AgentTimeoutError": 6, "VerifierError": 34}},
+        "legacy": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 33, "failure_types": {"VerifierError": 33}},
+        "turso": {"reward_mean": 0.0, "quality_gate_rate": 0.0, "response_contract_rate": 0.0, "technical_failures": 34, "failure_types": {"VerifierError": 34}}
+      }
+    },
+    {
+      "id": "evaluator-audit-invalidated",
+      "recorded_at": "2026-07-17T21:01:02Z",
+      "supersedes_interpretation_of": "final-complete",
+      "result_trials": 320,
+      "structurally_complete": true,
+      "evaluation_complete": false,
+      "ranking_eligible": false,
+      "winner": null,
+      "evaluable_final_responses": 32,
+      "terminal_outcomes": {
+        "provider-quota": 254,
+        "provider-context-limit": 14,
+        "output-limit": 4,
+        "agent-interrupted": 16,
+        "answer-emitted": 32
+      },
+      "manual_review": {
+        "responses_reviewed": 32,
+        "semantic_pass": 0,
+        "semantic_partial": 31,
+        "semantic_fail": 1,
+        "minimum_document_count_met": 11,
+        "hard_responses_available": 0
+      },
+      "validation": {
+        "corrected_oracles_passed": 320,
+        "repository_tests_passed": 1826,
+        "repository_tests_skipped": 10,
+        "coverage_suite_tests_passed": 704,
+        "application_coverage_percent": 90.9,
+        "coverage_threshold_percent": 80.0
+      },
+      "grader_corrections": {
+        "undeclared_evidence_member_order_removed": true,
+        "minimum_document_requirement_restored": true,
+        "provider_failures_separated_from_verifier_failures": true,
+        "hard_semantic_completeness_metrics_renamed_to_anchor_coverage": true
+      },
+      "audit_report_json_sha256": "a939a7f717df78c896bae42b125a9e708da106a12bcc0f6bb056df68b57d1d7e",
+      "audit_report_markdown_sha256": "a18553e6e3884003516eb0b34de5266ce7c4029d1f8c3d9880bd503063ef0d0e",
+      "manual_review_markdown_sha256": "c70254d8a9247c96a3663052df9d66f4f3fdfd9ca0f2de5a0ecf44ed164674b6",
+      "replacement_schedule": {
+        "campaign_id": "20260717-papers-consult-gpt53-spark-02",
+        "cell_count": 320,
+        "schedule_sha256": "f202c3c8744cc8259fddce586826768c90e896c8c180a0b2e96a0a88aaf70f7d",
+        "live_started": false,
+        "reason": "Audited credential remained at its provider usage limit."
+      }
+    }
+  ]
+}

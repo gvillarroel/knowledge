@@ -1,0 +1,43 @@
+{
+  "campaign_id": "20260717-papers-consult-gpt53-spark-02",
+  "current_status": "provider-quota-aborted",
+  "evaluation_complete": false,
+  "ranking_eligible": false,
+  "schedule": {
+    "cell_count": 320,
+    "sha256": "f202c3c8744cc8259fddce586826768c90e896c8c180a0b2e96a0a88aaf70f7d"
+  },
+  "live_preflight": {
+    "completed_cell_count": 1,
+    "finished_at": "2026-07-17T22:20:02.606660+00:00",
+    "started_at": "2026-07-17T22:18:31.306416+00:00",
+    "terminal_outcomes": {
+      "provider-quota": 1
+    },
+    "trigger": {
+      "cohort": "discovery",
+      "error_code": "usage_limit_reached",
+      "family": "adaptive",
+      "provider_reset": {
+        "at": "2026-07-23T14:24:32+00:00",
+        "remaining_seconds": 489909
+      },
+      "question_id": "q001",
+      "sequence": 1
+    }
+  },
+  "provider_reset_hardening": {
+    "application_coverage_percent": 90.9,
+    "coverage_tests_passed": 718,
+    "dataset_registry_validation": "pass",
+    "focused_tests_passed": 38,
+    "historical_campaign_summary": "pass"
+  },
+  "validation": {
+    "bundle_bindings_matched": 8,
+    "corrected_generated_tasks": 320,
+    "focused_tests_passed": 27,
+    "windows_dry_run": "pass",
+    "wsl_dry_run": "pass"
+  }
+}

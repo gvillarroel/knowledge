@@ -193,6 +193,10 @@ know export --key <KEY>
 know import <ARCHIVE.zip>
 ```
 
+## Semantic OKF Evaluation Datasets
+
+The reusable Astro and GraphRAG paper evaluations, including separate `build-consult` and `consult-only` Harbor modes, provider-aware campaign validity, and the invalidation of the first quota-dominated papers campaign, are documented in [evaluations/semantic-okf-datasets/README.md](evaluations/semantic-okf-datasets/README.md).
+
 ## Television Workflows
 
 `know` supports Television in two complementary ways:

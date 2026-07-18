@@ -1,0 +1,61 @@
+{
+  "schema_version": "semantic-okf-evaluation-dataset/1.0",
+  "dataset_id": "graphrag-papers-40",
+  "title": "GraphRAG cross-paper 40-question benchmark",
+  "description": "Fifteen pinned GraphRAG papers, reviewed source-scoped claims, thirty original questions, and ten evidence-first hard questions.",
+  "question_format": "paper-qrels",
+  "source_manifest": {
+    "path": "evaluations/graphrag-cross-paper/manifest.json",
+    "sha256": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37",
+    "count": 31
+  },
+  "questions": {
+    "path": "evaluations/semantic-okf-adaptive/retrieval-questions.jsonl",
+    "sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+    "count": 40
+  },
+  "semantic_rubric": {
+    "path": "evaluations/graphrag-cross-paper/questions-blueprint.json",
+    "sha256": "127fbfa19801b9269738d1a10656a803ce4f9a41fcaaf4a5bd4f381e8fcbbc15",
+    "count": 30,
+    "format": "paper-blueprint"
+  },
+  "hard_ground_truth": {
+    "path": "evaluations/semantic-okf-adaptive/hard-ground-truth.jsonl",
+    "sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388",
+    "count": 10,
+    "format": "paper"
+  },
+  "source_combination": null,
+  "reference_bundle": "evaluations/graphrag-cross-paper/bundle",
+  "cohorts": {
+    "path": "evaluations/semantic-okf-datasets/datasets/graphrag-papers-40-cohorts.json",
+    "sha256": "bf3472dec02fa4416b2764daa7a50d693e8ac5fa49459f41152a710fe38d44a4"
+  },
+  "partition_cohorts": ["discovery", "holdout", "hard"],
+  "plans": {
+    "adaptive": {
+      "path": "evaluations/semantic-okf-adaptive/adaptive-plan.json",
+      "sha256": "daac9da8631ca59040d9647d3b183e8e7b7037df10064a19bd5866a93c08da9a"
+    },
+    "classical": {
+      "path": "evaluations/semantic-okf-classical/classical-plan.json",
+      "sha256": "1c739472f364554758bfd101f2e3a7861e9504f937b93e313e6f6ce0b6364e28"
+    },
+    "embeddings": {
+      "path": "evaluations/semantic-okf-embeddings/retrieval-plan.json",
+      "sha256": "91f13e4e364b33a818bbee49f2a9726cad014d3ef85c4f4877f7db6b2100078b"
+    },
+    "ensemble": {
+      "path": "evaluations/semantic-okf-ensemble/ensemble-plan.json",
+      "sha256": "0f30f15f4156223a72200544ec07ffab33ee3d2a92aac09424f8444ad38339f5"
+    },
+    "entity-graph": {
+      "path": "evaluations/semantic-okf-entity-graph/entity-graph-plan.json",
+      "sha256": "aa2f94b07009433111e17336965f41c551195d8b92231c663842f734b8825d27"
+    },
+    "graphify": null,
+    "legacy": null,
+    "turso": null
+  }
+}

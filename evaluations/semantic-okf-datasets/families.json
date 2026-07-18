@@ -1,0 +1,70 @@
+{
+  "schema_version": "semantic-okf-evaluation-families/1.0",
+  "families": {
+    "adaptive": {
+      "build_script": "build_semantic_okf_adaptive.py",
+      "build_skill": "build-semantic-okf-adaptive",
+      "consult_skill": "consult-semantic-okf-adaptive",
+      "requires_hf_cache": false,
+      "uses_plan": true,
+      "validate_script": "validate_semantic_okf_adaptive.py"
+    },
+    "classical": {
+      "build_script": "build_semantic_okf_classical.py",
+      "build_skill": "build-semantic-okf-classical",
+      "consult_skill": "consult-semantic-okf-classical",
+      "requires_hf_cache": false,
+      "uses_plan": true,
+      "validate_script": "validate_semantic_okf_classical.py"
+    },
+    "embeddings": {
+      "build_script": "build_semantic_okf_embeddings.py",
+      "build_skill": "build-semantic-okf-embeddings",
+      "consult_skill": "consult-semantic-okf-embeddings",
+      "requires_hf_cache": true,
+      "uses_plan": true,
+      "validate_script": "validate_semantic_okf_embeddings.py"
+    },
+    "ensemble": {
+      "build_script": "build_semantic_okf_ensemble.py",
+      "build_skill": "build-semantic-okf-ensemble",
+      "consult_skill": "consult-semantic-okf-ensemble",
+      "requires_hf_cache": true,
+      "uses_plan": true,
+      "validate_script": "validate_semantic_okf_ensemble.py"
+    },
+    "entity-graph": {
+      "build_script": "build_semantic_okf_entity_graph.py",
+      "build_skill": "build-semantic-okf-entity-graph",
+      "consult_skill": "consult-semantic-okf-entity-graph",
+      "requires_hf_cache": false,
+      "uses_plan": true,
+      "validate_script": "validate_semantic_okf_entity_graph.py"
+    },
+    "graphify": {
+      "build_script": "build_semantic_okf_graphify.py",
+      "build_skill": "build-semantic-okf-graphify",
+      "consult_skill": "consult-semantic-okf-graphify",
+      "requires_hf_cache": false,
+      "uses_plan": false,
+      "validate_script": "validate_semantic_okf_graphify.py"
+    },
+    "legacy": {
+      "build_script": "build_semantic_okf.py",
+      "build_skill": "build-semantic-okf",
+      "consult_skill": "consult-semantic-okf",
+      "requires_hf_cache": false,
+      "uses_plan": false,
+      "validate_script": "validate_semantic_okf.py"
+    },
+    "turso": {
+      "build_script": "build_semantic_okf.py",
+      "build_skill": "build-semantic-okf-turso",
+      "consult_skill": "consult-semantic-okf-turso",
+      "requires_hf_cache": false,
+      "uses_plan": false,
+      "validate_script": "validate_semantic_okf.py"
+    }
+  }
+}
+

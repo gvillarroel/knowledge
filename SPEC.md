@@ -724,6 +724,24 @@ The repository must keep a reproducible source-generic comparison under `evaluat
 - At least one hard question must retain the actual grounded answer returned by every compatible consultation alternative so qualitative differences can be inspected beside the numeric results.
 - Any Skill Arena comparison used as causal evidence must isolate one consultation treatment against a knowledge-identical control; an all-skills portfolio is descriptive only. Config generation, validation, dry-run, execution, and result aggregation follow the checked-in Skill Arena workflows and must not require MCP.
 
+### Dual-mode Semantic OKF Harbor datasets
+
+The repository must keep a shared, reproducible dataset registry under `evaluations/semantic-okf-datasets/` for the forty-question Astro documentation and GraphRAG cross-paper benchmarks.
+
+- Dataset descriptors must pin source manifests, questions, optional semantic rubrics, hard ground truth, cohorts, source-combination metadata when applicable, family plans, and checked reference bundles by path and SHA-256.
+- Every dataset must cover the complete paired `legacy`, `embeddings`, `classical`, `adaptive`, `entity-graph`, `ensemble`, `graphify`, and `turso` strategy registry.
+- `build-consult` trials must install exactly one matched build/consult pair, expose only evaluator-free raw inputs through a read-only `/dataset` mount, build and validate `/workspace/knowledge` during the trial, and never mount prebuilt knowledge into the agent.
+- `consult-only` trials must install exactly one consultation skill, expose only the exact processed snapshot through a read-only `/knowledge` mount, and never expose raw sources or a build skill to the agent.
+- Questions, qrels, hidden semantic required points, hard ground truth, authoritative evidence, and reference ledgers must remain verifier-only in both modes. A declared minimum relevant-document count may be stated publicly and must be enforced as a separate mechanical gate. The verifier must run in a separate environment without agent authentication mounts.
+- Raw staging, Harbor task generation, and task validation must be deterministic and offer check-only execution. Validation must reject resource-boundary violations, public prompt leakage, descriptor drift, missing tasks, ledger drift, or any generated structural oracle that fails the production grader.
+- Processed knowledge mounted in `consult-only` must match the hidden verifier reference by tree and ledger hashes. Staged raw input mounted in `build-consult` must match its evaluator-free receipt and the generated task manifest.
+- Generated inputs, bundles, tasks, dry runs, and live results remain ignored. Every Harbor job is append-only and records the dataset, cohort, family, mode, task IDs, skill hashes, resource hashes, model, Pi version, and attempt count without serializing credentials.
+- Terminal Pi traces must distinguish complete responses, provider quota/rate/context failures, output limits, agent interruption, invalid complete responses, and true verifier faults without serializing raw provider headers or answer text. Provider and infrastructure failures must never be converted into semantic zeroes or mislabeled as verifier errors.
+- Campaign reports must expose `structurally_complete`, `evaluation_complete`, and `ranking_eligible` separately. A campaign is rankable only when every expected family/question cell has a complete scorer-observable response and no provider or evaluator failure; result directories and receipts alone are insufficient.
+- Mechanical response-contract, evidence validity, retrieval, minimum-document, and hard evidence-anchor metrics must remain separate from semantic correctness. Evidence-anchor coverage must not be labeled claim entailment or semantic completeness; authored required points require a separate blinded or documented manual review.
+- Eight-family live scheduling must interleave and rotate families by question, use the first counted trial as a real quota preflight, preserve one-task append-only shards, and stop submitting new work on the first terminal quota or rate failure while allowing already in-flight work to finish.
+- Evaluator corrections must preserve raw campaign artifacts and original report hashes, append a superseding audit checkpoint, and suppress winner claims in every current-facing document when a historical campaign is invalidated.
+
 ## Project OKF Bundle
 
 The `okf/` directory is the strict OKF v0.1 interoperability boundary for this repository. It is a generated bundle and must contain:

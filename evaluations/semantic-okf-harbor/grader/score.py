@@ -12,6 +12,8 @@ from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from trace_status import classify_pi_trace
+
 TOP_KEYS = ["question_id", "answer", "evidence"]
 ANSWER_KEYS = ["summary", "claims"]
 CLAIM_KEYS = ["statement", "evidence_indices"]
@@ -74,50 +76,6 @@ def load_jsonl(path: Path) -> list[Mapping[str, Any]]:
     return rows
 
 
-def message_text(message: Mapping[str, Any]) -> str | None:
-    """Extract textual content from one Pi assistant message."""
-
-    content = message.get("content")
-    if isinstance(content, str):
-        return content
-    if not isinstance(content, list):
-        return None
-    parts: list[str] = []
-    for block in content:
-        if isinstance(block, Mapping) and block.get("type") == "text" and isinstance(block.get("text"), str):
-            parts.append(block["text"])
-    return "".join(parts) if parts else None
-
-
-def extract_answer(pi_log: Path) -> str:
-    """Extract the last assistant message from Harbor's built-in Pi JSONL log."""
-
-    raw = pi_log.read_text(encoding="utf-8")
-    try:
-        direct = strict_json(raw.strip())
-    except (json.JSONDecodeError, ScoreError):
-        direct = None
-    if isinstance(direct, Mapping) and list(direct.keys()) == TOP_KEYS:
-        return raw.strip()
-    candidates: list[str] = []
-    for line in raw.splitlines():
-        try:
-            event = strict_json(line)
-        except (json.JSONDecodeError, ScoreError):
-            continue
-        if not isinstance(event, Mapping) or event.get("type") != "message_end":
-            continue
-        message = event.get("message")
-        if not isinstance(message, Mapping) or message.get("role") != "assistant":
-            continue
-        text = message_text(message)
-        if text is not None:
-            candidates.append(text)
-    if not candidates:
-        raise ScoreError("assistant-message-not-found")
-    return candidates[-1].strip()
-
-
 def ratio(numerator: int, denominator: int, empty: float = 0.0) -> float:
     """Return a bounded, total-safe ratio."""
 
@@ -164,7 +122,7 @@ def validate_contract(value: Any, expected_id: str) -> tuple[bool, bool, list[st
         ):
             errors.append("claim-indices")
     for row in evidence:
-        if not isinstance(row, Mapping) or list(row.keys()) != EVIDENCE_KEYS:
+        if not isinstance(row, Mapping) or set(row) != set(EVIDENCE_KEYS):
             errors.append("evidence-contract")
             continue
         if any(not isinstance(row.get(key), str) or not row[key] for key in EVIDENCE_KEYS[:4]):
@@ -383,13 +341,18 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
         for row in records
         if isinstance(row, Mapping)
     }
-    output_text = extract_answer(args.pi_log)
+    trace = classify_pi_trace(args.pi_log)
+    output_text = trace.get("answer_text")
     parse_error: str | None = None
-    try:
-        output = strict_json(output_text)
-    except (json.JSONDecodeError, ScoreError) as exc:
+    if not isinstance(output_text, str):
         output = OrderedDict()
-        parse_error = type(exc).__name__
+        parse_error = "assistant-output-absent"
+    else:
+        try:
+            output = strict_json(output_text)
+        except (json.JSONDecodeError, ScoreError) as exc:
+            output = OrderedDict()
+            parse_error = type(exc).__name__
     contract, non_null, contract_errors = validate_contract(output, str(question["id"]))
     references = reference_validity(output) if contract and isinstance(output, Mapping) else False
     evidence = output.get("evidence", []) if isinstance(output, Mapping) else []
@@ -399,6 +362,16 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
     ranking = ranked_documents(evidence, crosswalk)
     relevant = set(question.get("qrels", {}).get("document_ids", []))
     metrics = retrieval_metrics(ranking, relevant)
+    minimum = question.get("minimum_document_count")
+    if minimum is not None and (
+        isinstance(minimum, bool) or not isinstance(minimum, int) or not 1 <= minimum <= len(relevant)
+    ):
+        raise ScoreError("minimum-document-count")
+    covered_relevant = len(set(ranking) & relevant)
+    minimum_coverage = (
+        min(1.0, ratio(covered_relevant, minimum)) if isinstance(minimum, int) else 1.0
+    )
+    minimum_gate = minimum is None or covered_relevant >= minimum
     truth = load_json(args.ground_truth) if args.ground_truth and args.ground_truth.exists() else None
     hard_ranges = authoritative_ranges(truth, args.authority_root, ledger)
     covered: set[str] = set()
@@ -424,12 +397,16 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
         "all_evidence_valid": float(all_evidence_valid),
         **metrics,
         "required_document_coverage": ratio(len(set(ranking) & required_docs), len(required_docs), empty=1.0),
-        "authoritative_evidence_completeness": ratio(len(covered), len(hard_ranges), empty=1.0),
-        "atomic_claim_evidence_completeness": group_completeness(ground.get("answer_claims"), covered) if isinstance(ground, Mapping) else 1.0,
-        "important_negative_evidence_completeness": group_completeness(ground.get("important_negatives"), covered) if isinstance(ground, Mapping) else 1.0,
+        "authoritative_evidence_anchor_coverage": ratio(len(covered), len(hard_ranges), empty=1.0),
+        "answer_claim_anchor_coverage": group_completeness(ground.get("answer_claims"), covered) if isinstance(ground, Mapping) else 1.0,
+        "important_negative_anchor_coverage": group_completeness(ground.get("important_negatives"), covered) if isinstance(ground, Mapping) else 1.0,
+        "minimum_document_coverage": minimum_coverage,
+        "minimum_document_gate": float(minimum_gate),
     }
-    gate = contract and non_null and references and all_evidence_valid
-    rewards["quality_gate"] = float(gate)
+    terminal_ok = trace["outcome"] == "answer-emitted"
+    gate = terminal_ok and contract and non_null and references and all_evidence_valid
+    rewards["evidence_contract_gate"] = float(gate)
+    rewards["mechanical_qualification_gate"] = float(gate and minimum_gate)
     if truth is None:
         utility = (
             0.35 * rewards["evidence_recall"]
@@ -442,22 +419,43 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
             0.15 * rewards["evidence_recall"]
             + 0.10 * rewards["ndcg"]
             + 0.15 * rewards["required_document_coverage"]
-            + 0.15 * rewards["authoritative_evidence_completeness"]
-            + 0.30 * rewards["atomic_claim_evidence_completeness"]
-            + 0.15 * rewards["important_negative_evidence_completeness"]
+            + 0.15 * rewards["authoritative_evidence_anchor_coverage"]
+            + 0.30 * rewards["answer_claim_anchor_coverage"]
+            + 0.15 * rewards["important_negative_anchor_coverage"]
         )
-    rewards["reward"] = float(gate) * utility
+    rewards["mechanical_utility"] = utility
+    rewards["reward"] = rewards["mechanical_qualification_gate"] * utility
+    rubric = question.get("semantic_rubric")
+    required_points = rubric.get("required_points") if isinstance(rubric, Mapping) else None
+    if trace.get("failure_domain") == "provider":
+        status = "provider-failure"
+    elif not terminal_ok:
+        status = "agent-failure"
+    elif not contract:
+        status = "agent-invalid-response"
+    else:
+        status = "scored-response"
     diagnostics = {
-        "schema_version": "semantic-okf-harbor-redacted-diagnostics/1.0",
+        "schema_version": "semantic-okf-harbor-redacted-diagnostics/2.0",
+        "status": status,
         "question_id": question.get("id"),
         "parse_error": parse_error,
         "contract_errors": contract_errors,
         "evidence_count": len(evidence),
         "invalid_evidence_indices": [index for index, valid in enumerate(valid_rows) if not valid],
         "cited_document_count": len(ranking),
-        "covered_qrel_count": len(set(ranking) & relevant),
+        "covered_qrel_count": covered_relevant,
+        "minimum_document_count": minimum,
+        "minimum_document_gate": minimum_gate,
         "covered_hard_evidence_count": len(covered),
         "expected_hard_evidence_count": len(hard_ranges),
+        "semantic_required_point_count": len(required_points) if isinstance(required_points, list) else 0,
+        "semantic_correctness": (
+            "manual-review-required" if terminal_ok and required_points else "not-scored"
+        ),
+        "terminal_outcome": trace["outcome"],
+        "failure_domain": trace.get("failure_domain"),
+        "error_code": trace.get("error_code"),
     }
     return rewards, diagnostics
 
@@ -484,9 +482,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         rewards, diagnostics = score(args)
     except (OSError, UnicodeError, ScoreError, KeyError, TypeError, ValueError) as exc:
-        rewards = {"reward": 0.0, "quality_gate": 0.0}
+        rewards = {
+            "reward": 0.0,
+            "evidence_contract_gate": 0.0,
+            "mechanical_qualification_gate": 0.0,
+        }
         diagnostics = {
-            "schema_version": "semantic-okf-harbor-redacted-diagnostics/1.0",
+            "schema_version": "semantic-okf-harbor-redacted-diagnostics/2.0",
             "status": "verifier-error",
             "error_type": type(exc).__name__,
         }
