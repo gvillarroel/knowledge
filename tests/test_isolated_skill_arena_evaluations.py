@@ -13,7 +13,6 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 EVALUATION_ROOT = REPO_ROOT / "evaluations"
 
 ISOLATED_SUITES = {
-    "brave-search-effective": "brave-search-effective",
     "extract-ontologies": "extract-ontologies",
     "know": "know",
     "open-knowledge-format": "open-knowledge-format",

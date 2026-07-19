@@ -10,28 +10,6 @@ benchmark:
     - smoke
 task:
   prompts:
-    - id: brave-mixed-research
-      description: Plan a mixed Brave Search workflow with an unavailable-feature fallback.
-      prompt: |-
-        Plan a current-research workflow that finds recent coverage of a product launch, a few reusable image references, and nearby launch-event venues in New York. Assume the Brave CLI may reject answer-generation features. Do not execute searches.
-
-        Return JSON only with exactly these keys in this order: {"skill":"brave-search-effective","plan":["command or action", "..."],"safety":["constraint", "..."]}.
-      evaluation:
-        assertions:
-          - type: javascript
-            metric: workflow-contract
-            value: |
-              try {
-                const value = JSON.parse(output.trim());
-                const text = [...value.plan, ...value.safety].join('\n').toLowerCase();
-                return value.skill === 'brave-search-effective'
-                  && text.includes('bx news')
-                  && text.includes('bx images')
-                  && text.includes('bx places')
-                  && text.includes('--location')
-                  && text.includes('-q')
-                  && (text.includes('bx web') || text.includes('manually synthesize') || text.includes('working search subcommands'));
-              } catch { return false; }
     - id: know-reproducible-lifecycle
       description: Plan a reproducible know key lifecycle.
       prompt: |-
@@ -250,12 +228,6 @@ comparison:
         inheritSystem: false
       capabilities:
         skills:
-          - source:
-              type: local-path
-              path: skills/brave-search-effective
-              skillId: brave-search-effective
-            install:
-              strategy: workspace-overlay
           - source:
               type: local-path
               path: skills/build-semantic-okf

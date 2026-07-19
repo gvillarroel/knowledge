@@ -111,7 +111,6 @@ def test_skill_instructions_do_not_require_this_checkout() -> None:
 @pytest.mark.parametrize(
     ("skill_name", "preflight"),
     [
-        ("brave-search-effective", "bx --help"),
         ("know", "know --help"),
         ("television", "tv --help"),
     ],
