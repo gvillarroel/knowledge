@@ -19,6 +19,9 @@ DATASETS = HERE / "datasets"
 FAMILIES_PATH = HERE / "families.json"
 QUESTION_ID = re.compile(r"^(q[0-9]{3})(?:-|$)")
 GLOB_MAGIC = re.compile(r"[*?\[]")
+REFERENCE_RESPONSE_KEYS = ["question_id", "answer", "evidence"]
+REFERENCE_ANSWER_KEYS = ["summary", "claims"]
+REFERENCE_CLAIM_KEYS = ["statement", "evidence_indices"]
 
 
 class DatasetError(ValueError):
@@ -144,6 +147,39 @@ def normalize_question_id(value: Any) -> str:
     return match.group(1)
 
 
+def validate_reference_response_contract(
+    response: Any,
+    question_id: str,
+) -> None:
+    """Validate strict member order for one pinned reference response."""
+
+    if (
+        not isinstance(response, Mapping)
+        or list(response) != REFERENCE_RESPONSE_KEYS
+        or response.get("question_id") != question_id
+    ):
+        raise DatasetError(
+            f"{question_id}: invalid reference response top-level contract"
+        )
+    answer = response.get("answer")
+    evidence = response.get("evidence")
+    if (
+        not isinstance(answer, Mapping)
+        or list(answer) != REFERENCE_ANSWER_KEYS
+        or not isinstance(evidence, list)
+    ):
+        raise DatasetError(f"{question_id}: invalid reference answer contract")
+    claims = answer.get("claims")
+    if not isinstance(claims, list) or not claims:
+        raise DatasetError(f"{question_id}: reference answer has no claims")
+    if any(
+        not isinstance(claim, Mapping)
+        or list(claim) != REFERENCE_CLAIM_KEYS
+        for claim in claims
+    ):
+        raise DatasetError(f"{question_id}: invalid reference claim contract")
+
+
 def dataset_questions(dataset: Mapping[str, Any]) -> list[dict[str, Any]]:
     """Load questions and attach a normalized identifier without changing source bytes."""
 
@@ -254,8 +290,47 @@ def validate_dataset(dataset_id: str, family_id: str | None = None) -> dict[str,
     """Validate one descriptor, its corpus, cohorts, plans, and skill pairs."""
 
     dataset = load_dataset(dataset_id)
-    if dataset.get("schema_version") != "semantic-okf-evaluation-dataset/1.0":
+    schema_version = dataset.get("schema_version")
+    if schema_version not in {
+        "semantic-okf-evaluation-dataset/1.0",
+        "semantic-okf-evaluation-dataset/1.1",
+        "semantic-okf-evaluation-dataset/1.2",
+    }:
         raise DatasetError(f"{dataset_id}: unsupported schema_version")
+    policy = dataset.get("evaluation_policy")
+    if schema_version in {
+        "semantic-okf-evaluation-dataset/1.1",
+        "semantic-okf-evaluation-dataset/1.2",
+    }:
+        if not isinstance(policy, Mapping):
+            raise DatasetError(
+                f"{dataset_id}: version {schema_version.rsplit('/', 1)[-1]} "
+                "requires evaluation_policy"
+            )
+        expected_policy_fields = {
+            "qrel_scope",
+            "minimum_document_gate_basis",
+            "semantic_ranking_gate",
+            "full_dataset_coverage_required",
+        }
+        if set(policy) != expected_policy_fields:
+            raise DatasetError(f"{dataset_id}: invalid evaluation_policy fields")
+        if policy.get("qrel_scope") not in {
+            "exhaustive-relevance-set",
+            "non-exhaustive-focus-set",
+        }:
+            raise DatasetError(f"{dataset_id}: invalid qrel_scope")
+        if policy.get("minimum_document_gate_basis") not in {
+            "qrel-document-count",
+            "valid-evidence-document-count",
+        }:
+            raise DatasetError(f"{dataset_id}: invalid minimum_document_gate_basis")
+        if policy.get("semantic_ranking_gate") != "manual-review-required":
+            raise DatasetError(f"{dataset_id}: invalid semantic_ranking_gate")
+        if not isinstance(policy.get("full_dataset_coverage_required"), bool):
+            raise DatasetError(f"{dataset_id}: invalid full_dataset_coverage_required")
+    elif policy is not None:
+        raise DatasetError(f"{dataset_id}: version 1.0 must not declare evaluation_policy")
     families = load_families()
     plan_specs = dataset.get("plans")
     if not isinstance(plan_specs, Mapping) or set(plan_specs) != set(families):
@@ -294,6 +369,89 @@ def validate_dataset(dataset_id: str, family_id: str | None = None) -> dict[str,
     truth_ids = [normalize_question_id(row.get("id")) for row in truths]
     if len(truth_ids) != dataset["hard_ground_truth"].get("count") or not set(truth_ids).issubset(question_ids):
         raise DatasetError(f"{dataset_id}: hard-ground-truth count or identity drift")
+
+    reference_answer_count = 0
+    reference_answers = dataset.get("reference_answers")
+    if schema_version == "semantic-okf-evaluation-dataset/1.2":
+        if not isinstance(reference_answers, Mapping):
+            raise DatasetError(
+                f"{dataset_id}: version 1.2 requires reference_answers"
+            )
+        if reference_answers.get("format") != (
+            "graphrag-best-answer-collection/1.0"
+        ):
+            raise DatasetError(f"{dataset_id}: invalid reference_answers format")
+        reference_answer_path = pinned_path(
+            reference_answers, f"{dataset_id} reference answers"
+        )
+        collection = load_json(reference_answer_path)
+        reviews = collection.get("reviews")
+        validations = collection.get("validations")
+        if (
+            collection.get("schema_version")
+            != "graphrag-best-answer-collection/1.0"
+            or collection.get("dataset_id") != dataset_id
+            or collection.get("validation_status") != "pass"
+            or not isinstance(reviews, list)
+            or not isinstance(validations, list)
+        ):
+            raise DatasetError(
+                f"{dataset_id}: invalid reference-answer collection"
+            )
+        review_ids = [
+            str(row.get("question_id"))
+            for row in reviews
+            if isinstance(row, Mapping)
+        ]
+        validation_ids = [
+            str(row.get("question_id"))
+            for row in validations
+            if isinstance(row, Mapping) and row.get("status") == "pass"
+        ]
+        reference_answer_count = reference_answers.get("count")
+        if (
+            not isinstance(reference_answer_count, int)
+            or reference_answer_count != len(reviews)
+            or collection.get("question_count") != reference_answer_count
+            or review_ids != question_ids
+            or validation_ids != question_ids
+        ):
+            raise DatasetError(
+                f"{dataset_id}: reference-answer count or identity drift"
+            )
+        for question_id, review in zip(question_ids, reviews):
+            if not isinstance(review, Mapping):
+                raise DatasetError(
+                    f"{dataset_id}: invalid reference review for {question_id}"
+                )
+            validate_reference_response_contract(
+                review.get("proposed_response"),
+                question_id,
+            )
+        reviewed_response_ids = [
+            str(response_id)
+            for row in reviews
+            for response_id in (
+                row.get("historical_review", {}).get(
+                    "reviewed_response_ids", []
+                )
+                if isinstance(row, Mapping)
+                and isinstance(row.get("historical_review"), Mapping)
+                else []
+            )
+        ]
+        if (
+            len(reviewed_response_ids) != len(set(reviewed_response_ids))
+            or collection.get("historical_response_count")
+            != len(reviewed_response_ids)
+        ):
+            raise DatasetError(
+                f"{dataset_id}: reference-answer historical review drift"
+            )
+    elif reference_answers is not None:
+        raise DatasetError(
+            f"{dataset_id}: only version 1.2 may declare reference_answers"
+        )
 
     combination = dataset.get("source_combination")
     if combination is not None:
@@ -342,6 +500,8 @@ def validate_dataset(dataset_id: str, family_id: str | None = None) -> dict[str,
         "question_count": len(questions),
         "hard_question_count": len(truths),
         "semantic_rubric_count": len(rubrics),
+        "evaluation_policy": dict(policy) if isinstance(policy, Mapping) else None,
+        "reference_answer_count": reference_answer_count,
         "source_count": source_count,
         "source_file_count": len(source_files),
         "cohort_counts": {name: len(cohorts[name]) for name in partition},

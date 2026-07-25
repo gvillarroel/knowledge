@@ -1,0 +1,50 @@
+{
+  "schema_version": "graphrag-raw-response-adjudications/1.0",
+  "dataset_id": "graphrag-papers-40",
+  "review_date": "2026-07-24",
+  "review_method": "Manual comparison of every non-null answer against every authored semantic requirement. Repeated development answers were still inspected as separate responses; a shared rationale is used only when the same rubric gap recurs.",
+  "response_identity_sha256": "4b953b4b14a5798a5c6f9588b79901146e4b1a7269646ff9bf5f9de224656ecb",
+  "semantic_pass_cells": [
+    {
+      "job": "20260723-tika-mallet-v3-discovery-live-01",
+      "question_id": "q008"
+    },
+    {
+      "job": "20260723-tika-mallet-v3-discovery-live-01",
+      "question_id": "q021"
+    },
+    {
+      "job": "20260723-tika-mallet-v3-discovery-live-01",
+      "question_id": "q023"
+    }
+  ],
+  "partial_rationale_by_question": {
+    "q001": "The answer provides useful families but does not fully distinguish every authored family, task mapping, hybrid case, and benchmark role.",
+    "q002": "At least one required pipeline contrast remains incomplete; the recurring gaps are extraction alternatives and the accuracy, cost, updateability, and task-scope trade-off.",
+    "q003": "The graph-origin distinction is useful, but task overlap and the extraction-error/cost versus supplied-graph coverage/schema trade-off are not both fully addressed.",
+    "q004": "The retrieval-unit comparison is useful, but at least one required precision, pruning-cost, detail-loss, or hybrid multi-granular trade-off remains incomplete.",
+    "q005": "Community construction and use are explained, but abstraction, redundancy, token cost, and local-detail loss are not all materially covered.",
+    "q006": "The answer compares paths, subgraphs, or graph queries, but does not fully cover verification/pruning and the fixed-versus-exploratory completeness/noise trade-off.",
+    "q007": "The diffusion and adaptive mechanisms are described, but the explicit optimization contrast and mechanism-to-task trade-offs are not fully developed.",
+    "q009": "Decomposition, planning, and routing are covered, but latency, token use, robustness, and execution validity are not all evaluated.",
+    "q010": "The response describes structured context, but does not fully compare every required organization unit and its fidelity, redundancy, abstraction, and token-budget constraints.",
+    "q011": "Hybrid retrieval is explained, but semantic-gap, disconnected-evidence, graph-noise, and cost trade-offs are not all addressed.",
+    "q012": "The LLM, graph, and classical-NLP division is useful, but extraction-error propagation, offline expense, online flexibility, and explainability are not all covered.",
+    "q013": "Offline costs and updates are discussed, but the construction-alternative contrast and downstream quality/domain-semantics trade-off remain incomplete.",
+    "q014": "The response covers prompt size and pruning but omits part of the repeated-call, verification/reflection, bridge-evidence, and offline-versus-online cost analysis.",
+    "q015": "Static, incremental, and query-time adaptation are distinguished, but deduplication, mutual indexes, provenance, schema/community maintenance, and error accumulation are incomplete.",
+    "q016": "Retrieval filtering is covered, but preventive deduplication/schema controls, generator distraction, and the risk of filtering bridge evidence are not all addressed.",
+    "q017": "Failure modes and mitigations are useful, but the schema-versus-adaptability trade-off and residual incompleteness limitation are not fully stated.",
+    "q018": "Auditability and noisy-graph risks are discussed, but medical/fact-checking examples and calibrated integration without equating evidence with correctness are incomplete.",
+    "q019": "External-versus-parametric control is discussed, but freshness/domain specificity, irrelevant-evidence suppression, and the full risk/evidence-sufficiency balance are incomplete.",
+    "q020": "Domain adaptations and reusable retrieval patterns are described, but risk controls, transfer cost, and benchmark or ontology mismatch are incomplete.",
+    "q022": "The structural value of graphs is explained, but preprocessing cost, abstraction loss, iterative latency, and token efficiency are not all balanced.",
+    "q024": "The answer separates several evaluation axes but does not fully cover comprehensiveness/diversity, fair baselines, and all component-level comparisons.",
+    "q025": "The evaluation critique is useful, but leakage or unrelated-question effects and separate construction/retrieval/generation versus end-to-end evaluation are not always fully covered.",
+    "q026": "Inspectable paths are covered, but relation ordering, retriever traceability versus causal generator use, and noisy or plausible-but-unfaithful explanations remain incomplete.",
+    "q027": "Community construction is well described, but global/filtering/fact-checking use and resolution, cross-community, and fine-detail limitations are incomplete.",
+    "q029": "The static/adaptive contrast is useful, but concrete mechanisms and the complete latency, token, non-determinism, and error-propagation balance are incomplete.",
+    "q030": "The decision framework is strong but does not fully cover construction/reuse, every retrieval family, and the complete grounding, robustness, and efficiency evaluation set."
+  },
+  "overrides": {}
+}

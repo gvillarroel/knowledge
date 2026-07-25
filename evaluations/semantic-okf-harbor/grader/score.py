@@ -8,9 +8,14 @@ import hashlib
 import json
 import math
 import re
+import sys
 from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
 from trace_status import classify_pi_trace
 
@@ -359,7 +364,11 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
     evidence = evidence if isinstance(evidence, list) else []
     valid_rows, intervals = evidence_validity(evidence, ledger)
     all_evidence_valid = bool(evidence) and all(valid_rows)
-    ranking = ranked_documents(evidence, crosswalk)
+    observed_ranking = ranked_documents(evidence, crosswalk)
+    valid_evidence = [
+        row for row, is_valid in zip(evidence, valid_rows) if is_valid
+    ]
+    ranking = ranked_documents(valid_evidence, crosswalk)
     relevant = set(question.get("qrels", {}).get("document_ids", []))
     metrics = retrieval_metrics(ranking, relevant)
     minimum = question.get("minimum_document_count")
@@ -368,10 +377,32 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
     ):
         raise ScoreError("minimum-document-count")
     covered_relevant = len(set(ranking) & relevant)
-    minimum_coverage = (
-        min(1.0, ratio(covered_relevant, minimum)) if isinstance(minimum, int) else 1.0
+    valid_document_count = len(ranking)
+    policy = question.get("evaluation_policy")
+    policy = policy if isinstance(policy, Mapping) else {}
+    qrel_scope = str(policy.get("qrel_scope", "exhaustive-relevance-set"))
+    minimum_basis = str(
+        policy.get("minimum_document_gate_basis", "qrel-document-count")
     )
-    minimum_gate = minimum is None or covered_relevant >= minimum
+    if qrel_scope not in {"exhaustive-relevance-set", "non-exhaustive-focus-set"}:
+        raise ScoreError("qrel-scope")
+    if minimum_basis not in {
+        "qrel-document-count",
+        "valid-evidence-document-count",
+    }:
+        raise ScoreError("minimum-document-gate-basis")
+    minimum_numerator = (
+        valid_document_count
+        if minimum_basis == "valid-evidence-document-count"
+        else covered_relevant
+    )
+    minimum_coverage = (
+        min(1.0, ratio(minimum_numerator, minimum))
+        if isinstance(minimum, int)
+        else 1.0
+    )
+    minimum_gate = minimum is None or minimum_numerator >= minimum
+    minimum_focus_gate = minimum is None or covered_relevant >= minimum
     truth = load_json(args.ground_truth) if args.ground_truth and args.ground_truth.exists() else None
     hard_ranges = authoritative_ranges(truth, args.authority_root, ledger)
     covered: set[str] = set()
@@ -402,6 +433,7 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
         "important_negative_anchor_coverage": group_completeness(ground.get("important_negatives"), covered) if isinstance(ground, Mapping) else 1.0,
         "minimum_document_coverage": minimum_coverage,
         "minimum_document_gate": float(minimum_gate),
+        "minimum_focus_document_gate": float(minimum_focus_gate),
     }
     terminal_ok = trace["outcome"] == "answer-emitted"
     gate = terminal_ok and contract and non_null and references and all_evidence_valid
@@ -436,23 +468,31 @@ def score(args: argparse.Namespace) -> tuple[dict[str, float], dict[str, Any]]:
     else:
         status = "scored-response"
     diagnostics = {
-        "schema_version": "semantic-okf-harbor-redacted-diagnostics/2.0",
+        "schema_version": "semantic-okf-harbor-redacted-diagnostics/3.0",
         "status": status,
         "question_id": question.get("id"),
         "parse_error": parse_error,
         "contract_errors": contract_errors,
         "evidence_count": len(evidence),
         "invalid_evidence_indices": [index for index, valid in enumerate(valid_rows) if not valid],
-        "cited_document_count": len(ranking),
+        "cited_document_count": len(observed_ranking),
+        "valid_independent_document_count": valid_document_count,
         "covered_qrel_count": covered_relevant,
+        "qrel_scope": qrel_scope,
         "minimum_document_count": minimum,
+        "minimum_document_gate_basis": minimum_basis,
         "minimum_document_gate": minimum_gate,
+        "minimum_focus_document_gate": minimum_focus_gate,
         "covered_hard_evidence_count": len(covered),
         "expected_hard_evidence_count": len(hard_ranges),
         "semantic_required_point_count": len(required_points) if isinstance(required_points, list) else 0,
         "semantic_correctness": (
-            "manual-review-required" if terminal_ok and required_points else "not-scored"
+            "manual-review-required"
+            if terminal_ok and non_null and (required_points or truth is not None)
+            else "not-scored"
         ),
+        "semantic_ranking_eligible": False,
+        "reward_semantics": "mechanical-contract-and-focus-coverage-only",
         "terminal_outcome": trace["outcome"],
         "failure_domain": trace.get("failure_domain"),
         "error_code": trace.get("error_code"),

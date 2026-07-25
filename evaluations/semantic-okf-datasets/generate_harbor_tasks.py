@@ -78,6 +78,7 @@ def normalized_question(
     row: Mapping[str, Any],
     question_format: str,
     rubric: Mapping[str, Any] | None = None,
+    evaluation_policy: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Normalize source-specific qrels into the source-generic Harbor contract."""
 
@@ -117,6 +118,19 @@ def normalized_question(
             "rubric_id": str(rubric["id"]),
             "dimensions": list(rubric.get("dimensions", [])),
             "required_points": list(rubric["required_points"]),
+        }
+    if evaluation_policy is not None:
+        result["evaluation_policy"] = {
+            "qrel_scope": str(evaluation_policy["qrel_scope"]),
+            "minimum_document_gate_basis": str(
+                evaluation_policy["minimum_document_gate_basis"]
+            ),
+            "semantic_ranking_gate": str(
+                evaluation_policy["semantic_ranking_gate"]
+            ),
+            "full_dataset_coverage_required": bool(
+                evaluation_policy["full_dataset_coverage_required"]
+            ),
         }
     return result
 
@@ -546,6 +560,7 @@ def generate(
             row,
             dataset["question_format"],
             rubrics.get(data.normalize_question_id(row.get("id"))),
+            dataset.get("evaluation_policy"),
         )
         for row in data.dataset_questions(dataset)
     ]

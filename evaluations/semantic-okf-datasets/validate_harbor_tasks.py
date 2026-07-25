@@ -222,6 +222,7 @@ def validate(
                 item,
                 dataset["question_format"],
                 rubrics.get(data.normalize_question_id(item.get("id"))),
+                dataset.get("evaluation_policy"),
             )
             for item in data.dataset_questions(dataset)
         )

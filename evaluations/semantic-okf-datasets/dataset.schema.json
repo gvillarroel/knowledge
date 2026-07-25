@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "semantic-okf-evaluation-dataset/1.0",
+  "$id": "semantic-okf-evaluation-dataset/1.2",
   "title": "Semantic OKF evaluation dataset descriptor",
   "type": "object",
   "additionalProperties": false,
@@ -17,7 +17,13 @@
     "plans"
   ],
   "properties": {
-    "schema_version": {"const": "semantic-okf-evaluation-dataset/1.0"},
+    "schema_version": {
+      "enum": [
+        "semantic-okf-evaluation-dataset/1.0",
+        "semantic-okf-evaluation-dataset/1.1",
+        "semantic-okf-evaluation-dataset/1.2"
+      ]
+    },
     "dataset_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
     "title": {"type": "string", "minLength": 1},
     "description": {"type": "string", "minLength": 1},
@@ -61,6 +67,42 @@
       "uniqueItems": true,
       "items": {"type": "string", "minLength": 1}
     },
+    "evaluation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qrel_scope",
+        "minimum_document_gate_basis",
+        "semantic_ranking_gate",
+        "full_dataset_coverage_required"
+      ],
+      "properties": {
+        "qrel_scope": {
+          "enum": ["exhaustive-relevance-set", "non-exhaustive-focus-set"]
+        },
+        "minimum_document_gate_basis": {
+          "enum": ["qrel-document-count", "valid-evidence-document-count"]
+        },
+        "semantic_ranking_gate": {
+          "const": "manual-review-required"
+        },
+        "full_dataset_coverage_required": {"type": "boolean"}
+      }
+    },
+    "reference_answers": {
+      "allOf": [
+        {"$ref": "#/$defs/pinnedFile"},
+        {
+          "type": "object",
+          "required": ["count", "format"],
+          "properties": {
+            "format": {
+              "const": "graphrag-best-answer-collection/1.0"
+            }
+          }
+        }
+      ]
+    },
     "plans": {
       "type": "object",
       "additionalProperties": {
@@ -68,6 +110,61 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "semantic-okf-evaluation-dataset/1.1"
+          }
+        },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "required": ["evaluation_policy"],
+        "not": {
+          "required": ["reference_answers"]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "semantic-okf-evaluation-dataset/1.2"
+          }
+        },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "required": ["evaluation_policy", "reference_answers"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "semantic-okf-evaluation-dataset/1.0"
+          }
+        },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "allOf": [
+          {
+            "not": {
+              "required": ["evaluation_policy"]
+            }
+          },
+          {
+            "not": {
+              "required": ["reference_answers"]
+            }
+          }
+        ]
+      }
+    }
+  ],
   "$defs": {
     "pinnedFile": {
       "type": "object",

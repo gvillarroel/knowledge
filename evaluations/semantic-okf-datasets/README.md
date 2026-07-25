@@ -9,7 +9,58 @@ This directory is the canonical registry and execution scaffold for reusable Sem
 | `astro-40` | 416 Astro MDX files | 40 | 10 | `train=24`, `dev=8`, `holdout=8` | No; build one and pass `--bundle` |
 | `graphrag-papers-40` | 15 papers, 15 reviewed claim files, and 1 vocabulary file | 40 | 10 | `discovery=24`, `holdout=6`, `hard=10` | `evaluations/graphrag-cross-paper/bundle` |
 
-Every descriptor pins the source manifest, question set, optional semantic rubric, hard ground truth, cohorts, and family-specific plan files by SHA-256. The papers descriptor restores the original q001–q030 document minimums and hidden required points from the authored blueprint. The registry covers these eight paired strategies:
+Every descriptor pins the source manifest, question set, optional semantic rubric, hard ground truth, cohorts, and family-specific plan files by SHA-256. The papers descriptor restores the original q001–q030 document minimums and hidden required points from the authored blueprint.
+
+The `graphrag-papers-40` qrel paper lists are curated, non-exhaustive focus
+sets. They are useful for focus coverage and retrieval diagnostics, but an
+otherwise valid paper is not semantically irrelevant merely because it is
+outside that list. For newly generated tasks, the public minimum-document gate
+therefore counts independent documents with exact valid evidence, while focus
+coverage remains a separate metric. Neither metric establishes answer
+correctness: semantic ranking requires review against every hidden required
+point or hard-ground-truth claim, derivation, and important negative.
+
+A report may claim full-dataset coverage only when every q001–q040 question has
+at least one complete response. Audit the local response archive and the
+preserved historical manual review with:
+
+```bash
+python evaluations/semantic-okf-datasets/audit_response_coverage.py \
+  --raw-adjudications evaluations/semantic-okf-datasets/reports/20260724-graphrag-papers-40-raw-semantic-adjudications.json
+```
+
+Dataset contract 1.2 pins a curated reference-answer collection for all forty
+questions at
+[`reports/20260724-graphrag-papers-40-best-answers.json`](reports/20260724-graphrag-papers-40-best-answers.json).
+Each answer was reviewed independently against every authored semantic target
+and validated against the exact evidence ledger. These answers are evaluator
+reference material, not live model trials; their presence does not make an
+incomplete empirical campaign eligible for a full-dataset claim.
+
+The current-metrics
+[`evaluation table`](reports/20260724-graphrag-papers-40-current-metrics-table.md)
+rescored all 180 locally preserved raw Harbor trials without making a new model
+call or changing an original result. It applies the current question policy
+while retaining each trial's native ledger and source-combination crosswalk,
+which is necessary because candidate families expose different exact record
+identities for the same authoritative papers. The companion JSON preserves all
+current metrics and redacted diagnostics for every trial. Thirty-two historical
+responses whose raw bodies are absent remain manual-review evidence and are
+explicitly not rescored.
+
+Reproduce the table from a fresh, validated current task tree:
+
+```bash
+python evaluations/semantic-okf-datasets/generate_harbor_tasks.py \
+  --dataset graphrag-papers-40 --family legacy --mode consult-only \
+  --output evaluations/runs/graphrag-current-metrics-rescore-20260724/tasks
+python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
+  --dataset graphrag-papers-40 --family legacy --mode consult-only \
+  --tasks evaluations/runs/graphrag-current-metrics-rescore-20260724/tasks
+python evaluations/semantic-okf-datasets/recalculate_graphrag_evaluation_table.py
+```
+
+The registry covers these eight paired strategies:
 
 | Family | Build skill | Consult skill | Plan | HF cache |
 |---|---|---|---|---|

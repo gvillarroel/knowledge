@@ -195,6 +195,39 @@ def test_minimum_document_gate_is_separate_and_non_compensating(tmp_path: Path) 
     assert six_rewards["reward"] == 1.0
 
 
+def test_non_exhaustive_focus_qrels_do_not_define_the_public_document_minimum(
+    tmp_path: Path,
+) -> None:
+    args = scoring_fixture(tmp_path, cited_documents=2)
+    question = json.loads(args.question.read_text(encoding="utf-8"))
+    question["qrels"]["document_ids"] = ["doc-2", "doc-3"]
+    question["minimum_document_count"] = 2
+    question["evaluation_policy"] = {
+        "qrel_scope": "non-exhaustive-focus-set",
+        "minimum_document_gate_basis": "valid-evidence-document-count",
+        "semantic_ranking_gate": "manual-review-required",
+        "full_dataset_coverage_required": True,
+    }
+    args.question.write_text(json.dumps(question), encoding="utf-8")
+
+    rewards, diagnostics = SCORE.score(args)
+
+    assert diagnostics["valid_independent_document_count"] == 2
+    assert diagnostics["covered_qrel_count"] == 1
+    assert diagnostics["qrel_scope"] == "non-exhaustive-focus-set"
+    assert diagnostics["minimum_document_gate_basis"] == (
+        "valid-evidence-document-count"
+    )
+    assert rewards["minimum_document_gate"] == 1.0
+    assert rewards["minimum_focus_document_gate"] == 0.0
+    assert rewards["mechanical_qualification_gate"] == 1.0
+    assert 0.0 < rewards["reward"] < 1.0
+    assert diagnostics["semantic_ranking_eligible"] is False
+    assert diagnostics["reward_semantics"] == (
+        "mechanical-contract-and-focus-coverage-only"
+    )
+
+
 def test_terminal_classifier_distinguishes_provider_and_agent_outcomes(tmp_path: Path) -> None:
     fixtures = {
         "quota": (assistant_event(None, stop_reason="error", error="usage_limit_reached status_code\":429"), "provider-quota"),
