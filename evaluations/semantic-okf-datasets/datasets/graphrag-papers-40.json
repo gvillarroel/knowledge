@@ -1,5 +1,5 @@
 {
-  "schema_version": "semantic-okf-evaluation-dataset/1.0",
+  "schema_version": "semantic-okf-evaluation-dataset/1.2",
   "dataset_id": "graphrag-papers-40",
   "title": "GraphRAG cross-paper 40-question benchmark",
   "description": "Fifteen pinned GraphRAG papers, reviewed source-scoped claims, thirty original questions, and ten evidence-first hard questions.",
@@ -33,6 +33,18 @@
     "sha256": "bf3472dec02fa4416b2764daa7a50d693e8ac5fa49459f41152a710fe38d44a4"
   },
   "partition_cohorts": ["discovery", "holdout", "hard"],
+  "evaluation_policy": {
+    "qrel_scope": "non-exhaustive-focus-set",
+    "minimum_document_gate_basis": "valid-evidence-document-count",
+    "semantic_ranking_gate": "manual-review-required",
+    "full_dataset_coverage_required": true
+  },
+  "reference_answers": {
+    "path": "evaluations/semantic-okf-datasets/reports/20260724-graphrag-papers-40-best-answers.json",
+    "sha256": "e615db503419c43ebb85c5d976e45413eb92cbc9233157874eb087bf5de0eb20",
+    "count": 40,
+    "format": "graphrag-best-answer-collection/1.0"
+  },
   "plans": {
     "adaptive": {
       "path": "evaluations/semantic-okf-adaptive/adaptive-plan.json",

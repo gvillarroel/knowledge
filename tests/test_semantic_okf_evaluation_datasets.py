@@ -107,6 +107,141 @@ def test_registry_validates_both_datasets_and_all_strategy_pairs() -> None:
     assert reports["astro-40"]["reference_bundle_present"] is False
     assert reports["graphrag-papers-40"]["semantic_rubric_count"] == 30
     assert reports["astro-40"]["semantic_rubric_count"] == 0
+    assert reports["graphrag-papers-40"]["reference_answer_count"] == 40
+    assert reports["astro-40"]["reference_answer_count"] == 0
+
+
+def test_dataset_schema_versions_policy_and_reference_answers() -> None:
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads((ROOT / "dataset.schema.json").read_text(encoding="utf-8"))
+    validator = jsonschema.Draft202012Validator(schema)
+
+    legacy = DATA.load_dataset("astro-40")
+    current = DATA.load_dataset("graphrag-papers-40")
+    validator.validate(legacy)
+    validator.validate(current)
+
+    missing_policy = json.loads(json.dumps(current))
+    missing_policy.pop("evaluation_policy")
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(missing_policy)
+
+    missing_answers = json.loads(json.dumps(current))
+    missing_answers.pop("reference_answers")
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(missing_answers)
+
+    version_1_1 = json.loads(json.dumps(current))
+    version_1_1["schema_version"] = "semantic-okf-evaluation-dataset/1.1"
+    version_1_1.pop("reference_answers")
+    validator.validate(version_1_1)
+
+    answers_on_version_1_1 = json.loads(json.dumps(version_1_1))
+    answers_on_version_1_1["reference_answers"] = current[
+        "reference_answers"
+    ]
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(answers_on_version_1_1)
+
+    policy_on_legacy = json.loads(json.dumps(legacy))
+    policy_on_legacy["evaluation_policy"] = current["evaluation_policy"]
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(policy_on_legacy)
+
+
+def test_reference_answers_cover_every_question_and_historical_response_once() -> None:
+    dataset = DATA.load_dataset("graphrag-papers-40")
+    collection = DATA.load_json(
+        DATA.pinned_path(
+            dataset["reference_answers"],
+            "graphrag-papers-40 reference answers",
+        )
+    )
+    expected_ids = [f"q{index:03d}" for index in range(1, 41)]
+    reviews = collection["reviews"]
+    validations = collection["validations"]
+
+    assert [row["question_id"] for row in reviews] == expected_ids
+    assert [row["question_id"] for row in validations] == expected_ids
+    assert all(row["status"] == "pass" for row in validations)
+    assert all(
+        row["proposed_response"]["question_id"] == row["question_id"]
+        and row["proposed_response"]["answer"] is not None
+        and SCORE.validate_contract(
+            row["proposed_response"],
+            row["question_id"],
+        )[0]
+        and SCORE.reference_validity(row["proposed_response"])
+        for row in reviews
+    )
+
+    historical_ids = [
+        response_id
+        for row in reviews
+        for response_id in row["historical_review"][
+            "reviewed_response_ids"
+        ]
+    ]
+    assert len(historical_ids) == len(set(historical_ids)) == 175
+    assert collection["historical_response_count"] == 175
+    assert collection["semantic_target_count"] == 200
+    assert collection["hard_anchor_count"] == 94
+
+    no_history = {"q028", *(f"q{index:03d}" for index in range(31, 41))}
+    assert all(
+        row["historical_review"]["response_count"] == 0
+        for row in reviews
+        if row["question_id"] in no_history
+    )
+
+
+def test_current_metrics_report_recalculates_every_raw_trial_without_answer_leakage() -> None:
+    report_path = (
+        ROOT
+        / "reports/"
+        "20260724-graphrag-papers-40-current-metrics-table.json"
+    )
+    report_text = report_path.read_text(encoding="utf-8")
+    report = json.loads(report_text)
+    summary = report["summary"]
+    trials = report["raw_trials"]
+    references = report["reference_calibrations"]
+
+    assert report["schema_version"] == (
+        "graphrag-current-metrics-evaluation-table/1.0"
+    )
+    assert report["new_model_calls"] == 0
+    assert summary["raw_harbor_trial_count"] == len(trials) == 180
+    assert summary["raw_trials_rescored_with_current_metrics"] == 180
+    assert summary["reviewable_raw_response_count"] == 143
+    assert summary["legacy_reviewable_response_count"] == 32
+    assert summary["reviewable_response_count"] == 175
+    assert summary["current_mechanical_qualification_count"] == 99
+    assert summary["empirically_covered_question_count"] == 29
+    assert summary["reference_mechanical_qualification_count"] == 40
+    assert len({row["response_id"] for row in trials}) == 180
+    assert [row["question_id"] for row in report["questions"]] == [
+        f"q{index:03d}" for index in range(1, 41)
+    ]
+    assert [row["question_id"] for row in references] == [
+        f"q{index:03d}" for index in range(1, 41)
+    ]
+    assert all(
+        row["current_diagnostics"]["schema_version"]
+        == "semantic-okf-harbor-redacted-diagnostics/3.0"
+        and row["current_metrics"]["reward"]
+        == pytest.approx(
+            row["current_metrics"]["mechanical_qualification_gate"]
+            * row["current_metrics"]["mechanical_utility"]
+        )
+        for row in trials
+    )
+    assert all(
+        row["semantic_verdict"] == "pass"
+        and row["current_metrics"]["mechanical_qualification_gate"] == 1.0
+        for row in references
+    )
+    assert '"answer_text"' not in report_text
 
 
 def test_cohorts_partition_questions_exactly_once() -> None:
@@ -175,7 +310,10 @@ def test_paper_rubric_restores_minimum_without_leaking_required_points() -> None
         if row["normalized_id"] == "q003"
     )
     question = GENERATOR.normalized_question(
-        source, dataset["question_format"], rubrics["q003"]
+        source,
+        dataset["question_format"],
+        rubrics["q003"],
+        dataset["evaluation_policy"],
     )
     instruction = GENERATOR.instruction(
         question, "consult-only", "legacy", DATA.load_families()["legacy"]
@@ -183,6 +321,12 @@ def test_paper_rubric_restores_minimum_without_leaking_required_points() -> None
 
     assert question["minimum_document_count"] == 6
     assert len(question["semantic_rubric"]["required_points"]) == 4
+    assert question["evaluation_policy"] == {
+        "qrel_scope": "non-exhaustive-focus-set",
+        "minimum_document_gate_basis": "valid-evidence-document-count",
+        "semantic_ranking_gate": "manual-review-required",
+        "full_dataset_coverage_required": True,
+    }
     assert "at least 6 independent relevant papers" in instruction
     assert all(
         point not in instruction
@@ -220,7 +364,11 @@ def test_paper_truth_splits_reader_discarded_controls_into_exact_spans() -> None
 def test_paper_hard_oracle_passes_the_real_harbor_grader(tmp_path: Path) -> None:
     dataset = DATA.load_dataset("graphrag-papers-40")
     question = next(
-        GENERATOR.normalized_question(row, dataset["question_format"])
+        GENERATOR.normalized_question(
+            row,
+            dataset["question_format"],
+            evaluation_policy=dataset["evaluation_policy"],
+        )
         for row in DATA.dataset_questions(dataset)
         if DATA.normalize_question_id(row["id"]) == "q037"
     )
@@ -251,6 +399,8 @@ def test_paper_hard_oracle_passes_the_real_harbor_grader(tmp_path: Path) -> None
     assert rewards["mechanical_qualification_gate"] == 1.0
     assert rewards["authoritative_evidence_anchor_coverage"] == 1.0
     assert diagnostics["covered_hard_evidence_count"] == diagnostics["expected_hard_evidence_count"]
+    assert diagnostics["semantic_correctness"] == "manual-review-required"
+    assert diagnostics["semantic_ranking_eligible"] is False
 
 
 def test_runner_configs_install_only_mode_appropriate_skills(tmp_path: Path) -> None:
