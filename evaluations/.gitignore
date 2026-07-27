@@ -1,0 +1,23 @@
+# Evaluation data is local, append-only, and reproducible from checked-in
+# manifests and scripts. Keep both acquisition inputs and derived outputs out
+# of Git in every evaluation study.
+**/raw/
+**/processed/
+
+# Conventional execution and build artifact directories.
+**/generated/
+**/results/
+**/runs/
+**/artifacts/
+**/runtime/
+**/trace-distillation/
+
+# Local caches, environments, and transient interpreter output.
+**/.cache/
+**/.venv/
+**/__pycache__/
+**/*.py[cod]
+
+# Trace-distillation state files that older studies wrote at their root.
+**/trace-distillation*.json
+

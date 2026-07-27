@@ -11,6 +11,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BUILD_SKILL = REPO_ROOT / "skills" / "build-semantic-okf-graphify"
+NEXT_BUILD_SKILL = REPO_ROOT / "skills" / "build-semantic-okf-graphify-next"
 CONSULT_SKILL = REPO_ROOT / "skills" / "consult-semantic-okf-graphify"
 
 
@@ -320,3 +321,165 @@ def test_copied_graphify_skills_build_query_deterministically_and_fail_closed(
     )
     assert invalid.returncode == 2
     assert "graph file digest changed" in invalid.stderr
+
+
+def test_official_builder_adds_valid_similarity_bridges_for_frozen_consult(
+    tmp_path: Path,
+) -> None:
+    fixture = tmp_path / "fixture"
+    fixture.mkdir()
+    manifest = write_fixture(fixture)
+    documents = fixture / "sources" / "documents.jsonl"
+    documents.write_text(
+        documents.read_text(encoding="utf-8")
+        + json.dumps(
+            {
+                "id": "doc-2",
+                "title": "Beta Document",
+                "summary": "Connected local graph traversal and deterministic retrieval.",
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    output_a = tmp_path / "evolved-a"
+    output_b = tmp_path / "evolved-b"
+
+    first = payload(
+        run_script(
+            BUILD_SKILL,
+            "build_semantic_okf_graphify.py",
+            str(manifest),
+            str(output_a),
+            "--output-format",
+            "json",
+        )
+    )
+    second = payload(
+        run_script(
+            BUILD_SKILL,
+            "build_semantic_okf_graphify.py",
+            str(manifest),
+            str(output_b),
+            "--output-format",
+            "json",
+        )
+    )
+    assert first["graphify"]["logical_sha256"] == second["graphify"]["logical_sha256"]
+
+    graph = json.loads(
+        (output_a / "retrieval" / "graphify" / "graph.json").read_text(encoding="utf-8")
+    )
+    roots = [
+        node for node in graph["nodes"]
+        if node.get("projection_role") == "record-root"
+    ]
+    similarity = [
+        link for link in graph["links"]
+        if link.get("projection") == "harbor-lexical-similarity"
+    ]
+    assert len(roots) == 2
+    assert len(similarity) == 1
+    assert similarity[0]["relation"] == "lexical-similarity"
+    assert 0.0 < similarity[0]["similarity"] <= 1.0
+
+    evolved_validation = payload(
+        run_script(
+            BUILD_SKILL,
+            "validate_semantic_okf_graphify.py",
+            str(output_a),
+            "--output-format",
+            "json",
+        )
+    )
+    frozen_consult_validation = payload(
+        run_script(CONSULT_SKILL, "query_semantic_okf_graphify.py", str(output_a), "verify")
+    )
+    assert evolved_validation["valid"] is True
+    assert frozen_consult_validation["status"] == "pass"
+
+    search = payload(
+        run_script(
+            CONSULT_SKILL,
+            "query_semantic_okf_graphify.py",
+            str(output_a),
+            "search",
+            "local-first connected graph retrieval",
+            "--top-k",
+            "5",
+        )
+    )
+    assert search["fallback"] is None
+    assert search["records"][0]["record_id"] == "doc-1"
+
+
+def test_next_builder_adds_only_valid_capped_reciprocal_references(
+    tmp_path: Path,
+) -> None:
+    fixture = tmp_path / "fixture"
+    fixture.mkdir()
+    manifest = write_fixture(fixture)
+    documents = fixture / "sources" / "documents.jsonl"
+    documents.write_text(
+        "\n".join(
+            json.dumps(record, sort_keys=True)
+            for record in (
+                {
+                    "id": "sources/mdx/guides/alpha",
+                    "title": "Alpha Guide",
+                    "summary": "See [Beta](/en/reference/beta/) for the contract.",
+                },
+                {
+                    "id": "sources/mdx/reference/beta",
+                    "title": "Beta Reference",
+                    "summary": "Return to [Alpha](/en/guides/alpha/) for usage.",
+                },
+                {
+                    "id": "sources/mdx/guides/one-way",
+                    "title": "One Way Guide",
+                    "summary": "See [Beta](/en/reference/beta/) without a return link.",
+                },
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    output = tmp_path / "next"
+
+    built = payload(
+        run_script(
+            NEXT_BUILD_SKILL,
+            "build_semantic_okf_graphify.py",
+            str(manifest),
+            str(output),
+            "--output-format",
+            "json",
+        )
+    )
+    graph = json.loads(
+        (output / "retrieval" / "graphify" / "graph.json").read_text(encoding="utf-8")
+    )
+    references = [
+        link
+        for link in graph["links"]
+        if link.get("projection") == "harbor-reciprocal-reference"
+    ]
+    assert built["graphify"]["summary"]["records"] == 3
+    assert len(references) == 1
+    assert references[0]["relation"] == "reciprocal-reference"
+
+    validation = payload(
+        run_script(
+            NEXT_BUILD_SKILL,
+            "validate_semantic_okf_graphify.py",
+            str(output),
+            "--output-format",
+            "json",
+        )
+    )
+    frozen_consult = payload(
+        run_script(CONSULT_SKILL, "query_semantic_okf_graphify.py", str(output), "verify")
+    )
+    assert validation["valid"] is True
+    assert frozen_consult["status"] == "pass"

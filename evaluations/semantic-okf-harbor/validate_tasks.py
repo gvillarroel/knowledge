@@ -54,7 +54,12 @@ def validate_authoritative_mapping(task_dir: Path, truth: Mapping[str, Any]) -> 
     if spec is None or spec.loader is None:
         raise ValidationError(f"{task_dir.name}: grader cannot be imported")
     grader = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(grader)
+    tests_path = str(score_path.parent)
+    sys.path.insert(0, tests_path)
+    try:
+        spec.loader.exec_module(grader)
+    finally:
+        sys.path.remove(tests_path)
     rows = load_jsonl(task_dir / "tests/records.jsonl")
     ledger = {(str(row.get("source_id")), str(row.get("record_id"))): row for row in rows}
     try:

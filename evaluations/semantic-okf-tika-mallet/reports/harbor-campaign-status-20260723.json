@@ -1,0 +1,167 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-harbor-campaign-status/1.0",
+  "candidate_id": "tika-mallet",
+  "dataset_id": "graphrag-papers-40",
+  "evaluation_scope": "grounded-answer-harbor",
+  "report_date": "2026-07-23",
+  "status": "incomplete-external-provider-quota",
+  "ranking_eligible": false,
+  "expected_question_count": 40,
+  "interpretation": {
+    "direct_retrieval_ranking_affected": false,
+    "provider_failure_values_are_scores": false,
+    "semantic_answer_quality_measured": false,
+    "reason": "No frozen treatment completed all 40 questions exactly once without provider failures."
+  },
+  "treatments": [
+    {
+      "treatment_id": "v2-original-consult",
+      "candidate_specification_sha256": "03fd68b87d448b817b417ffa9f83e27a3c53582ef2a254b6cf89500e6c1d87e9",
+      "consult_skill_tree_sha256": "808e6521d7576884746c9b144d56b615c1bace7ce815d5bb63c10f75b8cbf1ad",
+      "attempted_question_count": 6,
+      "answer_emitted_count": 5,
+      "provider_context_limit_count": 1,
+      "provider_quota_count": 0,
+      "ranking_eligible": false,
+      "terminal_reason": "provider-context-limit",
+      "receipts": [
+        {
+          "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-consult-holdout-q005-live-v2-01/run-receipt.json",
+          "sha256": "9add49ee90db0c11789d588e952eac40f03b9003affe1c93601b4ac7b97f5855",
+          "task_ids": [
+            "q005"
+          ],
+          "terminal_outcomes": {
+            "answer-emitted": 1
+          }
+        },
+        {
+          "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-consult-holdout-rest-live-v2-01/run-receipt.json",
+          "sha256": "8c536e10cf663e031870631572149d9838f3578287ef244f3394e9fc12d56021",
+          "task_ids": [
+            "q010",
+            "q015",
+            "q020",
+            "q025",
+            "q029"
+          ],
+          "terminal_outcomes": {
+            "answer-emitted": 4,
+            "provider-context-limit": 1
+          }
+        }
+      ]
+    },
+    {
+      "treatment_id": "v3-original-consult-bounded-prompt",
+      "candidate_specification_sha256": "03fd68b87d448b817b417ffa9f83e27a3c53582ef2a254b6cf89500e6c1d87e9",
+      "consult_skill_tree_sha256": "d6ab811fe99c9c4b765d286e71272ad5e27345cb2f0b8bc4fd3c8b4f0a7faefe",
+      "attempted_question_count": 30,
+      "answer_emitted_count": 29,
+      "provider_context_limit_count": 1,
+      "provider_quota_count": 0,
+      "unattempted_question_count": 10,
+      "ranking_eligible": false,
+      "terminal_reason": "provider-context-limit",
+      "receipts": [
+        {
+          "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-v3-holdout-q029-live-01/run-receipt.json",
+          "sha256": "b263229b976e0cddeba916a5856dd27c18756da1e251f994c4d4b5beb70663a8",
+          "task_ids": [
+            "q029"
+          ],
+          "terminal_outcomes": {
+            "answer-emitted": 1
+          }
+        },
+        {
+          "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-v3-holdout-rest-live-01/run-receipt.json",
+          "sha256": "06c09d3739d9caad02d0f3f89351a36a93b72024e765c51394b772d12c04d3d1",
+          "task_ids": [
+            "q005",
+            "q010",
+            "q015",
+            "q020",
+            "q025"
+          ],
+          "terminal_outcomes": {
+            "answer-emitted": 5
+          }
+        },
+        {
+          "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-v3-discovery-live-01/run-receipt.json",
+          "sha256": "c283e2f485f8d4d39624d7b1ce9ae7997b9d31d86319568e23ac688fbcb344c9",
+          "task_ids": [
+            "q001",
+            "q002",
+            "q003",
+            "q004",
+            "q006",
+            "q007",
+            "q008",
+            "q009",
+            "q011",
+            "q012",
+            "q013",
+            "q014",
+            "q016",
+            "q017",
+            "q018",
+            "q019",
+            "q021",
+            "q022",
+            "q023",
+            "q024",
+            "q026",
+            "q027",
+            "q028",
+            "q030"
+          ],
+          "terminal_outcomes": {
+            "answer-emitted": 23,
+            "provider-context-limit": 1
+          }
+        }
+      ]
+    },
+    {
+      "treatment_id": "v4-bounded-consult",
+      "candidate_specification_path": "evaluations/semantic-okf-tika-mallet/canonical/graphrag-papers-40/harbor-candidate-bounded-v4.json",
+      "candidate_specification_sha256": "d9813d8605d6d45d736e20a08d7a3daccfe1fc2e83435408c05b26afb61975f2",
+      "family_contract_sha256": "82b742b614326b0edfa8a8b24a241953c95e33ad4faf7bad8bd71d7eabc74bbf",
+      "consult_skill": "consult-semantic-okf-tika-mallet-bounded",
+      "consult_skill_tree_sha256": "675cb85029a2ddd1d0bb674df0716f4f69cec8034b43e2c28a856d505d7b4ba7",
+      "attempted_question_count": 1,
+      "answer_emitted_count": 0,
+      "provider_context_limit_count": 0,
+      "provider_quota_count": 1,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "agent_tool_calls": 0,
+      "ranking_eligible": false,
+      "terminal_reason": "provider-quota",
+      "provider_error_code": "usage_limit_reached",
+      "provider_reset_at": "2026-07-29T17:08:54-04:00",
+      "receipt": {
+        "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-v4-discovery-q028-live-01/run-receipt.json",
+        "sha256": "7d5fc923701d0b9dc8121d6f790329cc0098caf354461d11ed4e0ca8e4ca53cd",
+        "task_ids": [
+          "q028"
+        ],
+        "terminal_outcomes": {
+          "provider-quota": 1
+        }
+      },
+      "diagnostic": {
+        "path": "evaluations/semantic-okf-datasets/results/20260723-tika-mallet-v4-discovery-q028-live-01/q028__KJL2eeP/verifier/diagnostics.json",
+        "assistant_output_absent": true,
+        "numeric_verifier_values_are_audit_placeholders": true
+      }
+    }
+  ],
+  "admission_rule": {
+    "required": "One frozen prospective treatment must complete all 40 questions exactly once with matching identities, no provider or evaluator failure, current-scorer replay, and separate semantic review.",
+    "current_result": "fail-incomplete",
+    "next_action": "After provider access is restored, create a new append-only prospective v4 campaign and run the strict 40-question auditor. Do not merge prior treatments or treat provider-failure placeholders as scores."
+  }
+}

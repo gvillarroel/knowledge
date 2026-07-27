@@ -1,0 +1,143 @@
+{
+  "schema_version": "semantic-okf-rust-mallet-preserving-prepare-trace-distillation/1.1",
+  "status": "not-evaluable-holdout",
+  "date": "2026-07-23",
+  "source_skill": {
+    "name": "consult-semantic-okf-rust-mallet-evolved",
+    "digest": "sha256:637af0aefb44de8bf24fffb246158c9db6a8e9bdfb6780150ca6f043cc965a6d"
+  },
+  "campaign": {
+    "artifact": "/home/villa/harbor-rust-mallet-reference-evolution/20260723-consult-reference-contract-f/distillation-preserving-prepare-live-2",
+    "harbor_version": "0.18.0",
+    "agent": "pi",
+    "agent_version": "0.73.1",
+    "model": "github-copilot/gpt-5.3-codex",
+    "retry_max": 0
+  },
+  "discovery": {
+    "unique_trials": 2,
+    "unique_task_checksums": 2,
+    "traces": [
+      {
+        "evidence_id": "rust-mallet-reference-contract-consult-f-trace-discovery:9956ffbe-1239-4410-b64f-007633fbc4fb",
+        "task_checksum": "ba417dfb740499c79e7d6b3e649260299c787a15aca272d8b65e696b51d09b8a",
+        "reward": 0.8291259692089575,
+        "outcome": "success"
+      },
+      {
+        "evidence_id": "rust-mallet-reference-contract-consult-f-trace-discovery:6e33c2ad-5253-42e0-8917-1368723bf0bd",
+        "task_checksum": "47e9e39cc6ee8170ab1227f259e0e80745e1473a78ebc59e0ba88d712c084cd2",
+        "reward": 0.85134265677723,
+        "outcome": "success"
+      }
+    ]
+  },
+  "candidate": {
+    "digest": "sha256:7e145adb6c8a0ada14a43fe73fef257c24656aa9b00653e0d3d5f7ea61358f0f",
+    "accepted_proposals": [
+      "document-preserving-prepare-protocol",
+      "preserve-search-guidance-and-selected-text"
+    ],
+    "rejected_proposals": [],
+    "behavior": {
+      "public_preparation_calls": 1,
+      "legacy_search_and_show_retained": true,
+      "recommended_interpretations_retained": true,
+      "selected_authoritative_text_retained": true,
+      "breadth_buffer_retained": true
+    }
+  },
+  "local_qualification": {
+    "skill_creator_quick_validate": "pass",
+    "python_compile": "pass",
+    "q007_preparation": {
+      "status": "pass",
+      "minimum_sources": 4,
+      "recommended": 6,
+      "selected": 6,
+      "order_match": true,
+      "interpretations_present": 6,
+      "full_text_present": 6,
+      "observed_command_wall_seconds": 76.6,
+      "measurement_scope": "Windows PowerShell, WSL launch, and two snapshot loads"
+    }
+  },
+  "promotion_campaign": {
+    "schema_version": 2,
+    "development": {
+      "tasks": [
+        "q007",
+        "q019"
+      ],
+      "task_checksums_match_discovery": true,
+      "completed_trials": 2,
+      "evaluable_trials": 2,
+      "qualified_trials": 2,
+      "errors": 0,
+      "pass_rate": 1.0,
+      "mean_reward": 0.8470288192654997,
+      "trial_wall_seconds": [
+        153.68361,
+        162.608986
+      ],
+      "decision": "pass"
+    },
+    "holdout": {
+      "tasks": [
+        "q005",
+        "q020"
+      ],
+      "opened": true,
+      "attempts_per_task": 2,
+      "baseline_mean_reward": 0.3963987475439943,
+      "candidate_mean_reward": null,
+      "mean_gain": null,
+      "candidate_errors": 1,
+      "candidate_qualified": false,
+      "decision": "not-evaluable",
+      "baseline_trial_wall_seconds": [
+        173.076138,
+        168.575545,
+        181.292683,
+        172.183659
+      ],
+      "candidate_trial_wall_seconds": [
+        158.564746,
+        183.399839,
+        150.459046,
+        212.462849
+      ],
+      "per_task": {
+        "q005": {
+          "baseline_mean_reward": 0.0,
+          "candidate_mean_reward": 0.0,
+          "delta": 0.0,
+          "mechanical_qualification_gate": 0.0
+        },
+        "q020": {
+          "baseline_mean_reward": 0.7927974950879886,
+          "candidate_mean_reward": null,
+          "delta": null,
+          "candidate_success_reward": 0.7803965693191046,
+          "candidate_error": "NonZeroAgentExitCodeError: exit 137"
+        }
+      }
+    },
+    "promotion_rules": {
+      "minimum_mean_gain": 0.01,
+      "allow_task_regressions": false,
+      "require_no_errors": true,
+      "required_rewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      }
+    }
+  },
+  "decision": {
+    "builder": "unchanged-by-consult-campaign",
+    "consult": "retain-reference-aware-parent-a",
+    "candidate": "isolated-not-promoted",
+    "promotion": false,
+    "reason": "one candidate holdout trial exited 137 and the q005 cell failed the mechanical qualification gate on both sides"
+  }
+}

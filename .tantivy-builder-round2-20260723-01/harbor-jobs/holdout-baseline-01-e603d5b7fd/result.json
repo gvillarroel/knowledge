@@ -1,0 +1,83 @@
+{
+    "id": "1914e08d-a369-4c25-af4e-fe3e267ba3f0",
+    "started_at": "2026-07-23T16:56:58.788134",
+    "updated_at": "2026-07-23T16:58:48.435370",
+    "finished_at": "2026-07-23T16:58:48.435370",
+    "n_total_trials": 2,
+    "stats": {
+        "n_completed_trials": 2,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 2,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "evidence_contract_gate": 1.0,
+                        "mechanical_qualification_gate": 1.0,
+                        "mrr_at_10": 0.9166666666666667,
+                        "ndcg_at_10": 0.9062143572405781,
+                        "recall_at_10": 0.9583333333333333,
+                        "reward": 0.927071452413526
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "evidence_contract_gate": {
+                        "1.0": [
+                            "part-01__EfbuJBT",
+                            "part-02__BprP5Bt"
+                        ]
+                    },
+                    "mechanical_qualification_gate": {
+                        "1.0": [
+                            "part-01__EfbuJBT",
+                            "part-02__BprP5Bt"
+                        ]
+                    },
+                    "mrr_at_10": {
+                        "1.0": [
+                            "part-01__EfbuJBT"
+                        ],
+                        "0.8333333333333334": [
+                            "part-02__BprP5Bt"
+                        ]
+                    },
+                    "ndcg_at_10": {
+                        "1.0": [
+                            "part-01__EfbuJBT"
+                        ],
+                        "0.8124287144811561": [
+                            "part-02__BprP5Bt"
+                        ]
+                    },
+                    "recall_at_10": {
+                        "1.0": [
+                            "part-01__EfbuJBT"
+                        ],
+                        "0.9166666666666666": [
+                            "part-02__BprP5Bt"
+                        ]
+                    },
+                    "reward": {
+                        "1.0": [
+                            "part-01__EfbuJBT"
+                        ],
+                        "0.854142904827052": [
+                            "part-02__BprP5Bt"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

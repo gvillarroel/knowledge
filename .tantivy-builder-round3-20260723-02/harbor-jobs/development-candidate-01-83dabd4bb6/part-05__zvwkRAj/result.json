@@ -1,0 +1,125 @@
+{
+    "id": "10d38c7d-84de-4ee2-95f9-c4535ca50074",
+    "task_name": "knowledge/tantivy-builder-endocrine-evolution__development__part-05",
+    "trial_name": "part-05__zvwkRAj",
+    "trial_uri": "file:///mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/development-candidate-01-83dabd4bb6/part-05__zvwkRAj",
+    "task_id": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-05"
+    },
+    "source": null,
+    "task_checksum": "6db8ebb38dc7a05c6f59210349d98fad8eb73e57d58145d9f4a3be1557c2a553",
+    "config": {
+        "task": {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-05",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "part-05__zvwkRAj",
+        "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/development-candidate-01-83dabd4bb6",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": 5,
+            "concurrency_group": null,
+            "skills": [
+                "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+            ],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                    "target": "/dataset",
+                    "read_only": true,
+                    "bind": {
+                        "create_host_path": false
+                    }
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "98fe0435-a8e4-4d76-948c-c9f48df1aaea"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.6935409774532664,
+            "recall_at_10": 0.6145833333333333,
+            "reward": 0.7693747702621998
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-07-23T21:50:44.854123Z",
+    "finished_at": "2026-07-23T21:52:18.836167Z",
+    "environment_setup": {
+        "started_at": "2026-07-23T21:50:46.309510Z",
+        "finished_at": "2026-07-23T21:50:50.814887Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-07-23T21:50:54.344616Z",
+        "finished_at": "2026-07-23T21:50:54.344667Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-07-23T21:50:54.344806Z",
+        "finished_at": "2026-07-23T21:51:21.194907Z"
+    },
+    "verifier": {
+        "started_at": "2026-07-23T21:51:41.138462Z",
+        "finished_at": "2026-07-23T21:52:18.836159Z"
+    },
+    "step_results": null
+}

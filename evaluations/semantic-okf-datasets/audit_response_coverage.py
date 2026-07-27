@@ -24,6 +24,23 @@ import score as grader  # noqa: E402
 from trace_status import classify_pi_trace  # noqa: E402
 
 QUESTION_PREFIX = re.compile(r"^(q[0-9]{3})")
+DEFAULT_ADDITIONAL_RESULTS = (
+    (
+        REPO
+        / "evaluations/semantic-okf-tika-mallet-tantivy/generated/"
+        "trace-distillation"
+    ),
+    (
+        HERE
+        / "generated/campaigns/"
+        "20260717-papers-consult-gpt53-spark-01/runs"
+    ),
+    (
+        HERE
+        / "generated/campaigns/"
+        "20260717-papers-consult-gpt53-spark-02/runs"
+    ),
+)
 
 
 class AuditError(ValueError):
@@ -45,6 +62,15 @@ def optional_json(path: Path) -> dict[str, Any]:
     return load_json(path) if path.is_file() else {}
 
 
+def repo_relative(path: Path) -> str:
+    """Return a stable repository-relative artifact path."""
+
+    try:
+        return path.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError:
+        return str(path.resolve())
+
+
 def response_identity_digest(rows: Sequence[Mapping[str, Any]]) -> str:
     """Hash the stable raw-response identity and payload-hash pairs."""
 
@@ -63,7 +89,7 @@ def raw_responses(results_root: Path, question_ids: set[str]) -> tuple[list[dict
 
     responses: list[dict[str, Any]] = []
     trial_count = 0
-    for pi_log in sorted(results_root.glob("*/q*__*/agent/pi.txt")):
+    for pi_log in sorted(results_root.rglob("agent/pi.txt")):
         trial_count += 1
         trial = pi_log.parents[1]
         job = trial.parent
@@ -319,17 +345,70 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     }
     rubrics = data.dataset_semantic_rubrics(dataset)
     targets = semantic_target_counts(dataset)
-    raw, raw_trial_count = raw_responses(args.results, question_ids)
-    raw_digest = apply_raw_adjudications(raw, args.raw_adjudications)
-    historical, historical_trial_count = historical_responses(
-        args.historical_campaign, args.historical_manual_review, question_ids
+    adjudicated_raw, primary_trial_count = raw_responses(
+        args.results, question_ids
     )
+    raw_digest = apply_raw_adjudications(
+        adjudicated_raw, args.raw_adjudications
+    )
+    historical, historical_trial_count = historical_responses(
+        args.historical_campaign,
+        args.historical_manual_review,
+        question_ids,
+    )
+    historical_by_trial_id = {
+        str(row["trial_id"]): row
+        for row in historical
+        if isinstance(row.get("trial_id"), str)
+    }
+    resolved_historical_ids: set[str] = set()
+    additional_raw: list[dict[str, Any]] = []
+    additional_trial_count = 0
+    for root in args.additional_results:
+        rows, trial_count = raw_responses(root, question_ids)
+        additional_trial_count += trial_count
+        for row in rows:
+            trial_id = row.get("trial_id")
+            historical_row = (
+                historical_by_trial_id.get(str(trial_id))
+                if isinstance(trial_id, str)
+                else None
+            )
+            if historical_row is not None:
+                resolved_historical_ids.add(str(trial_id))
+                row["semantic_verdict"] = historical_row[
+                    "semantic_verdict"
+                ]
+                row["rationale"] = historical_row["rationale"]
+                row["historical_adjudication_source"] = historical_row[
+                    "response_id"
+                ]
+            else:
+                row["semantic_verdict"] = "not-reviewed"
+                row["rationale"] = (
+                    "The response has current mechanical diagnostics but no "
+                    "digest-bound semantic adjudication."
+                )
+        additional_raw.extend(rows)
+    raw = [*adjudicated_raw, *additional_raw]
+    response_ids = [str(row["response_id"]) for row in raw]
+    if len(response_ids) != len(set(response_ids)):
+        raise AuditError("duplicate raw response identity across result roots")
+    raw_trial_count = primary_trial_count + additional_trial_count
+    unresolved_historical = [
+        row
+        for row in historical
+        if str(row.get("trial_id")) not in resolved_historical_ids
+    ]
     responses = sorted(
-        [*raw, *historical], key=lambda row: str(row["response_id"])
+        [*raw, *unresolved_historical],
+        key=lambda row: str(row["response_id"]),
     )
     response_counts = Counter(row["question_id"] for row in responses)
     raw_counts = Counter(row["question_id"] for row in raw)
-    historical_counts = Counter(row["question_id"] for row in historical)
+    historical_counts = Counter(
+        row["question_id"] for row in unresolved_historical
+    )
     verdicts = Counter(str(row["semantic_verdict"]) for row in responses)
     covered_questions = {question_id for question_id, count in response_counts.items() if count}
     missing_questions = sorted(question_ids - covered_questions)
@@ -374,17 +453,39 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     summary_cell_count = len(summary_cells) if isinstance(summary_cells, list) else 0
     concentrated = sum(raw_counts[key] for key in ("q002", "q003", "q004"))
     return {
-        "schema_version": "graphrag-response-coverage-audit/1.0",
+        "schema_version": "graphrag-response-coverage-audit/1.1",
         "dataset_id": args.dataset,
         "dataset_validation": validation,
         "dataset_question_count": len(question_ids),
         "raw_harbor_trial_count": raw_trial_count,
+        "primary_raw_harbor_trial_count": primary_trial_count,
+        "additional_raw_harbor_trial_count": additional_trial_count,
+        "trial_source_roots": [
+            repo_relative(path)
+            for path in (args.results, *args.additional_results)
+        ],
         "historical_campaign_trial_count": historical_trial_count,
         "summary_only_cell_count": summary_cell_count,
         "summary_only_cells_reviewable": False,
         "raw_complete_response_count": len(raw),
+        "semantically_reviewed_raw_response_count": sum(
+            row["semantic_verdict"] != "not-reviewed" for row in raw
+        ),
+        "semantically_unreviewed_raw_response_count": sum(
+            row["semantic_verdict"] == "not-reviewed" for row in raw
+        ),
         "historical_manually_reviewed_response_count": len(historical),
+        "resolved_historical_raw_response_count": len(
+            resolved_historical_ids
+        ),
+        "legacy_historical_response_count": len(unresolved_historical),
         "reviewable_response_count": len(responses),
+        "semantically_reviewed_response_count": (
+            sum(
+                row["semantic_verdict"] != "not-reviewed" for row in raw
+            )
+            + len(unresolved_historical)
+        ),
         "unique_raw_response_count": len(
             {row["response_sha256"] for row in raw}
         ),
@@ -400,6 +501,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             not full_coverage_required or len(covered_questions) == len(question_ids)
         ),
         "raw_response_identity_sha256": raw_digest,
+        "adjudicated_raw_response_identity_sha256": raw_digest,
         "questions": question_rows,
         "responses": responses,
     }
@@ -422,10 +524,21 @@ def markdown(report: Mapping[str, Any]) -> str:
         "",
         (
             f"This audit inventories {report['raw_complete_response_count']} "
-            "complete raw Harbor responses and "
-            f"{report['historical_manually_reviewed_response_count']} additional "
-            "historical responses with preserved manual adjudications: "
+            "complete raw Harbor responses. "
+            f"{report['resolved_historical_raw_response_count']} of them were "
+            "matched by trial id to preserved historical adjudications; "
+            f"{report['legacy_historical_response_count']} adjudicated "
+            "historical rows remain without a raw body. The result contains "
             f"**{report['reviewable_response_count']} reviewable responses**."
+        ),
+        "",
+        (
+            f"Semantic adjudication covers "
+            f"{report['semantically_reviewed_response_count']} responses. "
+            f"The remaining "
+            f"{report['semantically_unreviewed_raw_response_count']} raw "
+            "responses have current mechanical diagnostics but await "
+            "digest-bound semantic review."
         ),
         "",
         (
@@ -447,8 +560,9 @@ def markdown(report: Mapping[str, Any]) -> str:
         (
             f"Semantic adjudications: {verdicts.get('pass', 0)} pass, "
             f"{verdicts.get('partial', 0)} partial, and "
-            f"{verdicts.get('fail', 0)} fail. Mechanical reward is not used "
-            "as semantic correctness."
+            f"{verdicts.get('fail', 0)} fail; "
+            f"{verdicts.get('not-reviewed', 0)} are not reviewed. Mechanical "
+            "reward is not used as semantic correctness."
         ),
         "",
         (
@@ -535,7 +649,8 @@ def markdown(report: Mapping[str, Any]) -> str:
             "",
             "Each response row has a separate semantic verdict and retains its "
             "mechanical observations. Detailed rationales are in the companion "
-            "JSON report. Historical rows do not invent unavailable raw payloads.",
+            "JSON report. Historical adjudications recovered by trial id retain "
+            "their original rationale without inventing unavailable payloads.",
             "",
         ]
     )
@@ -562,6 +677,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--results",
         type=Path,
         default=HERE / "results",
+    )
+    parser.add_argument(
+        "--additional-results",
+        type=Path,
+        action="append",
+        default=list(DEFAULT_ADDITIONAL_RESULTS),
     )
     parser.add_argument(
         "--historical-campaign",

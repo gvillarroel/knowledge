@@ -1,0 +1,498 @@
+proposals:
+  - id: bounded-multi-query-and-answer-lint
+    diagnosis: >-
+      All four discovery trials repeatedly issued broad direct searches that returned
+      complete passages. q013 timed out after 1.3M input tokens, q001 emitted an answer
+      with one evidence row outside first-use order, and the two qualified hard cases
+      still consumed 523k and 936k input tokens. A bounded collector and local answer
+      linter address the repeated retrieval-volume and manual-assembly failure pattern.
+    evidenceIds:
+      - tantivy-discovery-20260722-e:ec1e4515-e964-4a72-8e37-ce50caa0cdf7
+      - tantivy-discovery-20260722-e:c4afc63e-fc84-4c9d-b445-c9966465bab3
+      - tantivy-discovery-20260722-e:c4065e35-b7e8-4ef7-b123-c6b246a67db9
+      - tantivy-discovery-20260722-e:8e9fade5-cc4e-4b7d-8206-f1c5976244f6
+    conflictGroup: bounded-workflow-script
+    target: scripts/bounded_workflow.py
+    operation: create
+    content: |
+      #!/usr/bin/env python3
+      """Collect bounded Tantivy evidence or lint a grounded answer contract."""
+
+      from __future__ import annotations
+
+      import argparse
+      import json
+      import re
+      import sys
+      from pathlib import Path
+      from typing import Any, Mapping, Sequence
+
+      from _tantivy_snapshot import (
+          SnapshotError,
+          canonical_json,
+          load_snapshot,
+          search_snapshot,
+          strict_json_loads,
+      )
+
+
+      EVIDENCE_KEYS = (
+          "source_id",
+          "record_id",
+          "concept_path",
+          "source_path",
+          "record_sha256",
+          "locator",
+          "text_sha256",
+      )
+      QUERY_OPERATORS = {"and", "or", "not", "to"}
+      TOKEN_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{2,}")
+
+
+      def _configure_utf8() -> None:
+          for stream in (sys.stdout, sys.stderr):
+              reconfigure = getattr(stream, "reconfigure", None)
+              if callable(reconfigure):
+                  try:
+                      reconfigure(encoding="utf-8")
+                  except (AttributeError, OSError, ValueError):
+                      pass
+
+
+      def _evidence(document: Mapping[str, Any]) -> dict[str, Any]:
+          return {name: document[name] for name in EVIDENCE_KEYS}
+
+
+      def _query_terms(queries: Sequence[str]) -> list[str]:
+          terms = {
+              token.lower()
+              for query in queries
+              for token in TOKEN_RE.findall(query)
+              if token.lower() not in QUERY_OPERATORS
+          }
+          return sorted(terms, key=lambda value: (-len(value), value))
+
+
+      def _preview(text: str, queries: Sequence[str], limit: int) -> str:
+          if len(text) <= limit:
+              return text
+          lowered = text.lower()
+          positions = [
+              lowered.find(term)
+              for term in _query_terms(queries)
+              if lowered.find(term) >= 0
+          ]
+          anchor = min(positions) if positions else 0
+          start = max(0, anchor - limit // 3)
+          end = min(len(text), start + limit)
+          start = max(0, end - limit)
+          prefix = "..." if start else ""
+          suffix = "..." if end < len(text) else ""
+          return prefix + text[start:end] + suffix
+
+
+      def _write_full(path: Path, bundle: Path, value: Mapping[str, Any]) -> None:
+          candidate = path.expanduser().resolve()
+          root = bundle.resolve()
+          if candidate == root or candidate.is_relative_to(root):
+              raise SnapshotError("full output must be outside the read-only bundle")
+          if candidate.exists():
+              raise SnapshotError(f"full output already exists: {candidate}")
+          candidate.parent.mkdir(parents=True, exist_ok=True)
+          candidate.write_text(
+              json.dumps(value, ensure_ascii=False, sort_keys=True, allow_nan=False)
+              + "\n",
+              encoding="utf-8",
+          )
+
+
+      def collect(args: argparse.Namespace) -> dict[str, Any]:
+          snapshot = load_snapshot(args.bundle)
+          by_source: dict[str, dict[str, Any]] = {}
+          for query in args.query:
+              result = search_snapshot(
+                  snapshot,
+                  query,
+                  args.top_k_per_query,
+                  source_ids=args.source_id,
+                  concept_ids=args.concept_id,
+                  concept_types=args.concept_type,
+              )
+              for hit in result["results"]:
+                  source_id = hit["paper_id"] or hit["source_id"]
+                  item = by_source.setdefault(
+                      source_id,
+                      {
+                          "rrf_score": 0.0,
+                          "query_ranks": [],
+                          "best_rank": hit["rank"],
+                          "document": hit,
+                      },
+                  )
+                  item["rrf_score"] += 1.0 / (60 + hit["rank"])
+                  item["query_ranks"].append(
+                      {"query": query, "rank": hit["rank"]}
+                  )
+                  candidate_key = (hit["rank"], hit["document_id"])
+                  current = item["document"]
+                  current_key = (item["best_rank"], current["document_id"])
+                  if candidate_key < current_key:
+                      item["best_rank"] = hit["rank"]
+                      item["document"] = hit
+
+          ranked = sorted(
+              by_source.values(),
+              key=lambda item: (
+                  -item["rrf_score"],
+                  item["best_rank"],
+                  item["document"]["source_id"],
+                  item["document"]["document_id"],
+              ),
+          )[: args.max_sources]
+          if len(ranked) < args.min_sources:
+              raise SnapshotError(
+                  f"collector found {len(ranked)} independent sources; "
+                  f"minimum is {args.min_sources}; add a focused query"
+              )
+          full_results: list[dict[str, Any]] = []
+          compact_results: list[dict[str, Any]] = []
+          for rank, item in enumerate(ranked, start=1):
+              document = item["document"]
+              query_ranks = sorted(
+                  item["query_ranks"], key=lambda row: (row["query"], row["rank"])
+              )
+              full_results.append(
+                  {
+                      "rank": rank,
+                      "rrf_score": item["rrf_score"],
+                      "query_ranks": query_ranks,
+                      **document,
+                  }
+              )
+              compact_results.append(
+                  {
+                      "rank": rank,
+                      "rrf_score": item["rrf_score"],
+                      "query_ranks": query_ranks,
+                      "document_id": document["document_id"],
+                      "paper_id": document["paper_id"],
+                      "evidence": _evidence(document),
+                      "preview": _preview(
+                          document["text"], args.query, args.preview_chars
+                      ),
+                      "full_text_chars": len(document["text"]),
+                      "preview_is_complete": len(document["text"])
+                      <= args.preview_chars,
+                  }
+              )
+          full = {
+              "schema_version": "1.0",
+              "status": "pass",
+              "authoritative": False,
+              "discovery_only": True,
+              "queries": args.query,
+              "result_count": len(full_results),
+              "results": full_results,
+          }
+          if args.full_output is not None:
+              _write_full(args.full_output, snapshot.root, full)
+          return {
+              "schema_version": "1.0",
+              "status": "pass",
+              "authoritative": False,
+              "discovery_only": True,
+              "queries": args.query,
+              "source_deduplication": "paper_id-or-source_id",
+              "top_k_per_query": args.top_k_per_query,
+              "max_sources": args.max_sources,
+              "preview_chars": args.preview_chars,
+              "full_output": str(args.full_output) if args.full_output else None,
+              "result_count": len(compact_results),
+              "results": compact_results,
+          }
+
+
+      def _answer_errors(
+          payload: Any,
+          documents: Sequence[Mapping[str, Any]],
+          minimum_sources: int,
+      ) -> list[str]:
+          errors: list[str] = []
+          if not isinstance(payload, dict) or list(payload) != [
+              "question_id",
+              "answer",
+              "evidence",
+          ]:
+              return ["top-level keys must be question_id, answer, evidence in order"]
+          if not isinstance(payload["question_id"], str) or not payload["question_id"]:
+              errors.append("question_id must be a nonempty string")
+          evidence = payload["evidence"]
+          if not isinstance(evidence, list):
+              return errors + ["evidence must be an array"]
+          if payload["answer"] is None:
+              if evidence:
+                  errors.append("a null answer requires empty evidence")
+              return errors
+          answer = payload["answer"]
+          if not isinstance(answer, dict) or list(answer) != ["summary", "claims"]:
+              return errors + ["answer keys must be summary, claims in order"]
+          if not isinstance(answer["summary"], str) or not answer["summary"].strip():
+              errors.append("summary must be a nonempty string")
+          elif len(answer["summary"].split()) > 450:
+              errors.append("summary exceeds 450 words")
+          claims = answer["claims"]
+          if not isinstance(claims, list) or not claims:
+              errors.append("claims must be a nonempty array")
+              claims = []
+
+          allowed = {
+              canonical_json(_evidence(document)): (
+                  document["paper_id"] or document["source_id"]
+              )
+              for document in documents
+          }
+          seen_rows: set[str] = set()
+          independent_sources: set[str] = set()
+          for index, row in enumerate(evidence):
+              if not isinstance(row, dict) or list(row) != list(EVIDENCE_KEYS):
+                  errors.append(f"evidence[{index}] keys or order are invalid")
+                  continue
+              signature = canonical_json(row)
+              if signature not in allowed:
+                  errors.append(f"evidence[{index}] is not an exact validated hit")
+              else:
+                  independent_sources.add(allowed[signature])
+              if signature in seen_rows:
+                  errors.append(f"evidence[{index}] duplicates an earlier row")
+              seen_rows.add(signature)
+          if len(independent_sources) < minimum_sources:
+              errors.append(
+                  f"answer has {len(independent_sources)} independent sources; "
+                  f"minimum is {minimum_sources}"
+              )
+
+          first_use: list[int] = []
+          seen_indices: set[int] = set()
+          for index, claim in enumerate(claims):
+              if not isinstance(claim, dict) or list(claim) != [
+                  "statement",
+                  "evidence_indices",
+              ]:
+                  errors.append(f"claims[{index}] keys or order are invalid")
+                  continue
+              if not isinstance(claim["statement"], str) or not claim[
+                  "statement"
+              ].strip():
+                  errors.append(f"claims[{index}].statement is invalid")
+              indices = claim["evidence_indices"]
+              if not isinstance(indices, list) or not indices:
+                  errors.append(f"claims[{index}].evidence_indices is empty")
+                  continue
+              for evidence_index in indices:
+                  if (
+                      isinstance(evidence_index, bool)
+                      or not isinstance(evidence_index, int)
+                      or not 0 <= evidence_index < len(evidence)
+                  ):
+                      errors.append(f"claims[{index}] has an out-of-range index")
+                      continue
+                  if evidence_index not in seen_indices:
+                      seen_indices.add(evidence_index)
+                      first_use.append(evidence_index)
+          if first_use != list(range(len(evidence))):
+              errors.append(
+                  "evidence must be unique, used, and ordered by first claim reference"
+              )
+          return errors
+
+
+      def _lint_documents(bundle: Path) -> list[dict[str, Any]]:
+          root = bundle.expanduser().resolve()
+          path = root / "classical" / "documents.jsonl"
+          if path.is_symlink() or not path.is_file():
+              raise SnapshotError("classical/documents.jsonl is missing or unsafe")
+          documents: list[dict[str, Any]] = []
+          for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+              if not line:
+                  raise SnapshotError(f"classical/documents.jsonl:{number} is blank")
+              value = strict_json_loads(
+                  line, label=f"classical/documents.jsonl:{number}"
+              )
+              if not isinstance(value, dict):
+                  raise SnapshotError(
+                      f"classical/documents.jsonl:{number} must be an object"
+                  )
+              documents.append(value)
+          return documents
+
+
+      def lint_answer(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
+          documents = _lint_documents(args.bundle)
+          payload = strict_json_loads(
+              args.answer.read_text(encoding="utf-8"), label=str(args.answer)
+          )
+          errors = _answer_errors(payload, documents, args.min_sources)
+          if errors:
+              raise SnapshotError("; ".join(errors))
+          return payload, {
+              "schema_version": "1.0",
+              "status": "pass",
+              "question_id": payload["question_id"],
+              "evidence_count": len(payload["evidence"]),
+              "minimum_sources": args.min_sources,
+              "contract": "grounded-answer-v1",
+          }
+
+
+      def build_parser() -> argparse.ArgumentParser:
+          parser = argparse.ArgumentParser(description=__doc__)
+          parser.add_argument("bundle", type=Path)
+          commands = parser.add_subparsers(dest="command", required=True)
+          collect_parser = commands.add_parser("collect")
+          collect_parser.add_argument("--query", action="append", required=True)
+          collect_parser.add_argument("--top-k-per-query", type=int, default=6)
+          collect_parser.add_argument("--max-sources", type=int, default=12)
+          collect_parser.add_argument("--min-sources", type=int, default=1)
+          collect_parser.add_argument("--preview-chars", type=int, default=800)
+          collect_parser.add_argument("--full-output", type=Path)
+          collect_parser.add_argument("--source-id", action="append", default=[])
+          collect_parser.add_argument("--concept-id", action="append", default=[])
+          collect_parser.add_argument("--concept-type", action="append", default=[])
+          lint_parser = commands.add_parser("lint")
+          lint_parser.add_argument("answer", type=Path)
+          lint_parser.add_argument("--min-sources", type=int, default=1)
+          lint_parser.add_argument("--emit", action="store_true")
+          return parser
+
+
+      def main(argv: list[str] | None = None) -> int:
+          _configure_utf8()
+          args = build_parser().parse_args(argv)
+          try:
+              if args.command == "collect":
+                  if not 1 <= args.top_k_per_query <= 20:
+                      raise SnapshotError("top_k_per_query must be from 1 through 20")
+                  if not 1 <= args.max_sources <= 30:
+                      raise SnapshotError("max_sources must be from 1 through 30")
+                  if not 1 <= args.min_sources <= args.max_sources:
+                      raise SnapshotError(
+                          "min_sources must be from 1 through max_sources"
+                      )
+                  if not 200 <= args.preview_chars <= 2000:
+                      raise SnapshotError("preview_chars must be from 200 through 2000")
+                  result = collect(args)
+              else:
+                  if not 1 <= args.min_sources <= 30:
+                      raise SnapshotError("min_sources must be from 1 through 30")
+                  payload, result = lint_answer(args)
+          except (
+              SnapshotError,
+              OSError,
+              UnicodeError,
+              ValueError,
+              TypeError,
+              KeyError,
+              IndexError,
+          ) as exc:
+              print(
+                  json.dumps(
+                      {"status": "error", "code": "bounded-workflow-error", "error": str(exc)},
+                      ensure_ascii=False,
+                      sort_keys=True,
+                  )
+              )
+              return 2
+          if args.command == "lint" and args.emit:
+              print(
+                  json.dumps(
+                      payload,
+                      ensure_ascii=False,
+                      separators=(",", ":"),
+                      allow_nan=False,
+                  )
+              )
+          else:
+              print(
+                  json.dumps(
+                      result,
+                      ensure_ascii=False,
+                      sort_keys=True,
+                      allow_nan=False,
+                  )
+              )
+          return 0
+
+
+      if __name__ == "__main__":
+          raise SystemExit(main())
+
+  - id: teach-bounded-evidence-workflow
+    diagnosis: >-
+      Discovery showed the same unbounded direct-search and manual evidence assembly
+      pattern in four unique tasks. q001 used nine evidence rows to cover its public
+      eight-paper minimum, while q039 used eleven rows to cover four papers. The skill
+      needs an explicit default for comparative and cross-document questions, a small
+      bounded relevance margin, a concise semantic-claim first pass, a stop rule, and a
+      mandatory terminal contract check so the new helper is used consistently without
+      post-validation manual reconstruction.
+    evidenceIds:
+      - tantivy-discovery-20260722-e:ec1e4515-e964-4a72-8e37-ce50caa0cdf7
+      - tantivy-discovery-20260722-e:c4afc63e-fc84-4c9d-b445-c9966465bab3
+      - tantivy-discovery-20260722-e:c4065e35-b7e8-4ef7-b123-c6b246a67db9
+      - tantivy-discovery-20260722-e:8e9fade5-cc4e-4b7d-8206-f1c5976244f6
+    conflictGroup: bounded-workflow-guidance
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Bounded cross-document workflow
+
+      For comparative, taxonomy, multi-paper, or synthesis questions, do not begin with
+      repeated direct searches or `--top-k` above 12. Install requirements once, run one
+      runtime smoke and one bundle inspection, then use the bounded collector as the
+      default discovery pass. Let `MINIMUM` be the public independent-paper minimum. Set
+      `EVIDENCE_TARGET` to `MINIMUM + 1`, capped at 10; when no minimum is stated, use 4.
+      If `MINIMUM` itself exceeds 10, use `MINIMUM` as the target instead. Start with
+      concise published semantic-claim records:
+
+      ```bash
+      python scripts/bounded_workflow.py BUNDLE collect \
+        --query 'first precise aspect' \
+        --query 'second precise aspect' \
+        --query 'trade-off or counterevidence' \
+        --top-k-per-query 6 \
+        --min-sources EVIDENCE_TARGET --max-sources EVIDENCE_TARGET \
+        --concept-type 'Paper Semantic Claim' \
+        --preview-chars 800 \
+        --full-output /tmp/tantivy-full-hits.json
+      ```
+
+      The command searches all queries, fuses ranks, keeps at most one passage per
+      paper (falling back to source identity), prints only bounded previews, and writes complete validated passages to
+      the explicit output outside the snapshot. A semantic-claim record is already a
+      short published record: verify its exact body from the saved full output and do not
+      read the underlying paper unless the claim is insufficient. Retain independently
+      relevant rows through `EVIDENCE_TARGET`; the extra row is a relevance margin, not
+      permission to cite weak material. Add one focused collector pass without the
+      `--concept-type` filter only when a named aspect or the target remains uncovered;
+      otherwise stop.
+
+      Build the final JSON in a temporary workspace file. Keep evidence rows unique,
+      use every row, and order rows by the first claim that references them. Before
+      returning it, run:
+
+      ```bash
+      python scripts/bounded_workflow.py BUNDLE lint /tmp/answer.json \
+        --min-sources EVIDENCE_TARGET --emit
+      ```
+
+      Without `--emit`, lint reports `status: pass`; with `--emit`, stdout is the exact
+      validated answer. A successful `--emit` is terminal: do not reason again, edit,
+      summarize, shorten, reconstruct, or manually retype any part of its stdout. The
+      very next assistant response must repeat that one JSON line byte-for-byte, with no
+      Markdown fence, prefix, or suffix. If exact repetition is uncertain, rerun the
+      linter and use its fresh stdout rather than reconstructing it. The linter checks
+      the target source count, closed key order, claim references, first-use evidence
+      order, uniqueness, and exact evidence identity against the already validated
+      read-only document ledger without rebuilding the index. It does not establish
+      factual correctness; claims must still be verified from the saved full passages.

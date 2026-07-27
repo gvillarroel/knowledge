@@ -4,13 +4,15 @@
 
 The canonical dataset contains **40 questions**. The earlier 18-response report was a v36 evidence slice, not the complete dataset.
 
-This audit inventories 143 complete raw Harbor responses and 32 additional historical responses with preserved manual adjudications: **175 reviewable responses**.
+This audit inventories 189 complete raw Harbor responses. 31 of them were matched by trial id to preserved historical adjudications; 1 adjudicated historical rows remain without a raw body. The result contains **190 reviewable responses**.
+
+Semantic adjudication covers 175 responses. The remaining 15 raw responses have current mechanical diagnostics but await digest-bound semantic review.
 
 Only **29/40 questions** have a complete response. Missing: `q028`, `q031`, `q032`, `q033`, `q034`, `q035`, `q036`, `q037`, `q038`, `q039`, `q040`.
 
-`q002`-`q004` account for 97/143 raw responses (67.8%), so the archive is iteration-heavy rather than question-balanced.
+`q002`-`q004` account for 118/189 raw responses (62.4%), so the archive is iteration-heavy rather than question-balanced.
 
-Semantic adjudications: 3 pass, 168 partial, and 4 fail. Mechanical reward is not used as semantic correctness.
+Semantic adjudications: 3 pass, 168 partial, and 4 fail; 15 are not reviewed. Mechanical reward is not used as semantic correctness.
 
 **Full-dataset claim eligible:** `false`.
 
@@ -20,35 +22,35 @@ The 60 older comparison cells are retained as summary-only evidence; their respo
 
 | Question | Cohort | Focus docs | Minimum | Semantic targets | Raw | Historical | Total | Coverage |
 |---|---|---:|---:|---:|---:|---:|---:|---|
-| q001 | discovery | 15 | 8 | 4 | 2 | 1 | 3 | covered |
-| q002 | discovery | 8 | 6 | 4 | 33 | 2 | 35 | covered |
-| q003 | discovery | 10 | 6 | 4 | 34 | 3 | 37 | covered |
-| q004 | discovery | 11 | 7 | 4 | 30 | 1 | 31 | covered |
-| q005 | holdout | 5 | 4 | 4 | 6 | 4 | 10 | covered |
+| q001 | discovery | 15 | 8 | 4 | 3 | 0 | 3 | covered |
+| q002 | discovery | 8 | 6 | 4 | 40 | 0 | 40 | covered |
+| q003 | discovery | 10 | 6 | 4 | 42 | 0 | 42 | covered |
+| q004 | discovery | 11 | 7 | 4 | 36 | 0 | 36 | covered |
+| q005 | holdout | 5 | 4 | 4 | 10 | 0 | 10 | covered |
 | q006 | discovery | 6 | 5 | 4 | 1 | 0 | 1 | covered |
-| q007 | discovery | 5 | 4 | 4 | 1 | 1 | 2 | covered |
+| q007 | discovery | 5 | 4 | 4 | 2 | 0 | 2 | covered |
 | q008 | discovery | 6 | 5 | 4 | 1 | 0 | 1 | covered |
 | q009 | discovery | 6 | 5 | 4 | 1 | 0 | 1 | covered |
-| q010 | holdout | 8 | 6 | 4 | 4 | 5 | 9 | covered |
+| q010 | holdout | 8 | 6 | 4 | 9 | 0 | 9 | covered |
 | q011 | discovery | 7 | 5 | 4 | 1 | 0 | 1 | covered |
 | q012 | discovery | 9 | 6 | 4 | 1 | 0 | 1 | covered |
 | q013 | discovery | 8 | 6 | 4 | 1 | 0 | 1 | covered |
 | q014 | discovery | 10 | 7 | 4 | 1 | 0 | 1 | covered |
-| q015 | holdout | 7 | 5 | 4 | 4 | 4 | 8 | covered |
+| q015 | holdout | 7 | 5 | 4 | 8 | 0 | 8 | covered |
 | q016 | discovery | 10 | 7 | 4 | 1 | 0 | 1 | covered |
 | q017 | discovery | 8 | 6 | 4 | 1 | 0 | 1 | covered |
 | q018 | discovery | 9 | 6 | 4 | 1 | 0 | 1 | covered |
 | q019 | discovery | 6 | 5 | 4 | 1 | 0 | 1 | covered |
-| q020 | holdout | 7 | 5 | 4 | 4 | 3 | 7 | covered |
+| q020 | holdout | 7 | 5 | 4 | 7 | 0 | 7 | covered |
 | q021 | discovery | 7 | 5 | 4 | 1 | 0 | 1 | covered |
 | q022 | discovery | 6 | 5 | 4 | 1 | 0 | 1 | covered |
 | q023 | discovery | 15 | 8 | 5 | 1 | 0 | 1 | covered |
 | q024 | discovery | 14 | 8 | 4 | 1 | 0 | 1 | covered |
-| q025 | holdout | 5 | 4 | 4 | 4 | 5 | 9 | covered |
+| q025 | holdout | 5 | 4 | 4 | 9 | 0 | 9 | covered |
 | q026 | discovery | 9 | 6 | 4 | 1 | 0 | 1 | covered |
 | q027 | discovery | 5 | 4 | 4 | 1 | 0 | 1 | covered |
 | q028 | discovery | 8 | 6 | 4 | 0 | 0 | 0 | missing |
-| q029 | holdout | 9 | 6 | 4 | 3 | 3 | 6 | covered |
+| q029 | holdout | 9 | 6 | 4 | 5 | 1 | 6 | covered |
 | q030 | discovery | 15 | 10 | 5 | 1 | 0 | 1 | covered |
 | q031 | hard | 3 | — | 7 | 0 | 0 | 0 | missing |
 | q032 | hard | 5 | — | 9 | 0 | 0 | 0 | missing |
@@ -67,38 +69,7 @@ All 40 question specifications were reviewed against their authored rubric or ha
 
 | Response | Question | Semantic | Answer | Contract | Evidence | Valid docs | Focus docs | Reward |
 |---|---|---|---|---:|---:|---:|---:|---:|
-| `historical/20260717-papers-consult-gpt53-spark-01/07e23ace-ace3-4778-acdc-9e957c2f7655` | q002 | partial | non-null | 1 | 12 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/1f43edb2-1a69-4161-bcd7-159b88afd6e6` | q001 | partial | non-null | 0 | 41 | — | 14 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/33e5217c-f174-4297-861b-c0fc50e250ee` | q005 | partial | non-null | 0 | 22 | — | 3 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/3532b336-16ad-463d-b774-7be5f751dc23` | q003 | partial | non-null | 1 | 15 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/3aed67ca-ce2d-49a8-879d-fba45213f6b1` | q020 | partial | non-null | 0 | 30 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/50a09529-f8dd-480e-9096-58073d5a5790` | q005 | partial | non-null | 1 | 14 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/50a84566-8a52-485b-a4ce-0ef6dcb25ac7` | q025 | partial | non-null | 1 | 16 | — | 1 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/6713ac5f-bb88-490c-835e-231ced3d00f2` | q007 | partial | non-null | 0 | 18 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/6a6778a0-072b-4425-8d4d-ba625dd0814c` | q010 | partial | non-null | 0 | 8 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/6c7fc2d1-214d-4157-9ec2-56dce6d73e2b` | q029 | partial | non-null | 0 | 13 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/77721d26-ce40-4845-af14-896c886cfcc1` | q002 | partial | non-null | 0 | 33 | — | 6 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/821eac3a-5664-4afc-9872-601e03d69fbe` | q005 | partial | non-null | 1 | 14 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/8538428e-749f-4d1f-9e8e-5c360e0b23d3` | q015 | partial | non-null | 0 | 10 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/8573a931-850c-4c4f-b64b-50805a322091` | q015 | partial | non-null | 0 | 10 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/88f9aab6-cc81-4be2-8713-59b152d900cf` | q010 | partial | non-null | 0 | 10 | — | 3 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/8dc2313c-c8fc-4c40-90a1-30247668ab7b` | q015 | partial | non-null | 0 | 11 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/919b6b71-60e0-4b24-84a4-3785d1a8c4c3` | q029 | partial | non-null | 1 | 7 | — | 2 | 0.000000 |
 | `historical/20260717-papers-consult-gpt53-spark-01/9b5c8868-e106-4272-a655-027783ada26d` | q029 | fail | non-null | 0 | 0 | — | 0 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/a13a5c9c-bec3-40fe-98cf-6b3d023ee00d` | q004 | partial | non-null | 0 | 11 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/a8a6e95c-5a95-48e7-8c53-9b9a68c443f0` | q003 | partial | non-null | 1 | 14 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/bfe9b1c6-d7d1-4ce6-80d5-4b32e04421be` | q025 | partial | non-null | 0 | 18 | — | 3 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/cce65ee3-f234-4331-9efd-57b22bd7f76e` | q005 | partial | non-null | 0 | 14 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/d0a6dc93-aca3-420a-8e4d-4250bd0a400c` | q020 | partial | non-null | 0 | 5 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/d67e3b79-00b8-4c72-8a9b-d8d398f0b0fe` | q025 | partial | non-null | 0 | 6 | — | 1 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/d9f2da6a-8d3b-4461-ba1e-b46acb956401` | q020 | partial | non-null | 1 | 9 | — | 4 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/dcfcb559-8558-4292-97df-2bc21735d581` | q010 | partial | non-null | 1 | 9 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/ddec4f09-7244-4f25-bc75-ce4d0e6da24e` | q015 | partial | non-null | 0 | 12 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/de4ec73d-1cd1-459e-93e9-5a03c48d392a` | q003 | partial | non-null | 1 | 7 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/e334f3c0-2f39-4da1-a572-845493b2ba57` | q010 | partial | non-null | 1 | 14 | — | 6 | 0.840103 |
-| `historical/20260717-papers-consult-gpt53-spark-01/f143ca25-2b20-4f58-8a61-24855beefbac` | q025 | partial | non-null | 1 | 6 | — | 2 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/f1c0f025-d993-4df9-ad2c-db88baa80e5f` | q010 | partial | non-null | 1 | 9 | — | 5 | 0.000000 |
-| `historical/20260717-papers-consult-gpt53-spark-01/f9b7358d-264f-4c2b-a75c-8da3b7c29446` | q025 | partial | non-null | 0 | 20 | — | 4 | 0.000000 |
 | `raw/20260723-tika-mallet-consult-holdout-q005-live-04/q005__yh5yy9X` | q005 | partial | non-null | 1 | 7 | — | 4 | 0.000000 |
 | `raw/20260723-tika-mallet-consult-holdout-q005-live-05/q005__gHaYNSh` | q005 | partial | non-null | 1 | 7 | — | 3 | 0.000000 |
 | `raw/20260723-tika-mallet-consult-holdout-q005-live-v2-01/q005__qFqD7Yj` | q005 | partial | non-null | 1 | 6 | — | 4 | 0.833061 |
@@ -242,5 +213,51 @@ All 40 question specifications were reviewed against their authored rubric or ha
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q002__ooCvVJQ` | q002 | partial | non-null | 1 | 8 | — | 6 | 0.818615 |
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q003__xQYbvtR` | q003 | partial | non-null | 1 | 8 | — | 7 | 0.795629 |
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q004__vy2CWRx` | q004 | partial | non-null | 1 | 9 | — | 7 | 0.733706 |
+| `raw/adaptive-discovery/q002__soewiqK` | q002 | partial | non-null | 1 | 12 | — | 5 | 0.000000 |
+| `raw/adaptive-discovery/q003__evBKRLQ` | q003 | partial | non-null | 1 | 7 | — | 2 | 0.287202 |
+| `raw/adaptive-holdout/q010__KqryTJk` | q010 | partial | non-null | 1 | 9 | — | 5 | 0.572781 |
+| `raw/adaptive-holdout/q015__FHVbQZU` | q015 | partial | non-null | 0 | 11 | — | 5 | 0.000000 |
+| `raw/adaptive-holdout/q025__XyHgrki` | q025 | partial | non-null | 0 | 18 | — | 3 | 0.000000 |
+| `raw/classical-discovery/q003__Rnv36DN` | q003 | partial | non-null | 1 | 15 | — | 2 | 0.000000 |
+| `raw/classical-holdout/q005__7mhMq98` | q005 | partial | non-null | 1 | 14 | — | 2 | 0.655944 |
+| `raw/classical-holdout/q010__WfBS95N` | q010 | partial | non-null | 1 | 9 | — | 5 | 0.746641 |
+| `raw/classical-holdout/q020__aXVDZbf` | q020 | partial | non-null | 1 | 9 | — | 4 | 0.000000 |
+| `raw/classical-holdout/q025__fxvE4Qw` | q025 | partial | non-null | 1 | 16 | — | 1 | 0.000000 |
+| `raw/classical-holdout/q029__ccGGwUz` | q029 | partial | non-null | 1 | 7 | — | 2 | 0.357524 |
+| `raw/development-candidate-01-0b7b8af34f/q002__KkaHjZy` | q002 | not-reviewed | non-null | 1 | 8 | — | 6 | 0.821706 |
+| `raw/development-candidate-01-0b7b8af34f/q003__3nLLfvF` | q003 | not-reviewed | non-null | 1 | 8 | — | 7 | 0.811745 |
+| `raw/development-candidate-01-0b7b8af34f/q004__z6QVDZu` | q004 | not-reviewed | null | 1 | 0 | — | 0 | 0.000000 |
+| `raw/development-candidate-01-1685aeb983/q002__LwwvhVk` | q002 | not-reviewed | non-null | 1 | 8 | — | 6 | 0.821706 |
+| `raw/development-candidate-01-1685aeb983/q003__CFPMaop` | q003 | not-reviewed | non-null | 1 | 8 | — | 7 | 0.813768 |
+| `raw/development-candidate-01-1685aeb983/q004__GrDpiFm` | q004 | not-reviewed | non-null | 1 | 9 | — | 7 | 0.733706 |
+| `raw/development-candidate-01-bf3233d5a7/q002__Ctc7KWQ` | q002 | not-reviewed | non-null | 1 | 8 | — | 6 | 0.821706 |
+| `raw/development-candidate-01-bf3233d5a7/q003__PNjxahX` | q003 | not-reviewed | non-null | 1 | 8 | — | 7 | 0.795629 |
+| `raw/development-candidate-01-bf3233d5a7/q004__CMPFCMU` | q004 | not-reviewed | null | 1 | 0 | — | 0 | 0.000000 |
+| `raw/development-candidate-01-dcc6a3b78f/q002__Ak5SbZS` | q002 | not-reviewed | non-null | 1 | 8 | — | 6 | 0.672087 |
+| `raw/development-candidate-01-dcc6a3b78f/q003__2yTyghh` | q003 | not-reviewed | non-null | 1 | 8 | — | 7 | 0.671260 |
+| `raw/development-candidate-01-dcc6a3b78f/q004__uHFiPa9` | q004 | not-reviewed | non-null | 1 | 9 | — | 7 | 0.765708 |
+| `raw/development-candidate-01-e778c5bfd4/q002__SubYSQ4` | q002 | not-reviewed | non-null | 1 | 8 | — | 6 | 0.000000 |
+| `raw/development-candidate-01-e778c5bfd4/q003__jPv2UtN` | q003 | not-reviewed | non-null | 1 | 8 | — | 7 | 0.795629 |
+| `raw/development-candidate-01-e778c5bfd4/q004__wT2pNNc` | q004 | not-reviewed | non-null | 1 | 9 | — | 8 | 0.813295 |
+| `raw/embeddings-discovery/q003__XUq7zEQ` | q003 | partial | non-null | 1 | 14 | — | 2 | 0.477686 |
+| `raw/embeddings-holdout/q005__YyjSfDs` | q005 | partial | non-null | 1 | 14 | — | 4 | 0.000000 |
+| `raw/embeddings-holdout/q010__Tbfcz9S` | q010 | partial | non-null | 1 | 14 | — | 6 | 0.840103 |
+| `raw/embeddings-holdout/q025__2XTrhpu` | q025 | partial | non-null | 0 | 6 | — | 1 | 0.000000 |
+| `raw/entity-graph-holdout/q015__2ScZo2o` | q015 | partial | non-null | 0 | 10 | — | 5 | 0.000000 |
+| `raw/entity-graph-holdout/q020__pm88Gir` | q020 | partial | non-null | 0 | 5 | — | 4 | 0.000000 |
+| `raw/entity-graph-holdout/q025__hws9bNQ` | q025 | partial | non-null | 1 | 6 | — | 2 | 0.000000 |
+| `raw/legacy-discovery/q001__rTbcCiF` | q001 | partial | non-null | 0 | 41 | — | 14 | 0.000000 |
+| `raw/legacy-discovery/q002__4zz7Ev2` | q002 | partial | non-null | 0 | 33 | — | 6 | 0.000000 |
+| `raw/legacy-discovery/q004__8weRpp4` | q004 | partial | non-null | 0 | 11 | — | 4 | 0.000000 |
+| `raw/legacy-discovery/q007__V3TjcCH` | q007 | partial | non-null | 0 | 18 | — | 4 | 0.000000 |
+| `raw/legacy-holdout/q005__iNh7Frt` | q005 | partial | non-null | 0 | 14 | — | 4 | 0.000000 |
+| `raw/legacy-holdout/q010__67E5SRG` | q010 | partial | non-null | 0 | 8 | — | 2 | 0.000000 |
+| `raw/legacy-holdout/q015__pDEQ5G8` | q015 | partial | non-null | 0 | 10 | — | 5 | 0.000000 |
+| `raw/turso-holdout/q005__U6wVt9C` | q005 | partial | non-null | 0 | 22 | — | 3 | 0.000000 |
+| `raw/turso-holdout/q010__rf8BN2S` | q010 | partial | non-null | 0 | 10 | — | 3 | 0.000000 |
+| `raw/turso-holdout/q015__3MyZE8q` | q015 | partial | non-null | 0 | 12 | — | 5 | 0.000000 |
+| `raw/turso-holdout/q020__HCMuVsV` | q020 | partial | non-null | 0 | 30 | — | 4 | 0.000000 |
+| `raw/turso-holdout/q025__k2Fs7Ee` | q025 | partial | non-null | 0 | 20 | — | 4 | 0.000000 |
+| `raw/turso-holdout/q029__uTdWPsh` | q029 | partial | non-null | 0 | 13 | — | 5 | 0.000000 |
 
-Each response row has a separate semantic verdict and retains its mechanical observations. Detailed rationales are in the companion JSON report. Historical rows do not invent unavailable raw payloads.
+Each response row has a separate semantic verdict and retains its mechanical observations. Detailed rationales are in the companion JSON report. Historical adjudications recovered by trial id retain their original rationale without inventing unavailable payloads.

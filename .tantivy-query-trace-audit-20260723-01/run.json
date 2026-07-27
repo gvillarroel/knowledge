@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "harborVersion": "0.18.0",
+  "runId": "tantivy-query-trace-audit-20260723",
+  "mode": "analyze-only",
+  "generatedAt": "2026-07-23T17:15:58.464323+00:00",
+  "baselineSkill": "/mnt/c/Users/villa/dev/knowledge/skills/consult-semantic-okf-tantivy",
+  "stagedBaselineSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-audit-20260723-01/baseline/skills/consult-semantic-okf-tantivy",
+  "baselineDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+  "tracePool": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "harborVersion": "0.18.0",
+    "phase": "discovery",
+    "summary": {
+      "uniqueTrials": 6,
+      "uniqueTasks": 6,
+      "outcomes": {
+        "success": 6
+      },
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "erroredTrials": 0,
+        "nonEvaluableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "failureDomains": {},
+        "missingPrimaryRewardTrials": 0,
+        "actionableContextBudgetTrials": 0,
+        "nonActionableExternalTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0
+      },
+      "skillIdentity": {
+        "legacyAliasTrials": 0,
+        "unverifiedLockTrials": 0,
+        "promotionEligible": true
+      }
+    },
+    "traces": [
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:b9a10421-66a0-44e9-b993-3b558b44d0f7",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "b9a10421-66a0-44e9-b993-3b558b44d0f7",
+        "trialName": "part-01__2UZmbfb",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-01",
+        "taskChecksum": "d5afd9ab7962d27b28220cdb8313686c34cd4850096a521f576b68a33f6e5b41",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8133441596646765,
+        "reportedReward": 0.8133441596646765,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.8313203577819088,
+          "recall_at_10": 0.7337121212121211,
+          "reward": 0.8133441596646765
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-01__2UZmbfb/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-01__2UZmbfb",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-01__2UZmbfb/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-01__2UZmbfb/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:93a3b5027a683b137b4a618280ad056aba82baa2e4283d38aec8d168bd19abdc",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:382e1d1bdab22cbfff570e7c4e8e2983f1e9656706d1e61c3130ae8ad9bf75dd",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:c64952c4-4c73-4877-b6c7-79ce54018894",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "c64952c4-4c73-4877-b6c7-79ce54018894",
+        "trialName": "part-02__sjcNGnK",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-02",
+        "taskChecksum": "3889917f4472538c1128fa0d67fe56bb13c52cce42d9919df43866b40d1c6c31",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8779030036957689,
+        "reportedReward": 0.8779030036957689,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.8003756777539732,
+          "recall_at_10": 0.8333333333333334,
+          "reward": 0.8779030036957689
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-02__sjcNGnK/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-02__sjcNGnK",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-02__sjcNGnK/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-02__sjcNGnK/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:3c57c6f8a9f88d4e371723ba66541f26b84ca5adcfba295bd242405006f83047",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:eb101ad7d13845ebed579fb6b0fa2b89cf8ff2d644b8d942fc2a1381576b7f21",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:22cd233e-e56c-4915-ad37-9f7c893adfce",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "22cd233e-e56c-4915-ad37-9f7c893adfce",
+        "trialName": "part-03__4M5W2FL",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-03",
+        "taskChecksum": "5de1829979ae0049cfcc625ff69de9824162cec3ddedccde58e802a505afc971",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8057145978413506,
+        "reportedReward": 0.8057145978413506,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7166477617780199,
+          "recall_at_10": 0.7004960317460318,
+          "reward": 0.8057145978413506
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-03__4M5W2FL/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-03__4M5W2FL",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-03__4M5W2FL/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-03__4M5W2FL/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:fdce54fbaa1ee40de9a789a8865131c3eb4fcd3d5a8827f8d289fd9f6c6f49ab",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:e0b67fde50acfd5f627494011247fa8b7c3abbcafe8bbb35624b7c95d5b67200",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:e78b1cbe-4629-4d20-98a4-f2bb8f766453",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "e78b1cbe-4629-4d20-98a4-f2bb8f766453",
+        "trialName": "part-04__VMZn27E",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-04",
+        "taskChecksum": "0b0c484d01e95aabe28cc2c1a90c15d7eea0f91a939627e3c7765844c096e5cf",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8390485993134634,
+        "reportedReward": 0.8390485993134634,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7824235757181683,
+          "recall_at_10": 0.7347222222222223,
+          "reward": 0.8390485993134634
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-04__VMZn27E/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-04__VMZn27E",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-04__VMZn27E/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-04__VMZn27E/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:e05042df82dd2b8b0e8f1fa1a0b450b19d07996a58a68af629edcf3a88e0767a",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:38539abd2610a61016cab37770a595c94304e68770b5279da24e2d04ae7b723f",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:2ebb937f-3972-4d06-9853-3907ca78415d",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "2ebb937f-3972-4d06-9853-3907ca78415d",
+        "trialName": "part-05__ktVR5Xa",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-05",
+        "taskChecksum": "9d4d07336ffd15c6c7ab5496b6acebc8e27c93048a9d18939cd7f7944448eb82",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8990720352779968,
+        "reportedReward": 0.8990720352779968,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.923406582024467,
+          "recall_at_10": 0.7738095238095238,
+          "reward": 0.8990720352779968
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-05__ktVR5Xa/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-05__ktVR5Xa",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-05__ktVR5Xa/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-05__ktVR5Xa/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:ad017103ce1f6bf0d0106ea5ae7eb4222b61d7974c97f632821ace619fd133ff",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:8e5d4423d0fe5e481031710c5576d317980430ea3ba5a398f30af8db7f86aa4d",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "harbor-pop-g000-identity-natural:18ff9e68-c1bb-4a32-9a91-3968b12b1ac4",
+        "sourceLabel": "harbor-pop-g000-identity-natural",
+        "harborVersion": "0.18.0",
+        "trialId": "18ff9e68-c1bb-4a32-9a91-3968b12b1ac4",
+        "trialName": "part-06__aASVvcY",
+        "taskName": "knowledge/tantivy-consult-evolution__development__part-06",
+        "taskChecksum": "1561b9fe30d666483ae9823112c9a8ef82e45f5c6ed549fe6c59c32582eae402",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8718850091302436,
+        "reportedReward": 0.8718850091302436,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.8635716940573976,
+          "recall_at_10": 0.7520833333333333,
+          "reward": 0.8718850091302436
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-06__aASVvcY/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-06__aASVvcY",
+        "resultPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-06__aASVvcY/result.json",
+        "lockPath": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-06__aASVvcY/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:e451e406146360fdec0d8bf003efd1d0553623add6c6d9b7c288287348ac6fbe",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:5dafaf6f5529ac22512ad21b74e1887dde908be48d415eb6fadd238fcb79666b",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      }
+    ]
+  },
+  "proposalState": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "phase": "discovery",
+    "proposalPath": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/trace-distillation-query-20260723-audit-proposals.json",
+    "thresholds": {
+      "minimumUniqueTrials": 2,
+      "minimumUniqueTasks": 2
+    },
+    "accepted": [],
+    "rejected": [],
+    "developmentEvidencePromotionEligible": true
+  },
+  "consolidation": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "baselineSkill": "/mnt/c/Users/villa/dev/knowledge/skills/consult-semantic-okf-tantivy",
+    "stagedBaselineSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-audit-20260723-01/baseline/skills/consult-semantic-okf-tantivy",
+    "baselineDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+    "candidateSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-audit-20260723-01/candidate/skills/consult-semantic-okf-tantivy",
+    "candidateDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+    "logicalSkillName": "consult-semantic-okf-tantivy",
+    "developmentEvidencePromotionEligible": true,
+    "appliedPatchIds": [],
+    "rejectedPatchIds": []
+  },
+  "holdoutGate": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "status": "not-run",
+    "decision": "not-evaluated",
+    "promoted": false,
+    "reason": "analyze-only excludes all holdout reads and executions."
+  },
+  "configSchemaVersion": 2,
+  "developmentGate": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "phase": "development",
+    "status": "not-run",
+    "decision": "not-evaluated",
+    "passed": false,
+    "reason": "analyze-only excludes candidate development and all holdout reads and executions."
+  }
+}

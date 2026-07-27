@@ -1,0 +1,279 @@
+{
+    "schema_version": 2,
+    "created_at": "2026-07-23T21:50:37.550719Z",
+    "harbor": {
+        "version": "0.18.0",
+        "is_editable": false
+    },
+    "n_concurrent_trials": 5,
+    "retry": {
+        "max_retries": 0,
+        "include_exceptions": [],
+        "exclude_exceptions": [],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-01",
+                "type": "local",
+                "digest": "sha256:c2dee40eb5dc35c19f1509a41aa6732b8ed568cf9d5d33ddda5897aa379bc8d2",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-01"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 5,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:dbbbdac9296ed271cd9a5a7546dae0c0d66dc6f9be4a1cb5fc6951922cdb63ee"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-02",
+                "type": "local",
+                "digest": "sha256:7de85273db8c8f0b93142d60374ae889bb74879c325578ded05123e3b697fef8",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-02"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 5,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:dbbbdac9296ed271cd9a5a7546dae0c0d66dc6f9be4a1cb5fc6951922cdb63ee"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-03",
+                "type": "local",
+                "digest": "sha256:aae9dfbe0fb910d87c367f3d4d55c72a556be6f0be5c146df02fcd6240cac7e3",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-03"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 5,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:dbbbdac9296ed271cd9a5a7546dae0c0d66dc6f9be4a1cb5fc6951922cdb63ee"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-04",
+                "type": "local",
+                "digest": "sha256:b647906c04443831914e929ebfc8e2e1fa18579601d26ca155c2466ed43f0471",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-04"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 5,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:dbbbdac9296ed271cd9a5a7546dae0c0d66dc6f9be4a1cb5fc6951922cdb63ee"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-05",
+                "type": "local",
+                "digest": "sha256:f4b9a265272d0c9996d2bec9b5747e084028ddfe32a573a159819f59d9bb1082",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/development/part-05"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 5,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/candidate/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:dbbbdac9296ed271cd9a5a7546dae0c0d66dc6f9be4a1cb5fc6951922cdb63ee"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        }
+    ]
+}

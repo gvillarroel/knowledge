@@ -6,6 +6,50 @@ Date: 2026-07-16
 
 Status: complete
 
+## Official Graphify promotion and next candidate — 2026-07-20
+
+The accepted reciprocal cross-partition builder is now the implementation of
+`build-semantic-okf-graphify`; `consult-semantic-okf-graphify` remains unchanged.
+A new standalone `build-semantic-okf-graphify-next` candidate adds capped mutual
+documentation-reference bridges and improves retrospective retrieval further.
+
+| Builder | Recall@10 | Hard Recall@10 | MRR@10 | nDCG@10 | Evidence valid | Mean ms | Status |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Newly official Graphify | 77.3% | 57.5% | **0.579** | 0.578 | 301/301 | **81.6** | Official |
+| Graphify next, reference degree cap 6 | **80.6%** | **60.8%** | 0.576 | **0.591** | 449/449 | 88.5 | Pareto incumbent; unchanged after all-evolver audit |
+
+The candidate was measured after the original holdout was opened, so it is not
+promoted from this evidence alone. Two independent candidate builds share graph
+logical SHA-256 `ab17730bb536da30c6c20c74bdc80c6c9d86e09a8171ace687ed92e97224587a`.
+The first q032 live attempt stopped before trial creation because Docker was
+unavailable. After daemon recovery, a new Harbor 0.18.0 job completed: reward
+`0.000`, complete qrel coverage, MRR/nDCG `1.000`, and failure in the unchanged
+response/evidence contract. The result is semantic, not externally resumable.
+GraphRAG discovery testing found no compatible mutation that improved the
+incumbent; its graph is identical to the official GraphRAG graph.
+See [`reports/graphify-next-builder-evolution.md`](reports/graphify-next-builder-evolution.md).
+
+## Graphify builder extension — 2026-07-20
+
+Graphify's builder was evolved independently while `consult-semantic-okf-graphify` remained byte-identical. The final builder adds 30 fully regenerated reciprocal cross-partition TF-IDF links between record roots and preserves the exact authoritative core, all 6,390 nodes, Graphify 0.9.17, the original labels, and the accepted projection schema.
+
+| Bundle | Recall@10 | Hard Recall@10 | MRR@10 | nDCG@10 | Evidence valid | Mean ms | Decision |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Original Graphify builder | 68.5% | 45.8% | 0.556 | 0.530 | 265/265 | 137.4 | Baseline |
+| Harbor-evolved Graphify builder | **77.3%** | **57.5%** | **0.579** | **0.578** | 301/301 | 81.6 | Promoted for retrieval |
+
+The frozen eight-question holdout improves from `77.1% → 91.7% Recall@10`; hard holdout Recall@10 improves from `41.7% → 100.0%`. A paired q032 Harbor agent trace scores `0.000 → 0.000`: both bundles fail the unchanged consult's existing locator-shape contract, and the candidate also retrieves only one of two qrels in that single stochastic run. This does not support an agent-answer improvement claim. The builder promotion is limited to deterministic consultation retrieval. See [`reports/graphify-builder-evolution.md`](reports/graphify-builder-evolution.md).
+
+## Graphify extension — 2026-07-20
+
+Graphify was evolved separately after the six-family campaign. Its parent retrieval runtime remains byte-identical; the candidate adds a bounded six-support `prepare`/`finalize` compiler and makes successful preparation terminal for discovery.
+
+| Family | Train `q031` | Development `q032` | Holdout `q034` | Mechanical decision |
+|---|---:|---:|---:|---|
+| Graphify | Not evaluable: two agent timeouts during discovery iteration | **0.7037**; all contract and evidence gates passed | **1.0000**; complete required-document and qrel coverage | Promoted with q031 limitation |
+
+The unchanged deterministic Graphify route scores `68.5% Recall@10`, `45.8%` hard Recall@10, `0.556 MRR@10`, and `0.530 nDCG@10`, with `265/265` valid evidence rows and approximately `137 ms` standalone mean latency.
+
 ## Executive conclusion
 
 There is no single winner on every measured axis. The evolved **classical** consultation skill is the strongest mechanical primary candidate: it scores `0.995`, `1.000`, and `1.000` on the live train, development, and holdout questions; passes every declared promotion gate; and retains the strongest selected deterministic ranking profile (`MRR@10 0.915`, `nDCG@10 0.835`) among the six families. It is not universally best, because its manually reviewed answer completeness falls on both `q031` and `q034`.
@@ -75,6 +119,25 @@ The following table reports the selected route for each family. `Recall@10` is t
 | Adaptive | `association` | 88.8% | 74.2% | **0.915** | **0.835** | 100.0% | 1,395.7 | 1,468.7 |
 | Entity graph | `entity` | 88.1% | 78.3% | 0.729 | 0.706 | 100.0% | 1,148.0 | 1,545.9 |
 | Ensemble | `quality` | 89.6% | 77.5% | 0.890 | 0.819 | 100.0% | 7,335.5 | 12,758.2 |
+
+Experimental candidate intake is visible below but excluded from the historical
+six-family aggregate and every Harbor promotion decision. The row is now a
+separately audited 40-question direct-retrieval measurement; it is not a
+grounded-answer score.
+
+| Candidate | Selected route | Recall@10 | Hard Recall@10 | MRR@10 | nDCG@10 | Evidence valid | Mean ms | p95 ms | Ranking status |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|
+| Tika + Java MALLET | `tika_mallet_fusion` | 74.8% | 71.8% | 0.875 | 0.754 | 100.0% | 77.1 | 86.4 | Direct retrieval rankable; grounded Harbor ineligible |
+
+The candidate passed two clean 15-paper builds, extraction-fidelity scoring, two
+exact Top-10 runs, two exact pool-100 runs, pool-prefix parity, and 400/400 exact
+evidence checks. Its direct row is included in the
+[complete canonical comparison](../semantic-okf-ensemble/EVALUATION-CONCLUSIONS.md).
+Grounded Harbor remains unranked: v3 encountered a provider context limit and the
+bounded v4 preflight was rejected for exhausted provider quota before the agent
+executed. The
+[`canonical evaluation intake`](../semantic-okf-tika-mallet/canonical-evaluation-intake.json)
+separates these scopes and lists every outstanding promotion gate.
 
 Important route-level details:
 

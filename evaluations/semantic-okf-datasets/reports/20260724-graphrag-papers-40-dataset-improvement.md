@@ -10,20 +10,26 @@ dataset contains 40 questions.
 
 The expanded inventory found:
 
-- 180 local Harbor trials with 143 complete raw JSON responses;
-- 320 trials in the preserved campaign report with 32 complete, manually
-  reviewed responses;
-- 175 individually reviewable responses in total;
+- 516 available local Harbor trial artifacts: 180 primary, 15
+  trace-distillation, 320 original campaign, and one completed retry;
+- 503 artifacts from complete parent jobs and 13 diagnostic artifacts from
+  four incomplete parent jobs;
+- 209 answer-emitted traces and 189 complete raw JSON responses;
+- 174 raw responses with semantic adjudication, one preserved legacy
+  adjudication, and 15 complete raw responses awaiting semantic review;
+- 190 individually reviewable responses in total, of which 175 have semantic
+  adjudication;
 - 60 older comparison cells whose response bodies are no longer present and
   therefore cannot be re-reviewed individually;
 - complete-response coverage for 29 of 40 questions;
 - no complete response for q028 or q031-q040; and
-- 97 of 143 raw responses concentrated on q002-q004.
+- 118 of 189 raw responses concentrated on q002-q004.
 
 The companion
 [`response coverage audit`](20260724-graphrag-papers-40-response-coverage-audit.md)
-lists all 40 questions and all 175 reviewable responses separately. Its
-semantic adjudication contains 3 passes, 168 partial answers, and 4 failures.
+lists all 40 questions and all 190 reviewable responses separately. Its
+semantic adjudication covers 175 responses: 3 passes, 168 partial answers, and
+4 failures. The other 15 rows are explicitly `not-reviewed`.
 
 ## Dataset corrections
 
@@ -110,9 +116,13 @@ The remaining live-evaluation gap is empirical coverage, not question count:
 Every q001-q040 question now has a curated reference answer in
 [`20260724-graphrag-papers-40-best-answers.json`](20260724-graphrag-papers-40-best-answers.json).
 The forty question-level reviews account for all 175 historical responses
-exactly once, satisfy all 200 authored semantic targets, and contain 243
-supported claims with 408 exact evidence rows. The hard-question answers cover
-all 94 authoritative evidence anchors.
+exactly once. A second independent assignment for every question retained 26
+answers and replaced 14 after narrowing unsupported wording, correcting metric
+attribution and inference boundaries, or repairing claim-level citations. The
+final collection satisfies all 200 authored semantic targets and contains 243
+supported claims with 409 exact evidence rows. The hard-question answers cover
+all 94 authoritative evidence anchors. See the complete
+[`second-pass review`](20260724-graphrag-papers-40-second-pass-review.md).
 
 Dataset contract 1.2 pins this collection by SHA-256. The reference answers are
 evaluator material, not newly executed model trials, so they do not alter the
@@ -122,18 +132,21 @@ live full-dataset coverage restriction above.
 
 The
 [`current-metrics table`](20260724-graphrag-papers-40-current-metrics-table.md)
-applies the contract 1.2 policy and diagnostics schema 3.0 to all 180 preserved
-raw Harbor trials. It made no new model calls and did not modify the append-only
-result artifacts. Each response was evaluated against its native ledger and
-source-combination crosswalk so family-specific exact record identities remain
-valid.
+applies the contract 1.2 policy and diagnostics schema 3.0 to all 516 settled
+raw Harbor trial artifacts. It made no new model calls and did not modify the
+append-only result artifacts. Each response was evaluated against its native
+ledger and source-combination crosswalk so family-specific exact record
+identities remain valid.
 
-- 180/180 raw trials produced complete current-metric diagnostics.
-- 99 trials pass the current mechanical qualification gate.
-- Among 174 trials with a comparable stored reward, 46 rewards increased, none
-  decreased, and 128 were unchanged.
-- Mean reward across those comparable trials changed from 0.244128 to 0.402476.
-- The manual semantic result remains 3 pass, 168 partial, and 4 fail.
+- 516/516 raw trials produced complete current-metric diagnostics.
+- The table is artifact-only; 13 rows from incomplete parent jobs are excluded
+  from any complete-job comparison claim.
+- 115 trials pass the current mechanical qualification gate.
+- Among 510 trials with a comparable stored reward, 46 rewards increased, 3
+  decreased, and 461 were unchanged.
+- Mean reward across those comparable trials changed from 0.109322 to 0.160423.
+- The manual semantic result remains 3 pass, 168 partial, and 4 fail; 15
+  complete raw responses have not received semantic adjudication.
 - Empirical question coverage remains 29/40; the recalculation does not turn
   references into live trials.
 - All 40 curated references pass the current strict response and mechanical

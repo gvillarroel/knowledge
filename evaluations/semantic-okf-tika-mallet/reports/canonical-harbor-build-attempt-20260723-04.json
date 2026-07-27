@@ -1,0 +1,28 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-canonical-build-attempt/1.0",
+  "attempt": 4,
+  "date": "2026-07-23",
+  "dataset_id": "graphrag-papers-40",
+  "input_profile": "harbor-grounded-answer-canonical-text",
+  "status": "failed",
+  "failure_class": "candidate-tokenizer-validation",
+  "error_code": "mallet-error",
+  "error": "MALLET returned a foreign or duplicate vocabulary",
+  "published_bundle": false,
+  "input": {
+    "source_inventory_sha256": "e569351614f422bf5ab77a1266eee73036036147e99251bbb9224b73134cdae6",
+    "ingestion_plan_sha256": "48818905da1cd06cd66da4761e01cb5c9e509f4f0d5f5f30ba6612947e6aa39f",
+    "retrieval_plan_sha256": "c4d9a1557a4c5bc3f254b02b1ea0a2e6480c95038c61a60b45ef243c8de5873b"
+  },
+  "diagnosis": {
+    "cause": "Python Unicode IGNORECASE admitted the dotless-i token \u0131ve despite the declared ASCII tokenizer, while MALLET's [a-z0-9]+ tokenizer correctly emitted ve.",
+    "correction": "Apply re.ASCII together with re.IGNORECASE in both build and consultation tokenizers so the Python and Java vocabularies implement the declared ascii-alphanumeric-v1 contract.",
+    "diagnostic_missing_terms": [
+      "\u0131ve"
+    ],
+    "diagnostic_foreign_terms": [
+      "ve"
+    ],
+    "result_observed_before_correction": false
+  }
+}

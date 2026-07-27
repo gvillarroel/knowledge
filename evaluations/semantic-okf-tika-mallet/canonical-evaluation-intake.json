@@ -1,0 +1,191 @@
+{
+  "schema_version": "semantic-okf-canonical-evaluation-intake/1.1",
+  "candidate": {
+    "candidate_id": "tika-mallet",
+    "display_name": "Apache Tika and Java MALLET",
+    "build_skill": "build-semantic-okf-tika-mallet",
+    "consult_skill": "consult-semantic-okf-tika-mallet",
+    "prospective_harbor_consult_skill": "consult-semantic-okf-tika-mallet-bounded",
+    "experiment_decision_reference": "ADR-0044",
+    "reporting_decision_reference": "ADR-0049",
+    "intake_date": "2026-07-23",
+    "registry_state": "candidate-not-registered",
+    "ranking_eligibility": {
+      "direct_retrieval": true,
+      "grounded_answer_harbor": false,
+      "registry_promotion": false
+    },
+    "promotion_decision": "pending-grounded-harbor-and-cross-platform-evaluation"
+  },
+  "toolchain": {
+    "java": "Eclipse Temurin 17.0.19+10",
+    "tika": "4.0.0-beta-1",
+    "mallet": "2.1.0",
+    "python": "CPython 3.12.13",
+    "validated_platforms": [
+      "Windows"
+    ]
+  },
+  "mechanical_evidence": {
+    "status": "pass",
+    "fixture_formats": [
+      "PDF",
+      "XLSX"
+    ],
+    "semantic_records": 2,
+    "retrieval_passages": 2,
+    "topics": 2,
+    "lexical_terms": 117,
+    "association_terms": 52,
+    "clean_builds": 2,
+    "published_file_count": 24,
+    "inventory_sha256": "fd566c7b53aac3a1680fe6de11bc7908767ba8d943ae181728444e299555c911",
+    "okf_and_shacl_validation": "pass",
+    "consultant_deep_retraining": "pass",
+    "fusion_smoke_results": 2,
+    "exact_evidence_smoke": "pass",
+    "canonical_pdf_sources": 15,
+    "canonical_pdf_builds": 2,
+    "canonical_pdf_records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+    "canonical_pdf_bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993"
+  },
+  "extraction_fidelity": {
+    "status": "pass",
+    "paper_count": 15,
+    "exact_gate_checks": 75,
+    "exact_gate_failures": 0,
+    "macro_token_recall": 0.987914999726326,
+    "macro_token_precision": 0.9369309478690115,
+    "macro_five_gram_recall": 0.9555304637125768,
+    "hard_anchor_pass_rate": 0.9830508474576272,
+    "hard_anchor_mean_five_gram_recall": 0.9632176344993193,
+    "replicate_status": "exact-metrics"
+  },
+  "canonical_metrics": {
+    "scope": "deterministic-direct-retrieval",
+    "dataset_id": "graphrag-papers-40",
+    "question_count": 40,
+    "selected_route": "tika_mallet_fusion",
+    "recall_at_10": 0.7481727994227995,
+    "hard_recall_at_10": 0.7183333333333334,
+    "mrr_at_10": 0.875,
+    "ndcg_at_10": 0.754359723533816,
+    "hard_mrr_at_10": 0.7166666666666667,
+    "hard_ndcg_at_10": 0.6180016914364821,
+    "evidence_valid_rate": 1.0,
+    "evidence_valid_rows": 400,
+    "evidence_total_rows": 400,
+    "mean_latency_ms": 77.13061498943716,
+    "p95_latency_ms": 86.35780498152597,
+    "timing_excludes_setup": true,
+    "deep_validation_setup_ms": 8641.8861,
+    "top10_replicate_exact": true,
+    "pool100_replicate_exact": true,
+    "top10_pool100_prefix_exact": true,
+    "ranking_eligible": true
+  },
+  "grounded_harbor": {
+    "dataset_id": "graphrag-papers-40",
+    "expected_question_count": 40,
+    "status": "incomplete-external-provider-quota",
+    "ranking_eligible": false,
+    "harbor_discovery_reward": null,
+    "harbor_holdout_reward": null,
+    "harbor_hard_reward": null,
+    "v3_attempted_questions": 30,
+    "v3_answer_emitted": 29,
+    "v3_provider_context_limits": 1,
+    "v4_preflight_question_id": "q028",
+    "v4_agent_input_tokens": 0,
+    "v4_agent_output_tokens": 0,
+    "v4_provider_error_code": "usage_limit_reached",
+    "provider_reset_at": "2026-07-29T17:08:54-04:00",
+    "null_reason": "The bounded v4 treatment was rejected by the provider before agent execution, and no single frozen treatment completed all 40 questions exactly once."
+  },
+  "admission_gates": [
+    {
+      "gate_id": "standalone-skill-pair",
+      "status": "pass",
+      "requirement": "The build and consult skills are independently installable and preserve the OKF authority boundary."
+    },
+    {
+      "gate_id": "real-tool-reproducibility",
+      "status": "pass",
+      "requirement": "Two clean real-tool builds are byte-identical and independently validate."
+    },
+    {
+      "gate_id": "canonical-dataset-adapter",
+      "status": "pass",
+      "requirement": "Add evaluator-free raw-input preparation, family plans, and exact host build and validation commands for a pinned canonical dataset."
+    },
+    {
+      "gate_id": "document-format-coverage",
+      "status": "required",
+      "requirement": "Evaluate a representative, pinned format matrix beyond the PDF and XLSX smoke fixtures."
+    },
+    {
+      "gate_id": "extraction-fidelity",
+      "status": "pass",
+      "requirement": "Score Tika extraction fidelity against reviewed expected text, structure, tables, metadata, and source locators."
+    },
+    {
+      "gate_id": "deterministic-retrieval-40",
+      "status": "pass",
+      "requirement": "Run all 40 pinned questions and report Recall@10, hard Recall@10, MRR@10, nDCG@10, evidence validity, and latency."
+    },
+    {
+      "gate_id": "grounded-answer-harbor",
+      "status": "blocked-external-provider-quota",
+      "requirement": "Complete the declared Harbor cohorts with valid answer contracts, closed evidence, and blinded semantic review."
+    },
+    {
+      "gate_id": "cross-platform-reproducibility",
+      "status": "required",
+      "requirement": "Repeat the pinned build, validation, retrieval, and runtime measurements on Linux or WSL."
+    },
+    {
+      "gate_id": "promotion-review",
+      "status": "blocked-by-grounded-harbor-and-required-gates",
+      "requirement": "Compare complete results with the active canonical families before changing families.json or campaign cardinality."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/reports/real-tool-smoke-20260722-hardened.json",
+      "sha256": "c0137da2e61dbacf8cbdacb5829fd5c20b7977cb550ed4662b57de22008b789f",
+      "role": "machine-readable real-tool receipt"
+    },
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/reports/canonical-extraction-fidelity-attempt10-20260723.json",
+      "sha256": "39afab4a3ef1eeb21f71e89491279e41c0ef2f4259639e665799182151facaea",
+      "role": "prospectively selected canonical extraction-fidelity report"
+    },
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/reports/canonical-extraction-fidelity-attempt11-20260723.json",
+      "sha256": "f94d6e914bec3fbc5099e82e9dfc4addfde1bb158c4daa27493e639e5696c7ba",
+      "role": "independent extraction-fidelity replicate"
+    },
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/reports/canonical-retrieval-20260723.json",
+      "sha256": "35b0cb29947720610b62a49e19690cb9176b06d2f494a3b6b44a9b2ed5f42140",
+      "role": "rankable canonical direct-retrieval audit"
+    },
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/reports/harbor-campaign-status-20260723.json",
+      "sha256": "2e3572c67b0835e5c61f0180cc3ca922003f42ab904962f249e1fc92999bcfa2",
+      "role": "non-rankable grounded Harbor campaign status"
+    },
+    {
+      "path": "evaluations/semantic-okf-tika-mallet/RESULTS.md",
+      "role": "human-readable result and limitations"
+    },
+    {
+      "path": ".specs/adr/0044-tika-mallet-semantic-okf-experiment.md",
+      "role": "authority boundary and promotion conditions"
+    },
+    {
+      "path": ".specs/adr/0049-report-tika-mallet-in-canonical-direct-retrieval-table.md",
+      "role": "scoped direct-retrieval reporting decision"
+    }
+  ]
+}

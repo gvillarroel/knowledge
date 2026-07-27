@@ -1,0 +1,52 @@
+{
+    "schema_version": 1,
+    "task": {
+        "name": "part-06",
+        "type": "local",
+        "digest": "sha256:ee426311680ae540c709af8a81cad4d602908abc6c8eb81d3bd3aee93940f915",
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-06"
+    },
+    "install_only": false,
+    "timeout_multiplier": 1.0,
+    "agent": {
+        "name": "oracle",
+        "n_concurrent": 6,
+        "skills": [
+            "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/baseline/skills/consult-semantic-okf-tantivy"
+        ],
+        "extra_allowed_hosts": [],
+        "kwargs": {},
+        "mcp_servers": []
+    },
+    "skills": [
+        {
+            "name": "consult-semantic-okf-tantivy",
+            "source": "/mnt/c/Users/villa/dev/knowledge/generation-000/candidates/baseline/skills/consult-semantic-okf-tantivy",
+            "digest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+        }
+    ],
+    "environment": {
+        "type": "docker",
+        "force_build": false,
+        "delete": true,
+        "cpu_enforcement_policy": "auto",
+        "memory_enforcement_policy": "auto",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-consult-evolution/runtime-inputs/classical",
+                "target": "/knowledge",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ],
+        "extra_docker_compose": [],
+        "kwargs": {},
+        "extra_allowed_hosts": []
+    },
+    "verifier": {
+        "disable": false
+    }
+}

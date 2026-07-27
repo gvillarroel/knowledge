@@ -27,7 +27,7 @@ import dataset_tool as data  # noqa: E402
 import score as grader  # noqa: E402
 from trace_status import classify_pi_trace  # noqa: E402
 
-SCHEMA_VERSION = "graphrag-current-metrics-evaluation-table/1.0"
+SCHEMA_VERSION = "graphrag-current-metrics-evaluation-table/1.1"
 DIAGNOSTICS_SCHEMA = "semantic-okf-harbor-redacted-diagnostics/3.0"
 QUESTION_PREFIX = re.compile(r"^(q[0-9]{3})")
 WSL_PATH = re.compile(r"^/mnt/([A-Za-z])/(.*)$")
@@ -56,7 +56,24 @@ METRIC_FIELDS = (
 )
 DEFAULT_TASKS = (
     REPO
-    / "evaluations/runs/graphrag-current-metrics-rescore-20260724/tasks"
+    / "evaluations/runs/graphrag-second-pass-current-metrics-20260724/tasks"
+)
+DEFAULT_ADDITIONAL_RESULTS = (
+    (
+        REPO
+        / "evaluations/semantic-okf-tika-mallet-tantivy/generated/"
+        "trace-distillation"
+    ),
+    (
+        HERE
+        / "generated/campaigns/"
+        "20260717-papers-consult-gpt53-spark-01/runs"
+    ),
+    (
+        HERE
+        / "generated/campaigns/"
+        "20260717-papers-consult-gpt53-spark-02/runs"
+    ),
 )
 DEFAULT_JSON = (
     HERE
@@ -321,99 +338,137 @@ def _original_metrics(
     return metrics, diagnostics
 
 
+def _parent_job_complete(job: Path) -> bool:
+    """Return whether the parent Harbor job satisfies its completion gate."""
+
+    result = _optional_json(job / "result.json")
+    stats = result.get("stats")
+    if not isinstance(stats, Mapping):
+        return False
+    total = result.get("n_total_trials")
+    completed = stats.get("n_completed_trials")
+    return bool(
+        result.get("finished_at")
+        and isinstance(total, int)
+        and isinstance(completed, int)
+        and completed == total
+        and stats.get("n_pending_trials") == 0
+        and stats.get("n_running_trials") == 0
+    )
+
+
 def _trial_rows(
-    results_root: Path,
+    results_roots: Sequence[Path],
     *,
     current_tasks: Mapping[str, Path],
-    reviewed: Mapping[str, Mapping[str, Any]],
+    reviewed_by_response_id: Mapping[str, Mapping[str, Any]],
+    reviewed_by_trial_id: Mapping[str, Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for pi_log in sorted(results_root.glob("*/q*__*/agent/pi.txt")):
-        trial = pi_log.parents[1]
-        job = trial.parent
-        match = QUESTION_PREFIX.match(trial.name)
-        if match is None or match.group(1) not in current_tasks:
-            continue
-        question_id = match.group(1)
-        response_id = f"raw/{job.name}/{trial.name}"
-        trace = classify_pi_trace(pi_log)
-        trial_result = _optional_json(trial / "result.json")
-        job_config = _load_json(job / "config.json")
-        native_tests = _task_tests_for_trial(trial, question_id)
-        metrics, diagnostics = _score_trace(
-            pi_log,
-            current_tests=current_tasks[question_id],
-            native_tests=native_tests,
-        )
-        original, original_diagnostics = _original_metrics(
-            trial,
-            trial_result,
-        )
-        model, agent_version = _model_metadata(
-            trial_result,
-            job_config,
-        )
-        answer_text = trace.get("answer_text")
-        manual = reviewed.get(response_id)
-        original_reward = original.get("reward")
-        current_reward = metrics["reward"]
-        row: dict[str, Any] = {
-            "response_id": response_id,
-            "question_id": question_id,
-            "job": job.name,
-            "trial": trial.name,
-            "trial_id": trial_result.get("id"),
-            "started_at": trial_result.get("started_at"),
-            "finished_at": trial_result.get("finished_at"),
-            "model": model,
-            "agent_version": agent_version,
-            "task_checksum": trial_result.get("task_checksum"),
-            "native_task_tests": _repo_relative(native_tests),
-            "native_ledger_sha256": _sha256_file(
-                native_tests / "records.jsonl"
-            ),
-            "current_question_sha256": _sha256_file(
-                current_tasks[question_id] / "question.json"
-            ),
-            "trace": {
-                "outcome": trace.get("outcome"),
-                "failure_domain": trace.get("failure_domain"),
-                "error_code": trace.get("error_code"),
-                "stop_reason": trace.get("stop_reason"),
-                "parsed_events": trace.get("parsed_events"),
-            },
-            "response_sha256": (
-                _sha256_text(answer_text)
-                if isinstance(answer_text, str)
-                else None
-            ),
-            "reviewable_response": manual is not None,
-            "semantic_verdict": (
-                manual.get("semantic_verdict")
-                if isinstance(manual, Mapping)
-                else None
-            ),
-            "semantic_rationale": (
-                manual.get("rationale")
-                if isinstance(manual, Mapping)
-                else None
-            ),
-            "original_metric_schema": original_diagnostics.get(
-                "schema_version"
-            ),
-            "original_metrics": original,
-            "current_metrics": metrics,
-            "current_diagnostics": diagnostics,
-            "reward_delta": (
-                current_reward - original_reward
-                if isinstance(original_reward, (int, float))
-                and not isinstance(original_reward, bool)
-                else None
-            ),
-            "exception_present": trial_result.get("exception_info") is not None,
-            "usage": _usage(trial_result),
-        }
-        rows.append(row)
+    response_ids: set[str] = set()
+    for results_root in results_roots:
+        if not results_root.is_dir():
+            raise RecalculationError(
+                f"trial result root is absent: {_repo_relative(results_root)}"
+            )
+        for pi_log in sorted(results_root.rglob("agent/pi.txt")):
+            trial = pi_log.parents[1]
+            job = trial.parent
+            match = QUESTION_PREFIX.match(trial.name)
+            if match is None or match.group(1) not in current_tasks:
+                continue
+            question_id = match.group(1)
+            response_id = f"raw/{job.name}/{trial.name}"
+            if response_id in response_ids:
+                raise RecalculationError(
+                    f"duplicate trial response identity: {response_id}"
+                )
+            response_ids.add(response_id)
+            trace = classify_pi_trace(pi_log)
+            trial_result = _optional_json(trial / "result.json")
+            job_config = _load_json(job / "config.json")
+            native_tests = _task_tests_for_trial(trial, question_id)
+            metrics, diagnostics = _score_trace(
+                pi_log,
+                current_tests=current_tasks[question_id],
+                native_tests=native_tests,
+            )
+            original, original_diagnostics = _original_metrics(
+                trial,
+                trial_result,
+            )
+            model, agent_version = _model_metadata(
+                trial_result,
+                job_config,
+            )
+            answer_text = trace.get("answer_text")
+            manual = reviewed_by_response_id.get(response_id)
+            trial_id = trial_result.get("id")
+            if manual is None and isinstance(trial_id, str):
+                manual = reviewed_by_trial_id.get(trial_id)
+            original_reward = original.get("reward")
+            current_reward = metrics["reward"]
+            row: dict[str, Any] = {
+                "response_id": response_id,
+                "artifact_root": _repo_relative(results_root),
+                "parent_job_complete": _parent_job_complete(job),
+                "question_id": question_id,
+                "job": job.name,
+                "trial": trial.name,
+                "trial_id": trial_result.get("id"),
+                "started_at": trial_result.get("started_at"),
+                "finished_at": trial_result.get("finished_at"),
+                "model": model,
+                "agent_version": agent_version,
+                "task_checksum": trial_result.get("task_checksum"),
+                "native_task_tests": _repo_relative(native_tests),
+                "native_ledger_sha256": _sha256_file(
+                    native_tests / "records.jsonl"
+                ),
+                "current_question_sha256": _sha256_file(
+                    current_tasks[question_id] / "question.json"
+                ),
+                "trace": {
+                    "outcome": trace.get("outcome"),
+                    "failure_domain": trace.get("failure_domain"),
+                    "error_code": trace.get("error_code"),
+                    "stop_reason": trace.get("stop_reason"),
+                    "parsed_events": trace.get("parsed_events"),
+                },
+                "response_sha256": (
+                    _sha256_text(answer_text)
+                    if isinstance(answer_text, str)
+                    else None
+                ),
+                "reviewable_response": manual is not None,
+                "semantic_verdict": (
+                    manual.get("semantic_verdict")
+                    if isinstance(manual, Mapping)
+                    else None
+                ),
+                "semantic_rationale": (
+                    manual.get("rationale")
+                    if isinstance(manual, Mapping)
+                    else None
+                ),
+                "original_metric_schema": original_diagnostics.get(
+                    "schema_version"
+                ),
+                "original_metrics": original,
+                "current_metrics": metrics,
+                "current_diagnostics": diagnostics,
+                "reward_delta": (
+                    current_reward - original_reward
+                    if isinstance(original_reward, (int, float))
+                    and not isinstance(original_reward, bool)
+                    else None
+                ),
+                "exception_present": (
+                    trial_result.get("exception_info") is not None
+                ),
+                "usage": _usage(trial_result),
+            }
+            rows.append(row)
     return rows
 
 
@@ -488,6 +543,90 @@ def _reference_rows(
                 }
             )
     return rows
+
+
+def _strategy_name(row: Mapping[str, Any]) -> str:
+    """Return the generated consult strategy bound to one native task."""
+
+    parts = Path(str(row["native_task_tests"])).as_posix().split("/")
+    try:
+        index = parts.index("consult-only") + 1
+    except ValueError as exc:
+        raise RecalculationError(
+            f"cannot derive strategy from {row['native_task_tests']}"
+        ) from exc
+    if index >= len(parts) or not parts[index]:
+        raise RecalculationError(
+            f"cannot derive strategy from {row['native_task_tests']}"
+        )
+    return parts[index]
+
+
+def _strategy_rows(
+    trials: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Aggregate current metrics without mixing non-answer outcomes into means."""
+
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
+    for row in trials:
+        grouped.setdefault(_strategy_name(row), []).append(row)
+    result: list[dict[str, Any]] = []
+    for strategy in sorted(grouped):
+        rows = grouped[strategy]
+        emitted = [
+            row
+            for row in rows
+            if row["trace"]["outcome"] == "answer-emitted"
+        ]
+        reviewed = [
+            row for row in rows if row["reviewable_response"]
+        ]
+        metrics = [row["current_metrics"] for row in emitted]
+        verdicts = Counter(
+            str(row["semantic_verdict"])
+            for row in reviewed
+            if isinstance(row.get("semantic_verdict"), str)
+        )
+        qualified = sum(
+            row["mechanical_qualification_gate"] == 1.0
+            for row in metrics
+        )
+        result.append(
+            {
+                "strategy": strategy,
+                "trial_count": len(rows),
+                "question_count": len(
+                    {str(row["question_id"]) for row in rows}
+                ),
+                "answer_emitted_count": len(emitted),
+                "non_answer_trial_count": len(rows) - len(emitted),
+                "semantically_reviewed_response_count": len(reviewed),
+                "response_contract_pass_count": sum(
+                    row["response_contract"] == 1.0 for row in metrics
+                ),
+                "mechanical_qualification_count": qualified,
+                "mechanical_qualification_rate_among_emitted": (
+                    qualified / len(emitted) if emitted else None
+                ),
+                "mean_mechanical_utility_among_emitted": (
+                    sum(
+                        float(row["mechanical_utility"])
+                        for row in metrics
+                    )
+                    / len(metrics)
+                    if metrics
+                    else None
+                ),
+                "mean_reward_among_emitted": (
+                    sum(float(row["reward"]) for row in metrics)
+                    / len(metrics)
+                    if metrics
+                    else None
+                ),
+                "semantic_verdict_counts": dict(sorted(verdicts.items())),
+            }
+        )
+    return result
 
 
 def _trial_order(row: Mapping[str, Any]) -> tuple[str, str, str]:
@@ -670,7 +809,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         reviewed_raw,
         args.raw_adjudications,
     )
-    reviewed_by_id = {
+    reviewed_by_response_id = {
         str(row["response_id"]): row for row in reviewed_raw
     }
     historical, historical_trial_count = audit.historical_responses(
@@ -678,15 +817,47 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         args.historical_manual_review,
         question_ids,
     )
+    reviewed_by_trial_id = {
+        str(row["trial_id"]): row
+        for row in historical
+        if isinstance(row.get("trial_id"), str)
+    }
+    trial_roots = (args.results, *args.additional_results)
     trials = _trial_rows(
-        args.results,
+        trial_roots,
         current_tasks=current_tasks,
-        reviewed=reviewed_by_id,
+        reviewed_by_response_id=reviewed_by_response_id,
+        reviewed_by_trial_id=reviewed_by_trial_id,
     )
-    if len(trials) != discovered_trial_count:
+    primary_root = _repo_relative(args.results)
+    primary_trial_count = sum(
+        row["artifact_root"] == primary_root for row in trials
+    )
+    if primary_trial_count != discovered_trial_count:
         raise RecalculationError(
-            "trial inventory changed between audit and current rescore"
+            "primary trial inventory changed between audit and current rescore"
         )
+    raw_trial_ids = {
+        str(row["trial_id"])
+        for row in trials
+        if isinstance(row.get("trial_id"), str)
+    }
+    unresolved_historical = [
+        row
+        for row in historical
+        if str(row.get("trial_id")) not in raw_trial_ids
+    ]
+    resolved_historical_count = len(historical) - len(
+        unresolved_historical
+    )
+    reviewed_trials = [
+        row for row in trials if row["reviewable_response"]
+    ]
+    incomplete_parent_jobs = {
+        (str(row["artifact_root"]), str(row["job"]))
+        for row in trials
+        if not row["parent_job_complete"]
+    }
 
     collection_path = data.pinned_path(
         dataset["reference_answers"],
@@ -700,9 +871,10 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     question_rows = _question_rows(
         dataset,
         trials=trials,
-        historical=historical,
+        historical=unresolved_historical,
         references=references,
     )
+    strategy_rows = _strategy_rows(trials)
     covered = [
         row["question_id"]
         for row in question_rows
@@ -718,7 +890,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     )
     semantic_verdicts = Counter(
         str(row["semantic_verdict"])
-        for row in [*reviewed_raw, *historical]
+        for row in [*reviewed_trials, *unresolved_historical]
     )
     summary_only = _load_json(args.summary_only_cells)
     summary_cells = summary_only.get("cells")
@@ -758,15 +930,42 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
                 args.current_tasks
             ),
             "current_task_source_hashes": task_manifest["source_hashes"],
+            "trial_source_roots": [
+                _repo_relative(path) for path in trial_roots
+            ],
         },
         "summary": {
             "dataset_question_count": 40,
             "raw_harbor_trial_count": len(trials),
             "raw_trials_rescored_with_current_metrics": len(trials),
+            "primary_raw_harbor_trial_count": primary_trial_count,
+            "additional_raw_harbor_trial_count": (
+                len(trials) - primary_trial_count
+            ),
+            "complete_parent_job_trial_count": sum(
+                row["parent_job_complete"] for row in trials
+            ),
+            "incomplete_parent_job_trial_count": sum(
+                not row["parent_job_complete"] for row in trials
+            ),
+            "incomplete_parent_job_count": len(incomplete_parent_jobs),
             "trace_outcome_counts": dict(sorted(trace_outcomes.items())),
-            "reviewable_raw_response_count": len(reviewed_raw),
-            "legacy_reviewable_response_count": len(historical),
-            "reviewable_response_count": len(reviewed_raw) + len(historical),
+            "reviewable_raw_response_count": len(reviewed_trials),
+            "primary_reviewable_raw_response_count": len(reviewed_raw),
+            "resolved_historical_raw_response_count": (
+                resolved_historical_count
+            ),
+            "unreviewed_answer_emitted_count": sum(
+                row["trace"]["outcome"] == "answer-emitted"
+                and not row["reviewable_response"]
+                for row in trials
+            ),
+            "legacy_reviewable_response_count": len(
+                unresolved_historical
+            ),
+            "reviewable_response_count": (
+                len(reviewed_trials) + len(unresolved_historical)
+            ),
             "legacy_campaign_trial_count": historical_trial_count,
             "summary_only_cell_count": summary_only_count,
             "summary_only_cells_rescored": False,
@@ -801,9 +1000,10 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "reference_answer_collection_sha256": _sha256_file(
             collection_path
         ),
+        "strategies": strategy_rows,
         "questions": question_rows,
         "raw_trials": trials,
-        "legacy_historical_responses": historical,
+        "legacy_historical_responses": unresolved_historical,
         "reference_calibrations": references,
     }
 
@@ -883,11 +1083,11 @@ def markdown(report: Mapping[str, Any]) -> str:
         "",
         (
             "This is an artifact-only recalculation of immutable Harbor traces; "
-            "**no new model calls were made**. Every discovered raw trial was "
-            "rescored with the current dataset policy and diagnostics schema 3.0. "
-            "The scorer used each trial's native ledger and crosswalk so exact "
-            "evidence identities remain valid across family-specific source "
-            "representations."
+            "**no new model calls were made**. Every raw trial discovered across "
+            "the declared append-only result roots was rescored with the current "
+            "dataset policy and diagnostics schema 3.0. The scorer used each "
+            "trial's native ledger and crosswalk so exact evidence identities "
+            "remain valid across family-specific source representations."
         ),
         "",
         (
@@ -911,8 +1111,31 @@ def markdown(report: Mapping[str, Any]) -> str:
             f"{summary['raw_harbor_trial_count']} |"
         ),
         (
-            "| Reviewable raw responses | "
+            "| Primary / additional result-root trials | "
+            f"{summary['primary_raw_harbor_trial_count']} / "
+            f"{summary['additional_raw_harbor_trial_count']} |"
+        ),
+        (
+            "| Complete-parent / partial-parent trial artifacts | "
+            f"{summary['complete_parent_job_trial_count']} / "
+            f"{summary['incomplete_parent_job_trial_count']} |"
+        ),
+        (
+            "| Incomplete parent jobs represented | "
+            f"{summary['incomplete_parent_job_count']} |"
+        ),
+        (
+            "| Semantically reviewed raw responses | "
             f"{summary['reviewable_raw_response_count']} |"
+        ),
+        (
+            "| Primary / recovered historical reviewed responses | "
+            f"{summary['primary_reviewable_raw_response_count']} / "
+            f"{summary['resolved_historical_raw_response_count']} |"
+        ),
+        (
+            "| Emitted raw responses awaiting semantic review | "
+            f"{summary['unreviewed_answer_emitted_count']} |"
         ),
         (
             "| Legacy reviewed responses without raw bodies | "
@@ -970,6 +1193,52 @@ def markdown(report: Mapping[str, Any]) -> str:
             + "."
         ),
         "",
+        "## Strategy summary",
+        "",
+        (
+            "Means and qualification rates use emitted answers only, so "
+            "provider, agent, and missing-response outcomes remain separate."
+        ),
+        "",
+        (
+            "| Strategy | Trials | Q | Emitted | No answer | Semantically "
+            "reviewed | Contract | Qualified | Rate | Mean utility | "
+            "Mean reward | Semantic P/Pt/F |"
+        ),
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for row in report["strategies"]:
+        emitted = int(row["answer_emitted_count"])
+        rate = row["mechanical_qualification_rate_among_emitted"]
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row['strategy']}`",
+                    str(row["trial_count"]),
+                    str(row["question_count"]),
+                    str(emitted),
+                    str(row["non_answer_trial_count"]),
+                    str(row["semantically_reviewed_response_count"]),
+                    f"{row['response_contract_pass_count']}/{emitted}",
+                    f"{row['mechanical_qualification_count']}/{emitted}",
+                    (
+                        "—"
+                        if rate is None
+                        else f"{_number(float(rate) * 100, digits=1)}%"
+                    ),
+                    _number(
+                        row["mean_mechanical_utility_among_emitted"]
+                    ),
+                    _number(row["mean_reward_among_emitted"]),
+                    _verdict_counts(row["semantic_verdict_counts"]),
+                ]
+            )
+            + " |"
+        )
+    lines.extend(
+        [
+        "",
         "## Every question under the current metrics",
         "",
         (
@@ -978,7 +1247,8 @@ def markdown(report: Mapping[str, Any]) -> str:
             "Valid/focus docs | Gate | Utility | Reward | Empirical |"
         ),
         "|---|---|---:|---:|---|---:|---|---|---:|---:|---:|---:|---|",
-    ]
+        ]
+    )
     for row in report["questions"]:
         latest_trial = row["latest_trial"]
         latest_reviewed = row["latest_reviewed_response"]
@@ -1165,6 +1435,16 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--results",
         type=Path,
         default=HERE / "results",
+    )
+    parser.add_argument(
+        "--additional-results",
+        type=Path,
+        action="append",
+        default=list(DEFAULT_ADDITIONAL_RESULTS),
+        help=(
+            "Additional result tree searched recursively for Harbor Pi traces; "
+            "repeat to include more append-only artifact roots."
+        ),
     )
     parser.add_argument(
         "--current-tasks",

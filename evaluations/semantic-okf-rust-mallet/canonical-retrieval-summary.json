@@ -1,0 +1,122 @@
+{
+  "schema_version": "semantic-okf-rust-mallet-canonical-summary/1.0",
+  "status": "pass",
+  "candidate_state": "experimental-comparator-not-registry-family",
+  "date": "2026-07-23",
+  "question_count": 40,
+  "reference_dictionary": {
+    "count": 1135,
+    "sha256": "886c3ba3ffb99c8f6a44ae8029e8792bfcf813ed80d59373ea2c2fe86033db3f"
+  },
+  "inputs": {
+    "question_sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+    "inventory_sha256": "007a2c4ecbb7802fbb2ea2ca4dc57d3dbf96189d12f19d2db3e5b934bd0207a0",
+    "top10_report_sha256": "7c3888aab1b89b665e85bef0074ef8b185c5d4af74773e087b8406b9e14474d2",
+    "pool100_report_sha256": "8bdf9e24d6c5e8866824f41d308d5ba3fccc21476a6e1a99824f3e077c1c5dc1",
+    "reference_parity_report_sha256": "72730de37386c60d86fd66dd9635d409f4aed906a223b7fb704e05458b6d53da"
+  },
+  "top10": {
+    "deep_validation": true,
+    "error_count": 0,
+    "evidence_validity": 1.0,
+    "shared_setup_ms": 12150.386199937202,
+    "evaluation_wall_ms": 44746.74840003718,
+    "routes": {
+      "rust_mallet_bm25": {
+        "all_40": {
+          "recall_at_10": 0.4971987734487734,
+          "mrr_at_10": 0.9583333333333334,
+          "ndcg_at_10": 0.6093698753598564
+        },
+        "hard_10": {
+          "recall_at_10": 0.6316666666666666,
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.6931433898737935
+        },
+        "timing_ms": {
+          "mean": 194.77084249956533,
+          "median": 195.5411999952048,
+          "p95": 226.68513493263163,
+          "total": 7790.833699982613
+        }
+      },
+      "rust_mallet_topic": {
+        "all_40": {
+          "recall_at_10": 0.8080032467532468,
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.818649020324077
+        },
+        "hard_10": {
+          "recall_at_10": 0.885,
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.8275021160693793
+        },
+        "timing_ms": {
+          "mean": 206.0767299932195,
+          "median": 205.07954998174682,
+          "p95": 238.69607503875156,
+          "total": 8243.06919972878
+        }
+      },
+      "rust_mallet_association": {
+        "all_40": {
+          "recall_at_10": 0.7948971861471861,
+          "mrr_at_10": 0.9458333333333334,
+          "ndcg_at_10": 0.8084174063897216
+        },
+        "hard_10": {
+          "recall_at_10": 0.865,
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.8117555106069245
+        },
+        "timing_ms": {
+          "mean": 191.91917750285938,
+          "median": 190.04135008435696,
+          "p95": 224.29530990775672,
+          "total": 7676.767100114375
+        }
+      },
+      "rust_mallet_fusion": {
+        "all_40": {
+          "recall_at_10": 0.8028246753246753,
+          "mrr_at_10": 0.9583333333333334,
+          "ndcg_at_10": 0.8184018776348475
+        },
+        "hard_10": {
+          "recall_at_10": 0.86,
+          "mrr_at_10": 0.95,
+          "ndcg_at_10": 0.8140397137894053
+        },
+        "timing_ms": {
+          "mean": 199.91600250359625,
+          "median": 204.08500003395602,
+          "p95": 232.24627499002963,
+          "total": 7996.64010014385
+        }
+      }
+    }
+  },
+  "pool100": {
+    "deep_validation": true,
+    "error_count": 0,
+    "evidence_validity": 1.0,
+    "shared_setup_ms": 12244.049799977802,
+    "evaluation_wall_ms": 48463.001500000246,
+    "route_p95_ms": {
+      "rust_mallet_bm25": 242.78395499568433,
+      "rust_mallet_topic": 267.4117650196422,
+      "rust_mallet_association": 254.31309505365786,
+      "rust_mallet_fusion": 244.83214999199842
+    },
+    "topic_association_and_fusion_metrics_match_top10": true
+  },
+  "reference_parity": {
+    "status": "pass",
+    "deep_validation": true,
+    "comparison_count": 320,
+    "mismatch_count": 0,
+    "reference_rows_checked": 7267,
+    "unique_reference_ids_returned": 728
+  },
+  "conclusion": "Report RustMallet with references in the canonical direct-retrieval table as an experimental comparator. Do not add it to the eight-family Harbor registry because it remains below classical, adaptive, and definitive ensemble retrieval quality."
+}

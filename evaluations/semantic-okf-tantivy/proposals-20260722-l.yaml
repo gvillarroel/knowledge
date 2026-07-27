@@ -1,0 +1,185 @@
+proposals:
+  - id: preserve-literal-answer-minimum-with-candidate-margin
+    diagnosis: >-
+      q001 passed with eight exact papers in generation j but returned null when k
+      raised its final target from eight to ten. q013 remained exact yet only four of
+      eight final papers were relevant, showing that mandatory extra citations dilute
+      evidence rather than protect the gate. Preserve the literal public minimum as the
+      final target and place the margin only in the candidate source pool.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-41a54e82a1:3890cc02-c78c-4be8-8c49-0c5c13fd9c9f
+      - development-candidate-01-41a54e82a1:ce7af499-841c-4ac5-a653-fe2c238717fa
+      - development-candidate-01-41a54e82a1:175ab15c-b0d2-4197-9110-ae9e316a01b4
+    conflictGroup: literal-answer-target
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+                  if args.minimum_sources == 0:
+                      args.answer_target = 4
+                  elif args.minimum_sources > 10:
+                      args.answer_target = args.minimum_sources
+                  else:
+                      args.answer_target = min(args.minimum_sources + 2, 10)
+                  args.source_target = (
+                      args.answer_target
+                      if args.answer_target > 10
+                      else min(args.answer_target + 2, 10)
+                  )
+    content: |2
+                  if args.minimum_sources == 0:
+                      args.answer_target = 4
+                  else:
+                      args.answer_target = args.minimum_sources
+                  if args.answer_target > 10:
+                      args.source_target = args.answer_target
+                  else:
+                      source_margin = 2 if args.minimum_sources == 0 else 4
+                      args.source_target = min(
+                          args.answer_target + source_margin, 10
+                      )
+
+  - id: reserve-query-slots-only-for-required-terms
+    diagnosis: >-
+      q039 passed after named-system queries used Tantivy required terms, while q001
+      and q031 returned null and q013 lost relevance when every generic thematic query
+      received round-robin source slots. Reserve one source slot for each query that
+      contains an explicit `+term`; fill every other slot from aggregate source RRF.
+      This preserves method coverage without displacing broadly supported synthesis.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-41a54e82a1:3890cc02-c78c-4be8-8c49-0c5c13fd9c9f
+      - development-candidate-01-41a54e82a1:deaf2895-61c6-46a3-a737-2f94fffdeca2
+      - development-candidate-01-41a54e82a1:175ab15c-b0d2-4197-9110-ae9e316a01b4
+    conflictGroup: conditional-query-source-coverage
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          query_identity_order: list[list[str]] = []
+          for query_index in range(len(args.query)):
+              candidates: list[tuple[int, float, int, str]] = []
+              for identity, rows in by_identity.items():
+                  matching_ranks = [
+                      rank["rank"]
+                      for row in rows
+                      for rank in row["query_ranks"]
+                      if rank["query_index"] == query_index
+                  ]
+                  if matching_ranks:
+                      candidates.append(
+                          (
+                              min(matching_ranks),
+                              -sum(row["rrf_score"] for row in rows),
+                              min(row["best_rank"] for row in rows),
+                              identity,
+                          )
+                      )
+              query_identity_order.append(
+                  [identity for *_, identity in sorted(candidates)]
+              )
+
+          selected_identities: list[str] = []
+          query_cursors = [0] * len(query_identity_order)
+          while len(selected_identities) < args.source_target:
+              added = False
+              for query_index, candidates in enumerate(query_identity_order):
+                  cursor = query_cursors[query_index]
+                  while (
+                      cursor < len(candidates)
+                      and candidates[cursor] in selected_identities
+                  ):
+                      cursor += 1
+                  query_cursors[query_index] = cursor
+                  if cursor < len(candidates):
+                      selected_identities.append(candidates[cursor])
+                      query_cursors[query_index] += 1
+                      added = True
+                      if len(selected_identities) >= args.source_target:
+                          break
+              if not added:
+                  break
+          for identity in identity_order:
+              if len(selected_identities) >= args.source_target:
+                  break
+              if identity not in selected_identities:
+                  selected_identities.append(identity)
+    content: |2
+          required_query_indices = [
+              query_index
+              for query_index, query in enumerate(args.query)
+              if any(
+                  token.startswith("+") and len(token) > 1
+                  for token in query.split()
+              )
+          ]
+          selected_identities: list[str] = []
+          for query_index in required_query_indices:
+              candidates: list[tuple[int, float, int, str]] = []
+              for identity, rows in by_identity.items():
+                  matching_ranks = [
+                      rank["rank"]
+                      for row in rows
+                      for rank in row["query_ranks"]
+                      if rank["query_index"] == query_index
+                  ]
+                  if matching_ranks:
+                      candidates.append(
+                          (
+                              min(matching_ranks),
+                              -sum(row["rrf_score"] for row in rows),
+                              min(row["best_rank"] for row in rows),
+                              identity,
+                          )
+                      )
+              for *_, identity in sorted(candidates):
+                  if identity not in selected_identities:
+                      selected_identities.append(identity)
+                      break
+              if len(selected_identities) >= args.source_target:
+                  break
+          for identity in identity_order:
+              if len(selected_identities) >= args.source_target:
+                  break
+              if identity not in selected_identities:
+                  selected_identities.append(identity)
+
+  - id: document-conditional-selection-and-candidate-only-margin
+    diagnosis: >-
+      The four k trials separate the stable behavior: q039 passes with required named
+      methods, generic q001 and q031 become null under unconditional round-robin, and
+      q013's mandatory evidence margin lowers relevance. Document the combined terminal
+      rule so the helper owns a wide candidate pool but the final answer keeps only the
+      literal requirement, using reserved query slots solely for explicit `+terms`.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-41a54e82a1:3890cc02-c78c-4be8-8c49-0c5c13fd9c9f
+      - development-candidate-01-41a54e82a1:ce7af499-841c-4ac5-a653-fe2c238717fa
+      - development-candidate-01-41a54e82a1:deaf2895-61c6-46a3-a737-2f94fffdeca2
+      - development-candidate-01-41a54e82a1:175ab15c-b0d2-4197-9110-ae9e316a01b4
+    conflictGroup: terminal-conditional-selection-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Conditional source allocation and literal final target
+
+      This section supersedes every earlier statement about final evidence margins and
+      query-round-robin allocation. Continue to pass the literal public minimum through
+      `--minimum-sources`, using `0` when none is stated. The helper sets
+      `answer_target` to that literal minimum, or `4` when none is stated, and exposes a
+      larger `source_target` candidate pool. The final draft must use exactly
+      `answer_target` relevant independent papers; never cite the candidate margin just
+      to fill slots.
+
+      A query receives one reserved source slot only when it contains an explicit
+      Tantivy required token beginning with `+`. Use such tokens only for distinctive
+      systems or named methods that the question explicitly requires. Generic thematic
+      queries must not add artificial `+` terms: their candidates are selected by
+      aggregate source RRF, query coverage, and best rank. After the reserved named
+      slots, the helper fills the remaining pool from that same aggregate ranking.
+
+      Read all first-pass source candidates before choosing the exact final set. Prefer
+      claims that directly answer a named comparison dimension; do not cite a paper
+      merely because it discusses a neighboring graph technique. Copy the printed
+      `answer_target` unchanged into `--min-sources` when invoking the finalizer. Its
+      first successful output remains terminal.

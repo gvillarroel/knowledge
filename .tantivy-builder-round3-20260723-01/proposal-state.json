@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "phase": "discovery",
+  "proposalPath": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/trace-distillation-builder-round3-proposals.json",
+  "thresholds": {
+    "minimumUniqueTrials": 2,
+    "minimumUniqueTasks": 2
+  },
+  "accepted": [
+    {
+      "id": "structured-interpretation-01-pattern",
+      "diagnosis": "Five independent, lock-verified builder partitions reproduce the frozen-consult baseline with exact evidence, but aggregate Recall@10 remains 0.695833. Their source records expose reviewed structured interpretations as exact Markdown field lines inside otherwise metadata-heavy bodies. A development-only rebuild and replay over those five task-local qrel partitions found that indexing each nonempty interpretation field line as an additional exact character range raises aggregate reward from 0.788357 to 0.810701, improves four partitions, leaves one unchanged, and regresses none of the 20 development questions.",
+      "domain": null,
+      "evidenceIds": [
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:49d150d7-0c7a-471d-8856-3cc79c388d9c",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:76003fc6-917d-40cd-9758-5469ecce3643",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:ab098e4b-7beb-4022-85c7-2295adca296d",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:7e39a04b-8aea-4e14-aef9-b3931ad0388a",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:8f30f9b0-2c21-4932-83bd-52d23f442966"
+      ],
+      "support": {
+        "uniqueTrials": 5,
+        "uniqueTasks": 5,
+        "taskChecksums": [
+          "0ab2d016502ed56d2e3e9023f2faff21a6d515f7abce09aae3a95e4685c7f5e6",
+          "429c1af372672f3872f35fd95d7ede8c6608afe6843757936530a5a95698c06d",
+          "609a328456511d17fb390d0d199b9293e7f386bc22928aa77538e08a2973c547",
+          "6db8ebb38dc7a05c6f59210349d98fad8eb73e57d58145d9f4a3be1557c2a553",
+          "e804497bfd19272b4cea2fb9cfc9c154086df10731986234f3504f23949691f2"
+        ],
+        "evidenceClasses": [
+          "semantic-evaluation"
+        ]
+      },
+      "conflictGroup": "structured-interpretation-pattern",
+      "target": "scripts/_classical_retrieval.py",
+      "operation": "replace",
+      "old": "SECTION_RE = re.compile(r\"(?m)^##\\s+\")\nLONG_RECORD_MIN_CHARS = 10_000\n",
+      "content": "SECTION_RE = re.compile(r\"(?m)^##\\s+\")\nSTRUCTURED_INTERPRETATION_RE = re.compile(\n    r\"(?m)^- \\*\\*interpretation\\*\\*: [^\\r\\n]*\\S[ \\t]*$\"\n)\nLONG_RECORD_MIN_CHARS = 10_000\n",
+      "status": "accepted"
+    },
+    {
+      "id": "structured-interpretation-02-passages",
+      "diagnosis": "The five cited builds are valid and deterministic but their metadata-heavy structured records provide only full-record passages. Adding an exact field-line range after the existing full record and optional overview preserves all current passages and locators while giving native BM25 a focused authoritative retrieval unit.",
+      "domain": null,
+      "evidenceIds": [
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:49d150d7-0c7a-471d-8856-3cc79c388d9c",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:76003fc6-917d-40cd-9758-5469ecce3643",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:ab098e4b-7beb-4022-85c7-2295adca296d",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:7e39a04b-8aea-4e14-aef9-b3931ad0388a",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:8f30f9b0-2c21-4932-83bd-52d23f442966"
+      ],
+      "support": {
+        "uniqueTrials": 5,
+        "uniqueTasks": 5,
+        "taskChecksums": [
+          "0ab2d016502ed56d2e3e9023f2faff21a6d515f7abce09aae3a95e4685c7f5e6",
+          "429c1af372672f3872f35fd95d7ede8c6608afe6843757936530a5a95698c06d",
+          "609a328456511d17fb390d0d199b9293e7f386bc22928aa77538e08a2973c547",
+          "6db8ebb38dc7a05c6f59210349d98fad8eb73e57d58145d9f4a3be1557c2a553",
+          "e804497bfd19272b4cea2fb9cfc9c154086df10731986234f3504f23949691f2"
+        ],
+        "evidenceClasses": [
+          "semantic-evaluation"
+        ]
+      },
+      "conflictGroup": "passage-boundary-policy",
+      "target": "scripts/_classical_retrieval.py",
+      "operation": "replace",
+      "old": "def _passage_ranges(record: Mapping[str, Any]) -> list[tuple[int, int]]:\n    body = str(record.get(\"body\") or \"\")\n    matches = list(PAGE_RE.finditer(body))\n    if matches:\n        starts = [0, *(match.start() for match in matches[1:])]\n        ends = [*(match.start() for match in matches[1:]), len(body)]\n        return [\n            item\n            for pair in zip(starts, ends, strict=True)\n            if (item := _trimmed_range(body, *pair))\n        ]\n    full = _trimmed_range(body, 0, len(body))\n    if full is None:\n        return []\n    first_section = SECTION_RE.search(body)\n    if len(body) < LONG_RECORD_MIN_CHARS or first_section is None:\n        return [full]\n    overview = _trimmed_range(body, 0, first_section.start())\n    return [full, overview] if overview is not None and overview != full else [full]\n",
+      "content": "def _passage_ranges(record: Mapping[str, Any]) -> list[tuple[int, int]]:\n    body = str(record.get(\"body\") or \"\")\n    matches = list(PAGE_RE.finditer(body))\n    if matches:\n        starts = [0, *(match.start() for match in matches[1:])]\n        ends = [*(match.start() for match in matches[1:]), len(body)]\n        return [\n            item\n            for pair in zip(starts, ends, strict=True)\n            if (item := _trimmed_range(body, *pair))\n        ]\n    full = _trimmed_range(body, 0, len(body))\n    if full is None:\n        return []\n    ranges = [full]\n    first_section = SECTION_RE.search(body)\n    if len(body) >= LONG_RECORD_MIN_CHARS and first_section is not None:\n        overview = _trimmed_range(body, 0, first_section.start())\n        if overview is not None and overview != full:\n            ranges.append(overview)\n    for match in STRUCTURED_INTERPRETATION_RE.finditer(body):\n        interpretation = _trimmed_range(body, *match.span())\n        if interpretation is not None and interpretation not in ranges:\n            ranges.append(interpretation)\n    return ranges\n",
+      "status": "accepted"
+    },
+    {
+      "id": "structured-interpretation-03-workflow",
+      "diagnosis": "The structured exact-range behavior is supported by five distinct task checksums and changes the projection contract. The builder workflow must disclose that selected structured interpretation lines are authoritative character ranges rather than generated summaries.",
+      "domain": null,
+      "evidenceIds": [
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:49d150d7-0c7a-471d-8856-3cc79c388d9c",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:7e39a04b-8aea-4e14-aef9-b3931ad0388a"
+      ],
+      "support": {
+        "uniqueTrials": 2,
+        "uniqueTasks": 2,
+        "taskChecksums": [
+          "0ab2d016502ed56d2e3e9023f2faff21a6d515f7abce09aae3a95e4685c7f5e6",
+          "609a328456511d17fb390d0d199b9293e7f386bc22928aa77538e08a2973c547"
+        ],
+        "evidenceClasses": [
+          "semantic-evaluation"
+        ]
+      },
+      "conflictGroup": "workflow-documentation",
+      "target": "SKILL.md",
+      "operation": "replace",
+      "old": "`documents.jsonl` uses exact full-record or character-range locators. Long\nnon-paper records retain the complete record and may add one exact overview\nbefore their first level-two heading.\n",
+      "content": "`documents.jsonl` uses exact full-record or character-range locators. Long\nnon-paper records retain the complete record and may add one exact overview\nbefore their first level-two heading. Non-page records also add every nonempty\nMarkdown `- **interpretation**:` field line as an exact character-range passage;\nthis is authoritative source text, never a generated summary.\n",
+      "status": "accepted"
+    },
+    {
+      "id": "structured-interpretation-04-reference",
+      "diagnosis": "Every cited trace passed the exact evidence contract. The classical-plan reference must state the structured-field boundary and retain the invariant that every persisted range resolves byte-for-byte against the authoritative record.",
+      "domain": null,
+      "evidenceIds": [
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:76003fc6-917d-40cd-9758-5469ecce3643",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:ab098e4b-7beb-4022-85c7-2295adca296d",
+        "tantivy-builder-endocrine-round3-discovery-20260723-01:8f30f9b0-2c21-4932-83bd-52d23f442966"
+      ],
+      "support": {
+        "uniqueTrials": 3,
+        "uniqueTasks": 3,
+        "taskChecksums": [
+          "429c1af372672f3872f35fd95d7ede8c6608afe6843757936530a5a95698c06d",
+          "6db8ebb38dc7a05c6f59210349d98fad8eb73e57d58145d9f4a3be1557c2a553",
+          "e804497bfd19272b4cea2fb9cfc9c154086df10731986234f3504f23949691f2"
+        ],
+        "evidenceClasses": [
+          "semantic-evaluation"
+        ]
+      },
+      "conflictGroup": "reference-documentation",
+      "target": "references/classical-plan.md",
+      "operation": "replace",
+      "old": "Paper records containing `## PDF page N` headings become exact page passages. The first passage includes any title preamble before PDF page 1. Other records retain one full-record passage. When such a record is at least 10,000 characters and contains a level-two Markdown heading, it also receives one exact overview passage from the body start to the first heading. Whitespace trimming changes every character bound so `record.body[start:end]` always equals the persisted text exactly.\n",
+      "content": "Paper records containing `## PDF page N` headings become exact page passages. The first passage includes any title preamble before PDF page 1. Other records retain one full-record passage. When such a record is at least 10,000 characters and contains a level-two Markdown heading, it also receives one exact overview passage from the body start to the first heading. Each non-page record additionally receives one exact passage for every nonempty Markdown `- **interpretation**:` field line. No field value is rewritten or inferred. Whitespace trimming changes every character bound so `record.body[start:end]` always equals the persisted text exactly.\n",
+      "status": "accepted"
+    }
+  ],
+  "rejected": [],
+  "developmentEvidencePromotionEligible": true
+}

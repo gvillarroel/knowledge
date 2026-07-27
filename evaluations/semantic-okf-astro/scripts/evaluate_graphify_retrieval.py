@@ -16,6 +16,7 @@ from typing import Any, Sequence
 SCRIPT = Path(__file__).resolve()
 EVALUATION = SCRIPT.parents[1]
 REPO = SCRIPT.parents[3]
+COHORTS = REPO / "evaluations/semantic-okf-datasets/datasets/astro-40-cohorts.json"
 BASE_EVALUATOR = SCRIPT.with_name("evaluate_retrieval.py")
 GRAPHIFY_RUNTIME = (
     REPO / "skills/consult-semantic-okf-graphify/scripts/_graphify_snapshot.py"
@@ -40,6 +41,20 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     base = _load_base()
     identity, documents = base.load_identity_map(args.source_combination)
     questions = base.load_questions(args.questions, documents)
+    cohort_payload = json.loads(args.cohorts.read_text(encoding="utf-8"))
+    cohort_map = cohort_payload.get("cohorts", {})
+    if not isinstance(cohort_map, dict):
+        raise ValueError("cohort registry has no cohorts object")
+    if args.cohort == "discovery":
+        selected_ids = set(cohort_map.get("train", [])) | set(cohort_map.get("dev", []))
+    elif args.cohort == "holdout":
+        selected_ids = set(cohort_map.get("holdout", []))
+    else:
+        selected_ids = {question.identifier for question in questions}
+    known_ids = {question.identifier for question in questions}
+    if not selected_ids or not selected_ids <= known_ids:
+        raise ValueError("cohort registry contains missing or unknown question IDs")
+    questions = [question for question in questions if question.identifier in selected_ids]
     ledger = base.Ledger(args.bundle, identity)
     before = base.bundle_identity(args.bundle)
 
@@ -102,6 +117,10 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "questions_sha256": base.sha256_file(args.questions),
             "question_count": len(questions),
             "hard_question_count": sum(row.cohort == "hard" for row in questions),
+            "cohort": args.cohort,
+            "cohorts_path": args.cohorts.relative_to(REPO).as_posix(),
+            "cohorts_sha256": base.sha256_file(args.cohorts),
+            "question_ids": [row.identifier for row in questions],
             "candidate_pool": base.RAW_POOL,
         },
         "bundle": {
@@ -154,6 +173,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         default=EVALUATION / "corpus/source-combination.json",
     )
     parser.add_argument("--depth", type=int, default=2)
+    parser.add_argument("--cohort", choices=("all", "discovery", "holdout"), default="all")
+    parser.add_argument("--cohorts", type=Path, default=COHORTS)
     parser.add_argument("--raw-output", type=Path, required=True)
     parser.add_argument("--compact-json", type=Path, required=True)
     parser.add_argument("--compact-markdown", type=Path, required=True)
@@ -162,6 +183,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "bundle",
         "questions",
         "source_combination",
+        "cohorts",
         "raw_output",
         "compact_json",
         "compact_markdown",

@@ -62,9 +62,10 @@ These are bounded wins, not a universal win. Direct ranking does not add top-10 
 
 ## Complete direct-retrieval comparison
 
-All rows below use the same frozen 40-question, direct top-10, canonical paper-identity comparison and evidence-valid schema 1.2 contract. The first 13 routes come from the checked [adaptive retrieval summary](../semantic-okf-adaptive/retrieval-summary.json). The ensemble rows are independently recomputed from the current final release in the checked [`robust`](baselines/ensemble-robust-current-direct.json), [`fast`](baselines/ensemble-fast-current-direct.json), and [`quality`](baselines/ensemble-quality-winner-direct.json) reports.
+All rows below use the same frozen 40-question, direct top-10, canonical paper-identity comparison and evidence-valid schema 1.2 contract. The first 13 routes come from the checked [adaptive retrieval summary](../semantic-okf-adaptive/retrieval-summary.json). The ensemble rows are independently recomputed from the current final release in the checked [`robust`](baselines/ensemble-robust-current-direct.json), [`fast`](baselines/ensemble-fast-current-direct.json), and [`quality`](baselines/ensemble-quality-winner-direct.json) reports. The four reference-aware RustMallet rows come from the checked [RustMallet candidate summary](../semantic-okf-rust-mallet/canonical-retrieval-summary.json), the native Tantivy row comes from the checked [Tantivy candidate summary](../semantic-okf-tantivy/canonical-retrieval-summary.json), and the Tika/MALLET fusion row comes from its checked [replicate audit](../semantic-okf-tika-mallet/reports/canonical-retrieval-20260723.json). The RustMallet and Tantivy rows do not add either candidate to the canonical eight-family Harbor registry; Tika/MALLET likewise remains an experimental non-registry comparator.
 
-The six standalone, independently installable pairs map to the evaluated routes as follows:
+The six accepted standalone pairs and three experimental consultation workflows
+map to the evaluated routes as follows:
 
 | Family | Build skill | Consult skill | Evaluated routes / policies |
 | --- | --- | --- | --- |
@@ -72,6 +73,9 @@ The six standalone, independently installable pairs map to the evaluated routes 
 | Embeddings | `build-semantic-okf-embeddings` | `consult-semantic-okf-embeddings` | `new_lexical`, `vector`, `hybrid` |
 | Classical | `build-semantic-okf-classical` | `consult-semantic-okf-classical` | `classical_bm25`, `classical_topic`, `classical_association`, `classical_fusion` |
 | Entity graph | `build-semantic-okf-entity-graph` | `consult-semantic-okf-entity-graph` | `entity_graph_lexical`, `entity_graph_entity`, `entity_graph_traversal`, `entity_graph_fusion` |
+| Tika + Java MALLET (experimental) | `build-semantic-okf-tika-mallet` | `consult-semantic-okf-tika-mallet` | `tika_mallet_fusion` |
+| Tantivy dedicated pair (experimental) | `build-semantic-okf-tantivy` | `consult-semantic-okf-tantivy` | `tantivy_bm25` |
+| RustMallet + references (experimental) | `build-semantic-okf-rust-mallet-evolved` plus deterministic reference backfill | `consult-semantic-okf-rust-mallet-evolved` | `rust_mallet_bm25`, `rust_mallet_topic`, `rust_mallet_association`, `rust_mallet_fusion` |
 | Adaptive | `build-semantic-okf-adaptive` | `consult-semantic-okf-adaptive` | `adaptive_fusion` |
 | Definitive ensemble | `build-semantic-okf-ensemble` | `consult-semantic-okf-ensemble` | `robust`, `fast`, `quality` |
 
@@ -89,6 +93,12 @@ The six standalone, independently installable pairs map to the evaluated routes 
 | Classical | `classical_topic` | 82.42% | 93.33% | 82.25% | 93.00% | 95.00% | 83.75% | 100.00% | 107.79 |
 | Classical | `classical_association` | 82.56% | 94.58% | 82.58% | 93.00% | 95.00% | 84.76% | 100.00% | 111.94 |
 | Classical | `classical_fusion` | 83.46% | 95.83% | 83.23% | 95.50% | 95.00% | 84.98% | 100.00% | 106.76 |
+| Tika + Java MALLET (experimental) | `tika_mallet_fusion` | 74.82% | 87.50% | 75.44% | 71.83% | 71.67% | 61.80% | 100.00% | 86.36 |
+| Tantivy dedicated pair (experimental) | `tantivy_bm25` | 80.74% | 93.75% | 81.05% | 92.17% | 90.00% | 80.54% | 100.00% | 90.92 |
+| RustMallet + references (experimental) | `rust_mallet_bm25` | 49.72% | 95.83% | 60.94% | 63.17% | 95.00% | 69.31% | 100.00% | 226.69 |
+| RustMallet + references (experimental) | `rust_mallet_topic` | 80.80% | 95.00% | 81.86% | 88.50% | 95.00% | 82.75% | 100.00% | 238.70 |
+| RustMallet + references (experimental) | `rust_mallet_association` | 79.49% | 94.58% | 80.84% | 86.50% | 95.00% | 81.18% | 100.00% | 224.30 |
+| RustMallet + references (experimental) | `rust_mallet_fusion` | 80.28% | 95.83% | 81.84% | 86.00% | 95.00% | 81.40% | 100.00% | 232.25 |
 | Adaptive | `adaptive_fusion` | **83.82%** | 95.83% | 83.43% | **95.50%** | 95.00% | 84.98% | 100.00% | 407.56 |
 | Definitive ensemble | `robust` | **83.82%** | 95.83% | 83.43% | **95.50%** | 95.00% | 84.98% | 100.00% | 568.20 |
 | Definitive ensemble | `fast` | **83.82%** | 97.50% | 84.30% | **95.50%** | 95.00% | 85.62% | 100.00% | 766.57 |
@@ -101,6 +111,43 @@ The six standalone, independently installable pairs map to the evaluated routes 
 - **nDCG@10** rewards placing all relevant papers near the top, not just finding the first one.
 - **Evidence validity** means every returned hit passed independent record, path, locator, and hash checks. It does not mean that a generated sentence correctly interprets the evidence.
 - **P95 ms** is the 95th-percentile query time recorded by each in-process evaluator. It is a diagnostic, not a cross-system service-level benchmark: route initialization, candidate work, and runtime dependencies differ.
+
+The RustMallet timing run used one shared deep-validation setup of 12,150.39 ms
+followed by 160 timed Top-10 queries. Its full evaluator wall time was 44,746.75
+ms. The independently executed pool-100 run took 48,463.00 ms. The reference
+parity gate compared all 320 route/pool cells and found zero ranking mismatches.
+A later complete Harbor trace-distillation campaign did not change these four
+rows. Its one-command builder candidate improved q015/q025 holdout mean reward
+from 0.299073 to 0.342348 and reduced mean end-to-end build-consult trial time
+from 262.25 to 244.97 seconds, but q015 regressed by 0.003324. The frozen
+no-task-regression rule retained the live builder. The preserving-prepare
+consult candidate also remained isolated after one q020 holdout trial exited
+137 and the q005 mechanical gate failed on both sides.
+
+The latest Tantivy run used one closed-snapshot validation of 1,079.04 ms
+followed by 40 timed Top-10 queries and 4,440.07 ms of evaluator wall time. A second full
+Top-10 run reproduced every ranked result, and the pool-100 run preserved every
+Top-10 prefix. The candidate returned 400/400 valid Top-10 evidence rows and
+527/527 valid pool-100 evidence rows. Recall@10 remained 80.74% because the
+frozen consultant's one-result-per-paper identity cap bounds both requests to
+the distinct identities available after native ranking.
+
+The first later Harbor trace-distillation round did not change the pair. Its
+IDF query candidate was rejected for one holdout-task regression, and its
+forward-four builder candidate was rejected after two holdout-task regressions.
+A second prospective Astro round rejected its query mutation after a canonical
+hard-cohort regression, then promoted an exact long-record overview builder.
+Two raw-input builds of that builder were byte-identical 890-file bundles. A
+new 120-query Top-10, exact-replay, and pool-100 run reproduced the table's
+quality metrics, 400/400 and 527/527 evidence-validity counts, ranked Top-10
+replay, and pool-100 prefix.
+
+The Tika/MALLET selected run used one 8,641.89 ms deep-validation and loading
+setup followed by 40 timed Top-10 queries. A clean independent build reproduced
+every ranked result, score, and evidence row; two pool-100 runs were also exact,
+and each preserved the corresponding Top-10 prefix. All 400 Top-10 evidence rows
+were valid. The separate extraction audit passed 75/75 exact gates across the 15
+PDFs and reproduced its token and five-gram fidelity metrics exactly.
 
 A **percentage-point** difference is a direct subtraction. For example, 100.00% minus 95.83% is **4.17 percentage points**, not a 4.17% relative improvement.
 

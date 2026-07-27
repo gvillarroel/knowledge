@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(GRADER_ROOT))
 
 import dataset_tool as DATA  # noqa: E402
+import candidate_family as CANDIDATES  # noqa: E402
 import generate_harbor_tasks as GENERATOR  # noqa: E402
 import run_harbor as RUNNER  # noqa: E402
 import summarize_consult_campaign as SUMMARY  # noqa: E402
@@ -185,7 +186,27 @@ def test_reference_answers_cover_every_question_and_historical_response_once() -
     assert len(historical_ids) == len(set(historical_ids)) == 175
     assert collection["historical_response_count"] == 175
     assert collection["semantic_target_count"] == 200
+    assert collection["proposed_claim_count"] == 243
+    assert collection["evidence_row_count"] == 409
     assert collection["hard_anchor_count"] == 94
+    assert collection["second_pass_review_count"] == 40
+    assert collection["second_pass_producing_agent_count"] == 40
+    assert collection["second_pass_keep_count"] == 26
+    assert collection["second_pass_revise_count"] == 14
+    assert collection["second_pass_validation_status"] == "pass"
+    assert all(
+        row["second_pass_review_agent"]
+        == f"/root/{row['question_id']}_second_pass"
+        and row["second_pass_verdict"] in {"keep", "revise"}
+        and len(row["second_pass_verdict_sha256"]) == 64
+        and row["final_answer_source"]
+        == (
+            "second-pass-replacement"
+            if row["second_pass_verdict"] == "revise"
+            else "first-pass-confirmed"
+        )
+        for row in reviews
+    )
 
     no_history = {"q028", *(f"q{index:03d}" for index in range(31, 41))}
     assert all(
@@ -193,6 +214,82 @@ def test_reference_answers_cover_every_question_and_historical_response_once() -
         for row in reviews
         if row["question_id"] in no_history
     )
+
+
+def test_reference_answer_second_pass_report_covers_every_assignment() -> None:
+    report = DATA.load_json(
+        ROOT
+        / "reports/"
+        "20260724-graphrag-papers-40-second-pass-review.json"
+    )
+    collection = DATA.load_json(
+        ROOT / "reports/20260724-graphrag-papers-40-best-answers.json"
+    )
+    expected_ids = [f"q{index:03d}" for index in range(1, 41)]
+    revised = {
+        "q009",
+        "q010",
+        "q012",
+        "q015",
+        "q021",
+        "q026",
+        "q027",
+        "q028",
+        "q029",
+        "q030",
+        "q031",
+        "q036",
+        "q037",
+        "q040",
+    }
+
+    assert report["schema_version"] == (
+        "graphrag-best-answer-second-pass-report/1.0"
+    )
+    assert report["report_kind"] == (
+        "curated-reference-answer-audit-not-live-trials"
+    )
+    assert report["question_count"] == report["agent_assignment_count"] == 40
+    assert report["historical_response_count"] == 175
+    assert report["semantic_target_count"] == 200
+    assert report["hard_anchor_count"] == 94
+    assert report["keep_count"] == 26
+    assert report["revise_count"] == len(revised) == 14
+    assert report["confidence_counts"] == {"high": 40}
+    assert report["validation_status"] == "pass"
+    assert set(report["revised_question_ids"]) == revised
+    assert [row["question_id"] for row in report["reviews"]] == expected_ids
+    assert len(
+        {row["agent_assignment"] for row in report["reviews"]}
+    ) == 40
+
+    final_reviews = {
+        row["question_id"]: row for row in collection["reviews"]
+    }
+    for row in report["reviews"]:
+        question_id = row["question_id"]
+        response = final_reviews[question_id]["proposed_response"]
+        response_sha256 = hashlib.sha256(
+            json.dumps(
+                response,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        assert row["verdict"] == (
+            "revise" if question_id in revised else "keep"
+        )
+        assert row["confidence"] == "high"
+        assert row["final_answer_source"] == (
+            "second-pass-replacement"
+            if question_id in revised
+            else "first-pass-confirmed"
+        )
+        assert row["final_response_sha256"] == response_sha256
+        assert row["final_evidence_count"] == len(response["evidence"])
+        assert row["validation_status"] == "pass"
 
 
 def test_current_metrics_report_recalculates_every_raw_trial_without_answer_leakage() -> None:
@@ -208,18 +305,93 @@ def test_current_metrics_report_recalculates_every_raw_trial_without_answer_leak
     references = report["reference_calibrations"]
 
     assert report["schema_version"] == (
-        "graphrag-current-metrics-evaluation-table/1.0"
+        "graphrag-current-metrics-evaluation-table/1.1"
     )
     assert report["new_model_calls"] == 0
-    assert summary["raw_harbor_trial_count"] == len(trials) == 180
-    assert summary["raw_trials_rescored_with_current_metrics"] == 180
-    assert summary["reviewable_raw_response_count"] == 143
-    assert summary["legacy_reviewable_response_count"] == 32
+    assert summary["raw_harbor_trial_count"] == len(trials) == 516
+    assert summary["raw_trials_rescored_with_current_metrics"] == 516
+    assert summary["primary_raw_harbor_trial_count"] == 180
+    assert summary["additional_raw_harbor_trial_count"] == 336
+    assert summary["complete_parent_job_trial_count"] == 503
+    assert summary["incomplete_parent_job_trial_count"] == 13
+    assert summary["incomplete_parent_job_count"] == 4
+    assert summary["reviewable_raw_response_count"] == 175
+    assert summary["primary_reviewable_raw_response_count"] == 143
+    assert summary["resolved_historical_raw_response_count"] == 32
+    assert summary["unreviewed_answer_emitted_count"] == 34
+    assert summary["legacy_reviewable_response_count"] == 0
     assert summary["reviewable_response_count"] == 175
-    assert summary["current_mechanical_qualification_count"] == 99
+    assert summary["current_mechanical_qualification_count"] == 115
     assert summary["empirically_covered_question_count"] == 29
     assert summary["reference_mechanical_qualification_count"] == 40
-    assert len({row["response_id"] for row in trials}) == 180
+    assert len({row["response_id"] for row in trials}) == 516
+    assert report["metric_contract"]["trial_source_roots"] == [
+        "evaluations/semantic-okf-datasets/results",
+        (
+            "evaluations/semantic-okf-tika-mallet-tantivy/generated/"
+            "trace-distillation"
+        ),
+        (
+            "evaluations/semantic-okf-datasets/generated/campaigns/"
+            "20260717-papers-consult-gpt53-spark-01/runs"
+        ),
+        (
+            "evaluations/semantic-okf-datasets/generated/campaigns/"
+            "20260717-papers-consult-gpt53-spark-02/runs"
+        ),
+    ]
+    distillation = [
+        row
+        for row in trials
+        if row["artifact_root"].endswith("trace-distillation")
+    ]
+    assert len(distillation) == 15
+    assert {
+        row["question_id"] for row in distillation
+    } == {"q002", "q003", "q004"}
+    assert sum(
+        row["current_metrics"]["mechanical_qualification_gate"] == 1.0
+        for row in distillation
+    ) == 12
+    assert sum(
+        row["artifact_root"].endswith(
+            "20260717-papers-consult-gpt53-spark-01/runs"
+        )
+        for row in trials
+    ) == 320
+    assert sum(
+        row["artifact_root"].endswith(
+            "20260717-papers-consult-gpt53-spark-02/runs"
+        )
+        for row in trials
+    ) == 1
+    assert report["legacy_historical_responses"] == []
+    strategies = {
+        row["strategy"]: row for row in report["strategies"]
+    }
+    assert set(strategies) == {
+        "adaptive",
+        "classical",
+        "embeddings",
+        "ensemble",
+        "entity-graph",
+        "graphify",
+        "legacy",
+        "tika-mallet-bounded-v4",
+        "tika-mallet-canonical-text",
+        "tika-mallet-canonical-text-v2",
+        "tika-mallet-canonical-text-v3",
+        "tika-mallet-tantivy-canonical-text",
+        "turso",
+    }
+    assert strategies["adaptive"]["trial_count"] == 41
+    assert strategies["ensemble"]["answer_emitted_count"] == 0
+    assert strategies["graphify"]["answer_emitted_count"] == 0
+    tantivy = strategies["tika-mallet-tantivy-canonical-text"]
+    assert tantivy["trial_count"] == 154
+    assert tantivy["answer_emitted_count"] == 141
+    assert tantivy["mechanical_qualification_count"] == 88
+    assert tantivy["semantically_reviewed_response_count"] == 107
     assert [row["question_id"] for row in report["questions"]] == [
         f"q{index:03d}" for index in range(1, 41)
     ]
@@ -242,6 +414,39 @@ def test_current_metrics_report_recalculates_every_raw_trial_without_answer_leak
         for row in references
     )
     assert '"answer_text"' not in report_text
+
+
+def test_response_coverage_audit_separates_reviewed_and_unreviewed_traces() -> None:
+    report = json.loads(
+        (
+            ROOT
+            / "reports/"
+            "20260724-graphrag-papers-40-response-coverage-audit.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert report["schema_version"] == (
+        "graphrag-response-coverage-audit/1.1"
+    )
+    assert report["raw_harbor_trial_count"] == 516
+    assert report["primary_raw_harbor_trial_count"] == 180
+    assert report["additional_raw_harbor_trial_count"] == 336
+    assert report["raw_complete_response_count"] == 189
+    assert report["semantically_reviewed_raw_response_count"] == 174
+    assert report["semantically_unreviewed_raw_response_count"] == 15
+    assert report["historical_manually_reviewed_response_count"] == 32
+    assert report["resolved_historical_raw_response_count"] == 31
+    assert report["legacy_historical_response_count"] == 1
+    assert report["reviewable_response_count"] == 190
+    assert report["semantically_reviewed_response_count"] == 175
+    assert report["semantic_verdict_counts"] == {
+        "fail": 4,
+        "not-reviewed": 15,
+        "partial": 168,
+        "pass": 3,
+    }
+    assert report["empirically_covered_question_count"] == 29
+    assert report["full_dataset_claim_eligible"] is False
 
 
 def test_cohorts_partition_questions_exactly_once() -> None:
@@ -451,6 +656,155 @@ def test_runner_requires_embedding_cache_only_for_declared_families() -> None:
         "embeddings",
         "ensemble",
     }
+
+
+def test_runner_binds_bounded_concurrency_to_trials_and_agent() -> None:
+    config = RUNNER.job_config(
+        output=Path("/tmp/results/job"),
+        tasks_path=Path("/tmp/tasks/holdout"),
+        task_ids=["q005", "q010", "q015"],
+        attempts=1,
+        skills=[Path("/tmp/skills/consult")],
+        resource=Path("/tmp/knowledge"),
+        resource_target="/knowledge",
+        auth_source="/tmp/auth",
+        hf_cache=None,
+        concurrency=3,
+    )
+
+    assert config["n_concurrent_trials"] == 3
+    assert config["agents"][0]["n_concurrent"] == 3
+
+
+def test_inactive_candidate_family_is_hash_bound_and_consult_only() -> None:
+    specification = (
+        REPO
+        / "evaluations/semantic-okf-tika-mallet/canonical/graphrag-papers-40"
+        / "harbor-candidate.json"
+    )
+    family, binding = CANDIDATES.resolve(
+        "graphrag-papers-40",
+        "tika-mallet",
+        "consult-only",
+        specification,
+    )
+
+    assert "tika-mallet" not in DATA.load_families()
+    assert family == {
+        "build_script": "build_semantic_okf_tika_mallet.py",
+        "build_skill": "build-semantic-okf-tika-mallet",
+        "consult_skill": "consult-semantic-okf-tika-mallet",
+        "requires_hf_cache": False,
+        "uses_plan": True,
+        "validate_script": "validate_semantic_okf_tika_mallet.py",
+    }
+    assert binding is not None
+    assert binding["candidate_id"] == "tika-mallet"
+    assert binding["allowed_modes"] == ["consult-only"]
+    assert binding["specification_sha256"] == DATA.sha256_file(specification)
+    assert len(binding["family_contract_sha256"]) == 64
+    CANDIDATES.verify_manifest({"candidate_family": binding}, binding)
+
+    drifted = json.loads(json.dumps(binding))
+    drifted["specification_sha256"] = "0" * 64
+    with pytest.raises(
+        CANDIDATES.CandidateFamilyError,
+        match="binding drift",
+    ):
+        CANDIDATES.verify_manifest({"candidate_family": drifted}, binding)
+    with pytest.raises(
+        CANDIDATES.CandidateFamilyError,
+        match="does not permit execution mode",
+    ):
+        CANDIDATES.resolve(
+            "graphrag-papers-40",
+            "tika-mallet",
+            "build-consult",
+            specification,
+        )
+
+
+def test_consult_only_instruction_requires_skill_first_bounded_access() -> None:
+    row = {
+        "id": "q999",
+        "question": "What does the snapshot support?",
+        "minimum_document_count": 4,
+    }
+    family = {
+        "consult_skill": "consult-semantic-okf-tika-mallet",
+    }
+
+    rendered = GENERATOR.instruction(row, "consult-only", "tika-mallet", family)
+
+    assert "Before accessing `/knowledge`, read that skill" in rendered
+    assert "`answer-pack` then `finalize-answer` workflow exactly" in rendered
+    assert "Do not use `search`, `batch-search`, ad hoc snapshot reads" in rendered
+    assert "Use evidence from at least 4 independent relevant papers." in rendered
+    assert "prefer up to two additional independently relevant papers" in rendered
+
+
+def test_bounded_candidate_is_separately_hash_bound_and_uses_one_compiler() -> None:
+    specification = (
+        REPO
+        / "evaluations/semantic-okf-tika-mallet/canonical/graphrag-papers-40"
+        / "harbor-candidate-bounded-v4.json"
+    )
+    family, binding = CANDIDATES.resolve(
+        "graphrag-papers-40",
+        "tika-mallet",
+        "consult-only",
+        specification,
+    )
+    row = {
+        "id": "q999",
+        "question": "What does the snapshot support?",
+        "minimum_document_count": 4,
+    }
+    rendered = GENERATOR.instruction(
+        row,
+        "consult-only",
+        "tika-mallet",
+        family,
+    )
+
+    assert family["consult_skill"] == (
+        "consult-semantic-okf-tika-mallet-bounded"
+    )
+    assert binding is not None
+    assert binding["specification_path"].endswith(
+        "harbor-candidate-bounded-v4.json"
+    )
+    assert "run exactly one `scripts/bounded_answer.py` invocation" in rendered
+    assert "`--minimum-sources 4`" in rendered
+    assert "`--max-sources 6`" in rendered
+    assert "Do not list, grep, search, or read the snapshot" in rendered
+    assert "do not run a second compiler command" in rendered
+
+
+def test_runner_accepts_an_explicit_candidate_task_root(tmp_path: Path) -> None:
+    root = tmp_path / "candidate-tasks"
+    task = root / "holdout/q005/task.toml"
+    task.parent.mkdir(parents=True)
+    task.write_text('version = "1.0"\n', encoding="utf-8")
+    manifest = {
+        "dataset_id": "graphrag-papers-40",
+        "family": "tika-mallet",
+        "mode": "consult-only",
+    }
+    write_json(root / "manifest.json", manifest)
+
+    tasks_path, identifiers, observed_manifest = RUNNER.checked_tasks(
+        "graphrag-papers-40",
+        "tika-mallet",
+        "consult-only",
+        "holdout",
+        ["q005"],
+        root,
+    )
+
+    assert tasks_path == root.resolve() / "holdout"
+    assert identifiers == ["q005"]
+    assert observed_manifest == manifest
 
 
 def test_runner_receipt_status_rejects_provider_failure_even_when_harbor_exits_zero() -> None:

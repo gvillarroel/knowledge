@@ -1,0 +1,83 @@
+{
+    "id": "7a69674e-04ba-433b-afcc-35dbd198e23b",
+    "started_at": "2026-07-23T16:16:23.262684",
+    "updated_at": "2026-07-23T16:17:42.326622",
+    "finished_at": "2026-07-23T16:17:42.326622",
+    "n_total_trials": 2,
+    "stats": {
+        "n_completed_trials": 2,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 2,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "evidence_contract_gate": 1.0,
+                        "mechanical_qualification_gate": 1.0,
+                        "mrr_at_10": 0.7395833333333333,
+                        "ndcg_at_10": 0.7385409288093205,
+                        "recall_at_10": 0.8854166666666667,
+                        "reward": 0.7878469762697735
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "evidence_contract_gate": {
+                        "1.0": [
+                            "part-01__3VEfbEV",
+                            "part-02__E6U6h9C"
+                        ]
+                    },
+                    "mechanical_qualification_gate": {
+                        "1.0": [
+                            "part-01__3VEfbEV",
+                            "part-02__E6U6h9C"
+                        ]
+                    },
+                    "mrr_at_10": {
+                        "0.875": [
+                            "part-01__3VEfbEV"
+                        ],
+                        "0.6041666666666666": [
+                            "part-02__E6U6h9C"
+                        ]
+                    },
+                    "ndcg_at_10": {
+                        "0.9077324383928644": [
+                            "part-01__3VEfbEV"
+                        ],
+                        "0.5693494192257768": [
+                            "part-02__E6U6h9C"
+                        ]
+                    },
+                    "recall_at_10": {
+                        "1.0": [
+                            "part-01__3VEfbEV"
+                        ],
+                        "0.7708333333333334": [
+                            "part-02__E6U6h9C"
+                        ]
+                    },
+                    "reward": {
+                        "0.9275774794642881": [
+                            "part-01__3VEfbEV"
+                        ],
+                        "0.6481164730752589": [
+                            "part-02__E6U6h9C"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

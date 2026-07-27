@@ -1,0 +1,529 @@
+{
+  "builder_only_run": {
+    "report_sha256": "be8c2e29677aa1e50ad786498c5974c4c78fb0b8b358dcf5b2ac6361a3526bf3",
+    "reproducibility": {
+      "equal": true,
+      "file_count": 24,
+      "inventory_sha256": "fd566c7b53aac3a1680fe6de11bc7908767ba8d943ae181728444e299555c911"
+    },
+    "status": "pass",
+    "validations": [
+      true,
+      true
+    ]
+  },
+  "builds": [
+    {
+      "mallet": {
+        "artifacts": {
+          "associations": {
+            "bytes": 26191,
+            "count": 52,
+            "path": "classical/associations.jsonl",
+            "sha256": "ee17fd70b66de97db9468174a1222852b1d5f0c66a0f83cb85b65597d072b824"
+          },
+          "documents": {
+            "bytes": 4521,
+            "count": 2,
+            "path": "classical/documents.jsonl",
+            "sha256": "cbd131a911d886c8e4b543faf0ed9aab5b5b628f01acb426f0aee880bd0b7f12"
+          },
+          "index": {
+            "bytes": 4357,
+            "path": "classical/index.json",
+            "sha256": "9c67b6b6efe6ad7c404e61ae4c9c2e802c62d9d3c997afeb7b75298c3ac8def5"
+          },
+          "lexicon": {
+            "bytes": 16059,
+            "count": 117,
+            "path": "classical/lexicon.json",
+            "sha256": "14262c6b7f5a88ea90a60b7002d3316de702256c49e258208a99edefc1614f98"
+          },
+          "topics": {
+            "bytes": 6115,
+            "count": 2,
+            "path": "classical/topics.json",
+            "sha256": "23933630387ad2ddfa0cd2bc05cccbd8f3186c097a3285c9065c3b61d993744c"
+          }
+        },
+        "classical_plan_sha256": "1e540375c759d77d33a95cf4d82c38c87e45b4f856e773176c9dd146db840382",
+        "core": {
+          "record_count": 2,
+          "records_sha256": "402c6478471c9f7256dbcc00981714bb5fe7b32cecb856fd69f9eb0e0fe2397a",
+          "tree_sha256": "fb685a3cbd867dd644e81e4505b10ec14c5a8bd46dacb9e9e251d09d657607cc"
+        },
+        "errors": [],
+        "schema_version": "1.0",
+        "selection": {
+          "eligible_source_ids": [
+            "office-documents",
+            "pdf-documents"
+          ],
+          "excluded_source_ids": [],
+          "input_count": 2,
+          "input_sha256": "f37fbaa8e51e0e90ee15c3e1785322ddf8939188c1fd56374a9b361e88bc5c21",
+          "requested_source_ids": [
+            "office-documents",
+            "pdf-documents"
+          ]
+        },
+        "status": "pass",
+        "summary": {
+          "association_terms": 52,
+          "documents": 2,
+          "inputs": 2,
+          "records": 2,
+          "terms": 117,
+          "topics": 2
+        },
+        "toolchain": {
+          "java_version": "openjdk version \"17.0.19\" 2026-04-21\nOpenJDK Runtime Environment Temurin-17.0.19+10 (build 17.0.19+10)\nOpenJDK 64-Bit Server VM Temurin-17.0.19+10 (build 17.0.19+10, mixed mode, sharing)",
+          "mallet_jar_inventory": [
+            {
+              "path": "lib/error_prone_annotations-2.24.1.jar",
+              "sha256": "19fe2f7155d20ea093168527999da98108103ee546d1e8b726bc4b27c31a3c30"
+            },
+            {
+              "path": "lib/hppc-0.8.1.jar",
+              "sha256": "f540703478636d88f699f4666242e6fc9175a996c08ddceaf02106517b970406"
+            },
+            {
+              "path": "lib/mallet-2.1.0.jar",
+              "sha256": "73d9fc78d16eef6cf51a729ac9a6feff39beffc201f757553630e93d99296101"
+            }
+          ],
+          "mallet_jar_tree_sha256": "733877cc8c81ec2d2d05554810360c4a7b2af534d48fd3bf061a1ac49d56c729",
+          "mallet_version": "2.1.0"
+        },
+        "valid": true,
+        "warnings": []
+      },
+      "tika": {
+        "algorithm": "apache-tika-4.0.0-beta-1-default-markdown-verified-v1",
+        "documents": 2,
+        "plan_sha256": "fa6ebd3125dedc1bd0d9c6888c9eea8a773b74644b5a5f18fb613bdb53f5ce2a",
+        "sources": 2,
+        "tika_jar_tree_sha256": "314729d48101fc02045ca03763180b632ecdaf9cab160c3c275d11666ce21d45",
+        "tika_version": "4.0.0-beta-1"
+      }
+    },
+    {
+      "mallet": {
+        "artifacts": {
+          "associations": {
+            "bytes": 26191,
+            "count": 52,
+            "path": "classical/associations.jsonl",
+            "sha256": "ee17fd70b66de97db9468174a1222852b1d5f0c66a0f83cb85b65597d072b824"
+          },
+          "documents": {
+            "bytes": 4521,
+            "count": 2,
+            "path": "classical/documents.jsonl",
+            "sha256": "cbd131a911d886c8e4b543faf0ed9aab5b5b628f01acb426f0aee880bd0b7f12"
+          },
+          "index": {
+            "bytes": 4357,
+            "path": "classical/index.json",
+            "sha256": "9c67b6b6efe6ad7c404e61ae4c9c2e802c62d9d3c997afeb7b75298c3ac8def5"
+          },
+          "lexicon": {
+            "bytes": 16059,
+            "count": 117,
+            "path": "classical/lexicon.json",
+            "sha256": "14262c6b7f5a88ea90a60b7002d3316de702256c49e258208a99edefc1614f98"
+          },
+          "topics": {
+            "bytes": 6115,
+            "count": 2,
+            "path": "classical/topics.json",
+            "sha256": "23933630387ad2ddfa0cd2bc05cccbd8f3186c097a3285c9065c3b61d993744c"
+          }
+        },
+        "classical_plan_sha256": "1e540375c759d77d33a95cf4d82c38c87e45b4f856e773176c9dd146db840382",
+        "core": {
+          "record_count": 2,
+          "records_sha256": "402c6478471c9f7256dbcc00981714bb5fe7b32cecb856fd69f9eb0e0fe2397a",
+          "tree_sha256": "fb685a3cbd867dd644e81e4505b10ec14c5a8bd46dacb9e9e251d09d657607cc"
+        },
+        "errors": [],
+        "schema_version": "1.0",
+        "selection": {
+          "eligible_source_ids": [
+            "office-documents",
+            "pdf-documents"
+          ],
+          "excluded_source_ids": [],
+          "input_count": 2,
+          "input_sha256": "f37fbaa8e51e0e90ee15c3e1785322ddf8939188c1fd56374a9b361e88bc5c21",
+          "requested_source_ids": [
+            "office-documents",
+            "pdf-documents"
+          ]
+        },
+        "status": "pass",
+        "summary": {
+          "association_terms": 52,
+          "documents": 2,
+          "inputs": 2,
+          "records": 2,
+          "terms": 117,
+          "topics": 2
+        },
+        "toolchain": {
+          "java_version": "openjdk version \"17.0.19\" 2026-04-21\nOpenJDK Runtime Environment Temurin-17.0.19+10 (build 17.0.19+10)\nOpenJDK 64-Bit Server VM Temurin-17.0.19+10 (build 17.0.19+10, mixed mode, sharing)",
+          "mallet_jar_inventory": [
+            {
+              "path": "lib/error_prone_annotations-2.24.1.jar",
+              "sha256": "19fe2f7155d20ea093168527999da98108103ee546d1e8b726bc4b27c31a3c30"
+            },
+            {
+              "path": "lib/hppc-0.8.1.jar",
+              "sha256": "f540703478636d88f699f4666242e6fc9175a996c08ddceaf02106517b970406"
+            },
+            {
+              "path": "lib/mallet-2.1.0.jar",
+              "sha256": "73d9fc78d16eef6cf51a729ac9a6feff39beffc201f757553630e93d99296101"
+            }
+          ],
+          "mallet_jar_tree_sha256": "733877cc8c81ec2d2d05554810360c4a7b2af534d48fd3bf061a1ac49d56c729",
+          "mallet_version": "2.1.0"
+        },
+        "valid": true,
+        "warnings": []
+      },
+      "tika": {
+        "algorithm": "apache-tika-4.0.0-beta-1-default-markdown-verified-v1",
+        "documents": 2,
+        "plan_sha256": "fa6ebd3125dedc1bd0d9c6888c9eea8a773b74644b5a5f18fb613bdb53f5ce2a",
+        "sources": 2,
+        "tika_jar_tree_sha256": "314729d48101fc02045ca03763180b632ecdaf9cab160c3c275d11666ce21d45",
+        "tika_version": "4.0.0-beta-1"
+      }
+    }
+  ],
+  "checks": {
+    "atomic_no_replace_publication_tests_pass": true,
+    "builder_only_real_tool_run_pass": true,
+    "closed_authoritative_tree_tests_pass": true,
+    "consultant_deep_retraining_pass": true,
+    "consultant_structural_validation_pass": true,
+    "disjoint_deep_scratch_test_pass": true,
+    "explicit_rechecked_mallet_classpath_test_pass": true,
+    "fusion_query_returned_exact_evidence": true,
+    "independent_builder_validation_pass": true,
+    "mallet_fixed_seed_one_thread_training_pass": true,
+    "one_read_raw_snapshot_negative_test_pass": true,
+    "semantic_okf_core_and_shacl_pass": true,
+    "symlink_and_reparse_boundary_tests_pass": true,
+    "tika_default_equals_explicit_markdown_for_every_document": true,
+    "tika_json_metadata_valid_and_hash_bound": true,
+    "two_clean_builds_byte_identical": true
+  },
+  "date": "2026-07-22",
+  "deep_validation": {
+    "independent_rederivation": true,
+    "structural": true
+  },
+  "experiment": "semantic-okf-tika-mallet-real-tools",
+  "fixture": {
+    "association_terms": 52,
+    "concepts": 2,
+    "documents": 2,
+    "formats": [
+      "PDF",
+      "XLSX"
+    ],
+    "lexical_terms": 117,
+    "retrieval_passages": 2,
+    "semantic_records": 2,
+    "topics": 2
+  },
+  "fixture_sha256": {
+    "fixtures/documents/integration-preview.pdf": "c78b908d8dd8490e48abd7c970b5a59993a68477cfbcbb87c45d4a8a3d575a84",
+    "fixtures/documents/office-excel-fixture.xlsx": "1d2a9fd643b3ad20d249c6f371b23e436798744a9439d227ca3e59000e8c1ac2"
+  },
+  "inputs": {
+    "ingestion_plan_sha256": "0799be8d0e161bbf6fbc7ac48d74dcf4a7d8162ce17530875eed956e4ee92c9e",
+    "retrieval_plan_sha256": "c5a8d4119c9808690852f56b6dc000ae730d1e08cc1775cfe2733564516aecff",
+    "source_combination_decision_sha256": "b592c6605aef644b2e540ca3d4b03f6bab87dfdad30da067425ae41d7fc23d71"
+  },
+  "locks": {
+    "builder_requirements_sha256": "5e00850ded5d6573209f80621f5070ebcf5c76a21c099639cacb416e392c9e6c",
+    "consultant_requirements_sha256": "6408784352ce00873ca4a6af43b3b614e2198c7ce5a4aeefb012f26c573c72c5"
+  },
+  "observations": [
+    "MALLET can report a missing CLI argument while returning exit code zero, so success validation also inspects diagnostics and required outputs.",
+    "One transient Windows JShell/JDI local connection timeout was observed; the same deterministic command passed immediately afterward, and the wrappers now allow one narrowly matched retry.",
+    "The fixture is intentionally small and demonstrates mechanics and reproducibility, not retrieval-quality superiority or production readiness.",
+    "The final pair-level receipt used isolated CPython 3.12.13 from the exact package-local lock.",
+    "The adversarial hardening pass binds one-read Tika snapshots, explicit MALLET classpaths, closed read-only trees, disjoint scratch, and atomic no-replace publication."
+  ],
+  "platform": "Windows",
+  "python_runtime": {
+    "implementation": "CPython",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "version": "3.12.13 (main, Mar 10 2026, 18:15:39) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "reproducibility": {
+    "equal": true,
+    "file_count": 24,
+    "inventory": [
+      {
+        "path": "classical/associations.jsonl",
+        "sha256": "ee17fd70b66de97db9468174a1222852b1d5f0c66a0f83cb85b65597d072b824"
+      },
+      {
+        "path": "classical/build-report.json",
+        "sha256": "a1320d568ac25a6e070a3e1fe80197873e0d08a25a3ab4019e8be6cd81714bb4"
+      },
+      {
+        "path": "classical/documents.jsonl",
+        "sha256": "cbd131a911d886c8e4b543faf0ed9aab5b5b628f01acb426f0aee880bd0b7f12"
+      },
+      {
+        "path": "classical/index.json",
+        "sha256": "9c67b6b6efe6ad7c404e61ae4c9c2e802c62d9d3c997afeb7b75298c3ac8def5"
+      },
+      {
+        "path": "classical/lexicon.json",
+        "sha256": "14262c6b7f5a88ea90a60b7002d3316de702256c49e258208a99edefc1614f98"
+      },
+      {
+        "path": "classical/topics.json",
+        "sha256": "23933630387ad2ddfa0cd2bc05cccbd8f3186c097a3285c9065c3b61d993744c"
+      },
+      {
+        "path": "concepts/office-documents/tika-extracted-office-documents-office-excel-fixture-6fd0ab845b4-ebf8da3421.md",
+        "sha256": "ee78c45ddb9f84d857929d90c7cd79bc92137864302454113db9123ad9cb4831"
+      },
+      {
+        "path": "concepts/pdf-documents/tika-extracted-pdf-documents-integration-preview-aefd6e3a534e-e276a470d4.md",
+        "sha256": "b4277233788e0a61da7b8a4d533dbe82ad4cf5859e65f5451f52eeb8bbdd6017"
+      },
+      {
+        "path": "index.md",
+        "sha256": "ccf915564bd4da9ec47e4275669ecc792271d98ad1d707b8b296ffb041a09548"
+      },
+      {
+        "path": "semantic/build-report.json",
+        "sha256": "a819f2d4aa7a052a5b5973b68c1f0b216dcf8cfff5efa029063535b29a144ade"
+      },
+      {
+        "path": "semantic/data.ttl",
+        "sha256": "795f7bce37822997e1916a6cd137a312c705c5a7f74900ea9389f72fe14786be"
+      },
+      {
+        "path": "semantic/ontology.ttl",
+        "sha256": "bf9a9afaaa8f343133296cb4f8cf0b9f2e4c7b7be8d9901d9c06db85b79bf909"
+      },
+      {
+        "path": "semantic/provenance.ttl",
+        "sha256": "bc83948bb5a2544f47974d21ba701979e74f8238ae5a2fa368faf815b4fba945"
+      },
+      {
+        "path": "semantic/records.jsonl",
+        "sha256": "402c6478471c9f7256dbcc00981714bb5fe7b32cecb856fd69f9eb0e0fe2397a"
+      },
+      {
+        "path": "semantic/semantic-plan.json",
+        "sha256": "a030a33824dd6173d8b89fcbc845c5d78fcbb712991e7521b1161118dc50097e"
+      },
+      {
+        "path": "semantic/shapes.ttl",
+        "sha256": "cd4f4278ab9501707ff7c83ce57b966f23a7cab1ddf91e7f75d77f6e43ebbea8"
+      },
+      {
+        "path": "semantic/source-manifest.json",
+        "sha256": "5b3f32154d3ed1e53ed4df25081067c3143ecc64e1bec7679a7e383ff315f146"
+      },
+      {
+        "path": "semantic/validation-report.ttl",
+        "sha256": "86bfd457468be247fc763f8f70ca0705a60aed2a13101abcff5df0e8594712d0"
+      },
+      {
+        "path": "tika/documents.jsonl",
+        "sha256": "ef8664aa534fe2445f44f24b21acdeaca866006db7d54200a4470ddf8ce999a2"
+      },
+      {
+        "path": "tika/extracted/office-documents/office-excel-fixture-6fd0ab845b42.md",
+        "sha256": "ad3351ed178bd022f5a423c82347bb3e5d7167f0f32f70ff79f15fac7876f7de"
+      },
+      {
+        "path": "tika/extracted/pdf-documents/integration-preview-aefd6e3a534e.md",
+        "sha256": "7d17ba769353aa9552d4507c2d406f58c24cea57fbdb9218e31224609d2f481a"
+      },
+      {
+        "path": "tika/index.json",
+        "sha256": "8c953240f024c9f8da4940b13b23e1c94924fc9349fe41323fd671ffa3a9d53f"
+      },
+      {
+        "path": "tika/metadata/office-documents/office-excel-fixture-6fd0ab845b42.json",
+        "sha256": "0676ed27ad12db2733d2ee09e7dd564b3593c96496a1df7f84de370797d4d818"
+      },
+      {
+        "path": "tika/metadata/pdf-documents/integration-preview-aefd6e3a534e.json",
+        "sha256": "b9b2428e4574d0abaddc07fd218abae2a034fee135b3286a6e8b9a5f19a35d36"
+      }
+    ],
+    "inventory_sha256": "fd566c7b53aac3a1680fe6de11bc7908767ba8d943ae181728444e299555c911"
+  },
+  "runtime": {
+    "java": "Eclipse Temurin 17.0.19+10",
+    "mallet_archive_sha256": "1b96ada9846ccbe07127167f85e27f53cc7ec7db35d3caabc60fcbd61c2035dc",
+    "mallet_jar_tree_sha256": "733877cc8c81ec2d2d05554810360c4a7b2af534d48fd3bf061a1ac49d56c729",
+    "mallet_version": "2.1.0",
+    "tika_archive_sha256": "392e49efffd7a7e718dad8d03072aefe0ef1d77ac4997b7418f75cc0698c9b07",
+    "tika_archive_sha512": "cc435ebbb2a5088402c473a2df6fda5eb1797b8d3f84f6d1d27123cb034c20693b84a2d18e3869c0f82860f6d07a2593f130d4d21be990efcfcf720bb1b5b957",
+    "tika_jar_tree_sha256": "314729d48101fc02045ca03763180b632ecdaf9cab160c3c275d11666ce21d45",
+    "tika_version": "4.0.0-beta-1"
+  },
+  "schema_version": "1.0",
+  "search": {
+    "effective_mode": "fusion",
+    "returned": 2
+  },
+  "skills": {
+    "builder": {
+      "file_count": 19,
+      "inventory": [
+        {
+          "path": "SKILL.md",
+          "sha256": "b9f34ff2762c0a01fea89489c80af090a09060acfdefe6006050011e2cd7361b"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "b9630fe693448bc5bea7d26d6d4f5a4194782886509f6045accfdafda0112bff"
+        },
+        {
+          "path": "references/coherence-contract.md",
+          "sha256": "31bdf813f95ea20d014dc6e9550847e9e12c4e95b9bd6b837f1a001b4477e15d"
+        },
+        {
+          "path": "references/manifest.md",
+          "sha256": "f11c42105911c485c63840570ecacbeec1070c6fc28356619cee4942dbeac1e7"
+        },
+        {
+          "path": "references/python-runtime.md",
+          "sha256": "26654d89041e1054ec2decba8ec303417574a6b2b81a1d5b5b61e4838024611d"
+        },
+        {
+          "path": "references/source-combination.md",
+          "sha256": "15f4999242644cbf70e2667ee5372d9d3450f4009a22b1d59c64c588d4eade9f"
+        },
+        {
+          "path": "references/tika-mallet-contract.md",
+          "sha256": "bf594aa23577f3e15064b1efd370dcacc77580516b23380425a2a9413585083c"
+        },
+        {
+          "path": "references/tika-mallet-format.md",
+          "sha256": "959a1dbd5726d3df2635d452bfc9611a8038ef2e5c8f90d907575d44b6afea73"
+        },
+        {
+          "path": "scripts/_build_semantic_okf_core.py",
+          "sha256": "1b7d00715d37e4bb2245b8ad1f3b923877a888388f07cc0f50e492105b206ccf"
+        },
+        {
+          "path": "scripts/_safe_paths.py",
+          "sha256": "8c8d0fb1440c3eae792507674846e5f0ce6eb8cf5ce12b05101fca06bc77c643"
+        },
+        {
+          "path": "scripts/_semantic_okf.py",
+          "sha256": "c856d0f045e9a9ee28d69e03e7572f71c2f7b06ae4f3ece2a2b14fdbb67a1f12"
+        },
+        {
+          "path": "scripts/_tika_ingestion.py",
+          "sha256": "44373f384efe2ae58a2c9d795aca6269d622e80a4104e4105f7175309f494c8e"
+        },
+        {
+          "path": "scripts/_tika_mallet_retrieval.py",
+          "sha256": "780cd49820863ccd8b4374efab1b4a9bb049985c2ae7e2be254ba65715bb324a"
+        },
+        {
+          "path": "scripts/build_semantic_okf_tika_mallet.py",
+          "sha256": "8258b5f284159eb76697beba63e95ff7176ca50fbf74e2e8a3fc3d07a3f64ab8"
+        },
+        {
+          "path": "scripts/requirements.in",
+          "sha256": "ffb5a9f5622af4052cc5b1fc7a4af56ba8da296fc083e7774e094603325325a7"
+        },
+        {
+          "path": "scripts/requirements.txt",
+          "sha256": "5e00850ded5d6573209f80621f5070ebcf5c76a21c099639cacb416e392c9e6c"
+        },
+        {
+          "path": "scripts/runtime_smoke.py",
+          "sha256": "7cee5a767be8752c07d874a49cba3300863971f8e486032189a7bdc75822ebb4"
+        },
+        {
+          "path": "scripts/validate_okf_bundle.py",
+          "sha256": "465f8fa01c75211ab600aaf14054c9c46d8c9076dab715b6aefc02db0bc5fa0c"
+        },
+        {
+          "path": "scripts/validate_semantic_okf_tika_mallet.py",
+          "sha256": "add7de4054e5140dbaf8ee581defc2d6644d2c4fe2473df9651d6b27ae31b6ef"
+        }
+      ],
+      "inventory_sha256": "43eacb3638800b20185ba8f70a0010448e66e566ab8f156fff49436883982c74"
+    },
+    "consultant": {
+      "file_count": 12,
+      "inventory": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e1f254a2f270572d529d9aa72e9ec1b06c1058dbe05a2db1cc93ba12732cd6e1"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "70e494a7df02fe7380efaff700c5ef16e575108881a503c0e9c9462277e4e481"
+        },
+        {
+          "path": "references/querying.md",
+          "sha256": "5aacd32b075e187ecc5b0d8ea5142cd7f268e13e3f029bf7b2d97a591bf44114"
+        },
+        {
+          "path": "references/tika-mallet-format.md",
+          "sha256": "59122b35a0238ccf5b6c0ecfd69f35a23b78e7477769da60c55986b615fa4612"
+        },
+        {
+          "path": "scripts/_mallet_topics.py",
+          "sha256": "7c4efeea8a7a3c3ffa8720a6160da7f096036b8fb020f208884f4dae7bafed83"
+        },
+        {
+          "path": "scripts/_safe_paths.py",
+          "sha256": "12a386146e0dd051aac2f98c9144698d9d46bc7ff91e9b5d02b90cfcd79c8f2a"
+        },
+        {
+          "path": "scripts/_tika_mallet_snapshot.py",
+          "sha256": "e3332c9c93166326435140b43f18235b6bd308b5a8e88dc9b30a69cb0339aca5"
+        },
+        {
+          "path": "scripts/_tika_snapshot.py",
+          "sha256": "d47a259ad0f750e881a600a1b451d935936c0b9a5031cce26b525c719c382a47"
+        },
+        {
+          "path": "scripts/query_semantic_okf_tika_mallet.py",
+          "sha256": "a5fc6c0321529f419fd65c07d7530829e17c51a057bf1d381383b03f9fa1b949"
+        },
+        {
+          "path": "scripts/requirements.in",
+          "sha256": "4cff821259d88a21fd7381eb71a78f676a100efba5e44b50ece017024a878995"
+        },
+        {
+          "path": "scripts/requirements.txt",
+          "sha256": "6408784352ce00873ca4a6af43b3b614e2198c7ce5a4aeefb012f26c573c72c5"
+        },
+        {
+          "path": "scripts/runtime_smoke.py",
+          "sha256": "5fc54b2ca678559db3373f7b15946957e9ed76238ad6a9156535df0586b51102"
+        }
+      ],
+      "inventory_sha256": "acc716908a5ec56bff333100ee1e486e8ed13e1f722e8e5ee866f8bb3e65a2f7"
+    }
+  },
+  "status": "pass",
+  "validations": [
+    true,
+    true
+  ]
+}

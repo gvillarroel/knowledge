@@ -1,0 +1,125 @@
+{
+    "id": "bb22d4a8-1184-43ed-9bb1-94972bacfe70",
+    "task_name": "knowledge/tantivy-builder-evolution__development",
+    "trial_name": "all__pxw93xY",
+    "trial_uri": "file:///mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY",
+    "task_id": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-builder-v1/development/all"
+    },
+    "source": null,
+    "task_checksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+    "config": {
+        "task": {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-builder-v1/development/all",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "all__pxw93xY",
+        "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": 1,
+            "concurrency_group": null,
+            "skills": [
+                "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy"
+            ],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/home/villa/harbor/tantivy-builder-evolution/runtime-inputs/classical",
+                    "target": "/dataset",
+                    "read_only": true,
+                    "bind": {
+                        "create_host_path": false
+                    }
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "89b65878-6d25-4b80-9df8-5f64b2f25155"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0,
+            "mrr_at_10": 0.9791666666666666,
+            "ndcg_at_10": 0.842438168554687,
+            "recall_at_10": 0.7841059403559404,
+            "reward": 0.8685702585257647
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-07-23T16:15:21.624533Z",
+    "finished_at": "2026-07-23T16:18:29.895668Z",
+    "environment_setup": {
+        "started_at": "2026-07-23T16:15:21.836615Z",
+        "finished_at": "2026-07-23T16:15:27.143868Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-07-23T16:15:33.780204Z",
+        "finished_at": "2026-07-23T16:15:33.780253Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-07-23T16:15:33.780380Z",
+        "finished_at": "2026-07-23T16:17:33.411633Z"
+    },
+    "verifier": {
+        "started_at": "2026-07-23T16:17:53.623431Z",
+        "finished_at": "2026-07-23T16:18:29.895655Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,106 @@
+{
+  "candidate_state": "experimental-comparator-not-registry-family",
+  "classical_bm25": {
+    "all_40": {
+      "mrr_at_10": 0.95833333,
+      "ndcg_at_10": 0.60936988,
+      "recall_at_10": 0.49719877
+    },
+    "hard_10": {
+      "mrr_at_10": 0.95,
+      "ndcg_at_10": 0.69314339,
+      "recall_at_10": 0.63166667
+    },
+    "timing_ms": {
+      "mean": 86.4285,
+      "median": 87.6697,
+      "p95": 99.4591
+    }
+  },
+  "conclusion": "Report Tantivy BM25 in the general canonical direct-retrieval table as an experimental comparator. It materially improves recall and nDCG over Classical BM25 while slightly reducing MRR; registry admission remains a separate grounded-Harbor decision.",
+  "date": "2026-07-23",
+  "determinism": {
+    "pool100_top10_prefix_identical": true,
+    "question_count": 40,
+    "ranked_top10_identical": true,
+    "status": "pass"
+  },
+  "inputs": {
+    "bundle_tree_sha256": "bdddb5cc1ce04ac835c6961111adda2b8a2b8e3cf51b2b5c0ef92d6908c14135",
+    "classical_summary_sha256": "14dd37e137c84ef6ea81f96fbdb70e796a8d65fb68509ba463181bf0fdef8152",
+    "inventory_sha256": "007a2c4ecbb7802fbb2ea2ca4dc57d3dbf96189d12f19d2db3e5b934bd0207a0",
+    "pool100_report_sha256": "a04d00f6a621312c7bde05192065d244d345ac9eeb66e52e8c26dfcc6639634e",
+    "questions_sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+    "skill_runtime_sha256": "dbaa0d5ccb43e5c93afeaa6267472d27070bdaa2bfd91bccae5dd15257188146",
+    "top10_replay_report_sha256": "b729d28d594f6b4226d4f763546015cc0282f4ac7cba01fa360346c81f71e19c",
+    "top10_report_sha256": "3672b95bf69da9517a64b9678a33f67b1ea2a0210df428497d1325e2f7be428c"
+  },
+  "pool100": {
+    "all_40": {
+      "mrr_at_10": 0.9375,
+      "ndcg_at_10": 0.8105332589155166,
+      "recall_at_10": 0.8074089105339105
+    },
+    "error_count": 0,
+    "evidence_validity": 1.0,
+    "hard_10": {
+      "mrr_at_10": 0.9,
+      "ndcg_at_10": 0.8053805988497708,
+      "recall_at_10": 0.9216666666666666
+    },
+    "route_evidence_rows": 527,
+    "timing_ms": {
+      "mean": 81.46473750530276,
+      "median": 81.68255002237856,
+      "p95": 98.30107003217563,
+      "total": 3258.5895002121106
+    }
+  },
+  "question_count": 40,
+  "route": "tantivy_bm25",
+  "runtime": {
+    "engine": "Tantivy",
+    "implementation": "Rust",
+    "index_storage": "memory",
+    "package_version": "0.26.0",
+    "scoring": "BM25"
+  },
+  "schema_version": "semantic-okf-tantivy-canonical-summary/1.0",
+  "status": "pass",
+  "tantivy_minus_classical": {
+    "all_40": {
+      "mrr_at_10": -0.020833329999999983,
+      "ndcg_at_10": 0.2011633789155166,
+      "recall_at_10": 0.3102101405339105
+    },
+    "hard_10": {
+      "mrr_at_10": -0.04999999999999993,
+      "ndcg_at_10": 0.11223720884977073,
+      "recall_at_10": 0.28999999666666665
+    },
+    "p95_ms": -8.535190052258244
+  },
+  "top10": {
+    "all_40": {
+      "mrr_at_10": 0.9375,
+      "ndcg_at_10": 0.8105332589155166,
+      "recall_at_10": 0.8074089105339105
+    },
+    "error_count": 0,
+    "evaluation_wall_ms": 4440.0658999802545,
+    "evidence_validity": 1.0,
+    "hard_10": {
+      "mrr_at_10": 0.9,
+      "ndcg_at_10": 0.8053805988497708,
+      "recall_at_10": 0.9216666666666666
+    },
+    "route_evidence_rows": 400,
+    "shared_setup_ms": 1079.037000075914,
+    "timing_ms": {
+      "mean": 78.95722000394017,
+      "median": 77.70449999952689,
+      "p95": 90.92390994774176,
+      "total": 3158.2888001576066
+    }
+  }
+}

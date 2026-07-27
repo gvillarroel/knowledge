@@ -1,0 +1,23 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-canonical-build-attempt/1.0",
+  "attempt": 1,
+  "date": "2026-07-23",
+  "dataset_id": "graphrag-papers-40",
+  "input_profile": "harbor-grounded-answer",
+  "status": "failed",
+  "failure_class": "candidate-plan-validation",
+  "error_code": "mallet-error",
+  "error": "plan.selection.source_ids must be a sorted unique non-empty string array",
+  "published_bundle": false,
+  "input": {
+    "source_inventory_sha256": "77f888a16c825ecb8b048b93dfd7656f8b8255ee26c1da9e247d58e5b726b698",
+    "ingestion_plan_sha256": "edb60c8d648ce0a7837ad3818d5c03f7e2fa0a565be7f27f56cc4b4738009d29",
+    "retrieval_plan_sha256": "f61646ec930d2d6d3c88a4e3a73bea6246e710cfae7b81cdf95abb6737a9f945"
+  },
+  "diagnosis": {
+    "cause": "The Harbor-only retrieval selection contained the complete source set but grouped paper IDs before claim IDs instead of using the required lexical order.",
+    "correction": "Sort the same thirty unique source IDs lexically without changing parameters or source membership.",
+    "corrected_retrieval_plan_sha256": "c4d9a1557a4c5bc3f254b02b1ea0a2e6480c95038c61a60b45ef243c8de5873b",
+    "result_observed_before_correction": false
+  }
+}

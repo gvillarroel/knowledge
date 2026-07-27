@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round3-endocrine-builder-tasks-20260723-01/holdout/part-02"
+    },
+    "trial_name": "part-02__bX9qbw8",
+    "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/holdout-baseline-01-d7be5aaada",
+    "agent": {
+        "name": "oracle",
+        "n_concurrent": 2,
+        "skills": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/baseline/skills/build-semantic-okf-tantivy"
+        ]
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-round3-endocrine/runtime-inputs/builder-dataset-20260723-01",
+                "target": "/dataset",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ]
+    },
+    "job_id": "ad673fc5-6b4c-43c8-a30a-89b8a8b91060"
+}

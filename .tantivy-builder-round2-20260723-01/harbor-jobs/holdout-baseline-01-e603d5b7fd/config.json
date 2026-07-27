@@ -1,0 +1,40 @@
+{
+    "job_name": "holdout-baseline-01-e603d5b7fd",
+    "jobs_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/harbor-jobs",
+    "n_concurrent_trials": 2,
+    "retry": {
+        "include_exceptions": [],
+        "exclude_exceptions": []
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-round2-astro/runtime-inputs/builder-input-20260723-01",
+                "target": "/dataset",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ]
+    },
+    "agents": [
+        {
+            "name": "oracle",
+            "n_concurrent": 2,
+            "skills": [
+                "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/baseline/skills/build-semantic-okf-tantivy"
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-01"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-02"
+        }
+    ]
+}

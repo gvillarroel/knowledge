@@ -1,0 +1,840 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "strategy": "reflective-pareto-search",
+  "searchId": "tantivy-builder-pareto-20260723",
+  "generation": 0,
+  "previousGenerationSeal": null,
+  "previousGenerationLog": null,
+  "generatedAt": "2026-07-23T16:32:30.835896+00:00",
+  "harborVersion": "0.18.0",
+  "developmentProfile": {
+    "schemaVersion": 1,
+    "harborVersion": "0.18.0",
+    "declaredDevelopmentJobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+    "observedDevelopmentJobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+    "observedEvaluationProfiles": [
+      {
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": ""
+      }
+    ],
+    "declaredObservedDevelopmentMatch": true,
+    "holdoutJobSignature": "sha256:f93f5c1852e005134bdc90ae329f484c49c0adaee7ab64e6dbf7176eb655a439",
+    "rewardKey": "reward",
+    "passThreshold": 0.1,
+    "requiredRewardThresholds": {
+      "evidence_contract_gate": 1.0,
+      "mechanical_qualification_gate": 1.0
+    },
+    "baselineCandidate": "baseline",
+    "baselineSkillName": "build-semantic-okf-tantivy",
+    "baselineSkillDigest": "sha256:3cf5af6f63a6fc70080f204ff2156c2689e0ccfc0cd978334b63bbec3cfca321",
+    "promotionRules": {
+      "minimumMeanGain": 0.0,
+      "allowCaseRegressions": false,
+      "requireNoErrors": true
+    }
+  },
+  "developmentProfileDigest": "sha256:aee445cfd174aa55f6db76b98de82b58c8034ba45b1771824cbb3cde5ea66857",
+  "rewardKey": "reward",
+  "passThreshold": 0.1,
+  "requiredRewardThresholds": {
+    "evidence_contract_gate": 1.0,
+    "mechanical_qualification_gate": 1.0
+  },
+  "holdoutDataUsed": false,
+  "promotionEligibleProfile": true,
+  "caseKeys": [
+    "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>"
+  ],
+  "caseNames": [
+    "knowledge/tantivy-builder-evolution__development"
+  ],
+  "caseChecksums": [
+    "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd"
+  ],
+  "evaluationCounts": {
+    "candidateCount": 5,
+    "evaluableCandidates": 5,
+    "nonEvaluableCandidates": 0,
+    "trialCount": 5,
+    "diagnosticsAvailableTrials": 5,
+    "diagnosticsUnavailableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0
+  },
+  "candidateResults": [
+    {
+      "candidateId": "baseline",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/skills/build-semantic-okf-tantivy",
+      "evaluatedSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:3cf5af6f63a6fc70080f204ff2156c2689e0ccfc0cd978334b63bbec3cfca321",
+      "sourceSkillDigest": "sha256:3cf5af6f63a6fc70080f204ff2156c2689e0ccfc0cd978334b63bbec3cfca321",
+      "skillLines": 111,
+      "parents": [],
+      "rationale": "Reproducible all-record one-page projection.",
+      "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline",
+      "jobId": "1d829404-36d2-4a60-9e6c-1306363e2109",
+      "harborVersion": "0.18.0",
+      "jobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+      "lockPresent": true,
+      "lockSignature": "sha256:174bf180ca263db1abde03aa013f9aa7ed83c0d46326159b7584177622883429",
+      "skillProvenance": [
+        {
+          "name": "build-semantic-okf-tantivy",
+          "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/skills/build-semantic-okf-tantivy",
+          "digest": "sha256:3cf5af6f63a6fc70080f204ff2156c2689e0ccfc0cd978334b63bbec3cfca321",
+          "git_url": null,
+          "git_commit_id": null
+        }
+      ],
+      "identityMode": "canonical-analyze",
+      "identityReason": null,
+      "promotionEligibleProvenance": true,
+      "exploratory": false,
+      "requiredRewardThresholds": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "evaluable": true,
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0
+      },
+      "summary": {
+        "expectedTrials": 1,
+        "completedTrials": 1,
+        "errorCount": 0,
+        "meanReward": 0.8511612341539166,
+        "observedMeanReward": 0.8511612341539166,
+        "evaluableMeanReward": 0.8511612341539166,
+        "evaluableTrials": 1,
+        "nonEvaluableTrials": 0,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "passRate": 1.0
+      },
+      "cases": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8511612341539166,
+          "observedMeanReward": 0.8511612341539166,
+          "evaluableMeanReward": 0.8511612341539166,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0
+        }
+      ],
+      "trials": [
+        {
+          "trialId": "223b117e-ef04-430d-9fc1-6799eaf33346",
+          "trialName": "all__6UFdii2",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "agent": "oracle",
+          "agentVersion": "1.0.0",
+          "model": "",
+          "reward": 0.8511612341539166,
+          "reportedReward": 0.8511612341539166,
+          "passed": true,
+          "evaluable": true,
+          "requiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "reportedRequiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "qualificationPassed": true,
+          "qualificationFailures": [],
+          "error": null,
+          "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline/all__6UFdii2/result.json",
+          "trajectoryPath": null,
+          "verifierFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline/all__6UFdii2/verifier/diagnostics.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline/all__6UFdii2/verifier/reward.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline/all__6UFdii2/verifier/test-stdout.txt"
+          ],
+          "agentOutputFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/harbor-jobs/harbor-pop-g000-baseline/all__6UFdii2/agent/oracle.txt"
+          ],
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 240, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 240}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "verifierDiagnostics": [
+            {
+              "path": "verifier/diagnostics.json",
+              "status": "scored-response",
+              "failureDomain": null,
+              "terminalOutcome": "complete",
+              "errorCode": null
+            }
+          ],
+          "diagnosticsAvailable": true,
+          "diagnosticsFileCount": 1,
+          "diagnosticsStatus": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null,
+          "diagnosticsClassification": "available",
+          "providerFailure": false,
+          "infrastructureFailure": false,
+          "infrastructureFailureDomain": null,
+          "evaluationFailure": null
+        }
+      ]
+    },
+    {
+      "candidateId": "papers-only",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/skills/build-semantic-okf-tantivy",
+      "evaluatedSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:b77be6079c6a100636e25b319c6fe404167ac9c34e8c71d32305425ebf22e892",
+      "sourceSkillDigest": "sha256:b77be6079c6a100636e25b319c6fe404167ac9c34e8c71d32305425ebf22e892",
+      "skillLines": 111,
+      "parents": [
+        "baseline"
+      ],
+      "rationale": "Project only authoritative Research Paper records.",
+      "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only",
+      "jobId": "42722ae5-15ee-4f08-8eb6-3659c9cf10d4",
+      "harborVersion": "0.18.0",
+      "jobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+      "lockPresent": true,
+      "lockSignature": "sha256:174bf180ca263db1abde03aa013f9aa7ed83c0d46326159b7584177622883429",
+      "skillProvenance": [
+        {
+          "name": "build-semantic-okf-tantivy",
+          "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/skills/build-semantic-okf-tantivy",
+          "digest": "sha256:b77be6079c6a100636e25b319c6fe404167ac9c34e8c71d32305425ebf22e892",
+          "git_url": null,
+          "git_commit_id": null
+        }
+      ],
+      "identityMode": "canonical-analyze",
+      "identityReason": null,
+      "promotionEligibleProvenance": true,
+      "exploratory": false,
+      "requiredRewardThresholds": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "evaluable": true,
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0
+      },
+      "summary": {
+        "expectedTrials": 1,
+        "completedTrials": 1,
+        "errorCount": 0,
+        "meanReward": 0.8553188597658496,
+        "observedMeanReward": 0.8553188597658496,
+        "evaluableMeanReward": 0.8553188597658496,
+        "evaluableTrials": 1,
+        "nonEvaluableTrials": 0,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "passRate": 1.0
+      },
+      "cases": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8553188597658496,
+          "observedMeanReward": 0.8553188597658496,
+          "evaluableMeanReward": 0.8553188597658496,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0
+        }
+      ],
+      "trials": [
+        {
+          "trialId": "58da567b-a31f-452d-8680-9ddde8edc6c3",
+          "trialName": "all__kbNJyaP",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "agent": "oracle",
+          "agentVersion": "1.0.0",
+          "model": "",
+          "reward": 0.8553188597658496,
+          "reportedReward": 0.8553188597658496,
+          "passed": true,
+          "evaluable": true,
+          "requiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "reportedRequiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "qualificationPassed": true,
+          "qualificationFailures": [],
+          "error": null,
+          "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only/all__kbNJyaP/result.json",
+          "trajectoryPath": null,
+          "verifierFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only/all__kbNJyaP/verifier/diagnostics.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only/all__kbNJyaP/verifier/reward.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only/all__kbNJyaP/verifier/test-stdout.txt"
+          ],
+          "agentOutputFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-only/harbor-jobs/harbor-pop-g000-papers-only/all__kbNJyaP/agent/oracle.txt"
+          ],
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 240, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 240}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "verifierDiagnostics": [
+            {
+              "path": "verifier/diagnostics.json",
+              "status": "scored-response",
+              "failureDomain": null,
+              "terminalOutcome": "complete",
+              "errorCode": null
+            }
+          ],
+          "diagnosticsAvailable": true,
+          "diagnosticsFileCount": 1,
+          "diagnosticsStatus": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null,
+          "diagnosticsClassification": "available",
+          "providerFailure": false,
+          "infrastructureFailure": false,
+          "infrastructureFailureDomain": null,
+          "evaluationFailure": null
+        }
+      ]
+    },
+    {
+      "candidateId": "papers-overlap-forward",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/builder/sealed/papers-overlap-forward/candidate/skills/build-semantic-okf-tantivy",
+      "evaluatedSkill": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/builder/sealed/papers-overlap-forward/candidate/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:47089c1d9dbe7e38eead1eda3a9513b2a98dd493914eb686641d887b031ee21a",
+      "sourceSkillDigest": "sha256:47089c1d9dbe7e38eead1eda3a9513b2a98dd493914eb686641d887b031ee21a",
+      "skillLines": 111,
+      "parents": [
+        "papers-only"
+      ],
+      "rationale": "Add one following page of exact forward context.",
+      "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02",
+      "jobId": "251cfe82-4979-4202-869d-3cfaf417290e",
+      "harborVersion": "0.18.0",
+      "jobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+      "lockPresent": true,
+      "lockSignature": "sha256:174bf180ca263db1abde03aa013f9aa7ed83c0d46326159b7584177622883429",
+      "skillProvenance": [
+        {
+          "name": "build-semantic-okf-tantivy",
+          "source": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/builder/sealed/papers-overlap-forward/candidate/skills/build-semantic-okf-tantivy",
+          "digest": "sha256:47089c1d9dbe7e38eead1eda3a9513b2a98dd493914eb686641d887b031ee21a",
+          "git_url": null,
+          "git_commit_id": null
+        }
+      ],
+      "identityMode": "canonical-analyze",
+      "identityReason": null,
+      "promotionEligibleProvenance": true,
+      "exploratory": false,
+      "requiredRewardThresholds": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "evaluable": true,
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0
+      },
+      "summary": {
+        "expectedTrials": 1,
+        "completedTrials": 1,
+        "errorCount": 0,
+        "meanReward": 0.8646210382068608,
+        "observedMeanReward": 0.8646210382068608,
+        "evaluableMeanReward": 0.8646210382068608,
+        "evaluableTrials": 1,
+        "nonEvaluableTrials": 0,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "passRate": 1.0
+      },
+      "cases": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8646210382068608,
+          "observedMeanReward": 0.8646210382068608,
+          "evaluableMeanReward": 0.8646210382068608,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0
+        }
+      ],
+      "trials": [
+        {
+          "trialId": "33d245cc-cde8-48ef-8e1a-62323d093487",
+          "trialName": "all__ENLE9Uc",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "agent": "oracle",
+          "agentVersion": "1.0.0",
+          "model": "",
+          "reward": 0.8646210382068608,
+          "reportedReward": 0.8646210382068608,
+          "passed": true,
+          "evaluable": true,
+          "requiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "reportedRequiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "qualificationPassed": true,
+          "qualificationFailures": [],
+          "error": null,
+          "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02/all__ENLE9Uc/result.json",
+          "trajectoryPath": null,
+          "verifierFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02/all__ENLE9Uc/verifier/diagnostics.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02/all__ENLE9Uc/verifier/reward.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02/all__ENLE9Uc/verifier/test-stdout.txt"
+          ],
+          "agentOutputFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-overlap-native-20260723-02/tantivy-builder-overlap-forward-native-20260723-02/all__ENLE9Uc/agent/oracle.txt"
+          ],
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 240, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 240}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "verifierDiagnostics": [
+            {
+              "path": "verifier/diagnostics.json",
+              "status": "scored-response",
+              "failureDomain": null,
+              "terminalOutcome": "complete",
+              "errorCode": null
+            }
+          ],
+          "diagnosticsAvailable": true,
+          "diagnosticsFileCount": 1,
+          "diagnosticsStatus": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null,
+          "diagnosticsClassification": "available",
+          "providerFailure": false,
+          "infrastructureFailure": false,
+          "infrastructureFailureDomain": null,
+          "evaluationFailure": null
+        }
+      ]
+    },
+    {
+      "candidateId": "papers-centered-3",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/skills/build-semantic-okf-tantivy",
+      "evaluatedSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:f0a2f637dce1e30857841412d9616b4f30fca84df416ceabee5028a9ea10354a",
+      "sourceSkillDigest": "sha256:f0a2f637dce1e30857841412d9616b4f30fca84df416ceabee5028a9ea10354a",
+      "skillLines": 111,
+      "parents": [
+        "papers-overlap-forward"
+      ],
+      "rationale": "Add exact previous and following page context.",
+      "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3",
+      "jobId": "3ef1a270-abb2-4879-a074-d45b31c72991",
+      "harborVersion": "0.18.0",
+      "jobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+      "lockPresent": true,
+      "lockSignature": "sha256:174bf180ca263db1abde03aa013f9aa7ed83c0d46326159b7584177622883429",
+      "skillProvenance": [
+        {
+          "name": "build-semantic-okf-tantivy",
+          "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/skills/build-semantic-okf-tantivy",
+          "digest": "sha256:f0a2f637dce1e30857841412d9616b4f30fca84df416ceabee5028a9ea10354a",
+          "git_url": null,
+          "git_commit_id": null
+        }
+      ],
+      "identityMode": "canonical-analyze",
+      "identityReason": null,
+      "promotionEligibleProvenance": true,
+      "exploratory": false,
+      "requiredRewardThresholds": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "evaluable": true,
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0
+      },
+      "summary": {
+        "expectedTrials": 1,
+        "completedTrials": 1,
+        "errorCount": 0,
+        "meanReward": 0.8681792138915613,
+        "observedMeanReward": 0.8681792138915613,
+        "evaluableMeanReward": 0.8681792138915613,
+        "evaluableTrials": 1,
+        "nonEvaluableTrials": 0,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "passRate": 1.0
+      },
+      "cases": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8681792138915613,
+          "observedMeanReward": 0.8681792138915613,
+          "evaluableMeanReward": 0.8681792138915613,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0
+        }
+      ],
+      "trials": [
+        {
+          "trialId": "f4e8a0d9-8716-407d-920f-ec8d79bf4e8f",
+          "trialName": "all__Hiu5Jnx",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "agent": "oracle",
+          "agentVersion": "1.0.0",
+          "model": "",
+          "reward": 0.8681792138915613,
+          "reportedReward": 0.8681792138915613,
+          "passed": true,
+          "evaluable": true,
+          "requiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "reportedRequiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "qualificationPassed": true,
+          "qualificationFailures": [],
+          "error": null,
+          "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3/all__Hiu5Jnx/result.json",
+          "trajectoryPath": null,
+          "verifierFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3/all__Hiu5Jnx/verifier/diagnostics.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3/all__Hiu5Jnx/verifier/reward.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3/all__Hiu5Jnx/verifier/test-stdout.txt"
+          ],
+          "agentOutputFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-centered-3/harbor-jobs/harbor-pop-g000-papers-centered-3/all__Hiu5Jnx/agent/oracle.txt"
+          ],
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 239, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 239}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "verifierDiagnostics": [
+            {
+              "path": "verifier/diagnostics.json",
+              "status": "scored-response",
+              "failureDomain": null,
+              "terminalOutcome": "complete",
+              "errorCode": null
+            }
+          ],
+          "diagnosticsAvailable": true,
+          "diagnosticsFileCount": 1,
+          "diagnosticsStatus": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null,
+          "diagnosticsClassification": "available",
+          "providerFailure": false,
+          "infrastructureFailure": false,
+          "infrastructureFailureDomain": null,
+          "evaluationFailure": null
+        }
+      ]
+    },
+    {
+      "candidateId": "papers-forward-3",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy",
+      "evaluatedSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:663bfaabaa07cbd9c30414df0d23d143d5bd73b1fdea55b91cf6f80a59bcf813",
+      "sourceSkillDigest": "sha256:663bfaabaa07cbd9c30414df0d23d143d5bd73b1fdea55b91cf6f80a59bcf813",
+      "skillLines": 111,
+      "parents": [
+        "papers-overlap-forward"
+      ],
+      "rationale": "Add two following pages of exact forward context.",
+      "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3",
+      "jobId": "89b65878-6d25-4b80-9df8-5f64b2f25155",
+      "harborVersion": "0.18.0",
+      "jobSignature": "sha256:66872b6650e3b64f2113883381bdf234255dc82e82da6d99a0aa46773c95adc8",
+      "lockPresent": true,
+      "lockSignature": "sha256:174bf180ca263db1abde03aa013f9aa7ed83c0d46326159b7584177622883429",
+      "skillProvenance": [
+        {
+          "name": "build-semantic-okf-tantivy",
+          "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy",
+          "digest": "sha256:663bfaabaa07cbd9c30414df0d23d143d5bd73b1fdea55b91cf6f80a59bcf813",
+          "git_url": null,
+          "git_commit_id": null
+        }
+      ],
+      "identityMode": "canonical-analyze",
+      "identityReason": null,
+      "promotionEligibleProvenance": true,
+      "exploratory": false,
+      "requiredRewardThresholds": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "evaluable": true,
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0
+      },
+      "summary": {
+        "expectedTrials": 1,
+        "completedTrials": 1,
+        "errorCount": 0,
+        "meanReward": 0.8685702585257647,
+        "observedMeanReward": 0.8685702585257647,
+        "evaluableMeanReward": 0.8685702585257647,
+        "evaluableTrials": 1,
+        "nonEvaluableTrials": 0,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "passRate": 1.0
+      },
+      "cases": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8685702585257647,
+          "observedMeanReward": 0.8685702585257647,
+          "evaluableMeanReward": 0.8685702585257647,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0
+        }
+      ],
+      "trials": [
+        {
+          "trialId": "bb22d4a8-1184-43ed-9bb1-94972bacfe70",
+          "trialName": "all__pxw93xY",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "agent": "oracle",
+          "agentVersion": "1.0.0",
+          "model": "",
+          "reward": 0.8685702585257647,
+          "reportedReward": 0.8685702585257647,
+          "passed": true,
+          "evaluable": true,
+          "requiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "reportedRequiredRewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0
+          },
+          "qualificationPassed": true,
+          "qualificationFailures": [],
+          "error": null,
+          "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/result.json",
+          "trajectoryPath": null,
+          "verifierFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/diagnostics.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/reward.json",
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/test-stdout.txt"
+          ],
+          "agentOutputFiles": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/agent/oracle.txt"
+          ],
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 239, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 239}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "verifierDiagnostics": [
+            {
+              "path": "verifier/diagnostics.json",
+              "status": "scored-response",
+              "failureDomain": null,
+              "terminalOutcome": "complete",
+              "errorCode": null
+            }
+          ],
+          "diagnosticsAvailable": true,
+          "diagnosticsFileCount": 1,
+          "diagnosticsStatus": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null,
+          "diagnosticsClassification": "available",
+          "providerFailure": false,
+          "infrastructureFailure": false,
+          "infrastructureFailureDomain": null,
+          "evaluationFailure": null
+        }
+      ]
+    }
+  ],
+  "archive": [
+    {
+      "candidateId": "papers-forward-3",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy",
+      "skillDigest": "sha256:663bfaabaa07cbd9c30414df0d23d143d5bd73b1fdea55b91cf6f80a59bcf813",
+      "aggregateMean": 0.8685702585257647,
+      "errorCount": 0,
+      "skillLines": 111,
+      "parents": [
+        "papers-overlap-forward"
+      ],
+      "qualified": true,
+      "evaluable": true,
+      "promotionEligibleProvenance": true,
+      "identityMode": "canonical-analyze",
+      "vector": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "meanReward": 0.8685702585257647
+        }
+      ]
+    }
+  ],
+  "bestAggregateCandidate": "papers-forward-3",
+  "reflectionPlans": [
+    {
+      "candidateId": "papers-forward-3",
+      "skill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy",
+      "targets": [
+        {
+          "caseKey": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd|oracle|<unknown-model>",
+          "taskName": "knowledge/tantivy-builder-evolution__development",
+          "taskChecksum": "4750c3237ac740e20f2efba9bd21709e77fb8346178cfdc2946c97edd08030bd",
+          "agent": "oracle",
+          "model": "",
+          "attempts": 1,
+          "meanReward": 0.8685702585257647,
+          "observedMeanReward": 0.8685702585257647,
+          "evaluableMeanReward": 0.8685702585257647,
+          "evaluable": true,
+          "evaluableAttempts": 1,
+          "passRate": 1.0,
+          "errorCount": 0,
+          "diagnosticsAvailableAttempts": 1,
+          "providerFailureAttempts": 0,
+          "infrastructureFailureAttempts": 0,
+          "qualificationPassRate": 1.0,
+          "trialName": "all__pxw93xY",
+          "error": null,
+          "verifierExcerpt": "{\"candidate_errors\": [], \"error_code\": null, \"evidence_rows\": 239, \"failure_domain\": null, \"question_count\": 24, \"schema_version\": \"tantivy-retrieval-diagnostics/1.0\", \"status\": \"scored-response\", \"terminal_outcome\": \"complete\", \"valid_evidence_rows\": 239}\n",
+          "trajectoryExcerpt": "",
+          "agentOutputExcerpt": "",
+          "artifactPaths": {
+            "result": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/result.json",
+            "trajectory": null,
+            "verifier": [
+              "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/diagnostics.json",
+              "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/reward.json",
+              "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/verifier/test-stdout.txt"
+            ],
+            "agentOutput": [
+              "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3/all__pxw93xY/agent/oracle.txt"
+            ]
+          }
+        }
+      ],
+      "instruction": "Create a copied child skill that addresses only evidence-backed recurring causes, preserves passing behavior, and does not add task answers or holdout facts."
+    }
+  ],
+  "mergePlans": [],
+  "limitations": [],
+  "generationSeal": "sha256:abaee5df732cca5e2b2670c630405e6b9d3707708c53bc0d527abf491da40c0c"
+}

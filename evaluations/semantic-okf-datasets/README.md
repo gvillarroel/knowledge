@@ -37,26 +37,44 @@ and validated against the exact evidence ledger. These answers are evaluator
 reference material, not live model trials; their presence does not make an
 incomplete empirical campaign eligible for a full-dataset claim.
 
+An independent second-pass assignment for every question rechecked all 175
+reviewable historical responses, 200 authored semantic targets, and 94 hard
+evidence anchors. The audit retained 26 answers and replaced 14 whose wording,
+claim-level citations, metric attribution, or inference boundaries could be
+made more exact. The complete decision record is the
+[`second-pass review`](reports/20260724-graphrag-papers-40-second-pass-review.md)
+with a
+[`machine-readable companion`](reports/20260724-graphrag-papers-40-second-pass-review.json).
+All forty final answers pass the exact current response and mechanical
+qualification contracts.
+
 The current-metrics
 [`evaluation table`](reports/20260724-graphrag-papers-40-current-metrics-table.md)
-rescored all 180 locally preserved raw Harbor trials without making a new model
-call or changing an original result. It applies the current question policy
-while retaining each trial's native ledger and source-combination crosswalk,
-which is necessary because candidate families expose different exact record
-identities for the same authoritative papers. The companion JSON preserves all
-current metrics and redacted diagnostics for every trial. Thirty-two historical
-responses whose raw bodies are absent remain manual-review evidence and are
-explicitly not rescored.
+rescored all 516 available local Harbor trial artifacts without making a new
+model call or changing an original result. The inventory combines 180 trials
+from the primary result tree, 15 complete and distinct trace-distillation
+trials, 320 original eight-family campaign trials, and one completed
+provider-quota retry. It applies the current question policy while retaining
+each trial's native ledger and source-combination crosswalk, which is necessary
+because candidate families expose different exact record identities for the
+same authoritative papers. The companion JSON preserves all current metrics,
+artifact-root provenance, and redacted diagnostics for every trial. Historical
+semantic adjudications are rejoined to 32 raw campaign trials by immutable
+trial id; emitted responses without an adjudication remain explicitly
+unreviewed. This is an artifact-only diagnostic: 503 rows belong to complete
+parent jobs, while 13 rows belong to four incomplete parent jobs and are
+reported separately rather than treated as final comparison evidence. One
+trial from a different incomplete Rust-Mallet study is excluded.
 
 Reproduce the table from a fresh, validated current task tree:
 
 ```bash
 python evaluations/semantic-okf-datasets/generate_harbor_tasks.py \
   --dataset graphrag-papers-40 --family legacy --mode consult-only \
-  --output evaluations/runs/graphrag-current-metrics-rescore-20260724/tasks
+  --output evaluations/runs/graphrag-second-pass-current-metrics-20260724/tasks
 python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
   --dataset graphrag-papers-40 --family legacy --mode consult-only \
-  --tasks evaluations/runs/graphrag-current-metrics-rescore-20260724/tasks
+  --tasks evaluations/runs/graphrag-second-pass-current-metrics-20260724/tasks
 python evaluations/semantic-okf-datasets/recalculate_graphrag_evaluation_table.py
 ```
 
@@ -72,6 +90,29 @@ The registry covers these eight paired strategies:
 | `ensemble` | `build-semantic-okf-ensemble` | `consult-semantic-okf-ensemble` | Yes | Yes |
 | `graphify` | `build-semantic-okf-graphify` | `consult-semantic-okf-graphify` | No | No |
 | `turso` | `build-semantic-okf-turso` | `consult-semantic-okf-turso` | No | No |
+
+### Candidate admission queue
+
+Candidate intake is tracked separately from `families.json`. An intake row makes
+the available evidence and missing measurements visible, but it does not change
+the eight-family campaign cardinality, make a direct-retrieval result a grounded
+Harbor result, or rewrite a historical comparison.
+
+| Candidate | Build skill | Consult skill | Mechanical evidence | Canonical metrics | Registry state |
+|---|---|---|---|---|---|
+| `tantivy` | `build-semantic-okf-tantivy` | `consult-semantic-okf-tantivy` | Pass: dedicated build preserved all 884 authoritative core files byte for byte and regenerated the six bound projection files with deterministic LF serialization; two post-distillation 890-file rebuilds were byte-identical to the frozen bundle; 40-question Top-10 run, exact replay, pool-100 prefix parity, zero query errors, and 100% exact evidence validity | Direct Top-10 measured: 80.74% all-40 Recall@10, 92.17% hard-10 Recall@10, 93.75% MRR@10, 81.05% nDCG@10, and 96.73 ms P95; grounded Harbor admission remains separate | Query winner remains promoted; later IDF query and forward-four builder candidates were rejected by non-regressing holdout gates; experimental pair not registered |
+| `tika-mallet` | `build-semantic-okf-tika-mallet` | `consult-semantic-okf-tika-mallet`; bounded Harbor candidate frozen separately | Pass: two clean 15-paper builds, extraction-fidelity replicate, 40-question Top-10 replicate, pool-100 parity, and 100% exact evidence validity | Direct fusion measured: 74.82% Recall@10, 71.83% hard Recall@10, 87.50% MRR@10, 75.44% nDCG@10, and 86.36 ms P95; grounded Harbor admission remains separate | Rankable experimental direct-retrieval comparator; not registered or promoted |
+
+The machine-readable
+[`tika-mallet` intake](../semantic-okf-tika-mallet/canonical-evaluation-intake.json)
+records the admitted direct-retrieval metrics and preserves grounded Harbor rewards
+as null. The v3 treatment has a terminal context-limit cell; the bounded v4
+preflight was rejected for provider quota before agent execution. Remaining
+non-compensating promotion gates include broader format coverage, one clean frozen
+40-question grounded Harbor treatment, Linux or WSL build and retrieval
+reproducibility, and promotion review. Only after those gates pass may a separate
+decision modify `families.json`, dataset descriptors, or strict campaign
+cardinality.
 
 ## Execution modes
 

@@ -1,0 +1,212 @@
+proposals:
+  - id: separate-generic-answer-and-candidate-targets
+    diagnosis: >-
+      q013 had to cite all eight returned rows and only five were relevant, while
+      q031 returned null after a four-row pack lacked a complete decision boundary.
+      Preserve the qualified answer target but expose four additional independent
+      source candidates so the agent can discard weak rows instead of treating every
+      retrieved source as mandatory evidence.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+      - development-candidate-01-1888edfe3d:5563e4cd-2838-4a83-ad89-033201e58921
+    conflictGroup: generic-candidate-margin
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+                      args.answer_target = (
+                          public_target
+                          if public_target > 10 or args.minimum_sources == 0
+                          else min(public_target + 2, 10)
+                      )
+                      args.source_target = args.answer_target
+                      args.max_results = args.answer_target
+    content: |2
+                      args.answer_target = (
+                          public_target
+                          if public_target > 10 or args.minimum_sources == 0
+                          else min(public_target + 2, 10)
+                      )
+                      args.source_target = (
+                          args.answer_target
+                          if args.answer_target > 14
+                          else min(args.answer_target + 4, 14)
+                      )
+                      args.max_results = args.source_target
+
+  - id: clamp-generic-candidates-without-growing-answer
+    diagnosis: >-
+      q001 passed after the adaptive clamp reduced an unavailable optional margin to
+      eight public sources. Once source_target becomes a candidate-pool target, a
+      partial candidate margin must preserve answer_target when enough answer rows
+      exist, and reduce it only when the public minimum is the only achievable bound.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:8f4c3884-f035-4375-b209-77d916d513b1
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+    conflictGroup: adaptive-candidate-clamp
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+                  args.answer_target = len(identity_order)
+                  args.source_target = len(identity_order)
+                  args.max_results = len(identity_order)
+    content: |2
+                  args.answer_target = min(
+                      args.answer_target, len(identity_order)
+                  )
+                  args.source_target = len(identity_order)
+                  args.max_results = len(identity_order)
+
+  - id: define-terminal-semantic-text-budget
+    diagnosis: >-
+      n q013 emitted a mechanically exact compact response, while n q039 duplicated a
+      133-character evidence fragment after reading a valid 3729-byte final file.
+      Bound only model-authored summary and claim text so exact evidence identities
+      remain untouched while the terminal payload becomes easier to copy faithfully.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+      - development-candidate-01-1888edfe3d:52d7027b-5217-42d9-9198-ef284edb4d1d
+    conflictGroup: terminal-text-budget-constant
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+      from bounded_workflow import (
+          EVIDENCE_KEYS,
+          _answer_errors,
+          _evidence,
+          _lint_documents,
+      )
+    content: |2
+      from bounded_workflow import (
+          EVIDENCE_KEYS,
+          _answer_errors,
+          _evidence,
+          _lint_documents,
+      )
+
+      MAX_CLAIMS = 6
+      MAX_SEMANTIC_TEXT_CHARS = 1800
+
+  - id: enforce-terminal-semantic-text-budget
+    diagnosis: >-
+      n q013 preserved the response contract and every exact evidence identity, while
+      n q039's valid direct-read payload was corrupted during the final assistant
+      copy. Require grouped, concise claims before rendering so the deterministic
+      finalizer can reject verbose drafts and produce a smaller byte-for-byte payload.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+      - development-candidate-01-1888edfe3d:52d7027b-5217-42d9-9198-ef284edb4d1d
+    conflictGroup: terminal-text-budget-check
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          if not isinstance(claims, list) or not claims:
+              raise SnapshotError("draft claims must be a nonempty array")
+          normalized: list[tuple[str, list[int]]] = []
+    content: |2
+          if not isinstance(claims, list) or not claims:
+              raise SnapshotError("draft claims must be a nonempty array")
+          if len(claims) > MAX_CLAIMS:
+              raise SnapshotError(
+                  f"draft must group evidence into at most {MAX_CLAIMS} claims"
+              )
+          normalized: list[tuple[str, list[int]]] = []
+
+  - id: check-terminal-semantic-text-after-claims
+    diagnosis: >-
+      n q013 proves the compact response can retain valid evidence, while n q039
+      reached a valid deterministic finalizer output before the assistant duplicated
+      exact evidence text. Calculate the human-authored text budget after claim
+      validation and reject only excessive prose, never evidence identifiers or paths.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+      - development-candidate-01-1888edfe3d:52d7027b-5217-42d9-9198-ef284edb4d1d
+    conflictGroup: terminal-text-budget-total
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+              normalized.append((statement, indices))
+          return question_id, summary, normalized
+    content: |2
+              normalized.append((statement, indices))
+          semantic_chars = len(summary) + sum(
+              len(statement) for statement, _ in normalized
+          )
+          if semantic_chars > MAX_SEMANTIC_TEXT_CHARS:
+              raise SnapshotError(
+                  "draft summary and claim statements exceed "
+                  f"{MAX_SEMANTIC_TEXT_CHARS} characters; group evidence "
+                  "and shorten only the prose"
+              )
+          return question_id, summary, normalized
+
+  - id: document-stable-query-recipes-and-candidate-review
+    diagnosis: >-
+      m q013 and q031 used stable facet queries and found qualifying evidence, while
+      n paraphrased those facets and lost coverage; n q039 also dropped the adjacent
+      word reports from the named GraphRAG query and selected a different paper.
+      Make query planning literal and deterministic, expose the candidate margin, and
+      require concise grouped drafts before the exact terminal read.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-1888edfe3d:8f4c3884-f035-4375-b209-77d916d513b1
+      - development-candidate-01-1888edfe3d:08cf26d4-0393-41d3-9ff8-b30944c55407
+      - development-candidate-01-1888edfe3d:5563e4cd-2838-4a83-ad89-033201e58921
+      - development-candidate-01-1888edfe3d:52d7027b-5217-42d9-9198-ef284edb4d1d
+    conflictGroup: stable-query-and-compact-terminal-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Stable query recipes and candidate review
+
+      This section supersedes every earlier query-planning, candidate-selection, and
+      draft-length instruction. Query wording is part of the retrieval contract. Use
+      nouns and adjacent qualifiers verbatim from the question; do not replace them
+      with imaginative synonyms. Use exactly five queries when five distinct facets
+      are available. Each query should cover one facet and may repeat the main subject
+      so source-level fusion rewards papers that cover several facets.
+
+      For an offline construction-cost question, use these stable facets in order:
+
+      1. subject plus entity extraction, relationship extraction, community detection,
+         summarization, and cost;
+      2. subject plus graph construction, chunking, entities, relations, and semantic
+         richness;
+      3. subject plus indexing, embeddings, vector database, and token cost;
+      4. subject plus update, incremental, dynamic graph, maintenance, and cost;
+      5. subject plus baseline, local/global retrieval, information loss, and
+         simplification.
+
+      For a routing or decision-boundary question, use these stable facets in order:
+
+      1. simple factual question, standalone language model, basic retrieval, evidence;
+      2. basic RAG, factual question, precise answer, context;
+      3. the graph method, interconnected multi-hop synthesis, global/local graph;
+      4. graph evidence noise, extraction errors, misleading or incomplete retrieval;
+      5. graph retrieval cost, trade-off, simple facts, and the always-use-graph
+         counterfactual.
+
+      For a named-method comparison, keep each exact name and every adjacent qualifier
+      from the question in its own required-term query. For example, the phrase
+      `GraphRAG reports` must become `+GraphRAG reports ...`, not the broader
+      `+GraphRAG mechanism ...`. Do not let generic words erase a literal qualifier.
+
+      In generic mode, `source_target` is now a candidate-pool size and may exceed
+      `answer_target`. Read all returned candidates once, discard weak or off-topic
+      rows, and draft with exactly `answer_target` independent sources. Do not return
+      null merely because some candidates are weak when enough directly supported
+      rows remain. In decision-boundary answers, it is valid to infer the routing rule
+      from explicit task-scope, cost, and failure claims; state the boundary without
+      inventing a performance result for the simpler system.
+
+      Before finalization, group related evidence into no more than six claims and keep
+      the summary plus all claim statements within 1800 characters. Multiple result
+      indices may support one claim, and every chosen evidence row must be used. If the
+      finalizer reports the prose budget error, shorten only prose, preserve the same
+      supported meaning and indices, and use the one permitted repair. Then write the
+      terminal file, read it exactly once, and copy that one line byte-for-byte.

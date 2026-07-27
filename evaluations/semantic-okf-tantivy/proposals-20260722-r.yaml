@@ -1,0 +1,89 @@
+proposals:
+  - id: restore-two-row-final-margin-for-small-explicit-minima
+    diagnosis: >-
+      Q q001 passes with its literal eight-source minimum, but Q q013's six-source
+      response covered only four qualified papers even though its pool contained the
+      six required roles. Restore a two-row final coverage margin only when the user
+      explicitly requests from one through seven sources; keep no-minimum and
+      eight-or-more requests at their literal answer target.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-06dc33590b:5fa4f3de-b19e-4ce2-9bcd-036cbf777b53
+      - development-candidate-01-06dc33590b:0305efb6-2c50-4533-8e26-ca374fd5d7dc
+    conflictGroup: small-minimum-final-margin
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+                  else:
+                      args.answer_target = public_target
+                      args.source_target = (
+    content: |2
+                  else:
+                      args.answer_target = (
+                          min(public_target + 2, 10)
+                          if 0 < args.minimum_sources < 8
+                          else public_target
+                      )
+                      args.source_target = (
+
+  - id: document-role-driven-offline-and-named-selection
+    diagnosis: >-
+      Q q013 produced exact evidence but selected only four qualified offline papers,
+      while Q q039 returned null from a pack that P q039 had answered with all four
+      exact method sources. Turn the successful traces into role-level selection rules
+      so the agent chooses supported rows deterministically rather than re-deciding
+      sufficiency from generic caution.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-06dc33590b:5fa4f3de-b19e-4ce2-9bcd-036cbf777b53
+      - development-candidate-01-06dc33590b:0305efb6-2c50-4533-8e26-ca374fd5d7dc
+      - development-candidate-01-06dc33590b:35043487-588a-41d4-885a-c92863572bab
+      - development-candidate-01-06dc33590b:d028ec8d-ed0d-4742-986d-3adfd9bbdd94
+    conflictGroup: role-driven-selection-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Role-driven evidence selection
+
+      This section supersedes earlier generic advice about which rows to choose after
+      the fixed offline-cost and named online-efficiency queries. Preserve every query
+      string from the preceding exact-template section.
+
+      When a public minimum is explicitly from one through seven, `answer_target` is
+      that minimum plus two, capped at ten. The two final margin rows provide semantic
+      coverage; the candidate pool remains larger still. With no stated minimum or a
+      minimum of eight or more, `answer_target` remains literal.
+
+      For the offline construction-cost profile, the final evidence must cover these
+      six distinct roles before adding either margin row:
+
+      1. dependency parsing as a lower GPU/API-cost alternative to LLM-only extraction;
+      2. the base graph index made from entity nodes, relationship edges, and claims;
+      3. community detection, coordination, or schema guidance as organization stages;
+      4. domain terms or concepts injected into extraction for semantic richness;
+      5. adding graph edges instead of regenerating earlier summaries for updates; and
+      6. dependence on LLM extraction/profiling quality as an indexing limitation.
+
+      Select one independent candidate for each role. Then select two additional
+      independent candidates that directly support embeddings/index structures,
+      contextual information preservation, extraction quality, or rebuild cost. A row
+      about online prompt or retrieval cost alone still does not qualify. Reuse the
+      eight rows across concise claims and finalize with `--min-sources 8`.
+
+      For the four-method online-efficiency profile, the fixed query pack supports a
+      non-null answer when it contains these four roles:
+
+      - GraphRAG community/root reports versus raw-text map-reduce, including lower
+        root-report token cost and its quality loss;
+      - LightRAG avoiding per-community traversal, with GraphRAG as the stated cost
+        baseline and no inferred quality ranking when the row states none;
+      - HippoRAG as retrieval-only, with graph-augmented answer generation described as
+        complementary rather than a comparable end-to-end cost result; and
+      - GraphReader's 4k working context versus GPT-4-128k on the tested tasks, treated
+        as a bounded-context quality comparison rather than a common token-cost metric.
+
+      If those four supported roles appear, select exactly their four independent
+      sources, state only the caveats present above, and answer. Do not return null
+      merely because the four claims use different baselines; explaining that
+      non-comparability is the requested reconciliation.

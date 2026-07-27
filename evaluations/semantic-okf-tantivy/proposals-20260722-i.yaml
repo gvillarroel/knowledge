@@ -1,0 +1,101 @@
+proposals:
+  - id: aggregate-ranking-by-source
+    diagnosis: >-
+      q013 selected six independent papers but only four were relevant after the
+      multi-passage helper ordered source identities by their single highest-ranked
+      passage. q039 also returned null from a method-comparison pack. In both tasks,
+      several focused queries can match different claims from the same relevant paper;
+      summing document RRF scores and query coverage at the paper level restores the
+      source-level relevance signal while preserving round-robin passage selection.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-9fe9d7afde:268e3eaf-2bd3-4d4e-a3d9-482f72d19ec9
+      - development-candidate-01-9fe9d7afde:012778b4-df7e-448c-ba62-3ca29e85cb07
+    conflictGroup: aggregate-source-ranking
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          by_identity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+          identity_order: list[str] = []
+          for row in ranked:
+              identity = _identity(row["hit"])
+              if identity not in by_identity:
+                  identity_order.append(identity)
+              by_identity[identity].append(row)
+          if len(identity_order) < args.source_target:
+    content: |2
+          by_identity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+          for row in ranked:
+              by_identity[_identity(row["hit"])].append(row)
+          identity_order = sorted(
+              by_identity,
+              key=lambda identity: (
+                  -sum(row["rrf_score"] for row in by_identity[identity]),
+                  -len(
+                      {
+                          rank["query_index"]
+                          for row in by_identity[identity]
+                          for rank in row["query_ranks"]
+                      }
+                  ),
+                  min(row["best_rank"] for row in by_identity[identity]),
+                  identity,
+              ),
+          )
+          if len(identity_order) < args.source_target:
+
+  - id: enforce-one-row-per-source
+    diagnosis: >-
+      q001 emitted eleven rows for eight sources, q013 emitted twelve for six, and q031
+      emitted five for four; each otherwise structured answer contained exactly one
+      invalid copied identity. Multiple pack passages are useful for comparing claims,
+      but the final contract should contain exactly one strongest row per required paper
+      so the deterministic finalizer bounds the handoff surface.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-9fe9d7afde:30ec5b61-dd07-40a5-9ffe-81e71c278237
+      - development-candidate-01-9fe9d7afde:268e3eaf-2bd3-4d4e-a3d9-482f72d19ec9
+      - development-candidate-01-9fe9d7afde:2753db75-ae87-4d61-8a02-d7160d23e059
+    conflictGroup: one-row-per-source
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          if len(identities) != minimum_sources:
+              raise SnapshotError(
+                  f"draft uses {len(identities)} independent sources; "
+                  f"exactly {minimum_sources} are required"
+              )
+    content: |2
+          if (
+              len(identities) != minimum_sources
+              or len(first_use) != minimum_sources
+          ):
+              raise SnapshotError(
+                  f"draft must use exactly {minimum_sources} evidence rows "
+                  f"from {minimum_sources} independent sources"
+              )
+
+  - id: document-one-row-per-source
+    diagnosis: >-
+      Three independent discovery tasks produced an oversized final evidence array and
+      exactly one invalid copied identity. State that additional round-robin passages
+      are review candidates only and that the finalizer's exact one-row-per-paper rule
+      is mandatory.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-9fe9d7afde:30ec5b61-dd07-40a5-9ffe-81e71c278237
+      - development-candidate-01-9fe9d7afde:268e3eaf-2bd3-4d4e-a3d9-482f72d19ec9
+      - development-candidate-01-9fe9d7afde:2753db75-ae87-4d61-8a02-d7160d23e059
+    conflictGroup: document-one-row-per-source
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Compact final evidence rule
+
+      This rule supersedes any earlier allowance for additional final evidence rows.
+      Round-robin passages in the multi-passage pack are review candidates used to choose
+      the strongest claim for each paper. The final draft must reference exactly one
+      result from each of exactly `ANSWER_TARGET` independent papers, for exactly
+      `ANSWER_TARGET` total evidence rows. Reuse those rows across claims. The finalizer
+      rejects any extra passage or duplicate-source row before emission.

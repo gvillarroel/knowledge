@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "harborVersion": "0.18.0",
+  "runId": "tantivy-query-astro-round2-analysis-20260723",
+  "mode": "analyze-only",
+  "generatedAt": "2026-07-23T20:10:00.199524+00:00",
+  "baselineSkill": "/mnt/c/Users/villa/dev/knowledge/skills/consult-semantic-okf-tantivy",
+  "stagedBaselineSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-round2-analysis-20260723-01/baseline/skills/consult-semantic-okf-tantivy",
+  "baselineDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+  "tracePool": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "harborVersion": "0.18.0",
+    "phase": "discovery",
+    "summary": {
+      "uniqueTrials": 6,
+      "uniqueTasks": 6,
+      "outcomes": {
+        "success": 6
+      },
+      "qualification": {
+        "passed": true,
+        "unqualifiedTrials": 0,
+        "erroredTrials": 0,
+        "nonEvaluableTrials": 0,
+        "providerFailureTrials": 0,
+        "infrastructureFailureTrials": 0,
+        "failureDomains": {},
+        "missingPrimaryRewardTrials": 0,
+        "actionableContextBudgetTrials": 0,
+        "nonActionableExternalTrials": 0,
+        "missingRequiredRewards": 0,
+        "belowThresholdRewards": 0
+      },
+      "skillIdentity": {
+        "legacyAliasTrials": 0,
+        "unverifiedLockTrials": 0,
+        "promotionEligible": true
+      }
+    },
+    "traces": [
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:0f71f601-18d7-4a04-a770-41949ff63b79",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "0f71f601-18d7-4a04-a770-41949ff63b79",
+        "trialName": "part-01__Hh8SYY9",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-01",
+        "taskChecksum": "65bc933299f784ccd2199b6864b9e1951a2be9bffb11f5bee9640e6e7370668f",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.9275774794642881,
+        "reportedReward": 0.9275774794642881,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.9077324383928644,
+          "recall_at_10": 1.0,
+          "reward": 0.9275774794642881
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-01__Hh8SYY9/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-01__Hh8SYY9",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-01__Hh8SYY9/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-01__Hh8SYY9/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:8b37e940f278dd490e118a019f861d2e78b41c4436cebfb422b90383b069f4ff",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:1385b0fb161746308d8c70a9f36dc8954227d38579780eee4304f01f685b8914",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:0ffb16b1-aecf-4a07-b6a6-c6d53c025629",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "0ffb16b1-aecf-4a07-b6a6-c6d53c025629",
+        "trialName": "part-02__UmD8g7h",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-02",
+        "taskChecksum": "a46dbd4d8aa92a315684bfb1149f0218b9c3138993b976662e50ef408348bc99",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 1.0,
+        "reportedReward": 1.0,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "recall_at_10": 1.0,
+          "reward": 1.0
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-02__UmD8g7h/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-02__UmD8g7h",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-02__UmD8g7h/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-02__UmD8g7h/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:262bafbea20afc625683af70718b0eb4409a6106f4d7ed09046175cfb9a76aca",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:c2dcb07a8526c4579fd4e9d05bb3d70f3c9ad46a9c30f466623d49ec7561eb66",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:93fcadf5-a0fc-4864-899b-ef5338e18236",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "93fcadf5-a0fc-4864-899b-ef5338e18236",
+        "trialName": "part-03__MuLkrg9",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-03",
+        "taskChecksum": "85e358d013c061c182b893daee2d9660573204d47cd0b8ab50e59f22a1186ca4",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8303552572420659,
+        "reportedReward": 0.8303552572420659,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 0.7083333333333334,
+          "ndcg_at_10": 0.7827324383928644,
+          "recall_at_10": 1.0,
+          "reward": 0.8303552572420659
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-03__MuLkrg9/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-03__MuLkrg9",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-03__MuLkrg9/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-03__MuLkrg9/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:a3b8b87550a3486f9c7dc8d71f35ce2d59b619faf538f8b509461117a7ee7c57",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:711dbf6a8b5bfa54bd28df814345539ef5422e909b71fc4a5a221c364f15f9a5",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:6d28a32a-2445-4303-bebf-6c0c981f915d",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "6d28a32a-2445-4303-bebf-6c0c981f915d",
+        "trialName": "part-04__BZ5PJhP",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-04",
+        "taskChecksum": "e04d739f7f8d56f4778c814c615ad37c2bd5b064ca4fea2a82aec9aa202d705b",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.8701850942517706,
+        "reportedReward": 0.8701850942517706,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.7772219494219782,
+          "recall_at_10": 0.8333333333333334,
+          "reward": 0.8701850942517706
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-04__BZ5PJhP/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-04__BZ5PJhP",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-04__BZ5PJhP/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-04__BZ5PJhP/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:56336f1f9d5db6a7426c3063602d6acc842f5edf5018ae45943aac306882c64d",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:69481830f8ed92327f8348e1a7c67cfdc8b6ccb6a2d503e92ef9783321b82890",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:3758781c-5f7e-4706-bed4-6f6845e1a987",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "3758781c-5f7e-4706-bed4-6f6845e1a987",
+        "trialName": "part-05__JS8upif",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-05",
+        "taskChecksum": "014bc99b868700c392d87dd73a02919e4e6108b147149600750443875d749366",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.5870022778499498,
+        "reportedReward": 0.5870022778499498,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 0.6875,
+          "ndcg_at_10": 0.49017350021651634,
+          "recall_at_10": 0.5833333333333333,
+          "reward": 0.5870022778499498
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-05__JS8upif/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-05__JS8upif",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-05__JS8upif/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-05__JS8upif/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:2437b9d3c58b83784f4271033d3b42aeb9a5f61b52a4e278d0f798ac0f65d022",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:726baeef9c7aa79a84310f9a36829e302fb2ecfea81a73ce0eee77527ed77d0c",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      },
+      {
+        "evidenceId": "tantivy-query-astro-round2-discovery-20260723-01:51f86885-8f86-40b4-a82a-22167ae436fc",
+        "sourceLabel": "tantivy-query-astro-round2-discovery-20260723-01",
+        "harborVersion": "0.18.0",
+        "trialId": "51f86885-8f86-40b4-a82a-22167ae436fc",
+        "trialName": "part-06__4krV8SQ",
+        "taskName": "knowledge/tantivy-consult-astro-evolution__development__part-06",
+        "taskChecksum": "bccb0b69b8702dfb16d596c7d7671064a5d0ec7bbbb5dc66538afef574f14389",
+        "agent": "oracle",
+        "agentVersion": "1.0.0",
+        "model": "unknown",
+        "rewardKey": "reward",
+        "reward": 0.7807067161591865,
+        "reportedReward": 0.7807067161591865,
+        "primaryRewardMissing": false,
+        "rewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0,
+          "mrr_at_10": 0.875,
+          "ndcg_at_10": 0.7171201484775597,
+          "recall_at_10": 0.75,
+          "reward": 0.7807067161591865
+        },
+        "requiredRewards": {
+          "evidence_contract_gate": 1.0,
+          "mechanical_qualification_gate": 1.0
+        },
+        "qualificationPassed": true,
+        "qualificationFailures": [],
+        "evaluable": true,
+        "evaluationFailure": null,
+        "verifierDiagnostics": [
+          {
+            "scope": "trial",
+            "path": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-06__4krV8SQ/verifier/diagnostics.json",
+            "status": "scored-response",
+            "failureDomain": null,
+            "terminalOutcome": "complete",
+            "errorCode": null
+          }
+        ],
+        "evidenceClass": "semantic-evaluation",
+        "actionability": null,
+        "evidenceEligible": true,
+        "outcome": "success",
+        "error": null,
+        "usage": {
+          "inputTokens": null,
+          "cachedInputTokens": null,
+          "outputTokens": null,
+          "costUsd": null
+        },
+        "artifactDirectory": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-06__4krV8SQ",
+        "resultPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-06__4krV8SQ/result.json",
+        "lockPath": "/home/villa/harbor/tantivy-round2-astro/discovery/tantivy-query-astro-round2-discovery-20260723-01/part-06__4krV8SQ/lock.json",
+        "lockProblem": null,
+        "lockSignature": "sha256:92a7144ba56d1c848cad202a122a86237549621cab4d0c9f5ed00bce448c35af",
+        "targetSkillDigests": [
+          "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+        ],
+        "skillIdentity": {
+          "logicalName": "consult-semantic-okf-tantivy",
+          "lockedName": "consult-semantic-okf-tantivy",
+          "sourceBasename": "consult-semantic-okf-tantivy",
+          "lockVerified": true,
+          "legacyAliasAccepted": false,
+          "promotionEligible": true
+        },
+        "configSignature": "sha256:c9836060c27f7617868e5580e412a55ebca724ce80dc203eaf3e3301b8d8ab47",
+        "artifactsSignature": "sha256:bf551427bb93b2762e29fc326bedde7a8e2cac4e25b3126cea8fc66f46d2e55b",
+        "feedback": {
+          "trajectories": [],
+          "finalOutput": "",
+          "agentLogs": [],
+          "verifierStdout": [],
+          "verifierStderr": [],
+          "verifierOther": []
+        },
+        "jobRetry": {
+          "maxRetries": 0,
+          "includeExceptions": [],
+          "excludeExceptions": [],
+          "waitMultiplier": 1.0,
+          "minWaitSec": 1.0,
+          "maxWaitSec": 60.0
+        },
+        "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+      }
+    ]
+  },
+  "proposalState": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "phase": "discovery",
+    "proposalPath": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/trace-distillation-query-round2-audit-proposals.json",
+    "thresholds": {
+      "minimumUniqueTrials": 2,
+      "minimumUniqueTasks": 2
+    },
+    "accepted": [],
+    "rejected": [],
+    "developmentEvidencePromotionEligible": true
+  },
+  "consolidation": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "baselineSkill": "/mnt/c/Users/villa/dev/knowledge/skills/consult-semantic-okf-tantivy",
+    "stagedBaselineSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-round2-analysis-20260723-01/baseline/skills/consult-semantic-okf-tantivy",
+    "baselineDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+    "candidateSkill": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-round2-analysis-20260723-01/candidate/skills/consult-semantic-okf-tantivy",
+    "candidateDigest": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+    "logicalSkillName": "consult-semantic-okf-tantivy",
+    "developmentEvidencePromotionEligible": true,
+    "appliedPatchIds": [],
+    "rejectedPatchIds": []
+  },
+  "holdoutGate": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "status": "not-run",
+    "decision": "not-evaluated",
+    "promoted": false,
+    "reason": "analyze-only excludes all holdout reads and executions."
+  },
+  "configSchemaVersion": 2,
+  "developmentGate": {
+    "schemaVersion": 1,
+    "source": "harbor",
+    "phase": "development",
+    "status": "not-run",
+    "decision": "not-evaluated",
+    "passed": false,
+    "reason": "analyze-only excludes candidate development and all holdout reads and executions."
+  }
+}

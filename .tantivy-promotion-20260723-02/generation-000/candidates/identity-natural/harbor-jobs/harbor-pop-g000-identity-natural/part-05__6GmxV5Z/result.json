@@ -1,0 +1,125 @@
+{
+    "id": "f07548a4-33ad-4dfa-82a3-eb2fb5eb86d5",
+    "task_name": "knowledge/tantivy-consult-evolution__development__part-05",
+    "trial_name": "part-05__6GmxV5Z",
+    "trial_uri": "file:///mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural/part-05__6GmxV5Z",
+    "task_id": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-05"
+    },
+    "source": null,
+    "task_checksum": "9d4d07336ffd15c6c7ab5496b6acebc8e27c93048a9d18939cd7f7944448eb82",
+    "config": {
+        "task": {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-05",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "part-05__6GmxV5Z",
+        "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/generation-000/candidates/identity-natural/harbor-jobs/harbor-pop-g000-identity-natural",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": 6,
+            "concurrency_group": null,
+            "skills": [
+                "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/generation-000/candidates/identity-natural/skills/consult-semantic-okf-tantivy"
+            ],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/home/villa/harbor/tantivy-consult-evolution/runtime-inputs/classical",
+                    "target": "/knowledge",
+                    "read_only": true,
+                    "bind": {
+                        "create_host_path": false
+                    }
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "0489803e-d2f9-4ff0-bbc5-bb6e1d22ccb4"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "evidence_contract_gate": 1.0,
+            "mechanical_qualification_gate": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.923406582024467,
+            "recall_at_10": 0.7738095238095238,
+            "reward": 0.8990720352779968
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-07-23T15:20:48.407767Z",
+    "finished_at": "2026-07-23T15:22:30.899477Z",
+    "environment_setup": {
+        "started_at": "2026-07-23T15:20:50.880449Z",
+        "finished_at": "2026-07-23T15:20:56.869071Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-07-23T15:21:03.217973Z",
+        "finished_at": "2026-07-23T15:21:03.218027Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-07-23T15:21:03.218229Z",
+        "finished_at": "2026-07-23T15:21:15.939841Z"
+    },
+    "verifier": {
+        "started_at": "2026-07-23T15:21:37.390062Z",
+        "finished_at": "2026-07-23T15:22:30.899465Z"
+    },
+    "step_results": null
+}

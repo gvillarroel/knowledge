@@ -1,0 +1,17 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-extraction-fidelity-contract/1.0",
+  "dataset_id": "graphrag-papers-40",
+  "frozen_before_fidelity_measurement": true,
+  "exact_gates": [
+    "raw_sha256",
+    "raw_bytes",
+    "media_type_application_pdf",
+    "source_locator",
+    "page_count"
+  ],
+  "macro_token_recall_minimum": 0.9,
+  "macro_five_gram_recall_minimum": 0.7,
+  "hard_anchor_mean_five_gram_recall_minimum": 0.8,
+  "hard_anchor_pass_threshold": 0.7,
+  "hard_anchor_pass_rate_minimum": 0.9
+}

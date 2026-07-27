@@ -1,0 +1,123 @@
+{
+    "schema_version": 2,
+    "created_at": "2026-07-23T20:57:00.962962Z",
+    "harbor": {
+        "version": "0.18.0",
+        "is_editable": false
+    },
+    "n_concurrent_trials": 2,
+    "retry": {
+        "max_retries": 0,
+        "include_exceptions": [],
+        "exclude_exceptions": [],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-01",
+                "type": "local",
+                "digest": "sha256:28737fd1c8d772a8d5db79b2c467a0d7360fe395405a0a24238cc080e297f8dd",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-01"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 2,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/baseline/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/baseline/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:25b283c2742cd5bba02b8212c8e4552abe5bda5394119643d4eab740d613b8c2"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round2-astro/runtime-inputs/builder-input-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "part-02",
+                "type": "local",
+                "digest": "sha256:a2f572ccc494e09c95fc151989dae089386b2722307c6e6d842e83920114da7e",
+                "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-02"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "n_concurrent": 2,
+                "skills": [
+                    "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/baseline/skills/build-semantic-okf-tantivy"
+                ],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [
+                {
+                    "name": "build-semantic-okf-tantivy",
+                    "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round2-20260723-01/baseline/skills/build-semantic-okf-tantivy",
+                    "digest": "sha256:25b283c2742cd5bba02b8212c8e4552abe5bda5394119643d4eab740d613b8c2"
+                }
+            ],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/home/villa/harbor/tantivy-round2-astro/runtime-inputs/builder-input-20260723-01",
+                        "target": "/dataset",
+                        "read_only": true,
+                        "bind": {
+                            "create_host_path": false
+                        }
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        }
+    ]
+}

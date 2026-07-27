@@ -30,6 +30,11 @@ diagnostic uses a remote PI model with network access. Neither path uses MCP.
 The hard-question prompts do not contain PMCIDs, source IDs, paths, locators, hashes,
 or complete answer claims. Qrels and ground truth are evaluator-only.
 
+`benchmark/evolution-cohorts.json` records the later Tantivy trace-distillation
+split: 20 development questions, five query holdout questions, and five builder
+holdout questions. Those cohorts became observed on 2026-07-23 and must not be
+reused as untouched promotion evidence.
+
 ## Authority and artifact layout
 
 Normalized BioC passage text and reviewed claim rows are authoritative evidence.

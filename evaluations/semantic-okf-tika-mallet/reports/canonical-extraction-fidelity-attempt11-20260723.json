@@ -1,0 +1,1136 @@
+{
+  "bundle": {
+    "file_count": 63,
+    "inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+    "path": "C:\\Users\\villa\\dev\\knowledge\\evaluations\\semantic-okf-tika-mallet\\generated\\graphrag-papers-40\\bundle-attempt-11-ascii",
+    "unchanged_after_evaluation": true
+  },
+  "candidate_id": "tika-mallet",
+  "contract_frozen_before_measurement": true,
+  "dataset_id": "graphrag-papers-40",
+  "gates": {
+    "exact_ingestion": {
+      "minimum": true,
+      "pass": true,
+      "value": true
+    },
+    "hard_anchor_mean_five_gram_recall": {
+      "minimum": 0.8,
+      "pass": true,
+      "value": 0.9632176344993193
+    },
+    "hard_anchor_pass_rate": {
+      "minimum": 0.9,
+      "pass": true,
+      "value": 0.9830508474576272
+    },
+    "macro_five_gram_recall": {
+      "minimum": 0.7,
+      "pass": true,
+      "value": 0.9555304637125768
+    },
+    "macro_token_recall": {
+      "minimum": 0.9,
+      "pass": true,
+      "value": 0.987914999726326
+    }
+  },
+  "hard_anchors": [
+    {
+      "char_end": 33860,
+      "char_start": 30392,
+      "five_gram_recall": 0.9384359400998337,
+      "paper_id": "2402.07630v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2402.07630v3.md",
+      "question_ids": [
+        "q031-graph-routing-boundary"
+      ],
+      "reference_tokens": 608,
+      "text_sha256": "0f49be2a54bf132c17b20f840a66590f9df1b48b2caffa786f7350e65667d5e6"
+    },
+    {
+      "char_end": 37178,
+      "char_start": 33860,
+      "five_gram_recall": 0.9851024208566108,
+      "paper_id": "2402.07630v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2402.07630v3.md",
+      "question_ids": [
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 541,
+      "text_sha256": "ea54b97ede89958d6c150efb2367ee828ba147fa1947d9f677a422e5d74096de"
+    },
+    {
+      "char_end": 70652,
+      "char_start": 67519,
+      "five_gram_recall": 0.9942196531791907,
+      "paper_id": "2402.07630v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2402.07630v3.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget"
+      ],
+      "reference_tokens": 524,
+      "text_sha256": "9f44b3d425c4d56ae2adea66eac1ee6e7db0c6c5710787b8b3588599607de637"
+    },
+    {
+      "char_end": 35565,
+      "char_start": 31607,
+      "five_gram_recall": 0.9950083194675541,
+      "paper_id": "2404.16130v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2404.16130v2.md",
+      "question_ids": [
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 613,
+      "text_sha256": "80b83f12b3bd4203a80b9102d8dc8404ec9fa5f2aed1e3106da098404f7bbdf6"
+    },
+    {
+      "char_end": 39431,
+      "char_start": 35565,
+      "five_gram_recall": 0.9804741980474198,
+      "paper_id": "2404.16130v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2404.16130v2.md",
+      "question_ids": [
+        "q035-lossless-enough-evidence-organization",
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 800,
+      "text_sha256": "b8bbcce04ada95ed76348342e0cd893120e5ab1f5ce5536877568bf40881cadf"
+    },
+    {
+      "char_end": 7941,
+      "char_start": 4324,
+      "five_gram_recall": 0.9833024118738405,
+      "paper_id": "2405.14831v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2405.14831v3.md",
+      "question_ids": [
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 543,
+      "text_sha256": "868e4d14d76741d46d88ca75588ffe3cce10867f0f9adb19f5a69db852a2c8bd"
+    },
+    {
+      "char_end": 26976,
+      "char_start": 23539,
+      "five_gram_recall": 0.9955686853766618,
+      "paper_id": "2405.14831v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2405.14831v3.md",
+      "question_ids": [
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 692,
+      "text_sha256": "40b5587d8fd66e6dbba2a4249c812080b1f2cff38597f8f713b2abd9cde4e9cf"
+    },
+    {
+      "char_end": 30756,
+      "char_start": 26976,
+      "five_gram_recall": 0.9790322580645161,
+      "paper_id": "2405.14831v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2405.14831v3.md",
+      "question_ids": [
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 641,
+      "text_sha256": "7ba7b90657d3ef3940d5ea08301f70f9bc6be840db053e5df72fff65caabb993"
+    },
+    {
+      "char_end": 35059,
+      "char_start": 30756,
+      "five_gram_recall": 0.9956958393113343,
+      "paper_id": "2405.14831v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2405.14831v3.md",
+      "question_ids": [
+        "q032-incremental-update-maturity"
+      ],
+      "reference_tokens": 702,
+      "text_sha256": "c9f848de3081b3e61bbe6e7dfe63c6f68cfad5807cd37c281f5f38e2acd1837a"
+    },
+    {
+      "char_end": 31982,
+      "char_start": 27337,
+      "five_gram_recall": 0.9934383202099738,
+      "paper_id": "2406.14550v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2406.14550v2.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget",
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 777,
+      "text_sha256": "b035cefcd81ec355a62e783c6579e488cc799d6fe748a3cb668c333abc118574"
+    },
+    {
+      "char_end": 35085,
+      "char_start": 31982,
+      "five_gram_recall": 0.9551020408163265,
+      "paper_id": "2406.14550v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2406.14550v2.md",
+      "question_ids": [
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 498,
+      "text_sha256": "be3106d3f2fea19089c603317dff3624c8e80fd867d4477d494696714f2ac95c"
+    },
+    {
+      "char_end": 32592,
+      "char_start": 28102,
+      "five_gram_recall": 0.9882005899705014,
+      "paper_id": "2408.04187v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.04187v2.md",
+      "question_ids": [
+        "q032-incremental-update-maturity"
+      ],
+      "reference_tokens": 685,
+      "text_sha256": "0d91214166088ca65262745a64a39b3a3661995f8e616835e84f8f848637fe8d"
+    },
+    {
+      "char_end": 10158,
+      "char_start": 5546,
+      "five_gram_recall": 0.9954407294832827,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q032-incremental-update-maturity"
+      ],
+      "reference_tokens": 666,
+      "text_sha256": "9d9307bc8032352f840256f9d5b94f55de474a9f952f257dd5fb25f4cc269ba2"
+    },
+    {
+      "char_end": 14036,
+      "char_start": 10158,
+      "five_gram_recall": 0.9559633027522936,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 611,
+      "text_sha256": "db957040d0db1c9fb22ef2803fe8a8f9bb6aec5870c2c8441d187a5ecb8f8d70"
+    },
+    {
+      "char_end": 20867,
+      "char_start": 16838,
+      "five_gram_recall": 0.9694041867954911,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 628,
+      "text_sha256": "4a9a285754853073d386c513d4ecf4afbc4861f467c5b09e6e0591d76c8f733d"
+    },
+    {
+      "char_end": 29346,
+      "char_start": 25122,
+      "five_gram_recall": 0.9855769230769231,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget"
+      ],
+      "reference_tokens": 635,
+      "text_sha256": "89e40bb5e9423a1ce5ba70f90d8ee6bb9af977147b4b4535b4f43d5852343867"
+    },
+    {
+      "char_end": 33772,
+      "char_start": 29346,
+      "five_gram_recall": 0.9934640522875817,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget"
+      ],
+      "reference_tokens": 628,
+      "text_sha256": "1303e93946b9cf1f910bf7c6fd88cad8822e19983da79b5f21a9a023ad1e18b3"
+    },
+    {
+      "char_end": 38252,
+      "char_start": 33772,
+      "five_gram_recall": 0.9951377633711507,
+      "paper_id": "2408.08535v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2408.08535v1.md",
+      "question_ids": [
+        "q032-incremental-update-maturity"
+      ],
+      "reference_tokens": 633,
+      "text_sha256": "3ce9018cfd4c9a3e09ffb8f5b150a094e51c07f449f8c351c1295fdd443f0fa4"
+    },
+    {
+      "char_end": 36609,
+      "char_start": 32686,
+      "five_gram_recall": 0.9782971619365609,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses",
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 604,
+      "text_sha256": "ef285cd23b2c40d86f66c3f8fb59f9fa202beb2a1f409723c85aad3b3c8fa97e"
+    },
+    {
+      "char_end": 41012,
+      "char_start": 36609,
+      "five_gram_recall": 0.9952380952380953,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses",
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 636,
+      "text_sha256": "b1fd359d4a66d903cae861a4e67fb70e215cf5cfa841b167afd91f3892173e73"
+    },
+    {
+      "char_end": 71800,
+      "char_start": 70480,
+      "five_gram_recall": 0.9469387755102041,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses"
+      ],
+      "reference_tokens": 253,
+      "text_sha256": "8ed33fcfa48b9fed306c693bfd472c46e8310cdfa860fb9a86066ca7d0d05e67"
+    },
+    {
+      "char_end": 75908,
+      "char_start": 71800,
+      "five_gram_recall": 0.9878603945371776,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses"
+      ],
+      "reference_tokens": 679,
+      "text_sha256": "fbb9939f47cd3d7c0b9659543c797c57da67d10b89ba4ce1a559bc5a9f8920dc"
+    },
+    {
+      "char_end": 79980,
+      "char_start": 75908,
+      "five_gram_recall": 0.9806451612903225,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses",
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 631,
+      "text_sha256": "f1a73ca6ae0d62c9013d903c73e71eaabb953269e7e9a61dfe913af70d06459e"
+    },
+    {
+      "char_end": 83594,
+      "char_start": 79980,
+      "five_gram_recall": 0.9833024118738405,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses",
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 545,
+      "text_sha256": "fa66ddeb05a7d80dfcd04fb601d9a3cf6e992e5fd6fdfd43c5838ea68c1bb636"
+    },
+    {
+      "char_end": 93078,
+      "char_start": 88258,
+      "five_gram_recall": 0.9959349593495935,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 749,
+      "text_sha256": "36353778f8b7c9f2ec67e51bb45136f3334067aedcbd4dee4cfcd40ec2487304"
+    },
+    {
+      "char_end": 96854,
+      "char_start": 93078,
+      "five_gram_recall": 0.9946332737030411,
+      "paper_id": "2409.13731v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2409.13731v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 563,
+      "text_sha256": "9d72521dec80980f71838e1cfce7a3b0e37ea0c7108d2707f2f6f32d698d70f4"
+    },
+    {
+      "char_end": 15107,
+      "char_start": 9779,
+      "five_gram_recall": 0.925531914893617,
+      "paper_id": "2410.05779v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2410.05779v3.md",
+      "question_ids": [
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 781,
+      "text_sha256": "e559b5621128ba46682e9a3a59995166de6a65f0567b2fa80c17daad9f94d18b"
+    },
+    {
+      "char_end": 19781,
+      "char_start": 15107,
+      "five_gram_recall": 0.9467275494672754,
+      "paper_id": "2410.05779v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2410.05779v3.md",
+      "question_ids": [
+        "q032-incremental-update-maturity",
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 661,
+      "text_sha256": "99581a97d6c50df4c0170e4814782fb420db8aa7b28c22fb346dfb82a6c84096"
+    },
+    {
+      "char_end": 24005,
+      "char_start": 19781,
+      "five_gram_recall": 0.9372990353697749,
+      "paper_id": "2410.05779v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2410.05779v3.md",
+      "question_ids": [
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 628,
+      "text_sha256": "ada643eddf82ec1fa4ea4905b363182a1d05043d5b3a0d2ac798972c3ec21d77"
+    },
+    {
+      "char_end": 28732,
+      "char_start": 24005,
+      "five_gram_recall": 0.976123595505618,
+      "paper_id": "2410.05779v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2410.05779v3.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation"
+      ],
+      "reference_tokens": 716,
+      "text_sha256": "2400e61b0a6cac394db6f2fd3c6d93537aee0735144912ac55e6c008f3b0ee23"
+    },
+    {
+      "char_end": 43490,
+      "char_start": 37616,
+      "five_gram_recall": 0.9831730769230769,
+      "paper_id": "2410.05779v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2410.05779v3.md",
+      "question_ids": [
+        "q039-baseline-bound-efficiency-claims"
+      ],
+      "reference_tokens": 850,
+      "text_sha256": "1ae48050232eb58d19c180436ba41c7ad258955c423e9250c57e9baf98d964fa"
+    },
+    {
+      "char_end": 32925,
+      "char_start": 27591,
+      "five_gram_recall": 0.9650565262076053,
+      "paper_id": "2502.14902v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2502.14902v2.md",
+      "question_ids": [
+        "q035-lossless-enough-evidence-organization"
+      ],
+      "reference_tokens": 1015,
+      "text_sha256": "0a71c901117231919f59fe07ddc6b441a6987f5f372a49a7149032035e69510d"
+    },
+    {
+      "char_end": 37646,
+      "char_start": 32925,
+      "five_gram_recall": 0.9436997319034852,
+      "paper_id": "2502.14902v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2502.14902v2.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses"
+      ],
+      "reference_tokens": 759,
+      "text_sha256": "0ee276cbf2b62b3b48971db11da85614bdb44a6923d37f24b2156a9a48eb6b1a"
+    },
+    {
+      "char_end": 8832,
+      "char_start": 4898,
+      "five_gram_recall": 0.9947275922671354,
+      "paper_id": "2503.06474v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.06474v2.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation",
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 573,
+      "text_sha256": "e37db3c5467dde24c70a78301341b8f82eaf25335727bae8943bd73df4d95975"
+    },
+    {
+      "char_end": 13014,
+      "char_start": 8832,
+      "five_gram_recall": 0.9844290657439446,
+      "paper_id": "2503.06474v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.06474v2.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation"
+      ],
+      "reference_tokens": 583,
+      "text_sha256": "e33c14c238a5689c9cef7fa4a05ff0b5a6f59646e1873c0499ccd74fea1d7473"
+    },
+    {
+      "char_end": 21373,
+      "char_start": 17161,
+      "five_gram_recall": 0.9954407294832827,
+      "paper_id": "2503.06474v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.06474v2.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget"
+      ],
+      "reference_tokens": 663,
+      "text_sha256": "6d7907f835e07a00dd65fed5b109e723db579887dcbe641b6acc407d68766c82"
+    },
+    {
+      "char_end": 25511,
+      "char_start": 21373,
+      "five_gram_recall": 0.995260663507109,
+      "paper_id": "2503.06474v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.06474v2.md",
+      "question_ids": [
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 642,
+      "text_sha256": "5e863fba846c646fde84e103a24305595c41b60e0268e6c7fa795e5960d49ee1"
+    },
+    {
+      "char_end": 38976,
+      "char_start": 36354,
+      "five_gram_recall": 0.9921259842519685,
+      "paper_id": "2503.06474v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.06474v2.md",
+      "question_ids": [
+        "q034-nonmonotonic-context-budget",
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 386,
+      "text_sha256": "86b336a811c812e294f693252e63efb1104d83803733a862e4681d6c9735c556"
+    },
+    {
+      "char_end": 13478,
+      "char_start": 9895,
+      "five_gram_recall": 0.994413407821229,
+      "paper_id": "2503.13804v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.13804v1.md",
+      "question_ids": [
+        "q031-graph-routing-boundary"
+      ],
+      "reference_tokens": 560,
+      "text_sha256": "535594d51b4f3238d2a017329d0d4710328b2f51743d389f8b183ea6b7920ae7"
+    },
+    {
+      "char_end": 24751,
+      "char_start": 21917,
+      "five_gram_recall": 0.9827586206896551,
+      "paper_id": "2503.13804v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.13804v1.md",
+      "question_ids": [
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 468,
+      "text_sha256": "14e214184a5b16bd6eb02e12c0bf06dad93ea6531ad5b0e4c2c67c8b4d02b45f"
+    },
+    {
+      "char_end": 32352,
+      "char_start": 28170,
+      "five_gram_recall": 0.9727272727272728,
+      "paper_id": "2503.13804v1",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2503.13804v1.md",
+      "question_ids": [
+        "q033-corruption-specific-defenses"
+      ],
+      "reference_tokens": 683,
+      "text_sha256": "2744c7e57f4036185d6dbf77d115d4bf568f2a3bdf786e2c95a39fba1ceaf8ca"
+    },
+    {
+      "char_end": 18341,
+      "char_start": 13420,
+      "five_gram_recall": 0.9515905947441217,
+      "paper_id": "2504.02112v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2504.02112v2.md",
+      "question_ids": [
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 758,
+      "text_sha256": "ddd07b07212d5b30efc0177ba1c95a067f47557000c2be99d03f32d7a1925724"
+    },
+    {
+      "char_end": 32105,
+      "char_start": 27255,
+      "five_gram_recall": 0.9602649006622517,
+      "paper_id": "2504.02112v2",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2504.02112v2.md",
+      "question_ids": [
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 765,
+      "text_sha256": "d1ac0e020555724d9f19db937ba8ec014c057847b1ce4bdcfd647d1949948534"
+    },
+    {
+      "char_end": 22738,
+      "char_start": 19294,
+      "five_gram_recall": 0.9723404255319149,
+      "paper_id": "2506.05690v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2506.05690v3.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation"
+      ],
+      "reference_tokens": 474,
+      "text_sha256": "017fecb25579df09ad1f6c345756f6c5da8178d82d859791f1583f9f1120c0f5"
+    },
+    {
+      "char_end": 26986,
+      "char_start": 22738,
+      "five_gram_recall": 0.8806228373702422,
+      "paper_id": "2506.05690v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2506.05690v3.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation"
+      ],
+      "reference_tokens": 583,
+      "text_sha256": "afb5eac85f44857a7407b9afa62c3bc46d8af2bbaa5e95f480ab18ab8cdeccbe"
+    },
+    {
+      "char_end": 31327,
+      "char_start": 26986,
+      "five_gram_recall": 0.8650693568726355,
+      "paper_id": "2506.05690v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2506.05690v3.md",
+      "question_ids": [
+        "q031-graph-routing-boundary",
+        "q036-evaluation-leakage-and-stage-separation"
+      ],
+      "reference_tokens": 801,
+      "text_sha256": "e25f2465806ed2cee0272a795a71be384a161dea4e2516a5b4cd91db6ae8ea3b"
+    },
+    {
+      "char_end": 36026,
+      "char_start": 31327,
+      "five_gram_recall": 0.9026442307692307,
+      "paper_id": "2506.05690v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2506.05690v3.md",
+      "question_ids": [
+        "q031-graph-routing-boundary"
+      ],
+      "reference_tokens": 841,
+      "text_sha256": "cd56d0788c68afebd75d61b75f80ec55f54def391cf1662b7cc87adb413bc786"
+    },
+    {
+      "char_end": 6840,
+      "char_start": 3902,
+      "five_gram_recall": 0.9605263157894737,
+      "paper_id": "2507.03226v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2507.03226v3.md",
+      "question_ids": [
+        "q032-incremental-update-maturity"
+      ],
+      "reference_tokens": 384,
+      "text_sha256": "9e3327f60fe3a08fb0866e6bbab981847aa88c9b648211d406f22713a684c691"
+    },
+    {
+      "char_end": 9984,
+      "char_start": 6840,
+      "five_gram_recall": 0.9461538461538461,
+      "paper_id": "2507.03226v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2507.03226v3.md",
+      "question_ids": [
+        "q032-incremental-update-maturity",
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 394,
+      "text_sha256": "f6bfb292c9a50e4acb799b1eea0a24a6cf9ac4cdbc5b02108b8a0741a09e0620"
+    },
+    {
+      "char_end": 15155,
+      "char_start": 12698,
+      "five_gram_recall": 0.6160714285714286,
+      "paper_id": "2507.03226v3",
+      "passes_threshold": false,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2507.03226v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 340,
+      "text_sha256": "143369d2f4f0edb2c9ea17d02a8f0adb5f16c7f5c0f3f1d3b86637f60c094dbd"
+    },
+    {
+      "char_end": 17765,
+      "char_start": 15155,
+      "five_gram_recall": 0.9566326530612245,
+      "paper_id": "2507.03226v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2507.03226v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 396,
+      "text_sha256": "011336a422e46fd7f11090939d7ca822c2fd8cfb4e2f09daa4c5dd608e3621d5"
+    },
+    {
+      "char_end": 32506,
+      "char_start": 29542,
+      "five_gram_recall": 0.9433497536945813,
+      "paper_id": "2507.03226v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2507.03226v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 410,
+      "text_sha256": "92546ca74b615d31ce2c3eb3b08c78fd477dae660d7b5ca28e47442ea7301d96"
+    },
+    {
+      "char_end": 4586,
+      "char_start": 1324,
+      "five_gram_recall": 0.9240780911062907,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 467,
+      "text_sha256": "52d27e3f9758c4933c012dc87f227ed5851652d711ba192725e0a3f82be73579"
+    },
+    {
+      "char_end": 9452,
+      "char_start": 4586,
+      "five_gram_recall": 0.9762611275964391,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 682,
+      "text_sha256": "54bd75cf3625ed6c2ec36172ac8bc1bd33599c1459c7760ed9e27acc9845342f"
+    },
+    {
+      "char_end": 16968,
+      "char_start": 13222,
+      "five_gram_recall": 0.9296740994854202,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 589,
+      "text_sha256": "c6fe0c7913a662141a61fcb4b1e9bfd8e08093f46b99fe2f83e17c256304dac3"
+    },
+    {
+      "char_end": 30783,
+      "char_start": 27118,
+      "five_gram_recall": 0.9467889908256881,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints",
+        "q038-failure-aware-query-router"
+      ],
+      "reference_tokens": 549,
+      "text_sha256": "b25029a555e2a282c6bf10e2010857ccc8f8b695a059bd8e1145523d609d00fa"
+    },
+    {
+      "char_end": 34382,
+      "char_start": 30783,
+      "five_gram_recall": 0.9941634241245136,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation",
+        "q038-failure-aware-query-router",
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 518,
+      "text_sha256": "d334b90bcb35a0a440ebe1f5268f21734aab212bc52af9763388320839c6961d"
+    },
+    {
+      "char_end": 52495,
+      "char_start": 48590,
+      "five_gram_recall": 0.9837251356238698,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q037-domain-construction-under-constraints"
+      ],
+      "reference_tokens": 558,
+      "text_sha256": "66b4e2c6ae231aefb68e5c896bfa22093b019169737f91806387a07280ce5df1"
+    },
+    {
+      "char_end": 61155,
+      "char_start": 59130,
+      "five_gram_recall": 0.9889705882352942,
+      "paper_id": "2508.19855v3",
+      "passes_threshold": true,
+      "path": "evaluations/graphrag-cross-paper/sources/markdown/2508.19855v3.md",
+      "question_ids": [
+        "q036-evaluation-leakage-and-stage-separation",
+        "q040-answer-source-control"
+      ],
+      "reference_tokens": 301,
+      "text_sha256": "8bcf36b9cec50d5cc689d353186373d0636e91ddc38c53641d119a18041e7a83"
+    }
+  ],
+  "inputs": {
+    "evaluator_script": {
+      "bytes": 26465,
+      "path": "evaluations/semantic-okf-tika-mallet/scripts/evaluate_extraction_fidelity.py",
+      "sha256": "840b222300eb7ac6de4dd36f27f339be7ee4b132cc08718f2d0ada79e7e6705d"
+    },
+    "fidelity_contract": {
+      "bytes": 507,
+      "path": "evaluations/semantic-okf-tika-mallet/canonical/graphrag-papers-40/extraction-fidelity-contract.json",
+      "sha256": "b3d66ee51aa795c16fdf49e1ac5b915c40915b45c9323fdcb27ab136c09bf73b"
+    },
+    "hard_ground_truth": {
+      "bytes": 74424,
+      "path": "evaluations/semantic-okf-adaptive/hard-ground-truth.jsonl",
+      "sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388"
+    },
+    "source_inventory": {
+      "bytes": 3485,
+      "path": "evaluations/semantic-okf-tika-mallet/canonical/graphrag-papers-40/source-inventory.json",
+      "sha256": "c1d22c11df202db3b87c7fb386f9862db26601a5e2ebde813cb203bcea3740d4"
+    }
+  },
+  "normalization": {
+    "canonical_scope": "content beginning after the PDF page 1 heading; page headings removed",
+    "five_grams": "sets of five normalized consecutive tokens",
+    "line_wrap": "soft hyphens removed; hyphen-plus-whitespace joined",
+    "tokens": "Unicode alphanumeric runs; underscores excluded",
+    "unicode": "NFKC casefold"
+  },
+  "papers": [
+    {
+      "canonical_pages": 23,
+      "canonical_tokens": 13707,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9858795372955724,
+      "paper_id": "2402.07630v3",
+      "source_id": "paper-2402-07630v3",
+      "tika_pages": 23,
+      "tika_tokens": 14020,
+      "token_precision": 0.9751783166904422,
+      "token_recall": 0.9974465601517473
+    },
+    {
+      "canonical_pages": 26,
+      "canonical_tokens": 14694,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9904107628452841,
+      "paper_id": "2404.16130v2",
+      "source_id": "paper-2404-16130v2",
+      "tika_pages": 26,
+      "tika_tokens": 15058,
+      "token_precision": 0.9733696374020454,
+      "token_recall": 0.9974819654280659
+    },
+    {
+      "canonical_pages": 31,
+      "canonical_tokens": 16852,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9728939157566303,
+      "paper_id": "2405.14831v3",
+      "source_id": "paper-2405-14831v3",
+      "tika_pages": 31,
+      "tika_tokens": 19087,
+      "token_precision": 0.8778749934510399,
+      "token_recall": 0.9943033467837645
+    },
+    {
+      "canonical_pages": 29,
+      "canonical_tokens": 13476,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9551066217732884,
+      "paper_id": "2406.14550v2",
+      "source_id": "paper-2406-14550v2",
+      "tika_pages": 29,
+      "tika_tokens": 14257,
+      "token_precision": 0.9348390264431508,
+      "token_recall": 0.9890175126150192
+    },
+    {
+      "canonical_pages": 10,
+      "canonical_tokens": 6527,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9618012422360248,
+      "paper_id": "2408.04187v2",
+      "source_id": "paper-2408-04187v2",
+      "tika_pages": 10,
+      "tika_tokens": 7204,
+      "token_precision": 0.8983897834536368,
+      "token_recall": 0.991573464072315
+    },
+    {
+      "canonical_pages": 12,
+      "canonical_tokens": 6889,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9869349752215048,
+      "paper_id": "2408.08535v1",
+      "source_id": "paper-2408-08535v1",
+      "tika_pages": 12,
+      "tika_tokens": 7513,
+      "token_precision": 0.9138826034872887,
+      "token_recall": 0.9966613441718682
+    },
+    {
+      "canonical_pages": 33,
+      "canonical_tokens": 18587,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9918532476169364,
+      "paper_id": "2409.13731v3",
+      "source_id": "paper-2409-13731v3",
+      "tika_pages": 33,
+      "tika_tokens": 18827,
+      "token_precision": 0.9856588941413926,
+      "token_recall": 0.9983859686877925
+    },
+    {
+      "canonical_pages": 16,
+      "canonical_tokens": 9029,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9598347486802846,
+      "paper_id": "2410.05779v3",
+      "source_id": "paper-2410-05779v3",
+      "tika_pages": 16,
+      "tika_tokens": 9237,
+      "token_precision": 0.9654649778066472,
+      "token_recall": 0.987706279765201
+    },
+    {
+      "canonical_pages": 9,
+      "canonical_tokens": 7711,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.8937534097108565,
+      "paper_id": "2502.14902v2",
+      "source_id": "paper-2502-14902v2",
+      "tika_pages": 9,
+      "tika_tokens": 7938,
+      "token_precision": 0.9440665154950869,
+      "token_recall": 0.9718583841265724
+    },
+    {
+      "canonical_pages": 10,
+      "canonical_tokens": 5637,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9832613390928726,
+      "paper_id": "2503.06474v2",
+      "source_id": "paper-2503-06474v2",
+      "tika_pages": 10,
+      "tika_tokens": 6037,
+      "token_precision": 0.9292695047208879,
+      "token_recall": 0.9952102182011708
+    },
+    {
+      "canonical_pages": 11,
+      "canonical_tokens": 6326,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9927975118677361,
+      "paper_id": "2503.13804v1",
+      "source_id": "paper-2503-13804v1",
+      "tika_pages": 11,
+      "tika_tokens": 6426,
+      "token_precision": 0.9827264239028944,
+      "token_recall": 0.9982611444830857
+    },
+    {
+      "canonical_pages": 29,
+      "canonical_tokens": 17388,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9453510436432637,
+      "paper_id": "2504.02112v2",
+      "source_id": "paper-2504-02112v2",
+      "tika_pages": 29,
+      "tika_tokens": 18639,
+      "token_precision": 0.9224207307258974,
+      "token_recall": 0.9887853692201518
+    },
+    {
+      "canonical_pages": 34,
+      "canonical_tokens": 17516,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.9265390584583549,
+      "paper_id": "2506.05690v3",
+      "source_id": "paper-2506-05690v3",
+      "tika_pages": 34,
+      "tika_tokens": 18348,
+      "token_precision": 0.9375953782428602,
+      "token_recall": 0.9821306234300069
+    },
+    {
+      "canonical_pages": 12,
+      "canonical_tokens": 4946,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.8526100307062436,
+      "paper_id": "2507.03226v3",
+      "source_id": "paper-2507-03226v3",
+      "tika_pages": 12,
+      "tika_tokens": 5324,
+      "token_precision": 0.8925619834710744,
+      "token_recall": 0.9607763849575415
+    },
+    {
+      "canonical_pages": 19,
+      "canonical_tokens": 9879,
+      "exact_gates": {
+        "media_type_application_pdf": true,
+        "page_count": true,
+        "raw_bytes": true,
+        "raw_sha256": true,
+        "source_locator": true
+      },
+      "five_gram_recall": 0.933929510783798,
+      "paper_id": "2508.19855v3",
+      "source_id": "paper-2508-19855v3",
+      "tika_pages": 19,
+      "tika_tokens": 10399,
+      "token_precision": 0.920665448600827,
+      "token_recall": 0.969126429800587
+    }
+  ],
+  "schema_version": "semantic-okf-tika-mallet-extraction-fidelity/1.0",
+  "status": "pass",
+  "summary": {
+    "exact_gate_checks": 75,
+    "exact_gate_failures": 0,
+    "hard_anchor_count": 59,
+    "hard_anchor_mean_five_gram_recall": 0.9632176344993193,
+    "hard_anchor_pass_rate": 0.9830508474576272,
+    "macro_five_gram_recall": 0.9555304637125768,
+    "macro_token_precision": 0.9369309478690115,
+    "macro_token_recall": 0.987914999726326,
+    "paper_count": 15
+  }
+}

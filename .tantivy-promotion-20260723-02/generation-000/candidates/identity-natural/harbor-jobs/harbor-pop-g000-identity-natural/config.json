@@ -1,0 +1,52 @@
+{
+    "job_name": "harbor-pop-g000-identity-natural",
+    "jobs_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/generation-000/candidates/identity-natural/harbor-jobs",
+    "n_concurrent_trials": 6,
+    "retry": {
+        "include_exceptions": [],
+        "exclude_exceptions": []
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-consult-evolution/runtime-inputs/classical",
+                "target": "/knowledge",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ]
+    },
+    "agents": [
+        {
+            "name": "oracle",
+            "n_concurrent": 6,
+            "skills": [
+                "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/generation-000/candidates/identity-natural/skills/consult-semantic-okf-tantivy"
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-01"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-02"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-03"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-04"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-05"
+        },
+        {
+            "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-v5/development/part-06"
+        }
+    ]
+}

@@ -19,6 +19,7 @@ REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 
 import dataset_tool as data  # noqa: E402
+import candidate_family as candidates  # noqa: E402
 import generate_harbor_tasks as tasks  # noqa: E402
 
 HEX64 = re.compile(r"\b[0-9a-f]{64}\b")
@@ -203,13 +204,16 @@ def validate(
     family_id: str,
     mode: str,
     task_root: Path,
+    candidate_spec: Path | None = None,
 ) -> dict[str, Any]:
     """Validate one complete generated dataset/mode/family task tree."""
 
-    data.validate_dataset(dataset_id, family_id)
+    family, candidate_binding = candidates.resolve(
+        dataset_id, family_id, mode, candidate_spec
+    )
     dataset = data.load_dataset(dataset_id)
-    family = data.load_families()[family_id]
     manifest = data.load_json(task_root / "manifest.json")
+    candidates.verify_manifest(manifest, candidate_binding)
     expected_identity = {"dataset_id": dataset_id, "family": family_id, "mode": mode}
     if any(manifest.get(key) != value for key, value in expected_identity.items()):
         raise ValidationError("generated task manifest identity mismatch")
@@ -280,7 +284,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", choices=data.available_datasets(), required=True)
-    parser.add_argument("--family", choices=sorted(data.load_families()), required=True)
+    parser.add_argument("--family", required=True)
+    parser.add_argument(
+        "--candidate-family-spec",
+        type=Path,
+        help="Hash-bound inactive family specification used to generate these tasks.",
+    )
     parser.add_argument("--mode", choices=tasks.MODES, required=True)
     parser.add_argument("--tasks", type=Path)
     parser.add_argument("--bundle", type=Path)
@@ -340,7 +349,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             dataset,
             args.bundle,
         )
-        report = validate(args.dataset, args.family, args.mode, task_root)
+        report = validate(
+            args.dataset,
+            args.family,
+            args.mode,
+            task_root,
+            args.candidate_family_spec,
+        )
         if not args.skip_generation_check:
             generated_manifest = data.load_json(task_root / "manifest.json")
             command = [
@@ -364,11 +379,24 @@ def main(argv: Sequence[str] | None = None) -> int:
                 command.extend(("--bundle", str(args.bundle.resolve())))
             if args.input is not None:
                 command.extend(("--input", str(args.input.resolve())))
+            if args.candidate_family_spec is not None:
+                command.extend(
+                    (
+                        "--candidate-family-spec",
+                        str(args.candidate_family_spec.resolve()),
+                    )
+                )
             subprocess.run(command, cwd=REPO, check=True)
         report["deterministic"] = not args.skip_generation_check
         print(json.dumps(report, sort_keys=True))
         return 0
-    except (data.DatasetError, tasks.GenerationError, ValidationError, OSError) as exc:
+    except (
+        data.DatasetError,
+        candidates.CandidateFamilyError,
+        tasks.GenerationError,
+        ValidationError,
+        OSError,
+    ) as exc:
         raise SystemExit(str(exc)) from exc
 
 

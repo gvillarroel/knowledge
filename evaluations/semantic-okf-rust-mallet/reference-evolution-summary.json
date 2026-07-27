@@ -1,0 +1,179 @@
+{
+  "schema_version": "semantic-okf-rust-mallet-reference-evolution-summary/1.0",
+  "status": "complete",
+  "decision": {
+    "builder": "keep-baseline",
+    "consult": "retain-reference-aware-parent-a",
+    "native_builder_candidate": "experimental-not-promoted",
+    "one_command_builder_candidate": "experimental-not-promoted"
+  },
+  "reference_dictionary": {
+    "algorithm": "exact-evidence-reference-dictionary-v1",
+    "artifact": "classical/references.json",
+    "bytes": 730707,
+    "count": 1135,
+    "id_pattern": "ref-[0-9a-f]{24}",
+    "sha256": "886c3ba3ffb99c8f6a44ae8029e8792bfcf813ed80d59373ea2c2fe86033db3f"
+  },
+  "consult_evolution": {
+    "harbor_bundle_digest": "sha256:637af0aefb44de8bf24fffb246158c9db6a8e9bdfb6780150ca6f043cc965a6d",
+    "live_clean_source_digest": "sha256:a86ced363990095d62ca8e413e5fc881aed08f0cdb21acb905da4f5c9600ccff",
+    "source_matches_harbor_bundle_excluding_bytecode": true,
+    "selected_protocol": "bounded-search-show-finalize-with-reference-ids",
+    "later_candidate_digest": "sha256:661884a4864fc4dd95db14bdafb727bcf51e133669da4a2456a233451fb1b400",
+    "holdout": {
+      "attempts_per_task": 2,
+      "baseline_mean_reward": 0.8061806015789843,
+      "candidate_mean_reward": 0.617402154931413,
+      "decision": "keep-baseline",
+      "errors": 0,
+      "mean_gain": -0.18877844664757126,
+      "tasks": [
+        "q010",
+        "q029"
+      ]
+    }
+  },
+  "builder_evolution": {
+    "baseline_digest": "sha256:3a4bf469bd005862e3874d411988df8a2b1697150bcd8fb9bf5ac464cb0a91f9",
+    "candidate_digest": "sha256:cc32ea3e3342ff41ea2b029c7b801a171461d046d1d4d48a61f5137a0a2cf0a5",
+    "development": {
+      "decision": "pass",
+      "errors": 0,
+      "pass_rate": 1.0,
+      "qualified_trials": 2,
+      "tasks": [
+        "q007",
+        "q019"
+      ]
+    },
+    "holdout": {
+      "attempts_per_task": 2,
+      "baseline_mean_reward": 0.8154816162931293,
+      "candidate_mean_reward": 0.8130530774067735,
+      "candidate_errors": 0,
+      "candidate_qualified": true,
+      "decision": "keep-baseline",
+      "mean_gain": -0.0024285388863558577,
+      "per_task": {
+        "q010": {
+          "baseline_mean_reward": 0.8398081926690371,
+          "candidate_mean_reward": 0.8389403265095647,
+          "delta": -0.0008678661594723192
+        },
+        "q029": {
+          "baseline_mean_reward": 0.7911550399172217,
+          "candidate_mean_reward": 0.7871658283039822,
+          "delta": -0.003989211613239507
+        }
+      },
+      "required_rewards": {
+        "quality_gate": 1.0,
+        "reference_dictionary_resolution": 1.0
+      },
+      "retry_contract_verified": true
+    }
+  },
+  "one_command_builder_evolution": {
+    "artifact": "/home/villa/harbor-rust-mallet-builder-evolution/20260723-builder-reference-g/distillation-one-command-direct-final",
+    "baseline_digest": "sha256:af3b51512084a0d02d12b26d9823c6db1aad50337977e8ed9b403cbafa897af9",
+    "candidate_digest": "sha256:381e79b5d50001e139bd48b0c30000232e18ce0124f2de5484b591e69d6b2372",
+    "accepted_proposals": [
+      "build-and-validate-wrapper",
+      "document-reference-artifact-format",
+      "native-reference-dictionary-module",
+      "native-reference-dictionary-pipeline",
+      "one-command-builder-protocol"
+    ],
+    "mechanical_validation": {
+      "builds": 2,
+      "builds_byte_identical": true,
+      "classical_file_count": 7,
+      "reference_count": 1135,
+      "reference_sha256": "886c3ba3ffb99c8f6a44ae8029e8792bfcf813ed80d59373ea2c2fe86033db3f",
+      "tree_file_count": 891,
+      "tree_sha256": "8aeff450b0c132b994dae5cfd51fe87718482155e71764482cbbfdc289654ae9"
+    },
+    "development": {
+      "decision": "pass",
+      "errors": 0,
+      "pass_rate": 1.0,
+      "qualified_trials": 2,
+      "mean_reward": 0.8427922633148043,
+      "trial_wall_seconds": [
+        340.867719,
+        427.136107
+      ],
+      "tasks": [
+        "q007",
+        "q019"
+      ]
+    },
+    "holdout": {
+      "attempts_per_task": 2,
+      "baseline_mean_reward": 0.2990725771016021,
+      "candidate_mean_reward": 0.3423476354390522,
+      "mean_gain": 0.0432750583374501,
+      "baseline_mean_wall_seconds": 262.249333,
+      "candidate_mean_wall_seconds": 244.9674745,
+      "candidate_errors": 0,
+      "candidate_qualified": true,
+      "decision": "keep-baseline",
+      "per_task": {
+        "q015": {
+          "baseline_mean_reward": 0.13081170782916207,
+          "candidate_mean_reward": 0.12748763329142906,
+          "delta": -0.003324074537733007
+        },
+        "q025": {
+          "baseline_mean_reward": 0.46733344637404217,
+          "candidate_mean_reward": 0.5572076375866754,
+          "delta": 0.08987419121263318
+        }
+      },
+      "required_rewards": {
+        "quality_gate": 1.0,
+        "reference_dictionary_resolution": 1.0
+      },
+      "promotion_rules": {
+        "minimum_mean_gain": 0.01,
+        "allow_task_regressions": false,
+        "require_no_errors": true
+      },
+      "retry_contract_verified": true
+    },
+    "decision_reason": "The overall gain and timing improvement could not compensate for the q015 holdout regression under the frozen no-regressions rule."
+  },
+  "native_builder_validation": {
+    "file_count": 891,
+    "native_builds_byte_identical": true,
+    "native_matches_same_platform_original_plus_backfill": true,
+    "tree_sha256": "05864991584a4ef5b000bdbe9059a649b7d25a2b29d2b0c22286f30b496ec9d7",
+    "validator_status": "pass"
+  },
+  "full_40_retrieval_parity": {
+    "comparison_count": 320,
+    "deep_validation": true,
+    "mismatch_count": 0,
+    "modes": [
+      "bm25",
+      "topic",
+      "association",
+      "fusion"
+    ],
+    "question_count": 40,
+    "reference_rows_checked": 7267,
+    "top_k": [
+      10,
+      100
+    ],
+    "unique_reference_ids_returned": 728
+  },
+  "harbor": {
+    "agent": "pi",
+    "agent_version": "0.73.1",
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "retry_max": 0,
+    "version": "0.18.0"
+  }
+}

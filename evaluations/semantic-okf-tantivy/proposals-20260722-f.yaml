@@ -1,0 +1,137 @@
+proposals:
+  - id: deepen-single-claim-pass
+    diagnosis: >-
+      In two locked discovery tasks, the claim-first workflow returned valid exact
+      evidence but relevance had a narrow boundary: q001 used nine rows and covered
+      nine relevant papers against an eight-paper minimum, while q013 used eight rows
+      from seven papers and covered only five of the six required relevant papers.
+      One additional independent paper and two more shallow Tantivy hits per focus
+      query preserve the bounded claim-first design while adding the missing relevance
+      margin.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1bcc1a3359:462d2c34-9497-44ea-99d9-3e3345ba0c6a
+      - development-candidate-01-1bcc1a3359:c03cd869-7277-41f7-8bec-5e0a8bfe3878
+    conflictGroup: claim-pass-depth
+    target: SKILL.md
+    operation: replace
+    old: |
+      default discovery pass. Let `MINIMUM` be the public independent-paper minimum. Set
+      `EVIDENCE_TARGET` to `MINIMUM + 1`, capped at 10; when no minimum is stated, use 4.
+      If `MINIMUM` itself exceeds 10, use `MINIMUM` as the target instead. Start with
+      concise published semantic-claim records:
+
+      ```bash
+      python scripts/bounded_workflow.py BUNDLE collect \
+        --query 'first precise aspect' \
+        --query 'second precise aspect' \
+        --query 'trade-off or counterevidence' \
+        --top-k-per-query 6 \
+        --min-sources EVIDENCE_TARGET --max-sources EVIDENCE_TARGET \
+        --concept-type 'Paper Semantic Claim' \
+        --preview-chars 800 \
+        --full-output /tmp/tantivy-full-hits.json
+      ```
+    content: |
+      default discovery pass. Let `MINIMUM` be the public independent-paper minimum. Set
+      `EVIDENCE_TARGET` to `MINIMUM + 2`, capped at 10; when no minimum is stated, use 4.
+      If `MINIMUM` itself exceeds 10, use `MINIMUM` as the target instead. Start with
+      concise published semantic-claim records and cover all named aspects in one call
+      with three to five precise queries:
+
+      ```bash
+      python scripts/bounded_workflow.py BUNDLE collect \
+        --query 'first precise aspect' \
+        --query 'second precise aspect' \
+        --query 'third named mechanism' \
+        --query 'cost or operational constraint' \
+        --query 'trade-off or counterevidence' \
+        --top-k-per-query 8 \
+        --min-sources EVIDENCE_TARGET --max-sources EVIDENCE_TARGET \
+        --concept-type 'Paper Semantic Claim' \
+        --preview-chars 800 \
+        --full-output /tmp/tantivy-full-hits.json
+      ```
+
+  - id: enforce-single-successful-collector
+    diagnosis: >-
+      q001 ran three collectors, including a ten-query pass, and q013 ran three
+      collectors despite each successful pass already returning bounded claim records.
+      The repeated snapshot loads and overlapping searches consumed 458k and 953k input
+      tokens. The workflow needs a hard stop after one successful collector rather than
+      a subjective semantic-gap exception.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1bcc1a3359:462d2c34-9497-44ea-99d9-3e3345ba0c6a
+      - development-candidate-01-1bcc1a3359:c03cd869-7277-41f7-8bec-5e0a8bfe3878
+    conflictGroup: collector-call-budget
+    target: SKILL.md
+    operation: replace
+    old: |
+      the explicit output outside the snapshot. A semantic-claim record is already a
+      short published record: verify its exact body from the saved full output and do not
+      read the underlying paper unless the claim is insufficient. Retain independently
+      relevant rows through `EVIDENCE_TARGET`; the extra row is a relevance margin, not
+      permission to cite weak material. Add one focused collector pass without the
+      `--concept-type` filter only when a named aspect or the target remains uncovered;
+      otherwise stop.
+    content: |
+      the explicit output outside the snapshot. A semantic-claim record is already a
+      short published record: verify its exact body from the saved full output and do not
+      read the underlying paper unless the claim is insufficient. Retain independently
+      relevant rows through `EVIDENCE_TARGET`; the extra two rows are a relevance margin,
+      not permission to cite weak material. One successful collector call is a hard
+      limit: do not run another collector because of a subjective semantic gap. Only when
+      the command returns `status: error` because the target was not reached may you run
+      one fallback without the `--concept-type` filter; after that call, stop retrieval.
+
+  - id: bound-query-count-in-helper
+    diagnosis: >-
+      The q001 and q013 discovery traces expanded the bounded workflow into repeated
+      batches, with one q001 collector carrying ten queries. Enforcing the documented
+      three-to-five query range in the helper prevents a single call from becoming an
+      unbounded search batch even when instructions are not followed precisely.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1bcc1a3359:462d2c34-9497-44ea-99d9-3e3345ba0c6a
+      - development-candidate-01-1bcc1a3359:c03cd869-7277-41f7-8bec-5e0a8bfe3878
+    conflictGroup: helper-query-budget
+    target: scripts/bounded_workflow.py
+    operation: replace
+    old: |2
+              if args.command == "collect":
+                  if not 1 <= args.top_k_per_query <= 20:
+                      raise SnapshotError("top_k_per_query must be from 1 through 20")
+    content: |2
+              if args.command == "collect":
+                  if not 3 <= len(args.query) <= 5:
+                      raise SnapshotError("collect requires from 3 through 5 queries")
+                  if not 1 <= args.top_k_per_query <= 20:
+                      raise SnapshotError("top_k_per_query must be from 1 through 20")
+
+  - id: enforce-terminal-lint-budget
+    diagnosis: >-
+      Both q001 and q013 reached valid evidence contracts, but q013 invoked the linter
+      six times after retrieval and q001 also repeated finalization work. The terminal
+      rule should allow one repair pass after an error, then require immediate unchanged
+      emission after the first success.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-1bcc1a3359:462d2c34-9497-44ea-99d9-3e3345ba0c6a
+      - development-candidate-01-1bcc1a3359:c03cd869-7277-41f7-8bec-5e0a8bfe3878
+    conflictGroup: lint-call-budget
+    target: SKILL.md
+    operation: replace
+    old: |
+      validated answer. A successful `--emit` is terminal: do not reason again, edit,
+      summarize, shorten, reconstruct, or manually retype any part of its stdout. The
+      very next assistant response must repeat that one JSON line byte-for-byte, with no
+      Markdown fence, prefix, or suffix. If exact repetition is uncertain, rerun the
+      linter and use its fresh stdout rather than reconstructing it. The linter checks
+    content: |
+      validated answer. Run lint once. Only if it returns `status: error`, repair exactly
+      the reported errors and run it one final time; never invoke lint more than twice.
+      The first successful `--emit` is terminal: do not reason again, edit, summarize,
+      shorten, reconstruct, rerun, or manually retype any part of its stdout. The very
+      next assistant response must repeat that one JSON line byte-for-byte, with no
+      Markdown fence, prefix, or suffix. The linter checks

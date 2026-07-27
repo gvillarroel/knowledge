@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "pass",
+  "date": "2026-07-22",
+  "experiment": "semantic-okf-tika-mallet-real-tools",
+  "platform": "Windows",
+  "runtime": {
+    "java": "Eclipse Temurin 17.0.19+10",
+    "tika_version": "4.0.0-beta-1",
+    "tika_archive_sha256": "392e49efffd7a7e718dad8d03072aefe0ef1d77ac4997b7418f75cc0698c9b07",
+    "tika_archive_sha512": "cc435ebbb2a5088402c473a2df6fda5eb1797b8d3f84f6d1d27123cb034c20693b84a2d18e3869c0f82860f6d07a2593f130d4d21be990efcfcf720bb1b5b957",
+    "tika_jar_tree_sha256": "314729d48101fc02045ca03763180b632ecdaf9cab160c3c275d11666ce21d45",
+    "mallet_version": "2.1.0",
+    "mallet_archive_sha256": "1b96ada9846ccbe07127167f85e27f53cc7ec7db35d3caabc60fcbd61c2035dc",
+    "mallet_jar_tree_sha256": "733877cc8c81ec2d2d05554810360c4a7b2af534d48fd3bf061a1ac49d56c729"
+  },
+  "fixture": {
+    "formats": [
+      "PDF",
+      "XLSX"
+    ],
+    "documents": 2,
+    "semantic_records": 2,
+    "concepts": 2,
+    "retrieval_passages": 2,
+    "lexical_terms": 117,
+    "association_terms": 52,
+    "topics": 2
+  },
+  "checks": {
+    "tika_default_equals_explicit_markdown_for_every_document": true,
+    "tika_json_metadata_valid_and_hash_bound": true,
+    "semantic_okf_core_and_shacl_pass": true,
+    "mallet_fixed_seed_one_thread_training_pass": true,
+    "independent_builder_validation_pass": true,
+    "consultant_structural_validation_pass": true,
+    "consultant_deep_retraining_pass": true,
+    "fusion_query_returned_exact_evidence": true,
+    "two_clean_builds_byte_identical": true
+  },
+  "reproducibility": {
+    "file_count": 24,
+    "inventory_sha256": "fd566c7b53aac3a1680fe6de11bc7908767ba8d943ae181728444e299555c911"
+  },
+  "observations": [
+    "MALLET can report a missing CLI argument while returning exit code zero, so success validation also inspects diagnostics and required outputs.",
+    "One transient Windows JShell/JDI local connection timeout was observed; the same deterministic command passed immediately afterward, and the wrappers now allow one narrowly matched retry.",
+    "The fixture is intentionally small and demonstrates mechanics and reproducibility, not retrieval-quality superiority or production readiness."
+  ]
+}

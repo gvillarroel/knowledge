@@ -20,6 +20,7 @@ REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 
 import dataset_tool as data  # noqa: E402
+import candidate_family as candidates  # noqa: E402
 
 RUNTIME_TAG = "semantic-okf-harbor-runtime:1.0"
 GRADER = REPO / "evaluations/semantic-okf-harbor/grader"
@@ -294,8 +295,39 @@ def instruction(
         workflow = (
             "Use only the published Semantic OKF snapshot mounted read-only at `/knowledge`. "
             f"You must use the sole installed `{family['consult_skill']}` consultation skill. "
-            "Do not build, repair, or modify knowledge."
         )
+        if family["consult_skill"] == "consult-semantic-okf-tika-mallet":
+            workflow += (
+                "Before accessing `/knowledge`, read that skill. Follow its bounded "
+                "`answer-pack` then `finalize-answer` workflow exactly: use one "
+                "`answer-pack` call with three to five broad queries, `--top-k 6`, "
+                "`--max-sources 10`, and a new pack path outside the bundle; write a "
+                "support-ID draft; run `finalize-answer` once or repair only the draft "
+                "if it rejects; then return the generated final JSON file unchanged. "
+                "Do not use `search`, `batch-search`, ad hoc snapshot reads, or retype "
+                "evidence fields. "
+            )
+        elif (
+            family["consult_skill"]
+            == "consult-semantic-okf-tika-mallet-bounded"
+        ):
+            minimum = row.get("minimum_document_count")
+            minimum_sources = minimum if isinstance(minimum, int) else 1
+            maximum_sources = min(12, minimum_sources + 2)
+            workflow += (
+                "Before accessing `/knowledge`, read only that skill's `SKILL.md`; "
+                "do not read its scripts or any other skill file. Follow its closed "
+                "workflow exactly: install the pinned requirement, then run exactly "
+                "one `scripts/bounded_answer.py` invocation with the question text "
+                "verbatim, three to five broad `--query` values, `--mode fusion`, "
+                f"`--top-k 6`, `--minimum-sources {minimum_sources}`, "
+                f"`--max-sources {maximum_sources}`, the required question ID, and "
+                "one new output path outside the bundle. Return the compiler's JSON "
+                "stdout unchanged. Do not list, grep, search, or read the snapshot; "
+                "do not open the output; and do not run a second compiler command. "
+                "Any other snapshot or skill access invalidates the treatment. "
+            )
+        workflow += "Do not build, repair, or modify knowledge."
     else:
         plan = " and `/dataset/plan.json`" if family["uses_plan"] else ""
         workflow = (
@@ -308,7 +340,10 @@ def instruction(
         )
     minimum = row.get("minimum_document_count")
     coverage = (
-        f" Use evidence from at least {minimum} independent relevant papers."
+        f" Use evidence from at least {minimum} independent relevant papers. "
+        "When the bounded consultation results support them, prefer up to two "
+        "additional independently relevant papers; do not add weak evidence or "
+        "run follow-up searches merely to fill that margin."
         if isinstance(minimum, int)
         else ""
     )
@@ -535,12 +570,14 @@ def generate(
     staged_input: Path | None,
     verifier_network_mode: str,
     agent_network_mode: str,
+    candidate_spec: Path | None = None,
 ) -> dict[str, Any]:
     """Generate every task below an empty candidate directory."""
 
-    data.validate_dataset(dataset_id, family_id)
+    family, candidate_binding = candidates.resolve(
+        dataset_id, family_id, mode, candidate_spec
+    )
     dataset = data.load_dataset(dataset_id)
-    family = data.load_families()[family_id]
     if mode == "build-consult":
         if staged_input is None or not (staged_input / "input-manifest.json").is_file():
             raise GenerationError("build-consult requires prepared staged input")
@@ -639,6 +676,8 @@ def generate(
             "cohorts": dataset["cohorts"]["sha256"],
         },
     }
+    if candidate_binding is not None:
+        manifest["candidate_family"] = candidate_binding
     write_json(output / "manifest.json", manifest)
     return manifest
 
@@ -648,7 +687,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", choices=data.available_datasets(), required=True)
-    parser.add_argument("--family", choices=sorted(data.load_families()), required=True)
+    parser.add_argument("--family", required=True)
+    parser.add_argument(
+        "--candidate-family-spec",
+        type=Path,
+        help="Hash-bound inactive family specification; permitted modes are enforced.",
+    )
     parser.add_argument("--mode", choices=MODES, required=True)
     parser.add_argument("--bundle", type=Path, help="Validated reference bundle used only by hidden verifiers.")
     parser.add_argument("--input", type=Path, help="Prepared raw input; required for build-consult.")
@@ -696,6 +740,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 staged_input,
                 args.verifier_network_mode,
                 args.agent_network_mode,
+                args.candidate_family_spec,
             )
             digest = data.tree_digest(candidate)
             if args.check:
@@ -723,7 +768,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         finally:
             if candidate.exists():
                 shutil.rmtree(candidate)
-    except (data.DatasetError, GenerationError) as exc:
+    except (data.DatasetError, candidates.CandidateFamilyError, GenerationError) as exc:
         raise SystemExit(str(exc)) from exc
 
 

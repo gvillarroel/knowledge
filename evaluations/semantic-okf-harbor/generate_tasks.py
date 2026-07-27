@@ -144,7 +144,7 @@ def verifier_dockerfile() -> str:
 
     return f"""FROM {RUNTIME_TAG}
 COPY . /tests
-RUN chmod 0555 /tests/test.sh /tests/score.py
+RUN chmod 0555 /tests/test.sh /tests/score.py /tests/trace_status.py
 WORKDIR /tests
 """
 
@@ -253,7 +253,12 @@ def generate(
     combination = load_json(combination_path)
     ledger_rows, ledger = ledger_index(ledger_path)
     splits = split_map(HERE / "splits.json")
-    grader_files = [HERE / "grader/score.py", HERE / "grader/test.sh", HERE / "grader/answer.schema.json"]
+    grader_files = [
+        HERE / "grader/score.py",
+        HERE / "grader/trace_status.py",
+        HERE / "grader/test.sh",
+        HERE / "grader/answer.schema.json",
+    ]
     for row in questions:
         identifier = str(row["id"])
         task_dir = output / splits[identifier] / identifier

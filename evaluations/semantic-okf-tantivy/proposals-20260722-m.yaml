@@ -1,0 +1,215 @@
+proposals:
+  - id: split-generic-and-required-query-targets
+    diagnosis: >-
+      q039 passes with four literal final sources plus a wider required-query pool.
+      Generic q001 reaches eight relevant papers and q031 reaches its minimum, while
+      q013's six-row aggregate-source selection covers only three relevant papers. For
+      generic synthesis, restore the proven relevance margin in the final set and keep
+      exactly one best RRF passage per source; retain literal targets and a wider
+      multi-passage pool only for explicit required-term comparisons.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-51a4476076:baa4cc50-b04c-49fa-a6de-fda57afe9405
+      - development-candidate-01-51a4476076:61e4c631-c1da-4e83-bff7-a31a6c18216b
+      - development-candidate-01-51a4476076:6b984999-96e9-45aa-851c-a302d583010b
+      - development-candidate-01-51a4476076:d4a15037-d4b8-41c6-bdc4-730d89b1152a
+    conflictGroup: conditional-target-modes
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+                  if args.minimum_sources == 0:
+                      args.answer_target = 4
+                  else:
+                      args.answer_target = args.minimum_sources
+                  if args.answer_target > 10:
+                      args.source_target = args.answer_target
+                  else:
+                      source_margin = 2 if args.minimum_sources == 0 else 4
+                      args.source_target = min(
+                          args.answer_target + source_margin, 10
+                      )
+                  args.max_results = max(
+                      args.source_target,
+                      min(16, args.source_target + 6),
+                  )
+    content: |2
+                  has_required_query = any(
+                      token.startswith("+") and len(token) > 1
+                      for query in args.query
+                      for token in query.split()
+                  )
+                  public_target = (
+                      4 if args.minimum_sources == 0 else args.minimum_sources
+                  )
+                  if has_required_query:
+                      args.answer_target = public_target
+                      args.source_target = (
+                          public_target
+                          if public_target > 10
+                          else min(public_target + 2, 10)
+                      )
+                      args.max_results = max(
+                          args.source_target,
+                          min(16, args.source_target + 6),
+                      )
+                  else:
+                      args.answer_target = (
+                          public_target
+                          if public_target > 10 or args.minimum_sources == 0
+                          else min(public_target + 2, 10)
+                      )
+                      args.source_target = args.answer_target
+                      args.max_results = args.answer_target
+
+  - id: bounded-source-rrf-order-for-generic-synthesis
+    diagnosis: >-
+      q013's multi-passage aggregate order covered only three of six required documents.
+      q001 and q031 still reached their semantic minimums, while q039 confirms that
+      reserved required-query sources should remain intact. For queries without explicit
+      `+terms`, reproduce the earlier bounded workflow: rank each source by its total RRF
+      across all returned passages and break ties by its best passage rank, without the
+      extra query-coverage key used by the multi-passage mode.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-51a4476076:baa4cc50-b04c-49fa-a6de-fda57afe9405
+      - development-candidate-01-51a4476076:61e4c631-c1da-4e83-bff7-a31a6c18216b
+      - development-candidate-01-51a4476076:6b984999-96e9-45aa-851c-a302d583010b
+      - development-candidate-01-51a4476076:d4a15037-d4b8-41c6-bdc4-730d89b1152a
+    conflictGroup: conditional-bounded-source-order
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          for identity in identity_order:
+              if len(selected_identities) >= args.source_target:
+                  break
+              if identity not in selected_identities:
+                  selected_identities.append(identity)
+    content: |2
+          fallback_identity_order = identity_order
+          if not required_query_indices:
+              fallback_identity_order = sorted(
+                  by_identity,
+                  key=lambda identity: (
+                      -sum(
+                          row["rrf_score"] for row in by_identity[identity]
+                      ),
+                      min(
+                          row["best_rank"] for row in by_identity[identity]
+                      ),
+                      identity,
+                  ),
+              )
+          for identity in fallback_identity_order:
+              if len(selected_identities) >= args.source_target:
+                  break
+              if identity not in selected_identities:
+                  selected_identities.append(identity)
+
+  - id: best-ranked-passage-per-generic-source
+    diagnosis: >-
+      q013's multi-passage pack exposed several passages per paper and covered only
+      three required documents, while q001 and q031 show that one exact passage per
+      relevant paper is sufficient to meet their semantic gates. In generic mode choose
+      the smallest per-query rank, with document identity as a deterministic tie-break;
+      preserve the multi-passage first-row behavior for required comparisons such as
+      passing q039.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-51a4476076:baa4cc50-b04c-49fa-a6de-fda57afe9405
+      - development-candidate-01-51a4476076:61e4c631-c1da-4e83-bff7-a31a6c18216b
+      - development-candidate-01-51a4476076:6b984999-96e9-45aa-851c-a302d583010b
+      - development-candidate-01-51a4476076:d4a15037-d4b8-41c6-bdc4-730d89b1152a
+    conflictGroup: conditional-best-passage
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          selected = [by_identity[identity][0] for identity in selected_identities]
+    content: |2
+          selected = [
+              (
+                  by_identity[identity][0]
+                  if required_query_indices
+                  else min(
+                      by_identity[identity],
+                      key=lambda row: (
+                          row["best_rank"],
+                          row["hit"]["document_id"],
+                      ),
+                  )
+              )
+              for identity in selected_identities
+          ]
+
+  - id: compact-terminal-json-emission
+    diagnosis: >-
+      q001 covered eight of eight required papers and q031 met its document gate, but
+      each final response corrupted one exact evidence identity after the finalizer had
+      emitted a valid indented document. Emit one compact JSON line to reduce the
+      transcription surface while retaining the required insertion order and exact
+      values.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-51a4476076:baa4cc50-b04c-49fa-a6de-fda57afe9405
+      - development-candidate-01-51a4476076:6b984999-96e9-45aa-851c-a302d583010b
+    conflictGroup: compact-terminal-json
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          print(
+              json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  indent=2,
+                  allow_nan=False,
+              )
+          )
+    content: |2
+          print(
+              json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  separators=(",", ":"),
+                  allow_nan=False,
+              )
+          )
+
+  - id: document-two-terminal-retrieval-modes
+    diagnosis: >-
+      The l cohort shows two complementary modes: required named comparisons pass with
+      reserved `+term` slots, whereas generic synthesis benefits from the bounded
+      one-passage relevance margin; q001 and q031 then need a safer terminal handoff.
+      Document the mode switch and compact-copy contract as the sole terminal workflow.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-51a4476076:baa4cc50-b04c-49fa-a6de-fda57afe9405
+      - development-candidate-01-51a4476076:61e4c631-c1da-4e83-bff7-a31a6c18216b
+      - development-candidate-01-51a4476076:6b984999-96e9-45aa-851c-a302d583010b
+      - development-candidate-01-51a4476076:d4a15037-d4b8-41c6-bdc4-730d89b1152a
+    conflictGroup: terminal-two-mode-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Two terminal retrieval modes
+
+      This section supersedes all earlier final-target, source-order, and output-format
+      rules. Always pass the literal public minimum to `--minimum-sources`, or `0` when
+      none is stated. The helper chooses one of two deterministic modes:
+
+      - If no query contains an explicit `+term`, generic synthesis mode ranks papers by
+        their total source-level RRF, selects the best-ranked passage from each paper,
+        keeps one passage per paper, and sets `answer_target` to the public minimum plus
+        two, capped at ten. With no public minimum it uses four. These extra final rows
+        are the relevance margin.
+      - If any query contains an explicit `+term`, named-comparison mode reserves one
+        source per required query, uses aggregate source fallback and multi-passage
+        review candidates, and keeps `answer_target` at the literal public minimum or
+        four when none is stated. Use `+terms` only for methods explicitly named by the
+        question.
+
+      In both modes use exactly one final evidence row from each of exactly
+      `answer_target` papers and pass the printed target unchanged to the finalizer.
+      The finalizer emits one compact JSON line. After its first successful output, do
+      not pretty-print, parse, rewrite, normalize, shorten, or reconstruct it. Copy the
+      complete line byte-for-byte as the very next assistant response, preserving every
+      path suffix such as `.md` and every hash character.

@@ -1,0 +1,75 @@
+proposals:
+  - id: allow-one-successful-concise-repair
+    diagnosis: >-
+      R3 q001 exceeded the 1200-character prose budget twice, so no terminal file was
+      produced and the agent manually reconstructed evidence. R3 q013 passed after the
+      same role-driven retrieval. Raise the hard safety ceiling enough for one concise
+      repair to succeed while retaining the documented 1200-character drafting aim.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-ed2dcc0fbf:a12817f7-254f-4a17-8373-069c74c46664
+      - development-candidate-01-ed2dcc0fbf:703e7e7a-0d76-4d40-881f-bb5fd1d2753a
+    conflictGroup: terminal-text-safety-ceiling
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+      MAX_CLAIMS = 6
+      MAX_SEMANTIC_TEXT_CHARS = 1200
+    content: |2
+      MAX_CLAIMS = 6
+      MAX_SEMANTIC_TEXT_CHARS = 1600
+
+  - id: use-zero-indent-line-anchored-json
+    diagnosis: >-
+      R2 q001 changed a three-character hash fragment in a 5329-character indented
+      response, while R3 q013 and q039 show that line boundaries preserve exact
+      structure. Keep multiline boundaries but remove indentation whitespace to reduce
+      terminal size and repeated alignment tokens.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-ed2dcc0fbf:a12817f7-254f-4a17-8373-069c74c46664
+      - development-candidate-01-ed2dcc0fbf:703e7e7a-0d76-4d40-881f-bb5fd1d2753a
+      - development-candidate-01-ed2dcc0fbf:2205f45f-b274-46d5-bef5-fef98dabf1fc
+    conflictGroup: zero-indent-terminal-json
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+                  ensure_ascii=False,
+                  indent=2,
+                  allow_nan=False,
+    content: |2
+                  ensure_ascii=False,
+                  indent=0,
+                  allow_nan=False,
+
+  - id: document-draft-aim-and-finalizer-safety-ceiling
+    diagnosis: >-
+      R3 q001 failed only because both attempts exceeded the hard prose limit and then
+      bypassed the deterministic finalizer, whereas q013 and q039 passed with the same
+      retrieval and role rules. Distinguish the preferred compact drafting aim from a
+      slightly larger one-repair safety ceiling and prohibit manual fallback.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-ed2dcc0fbf:a12817f7-254f-4a17-8373-069c74c46664
+      - development-candidate-01-ed2dcc0fbf:703e7e7a-0d76-4d40-881f-bb5fd1d2753a
+      - development-candidate-01-ed2dcc0fbf:d3e0ead0-8fce-4d67-8569-01f9fefbedeb
+      - development-candidate-01-ed2dcc0fbf:2205f45f-b274-46d5-bef5-fef98dabf1fc
+    conflictGroup: terminal-repair-safety-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Terminal repair safety ceiling
+
+      This section supersedes the earlier statement that 1200 characters is the hard
+      finalizer limit. Aim for at most 1200 characters of summary-plus-claim prose on
+      the first draft. The deterministic finalizer permits up to 1600 characters so
+      one concise repair can still complete. If the first draft is rejected, group or
+      shorten claims to fit below 1600 and run the one permitted repair. Never bypass a
+      second finalizer error by manually constructing evidence JSON; return null only
+      if the supported answer itself cannot be expressed, not because prose was long.
+
+      The terminal file remains structured multiline JSON, now with zero indentation.
+      Each brace, key, value, and array item remains separated by line boundaries.
+      After the exact `read`, copy every line unchanged without adding indentation,
+      minifying, or reformatting.

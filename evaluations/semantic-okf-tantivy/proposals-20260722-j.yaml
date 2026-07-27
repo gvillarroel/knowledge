@@ -1,0 +1,95 @@
+proposals:
+  - id: round-robin-source-coverage-by-query
+    diagnosis: >-
+      q001 passed after five broad taxonomy queries contributed a diverse evidence
+      pool, while q039 returned null even though its five queries explicitly named
+      GraphRAG, LightRAG, HippoRAG, GraphReader, and cost-quality trade-offs. The
+      aggregate source score can let broadly matching papers occupy every source slot
+      and erase a method-specific query. Fill source slots round-robin from each
+      query's best independent paper, then use aggregate source ranking as fallback;
+      this preserves BM25/RRF ordering within a query while guaranteeing that precise
+      named dimensions can contribute candidates.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-9294b2f110:0ea556d2-b1b9-4eb5-bb3b-89bf3673bb6d
+      - development-candidate-01-9294b2f110:22d71975-9bc4-4ddf-85bf-a88583b44d8e
+    conflictGroup: query-source-coverage
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          selected_identities = identity_order[: args.source_target]
+    content: |2
+          query_identity_order: list[list[str]] = []
+          for query_index in range(len(args.query)):
+              candidates: list[tuple[int, float, int, str]] = []
+              for identity, rows in by_identity.items():
+                  matching_ranks = [
+                      rank["rank"]
+                      for row in rows
+                      for rank in row["query_ranks"]
+                      if rank["query_index"] == query_index
+                  ]
+                  if matching_ranks:
+                      candidates.append(
+                          (
+                              min(matching_ranks),
+                              -sum(row["rrf_score"] for row in rows),
+                              min(row["best_rank"] for row in rows),
+                              identity,
+                          )
+                      )
+              query_identity_order.append(
+                  [identity for *_, identity in sorted(candidates)]
+              )
+
+          selected_identities: list[str] = []
+          query_cursors = [0] * len(query_identity_order)
+          while len(selected_identities) < args.source_target:
+              added = False
+              for query_index, candidates in enumerate(query_identity_order):
+                  cursor = query_cursors[query_index]
+                  while (
+                      cursor < len(candidates)
+                      and candidates[cursor] in selected_identities
+                  ):
+                      cursor += 1
+                  query_cursors[query_index] = cursor
+                  if cursor < len(candidates):
+                      selected_identities.append(candidates[cursor])
+                      query_cursors[query_index] += 1
+                      added = True
+                      if len(selected_identities) >= args.source_target:
+                          break
+              if not added:
+                  break
+          for identity in identity_order:
+              if len(selected_identities) >= args.source_target:
+                  break
+              if identity not in selected_identities:
+                  selected_identities.append(identity)
+
+  - id: document-query-round-robin-selection
+    diagnosis: >-
+      q001's broad query set passed, but q039's method-specific query set returned
+      null because aggregate source ranking did not promise one candidate path per
+      named method. Document the new selection contract so future queries map one
+      named method or comparison dimension to each precise query and rely on the
+      helper's deterministic query-round-robin source allocation.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-9294b2f110:0ea556d2-b1b9-4eb5-bb3b-89bf3673bb6d
+      - development-candidate-01-9294b2f110:22d71975-9bc4-4ddf-85bf-a88583b44d8e
+    conflictGroup: document-query-source-coverage
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Query-balanced source selection
+
+      The evidence-pack helper fills source slots round-robin from the best independent
+      source for each query before falling back to aggregate source ranking. Make every
+      precise query represent one named method, mechanism, comparison baseline, quality
+      dimension, or counterexample from the question. Do not spend multiple query slots
+      on generic restatements when the question names distinct systems. This allocation
+      guarantees candidate coverage, not relevance: read the selected claims and return
+      `answer: null` if they still do not support every material answer claim.

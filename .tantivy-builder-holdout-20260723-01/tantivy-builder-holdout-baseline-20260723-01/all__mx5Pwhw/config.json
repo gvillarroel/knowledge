@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-builder-v1/holdout/all"
+    },
+    "trial_name": "all__mx5Pwhw",
+    "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-holdout-20260723-01/tantivy-builder-holdout-baseline-20260723-01",
+    "agent": {
+        "name": "oracle",
+        "n_concurrent": 1,
+        "skills": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/baseline/skills/build-semantic-okf-tantivy"
+        ]
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-builder-evolution/runtime-inputs/classical",
+                "target": "/dataset",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ]
+    },
+    "job_id": "fdca57b7-2701-486d-bfd0-fe5733434b24"
+}

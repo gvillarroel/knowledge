@@ -1,0 +1,260 @@
+proposals:
+  - id: expose-public-and-required-query-state
+    diagnosis: >-
+      q001 found eight independent sources, exactly its public minimum, but returned
+      null because the desired ten-source generic margin was treated as mandatory.
+      q013 reached its eight-source margin and passed. Persist the public target and
+      required-query mode on the parsed arguments so the pack can distinguish a missing
+      optional margin from a missing qualification minimum.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2d0726e289:e8bef1d5-ff0c-437d-b742-f4561f73b3ff
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+    conflictGroup: public-target-state
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+              if args.minimum_sources is None:
+                  args.answer_target = args.source_target
+              else:
+                  if not 0 <= args.minimum_sources <= 30:
+                      raise SnapshotError(
+                          "minimum_sources must be from 0 through 30"
+                      )
+                  has_required_query = any(
+                      token.startswith("+") and len(token) > 1
+                      for query in args.query
+                      for token in query.split()
+                  )
+                  public_target = (
+                      4 if args.minimum_sources == 0 else args.minimum_sources
+                  )
+                  if has_required_query:
+    content: |2
+              args.has_required_query = any(
+                  token.startswith("+") and len(token) > 1
+                  for query in args.query
+                  for token in query.split()
+              )
+              if args.minimum_sources is None:
+                  args.answer_target = args.source_target
+                  args.public_target = args.source_target
+              else:
+                  if not 0 <= args.minimum_sources <= 30:
+                      raise SnapshotError(
+                          "minimum_sources must be from 0 through 30"
+                      )
+                  args.public_target = (
+                      4 if args.minimum_sources == 0 else args.minimum_sources
+                  )
+                  public_target = args.public_target
+                  if args.has_required_query:
+
+  - id: clamp-unfilled-generic-margin-to-public-target
+    diagnosis: >-
+      q001's filtered pack found eight sources against a desired margin of ten, then a
+      permitted unfiltered fallback degraded to seven and forced a null answer. q013
+      shows that the generic eight-source path passes when the margin exists. If a
+      generic query set reaches the public minimum but not the optional margin, clamp
+      all derived targets to the available source count and return the valid pack.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-2d0726e289:e8bef1d5-ff0c-437d-b742-f4561f73b3ff
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+    conflictGroup: adaptive-generic-margin
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+          if len(identity_order) < args.source_target:
+              raise SnapshotError(
+                  f"pack found {len(identity_order)} independent sources; "
+                  f"target is {args.source_target}"
+              )
+    content: |2
+          if len(identity_order) < args.source_target:
+              if (
+                  not args.has_required_query
+                  and len(identity_order) >= args.public_target
+              ):
+                  args.answer_target = len(identity_order)
+                  args.source_target = len(identity_order)
+                  args.max_results = len(identity_order)
+              else:
+                  raise SnapshotError(
+                      f"pack found {len(identity_order)} independent sources; "
+                      f"target is {args.source_target}"
+                  )
+
+  - id: add-terminal-output-file-option
+    diagnosis: >-
+      q013's compact finalizer output was copied exactly and passed, while q031 changed
+      two characters inside otherwise valid record hashes during the assistant handoff.
+      Let the finalizer write the validated compact document to an explicit file and
+      return only a digest receipt, enabling a direct file-read handoff.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+      - development-candidate-01-2d0726e289:81a62b05-7c0a-4885-b21a-8df48746dcdc
+    conflictGroup: terminal-output-file
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+      import argparse
+      import json
+      import sys
+    content: |2
+      import argparse
+      import hashlib
+      import json
+      import sys
+
+  - id: parse-terminal-output-file
+    diagnosis: >-
+      q013 proves compact serialization is valid, while q031's final transcription
+      altered exact hashes. Add an optional output path to the deterministic finalizer
+      so the terminal workflow can separate validation from the final direct read.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+      - development-candidate-01-2d0726e289:81a62b05-7c0a-4885-b21a-8df48746dcdc
+    conflictGroup: terminal-output-argument
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          parser.add_argument("--min-sources", type=int, default=1)
+          return parser
+    content: |2
+          parser.add_argument("--min-sources", type=int, default=1)
+          parser.add_argument("--output", type=Path)
+          return parser
+
+  - id: write-terminal-file-and-digest-receipt
+    diagnosis: >-
+      q031 corrupted two hash substrings after receiving a valid compact tool result,
+      whereas q013 copied the same format successfully. Write the already validated
+      compact JSON to a path outside the read-only bundle and emit only a SHA-256
+      receipt; the agent can then use its exact file-read tool for the terminal copy.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+      - development-candidate-01-2d0726e289:81a62b05-7c0a-4885-b21a-8df48746dcdc
+    conflictGroup: terminal-file-write
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+              payload = finalize(
+                  args.bundle,
+                  _load_object(args.pack, str(args.pack)),
+                  _load_object(args.draft, str(args.draft)),
+                  args.min_sources,
+              )
+    content: |2
+              payload = finalize(
+                  args.bundle,
+                  _load_object(args.pack, str(args.pack)),
+                  _load_object(args.draft, str(args.draft)),
+                  args.min_sources,
+              )
+              rendered = json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  separators=(",", ":"),
+                  allow_nan=False,
+              )
+              terminal_output = rendered
+              if args.output is not None:
+                  output = args.output.resolve()
+                  bundle = args.bundle.resolve()
+                  if output == bundle or bundle in output.parents:
+                      raise SnapshotError(
+                          "terminal output must be outside the snapshot"
+                      )
+                  if not output.parent.is_dir():
+                      raise SnapshotError(
+                          "terminal output parent must already exist"
+                      )
+                  output.write_text(rendered + "\n", encoding="utf-8")
+                  terminal_output = json.dumps(
+                      {
+                          "status": "pass",
+                          "output": str(output),
+                          "sha256": hashlib.sha256(
+                              rendered.encode("utf-8")
+                          ).hexdigest(),
+                      },
+                      sort_keys=True,
+                      separators=(",", ":"),
+                  )
+
+  - id: emit-terminal-output-or-receipt
+    diagnosis: >-
+      q013 validates the compact serialization and q031 demonstrates that regenerating
+      it in the final response can corrupt hashes. Print either the compact document or
+      the small output-file receipt prepared inside the protected finalization block.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+      - development-candidate-01-2d0726e289:81a62b05-7c0a-4885-b21a-8df48746dcdc
+    conflictGroup: terminal-receipt-emission
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          print(
+              json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  separators=(",", ":"),
+                  allow_nan=False,
+              )
+          )
+    content: |2
+          print(terminal_output)
+
+  - id: document-adaptive-margin-direct-read-and-partial-caveats
+    diagnosis: >-
+      q001 failed because an optional generic margin was unavailable despite meeting
+      its public minimum; q031 corrupted hashes after finalization; q039 had four
+      dedicated named-method sources but returned null because not every caveat was
+      equally explicit. Document adaptive margins, direct file handoff, and claim-level
+      omission of unsupported caveats without discarding supported comparisons.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-2d0726e289:e8bef1d5-ff0c-437d-b742-f4561f73b3ff
+      - development-candidate-01-2d0726e289:1f9b2fa5-1462-4499-87f9-656e82b08205
+      - development-candidate-01-2d0726e289:81a62b05-7c0a-4885-b21a-8df48746dcdc
+      - development-candidate-01-2d0726e289:9725eda4-3365-449d-bf57-9529e9db1060
+    conflictGroup: terminal-adaptive-and-direct-read-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Adaptive margins and direct terminal file handoff
+
+      This section supersedes every earlier fallback and terminal-copy instruction.
+      In generic synthesis mode, the two-paper margin is desirable but not mandatory.
+      If the filtered pack reaches the literal public minimum but not the derived
+      margin, the helper reduces `answer_target` to the available source count and
+      returns `status: pass`. Do not run the unfiltered fallback after that pass. A
+      fallback remains allowed only after an actual `status: error`.
+
+      In named-comparison mode, a supported mechanism or exact baseline remains usable
+      even when the same paper does not state a separate quality trade-off. Omit the
+      unsupported caveat from that claim; do not discard all supported method evidence
+      or return null merely because caveat detail is asymmetric across methods. Every
+      statement that remains must still be directly supported by its selected claim.
+
+      Always finalize to a terminal file outside the snapshot:
+
+      ```bash
+      python scripts/finalize_bounded_answer.py BUNDLE \
+        /tmp/tantivy-evidence-pack.json /tmp/answer-draft.json \
+        --min-sources ANSWER_TARGET_FROM_PACK \
+        --output /tmp/tantivy-final-answer.json
+      ```
+
+      A successful command prints only a `status`, `output`, and `sha256` receipt. The
+      next and only tool call must be the agent's exact `read` tool on
+      `/tmp/tantivy-final-answer.json`; do not use `cat`, another script, or a shell
+      read. After that tool result, return its single complete JSON line byte-for-byte
+      as the next assistant response. Do not parse, pretty-print, normalize, or retype
+      hashes or paths.

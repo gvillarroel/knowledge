@@ -1,0 +1,343 @@
+proposals:
+  - id: multi-passage-tantivy-pack
+    diagnosis: >-
+      q001 returned null when a ten-source claim-only target could not be met, while
+      q039 returned null after a successful six-source pack because one passage per
+      paper could not cover mechanism, cost, and quality for the same methods. Both
+      tasks completed cheaply and safely, so the remaining problem is pack shape rather
+      than search volume. A source-diverse first round followed by round-robin passages
+      from the selected papers preserves boundedness while exposing multiple named
+      aspects.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-64a672f3e1:3ded4ff8-b95f-46d5-a8ff-2c007ca1f37c
+      - development-candidate-01-64a672f3e1:4ab8a64b-5354-4766-9f84-45d4f5fdc595
+    conflictGroup: multi-passage-pack
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: create
+    content: |
+      #!/usr/bin/env python3
+      """Build a compact source-diverse, multi-passage Tantivy evidence pack."""
+
+      from __future__ import annotations
+
+      import argparse
+      import json
+      import sys
+      from collections import defaultdict
+      from pathlib import Path
+      from typing import Any
+
+      from _tantivy_snapshot import SnapshotError, load_snapshot, search_snapshot
+      from bounded_workflow import _evidence, _preview, _write_full
+
+
+      def _configure_utf8() -> None:
+          for stream in (sys.stdout, sys.stderr):
+              reconfigure = getattr(stream, "reconfigure", None)
+              if callable(reconfigure):
+                  try:
+                      reconfigure(encoding="utf-8")
+                  except (AttributeError, OSError, ValueError):
+                      pass
+
+
+      def _identity(hit: dict[str, Any]) -> str:
+          value = hit.get("paper_id") or hit["source_id"]
+          if not isinstance(value, str) or not value:
+              raise SnapshotError("search hit has no source identity")
+          return value
+
+
+      def build_pack(args: argparse.Namespace) -> dict[str, Any]:
+          snapshot = load_snapshot(args.bundle)
+          accumulated: dict[str, dict[str, Any]] = {}
+          for query_index, query in enumerate(args.query):
+              response = search_snapshot(
+                  snapshot,
+                  query,
+                  args.top_k_per_query,
+                  source_ids=args.source_id,
+                  concept_ids=args.concept_id,
+                  concept_types=args.concept_type,
+              )
+              for hit in response["results"]:
+                  row = accumulated.setdefault(
+                      hit["document_id"],
+                      {
+                          "hit": hit,
+                          "rrf_score": 0.0,
+                          "query_ranks": [],
+                          "best_rank": hit["rank"],
+                      },
+                  )
+                  row["rrf_score"] += 1.0 / (60 + hit["rank"])
+                  row["query_ranks"].append(
+                      {
+                          "query_index": query_index,
+                          "query": query,
+                          "rank": hit["rank"],
+                      }
+                  )
+                  row["best_rank"] = min(row["best_rank"], hit["rank"])
+
+          ranked = sorted(
+              accumulated.values(),
+              key=lambda row: (
+                  -row["rrf_score"],
+                  -len({rank["query_index"] for rank in row["query_ranks"]}),
+                  row["best_rank"],
+                  row["hit"]["document_id"],
+              ),
+          )
+          by_identity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+          identity_order: list[str] = []
+          for row in ranked:
+              identity = _identity(row["hit"])
+              if identity not in by_identity:
+                  identity_order.append(identity)
+              by_identity[identity].append(row)
+          if len(identity_order) < args.source_target:
+              raise SnapshotError(
+                  f"pack found {len(identity_order)} independent sources; "
+                  f"target is {args.source_target}"
+              )
+
+          selected_identities = identity_order[: args.source_target]
+          selected = [by_identity[identity][0] for identity in selected_identities]
+          depth = 1
+          while len(selected) < args.max_results:
+              added = False
+              for identity in selected_identities:
+                  rows = by_identity[identity]
+                  if depth < len(rows):
+                      selected.append(rows[depth])
+                      added = True
+                      if len(selected) >= args.max_results:
+                          break
+              if not added:
+                  break
+              depth += 1
+
+          full_results: list[dict[str, Any]] = []
+          compact_results: list[dict[str, Any]] = []
+          for pack_index, row in enumerate(selected):
+              hit = row["hit"]
+              query_ranks = sorted(
+                  row["query_ranks"],
+                  key=lambda rank: (rank["query_index"], rank["rank"]),
+              )
+              full_results.append(
+                  {
+                      "pack_index": pack_index,
+                      "source_identity": _identity(hit),
+                      "rrf_score": row["rrf_score"],
+                      "query_ranks": query_ranks,
+                      **hit,
+                  }
+              )
+              compact_results.append(
+                  {
+                      "pack_index": pack_index,
+                      "source_identity": _identity(hit),
+                      "paper_id": hit["paper_id"],
+                      "concept_type": hit["concept_type"],
+                      "query_ranks": query_ranks,
+                      "evidence": _evidence(hit),
+                      "preview": _preview(
+                          hit["text"], args.query, args.preview_chars
+                      ),
+                      "full_text_chars": len(hit["text"]),
+                      "preview_is_complete": len(hit["text"])
+                      <= args.preview_chars,
+                  }
+              )
+          full = {
+              "schema_version": "1.0",
+              "status": "pass",
+              "authoritative": False,
+              "discovery_only": True,
+              "queries": args.query,
+              "source_target": args.source_target,
+              "source_count": len(selected_identities),
+              "max_results": args.max_results,
+              "result_count": len(full_results),
+              "results": full_results,
+          }
+          _write_full(args.full_output, snapshot.root, full)
+          return {
+              "schema_version": "1.0",
+              "status": "pass",
+              "authoritative": False,
+              "discovery_only": True,
+              "queries": args.query,
+              "source_target": args.source_target,
+              "source_count": len(selected_identities),
+              "max_results": args.max_results,
+              "result_count": len(compact_results),
+              "full_output": str(args.full_output),
+              "selection": "source-diverse-then-round-robin",
+              "results": compact_results,
+          }
+
+
+      def build_parser() -> argparse.ArgumentParser:
+          parser = argparse.ArgumentParser(description=__doc__)
+          parser.add_argument("bundle", type=Path)
+          parser.add_argument("--query", action="append", required=True)
+          parser.add_argument("--top-k-per-query", type=int, default=8)
+          parser.add_argument("--source-target", type=int, default=4)
+          parser.add_argument("--max-results", type=int, default=10)
+          parser.add_argument("--preview-chars", type=int, default=800)
+          parser.add_argument("--full-output", type=Path, required=True)
+          parser.add_argument("--source-id", action="append", default=[])
+          parser.add_argument("--concept-id", action="append", default=[])
+          parser.add_argument("--concept-type", action="append", default=[])
+          return parser
+
+
+      def main(argv: list[str] | None = None) -> int:
+          _configure_utf8()
+          args = build_parser().parse_args(argv)
+          try:
+              if not 3 <= len(args.query) <= 5:
+                  raise SnapshotError("pack requires from 3 through 5 queries")
+              if not 5 <= args.top_k_per_query <= 20:
+                  raise SnapshotError("top_k_per_query must be from 5 through 20")
+              if not 1 <= args.source_target <= 30:
+                  raise SnapshotError("source_target must be from 1 through 30")
+              if not args.source_target <= args.max_results <= 30:
+                  raise SnapshotError(
+                      "max_results must be from source_target through 30"
+                  )
+              if not 200 <= args.preview_chars <= 2000:
+                  raise SnapshotError("preview_chars must be from 200 through 2000")
+              result = build_pack(args)
+          except (
+              SnapshotError,
+              OSError,
+              UnicodeError,
+              ValueError,
+              TypeError,
+              KeyError,
+              IndexError,
+          ) as exc:
+              print(
+                  json.dumps(
+                      {
+                          "status": "error",
+                          "code": "evidence-pack-error",
+                          "error": str(exc),
+                      },
+                      ensure_ascii=False,
+                      sort_keys=True,
+                  )
+              )
+              return 2
+          print(json.dumps(result, ensure_ascii=False, sort_keys=True, allow_nan=False))
+          return 0
+
+
+      if __name__ == "__main__":
+          raise SystemExit(main())
+
+  - id: exact-answer-source-count
+    diagnosis: >-
+      q001 failed safely because the retrieval margin was also enforced as the final
+      answer minimum, while q013 copied eight evidence rows even though six independent
+      papers were sufficient and then suffered one transcription error. Separate pack
+      breadth from final answer breadth and enforce exactly the public answer-source
+      target while permitting multiple rows only when the selected papers need more
+      than one named aspect.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-64a672f3e1:3ded4ff8-b95f-46d5-a8ff-2c007ca1f37c
+      - development-candidate-01-64a672f3e1:5ec87db8-55b8-412c-bcbb-254bb988670e
+    conflictGroup: exact-answer-source-count
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+          if len(identities) < minimum_sources:
+              raise SnapshotError(
+                  f"draft uses {len(identities)} independent sources; "
+                  f"minimum is {minimum_sources}"
+              )
+    content: |2
+          if len(identities) != minimum_sources:
+              raise SnapshotError(
+                  f"draft uses {len(identities)} independent sources; "
+                  f"exactly {minimum_sources} are required"
+              )
+
+  - id: teach-multi-passage-pack
+    diagnosis: >-
+      q001 showed that a uniform two-source margin is too strict for an eight-paper
+      minimum, q013 showed that an eight-paper retrieval pool covers a six-paper answer,
+      and q039 showed that one claim per paper omits named comparison dimensions. The
+      skill needs separate source, result, and answer targets plus the multi-passage
+      helper as the sole normal retrieval path.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-64a672f3e1:3ded4ff8-b95f-46d5-a8ff-2c007ca1f37c
+      - development-candidate-01-64a672f3e1:5ec87db8-55b8-412c-bcbb-254bb988670e
+      - development-candidate-01-64a672f3e1:4ab8a64b-5354-4766-9f84-45d4f5fdc595
+    conflictGroup: multi-passage-pack-guidance
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Multi-passage evidence pack workflow
+
+      This section supersedes the preceding bounded cross-document workflow for every
+      comparative, taxonomy, multi-paper, or synthesis question. Let `MINIMUM` be the
+      public independent-paper minimum. Define:
+
+      - `ANSWER_TARGET = MINIMUM`, or `4` when no minimum is stated.
+      - `SOURCE_TARGET = MINIMUM + 1` when `MINIMUM >= 8`; otherwise use
+        `MINIMUM + 2`. Cap the margin target at `10`; if `MINIMUM > 10`, use
+        `MINIMUM` itself. With no public minimum, use `4`.
+      - `MAX_RESULTS = min(16, SOURCE_TARGET + 6)`, but never below
+        `SOURCE_TARGET`.
+
+      Install requirements once, run one runtime smoke and one bundle inspection, then
+      issue exactly one normal pack call with three to five precise queries covering all
+      named mechanisms, costs, quality dimensions, and counterevidence:
+
+      ```bash
+      python scripts/prepare_tantivy_evidence_pack.py BUNDLE \
+        --query 'first precise aspect' \
+        --query 'second precise aspect' \
+        --query 'third named mechanism' \
+        --query 'cost or operational constraint' \
+        --query 'quality trade-off or counterevidence' \
+        --top-k-per-query 8 \
+        --source-target SOURCE_TARGET --max-results MAX_RESULTS \
+        --concept-type 'Paper Semantic Claim' --preview-chars 800 \
+        --full-output /tmp/tantivy-evidence-pack.json
+      ```
+
+      The helper validates the snapshot once, fuses Tantivy BM25 ranks, selects one claim
+      from each source first, then adds further claims from those same papers in
+      round-robin order. After a successful pack, do not call the direct query helper,
+      grep, read, open, inspect, or list any `/knowledge` path, and do not run another
+      search. Only when the helper returns `status: error` because `SOURCE_TARGET` was
+      not reached may you run one fallback without the `--concept-type` filter.
+
+      Read the saved pack once. Select claims from exactly `ANSWER_TARGET` independent
+      papers. Prefer one row per paper; add at most two additional rows only when a named
+      comparison dimension requires another claim from an already selected paper.
+      Create `/tmp/answer-draft.json` with exactly `question_id`, `summary`, and `claims`,
+      in that order. Each claim has exactly `statement` and `result_indices`; indices
+      refer to the saved pack's zero-based `results` array. Do not type evidence
+      identities. Finalize with:
+
+      ```bash
+      python scripts/finalize_bounded_answer.py BUNDLE \
+        /tmp/tantivy-evidence-pack.json /tmp/answer-draft.json \
+        --min-sources ANSWER_TARGET
+      ```
+
+      Run the finalizer once. Only if it returns `status: error`, repair exactly the
+      reported draft error and run it one final time. Its first successful output is
+      terminal: return the entire indented JSON document unchanged, with no Markdown
+      fence, prefix, suffix, further reasoning, editing, shortening, or reconstruction.

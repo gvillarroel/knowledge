@@ -1,0 +1,57 @@
+proposals:
+  - id: render-terminal-answer-as-structured-multiline-json
+    diagnosis: >-
+      P q001 and q039 copied compact terminal JSON exactly, but P q013 duplicated a
+      key/value fragment in the third evidence row even though its finalizer file was
+      valid. Keep every semantic and identity byte unchanged while adding indentation
+      and line boundaries that give the model a stable structural anchor per field.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-e187e2e21a:799f0b97-2099-491d-96c1-63bf5f80d91f
+      - development-candidate-01-e187e2e21a:f3b081e1-1c2e-43c6-aa82-0d7bdcd4b7b3
+      - development-candidate-01-e187e2e21a:4bc4a907-d8fc-4381-b785-cd2364c6266c
+    conflictGroup: structured-terminal-json
+    target: scripts/finalize_bounded_answer.py
+    operation: replace
+    old: |2
+              rendered = json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  separators=(",", ":"),
+                  allow_nan=False,
+              )
+    content: |2
+              rendered = json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  indent=2,
+                  allow_nan=False,
+              )
+
+  - id: document-exact-multiline-terminal-handoff
+    diagnosis: >-
+      P q013's compact one-line handoff duplicated a repeated evidence fragment, while
+      P q001 and q039 prove the underlying finalizer, direct-read path, and answer
+      contract are sound. Replace only the one-line-copy instruction with exact
+      multiline JSON copying and retain all selected evidence and prose limits.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-e187e2e21a:799f0b97-2099-491d-96c1-63bf5f80d91f
+      - development-candidate-01-e187e2e21a:f3b081e1-1c2e-43c6-aa82-0d7bdcd4b7b3
+      - development-candidate-01-e187e2e21a:4bc4a907-d8fc-4381-b785-cd2364c6266c
+    conflictGroup: multiline-terminal-handoff-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Exact multiline terminal handoff
+
+      This section supersedes every earlier instruction that describes the terminal
+      answer as compact, minified, or a single line. The finalizer now writes indented
+      multiline JSON. After its success receipt, call the exact `read` tool once on
+      `/tmp/tantivy-final-answer.json`. The next assistant response must copy the whole
+      multiline tool result exactly, from the opening `{` through the closing `}`,
+      preserving every line break, indentation level, key order, path, and hash. Do
+      not wrap it in a Markdown fence and do not minify, reformat, summarize, parse, or
+      regenerate it. Structured line boundaries are part of the anti-transcription
+      contract even though JSON whitespace is semantically insignificant.

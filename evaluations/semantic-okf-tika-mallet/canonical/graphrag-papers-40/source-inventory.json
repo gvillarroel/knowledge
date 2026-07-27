@@ -1,0 +1,107 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-canonical-input/1.0",
+  "dataset_id": "graphrag-papers-40",
+  "source_root": "evaluations/graphrag-cross-paper",
+  "files": [
+    {
+      "path": "sources/pdfs/2402.07630v3.pdf",
+      "sha256": "c88093cd95417a12b8c7166ecc1132c9b52d077a4f73f84e7100e25722902b98",
+      "bytes": 4747389
+    },
+    {
+      "path": "sources/pdfs/2404.16130v2.pdf",
+      "sha256": "730f1a9f38d16689900969a3eeeb1b31e45eda1dcc1f37a043afa90aff76c867",
+      "bytes": 6893854
+    },
+    {
+      "path": "sources/pdfs/2405.14831v3.pdf",
+      "sha256": "14671c78fc7de99d83bb9e52e2d5b335d4756066925e67df1a25c0e272133aad",
+      "bytes": 3404698
+    },
+    {
+      "path": "sources/pdfs/2406.14550v2.pdf",
+      "sha256": "231bd813859812eaff1de3cb78ca0e642a59d7360d84ba11f40c7206a1fef683",
+      "bytes": 757215
+    },
+    {
+      "path": "sources/pdfs/2408.04187v2.pdf",
+      "sha256": "c1f7caa804e849a941fa106272f0fbc3ee0c1ba49fb5b4c45e9ca1d3f1c8a113",
+      "bytes": 3448419
+    },
+    {
+      "path": "sources/pdfs/2408.08535v1.pdf",
+      "sha256": "873d882437481107659a106a1e72c82019b24e47c7b1770675f42f165cf6f7bf",
+      "bytes": 517474
+    },
+    {
+      "path": "sources/pdfs/2409.13731v3.pdf",
+      "sha256": "b18ac8a05ba486b85c4306a49b726e45d5ba24835b305699d79440876f315b72",
+      "bytes": 2140755
+    },
+    {
+      "path": "sources/pdfs/2410.05779v3.pdf",
+      "sha256": "bd72eebf611df1366b251c16ce4eac7aac699e519783c586feb2c5c43899347a",
+      "bytes": 1123301
+    },
+    {
+      "path": "sources/pdfs/2502.14902v2.pdf",
+      "sha256": "b685ea522427cf4692320be264595de20397d3f72e90ece3852acd23e1c8c5f9",
+      "bytes": 910623
+    },
+    {
+      "path": "sources/pdfs/2503.06474v2.pdf",
+      "sha256": "e75c3a408bdd09fefcfc73f638675bfb43112ef1e73c0f32c054d5a4c3957e0a",
+      "bytes": 1000427
+    },
+    {
+      "path": "sources/pdfs/2503.13804v1.pdf",
+      "sha256": "4a3b5991bf11e67488bde476c5df825a1fc5b0a502031057fa13ef9d9b28d50a",
+      "bytes": 846443
+    },
+    {
+      "path": "sources/pdfs/2504.02112v2.pdf",
+      "sha256": "f47c01bd21c0e4e37ac1f638d1daf7ea7bc5452c8dc6f355801727d1512f488d",
+      "bytes": 3458683
+    },
+    {
+      "path": "sources/pdfs/2506.05690v3.pdf",
+      "sha256": "616fdaafce36cbca0d03be044ce554db9a34ffd97c753cc3662d45ce9531cafa",
+      "bytes": 31150461
+    },
+    {
+      "path": "sources/pdfs/2507.03226v3.pdf",
+      "sha256": "b0f6f9495e1ef0e7db1e116316ecc82799e99a90595b616ee8de3c3e2d873fb0",
+      "bytes": 740019
+    },
+    {
+      "path": "sources/pdfs/2508.19855v3.pdf",
+      "sha256": "9061363b164aaba132454e239ecc107076c81f61ecab1eb39cb43405d481e46a",
+      "bytes": 4097809
+    }
+  ],
+  "questions": {
+    "path": "evaluations/semantic-okf-adaptive/retrieval-questions.jsonl",
+    "sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+    "count": 40
+  },
+  "hard_ground_truth": {
+    "path": "evaluations/semantic-okf-adaptive/hard-ground-truth.jsonl",
+    "sha256": "c4e5aa00a85efba41cd18c4de7fda5e2b7f3ce61de9916f55268cfc5afecd388",
+    "count": 10
+  },
+  "ranking_contract": {
+    "selected_route": "fusion",
+    "selection_timing": "frozen-before-canonical-build-and-retrieval",
+    "identity": "paper_id",
+    "duplicate_policy": "keep-first-rank-per-paper",
+    "primary_metrics": [
+      "recall_at_10",
+      "hard_recall_at_10",
+      "mrr_at_10",
+      "ndcg_at_10",
+      "evidence_valid_rate",
+      "mean_latency_ms",
+      "p95_latency_ms"
+    ]
+  }
+}

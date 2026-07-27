@@ -2,7 +2,7 @@
 
 ## Interpretation boundary
 
-This is an artifact-only recalculation of immutable Harbor traces; **no new model calls were made**. Every discovered raw trial was rescored with the current dataset policy and diagnostics schema 3.0. The scorer used each trial's native ledger and crosswalk so exact evidence identities remain valid across family-specific source representations.
+This is an artifact-only recalculation of immutable Harbor traces; **no new model calls were made**. Every raw trial discovered across the declared append-only result roots was rescored with the current dataset policy and diagnostics schema 3.0. The scorer used each trial's native ledger and crosswalk so exact evidence identities remain valid across family-specific source representations.
 
 The reward is a mechanical contract-and-focus diagnostic, not a semantic score. Semantic verdicts remain the documented manual adjudications. The forty curated references are shown only as a calibration surface and are not counted as live trials.
 
@@ -11,64 +11,89 @@ The reward is a mechanical contract-and-focus diagnostic, not a semantic score. 
 | Measure | Value |
 |---|---:|
 | Dataset questions | 40 |
-| Raw Harbor trials rescored | 180 / 180 |
-| Reviewable raw responses | 143 |
-| Legacy reviewed responses without raw bodies | 32 |
+| Raw Harbor trials rescored | 516 / 516 |
+| Primary / additional result-root trials | 180 / 336 |
+| Complete-parent / partial-parent trial artifacts | 503 / 13 |
+| Incomplete parent jobs represented | 4 |
+| Semantically reviewed raw responses | 175 |
+| Primary / recovered historical reviewed responses | 143 / 32 |
+| Emitted raw responses awaiting semantic review | 34 |
+| Legacy reviewed responses without raw bodies | 0 |
 | Total individually reviewable responses | 175 |
-| Current mechanical qualification passes | 99 / 180 |
+| Current mechanical qualification passes | 115 / 516 |
 | Questions with empirical response coverage | 29 / 40 |
 | Reference calibrations passing current contract | 40 / 40 |
-| Comparable rewards increased / decreased / unchanged | 46 / 0 / 128 |
-| Mean original / current reward (comparable trials) | 0.244128 / 0.402476 |
+| Comparable rewards increased / decreased / unchanged | 46 / 3 / 461 |
+| Mean original / current reward (comparable trials) | 0.109322 / 0.160423 |
 
-Trace outcomes: `agent-interrupted`=5, `answer-emitted`=162, `missing-response`=1, `missing-trace`=7, `provider-context-limit`=2, `provider-error`=1, `provider-quota`=2.
+Trace outcomes: `agent-interrupted`=21, `answer-emitted`=209, `missing-response`=1, `missing-trace`=7, `output-limit`=4, `provider-context-limit`=16, `provider-error`=1, `provider-quota`=257.
 
 Empirical full-dataset claim eligible: `false`. Missing empirical questions: `q028`, `q031`, `q032`, `q033`, `q034`, `q035`, `q036`, `q037`, `q038`, `q039`, `q040`.
+
+## Strategy summary
+
+Means and qualification rates use emitted answers only, so provider, agent, and missing-response outcomes remain separate.
+
+| Strategy | Trials | Q | Emitted | No answer | Semantically reviewed | Contract | Qualified | Rate | Mean utility | Mean reward | Semantic P/Pt/F |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `adaptive` | 41 | 40 | 5 | 36 | 5 | 3/5 | 2/5 | 40.0% | 0.313 | 0.172 | P0/Pt5/F0 |
+| `classical` | 40 | 40 | 6 | 34 | 6 | 6/6 | 1/6 | 16.7% | 0.568 | 0.124 | P0/Pt6/F0 |
+| `embeddings` | 40 | 40 | 4 | 36 | 4 | 3/4 | 1/4 | 25.0% | 0.665 | 0.210 | P0/Pt4/F0 |
+| `ensemble` | 40 | 40 | 0 | 40 | 0 | 0/0 | 0/0 | — | — | — | P0/Pt0/F0 |
+| `entity-graph` | 40 | 40 | 4 | 36 | 4 | 1/4 | 0/4 | 0.0% | 0.145 | 0.000 | P0/Pt3/F1 |
+| `graphify` | 40 | 40 | 0 | 40 | 0 | 0/0 | 0/0 | — | — | — | P0/Pt0/F0 |
+| `legacy` | 40 | 40 | 7 | 33 | 7 | 0/7 | 0/7 | 0.0% | 0.000 | 0.000 | P0/Pt7/F0 |
+| `tika-mallet-bounded-v4` | 1 | 1 | 0 | 1 | 0 | 0/0 | 0/0 | — | — | — | P0/Pt0/F0 |
+| `tika-mallet-canonical-text` | 4 | 1 | 2 | 2 | 2 | 2/2 | 1/2 | 50.0% | 0.662 | 0.359 | P0/Pt2/F0 |
+| `tika-mallet-canonical-text-v2` | 6 | 6 | 5 | 1 | 5 | 5/5 | 5/5 | 100.0% | 0.604 | 0.604 | P0/Pt5/F0 |
+| `tika-mallet-canonical-text-v3` | 30 | 30 | 29 | 1 | 29 | 27/29 | 17/29 | 58.6% | 0.655 | 0.402 | P3/Pt26/F0 |
+| `tika-mallet-tantivy-canonical-text` | 154 | 15 | 141 | 13 | 107 | 115/141 | 88/141 | 62.4% | 0.566 | 0.454 | P0/Pt104/F3 |
+| `turso` | 40 | 40 | 6 | 34 | 6 | 0/6 | 0/6 | 0.0% | 0.000 | 0.000 | P0/Pt6/F0 |
 
 ## Every question under the current metrics
 
 | Q | Cohort | Trials | Reviewed raw+legacy | Semantic (P/Pt/F) | Qualified | Latest trial | Latest reviewed | Valid/focus docs | Gate | Utility | Reward | Empirical |
 |---|---|---:|---:|---|---:|---|---|---:|---:|---:|---:|---|
-| q001 | discovery | 10 | 2+1 | P0/Pt3/F0 | 2/10 | provider-error | answer-emitted; partial | 9/9 | 1 | 0.778 | 0.778 | covered |
-| q002 | discovery | 41 | 33+2 | P0/Pt34/F1 | 24/41 | answer-emitted | answer-emitted; partial | 8/6 | 1 | 0.819 | 0.819 | covered |
-| q003 | discovery | 38 | 34+3 | P0/Pt37/F0 | 27/38 | answer-emitted | answer-emitted; partial | 8/7 | 1 | 0.796 | 0.796 | covered |
-| q004 | discovery | 37 | 30+1 | P0/Pt30/F1 | 21/37 | answer-emitted | answer-emitted; partial | 9/7 | 1 | 0.734 | 0.734 | covered |
-| q005 | holdout | 8 | 6+4 | P0/Pt10/F0 | 5/8 | answer-emitted | answer-emitted; partial | 6/2 | 1 | 0.556 | 0.556 | covered |
-| q006 | discovery | 2 | 1+0 | P0/Pt1/F0 | 0/2 | missing-trace | answer-emitted; partial | 8/4 | 0 | 0.494 | 0.000 | covered |
-| q007 | discovery | 2 | 1+1 | P0/Pt2/F0 | 0/2 | missing-trace | answer-emitted; partial | 5/3 | 0 | 0.710 | 0.000 | covered |
-| q008 | discovery | 2 | 1+0 | P1/Pt0/F0 | 0/2 | missing-trace | answer-emitted; pass | 3/1 | 0 | 0.399 | 0.000 | covered |
-| q009 | discovery | 2 | 1+0 | P0/Pt1/F0 | 1/2 | missing-trace | answer-emitted; partial | 6/5 | 1 | 0.884 | 0.884 | covered |
-| q010 | holdout | 4 | 4+5 | P0/Pt9/F0 | 3/4 | answer-emitted | answer-emitted; partial | 8/4 | 1 | 0.616 | 0.616 | covered |
-| q011 | discovery | 2 | 1+0 | P0/Pt1/F0 | 0/2 | missing-trace | answer-emitted; partial | 2/1 | 0 | 0.407 | 0.000 | covered |
-| q012 | discovery | 1 | 1+0 | P0/Pt1/F0 | 0/1 | answer-emitted | answer-emitted; partial | 5/4 | 0 | 0.653 | 0.000 | covered |
-| q013 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 9/7 | 1 | 0.899 | 0.899 | covered |
-| q014 | discovery | 1 | 1+0 | P0/Pt1/F0 | 0/1 | answer-emitted | answer-emitted; partial | 7/3 | 0 | 0.484 | 0.000 | covered |
-| q015 | holdout | 4 | 4+4 | P0/Pt8/F0 | 3/4 | answer-emitted | answer-emitted; partial | 7/5 | 1 | 0.800 | 0.800 | covered |
-| q016 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 7/6 | 1 | 0.757 | 0.757 | covered |
-| q017 | discovery | 1 | 1+0 | P0/Pt1/F0 | 0/1 | answer-emitted | answer-emitted; partial | 6/3 | 0 | 0.568 | 0.000 | covered |
-| q018 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.717 | 0.717 | covered |
-| q019 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 8/2 | 1 | 0.480 | 0.480 | covered |
-| q020 | holdout | 4 | 4+3 | P0/Pt6/F1 | 3/4 | answer-emitted | answer-emitted; fail | 0/0 | 0 | 0.000 | 0.000 | covered |
-| q021 | discovery | 1 | 1+0 | P1/Pt0/F0 | 0/1 | answer-emitted | answer-emitted; pass | 8/4 | 0 | 0.678 | 0.000 | covered |
-| q022 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.884 | 0.884 | covered |
-| q023 | discovery | 1 | 1+0 | P1/Pt0/F0 | 0/1 | answer-emitted | answer-emitted; pass | 8/8 | 0 | 0.739 | 0.000 | covered |
-| q024 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 8/7 | 1 | 0.684 | 0.684 | covered |
-| q025 | holdout | 4 | 4+5 | P0/Pt9/F0 | 2/4 | answer-emitted | answer-emitted; partial | 2/1 | 0 | 0.447 | 0.000 | covered |
-| q026 | discovery | 1 | 1+0 | P0/Pt1/F0 | 1/1 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.722 | 0.722 | covered |
-| q027 | discovery | 1 | 1+0 | P0/Pt1/F0 | 0/1 | answer-emitted | answer-emitted; partial | 4/3 | 0 | 0.581 | 0.000 | covered |
-| q028 | discovery | 2 | 0+0 | P0/Pt0/F0 | 0/2 | provider-quota | — | — | — | — | — | missing |
-| q029 | holdout | 4 | 3+3 | P0/Pt5/F1 | 1/4 | answer-emitted | answer-emitted; partial | 7/5 | 0 | 0.683 | 0.000 | covered |
-| q030 | discovery | 1 | 1+0 | P0/Pt1/F0 | 0/1 | answer-emitted | answer-emitted; partial | 9/9 | 0 | 0.778 | 0.000 | covered |
-| q031 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q032 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q033 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q034 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q035 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q036 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q037 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q038 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q039 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
-| q040 | hard | 0 | 0+0 | P0/Pt0/F0 | 0/0 | — | — | — | — | — | — | missing |
+| q001 | discovery | 19 | 3+0 | P0/Pt3/F0 | 2/19 | provider-error | answer-emitted; partial | 9/9 | 1 | 0.778 | 0.778 | covered |
+| q002 | discovery | 54 | 35+0 | P0/Pt34/F1 | 28/54 | answer-emitted | answer-emitted; partial | 8/6 | 1 | 0.819 | 0.819 | covered |
+| q003 | discovery | 51 | 37+0 | P0/Pt37/F0 | 33/51 | answer-emitted | answer-emitted; partial | 8/7 | 1 | 0.796 | 0.796 | covered |
+| q004 | discovery | 50 | 31+0 | P0/Pt30/F1 | 24/50 | answer-emitted | answer-emitted; partial | 9/7 | 1 | 0.734 | 0.734 | covered |
+| q005 | holdout | 16 | 10+0 | P0/Pt10/F0 | 5/16 | answer-emitted | answer-emitted; partial | 6/2 | 1 | 0.556 | 0.556 | covered |
+| q006 | discovery | 10 | 1+0 | P0/Pt1/F0 | 0/10 | missing-trace | answer-emitted; partial | 8/4 | 0 | 0.494 | 0.000 | covered |
+| q007 | discovery | 10 | 2+0 | P0/Pt2/F0 | 0/10 | missing-trace | answer-emitted; partial | 5/3 | 0 | 0.710 | 0.000 | covered |
+| q008 | discovery | 10 | 1+0 | P1/Pt0/F0 | 0/10 | missing-trace | answer-emitted; pass | 3/1 | 0 | 0.399 | 0.000 | covered |
+| q009 | discovery | 10 | 1+0 | P0/Pt1/F0 | 1/10 | missing-trace | answer-emitted; partial | 6/5 | 1 | 0.884 | 0.884 | covered |
+| q010 | holdout | 12 | 9+0 | P0/Pt9/F0 | 6/12 | answer-emitted | answer-emitted; partial | 8/4 | 1 | 0.616 | 0.616 | covered |
+| q011 | discovery | 10 | 1+0 | P0/Pt1/F0 | 0/10 | missing-trace | answer-emitted; partial | 2/1 | 0 | 0.407 | 0.000 | covered |
+| q012 | discovery | 9 | 1+0 | P0/Pt1/F0 | 0/9 | answer-emitted | answer-emitted; partial | 5/4 | 0 | 0.653 | 0.000 | covered |
+| q013 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 9/7 | 1 | 0.899 | 0.899 | covered |
+| q014 | discovery | 9 | 1+0 | P0/Pt1/F0 | 0/9 | answer-emitted | answer-emitted; partial | 7/3 | 0 | 0.484 | 0.000 | covered |
+| q015 | holdout | 12 | 8+0 | P0/Pt8/F0 | 3/12 | answer-emitted | answer-emitted; partial | 7/5 | 1 | 0.800 | 0.800 | covered |
+| q016 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 7/6 | 1 | 0.757 | 0.757 | covered |
+| q017 | discovery | 9 | 1+0 | P0/Pt1/F0 | 0/9 | answer-emitted | answer-emitted; partial | 6/3 | 0 | 0.568 | 0.000 | covered |
+| q018 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.717 | 0.717 | covered |
+| q019 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 8/2 | 1 | 0.480 | 0.480 | covered |
+| q020 | holdout | 12 | 7+0 | P0/Pt6/F1 | 3/12 | answer-emitted | answer-emitted; fail | 0/0 | 0 | 0.000 | 0.000 | covered |
+| q021 | discovery | 9 | 1+0 | P1/Pt0/F0 | 0/9 | answer-emitted | answer-emitted; pass | 8/4 | 0 | 0.678 | 0.000 | covered |
+| q022 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.884 | 0.884 | covered |
+| q023 | discovery | 9 | 1+0 | P1/Pt0/F0 | 0/9 | answer-emitted | answer-emitted; pass | 8/8 | 0 | 0.739 | 0.000 | covered |
+| q024 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 8/7 | 1 | 0.684 | 0.684 | covered |
+| q025 | holdout | 12 | 9+0 | P0/Pt9/F0 | 2/12 | answer-emitted | answer-emitted; partial | 2/1 | 0 | 0.447 | 0.000 | covered |
+| q026 | discovery | 9 | 1+0 | P0/Pt1/F0 | 1/9 | answer-emitted | answer-emitted; partial | 6/5 | 1 | 0.722 | 0.722 | covered |
+| q027 | discovery | 9 | 1+0 | P0/Pt1/F0 | 0/9 | answer-emitted | answer-emitted; partial | 4/3 | 0 | 0.581 | 0.000 | covered |
+| q028 | discovery | 10 | 0+0 | P0/Pt0/F0 | 0/10 | provider-quota | — | — | — | — | — | missing |
+| q029 | holdout | 12 | 6+0 | P0/Pt5/F1 | 1/12 | answer-emitted | answer-emitted; partial | 7/5 | 0 | 0.683 | 0.000 | covered |
+| q030 | discovery | 9 | 1+0 | P0/Pt1/F0 | 0/9 | answer-emitted | answer-emitted; partial | 9/9 | 0 | 0.778 | 0.000 | covered |
+| q031 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q032 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q033 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q034 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q035 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q036 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q037 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q038 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q039 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
+| q040 | hard | 8 | 0+0 | P0/Pt0/F0 | 0/8 | provider-quota | — | — | — | — | — | missing |
 
 ## Every raw Harbor trial rescored
 
@@ -254,6 +279,342 @@ Empirical full-dataset claim eligible: `false`. Missing empirical questions: `q0
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q002__ooCvVJQ` | q002 | answer-emitted | 1 | 1 | 8/6 | 1 | 0.819 | 0.819 | 0.819 | 0.000 | partial |
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q003__xQYbvtR` | q003 | answer-emitted | 1 | 1 | 8/7 | 1 | 0.796 | 0.796 | 0.796 | 0.000 | partial |
 | `raw/20260724-tika-mallet-tantivy-v36-opaque-identity-suffix-development-candidate-01/q004__vy2CWRx` | q004 | answer-emitted | 1 | 1 | 9/7 | 1 | 0.734 | 0.734 | 0.734 | 0.000 | partial |
+| `raw/development-candidate-01-e778c5bfd4/q002__SubYSQ4` | q002 | answer-emitted | 0 | 1 | 6/4 | 0 | 0.655 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-e778c5bfd4/q003__jPv2UtN` | q003 | answer-emitted | 0 | 1 | 8/7 | 1 | 0.796 | 0.796 | 0.796 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-e778c5bfd4/q004__wT2pNNc` | q004 | answer-emitted | 0 | 1 | 9/8 | 1 | 0.813 | 0.813 | 0.813 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-bf3233d5a7/q002__Ctc7KWQ` | q002 | answer-emitted | 0 | 1 | 8/6 | 1 | 0.822 | 0.822 | 0.822 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-bf3233d5a7/q003__PNjxahX` | q003 | answer-emitted | 0 | 1 | 8/7 | 1 | 0.796 | 0.796 | 0.796 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-bf3233d5a7/q004__CMPFCMU` | q004 | answer-emitted | 0 | 1 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-dcc6a3b78f/q002__Ak5SbZS` | q002 | answer-emitted | 0 | 1 | 8/6 | 1 | 0.672 | 0.672 | 0.672 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-dcc6a3b78f/q003__2yTyghh` | q003 | answer-emitted | 0 | 1 | 8/7 | 1 | 0.671 | 0.671 | 0.671 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-dcc6a3b78f/q004__uHFiPa9` | q004 | answer-emitted | 0 | 1 | 9/7 | 1 | 0.766 | 0.766 | 0.766 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-0b7b8af34f/q002__KkaHjZy` | q002 | answer-emitted | 0 | 1 | 8/6 | 1 | 0.822 | 0.822 | 0.822 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-0b7b8af34f/q003__3nLLfvF` | q003 | answer-emitted | 0 | 1 | 8/7 | 1 | 0.812 | 0.812 | 0.812 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-0b7b8af34f/q004__z6QVDZu` | q004 | answer-emitted | 0 | 1 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-1685aeb983/q002__LwwvhVk` | q002 | answer-emitted | 0 | 1 | 8/6 | 1 | 0.822 | 0.822 | 0.822 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-1685aeb983/q003__CFPMaop` | q003 | answer-emitted | 0 | 1 | 8/7 | 1 | 0.814 | 0.814 | 0.814 | 0.000 | not-reviewed |
+| `raw/development-candidate-01-1685aeb983/q004__GrDpiFm` | q004 | answer-emitted | 0 | 1 | 9/7 | 1 | 0.734 | 0.734 | 0.734 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q001__2dVyrgg` | q001 | output-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q002__soewiqK` | q002 | answer-emitted | 1 | 1 | 8/5 | 0 | 0.707 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/adaptive-discovery/q003__evBKRLQ` | q003 | answer-emitted | 1 | 1 | 6/2 | 1 | 0.287 | 0.287 | 0.287 | 0.000 | partial |
+| `raw/adaptive-discovery/q004__ZXGmnW9` | q004 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q006__mq9yunb` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q007__ZRxAZjw` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q008__wqU4JDM` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q009__5vyqRv5` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q011__XCtehx6` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q012__U6hBKH6` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q013__So3zPek` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q014__7bg9VjW` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q016__jo2RFGH` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q017__SQXHVtX` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q018__edqeQnG` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q019__3nE6qYC` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q021__BTZc5Rc` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q022__E39vcRa` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q023__2TvTgLr` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q024__isbugtG` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q026__PENtkUZ` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q027__MfsaCCi` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q028__LfC5Sde` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-discovery/q030__DCTS3hJ` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q031__nU7mG3h` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q032__gecngDE` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q033__vP6eP3d` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q034__KvQpZoa` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q035__A44vnam` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q036__GD9FkzE` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q037__faTKfyT` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q038__ba3BtYo` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q039__avX7Yn8` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-hard/q040__Tfe7Bx3` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-holdout/q005__X3jbyCS` | q005 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-holdout/q010__KqryTJk` | q010 | answer-emitted | 1 | 1 | 9/5 | 1 | 0.573 | 0.573 | 0.573 | 0.000 | partial |
+| `raw/adaptive-holdout/q015__FHVbQZU` | q015 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/adaptive-holdout/q020__SqAUwSp` | q020 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/adaptive-holdout/q025__XyHgrki` | q025 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/adaptive-holdout/q029__azaHoVd` | q029 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q001__F2RNvqi` | q001 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q002__zoJ6Edm` | q002 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q003__Rnv36DN` | q003 | answer-emitted | 1 | 1 | 4/2 | 0 | 0.453 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/classical-discovery/q004__LSN5snQ` | q004 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q006__LXQjLzT` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q007__Uk6ncfC` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q008__cJuwbJy` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q009__CPngaY9` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q011__b4k2TXu` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q012__sayXX8s` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q013__Xvy3kNP` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q014__uSAHGjq` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q016__QcTGvf5` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q017__GSBMkyq` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q018__RdN9aSS` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q019__ixDZ8N9` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q021__ybsshM3` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q022__87mYMsz` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q023__ok729ji` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q024__Us37BFa` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q026__MyVGTAP` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q027__tnoQ7To` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q028__FgcD4Lx` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-discovery/q030__KfkSVRa` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q031__VUP92pm` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q032__HAGsfw5` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q033__zF2CsZm` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q034__SFk2J9R` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q035__H9MnkKB` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q036__Sy7i6Dg` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q037__Y65cZoz` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q038__H2VFHsV` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q039__ZZCZEPs` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-hard/q040__WT9r4VL` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-holdout/q005__7mhMq98` | q005 | answer-emitted | 1 | 1 | 2/2 | 0 | 0.656 | 0.656 | 0.000 | -0.656 | partial |
+| `raw/classical-holdout/q010__WfBS95N` | q010 | answer-emitted | 1 | 1 | 6/5 | 1 | 0.747 | 0.747 | 0.747 | 0.000 | partial |
+| `raw/classical-holdout/q015__2xYEHSZ` | q015 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/classical-holdout/q020__aXVDZbf` | q020 | answer-emitted | 1 | 1 | 3/3 | 0 | 0.676 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/classical-holdout/q025__fxvE4Qw` | q025 | answer-emitted | 1 | 1 | 1/1 | 0 | 0.522 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/classical-holdout/q029__ccGGwUz` | q029 | answer-emitted | 1 | 1 | 3/2 | 0 | 0.358 | 0.358 | 0.000 | -0.358 | partial |
+| `raw/embeddings-discovery/q001__tTw8vxZ` | q001 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q002__vWY9Lvk` | q002 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q003__XUq7zEQ` | q003 | answer-emitted | 1 | 1 | 3/2 | 0 | 0.478 | 0.478 | 0.000 | -0.478 | partial |
+| `raw/embeddings-discovery/q004__dLJs9N9` | q004 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q006__e86JnmT` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q007__s76E3HR` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q008__mZ4KbUD` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q009__zx7ecaq` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q011__fEtNYKN` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q012__4REbVeq` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q013__mcCGoKj` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q014__kkq2NRX` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q016__iEeugsu` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q017__z2ViZEK` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q018__swoUtJn` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q019__Mww9Ezo` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q021__S9JdWVg` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q022__Pexoz6b` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q023__wmbKofF` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q024__eFx7HV4` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q026__NzmwzvX` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q027__J3x6mgy` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q028__qbGtJZ4` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-discovery/q030__uQFF52U` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q031__SMGFF9c` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q032__YrVfEMy` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q033__pFSui7m` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q034__WKSwsUS` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q035__j5XpBnP` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q036__RZWR6qo` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q037__dBzQuPb` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q038__Ksrmn2f` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q039__nTQTj8j` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-hard/q040__8FDce5S` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-holdout/q005__YyjSfDs` | q005 | answer-emitted | 1 | 1 | 7/4 | 0 | 0.822 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/embeddings-holdout/q010__Tbfcz9S` | q010 | answer-emitted | 1 | 1 | 7/6 | 1 | 0.840 | 0.840 | 0.840 | 0.000 | partial |
+| `raw/embeddings-holdout/q015__MCEZJTF` | q015 | output-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-holdout/q020__3w9oRLK` | q020 | output-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/embeddings-holdout/q025__2XTrhpu` | q025 | answer-emitted | 1 | 0 | 1/1 | 0 | 0.522 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/embeddings-holdout/q029__Vy3RC37` | q029 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q001__hsMGtiL` | q001 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q002__VERDTok` | q002 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q003__RuoowDd` | q003 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q004__BiAvb2g` | q004 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q006__tX3o7pZ` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q007__eoVy9m9` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q008__VdcNrci` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q009__XwuW32L` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q011__gpiBGew` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q012__wPFq5zR` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q013__e3GRu3a` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q014__yFhsUrt` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q016__e36bUTo` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q017__PmaxyM9` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q018__Qy3ALK4` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q019__jM4rd46` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q021__97xCqwP` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q022__zrWkdck` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q023__Pgctfro` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q024__83rxCAz` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q026__fwSHE6G` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q027__ZtFMfXe` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q028__sAcm7oL` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-discovery/q030__oV7pp5V` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q031__8YPQUxG` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q032__BYmBXMM` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q033__zEqzRPC` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q034__DmmCp25` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q035__yaVnVsW` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q036__D2BJgpX` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q037__CfACx76` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q038__HpBGrvt` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q039__J4cZ73L` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-hard/q040__Tf4T6tb` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q005__md3HDcu` | q005 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q010__nFUm37S` | q010 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q015__phdDkGb` | q015 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q020__sgYzFTA` | q020 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q025__iZFBFyg` | q025 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/ensemble-holdout/q029__BRdyXRd` | q029 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q001__iunfo6L` | q001 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q002__7gneGzv` | q002 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q003__ZoTbwPw` | q003 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q004__4ag2xdD` | q004 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q006__uWyWE3j` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q007__R5BWppN` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q008__AWAhSkK` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q009__cntqGwW` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q011__SDxVjCs` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q012__sVAP3Xf` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q013__pxY2HVU` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q014__W4BP6jU` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q016__52nbJsw` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q017__iehxtqr` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q018__CLhBsQy` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q019__YgfEQeX` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q021__LNt8JeY` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q022__ihMDY2c` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q023__QoM76Ge` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q024__GNCjuLP` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q026__fPXPX7t` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q027__VphhpFV` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q028__eRGSMwc` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-discovery/q030__E2UjwsC` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q031__xqppze4` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q032__hf2vVa3` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q033__ZNHAKXj` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q034__VbySLUU` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q035__qBUuUvc` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q036__6y2XbVv` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q037__4ekX2VB` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q038__FKNEcnQ` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q039__GYa5udw` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-hard/q040__WHtRBuV` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-holdout/q005__BGairJf` | q005 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-holdout/q010__jP3fB8g` | q010 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/entity-graph-holdout/q015__2ScZo2o` | q015 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/entity-graph-holdout/q020__pm88Gir` | q020 | answer-emitted | 1 | 0 | 1/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/entity-graph-holdout/q025__hws9bNQ` | q025 | answer-emitted | 1 | 1 | 4/2 | 0 | 0.581 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/entity-graph-holdout/q029__r6FuVB2` | q029 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | fail |
+| `raw/graphify-discovery/q001__hKoBtsw` | q001 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q002__qVonfoj` | q002 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q003__zwuFAQW` | q003 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q004__844TiTd` | q004 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q006__wYyFUGE` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q007__sVi5dhL` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q008__wmSfHVU` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q009__q9WRjpJ` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q011__uYRo5Nb` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q012__vhkSi7V` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q013__fTb3vZ5` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q014__7FeQTw2` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q016__XLBKMdx` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q017__GMX5BTA` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q018__F35J7wT` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q019__pBRXD5z` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q021__Hu4gbx6` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q022__b9FkTkw` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q023__t3965fz` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q024__svpXKZm` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q026__9b2FE4A` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q027__yiVXdWa` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q028__SW9iAGC` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-discovery/q030__AhPTjPm` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q031__S5PL9px` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q032__yRTeMFV` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q033__UFc3iZP` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q034__FXSKVDT` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q035__QbZWGXw` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q036__yhC8K6A` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q037__yW4LXtu` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q038__awwJa2Q` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q039__2MGkSYQ` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-hard/q040__YzTPuV7` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q005__oWaV8x4` | q005 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q010__xAStiwb` | q010 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q015__THhj5Fc` | q015 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q020__LshRYn4` | q020 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q025__GLr5mnt` | q025 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/graphify-holdout/q029__VjbPJhk` | q029 | agent-interrupted | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q001__rTbcCiF` | q001 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-discovery/q002__4zz7Ev2` | q002 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-discovery/q003__9AEFNBv` | q003 | output-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q004__8weRpp4` | q004 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-discovery/q006__dSUz3wk` | q006 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q007__V3TjcCH` | q007 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-discovery/q008__6jqbxmv` | q008 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q009__rn45UXS` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q011__D2iY2rk` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q012__PskLCte` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q013__EFVrALz` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q014__xvqNDDf` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q016__nhMRVi2` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q017__a5oMBvc` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q018__JbBgiRD` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q019__cPaCvYQ` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q021__VozCatW` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q022__tVBBevz` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q023__iYqVuLR` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q024__TwqXdEW` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q026__nkSSf6N` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q027__6zmQTjm` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q028__EDQBBNn` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-discovery/q030__F58ctpw` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q031__sWadN54` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q032__Qc96sN7` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q033__rbeNCvv` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q034__k8Dtus9` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q035__DeejAJu` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q036__QjwrV8c` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q037__MNidVaY` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q038__HervpTG` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q039__TGTi72t` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-hard/q040__3CtKMdU` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-holdout/q005__iNh7Frt` | q005 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-holdout/q010__67E5SRG` | q010 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-holdout/q015__pDEQ5G8` | q015 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/legacy-holdout/q020__SEZceZy` | q020 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-holdout/q025__tWSSxjJ` | q025 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/legacy-holdout/q029__KpYF8pM` | q029 | provider-context-limit | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q001__iQoAtiw` | q001 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q002__eGddevf` | q002 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q003__dXzgniC` | q003 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q004__gnWSiHV` | q004 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q006__LiSxDiU` | q006 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q007__dCX5Xv5` | q007 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q008__f2EuTLp` | q008 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q009__XUihHwg` | q009 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q011__dQ3kZFa` | q011 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q012__wDxRUQF` | q012 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q013__x232djs` | q013 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q014__bLFLJAT` | q014 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q016__YRoCxSW` | q016 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q017__CRCdfBD` | q017 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q018__JUhyE7L` | q018 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q019__YDidgDU` | q019 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q021__k8bKKNZ` | q021 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q022__n3TdcRk` | q022 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q023__DLH2ych` | q023 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q024__ysycVFb` | q024 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q026__Ksr47mg` | q026 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q027__e4ArSRt` | q027 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q028__BNXZ2N6` | q028 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-discovery/q030__XKyBKmg` | q030 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q031__aTVnFyH` | q031 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q032__uAzXj2Q` | q032 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q033__hkp5DqZ` | q033 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q034__yYDvQKV` | q034 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q035__tfHYYwb` | q035 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q036__MXFTGjR` | q036 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q037__NXKYakP` | q037 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q038__RYTQXH2` | q038 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q039__9XRRwYw` | q039 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-hard/q040__27WMpcN` | q040 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
+| `raw/turso-holdout/q005__U6wVt9C` | q005 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/turso-holdout/q010__rf8BN2S` | q010 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/turso-holdout/q015__3MyZE8q` | q015 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/turso-holdout/q020__HCMuVsV` | q020 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/turso-holdout/q025__k2Fs7Ee` | q025 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/turso-holdout/q029__uTdWPsh` | q029 | answer-emitted | 1 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | partial |
+| `raw/0001-q001-adaptive/q001__9D4i3hi` | q001 | provider-quota | 0 | 0 | 0/0 | 0 | 0.000 | 0.000 | 0.000 | 0.000 | not-reviewed |
 
 ## Legacy reviewed responses without a raw body
 
@@ -261,38 +622,6 @@ These rows retain their historical mechanical observations and manual verdicts, 
 
 | Response | Q | Contract | Evidence | Focus docs | Historical reward | Semantic |
 |---|---|---:|---:|---:|---:|---|
-| `historical/20260717-papers-consult-gpt53-spark-01/07e23ace-ace3-4778-acdc-9e957c2f7655` | q002 | 1 | 12 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/de4ec73d-1cd1-459e-93e9-5a03c48d392a` | q003 | 1 | 7 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/f1c0f025-d993-4df9-ad2c-db88baa80e5f` | q010 | 1 | 9 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/8dc2313c-c8fc-4c40-90a1-30247668ab7b` | q015 | 0 | 11 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/bfe9b1c6-d7d1-4ce6-80d5-4b32e04421be` | q025 | 0 | 18 | 3 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/3532b336-16ad-463d-b774-7be5f751dc23` | q003 | 1 | 15 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/821eac3a-5664-4afc-9872-601e03d69fbe` | q005 | 1 | 14 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/dcfcb559-8558-4292-97df-2bc21735d581` | q010 | 1 | 9 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/d9f2da6a-8d3b-4461-ba1e-b46acb956401` | q020 | 1 | 9 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/50a84566-8a52-485b-a4ce-0ef6dcb25ac7` | q025 | 1 | 16 | 1 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/919b6b71-60e0-4b24-84a4-3785d1a8c4c3` | q029 | 1 | 7 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/a8a6e95c-5a95-48e7-8c53-9b9a68c443f0` | q003 | 1 | 14 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/50a09529-f8dd-480e-9096-58073d5a5790` | q005 | 1 | 14 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/e334f3c0-2f39-4da1-a572-845493b2ba57` | q010 | 1 | 14 | 6 | 0.840 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/d67e3b79-00b8-4c72-8a9b-d8d398f0b0fe` | q025 | 0 | 6 | 1 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/8538428e-749f-4d1f-9e8e-5c360e0b23d3` | q015 | 0 | 10 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/d0a6dc93-aca3-420a-8e4d-4250bd0a400c` | q020 | 0 | 5 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/f143ca25-2b20-4f58-8a61-24855beefbac` | q025 | 1 | 6 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/9b5c8868-e106-4272-a655-027783ada26d` | q029 | 0 | 0 | 0 | 0.000 | fail |
-| `historical/20260717-papers-consult-gpt53-spark-01/1f43edb2-1a69-4161-bcd7-159b88afd6e6` | q001 | 0 | 41 | 14 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/77721d26-ce40-4845-af14-896c886cfcc1` | q002 | 0 | 33 | 6 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/a13a5c9c-bec3-40fe-98cf-6b3d023ee00d` | q004 | 0 | 11 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/cce65ee3-f234-4331-9efd-57b22bd7f76e` | q005 | 0 | 14 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/6713ac5f-bb88-490c-835e-231ced3d00f2` | q007 | 0 | 18 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/6a6778a0-072b-4425-8d4d-ba625dd0814c` | q010 | 0 | 8 | 2 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/8573a931-850c-4c4f-b64b-50805a322091` | q015 | 0 | 10 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/33e5217c-f174-4297-861b-c0fc50e250ee` | q005 | 0 | 22 | 3 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/88f9aab6-cc81-4be2-8713-59b152d900cf` | q010 | 0 | 10 | 3 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/ddec4f09-7244-4f25-bc75-ce4d0e6da24e` | q015 | 0 | 12 | 5 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/3aed67ca-ce2d-49a8-879d-fba45213f6b1` | q020 | 0 | 30 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/f9b7358d-264f-4c2b-a75c-8da3b7c29446` | q025 | 0 | 20 | 4 | 0.000 | partial |
-| `historical/20260717-papers-consult-gpt53-spark-01/6c7fc2d1-214d-4157-9ec2-56dce6d73e2b` | q029 | 0 | 13 | 5 | 0.000 | partial |
 
 ## Curated reference calibration
 
@@ -327,7 +656,7 @@ These rows retain their historical mechanical observations and manual verdicts, 
 | q027 | 6 | 6/5 | 1 | 0.960 | 0.960 | 4 | 0 |
 | q028 | 19 | 8/8 | 1 | 1.000 | 1.000 | 4 | 0 |
 | q029 | 9 | 9/9 | 1 | 1.000 | 1.000 | 4 | 0 |
-| q030 | 34 | 15/15 | 1 | 1.000 | 1.000 | 5 | 0 |
+| q030 | 35 | 15/15 | 1 | 1.000 | 1.000 | 5 | 0 |
 | q031 | 3 | 3/3 | 1 | 1.000 | 1.000 | 7 | 6 |
 | q032 | 5 | 5/5 | 1 | 1.000 | 1.000 | 9 | 7 |
 | q033 | 3 | 3/3 | 1 | 1.000 | 1.000 | 7 | 8 |

@@ -1,0 +1,30 @@
+job_name: tantivy-query-astro-round2-holdout-template
+jobs_dir: /home/villa/harbor/tantivy-round2-astro/template-holdout
+n_attempts: 1
+n_concurrent_trials: 2
+quiet: false
+retry:
+  max_retries: 0
+  min_wait_sec: 1.0
+  max_wait_sec: 60.0
+  wait_multiplier: 1.0
+  include_exceptions: []
+  exclude_exceptions: []
+environment:
+  type: docker
+  delete: true
+  mounts:
+    - type: bind
+      source: /home/villa/harbor/tantivy-round2-astro/runtime-inputs/query-baseline-20260723-01
+      target: /knowledge
+      read_only: true
+      bind:
+        create_host_path: false
+agents:
+  - name: oracle
+    n_concurrent: 2
+    skills:
+      - /mnt/c/Users/villa/dev/knowledge/skills/consult-semantic-okf-tantivy
+tasks:
+  - path: /mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-query-v1/holdout/part-01
+  - path: /mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-query-v1/holdout/part-02

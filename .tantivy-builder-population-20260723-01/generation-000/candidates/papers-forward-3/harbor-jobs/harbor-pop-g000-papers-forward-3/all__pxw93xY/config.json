@@ -1,0 +1,29 @@
+{
+    "task": {
+        "path": "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/evolution/harbor/tasks-builder-v1/development/all"
+    },
+    "trial_name": "all__pxw93xY",
+    "trials_dir": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/harbor-jobs/harbor-pop-g000-papers-forward-3",
+    "agent": {
+        "name": "oracle",
+        "n_concurrent": 1,
+        "skills": [
+            "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-population-20260723-01/generation-000/candidates/papers-forward-3/skills/build-semantic-okf-tantivy"
+        ]
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/home/villa/harbor/tantivy-builder-evolution/runtime-inputs/classical",
+                "target": "/dataset",
+                "read_only": true,
+                "bind": {
+                    "create_host_path": false
+                }
+            }
+        ]
+    },
+    "job_id": "89b65878-6d25-4b80-9df8-5f64b2f25155"
+}

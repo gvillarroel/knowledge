@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "selection": {
+    "source_ids": [
+      "office-documents",
+      "pdf-documents"
+    ]
+  },
+  "tokenization": {
+    "tokenizer": "ascii-alphanumeric-v1",
+    "stopwords": "english-v1",
+    "min_token_length": 2,
+    "ngram_range": [
+      1,
+      2
+    ]
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "title_weight": 2.0,
+    "body_weight": 1.0
+  },
+  "associations": {
+    "window_size": 8,
+    "min_document_frequency": 1,
+    "min_cooccurrence": 1,
+    "max_vocabulary": 1000,
+    "max_neighbors": 8,
+    "minimum_ppmi": 0.0
+  },
+  "topics": {
+    "topic_count": 2,
+    "num_iterations": 100,
+    "num_threads": 1,
+    "num_icm_iterations": 0,
+    "optimize_interval": 0,
+    "optimize_burn_in": 0,
+    "alpha_sum": 2.0,
+    "beta": 0.01,
+    "random_seed": 42,
+    "min_document_frequency": 1,
+    "max_document_fraction": 1.0,
+    "top_terms": 12,
+    "timeout_seconds": 120
+  },
+  "expansion": {
+    "association_terms": 6,
+    "topic_terms": 6,
+    "association_weight": 0.35,
+    "topic_weight": 0.2
+  },
+  "reranking": {
+    "candidate_pool": 20,
+    "relevance_weight": 0.7,
+    "topic_novelty_weight": 0.15,
+    "source_novelty_weight": 0.15,
+    "max_per_evidence_identity": 1,
+    "rrf_k": 60
+  }
+}

@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "status": "complete",
+  "decision": "keep-baseline",
+  "promoted": false,
+  "evaluable": true,
+  "baselineEvaluable": true,
+  "candidateEvaluable": true,
+  "reason": null,
+  "fairnessBasis": "trial-lock-and-result",
+  "warning": null,
+  "retryContractVerified": true,
+  "baselineRetryPolicyDigests": [
+    "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+  ],
+  "candidateRetryPolicyDigests": [
+    "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+  ],
+  "baselineMeanReward": 0.852793289976981,
+  "candidateMeanReward": 0.8835460567445479,
+  "meanGain": 0.030752766767566886,
+  "candidateErrors": 0,
+  "requiredRewardThresholds": {
+    "evidence_contract_gate": 1.0,
+    "mechanical_qualification_gate": 1.0
+  },
+  "requiredRewardsComplete": true,
+  "candidateQualified": true,
+  "developmentEvidencePromotionEligible": true,
+  "baselineQualified": true,
+  "baselineQualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "erroredTrials": 0,
+    "nonEvaluableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "failureDomains": {},
+    "missingPrimaryRewardTrials": 0,
+    "actionableContextBudgetTrials": 0,
+    "nonActionableExternalTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0
+  },
+  "candidateQualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "erroredTrials": 0,
+    "nonEvaluableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "failureDomains": {},
+    "missingPrimaryRewardTrials": 0,
+    "actionableContextBudgetTrials": 0,
+    "nonActionableExternalTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0
+  },
+  "regressedCells": [
+    "knowledge/tantivy-consult-evolution__holdout__part-04|aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67|oracle|1.0.0|unknown"
+  ],
+  "perCell": [
+    {
+      "cell": "knowledge/tantivy-consult-evolution__holdout__part-01|31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-01",
+      "taskChecksum": "31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330",
+      "attempts": 1,
+      "baselineMeanReward": 0.8134552305421704,
+      "candidateMeanReward": 0.8637510628297328,
+      "delta": 0.0502958322875624,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    },
+    {
+      "cell": "knowledge/tantivy-consult-evolution__holdout__part-02|7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-02",
+      "taskChecksum": "7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e",
+      "attempts": 1,
+      "baselineMeanReward": 0.8179689809379286,
+      "candidateMeanReward": 0.8774579923559744,
+      "delta": 0.059489011418045856,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    },
+    {
+      "cell": "knowledge/tantivy-consult-evolution__holdout__part-03|114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-03",
+      "taskChecksum": "114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e",
+      "attempts": 1,
+      "baselineMeanReward": 0.8253742105349066,
+      "candidateMeanReward": 0.8402142376404743,
+      "delta": 0.014840027105567755,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    },
+    {
+      "cell": "knowledge/tantivy-consult-evolution__holdout__part-04|aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-04",
+      "taskChecksum": "aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67",
+      "attempts": 1,
+      "baselineMeanReward": 0.9543747378929183,
+      "candidateMeanReward": 0.95276093415201,
+      "delta": -0.0016138037409082484,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    }
+  ],
+  "promotionRules": {
+    "minimumMeanGain": 0.0,
+    "allowTaskRegressions": false,
+    "requireNoErrors": true,
+    "requiredRewards": {
+      "evidence_contract_gate": 1.0,
+      "mechanical_qualification_gate": 1.0
+    }
+  },
+  "baselineEvidence": [
+    {
+      "evidenceId": "holdout-baseline-01-627be06384:c3686336-198b-46e4-b5ec-939e39314ea5",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-01",
+      "taskChecksum": "31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330",
+      "reward": 0.8134552305421704,
+      "reportedReward": 0.8134552305421704,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-baseline-01-627be06384/part-01__2kWNcoF/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-baseline-01-627be06384:a16689a0-b911-4f5b-acbe-b2cd0fb1dfe6",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-02",
+      "taskChecksum": "7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e",
+      "reward": 0.8179689809379286,
+      "reportedReward": 0.8179689809379286,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-baseline-01-627be06384/part-02__RFGAnrU/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-baseline-01-627be06384:3d33e2b4-b9ec-4ed6-a4b3-a8940eb3729c",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-03",
+      "taskChecksum": "114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e",
+      "reward": 0.8253742105349066,
+      "reportedReward": 0.8253742105349066,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-baseline-01-627be06384/part-03__CwgdeLh/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-baseline-01-627be06384:f0a31c90-96fb-4be3-b123-de04b0abf700",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-04",
+      "taskChecksum": "aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67",
+      "reward": 0.9543747378929183,
+      "reportedReward": 0.9543747378929183,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-baseline-01-627be06384/part-04__c3XY5jE/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    }
+  ],
+  "candidateEvidence": [
+    {
+      "evidenceId": "holdout-candidate-01-dfb0aedbf7:225d773b-11d6-46cb-bf67-a0199d26905f",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-01",
+      "taskChecksum": "31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330",
+      "reward": 0.8637510628297328,
+      "reportedReward": 0.8637510628297328,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-candidate-01-dfb0aedbf7/part-01__XRYp2Qh/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-candidate-01-dfb0aedbf7:01c36400-827f-4370-af68-72e1cc50805b",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-02",
+      "taskChecksum": "7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e",
+      "reward": 0.8774579923559744,
+      "reportedReward": 0.8774579923559744,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-candidate-01-dfb0aedbf7/part-02__miLjRni/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-candidate-01-dfb0aedbf7:eb0e32e1-781d-4a54-8277-24f327645671",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-03",
+      "taskChecksum": "114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e",
+      "reward": 0.8402142376404743,
+      "reportedReward": 0.8402142376404743,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-candidate-01-dfb0aedbf7/part-03__dKfEmKj/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-candidate-01-dfb0aedbf7:1d6a4c3f-3480-4e38-aabb-a5b567a4e80f",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-04",
+      "taskChecksum": "aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67",
+      "reward": 0.95276093415201,
+      "reportedReward": 0.95276093415201,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-query-trace-20260723-03/harbor-jobs/holdout-candidate-01-dfb0aedbf7/part-04__ttGTZvb/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "consult-semantic-okf-tantivy",
+        "lockedName": "consult-semantic-okf-tantivy",
+        "sourceBasename": "consult-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    }
+  ]
+}

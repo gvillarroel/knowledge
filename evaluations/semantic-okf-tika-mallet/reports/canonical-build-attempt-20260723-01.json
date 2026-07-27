@@ -1,0 +1,21 @@
+{
+  "schema_version": "semantic-okf-tika-mallet-canonical-build-attempt/1.0",
+  "attempt": 1,
+  "date": "2026-07-23",
+  "dataset_id": "graphrag-papers-40",
+  "status": "failed",
+  "failure_class": "candidate-plan-validation",
+  "error_code": "mallet-error",
+  "error": "MALLET topic-word weight disagrees with token counts",
+  "published_bundle": false,
+  "input": {
+    "source_inventory_sha256": "c1d22c11df202db3b87c7fb386f9862db26601a5e2ebde813cb203bcea3740d4",
+    "ingestion_plan_sha256": "bda45d32d14a93bdc3fb6ee24be8162c89c02ac40782bbe3ada78541eb38b2cd",
+    "retrieval_plan_sha256": "f430c3a27959bffe4200f762f4238507e7272bab0128d6ad1ca147c1c64fa434"
+  },
+  "diagnosis": {
+    "cause": "The candidate plan enabled MALLET hyperparameter optimization while the independent validator requires topic-word weights to equal fixed sparse token counts plus the declared beta.",
+    "correction": "Freeze optimize_interval and optimize_burn_in at zero before any canonical retrieval result exists.",
+    "result_observed_before_correction": false
+  }
+}

@@ -1,0 +1,160 @@
+proposals:
+  - id: derive-evidence-margin-from-public-minimum
+    diagnosis: >-
+      q001 and q031 passed with exact, valid evidence, while q013 produced six exact
+      rows but only five relevant papers and therefore missed its six-paper gate.
+      The q013 agent also manually computed a seven-source pack from a public minimum
+      of six despite the documented two-source margin. Move target arithmetic into the
+      helper: retain two extra final evidence rows, expose two further candidate sources
+      when possible, and preserve the literal public minimum as the qualification floor.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-2696c77d9d:77809e96-6d63-4804-ac3a-6811786046b9
+      - development-candidate-01-2696c77d9d:c53c0a02-8826-4d9c-88c5-8323cee02622
+      - development-candidate-01-2696c77d9d:0cb5c11c-40c8-47f8-a9ad-0be6a439acc7
+    conflictGroup: deterministic-evidence-targets
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+      def build_parser() -> argparse.ArgumentParser:
+          parser = argparse.ArgumentParser(description=__doc__)
+          parser.add_argument("bundle", type=Path)
+          parser.add_argument("--query", action="append", required=True)
+          parser.add_argument("--top-k-per-query", type=int, default=8)
+          parser.add_argument("--source-target", type=int, default=4)
+          parser.add_argument("--max-results", type=int, default=10)
+          parser.add_argument("--preview-chars", type=int, default=800)
+          parser.add_argument("--full-output", type=Path, required=True)
+          parser.add_argument("--source-id", action="append", default=[])
+          parser.add_argument("--concept-id", action="append", default=[])
+          parser.add_argument("--concept-type", action="append", default=[])
+          return parser
+
+
+      def main(argv: list[str] | None = None) -> int:
+          _configure_utf8()
+          args = build_parser().parse_args(argv)
+          try:
+              if not 3 <= len(args.query) <= 5:
+    content: |2
+      def build_parser() -> argparse.ArgumentParser:
+          parser = argparse.ArgumentParser(description=__doc__)
+          parser.add_argument("bundle", type=Path)
+          parser.add_argument("--query", action="append", required=True)
+          parser.add_argument("--top-k-per-query", type=int, default=8)
+          parser.add_argument("--minimum-sources", type=int)
+          parser.add_argument("--source-target", type=int, default=4)
+          parser.add_argument("--max-results", type=int, default=10)
+          parser.add_argument("--preview-chars", type=int, default=800)
+          parser.add_argument("--full-output", type=Path, required=True)
+          parser.add_argument("--source-id", action="append", default=[])
+          parser.add_argument("--concept-id", action="append", default=[])
+          parser.add_argument("--concept-type", action="append", default=[])
+          return parser
+
+
+      def main(argv: list[str] | None = None) -> int:
+          _configure_utf8()
+          args = build_parser().parse_args(argv)
+          try:
+              if args.minimum_sources is None:
+                  args.answer_target = args.source_target
+              else:
+                  if not 0 <= args.minimum_sources <= 30:
+                      raise SnapshotError(
+                          "minimum_sources must be from 0 through 30"
+                      )
+                  if args.minimum_sources == 0:
+                      args.answer_target = 4
+                  elif args.minimum_sources > 10:
+                      args.answer_target = args.minimum_sources
+                  else:
+                      args.answer_target = min(args.minimum_sources + 2, 10)
+                  args.source_target = (
+                      args.answer_target
+                      if args.answer_target > 10
+                      else min(args.answer_target + 2, 10)
+                  )
+                  args.max_results = max(
+                      args.source_target,
+                      min(16, args.source_target + 6),
+                  )
+              if not 3 <= len(args.query) <= 5:
+
+  - id: expose-derived-answer-target
+    diagnosis: >-
+      q013 failed after the agent manually reduced a seven-source pack to six final
+      rows, whereas q001 and q031 show that the exact-copy finalizer keeps larger
+      evidence sets valid. Expose the helper-derived answer target in its compact JSON
+      so the agent can copy that integer directly into the finalizer command.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-2696c77d9d:77809e96-6d63-4804-ac3a-6811786046b9
+      - development-candidate-01-2696c77d9d:c53c0a02-8826-4d9c-88c5-8323cee02622
+      - development-candidate-01-2696c77d9d:0cb5c11c-40c8-47f8-a9ad-0be6a439acc7
+    conflictGroup: expose-derived-answer-target
+    target: scripts/prepare_tantivy_evidence_pack.py
+    operation: replace
+    old: |2
+              "full_output": str(args.full_output),
+              "selection": "source-diverse-then-round-robin",
+    content: |2
+              "full_output": str(args.full_output),
+              "answer_target": args.answer_target,
+              "selection": "query-round-robin-then-aggregate-source-fallback",
+
+  - id: document-derived-targets-and-required-method-terms
+    diagnosis: >-
+      q013's manual target arithmetic discarded the relevance margin, and q039's
+      method-specific queries still ranked generic GraphRAG papers because each query
+      used disjunctive free text. A local replay of the same query shapes with Tantivy
+      required terms retrieved dedicated LightRAG, HippoRAG, and GraphReader evidence.
+      Make both deterministic helper targets and required distinctive method tokens
+      mandatory in the terminal workflow.
+    domain: semantic-improvement
+    evidenceIds:
+      - development-candidate-01-2696c77d9d:77809e96-6d63-4804-ac3a-6811786046b9
+      - development-candidate-01-2696c77d9d:c53c0a02-8826-4d9c-88c5-8323cee02622
+      - development-candidate-01-2696c77d9d:0656a778-6129-4661-8507-79276076a2c7
+    conflictGroup: terminal-target-and-query-contract
+    target: SKILL.md
+    operation: append
+    content: |
+
+      ## Deterministic targets and required method terms
+
+      This terminal workflow supersedes all earlier target formulas and pack command
+      examples. Let `MINIMUM` be the literal public independent-paper minimum, or `0`
+      when none is stated. Do not calculate source, answer, or result margins yourself.
+
+      Give every named method or system its own query. Prefix its distinctive Tantivy
+      token with `+` so the term is required, for example `+LightRAG`, `+HippoRAG`, or
+      `+GraphReader`. Use unprefixed descriptive terms after it for mechanism, baseline,
+      cost, and quality. Generic dimensions without a named system may remain ordinary
+      queries. Then make exactly one pack call:
+
+      ```bash
+      python scripts/prepare_tantivy_evidence_pack.py BUNDLE \
+        --query '+NamedMethod mechanism exact baseline cost quality' \
+        --query '+SecondMethod mechanism exact baseline cost quality' \
+        --query 'cross-method trade-off or counterevidence' \
+        --top-k-per-query 8 --minimum-sources MINIMUM \
+        --concept-type 'Paper Semantic Claim' --preview-chars 800 \
+        --full-output /tmp/tantivy-evidence-pack.json
+      ```
+
+      The helper derives and prints `answer_target`, `source_target`, and `max_results`.
+      Read the saved pack once and choose exactly `answer_target` independently relevant
+      papers; the extra final rows are a qualification margin and must remain in the
+      answer. Use exactly one row from each selected paper. Pass the printed integer,
+      without recalculating it, to the finalizer:
+
+      ```bash
+      python scripts/finalize_bounded_answer.py BUNDLE \
+        /tmp/tantivy-evidence-pack.json /tmp/answer-draft.json \
+        --min-sources ANSWER_TARGET_FROM_PACK
+      ```
+
+      The first successful finalizer output remains terminal and must be returned
+      unchanged. If the candidates do not support all material claims, return the
+      required null response rather than weakening the evidence contract.

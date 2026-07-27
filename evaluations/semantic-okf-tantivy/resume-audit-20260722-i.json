@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "sourceJobs": [
+    {
+      "jobDirectory": "/home/villa/harbor/tantivy-trace-distillation/20260722-i-full-1/harbor-jobs/development-candidate-01-9294b2f110",
+      "candidateId": "tantivy-candidate-6beb826a",
+      "label": "Tantivy generation i development"
+    }
+  ],
+  "outputDirectory": "/home/villa/harbor/tantivy-external-retry/20260722-i-audit-1",
+  "rewardKey": "reward",
+  "requiredEnv": [],
+  "requiredPaths": [
+    "/tmp/semantic-okf-rust-mallet-auth-20260722/auth.json",
+    "/mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-datasets/generated/bundles/graphrag-papers-40/classical"
+  ],
+  "policy": {
+    "maxExternalRetriesPerTrial": 1,
+    "optInFailureContracts": []
+  },
+  "retryJobs": []
+}

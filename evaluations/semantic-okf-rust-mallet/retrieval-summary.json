@@ -1,0 +1,1531 @@
+{
+  "cohorts": {
+    "all_40": 40,
+    "hard_10": 10,
+    "original_30": 30
+  },
+  "comparison": "classical-topic-communities-vs-rust-mallet-lda",
+  "conclusion": "Retain RustMallet as an experimental skill pair. It preserves BM25 and exact evidence validity but does not replace the classical topic-community default on this benchmark.",
+  "determinism": {
+    "byte_identical": true,
+    "file_count": 890,
+    "status": "pass",
+    "tree_sha256": "7f42997c20cdec17f72aac1442fa8ee138e62199867a6ac3f5962e1143aa3569"
+  },
+  "question_count": 40,
+  "runs": {
+    "pool100": {
+      "comparisons": {
+        "association": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.94583333,
+                "ndcg_at_10": 0.82582417,
+                "recall_at_1": 0.15069444,
+                "recall_at_10": 0.82560245,
+                "recall_at_3": 0.38382125,
+                "recall_at_5": 0.51458694
+              },
+              "source": {
+                "mrr_at_10": 0.94583333,
+                "ndcg_at_10": 0.6596464,
+                "recall_at_1": 0.07534722,
+                "recall_at_10": 0.41280123,
+                "recall_at_3": 0.19191062,
+                "recall_at_5": 0.25729347
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 555,
+              "valid": 555
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8475745,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.59833333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54838261,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.465,
+                "recall_at_3": 0.29916667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.94444444,
+                "ndcg_at_10": 0.81857406,
+                "recall_at_1": 0.11925926,
+                "recall_at_10": 0.79080327,
+                "recall_at_3": 0.31231722,
+                "recall_at_5": 0.47000481
+              },
+              "source": {
+                "mrr_at_10": 0.94444444,
+                "ndcg_at_10": 0.69673433,
+                "recall_at_1": 0.05962963,
+                "recall_at_10": 0.39540164,
+                "recall_at_3": 0.15615861,
+                "recall_at_5": 0.23500241
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 555,
+                "valid": 555
+              },
+              "paper": {
+                "mrr_at_10": 0.9458333333333334,
+                "ndcg_at_10": 0.8084174063897216,
+                "recall_at_1": 0.15069444444444444,
+                "recall_at_10": 0.7948971861471861,
+                "recall_at_3": 0.3678093434343434,
+                "recall_at_5": 0.5019570707070706
+              },
+              "source": {
+                "mrr_at_10": 0.9458333333333334,
+                "ndcg_at_10": 0.6479748864704147,
+                "recall_at_1": 0.07534722222222222,
+                "recall_at_10": 0.39744859307359304,
+                "recall_at_3": 0.1839046717171717,
+                "recall_at_5": 0.2509785353535353
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 555,
+              "valid": 555
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 142,
+                "valid": 142
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8117555106069245,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.865,
+                "recall_at_3": 0.5283333333333333,
+                "recall_at_5": 0.6283333333333333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5251276431382691,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.4325,
+                "recall_at_3": 0.26416666666666666,
+                "recall_at_5": 0.31416666666666665
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 413,
+                "valid": 413
+              },
+              "paper": {
+                "mrr_at_10": 0.9444444444444444,
+                "ndcg_at_10": 0.8073047049839873,
+                "recall_at_1": 0.11925925925925926,
+                "recall_at_10": 0.7715295815295815,
+                "recall_at_3": 0.3143013468013468,
+                "recall_at_5": 0.4598316498316498
+              },
+              "source": {
+                "mrr_at_10": 0.9444444444444444,
+                "ndcg_at_10": 0.6889239675811297,
+                "recall_at_1": 0.05962962962962963,
+                "recall_at_10": 0.38576479076479075,
+                "recall_at_3": 0.1571506734006734,
+                "recall_at_5": 0.2299158249158249
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 188.82961749332026,
+              "median": 194.38949995674193,
+              "p95": 250.38539008819495,
+              "total": 7553.18469973281
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01740676,
+              "recall_at_10": -0.03070526
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.03581899,
+              "recall_at_10": -0.065
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01126936,
+              "recall_at_10": -0.01927369
+            }
+          }
+        },
+        "bm25": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.8330769,
+                "recall_at_1": 0.15381944,
+                "recall_at_10": 0.8263961,
+                "recall_at_3": 0.38798791,
+                "recall_at_5": 0.53046898
+              },
+              "source": {
+                "mrr_at_10": 0.95416667,
+                "ndcg_at_10": 0.71994844,
+                "recall_at_1": 0.07690972,
+                "recall_at_10": 0.48372339,
+                "recall_at_3": 0.19442009,
+                "recall_at_5": 0.2920202
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 4000,
+              "valid": 4000
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.85329418,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.59833333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.67665789,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.65,
+                "recall_at_3": 0.29916667,
+                "recall_at_5": 0.39083333
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.82633781,
+                "recall_at_1": 0.12342593,
+                "recall_at_10": 0.79186147,
+                "recall_at_3": 0.31787278,
+                "recall_at_5": 0.49118086
+              },
+              "source": {
+                "mrr_at_10": 0.95555556,
+                "ndcg_at_10": 0.73437862,
+                "recall_at_1": 0.06171296,
+                "recall_at_10": 0.42829786,
+                "recall_at_3": 0.15950457,
+                "recall_at_5": 0.25908249
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 4000,
+                "valid": 4000
+              },
+              "paper": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.8330768985343948,
+                "recall_at_1": 0.15381944444444445,
+                "recall_at_10": 0.8263961038961039,
+                "recall_at_3": 0.38798791486291484,
+                "recall_at_5": 0.5304689754689755
+              },
+              "source": {
+                "mrr_at_10": 0.9541666666666666,
+                "ndcg_at_10": 0.7199484350462845,
+                "recall_at_1": 0.07690972222222223,
+                "recall_at_10": 0.48372339466089465,
+                "recall_at_3": 0.19442009379509378,
+                "recall_at_5": 0.292020202020202
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 4000,
+              "valid": 4000
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 1000,
+                "valid": 1000
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8532941766363994,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.5983333333333334,
+                "recall_at_5": 0.6483333333333333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.676657885381198,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.65,
+                "recall_at_3": 0.2991666666666667,
+                "recall_at_5": 0.3908333333333333
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 3000,
+                "valid": 3000
+              },
+              "paper": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.8263378058337264,
+                "recall_at_1": 0.12342592592592593,
+                "recall_at_10": 0.7918614718614718,
+                "recall_at_3": 0.31787277537277536,
+                "recall_at_5": 0.49118085618085616
+              },
+              "source": {
+                "mrr_at_10": 0.9555555555555556,
+                "ndcg_at_10": 0.7343786182679799,
+                "recall_at_1": 0.06171296296296296,
+                "recall_at_10": 0.42829785954785954,
+                "recall_at_3": 0.15950456950456948,
+                "recall_at_5": 0.2590824915824916
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 139.28702749544755,
+              "median": 134.33380000060424,
+              "p95": 176.06936495867558,
+              "total": 5571.481099817902
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            }
+          }
+        },
+        "fusion": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.8322856,
+                "recall_at_1": 0.15381944,
+                "recall_at_10": 0.83459055,
+                "recall_at_3": 0.38451569,
+                "recall_at_5": 0.51642226
+              },
+              "source": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.66522894,
+                "recall_at_1": 0.07690972,
+                "recall_at_10": 0.41729527,
+                "recall_at_3": 0.19225785,
+                "recall_at_5": 0.25821113
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 557,
+              "valid": 557
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8498475,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.955,
+                "recall_at_3": 0.57333333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54987953,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.4775,
+                "recall_at_3": 0.28666667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.82643164,
+                "recall_at_1": 0.12342593,
+                "recall_at_10": 0.79445406,
+                "recall_at_3": 0.32157648,
+                "recall_at_5": 0.4724519
+              },
+              "source": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.70367875,
+                "recall_at_1": 0.06171296,
+                "recall_at_10": 0.39722703,
+                "recall_at_3": 0.16078824,
+                "recall_at_5": 0.23622595
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 557,
+                "valid": 557
+              },
+              "paper": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.8184018776348475,
+                "recall_at_1": 0.15381944444444445,
+                "recall_at_10": 0.8028246753246753,
+                "recall_at_3": 0.38173791486291486,
+                "recall_at_5": 0.5187725468975468
+              },
+              "source": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.6544530235461679,
+                "recall_at_1": 0.07690972222222223,
+                "recall_at_10": 0.40141233766233764,
+                "recall_at_3": 0.19086895743145743,
+                "recall_at_5": 0.2593862734487734
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 557,
+              "valid": 557
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 143,
+                "valid": 143
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8140397137894053,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.86,
+                "recall_at_3": 0.5733333333333334,
+                "recall_at_5": 0.6816666666666666
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5266434068167094,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.43,
+                "recall_at_3": 0.2866666666666667,
+                "recall_at_5": 0.3408333333333333
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 414,
+                "valid": 414
+              },
+              "paper": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.8198559322499949,
+                "recall_at_1": 0.12342592592592593,
+                "recall_at_10": 0.7837662337662337,
+                "recall_at_3": 0.31787277537277536,
+                "recall_at_5": 0.464474506974507
+              },
+              "source": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.697056229122654,
+                "recall_at_1": 0.06171296296296296,
+                "recall_at_10": 0.39188311688311683,
+                "recall_at_3": 0.15893638768638768,
+                "recall_at_5": 0.2322372534872535
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 224.29508998757228,
+              "median": 224.65574997477233,
+              "p95": 291.9236899644602,
+              "total": 8971.803599502891
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01388372,
+              "recall_at_10": -0.03176587
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.03580779,
+              "recall_at_10": -0.095
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.00657571,
+              "recall_at_10": -0.01068783
+            }
+          }
+        },
+        "topic": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.93333333,
+                "ndcg_at_10": 0.82249675,
+                "recall_at_1": 0.14756944,
+                "recall_at_10": 0.82417388,
+                "recall_at_3": 0.37986291,
+                "recall_at_5": 0.51895202
+              },
+              "source": {
+                "mrr_at_10": 0.93333333,
+                "ndcg_at_10": 0.65752717,
+                "recall_at_1": 0.07378472,
+                "recall_at_10": 0.41208694,
+                "recall_at_3": 0.18993146,
+                "recall_at_5": 0.25947601
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 564,
+              "valid": 564
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.83748258,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.57833333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54185899,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.465,
+                "recall_at_3": 0.28916667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.92777778,
+                "ndcg_at_10": 0.81750147,
+                "recall_at_1": 0.11509259,
+                "recall_at_10": 0.78889851,
+                "recall_at_3": 0.31370611,
+                "recall_at_5": 0.47582492
+              },
+              "source": {
+                "mrr_at_10": 0.92777778,
+                "ndcg_at_10": 0.69608323,
+                "recall_at_1": 0.0575463,
+                "recall_at_10": 0.39444925,
+                "recall_at_3": 0.15685305,
+                "recall_at_5": 0.23791246
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 557,
+                "valid": 557
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.818649020324077,
+                "recall_at_1": 0.15069444444444444,
+                "recall_at_10": 0.8080032467532468,
+                "recall_at_3": 0.37673791486291486,
+                "recall_at_5": 0.5167189754689755
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.6546597070220761,
+                "recall_at_1": 0.07534722222222222,
+                "recall_at_10": 0.4040016233766234,
+                "recall_at_3": 0.18836895743145743,
+                "recall_at_5": 0.25835948773448775
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 557,
+              "valid": 557
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 142,
+                "valid": 142
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8275021160693793,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.885,
+                "recall_at_3": 0.5733333333333334,
+                "recall_at_5": 0.6816666666666666
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5353662306867073,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.4425,
+                "recall_at_3": 0.2866666666666667,
+                "recall_at_5": 0.3408333333333333
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 415,
+                "valid": 415
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8156979884089762,
+                "recall_at_1": 0.11925925925925926,
+                "recall_at_10": 0.7823376623376623,
+                "recall_at_3": 0.3112061087061087,
+                "recall_at_5": 0.4617364117364117
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.6944241991338658,
+                "recall_at_1": 0.05962962962962963,
+                "recall_at_10": 0.39116883116883117,
+                "recall_at_3": 0.15560305435305435,
+                "recall_at_5": 0.23086820586820586
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 145.75122499954887,
+              "median": 147.3336000344716,
+              "p95": 168.76160506508313,
+              "total": 5830.048999981955
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.01666667,
+              "ndcg_at_10": -0.00384773,
+              "recall_at_10": -0.01617063
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.00998046,
+              "recall_at_10": -0.045
+            },
+            "original_30": {
+              "mrr_at_10": 0.02222222,
+              "ndcg_at_10": -0.00180348,
+              "recall_at_10": -0.00656085
+            }
+          }
+        }
+      },
+      "core_semantic_parity": "pass",
+      "evidence_validity": "pass",
+      "input_sha256": "dee10e4f39906ff63d1901af6c341c520353b1571b5f00f585d6c88453450166",
+      "query_count": 40,
+      "top_k": 100
+    },
+    "top10": {
+      "comparisons": {
+        "association": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.94583333,
+                "ndcg_at_10": 0.82582417,
+                "recall_at_1": 0.15069444,
+                "recall_at_10": 0.82560245,
+                "recall_at_3": 0.38382125,
+                "recall_at_5": 0.51458694
+              },
+              "source": {
+                "mrr_at_10": 0.94583333,
+                "ndcg_at_10": 0.6596464,
+                "recall_at_1": 0.07534722,
+                "recall_at_10": 0.41280123,
+                "recall_at_3": 0.19191062,
+                "recall_at_5": 0.25729347
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8475745,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.59833333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54838261,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.465,
+                "recall_at_3": 0.29916667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.94444444,
+                "ndcg_at_10": 0.81857406,
+                "recall_at_1": 0.11925926,
+                "recall_at_10": 0.79080327,
+                "recall_at_3": 0.31231722,
+                "recall_at_5": 0.47000481
+              },
+              "source": {
+                "mrr_at_10": 0.94444444,
+                "ndcg_at_10": 0.69673433,
+                "recall_at_1": 0.05962963,
+                "recall_at_10": 0.39540164,
+                "recall_at_3": 0.15615861,
+                "recall_at_5": 0.23500241
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 400,
+                "valid": 400
+              },
+              "paper": {
+                "mrr_at_10": 0.9458333333333334,
+                "ndcg_at_10": 0.8084174063897216,
+                "recall_at_1": 0.15069444444444444,
+                "recall_at_10": 0.7948971861471861,
+                "recall_at_3": 0.3678093434343434,
+                "recall_at_5": 0.5019570707070706
+              },
+              "source": {
+                "mrr_at_10": 0.9458333333333334,
+                "ndcg_at_10": 0.6479748864704147,
+                "recall_at_1": 0.07534722222222222,
+                "recall_at_10": 0.39744859307359304,
+                "recall_at_3": 0.1839046717171717,
+                "recall_at_5": 0.2509785353535353
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 100,
+                "valid": 100
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8117555106069245,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.865,
+                "recall_at_3": 0.5283333333333333,
+                "recall_at_5": 0.6283333333333333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5251276431382691,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.4325,
+                "recall_at_3": 0.26416666666666666,
+                "recall_at_5": 0.31416666666666665
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 300,
+                "valid": 300
+              },
+              "paper": {
+                "mrr_at_10": 0.9444444444444444,
+                "ndcg_at_10": 0.8073047049839873,
+                "recall_at_1": 0.11925925925925926,
+                "recall_at_10": 0.7715295815295815,
+                "recall_at_3": 0.3143013468013468,
+                "recall_at_5": 0.4598316498316498
+              },
+              "source": {
+                "mrr_at_10": 0.9444444444444444,
+                "ndcg_at_10": 0.6889239675811297,
+                "recall_at_1": 0.05962962962962963,
+                "recall_at_10": 0.38576479076479075,
+                "recall_at_3": 0.1571506734006734,
+                "recall_at_5": 0.2299158249158249
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 134.26964500686154,
+              "median": 133.62615002552047,
+              "p95": 164.77013995172453,
+              "total": 5370.7858002744615
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01740676,
+              "recall_at_10": -0.03070526
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.03581899,
+              "recall_at_10": -0.065
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01126936,
+              "recall_at_10": -0.01927369
+            }
+          }
+        },
+        "bm25": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.60936988,
+                "recall_at_1": 0.15381944,
+                "recall_at_10": 0.49719877,
+                "recall_at_3": 0.36483315,
+                "recall_at_5": 0.45727453
+              },
+              "source": {
+                "mrr_at_10": 0.95416667,
+                "ndcg_at_10": 0.51150084,
+                "recall_at_1": 0.07690972,
+                "recall_at_10": 0.27898133,
+                "recall_at_3": 0.18284271,
+                "recall_at_5": 0.2413456
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.69314339,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.63166667,
+                "recall_at_3": 0.57333333,
+                "recall_at_5": 0.59833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.50365877,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.39,
+                "recall_at_3": 0.28666667,
+                "recall_at_5": 0.33666667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.58144537,
+                "recall_at_1": 0.12342593,
+                "recall_at_10": 0.45237614,
+                "recall_at_3": 0.29533309,
+                "recall_at_5": 0.41025493
+              },
+              "source": {
+                "mrr_at_10": 0.95555556,
+                "ndcg_at_10": 0.51411486,
+                "recall_at_1": 0.06171296,
+                "recall_at_10": 0.24197511,
+                "recall_at_3": 0.14823473,
+                "recall_at_5": 0.20957191
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 400,
+                "valid": 400
+              },
+              "paper": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.6093698753598564,
+                "recall_at_1": 0.15381944444444445,
+                "recall_at_10": 0.4971987734487734,
+                "recall_at_3": 0.36483315295815294,
+                "recall_at_5": 0.457274531024531
+              },
+              "source": {
+                "mrr_at_10": 0.9541666666666666,
+                "ndcg_at_10": 0.5115008352977521,
+                "recall_at_1": 0.07690972222222223,
+                "recall_at_10": 0.27898133116883117,
+                "recall_at_3": 0.18284271284271286,
+                "recall_at_5": 0.24134559884559886
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 100,
+                "valid": 100
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.6931433898737935,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.6316666666666666,
+                "recall_at_3": 0.5733333333333334,
+                "recall_at_5": 0.5983333333333334
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5036587690589668,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.39,
+                "recall_at_3": 0.2866666666666667,
+                "recall_at_5": 0.33666666666666667
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 300,
+                "valid": 300
+              },
+              "paper": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.5814453705218774,
+                "recall_at_1": 0.12342592592592593,
+                "recall_at_10": 0.4523761423761424,
+                "recall_at_3": 0.29533309283309284,
+                "recall_at_5": 0.41025493025493026
+              },
+              "source": {
+                "mrr_at_10": 0.9555555555555556,
+                "ndcg_at_10": 0.5141148573773473,
+                "recall_at_1": 0.06171296296296296,
+                "recall_at_10": 0.2419751082251082,
+                "recall_at_3": 0.14823472823472822,
+                "recall_at_5": 0.20957190957190958
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 130.18527000094764,
+              "median": 132.03510001767427,
+              "p95": 154.29579005576667,
+              "total": 5207.410800037906
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            }
+          }
+        },
+        "fusion": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.8322856,
+                "recall_at_1": 0.15381944,
+                "recall_at_10": 0.83459055,
+                "recall_at_3": 0.38451569,
+                "recall_at_5": 0.51642226
+              },
+              "source": {
+                "mrr_at_10": 0.95833333,
+                "ndcg_at_10": 0.66522894,
+                "recall_at_1": 0.07690972,
+                "recall_at_10": 0.41729527,
+                "recall_at_3": 0.19225785,
+                "recall_at_5": 0.25821113
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8498475,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.955,
+                "recall_at_3": 0.57333333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54987953,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.4775,
+                "recall_at_3": 0.28666667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.82643164,
+                "recall_at_1": 0.12342593,
+                "recall_at_10": 0.79445406,
+                "recall_at_3": 0.32157648,
+                "recall_at_5": 0.4724519
+              },
+              "source": {
+                "mrr_at_10": 0.96111111,
+                "ndcg_at_10": 0.70367875,
+                "recall_at_1": 0.06171296,
+                "recall_at_10": 0.39722703,
+                "recall_at_3": 0.16078824,
+                "recall_at_5": 0.23622595
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 399,
+                "valid": 399
+              },
+              "paper": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.8184018776348475,
+                "recall_at_1": 0.15381944444444445,
+                "recall_at_10": 0.8028246753246753,
+                "recall_at_3": 0.38173791486291486,
+                "recall_at_5": 0.5187725468975468
+              },
+              "source": {
+                "mrr_at_10": 0.9583333333333334,
+                "ndcg_at_10": 0.6544530235461679,
+                "recall_at_1": 0.07690972222222223,
+                "recall_at_10": 0.40141233766233764,
+                "recall_at_3": 0.19086895743145743,
+                "recall_at_5": 0.2593862734487734
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 399,
+              "valid": 399
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 100,
+                "valid": 100
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8140397137894053,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.86,
+                "recall_at_3": 0.5733333333333334,
+                "recall_at_5": 0.6816666666666666
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5266434068167094,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.43,
+                "recall_at_3": 0.2866666666666667,
+                "recall_at_5": 0.3408333333333333
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 299,
+                "valid": 299
+              },
+              "paper": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.8198559322499949,
+                "recall_at_1": 0.12342592592592593,
+                "recall_at_10": 0.7837662337662337,
+                "recall_at_3": 0.31787277537277536,
+                "recall_at_5": 0.464474506974507
+              },
+              "source": {
+                "mrr_at_10": 0.961111111111111,
+                "ndcg_at_10": 0.697056229122654,
+                "recall_at_1": 0.06171296296296296,
+                "recall_at_10": 0.39188311688311683,
+                "recall_at_3": 0.15893638768638768,
+                "recall_at_5": 0.2322372534872535
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 136.62739750288893,
+              "median": 136.1431999830529,
+              "p95": 160.33830001251772,
+              "total": 5465.095900115557
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.01388372,
+              "recall_at_10": -0.03176587
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.03580779,
+              "recall_at_10": -0.095
+            },
+            "original_30": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.00657571,
+              "recall_at_10": -0.01068783
+            }
+          }
+        },
+        "topic": {
+          "classical": {
+            "all_40": {
+              "paper": {
+                "mrr_at_10": 0.93333333,
+                "ndcg_at_10": 0.82249675,
+                "recall_at_1": 0.14756944,
+                "recall_at_10": 0.82417388,
+                "recall_at_3": 0.37986291,
+                "recall_at_5": 0.51895202
+              },
+              "source": {
+                "mrr_at_10": 0.93333333,
+                "ndcg_at_10": 0.65752717,
+                "recall_at_1": 0.07378472,
+                "recall_at_10": 0.41208694,
+                "recall_at_3": 0.18993146,
+                "recall_at_5": 0.25947601
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "invalid": 0,
+              "ratio": 1.0,
+              "returned": 400,
+              "valid": 400
+            },
+            "hard_10": {
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.83748258,
+                "recall_at_1": 0.245,
+                "recall_at_10": 0.93,
+                "recall_at_3": 0.57833333,
+                "recall_at_5": 0.64833333
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.54185899,
+                "recall_at_1": 0.1225,
+                "recall_at_10": 0.465,
+                "recall_at_3": 0.28916667,
+                "recall_at_5": 0.32416667
+              }
+            },
+            "original_30": {
+              "paper": {
+                "mrr_at_10": 0.92777778,
+                "ndcg_at_10": 0.81750147,
+                "recall_at_1": 0.11509259,
+                "recall_at_10": 0.78889851,
+                "recall_at_3": 0.31370611,
+                "recall_at_5": 0.47582492
+              },
+              "source": {
+                "mrr_at_10": 0.92777778,
+                "ndcg_at_10": 0.69608323,
+                "recall_at_1": 0.0575463,
+                "recall_at_10": 0.39444925,
+                "recall_at_3": 0.15685305,
+                "recall_at_5": 0.23791246
+              }
+            },
+            "query_count": 40
+          },
+          "rust_mallet": {
+            "all_40": {
+              "error_count": 0,
+              "evidence_validity": {
+                "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+                "invalid": 0,
+                "ledger": {
+                  "bytes": 3600057,
+                  "record_count": 874,
+                  "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+                },
+                "ratio": 1.0,
+                "returned": 399,
+                "valid": 399
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.818649020324077,
+                "recall_at_1": 0.15069444444444444,
+                "recall_at_10": 0.8080032467532468,
+                "recall_at_3": 0.37673791486291486,
+                "recall_at_5": 0.5167189754689755
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.6546597070220761,
+                "recall_at_1": 0.07534722222222222,
+                "recall_at_10": 0.4040016233766234,
+                "recall_at_3": 0.18836895743145743,
+                "recall_at_5": 0.25835948773448775
+              }
+            },
+            "error_count": 0,
+            "evidence_validity": {
+              "contract": "Each retained hit must have a safe concepts/ path and existing concept file; bind to one authoritative ledger record by source_id and record_id; match source, record, concept, path, and source-path identity; hash its retained text; and resolve an exact record or character-range locator against the authoritative record body.",
+              "invalid": 0,
+              "ledger": {
+                "bytes": 3600057,
+                "record_count": 874,
+                "sha256": "df06f8ed7fd0ca4b2b8b5761c637a79d525595a2c180aeaf6885555e266754dc"
+              },
+              "ratio": 1.0,
+              "returned": 399,
+              "valid": 399
+            },
+            "hard_10": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 100,
+                "valid": 100
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8275021160693793,
+                "recall_at_1": 0.24500000000000002,
+                "recall_at_10": 0.885,
+                "recall_at_3": 0.5733333333333334,
+                "recall_at_5": 0.6816666666666666
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.5353662306867073,
+                "recall_at_1": 0.12250000000000001,
+                "recall_at_10": 0.4425,
+                "recall_at_3": 0.2866666666666667,
+                "recall_at_5": 0.3408333333333333
+              }
+            },
+            "original_30": {
+              "error_count": 0,
+              "evidence_validity": {
+                "invalid": 0,
+                "ratio": 1.0,
+                "returned": 299,
+                "valid": 299
+              },
+              "paper": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.8156979884089762,
+                "recall_at_1": 0.11925925925925926,
+                "recall_at_10": 0.7823376623376623,
+                "recall_at_3": 0.3112061087061087,
+                "recall_at_5": 0.4617364117364117
+              },
+              "source": {
+                "mrr_at_10": 0.95,
+                "ndcg_at_10": 0.6944241991338658,
+                "recall_at_1": 0.05962962962962963,
+                "recall_at_10": 0.39116883116883117,
+                "recall_at_3": 0.15560305435305435,
+                "recall_at_5": 0.23086820586820586
+              }
+            },
+            "query_count": 40,
+            "timing_ms": {
+              "mean": 136.5705699980026,
+              "median": 136.18659996427596,
+              "p95": 170.11247004847974,
+              "total": 5462.822799920104
+            }
+          },
+          "rust_mallet_minus_classical": {
+            "all_40": {
+              "mrr_at_10": 0.01666667,
+              "ndcg_at_10": -0.00384773,
+              "recall_at_10": -0.01617063
+            },
+            "hard_10": {
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": -0.00998046,
+              "recall_at_10": -0.045
+            },
+            "original_30": {
+              "mrr_at_10": 0.02222222,
+              "ndcg_at_10": -0.00180348,
+              "recall_at_10": -0.00656085
+            }
+          }
+        }
+      },
+      "core_semantic_parity": "pass",
+      "evidence_validity": "pass",
+      "input_sha256": "8734dd3a5b48c9928a2840dcac3f45606a3e4cddeefe2514f49e1eb7521a0dbd",
+      "query_count": 40,
+      "top_k": 10
+    }
+  },
+  "rust_mallet": {
+    "algorithm": "pyrmallet-0.1.1-sparse-gibbs-lda-v1",
+    "package": "pyrmallet",
+    "repository": "https://github.com/mimno/RustMallet",
+    "version": "0.1.1"
+  },
+  "schema_version": "semantic-okf-rust-mallet-retrieval-summary/1.0"
+}

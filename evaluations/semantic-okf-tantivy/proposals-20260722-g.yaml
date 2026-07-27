@@ -1,0 +1,310 @@
+proposals:
+  - id: deterministic-pack-finalizer
+    diagnosis: >-
+      q013 reached full relevant-paper coverage but one of eight manually assembled
+      evidence identities was invalid, while q039 spent its remaining budget rebuilding
+      and repairing evidence rows after retrieval. Across the two locked tasks, the
+      agent made 70 tool calls and 36 reads. A deterministic finalizer can accept only
+      human-authored claims plus pack indices, copy all seven evidence fields from the
+      validated collector output, enforce the source minimum and exact contract locally,
+      and print readable JSON without manual identity assembly.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-908b329751:69a46b39-9bbc-459e-8bbe-3701448f368f
+      - development-candidate-01-908b329751:56a3d7fc-a752-46c6-b97b-d14aa85a9be4
+    conflictGroup: deterministic-pack-finalizer
+    target: scripts/finalize_bounded_answer.py
+    operation: create
+    content: |
+      #!/usr/bin/env python3
+      """Finalize an exact answer from a saved bounded Tantivy evidence pack."""
+
+      from __future__ import annotations
+
+      import argparse
+      import json
+      import sys
+      from pathlib import Path
+      from typing import Any, Mapping, Sequence
+
+      from _tantivy_snapshot import SnapshotError, strict_json_loads
+      from bounded_workflow import (
+          EVIDENCE_KEYS,
+          _answer_errors,
+          _evidence,
+          _lint_documents,
+      )
+
+
+      def _configure_utf8() -> None:
+          for stream in (sys.stdout, sys.stderr):
+              reconfigure = getattr(stream, "reconfigure", None)
+              if callable(reconfigure):
+                  try:
+                      reconfigure(encoding="utf-8")
+                  except (AttributeError, OSError, ValueError):
+                      pass
+
+
+      def _load_object(path: Path, label: str) -> dict[str, Any]:
+          value = strict_json_loads(path.read_text(encoding="utf-8"), label=label)
+          if not isinstance(value, dict):
+              raise SnapshotError(f"{label} must be a JSON object")
+          return value
+
+
+      def _pack_results(pack: Mapping[str, Any]) -> list[dict[str, Any]]:
+          if (
+              pack.get("status") != "pass"
+              or pack.get("discovery_only") is not True
+              or pack.get("authoritative") is not False
+          ):
+              raise SnapshotError("pack must be a passing discovery-only collector output")
+          results = pack.get("results")
+          if not isinstance(results, list) or not results:
+              raise SnapshotError("pack results must be a nonempty array")
+          normalized: list[dict[str, Any]] = []
+          for index, row in enumerate(results):
+              if not isinstance(row, dict):
+                  raise SnapshotError(f"pack result {index} must be an object")
+              try:
+                  evidence = _evidence(row)
+              except KeyError as exc:
+                  raise SnapshotError(
+                      f"pack result {index} has no exact evidence identity"
+                  ) from exc
+              identity = row.get("paper_id") or evidence["source_id"]
+              if not isinstance(identity, str) or not identity:
+                  raise SnapshotError(f"pack result {index} has no source identity")
+              normalized.append(
+                  {"identity": identity, "evidence": evidence, "text": row.get("text")}
+              )
+          return normalized
+
+
+      def _draft_claims(
+          draft: Mapping[str, Any], result_count: int
+      ) -> tuple[str, str, list[tuple[str, list[int]]]]:
+          if list(draft) != ["question_id", "summary", "claims"]:
+              raise SnapshotError(
+                  "draft keys must be question_id, summary, claims in order"
+              )
+          question_id = draft["question_id"]
+          summary = draft["summary"]
+          claims = draft["claims"]
+          if not isinstance(question_id, str) or not question_id:
+              raise SnapshotError("draft question_id must be nonempty")
+          if not isinstance(summary, str) or not summary.strip():
+              raise SnapshotError("draft summary must be nonempty")
+          if len(summary.split()) > 450:
+              raise SnapshotError("draft summary exceeds 450 words")
+          if not isinstance(claims, list) or not claims:
+              raise SnapshotError("draft claims must be a nonempty array")
+          normalized: list[tuple[str, list[int]]] = []
+          for number, claim in enumerate(claims):
+              if not isinstance(claim, dict) or list(claim) != [
+                  "statement",
+                  "result_indices",
+              ]:
+                  raise SnapshotError(
+                      f"draft claim {number} keys must be statement, result_indices"
+                  )
+              statement = claim["statement"]
+              raw_indices = claim["result_indices"]
+              if not isinstance(statement, str) or not statement.strip():
+                  raise SnapshotError(f"draft claim {number} statement is invalid")
+              if not isinstance(raw_indices, list) or not raw_indices:
+                  raise SnapshotError(f"draft claim {number} result_indices is empty")
+              indices: list[int] = []
+              for index in raw_indices:
+                  if (
+                      isinstance(index, bool)
+                      or not isinstance(index, int)
+                      or not 0 <= index < result_count
+                  ):
+                      raise SnapshotError(
+                          f"draft claim {number} has an out-of-range result index"
+                      )
+                  if index not in indices:
+                      indices.append(index)
+              normalized.append((statement, indices))
+          return question_id, summary, normalized
+
+
+      def finalize(
+          bundle: Path,
+          pack: Mapping[str, Any],
+          draft: Mapping[str, Any],
+          minimum_sources: int,
+      ) -> dict[str, Any]:
+          results = _pack_results(pack)
+          question_id, summary, draft_claims = _draft_claims(draft, len(results))
+          first_use: list[int] = []
+          for _, indices in draft_claims:
+              for index in indices:
+                  if index not in first_use:
+                      first_use.append(index)
+          identities = {results[index]["identity"] for index in first_use}
+          if len(identities) < minimum_sources:
+              raise SnapshotError(
+                  f"draft uses {len(identities)} independent sources; "
+                  f"minimum is {minimum_sources}"
+              )
+          positions = {index: position for position, index in enumerate(first_use)}
+          payload = {
+              "question_id": question_id,
+              "answer": {
+                  "summary": summary,
+                  "claims": [
+                      {
+                          "statement": statement,
+                          "evidence_indices": [positions[index] for index in indices],
+                      }
+                      for statement, indices in draft_claims
+                  ],
+              },
+              "evidence": [results[index]["evidence"] for index in first_use],
+          }
+          errors = _answer_errors(
+              payload, _lint_documents(bundle), minimum_sources
+          )
+          if errors:
+              raise SnapshotError("; ".join(errors))
+          return payload
+
+
+      def build_parser() -> argparse.ArgumentParser:
+          parser = argparse.ArgumentParser(description=__doc__)
+          parser.add_argument("bundle", type=Path)
+          parser.add_argument("pack", type=Path)
+          parser.add_argument("draft", type=Path)
+          parser.add_argument("--min-sources", type=int, default=1)
+          return parser
+
+
+      def main(argv: list[str] | None = None) -> int:
+          _configure_utf8()
+          args = build_parser().parse_args(argv)
+          try:
+              if not 1 <= args.min_sources <= 30:
+                  raise SnapshotError("min_sources must be from 1 through 30")
+              payload = finalize(
+                  args.bundle,
+                  _load_object(args.pack, str(args.pack)),
+                  _load_object(args.draft, str(args.draft)),
+                  args.min_sources,
+              )
+          except (
+              SnapshotError,
+              OSError,
+              UnicodeError,
+              ValueError,
+              TypeError,
+              KeyError,
+              IndexError,
+          ) as exc:
+              print(
+                  json.dumps(
+                      {
+                          "status": "error",
+                          "code": "answer-finalization-error",
+                          "error": str(exc),
+                      },
+                      ensure_ascii=False,
+                      sort_keys=True,
+                  )
+              )
+              return 2
+          print(
+              json.dumps(
+                  payload,
+                  ensure_ascii=False,
+                  indent=2,
+                  allow_nan=False,
+              )
+          )
+          return 0
+
+
+      if __name__ == "__main__":
+          raise SystemExit(main())
+
+  - id: use-pack-only-finalization
+    diagnosis: >-
+      After a successful bounded collector, q013 still performed 13 reads and q039
+      performed 15 direct searches plus 23 reads. q039 then timed out while repairing
+      evidence identities; q013 completed but emitted one invalid identity. The normal
+      workflow must make the saved collector output the only post-retrieval evidence
+      pool and route final answers through deterministic pack-index finalization.
+    domain: execution-efficiency/context-budget
+    evidenceIds:
+      - development-candidate-01-908b329751:69a46b39-9bbc-459e-8bbe-3701448f368f
+      - development-candidate-01-908b329751:56a3d7fc-a752-46c6-b97b-d14aa85a9be4
+    conflictGroup: pack-only-finalization-workflow
+    target: SKILL.md
+    operation: replace
+    old: |
+      The command searches all queries, fuses ranks, keeps at most one passage per
+      paper (falling back to source identity), prints only bounded previews, and writes complete validated passages to
+      the explicit output outside the snapshot. A semantic-claim record is already a
+      short published record: verify its exact body from the saved full output and do not
+      read the underlying paper unless the claim is insufficient. Retain independently
+      relevant rows through `EVIDENCE_TARGET`; the extra two rows are a relevance margin,
+      not permission to cite weak material. One successful collector call is a hard
+      limit: do not run another collector because of a subjective semantic gap. Only when
+      the command returns `status: error` because the target was not reached may you run
+      one fallback without the `--concept-type` filter; after that call, stop retrieval.
+
+      Build the final JSON in a temporary workspace file. Keep evidence rows unique,
+      use every row, and order rows by the first claim that references them. Before
+      returning it, run:
+
+      ```bash
+      python scripts/bounded_workflow.py BUNDLE lint /tmp/answer.json \
+        --min-sources EVIDENCE_TARGET --emit
+      ```
+
+      Without `--emit`, lint reports `status: pass`; with `--emit`, stdout is the exact
+      validated answer. Run lint once. Only if it returns `status: error`, repair exactly
+      the reported errors and run it one final time; never invoke lint more than twice.
+      The first successful `--emit` is terminal: do not reason again, edit, summarize,
+      shorten, reconstruct, rerun, or manually retype any part of its stdout. The very
+      next assistant response must repeat that one JSON line byte-for-byte, with no
+      Markdown fence, prefix, or suffix. The linter checks
+      the target source count, closed key order, claim references, first-use evidence
+      order, uniqueness, and exact evidence identity against the already validated
+      read-only document ledger without rebuilding the index. It does not establish
+      factual correctness; claims must still be verified from the saved full passages.
+    content: |
+      The command searches all queries, fuses ranks, keeps at most one passage per
+      paper (falling back to source identity), prints only bounded previews, and writes
+      complete validated passages to the explicit output outside the snapshot. A
+      semantic-claim record is already a short published record. After one successful
+      collector, the saved full output is the only allowed evidence pool: do not call
+      the direct query helper, grep, read, open, inspect, or list any `/knowledge` path,
+      and do not run another collector. Only when the collector returns `status: error`
+      because the target was not reached may you run one fallback without the
+      `--concept-type` filter; after that call, stop retrieval.
+
+      Read the saved pack once and choose independently relevant result indices through
+      `EVIDENCE_TARGET`; the extra two rows are a relevance margin, not permission to
+      cite weak material. Create `/tmp/answer-draft.json` with exactly `question_id`,
+      `summary`, and `claims`, in that order. Each claim has exactly `statement` and
+      `result_indices`, where indices refer to the saved pack's zero-based `results`
+      array. Do not type evidence identities in the draft. Finalize with:
+
+      ```bash
+      python scripts/finalize_bounded_answer.py BUNDLE \
+        /tmp/tantivy-full-hits.json /tmp/answer-draft.json \
+        --min-sources EVIDENCE_TARGET
+      ```
+
+      Run the finalizer once. Only if it returns `status: error`, repair exactly the
+      reported draft error and run it one final time. Its first successful output is
+      terminal: do not reason again, edit, summarize, shorten, reconstruct, rerun, or
+      manually retype any part. The very next assistant response must repeat the entire
+      indented JSON document unchanged, with no Markdown fence, prefix, or suffix. The
+      finalizer maps pack indices to first-use evidence indices, copies exact evidence
+      identities, enforces source diversity, and rechecks the closed answer contract
+      against the read-only document ledger. It does not establish factual correctness;
+      claims must still be verified from the saved claim texts.

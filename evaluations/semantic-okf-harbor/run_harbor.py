@@ -25,6 +25,7 @@ FAMILIES = {
     "adaptive": ("adaptive-a", "consult-semantic-okf-adaptive"),
     "entity-graph": ("entity-graph-a", "consult-semantic-okf-entity-graph"),
     "ensemble": ("ensemble-a", "consult-semantic-okf-ensemble"),
+    "graphify": ("graphify-a", "consult-semantic-okf-graphify"),
 }
 ATTEMPTS = {"train": 1, "dev": 1, "holdout": 1}
 

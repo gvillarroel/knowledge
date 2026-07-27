@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "status": "complete",
+  "decision": "promote",
+  "promoted": true,
+  "evaluable": true,
+  "baselineEvaluable": true,
+  "candidateEvaluable": true,
+  "reason": null,
+  "fairnessBasis": "trial-lock-and-result",
+  "warning": null,
+  "retryContractVerified": true,
+  "baselineRetryPolicyDigests": [
+    "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+  ],
+  "candidateRetryPolicyDigests": [
+    "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5"
+  ],
+  "baselineMeanReward": 0.6487489108311211,
+  "candidateMeanReward": 0.6908404240381247,
+  "meanGain": 0.04209151320700366,
+  "candidateErrors": 0,
+  "requiredRewardThresholds": {
+    "evidence_contract_gate": 1.0,
+    "mechanical_qualification_gate": 1.0
+  },
+  "requiredRewardsComplete": true,
+  "candidateQualified": true,
+  "developmentEvidencePromotionEligible": true,
+  "baselineQualified": true,
+  "baselineQualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "erroredTrials": 0,
+    "nonEvaluableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "failureDomains": {},
+    "missingPrimaryRewardTrials": 0,
+    "actionableContextBudgetTrials": 0,
+    "nonActionableExternalTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0
+  },
+  "candidateQualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "erroredTrials": 0,
+    "nonEvaluableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "failureDomains": {},
+    "missingPrimaryRewardTrials": 0,
+    "actionableContextBudgetTrials": 0,
+    "nonActionableExternalTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0
+  },
+  "regressedCells": [],
+  "perCell": [
+    {
+      "cell": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-01|a281cd40a627e7844e62926693561749207fc765c60442931c662874b8397b42|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-01",
+      "taskChecksum": "a281cd40a627e7844e62926693561749207fc765c60442931c662874b8397b42",
+      "attempts": 1,
+      "baselineMeanReward": 0.7485457471401785,
+      "candidateMeanReward": 0.832728773554186,
+      "delta": 0.08418302641400743,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    },
+    {
+      "cell": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-02|5e8123902a150006b672d517cdab0341c2ff7f4a20d4eec5888fda9570e5c7be|oracle|1.0.0|unknown",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-02",
+      "taskChecksum": "5e8123902a150006b672d517cdab0341c2ff7f4a20d4eec5888fda9570e5c7be",
+      "attempts": 1,
+      "baselineMeanReward": 0.5489520745220636,
+      "candidateMeanReward": 0.5489520745220636,
+      "delta": 0.0,
+      "evaluable": true,
+      "baselineNonEvaluableTrials": 0,
+      "candidateNonEvaluableTrials": 0,
+      "candidateErrors": 0
+    }
+  ],
+  "promotionRules": {
+    "minimumMeanGain": 0.0,
+    "allowTaskRegressions": false,
+    "requireNoErrors": true,
+    "requiredRewards": {
+      "evidence_contract_gate": 1.0,
+      "mechanical_qualification_gate": 1.0
+    }
+  },
+  "baselineEvidence": [
+    {
+      "evidenceId": "holdout-baseline-01-d7be5aaada:b0f9a736-cf56-4499-8eb3-43087f1d3fc7",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-01",
+      "taskChecksum": "a281cd40a627e7844e62926693561749207fc765c60442931c662874b8397b42",
+      "reward": 0.7485457471401785,
+      "reportedReward": 0.7485457471401785,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/holdout-baseline-01-d7be5aaada/part-01__J53An7M/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-baseline-01-d7be5aaada:b9c087fa-8415-4a73-a0e3-f0d0fb7c4646",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-02",
+      "taskChecksum": "5e8123902a150006b672d517cdab0341c2ff7f4a20d4eec5888fda9570e5c7be",
+      "reward": 0.5489520745220636,
+      "reportedReward": 0.5489520745220636,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/holdout-baseline-01-d7be5aaada/part-02__bX9qbw8/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    }
+  ],
+  "candidateEvidence": [
+    {
+      "evidenceId": "holdout-candidate-01-ffc1b51698:679ea689-3935-492c-ab4f-b4106956ad94",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-01",
+      "taskChecksum": "a281cd40a627e7844e62926693561749207fc765c60442931c662874b8397b42",
+      "reward": 0.832728773554186,
+      "reportedReward": 0.832728773554186,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/holdout-candidate-01-ffc1b51698/part-01__3Yp45iF/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "holdout-candidate-01-ffc1b51698:d1f19a7f-b223-47c2-ae2a-d0fa878b9a8a",
+      "taskName": "knowledge/tantivy-builder-endocrine-evolution__holdout__part-02",
+      "taskChecksum": "5e8123902a150006b672d517cdab0341c2ff7f4a20d4eec5888fda9570e5c7be",
+      "reward": 0.5489520745220636,
+      "reportedReward": 0.5489520745220636,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-round3-20260723-02/harbor-jobs/holdout-candidate-01-ffc1b51698/part-02__yEvmZHL/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    }
+  ]
+}

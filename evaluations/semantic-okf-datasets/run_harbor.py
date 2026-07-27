@@ -25,6 +25,7 @@ import sys
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(GRADER))
 import campaign_binding as frozen  # noqa: E402
+import candidate_family as candidates  # noqa: E402
 import dataset_tool as data  # noqa: E402
 import generate_harbor_tasks as task_generation  # noqa: E402
 from trace_status import classify_pi_trace  # noqa: E402
@@ -209,6 +210,7 @@ def checked_tasks(
     mode: str,
     cohort: str,
     requested: Sequence[str],
+    supplied_root: Path | None = None,
 ) -> tuple[Path, list[str], dict[str, Any]]:
     """Resolve a generated task cohort and validate the selected question IDs."""
 
@@ -220,7 +222,10 @@ def checked_tasks(
     selected = list(requested) if requested else list(allowed)
     if len(selected) != len(set(selected)) or any(value not in allowed for value in selected):
         raise RunError("task IDs must be unique members of the selected cohort")
-    root = (HERE / "generated/tasks" / dataset_id / mode / family_id).resolve()
+    root = (
+        supplied_root
+        or HERE / "generated/tasks" / dataset_id / mode / family_id
+    ).resolve()
     manifest_path = root / "manifest.json"
     if not manifest_path.is_file():
         raise RunError(f"generated tasks are absent: {root}")
@@ -316,6 +321,7 @@ def job_config(
     resource_target: str,
     auth_source: str,
     hf_cache: Path | None,
+    concurrency: int = 1,
 ) -> dict[str, Any]:
     """Build a deterministic Harbor configuration for one mode-isolated job."""
 
@@ -329,7 +335,7 @@ def job_config(
         "job_name": output.name,
         "jobs_dir": str(output.parent),
         "n_attempts": attempts,
-        "n_concurrent_trials": 1,
+        "n_concurrent_trials": concurrency,
         "quiet": False,
         "retry": {"max_retries": 0},
         "environment": {"type": "docker", "delete": True, "mounts": mounts},
@@ -337,7 +343,7 @@ def job_config(
             {
                 "name": "pi",
                 "model_name": MODEL,
-                "n_concurrent": 1,
+                "n_concurrent": concurrency,
                 "skills": [str(path) for path in skills],
                 "kwargs": {"version": PI_VERSION, "thinking": "high"},
                 "env": {"PI_CODING_AGENT_DIR": "/root/.pi/agent"},
@@ -382,10 +388,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", choices=data.available_datasets(), required=True)
-    parser.add_argument("--family", choices=sorted(data.load_families()), required=True)
+    parser.add_argument("--family", required=True)
+    parser.add_argument(
+        "--candidate-family-spec",
+        type=Path,
+        help="Hash-bound inactive family specification; not valid with frozen campaigns.",
+    )
     parser.add_argument("--mode", choices=task_generation.MODES, required=True)
     parser.add_argument("--cohort", required=True)
     parser.add_argument("--task-id", action="append", default=[])
+    parser.add_argument(
+        "--tasks",
+        type=Path,
+        help="Explicit complete generated task root; defaults to the canonical family path.",
+    )
     parser.add_argument("--bundle", type=Path)
     parser.add_argument("--input", type=Path)
     parser.add_argument("--consult-skill", type=Path)
@@ -393,6 +409,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--hf-cache", type=Path)
     parser.add_argument("--auth-file", type=Path, default=Path.home() / ".pi/agent/auth.json")
     parser.add_argument("--attempts", type=int, default=1)
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=1,
+        help="Concurrent Harbor trials and Pi agents for this bounded job (1-4).",
+    )
     parser.add_argument("--output", type=Path)
     parser.add_argument("--harbor", default="harbor")
     parser.add_argument("--frozen-campaign", action="store_true")
@@ -401,6 +423,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     args = parser.parse_args(argv)
     if args.attempts < 1:
         parser.error("--attempts must be positive")
+    if not 1 <= args.concurrency <= 4:
+        parser.error("--concurrency must be between 1 and 4")
     if args.mode == "consult-only" and args.build_skill is not None:
         parser.error("--build-skill is forbidden in consult-only mode")
     if args.mode == "build-consult" and args.bundle is not None:
@@ -411,6 +435,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         parser.error("--frozen-campaign and --input-bindings must be used together")
     if args.frozen_campaign and args.mode != "consult-only":
         parser.error("--frozen-campaign is supported only for consult-only mode")
+    if args.frozen_campaign and args.candidate_family_spec is not None:
+        parser.error("--candidate-family-spec is incompatible with --frozen-campaign")
     if not args.dry_run and os.name != "posix":
         parser.error("live Harbor execution must run inside Linux or WSL; --dry-run is cross-platform")
     return args
@@ -421,12 +447,26 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     args = parse_args(argv)
     try:
-        if not args.frozen_campaign:
+        if args.frozen_campaign:
             data.validate_dataset(args.dataset, args.family)
-        family = data.load_families()[args.family]
+            family = data.load_families()[args.family]
+            candidate_binding = None
+        else:
+            family, candidate_binding = candidates.resolve(
+                args.dataset,
+                args.family,
+                args.mode,
+                args.candidate_family_spec,
+            )
         tasks_path, task_ids, task_manifest = checked_tasks(
-            args.dataset, args.family, args.mode, args.cohort, args.task_id
+            args.dataset,
+            args.family,
+            args.mode,
+            args.cohort,
+            args.task_id,
+            args.tasks,
         )
+        candidates.verify_manifest(task_manifest, candidate_binding)
         resource, resource_target, resource_receipt = checked_resource(
             args.dataset,
             args.family,
@@ -483,6 +523,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "cohort": args.cohort,
             "task_ids": task_ids,
             "attempts": args.attempts,
+            "concurrency": args.concurrency,
             "model": MODEL,
             "pi_version": PI_VERSION,
             "installed_skills": [
@@ -498,6 +539,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             "run_status": "prepared",
             **resource_receipt,
         }
+        if candidate_binding is not None:
+            receipt["candidate_family"] = candidate_binding
         if campaign_binding_digest is not None and campaign_binding is not None:
             receipt.update(
                 {
@@ -522,6 +565,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 resource_target=resource_target,
                 auth_source="<ephemeral-auth-directory>",
                 hf_cache=hf_cache,
+                concurrency=args.concurrency,
             )
             output.mkdir()
             receipt["run_status"] = "dry-run"
@@ -550,6 +594,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 resource_target=resource_target,
                 auth_source=str(auth_dir),
                 hf_cache=hf_cache,
+                concurrency=args.concurrency,
             )
             redacted = json.loads(json.dumps(config))
             for mount in redacted["environment"]["mounts"]:
@@ -596,7 +641,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         finally:
             if owns_auth_dir:
                 shutil.rmtree(auth_dir, ignore_errors=True)
-    except (data.DatasetError, frozen.BindingError, RunError, OSError) as exc:
+    except (
+        data.DatasetError,
+        candidates.CandidateFamilyError,
+        frozen.BindingError,
+        RunError,
+        OSError,
+    ) as exc:
         raise SystemExit(str(exc)) from exc
 
 

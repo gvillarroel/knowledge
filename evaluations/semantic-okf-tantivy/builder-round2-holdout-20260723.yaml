@@ -1,0 +1,30 @@
+job_name: tantivy-builder-astro-round2-holdout-20260723-01
+jobs_dir: /home/villa/harbor/tantivy-round2-astro/builder-holdout
+n_attempts: 1
+n_concurrent_trials: 2
+quiet: false
+retry:
+  max_retries: 0
+  min_wait_sec: 1.0
+  max_wait_sec: 60.0
+  wait_multiplier: 1.0
+  include_exceptions: []
+  exclude_exceptions: []
+environment:
+  type: docker
+  delete: true
+  mounts:
+    - type: bind
+      source: /home/villa/harbor/tantivy-round2-astro/runtime-inputs/builder-input-20260723-01
+      target: /dataset
+      read_only: true
+      bind:
+        create_host_path: false
+agents:
+  - name: oracle
+    n_concurrent: 2
+    skills:
+      - /mnt/c/Users/villa/dev/knowledge/skills/build-semantic-okf-tantivy
+tasks:
+  - path: /mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-01
+  - path: /mnt/c/Users/villa/dev/knowledge/evaluations/semantic-okf-tantivy/generated/round2-astro/tasks-builder-v1/holdout/part-02

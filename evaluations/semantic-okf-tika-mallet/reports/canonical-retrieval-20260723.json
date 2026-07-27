@@ -1,0 +1,81 @@
+{
+  "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+  "candidate_id": "tika-mallet",
+  "dataset_id": "graphrag-papers-40",
+  "interpretation": {
+    "metrics_source": "prospectively selected attempt-10 direct Top-10 run",
+    "semantic_answer_quality": "not-measured-by-this-retrieval-audit",
+    "timing_excludes_setup": true
+  },
+  "parity": {
+    "attempt_10_top10_pool100_prefix_exact": true,
+    "attempt_11_top10_pool100_prefix_exact": true,
+    "bundle_inventory_exact": true,
+    "pool100_replicate_exact": true,
+    "records_exact": true,
+    "top10_replicate_exact": true
+  },
+  "question_count": 40,
+  "ranking_eligible": true,
+  "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+  "replicate_latency_ms": {
+    "attempt_10_pool100": {
+      "mean": 70.46400999824982,
+      "p95": 80.07301001925953
+    },
+    "attempt_10_top10": {
+      "mean": 77.13061498943716,
+      "p95": 86.35780498152597
+    },
+    "attempt_11_pool100": {
+      "mean": 54.33254998642951,
+      "p95": 74.59678492159581
+    },
+    "attempt_11_top10": {
+      "mean": 66.83703749149572,
+      "p95": 75.52015006076543
+    }
+  },
+  "reports": {
+    "attempt_10_pool100": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet/generated/graphrag-papers-40/retrieval-ascii-attempt10-pool100-final/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "532dda70789476a773301181d5b238dd0e51b39d89c4d46caa23727cefa24a35",
+      "top_k": 100
+    },
+    "attempt_10_top10": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet/generated/graphrag-papers-40/retrieval-ascii-attempt10-top10-final/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "2119dd33b2275ba6e8010079b5dc884af9516611626cfc1d170f5384fdd04329",
+      "top_k": 10
+    },
+    "attempt_11_pool100": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet/generated/graphrag-papers-40/retrieval-ascii-attempt11-pool100-final/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "07277ef72ee7cc5b8f39f3f75fbfb6ee874cbde8f4cbd13d5f1cbdad1e376efd",
+      "top_k": 100
+    },
+    "attempt_11_top10": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet/generated/graphrag-papers-40/retrieval-ascii-attempt11-top10-final/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "b7f2ead9046f2cb418c346a947ad48f09c53f28d62352ba1f9747cb4a4b082a9",
+      "top_k": 10
+    }
+  },
+  "schema_version": "semantic-okf-tika-mallet-retrieval-audit/1.0",
+  "selected_metrics": {
+    "evidence_valid_rate": 1.0,
+    "hard_recall_at_10": 0.7183333333333334,
+    "mean_latency_ms": 77.13061498943716,
+    "mrr_at_10": 0.875,
+    "ndcg_at_10": 0.754359723533816,
+    "p95_latency_ms": 86.35780498152597,
+    "recall_at_10": 0.7481727994227995
+  },
+  "selected_route": "tika_mallet_fusion",
+  "status": "pass"
+}

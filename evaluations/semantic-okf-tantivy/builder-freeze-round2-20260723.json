@@ -1,0 +1,56 @@
+{
+  "schema_version": "semantic-okf-tantivy-builder-freeze/1.0",
+  "status": "frozen",
+  "logical_name": "build-semantic-okf-tantivy",
+  "selected_candidate": "long-record-overview",
+  "source_tree": {
+    "file_count": 18,
+    "harbor_promotion_sha256": "sha256:5223046d8c1fcc4d4d7cc4cf138e9182a67ac92f970d4bf05bcf39ba50c9e1a8",
+    "clean_live_trace_sha256": "sha256:8a5024734f62d4b53fe55b6b6f569d831513429460c0de8783ae1b47584de40a"
+  },
+  "frozen_consult": {
+    "logical_name": "consult-semantic-okf-tantivy",
+    "clean_live_trace_sha256": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84",
+    "unchanged_during_builder_evolution": true
+  },
+  "development": {
+    "dataset": "astro-40",
+    "cohort": "train",
+    "question_count": 24,
+    "task_count": 6,
+    "baseline_mean_reward": 0.8326378041612101,
+    "candidate_mean_reward": 0.8537401256406381,
+    "gain": 0.021102321479428,
+    "passed_tasks": 6,
+    "errors": 0
+  },
+  "holdout": {
+    "dataset": "astro-40",
+    "cohort": "holdout",
+    "question_count": 8,
+    "task_count": 2,
+    "baseline_mean_reward": 0.927071452413526,
+    "candidate_mean_reward": 0.9273054107230003,
+    "gain": 0.00023395830947436913,
+    "regressed_tasks": 0,
+    "errors": 0,
+    "promoted": true,
+    "decision": "promote-long-record-overview"
+  },
+  "canonical_replay": {
+    "bundle_file_count": 890,
+    "two_builds_byte_identical": true,
+    "question_executions": 120,
+    "errors": 0,
+    "evidence_validity": 1.0,
+    "quality_metrics_unchanged": true,
+    "report": "evaluations/semantic-okf-tantivy/generated/round2-final-canonical-20260723-01/summary.json"
+  },
+  "evidence": {
+    "trace_report": ".tantivy-builder-round2-20260723-01/report.md",
+    "development_gate": ".tantivy-builder-round2-20260723-01/development-gate.json",
+    "holdout_gate": ".tantivy-builder-round2-20260723-01/holdout-gate.json",
+    "compact_report": "evaluations/semantic-okf-tantivy/reports/trace-distillation-round2-astro-20260723.json",
+    "canonical_summary": "evaluations/semantic-okf-tantivy/canonical-retrieval-summary.json"
+  }
+}

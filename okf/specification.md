@@ -701,6 +701,58 @@ The repository also ships `skills/build-semantic-okf-graphify/` and `skills/cons
 - Exact identity and grouped counts remain ledger operations. Graphify labels, scores, and edges are discovery evidence rather than authoritative domain facts, and fallback to another route must be explicit.
 - The storage-version comparison must reuse the frozen 31-source, 874-record GraphRAG corpus, its existing 30 retrieval questions, and a digest-frozen historical baseline so core parity, determinism, size, build time, exact lookup, aggregation, structural discovery quality, and evidence validity are directly comparable. Graphify hit validity must prove complete ledger identity, a recomputed record digest, ledger-derived paper identity, a safe exact concept locator, byte-identical content, and the exact authoritative record body.
 
+### Semantic OKF Tantivy BM25 pair
+
+The repository also ships `skills/build-semantic-okf-tantivy/` and `skills/consult-semantic-okf-tantivy/` as a standalone construction-and-consultation candidate pair. The builder publishes a validated classical-compatible projection, and the read-only consultant queries it through Tantivy's native Rust BM25 engine.
+
+- Keep the builder standalone: it must own its entry points, implementation modules, references, dependency locks, validation, and atomic publication without importing or executing a sibling skill.
+- Require byte-identical clean builds for unchanged inputs. JSON and JSONL artifacts must use deterministic UTF-8 LF bytes across supported host platforms.
+- Pin the official `tantivy==0.26.0` Python binding and fail explicitly rather than substituting another BM25 implementation or search service.
+- Validate the closed classical projection, authoritative core binding, artifact hashes, passing reports, passage identities, safe concept paths, exact locators, and text hashes before ranking.
+- Apply source, concept, and type filters before building a pathless in-memory Tantivy index; never write an index, cache, or sidecar into the snapshot.
+- Index title and passage text with positional term frequencies, use the classical title/body weights as field boosts, require the supported `k1=1.2` and `b=0.75` defaults, and disclose the engine, package version, analyzer, storage mode, indexed passage count, and score.
+- Treat the Tantivy score as discovery-only and preserve every authoritative identity and locator needed to verify the selected text in `semantic/records.jsonl` and concept Markdown.
+- Keep the candidate outside the canonical eight-family Harbor registry until a separate deterministic retrieval and grounded-answer evaluation supports promotion.
+- Gate any trace-distilled consultant change on an evaluable disjoint Harbor holdout with complete exact-evidence and mechanical-qualification rewards, zero candidate errors, no task regression, and non-negative mean gain; a development-only pass must not modify the checked-in skill.
+- Freeze the promoted consultant by complete tree digest before evolving the dedicated builder. Evaluate builder candidates through that exact consumer, reject any candidate with a disjoint holdout task regression, and retain the byte-identical stable builder when a development winner fails that gate.
+
+### Semantic OKF Tika, MALLET, and Tantivy consultation
+
+The repository also ships `skills/consult-semantic-okf-tika-mallet-tantivy/` as
+a standalone read-only experiment over snapshots produced with Apache Tika
+`4.0.0-beta-1` and Java MALLET `2.1.0`. It validates the complete extraction and
+topic-projection contract, then uses the official `tantivy==0.26.0` Python
+binding for native Rust BM25 discovery.
+
+- Keep the skill consultation-only. It must not extract sources, train a new
+  authoritative model, build or repair a snapshot, or name a sibling skill as a
+  prerequisite.
+- Validate the closed Tika receipt, Tika-to-ledger parity, closed MALLET
+  projection, authoritative core binding, artifact hashes, passing reports,
+  paths, locators, and text hashes before indexing.
+- Require the persisted `k1=1.2` and `b=0.75` settings supported by Tantivy,
+  apply the plan's title and body weights as field boosts, and fail rather than
+  substitute another lexical engine.
+- Apply source, concept, and type filters before constructing one pathless
+  in-memory Tantivy index. Never write an index, cache, or sidecar into the
+  immutable snapshot.
+- Provide explicit `tantivy`, `topic`, `association`, and `fusion` modes. Run
+  every lexical component through Tantivy; use persisted MALLET topic vectors
+  and PPMI associations only as query-expansion or fusion signals.
+- Preserve deliberate Tantivy syntax, disable regex queries, and normalize
+  syntax-free natural text against the persisted unigram lexicon.
+- Disclose engine version, Rust implementation, tokenizer, in-memory storage,
+  field boosts, indexed passage count, parsed component queries, expansions,
+  requested and effective modes, scores, and exact authoritative evidence
+  identities.
+- Treat Tika metadata as provenance and every topic, association, score, rank,
+  and fusion value as non-authoritative discovery data. Verify factual claims
+  against concept Markdown, `semantic/records.jsonl`, or a purpose-selected RDF
+  graph.
+- Keep the composition outside the canonical Harbor registry and make no
+  quality or promotion claim until it completes a separate deterministic
+  retrieval and grounded-answer evaluation.
+
 ### Semantic OKF consultation benchmark
 
 The repository must keep an isolated Skill Arena benchmark under `evaluations/semantic-okf-reader/` that evaluates grounded semantic correctness across the consultation layers of a pinned Semantic OKF snapshot.

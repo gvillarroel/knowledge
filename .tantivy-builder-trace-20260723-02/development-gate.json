@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "phase": "development",
+  "status": "complete",
+  "decision": "pass",
+  "passed": true,
+  "evaluable": true,
+  "fairnessBasis": "trial-lock-and-result",
+  "warning": null,
+  "attemptIndependenceVerified": true,
+  "attemptIndependenceSignature": "sha256:1ad6827d3bac8807ce5fa4898da6a8a584806a2e3d51bebe7dfc2315a592046b",
+  "discoveryReplaySignature": "sha256:97a1e8aaed4926e6c1ea7d0bd9893d3e0200f3e4460a669f5eb6d34d95297d33",
+  "candidateReplaySignature": "sha256:97a1e8aaed4926e6c1ea7d0bd9893d3e0200f3e4460a669f5eb6d34d95297d33",
+  "candidateDigest": "sha256:0fccf4555edea1fadbe0530262030b15f183f6e696acd6e32dba17225b848a5d",
+  "uniqueTrials": 6,
+  "uniqueTasks": 6,
+  "passedTrials": 6,
+  "candidatePassRate": 1.0,
+  "minimumPassRate": 1.0,
+  "passRateEligible": true,
+  "candidateErrors": 0,
+  "candidateQualified": true,
+  "requiredRewardsComplete": true,
+  "provenanceVerified": true,
+  "qualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "erroredTrials": 0,
+    "nonEvaluableTrials": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "failureDomains": {},
+    "missingPrimaryRewardTrials": 0,
+    "actionableContextBudgetTrials": 0,
+    "nonActionableExternalTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0
+  },
+  "blockers": [],
+  "candidateEvidence": [
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:79fbb27c-3449-4deb-b56b-f0a000792913",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-01",
+      "taskChecksum": "9c004db974e21b9065f66b05c1c2ef55f5e0d329687086cca036ebd6146eac7e",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.8316004862223426,
+      "reportedReward": 0.8316004862223426,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-01__bNKsAJx/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-01__bNKsAJx",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-01__bNKsAJx/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-01__bNKsAJx/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:3e581238-5829-4a21-a66c-480387038d45",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-02",
+      "taskChecksum": "b1fa8d54cebd145e28cd7020bb21939c8568b0a94486820fa244c44e851f5d53",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.9028846720709081,
+      "reportedReward": 0.9028846720709081,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-02__ETJgajF/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-02__ETJgajF",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-02__ETJgajF/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-02__ETJgajF/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:8931e954-a943-4503-a80b-e33886830841",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-03",
+      "taskChecksum": "e171b5e399460a6a35b0cb0b5842600be0746eddb8d224f23f741a6248fd3322",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.8094671056965256,
+      "reportedReward": 0.8094671056965256,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-03__L3sdiWY/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-03__L3sdiWY",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-03__L3sdiWY/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-03__L3sdiWY/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:4fe05103-ed90-4838-a60b-9ae8538c6e5f",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-04",
+      "taskChecksum": "8dd3ab50ec22e9eda1f0c066fa5b0327d693baf156a2d9a317bdd2d6d22a231d",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.8722814113003183,
+      "reportedReward": 0.8722814113003183,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-04__o3nMumu/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-04__o3nMumu",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-04__o3nMumu/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-04__o3nMumu/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:62ae4ad3-de19-465b-9899-a91c4dbf633a",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-05",
+      "taskChecksum": "a30b991b1eed9dcbd91e1347a13f3e692ffe23a9303bf7b338aeaf2233d5a1a9",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.9003293324707454,
+      "reportedReward": 0.9003293324707454,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-05__6wVUDs9/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-05__6wVUDs9",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-05__6wVUDs9/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-05__6wVUDs9/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    },
+    {
+      "evidenceId": "development-candidate-01-1f227d1f3b:bf116f39-b72a-4a69-95e2-4c8595a5a36d",
+      "taskName": "knowledge/tantivy-builder-evolution__development__part-06",
+      "taskChecksum": "31a893f47cb003d9cd4c219840ab156d7b80280be9ff16b9b02ec8ae74f96e07",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": "unknown",
+      "reward": 0.8823900533384431,
+      "reportedReward": 0.8823900533384431,
+      "primaryRewardMissing": false,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "evaluable": true,
+      "evaluationFailure": null,
+      "verifierDiagnostics": [
+        {
+          "scope": "trial",
+          "path": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-06__RRGNq2d/verifier/diagnostics.json",
+          "status": "scored-response",
+          "failureDomain": null,
+          "terminalOutcome": "complete",
+          "errorCode": null
+        }
+      ],
+      "evidenceClass": "semantic-evaluation",
+      "actionability": null,
+      "evidenceEligible": true,
+      "outcome": "success",
+      "error": null,
+      "usage": {
+        "inputTokens": null,
+        "cachedInputTokens": null,
+        "outputTokens": null,
+        "costUsd": null
+      },
+      "artifactDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-06__RRGNq2d",
+      "resultPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-06__RRGNq2d/result.json",
+      "lockPath": "/mnt/c/Users/villa/dev/knowledge/.tantivy-builder-trace-20260723-02/harbor-jobs/development-candidate-01-1f227d1f3b/part-06__RRGNq2d/lock.json",
+      "jobRetry": {
+        "maxRetries": 0,
+        "includeExceptions": [],
+        "excludeExceptions": [],
+        "waitMultiplier": 1.0,
+        "minWaitSec": 1.0,
+        "maxWaitSec": 60.0
+      },
+      "jobRetryDigest": "sha256:74f2cf20b1371d2427d6e819ba69df1cfa7372c7ca60a8cfa4c5aec4c557a1c5",
+      "skillIdentity": {
+        "logicalName": "build-semantic-okf-tantivy",
+        "lockedName": "build-semantic-okf-tantivy",
+        "sourceBasename": "build-semantic-okf-tantivy",
+        "lockVerified": true,
+        "legacyAliasAccepted": false,
+        "promotionEligible": true
+      }
+    }
+  ]
+}

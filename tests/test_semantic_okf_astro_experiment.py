@@ -60,6 +60,23 @@ def test_retrieval_harness_uses_only_explicit_source_record_identity() -> None:
     assert all(identity[(row["source_id"], row["record_id"])] == row["document_id"] for row in documents.values())
 
 
+def test_graphify_evaluator_exposes_sealed_discovery_and_holdout_cohorts(tmp_path: Path) -> None:
+    """Graphify builder trials must select cohorts without editing benchmark questions."""
+
+    runtime = load_script("astro_graphify_cohort_test", "evaluate_graphify_retrieval.py")
+    common = [
+        "--bundle", str(tmp_path),
+        "--raw-output", str(tmp_path / "raw.json"),
+        "--compact-json", str(tmp_path / "compact.json"),
+        "--compact-markdown", str(tmp_path / "compact.md"),
+    ]
+    discovery = runtime.parse_args([*common, "--cohort", "discovery"])
+    holdout = runtime.parse_args([*common, "--cohort", "holdout"])
+    assert discovery.cohort == "discovery"
+    assert holdout.cohort == "holdout"
+    assert discovery.cohorts.name == "astro-40-cohorts.json"
+
+
 def test_ledger_reconstructs_whole_record_and_character_range(tmp_path: Path) -> None:
     """Evidence validation must reject altered retained text while accepting exact slices."""
 

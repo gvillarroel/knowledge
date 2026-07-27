@@ -2,14 +2,19 @@
   "schema_version": "graphrag-best-answer-collection/1.0",
   "dataset_id": "graphrag-papers-40",
   "review_date": "2026-07-24",
-  "review_method": "Forty independent question-level review assignments compared all available historical responses with the authored semantic target and verified each proposed response against the exact frozen evidence ledger. Thirty-four producing agent threads were used; after the collaboration thread cap was reached, the final six assignments were performed sequentially by the q033 and q034 agents with separate contexts, outputs, and validations.",
+  "review_method": "An initial question-level review compared every available historical response with the authored semantic target and exact frozen evidence ledger. A second independent assignment for each of the forty questions then rechecked every material statement, semantic target, evidence identity, document minimum, and hard anchor. The second pass retained twenty-six answers and replaced fourteen with more precisely grounded responses.",
   "question_count": 40,
   "question_review_count": 40,
   "producing_agent_count": 34,
+  "second_pass_review_count": 40,
+  "second_pass_producing_agent_count": 40,
+  "second_pass_keep_count": 26,
+  "second_pass_revise_count": 14,
+  "second_pass_validation_status": "pass",
   "historical_response_count": 175,
   "semantic_target_count": 200,
   "proposed_claim_count": 243,
-  "evidence_row_count": 408,
+  "evidence_row_count": 409,
   "hard_anchor_count": 94,
   "confidence_counts": {
     "high": 40
@@ -281,7 +286,7 @@
       "question_id": "q030",
       "semantic_target_count": 5,
       "claim_count": 10,
-      "evidence_count": 34,
+      "evidence_count": 35,
       "independent_document_count": 15,
       "hard_anchor_count": 0,
       "status": "pass"
@@ -730,7 +735,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q001_best",
-      "review_sha256": "e4f2271120413ec83a77fca79c53f05452ec54eeab84c43d46073be3f859feaa"
+      "review_sha256": "e4f2271120413ec83a77fca79c53f05452ec54eeab84c43d46073be3f859feaa",
+      "second_pass_review_agent": "/root/q001_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "fada706aecec4c9ee6046963a5e60e64dcfe351560bb5578b42c9716bc6c1fb8",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -1016,7 +1025,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q002_best",
-      "review_sha256": "b94ec27d332f1233b00a75cf10062ba89f79da34421731880fcdeb102290ba09"
+      "review_sha256": "b94ec27d332f1233b00a75cf10062ba89f79da34421731880fcdeb102290ba09",
+      "second_pass_review_agent": "/root/q002_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "0f309b85d2ddbfe11d22d38ddd7dc290190c5c9acf7dddc0f33352b5399f2812",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -1281,7 +1294,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q003_best",
-      "review_sha256": "69e96ac75e8cd076fc76b280dfd8acdcb9b719dbb816b0376299985e43956082"
+      "review_sha256": "69e96ac75e8cd076fc76b280dfd8acdcb9b719dbb816b0376299985e43956082",
+      "second_pass_review_agent": "/root/q003_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "0292203a543c8c05c917bd4c639403678ce42cf19c8cfaa6e4e84d71b2200785",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -1571,7 +1588,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q004_best",
-      "review_sha256": "e8f8075a5cb31c1ce55292c972e69210df8132be65f2bc054ad4e188904f661d"
+      "review_sha256": "e8f8075a5cb31c1ce55292c972e69210df8132be65f2bc054ad4e188904f661d",
+      "second_pass_review_agent": "/root/q004_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "1fd74f2e4484b667610d6ddeddf55aa5e175ba571d2d9bdea47a59ba2f4e162c",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -1755,7 +1776,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q005_best",
-      "review_sha256": "d7fad5429d864af262299b4c3b9cc27a6dbaac987d060551c07cd5c35b96f2f0"
+      "review_sha256": "d7fad5429d864af262299b4c3b9cc27a6dbaac987d060551c07cd5c35b96f2f0",
+      "second_pass_review_agent": "/root/q005_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "b6cc249e129628d2a426134222c6260bc924e7d6c84be42e5a9aa98d17070c49",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -1959,7 +1984,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q006_best",
-      "review_sha256": "a2c6db3752e420d3d4598ae15f338595dcb171110672510c158bcb15d768e7eb"
+      "review_sha256": "a2c6db3752e420d3d4598ae15f338595dcb171110672510c158bcb15d768e7eb",
+      "second_pass_review_agent": "/root/q006_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "daba01e72f2dc22fd0a29c38a3df8bc45f5c06f050a0ac073c859c551d5e60a4",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -2155,7 +2184,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q007_best",
-      "review_sha256": "09d3b16ac7863f1609dc14a9cbce241a6128402b359111c642d5cb1d906934fe"
+      "review_sha256": "09d3b16ac7863f1609dc14a9cbce241a6128402b359111c642d5cb1d906934fe",
+      "second_pass_review_agent": "/root/q007_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "98ca46a813eedea287b3d10cb11724e7fd5101e4cebdefc8279e810acf846d99",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -2431,7 +2464,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q008_best",
-      "review_sha256": "8a29944d0b2a6d17c10a01c87ede4ca69e14d4eda0ecb68a4a137ad5c25a7e75"
+      "review_sha256": "8a29944d0b2a6d17c10a01c87ede4ca69e14d4eda0ecb68a4a137ad5c25a7e75",
+      "second_pass_review_agent": "/root/q008_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "52427b4f7dc3b7c4d864f9d9e2a54710f52dec721ba3a358efe650e3dae2bab6",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -2492,7 +2529,7 @@
       "proposed_response": {
         "question_id": "q009",
         "answer": {
-          "summary": "These mechanisms are different control layers, not synonyms.\n\nDecomposition turns a nested or multi-hop request into dependency-ordered subquestions, exposing which intermediate answers must be obtained before later questions can even be instantiated. Classification decides the shape of each question. PolyG first labels a question basic or nested and, for a basic question, classifies which subject-predicate-object components are known. Logical or graph-query conversion then makes the plan executable: KAG uses operators such as Retrieval, Sort, Math, Deduce, and Output; ROGRAG uses filtering and aggregation operations; PolyG generates schema-conditioned Cypher.\n\nPlanning operates before exploration: GraphReader identifies needed information, forms a rational plan, and uses it to select initial nodes. Reflection operates during exploration: a notebook or global history is checked for sufficiency, and the agent chooses to read source detail, traverse another neighbor, ask a supplementary question, correct a weak path, or stop.\n\nRouting follows the diagnosed need. PolyG maps general-entity questions to one-hop BFS, known-predicate questions to meta-path walks, unconstrained relationship questions to top-k shortest paths, and specified relationships to constrained shortest paths. Youtu-GraphRAG routes atomic, few-hop, global, and multi-constraint questions to entity matching, triple matching, community filtering, or DFS bounded at five hops. KAG prefers exact graph results when strong and supplements them with chunks otherwise; ROGRAG falls back from failed decomposition or verification to fuzzy dual-level retrieval. GraphRAG-FI retains high-priority paths plus lower-priority supplementary paths and can combine graph and model candidates.\n\nThe control is useful but not free. Nested plans create sequential dependencies and higher latency and token use; KAG's logical-function planning uses many LLM calls and roughly twice the generated tokens of subproblem-only decomposition, while graph-only solving is faster but can lose accuracy on incomplete triples. Call limits, depth bounds, and no-agent variants reduce cost but can reduce coverage. Reflection, fuzzy fallback, and two-stage filtering improve robustness to missing or noisy evidence, yet extraction, classification, decomposition, planning, and verifier errors can propagate. Generated Cypher can be syntactically or semantically wrong or return nothing; returning execution errors for at most three repair attempts improves validity while bounding cost, but does not guarantee correctness.",
+          "summary": "These mechanisms are different control layers, not synonyms.\n\nDecomposition turns a nested or multi-hop request into dependency-ordered subquestions, exposing which intermediate answers must be obtained before later questions can be instantiated. Classification decides the shape of each question. PolyG first labels a question basic or nested and, for a basic question, classifies which subject-predicate-object components are known. Logical or graph-query conversion then makes the plan executable: KAG uses operators such as Retrieval, Sort, Math, Deduce, and Output; ROGRAG uses filtering and aggregation operations; PolyG generates schema-conditioned Cypher.\n\nPlanning operates before exploration: GraphReader identifies needed information, forms a rational plan, and uses it to select initial nodes. Reflection operates during exploration: a notebook or global history is checked for sufficiency, and the agent chooses to read source detail, traverse another neighbor, ask a supplementary question, correct a weak reasoning path, or stop.\n\nRouting follows the diagnosed need. PolyG maps general-entity questions to one-hop BFS, known-predicate questions to meta-path walks, unconstrained relationship questions to top-k shortest paths, and specified relationships to constrained shortest paths. Youtu-GraphRAG routes atomic, few-hop, global, and multi-constraint questions to entity matching, triple matching, community filtering, or DFS bounded at five hops. KAG uses exact graph results above its threshold and supplements them with chunks otherwise; ROGRAG falls back from failed decomposition or verification to fuzzy dual-level retrieval. GraphRAG-FI retains final filtered paths as high priority, adds coarse-pass paths rejected by the fine filter as supplementary context, and combines confidence-filtered GraphRAG and standalone-LLM answer candidates.\n\nThe control is useful but not free. Nested plans create sequential dependencies and higher latency and token use; KAG's logical-function planning requires multiple LLM calls and roughly twice the generated tokens of subproblem-only decomposition. Its graph-first Logical Form Solver can answer from subgraphs more quickly than the all-Hybrid-Retrieval variant and falls back to supporting chunks when graph reasoning returns no result, but erroneous or incomplete SPOs can still reduce answer accuracy. The papers bound work with ten function calls per GraphReader search path, five-hop Youtu DFS, and at most three PolyG Cypher-repair retries; Youtu also offers a no-agent variant for real-time feedback, while its ablation reports substantial degradation on complex reasoning when iterative reasoning and reflection are removed. Reflection, fuzzy fallback, and two-stage filtering improve robustness to missing or noisy evidence, yet extraction, classification, decomposition, planning, and verifier errors can propagate. Generated Cypher can be syntactically or semantically wrong or return nothing; returning execution errors for up to three repair retries balances quality and efficiency but does not guarantee correctness.",
           "claims": [
             {
               "statement": "Query decomposition creates dependency-ordered subquestions, question classification assigns basic-versus-nested and known-or-missing subject-predicate-object patterns, and logical-form or graph-query conversion compiles the resulting steps into executable operators or schema-aware Cypher.",
@@ -2503,7 +2540,7 @@
               ]
             },
             {
-              "statement": "Planning identifies required information, starting nodes, and an action sequence before graph exploration, while reflection uses accumulated notebooks or retrieval history to decide whether to inspect detail, traverse, issue supplementary queries, correct a weak path, or terminate.",
+              "statement": "Planning identifies required information, starting nodes, and an action sequence before graph exploration, while reflection uses accumulated notebooks or retrieval history to decide whether to inspect detail, traverse, issue supplementary queries, correct a weak reasoning path, or terminate.",
               "evidence_indices": [
                 3,
                 1,
@@ -2511,7 +2548,7 @@
               ]
             },
             {
-              "statement": "Routing selects one-hop BFS, meta-path, shortest-path, constrained-path, entity, triple, community, or depth-bounded DFS retrieval according to question structure, and can fall back to hybrid chunks, fuzzy matching, supplementary paths, or intrinsic-model candidates when structured evidence is absent or unreliable.",
+              "statement": "Routing selects one-hop BFS, meta-path, shortest-path, constrained-path, entity, triple, community, or depth-bounded DFS retrieval according to question structure; fallback and integration mechanisms include supporting chunks, fuzzy dual-level matching, lower-priority supplementary paths, and standalone-model candidates.",
               "evidence_indices": [
                 0,
                 1,
@@ -2521,7 +2558,7 @@
               ]
             },
             {
-              "statement": "Adaptive routing limits irrelevant work but adds planning latency and tokens; bounded calls, traversal depth, retries, and no-agent modes trade coverage for cost, while reflection, fallback, filtering, and execution repair improve robustness without eliminating decomposition, verifier, extraction, classification, or generated-query failures.",
+              "statement": "Adaptive routing can avoid irrelevant retrieval but decomposition and logical-form planning add sequential work, LLM calls, and tokens; the papers explicitly cap GraphReader calls, Youtu DFS depth, and PolyG repair retries, while Youtu's no-agent real-time variant removes iterative reasoning and reflection at a measured complex-reasoning cost. KAG's graph-first solver with chunk fallback trades faster subgraph reasoning against incomplete-SPO errors, and reflection, fuzzy fallback, filtering, and execution repair improve robustness without eliminating extraction, classification, decomposition, verifier, or generated-query failures.",
               "evidence_indices": [
                 0,
                 1,
@@ -2623,7 +2660,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q009_best",
-      "review_sha256": "361e9918f3e5c41458c955f90553cafe9a3f81ac5b5272f14ccbacb6c74d4bdb"
+      "review_sha256": "cc95ce574285a17f83894a6815a293c68c79d3e54f03d0dc933e276d70232222",
+      "second_pass_review_agent": "/root/q009_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "74892657629db51efff28861a977e0a34f0164c18d3bc980d5960fce33353db6",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -2701,7 +2742,7 @@
       "proposed_response": {
         "question_id": "q010",
         "answer": {
-          "summary": "The methods turn retrieved graph evidence into different prompt programs. GraphRAG compresses hierarchical communities into reports, generates an answer from each report, and reduces those partial answers. G-Retriever instead supplies one query-conditioned connected subgraph as text (plus a graph token). PathRAG preserves node-edge sequences as ordered paths. ROGRAG merges and deduplicates entity, relation, and chunk references. GraphReader explores coarse atomic facts and source chunks, records useful findings in notebooks, and consolidates those notes for generation.\n\nOrganization changes what the generator can reason over. A connected subgraph retains structural context, while a path keeps relations and endpoint dependencies in a readable multi-hop sequence; flattening the same nodes and edges destroys that organization. Reliability and prompt-position ordering can also put the strongest chain at a high-attention boundary. Reports favor corpus-level thematic coverage, whereas notebooks support iterative, question-directed synthesis.\n\nSource fidelity requires a route back from graph abstractions to text. GraphReader reopens original chunks before committing notes, LightRAG includes original-text excerpts, and KAG uses linked chunks to fill missing graph detail. This can preserve qualifiers, examples, quotations, and citations that extraction or summarization loses.\n\nThe trade-off is budgeted loss. Deduplication and community compression reduce noise and tokens, but excessive abstraction removes source detail; retaining too much repeats evidence and distracts the model. Small retrieval sets can omit needed facts, large sets can swamp them, and agent planning/reflection spends intermediate tokens. The strongest design is therefore a relation-preserving scaffold, aggressively but carefully deduplicated, with selective source excerpts retained for verification.",
+          "summary": "The methods turn retrieved graph evidence into different prompt programs. GraphRAG compresses hierarchical communities into reports, generates an answer from each report, and reduces those community answers. G-Retriever supplies a query-conditioned connected subgraph as text together with a soft graph token. PathRAG preserves node-and-edge sequences as ordered paths. ROGRAG merges and deduplicates entity, relation, and chunk references. GraphReader explores atomic facts and source chunks, records useful findings in notebooks, and consolidates those notes for generation.\n\nOrganization changes what the generator can reason over. A connected subgraph retains structural context, while a path keeps endpoint relations in a readable multi-hop sequence; flattening the same nodes and edges discards those relationships. Reliability ordering puts the query and strongest path at opposite prompt boundaries, and PathRAG's path-based prompts outperformed flat prompts on logicality and coherence. Community reports provide corpus-level global summaries, whereas notebooks consolidate question-directed exploration.\n\nSource fidelity requires a route back from graph abstractions to text. GraphReader reopens original chunks before adding supporting facts to a notebook, LightRAG includes original-text excerpts, and KAG uses linked chunks to supplement missing graph detail. Those source-text routes restore specific details such as examples, quotations, and citations that graph extraction can omit.\n\nThe trade-off is budgeted loss. Deduplication reduces repeated context, and root-level community reports can use over 97 percent fewer query-time context tokens than raw-text map-reduce. But abstractions can hide source detail; too few candidates omit evidence, too many distract, planning consumes substantial intermediate tokens, and chunk size trades hidden detail against semantic truncation. The comparison therefore supports a workload-dependent balance: preserve relation structure for coherence, compress and deduplicate for budget, and retain selective source text for fidelity.",
           "claims": [
             {
               "statement": "The methods package evidence at different granularities before generation: GraphRAG uses bottom-up community reports and independently generated community answers; G-Retriever supplies a textualized connected subgraph; PathRAG supplies ordered node-and-edge text per path; ROGRAG merges deduplicated nodes, edges, and chunk references; and GraphReader consolidates independent agent notebooks for final reasoning.",
@@ -2715,9 +2756,8 @@
               ]
             },
             {
-              "statement": "Relation-preserving organization supports multi-hop coherence: a connected evidence subgraph imposes structural coherence, while ordered paths retain endpoint relations as semantic chains rather than unordered facts; putting the query first and the strongest path at the final prompt boundary gives the model a deliberate reading order, and path prompts outperformed flat organization on logicality and coherence in the reported comparison.",
+              "statement": "Relation-preserving organization supports multi-hop coherence: PCST returns one connected evidence subgraph instead of independently selected facts, and ordered paths preserve endpoint relations as semantic chains rather than flattening nodes and edges. PathRAG places the query first and the most reliable path at the final boundary, and its path prompts outperformed flat organization on logicality and coherence.",
               "evidence_indices": [
-                2,
                 6,
                 7,
                 8,
@@ -2725,7 +2765,7 @@
               ]
             },
             {
-              "statement": "Graph abstractions should remain linked to source text: GraphReader uses atomic facts for navigation but reopens original chunks before recording a claim, LightRAG includes original-text excerpts in generation context, and KAG uses original chunks to supplement missing graph detail. This backstop preserves qualifiers, examples, quotations, and citations that community compression or graph extraction may omit.",
+              "statement": "Graph abstractions should remain linked to source text: GraphReader uses atomic facts for navigation but reopens original chunks before writing supporting facts to notebooks; LightRAG includes original-text excerpts in generation context; and KAG uses original chunks to supplement missing graph detail. These backstops restore source detail and retain examples, quotations, and citations that graph extraction may otherwise omit.",
               "evidence_indices": [
                 10,
                 11,
@@ -2734,9 +2774,10 @@
               ]
             },
             {
-              "statement": "Organization is a budgeted loss-management problem: deduplication reduces repeated graph and chunk context, and root community reports can use over 97 percent fewer query-time context tokens than source-text map-reduce; however, compression can lose citation-level detail, too few candidates omit evidence, too many distract, agent planning consumes substantial intermediate tokens, and chunk size trades hidden detail against semantic truncation.",
+              "statement": "Organization is a budgeted loss-management problem: ROGRAG deduplicates graph and chunk references, PathRAG identifies redundant graph information as a major failure source, and root-level community reports use over 97 percent fewer query-time context tokens than raw-text map-reduce. But abstractions can hide source detail; too few candidates omit evidence, too many distract, KAG planning generates substantial intermediate tokens, and chunk size trades hidden detail against semantic truncation.",
               "evidence_indices": [
                 4,
+                10,
                 13,
                 14,
                 15,
@@ -2992,7 +3033,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q010_best",
-      "review_sha256": "8cc715b9112190febcc98e4dd70217207e7720550aaa668bb11dc2ac3487f7e1"
+      "review_sha256": "77068a462499d5ccd8d09c22d6be06b4b3485e961fe1030cec4210c6dd3b3875",
+      "second_pass_review_agent": "/root/q010_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "99cff404ad2c587921a416caeba5660ab8c7bc8ef69bf92d29f8478c2ce81d9d",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -3288,7 +3333,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q011_best",
-      "review_sha256": "5bc4de1b4de2845dba1cbc504b742e4760534f26e33921c7a175f862453a82e3"
+      "review_sha256": "5bc4de1b4de2845dba1cbc504b742e4760534f26e33921c7a175f862453a82e3",
+      "second_pass_review_agent": "/root/q011_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "c278e08cc44030baf309fd280d87b87bce778f553af8a46c6520db3898664de3",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -3350,10 +3399,10 @@
       "proposed_response": {
         "question_id": "q012",
         "answer": {
-          "summary": "GraphRAG is a family rather than one fixed pipeline, but a recurring split is clear. During indexing, LLMs perform semantic work that is hard to specify with rules: entity/event and relation extraction, descriptions, schema alignment, and node, edge, or community summaries. At query time they may extract local/global keywords, decompose a question into subqueries or logical forms, make a rational plan, choose retrieval actions, reflect on missing evidence, verify whether context supports an answer, and write the final response.\n\nThe graph and database side performs the repeatable structural work. Leiden or K-means-style clustering organizes communities; Personalized PageRank diffuses relevance; one-hop traversal, bounded DFS, and path/subgraph search expose multi-hop evidence; ranking and fusion select passages; and graph, vector, or rule engines execute exact/fuzzy lookups plus operators such as filtering and aggregation. This can retrieve globally connected or multi-hop evidence more reliably than local dense retrieval.\n\nLLM extraction is not mandatory. A practical alternative uses dependency parsing, noun-phrase extraction, phrase merging, passive-voice and coreference normalization, and relation filtering. It retained most reported downstream quality in the enterprise study while avoiding mandatory LLM/GPU/API construction, enabling cheaper and more frequent refreshes. Its cost advantage is purchased with lower semantic recall: surface syntax can miss implicit or context-dependent relations, so an LLM extractor remains useful for ambiguous collections.\n\nThe central trade-off is where cost and error occur. LLM extraction and hierarchical summarization require many offline calls and can be expensive to rebuild; once indexed, database lookup, PageRank, or bounded traversal can reduce online context and API use. Incremental node/edge updates avoid full re-summarization. Conversely, query-time agents are more flexible because they plan, traverse, reflect, and fall back per question, but consume extra tokens and latency; shallow or no-agent modes are faster.\n\nAccuracy is coupled across stages: an extraction error becomes graph structure, a bad decomposition selects the wrong subgraph, and a weak verifier can pass bad context into fluent generation. Explicit logical forms, retrieved paths, intermediate notebooks, and links back to source chunks make reasoning more inspectable. Precomputed summaries or PPR over many paths may improve coverage while obscuring exact provenance, so explainability still depends on retaining source-level evidence and citations.",
+          "summary": "Across these papers, the recurring split is semantic judgment for LLMs and repeatable structural work for graph and database components.\n\nAt indexing time, LLMs extract entities, events, relations, or triples, write descriptions, align output to schemas, and summarize nodes, edges, communities, or tags. At query time, they extract low- and high-level keywords, decompose questions into subqueries or logical forms, plan, choose actions, reflect on missing evidence, verify context sufficiency, and generate the answer.\n\nGraph algorithms and data engines materialize, organize, and search that output. The systems use Leiden, K-means, or hierarchical clustering; Personalized PageRank for relevance diffusion and passage ranking; one-hop traversal, depth-bounded DFS, and path or subgraph search; reciprocal-rank fusion and vector reranking; and exact, fuzzy, vector, or operator-backed execution for lookup, filtering, aggregation, and calculation. These mechanisms can recover global or cross-passage connections that local dense retrieval misses.\n\nLLM extraction is optional. The enterprise system offers a dependency-based construction path using dependency parsing, passive and phrasal/entity normalization, coreference resolution, linear extraction fallback, and relation filtering. On its datasets, that variant achieved 61.87% semantic alignment versus 65.83% for the GPT-4o extractor and comparable code-proposal results, while processing documents much faster and at lower extraction cost. Surface syntax can miss implicit or context-dependent relations, so the LLM path remains useful for ambiguous or accuracy-critical collections. The alternative reduces LLM triple-extraction and GPU cost; it does not remove embedding or final-generation costs.\n\nAccuracy and cost occur at different stages. LLM-built graphs and hierarchical summaries require offline calls and can be expensive to rebuild; extraction mistakes become faulty graph facts, decomposition errors select the wrong evidence, and weak verification can pass bad context into fluent generation. Incremental node and edge updates reduce rebuild work. Once indexed, structural retrieval can reduce online cost: HippoRAG reports single-step PPR retrieval as 10-30 times cheaper and 6-13 times faster than iterative IRCoT despite costlier offline indexing. Query-time agents add flexible planning, traversal, reflection, and fallback, but also sequential calls, tokens, and latency; Youtu-GraphRAG's no-agent variant targets real-time use and loses accuracy on complex reasoning.\n\nExplainability is conditional. Logical forms and explicit paths expose operations and relations; notebooks expose collected support; and links to original chunks or cited sources enable verification. Community summaries compress evidence, while PPR turns graph connections into passage scores rather than proof paths. Their answers remain auditable only when source passages, provenance, and citations are preserved.",
           "claims": [
             {
-              "statement": "LLMs handle semantic extraction and summarization during indexing and, depending on the pipeline, query keywording or decomposition, planning, reflection, context verification, and final natural-language generation.",
+              "statement": "LLMs perform semantic extraction, descriptions and summaries during indexing and, depending on the pipeline, query keywording or decomposition, planning, action selection, reflection, context verification, and final answer generation.",
               "evidence_indices": [
                 0,
                 1,
@@ -3363,7 +3412,7 @@
               ]
             },
             {
-              "statement": "Graph and database components handle structural organization and execution through community clustering, Personalized PageRank, bounded path or subgraph traversal, candidate ranking and fusion, and exact, fuzzy, vector, or operator-backed queries.",
+              "statement": "Graph algorithms and data engines perform structural organization and execution through community clustering, Personalized PageRank, one-hop or depth-bounded path and subgraph traversal, candidate ranking and fusion, and exact, fuzzy, vector, or operator-backed queries.",
               "evidence_indices": [
                 4,
                 5,
@@ -3374,30 +3423,31 @@
               ]
             },
             {
-              "statement": "Dependency parsing with noun-phrase, coreference, phrase, and voice normalization offers a cheaper and more refreshable classical-NLP graph-construction mode that retains much reported quality but can miss implicit or context-dependent relations.",
+              "statement": "Dependency parsing with passive, phrase, entity, and coreference normalization, linear extraction fallback, and relation filtering is a cheaper and more refreshable alternative to LLM triple extraction that retained most reported quality on the enterprise datasets but can miss implicit or context-dependent relations; it does not eliminate embedding or final-generation costs.",
               "evidence_indices": [
                 7
               ]
             },
             {
-              "statement": "GraphRAG accuracy is pipeline-coupled: extraction errors become faulty graph facts, decomposition errors retrieve the wrong evidence, and verifier failures can propagate those defects into a fluent answer.",
+              "statement": "Accuracy is pipeline-coupled because extraction, decomposition, retrieval, and verifier errors can propagate, while cost shifts between expensive offline construction and online retrieval; incremental updates reduce rebuild work, single-step PPR can be much cheaper and faster than iterative retrieval, and query-time agents exchange extra calls and latency for flexible planning and reflection.",
               "evidence_indices": [
                 3,
-                0,
                 4,
+                5,
+                1,
+                6,
+                7,
                 8
               ]
             },
             {
-              "statement": "The division shifts substantial LLM cost offline while enabling cheaper indexed retrieval and incremental updates; query-time agents add flexibility at a token and latency cost, and explicit paths, logical forms, working memories, and source links improve inspectability only when provenance is preserved.",
+              "statement": "Explicit logical forms, retrieved paths, notebooks, and links to source chunks improve inspectability, whereas compressed community summaries and aggregate PageRank-style scores require preserved passage-level provenance and citations to remain auditable.",
               "evidence_indices": [
                 0,
-                1,
                 2,
                 4,
                 5,
                 6,
-                7,
                 8
               ]
             }
@@ -3412,7 +3462,7 @@
             "record_sha256": "24788b7a3c64ffc56216dd95397df308ede6813073559360378b4b5d0d21b1e4",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2409.13731v3.md"
+              "target": "record.body"
             },
             "text_sha256": "06ade3a2630881c90514f742a0a9aa35b29c54de3fe307c97b7d492fde360381"
           },
@@ -3424,7 +3474,7 @@
             "record_sha256": "cb542a41ea9eb80381bf6f44be34c4cb4586e71e41ab288360704bbfb1b91e67",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2410.05779v3.md"
+              "target": "record.body"
             },
             "text_sha256": "5689095b368640df8433ae9c543273f853351a213956dba58a3250d58b4928dc"
           },
@@ -3436,7 +3486,7 @@
             "record_sha256": "a7a3558089a6bbdec6f4f679e6824d8f5e031c17813ce0c16e8f6040968e6235",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2406.14550v2.md"
+              "target": "record.body"
             },
             "text_sha256": "3ef7c92e7361e1189b12a9b89ca6eb1c6c277091aa45c1b322927b0685b9f29c"
           },
@@ -3448,7 +3498,7 @@
             "record_sha256": "d8aae9db3a07b0b58f099dc3df571ab4cba1956aaa2eb0d1045cbbfc60196e37",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2503.06474v2.md"
+              "target": "record.body"
             },
             "text_sha256": "1cbdbe2a1630e95cc99671f307b445a2e96c95b4234d97ae9128fb68b21c5e0f"
           },
@@ -3460,7 +3510,7 @@
             "record_sha256": "a5959aca9c432429108b075c1e142635905c4929edcb99c6ec9001780fce3091",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2404.16130v2.md"
+              "target": "record.body"
             },
             "text_sha256": "73cb437f28de243d306ed7afb9c028b2b460648710b31f4553002cddbeff9ebe"
           },
@@ -3472,7 +3522,7 @@
             "record_sha256": "098051effa93e58faf199cd5e0aebfd47e846e08db9dd2efa6d5046ee69db1cb",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2405.14831v3.md"
+              "target": "record.body"
             },
             "text_sha256": "272e00add208f34bae3afbe8805538e84f61a05757810ce8aa25261032c67225"
           },
@@ -3484,7 +3534,7 @@
             "record_sha256": "1f5dd83bbc339ab65bf0d683510dbf86979863001e4ff27083a08bf42d116024",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2508.19855v3.md"
+              "target": "record.body"
             },
             "text_sha256": "3d2010344b7806bd5751fead6eb5cdba8e2521d95bde71b002b4946ff168a0c3"
           },
@@ -3496,7 +3546,7 @@
             "record_sha256": "8cc09eef36e22b73f6616730e212a8b10bc96ff6110cc9572702c32c9f20e30f",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2507.03226v3.md"
+              "target": "record.body"
             },
             "text_sha256": "894b3ffa0e6c0ecc3f3c1589304ca531a7fa72b9a85171ca6e75c63f16921b13"
           },
@@ -3508,7 +3558,7 @@
             "record_sha256": "8a1acd0ed45bb8daee0a9ea7264aac7ceed0c31e67c3d3f2d011981c4639ff2c",
             "locator": {
               "kind": "record",
-              "target": "sources/markdown/2408.04187v2.md"
+              "target": "record.body"
             },
             "text_sha256": "a812d799ad2a98e7b7c2f4e5a99058b6d53f8769992cae1d937e139fa89b441d"
           }
@@ -3528,7 +3578,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q012_best",
-      "review_sha256": "31a636865dfc0ffb89329245d148c97db47095e05a5612d6e9853db313702274"
+      "review_sha256": "60329b6aa9fc50004e34e1c4eec7d11bb8aaa26726b5cf824100983792a95047",
+      "second_pass_review_agent": "/root/q012_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "93c9a6fc1c7b46cf48c33d42f5b404a1224260ef0ddc1c6de6c30a59b8184307",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -3852,7 +3906,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q013_best",
-      "review_sha256": "0e814e15afdff7f5f264aaa503a259dd2a8e5dadde7bca4da77fac0948c25e2d"
+      "review_sha256": "0e814e15afdff7f5f264aaa503a259dd2a8e5dadde7bca4da77fac0948c25e2d",
+      "second_pass_review_agent": "/root/q013_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "6ad80232ab19b8f58dd7ee15ac1582e3703e02c71c9cd6addd3ffe91c4360d8d",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -4109,7 +4167,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q014_best",
-      "review_sha256": "23a72bfb8f66926258b152162d56045471c1ff4440b27b9d1312387b98229ef8"
+      "review_sha256": "23a72bfb8f66926258b152162d56045471c1ff4440b27b9d1312387b98229ef8",
+      "second_pass_review_agent": "/root/q014_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "45af0c7b81be2d675d6090595860b0ca6e07d4f735ea9677f98c722732fc78fd",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -4180,10 +4242,10 @@
       "proposed_response": {
         "question_id": "q015",
         "answer": {
-          "summary": "The papers expose three distinct places to pay for change.\n\nA static or summary-based system materializes a graph, hierarchy, communities, and summaries offline. When the corpus changes, the safe operation is a coherent rebuild of the affected index: HippoRAG notes that summary-based integration must repeat summarization whenever data is added, and LightRAG reports that GraphRAG must dismantle and regenerate its community structure. A rebuild is expensive, but it can restore one consistent snapshot. It must keep the source corpus, chunk-to-graph links, schema, community memberships, and community reports aligned; otherwise old summaries can survive after their evidence changes.\n\nIncremental systems instead run the construction pipeline only on new documents and merge the result. HippoRAG adds associations; LightRAG unions new nodes and edges; ROGRAG expands and refines its database; and schema-adaptive systems admit only recurring, high-confidence entity, relation, or attribute types. This is cheaper and makes additions available sooner, but the merge must deduplicate repeated entities and relations, retain prior connections and history, preserve links back to source chunks, and update every coupled representation. In particular, graph-text mutual indexes and separate entity, relation, and chunk embeddings cannot drift from the graph store. Schema extensions must remain compatible, and systems that use communities must repair affected membership and summaries. Corrections and deletions also require provenance-aware removal or reindexing; several papers do not specify that protocol.\n\nQuery-time adaptation is different: it does not mutate stored knowledge. KAG plans logical retrieval over mutually indexed graph and text, the enterprise system traverses the graph then reranks with separate vectors, and Youtu-GraphRAG decomposes questions under the construction schema into entity, triple, community, and path routes. These methods must preserve schema agreement, graph/vector identity, and provenance from every selected fact to its original chunk. They can choose better evidence from what has been indexed, but cannot make a stale underlying store fresh.\n\nThus static rebuilds have the highest update cost but the clearest snapshot consistency; incremental updates improve freshness at lower cost but demand deduplication and coordinated maintenance; query-time adaptation shifts cost and latency to each question. NER, OpenIE, schema expansion, and query-decomposition errors can propagate into wrong answers, while repeated unvalidated merges can accumulate duplicates, conflicts, or obsolete facts. Validation, provenance, community repair, and periodic rebuilds remain necessary safeguards.",
+          "summary": "The papers place the cost of change in three stages.\n\nStatic or summary-heavy systems precompute graph, hierarchy, community, and summary artifacts. HippoRAG observes that summary-based integration must repeat summarization whenever data is added, while LightRAG reports that GraphRAG must dismantle and regenerate its community structure. Rebuilding is expensive but can restore a coherent snapshot if provenance-bearing source links, chunks, graph state, communities, and summaries are regenerated together; otherwise an old report can outlive its evidence.\n\nIncremental systems update only affected state. HippoRAG adds graph associations; LightRAG indexes a new document, deduplicates repeated entities and relations, and unions new nodes and edges with the existing graph while preserving connections and historical access; ROGRAG incrementally expands and refines its knowledge graph. Youtu-GraphRAG also evolves its schema, admitting new entity, relation, or attribute types only when patterns are frequent, contextually consistent, and above a confidence threshold.\n\nSafety depends on coordinated maintenance. KAG mutually indexes graph structures and original chunks under shared schemas; the enterprise framework maintains a graph database and separate entity, chunk, and relation embeddings; Youtu uses the same schema for construction and query decomposition. Source links must still identify chunks behind facts, and community systems must refresh affected memberships and summaries. The cited addition mechanisms do not specify complete propagation of source corrections or retractions through every projection, so they establish addition freshness more clearly than removal freshness.\n\nQuery-time adaptation changes retrieval, not stored knowledge. KAG plans logical operations over mutually indexed graph and text; the enterprise system traverses the graph then vector-reranks; Youtu decomposes under the construction schema and routes subqueries through entity, triple, community, or bounded-path retrieval. These methods must preserve schema agreement, graph/vector identity, and chunk provenance. They can select better indexed evidence but cannot freshen a stale store.\n\nThus full community regeneration has the highest demonstrated refresh cost but recreates a snapshot; incremental merging lowers update cost and exposes additions sooner but raises coordination risk; query-time adaptation shifts computation and latency to each question. NER, OpenIE, schema-expansion, and decomposition errors can propagate, while missing deduplication or uncoordinated graph, vector, provenance, and community state can accumulate duplicates, conflicts, or obsolete facts. Periodic coherent rebuilding remains a fallback when local repair is undefined.",
           "claims": [
             {
-              "statement": "Static and summary-based approaches refresh changing corpora by coherently rebuilding graph, hierarchy, community, and summary artifacts, preserving alignment with source chunks so obsolete communities or summaries are not served.",
+              "statement": "Static and summary-based approaches repeat offline summarization or regenerate graph-community artifacts when the corpus changes, paying substantial refresh cost to realign the graph, hierarchy, summaries, and provenance-bearing source links into one coherent snapshot.",
               "evidence_indices": [
                 0,
                 1,
@@ -4191,7 +4253,7 @@
               ]
             },
             {
-              "statement": "Incremental approaches process only new material and add or union entities, relations, chunk links, embeddings, or high-confidence schema elements, while deduplicating repeats and preserving prior topology, historical accessibility, and source links.",
+              "statement": "Incremental approaches avoid full reconstruction by adding associations or by processing new material and merging new graph state: HippoRAG adds graph associations, LightRAG unions new nodes and edges while deduplicating repeated entities and relations and preserving established connections and historical access, and ROGRAG incrementally expands and refines its graph database.",
               "evidence_indices": [
                 0,
                 1,
@@ -4199,16 +4261,17 @@
               ]
             },
             {
-              "statement": "Consistency across updates requires graph-text mutual indexes, graph and vector stores, construction and query schemas, provenance, and affected community memberships and summaries to advance together; unsupported correction or deletion repair remains a source of staleness.",
+              "statement": "Coordinated updates must keep KAG's mutual graph-chunk indexes and shared schemas, the enterprise framework's graph database and separate entity, chunk, and relation embeddings, Youtu-GraphRAG's confidence-gated schema and schema-shared construction/retrieval, source provenance, and affected community summaries aligned; the cited addition mechanisms do not define complete source-correction or retraction propagation across all of those projections.",
               "evidence_indices": [
                 4,
                 5,
                 6,
-                1
+                1,
+                2
               ]
             },
             {
-              "statement": "Query-time adaptation changes planning and retrieval rather than stored knowledge through logical-form planning, schema-guided decomposition, graph traversal, vector reranking, and entity, triple, community, or path routes, so it cannot repair a stale index.",
+              "statement": "Query-time adaptation changes planning and retrieval rather than stored knowledge through logical-form planning over mutually indexed graph and text, graph traversal followed by vector reranking, and schema-guided entity, triple, community, or bounded-path routes, so it cannot by itself repair a stale underlying index.",
               "evidence_indices": [
                 4,
                 5,
@@ -4216,7 +4279,7 @@
               ]
             },
             {
-              "statement": "Static rebuilds trade high update cost for coherent snapshots, incremental merging trades lower cost and better freshness for maintenance risk, and query-time adaptation adds per-question cost; extraction and decomposition errors can propagate, while unchecked merges can accumulate duplicate, conflicting, or obsolete facts.",
+              "statement": "Full community regeneration trades high update cost for a coherent snapshot, incremental merging trades lower cost and faster addition freshness for coordination risk, and inference-time planning or traversal adds per-question cost; extraction and decomposition errors can propagate, while failure to deduplicate or synchronize graph, vector, provenance, schema, and community state can accumulate conflicting or obsolete knowledge.",
               "evidence_indices": [
                 0,
                 1,
@@ -4330,7 +4393,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q015_best",
-      "review_sha256": "dc5d5f788c71469e064fcd5d4ccb0449465a16404663f958d4a667fa70251af0"
+      "review_sha256": "a62411d8ab7003bb280c99efe314462c14916205f612db3ed88d3b29a19c5435",
+      "second_pass_review_agent": "/root/q015_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "5812090bf771a48c35aa6b5fd753902f7662225569b014e849b14c6446c47fd4",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -4654,7 +4721,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q016_best",
-      "review_sha256": "9659c1f16222d38afabceddce2f4e7711f44fe19e2f7cd2fc395dca042164ab0"
+      "review_sha256": "9659c1f16222d38afabceddce2f4e7711f44fe19e2f7cd2fc395dca042164ab0",
+      "second_pass_review_agent": "/root/q016_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "3e65a927c92995e02cfe35ccef4eb881904a00e725936d29344d8eed5b3bf44c",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -5068,7 +5139,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q017_best",
-      "review_sha256": "4907fa7219811fc7096a15ecee86abf87576b2ff7873df275ee7b61accff584f"
+      "review_sha256": "4907fa7219811fc7096a15ecee86abf87576b2ff7873df275ee7b61accff584f",
+      "second_pass_review_agent": "/root/q017_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "200c73df3bb030d9bf4594c2b1b1e89913edba4ac416f32e86a87178aca31fff",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -5315,7 +5390,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q018_best",
-      "review_sha256": "6d8c43756254bfccb21ba7343f44d1677b6922ccec11915ae1004e92dd32d11c"
+      "review_sha256": "6d8c43756254bfccb21ba7343f44d1677b6922ccec11915ae1004e92dd32d11c",
+      "second_pass_review_agent": "/root/q018_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "781b8ce63440fcdee2456fae1c697b7aa65bc2796c146fdc84c0d4383a260141",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -5613,7 +5692,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q019_best_retry",
-      "review_sha256": "314c4793b1d157757d1e1cce97fd0803c70d97f8398019306a608424166ac7f6"
+      "review_sha256": "314c4793b1d157757d1e1cce97fd0803c70d97f8398019306a608424166ac7f6",
+      "second_pass_review_agent": "/root/q019_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "e5b3bfb848cef8c9f36c4ad6700f33207c37612f48b27d24b4bf7f737aaeef8c",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -5827,7 +5910,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q020_best_retry",
-      "review_sha256": "52aeb10390324cdd4f23239b69d8ca2c32708ac398de7282164b6e926e889714"
+      "review_sha256": "52aeb10390324cdd4f23239b69d8ca2c32708ac398de7282164b6e926e889714",
+      "second_pass_review_agent": "/root/q020_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "5210bccc181fc235b9e117065ad2eafda326a328603ae87f49b22a5aa489d7cf",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -5887,7 +5974,7 @@
       "proposed_response": {
         "question_id": "q021",
         "answer": {
-          "summary": "Fact-checking and QA can use the same graph machinery, but their downstream contracts differ. Fact-checking begins with a proposition and retrieves corroborating or contradicting context sufficient to return supported, refuted, or not-enough-information. Its evidence standard is verdict-centered: relevant relationships must be preserved, insufficiency must remain possible, and high-stakes systems benefit from traceability to credible sources and definitions. The ideal output is a judgment plus auditable support. QA begins with a user question and produces an answer. A simple query may need one graph fact; harder queries require a connected subgraph, cross-passage multi-hop composition, or broader synthesis. Its retrieval path therefore follows the requested reasoning: a PCST subgraph, PPR path exploration, logical-form hybrid operations, or adaptive graph queries. Fact-checking commonly anchors retrieval on the claim and gathers a community or provenance neighborhood, whereas QA traversal is shaped by the answer form and reasoning complexity. Evaluation should follow that distinction. Fact-checking emphasizes verdict-label accuracy and evidentiary reliability; QA emphasizes answer accuracy, exact match, F1, or Hit@1. Both should separately score retrieval recall and relevance and generation factuality, faithfulness, and evidence coverage so missing evidence, noisy retrieval, and unsupported synthesis are distinguishable. These are task-conditioned differences, not mutually exclusive architecture classes.",
+          "summary": "Fact-checking and QA can use the same graph machinery, but their downstream contracts differ. Fact-checking begins with a proposition and retrieves corroborating or contradicting context sufficient to return supported, refuted, or not-enough-information. Its evidence standard is verdict-centered: relevant relationships must be preserved, insufficiency must remain possible, and high-stakes systems benefit from traceability to credible sources and definitions. The ideal output is a judgment plus auditable support. QA begins with a user question and produces an answer. A simple query may need one graph fact; harder queries require a connected subgraph, cross-passage multi-hop composition, or broader synthesis. Its retrieval path therefore follows the requested reasoning: a PCST subgraph, PPR path exploration, logical-form hybrid operations, or adaptive graph queries. Fact-checking commonly anchors retrieval on the claim and gathers a community or provenance neighborhood, whereas QA traversal is shaped by the answer form and reasoning complexity. Evaluation should follow that distinction. Fact-checking emphasizes verdict-label accuracy and whether the returned evidence is credible and source-documented; QA emphasizes answer accuracy, exact match, or F1. Both should separately score retrieval recall and relevance and generation factuality, faithfulness, and evidence coverage so missing evidence, noisy retrieval, and unsupported synthesis are distinguishable. These are task-conditioned differences, not mutually exclusive architecture classes.",
           "claims": [
             {
               "statement": "Fact-checking starts from a claim and seeks graph-derived evidence that corroborates it, contradicts it, or remains insufficient, typically producing a supported/refuted/NEI verdict; because that verdict must be defensible, high-stakes variants also preserve provenance to credible sources and definitions and return auditable evidence with the judgment.",
@@ -5916,7 +6003,7 @@
               ]
             },
             {
-              "statement": "Evaluation should be task- and stage-specific: fact-checking measures the quality or accuracy of supported/refuted/NEI verdicts and the reliability of their sources, while QA commonly measures answer accuracy, Hit@1, exact match, or F1; across both, context relevance and evidence recall diagnose retrieval, and factual consistency, faithfulness, and evidence coverage diagnose whether the generated output is correct, grounded, and complete.",
+              "statement": "Evaluation should be task- and stage-specific: fact-checking evaluates supported/refuted/NEI classification accuracy and whether supporting responses carry credible source documentation, while QA commonly measures answer accuracy, exact match, or F1; across both, context relevance and evidence recall diagnose retrieval, and factual consistency, faithfulness, and evidence coverage diagnose whether the generated output is correct, grounded, and complete.",
               "evidence_indices": [
                 7,
                 1,
@@ -6081,7 +6168,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q021_best_retry",
-      "review_sha256": "5ad5ff4ba0dda5bc7fe84a2b5de26774eac72e488564a3fe73a8ad56c9cf5ad8"
+      "review_sha256": "b0f460a41cb919dee746526e55a16d6fa5e27004490341c0883f655739af8919",
+      "second_pass_review_agent": "/root/q021_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "0433aeb58f2d6c5841268332bcb366f99cdefa03c2fe3714a01e05a62c98ff60",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -6285,7 +6376,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q022_best",
-      "review_sha256": "ac0e8ab0379152540113dc85b82a468337091ecb87704d88a12d1aa163c2c1e2"
+      "review_sha256": "ac0e8ab0379152540113dc85b82a468337091ecb87704d88a12d1aa163c2c1e2",
+      "second_pass_review_agent": "/root/q022_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "a56f39a53bf3506d634458f780a9c33ff557348043008bb03987c3e0292c7033",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -6674,7 +6769,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q023_best",
-      "review_sha256": "82799f0195ddc4f29cab244750893c71f40666f814ee6ea188f7c04df66d7e84"
+      "review_sha256": "82799f0195ddc4f29cab244750893c71f40666f814ee6ea188f7c04df66d7e84",
+      "second_pass_review_agent": "/root/q023_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "b723ec3bd6de75a37c3fd6447862222da15fc88fa74e2ada1d30c64f3698c2a1",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -7126,7 +7225,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q024_best",
-      "review_sha256": "0c0b4b0eadc2252e979a04386cd89bacb029d855f1eab41e38897c01daf9f7db"
+      "review_sha256": "0c0b4b0eadc2252e979a04386cd89bacb029d855f1eab41e38897c01daf9f7db",
+      "second_pass_review_agent": "/root/q024_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "8eb27c3f79bade427ea041c4ffc53a8bf7b25ab867bec05446841540ec7402f0",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -7317,7 +7420,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q025_best",
-      "review_sha256": "ba766beb6c5d050756dd2bd5c72e69c5852e7dcab2631b40dd0a51b8796dc053"
+      "review_sha256": "ba766beb6c5d050756dd2bd5c72e69c5852e7dcab2631b40dd0a51b8796dc053",
+      "second_pass_review_agent": "/root/q025_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "a4bd53e3fa24b6932290c17968e797800b5fffbb1aa3718fc21aad37586ce8d6",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -7379,7 +7486,7 @@
       "proposed_response": {
         "question_id": "q026",
         "answer": {
-          "summary": "The easiest GraphRAG evidence to inspect is evidence externalized as structured intermediate objects: G-Retriever's connected evidence subgraph; PathRAG's ordered node-edge paths; and PolyG's dependency-aware plans, executed Cypher, and returned paths or tables. Source-linked and community designs are also auditable when a reviewer can drill from an entity or community to original evidence, as in MedGraphRAG's source and definition links and CommunityKG-RAG's community-to-sentence mapping. Ordering matters: a directed relation chain exposes the bridge facts and dependency sequence by which one fact leads to the next, whereas isolated chunks or flattened graph elements show relevant content without preserving how it composes.\n\nThat is retriever traceability, not a guarantee of explanation faithfulness. An exposed path establishes what was selected and perhaps placed in the prompt; it does not establish that the generator causally relied on every step, that the path entails the answer, or that missing or contradictory evidence did not matter. HippoRAG illustrates the boundary: its graph diffuses and ranks passages, while answer synthesis remains downstream. Permissive prompts can also let parametric knowledge hide retrieval failure. A defensible faithfulness claim therefore needs claim-to-source verification, provenance to source text, abstention when support is insufficient, and causal intervention or ablation when actual evidence use is asserted.\n\nReadable artifacts can still fail: noisy whole graphs may distract, cutoff retrieval may omit decisive evidence, extraction, verification, or decomposition errors can propagate, community summaries may hide detail unless lower-level triples remain available, and a plausible-looking plan can still reach a wrong conclusion. Thus interpretable paths improve auditability but are neither complete evidence nor proof of causal, faithful generation.",
+          "summary": "The easiest GraphRAG evidence to inspect is evidence externalized as structured intermediate objects: G-Retriever's connected evidence subgraph; PathRAG's ordered node-edge paths; and PolyG's dependency-aware plans, executed Cypher, and returned paths or tables. Source-linked and community designs are also auditable when a reviewer can drill from an entity or community to original evidence, as in MedGraphRAG's source and definition links and CommunityKG-RAG's community-to-sentence mapping. Ordering matters: a directed relation chain exposes intermediate relations and the dependency sequence by which one fact leads to the next, whereas isolated chunks or flattened graph elements show relevant content without preserving how it composes.\n\nThat is retriever traceability, not a guarantee of explanation faithfulness. An exposed path establishes what was selected and perhaps placed in the prompt; it does not establish that the generator causally relied on every step, that the path entails the answer, or that missing or contradictory evidence did not matter. HippoRAG illustrates the boundary: its graph diffuses and ranks passages, while answer synthesis remains downstream. Permissive prompts can also let parametric knowledge hide retrieval failure. Source links and community-to-sentence mappings preserve a provenance trail, and checking whether context supports the query before generation is stronger than checking only the completed answer; these controls improve auditability but still do not prove causal reliance on the displayed evidence.\n\nReadable artifacts can still fail: noisy whole graphs may distract, cutoff retrieval may omit decisive evidence, extraction, verification, or decomposition errors can propagate, community abstractions remain reviewable only when lower-level attributes and triples stay accessible, and a plausible-looking plan can still reach a wrong conclusion. Thus interpretable paths improve auditability but are neither complete evidence nor proof of causal, faithful generation.",
           "claims": [
             {
               "statement": "Path-, subgraph-, and query-plan systems make retrieval inspectable by externalizing a connected supporting subgraph in G-Retriever, ordered textual node-edge paths in PathRAG, or dependency-aware plans and executed Cypher in PolyG.",
@@ -7414,7 +7521,7 @@
               ]
             },
             {
-              "statement": "Readable paths remain fallible: noisy graphs can hurt, cutoff retrieval can miss or bury evidence amid noise or contradictions, community summaries remain auditable only when fine-grained facts stay accessible beneath the abstraction, plausible plans can be wrong, and noisy extraction or weak verification can propagate into inaccurate generation.",
+              "statement": "Readable paths remain fallible: noisy graphs can hurt, cutoff retrieval can miss or bury evidence amid noise or contradictions, retaining fine-grained facts beneath community abstraction improves auditability, plausible plans can be wrong, and noisy extraction or weak verification can propagate into inaccurate generation.",
               "evidence_indices": [
                 10,
                 11,
@@ -7620,7 +7727,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q026_best",
-      "review_sha256": "5fc23b4c8301ae32f0f46fcf7b76b974ec9af991029f58601259ab5773912055"
+      "review_sha256": "19ba786214a670d1d4614273994e4152073b0f6cbae541afc710053288fe5a96",
+      "second_pass_review_agent": "/root/q026_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "6fd49d2b5912de51348e11bcef4b82ea0e442f2263cfc96506bc208b6eddac08",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -7691,7 +7802,7 @@
       "proposed_response": {
         "question_id": "q027",
         "answer": {
-          "summary": "Community detection is primarily an indexing and compression device: it turns a large, noisy entity-relation graph into higher-level groups that can be processed as units, so retrieval can cover corpus-wide themes and connected evidence that isolated top-k chunks miss.\n\nThe papers implement that idea differently. Microsoft GraphRAG recursively applies Leiden to strongly connected nodes. Each mutually exclusive, collectively exhaustive level runs from fine subcommunities to coarse communities, represented by bottom-up reports over nodes, edges, and claims. CommunityKG-RAG first builds a coreference-resolved entity graph, then uses Louvain modularity for structural membership; averaged BERT node embeddings are semantic profiles used to rank the fixed communities against a claim, after which mapped sentences are selected for fact-checking. MedGraphRAG deliberately avoids general graph-community construction: it gives each Meta-MedGraph predefined medical tag summaries and agglomeratively clusters graphs by tag-embedding similarity into a broad-to-detailed hierarchy, without linking their nodes. LightRAG is another alternative to community reports: entity-name keys route detailed queries, relation/theme keys route abstract queries, and neighboring graph elements restore structural context. Youtu-GraphRAG combines the signals during formation: K-means initializes clusters from one-hop triple-context embeddings, then topology-overlap plus subgraph-semantic similarity drives fusion. It represents the result as a four-level tree of attributes, triples, keywords, and named community summaries.\n\nAt query time, GraphRAG map-reduces community answers for global sensemaking; CommunityKG-RAG filters communities and then sentences for evidence-grounded verification; MedGraphRAG descends semantic tags to precise evidence and refines upward with broader context; Youtu uses community filtering for global questions while retaining entity, triple, and DFS routes for finer reasoning.\n\nResolution is consequential. Coarse summaries sharply reduce tokens and improve breadth, but repeated compression can lose specific examples, quotations, citations, and entity detail; lower levels preserve detail at greater cost. Structural partitions favor dense within-community links over between-community links, so a question spanning groups needs cross-community aggregation or retained relation/path routes rather than one community summary. LightRAG's dual level and Youtu's multi-route tree are explicit mitigations. The benchmark likewise finds that global graph retrieval can improve evidence recall while adding redundant or noisy context, lowering relevance and increasing cost. Thus structural signals yield coherent modules, semantic signals make them task-aligned, and the safest designs preserve a route back to fine-grained evidence.",
+          "summary": "Community detection is primarily an indexing and compression device: it turns a large, noisy entity-relation graph into higher-level groups that can be processed as units, so retrieval can cover corpus-wide themes and connected evidence that isolated top-k chunks miss.\n\nThe papers implement that idea differently. Microsoft GraphRAG recursively applies Leiden to strongly connected nodes. Each level is a mutually exclusive, collectively exhaustive partition, spanning fine subcommunities to coarse communities, and is represented by bottom-up reports over nodes, edges, claims, and lower-level reports. CommunityKG-RAG first builds a coreference-resolved entity graph, then uses Louvain modularity for structural membership; averaged BERT node embeddings form semantic profiles that rank those fixed communities against a claim, after which mapped sentences are selected for fact-checking. MedGraphRAG deliberately avoids general topology-based community construction: it gives each Meta-MedGraph predefined medical tag summaries and agglomeratively clusters graph groups by tag-embedding similarity into a broad-to-detailed hierarchy, without adding node links between the separately constructed Meta-MedGraphs. LightRAG is a community-report-free alternative: entity-name keys route detailed queries, relation/theme keys route abstract queries, and neighboring graph elements restore structural context. Youtu-GraphRAG combines the signals during formation: K-means initializes clusters from one-hop triple-context entity embeddings, then topology-overlap plus subgraph-semantic similarity drives fusion. It represents the result as a four-level tree of attributes, triples, pivotal keywords, and named community summaries.\n\nAt query time, GraphRAG map-reduces community answers for global sensemaking; CommunityKG-RAG filters communities and then their mapped sentences for evidence-grounded verification; MedGraphRAG descends the tag hierarchy to a selected Meta-MedGraph, retrieves entity and triple evidence, and refines upward with broader tag summaries; Youtu uses community filtering for global questions while retaining entity, triple, and DFS routes for finer reasoning.\n\nResolution is consequential. Coarser community levels sharply reduce tokens and broaden summarized scope, but report-based compression and retrieval may omit specific examples, quotations, citations, and entity-level detail; lower levels expose more detail at greater cost. Because Louvain- and Leiden-style partitions favor dense within-group links, relying on one selected community can underrepresent relations that span groups; GraphRAG mitigates this by aggregating community answers, while LightRAG and Youtu retain relation or path routes below the summary layer. The comparative benchmark likewise finds that broader graph retrieval can improve evidence recall while introducing redundancy or noisy context, lowering relevance and increasing prompt cost. Thus structural signals yield topology-coherent modules, semantic signals make grouping or routing task-aligned, and the safest designs preserve a route back to fine-grained evidence.",
           "claims": [
             {
               "statement": "Community detection reduces corpus complexity by partitioning a dense entity-relation graph into higher-level, independently processable groups, enabling corpus-wide sensemaking that isolated top-k record retrieval cannot adequately support.",
@@ -7712,13 +7823,13 @@
               ]
             },
             {
-              "statement": "MedGraphRAG avoids general topology-based community construction: it profiles each Meta-MedGraph with predefined medical tags, repeatedly clusters graph groups by tag-embedding similarity into a broad-to-detailed hierarchy, and uses summaries rather than cross-graph node links to represent those groups.",
+              "statement": "MedGraphRAG avoids general topology-based community construction: it profiles each Meta-MedGraph with predefined medical tags, repeatedly clusters graph groups by tag-embedding similarity into a broad-to-detailed hierarchy, and represents each group with a synthesized tag summary without adding node links between the grouped Meta-MedGraphs.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "LightRAG replaces per-community reports with semantic key-value profiles: entity-name keys support low-level detail, relation/theme keys support high-level concepts, and matched graph elements are expanded with neighboring nodes to retain relational context.",
+              "statement": "LightRAG avoids per-community reports by profiling entities and relations as key-value pairs: entity-name keys support low-level detail, relation/theme keys support high-level concepts, and matched graph elements are expanded with neighboring nodes to retain relational context.",
               "evidence_indices": [
                 3
               ]
@@ -7730,7 +7841,7 @@
               ]
             },
             {
-              "statement": "The query-time roles differ: GraphRAG map-reduces scored community answers for global questions; CommunityKG-RAG filters communities and their mapped sentences for claim verification; MedGraphRAG descends a tag hierarchy to local evidence and refines upward; Youtu-GraphRAG uses community filtering for global or cross-domain queries alongside entity, triple, and DFS routes.",
+              "statement": "The query-time roles differ: GraphRAG map-reduces scored community answers for global questions; CommunityKG-RAG filters communities and their mapped sentences for claim verification; MedGraphRAG descends its tag hierarchy to a selected graph, retrieves entity and triple evidence, and refines upward; Youtu-GraphRAG uses community filtering for global or cross-domain queries alongside entity, triple, and DFS routes.",
               "evidence_indices": [
                 0,
                 1,
@@ -7739,7 +7850,7 @@
               ]
             },
             {
-              "statement": "Resolution and boundary choices create real tradeoffs: coarse summaries reduce tokens and expand scope but can lose examples, quotations, citations, and entity-level detail; topology-based partitions emphasize within-community over between-community links, so cross-community questions require aggregation or retained relation/path routes; comparative results also show greater evidence breadth can bring redundancy, lower context relevance, and substantial prompt cost.",
+              "statement": "Resolution and boundary choices create conditional tradeoffs: coarser reports reduce tokens and broaden summarized scope but may omit examples, quotations, citations, and entity-level detail; topology-based partitions favor within-community links, so relying on one community can underrepresent cross-community relations, a risk mitigated by aggregation or retained relation/path routes; comparative results also show that greater evidence breadth can bring redundancy, lower context relevance, and substantial prompt cost.",
               "evidence_indices": [
                 0,
                 1,
@@ -7750,7 +7861,7 @@
               ]
             },
             {
-              "statement": "Structural and semantic signals play different roles across the papers: Leiden and Louvain determine topology-coherent membership, CommunityKG-RAG adds semantics mainly for routing, MedGraphRAG clusters by semantic tags without linking graph nodes, LightRAG uses semantic keys instead of communities, and Youtu-GraphRAG lets topology and semantics jointly change community formation while preserving granular evidence below the summary layer.",
+              "statement": "Structural and semantic signals play different roles across the papers: Leiden and Louvain determine topology-coherent membership, CommunityKG-RAG adds semantics mainly for routing, MedGraphRAG groups separate Meta-MedGraphs by semantic tags without adding cross-graph node links, LightRAG uses semantic keys instead of communities, and Youtu-GraphRAG lets topology and semantics jointly change community formation while preserving granular evidence below the summary layer.",
               "evidence_indices": [
                 0,
                 1,
@@ -7850,7 +7961,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q027_best",
-      "review_sha256": "b5ed0cd7de86230cca94e5b561b1d381f59ce6da21e250f8dc4e52e4630c1e26"
+      "review_sha256": "8628dcb3dac5505d25d214101154c89d3a5d2834cc25089af577f65c0b3d4204",
+      "second_pass_review_agent": "/root/q027_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "a724b1065ca31872c1e24606b528ef9db46c8d462faaa8126793b8945757978a",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -7909,22 +8024,22 @@
       "proposed_response": {
         "question_id": "q028",
         "answer": {
-          "summary": "These mechanisms optimize different surrogates for evidence usefulness.\n\nPCST turns query relevance into node/edge prizes and graph size into edge cost, selecting one connected subgraph that maximizes prize minus cost. It approximates relevance subject to structural coherence and a prompt-size budget.\n\nPersonalized PageRank starts from query-linked nodes and diffuses restart probability through the graph. Its stationary mass approximates associative, multi-hop relevance: nodes or passages rank highly when strongly reachable from the query seeds, not because they satisfy a hard predicate.\n\nFlow-based pruning propagates a unit resource with distance decay and degree-based allocation, stops low-contribution branches, scores paths by average resource, and keeps top paths. It approximates path reliability while suppressing redundant neighborhoods.\n\nLogical forms and database queries optimize feasibility, not merely similarity. KAG decomposes a question into executable Retrieval, Sort, Math, Deduce, and Output operations; PolyG maps question patterns to BFS, meta-path, shortest-path, or constrained-shortest-path Cypher and executes it with bounded repair. Their surrogate is satisfaction of typed, relational, arithmetic, or path constraints, with shortest-path or top-k criteria where requested.\n\nFiltering is a gate on candidate relevance. Attention thresholds followed by LLM judging approximate posterior usefulness under a context and compute budget; schema-valid routed retrieval and community filtering constrain search to the appropriate evidence granularity. RRF is a meta-ranker: it combines graph-derived and dense lists by reciprocal rank, approximating cross-ranker consensus without calibrating incomparable scores.\n\nWith a fixed graph, scores, parameters, and tie-breaking, PCST, PPR, flow, query execution, thresholding, and RRF are reproducible. LLM planning, repair, fine filtering, and reflection are more query-adaptive but costlier and less deterministic. PCST adds bridges yet can lose evidence when its size penalty or candidate k is too strong; PPR favors associative recall but ignores relation semantics; flow and filtering cut cost and noise but can prune weak long-tail evidence; exact queries are precise but fail on bad plans or incomplete graphs; RRF hedges graph versus dense misses but cannot recover candidates absent from both. All topology-dependent methods inherit extraction, missing-edge, and hub or noise errors, so graph quality ultimately bounds recall and correctness.",
+          "summary": "These mechanisms optimize different operational surrogates for useful graph evidence.\n\nPCST converts query similarity into node and edge prizes and selects a connected subgraph maximizing total prize minus an edge-count cost. It approximates relevance under structural-coherence and context-size constraints: bridge items may be retained to connect highly relevant evidence.\n\nPersonalized PageRank seeds probability on query-linked nodes, optionally weights seeds by specificity, diffuses mass through the graph, and aggregates node scores into passage rankings. It approximates associative multi-hop relevance or reachability, not a hard relation predicate.\n\nFlow pruning starts one unit of resource at a retrieved node, propagates it with distance decay and degree allocation, stops below a threshold, scores paths by average resource, and keeps the most reliable. It approximates relational-path reliability while removing low-contribution and redundant context.\n\nExecutable queries target constraint satisfaction. KAG composes Retrieval, Sort, Math, Deduce, and Output operations. PolyG maps question patterns to BFS, meta-path walks, top-k shortest paths, or constrained top-k shortest paths, executes Cypher, and repairs failed or empty queries up to three times. Their objective is a feasible typed, relational, arithmetic, or path-constrained result.\n\nFiltering is a relevance gate, not a calibrated posterior. GraphRAG-FI applies attention-threshold pruning and then LLM relevance judging, reducing noise and evaluation cost. Youtu-GraphRAG uses schema-valid decomposition and entity, triple, community, and bounded-DFS routes to choose evidence granularity. RRF fuses graph-derived and dense rankings by reciprocal rank; it approximates agreement and complementarity between structural and semantic rankers.\n\nDeterminism is layered. With fixed graph, candidates, scores, hyperparameters, and tie rules, PCST, PPR, resource propagation, thresholds, a concrete database query, and RRF have reproducible operator outputs. LLM planning, judging, routing, and repair are more adaptive but lack the same guarantee. Cost is limited by near-linear PCST solving, at-most-once flow updates and early stopping, coarse filtering before LLM judging, and bounded query repair.\n\nThese controls trade recall against precision and cost. PCST is sensitive to candidate k and size penalty; PPR ignores relation semantics; flow and filtering may discard weak paths, and graph sparsity degrades flow retrieval; exact queries fail on bad Cypher or wrong or incomplete graph facts. RRF can compensate for a miss in one ranker only when the other list contains the candidate; it cannot recover a candidate absent from both. All topology-dependent methods remain bounded by extraction quality, edge completeness, and graph fidelity.",
           "claims": [
             {
-              "statement": "PCST approximates relevance-versus-connectivity subgraph selection by maximizing query-derived node and edge prizes minus an edge-count cost over a connected evidence subgraph.",
+              "statement": "PCST approximates relevance under connectivity and size constraints by maximizing query-derived node and edge prizes minus an edge-count cost over a connected evidence subgraph.",
               "evidence_indices": [
                 0
               ]
             },
             {
-              "statement": "Personalized PageRank approximates associative multi-hop relevance by seeding query nodes and diffusing probability through their graph neighborhoods.",
+              "statement": "Personalized PageRank approximates associative multi-hop relevance by seeding query-linked nodes, diffusing probability through their graph neighborhoods, and using the resulting node mass to rank passages.",
               "evidence_indices": [
                 1
               ]
             },
             {
-              "statement": "Flow pruning approximates relational-path reliability by propagating distance-decayed, degree-allocated resource, pruning contributions below a threshold, and ranking paths by average propagated resource.",
+              "statement": "Flow pruning approximates relational-path reliability by propagating a unit resource with distance decay and degree allocation, pruning below-threshold contributions, and ranking paths by average propagated resource.",
               "evidence_indices": [
                 2,
                 3,
@@ -7932,7 +8047,7 @@
               ]
             },
             {
-              "statement": "Logical forms and graph-database queries approximate executable constraint satisfaction: KAG composes retrieval and symbolic operations, while PolyG maps query patterns to specific traversals and executes repairable Cypher.",
+              "statement": "Logical forms and graph-database queries approximate executable constraint satisfaction: KAG composes retrieval and symbolic operations, while PolyG maps question patterns to BFS, meta-path, shortest-path, or constrained-shortest-path Cypher and applies bounded repair after failed or empty execution.",
               "evidence_indices": [
                 5,
                 6,
@@ -7940,7 +8055,7 @@
               ]
             },
             {
-              "statement": "Filtering approximates relevance and noise control under context and compute limits: GraphRAG-FI gates candidates with a cheap attention stage before LLM evaluation, while schema-guided community, entity, triple, and DFS routing narrows evidence at the appropriate granularity.",
+              "statement": "Filtering approximates relevance and noise control under context and evaluation-cost limits: GraphRAG-FI applies attention-threshold pruning before LLM relevance evaluation, while schema-guided entity, triple, community, and DFS routing narrows sub-queries to different evidence granularities.",
               "evidence_indices": [
                 8,
                 9,
@@ -7949,24 +8064,26 @@
               ]
             },
             {
-              "statement": "RRF approximates rank consensus by fusing graph-derived and dense chunk rankings in a recall-first, precision-second cascade without directly calibrating their raw scores.",
+              "statement": "RRF approximates rank-level agreement and complementarity by fusing graph-derived and dense chunk rankings, balancing structural relationships with embedding-based semantic evidence.",
               "evidence_indices": [
                 12
               ]
             },
             {
-              "statement": "For fixed graph inputs and scores, the numerical operators and database execution are reproducible; near-linear PCST solving, flow early stopping, staged filtering, and bounded query repair limit work, whereas LLM planning and routed retrieval add adaptability and output variability.",
+              "statement": "Determinism is conditional and layered: fixed numerical operators and a concrete database query are reproducible once graph inputs, scores, parameters, and tie rules are fixed, whereas LLM planning, judging, routing, and repair provide adaptability without the same operator-level guarantee; near-linear PCST solving, flow early stopping, staged filtering, and bounded query repair control computational work.",
               "evidence_indices": [
                 13,
                 3,
                 9,
                 7,
+                5,
+                8,
                 10,
                 12
               ]
             },
             {
-              "statement": "Compact selection improves precision and cost at recall risk: PCST is candidate-count sensitive, PPR ignores relation semantics, flow degrades with graph sparsity, and logical or database execution loses correctness when plans or graph facts are wrong; filtering and rank fusion can mitigate noise or ranker-specific misses but cannot repair absent graph evidence.",
+              "statement": "Selection strength and graph quality bound recall: PCST is candidate-count sensitive, simple PPR ignores relation semantics, flow retrieval degrades as graph edges are removed, and logical or database execution loses correctness when plans or graph facts are wrong; filtering drops below-threshold candidates by design, and RRF cannot recover a candidate absent from both fused input lists.",
               "evidence_indices": [
                 14,
                 15,
@@ -8220,7 +8337,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q028_best",
-      "review_sha256": "725e14d9163d17af0af16eba7961ce65f0ddc4c43eb39e0d019af1c4fd28ebb9"
+      "review_sha256": "72112bbb6304f0278ee056f4d984906e9a4f0012ee665ac24d8f4ace804d96f9",
+      "second_pass_review_agent": "/root/q028_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "ee3b1b599f8df9a1a0970f16db79d5deedcba8b7030a69abbd921471b3f89a7d",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -8290,7 +8411,7 @@
       "proposed_response": {
         "question_id": "q029",
         "answer": {
-          "summary": "The key distinction is query-time control flow, not whether an LLM helped build the graph. A static or one-shot design applies a configured recipe without revising it after inspecting intermediate adequacy: fixed top-k node/edge retrieval, exhaustive retrieval over community summaries at a chosen level, a single Personalized PageRank-to-passage projection, fixed low/high-level key matching, or decay/threshold pruning followed by global top-K path selection. Such pipelines can have several stages, but their retrieval policy is predetermined.\n\nAdaptive retrieval puts an LLM or verifier inside the loop. GraphReader forms a rational plan, selects starting nodes, and uses explicit read, search, traverse, and stop functions while reflection updates an evidence notebook. ROGRAG decomposes into executable subqueries and falls back when decomposition or verification fails. PolyG classifies a question as basic or nested, generates graph queries, feeds execution failures back for repair, and uses earlier answers to instantiate later subquestions. Youtu-GraphRAG decomposes complex questions into entity, triple, community, and DFS routes, then alternates reasoning with reflection over retrieval history.\n\nThat extra loop is worth paying for when the question is nested, multi-hop, multi-constraint, global or cross-domain; when evidence is dispersed through very long input; when the system must choose among diverse retrieval routes; or when the first pass is empty, conflicting, weak, or leaves constraints unresolved. It buys controllable exploration, explicit stopping, fallback, query repair, and recovery from weak paths.\n\nThe cost is real. Sequential decomposition and retries add latency and tokens; HippoRAG reports its single-step mode as 10–30 times cheaper and 6–13 times faster than iterative IRCoT, and Youtu-GraphRAG provides a no-agent mode for real-time use. Repeated LLM classifications, plans, generated queries, and reflections also add stochastic branch points, reducing reproducibility unless constrained. Worse, extraction, decomposition, and retrieval mistakes can propagate into later reasoning.\n\nA practical policy is therefore static-first, adaptive-on-trigger: escalate only for unresolved complexity or inadequate evidence, cap calls/retries and token budget, verify intermediate support, and stop when coverage is sufficient. Prefer static retrieval for simple, well-specified, latency-sensitive questions or when graph quality is too noisy for additional reasoning steps to be trustworthy.",
+          "summary": "The key distinction is query-time control flow, not whether an LLM helped build the graph. A static or one-shot design applies a configured recipe without revising it after inspecting intermediate adequacy: fixed top-k node/edge retrieval, map-reduce retrieval over community summaries at a chosen level, a single Personalized PageRank-to-passage projection, fixed low/high-level key matching, or decay/threshold pruning followed by global top-K path selection. Such pipelines can have several stages, but their retrieval policy is predetermined.\n\nAdaptive retrieval puts an LLM or verifier inside the loop. GraphReader forms a rational plan, selects starting nodes, and uses explicit read, search, traverse, and stop actions while reflection updates an evidence notebook. ROGRAG converts a query into operator-backed retrieval steps and falls back to fuzzy matching when decomposition or verification fails. PolyG classifies a question as basic or nested, generates graph queries, feeds execution failures back for repair, and uses earlier answers to instantiate later subquestions. Youtu-GraphRAG decomposes complex questions into entity, triple, community, and DFS routes, then alternates reasoning with reflection over retrieval history.\n\nThat extra loop is worth paying for when the question is nested, multi-hop, multi-constraint, global or cross-domain; when evidence is dispersed through very long input; when the system must choose among diverse retrieval routes; or when retrieval is empty, conflicting, insufficient, or leaves intermediate constraints unresolved. It buys controllable exploration, explicit stopping, fallback, query repair, and recovery from weak paths.\n\nThe directly documented costs are additional sequential latency and tokens plus error propagation. HippoRAG reports its single-step mode as 10-30 times cheaper and 6-13 times faster than iterative IRCoT, and Youtu-GraphRAG provides a no-agent mode for real-time use. ROGRAG warns that extraction, decomposition, and retrieval mistakes can propagate into later generation. The cited studies do not directly measure run-to-run nondeterminism; nevertheless, adding LLM classifications, plans, generated queries, retries, and reflections creates more model-controlled branch points, so greater variability is a reasonable architectural risk rather than a reported empirical result.\n\nA practical policy is therefore static-first, adaptive-on-trigger: escalate only for unresolved complexity or inadequate evidence, cap calls, retries, and token budget, verify intermediate support, and stop when coverage is sufficient. Prefer static retrieval for simple, well-specified, latency-sensitive questions or when noisy graph evidence would make additional reasoning steps more likely to compound errors.",
           "claims": [
             {
               "statement": "Static or one-shot GraphRAG uses a predetermined query-time control flow, including fixed top-k node/edge selection, community-summary retrieval at a configured hierarchy level, one-step diffusion from query nodes to passage scores, fixed low/high-level key matching, or thresholded path propagation and global top-K pruning; it does not revise the retrieval policy after judging intermediate evidence.",
@@ -8303,7 +8424,7 @@
               ]
             },
             {
-              "statement": "Adaptive and agentic retrieval places planning and feedback inside query execution: it can create a rational plan, invoke read/search/traverse/stop functions, classify basic versus nested questions, generate and repair graph queries, decompose operator-backed subqueries, select specialized routes, reflect on retrieval history, and gather more evidence until a stopping condition is met.",
+              "statement": "Adaptive and agentic retrieval places planning and feedback inside query execution: it can create a rational plan, invoke read/search/traverse/stop actions, classify basic versus nested questions, generate and repair graph queries, decompose operator-backed retrieval steps, select specialized routes, reflect on retrieval history, and gather more evidence until a stopping condition is met.",
               "evidence_indices": [
                 5,
                 6,
@@ -8312,7 +8433,7 @@
               ]
             },
             {
-              "statement": "Iterative control is most valuable for nested or dependent multi-hop questions, complex multi-constraint or global questions, diverse query types needing different routes, very long contexts with dispersed evidence, and ambiguous cases signaled by empty, conflicting, weak, or incomplete first-pass results.",
+              "statement": "Iterative control is most valuable for nested or dependent multi-hop questions, complex multi-constraint or global questions, diverse query types needing different routes, very long contexts with dispersed evidence, and cases signaled by empty results, inconsistent notes, insufficient support, or ambiguous intermediate steps.",
               "evidence_indices": [
                 5,
                 6,
@@ -8321,7 +8442,7 @@
               ]
             },
             {
-              "statement": "The upside is greater control and recovery through stopping, fallback, verification, query repair, and reflection; the downside is extra sequential latency and token use, more model-driven branch points and thus more run-to-run variability, and the possibility that extraction, decomposition, or retrieval errors propagate and compound in later steps.",
+              "statement": "The upside is greater control and recovery through stopping, fallback, verification, query repair, and reflection; the directly supported downsides are extra sequential latency and token use and the possibility that extraction, decomposition, or retrieval errors propagate and compound, while increased run-to-run variability is an architectural risk from additional LLM-controlled branch points that these studies do not directly measure.",
               "evidence_indices": [
                 2,
                 5,
@@ -8471,7 +8592,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q029_best",
-      "review_sha256": "3b7649f5ce198e8748eed5b8c1e56bbd5b5bce4b2c61bcf59fe4a745a9e0fa66"
+      "review_sha256": "7f9af18b0e28e13671ce17dba0be75a35461e329a236ef7372f98523be57d8ec",
+      "second_pass_review_agent": "/root/q029_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "8fd1200e77dfb23f98daaef2775c9c0aa30069d14e93b13289b0e6903f8c14f8",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -8549,10 +8674,10 @@
       "proposed_response": {
         "question_id": "q030",
         "answer": {
-          "summary": "Use a gated, workload-specific decision process. First ask whether a graph is justified. Reuse a trusted domain graph when its schema and provenance fit the task. For unstructured text, construct a graph only when relational reasoning is valuable enough to repay extraction and indexing cost: use schema-constrained extraction for stable professional forms, open extraction for heterogeneous corpora, or cheaper deterministic extraction when refresh cost dominates. Measure entity/relation quality and retain source links; if the graph is unreliable, keep text retrieval as the fallback.\n\nThen route by query scope. Use nodes, triples, or one-hop neighborhoods for narrow fact/entity questions; connected subgraphs or ranked paths for explicit multi-hop relations; hierarchical community summaries for corpus-wide sensemaking; diffusion for evidence distributed across many associations; executable graph queries for schema-expressible filtering, aggregation, or exact relations; and agents for adaptive exploration requiring decomposition, reflection, and stopping decisions.\n\nIncrease controls with risk. Noisy retrieval calls for bounded context, coarse-to-fine filtering, verification, and hybrid fallback. High-stakes use requires source-linked evidence, controlled terminology, citation checks, and abstention when retrieval is insufficient. Parametric knowledge may be integrated only under an explicitly open, calibrated policy.\n\nFit operations next. Favor bounded local/direct-query or no-agent routes under strict latency and token limits; reserve community scans and agents for budgets that tolerate them. For changing corpora, incrementally merge new nodes and edges rather than repeatedly rebuilding global summaries. Preserve paths, tables, source excerpts, and route decisions when explainability matters.\n\nFinally, evaluate on representative workload slices, not one aggregate score: retrieval relevance and evidence recall; generation accuracy, faithfulness, and evidence coverage; task EM/F1; citation grounding; robustness to noisy or missing evidence; and build/update cost, end-to-end latency, tokens, and API calls. Choose a Pareto point subject to safety and service constraints. There is no universal winner: basic RAG can match or beat graph expansion on simple facts, while GraphRAG is most defensible for complex reasoning, contextual synthesis, and other structure-dependent tasks.",
+          "summary": "Use a gated, workload-specific process. First decide whether to reuse or construct. Reuse an existing graph when it already supplies the compact local evidence a workload needs. If text must be graphed, use schema-constrained extraction for stable professional forms and a higher-cost GPT-family extractor for critical or semantically ambiguous collections; make NER/OpenIE quality and measured indexing time explicit go/no-go gates. Bound construction to targeted types, relations, and attributes, preserve links to source chunks, and fall back from exact graph retrieval to hybrid graph-fact and chunk retrieval when structured evidence is incomplete.\n\nRoute by query scope: one-hop neighborhoods or compact subgraphs for narrow entity or relation questions; connecting paths for explicit multi-hop relations; pre-generated community summaries for global sensemaking; Personalized PageRank-style diffusion for support distributed through multi-hop associations; agents for adaptive read, search, traverse, and stop loops; and executable graph queries with bounded repair for structured queries.\n\nIncrease controls with risk. Threshold-prune and LLM-rerank noisy retrieval, test sensitivity to context size, and use verification-aware fuzzy fallback. In high-risk domains require verifiable evidence and terminology support. Select reject mode when insufficient retrieval must cause abstention. If parametric knowledge is permitted, declare open mode; if graph and standalone candidates are combined, apply separate confidence thresholds before combining them.\n\nFit operations next. For frequent updates, process only new documents and merge their nodes and edges. Measure online tokens and API calls instead of assuming precomputed graphs are cheap, and choose a no-agent variant when real-time latency requires it. Preserve entity and relation tables, full paths, and links to source chunks when explainability matters.\n\nFinally, evaluate representative workload slices by stage: retrieval relevance and evidence recall; generation accuracy, faithfulness, and evidence coverage; task EM, F1, and correctness; citation precision and recall; robustness to injected noise and candidate-count choices that trade missing evidence against distraction; and build or update cost, end-to-end latency, tokens, and API calls. Select conditionally rather than naming a universal winner: basic RAG may match or beat graph expansion for simple fact retrieval, while GraphRAG has its clearest reported advantages on complex reasoning, contextual summarization, and creative generation.",
           "claims": [
             {
-              "statement": "Make construction a gated choice: reuse a trusted existing knowledge graph when it already matches the domain; for unstructured corpora, construct a graph only if expected reasoning value pays for indexing. Prefer schema-constrained extraction for stable professional forms, retain a higher-cost LLM extractor for ambiguous collections, validate NER and OpenIE quality, and include the potentially substantial offline build cost.",
+              "statement": "Choose reuse versus construction from data form and budget: when a graph already exists and the task needs compact local evidence, reuse it; for text corpora with stable professional forms, use schema-constrained extraction, while critical or semantically ambiguous collections can justify a higher-cost GPT-family extractor. Gate construction on NER/OpenIE quality and measured offline indexing time.",
               "evidence_indices": [
                 0,
                 1,
@@ -8562,36 +8687,37 @@
               ]
             },
             {
-              "statement": "Treat graph quality and provenance as go/no-go conditions: constrain extraction to targeted types and relations when correctness matters and preserve links from graph elements to originating chunks; otherwise retain text retrieval as a fallback rather than amplifying an unreliable graph.",
+              "statement": "Gate graph admissibility on bounded extraction and provenance: target declared entity, relation, and attribute types and retain links from nodes and edges to originating chunks. Prefer exact graph retrieval only when structured answers are sufficiently strong; otherwise use hybrid retrieval over graph facts and text chunks.",
               "evidence_indices": [
                 5,
-                6
+                6,
+                7
               ]
             },
             {
-              "statement": "For narrow entity or relation questions, retrieve one-hop neighborhoods or compact connected subgraphs; for explicit multi-hop relations, retrieve relation-preserving paths connecting query-relevant nodes rather than an unordered bag of facts.",
+              "statement": "For narrow entity or relation questions, retrieve one-hop neighborhoods or compact local subgraphs; for explicit multi-hop relations, retrieve paths connecting query-relevant nodes rather than an unordered bag of facts.",
               "evidence_indices": [
-                7,
+                0,
                 8,
                 9
               ]
             },
             {
-              "statement": "For broad corpus-level sensemaking, use pre-generated community summaries; for associative multi-hop discovery where support is distributed across many paths, use diffusion such as Personalized PageRank. These routes solve different scope problems and should not be conflated.",
+              "statement": "For broad corpus-level sensemaking, use pre-generated community summaries; for associative multi-hop discovery where relevance must spread through graph connections, use diffusion such as Personalized PageRank. These routes solve different scope problems.",
               "evidence_indices": [
                 10,
                 11
               ]
             },
             {
-              "statement": "For underspecified or adaptive exploration, use an agent that can read, traverse, search again, and stop when evidence is sufficient; when a question is translatable into a stable graph schema, prefer executable graph queries with result checks and bounded self-repair.",
+              "statement": "Use an agent when evidence acquisition must adapt through explicit read, search, neighbor-traversal, and termination operations. For an executable graph-query route, run generated Cypher and bound self-correction after execution failures or empty results to at most three retries.",
               "evidence_indices": [
                 12,
                 13
               ]
             },
             {
-              "statement": "When retrieval is noisy, bound context and apply coarse-to-fine filtering; because added context can hurt non-monotonically, verify structured decompositions and fall back to hybrid or fuzzy retrieval when decomposition or verification fails.",
+              "statement": "When retrieval is noisy, apply coarse attention-threshold pruning followed by LLM relevance evaluation. Test context-size sensitivity because added context can hurt non-monotonically, and fall back to dual-level fuzzy matching when structured decomposition or verification fails.",
               "evidence_indices": [
                 14,
                 15,
@@ -8599,7 +8725,7 @@
               ]
             },
             {
-              "statement": "For high-risk domains, require verifiable evidence, controlled terminology, and abstention when retrieval is insufficient; only in explicitly open or lower-risk modes should parametric reasoning be calibrated with retrieved evidence rather than requiring strict retrieval grounding.",
+              "statement": "For high-risk domains, require verifiable evidence and terminology support. Use a reject policy that abstains when retrieval is insufficient; if an open policy permits parametric knowledge, state that explicitly, and calibrate graph and standalone answer candidates with separate confidence thresholds before combining them.",
               "evidence_indices": [
                 17,
                 18,
@@ -8607,7 +8733,7 @@
               ]
             },
             {
-              "statement": "Operationally, choose incremental node and edge merging for frequently updated corpora and benchmark online tokens and API calls rather than assuming precomputed graph structures are cheap. Under tight latency or token budgets, favor bounded paths, direct queries, or no-agent routes; for explainability, return inspectable entity and relation tables, full paths, and source links.",
+              "statement": "For frequently updated corpora, process only new documents and merge their nodes and edges into the existing graph. Benchmark online token and API-call costs, choose a no-agent variant for real-time latency, and return inspectable entity and relation tables plus full paths when explainability is required.",
               "evidence_indices": [
                 20,
                 21,
@@ -8617,38 +8743,39 @@
               ]
             },
             {
-              "statement": "Evaluate by stage and workload slice: retrieval with context relevance and evidence recall; generation with answer accuracy, faithfulness, and evidence coverage; task performance with EM, F1, and correctness; grounding with citation precision and recall; robustness with injected noise or missing evidence; and efficiency with end-to-end latency and token use.",
+              "statement": "Evaluate by stage and workload slice: retrieval with context relevance and evidence recall; generation with answer accuracy, faithfulness, and evidence coverage; task performance with EM, F1, and correctness; grounding with citation precision and recall; robustness with injected noisy paths and candidate-count sensitivity that exposes missing-evidence versus distraction tradeoffs; and efficiency with end-to-end latency and token use.",
               "evidence_indices": [
                 25,
                 26,
                 27,
                 28,
                 29,
-                30
+                30,
+                31
               ]
             },
             {
-              "statement": "Select a deployment-specific Pareto point rather than a universal winner: basic RAG may match or beat graph expansion for simple fact retrieval, while GraphRAG's clearest advantages appear on complex reasoning, contextual summarization, and creative generation.",
+              "statement": "Select conditionally rather than declaring a universal winner: basic RAG may be comparable to or better than graph expansion for simple fact retrieval, whereas the clearest reported GraphRAG advantages are on complex reasoning, contextual summarization, and creative generation.",
               "evidence_indices": [
-                31,
                 32,
-                33
+                33,
+                34
               ]
             }
           ]
         },
         "evidence": [
           {
-            "source_id": "claims-2503-13804v1",
-            "record_id": "claim-2503-13804v1-004",
-            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-004-73b048145b.md",
-            "source_path": "sources/claims/2503.13804v1.jsonl",
-            "record_sha256": "d9d064e2a03c0c8643c46c28c4c673199e03322af44bd56110edabe81e7dbb85",
+            "source_id": "claims-2402-07630v3",
+            "record_id": "claim-2402-07630v3-059",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-059-a43637471e.md",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "record_sha256": "f327567783bb90673a98eedc160785d6e7ce5b56029c59876ecc2f2b7875afa8",
             "locator": {
               "kind": "record",
               "target": "record.body"
             },
-            "text_sha256": "da1928cdf3a2451d0074d7bc0f345f7324a1b4838986820c3f790ee58829bbb1"
+            "text_sha256": "3f414072d8414f2d001f5ebb03bd683e1b33471188ef43e6cca21bcb810e98a0"
           },
           {
             "source_id": "claims-2409-13731v3",
@@ -8723,16 +8850,16 @@
             "text_sha256": "4c9cf19b37c9cde9e0e14794b649a055bc14e8c2905e6f635852b6a81e1a71a5"
           },
           {
-            "source_id": "claims-2402-07630v3",
-            "record_id": "claim-2402-07630v3-059",
-            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-059-a43637471e.md",
-            "source_path": "sources/claims/2402.07630v3.jsonl",
-            "record_sha256": "f327567783bb90673a98eedc160785d6e7ce5b56029c59876ecc2f2b7875afa8",
+            "source_id": "claims-2409-13731v3",
+            "record_id": "claim-2409-13731v3-016",
+            "concept_path": "concepts/claims-2409-13731v3/claim-2409-13731v3-016-e64eb69af5.md",
+            "source_path": "sources/claims/2409.13731v3.jsonl",
+            "record_sha256": "83376e45c8fd632b8bcc1fcb2695ad247a6f665fe3616f23081125c07bcb3c5b",
             "locator": {
               "kind": "record",
               "target": "record.body"
             },
-            "text_sha256": "3f414072d8414f2d001f5ebb03bd683e1b33471188ef43e6cca21bcb810e98a0"
+            "text_sha256": "38177f22eaf1ff70050e2b0b8d479ff443ef39c6f05679c2385144fb208baa19"
           },
           {
             "source_id": "claims-2504-02112v2",
@@ -8868,15 +8995,15 @@
           },
           {
             "source_id": "claims-2503-13804v1",
-            "record_id": "claim-2503-13804v1-016",
-            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-016-0d224e7938.md",
+            "record_id": "claim-2503-13804v1-044",
+            "concept_path": "concepts/claims-2503-13804v1/claim-2503-13804v1-044-a617451c21.md",
             "source_path": "sources/claims/2503.13804v1.jsonl",
-            "record_sha256": "242d3fa22c0f3915edac90de56700c78a9ec722d285b5fc2eb1ef185b05df995",
+            "record_sha256": "8f420a6c529cfbd3807e3aaf66be21a405b34c4557c57990e6bdaba123c915b6",
             "locator": {
               "kind": "record",
               "target": "record.body"
             },
-            "text_sha256": "13a650c56665a2d1469f68e4c366ded37d3d3cb763c5868a628048fbccb3ff0c"
+            "text_sha256": "07e0a9a74e6bd9a1ddde209a5a9e5a7ce52cdf9c2a93af20acf53dc8ac421ee0"
           },
           {
             "source_id": "claims-2410-05779v3",
@@ -9011,6 +9138,18 @@
             "text_sha256": "4901393bc813989c85345ce6be12cfdd5dc8a8285a74b42b9d2a6c87155ace10"
           },
           {
+            "source_id": "claims-2402-07630v3",
+            "record_id": "claim-2402-07630v3-056",
+            "concept_path": "concepts/claims-2402-07630v3/claim-2402-07630v3-056-36cd1392e0.md",
+            "source_path": "sources/claims/2402.07630v3.jsonl",
+            "record_sha256": "68ff2d51a10688eeb689ce194bc559e8556833e79f71ea23c42024c71709af11",
+            "locator": {
+              "kind": "record",
+              "target": "record.body"
+            },
+            "text_sha256": "9c5dd8728c1a2148f629bb8c5a28d22c6d1b4b58a8a12b9a10ba8500c31358bb"
+          },
+          {
             "source_id": "claims-2506-05690v3",
             "record_id": "claim-2506-05690v3-029",
             "concept_path": "concepts/claims-2506-05690v3/claim-2506-05690v3-029-a8b7d4cc02.md",
@@ -9061,7 +9200,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q030_best",
-      "review_sha256": "6c2359836e8fbd43b965f05c547ce8f31174a00931c8e6f9b9b277a0e33bd4b2"
+      "review_sha256": "833ee750951a3a267df9f0522a7be29b964603ea8c90c979b4f6c80f356c8fc2",
+      "second_pass_review_agent": "/root/q030_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "9b7a7987c3cec181a4549879b265cfa8fe43db2fcf15d1fbcba4d67cdfaf946f",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -9183,6 +9326,7 @@
             {
               "statement": "The second routing gate is evidence quality: use graph context only when retrieval is sufficiently relevant and informative, and preserve a question-only, standalone-model, or basic-RAG fallback when graph retrieval is noisy or unhelpful.",
               "evidence_indices": [
+                0,
                 1,
                 2
               ]
@@ -9248,7 +9392,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q031_best",
-      "review_sha256": "fd67f63f3069f78fd65b99185139ac3a9e0efb7c5f2bf2068e4f0d94c63387ce"
+      "review_sha256": "38fd10e5a4582a070cc38520c45447bac68ebe284b4550a976a1de2be0e044d6",
+      "second_pass_review_agent": "/root/q031_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "7d479c8d90ea12e0db1f6582a049632863cb4438c8e98f447a24cb42fb24aba2",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -9474,7 +9622,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q032_best",
-      "review_sha256": "30acca41c6a13798244215bfc36b1f4e30f285ed3cad6a339db941b30c5934eb"
+      "review_sha256": "30acca41c6a13798244215bfc36b1f4e30f285ed3cad6a339db941b30c5934eb",
+      "second_pass_review_agent": "/root/q032_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "9ee3cbedb29e06b18e9507be653e38a583bd5bd146d8e154a9fc652d21a9a8c7",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -9663,7 +9815,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q033_best",
-      "review_sha256": "b51c0be19efda5fcfd17a4161cd1af7892a67fc822e082609c6a68c7188591d1"
+      "review_sha256": "b51c0be19efda5fcfd17a4161cd1af7892a67fc822e082609c6a68c7188591d1",
+      "second_pass_review_agent": "/root/q033_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "a2a6e5822755e0ce1977f729ba6de7e349d78df47263be46425e0e08b2fc6307",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -9854,7 +10010,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q034_best",
-      "review_sha256": "2445c75f51fff61f63b02c1aa1bec3400bd41796ba8c1b13a26124e5dda0653f"
+      "review_sha256": "2445c75f51fff61f63b02c1aa1bec3400bd41796ba8c1b13a26124e5dda0653f",
+      "second_pass_review_agent": "/root/q034_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "ee3429967830f843f64284893d9fac3d1d2a3e94f37ac40beb7eedfa71bf9ab0",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10056,7 +10216,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q033_best",
-      "review_sha256": "044d6c8176c89d532ea5995ef1580e0686eafc5195c00721e28a73c221783f93"
+      "review_sha256": "044d6c8176c89d532ea5995ef1580e0686eafc5195c00721e28a73c221783f93",
+      "second_pass_review_agent": "/root/q035_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "09998460dadf5881b9dd758eaffcdad86ea5d031b20128e19d091c4b74a98f04",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10160,47 +10324,47 @@
       "proposed_response": {
         "question_id": "q036",
         "answer": {
-          "summary": "Use a staged, dual-mode protocol. First score graph construction separately (for example node/edge counts, average degree, and clustering), then retrieval (context relevance and evidence recall), then generation (answer accuracy plus lexical overlap where suitable, faithfulness to retrieved context, and evidence coverage). This prevents a good generator from masking a bad graph or retriever. Next run the same retrieval output under minimally different prompts: a grounding-required/reject mode must answer only when retrieved evidence is sufficient and otherwise abstain; an open mode may use parametric knowledge when evidence is insufficient. Open mode measures deployable end-task capability, but only strong retrieval metrics plus a correct, faithful grounding-required answer demonstrate retrieval success. A high open score paired with weak retrieval or reject-mode performance is knowledge leakage, not retrieval success. Before scoring, run a no-retrieval base-model check and audit references against their source evidence. ROGRAG's UltraDomain check found direct Qwen2.5-7B answers preferred over the supplied ground truth at domain win rates of 0.65-0.97, so use domains where the base model is demonstrably weak and repair or exclude questionable references; this prevents memorization or a bad key from masquerading as RAG quality. Finally, treat LLM judging as an explicitly limited measurement layer, not truth. For high-level questions lacking direct references, disclose the judge and prompt, reverse/randomize answer order, calibrate on source-verifiable items, and independently audit a sample or disagreements. This addresses position bias, judge preference, and circular reliance on an unverified answer. Report graph, retrieval, reject-mode generation, open-mode generation, contamination/reference audit, and judge reliability separately.",
+          "summary": "Use a stage-separated attribution protocol and do not collapse its diagnoses. First score graph construction separately (for example node count, edge count, average degree, and clustering), retrieval against an audited evidence set (context relevance and evidence recall), and generation (answer accuracy, lexical overlap where suitable, faithfulness to the retrieved context, and evidence coverage). Retrieval-stage success is high recall of the required evidence with relevant context; a fluent or correct final answer cannot retroactively prove that retrieval succeeded. For every query, hold the retrieved context and generation settings fixed and run minimally different prompts: reject or grounding-required mode may answer only when that context is sufficient and otherwise must abstain, while open mode may fall back to parametric knowledge. Interpret the joint outcomes explicitly: strong retrieval plus a correct, faithful reject-mode answer is retrieval-grounded end-to-end success; strong retrieval plus a failed reject-mode answer is retrieval success with generation failure; weak retrieval plus open-mode success but reject-mode abstention or failure is end-task or parametric-knowledge success, not retrieval success; and a reject-mode answer unsupported by its context is a grounding violation, not evidence that retrieval worked. Before scoring systems, run a no-retrieval base-model control and source-audit the reference answers. ROGRAG's UltraDomain check found direct Qwen2.5-7B-Instruct answers preferred to the supplied ground truth at domain win rates from 0.65 to 0.97, so favor domains where the base model is demonstrably weak and repair or exclude references that the source audit cannot verify; this prevents memorization or a questionable key from masquerading as RAG quality. Finally, treat LLM judging as a disclosed, limited measurement layer rather than truth. Where high-level questions lack direct ground truth, publish the judge and prompt, alternate or randomize answer order, calibrate on source-verifiable items, and independently review a sample and disagreements. These checks address position effects, judge preference, and circular reliance on an unverified answer. Report graph, retrieval, reject-mode generation, open-mode generation, no-retrieval/reference controls, and judge reliability separately.",
           "claims": [
             {
-              "statement": "Evaluate the pipeline in separate layers: graph construction quality with structural measures such as node count, edge count, average degree, and clustering; retrieval with context relevance and evidence recall; and generation with answer accuracy, lexical overlap where appropriate, faithfulness to retrieved context, and evidence coverage.",
+              "statement": "Evaluate graph construction, retrieval, and generation as distinct stages: use structural graph measures such as node count, edge count, average degree, and clustering; retrieval measures of context relevance and evidence recall; and generation measures of answer accuracy, lexical overlap where suitable, faithfulness to retrieved context, and evidence coverage.",
               "evidence_indices": [
                 0
               ]
             },
             {
-              "statement": "Permissive generation instructions create knowledge leakage: because a pretrained model may answer from parametric knowledge when retrieved evidence is insufficient, final-answer accuracy under that prompt can conceal retrieval failure.",
+              "statement": "Permissive generation instructions can conceal retrieval failure because a pretrained model may answer from parametric knowledge when the retrieved evidence is insufficient, so open-mode final-answer accuracy alone is not evidence of retrieval success.",
               "evidence_indices": [
                 1
               ]
             },
             {
-              "statement": "Run matched dual modes over the same retrieved context: grounding-required or reject mode must abstain when the evidence is insufficient and therefore tests retrieval-grounded answering, while open mode may fall back to the model's own knowledge and measures overall practical capability.",
+              "statement": "Run matched prompts over the same retrieved context: reject or grounding-required mode must abstain when that evidence is insufficient and tests retrieval-grounded answering, whereas open mode may use the model's own knowledge and measures overall practical capability.",
               "evidence_indices": [
                 1
               ]
             },
             {
-              "statement": "In the UltraDomain contamination check, direct Qwen2.5-7B-Instruct answers were preferred to the supplied ground truth with domain-level win rates from 0.65 to 0.97; benchmarks should therefore test domains where the base model is weak and independently verify each reference against source evidence.",
+              "statement": "In the UltraDomain check, direct Qwen2.5-7B-Instruct answers were preferred to the supplied ground truth at domain-level win rates from 0.65 to 0.97; use a no-retrieval base-model control, select domains where that model is weak, and verify reference answers against source evidence.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "For high-level questions where direct ground truth is difficult to define, LightRAG substituted GPT-4o-mini pairwise judgments of comprehensiveness, diversity, empowerment, and overall quality and alternated answer order; such a judge-based result is a scoped assessment rather than unquestionable ground truth.",
+              "statement": "For high-level questions where direct ground truth is difficult to define, LightRAG used GPT-4o-mini pairwise judgments of comprehensiveness, diversity, empowerment, and overall quality and alternated answer order; those results are a judge-scoped assessment rather than unquestionable ground truth.",
               "evidence_indices": [
                 3
               ]
             },
             {
-              "statement": "Classify retrieval success only when retrieval recall and relevance are strong and the grounding-required response is correct, faithful, and adequately covers the retrieved evidence; classify success seen only in open mode as end-task or parametric-knowledge success, not proof of retrieval.",
+              "statement": "Keep retrieval and generation diagnoses distinct: high evidence recall and context relevance establish retrieval-stage success; adding a correct, faithful grounding-required answer establishes retrieval-grounded end-to-end success; strong retrieval followed by a bad grounded answer is generation failure, while weak retrieval followed by open-only success is parametric or end-task success.",
               "evidence_indices": [
                 0,
                 1
               ]
             },
             {
-              "statement": "Independently source-audit reference answers and contamination, and calibrate or audit LLM judgments with order reversal, source-verifiable items, and human or independent review; these checks prevent a flawed answer key, memorization, position bias, or judge preference from being mistaken for system quality.",
+              "statement": "Source-audit reference answers and the no-retrieval control, and calibrate or independently audit LLM judgments with order balancing and source-verifiable items; these checks prevent a flawed answer key, memorization, answer-order effects, or judge preference from being mistaken for retrieval or system quality.",
               "evidence_indices": [
                 2,
                 3
@@ -10269,7 +10433,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q034_best",
-      "review_sha256": "ac5feb7ff190dc70f114b6d1ffc6d8c119bd9056a5099caf3f472c7ceb759ae7"
+      "review_sha256": "9172a96105f300f6a40e82746999e2c1f204e0c9579702c4749c1be85252e72b",
+      "second_pass_review_agent": "/root/q036_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "58e942664be2b0738e3accbfea54f0ba5d56e9c80eed3c2333a63a8cb30959bc",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10375,60 +10543,60 @@
       "proposed_response": {
         "question_id": "q037",
         "answer": {
-          "summary": "Use a confidence-gated construction cascade around one shared, versioned graph schema. **Tier 1—cheap default:** run dependency extraction, augmented by coreference resolution, linear heuristics, normalization, and confidence scoring, over high-volume changing text when relations are explicit in surface syntax. The enterprise framework exposes dependency and LLM extraction as interchangeable modes; its dependency pipeline achieved 61.87% versus 65.83% for LLM extraction—reported as 94% of the performance—at far lower cost and latency. **Tier 2—selective escalation:** send low-confidence, ambiguous, context-dependent, implicit, or critical passages to LLM extraction. Use open extraction to discover unmodeled entities and relations under domain shift, but keep its outputs provisional until alignment, normalization, deduplication, and cross-run consistency checks pass; KAG warns that OpenIE creates alignment and extraction-consistency problems. **Tier 3—schema-constrained promotion:** spend expert labor on recurring, high-value, high-risk relations, rules, and decision paths that require rigor. This tier should be targeted because KAG also says expert schema-constrained extraction is labor-intensive.\n\nConstruction and retrieval must share the same entity types, relation types, and attributes. Youtu-GraphRAG uses that schema both to bound extraction and to decompose a query into valid node-, triple-, or community-level subqueries and retrieval routes. When open or LLM extraction proposes a schema expansion, version it, adjudicate it, update the query decomposer and applicable traversal/matching routes, and test end-to-end retrieval before promotion. This matters most under domain shift: the cited work finds that optimizing construction or retrieval alone neglects their interdependence and can yield suboptimal reasoning. Dependency parsing therefore is not an implicit-relation solution, OpenIE is not automatically consistent, schema rigor is not free, and a richer index is not useful if query-time decomposition cannot name and retrieve its vocabulary.",
+          "summary": "Use a three-stage, confidence-or-coverage-gated cascade around the same graph schema at construction and query time. **Stage 1—cheap default:** apply the dependency pipeline, including coreference resolution, dependency and linear triples, normalization, filtering, and optional confidence scoring, to high-volume text whose relations are explicit in surface syntax. In the cited enterprise/code-migration evaluation, this mode scored 61.87% versus 65.83% for LLM extraction—reported as 94% of the LLM result—while running orders of magnitude faster and at significantly lower cost; that result is setting-specific, not a universal threshold. **Stage 2—selective escalation:** send critical collections, complex ambiguity, and cases likely to contain implicit or context-dependent relations to LLM extraction. OpenIE can lower the threshold for broad extraction, but its output should not be accepted as automatically coherent: apply knowledge alignment and check consistency across repeated extraction rounds. **Stage 3—schema-constrained rigor:** use expert-defined schema constraints selectively when professional decisions require rigorous domain knowledge, because that rigor has high labor cost.\n\nKeep construction and retrieval vertically aligned through the same entity types, relation types, and attributes. In Youtu-GraphRAG, that schema both bounds extraction and lets the query-time agent decompose questions into valid node-, triple-, or community-level subqueries served by entity, triple, community, and path retrieval. When feedback expands the seed schema for unseen domains, the expanded vocabulary must be available to both extraction and query decomposition, and construction and retrieval should be evaluated together. This avoids the domain-shift failure reported for isolated optimization. Dependency parsing therefore is not an implicit-relation solution, OpenIE is not automatically aligned or consistent, schema rigor is not free, and an enriched index is ineffective if query-time decomposition and retrieval cannot address its vocabulary.",
           "claims": [
             {
-              "statement": "Dependency-based and LLM-based extraction should be exposed as selectable construction modes: the cited enterprise framework uses the former for fast, low-cost extraction and the latter for critical or complex ambiguous text, reporting 61.87% versus 65.83% performance, or 94% of the LLM result.",
+              "statement": "Dependency-based and LLM-based extraction are interchangeable construction modes for an explicit cost-accuracy trade-off; in the cited enterprise/code-migration evaluation, dependency extraction scored 61.87% versus 65.83% for LLM extraction, reported as 94% of the LLM result, while running orders of magnitude faster and at significantly lower cost.",
               "evidence_indices": [
                 0
               ]
             },
             {
-              "statement": "Dependency extraction is appropriate for explicit surface-syntax relations but may miss relations that are implicit or context-dependent, so its confidence or coverage gaps must be eligible for escalation.",
+              "statement": "Dependency extraction suits relations expressed in surface syntax but may miss implicit or context-dependent relations, so those coverage gaps should be eligible for escalation.",
               "evidence_indices": [
                 0
               ]
             },
             {
-              "statement": "Open extraction and rigorous schema work occupy different tiers: OpenIE lowers the construction threshold but has knowledge-alignment and multi-round consistency problems, whereas expert schema-constrained extraction supplies rigor at high labor cost.",
+              "statement": "OpenIE lowers the threshold for graph construction but creates knowledge-alignment and repeated-extraction consistency problems, whereas expert schema-constrained extraction provides rigorous domain knowledge at high labor cost.",
               "evidence_indices": [
                 1
               ]
             },
             {
-              "statement": "A shared schema of entity, relation, and attribute types can both constrain construction and provide the valid vocabulary with which a query-time agent decomposes questions into node-, triple-, or community-level retrieval requests.",
+              "statement": "A shared schema of entity, relation, and attribute types can constrain extraction and supply the valid vocabulary for query decomposition into node-, triple-, or community-level requests and their retrieval routes.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "Construction and retrieval must be evaluated jointly, especially under domain shift, because optimizing either graph organization or retrieval in isolation neglects their interdependence and can produce suboptimal complex reasoning.",
+              "statement": "Construction and retrieval should be evaluated jointly, especially under domain shift, because optimizing either stage in isolation neglects their interdependence and can produce suboptimal complex reasoning.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "The staged policy is: apply inexpensive dependency extraction to explicit high-volume relations; escalate low-confidence, ambiguous, implicit, or critical cases to LLM or schema-aware extraction; use open extraction for provisional discovery; and spend expert schema labor selectively on recurring high-value or high-risk knowledge.",
+              "statement": "The staged policy is to use inexpensive dependency extraction for explicit, high-volume relations; escalate critical, ambiguous, implicit, or context-dependent cases to LLM extraction; subject broad OpenIE output to knowledge alignment and repeated-extraction consistency checks; and reserve expert schema constraints for domain knowledge that requires rigorous decisions.",
               "evidence_indices": [
                 0,
                 1
               ]
             },
             {
-              "statement": "Under domain shift, any adjudicated schema expansion must be versioned and propagated to extraction constraints, query decomposition, and the applicable entity, triple, community, or path retrieval routes, followed by end-to-end retrieval validation.",
+              "statement": "Under domain shift, feedback-driven seed-schema expansion must remain shared between schema-bounded extraction and schema-guided query decomposition, with the resulting construction and retrieval behavior evaluated end to end.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "The evidence does not support claiming that dependency parsing captures implicit relations, that open extraction is automatically aligned or consistent, or that rigorous schema-constrained knowledge can be obtained without expert cost.",
+              "statement": "The evidence does not support claiming that dependency parsing captures implicit relations, that OpenIE is automatically aligned or consistent, or that rigorous schema-constrained knowledge is free of expert labor cost.",
               "evidence_indices": [
                 0,
                 1
               ]
             },
             {
-              "statement": "Do not optimize the index in isolation: every resulting entity, relation, and attribute type must remain expressible by the query decomposer and addressable through a query-time retrieval route.",
+              "statement": "Do not optimize the index in isolation: its entity, relation, and attribute vocabulary must remain expressible by the query decomposer and addressable through query-time retrieval.",
               "evidence_indices": [
                 2
               ]
@@ -10486,7 +10654,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q033_best",
-      "review_sha256": "18af28545703db2eeaa049022346c2d391f73d2ed5519390e807b9356b43087b"
+      "review_sha256": "be6e3b11e4b6ffa52396750b028ff6a6e4d81a196331f1633074b23cb704cb1e",
+      "second_pass_review_agent": "/root/q037_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "940afbdfd05f7bd8a2d1af751c39419834fdd4b92e9d796b7ba2bfe51ab64407",
+      "final_answer_source": "second-pass-replacement"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10677,7 +10849,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q034_best",
-      "review_sha256": "6f86760e9fda892a3f1aa75012672dcd9d29cb04994238e1c1cb6f5c3aed4381"
+      "review_sha256": "6f86760e9fda892a3f1aa75012672dcd9d29cb04994238e1c1cb6f5c3aed4381",
+      "second_pass_review_agent": "/root/q038_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "7f92342b37f9a82a03c360faafb942afb2c0b6915a8556fdbb0d46f89e09e19f",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10895,7 +11071,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q033_best",
-      "review_sha256": "01c53df199a57a649d825bf4aa55c7e8bea7ad43a95df48b7ae90fdd78b347a7"
+      "review_sha256": "01c53df199a57a649d825bf4aa55c7e8bea7ad43a95df48b7ae90fdd78b347a7",
+      "second_pass_review_agent": "/root/q039_second_pass",
+      "second_pass_verdict": "keep",
+      "second_pass_verdict_sha256": "80ec388afeaac6e2814450f2f131781dfd5d52aaa4269b2e05d0aeb0692c2f24",
+      "final_answer_source": "first-pass-confirmed"
     },
     {
       "schema_version": "graphrag-best-answer-agent-review/1.0",
@@ -10988,34 +11168,34 @@
       "proposed_response": {
         "question_id": "q040",
         "answer": {
-          "summary": "Open-answer policy: retrieve context and first test whether it supports the query. If it does, generate a graph-grounded candidate; independently generate a standalone parametric candidate. Score the two source-specific candidate sets separately, retain graph candidates only above a graph threshold and intrinsic candidates only above their own threshold, then combine only the retained candidates and disclose their provenance. If the retrieved context fails support, the graph branch contributes no answer, but open mode may still return a confidence-qualified parametric answer. Retrieval-grounded/reject policy: after retrieval, run support or argument checking on the query and context before any answer is generated. ROGRAG reports 0.75 accuracy for this pre-generation check versus 0.72 for checking query, context, and a completed response afterward. If support is sufficient, generate solely from retrieved evidence; if it is insufficient, return an explicit abstention. In fact verification, use the three-way contract supported, refuted, or not enough information (NEI): absence of adequate support is NEI, not refuted and not permission to guess from model memory. Keep the controls separate. Support checking gates whether evidence can answer before generation; confidence gating filters graph and parametric answer candidates independently before fusion; post-generation checking, if retained as an audit, evaluates an already produced response and cannot substitute for either earlier gate. Thus parametric fallback is legal only in the declared open policy and is forbidden, silently or otherwise, in grounded mode.",
+          "summary": "Open-answer policy: after retrieval, first check whether the retrieved context supports answering the query. If it does, generate a graph-grounded candidate; independently allow a standalone parametric candidate. Apply a separate softmax-confidence threshold to each candidate set, discard candidates below their branch's threshold, and combine only the retained candidates. If the context does not support the query, the retrieved branch contributes no answer, but open mode may still return a parametric candidate that passes its own confidence gate. Retrieval-grounded/reject policy: make the pre-generation support check mandatory, generate only when the retrieved context supports the query, and otherwise abstain without substituting model memory. In ROGRAG's logic-form retrieval experiment, this argument checking scored 0.75 accuracy versus 0.72 for result checking performed after generating a response. For fact verification, represent the outcome as supported, refuted, or not enough information (NEI): insufficient evidence maps to NEI rather than refuted, while the grounded answer policy turns that insufficiency into abstention. Keep the controls distinct: support checking gates evidence before generation, branch-specific confidence gating filters answer candidates before fusion, and result checking evaluates a completed answer. Parametric fallback is permitted only by the declared open policy.",
           "claims": [
             {
-              "statement": "GraphRAG-Integration forms GraphRAG and LLM-only candidate sets, applies separate softmax-confidence thresholds to each source, filters each set independently, and only then combines the retained candidates into a final answer.",
+              "statement": "GraphRAG-FI forms GraphRAG and LLM-only candidate sets, applies a separate softmax-confidence threshold to each set, filters them independently, and only then combines the retained candidates into a final answer.",
               "evidence_indices": [
                 0
               ]
             },
             {
-              "statement": "ROGRAG's argument checking asks whether query and context support an answer before generation and achieves 0.75 accuracy, compared with 0.72 for result checking after a response has been generated.",
+              "statement": "ROGRAG's argument checking asks whether the query and retrieved context support an answer before generation; in its logic-form retrieval experiment it achieves 0.75 accuracy, compared with 0.72 for result checking after a response has been generated.",
               "evidence_indices": [
                 1
               ]
             },
             {
-              "statement": "CommunityKG-RAG defines fact verification as a three-way decision—supported, refuted, or not enough information—so insufficient evidence has its own NEI outcome rather than being treated as refutation.",
+              "statement": "CommunityKG-RAG formulates fact verification as a three-way decision—supported, refuted, or not enough information—so insufficient evidence has its own NEI outcome rather than being treated as refutation.",
               "evidence_indices": [
                 2
               ]
             },
             {
-              "statement": "Open mode permits answering from retrieved evidence or parametric knowledge when retrieval is insufficient, whereas retrieval-grounded or reject mode must assess retrieval-grounded capability and abstain when extracted knowledge cannot support an answer.",
+              "statement": "Open mode permits answering from retrieved evidence or parametric knowledge when retrieval is insufficient, whereas retrieval-grounded or reject mode requires abstention when extracted knowledge cannot support an answer.",
               "evidence_indices": [
                 3
               ]
             },
             {
-              "statement": "In the open policy, support-check the retrieved context before producing its graph-grounded candidate, produce the parametric candidate on its separate branch, independently confidence-gate graph and intrinsic candidates, and combine only the retained candidates with their source provenance.",
+              "statement": "In the open policy, support-check the retrieved context before producing its graph-grounded candidate, produce the parametric candidate on a separate branch, independently confidence-gate graph and parametric candidates, and combine only the retained candidates.",
               "evidence_indices": [
                 0,
                 1,
@@ -11023,7 +11203,7 @@
               ]
             },
             {
-              "statement": "In the retrieval-grounded policy, insufficient pre-generation evidence support must immediately yield NEI or abstention; only supported context may reach generation, and the policy must not silently substitute a parametric answer.",
+              "statement": "In the retrieval-grounded policy, a failed pre-generation support check must yield abstention; for fact verification the corresponding insufficient-evidence label is NEI. Only supported retrieved context may reach generation, and parametric substitution is not allowed.",
               "evidence_indices": [
                 1,
                 2,
@@ -11031,7 +11211,7 @@
               ]
             },
             {
-              "statement": "Pre-generation support checking decides whether evidence can answer the query, source-specific confidence gating filters answer candidates before fusion, and post-generation result checking evaluates an answer already produced; these are distinct controls, and the last cannot replace the first two.",
+              "statement": "Pre-generation support checking decides whether retrieved evidence can answer the query, branch-specific confidence gating filters candidate answers before fusion, and post-generation result checking evaluates an answer already produced; these are distinct controls and must not be conflated.",
               "evidence_indices": [
                 0,
                 1
@@ -11100,7 +11280,11 @@
         "confidence": "high"
       },
       "review_agent": "/root/q034_best",
-      "review_sha256": "2e037359c144480a45fd457b5e9132bdf279a2690a53d877ef228da521c96e76"
+      "review_sha256": "281e91c4e824e4f66fdd5319dc22aaaf11928fda9c1d12fc3ee9ac8535c396fa",
+      "second_pass_review_agent": "/root/q040_second_pass",
+      "second_pass_verdict": "revise",
+      "second_pass_verdict_sha256": "9e30e360899ef709160fe7054c3fa9d00d448145d62e63348c6552b50288b170",
+      "final_answer_source": "second-pass-replacement"
     }
   ]
 }

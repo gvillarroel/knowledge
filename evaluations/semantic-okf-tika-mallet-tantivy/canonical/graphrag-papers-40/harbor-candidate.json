@@ -1,0 +1,15 @@
+{
+  "schema_version": "semantic-okf-evaluation-candidate-family/1.0",
+  "candidate_id": "tika-mallet-tantivy",
+  "allowed_modes": [
+    "consult-only"
+  ],
+  "family": {
+    "build_script": "build_semantic_okf_tika_mallet.py",
+    "build_skill": "build-semantic-okf-tika-mallet",
+    "consult_skill": "consult-semantic-okf-tika-mallet-tantivy",
+    "requires_hf_cache": false,
+    "uses_plan": true,
+    "validate_script": "validate_semantic_okf_tika_mallet.py"
+  }
+}

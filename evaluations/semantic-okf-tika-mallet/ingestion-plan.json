@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "bundle": {
+    "title": "Tika and MALLET Semantic OKF Fixture",
+    "description": "A format-diverse fixture extracted by Tika and indexed with Java MALLET.",
+    "base_iri": "https://example.org/tika-mallet-fixture/",
+    "ontology_iri": "https://example.org/ontology/tika-mallet-fixture",
+    "version_iri": "https://example.org/ontology/tika-mallet-fixture/1.0.0",
+    "prefix": "tikamallet",
+    "owl_profile": "rl"
+  },
+  "sources": [
+    {
+      "id": "office-documents",
+      "path": "fixtures/documents/*.xlsx",
+      "concept_type": "Office Document"
+    },
+    {
+      "id": "pdf-documents",
+      "path": "fixtures/documents/*.pdf",
+      "concept_type": "PDF Document"
+    }
+  ],
+  "tika": {
+    "version": "4.0.0-beta-1",
+    "verify_default_markdown": true,
+    "timeout_seconds": 120,
+    "max_input_bytes": 1048576
+  }
+}

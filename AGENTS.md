@@ -25,3 +25,11 @@
 - Validate each generated mode with the matching `validate_harbor_tasks.py` command. Do not run Harbor unless deterministic regeneration, leakage checks, and all 40 oracle quality gates pass.
 - Create a redacted cross-platform rehearsal with `python evaluations/semantic-okf-datasets/run_harbor.py --dataset <dataset> --family <family> --mode <mode> --cohort <cohort> --dry-run`. Run live Harbor only from Linux or WSL after inspecting the receipt.
 - Treat `generated/` and `results/` as ignored, append-only evaluation artifacts. Never overwrite a live result path or serialize authentication content.
+
+## Update Access Scope
+
+- Writable project root: `C:\Users\villa\dev\knowledge`.
+- Agents may create, modify, move, or delete files only inside this root and its descendants when the task requires it.
+- Treat paths outside this root as read-only unless the user explicitly authorizes a broader scope.
+- A reference to another repository or shared tool does not grant write access to it.
+- A more specific nested `AGENTS.md` may narrow this scope for its subtree.

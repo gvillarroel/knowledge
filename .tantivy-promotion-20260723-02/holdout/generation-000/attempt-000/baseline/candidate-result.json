@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "source": "harbor",
+  "jobDirectory": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/harbor-jobs/harbor-holdout-g000-baseline",
+  "jobId": "6fa43cfb-e700-4e25-a55f-24889f0e2ae6",
+  "rewardKey": "reward",
+  "passThreshold": 0.1,
+  "requiredRewardThresholds": {
+    "evidence_contract_gate": 1.0,
+    "mechanical_qualification_gate": 1.0
+  },
+  "provenance": {
+    "status": "verified",
+    "verified": true,
+    "exploratory": false,
+    "promotionEligible": true,
+    "reasons": [],
+    "expectedSkillName": "consult-semantic-okf-tantivy",
+    "lockedSkillName": "consult-semantic-okf-tantivy",
+    "legacyAlias": null,
+    "expectedSkillDigests": [
+      "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+    ],
+    "lockedSkillDigest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a",
+    "configuredSkillSource": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+    "lockedSkillSource": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+    "sourceMatchesExpected": true
+  },
+  "fitness": 0.5583996451958911,
+  "qualification": {
+    "passed": true,
+    "unqualifiedTrials": 0,
+    "missingRequiredRewards": 0,
+    "belowThresholdRewards": 0,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "missingPrimaryRewards": 0
+  },
+  "summary": {
+    "expectedTrials": 4,
+    "completedTrials": 4,
+    "erroredTrials": 0,
+    "passedTrials": 4,
+    "meanReward": 0.5583996451958911,
+    "evaluableTrials": 4,
+    "evaluableMeanReward": 0.5583996451958911,
+    "providerFailureTrials": 0,
+    "infrastructureFailureTrials": 0,
+    "missingPrimaryRewards": 0,
+    "passRate": 1.0,
+    "retries": 0,
+    "inputTokens": null,
+    "cacheTokens": null,
+    "outputTokens": null,
+    "costUsd": null
+  },
+  "taskSignatures": [
+    {
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-01",
+      "taskChecksum": "31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330",
+      "agent": "oracle",
+      "model": null,
+      "attempts": 1
+    },
+    {
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-02",
+      "taskChecksum": "7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e",
+      "agent": "oracle",
+      "model": null,
+      "attempts": 1
+    },
+    {
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-03",
+      "taskChecksum": "114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e",
+      "agent": "oracle",
+      "model": null,
+      "attempts": 1
+    },
+    {
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-04",
+      "taskChecksum": "aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67",
+      "agent": "oracle",
+      "model": null,
+      "attempts": 1
+    }
+  ],
+  "trials": [
+    {
+      "id": "f02ec213-55eb-4b30-b242-020c40d3b70c",
+      "trialName": "part-01__R4hJu7y",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-01",
+      "taskChecksum": "31a1141e50edf77e746bdfb40f6bdd2d58b38f05e9ad4db1648dc8f7b34e7330",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": null,
+      "reward": 0.5847229586825566,
+      "reportedReward": 0.5847229586825566,
+      "missingPrimaryReward": false,
+      "passed": true,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "exceptionInfo": null,
+      "configuredSkillSources": [
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy"
+      ],
+      "lockedSkill": {
+        "name": "consult-semantic-okf-tantivy",
+        "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "digest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+      },
+      "resultPath": "part-01__R4hJu7y/result.json",
+      "inputTokens": null,
+      "cacheTokens": null,
+      "outputTokens": null,
+      "costUsd": null,
+      "evaluationDiagnostics": [
+        {
+          "path": "part-01__R4hJu7y/verifier/diagnostics.json",
+          "status": "scored-response",
+          "terminalOutcome": "complete"
+        }
+      ],
+      "evaluationStatuses": [
+        "scored-response"
+      ],
+      "failureDomains": [],
+      "classifiedFailureDomains": [],
+      "terminalOutcomes": [
+        "complete"
+      ],
+      "providerFailure": false,
+      "infrastructureFailure": false,
+      "trajectoryPath": null,
+      "verifierFiles": [
+        "part-01__R4hJu7y/verifier/diagnostics.json",
+        "part-01__R4hJu7y/verifier/reward.json",
+        "part-01__R4hJu7y/verifier/test-stdout.txt"
+      ],
+      "agentOutputFiles": [
+        "part-01__R4hJu7y/agent/oracle.txt",
+        "part-01__R4hJu7y/agent/tantivy-results.json"
+      ],
+      "artifactManifestPath": "part-01__R4hJu7y/artifacts/manifest.json",
+      "trialLogPath": "part-01__R4hJu7y/trial.log"
+    },
+    {
+      "id": "065b3e94-e63d-490c-aa9c-d4672104a418",
+      "trialName": "part-02__rSTZuv3",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-02",
+      "taskChecksum": "7e7c6cec992d54710773b78ff41f3040d5895be477b78c6b0968bfbd180ed70e",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": null,
+      "reward": 0.6113132250691787,
+      "reportedReward": 0.6113132250691787,
+      "missingPrimaryReward": false,
+      "passed": true,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "exceptionInfo": null,
+      "configuredSkillSources": [
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy"
+      ],
+      "lockedSkill": {
+        "name": "consult-semantic-okf-tantivy",
+        "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "digest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+      },
+      "resultPath": "part-02__rSTZuv3/result.json",
+      "inputTokens": null,
+      "cacheTokens": null,
+      "outputTokens": null,
+      "costUsd": null,
+      "evaluationDiagnostics": [
+        {
+          "path": "part-02__rSTZuv3/verifier/diagnostics.json",
+          "status": "scored-response",
+          "terminalOutcome": "complete"
+        }
+      ],
+      "evaluationStatuses": [
+        "scored-response"
+      ],
+      "failureDomains": [],
+      "classifiedFailureDomains": [],
+      "terminalOutcomes": [
+        "complete"
+      ],
+      "providerFailure": false,
+      "infrastructureFailure": false,
+      "trajectoryPath": null,
+      "verifierFiles": [
+        "part-02__rSTZuv3/verifier/diagnostics.json",
+        "part-02__rSTZuv3/verifier/reward.json",
+        "part-02__rSTZuv3/verifier/test-stdout.txt"
+      ],
+      "agentOutputFiles": [
+        "part-02__rSTZuv3/agent/oracle.txt",
+        "part-02__rSTZuv3/agent/tantivy-results.json"
+      ],
+      "artifactManifestPath": "part-02__rSTZuv3/artifacts/manifest.json",
+      "trialLogPath": "part-02__rSTZuv3/trial.log"
+    },
+    {
+      "id": "3483fc22-8824-45a5-a15a-2461707cb061",
+      "trialName": "part-03__GCN6okP",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-03",
+      "taskChecksum": "114f03210632e4f00811bf453d7131fe24d86b8e53650f87ef675b0b3e4e7a4e",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": null,
+      "reward": 0.310102421352278,
+      "reportedReward": 0.310102421352278,
+      "missingPrimaryReward": false,
+      "passed": true,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "exceptionInfo": null,
+      "configuredSkillSources": [
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy"
+      ],
+      "lockedSkill": {
+        "name": "consult-semantic-okf-tantivy",
+        "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "digest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+      },
+      "resultPath": "part-03__GCN6okP/result.json",
+      "inputTokens": null,
+      "cacheTokens": null,
+      "outputTokens": null,
+      "costUsd": null,
+      "evaluationDiagnostics": [
+        {
+          "path": "part-03__GCN6okP/verifier/diagnostics.json",
+          "status": "scored-response",
+          "terminalOutcome": "complete"
+        }
+      ],
+      "evaluationStatuses": [
+        "scored-response"
+      ],
+      "failureDomains": [],
+      "classifiedFailureDomains": [],
+      "terminalOutcomes": [
+        "complete"
+      ],
+      "providerFailure": false,
+      "infrastructureFailure": false,
+      "trajectoryPath": null,
+      "verifierFiles": [
+        "part-03__GCN6okP/verifier/diagnostics.json",
+        "part-03__GCN6okP/verifier/reward.json",
+        "part-03__GCN6okP/verifier/test-stdout.txt"
+      ],
+      "agentOutputFiles": [
+        "part-03__GCN6okP/agent/oracle.txt",
+        "part-03__GCN6okP/agent/tantivy-results.json"
+      ],
+      "artifactManifestPath": "part-03__GCN6okP/artifacts/manifest.json",
+      "trialLogPath": "part-03__GCN6okP/trial.log"
+    },
+    {
+      "id": "fd51166c-53ee-4a45-b610-e0051d3e2bf9",
+      "trialName": "part-04__j7Qu9qb",
+      "taskName": "knowledge/tantivy-consult-evolution__holdout__part-04",
+      "taskChecksum": "aaa5f0a0071ebefe352446f46e3822609e789bed28f68794ba2b080fd8b72b67",
+      "agent": "oracle",
+      "agentVersion": "1.0.0",
+      "model": null,
+      "reward": 0.7274599756795513,
+      "reportedReward": 0.7274599756795513,
+      "missingPrimaryReward": false,
+      "passed": true,
+      "requiredRewards": {
+        "evidence_contract_gate": 1.0,
+        "mechanical_qualification_gate": 1.0
+      },
+      "qualificationPassed": true,
+      "qualificationFailures": [],
+      "exceptionInfo": null,
+      "configuredSkillSources": [
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy"
+      ],
+      "lockedSkill": {
+        "name": "consult-semantic-okf-tantivy",
+        "source": "/mnt/c/Users/villa/dev/knowledge/.tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/baseline/skills/consult-semantic-okf-tantivy",
+        "digest": "sha256:eebd78483a1ac218030c7bc44d1c2fad525758702af39e09cd4756254601998a"
+      },
+      "resultPath": "part-04__j7Qu9qb/result.json",
+      "inputTokens": null,
+      "cacheTokens": null,
+      "outputTokens": null,
+      "costUsd": null,
+      "evaluationDiagnostics": [
+        {
+          "path": "part-04__j7Qu9qb/verifier/diagnostics.json",
+          "status": "scored-response",
+          "terminalOutcome": "complete"
+        }
+      ],
+      "evaluationStatuses": [
+        "scored-response"
+      ],
+      "failureDomains": [],
+      "classifiedFailureDomains": [],
+      "terminalOutcomes": [
+        "complete"
+      ],
+      "providerFailure": false,
+      "infrastructureFailure": false,
+      "trajectoryPath": null,
+      "verifierFiles": [
+        "part-04__j7Qu9qb/verifier/diagnostics.json",
+        "part-04__j7Qu9qb/verifier/reward.json",
+        "part-04__j7Qu9qb/verifier/test-stdout.txt"
+      ],
+      "agentOutputFiles": [
+        "part-04__j7Qu9qb/agent/oracle.txt",
+        "part-04__j7Qu9qb/agent/tantivy-results.json"
+      ],
+      "artifactManifestPath": "part-04__j7Qu9qb/artifacts/manifest.json",
+      "trialLogPath": "part-04__j7Qu9qb/trial.log"
+    }
+  ]
+}

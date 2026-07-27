@@ -1,0 +1,48 @@
+{
+  "schema_version": "semantic-okf-tantivy-consult-freeze/1.0",
+  "status": "frozen",
+  "logical_name": "consult-semantic-okf-tantivy",
+  "selected_candidate": "identity-natural",
+  "source_tree": {
+    "file_count": 9,
+    "total_bytes": 39949,
+    "realizer_sha256": "sha256:8c3666ede3281b96a8630321d9c2fb91d015da96469003ecf22643e041b6f7e7",
+    "harbor_skill_sha256": "sha256:896d038b16dd974411ef50bf91e5efead5e2589262058114b4bed4d8993f0c84"
+  },
+  "development": {
+    "baseline_mean_reward": 0.5483104422107311,
+    "winner_mean_reward": 0.8511612341539166,
+    "gain": 0.3028507919431855,
+    "pass_rate": 1.0,
+    "evidence_contract_gate": 1.0,
+    "mechanical_qualification_gate": 1.0
+  },
+  "holdout": {
+    "baseline_mean_reward": 0.5583996451958911,
+    "winner_mean_reward": 0.852793289976981,
+    "gain": 0.29439364478108987,
+    "task_count": 4,
+    "regressed_tasks": 0,
+    "promoted": true
+  },
+  "trace_distillation_holdout": {
+    "candidate": "idf-boosted-natural-query",
+    "candidate_harbor_sha256": "sha256:3039bc2a856bd0f66fe17458a2b6bf8607dc20563c4ad2b16de5ac81a733c937",
+    "development_baseline_mean_reward": 0.8511612341539166,
+    "development_candidate_mean_reward": 0.8640721593140365,
+    "holdout_baseline_mean_reward": 0.852793289976981,
+    "holdout_candidate_mean_reward": 0.8835460567445479,
+    "holdout_gain": 0.030752766767566886,
+    "holdout_regressed_tasks": 1,
+    "promoted": false,
+    "decision": "retain-identity-natural"
+  },
+  "evidence": {
+    "realizer_manifest": "evaluations/semantic-okf-tantivy/generated/evolution/consult/identity-natural-sealed/candidate-manifest.json",
+    "pareto_archive": "evaluations/semantic-okf-tantivy/generated/evolution/harbor/pareto-20260723-01/development/generation-000/pareto-archive.json",
+    "native_comparison": "evaluations/semantic-okf-tantivy/generated/evolution/harbor/native-comparison-20260723-02/final-report.json",
+    "promotion_receipt": ".tantivy-promotion-20260723-02/holdout/generation-000/attempt-000/result.json",
+    "trace_report_20260723": ".tantivy-query-trace-20260723-03/holdout-gate.json",
+    "compact_trace_report_20260723": "evaluations/semantic-okf-tantivy/reports/trace-distillation-query-idf-20260723.json"
+  }
+}

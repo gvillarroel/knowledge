@@ -36,7 +36,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--generation", choices=("baseline", "evolved"), required=True)
-    parser.add_argument("--family", choices=("legacy", "embeddings", "classical", "adaptive", "entity-graph", "ensemble"), required=True)
+    parser.add_argument("--family", choices=("legacy", "embeddings", "classical", "adaptive", "entity-graph", "ensemble", "graphify"), required=True)
     parser.add_argument("--source", type=Path)
     args = parser.parse_args(argv)
     manifest_path = HERE / f"snapshots/{args.generation}-manifest.json"
@@ -83,4 +83,3 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

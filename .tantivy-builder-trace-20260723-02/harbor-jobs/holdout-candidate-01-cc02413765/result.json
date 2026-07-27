@@ -1,0 +1,107 @@
+{
+    "id": "f9fb2f00-cd2a-412c-b21c-a0585ce9e237",
+    "started_at": "2026-07-23T13:54:50.144667",
+    "updated_at": "2026-07-23T13:59:45.954637",
+    "finished_at": "2026-07-23T13:59:45.954637",
+    "n_total_trials": 4,
+    "stats": {
+        "n_completed_trials": 4,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 4,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "evidence_contract_gate": 1.0,
+                        "mechanical_qualification_gate": 1.0,
+                        "mrr_at_10": 0.90625,
+                        "ndcg_at_10": 0.7682478491268829,
+                        "recall_at_10": 0.820610119047619,
+                        "reward": 0.8317026560581673
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "evidence_contract_gate": {
+                        "1.0": [
+                            "part-01__QJw7GYH",
+                            "part-02__CSxJnFX",
+                            "part-03__ug9U2yz",
+                            "part-04__PKLZ3Rs"
+                        ]
+                    },
+                    "mechanical_qualification_gate": {
+                        "1.0": [
+                            "part-01__QJw7GYH",
+                            "part-02__CSxJnFX",
+                            "part-03__ug9U2yz",
+                            "part-04__PKLZ3Rs"
+                        ]
+                    },
+                    "mrr_at_10": {
+                        "1.0": [
+                            "part-01__QJw7GYH",
+                            "part-02__CSxJnFX",
+                            "part-04__PKLZ3Rs"
+                        ],
+                        "0.625": [
+                            "part-03__ug9U2yz"
+                        ]
+                    },
+                    "ndcg_at_10": {
+                        "0.8699247448887394": [
+                            "part-01__QJw7GYH"
+                        ],
+                        "0.7803344264127763": [
+                            "part-02__CSxJnFX"
+                        ],
+                        "0.5159694897360554": [
+                            "part-03__ug9U2yz"
+                        ],
+                        "0.9067627354699609": [
+                            "part-04__PKLZ3Rs"
+                        ]
+                    },
+                    "recall_at_10": {
+                        "0.8616071428571428": [
+                            "part-01__QJw7GYH"
+                        ],
+                        "0.8166666666666667": [
+                            "part-02__CSxJnFX"
+                        ],
+                        "0.6666666666666666": [
+                            "part-03__ug9U2yz"
+                        ],
+                        "0.9375": [
+                            "part-04__PKLZ3Rs"
+                        ]
+                    },
+                    "reward": {
+                        "0.9105106292486274": [
+                            "part-01__QJw7GYH"
+                        ],
+                        "0.865667031026481": [
+                            "part-02__CSxJnFX"
+                        ],
+                        "0.602545385467574": [
+                            "part-03__ug9U2yz"
+                        ],
+                        "0.948087578489987": [
+                            "part-04__PKLZ3Rs"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

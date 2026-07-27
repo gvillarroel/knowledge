@@ -1,0 +1,84 @@
+{
+  "schema_version": "semantic-okf-tantivy-builder-freeze/1.0",
+  "status": "frozen",
+  "logical_name": "build-semantic-okf-tantivy",
+  "selected_candidate": "stable-dedicated-baseline",
+  "source_tree": {
+    "file_count": 17,
+    "realizer_sha256": "sha256:c0c291e4cd15111ccf6c27a10db0b8882efbc4d02630a2618e6051151386a400"
+  },
+  "frozen_consult": {
+    "logical_name": "consult-semantic-okf-tantivy",
+    "realizer_sha256": "sha256:8c3666ede3281b96a8630321d9c2fb91d015da96469003ecf22643e041b6f7e7",
+    "unchanged_during_builder_evolution": true
+  },
+  "baseline_parity": {
+    "reference": "local accepted Classical GraphRAG campaign bundle",
+    "candidate_file_count": 890,
+    "reference_file_count": 890,
+    "authoritative_core_file_count": 884,
+    "authoritative_core_differing_files": 0,
+    "projection_file_count": 6,
+    "projection_byte_differing_files": 6,
+    "newline_normalized_data_artifacts_equal": 4,
+    "hash_binding_artifacts_regenerated": [
+      "classical/build-report.json",
+      "classical/index.json"
+    ],
+    "documents": 1135,
+    "terms": 96799,
+    "topics": 16,
+    "deterministic_utf8_lf": true
+  },
+  "development": {
+    "task": "knowledge/tantivy-builder-evolution__development",
+    "baseline_mean_reward": 0.8511612341539166,
+    "winner": "papers-forward-3",
+    "winner_mean_reward": 0.8685702585257647,
+    "gain": 0.017409024371848103,
+    "population_candidates": 5,
+    "pareto_archive_size": 1
+  },
+  "holdout": {
+    "task": "knowledge/tantivy-builder-evolution__holdout",
+    "baseline_mean_reward": 0.8527932899769809,
+    "development_winner_mean_reward": 0.8121232551837142,
+    "gain": -0.040670034793266696,
+    "regressed_tasks": 1,
+    "promoted": false,
+    "decision": "retain-stable-dedicated-baseline"
+  },
+  "trace_distillation_holdout": {
+    "candidate": "forward-four",
+    "candidate_harbor_sha256": "sha256:0fccf4555edea1fadbe0530262030b15f183f6e696acd6e32dba17225b848a5d",
+    "development_baseline_mean_reward": 0.8511612341539166,
+    "development_candidate_mean_reward": 0.8664921768498806,
+    "development_regressed_tasks": 0,
+    "holdout_baseline_mean_reward": 0.852793289976981,
+    "holdout_candidate_mean_reward": 0.8317026560581673,
+    "holdout_gain": -0.021090633918813717,
+    "holdout_regressed_tasks": 2,
+    "promoted": false,
+    "decision": "retain-stable-dedicated-baseline"
+  },
+  "evolution_engines": {
+    "candidate_realization": "sealed baseline and four development candidates",
+    "population_search": "selected papers-forward-3 on development",
+    "reflective_pareto_search": "selected papers-forward-3 as the sole non-dominated candidate",
+    "trace_distillation": "materialized forward-four from six independent task traces; all development tasks improved, but two untouched holdout tasks regressed",
+    "operator_coevolution": "failed closed because the aggregate task name could not bind to the local task contract",
+    "external_failure_resume": "failed closed because the interrupted job lacked a terminal Harbor result",
+    "gepa_skill_evolution": "not run because SKILL.md-only mutation cannot change the directly invoked builder runtime",
+    "metaskill_evolution": "not run because no producer-published typed policy ledger exists"
+  },
+  "evidence": {
+    "population_report": ".tantivy-builder-population-analysis-20260723-02/final-report.json",
+    "pareto_archive": ".tantivy-builder-pareto-20260723-01/development/generation-000/pareto-archive.json",
+    "trace_report": ".tantivy-builder-trace-20260723-01/final-report.json",
+    "trace_report_20260723": ".tantivy-builder-trace-20260723-02/holdout-gate.json",
+    "compact_trace_report_20260723": "evaluations/semantic-okf-tantivy/reports/trace-distillation-builder-forward-four-20260723.json",
+    "canonical_replay_20260723": "evaluations/semantic-okf-tantivy/generated/final-trace-distillation-canonical-20260723-02/summary.json",
+    "promotion_receipt": ".tantivy-builder-promotion-20260723-01/holdout/generation-000/attempt-000/result.json",
+    "canonical_summary": "evaluations/semantic-okf-tantivy/canonical-retrieval-summary.json"
+  }
+}

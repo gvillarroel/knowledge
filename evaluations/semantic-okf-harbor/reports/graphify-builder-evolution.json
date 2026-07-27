@@ -1,0 +1,46 @@
+{
+  "schema_version": "semantic-okf-graphify-builder-evolution/1.0",
+  "date": "2026-07-20",
+  "status": "promoted-into-official-builder-for-retrieval",
+  "consultation": {
+    "name": "consult-semantic-okf-graphify",
+    "modified": false,
+    "harbor_receipt_tree_sha256": "f27bf956b8656f62c3de8bf883a15a3cd3a60674826cabbf814f7b027f32917f"
+  },
+  "builder": {
+    "baseline": "pre-promotion build-semantic-okf-graphify",
+    "evolved": "build-semantic-okf-graphify",
+    "historical_candidate": "build-semantic-okf-harbor-graphify",
+    "mutation": "reciprocal cross-partition binary TF-IDF links between record roots",
+    "graph_nodes": 6390,
+    "baseline_graph_edges": 6389,
+    "evolved_graph_edges": 6419,
+    "evolved_graph_logical_sha256": "5541ba21da0116a435cbb60392327e03259c81049cfb6610266499837322366d",
+    "reproducible_second_build": true,
+    "authoritative_core_unchanged": true
+  },
+  "benchmark": {
+    "questions": 40,
+    "discovery_questions": 32,
+    "holdout_questions": 8,
+    "holdout_opened_after_freeze": true
+  },
+  "full_40": {
+    "baseline": {"recall_at_10": 0.6854166666666667, "hard_recall_at_10": 0.4583333333333333, "mrr_at_10": 0.5556547619047618, "ndcg_at_10": 0.5299301166809991, "evidence_valid": 265, "evidence_returned": 265, "mean_ms": 137.42851000424707},
+    "evolved": {"recall_at_10": 0.7729166666666667, "hard_recall_at_10": 0.575, "mrr_at_10": 0.5792261904761904, "ndcg_at_10": 0.5779156769160976, "evidence_valid": 301, "evidence_returned": 301, "mean_ms": 81.57647749467287}
+  },
+  "discovery": {
+    "baseline": {"recall_at_10": 0.6640625, "hard_recall_at_10": 0.46875, "mrr_at_10": 0.4695684523809524, "ndcg_at_10": 0.46666365487232486},
+    "evolved": {"recall_at_10": 0.7369791666666666, "hard_recall_at_10": 0.46875, "mrr_at_10": 0.49903273809523807, "ndcg_at_10": 0.5093526035750933}
+  },
+  "holdout": {
+    "baseline": {"recall_at_10": 0.7708333333333334, "hard_recall_at_10": 0.41666666666666663, "mrr_at_10": 0.9, "ndcg_at_10": 0.7829959639156959},
+    "evolved": {"recall_at_10": 0.9166666666666666, "hard_recall_at_10": 1.0, "mrr_at_10": 0.9, "ndcg_at_10": 0.852167970280115}
+  },
+  "harbor_q032": {
+    "baseline": {"reward": 0.0, "response_contract": 0.0, "all_evidence_valid": 0.0, "complete_qrel_coverage": 1.0, "required_document_coverage": 1.0, "contract_errors": ["locator"]},
+    "evolved": {"reward": 0.0, "response_contract": 0.0, "all_evidence_valid": 0.0, "complete_qrel_coverage": 0.0, "required_document_coverage": 0.5, "contract_errors": ["locator"]},
+    "interpretation": "The frozen consultation package does not expose the exact locator and retained-text hash shape required by the Harbor response contract; this builder-only evolution cannot repair that interface."
+  },
+  "decision": "Promote the evolved implementation into the official build-semantic-okf-graphify skill for deterministic retrieval. Do not represent it as a strict Harbor answer-compiler improvement."
+}
