@@ -4,6 +4,13 @@ This directory contains reproducible evaluation definitions, validators, and
 compact reviewed documentation. Large or sensitive evaluation data stays local
 and is ignored by Git.
 
+## Current report
+
+Read [`LATEST-REPORT.md`](LATEST-REPORT.md) for the current ordered comparison
+of Semantic OKF build/consult pairs, experimental candidates, grounded Harbor
+status, and capability-only evaluations. It orders evidence by comparability
+and recency without moving immutable or digest-bound artifacts.
+
 ## Repository boundary
 
 Keep these files in Git:
@@ -61,4 +68,3 @@ git check-ignore -v evaluations/<study>/processed/<file>
 For the canonical Semantic OKF Harbor datasets, also follow
 `semantic-okf-datasets/README.md` and validate the complete registry before
 running Harbor.
-
