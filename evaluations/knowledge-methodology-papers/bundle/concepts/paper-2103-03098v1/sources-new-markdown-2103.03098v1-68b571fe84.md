@@ -1,0 +1,2437 @@
+---
+type: Research Paper
+title: Accounting for Variance in Machine Learning Benchmarks
+description: Benchmark variance, repeated trials, uncertainty, and reliable comparison
+  of alternatives.
+resource: https://example.org/knowledge-methodology-papers/resource/paper-2103-03098v1/sources%2Fnew%2Fmarkdown%2F2103.03098v1
+tags:
+- paper-2103-03098v1
+- markdown
+- rl
+sources:
+- id: paper-2103-03098v1
+  resource: sources/new/markdown/2103.03098v1.md
+  title: paper-2103-03098v1
+generated:
+  by: process:semantic-okf-python
+concept_id: concepts/paper-2103-03098v1/sources-new-markdown-2103.03098v1-68b571fe84
+concept_path: concepts/paper-2103-03098v1/sources-new-markdown-2103.03098v1-68b571fe84.md
+subject_iri: https://example.org/knowledge-methodology-papers/resource/paper-2103-03098v1/sources%2Fnew%2Fmarkdown%2F2103.03098v1
+ontology_class_iri: https://example.org/ontology/knowledge-methodology-papers#Paper
+ontology_version_iri: https://example.org/ontology/knowledge-methodology-papers/1.0.0
+source_id: paper-2103-03098v1
+source_kind: markdown
+source_path: sources/new/markdown/2103.03098v1.md
+source_content_sha256: ce826628728fe85665bcccce3c4dbe69a66d852f35415cadde4fdf7ccd349dbf
+record_sha256: 353b2aef4d820b5d09e20f789df66e1f4bc2805b5e951dcdcf61d878f8db8726
+source_refs:
+- https://example.org/knowledge-methodology-papers/provenance/record/paper-2103-03098v1/a36cdfe1b2b3c7930de28af4
+record_id: sources/new/markdown/2103.03098v1
+---
+
+# Accounting for Variance in Machine Learning Benchmarks
+
+## Dataset relevance
+
+Benchmark variance, repeated trials, uncertainty, and reliable comparison of alternatives.
+
+- Coverage lanes: evaluation-validity
+- Relevant skills: harbor-run-results; harbor-population-search; harbor-reflective-pareto-search
+
+## Source citation
+
+- Pinned arXiv record: [2103.03098v1](https://arxiv.org/abs/2103.03098v1)
+- Authors: Bouthillier, Xavier; Delaunay, Pierre; Bronzi, Mirko; Trofimov, Assya; Nichyporuk, Brennan; Szeto, Justin; Sepah, Naz; Raff, Edward; Madan, Kanika; Voleti, Vikram; Kahou, Samira Ebrahimi; Michalski, Vincent; Serdyuk, Dmitriy; Arbel, Tal; Pal, Chris; Varoquaux, Gaël; Vincent, Pascal
+- PDF: [https://arxiv.org/pdf/2103.03098v1](https://arxiv.org/pdf/2103.03098v1)
+- PDF SHA-256: `1f458f7e606e4db86b207315c049a38b52cacde15ad34def2cc6c29124fc5d4c`
+- Extracted pages: 23
+
+The following text was extracted page by page from the pinned PDF. Page headings are stable evidence locators.
+
+## PDF page 1
+
+ACCOUNTING FOR VARIANCE IN MACHINE LEARNING BENCHMARKS
+Xavier Bouthillier 1 2 Pierre Delaunay 3 Mirko Bronzi 1 Assya Troﬁmov 1 2 4 Brennan Nichyporuk 1 5 6
+Justin Szeto 1 5 6 Naz Sepah 1 5 6 Edward Raff 7 8 Kanika Madan 1 2 Vikram Voleti1 2
+Samira Ebrahimi Kahou 1 6 9 10 Vincent Michalski 1 2 Dmitriy Serdyuk 1 2 Tal Arbel1 5 6 10 Chris Pal 1 11 12
+Ga¨el Varoquaux1 6 13 Pascal Vincent 1 2 10
+ABSTRACT
+Strong empirical evidence that one machine-learning algorithmA outperforms another oneB ideally calls for
+multiple trials optimizing the learning pipeline over sources of variation such as data sampling, augmentation,
+parameter initialization, and hyperparameters choices. This is prohibitively expensive, and corners are cut to
+reach conclusions. We model the whole benchmarking process, revealing that variance due to data sampling,
+parameter initialization and hyperparameter choice impact markedly the results. We analyze the predominant
+comparison methods used today in the light of this variance. We show a counter-intuitive result that adding more
+sources of variation to an imperfect estimator approaches better the ideal estimator at a 51× reduction in compute
+cost. Building on these results, we study the error rate of detecting improvements, on ﬁve different deep-learning
+tasks/architectures. This study leads us to propose recommendations for performance comparisons.
+1 I NTRODUCTION : TRUSTWORTHY
+BENCHMARKS ACCOUNT FOR
+FLUCTUATIONS
+Machine learning increasingly relies upon empirical evi-
+dence to validate publications or efﬁcacy. The value of a
+new method or algorithmA is often established by empiri-
+cal benchmarks comparing it to prior work. Although such
+benchmarks are built on quantitative measures of perfor-
+mance, uncontrolled factors can impact these measures and
+dominate the meaningful difference between the methods.
+In particular, recent studies have shown that loose choices of
+hyper-parameters lead to non-reproducible benchmarks and
+unfair comparisons (Raff, 2019; 2021; Lucic et al., 2018;
+Henderson et al., 2018; Kadlec et al., 2017; Melis et al.,
+2018; Bouthillier et al., 2019; Reimers & Gurevych, 2017;
+Gorman & Bedrick, 2019). Properly accounting for these
+factors may go as far as changing the conclusions for the
+comparison, as shown for recommender systems (Dacrema
+et al., 2019), neural architecture pruning (Blalock et al.,
+2020), and metric learning (Musgrave et al., 2020).
+1Mila, Montr´eal, Canada 2Universit´e de Montr´eal, Montr´eal,
+Canada 3Independent 4IRIC 5Centre for Intelligent Machines
+6McGill University, Montr ´eal, Canada 7Booz Allen Hamilton
+8University of Maryland, Baltimore County 9 ´Ecole de technologie
+sup´erieure 10CIFAR 11Polytechnique Montr´eal, Montr´eal, Canada
+12ElementAI 13Inria, Saclay, France. Correspondence to: Xavier
+Bouthillier<xavier.bouthillier@umontreal.ca>.
+Proceedings of the 3 rd MLSys Conference, Austin, TX, USA,
+2020. Copyright 2020 by the author(s).
+The steady increase in complexity –e.g. neural-network
+depth– and number of hyper-parameters of learning
+pipelines increases computational costs of models, mak-
+ing brute-force approaches prohibitive. Indeed, robust con-
+clusions on comparative performance of modelsA andB
+would require multiple training of the full learning pipelines,
+including hyper-parameter optimization and random seed-
+ing. Unfortunately, since the computational budget of most
+researchers can afford only a small number of model ﬁts
+(Bouthillier & Varoquaux, 2020), many sources of vari-
+ances are not probed via repeated experiments. Rather,
+sampling several model initializations is often considered
+to give enough evidence. As we will show, there are other,
+larger, sources of uncontrolled variation and the risk is that
+conclusions are driven by differences due to arbitrary factors,
+such as data order, rather than model improvements.
+The seminal work of Dietterich (1998) studied statistical
+tests for comparison of supervised classiﬁcation learning
+algorithms focusing on variance due to data sampling. Fol-
+lowing works (Nadeau & Bengio, 2000; Bouckaert & Frank,
+2004) perpetuated this focus, including a series of work in
+NLP (Riezler & Maxwell, 2005; Taylor Berg-Kirkpatrick
+& Klein, 2012; Anders Sogaard & Alonso, 2014) which
+ignored variance extrinsic to data sampling. Most of these
+works recommended the use of paired tests to mitigate the
+issue of extrinsic sources of variation, but Hothorn et al.
+(2005) then proposed a theoretical framework encompass-
+ing all sources of variation. This framework addressed the
+issue of extrinsic sources of variation by marginalizing all
+of them, including the hyper-parameter optimization pro-
+arXiv:2103.03098v1  [cs.LG]  1 Mar 2021
+
+## PDF page 2
+
+Accounting for Variance in Machine Learning Benchmarks
+cess. These prior works need to be confronted to the current
+practice in machine learning, in particular deep learning,
+where 1) the machine-learning pipelines has a large number
+of hyper-parameters, including to deﬁne the architecture,
+set by uncontrolled procedures, sometimes manually, 2) the
+cost of ﬁtting a model is so high that train/validation/test
+splits are used instead of cross-validation, or nested cross-
+validation that encompasses hyper-parameter optimization
+(Bouthillier & Varoquaux, 2020).
+In Section 2, we study the different source of variation of a
+benchmark, to outline which factors contribute markedly to
+uncontrolled ﬂuctuations in the measured performance. Sec-
+tion 3 discusses estimation the performance of a pipeline
+and its uncontrolled variations with a limited budget. In
+particular we discuss this estimation when hyper-parameter
+optimization is run only once. Recent studies emphasized
+that model comparisons with uncontrolled hyper-parameter
+optimization is a burning issue (Lucic et al., 2018; Hen-
+derson et al., 2018; Kadlec et al., 2017; Melis et al., 2018;
+Bouthillier et al., 2019); here we frame it in a statistical
+context, with explicit bias and variance to measure the loss
+of reliability that it incurs. In Section 4, we discuss crite-
+rion using these estimates to conclude on whether to accept
+algorithmA as a meaningful improvement over algorithm
+B, and the error rates that they incur in the face of noise.
+Based on our results, we issue in Section 5 the following
+recommendations:
+1) As many sources of variation as possible should be ran-
+domized whenever possible. These include weight ini-
+tialization, data sampling, random data augmentation
+and the whole hyperparameter optimization. This helps
+decreasing the standard error of the average performance
+estimation, enhancing precision of benchmarks.
+2) Deciding of whether the benchmarks give evidence that
+one algorithm outperforms another should not build
+solely on comparing average performance but account
+for variance. We propose a simple decision criterion
+based on requiring a high-enough probability that in one
+run an algorithm outperforms another.
+3) Resampling techniques such as out-of-bootstrap should
+be favored instead of ﬁxed held-out test sets to improve
+capacity of detecting small improvements.
+Before concluding, we outline a few additional considera-
+tions for benchmarking in Section 6.
+2 T HE VARIANCE IN ML BENCHMARKS
+Machine-learning benchmarks run a complete learning
+pipeline on a ﬁnite dataset to estimate its performance. This
+performance value should be considered the realization of
+a random variable. Indeed the dataset is itself a random
+sample from the full data distribution. In addition, a typical
+learning pipeline has additional sources of uncontrolled ﬂuc-
+tuations, as we will highlight below. A proper evaluation
+and comparison between pipelines should thus account for
+the distributions of such metrics.
+2.1 A model of the benchmarking process that
+includes hyperparameter tuning
+Here we extend the formalism of Hothorn et al. (2005)
+to model the different sources of variation in a machine-
+learning pipeline and that impact performance measures.
+In particular, we go beyond prior works by accounting for
+the choice of hyperparameters in a probabilistic model of
+the whole experimental benchmark. Indeed, choosing good
+hyperparameters –including details of a neural architecture–
+is crucial to the performance of a pipeline. Yet these hyper-
+parameters come with uncontrolled noise, whether they are
+set manually or with an automated procedure.
+The training procedure We consider here the familiar
+setting of supervised learning on i.i.d. data (and will use
+classiﬁcation in our experiments) but this can easily be
+adapted to other machine learning settings. Suppose we
+have access to a datasetS ={(x1,y 1),..., (xn,yn)} con-
+tainingn examples of (input, target) pairs. These pairs are
+i.i.d. and sampled from an unknown data distribution D,
+i.e. S∼D n. The goal of a learning pipeline is to ﬁnd a
+functionh∈H that will have good prediction performance
+in expectation overD, as evaluated by a metric of interest
+e. More precisely, in supervised learning, e(h(x),y ) is a
+measure of how far a prediction h(x) lies from the target
+y associated to the inputx (e.g., classiﬁcation error). The
+goal is to ﬁnd a predictor h that minimizes the expected
+riskRe(h,D) = E(x,y)∼D[e(h(x),y )], but since we have
+access only to ﬁnite datasets, all we can ever measure is
+an empirical risk ˆRe(h,S ) = 1
+|S|
+∑
+(x,y)∈Se(h(x),y ). In
+practice training with a training set St consists in ﬁnding
+a function (hypothesis) h∈H that minimizes a trade-off
+between a data-ﬁt term –typically the empirical risk of a dif-
+ferentiable surrogate losse′– with a regularization Ω(h,λ )
+that induces a preference over hypothesis functions:
+Opt(St,λ )≈ arg min
+h∈H
+ˆRe′(h,St) + Ω(h,λ ), (1)
+where λ represents the set of hyperparameters: regular-
+ization coefﬁcients (s.a. strength of weight decay or the
+ridge penalty), architectural hyperparameters affectingH,
+optimizer-speciﬁc ones such as the learning rate, etc. . . Note
+that Opt is a random variable whose value will depend also
+on other additional random variables that we shall collec-
+tively denoteξO, sampled to determine parameter initializa-
+tion, data augmentation, example ordering, etc.*.
+*If stochastic data augmentation is used, then optimization
+procedure Opt for a given training setSt has to be changed to an
+
+## PDF page 3
+
+Accounting for Variance in Machine Learning Benchmarks
+Hyperparameter Optimization The training procedure
+builds a predictor given a training set St. But since it re-
+quires specifying hyperparametersλ, a complete learning
+pipeline has to tune all of these. A complete pipeline will
+involve a hyper-parameter optimization procedure, which
+will strive to ﬁnd a value ofλ that minimizes objective
+r(λ) = E(St,Sv)∼sp(Stv)
+[
+ˆRe
+(
+Opt(St,λ ),Sv)]
+(2)
+where sp(Stv) is a distribution of random splits of the data
+setStv between training and validation subsetsSt,Sv. Ide-
+ally, hyperparameter optimization would be applied over
+random dataset samples from the true distributionD, but in
+practice the learning pipeline only has access toStv, hence
+the expectation over dataset splits. An ideal hyper-parameter
+optimization would yieldλ∗(Stv) = arg minλr(λ). A con-
+crete hyperparameter optimization algorithm HOpt will
+however use an average over a small number of train-
+validation splits (or just 1), and a limited training budget,
+yielding λ∗
+⋀
+(Stv) = HOpt(Stv)≈λ∗(Stv). We denoted
+earlier the sources of random variations in Opt asξO. Like-
+wise, we will denote the sources of variation inherent to
+HOpt asξH. These encompass the sources of variance re-
+lated to the procedure to optimize hyperparameters HOpt,
+whether it is manual or a search procedure which has its ar-
+bitrary choices such as the splitting and random exploration.
+After hyperparameters have been tuned, it is often customary
+to retrain the predictor using the full dataStv. The complete
+learning pipelineP will ﬁnally return a single predictor:
+h∗
+⋀
+(Stv) =P(Stv) = Opt(Stv, HOpt(Stv)) (3)
+Recall that h∗
+⋀
+(Stv) is the result of Opt which is not de-
+terministic, as it is affected by arbitrary choices ξO in the
+training of the model (random weight initialization, data or-
+dering...) and now additionallyξH in the hyperparameter op-
+timization. We will useξ to denote the set of all random vari-
+ations sources in the learning pipeline,ξ =ξH∪ξO. Thus
+ξ captures all sources of variation in the learning pipeline
+from dataStv, that are not conﬁgurable withλ.
+The performance measure The full learning procedure
+P described above yields a modelh∗
+⋀
+. We now must deﬁne
+a metric that we can use to evaluate the performance of this
+model with statistical tests. For simplicity, we will use the
+same evaluation metrice on which we based hyperparameter
+optimization. The expected risk obtained by applying the
+full learning pipelineP to datasetsStv∼D n of sizen is:
+RP(D,n ) = EStv∼Dn
+[
+Re(h∗
+⋀
+(Stv),D)
+]
+(4)
+expectation over ˜St∼P aug( ˜St|St;λaug) whereP aug is the data
+augmentation distribution. This adds additional stochasticity to the
+optimization, as we will optimize this through samples fromP aug
+obtained with a random number generator.
+where the expectation is also over the random sources ξ
+that affect the learning procedure (initialization, ordering,
+data-augmentation) and hyperparameter optimization.
+As we only have access to a single ﬁnite dataset S, the
+performance of the learning pipeline can be evaluated as the
+following expectation over splits:
+µ = ˆRP(S,n,n′) =
+E(Stv,So)∼spn,n′(S)
+[
+ˆRe(h∗
+⋀
+(Stv),So)
+]
+(5)
+where sp is a distribution of random splits or bootstrap re-
+sampling of the data setS that yield setsStv (train+valid)
+of sizen andSo (test) of sizen′. We denote asσ2 the cor-
+responding variance of ˆRe(h∗
+⋀
+(Stv),So). The performance
+measures vary not only depending on how the data was split,
+but also on all other random factors affecting the learning
+procedure (ξO) and hyperparameters optimization (ξH).
+2.2 Empirical evaluation of variance in benchmarks
+We conducted thorough experiments to probe the different
+sources of variance in machine learning benchmarks.
+Cases studied We selected i) the CIFAR10 (Krizhevsky
+et al., 2009) image classiﬁcation with VGG11 (Simonyan
+& Zisserman, 2014), ii) PascalVOC (Everingham et al.) im-
+age segmentation using an FCN (Long et al., 2014) with a
+ResNet18 (He et al., 2015a) backbone pretrained on ima-
+genet (Deng et al., 2009), iii-iv) Glue (Wang et al., 2019)
+SST-2 (Socher et al., 2013) and RTE (Bentivogli et al., 2009)
+tasks with BERT (Devlin et al., 2018) and v) peptide to ma-
+jor histocompatibility class I (MHC I) binding predictions
+with a shallow MLP. All details on default hyperparameters
+used and the computational environments –which used∼ 8
+GPU years– can be found in Appendix D.
+Variance in the learning procedure:ξO For the sources
+of variance from the learning procedure (ξO), we identiﬁed:
+i) the data sampling, ii) data augmentation procedures, iii)
+model initialization, iv) dropout, and v) data visit order in
+stochastic gradient descent. We model the data-sampling
+variance as resulting from training the model on a ﬁnite
+datasetS of sizen, sampled from an unknown true distri-
+bution. S∼D n is thus a random variable, the standard
+source of variance considered in statistical learning. Since
+we have a single ﬁnite dataset in practice, we evaluate this
+variance by repeatedly generating a train set from bootstrap
+replicates of the data and measuring the out-of-bootstrap
+error (Hothorn et al., 2005)†.
+We ﬁrst ﬁxed hyperparameters to pre-selected reasonable
+†The more common alternative in machine learning is to use
+cross-validation, but the latter is less amenable to various sample
+sizes. Bootstrapping is discussed in more detail in Appendix B.
+
+## PDF page 4
+
+Accounting for Variance in Machine Learning Benchmarks
+0 2
+Numerical noise
+Dropout
+Weights init
+Data order
+Data augment
+Data (bootstrap)
+Noisy Grid Search
+Random Search
+Bayes Opt
+Glue-RTE
+BERT
+0.0 0.5
+Glue-SST2
+BERT
+0 2
+STD
+MHC
+MLP
+0.0 0.5 1.0
+PascalVOC
+ResNet
+0.0 0.2
+CIFAR10
+VGG11hyperparameter
+optimization
+HOpt { H}
+learning
+procedure
+{ O}
+source of variation case studies
+Figure 1. Different sources of variation of the measured performance: across our different case studies, as a fraction of the variance
+induced by bootstrapping the data. For hyperparameter optimization, we studied several algorithms.
+choices‡. Then, iteratively for each sources of variance, we
+randomized the seeds 200 times, while keeping all other
+sources ﬁxed to initial values. Moreover, we measured the
+numerical noise with 200 training runs with all ﬁxed seeds.
+Figure 1 presents the individual variances due to sources
+from within the learning algorithms. Bootstrapping data
+stands out as the most important source of variance. In
+contrast, model initialization generally is less than 50%
+of the variance of bootstrap, on par with the visit order
+of stochastic gradient descent. Note that these different
+contributions to the variance are not independent, the total
+variance cannot be obtained by simply adding them up.
+For classiﬁcation, a simple binomial can be used to model
+the sampling noise in the measure of the prediction accuracy
+of a trained pipeline on the test set. Indeed, if the pipeline
+has a chance τ of giving the wrong answer on a sample,
+makes i.i.d. errors, and is measured on n samples, the ob-
+served measure follows a binomial distribution of location
+parameterτ withn degrees of freedom. If errors are corre-
+lated, not i.i.d., the degrees of freedom are smaller and the
+distribution is wider. Figure 2 compares standard deviations
+of the performance measure given by this simple binomial
+model to those observed when bootstrapping the data on
+the three classiﬁcation case studies. The match between the
+model and the empirical results suggest that the variance due
+to data sampling is well explained by the limited statistical
+power in the test set to estimate the true performance.
+Variance induced by hyperparameter optimization:ξH
+To study theξH sources of variation, we chose three of the
+most popular hyperparameter optimization methods: i) ran-
+dom search, ii) grid search, and iii) Bayesian optimization.
+While grid-search in itself has no random parameters, the
+speciﬁc choice of the parameter range is arbitrary and can
+be an uncontrolled source of variance (e.g., does the grid
+‡This choice is detailed in Appendix D.
+102
+103
+104
+105
+106
+Test set size
+0
+1
+2
+3
+4Standard deviation (% acc)
+In Theory:
+From a Binomial
+In Practice:
+Random splits
+Binom(n', 0.66)
+Binom(n', 0.95)
+Binom(n', 0.91)
+Glue-RTE BERT
+(n'=277)
+Glue-SST2 BERT
+(n'=872)
+CIFAR10 VGG11
+(n'=10000)
+Figure 2. Error due to data sampling: The dotted lines show
+the standard deviation given by a binomial-distribution model of
+the accuracy measure; the crosses report the standard deviation
+observed when bootstrapping the data in our case studies, showing
+that the model is a reasonable.
+size step by powers of 2, 10, or increments of 0.25 or 0.5).
+We study this variance with a noisy grid search, perturbing
+slightly the parameter ranges (details in Appendix E).
+For each of these tuning methods, we held all ξO ﬁxed to
+random values and executed 20 independent hyperparameter
+optimization procedures up to a budget of 200 trials. This
+way, all the observed variance across the hyperparameter
+optimization procedures is strictly due toξH. We were care-
+ful to design the search space so that it covers the optimal
+hyperparameter values (as stated in original studies) while
+being large enough to cover suboptimal values as well.
+Results in ﬁgure 1 show that hyperparameter choice induces
+a sizable amount of variance, not negligible in comparison
+to the other factors. The full optimization curves of the 320
+HPO procedures are presented in Appendix F. The three
+hyperparameter optimization methods induce on average as
+much variance as the commonly studied weights initializa-
+
+## PDF page 5
+
+Accounting for Variance in Machine Learning Benchmarks
+90.0
+92.5
+95.0
+97.5
+100.0
+cifar10
+2012 2014 2016 2018 2020
+85
+90
+95
+100
+sst2
+non-'SOTA' results
+Significant
+Non-Significant
+Year
+Accuracy
+Figure 3. Published improvements compared to benchmark
+variance The dots give the performance of publications, function
+of year, as reported onpaperswithcode.com; red band shows
+our estimated σ, and the yellow band the resulting signiﬁcance
+threshold. Green marks are results likely signiﬁcant compared to
+prior ’State of the Art’, and red ”×” appear non-signiﬁcant.
+tion. These results motivate further investigation the cost of
+ignoring the variance due to hyperparameter optimization.
+The bigger picture: Variance matters For a given case
+study, the total variance due to arbitrary choices and sam-
+pling noise revealed by our study can be put in perspective
+with the published improvements in the state-of-the-art. Fig-
+ure 3 shows that this variance is on the order of magnitude
+of the individual increments. In other words, the variance is
+not small compared to the differences between pipelines. It
+must be accounted for when benchmarking pipelines.
+3 A CCOUNTING FOR VARIANCE TO
+RELIABLY ESTIMATE PERFORMANCE ˆRP
+This section contains 1) an explanation of the counter in-
+tuitive result that accounting for more sources of variation
+reduces the standard error for an estimator of ˆRP and 2) an
+empirical measure of the degradation of expected empirical
+risk estimation due to neglecting HOpt variance.
+We will now consider different estimators of the average
+performanceµ = ˆRP(S,n,n′) from Equation 5. Such esti-
+mators will use, in place of the expectation of Equation 5, an
+empirical average overk (train+test) splits, which we will
+denote ˆµ(k) and ˆσ2
+(k) the corresponding empirical variance.
+We will make an important distinction between an estimator
+which encompasses all sources of variation, the ideal esti-
+mator ˆµ(k), and one which accounts only for a portion of
+these sources, the biased estimator ˜µ(k).
+But before delving into this, we will explain why many
+splits help estimating the expected empirical risk ( ˆRP).
+3.1 Multiple data splits for smaller detectable
+improvements
+The majority of machine-learning benchmarks are built with
+ﬁxed training and test sets. The rationale behind this design,
+is that learning algorithms should be compared on the same
+grounds, thus on the same sets of examples for training
+and testing. While the rationale is valid, it disregards the
+fact that the fundamental ground of comparison is the true
+distribution from which the sets were sampled. This ﬁnite
+set is used to compute the expected empirical risk ( ˆRP
+Eq 5), failing to compute the expected risk (RP Eq 4) on
+the whole distribution. This empirical risk is therefore a
+noisy measure, it has some uncertainty because the risk
+on a particular test set gives limited information on what
+would be the risk on new data. This uncertainty due to data
+sampling is not small compared to typical improvements or
+other sources of variation, as revealed by our study in the
+previous section. In particular, ﬁgure 2 suggests that the
+size of the test set can be a limiting factor.
+When comparing two learning algorithmsA andB, we esti-
+mate their expected empirical risks ˆRP with ˆµ(k), a noisy
+measure. The uncertainty of this measure is represented
+by the standard error σ√
+k under the normal assumption§ of
+ˆRe. This uncertainty is an important aspect of the compari-
+son, for instance it appears in statistical tests used to draw
+a conclusion in the face of a noisy evidence. For instance,
+a z-test states that a difference of expected empirical risk
+between A and B of at least z0.05
+√
+σ2
+A+σ2
+B
+k must be ob-
+served to control false detections at a rate of 95%. In other
+words, a difference smaller than this value could be due to
+noise alone, e.g. different sets of random splits may lead to
+different conclusions.
+Withk = 1, algorithmsA andB must have a large differ-
+ence of performance to support a reliable detection. In order
+to detect smaller differences,k must be increased, i.e. ˆµ(k)
+must be computed over several data splits. The estimator
+ˆµ(k) is computationally expensive however, and most re-
+searchers must instead use a biased estimator ˜µ(k) that does
+not probe well all sources of variance.
+3.2 Bias and variance of estimators depends on
+whether they account for all sources of variation
+Probing all sources of variation, including hyperparameter
+optimization, is too computationally expensive for most re-
+searchers. However, ignoring the role of hyperparameter
+optimization induces a bias in the estimation of the expected
+empirical risk. We discuss in this section the expensive,
+unbiased, ideal estimator of ˆµ(k) and the cheap biased es-
+§Our extensive numerical experiments show that a normal
+distribution is well suited for the ﬂuctuations of the risk–ﬁgure G.3
+
+## PDF page 6
+
+Accounting for Variance in Machine Learning Benchmarks
+timator of ˜µ(k). We explain as well why accounting for
+many sources of variation improves the biased estimator by
+reducing its bias.
+3.2.1 Ideal estimator: sampling multiple HOpt
+The ideal estimator ˆµ(k) takes into account all sources of
+variation. For each performance measure ˆRe, all ξO and
+ξH are randomized, each requiring an independent hyperpa-
+rameter optimization procedure. The detailed procedure is
+presented in Algorithm 1. For an estimation over k splits
+with hyperparameter optimization for a budget ofT trials,
+it requires ﬁtting the learning algorithm a total ofO(k·T )
+times. The estimator is unbiased, with E
+[
+ˆµ(k)
+]
+=µ.
+For a variance of the performance measures Var(ˆRe) =
+σ2, we can derive the variance of the ideal estima-
+tor Var(ˆµ(k)) = σ2
+k by taking the sum of the vari-
+ances in ˆµ(k) = 1
+k
+∑k
+i=1 ˆRei. We see that with
+limk→∞ Var(ˆµ(k)) = 0. Thus ˆµ(k) is a well-behaved unbi-
+ased estimator ofµ, as its mean squared error vanishes with
+k inﬁnitely large:
+E[(ˆµ(k)−µ)2] = Var(ˆµ(k)) + (E[ˆµ(k)]−µ)2
+= σ2
+k (6)
+Note thatT does not appear in these equations. Yet it con-
+trols HOpt’s runtime cost (T trials to determine ˆλ∗), and
+thus the varianceσ2 is a function ofT .
+3.2.2 Biased estimator: ﬁxing HOpt
+A computationally cheaper but biased estimator consists
+in re-using the hyperparameters obtained from a single hy-
+perparameter optimization to generatek subsequent perfor-
+mance measures ˆRe where only ξO (or a subset of ξO) is
+randomized. This procedure is presented in Algorithm 2.
+It requires only O(k +T ) ﬁttings, substantially less than
+the ideal estimator. The estimator is biased with k > 1,
+E
+[
+˜µ(k)
+]
+̸=µ. A bias will occur when a set of hyperparam-
+etersλ∗
+⋀
+are optimal for a particular instance ofξO but not
+over most others.
+When we ﬁx sources of variationξ to arbitrary values (e.g.
+random seed), we are conditioning the distribution of ˆRe
+on some arbitraryξ. Intuitively, holding ﬁx some sources
+of variations should reduce the variance of the whole pro-
+cess. What our intuition fails to grasp however, is that this
+conditioning to arbitrary ξ induces a correlation between
+the trainings which in turns increases the variance of the
+estimator. Indeed, a sum of correlated variables increases
+with the strength of the correlations.
+Let Var(ˆRe|ξ) be the variance of the conditioned perfor-
+mance measures ˆRe andρ the average correlation among
+Algorithm 1 IdealEst
+Ideal Estimator ˆµ(k), ˆσ(k)
+Input:
+datasetS
+sample sizek
+for i in{1,··· ,k} do
+ξO∼ RNG()
+ξH∼ RNG()
+Stv,So∼ sp(S;ξO)
+λ∗
+⋀
+= HOpt(Stv,ξO,ξH)
+h∗
+⋀
+= Opt(Stv,λ∗
+⋀
+)
+pi = ˆRe(h∗
+⋀
+,So)
+end for
+Return ˆµ(k) = mean(p),
+ˆσ(k) = std(p)
+Algorithm 2 FixHOptEst
+Biased Estimator ˜µ(k), ˜σ(k)
+Input:
+datasetS
+sample sizek
+ξO∼ RNG()
+ξH∼ RNG()
+Stv,So∼ sp(S;ξO)
+ˆλ∗ = HOpt(Stv,ξO,ξH)
+for i in{1,··· ,k} do
+ξO∼ RNG()
+Stv,So∼ sp(S;ξO)
+h∗
+⋀
+= Opt(Stv,λ∗
+⋀
+)
+pi = ˆRe(h∗
+⋀
+,So)
+end for
+Return ˜µ(k) = mean(p),
+˜σ(k) = std(p)
+Figure 4. Estimators of the performance of a method, and its vari-
+ation. We represent the seeding of sources of variations with
+ξ ∼ RNG(), where RNG() is some random number generator.
+Their difference lies in the hyper-parameter optimization step
+(HOpt). The ideal estimator requires executing k times HOpt,
+each requiringT trainings for the hyperparameter optimization,
+for a total of O(k·T ) trainings. The biased estimator requires
+executing only 1 time HOpt, forO(k +T ) trainings in total.
+all pairs of ˆRe. The variance of the biased estimator is then
+given by the following equation.
+Var(˜µ(k)|ξ) = Var(ˆRe|ξ)
+k + k− 1
+k ρVar(ˆRe|ξ) (7)
+We can see that with a large enough correlationρ, the vari-
+ance Var(˜µ(k)|ξ) could be dominated by the second term.
+In such case, increasing the number of data splitsk would
+not reduce the variance of ˜µ(k). Unlike with ˆµ(k), the mean
+square error for ˜µ(k) will not decreases withk :
+E[(˜µ(k)−µ)2] = Var(˜µ(k)|ξ) + (E[˜µ(k)|ξ]−µ)2
+= Var(ˆRe|ξ)
+k + k− 1
+k ρVar(ˆRe|ξ)
++ (E[ ˆRe|ξ]−µ)2 (8)
+This result has two implications, one beneﬁcial to improv-
+ing benchmarks, the other not. Bad news ﬁrst: the limited
+effectiveness of increasingk to improve the quality of the
+estimator ˜µ(k) is a consequence of ignoring the variance
+induced by hyperparameter optimization. We cannot avoid
+this loss of quality if we do not have the budget for repeated
+independent hyperoptimization. The good news is that cur-
+rent practices generally account for only one or two sources
+of variation; there is thus room for improvement. This has
+the potential of decreasing the average correlation ρ and
+
+## PDF page 7
+
+Accounting for Variance in Machine Learning Benchmarks
+moving ˜µ(k) closer to ˆµ(k). We will see empirically in next
+section how accounting for more sources of variation moves
+us closer to ˆµ(k) in most of our case studies.
+3.3 The cost of ignoring HOpt variance
+To compare the estimators ˆµ(k) and ˜µ(k) presented above,
+we measured empirically the statistics of the estimators on
+budgets ofk = (1,··· , 100) points on our ﬁve case studies.
+The ideal estimator is asymptotically unbiased and there-
+fore only one repetition is enough to estimate Var(ˆµ(k)) for
+each task. For the biased estimator we run 20 repetitions
+to estimate Var(˜µ(k)| ξ). We sample 20 arbitrary ξ (ran-
+dom seeds) and compute the standard deviation of ˜µ(k) for
+k = (1,··· , 100).
+We compared the biased estimator FixedHOptEst()
+while varying different subset of sources of varia-
+tions to see if randomizing more of them would
+help increasing the quality of the estimator. We
+note FixedHOptEst(k,Init) the biased estima-
+tor ˜µ(k) randomizing only the weights initialization,
+FixedHOptEst(k,Data) the biased estimator random-
+izing only data splits, and FixedHOptEst(k,All) the
+biased estimator randomizing all sources of variation ξO
+except for hyperparameter optimization.
+We present results from a subset of the tasks in Figure 5 (all
+tasks are presented in Figure H.4). Randomizing weights
+initialization only (FixedHOptEst(k,init)) provides
+only a small improvement withk> 1. In the task where it
+best performs (Glue-RTE), it converges to the equivalent of
+ˆµ(k=2). This is an important result since it corresponds to
+the predominant approach used in the literature today. Boot-
+strapping with FixedHOptEst(k,Data) improves the
+standard error for all tasks, converging to equivalent of
+ˆµ(k=2) to ˆµ(k=10). Still, the biased estimator including all
+sources of variations excluding hyperparameter optimiza-
+tion FixedHOptEst(k,All) is by far the best estimator
+after the ideal estimator, converging to equivalent of ˆµ(k=2)
+to ˆµ(k=100).
+This shows that accounting for all sources of vari-
+ation reduces the likelihood of error in a computa-
+tionally achievable manner. IdealEst(k = 100 )
+takes 1 070 hours to compute, compared to only 21
+hours for each FixedHOptEst(k = 100 ). Our
+study paid the high computational cost of multiple
+rounds of FixedHOptEst(k,All), and the cost of
+IdealEst(k) for a total of 6.4 GPU years to show that
+FixedHOptEst(k,All) is better than the status-quo
+and a satisfying option for statistical model comparisons
+without these prohibitive costs.
+0.01
+0.02
+0.03
+Standard deviation
+of estimators
+Glue-RTE
+BERT
+FixHOptEst(k, Init)
+FixHOptEst(k, Data)
+FixHOptEst(k, All)
+IdealEst(k)
+0 20 40 60 80 100
+Number of samples for the estimator (k)
+0.005
+0.010
+0.015
+Standard deviation
+of estimators
+PascalVOC
+ResNet
+Figure 5. Standard error of biased and ideal estimators with
+k samples. Top ﬁgure presents results from BERT trained on RTE
+and bottom ﬁgure VGG11 on CIFAR10. All other tasks are pre-
+sented in Figure H.4. On x axis, the number of samples used by
+the estimators to compute the average classiﬁcation accuracy. On
+y axis, the standard deviation of the estimators. Uncertainty repre-
+sented in light color is computed analytically as the approximate
+standard deviation of the standard deviation of a normal distribu-
+tion computed onk samples. For most case studies, accounting
+for more sources of variation reduces the standard error of
+ˆµ(k). This is caused by the decreased correlationρ thanks to addi-
+tional randomization in the learning pipeline. FixHOptEst(k,
+All) provides an improvement towards IdealEst(k) for no
+additional computational cost compared to FixHOptEst(k,
+Init) which is currently considered as a good practice.Ignoring
+variance from HOpt is harmful for a good estimation of ˆRP.
+4 A CCOUNTING FOR VARIANCE TO DRAW
+RELIABLE CONCLUSIONS
+4.1 Criteria used to conclude from benchmarks
+Given an estimate of the performance of two learning
+pipelines and their variance, are these two pipelines dif-
+ferent in a meaningful way? We ﬁrst formalize common
+practices to draw such conclusions, then characterize their
+error rates.
+Comparing the average difference A typical criterion to
+conclude that one algorithm is superior to another is that one
+reaches a performance superior to another by some (often
+implicit) threshold δ. The choice of the threshold δ can
+be arbitrary, but a reasonable one is to consider previous
+accepted improvements, e.g. improvements in Figure 3.
+This difference in performance is sometimes computed
+across a single run of the two pipelines, but a better practice
+used in the deep-learning community is to average multi-
+ple seeds (Bouthillier & Varoquaux, 2020). Typically hy-
+perparameter optimization is performed for each learning
+
+## PDF page 8
+
+Accounting for Variance in Machine Learning Benchmarks
+algorithm and then several weights initializations or other
+sources of ﬂuctuation are sampled, giving k estimates of
+the risk ˆRe – note that these are biased as detailed in sub-
+subsection 3.2.2. If an algorithmA performs better than an
+algorithmB by at leastδ on average, it is considered as a
+better algorithm thanB for the task at hand. This approach
+does not account for false detections and thus can not easily
+distinguish between true impact and random chance.
+Let ˆRA
+e = 1
+k
+∑k
+i=1 ˆRA
+ei, where ˆRA
+ei is the empirical risk of
+algorithmA on thei-th split, be the mean performance of
+algorithmA, and similarly forB. The decision whetherA
+outperformsB is then determined by ( ˆRA
+e − ˆRB
+e >δ ).
+The variance is not accounted for in the average compari-
+son. We will now present a statistical test accounting for it.
+Both comparison methods will next be evaluated empirically
+using simulations based on our case studies.
+Probability of outperforming The choice of threshold
+δ is problem-speciﬁc and does not relate well to a statis-
+tical improvement. Rather, we propose to formulate the
+comparison in terms of probability of improvement. Instead
+of comparing the average performances, we compare their
+distributions altogether. Let P(A > B) be the probability
+of measuring a better performance forA thanB across ﬂuc-
+tuations such as data splits and weights initialization. To
+consider an algorithmA signiﬁcantly better thanB, we ask
+thatA outperformsB often enough: P(A > B)≥ γ. Of-
+ten enough, as set byγ, needs to be deﬁned by community
+standards, which we will revisit below. This probability
+can simply be computed as the proportion of successes,
+ˆRA
+ei > ˆRB
+ei, where ( ˆRA
+ei, ˆRB
+ei),i ∈{ 1,...,k } are pairs of
+empirical risks measured onk different data splits for algo-
+rithmsA andB.
+P(A>B ) = 1
+k
+k∑
+i
+I{ ˆRA
+ei> ˆRB
+ei} (9)
+whereI is the indicator function. We will build upon the
+non-parametric Mann-Whitney test to produce decisions
+about whether P(A>B )≥γ (Perme & Manevski, 2019) .
+The problem is well formulated in the Neyman-Pearson
+view of statistical testing (Neyman & Pearson, 1928; Perez-
+gonzalez, 2015), which requires the explicit deﬁnition of
+both a null hypothesisH0 to control for statistically signif-
+icant results, and an alternative hypothesis H1 to declare
+results statistically meaningful. A statistically signiﬁcant re-
+sult is one that is not explained by noise, the null-hypothesis
+H0 : P(A>B ) = 0.5. With large enough sample size, any
+arbitrarily small difference can be made statistically signiﬁ-
+cant. A statistically meaningful result is one large enough
+to satisfy the alternative hypothesis H1 : P(A > B) = γ.
+Recall thatγ is a threshold that needs to be deﬁned by com-
+munity standards. We will discuss reasonable values forγ
+in next section based on our simulations.
+We recommend to conclude that algorithmA is better than
+B on a given task if the result is bothstatistically signiﬁcant
+and meaningful. The reliability of the estimation of P(A>
+B) can be quantiﬁed using conﬁdence intervals, computed
+with the non-parametric percentile bootstrap (Efron, 1982).
+The lower bound of the conﬁdence interval CImin controls
+if the result is signiﬁcant (P(A>B )− CImin > 0.5), and
+the upper bound of the conﬁdence interval CImax controls
+if the result is meaningful (P(A>B ) + CImax >γ ).
+4.2 Characterizing errors of these conclusion criteria
+We now run an empirical study of the two conclusion criteria
+presented above, the popular comparison of average differ-
+ences and our recommended probability of outperforming.
+We will re-use mean and variance estimates from subsec-
+tion 3.3 with the ideal and biased estimators to simulate
+performances of trained algorithms so that we can measure
+the reliability of these conclusion criteria when using ideal
+or biased estimators.
+Simulation of algorithm performances We simulate re-
+alizations of the ideal estimator ˆµ(k) and the biased esti-
+mator ˜µ(k) with a budget of k = 50 data splits. For the
+ideal estimator, we model ˆµ(k) with a normal distribution
+ˆµ(k)∼N (µ, σ2
+k ), whereσ2 is the variance measured with
+the ideal estimator in our case studies, andµ is the empirical
+risk ˆRe. Our experiments consist in varying the difference
+inµ for the two algorithms, to span from identical to widely
+different performance (µA >>µ B).
+For the biased estimator, we rely on a two stage sampling
+process for the simulation. First, we sample the bias of ˜µ(k)
+based on the variance Var(˜µ(k)|ξ) measured in our case
+studies,Bias∼N (0, Var(˜µ(k)|ξ)). Givenb, a sample of
+Bias, we samplek empirical risks following ˆRe∼N (µ +
+b, Var(ˆRe| ξ)), where Var(ˆRe| ξ) is the variance of the
+empirical risk ˆRe averaged across 20 realizations of ˜µ(k)
+that we measured in our case studies.
+In simulation we vary the mean performance of A with
+respect to the mean performance of B so that P(A > B)
+varies from 0.4 to 1 to test three regions:
+H0 is true : Not signiﬁcant, not meaningful
+P(A>B )− CImin≤ 0.5
+H0 &H1 are false (H0 H1 ) : Signiﬁcant, not meaningful
+P(A>B )− CImin > 0.5∧ P(A>B ) + CImin≤γ
+H1 is true : Signiﬁcant and meaningful
+P(A>B )− CImin > 0.5∧ P(A>B ) + CImin >γ
+For decisions based on comparing averages, we set δ =
+1.9952σ whereσ is the standard deviation measured in our
+
+## PDF page 9
+
+Accounting for Variance in Machine Learning Benchmarks
+case studies with the ideal estimator. The value 1.9952 is
+set by linear regression so that δ matches the average im-
+provements obtained frompaperswithcode.com. This
+provides a thresholdδ representative of the published im-
+provements. For the probability of outperforming, we use a
+threshold ofγ = 0.75 which we have observed to be robust
+across all case studies (See Appendix I).
+Observations Figure 6 reports results for different deci-
+sion criteria, using the ideal estimator and the biased esti-
+mator, as the difference in performance of the algorithms
+A andB increases (x-axis). The x-axis is broken into three
+regions: 1) Leftmost is when H0 is true (not-signiﬁcant).
+2) The grey middle when the result is signiﬁcant, but not
+meaningful in our framework (H0 H1 ). 3) The rightmost
+is whenH1 is true (signiﬁcant and meaningful). The single
+point comparison leads to the worst decision by far. It suf-
+fers from both high false positives (≈ 10%) and high false
+negatives (≈ 75%). The average withk = 50, on the other
+hand, is very conservative with low false positives (< 5%)
+but very high false negatives (≈ 90%). Using the probabil-
+ity of outperforming leads to better balanced decisions, with
+a reasonable rate of false positives (≈ 5%) on the left and a
+reasonable rate of false negatives on the right (≈ 30%).
+The main problem with the average comparison is the thresh-
+old. A t-test only differs from an average in that the thresh-
+old is computed based on the variance of the model per-
+formances and the sample size. It is this adjustment of the
+threshold based on the variance that allows better control on
+false negatives.
+Finally, we observe that the test of probability of outper-
+forming (P(A>B )) controls well the error rates even when
+used with a biased estimator. Its performance is neverthe-
+less impacted by the biased estimator compared to the ideal
+estimator. Although we cannot guarantee a nominal control,
+we conﬁrm that it is a major improvement compared to the
+commonly used comparison method at no additional cost.
+5 O UR RECOMMENDATIONS : GOOD
+BENCHMARKS WITH A BUDGET
+We now distill from the theoretical and empirical results of
+the previous sections a set of practical recommendations
+to benchmark machine-learning pipelines. Our recommen-
+dations are pragmatic in the sense that they are simple to
+implement and cater for limited computational budgets.
+Randomize as many sources of variations as possible
+Fitting and evaluating a modern machine-learning pipeline
+comes with many arbitrary aspects, such as the choice of ini-
+tializations or the data order. Benchmarking a pipeline given
+a speciﬁc instance of these choices will not give an evalua-
+tion that generalize to new data, even drawn from the same
+0.4 0.5 0.6 0.7 0.8 0.9 1.0
+P(A > B)
+0
+50
+100Rate of Detections
+Optimal
+oracle
+IdealEst FixHOptEst Comparison Methods
+Single point comparison
+Average comparison thresholded based
+on typical published improvement
+Proposed testing probability of improvement
+H0
+(lower=better)
+H1
+(higher=better)
+H0 H1
+Figure 6. Rate of detections of different comparison methods.
+x axis is the true simulated probability of a learning algorithm
+A to outperform another algorithmB across random ﬂuctuations
+(ex: random data splits). We vary the mean performance of A
+with respect to that ofB so that P(A > B) varies from 0.4 to 1.
+The blue line is the optimal oracle, with perfect knowledge of the
+variances. The single-point comparison (green line) has both a high
+rate of false positives in the left region (≈ 10%) and a high rate of
+false negative on the right (≈ 75%). The orange and purple lines
+show the results for the average comparison method (prevalent
+in the literature) and our proposed probability of outperforming
+method respectively. The solid versions are using the expensive
+ideal estimator, and the dashed line our 51× cheaper, but biased,
+estimator. The average comparison is highly conservative with a
+low rate of false positives (< 5%) on the left and a high rate of
+false negative on the right (≈ 90%), even with the expensive and
+exhaustive simulation. Using the probability of outperforming has
+both a reasonable rate of false positives (≈ 5%) on the left and a
+reasonable rate of false negatives on the right (≈ 30%) even when
+using our biased estimator, and approaches the oracle when using
+the expensive estimator.
+distribution. On the opposite, a benchmark that varies these
+arbitrary choices will not only evaluate the associated vari-
+ance (section 2), but also reduce the error on the expected
+performance as they enable measures of performance on the
+test set that are less correlated (3). This counter-intuitive
+phenomenon is related to the variance reduction of bagging
+(Breiman, 1996a; B¨uhlmann et al., 2002), and helps charac-
+terizing better the expected behavior of a machine-learning
+pipeline, as opposed to a speciﬁc ﬁt.
+Use multiple data splits The subset of the data used as
+test set to validate an algorithm is arbitrary. As it is of
+a limited size, it comes with a limited estimation quality
+with regards to the performance of the algorithm on wider
+samples of the same data distribution (ﬁgure 2). Improve-
+ments smaller than this variance observed on a given test
+set will not generalize. Importantly, this variance is not
+negligible compared to typical published improvements or
+other sources of variance (ﬁgures 1 and 3). For pipeline
+
+## PDF page 10
+
+Accounting for Variance in Machine Learning Benchmarks
+comparisons with more statistical power, it is useful to draw
+multiple tests, for instance generating random splits with a
+out-of-bootstrap scheme (detailed in appendix B).
+Account for variance to detect meaningful improve-
+ments Concluding on the signiﬁcance –statistical or
+practical– of an improvement based on the difference be-
+tween average performance requires the choice of a thresh-
+old that can be difﬁcult to set. A natural scale for the thresh-
+old is the variance of the benchmark, but this variance is
+often unknown before running the experiments. Using the
+probability of outperforming P(A>B ) with a threshold of
+0.75 gives empirically a criterion that separates well bench-
+marking ﬂuctuations from published improvements over the
+5 case studies that we considered. We recommend to always
+highlight not only the best-performing procedure, but also
+all those within the signiﬁcance bounds. We provide an
+example in Appendix C to illustrate the application of our
+recommended statistical test.
+6 A DDITIONAL CONSIDERATIONS
+There are many aspects of benchmarks which our study has
+not addressed. For completeness, we discuss them here.
+Comparing models instead of procedures Our frame-
+work provides value when the user can control the model
+training process and source of variation. In cases where
+models are given but not under our control (e.g., purchased
+via API or a competition), the only source of variation left is
+the data used to test the model. Our framework and analysis
+does not apply to such scenarios.
+Benchmarks and competitions with many contestants
+We focused on comparing two learning algorithms. Bench-
+marks – and competitions in particular – commonly involve
+large number of learning algorithms that are being compared.
+Part of our results carry over unchanged in such settings, in
+particular those related to variance and performance estima-
+tion. With regards to reaching a well-controlled decision,
+a new challenge comes from multiple comparisons when
+there are many algorithms. A possible alley would be to ad-
+just the decision thresholdγ, raising it with a correction for
+multiple comparisons (e.g. Bonferroni) (Dudoit et al., 2003).
+However, as the number gets larger, the correction becomes
+stringent. In competitions where the number of contestants
+can reach hundreds, the choice of a winner comes necessar-
+ily with some arbitrariness: a different choice of test sets
+might have led to a slightly modiﬁed ranking.
+Comparisons across multiple dataset Comparison over
+multiple datasets is often used to accumulate evidence that
+one algorithm outperforms another one. The challenge is to
+account for different errors, in particular different levels of
+variance, on each dataset.
+Demˇsar (2006) recommended Wilcoxon signed ranks test
+or Friedman tests to compare classiﬁers across multiple
+datasets. These recommendations are however hardly ap-
+plicable on small sets of datasets – machine learning works
+typically include as few as 3 to 5 datasets (Bouthillier &
+Varoquaux, 2020). The number of datasets corresponds to
+the sample size of these tests, and such a small sample size
+leads to tests of very limited statistical power.
+Dror et al. (2017) propose to accept methods that give im-
+provements on all datasets, controlling for multiple com-
+parisons. As opposed to Demˇsar (2006)’s recommendation,
+this approach performs well with a small number of datasets.
+On the other hand, a large number of datasets will increase
+signiﬁcantly the severity of the family-wise error-rate correc-
+tion, making Demˇsar’s recommendations more favorable.
+Non-normal metrics We focused on model performance,
+but model evaluation in practice can include other metrics
+such as the training time to reach a performance level or the
+memory foot-print (Reddi et al., 2020). Performance metrics
+are generally averages over samples which typically makes
+them amenable to a reasonable normality assumption.
+7 C ONCLUSION
+We showed that ﬂuctuations in the performance measured
+by machine-learning benchmarks arise from many differ-
+ent sources. In deep learning, most evaluations focus on
+the effect of random weight initialization, which actually
+contribute a small part of the variance, on par with residual
+ﬂuctuations of hyperparameter choices after their optimiza-
+tion but much smaller than the variance due to perturbing
+the split of the data in train and test sets. Our study clearly
+shows that these factors must be accounted to give reliable
+benchmarks. For this purpose, we study estimators of bench-
+mark variance as well as decision criterion to conclude on
+an improvement. Our ﬁndings outline recommendations
+to improve reliability of machine learning benchmarks: 1)
+randomize as many sources of variations as possible in the
+performance estimation; 2) prefer multiple random splits to
+ﬁxed test sets; 3) account for the resulting variance when
+concluding on the beneﬁt of an algorithm over another.
+REFERENCES
+Anders Sogaard, Anders Johannsen, B. P. D. H. and Alonso,
+H. M. What’s in a p-value in nlp? In Proceedings of the
+Eighteenth Conference on Computational Natural Lan-
+guage Learning, pp. 1–10. Association for Computational
+Linguistics, 2014.
+Bentivogli, L., Dagan, I., Dang, H. T., Giampiccolo, D.,
+
+## PDF page 11
+
+Accounting for Variance in Machine Learning Benchmarks
+and Magnini, B. The ﬁfth PASCAL recognizing textual
+entailment challenge. 2009.
+Blalock, D., Gonzalez Ortiz, J. J., Frankle, J., and Guttag,
+J. What is the State of Neural Network Pruning? In
+Proceedings of Machine Learning and Systems 2020, pp.
+129–146. 2020.
+Bouckaert, R. R. and Frank, E. Evaluating the replicability
+of signiﬁcance tests for comparing learning algorithms.
+In Paciﬁc-Asia Conference on Knowledge Discovery and
+Data Mining, pp. 3–12. Springer, 2004.
+Bouthillier, X. and Varoquaux, G. Survey of machine-
+learning experimental methods at NeurIPS2019 and
+ICLR2020. Research report, Inria Saclay Ile
+de France, January 2020. URL https://hal.
+archives-ouvertes.fr/hal-02447823.
+Bouthillier, X., Laurent, C., and Vincent, P. Unrepro-
+ducible research is reproducible. In Chaudhuri, K.
+and Salakhutdinov, R. (eds.), Proceedings of the 36th
+International Conference on Machine Learning , vol-
+ume 97 of Proceedings of Machine Learning Research,
+pp. 725–734, Long Beach, California, USA, 09–15 Jun
+2019. PMLR. URL http://proceedings.mlr.
+press/v97/bouthillier19a.html.
+Breiman, L. Bagging predictors. Machine learning, 24(2):
+123–140, 1996a.
+Breiman, L. Out-of-bag estimation. 1996b.
+B¨uhlmann, P., Yu, B., et al. Analyzing bagging. The Annals
+of Statistics, 30(4):927–961, 2002.
+Canty, A. J., Davison, A. C., Hinkley, D. V ., and Ventura, V .
+Bootstrap diagnostics and remedies. Canadian Journal
+of Statistics, 34(1):5–27, 2006.
+Dacrema, M. F., Cremonesi, P., and Jannach, D. Are we
+really making much progress? A Worrying Analysis of
+Recent Neural Recommendation Approaches. In Pro-
+ceedings of the 13th ACM Conference on Recommender
+Systems - RecSys ’19, pp. 101–109, New York, New York,
+USA, 2019. ACM Press. ISBN 9781450362436. doi:
+10.1145/3298689.3347058. URL http://dl.acm.
+org/citation.cfm?doid=3298689.3347058.
+Demˇsar, J. Statistical comparisons of classiﬁers over mul-
+tiple data sets. Journal of Machine learning research, 7
+(Jan):1–30, 2006.
+Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., and Fei-
+Fei, L. ImageNet: A Large-Scale Hierarchical Image
+Database. In CVPR09, 2009.
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. Bert:
+Pre-training of deep bidirectional transformers for lan-
+guage understanding, 2018.
+Dietterich, T. G. Approximate statistical tests for comparing
+supervised classiﬁcation learning algorithms. Neural
+computation, 10(7):1895–1923, 1998.
+Dror, R., Baumer, G., Bogomolov, M., and Reichart, R.
+Replicability analysis for natural language processing:
+Testing signiﬁcance with multiple datasets. Transactions
+of the Association for Computational Linguistics, 5:471–
+486, 2017.
+Dudoit, S., Shaffer, J. P., and Boldrick, J. C. Multiple
+hypothesis testing in microarray experiments. Statistical
+Science, pp. 71–103, 2003.
+Efron, B. Bootstrap methods: Another look at the jack-
+knife. Ann. Statist., 7(1):1–26, 01 1979. doi: 10.1214/aos/
+1176344552. URL https://doi.org/10.1214/
+aos/1176344552.
+Efron, B. The jackknife, the bootstrap, and other resampling
+plans, volume 38. Siam, 1982.
+Efron, B. and Tibshirani, R. J. An introduction to the boot-
+strap. CRC press, 1994.
+Everingham, M., Van Gool, L., Williams, C. K. I., Winn, J.,
+and Zisserman, A. The PASCAL Visual Object Classes
+Challenge 2012 (VOC2012) Results. http://www.pascal-
+network.org/challenges/VOC/voc2012/workshop/index.html.
+Glorot, X. and Bengio, Y . Understanding the difﬁ-
+culty of training deep feedforward neural networks.
+In Teh, Y . W. and Titterington, M. (eds.), Proceed-
+ings of the Thirteenth International Conference on Ar-
+tiﬁcial Intelligence and Statistics , volume 9 of Pro-
+ceedings of Machine Learning Research , pp. 249–
+256, Chia Laguna Resort, Sardinia, Italy, 13–15 May
+2010. PMLR. URL http://proceedings.mlr.
+press/v9/glorot10a.html.
+Gorman, K. and Bedrick, S. We need to talk about stan-
+dard splits. In Proceedings of the 57th Annual Meet-
+ing of the Association for Computational Linguistics ,
+pp. 2786–2791, Florence, Italy, July 2019. Associa-
+tion for Computational Linguistics. doi: 10.18653/
+v1/P19-1267. URL https://www.aclweb.org/
+anthology/P19-1267.
+He, K., Zhang, X., Ren, S., and Sun, J. Deep residual
+learning for image recognition, 2015a.
+He, K., Zhang, X., Ren, S., and Sun, J. Delving deep
+into rectiﬁers: Surpassing human-level performance on
+
+## PDF page 12
+
+Accounting for Variance in Machine Learning Benchmarks
+imagenet classiﬁcation. In Proceedings of the IEEE inter-
+national conference on computer vision, pp. 1026–1034,
+2015b.
+He, K., Zhang, X., Ren, S., and Sun, J. Identity mappings
+in deep residual networks. In European conference on
+computer vision, pp. 630–645. Springer, 2016.
+Henderson, P., Islam, R., Bachman, P., Pineau, J., Precup,
+D., and Meger, D. Deep reinforcement learning that
+matters. In Thirty-Second AAAI Conference on Artiﬁcial
+Intelligence, 2018.
+Henikoff, S. and Henikoff, J. G. Amino acid substitution
+matrices from protein blocks.Proceedings of the National
+Academy of Sciences, 89(22):10915–10919, 1992.
+Hothorn, T., Leisch, F., Zeileis, A., and Hornik, K. The
+design and analysis of benchmark experiments. Journal
+of Computational and Graphical Statistics , 14(3):675–
+699, 2005.
+Hutter, F., Hoos, H., and Leyton-Brown, K. An efﬁcient ap-
+proach for assessing hyperparameter importance. In Pro-
+ceedings of International Conference on Machine Learn-
+ing 2014 (ICML 2014), pp. 754–762, June 2014.
+Jurtz, V ., Paul, S., Andreatta, M., Marcatili, P., Peters, B.,
+and Nielsen, M. Netmhcpan-4.0: improved peptide–mhc
+class i interaction predictions integrating eluted ligand
+and peptide binding afﬁnity data. The Journal of Im-
+munology, 199(9):3360–3368, 2017.
+Kadlec, R., Bajgar, O., and Kleindienst, J. Knowledge base
+completion: Baselines strike back. In Proceedings of the
+2nd Workshop on Representation Learning for NLP, pp.
+69–74, 2017.
+Kingma, D. P. and Welling, M. Auto-encoding variational
+bayes. In Bengio, Y . and LeCun, Y . (eds.),2nd Interna-
+tional Conference on Learning Representations, ICLR
+2014, Banff, AB, Canada, April 14-16, 2014, Conference
+Track Proceedings, 2014. URL http://arxiv.org/
+abs/1312.6114.
+Klein, A., Falkner, S., Mansur, N., and Hutter, F. Robo: A
+ﬂexible and robust bayesian optimization framework in
+python. In NIPS 2017 Bayesian Optimization Workshop,
+December 2017.
+Krizhevsky, A., Hinton, G., et al. Learning multiple layers
+of features from tiny images. 2009.
+Liu, C., Zoph, B., Neumann, M., Shlens, J., Hua, W., Li,
+L.-J., Fei-Fei, L., Yuille, A., Huang, J., and Murphy,
+K. Progressive neural architecture search. In The Euro-
+pean Conference on Computer Vision (ECCV), September
+2018.
+Long, J., Shelhamer, E., and Darrell, T. Fully convolutional
+networks for semantic segmentation, 2014.
+Lucic, M., Kurach, K., Michalski, M., Gelly, S., and Bous-
+quet, O. Are gans created equal? a large-scale study. In
+Bengio, S., Wallach, H., Larochelle, H., Grauman, K.,
+Cesa-Bianchi, N., and Garnett, R. (eds.), Advances in
+Neural Information Processing Systems 31, pp. 700–709.
+Curran Associates, Inc., 2018.
+Maddison, C. J., Mnih, A., and Teh, Y . W. The concrete
+distribution: A continuous relaxation of discrete random
+variables. In 5th International Conference on Learning
+Representations, ICLR 2017, Toulon, France, April 24-26,
+2017, Conference Track Proceedings. OpenReview.net,
+2017. URL https://openreview.net/forum?
+id=S1jE5L5gl.
+Mahajan, D., Girshick, R., Ramanathan, V ., He, K., Paluri,
+M., Li, Y ., Bharambe, A., and van der Maaten, L. Ex-
+ploring the limits of weakly supervised pretraining. In
+Proceedings of the European Conference on Computer
+Vision (ECCV), pp. 181–196, 2018.
+Melis, G., Dyer, C., and Blunsom, P. On the state of the art
+of evaluation in neural language models. ICLR, 2018.
+Musgrave, K., Belongie, S., and Lim, S.-N. A Metric
+Learning Reality Check. arXiv, 2020. URL http:
+//arxiv.org/abs/2003.08505.
+Nadeau, C. and Bengio, Y . Inference for the generalization
+error. In Solla, S. A., Leen, T. K., and M¨uller, K. (eds.),
+Advances in Neural Information Processing Systems 12,
+pp. 307–313. MIT Press, 2000.
+Neyman, J. and Pearson, E. S. On the use and interpretation
+of certain test criteria for purposes of statistical inference:
+Part i. Biometrika, pp. 175–240, 1928.
+Nielsen, M., Lundegaard, C., Blicher, T., Lamberth, K.,
+Harndahl, M., Justesen, S., Røder, G., Peters, B., Sette,
+A., Lund, O., et al. Netmhcpan, a method for quantitative
+predictions of peptide binding to any hla-a and-b locus
+protein of known sequence. PloS one, 2(8), 2007.
+Noether, G. E. Sample size determination for some common
+nonparametric tests. Journal of the American Statistical
+Association, 82(398):645–647, 1987.
+O’Donnell, T. J., Rubinsteyn, A., Bonsack, M., Riemer,
+A. B., Laserson, U., and Hammerbacher, J. Mhcﬂurry:
+open-source class i mhc binding afﬁnity prediction. Cell
+systems, 7(1):129–132, 2018.
+Pearson, H., Daouda, T., Granados, D. P., Durette, C., Bon-
+neil, E., Courcelles, M., Rodenbrock, A., Laverdure, J.-P.,
+
+## PDF page 13
+
+Accounting for Variance in Machine Learning Benchmarks
+Cˆot´e, C., Mader, S., et al. Mhc class i–associated pep-
+tides derive from selective regions of the human genome.
+The Journal of clinical investigation, 126(12):4690–4701,
+2016.
+Perezgonzalez, J. D. Fisher, neyman-pearson or nhst? a
+tutorial for teaching data testing. Frontiers in Psychology,
+6:223, 2015.
+Perme, M. P. and Manevski, D. Conﬁdence intervals for
+the mann–whitney test. Statistical methods in medical
+research, 28(12):3755–3768, 2019.
+Raff, E. A Step Toward Quantifying Independently Repro-
+ducible Machine Learning Research. In NeurIPS, 2019.
+URL http://arxiv.org/abs/1909.06674.
+Raff, E. Research Reproducibility as a Survival Analy-
+sis. In The Thirty-Fifth AAAI Conference on Artiﬁcial
+Intelligence, 2021. URL http://arxiv.org/abs/
+2012.09932.
+Reddi, V . J., Cheng, C., Kanter, D., Mattson, P.,
+Schmuelling, G., Wu, C.-J., Anderson, B., Breughe, M.,
+Charlebois, M., Chou, W., et al. Mlperf inference bench-
+mark. In 2020 ACM/IEEE 47th Annual International
+Symposium on Computer Architecture (ISCA), pp. 446–
+459. IEEE, 2020.
+Reimers, N. and Gurevych, I. Reporting score distribu-
+tions makes a difference: Performance study of LSTM-
+networks for sequence tagging. In Proceedings of the
+2017 Conference on Empirical Methods in Natural Lan-
+guage Processing, pp. 338–348, Copenhagen, Denmark,
+September 2017. Association for Computational Lin-
+guistics. doi: 10.18653/v1/D17-1035. URL https:
+//www.aclweb.org/anthology/D17-1035.
+Riezler, S. and Maxwell, J. T. On some pitfalls in automatic
+evaluation and signiﬁcance testing for mt. In Proceedings
+of the ACL Workshop on Intrinsic and Extrinsic Evalua-
+tion Measures for Machine Translation and/or Summa-
+rization, pp. 57–64, 2005.
+Simonyan, K. and Zisserman, A. Very deep convolu-
+tional networks for large-scale image recognition. arXiv
+preprint arXiv:1409.1556, 2014.
+Socher, R., Perelygin, A., Wu, J., Chuang, J., Manning,
+C. D., Ng, A., and Potts, C. Recursive deep models for
+semantic compositionality over a sentiment treebank. In
+Proceedings of EMNLP, pp. 1631–1642, 2013.
+Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever,
+I., and Salakhutdinov, R. Dropout: A simple way
+to prevent neural networks from overﬁtting. Jour-
+nal of Machine Learning Research, 15(56):1929–1958,
+2014. URL http://jmlr.org/papers/v15/
+srivastava14a.html.
+Taylor Berg-Kirkpatrick, D. B. and Klein, D. An empirical
+investigation of statistical signiﬁcance in nlp. In Proceed-
+ings of the 2012 Joint Conference on Empirical Methods
+in Natural Language Processing and Computational Nat-
+ural Language Learning, pp. 995–1005. Association for
+Computational Linguistics, 2012.
+Torralba, A., Fergus, R., and Freeman, W. T. 80 million tiny
+images: A large data set for nonparametric object and
+scene recognition. IEEE transactions on pattern analysis
+and machine intelligence, 30(11):1958–1970, 2008.
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,
+L., Gomez, A. N., Kaiser, L., and Polosukhin, I. Attention
+is all you need, 2017.
+Vita, R., Mahajan, S., Overton, J. A., Dhanda, S. K., Martini,
+S., Cantrell, J. R., Wheeler, D. K., Sette, A., and Peters,
+B. The immune epitope database (iedb): 2018 update.
+Nucleic acids research, 47(D1):D339–D343, 2019.
+Wang, A., Singh, A., Michael, J., Hill, F., Levy, O., and
+Bowman, S. R. GLUE: A multi-task benchmark and anal-
+ysis platform for natural language understanding. 2019.
+In the Proceedings of ICLR.
+Wolf, T., Debut, L., Sanh, V ., Chaumond, J., Delangue, C.,
+Moi, A., Cistac, P., Rault, T., Louf, R., Funtowicz, M.,
+and Brew, J. Huggingface’s transformers: State-of-the-
+art natural language processing. ArXiv, abs/1910.03771,
+2019.
+Xie, Q., Hovy, E., Luong, M.-T., and Le, Q. V . Self-
+training with noisy student improves imagenet classiﬁca-
+tion. arXiv preprint arXiv:1911.04252, 2019.
+
+## PDF page 14
+
+Accounting for Variance in Machine Learning Benchmarks
+A N OTES ON REPRODUCIBILITY
+Ensuring full reproducibility is often a tedious work. We
+provide here notes and remarks on the issues we encountered
+while working towards fully reproducible experiments.
+The testing procedure To ensure proper study of the
+sources of variation it was necessary to control them close to
+perfection. For all tasks, we ran a pipeline of tests to ensure
+perfect reproducibility at execution and also at resumption.
+During the tests, each source of variation was varied with 5
+different seeds, each executed 5 times. This ensured that the
+pipeline was reproducible for different seeds. Additionally,
+for each source of variation and for each seed, another train-
+ing was executed but automatically interrupted after each
+epoch. The worker would then start the training of the next
+seed and iterate through the trainings for all seeds before
+resuming the ﬁrst one. All these tests uncovered many bugs
+and typical reproducibility issues in machine learning. We
+report here some notes.
+Computer architecture & drivers Although we did not
+measure the variance induced by different GPU architec-
+tures, we did observe that different GPU models would lead
+to different results. The CPU model had less impact on the
+Deep Learning tasks but the MLP-MHC task was sensitive
+to it. We therefore limited all tasks to speciﬁc computer
+architectures. We also observed issues when CUDA drivers
+were updated during preliminary experiments. We ensured
+all experiments were run using CUDA 10.2.
+Software & seeds PyTorch versions lead to different re-
+sults as well. We ran every Deep Learning experiments with
+PyTorch 1.2.0.
+We implemented our data pipeline so that we could seed the
+iterators, the data augmentation objects and the splitting of
+the datasets. We had less control at the level of the models
+however. For PyTorch 1.2.0, the random number generator
+(RNG) must be seeded globally which makes it difﬁcult to
+seed different parts separately. We seeded PyTorch’s global
+RNG for weight initialization at the beginning of the training
+process and then seeded PyTorch’s RNG for the dropout.
+Afterwards we checkpoint the RNG state so that we can
+restore the RNG states at resumption. We found that models
+with convolutionnal layers would not yield reproducible
+results unless we enabled cudnn.deterministic and
+disabled cudnn.benchmark.
+We used the library RoBO (Klein et al., 2017) for our
+Bayesian Optimizer. There was no support for seeding,
+we therefore resorted to seeding the global seed of python
+and numpy random number generators. We needed again to
+keep track of the RNG states and checkpoint them so that
+we can resume the Bayesian Optimizer without harming the
+reproducibility.
+For one of our case study, image segmentation, we have
+been unable to make the learning pipeline perfectly repro-
+ducible. This is problematic because it prevents us from
+studying each source of variation in isolation. We thus
+trained our model with every seeds ﬁxed across all 200 train-
+ings and measured the variance we could not control. This
+is represented as the numerical noise in Figures 1 and G.3.
+B O UR BOOTSTRAP PROCEDURE
+Cross-validation with different k impacts the number of
+samples, it is not the case with not bootstrap. That means
+ﬂexible sample sizes for statistical tests is hardly possible
+with cross-validation within affecting the training dataset
+sizes. (Hothorn et al., 2005) focuses on the dataset sampling
+as the most important source of variation and marginalize
+out all other sources by taking the average performance over
+multiple runs for a given dataset. This increases even more
+the computational cost of the statistical tests.
+We probe the effect of data sampling with bootstrap, speciﬁ-
+cally by bootstrapping to generate training sets and measur-
+ing the out-of-bootstrap error, as introduced by Breiman
+(1996b) in the context of bagging and generalized by
+(Hothorn et al., 2005). For completeness, we formalize
+this use of the bootstrap to create training and test sets and
+how it can estimate the variance of performance measure
+due to data sampling on a ﬁnite dataset.
+We assume we are seeking to generate sets of i.i.d. samples
+from true distributionD. Ideally we would have access to
+D and could sample our ﬁnite datasets independently from
+it.
+St
+b ={(x1,y 1), (x2,y 2),··· (xn,yn)}∼D (10)
+Instead we have one dataset S∼D n of ﬁnite size n and
+need to sample independent datasets from it. A popular
+method in machine learning to estimate performance on a
+small dataset is cross-validation (Bouckaert & Frank, 2004;
+Dietterich, 1998). This method however underestimates
+variance because of correlations induced by the process.
+We instead favor bootstrapping (Efron, 1979) as used by
+(Hothorn et al., 2005) to simulate independent data sampling
+from the true distribution.
+St
+b ={(x1,y 1), (x2,y 2),··· (xn,yn)}∼ S (11)
+Where St
+b ∼ S represents sampling the b-th training set
+with replacement from the set S. We then turn to out-of-
+bootstrapping to generate the held-out set. We use all re-
+maining samples inS\St
+b to sampleSo
+b .
+So
+b ={(x1,y 1), (x2,y 2),··· (xn,yn)}∼ S\St
+b (12)
+This procedure is represented as (Stv,So)∼spn,n′(S) in
+the empirical average risk ˆRP(S,n,n′), end of Section 2.1.
+
+## PDF page 15
+
+Accounting for Variance in Machine Learning Benchmarks
+C S TATISTICAL TESTING
+We are interested in asserting whether a learning algorithm
+A better performs than another learning algorithmB. Mea-
+suring the performance of these learning algorithms is not a
+deterministic process however and we may be deceived if
+noise is not accounted for. Because of the noise, we cannot
+know for sure whether a conclusion we draw is true, but
+using a statistical test, we can at least ensure a bounded rate
+of false positives (drawingA > Bwhile truth is A≤ B)
+and false negatives (drawingA≤B while truth isA>B ).
+The capacity of a statistical test to identify true differences,
+that is, of correctly inferring A > Bwhen this is true, is
+called the statistical power of a test. The procedure we de-
+scribe here seeks to avoid deception from false positives
+while providing a strong statistical power.
+We will describe the entire procedure, from the generation
+of the performance measures (Sections C.1 & C.2), the
+estimation of sample size (Section C.3), computation of
+P(A > B) (Section C.4), computation of the conﬁdence
+interval (Section C.5) to the inference based on the statistical
+test (Section C.6)
+C.1 Randomizing sources of variance
+As shown in Section 3, randomizing as many sources of
+variance as possible in the learning pipelines help reduce
+the correlation and thus improve the reliability of the per-
+formance estimation. The simplest way to randomize as
+many as possible is to simply avoid seeding the random
+number generators. We list here sources of variations we
+faced in our case studies, but there exists many other sources
+of variations in diverse learning algorithms and tasks.
+Data splits The data being used should ideally always be
+different samples from the true distribution of interest.
+In practice we only have access to a ﬁnite dataset and
+therefore the best we can do is random splits with
+cross-validation or out-of-bootstrap as described in
+Appendix B.
+Data order The ordering of the data can have a surprisingly
+important impact as can be observed in Figure 1.
+Data augmentation Stochastic data augmentation should
+not be seeded, so that it follows a different sequence at
+each run.
+Model initialization Model initialization, e.g. weights ini-
+tialization in neural networks, should be randomized
+across all trainings.
+Model stochasticity Learning algorithms sometimes in-
+clude stochastic computations such as dropout in neu-
+ral networks (Srivastava et al., 2014), or samplings
+methods (Kingma & Welling, 2014; Maddison et al.,
+2017).
+Hyperparameter optimization The optimization of the
+hyperparameters generally include stochasticity which
+should ideally be randomized. Running multiple hy-
+perparameter optimizations may often be practically
+unaffordable. Tests may still be carried out while ﬁxing
+the hyperparameters after a single hyperparameter opti-
+mization, but keep in mind the incurred degradation of
+the reliability of the conclusion as shown in Section 4.
+C.2 Pairing
+Pairing is optional but is highly recommended to increase
+statistical power. Avoiding seeding is the simplest solution
+for the randomization, but it is not the best solution. If
+possible, meticulously seeding all sources of variation with
+different random seeds at each run makes it possible to pair
+trainings of the algorithms so that we can conduct paired
+comparisons.
+Pairing is a simple but powerful way of increasing the power
+of statistical tests, that is, enabling the reliable detection of
+difference with smaller sample sizes. LetσA andσB be the
+standard deviation of the performance metric of learning
+algorithmsA andB respectively. If measures of ˆRA
+e and ˆRA
+e
+are not paired, the standard deviation of ˆRA
+e − ˆRB
+e is then
+σA +σB. If we pair them, then we marginalize out sources
+of variance which results in a smaller variance σA−B ≤
+σA +σB. This reduction of variance makes it possible to
+reliably detect smaller differences without increasing the
+sample size.
+To pair the learning algorithms, sources of variation should
+be randomized similarly for all of them. For instance,
+the random split of the dataset obtained from out-of-
+bootstrap should be used for both A and B when mak-
+ing a comparison. Suppose we plan to execute 10 runs
+of A and B, then we should generate 10 different splits
+{(Stv
+1 ,So
+1), (Stv
+2 ,So
+2),··· , (Stv
+10,So
+10)} and train A andB
+on each. The performances ( ˆRA
+ei, ˆRB
+ei) would then be com-
+pared only on the corresponding splits (Stv
+i ,So
+i ). The same
+would apply to all other sources of variations. In practical
+terms, pairing A andB requires sampling seeds for each
+pairs, re-using the same seed forA andB in each pairs.
+For some sources of variation it may not make sense to pair.
+This is the case for instance with weights initialization ifA
+andB involve different neural network architectures. We
+can still pair. This would not help much, but would not hurt
+as well. In doubt, it is better to pair.
+C.3 Sample size
+As explained in Section 3, the more runs we have from ˆRA
+e
+and ˆRB
+e , the more reliable the estimate of P(A > B) is.
+
+## PDF page 16
+
+Accounting for Variance in Machine Learning Benchmarks
+0.6 0.7 0.75 0.8 0.9 1.0
+0
+29
+50
+100
+150
+Sample size
+Recommended
+Figure C.1. Minimum sample size to detectP (A>B )>γ re-
+liably. x-axis is the thresholdγ and y-axis is the minimum sample
+size to reliably detect P (A>B )>γ . The red star shows the
+recommended thresholdγ based on our results in Section 4 and
+the corresponding minimal sample size. We see that detecting reli-
+ablyP (A>B )< 0.6 is unpractical with minimal sample sizes
+quickly moving above 500. The recommended threshold on the
+other hand leads to a reasonable sample size of 29.
+Lets note this number of runs as the sample size N, not
+to be confused with dataset size n. There exist a way of
+computing the minimal sample size required to ensure a
+minimal rate of false negatives based on power analysis.
+We must ﬁrst set the threshold γ for our test. Based on
+our experiments in Section 4, we recommend a value of
+0.75. We then set the desired rates of false positives and
+false negatives withα andβ respectively. Usual value for
+α is 0.05 whileβ ranges from 0.05 to 0.2. We recommend
+β = 0.05 for a strong statistical power.
+The estimation of P (A > B ) is equivalent to a
+Mann–Whitney test (Perme & Manevski, 2019), thus we
+can use Noether’s sample size determination method for this
+type of test (Noether, 1987).
+N≥
+(
+Φ−1(1−α)− Φ−1(β)√
+6( 1
+2−γ)
+)2
+Where Φ−1 is the inverse cumulative function of the normal
+distribution.
+Figure C.1 shows how the minimal sample size evolves with
+γ. Detecting P (A > B) below γ = 0.6 is unpractical,
+requiring more that 700 trainings below 0.55 for instance.
+For a threshold that is representative of the published im-
+provements as presented in Figure 3,γ = 0.75, the minimal
+sample size required to ensure a rate of 5% false negatives
+(as deﬁned byβ = 0.05) is reasonably small; 29 trainings.
+C.4 Compute P(A>B )
+For all paired performances ( ˆRA
+ei, ˆRB
+ei), we compute
+I{ ˆRA
+ei, ˆRB
+ei}, where I is the indicator function. If trainings
+were not paired as described in Section C.2, the pairs are ran-
+domly selected. We can then compute P(A>B ) following
+Equation 9.
+C.5 Conﬁdence interval of P(A>B ) with percentile
+bootstrap
+For the estimation of P(A>B ) with values below 0.95, we
+recommend the use of the the percentile bootstrap¶ (Efron
+& Tibshirani, 1994).
+Suppose we haveN pairs ( ˆRA
+ei, ˆRB
+ei). To compute the per-
+centile bootstrap, we ﬁrst generateK groups ofN pairs. To
+do so, we sample with replacementN pairs, and do so inde-
+pendentlyK times. For each of theK groups, we compute
+P(A > B). We sort the K estimations of P(A > B) and
+pick the α/2-percentile and (1−α/2)- percentile as the
+lower and upper bounds. The conﬁdence interval is deﬁned
+as these lower and upper bounds computed with percentile
+bootstrap.
+C.6 Statistical test with P(A>B )
+Let CImin and CImax be the lower and upper bounds of the
+conﬁdence interval. We draw a conclusion based on the
+three following scenarios.
+CImin≤ 0.5 : Not statistically signiﬁcant. No conclusion
+should be drawn as the result could be explained by
+noise alone.
+CImax≤γ : Not statistically meaningful. Perhaps
+CImin > 0.5 but it is irrelevant since P(A > B) is
+too small to be meaningful.
+CImin > 0.5∧ CImax >γ : Statistically signiﬁcant and
+meaningful. We can conclude that learning algorithm
+A is better performing thanB in the conditions deﬁned
+by the experiments.
+D C ASE STUDIES
+D.1 CIFAR10 Image classiﬁcation with VGG11
+Task CIFAR10 (Krizhevsky et al., 2009) is a dataset of
+60,000 32x32 color images selected from 80 million tiny
+images dataset (Torralba et al., 2008), divided in 10 bal-
+anced classes. The original split contains 50,000 images for
+training and 10,000 images for testing. We applied random
+¶Percentile bootstrap is not always reliable depending on the
+underlying distribution and resampling methods but should gener-
+ally be good for distributions of P(A>B ) of learning algorithms
+below 0.95. See (Canty et al., 2006) for a discussion on the topic.
+
+## PDF page 17
+
+Accounting for Variance in Machine Learning Benchmarks
+Table 1. Computational infrastructure for CIFAR10-VGG11 exper-
+iments.
+Hardware/Software Type/Version
+CPU Intel(R) Xeon(R) Gold
+6148 CPU @ 2.40GHz
+GPU model Tesla V100-SXM2-16GB
+GPU driver 440.33.01
+OS CentOS 7.7.1908 Core
+Python 3.6.3
+PyTorch 1.2.0
+CUDA 10.2
+Table 2. Search space and default values for the hyperparameters
+in CIFAR10-VGG11 experiments.
+Hyperparameters Default Space
+learning rate 0.03 log( 0.001, 0.3)
+weight decay 0.002 log( 10−6, 10−2)
+momentum 0.9 lin( 0.5, 0.99)
+γ of lr schedule 0.97 lin( 0.96, 0.999)
+batch-size 128 -
+cropping and random horizontal ﬂipping data augmenta-
+tions.
+Bootstrapping The aggregation of all original training
+and testing samples are used for the bootstrap. To preserve
+the balance of the classes, we applied stratiﬁed bootstrap.
+For each class separately, we sampled with replacement
+4,000 training samples, 1,000 for validation and 1,000 for
+testing. As for all tasks, we use out-of-bootstrap to ensure
+samples cannot be contained in more than one set.
+Model We used VGG11 (Simonyan & Zisserman, 2014)
+with batch-normalization and no dropout. The weights are
+initialized with Glorot method based on a uniform distribu-
+tion (Glorot & Bengio, 2010).
+Search space for hyperparameters We focused on learn-
+ing rate, weight decay, momentum and learning rate sched-
+ule. Batch-size was omitted to simplify the multi-model
+training on GPUs, so that memory usage was consistent and
+predictable across all hyperparameter settings. To ease the
+deﬁnition of the search space for the learning rate schedule,
+we used exponential decay instead of multi-step decay de-
+spite the wide use of the latter with similar tasks and models
+(Simonyan & Zisserman, 2014; Xie et al., 2019; Mahajan
+et al., 2018; Liu et al., 2018; He et al., 2016; 2015b). The
+former only require tuning of γ while the later requires
+additionally selecting number of steps. Search space for
+all experiments and default values used for the variance
+experiments are presented in Table 2.
+Table 3. Search space and default values for the hyperparameters
+in SST-2/RTE-BERT experiments.
+Hyperparameters Default Space
+learning rate 2∗ 10−5 log(10−5, 10−4)
+weight decay 0.0 log(10−4, 2∗ 10−3)
+std for weights init. 0.2 log(0.01, 0.5)
+β1 0.9 -
+β2 0.999 -
+dropout rate 0.1 -
+batch size 32 -
+D.2 Glue-SST2 sentiment prediction with BERT
+Task SST2 (Stanford Sentiment Treebank) (Socher et al.,
+2013) is a binary classiﬁcation task included in GLUE
+(Wang et al., 2019). In this task, the input is a sentence
+from a collection of movie reviews, and the target is the as-
+sociated sentiment (either positive or negative). The publicly
+available data contains around 68k entries.
+Bootstrapping We maintained the same size ratio be-
+tween train/validation (i.e., 0.013) when performing the
+bootstrapping analysis. We performed standard out-of-
+bootstrap without conserving class balance since the original
+dataset is not balanced and ratios between classes vary from
+training and validation set in the original splits. The variable
+ratios of classes across bootstrap samples generate addi-
+tional variance in our results, but is representative of the
+effect of generating a dataset that is not perfectly balanced.
+Model We used the BERT (Devlin et al., 2018) imple-
+mentation provided by the Hugging Face (Wolf et al., 2019)
+repository. BERT is a Transformer (Vaswani et al., 2017) en-
+coder pre-trained on the self-supervised Masked Language
+Model task (Devlin et al., 2018). We chose BERT given
+its importance and inﬂuence in the NLP literature. It is
+worthy to note that the pre-training phase of BERT is also
+affected by sources of variations. Nevertheless, we didn’t
+investigate this phase given the amount of time (and re-
+sources) required to perform it. Instead, we always start
+from the (same) pre-trained model image provided by the
+Hugging Face (Wolf et al., 2019) repository. Indeed, the
+weight initialization was only applied to the ﬁnal classiﬁer.
+The initialization method used is standard Gaussian with
+0.0 mean and standard deviation that depends on the related
+hyperparameter.
+Search space of hyperparameters We ran a small-scale
+hyperparameter space exploration in order to select the hy-
+perparameter search space to use in our experiments. As
+such, we decided to include the learning rate, weight decay
+and the standard deviation for the model parameter initial-
+ization (see Table 3). We ﬁxed the dropout probability to the
+
+## PDF page 18
+
+Accounting for Variance in Machine Learning Benchmarks
+value of 0.1 as in the original BERT architecture. For the
+same reason, we ﬁxed β1 = 0.9 andβ2 = 0.999. Default
+values used for the variance experiments are also reported
+in Table 3. The model has been ﬁne-tuned on SST2 for
+3 epochs, with a batch size of 32. Training has been per-
+formed with mixed precision. Note that for weight decay
+we used the default value from the Hugging Face reposi-
+tory (i.e., 0.0) even if this is outside of the hyperparameter
+search space. We conﬁrmed that this makes no difference
+by looking at the results of the small-scale hyperparameter
+space exploration.
+D.3 Glue-RTE entailment prediction with BERT
+Task RTE (Recognizing Textual Entailment) (Bentivogli
+et al., 2009) is a also a binary classiﬁcation task included in
+GLUE (Wang et al., 2019). The task is a collection of text
+fragment pairs, and the target is to predict if the ﬁrst text
+fragment entails the second one. RTE dataset only contains
+around 2.5k entries.
+Bootstrapping In our bootstrapping analysis we main-
+tained the train/validation ratio of 0.1. As for Glue-SST2,
+we used standard out-of-bootstrap and did not preserve orig-
+inal class ratios.
+Model & search space of hyperparameters We used the
+BERT (Devlin et al., 2018) model for RTE as well, trained
+in the same way speciﬁed in the SST-2 section. In particu-
+lar, we used the same hyperparameters (see Table 3), same
+batch size, and we trained in the same mixed-precision en-
+vironment. The model has been ﬁne-tuned on RTE for 3
+epochs.
+D.4 PascalVOC image segmentation with ResNet
+Backbone
+Task The PascalVOC segmentation task (Everingham
+et al.) entails generating pixel-level segmentations to clas-
+sify each pixel in an image as one of 20 classes or back-
+ground. This publicly available dataset contains 2913 im-
+ages and associated ground truth segmentation labels. The
+original splits contains 2184 images for training and 729 for
+validation. Images were normalized and zero-padded to a
+ﬁnal size of 512x512.
+Bootstrapping We used a train/validation ratio of 0.25
+for our bootstrap analysis, generating training sets of 2184
+images, validation and test sets of 729 images each. Since
+multiple classes can appear in a single image, the original
+dataset was not balanced, we thus used standard out-of-
+bootstrap for our experiments.
+Model We used an FCN-16s (Long et al., 2014) with a
+ResNet18 backbone (He et al., 2015a) pretrained on Ima-
+Table 4. Computational infrastructure for PASCAL VOC experi-
+ments.
+Hardware/Software Type/Version
+CPU Intel(R) Xeon(R) Silver
+4216 CPU @ 2.1GHz
+GPU model Tesla V100 V olta 32G
+GPU driver 440.33.01
+OS CentOS 7.7.1908 Core
+Python 3.6.3
+PyTorch 1.2.0
+CUDA 10.2
+Table 5. Search spaces for PASCAL VOC image segmentation.
+Hyperparameters Default Space
+learning rate 0.002 log( 10−5, 10−2)
+momentum 0.9 lin( 0.50, 0.99)
+weight decay 0.000001 log( 10−8, 10−1)
+batch-size 16 -
+geNet (Deng et al., 2009). After exploring several possible
+backbones, ResNet18 was selected since it could be trained
+relatively quickly. We use weighted cross entropy, with only
+predictions within the original image boundary contribut-
+ing to the loss. The model is optimized using SGD with
+momentum.
+Metric The metric used is the mean Intersection over
+Union (mIoU) of the twenty classes and the background
+class. The complement of the mIoU, the mean Jaccard
+Distance, is the metric minimized in all HPO experiments.
+Search space of hyperparameters Certain hyperparme-
+ters, such as the number of kernals, or the total number of
+layers, are part of the deﬁnition of the ResNet18 architecture.
+As a result, we explored key optimization hyperparameters
+including: learning rate, momentum, and weight decay. The
+hyperparameter ranges selected, as well as the default hyper-
+parameters used in the variance experiments, can be found
+in table 5 and in table ??, respectively. A batch size of 16
+was used for all experiments.
+D.5 Major histocompatibility class I-associated
+peptide binding prediction with shallow MLP
+Task The MLP-MHC is a regression task with the goal of
+predicting the relative binding afﬁnity for a given peptide
+and major histocompatibility complex class I (MHC) allele
+pair. The major histocompatibility complex (MHC) class I
+proteins are present on the surface of most nucleated cells
+in jawed vertebrates (Pearson et al., 2016). These proteins
+bind short peptides that arise from the degradation of intra-
+cellular proteins (Pearson et al., 2016). The complex of
+peptide-MHC molecule is used by immune cells to recog-
+
+## PDF page 19
+
+Accounting for Variance in Machine Learning Benchmarks
+Table 6. Search spaces for the different hyperparameters for the
+MLP-MHC task
+Hyperparameters Default Space
+hidden layer size lin( 20, 400)
+L2-weight decay log( 0, 1)
+# HPs Hyperparameters Default Value
+1 hidden layer size 150
+2 L2-weight decay 0.001
+Table 7. Defaults for MLP-MHC task.
+nize healthy cells and eliminate cancerous or infected cells,
+a mechanism studied in the development of immunotherapy
+and vaccines (O’Donnell et al., 2018). The peptide binding
+prediction task is therefore at the base of the search for good
+vaccine and immunotherapy targets (O’Donnell et al., 2018;
+Jurtz et al., 2017).
+The input data is the concatenated pairs of sequences: the
+MHC allele and the peptide sequence. For the MHC alleles,
+we restricted the sequences to the binding pocket of the
+peptide, as seen in (Jurtz et al., 2017). The prediction target
+is a normalized binding afﬁnity score, as described in (Jurtz
+et al., 2017; O’Donnell et al., 2018).
+Datasets and sequence encoding While both MHCﬂurry
+and NetMHCpan4 models use a BLOSUM62 encoding
+(Henikoff & Henikoff, 1992) for the amino acids, in we
+chose to instead encode the amino acids as one-hot as de-
+scribed in (Nielsen et al., 2007).
+The NetMHCpan4 model is trained on a manually ﬁltered
+dataset from the immune epitope database (Vita et al., 2019;
+Jurtz et al., 2017) that has been split into ﬁve folds used
+for cross-validation, available on the author’s website (Jurtz
+et al., 2017).
+In contrast, the MHCﬂurry model is trained on a custom
+multi-source dataset (available from Mendeley data and
+the (O’Donnell et al., 2018) publication cite) and vali-
+dated/tested on two external datasets from (Pearson et al.,
+2016) and an HPV peptide dataset available at the same
+website as above.
+Bootstrapping We have three different sets for training,
+validating and testing. We thus performed bootstrapping
+separately on each set for every training and evaluation.
+Model The model is a shallow MLP with one hidden
+layer from sklearn. We used the default setting for the non-
+linearity relu and weight initialization strategy ((Glorot &
+Bengio, 2010)). The following table (Table 9) offers some
+comparison points between our model and theNetMHCpan4
+(Jurtz et al., 2017) and MHCﬂurry (O’Donnell et al., 2018)
+Table 8. Comparison of performance on datasets
+Model name Dataset AUC PCC
+NetMHCpan4 HPV 0.53 0.39
+MHCﬂurry HPV 0.58 0.41
+MLP-MHC HPV 0.63 0.31
+NetMHCpan4 NetMHC-CVsplits 0.854 0.620
+MHCﬂurry NetMHC-CVsplits 0.964* 0.671*
+MLP-MHC NetMHC-CVsplits 0.861 0.660
+models.
+While the MHCﬂurry model (O’Donnell et al., 2018) train
+only no the peptide sequences and uses ensembling to per-
+form its predictions, training multiple models for each MHC
+allele, the NetMHCpan4 model (Jurtz et al., 2017) uses the
+allele sequence as input and trains one single model.
+We chose to retain the strategy proposed by the NetMHC-
+pan4 model, where a single model is trained for all alleles
+(Jurtz et al., 2017). As a reference, MHCﬂurry uses ensem-
+bling to perform predictions; indeed, the authors report that
+for each MHC allele, an ensemble of 8-16 are selected from
+the 320 that were trained (O’Donnell et al., 2018).
+Search space of hyperparameters For the hyperparame-
+ter search, we selected hidden layer sizes between 20 and
+400 (Table 6), to engulph a range slightly larger than the
+ones described by both (Jurtz et al., 2017; O’Donnell et al.,
+2018). The second hyperparameter that was explored was
+the L2 regularisation parameter, for which a log-uniform
+range between 0 and 1 was explored.
+Comparison of performance We would like to state the
+goal of the present study was not to establish new state
+of the art (SOTA) on the MHC-peptide binding prediction
+task. However, we still report that when comparing the
+performance of our model to those of NetMHCpan4 and
+MHCﬂurry we found the performance of our model com-
+parable. Brieﬂy, for the results in Table 9, we used the
+existing pre-trained NetMHCpan4 and MHCﬂurry tools to
+predict the binding afﬁnity of both datasets: the previously
+described HPV external test data (HPV) from (O’Donnell
+et al., 2018) and the cross-validation test datasets from (Jurtz
+et al., 2017) (NetMHC-CVsplits).
+We would like to point out that since the MHCﬂurry model
+was published later than the NetMHCpan4 one, there is a
+high chance that the dataset from the cross-validation splits
+(NetMHC-CVsplits) may be contained in the dataset used
+to train the existing MHCﬂurry tool. The proper way to
+compare performances would be to re-train the MHCﬂurry
+model on each fold and test susequently its performance;
+however, since our goal is not to reach new SOTA on this
+task, we leave this experiment to be performed at a later
+
+## PDF page 20
+
+Accounting for Variance in Machine Learning Benchmarks
+Table 9. Comparison of models for the MLP-MHC task
+Model name Inputs Model design Dataset Sequence encoding
+NetMHCpan4 allele+peptide shallow MLP custom CV split(Vita et al., 2019) BLOSUM62
+MHCﬂurry peptide ensemble of shallow MLPs (O’Donnell et al., 2018) BLOSUM62
+MLP-MHC allele+peptide shallow MLP same as (O’Donnell et al., 2018) Sparse
+Table 10. Computational infrastructure for MLP-MHC experi-
+ments.
+Hardware/Software Type/Version
+CPU Intel(R) Xeon(R) CPU E5-2640 v4
+320 CPU @ 2.40GHz
+OS CentOS 7.7.1908 Core
+Python 3.6.8
+sklearn 0.22.2.post1
+BLAS 3.4.2
+time.
+This would result in a likely overestimation of the perfor-
+mance of MHCﬂurry on this dataset, which we noted with
+the∗ sign in Table 9.
+A more in-depth study is necessary to compare in a more
+through way this performance with respect to the differences
+in model design, dataset encoding and other factors.
+E H YPERPARAMETER OPTIMIZATION
+ALGORITHMS
+E.1 Grid Search
+Letai,bi andn be the hyperparameters of the grid search,
+whereai andbi are vectors of minima and maxima for each
+dimension of the search space, andn is the number of values
+per dimension. We deﬁne ∆i as the interval between each
+value on dimension i. A point on the grid is deﬁned by
+pij =ai + ∆i(j− 1). Grid search is simply the evaluation
+ofr(λ) from Equation 2 on all possible combinations of
+valuespij.
+E.2 Noisy Grid Search
+Grid search is a fully deterministic algorithm. Yet, it is
+highly sensitive to the design of the grid. To provide a
+variance estimate of similar choices of the grid and to be
+able to distinguish lucky grid, we consider a noisy version
+of grid search.
+For the noisy grid search, we replace ai by ˜ai∼ U(ai−
+∆i
+2 ,ai + ∆i
+2 ) and similarly forbi. ˜∆i and ˜pij then follows
+from ˜ai and ˜bi. In expectation, noisy grid search will cover
+the same grid as grid search, as proven below.
+E[˜pij] = E
+[
+˜ai + ˜∆i(j− 1)
+]
+= E
+[
+˜ai +
+˜b− ˜a
+n− 1(j− 1)
+]
+= E [˜ai] + E
+[ ˜b
+n− 1
+]
+(j− 1)− E
+[ ˜a
+n− 1
+]
+(j− 1)
+=ai + b
+n− 1(j− 1)− a
+n− 1(j− 1)
+=ai + b−a
+n− 1(j− 1)
+=ai + ∆i(j− 1) =pij
+This provides us a variance estimate of grid search that
+we can compare against non-deterministic hyperparameter
+optimization algorithms.
+E.3 Random Search
+The search space of random search will be increased by
+± ∆i
+2 as deﬁned for the noisy grid search to ensure that they
+both cover the same search space. For all hyperparameters,
+the values are sampled from a uniformpi∼U(ai− ∆i
+2 ,bi +
+∆i
+2 ). For learning rate and weight decay, values are sampled
+uniformly in the logarithmic space.
+F H YPERPARAMETER OPTIMIZATION
+RESULTS
+Figure F.2 presents the optimization curves of the hyperpa-
+rameter optimization executions in Section 2.2.
+G N ORMALITY OF PERFORMANCE
+DISTRIBUTIONS IN THE CASE STUDIES
+Figure G.3 presents the Shapiro-Wilk test of normality on
+all our results on sources of variations.
+H R ANDOMIZING MORE SOURCES OF
+VARIANCE INCREASE THE QUALITY OF
+THE ESTIMATOR
+Figure 5 only presented the Glue-RTE and CIFAR10 tasks.
+We provide here a complete picture of the standard deviation
+
+## PDF page 21
+
+Accounting for Variance in Machine Learning Benchmarks
+0.25
+0.30
+0.35
+Validation
+Error-rate
+Glue-RTE
+BERT
+Test
+Error-rate
+0.04
+0.05
+Glue-SST2
+BERT
+0.175
+0.200
+0.225regret
+MHC
+MLP
+0.450
+0.475 PascalVOC
+ResNet
+0 100 200
+HPO iterations
+0.08
+0.10
+0 100 200
+HPO iterations
+CIFAR10
+VGG11
+bayesopt noisy grid search random search
+Figure F.2. Optimization curves of hyperparameter optimiza-
+tion executions Each row presents the result for a different task.
+Left column are results on validation set, the one hyperparame-
+ters were optimized on. Right column are results on the test sets.
+Hyperparameter optimization methods are Bayesian Optimization,
+Noisy Grid Search (See Section E.2), and Random Search. The y-
+axis are the best objectives found until an iterationi, on a different
+scale for each task. Left and right plots share the same scale on
+y-axis, so that we can easily observe whether validation error-rate
+corresponds to test error-rate. The bold lines are averages and
+the size of lighter colored areas represents the standard deviations.
+They are computed based on 20 independent executions for each
+algorithms, during which only the seed of the hyperparameter op-
+timization is randomized. For more details on the experiments
+see Section 2.2. Two striking results emerge from these graphs.
+1) The typical search spaces are well optimized by all algorithms,
+and in some cases there is even signs of slight over-ﬁtting (on
+BERT tasks). 2) The standard deviation stabilizes early, before 50
+iterations in most cases. These results suggests that larger budgets
+for hyperparameter optimization would not reduce the variability
+of the results in similar search spaces. This is likely not the case
+however for more complex search spaces such as those observed
+in the neural architecture search literature.
+Bootstrap
+ 58.63
+CIFAR10
+VGG11
+78.88
+PascalVOCResNet
+16.81
+Glue-SST2BERT
+83.58
+Glue-RTE
+BERT
+91.13
+MHC
+MLP
+Weights init
+ 60.50
+ 19.41
+ 0.10
+ 44.38
+ 89.69
+Data order
+ 68.09
+ 61.41
+ 0.59
+ 10.31
+Dropout
+ 2.48
+ 28.73
+Data augment
+ 43.53
+Num. Noise
+ 16.75
+Altogether
+ 43.27
+ 25.60
+ 0.09
+ 97.76
+ 69.71
+Test Performances p-value of
+Shapiro-Wilk test
+Kernel Density
+Estimator
+Figure G.3. Performance distributions conditional to different
+sources of variations. Each row is a different source of variation.
+For each source, all other sources are kept ﬁx when training and
+evaluating models. The last row presents the distributions when all
+the sources of variation are randomized altogether. Each column
+is the results for the different tasks. We can see that except for
+Glue-SST2 BERT, all case studies have distributions of perfor-
+mances very close to normal. In the case of Glue-SST2 BERT, we
+note that the size of the test set is so small that it discretizes the
+possible performances. The distribution is nevertheless roughly
+symmetrical and thus amenable to many statistical tests.
+of the different estimators in Figure H.4. We further present
+a decomposition of the mean-squared-error in Figure H.5
+to help understand why accounting for more sources of
+variations improves the mean-squared-error of the biased
+estimators.
+I A NALYSIS OF ROBUSTNESS OF
+COMPARISON METHODS
+In addition to simulations described in Section 4.2, we exe-
+cuted experiments in which we varied the sample size and
+the threshold γ. To select the threshold of the average,
+we convertedγ into the equivalent performance difference
+(δ = Φ−1(γ)σ). Results are presented in Figure I.6
+
+## PDF page 22
+
+Accounting for Variance in Machine Learning Benchmarks
+0.01
+0.02
+0.03(Acc)
+Glue-RTE
+BERT
+FixHOptEst(k, Init)
+FixHOptEst(k, Data)
+FixHOptEst(k, All)
+IdealEst(k)
+0.0025
+0.0050
+0.0075(Acc)
+Glue-SST2
+BERT
+0.01
+0.02
+0.03
+Standard deviation
+of estimators
+(AUC)
+MHC
+MLP
+0.005
+0.010
+0.015(IoU)
+PascalVOC
+ResNet
+0 20 40 60 80 100
+Number of samples for the estimator (k)
+0.002
+0.004(Acc)
+CIFAR10
+VGG11
+Figure H.4. Standard error of biased and ideal estimators
+withk samples. Each plot represents the standard error of the
+different tasks described in Section 2.2. On x axis, the number
+of samples used by the estimators to compute the average perfor-
+mance. On y axis, the standard deviation of the estimations, in
+terms of task objective; Classiﬁcation accuracy (Acc), Intersection
+over Union (IoU), Area Under the Curve (AUC). Uncertainty rep-
+resented in light color is computed analytically as the approximate
+standard deviation of the standard deviation of a normal distribu-
+tion computed onk samples. For all case studies, accounting for
+more sources of variation reduces or keeps constant the stan-
+dard error of ˆµ(k). In all case studies, only accounting for weights
+initialization, FixHOptEst(k, Init) , is by far the worst esti-
+mator. Comparatively, FixHOptEst(k, All) provides a sys-
+tematic improvement towards IdealEst(k) for no additional
+computational cost compared to FixHOptEst(k, Init) . Ig-
+noring variance from HOpt is harmful for a good estimation
+of ˆRP. The MHC task with MLP is the only one for which
+FixHOptEst(k, All) matches IdealEST(k, All) . We
+suspect this may be explained by the relatively small standard
+deviation due to hyperparameter optimization observed in Figure 1.
+FixHOptEst(k, All) would have thus captured most of the
+variability in the learning pipeline.
+IdealEst(100)
+FixHOptEst(100, All)
+FixHOptEst(100, Data)
+FixHOptEst(100, Init)
+IdealEst(1)
+Acc
+Glue-RTE
+BERT
+IoU
+Glue-SST2
+BERT
+Bias( k, )
+Acc
+MHC
+MLP
+Acc
+PascalVOC
+ResNet
+AUC
+CIFAR10
+VGG11
+IdealEst(100)
+FixHOptEst(100, All)
+FixHOptEst(100, Data)
+FixHOptEst(100, Init)
+IdealEst(1)
+Var( k)
+IdealEst(100)
+FixHOptEst(100, All)
+FixHOptEst(100, Data)
+FixHOptEst(100, Init)
+IdealEst(1)
+= corr(Rei, Rej)
+IdealEst(100)
+FixHOptEst(100, All)
+FixHOptEst(100, Data)
+FixHOptEst(100, Init)
+IdealEst(1)
+MSE( (k), )
+Figure H.5. Decomposition of the Mean-Squared-Error for
+different estimators of ˆRP. On each sub-ﬁgure from top to
+bottom, 1) bias between the estimator and the expected empir-
+ical risk Bias(µ(k),µ ), 2) variance of the estimator Var(µ(k)),
+3) correlation between performances measures ˆRe as presented
+in Equation 7 and 4) the mean-squared-error of the estimator
+MSE(µ(k),µ ). For each sub-ﬁgure, each row is a different estima-
+tors, with IdealEst(k=1) as a comparison point. The experi-
+mental procedure to compute these statistics are described in sec-
+tion subsection 3.3. Without any surprise the IdealEst(100,
+All) minimizes the mean-squared-error so well that it looks close
+to 0 on the ﬁgure compared to the other estimators. Among the
+other estimators, the mean-squared-error is reduced most signiﬁ-
+cantly by FixedHOptEst(100, All) on all tasks. If we look
+at the decomposition of the mean-squared-error, i.e., the bias and
+the variance, we see on ﬁrst sub-ﬁgure that the bias is stable across
+all biased estimators on all tasks, while on second sub-ﬁgure the
+variance varies widely. It is thus the reduced variance of the biased
+estimators that leads to improved mean-squared-error. This is a
+counter-intuitive result because the estimator with lowest variance
+are these accounting for more sources of variations. The intuition
+is thus that they should have more variance, not less. We derived
+the variance of the biased estimators in Equation 7 which high-
+lighted that the correlation among performances ˆRe can increase
+the variance of the biased estimators. We can see in the third
+sub-ﬁgure that this correlation drastically drops when accounting
+for more sources of variances. The mean-squared-error, in other
+words the quality of the estimators, is thus signiﬁcantly improved
+by decorrelating the performance measures.
+
+## PDF page 23
+
+Accounting for Variance in Machine Learning Benchmarks
+0 50 100
+Sample Size
+0
+100Rate of Detections
+P(A>B) = 0.5
+Average Prob of improvement T-test
+0 50 100
+Sample Size
+P(A>B) = 0.6
+0 50 100
+Sample Size
+P(A>B) = 0.7
+0 50 100
+Sample Size
+P(A>B) = 0.8
+0.6 0.7 0.8 0.9
+0
+100Rate of Detections 0.6 0.7 0.8 0.9
+ 0.6 0.7 0.8 0.9
+ 0.6 0.7 0.8 0.9
+Figure I.6. Analysis of the robustness of comparison methods. On the ﬁrst row, rate of detections of comparison methods in function
+of the sample size. On the second row, rate of detections of comparison methods in function of the threshold γ. Each column are
+simulations with different true simulated probability of of a learning algorithm A to outperform another algorithm B across random
+ﬂuctuations (ex: random data splits).

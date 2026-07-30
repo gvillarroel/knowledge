@@ -1,0 +1,275 @@
+{
+  "schema_version": "knowledge-methodology-paper-selection/1.0",
+  "dataset_id": "knowledge-methodology-papers-47",
+  "selection_date": "2026-07-29",
+  "language": "English",
+  "purpose": "Provide a version-pinned evidence base for auditing how this repository acquires, represents, retrieves, evaluates, evolves, and publishes knowledge.",
+  "selection_policy": {
+    "inclusion": [
+      "Primary research or a substantial survey directly covering a technique used by repository knowledge skills.",
+      "A paper that provides empirical or formal evidence for a methodological decision in knowledge construction, retrieval, validation, or evaluation.",
+      "An official arXiv version with a stable full-text PDF and enough methodological detail for page-grounded review."
+    ],
+    "exclusion": [
+      "Product documentation, blog posts, and standards that are not papers.",
+      "Papers whose only connection is a downstream application with no reusable knowledge-method insight.",
+      "Near-duplicate surveys when a more complete, more recent, or more methodologically useful paper is already selected."
+    ],
+    "coverage_lanes": [
+      "retrieval-foundations",
+      "chunking-and-hierarchies",
+      "rag-architecture",
+      "rag-evaluation",
+      "knowledge-graphs-and-ontologies",
+      "validation-and-reproducibility",
+      "agent-and-skill-evolution",
+      "evaluation-validity"
+    ],
+    "limitations": [
+      "The corpus is a curated purposive review, not a claim of bibliographic exhaustiveness.",
+      "Citation counts were not used as a quality proxy because they are field- and age-dependent.",
+      "The newest 2026 papers are included for recency but require replication before they can outweigh mature evidence."
+    ]
+  },
+  "reused_corpora": [
+    {
+      "id": "graphrag-cross-paper-2026-07",
+      "selection_path": "../graphrag-cross-paper/papers.json",
+      "markdown_path": "../graphrag-cross-paper/sources/markdown",
+      "pdf_path": "../graphrag-cross-paper/sources/pdfs",
+      "paper_count": 15,
+      "coverage_lanes": [
+        "rag-architecture",
+        "knowledge-graphs-and-ontologies",
+        "chunking-and-hierarchies"
+      ],
+      "reason": "Reuse the repository's already pinned and page-grounded GraphRAG corpus instead of downloading or silently reselecting the same evidence."
+    }
+  ],
+  "papers": [
+    {
+      "arxiv_id": "1506.02629v2",
+      "expected_title": "Generalization in Adaptive Data Analysis and Holdout Reuse",
+      "coverage_lanes": ["evaluation-validity"],
+      "relevant_skills": ["harbor-organize-evaluations", "harbor-run-results", "harbor-evolve-skill"],
+      "selection_dimension": "Formal risks and controls for adaptive reuse of holdout evidence."
+    },
+    {
+      "arxiv_id": "2003.02320v6",
+      "expected_title": "Knowledge Graphs",
+      "coverage_lanes": ["knowledge-graphs-and-ontologies", "validation-and-reproducibility"],
+      "relevant_skills": ["build-semantic-okf-*", "consult-semantic-okf-*", "extract-ontologies"],
+      "selection_dimension": "Comprehensive foundations for graph models, identity, context, construction, quality, and publication."
+    },
+    {
+      "arxiv_id": "2004.04906v3",
+      "expected_title": "Dense Passage Retrieval for Open-Domain Question Answering",
+      "coverage_lanes": ["retrieval-foundations"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "consult-semantic-okf-embeddings", "build-specialized-skill"],
+      "selection_dimension": "Foundational dense dual-encoder retrieval and its comparison with BM25."
+    },
+    {
+      "arxiv_id": "2004.12832v2",
+      "expected_title": "ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT",
+      "coverage_lanes": ["retrieval-foundations"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "consult-semantic-okf-ensemble"],
+      "selection_dimension": "Late interaction as an effectiveness and efficiency alternative to single-vector retrieval."
+    },
+    {
+      "arxiv_id": "2005.11401v4",
+      "expected_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "coverage_lanes": ["rag-architecture", "retrieval-foundations"],
+      "relevant_skills": ["consult-semantic-okf-*", "build-specialized-skill"],
+      "selection_dimension": "Foundational separation of parametric and non-parametric knowledge with update and provenance motivations."
+    },
+    {
+      "arxiv_id": "2103.03098v1",
+      "expected_title": "Accounting for Variance in Machine Learning Benchmarks",
+      "coverage_lanes": ["evaluation-validity"],
+      "relevant_skills": ["harbor-run-results", "harbor-population-search", "harbor-reflective-pareto-search"],
+      "selection_dimension": "Benchmark variance, repeated trials, uncertainty, and reliable comparison of alternatives."
+    },
+    {
+      "arxiv_id": "2104.08663v4",
+      "expected_title": "BEIR: A Heterogenous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+      "coverage_lanes": ["retrieval-foundations", "evaluation-validity"],
+      "relevant_skills": ["consult-semantic-okf-*", "build-specialized-skill", "harbor-run-results"],
+      "selection_dimension": "Cross-domain retrieval generalization and the importance of robust lexical baselines."
+    },
+    {
+      "arxiv_id": "2107.05720v1",
+      "expected_title": "SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking",
+      "coverage_lanes": ["retrieval-foundations"],
+      "relevant_skills": ["build-semantic-okf-classical", "build-semantic-okf-adaptive", "consult-semantic-okf-tantivy"],
+      "selection_dimension": "Learned sparse lexical expansion and explicit efficiency-effectiveness control."
+    },
+    {
+      "arxiv_id": "2112.01441v1",
+      "expected_title": "A Review of SHACL: From Data Validation to Schema Reasoning for RDF Graphs",
+      "coverage_lanes": ["knowledge-graphs-and-ontologies", "validation-and-reproducibility"],
+      "relevant_skills": ["build-semantic-okf-*", "extract-ontologies", "open-knowledge-format"],
+      "selection_dimension": "SHACL semantics, expressiveness, implementation, and its separation from ordinary domain facts."
+    },
+    {
+      "arxiv_id": "2112.09118v4",
+      "expected_title": "Unsupervised Dense Information Retrieval with Contrastive Learning",
+      "coverage_lanes": ["retrieval-foundations"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "consult-semantic-okf-embeddings"],
+      "selection_dimension": "Zero-shot dense retrieval, domain transfer, and comparison with BM25."
+    },
+    {
+      "arxiv_id": "2307.16648v2",
+      "expected_title": "LLMs4OL: Large Language Models for Ontology Learning",
+      "coverage_lanes": ["knowledge-graphs-and-ontologies"],
+      "relevant_skills": ["extract-ontologies", "build-semantic-okf-*"],
+      "selection_dimension": "Empirical limits of zero-shot LLM ontology learning and the continuing need for expert review."
+    },
+    {
+      "arxiv_id": "2308.06374v1",
+      "expected_title": "Large Language Models and Knowledge Graphs: Opportunities and Challenges",
+      "coverage_lanes": ["knowledge-graphs-and-ontologies", "rag-architecture"],
+      "relevant_skills": ["build-semantic-okf-*", "consult-semantic-okf-*", "extract-ontologies"],
+      "selection_dimension": "Hybrid explicit and parametric knowledge, including opportunities and unresolved challenges."
+    },
+    {
+      "arxiv_id": "2309.08532v3",
+      "expected_title": "EvoPrompt: Connecting LLMs with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+      "coverage_lanes": ["agent-and-skill-evolution", "evaluation-validity"],
+      "relevant_skills": ["harbor-evolve-skill", "harbor-population-search", "harbor-operator-coevolution"],
+      "selection_dimension": "Population-based prompt evolution on development data and the need for controlled evaluation."
+    },
+    {
+      "arxiv_id": "2309.08754v1",
+      "expected_title": "Reproducible Domain-Specific Knowledge Graphs in the Life Sciences: a Systematic Literature Review",
+      "coverage_lanes": ["validation-and-reproducibility", "knowledge-graphs-and-ontologies"],
+      "relevant_skills": ["build-semantic-okf-*", "build-specialized-skill", "open-knowledge-format"],
+      "selection_dimension": "Empirical evidence that domain knowledge graphs are rarely fully reproducible."
+    },
+    {
+      "arxiv_id": "2309.15217v2",
+      "expected_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+      "coverage_lanes": ["rag-evaluation"],
+      "relevant_skills": ["harbor-run-results", "consult-semantic-okf-*"],
+      "selection_dimension": "Reference-free decomposition of context relevance, faithfulness, and answer quality."
+    },
+    {
+      "arxiv_id": "2309.16797v1",
+      "expected_title": "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution",
+      "coverage_lanes": ["agent-and-skill-evolution", "evaluation-validity"],
+      "relevant_skills": ["harbor-operator-coevolution", "harbor-population-search"],
+      "selection_dimension": "Joint evolution of task prompts and the mutation prompts that generate them."
+    },
+    {
+      "arxiv_id": "2310.03714v1",
+      "expected_title": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+      "coverage_lanes": ["agent-and-skill-evolution", "rag-architecture"],
+      "relevant_skills": ["skill-creator", "harbor-evolve-skill", "build-specialized-skill"],
+      "selection_dimension": "Declarative LM pipelines with metric-driven compilation instead of ad hoc prompt strings."
+    },
+    {
+      "arxiv_id": "2312.10997v5",
+      "expected_title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "coverage_lanes": ["rag-architecture", "rag-evaluation"],
+      "relevant_skills": ["build-semantic-okf-*", "consult-semantic-okf-*", "build-specialized-skill"],
+      "selection_dimension": "Broad taxonomy of naive, advanced, and modular RAG with update and evaluation considerations."
+    },
+    {
+      "arxiv_id": "2401.18059v1",
+      "expected_title": "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval",
+      "coverage_lanes": ["chunking-and-hierarchies", "rag-architecture"],
+      "relevant_skills": ["build-semantic-okf-entity-graph", "build-semantic-okf-graphify", "consult-semantic-okf-ensemble"],
+      "selection_dimension": "Hierarchical clustering and recursive summaries for multi-level document retrieval."
+    },
+    {
+      "arxiv_id": "2402.10669v5",
+      "expected_title": "Humans or LLMs as the Judge? A Study on Judgement Biases",
+      "coverage_lanes": ["evaluation-validity", "rag-evaluation"],
+      "relevant_skills": ["harbor-run-results", "harbor-reflective-pareto-search"],
+      "selection_dimension": "Measured authority, presentation, misinformation, and demographic biases in human and LLM judges."
+    },
+    {
+      "arxiv_id": "2406.04244v1",
+      "expected_title": "Benchmark Data Contamination of Large Language Models: A Survey",
+      "coverage_lanes": ["evaluation-validity"],
+      "relevant_skills": ["harbor-organize-evaluations", "harbor-run-results"],
+      "selection_dimension": "Taxonomy and mitigation of benchmark contamination in LLM evaluation."
+    },
+    {
+      "arxiv_id": "2406.15319v3",
+      "expected_title": "LongRAG: Enhancing Retrieval-Augmented Generation with Long-context LLMs",
+      "coverage_lanes": ["chunking-and-hierarchies", "rag-architecture"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "consult-semantic-okf-embeddings", "consult-semantic-okf-ensemble"],
+      "selection_dimension": "Retrieval-unit granularity and the balance between retriever burden and reader context."
+    },
+    {
+      "arxiv_id": "2407.12883v4",
+      "expected_title": "BRIGHT: A Realistic and Challenging Benchmark for Reasoning-Intensive Retrieval",
+      "coverage_lanes": ["retrieval-foundations", "evaluation-validity"],
+      "relevant_skills": ["consult-semantic-okf-*", "harbor-run-results"],
+      "selection_dimension": "Reasoning-intensive retrieval beyond lexical or surface-semantic similarity."
+    },
+    {
+      "arxiv_id": "2408.08067v2",
+      "expected_title": "RAGChecker: A Fine-grained Framework for Diagnosing Retrieval-Augmented Generation",
+      "coverage_lanes": ["rag-evaluation", "evaluation-validity"],
+      "relevant_skills": ["harbor-run-results", "consult-semantic-okf-*"],
+      "selection_dimension": "Fine-grained diagnostic separation of retrieval and generation errors with human-correlation checks."
+    },
+    {
+      "arxiv_id": "2409.04701v3",
+      "expected_title": "Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models",
+      "coverage_lanes": ["chunking-and-hierarchies", "retrieval-foundations"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "consult-semantic-okf-embeddings"],
+      "selection_dimension": "Context-preserving chunk embeddings and the limits of independently encoded short chunks."
+    },
+    {
+      "arxiv_id": "2501.09136v4",
+      "expected_title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "coverage_lanes": ["rag-architecture", "agent-and-skill-evolution"],
+      "relevant_skills": ["consult-semantic-okf-adaptive", "consult-semantic-okf-harbor-*", "build-specialized-skill"],
+      "selection_dimension": "Agentic retrieval taxonomies, adaptive control, memory, coordination, efficiency, and governance."
+    },
+    {
+      "arxiv_id": "2504.14891v1",
+      "expected_title": "Retrieval Augmented Generation Evaluation in the Era of Large Language Models: A Comprehensive Survey",
+      "coverage_lanes": ["rag-evaluation", "evaluation-validity"],
+      "relevant_skills": ["harbor-run-results", "consult-semantic-okf-*"],
+      "selection_dimension": "Comprehensive RAG evaluation across retrieval, generation, factuality, safety, and efficiency."
+    },
+    {
+      "arxiv_id": "2507.19457v2",
+      "expected_title": "GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning",
+      "coverage_lanes": ["agent-and-skill-evolution", "evaluation-validity"],
+      "relevant_skills": ["harbor-evolve-skill", "harbor-reflective-pareto-search", "harbor-trace-distillation"],
+      "selection_dimension": "Natural-language reflection, trajectory learning, Pareto selection, and rollout efficiency."
+    },
+    {
+      "arxiv_id": "2509.11552v3",
+      "expected_title": "HiChunk: Evaluating and Enhancing Retrieval-Augmented Generation with Hierarchical Chunking",
+      "coverage_lanes": ["chunking-and-hierarchies", "rag-evaluation"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "harbor-run-results"],
+      "selection_dimension": "Evidence-dense chunking evaluation and hierarchical auto-merge retrieval."
+    },
+    {
+      "arxiv_id": "2510.20345v1",
+      "expected_title": "LLM-empowered knowledge graph construction: A survey",
+      "coverage_lanes": ["knowledge-graphs-and-ontologies", "validation-and-reproducibility"],
+      "relevant_skills": ["extract-ontologies", "build-semantic-okf-*", "build-specialized-skill"],
+      "selection_dimension": "LLM-assisted ontology engineering, knowledge extraction, and fusion with schema-based and schema-free trade-offs."
+    },
+    {
+      "arxiv_id": "2606.03502v1",
+      "expected_title": "A Community Survey on SHACL and ShEx: Briding Gaps in RDF Validation",
+      "coverage_lanes": ["validation-and-reproducibility", "knowledge-graphs-and-ontologies"],
+      "relevant_skills": ["build-semantic-okf-*", "extract-ontologies", "open-knowledge-format"],
+      "selection_dimension": "Current practitioner evidence on RDF validation benefits, documentation, performance, tooling, and expressiveness gaps."
+    },
+    {
+      "arxiv_id": "2607.01852v1",
+      "expected_title": "Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts",
+      "coverage_lanes": ["chunking-and-hierarchies", "rag-evaluation"],
+      "relevant_skills": ["build-semantic-okf-embeddings", "harbor-run-results"],
+      "selection_dimension": "Recent evidence that complex semantic chunking can fail to beat simple baselines and that RAGAS faithfulness can be unstable."
+    }
+  ]
+}

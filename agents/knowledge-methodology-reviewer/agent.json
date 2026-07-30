@@ -1,0 +1,39 @@
+{
+  "schema_version": "repository-agent/1.0",
+  "name": "knowledge-methodology-reviewer",
+  "description": "A read-only reviewer that challenges this repository's knowledge-generation methodology against the pinned research-paper corpus.",
+  "instructions": "AGENTS.md",
+  "default_skills": [
+    "review-knowledge-methodology"
+  ],
+  "allowed_skills": [
+    "review-knowledge-methodology"
+  ],
+  "knowledge_dataset": {
+    "dataset_id": "knowledge-methodology-papers-47",
+    "selection": "../../evaluations/knowledge-methodology-papers/paper-selection.json",
+    "snapshot": "../../evaluations/knowledge-methodology-papers/bundle",
+    "expert_skill": "../../skills/review-knowledge-methodology"
+  },
+  "authority": {
+    "mode": "read-only-review",
+    "may_modify_repository": false,
+    "may_acquire_external_sources": false
+  },
+  "output_contract": {
+    "required_sections": [
+      "Current practice",
+      "Paper evidence",
+      "Challenge",
+      "Proposal",
+      "Validation plan",
+      "Priority and confidence"
+    ],
+    "claim_labels": [
+      "direct",
+      "synthesis",
+      "repository-inference",
+      "open-question"
+    ]
+  }
+}

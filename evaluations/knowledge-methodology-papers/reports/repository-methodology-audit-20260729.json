@@ -1,0 +1,206 @@
+{
+  "schema_version": "knowledge-methodology-audit/1.0",
+  "dataset_id": "knowledge-methodology-papers-47",
+  "expert_skill": "review-knowledge-methodology",
+  "expert_tree_sha256": "912e0af9b512cac273c70db3c7d583f5541b11f7218f28cb0310abf9b046d428",
+  "review_date": "2026-07-29",
+  "status": "complete",
+  "overall_finding": "Preserve the repository's integrity and isolation controls; prioritize cross-domain claim-level evaluation, judge calibration, rolling untouched cohorts, controlled ablations, and uncertainty before adding retrieval families.",
+  "strengths_to_preserve": [
+    "source-build-consult isolation",
+    "immutable digest-bound snapshots",
+    "deterministic reconstruction",
+    "append-only evidence and superseding audits",
+    "retrospective labeling for exposed qrels",
+    "one-way holdout release",
+    "separate retrieval and semantic-quality claims",
+    "separate ontology, SHACL, RDF, OKF, and plan authority"
+  ],
+  "recommendations": [
+    {
+      "id": "KM-001",
+      "priority": "P0",
+      "title": "Make answer-quality diagnosis a promotion gate",
+      "claim_label": "synthesis",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "2408.08067v2",
+          "concept_path": "concepts/paper-2408-08067v2/sources-new-markdown-2408.08067v2-8e1f666a65.md",
+          "pdf_pages": [1, 2, 8]
+        }
+      ],
+      "validation": "Compare claim-level retrieval coverage, entailment, unsupported claims, contradiction, context utilization, and completeness on disjoint development, validation, and holdout cohorts."
+    },
+    {
+      "id": "KM-002",
+      "priority": "P0",
+      "title": "Calibrate every model judge against blinded humans",
+      "claim_label": "synthesis",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "2402.10669v5",
+          "concept_path": "concepts/paper-2402-10669v5/sources-new-markdown-2402.10669v5-d5684b7a2f.md",
+          "pdf_pages": [1, 9]
+        },
+        {
+          "paper_id": "2408.08067v2",
+          "concept_path": "concepts/paper-2408-08067v2/sources-new-markdown-2408.08067v2-8e1f666a65.md",
+          "pdf_pages": [8]
+        }
+      ],
+      "validation": "Measure agreement, perturbation-specific false acceptance, and rank stability on a blinded calibration set."
+    },
+    {
+      "id": "KM-003",
+      "priority": "P0",
+      "title": "Replace adaptive reuse with rolling untouched cohorts",
+      "claim_label": "repository-inference",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "1506.02629v2",
+          "concept_path": "concepts/paper-1506-02629v2/sources-new-markdown-1506.02629v2-dd671258ed.md",
+          "pdf_pages": [1, 2, 3]
+        },
+        {
+          "paper_id": "2406.04244v1",
+          "concept_path": "concepts/paper-2406-04244v1/sources-new-markdown-2406.04244v1-93e8f36aa4.md",
+          "pdf_pages": [1, 2]
+        }
+      ],
+      "validation": "Transfer the frozen winner to new source bytes and unseen question authors without mutation."
+    },
+    {
+      "id": "KM-004",
+      "priority": "P1",
+      "title": "Treat chunking as an experimental factor",
+      "claim_label": "synthesis",
+      "confidence": "medium-high",
+      "evidence": [
+        {
+          "paper_id": "2409.04701v3",
+          "concept_path": "concepts/paper-2409-04701v3/sources-new-markdown-2409.04701v3-1ea0a39253.md",
+          "pdf_pages": [7]
+        },
+        {
+          "paper_id": "2509.11552v3",
+          "concept_path": "concepts/paper-2509-11552v3/sources-new-markdown-2509.11552v3-1013952b40.md",
+          "pdf_pages": [2, 8]
+        }
+      ],
+      "validation": "Freeze extractor, retriever, consultant, and questions while comparing whole-record, fixed, structural, late, and hierarchical chunking."
+    },
+    {
+      "id": "KM-005",
+      "priority": "P1",
+      "title": "Require simple and cross-domain retrieval baselines",
+      "claim_label": "synthesis",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "2104.08663v4",
+          "concept_path": "concepts/paper-2104-08663v4/sources-new-markdown-2104.08663v4-bdf7d9a00b.md",
+          "pdf_pages": [2, 7, 8, 9]
+        },
+        {
+          "paper_id": "2506.05690v3",
+          "concept_path": "concepts/paper-2506-05690v3/sources-reused-markdown-2506.05690v3-206550caf8.md",
+          "pdf_pages": [3, 8, 9]
+        }
+      ],
+      "validation": "Compare lexical, semantic, hybrid, and non-graph baselines on multiple domains and publish a quality-cost Pareto surface."
+    },
+    {
+      "id": "KM-006",
+      "priority": "P1",
+      "title": "Account for stochastic variance and practical significance",
+      "claim_label": "repository-inference",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "2103.03098v1",
+          "concept_path": "concepts/paper-2103-03098v1/sources-new-markdown-2103.03098v1-68b571fe84.md",
+          "pdf_pages": [1, 2, 6, 7, 8, 9, 10, 15, 16]
+        }
+      ],
+      "validation": "Use repeated paired runs, confidence intervals, probability of improvement, effect size, and worst-domain results."
+    },
+    {
+      "id": "KM-007",
+      "priority": "P1",
+      "title": "Add a reviewed claim layer above full paper text",
+      "claim_label": "repository-inference",
+      "confidence": "medium-high",
+      "evidence": [
+        {
+          "paper_id": "2309.08754v1",
+          "concept_path": "concepts/paper-2309-08754v1/sources-new-markdown-2309.08754v1-647c5a4d37.md",
+          "pdf_pages": [1, 4]
+        }
+      ],
+      "validation": "Double-review evidence cards and measure agreement, locator validity, audit time, and claim error rate."
+    },
+    {
+      "id": "KM-008",
+      "priority": "P1",
+      "title": "Make corpus selection a living auditable review",
+      "claim_label": "repository-inference",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "paper_id": "2309.08754v1",
+          "concept_path": "concepts/paper-2309-08754v1/sources-new-markdown-2309.08754v1-647c5a4d37.md",
+          "pdf_pages": [1, 2, 4]
+        }
+      ],
+      "validation": "Independently screen the next search delta and report agreement, exclusions, disputes, and lane saturation."
+    },
+    {
+      "id": "KM-009",
+      "priority": "P2",
+      "title": "Bound ontology and SHACL claims",
+      "claim_label": "direct-plus-repository-inference",
+      "confidence": "high",
+      "evidence": [
+        {
+          "paper_id": "2112.01441v1",
+          "concept_path": "concepts/paper-2112-01441v1/sources-new-markdown-2112.01441v1-269406ca95.md",
+          "pdf_pages": [3, 6, 20]
+        }
+      ],
+      "validation": "Require competency coverage, positive and negative fixtures, per-shape runtime, and human approval for generated semantics."
+    },
+    {
+      "id": "KM-010",
+      "priority": "P2",
+      "title": "Evolve declarative components instead of whole copied systems",
+      "claim_label": "synthesis",
+      "confidence": "medium-high",
+      "evidence": [
+        {
+          "paper_id": "2507.19457v2",
+          "concept_path": "concepts/paper-2507-19457v2/sources-new-markdown-2507.19457v2-3121cb6102.md",
+          "pdf_pages": [1, 2, 4]
+        },
+        {
+          "paper_id": "2310.03714v1",
+          "concept_path": "concepts/paper-2310-03714v1/sources-new-markdown-2310.03714v1-356206937c.md",
+          "pdf_pages": [1, 2]
+        }
+      ],
+      "validation": "Re-express one current mutation as a sealed component contract and compare attribution, diff size, reproducibility, and quality."
+    },
+    {
+      "id": "KM-011",
+      "priority": "P2",
+      "title": "Add extraction-fidelity gates",
+      "claim_label": "open-question-plus-repository-inference",
+      "confidence": "medium",
+      "evidence": [],
+      "validation": "Double-review a stratified page set and compare reading-order and locator error rates across extractors."
+    }
+  ],
+  "next_gate": "Do not add a ninth canonical retrieval family before KM-001 through KM-006 produce selection evidence."
+}
