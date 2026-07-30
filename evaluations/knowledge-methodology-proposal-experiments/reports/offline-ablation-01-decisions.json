@@ -1,0 +1,208 @@
+{
+  "schema_version": "knowledge-methodology-offline-decisions/1.0",
+  "experiment_id": "knowledge-methodology-offline-ablation-01",
+  "source_report": {
+    "path": "reports/offline-ablation-01.json",
+    "sha256": "8181bdf2c610eeb4471ce3a947c0ed6be21ac182fe0183aef97c70647f0f2c29"
+  },
+  "candidate_state": "retrospective-all-qrels-exposed",
+  "promotion_eligible": false,
+  "decisions": [
+    {
+      "id": "D001",
+      "subject": "chunked-char-tfidf",
+      "classification": "works-strongly",
+      "graphrag": {
+        "candidate": "fixed-128::tfidf-char3",
+        "baseline": "document::tfidf-char3",
+        "recall_delta": 0.13625992063492065,
+        "recall_relative_percent": 19.883712819621955,
+        "recall_interval": {
+          "low": 0.08578720238095244,
+          "high": 0.19019370039682537
+        },
+        "mrr_delta": 0.1283333333333333,
+        "ndcg_delta": 0.14762134249414394,
+        "latency_multiplier": 44.32602739726028
+      },
+      "qec": {
+        "candidate": "fixed-128::tfidf-char3",
+        "baseline": "document::tfidf-char3",
+        "recall_delta": 0.13749999999999996,
+        "recall_relative_percent": 15.94202898550725,
+        "recall_interval": {
+          "low": 0.0625,
+          "high": 0.22083333333333338
+        },
+        "mrr_delta": 0.38922619047619056,
+        "ndcg_delta": 0.341750624730901,
+        "latency_multiplier": 59.07772272418148
+      },
+      "action": "Continue configurable chunking and reject whole-document char-TF-IDF as the default."
+    },
+    {
+      "id": "D002",
+      "subject": "fixed-512-hybrid",
+      "classification": "works-with-recall-caveat",
+      "graphrag": {
+        "recall_delta": 0.03961309523809531,
+        "recall_relative_percent": 5.046851391178975,
+        "recall_interval": {
+          "low": -0.0033353174603174586,
+          "high": 0.08041666666666666
+        },
+        "mrr_delta": 0.00952380952380949,
+        "ndcg_delta": 0.034542881809999315,
+        "latency_multiplier": 32.86001155735337
+      },
+      "qec": {
+        "recall_delta": 0.016666666666666607,
+        "recall_relative_percent": 1.716738197424883,
+        "recall_interval": {
+          "low": 0.0,
+          "high": 0.05
+        },
+        "mrr_delta": 0.17333333333333323,
+        "ndcg_delta": 0.1497942231289996,
+        "latency_multiplier": 20.637422005782987
+      },
+      "action": "Keep as a cross-domain candidate but do not claim proven Recall superiority."
+    },
+    {
+      "id": "D003",
+      "subject": "fixed-512-bm25",
+      "classification": "useful-control-inconclusive-recall",
+      "graphrag": {
+        "recall_delta": 0.012985209235209183,
+        "recall_interval": {
+          "low": -0.04134280303030303,
+          "high": 0.066395698051948
+        },
+        "mrr_delta": 0.023749999999999938,
+        "ndcg_delta": 0.015266716253191426
+      },
+      "qec": {
+        "recall_delta": 0.008333333333333193,
+        "recall_interval": {
+          "low": -0.029166666666666664,
+          "high": 0.04583333333333333
+        },
+        "mrr_delta": 0.10104166666666659,
+        "ndcg_delta": 0.08319358671593269
+      },
+      "action": "Retain as the simple chunked control and investigate its QEC early-rank gain."
+    },
+    {
+      "id": "D004",
+      "subject": "fixed-128-bm25-global-default",
+      "classification": "does-not-work",
+      "graphrag": {
+        "recall_delta": -0.02730158730158727,
+        "recall_relative_percent": -3.4905776772299446,
+        "mrr_delta": 0.0172619047619047,
+        "ndcg_delta": -0.010493984274846935,
+        "latency_multiplier": 20.671521035598705
+      },
+      "qec": {
+        "recall_delta": 0.008333333333333193,
+        "mrr_delta": 0.05187499999999989,
+        "ndcg_delta": 0.04280766283860726
+      },
+      "action": "Reject as a repository-wide default because GraphRAG regresses."
+    },
+    {
+      "id": "D005",
+      "subject": "hierarchical-page-default",
+      "classification": "inconclusive",
+      "graphrag_vs_page_char3": {
+        "recall_delta": -0.01904761904761909,
+        "mrr_delta": 0.015833333333333366,
+        "ndcg_delta": -0.0023694938012084332,
+        "latency_multiplier": 2.9428238618057443
+      },
+      "qec_vs_page_char3": {
+        "recall_delta": -0.012499999999999956,
+        "mrr_delta": -0.008333333333333415,
+        "ndcg_delta": -0.00879412854350492,
+        "latency_multiplier": 1.0805020619194696
+      },
+      "action": "Do not make hierarchical scoring the default without a task-specific parent-child hypothesis."
+    },
+    {
+      "id": "D006",
+      "subject": "overlap-256-32-default",
+      "classification": "mixed-domain-dependent",
+      "graphrag_vs_fixed256_char3": {
+        "recall_delta": 0.01004058441558442,
+        "mrr_delta": 0.03125,
+        "ndcg_delta": 0.02557910275634645,
+        "latency_multiplier": 2.326031051652904
+      },
+      "qec_vs_fixed256_char3": {
+        "recall_delta": 0.012499999999999956,
+        "mrr_delta": -0.012500000000000067,
+        "ndcg_delta": 0.001652900054303852,
+        "latency_multiplier": 1.1844772106251729
+      },
+      "qec_vs_fixed256_hybrid": {
+        "recall_delta": -0.008333333333333415,
+        "mrr_delta": -0.02083333333333337,
+        "ndcg_delta": -0.011031008993194535,
+        "latency_multiplier": 1.1674845145201511
+      },
+      "action": "Keep overlap opt-in because the cost is not repaid consistently."
+    },
+    {
+      "id": "D007",
+      "subject": "single-global-winner",
+      "classification": "does-not-exist",
+      "graphrag_winner": "fixed-512::rrf-hybrid",
+      "qec_winner": "fixed-128::tfidf-char3",
+      "cross_domain_pareto_frontier_size": 14,
+      "treatment_count": 21,
+      "action": "Select by domain and objective rather than publishing one repository-wide default."
+    },
+    {
+      "id": "D008",
+      "subject": "uncertainty-free-point-ranking",
+      "classification": "does-not-work",
+      "maximum_recall_interval_width": 0.16249999999999998,
+      "small_observed_recall_delta_range": [
+        0.008333333333333304,
+        0.0396130952380952
+      ],
+      "action": "Require intervals and practical-effect thresholds beside point scores."
+    },
+    {
+      "id": "D009",
+      "subject": "qec-fixed-128-char-tfidf-quality-tradeoff",
+      "classification": "quality-dominant-tradeoff",
+      "qec_vs_fixed512_char3": {
+        "recall_delta": 0.0,
+        "mrr_delta": 0.03541666666666676,
+        "ndcg_delta": 0.03972522704699366,
+        "latency_multiplier": 2.47657971368644
+      },
+      "primary_metric_tie_count": 3,
+      "action": "Treat fixed-128 character-TF-IDF as the secondary-quality tie-break winner, not a unique Recall winner."
+    },
+    {
+      "id": "D010",
+      "subject": "qec-fixed-512-hybrid-cost-tradeoff",
+      "classification": "cost-balanced-tradeoff",
+      "graphrag": {
+        "treatment": "fixed-512::rrf-hybrid",
+        "recall_at_10": 0.824520202020202,
+        "mrr_at_10": 0.8666666666666666,
+        "ndcg_at_10": 0.7870489140761009
+      },
+      "qec_vs_fixed128_char3": {
+        "recall_delta": -0.012499999999999956,
+        "mrr_delta": 0.022916666666666585,
+        "ndcg_delta": 0.005400249760551978,
+        "latency_change_percent": -55.39832293734285
+      },
+      "action": "Keep as a cost-balanced QEC option when latency and early rank outweigh 1.25 Recall points."
+    }
+  ]
+}
