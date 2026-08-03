@@ -1,0 +1,35 @@
+{
+  "chunking": {
+    "breakpoint_percentile_threshold": 90,
+    "buffer_size": 1,
+    "implementation": "llamaindex",
+    "strategy": "semantic"
+  },
+  "embedding": {
+    "dimension": 384,
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "normalize": true,
+    "provider": "sentence-transformers",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  },
+  "schema_version": "1.0",
+  "selection": {
+    "source_ids": [
+      "paper-1208-0928v2",
+      "paper-1602-00008v3",
+      "paper-1708-08474v3",
+      "paper-1811-07835v2",
+      "paper-2005-07016v2",
+      "paper-2009-07851v3",
+      "paper-2010-08699v1",
+      "paper-2012-04068v2",
+      "paper-2111-03654v2",
+      "paper-2207-06431v2",
+      "paper-2308-02913v4",
+      "paper-2312-10950v2",
+      "paper-2401-06874v3",
+      "paper-2408-13687v1",
+      "paper-2508-05095v3"
+    ]
+  }
+}

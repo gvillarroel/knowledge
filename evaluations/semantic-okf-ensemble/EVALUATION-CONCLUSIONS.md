@@ -52,7 +52,19 @@ host agent will publish the finalizer bytes unchanged.
 
 ## Conclusion
 
-The definitive ensemble `quality` policy is the strongest observed direct-ranking option on the frozen 40-question benchmark. It preserves the adaptive incumbent's paper Recall@10 and 100% evidence validity while improving the order of relevant papers: all-40 MRR@10 rises from 95.83% to 100.00% and nDCG@10 from 83.43% to 85.20%; hard-10 MRR@10 rises from 95.00% to 100.00% and nDCG@10 from 84.98% to 88.27%.
+The retrospective `graphrag-ensemble-quality-trace-expert-v48` is now the
+strongest observed all-40 direct-ranking option. It packages the exact Ensemble
+`quality` knowledge and fuses its Top-10 with an independent trace-derived
+fielded-BM25 Top-10. It reaches 85.39% Recall@10, 100.00% MRR@10, and 86.02%
+nDCG@10 with 100% evidence validity. This is an experimental deterministic
+rank, not a new registered-family winner or holdout-qualified promotion.
+
+Within the definitive Ensemble family, `quality` remains the strongest
+canonical policy and the stronger hard-10 ordering choice. It preserves the
+adaptive incumbent's paper Recall@10 and 100% evidence validity while improving
+the order of relevant papers: all-40 MRR@10 rises from 95.83% to 100.00% and
+nDCG@10 from 83.43% to 85.20%; hard-10 MRR@10 rises from 95.00% to 100.00% and
+nDCG@10 from 84.98% to 88.27%.
 
 The accepted answer-preparation route now also covers all 44 reviewed hard-question answer groups, all 13 important-negative groups, all required papers, and 713/713 independently validated evidence bindings. It reached that result with deterministic paper-conditioned semantic-claim diversification: the earlier reviewed candidate covered 43/44 groups, while the accepted reranker covers 44/44 with a smaller mean union, 162.4 rather than 166.4 claims.
 
@@ -62,9 +74,31 @@ These are bounded wins, not a universal win. Direct ranking does not add top-10 
 
 ## Complete direct-retrieval comparison
 
-All rows below use the same frozen 40-question, direct top-10, canonical paper-identity comparison and evidence-valid schema 1.2 contract. The first 13 routes come from the checked [adaptive retrieval summary](../semantic-okf-adaptive/retrieval-summary.json). The ensemble rows are independently recomputed from the current final release in the checked [`robust`](baselines/ensemble-robust-current-direct.json), [`fast`](baselines/ensemble-fast-current-direct.json), and [`quality`](baselines/ensemble-quality-winner-direct.json) reports. The four reference-aware RustMallet rows come from the checked [RustMallet candidate summary](../semantic-okf-rust-mallet/canonical-retrieval-summary.json), the native Tantivy row comes from the checked [Tantivy candidate summary](../semantic-okf-tantivy/canonical-retrieval-summary.json), and the Tika/MALLET fusion row comes from its checked [replicate audit](../semantic-okf-tika-mallet/reports/canonical-retrieval-20260723.json). The RustMallet and Tantivy rows do not add either candidate to the canonical eight-family Harbor registry; Tika/MALLET likewise remains an experimental non-registry comparator.
+All rows below use the same frozen 40-question, direct top-10, canonical
+paper-identity comparison and evidence-valid schema 1.2 contract. The first 13
+routes come from the checked
+[adaptive retrieval summary](../semantic-okf-adaptive/retrieval-summary.json).
+The ensemble rows are independently recomputed from the current final release
+in the checked [`robust`](baselines/ensemble-robust-current-direct.json),
+[`fast`](baselines/ensemble-fast-current-direct.json), and
+[`quality`](baselines/ensemble-quality-winner-direct.json) reports. The four
+reference-aware RustMallet rows come from the checked
+[RustMallet candidate summary](../semantic-okf-rust-mallet/canonical-retrieval-summary.json),
+the native Tantivy row comes from the checked
+[Tantivy candidate summary](../semantic-okf-tantivy/canonical-retrieval-summary.json),
+the Tika/MALLET fusion row comes from its checked
+[replicate audit](../semantic-okf-tika-mallet/reports/canonical-retrieval-20260723.json),
+the combined Tika/MALLET/Tantivy fusion row comes from its checked
+[replicate audit](../semantic-okf-tika-mallet-tantivy/reports/canonical-retrieval-20260727.json),
+and the current specialized-expert rows come from the checked
+[v45 audit](../semantic-okf-specialized-experts/reports/expertise-improved-retrieval-20260728.json)
+and
+[v48 audit](../semantic-okf-specialized-experts/reports/ensemble-quality-trace-improved-retrieval-20260728.json).
+The RustMallet and Tantivy rows do not add either candidate to the canonical eight-family Harbor registry.
+The Tika/MALLET and specialized-expert workflows likewise remain experimental
+non-registry comparators.
 
-The six accepted standalone pairs and three experimental consultation workflows
+The six accepted standalone pairs and six experimental consultation workflows
 map to the evaluated routes as follows:
 
 | Family | Build skill | Consult skill | Evaluated routes / policies |
@@ -74,6 +108,9 @@ map to the evaluated routes as follows:
 | Classical | `build-semantic-okf-classical` | `consult-semantic-okf-classical` | `classical_bm25`, `classical_topic`, `classical_association`, `classical_fusion` |
 | Entity graph | `build-semantic-okf-entity-graph` | `consult-semantic-okf-entity-graph` | `entity_graph_lexical`, `entity_graph_entity`, `entity_graph_traversal`, `entity_graph_fusion` |
 | Tika + Java MALLET (experimental) | `build-semantic-okf-tika-mallet` | `consult-semantic-okf-tika-mallet` | `tika_mallet_fusion` |
+| Tika + Java MALLET + Tantivy (experimental) | `build-semantic-okf-tika-mallet` | `consult-semantic-okf-tika-mallet-tantivy` | `tika_mallet_tantivy_fusion` |
+| Trace-derived standalone expert (experimental) | `build-semantic-okf-tika-mallet` v46 plus `build-specialized-skill` | `graphrag-trace-expert-v45` | `specialized_expert_trace_classical_early_confidence` |
+| Ensemble-derived standalone expert (experimental) | `build-semantic-okf-ensemble` plus `build-specialized-skill` | `graphrag-ensemble-quality-trace-expert-v48` | `specialized_expert_ensemble_quality_trace` |
 | Tantivy dedicated pair (experimental) | `build-semantic-okf-tantivy` | `consult-semantic-okf-tantivy` | `tantivy_bm25` |
 | RustMallet + references (experimental) | `build-semantic-okf-rust-mallet-evolved` plus deterministic reference backfill | `consult-semantic-okf-rust-mallet-evolved` | `rust_mallet_bm25`, `rust_mallet_topic`, `rust_mallet_association`, `rust_mallet_fusion` |
 | Adaptive | `build-semantic-okf-adaptive` | `consult-semantic-okf-adaptive` | `adaptive_fusion` |
@@ -94,6 +131,9 @@ map to the evaluated routes as follows:
 | Classical | `classical_association` | 82.56% | 94.58% | 82.58% | 93.00% | 95.00% | 84.76% | 100.00% | 111.94 |
 | Classical | `classical_fusion` | 83.46% | 95.83% | 83.23% | 95.50% | 95.00% | 84.98% | 100.00% | 106.76 |
 | Tika + Java MALLET (experimental) | `tika_mallet_fusion` | 74.82% | 87.50% | 75.44% | 71.83% | 71.67% | 61.80% | 100.00% | 86.36 |
+| Tika + Java MALLET + Tantivy (experimental) | `tika_mallet_tantivy_fusion` | 73.50% | 84.79% | 71.75% | 73.83% | 54.17% | 55.04% | 100.00% | 470.74 |
+| Trace-derived standalone expert (historical experimental baseline) | `specialized_expert_lexical` | 72.20% | 80.07% | 66.57% | 73.50% | 54.44% | 50.42% | 100.00% | 170.78 |
+| Trace-derived standalone expert (experimental) | `specialized_expert_trace_classical_early_confidence` | **85.39%** | 92.08% | 83.75% | **95.50%** | 83.33% | 80.90% | 100.00% | 573.53 |
 | Tantivy dedicated pair (experimental) | `tantivy_bm25` | 80.74% | 93.75% | 81.05% | 92.17% | 90.00% | 80.54% | 100.00% | 90.92 |
 | RustMallet + references (experimental) | `rust_mallet_bm25` | 49.72% | 95.83% | 60.94% | 63.17% | 95.00% | 69.31% | 100.00% | 226.69 |
 | RustMallet + references (experimental) | `rust_mallet_topic` | 80.80% | 95.00% | 81.86% | 88.50% | 95.00% | 82.75% | 100.00% | 238.70 |
@@ -103,6 +143,7 @@ map to the evaluated routes as follows:
 | Definitive ensemble | `robust` | **83.82%** | 95.83% | 83.43% | **95.50%** | 95.00% | 84.98% | 100.00% | 568.20 |
 | Definitive ensemble | `fast` | **83.82%** | 97.50% | 84.30% | **95.50%** | 95.00% | 85.62% | 100.00% | 766.57 |
 | Definitive ensemble | `quality` | **83.82%** | **100.00%** | **85.20%** | **95.50%** | **100.00%** | **88.27%** | 100.00% | 1,461.92 |
+| Ensemble-derived standalone expert (experimental) | `specialized_expert_ensemble_quality_trace` | **85.39%** | **100.00%** | **86.02%** | **95.50%** | **100.00%** | **86.56%** | 100.00% | 2,012.48 |
 
 ### How to read the numbers
 
@@ -149,6 +190,33 @@ and each preserved the corresponding Top-10 prefix. All 400 Top-10 evidence rows
 were valid. The separate extraction audit passed 75/75 exact gates across the 15
 PDFs and reproduced its token and five-gram fidelity metrics exactly.
 
+The combined Tika/MALLET/Tantivy evaluator reused the same two independently
+reproduced bundles and the same questions, qrels, paper identities, and Top-10
+contract. Its selected `fusion` route was defined by ADR 0055 before evaluation
+as reciprocal-rank fusion of native Tantivy BM25, MALLET topic, and PPMI
+association rankings. Two Top-10 runs and two pool-100 runs reproduced every
+ranking, score, metric, and evidence row exactly; both pool runs preserved their
+Top-10 prefixes, all 400 selected Top-10 rows were valid, and neither bundle
+changed. The reported attempt-10 P95 excludes 7,257.02 ms of shared deep
+validation and loading.
+
+The initial trace-derived standalone expert audit packaged v39 and v42 guidance around
+the same immutable 30-record Tika/MALLET knowledge snapshot: 15 papers and 15
+reviewed-claim collections. The adapter retains the first record for each
+authoritative paper identity before applying the Top-10 budget. Two Top-10 runs
+and two pool-100 runs reproduced every ranking and quality metric, retained
+exact Top-10 prefixes, and validated all 400 selected evidence rows. The shared
+row measures only the generated lexical helper: the guidance does not execute
+inside deterministic retrieval, and its historical grounded-answer
+development gates did not qualify for promotion.
+
+The current v45 row replaces that lexical predecessor with the retrospectively
+selected early confidence-gated trace/classical helper. The v48 row separately
+packages the complete Ensemble `quality` knowledge and adds a strict 9:5
+quality/trace Top-10 fusion. Both current rows passed independent Top-10 and
+pool-100 runs, exact-prefix checks, zero-error execution, immutable package
+checks, and 400/400 exact evidence validation. Neither has an untouched holdout.
+
 A **percentage-point** difference is a direct subtraction. For example, 100.00% minus 95.83% is **4.17 percentage points**, not a 4.17% relative improvement.
 
 For answer-facing results, the columns mean something different:
@@ -163,7 +231,7 @@ For answer-facing results, the columns mean something different:
 
 These metrics are deliberately non-substitutable. A high MRR cannot compensate for missing answer facets, and a correct sentence cannot compensate for a fabricated evidence path.
 
-## What changed with the winner
+## What changed with the canonical Ensemble winner
 
 Relative to the adaptive incumbent, `quality` changes ordering while protecting coverage:
 

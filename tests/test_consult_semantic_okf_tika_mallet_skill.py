@@ -15,7 +15,6 @@ import yaml
 from tika_mallet_test_support import (
     CONSULT_ROOT,
     CONSULT_SCRIPTS,
-    REPO_ROOT,
     build_portable_bundle,
     tree_hashes,
 )
@@ -84,7 +83,6 @@ def test_skill_metadata_runtime_and_okf_projection_are_complete() -> None:
     assert (CONSULT_ROOT / "references" / "tika-mallet-format.md").is_file()
     assert (CONSULT_ROOT / "references" / "querying.md").is_file()
     assert "paired builder skill" not in package_text
-    assert (REPO_ROOT / "okf" / "skills" / "consult-semantic-okf-tika-mallet.md").is_file()
 
 
 def test_consultant_replays_verbatim_contract_and_ascii_tokenization() -> None:

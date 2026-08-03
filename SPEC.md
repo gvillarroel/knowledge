@@ -2,7 +2,8 @@
 
 ## Objective
 
-Build a Python CLI called `know` to manage a local knowledge base in `~/.knowledge`, capable of:
+Build a Python CLI called `know` to manage a project-local knowledge base in
+`.know`, with a compatible `~/.knowledge` fallback, capable of:
 
 - creating named knowledge keys as independent local collections;
 - attaching external sources to a key through declarative metadata;
@@ -10,11 +11,12 @@ Build a Python CLI called `know` to manage a local knowledge base in `~/.knowled
 - round-tripping published Confluence Cloud pages without flattening macros, Smart Links, statuses, images, attachments, labels, or dynamic extension data;
 - processing video sources by extracting or generating transcriptions;
 - exporting normalized Markdown documents with YAML frontmatter;
-- exporting Open Knowledge Format (OKF) v0.1-compatible Markdown concept documents;
-- publishing a strict, generated OKF v0.1 subdirectory for the project and every repository skill;
+- exporting Open Knowledge Format (OKF) v0.2-compatible Markdown concept documents;
+- generating a strict OKF v0.2 build artifact for the project and every repository skill;
 - selecting a reviewed Semantic OKF source-combination topology that either preserves source boundaries or treats compatible physical partitions as one logical source;
-- refreshing generated Semantic OKF snapshots by fully reprocessing their declared sources;
+- refreshing generated Semantic OKF snapshots as complete validated replacements while reprocessing only changed physical inputs when a verified external cache is available;
 - consulting Semantic OKF knowledge efficiently through ledger, Markdown, and local SPARQL workflows;
+- optionally packaging one validated Semantic OKF snapshot and reviewed application guidance as a standalone expert skill before consultation;
 - optionally deriving hash-bound embedding retrieval projections without changing authoritative OKF records or RDF identities;
 - consulting embedding-enabled snapshots through explicit lexical, vector, and hybrid discovery followed by authoritative concept verification;
 - preserving traceability back to the original source;
@@ -30,12 +32,14 @@ Television channel definitions may also be attached when a key needs reproducibl
 
 ## Principles
 
-- The local store in `~/.knowledge` is the operational source of truth.
+- The active local store is the operational source of truth. Resolve it from
+  explicit `--store`, then the nearest ancestor `.know`, then
+  `~/.knowledge`.
 - Every integration must be reproducible from declarative configuration.
 - Source content should remain reproducible from the registered source configuration.
 - Every exported document must include source metadata in YAML frontmatter.
 - Every exported Markdown concept document must include a non-empty OKF `type` field.
-- Exported Markdown should populate OKF `title`, `description`, `resource`, `tags`, and `timestamp` when those values can be derived from source metadata without guessing.
+- Exported Markdown should populate OKF `title`, `description`, `resource`, and `tags` when those values can be derived without guessing, record provenance in `sources`, and use `generated.at` instead of legacy `timestamp` for a known meaningful content-change time.
 - Integrations must support repeatable re-sync without manual intervention.
 - Optional dependencies must not block use of the base CLI.
 - Advanced Television skill bundles must remain usable without this checkout, generate separate macOS and Windows artifacts, and never install optional preview tools or replace user configuration implicitly.
@@ -45,11 +49,11 @@ Television channel definitions may also be attached when a key needs reproducibl
 - Cross-platform compatibility: use `tempfile.gettempdir()` instead of hard-coded paths.
 - Native `SKILL.md` frontmatter must remain limited to `name` and `description`; OKF skill interoperability is provided by a generated projection rather than nested compatibility metadata.
 - Every repository skill must be a standalone package by default: keep required instructions, references, scripts, assets, and dependency declarations inside its own directory, while treating explicitly declared tools, services, credentials, browsers, and user-supplied data as public inputs rather than hidden package dependencies.
-- Semantic OKF refreshes must rebuild complete snapshots, validate before promotion, report additions/changes/removals, and never merge generated trees in place.
+- Semantic OKF refreshes must assemble complete snapshots, validate before promotion, report additions/changes/removals, and never merge generated trees in place. They may reuse normalized adapter results only when logical path, raw SHA-256, adapter configuration, and processor digest all match.
 - Semantic OKF query workflows must select the cheapest authoritative layer and keep domain data, ontology, provenance, and validation graphs distinct unless a query explicitly requires their union.
 - Semantic OKF multi-input plans must distinguish source-scoped separation, homogeneous partition union, and upstream entity fusion; they must never silently deduplicate, select winners, or imply access isolation that the generated default data graph does not provide.
 - Semantic OKF CSV ingestion must match exact physical header names independently of JSON schema member order, apply deterministic strict Python scalar parsing, and reject ambiguous or lossy input.
-- Semantic OKF adapters must reprocess every declared source, detect both content changes and glob-membership changes, and remain deterministic without an external data-processing engine.
+- Semantic OKF adapters must account for every declared source, detect both content changes and glob-membership changes, and remain deterministic without an external data-processing engine. An incremental run must process added or changed physical files, remove deleted-file records from the complete candidate, and treat its external cache as derived and discardable.
 - Semantic OKF embedding chunks and vectors are non-authoritative discovery projections: they must bind to exact records, concepts, source locators, input hashes, provider, model revision, dimensions, and chunking configuration.
 - Embedding workflows must keep a network-free deterministic baseline, require explicit allowlisted providers and implementations, and never select, download, or cache a model implicitly.
 - GitHub repository synchronization must retain Markdown-compatible MDX files as text inputs so documentation repositories can be acquired at an exact commit without a rendered-site dependency.
@@ -85,7 +89,7 @@ The CLI binary is `know`.
 
 | Flag | Description |
 |---|---|
-| `--store <PATH>` | Override the default `~/.knowledge` store path. |
+| `--store <PATH>` | Override project discovery and the global `~/.knowledge` fallback. |
 | `--json` | Emit command output as JSON. |
 | `--verbose` | Print progress messages during sync and export. |
 | `--quiet` | Suppress non-error output. |
@@ -105,6 +109,18 @@ know export ...
 know import ...
 know browse ...
 ```
+
+### `know init` — Initialize project knowledge
+
+```bash
+know init
+```
+
+Without `--store`, `know init` creates `<current-directory>/.know`. All other
+commands discover the nearest `.know` at or above the working directory. This
+supports commands launched from nested project folders. If discovery finds no
+local store, commands continue to use `~/.knowledge`. An explicit `--store`
+always wins.
 
 ### `know add` — Create keys and attach sources
 
@@ -239,7 +255,7 @@ know browse source-files --key <KEY> --source-id <ID> [--format FMT] [--entry RO
 ## Store Structure
 
 ```text
-~/.knowledge/
+<active-store>/            # usually <project>/.know; otherwise ~/.knowledge
   config.yaml
   keys.yaml                  # credential store for integrations
   exports/                   # zip export output
@@ -281,7 +297,7 @@ know browse source-files --key <KEY> --source-id <ID> [--format FMT] [--entry RO
 
 ## Key Metadata
 
-Each `~/.knowledge/<key>/metadata.yaml` file must contain:
+Each `<active-store>/<key>/metadata.yaml` file must contain:
 - store version;
 - key name;
 - creation timestamp;
@@ -332,52 +348,52 @@ sources:
 ## Source Registration Rules
 
 ### `know add key <KEY>`
-- Creates `~/.knowledge/<key>/`.
+- Creates `<active-store>/<key>/`.
 - Creates/updates `metadata.yaml`.
 - Fails with a clear error if the key already exists.
 
 ### `know add confluence --space <SPACE> --key <KEY>`
 - Registers a Confluence space under the selected key.
 - Stores the source in key metadata with config for space, base_url, username, token.
-- Creates a source record under `~/.knowledge/<key>/confluence/`.
+- Creates a source record under `<active-store>/<key>/confluence/`.
 
 ### `know add arxiv <URL> --key <KEY>`
 - Validates the URL (must be http/https).
 - Registers an arXiv source under the selected key.
 - Stores the original URL in the source config.
-- Creates a source record under `~/.knowledge/<key>/arxiv/`.
+- Creates a source record under `<active-store>/<key>/arxiv/`.
 
 ### `know add video <VIDEO_URL_OR_PATH> --key <KEY>`
 - Registers a video source under the selected key.
 - Stores the original local path or URL in the source config.
-- Creates a source record under `~/.knowledge/<key>/video/`.
+- Creates a source record under `<active-store>/<key>/video/`.
 - During sync, the implementation must obtain a transcription for the video and store the raw transcription output separately from the exported Markdown.
 
 ### `know add site <URL> --key <KEY>`
 - Validates the URL.
 - Registers a website source with optional crawl depth and page limits.
-- Creates a source record under `~/.knowledge/<key>/site/`.
+- Creates a source record under `<active-store>/<key>/site/`.
 
 ### `know add github-repo <REPO_URL> --key <KEY>`
 - Registers a GitHub repository source with optional branch filters.
-- Creates a source record under `~/.knowledge/<key>/github/`.
+- Creates a source record under `<active-store>/<key>/github/`.
 
 ### `know add jira-project <PROJECT> --key <KEY>`
 - Registers a Jira project source with optional JQL, field selection, and credentials.
-- Creates a source record under `~/.knowledge/<key>/jira/`.
+- Creates a source record under `<active-store>/<key>/jira/`.
 
 ### `know add aha <WORKSPACE> --key <KEY>`
 - Registers an Aha workspace source. Credentials can be read from environment via `$env:` references.
-- Creates a source record under `~/.knowledge/<key>/aha/`.
+- Creates a source record under `<active-store>/<key>/aha/`.
 
 ### `know add google-releases <FEED_URL> --key <KEY>`
 - Validates the URL.
 - Registers a Google Cloud release notes Atom feed source.
-- Creates a source record under `~/.knowledge/<key>/google_releases/`.
+- Creates a source record under `<active-store>/<key>/google_releases/`.
 
 ### `know add tv <CHANNEL_NAME> --key <KEY>`
 - Registers a Television channel definition with source-command and optional preview-command, action-command.
-- Creates a source record under `~/.knowledge/<key>/television/`.
+- Creates a source record under `<active-store>/<key>/television/`.
 - During sync, generates TOML cable file, commands.json, and README.md.
 
 ## Search Behavior
@@ -445,7 +461,7 @@ know set credential <NAME> <VALUE>
 know list credentials
 ```
 
-Credentials are stored in `~/.knowledge/keys.yaml`. Sources reference them using `$name` syntax. Environment variables can also be referenced using `$env:ENV_VAR_NAME` syntax. The `.env` file in the working directory is loaded automatically at CLI startup.
+Credentials are stored in `<active-store>/keys.yaml`. Sources reference them using `$name` syntax. Environment variables can also be referenced using `$env:ENV_VAR_NAME` syntax. The `.env` file in the working directory is loaded automatically at CLI startup.
 
 ## Source Adapters
 
@@ -594,7 +610,7 @@ tv --source-command='know search jira "" --project KAN --format television' \
 - A non-empty OKF `type` field on every non-reserved Markdown concept document.
 - For video sources, the exported Markdown is generated from the transcription.
 - Raw transcription data is kept separate from exported Markdown.
-- The archive is written to `~/.knowledge/exports/`.
+- The archive is written to `<active-store>/exports/`.
 
 ## Import
 
@@ -611,7 +627,7 @@ Skill evolution must use isolated Skill Arena comparisons by default: one no-ski
 
 A `SKILL.md` file in `skills/know/` provides usage instructions for the CLI, including Television integration patterns and credential management.
 
-The repository also ships `skills/open-knowledge-format/`, which documents the reviewed Google Cloud OKF v0.1 contract and provides deterministic bundle generation and validation scripts.
+The repository also ships `skills/open-knowledge-format/`, which documents the reviewed Google Cloud OKF v0.2 contract and provides deterministic bundle generation and validation scripts.
 
 The repository ships `skills/roundtrip-confluence-pages/` as an independent write-capable Confluence page skill. It must use storage XML as the editable body contract, retain ADF and rendered HTML as verification evidence, preserve attachment bytes, media types, and page metadata, reject concurrent page and attachment version conflicts by default, and require both a verified API report and a verified authenticated-browser ground-truth record before reporting a successful upload. It must not mutate page parent/space, restrictions, permissions, comments, watchers, likes, analytics, owners, classifications, or content properties.
 
@@ -651,6 +667,44 @@ The source-generic entity-graph and definitive-ensemble skill pairs must:
 - reject claim-only coverage when the authoritative corpus supplies no exact reviewed answer bindings, while retaining read-only passage retrieval and permitting deterministic source-generic finalization only from full-query support IDs bound to exact supporting substrings and independently reconstructed authoritative identity fields.
 
 Requests that create, expand, reprocess, repair, or otherwise mutate a Semantic OKF snapshot must route to `build-semantic-okf`. Requests that search, query, compare, explain, or cite knowledge from an existing snapshot must route to `consult-semantic-okf`. Ontology learning and evidence-led semantic model authoring remain a separate pre-build responsibility of `extract-ontologies`.
+
+### Specialized expert skill pipeline
+
+The repository also ships `skills/build-specialized-skill/` as an optional stage
+between Semantic OKF construction and consultation. It packages one validated
+snapshot plus reviewed domain-application guidance into one standalone,
+read-only expert skill.
+
+- Stage 1, Build Knowledge, remains the existing Semantic OKF lifecycle and
+  produces a passing immutable snapshot.
+- Stage 2, Build Specialized Skill, must validate the snapshot, reject symlinks
+  and unsafe ledger paths, copy the complete knowledge tree, include the
+  reviewed guidance, and bind every generated artifact under
+  `semantic-okf-expert-skill/1.0`.
+- Stage 2 must be deterministic, omit absolute paths and timestamps, refuse
+  output overwrites, preserve its source snapshot byte for byte, and provide a
+  non-mutating `--check` mode.
+- The default and reviewed custom-adapter packages retain
+  `semantic-okf-expert-skill/1.0`. A separate builder-owned
+  `semantic-okf-expert-skill/1.1` treatment may derive a
+  `retrospective-supervised-ngram` routing profile only from an explicitly
+  supplied frozen question/qrel file and an explicit exposed-qrel
+  acknowledgement. It must bind that file and the authoritative ledger,
+  forbid exact-question lookup, preserve an authoritative lexical fallback,
+  deduplicate the declared primary identity, use only exact ledger records as
+  answer evidence, declare that no holdout exists, and set
+  `promotion_eligible: false`.
+- An all-exposed profile is a fixed-workload retrospective artifact. It must
+  never be relabeled as holdout evidence or promoted; any promotion study must
+  register a new untouched cohort and preserve the one-way release boundary.
+- Stage 3, Consult, uses only the generated expert skill. The expert verifies
+  its embedded knowledge and artifact bindings before local ledger search,
+  applies the accepted guidance, cites exact bundled concept paths, and never
+  builds, repairs, refreshes, or mutates knowledge.
+- The accepted two-stage Build and Consult path remains supported when a
+  generic consultant and an external immutable snapshot are preferred. The
+  specialized path does not alter the `build-consult` or `consult-only`
+  resource-isolation contracts.
 
 Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
 
@@ -775,6 +829,34 @@ The repository must keep a reproducible source-generic comparison under `evaluat
 - At least one hard question must retain the actual grounded answer returned by every compatible consultation alternative so qualitative differences can be inspected beside the numeric results.
 - Any Skill Arena comparison used as causal evidence must isolate one consultation treatment against a knowledge-identical control; an all-skills portfolio is descriptive only. Config generation, validation, dry-run, execution, and result aggregation follow the checked-in Skill Arena workflows and must not require MCP.
 
+### Final evaluation report presentation
+
+Every current-facing final evaluation report must lead with one compact primary
+comparison table. Its first column is the sequential position, its second
+column identifies the strategy, build/consult pair, candidate, or version, and
+every remaining column is a metric produced by the named test dataset and
+evaluation contract.
+
+- Do not include status, decision, outcome, acceptance, or promotion columns in
+  the primary comparison table. State those conclusions separately in prose or
+  an eligibility section.
+- Rank only rows evaluated on the same dataset, cohort, candidate budget,
+  identity grouping, and metric contract.
+- Represent alternatives as rows and aggregate dataset metrics as columns. A
+  machine-readable `final-report-comparison/1.0` companion must bind the shared
+  scope, each metric's aggregation, unit, direction, and display precision, and
+  every alternative's complete finite numeric metric map.
+- Validate the Markdown primary table as an exact formatted projection of that
+  companion before publication.
+- Omit an alternative from the ranked table when any displayed metric is
+  unavailable, and explain the omission immediately after the table instead of
+  inserting a placeholder value.
+- Keep incomplete, non-rankable, cross-dataset, and operational diagnostics in
+  separately labeled tables that do not use a position column.
+- Preserve historical reports at their original paths; this presentation
+  contract applies to current-facing final reports and newly generated final
+  reports.
+
 ### Dual-mode Semantic OKF Harbor datasets
 
 The repository must keep a shared, reproducible dataset registry under `evaluations/semantic-okf-datasets/` for the forty-question Astro documentation and GraphRAG cross-paper benchmarks.
@@ -783,6 +865,9 @@ The repository must keep a shared, reproducible dataset registry under `evaluati
 - Every dataset must cover the complete paired `legacy`, `embeddings`, `classical`, `adaptive`, `entity-graph`, `ensemble`, `graphify`, and `turso` strategy registry.
 - `build-consult` trials must install exactly one matched build/consult pair, expose only evaluator-free raw inputs through a read-only `/dataset` mount, build and validate `/workspace/knowledge` during the trial, and never mount prebuilt knowledge into the agent.
 - `consult-only` trials must install exactly one consultation skill, expose only the exact processed snapshot through a read-only `/knowledge` mount, and never expose raw sources or a build skill to the agent.
+- The optional specialized expert path must be evaluated as a separate
+  three-stage contract and must not reinterpret either existing mode, add an
+  expert skill to their installed-skill sets, or weaken their mount isolation.
 - Questions, qrels, hidden semantic required points, hard ground truth, authoritative evidence, and reference ledgers must remain verifier-only in both modes. A declared minimum relevant-document count may be stated publicly and must be enforced as a separate mechanical gate. The verifier must run in a separate environment without agent authentication mounts.
 - Raw staging, Harbor task generation, and task validation must be deterministic and offer check-only execution. Validation must reject resource-boundary violations, public prompt leakage, descriptor drift, missing tasks, ledger drift, or any generated structural oracle that fails the production grader.
 - Processed knowledge mounted in `consult-only` must match the hidden verifier reference by tree and ledger hashes. Staged raw input mounted in `build-consult` must match its evaluator-free receipt and the generated task manifest.
@@ -795,9 +880,11 @@ The repository must keep a shared, reproducible dataset registry under `evaluati
 
 ## Project OKF Bundle
 
-The `okf/` directory is the strict OKF v0.1 interoperability boundary for this repository. It is a generated bundle and must contain:
+The ignored `build/okf/` directory is the default strict OKF v0.2
+interoperability artifact for this repository. It is generated on demand and
+must contain:
 
-- a root `index.md` that declares `okf_version: "0.1"`;
+- a root `index.md` that declares `okf_version: "0.2"`;
 - `project.md`, projected from `README.md`;
 - `specification.md`, projected from `SPEC.md`;
 - `skills/index.md` for progressive disclosure;
@@ -806,17 +893,20 @@ The `okf/` directory is the strict OKF v0.1 interoperability boundary for this r
 Generate or refresh the bundle with:
 
 ```bash
-python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py .
 ```
 
 Check drift and conformance without writing files with:
 
 ```bash
-python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf --check
-python skills/open-knowledge-format/scripts/validate_okf_bundle.py okf
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --check
+python skills/open-knowledge-format/scripts/validate_okf_bundle.py build/okf
 ```
 
-Every native skill remains authoritative for agent execution. Its projected OKF concept preserves the instructions in the body and records `skill_name` and `source_path` as producer-defined traceability fields.
+Every native skill remains authoritative for agent execution under `skills/`.
+The generated projection is not versioned as a second skill tree. Its OKF
+concept preserves the instructions in the body and records `skill_name` and
+`source_path` as producer-defined traceability fields.
 
 ## Documentation
 
@@ -849,7 +939,7 @@ src/knowledge/
   __init__.py
   cli.py                  # Argument parser, entry point, URL validation, dotenv loader
   commands.py             # Handlers for add, list, search, sync, del, set, export, import
-  store.py                # KnowledgeStore: key/source/credential CRUD, metadata persistence
+  store.py                # Store discovery plus key/source/credential CRUD and metadata persistence
   exporter.py             # Markdown export and zip archive generation
   registry.py             # Source adapter registry
   okf.py                  # Open Knowledge Format frontmatter normalization
@@ -882,8 +972,8 @@ src/knowledge/
 - **Credential resolution** uses `$name` references into `keys.yaml` and `$env:VAR` for environment variables.
 - The `.env` file in the working directory is loaded automatically at startup.
 - The sync attribute map (`_SYNC_ATTR_MAP`) replaces the long `if/elif` chain for resolving `match_value` from CLI args.
-- OKF compatibility is applied as an additive metadata layer: existing source provenance fields remain intact, while `type`, `resource`, `tags`, and `timestamp` are derived where possible.
-- Project and skill compatibility is delivered as a strict generated bundle under `okf/`; the repository root itself is not treated as an OKF bundle.
+- OKF compatibility is applied as an additive metadata layer: existing source provenance fields remain intact, while `type`, `resource`, `tags`, `sources`, and `generated` are derived where possible. Legacy `timestamp` is migrated to `generated.at`.
+- Project and skill compatibility is delivered as a strict generated build artifact under `build/okf/`; the repository root itself is not treated as an OKF bundle.
 
 ## Architectural Decisions
 

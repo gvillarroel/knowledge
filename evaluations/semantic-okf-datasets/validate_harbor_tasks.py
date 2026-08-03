@@ -69,8 +69,16 @@ def mode_boundaries(
         required = ("/knowledge", family["consult_skill"], "Do not build")
         forbidden = ("/dataset", "/workspace/knowledge", family["build_skill"])
     else:
+        build_inputs = (
+            (
+                "/dataset/ingestion-plan.json",
+                "/dataset/retrieval-plan.json",
+            )
+            if family["build_skill"] == "build-semantic-okf-tika-mallet"
+            else ("/dataset/manifest.json",)
+        )
         required = (
-            "/dataset/manifest.json",
+            *build_inputs,
             "/workspace/knowledge",
             family["build_skill"],
             family["consult_skill"],

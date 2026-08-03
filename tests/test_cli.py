@@ -18,6 +18,71 @@ def test_init_creates_store(tmp_path: Path) -> None:
     assert (tmp_path / "exports").exists()
 
 
+def test_init_defaults_to_project_local_store(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.chdir(tmp_path)
+
+    assert main(["init"]) == 0
+
+    output = json.loads(capsys.readouterr().out)
+    local_store = tmp_path / ".know"
+    assert output["store"] == str(local_store.resolve())
+    assert (local_store / "config.yaml").exists()
+    assert (local_store / "keys.yaml").exists()
+    assert (local_store / "exports").is_dir()
+
+
+def test_commands_discover_project_store_from_descendant_directory(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    assert main(["init"]) == 0
+    capsys.readouterr()
+
+    nested = tmp_path / "src" / "feature"
+    nested.mkdir(parents=True)
+    monkeypatch.chdir(nested)
+
+    assert main(["add", "key", "project-docs"]) == 0
+    capsys.readouterr()
+    assert main(["list", "keys"]) == 0
+
+    assert json.loads(capsys.readouterr().out) == {"keys": ["project-docs"]}
+    assert (tmp_path / ".know" / "project-docs" / "metadata.yaml").exists()
+
+
+def test_explicit_store_wins_over_discovered_project_store(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    monkeypatch.chdir(project)
+    assert main(["init"]) == 0
+
+    explicit_store = tmp_path / "explicit-store"
+    assert main(["--store", str(explicit_store), "add", "key", "external"]) == 0
+
+    assert (explicit_store / "external" / "metadata.yaml").exists()
+    assert not (project / ".know" / "external").exists()
+
+
+def test_commands_without_local_store_use_global_fallback(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    project = tmp_path / "project"
+    fake_home = tmp_path / "home"
+    project.mkdir()
+    fake_home.mkdir()
+    monkeypatch.chdir(project)
+    monkeypatch.setattr(Path, "home", lambda: fake_home)
+
+    assert main(["add", "key", "global-docs"]) == 0
+
+    assert (fake_home / ".knowledge" / "global-docs" / "metadata.yaml").exists()
+    assert not (project / ".know").exists()
+
+
 def test_add_key_creates_metadata_and_directories(tmp_path: Path) -> None:
     assert main(["--store", str(tmp_path), "add", "key", "product-docs"]) == 0
 

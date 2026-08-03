@@ -1,0 +1,93 @@
+{
+  "alternative_count": 24,
+  "candidate_id": "specialized-expert-trace-classical-hybrid",
+  "candidate_label": "Specialized expert trace/classical hybrid",
+  "candidate_route": "specialized_expert_trace_classical_hybrid",
+  "candidate_skill": "graphrag-trace-expert-v44",
+  "dataset_id": "graphrag-papers-40",
+  "deltas": {
+    "ndcg_at_10": 1.701086502021269,
+    "p95_latency_ms": 338.3554649888538,
+    "recall_at_10": 2.0901875901875826
+  },
+  "expert": {
+    "file_count": 113,
+    "guidance_sha256": "c41e168c2f600e791b5bcdb34f71a73dfca932b487ed04caa1df85647bdf8315",
+    "knowledge_file_count": 108,
+    "knowledge_tree_sha256": "e787e3ef4a2c2a3a624be0803a3536ab24c2dcdd66e4b894c2d0ec10634f1d9e",
+    "manifest_sha256": "b3a4e3f25c64c5da05de48ef54d1baaf793a4cdee58e327903dc0804a6c42ad9",
+    "query_helper_sha256": "25adc3196b0bc21769f3115a4c5889a5369f5ae211418ddbfdece5e447e44ead",
+    "record_count": 30,
+    "tree_sha256": "72c65803130629dd81bfbccf3a423c419975454f3b0b0ecfdb6624fffb494e74"
+  },
+  "inputs": {
+    "candidate_pool100": {
+      "bytes": 819747,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-classical-hybrid-01/runs/canonical-all40-pool100/report.json",
+      "sha256": "a5714cc06475af83cd17891205fd6aa06f2ff7f1c15dea298e37d850b0c0836c"
+    },
+    "candidate_top10": {
+      "bytes": 563748,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-classical-hybrid-01/runs/canonical-all40-top10/report.json",
+      "sha256": "19bff281a790ba2f100b3a0a1fa43cb9f1be1d75df6c1bd0bebd78151c091c0b"
+    },
+    "reference_comparison": {
+      "bytes": 5866,
+      "path": "evaluations/semantic-okf-specialized-experts/reports/trace-improved-retrieval-20260728.comparison.json",
+      "sha256": "a5881a37b6a53a0c55b11346daa16e923b6515189e4a8c5946afdbecdd420ea1"
+    }
+  },
+  "position": 3,
+  "previous_metrics": {
+    "ndcg_at_10": 81.76463015058096,
+    "p95_latency_ms": 229.8614350496791,
+    "recall_at_10": 82.87878787878788
+  },
+  "previous_position": 10,
+  "provenance": {
+    "builder_skill": {
+      "file_count": 19,
+      "path": "skills/build-semantic-okf-tika-mallet",
+      "tree_sha256": "20f941c459b6e1517f47221934a4e0d002ca0b382fafa8dd411f74848f246905"
+    },
+    "packager_skill": {
+      "file_count": 9,
+      "path": "skills/build-specialized-skill",
+      "tree_sha256": "8d517c3cbc58a31fc4b00c5605c60194f7616f3f748e53871832b5ada685de03"
+    },
+    "trace_evidence": [
+      {
+        "bytes": 103469,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/results/ep-v43-g0-03/development/generation-000/pareto-archive.json",
+        "sha256": "51a7aeaab880312c1a7b65ce2f8a02a0a5e0cf4fbae9d01d0b067afaa18662f7"
+      },
+      {
+        "bytes": 305234,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/results/ep-v43-g0-03/development/generation-001/pareto-archive.json",
+        "sha256": "7650fac349fba482d5af3ae6495ab65f8cb075f8936c1f0d330f094df1ceec6b"
+      },
+      {
+        "bytes": 286599,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/results/ep-v43-g0-03/development/generation-002/pareto-archive.json",
+        "sha256": "9c00dae367b37c7cc08aaec8d98889ae1ac844873a93d426780c3be98fe80ea2"
+      }
+    ]
+  },
+  "ranking_eligible": true,
+  "retrieval_contract_id": "trace-classical-hybrid-rrf-v3",
+  "schema_version": "semantic-okf-specialized-expert-improvement-audit/1.0",
+  "selected_metrics": {
+    "ndcg_at_10": 83.46571665260223,
+    "p95_latency_ms": 568.2169000385329,
+    "recall_at_10": 84.96897546897546
+  },
+  "status": "pass",
+  "validation": {
+    "evidence_validity": 1.0,
+    "exact_input_binding_between_runs": true,
+    "exact_top10_prefix_in_pool100": true,
+    "expert_immutable": true,
+    "knowledge_immutable": true,
+    "query_error_count": 0
+  }
+}

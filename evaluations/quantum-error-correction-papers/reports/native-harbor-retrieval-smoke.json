@@ -1,0 +1,98 @@
+{
+  "all_qrels_exposed": true,
+  "case_count": 2,
+  "cases": [
+    {
+      "diagnostics_status": "scored-retrieval",
+      "qrels": [
+        "1208.0928v2"
+      ],
+      "question_id": "q001-surface-code-braiding",
+      "question_type": "cross-paper",
+      "ranking": [
+        "1208.0928v2",
+        "2308.02913v4",
+        "2010.08699v1",
+        "1602.00008v3",
+        "2207.06431v2",
+        "2408.13687v1",
+        "2012.04068v2",
+        "2009.07851v3",
+        "2005.07016v2",
+        "2111.03654v2"
+      ],
+      "rewards": {
+        "evidence_contract_gate": 1.0,
+        "manifest_binding_gate": 1.0,
+        "mechanical_qualification_gate": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_10": 1.0,
+        "reward": 1.0
+      }
+    },
+    {
+      "diagnostics_status": "scored-retrieval",
+      "qrels": [
+        "2012.04068v2",
+        "2111.03654v2"
+      ],
+      "question_id": "q031-lifted-product-progression",
+      "question_type": "hard",
+      "ranking": [
+        "2111.03654v2",
+        "2012.04068v2",
+        "2508.05095v3",
+        "2308.02913v4",
+        "2010.08699v1",
+        "1602.00008v3",
+        "2005.07016v2",
+        "2401.06874v3",
+        "1208.0928v2",
+        "2408.13687v1"
+      ],
+      "rewards": {
+        "evidence_contract_gate": 1.0,
+        "manifest_binding_gate": 1.0,
+        "mechanical_qualification_gate": 1.0,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 1.0,
+        "recall_at_10": 1.0,
+        "reward": 1.0
+      }
+    }
+  ],
+  "dataset_id": "quantum-error-correction-papers-40",
+  "evaluation_scope": "Representative native-grader compatibility smoke only; the all-40 replicated report is the quality authority.",
+  "expert": {
+    "helper": {
+      "bytes": 23331,
+      "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-qec-supervised-01/qec-paper-expert-supervised-v1/scripts/query_expert_knowledge.py",
+      "sha256": "5b0de450c6c9417dddcd9c1980c1ff8b325ad143a6f6422722f38a7d0103db47"
+    },
+    "ledger": {
+      "bytes": 1862179,
+      "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-qec-supervised-01/qec-paper-expert-supervised-v1/references/knowledge/semantic/records.jsonl",
+      "sha256": "80c0e4ab708d054e983984bd58481b6e6d43fd7bcd5676ef3f7a31e58848cfa6"
+    },
+    "manifest": {
+      "bytes": 2041,
+      "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-qec-supervised-01/qec-paper-expert-supervised-v1/expert-manifest.json",
+      "sha256": "8ae6444998821d9d0e495fec0c8345819ce6be7f4c4f3474ac77ca6d763ab3a2"
+    },
+    "skill_name": "qec-paper-expert-supervised-v1"
+  },
+  "native_harbor_scorer": {
+    "bytes": 13338,
+    "path": "evaluations/semantic-okf-specialized-experts/harbor/grader/score.py",
+    "sha256": "c9bba80047b2006aefa2aeff0ce0be592f3fd48cf577883d1bf0df92aa48efc3"
+  },
+  "promotion_eligible": false,
+  "questions": {
+    "bytes": 14293,
+    "path": "evaluations/quantum-error-correction-papers/benchmark/retrieval-questions.jsonl",
+    "sha256": "d0720d3d9a2608b990988ff10c2cb0b571b53486592de2542bb35dba3ff9dcd4"
+  },
+  "schema_version": "qec-native-harbor-retrieval-smoke/1.0",
+  "status": "pass"
+}

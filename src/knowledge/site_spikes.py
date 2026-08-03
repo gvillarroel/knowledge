@@ -496,7 +496,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("evaluation") / "site_spikes",
+        default=Path("evaluations") / "site-spikes",
         help="Directory where reports and sampled markdown files will be written",
     )
     return parser

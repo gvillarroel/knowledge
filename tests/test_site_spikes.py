@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 import knowledge.site_spikes as site_spikes
+from knowledge.site_batch_spikes import build_arg_parser as build_batch_arg_parser
 from knowledge.site_spikes import (
     BrowserBFSSiteStrategy,
     BrowserSeededRequestsStrategy,
@@ -485,6 +486,10 @@ def test_cli_parser_and_main_write_report(monkeypatch: pytest.MonkeyPatch, tmp_p
     parser = build_arg_parser()
     parsed = parser.parse_args(["https://example.com", "--max-pages", "0", "--max-depth", "-2"])
     assert parsed.url == "https://example.com"
+    assert parsed.output_dir == Path("evaluations") / "site-spikes"
+
+    batch_parsed = build_batch_arg_parser().parse_args(["https://example.com"])
+    assert batch_parsed.output_dir == Path("evaluations") / "site-spikes" / "batch"
 
     captured: dict[str, object] = {}
     report = SpikeReport("https://example.com", "now", 1, 0, None, "3", "test", [])

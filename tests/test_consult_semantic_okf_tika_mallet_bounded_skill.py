@@ -99,12 +99,8 @@ def test_bounded_skill_is_standalone_and_low_freedom() -> None:
     ).read_text(encoding="utf-8")
     assert (SKILL_ROOT / "scripts" / "_tika_mallet_snapshot.py").is_file()
     assert "consult-semantic-okf-tika-mallet/" not in package_text
-    assert (
-        REPO_ROOT
-        / "okf"
-        / "skills"
-        / "consult-semantic-okf-tika-mallet-bounded.md"
-    ).is_file()
+    assert SKILL_ROOT.parent == REPO_ROOT / "skills"
+    assert not (REPO_ROOT / "okf").exists()
 
 
 def test_bounded_compiler_emits_closed_source_diverse_answer(

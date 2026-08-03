@@ -1,0 +1,314 @@
+{
+  "adaptive": {
+    "adaptive": {
+      "aspect_weight": 0.25,
+      "best_aspect_weight": 0.0,
+      "full_query_weight": 2.0,
+      "maximum_aspects": 10,
+      "maximum_novel_aspect_rank": 1,
+      "minimum_aspect_tokens": 4,
+      "protected_full_results": 10,
+      "rrf_k": 0
+    },
+    "associations": {
+      "max_neighbors": 10,
+      "max_vocabulary": 5000,
+      "min_cooccurrence": 2,
+      "min_document_frequency": 2,
+      "minimum_ppmi": 0.0,
+      "window_size": 8
+    },
+    "bm25": {
+      "b": 0.75,
+      "body_weight": 1.0,
+      "k1": 1.2,
+      "title_weight": 2.0
+    },
+    "evidence_identity": {
+      "default_mode": "source-record",
+      "paper_ids_by_source": {
+        "paper-1208-0928v2": "1208.0928v2",
+        "paper-1602-00008v3": "1602.00008v3",
+        "paper-1708-08474v3": "1708.08474v3",
+        "paper-1811-07835v2": "1811.07835v2",
+        "paper-2005-07016v2": "2005.07016v2",
+        "paper-2009-07851v3": "2009.07851v3",
+        "paper-2010-08699v1": "2010.08699v1",
+        "paper-2012-04068v2": "2012.04068v2",
+        "paper-2111-03654v2": "2111.03654v2",
+        "paper-2207-06431v2": "2207.06431v2",
+        "paper-2308-02913v4": "2308.02913v4",
+        "paper-2312-10950v2": "2312.10950v2",
+        "paper-2401-06874v3": "2401.06874v3",
+        "paper-2408-13687v1": "2408.13687v1",
+        "paper-2508-05095v3": "2508.05095v3"
+      }
+    },
+    "expansion": {
+      "association_terms": 8,
+      "association_weight": 0.35,
+      "topic_terms": 8,
+      "topic_weight": 0.2
+    },
+    "passages": {
+      "default_mode": "full-record",
+      "markdown_pdf_page_source_ids": [
+        "paper-1208-0928v2",
+        "paper-1602-00008v3",
+        "paper-1708-08474v3",
+        "paper-1811-07835v2",
+        "paper-2005-07016v2",
+        "paper-2009-07851v3",
+        "paper-2010-08699v1",
+        "paper-2012-04068v2",
+        "paper-2111-03654v2",
+        "paper-2207-06431v2",
+        "paper-2308-02913v4",
+        "paper-2312-10950v2",
+        "paper-2401-06874v3",
+        "paper-2408-13687v1",
+        "paper-2508-05095v3"
+      ]
+    },
+    "reranking": {
+      "candidate_pool": 100,
+      "max_per_evidence_identity": 1,
+      "relevance_weight": 0.7,
+      "rrf_k": 60,
+      "source_novelty_weight": 0.15,
+      "topic_novelty_weight": 0.15
+    },
+    "schema_version": "1.1",
+    "selection": {
+      "source_ids": [
+        "paper-1208-0928v2",
+        "paper-1602-00008v3",
+        "paper-1708-08474v3",
+        "paper-1811-07835v2",
+        "paper-2005-07016v2",
+        "paper-2009-07851v3",
+        "paper-2010-08699v1",
+        "paper-2012-04068v2",
+        "paper-2111-03654v2",
+        "paper-2207-06431v2",
+        "paper-2308-02913v4",
+        "paper-2312-10950v2",
+        "paper-2401-06874v3",
+        "paper-2408-13687v1",
+        "paper-2508-05095v3"
+      ]
+    },
+    "tokenization": {
+      "min_token_length": 2,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "stopwords": "english-v1",
+      "tokenizer": "ascii-alphanumeric-v1"
+    },
+    "topics": {
+      "max_iterations": 24,
+      "top_terms": 24,
+      "topic_count": 12
+    }
+  },
+  "embedding": {
+    "chunking": {
+      "breakpoint_percentile_threshold": 90,
+      "buffer_size": 1,
+      "implementation": "llamaindex",
+      "strategy": "semantic"
+    },
+    "embedding": {
+      "dimension": 384,
+      "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "normalize": true,
+      "provider": "sentence-transformers",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    },
+    "schema_version": "1.0",
+    "selection": {
+      "source_ids": [
+        "paper-1208-0928v2",
+        "paper-1602-00008v3",
+        "paper-1708-08474v3",
+        "paper-1811-07835v2",
+        "paper-2005-07016v2",
+        "paper-2009-07851v3",
+        "paper-2010-08699v1",
+        "paper-2012-04068v2",
+        "paper-2111-03654v2",
+        "paper-2207-06431v2",
+        "paper-2308-02913v4",
+        "paper-2312-10950v2",
+        "paper-2401-06874v3",
+        "paper-2408-13687v1",
+        "paper-2508-05095v3"
+      ]
+    }
+  },
+  "entity_graph": {
+    "bm25": {
+      "b": 0.75,
+      "k1": 1.2
+    },
+    "extraction": {
+      "maximum_candidates": 1200,
+      "maximum_section_fraction": 0.35,
+      "minimum_section_frequency": 2,
+      "ngram_range": [
+        1,
+        3
+      ],
+      "top_candidates_per_section": 12
+    },
+    "graph": {
+      "max_co_mention_neighbors": 12,
+      "max_co_mentions_per_section": 12,
+      "max_edge_evidence_sections": 8,
+      "minimum_co_mention_sections": 2
+    },
+    "query": {
+      "candidate_edge_weight": 0.3,
+      "candidate_pool": 100,
+      "hop_decay": 0.65,
+      "max_hops": 3,
+      "max_per_document": 1,
+      "mention_weight": 1.0,
+      "resolved_entities": 32,
+      "reviewed_edge_weight": 1.0,
+      "rrf_k": 60
+    },
+    "schema_version": "2.0",
+    "sectioning": {
+      "maximum_characters": 12000,
+      "strategy": "markdown-headings-or-bounded-record-v1"
+    },
+    "selection": {
+      "source_ids": [
+        "paper-1208-0928v2",
+        "paper-1602-00008v3",
+        "paper-1708-08474v3",
+        "paper-1811-07835v2",
+        "paper-2005-07016v2",
+        "paper-2009-07851v3",
+        "paper-2010-08699v1",
+        "paper-2012-04068v2",
+        "paper-2111-03654v2",
+        "paper-2207-06431v2",
+        "paper-2308-02913v4",
+        "paper-2312-10950v2",
+        "paper-2401-06874v3",
+        "paper-2408-13687v1",
+        "paper-2508-05095v3"
+      ]
+    },
+    "tokenization": {
+      "min_token_length": 2,
+      "stopwords": "english-v1",
+      "tokenizer": "ascii-alphanumeric-v1"
+    }
+  },
+  "identity": {
+    "default_grouping": "source-record-v1",
+    "overrides": []
+  },
+  "policies": {
+    "default": "quality",
+    "fast": {
+      "promotion": {
+        "confirmation_depth": 3,
+        "confirmation_routes": [
+          "adaptive",
+          "graph_lexical"
+        ],
+        "maximum_protected_rank": 3,
+        "minimum_confirmations": 2,
+        "route": "graph_lexical"
+      },
+      "protected_route": "adaptive",
+      "routes": [
+        "adaptive",
+        "graph_lexical"
+      ],
+      "rrf_k": 5,
+      "weights": [
+        4,
+        1
+      ]
+    },
+    "quality": {
+      "promotion": {
+        "confirmation_depth": 3,
+        "confirmation_routes": [
+          "adaptive",
+          "graph_lexical",
+          "graph_fusion",
+          "bm25",
+          "embedding_hybrid"
+        ],
+        "maximum_protected_rank": 10,
+        "minimum_confirmations": 3,
+        "route": "graph_lexical"
+      },
+      "protected_route": "adaptive",
+      "routes": [
+        "adaptive",
+        "graph_fusion",
+        "bm25",
+        "embedding_hybrid"
+      ],
+      "rrf_k": 7,
+      "weights": [
+        4,
+        1,
+        5,
+        1
+      ]
+    },
+    "robust": {
+      "promotion": {
+        "confirmation_depth": 1,
+        "confirmation_routes": [
+          "adaptive"
+        ],
+        "maximum_protected_rank": 1,
+        "minimum_confirmations": 1,
+        "route": "adaptive"
+      },
+      "protected_route": "adaptive",
+      "routes": [
+        "adaptive"
+      ],
+      "rrf_k": 0,
+      "weights": [
+        1
+      ]
+    }
+  },
+  "quality_gates": {
+    "candidate_edge_weight": 0.0,
+    "claim_only_coverage_requires_bindings": true,
+    "maximum_embedding_claims_per_facet": 20,
+    "maximum_embedding_claims_total": 240,
+    "maximum_graph_claims_per_facet": 8,
+    "maximum_graph_claims_total": 80,
+    "protect_candidate_set": true,
+    "require_child_plan_parity": true,
+    "require_component_group_parity": true,
+    "require_core_parity": true,
+    "require_exact_answer_bindings": true,
+    "require_exact_passage_evidence": true,
+    "require_facet_status": true,
+    "require_total_identity_crosswalk": true,
+    "required_components": [
+      "adaptive",
+      "entity_graph",
+      "embedding"
+    ],
+    "reviewed_embedding_claims_only": true,
+    "reviewed_graph_claims_only": true
+  },
+  "schema_version": "2.0"
+}

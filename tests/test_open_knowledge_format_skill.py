@@ -71,14 +71,14 @@ def test_copied_skill_builds_and_validates_a_generic_project(tmp_path: Path) -> 
 
     runner = tmp_path / "unrelated-working-directory"
     runner.mkdir()
-    output = project / "okf"
+    output = project / "build" / "okf"
     builder = standalone / "scripts" / "build_project_okf_bundle.py"
     validator = standalone / "scripts" / "validate_okf_bundle.py"
     environment = os.environ.copy()
     environment["PYTHONPATH"] = ""
 
     build = subprocess.run(
-        [sys.executable, str(builder), str(project), "--output", str(output)],
+        [sys.executable, str(builder), str(project)],
         cwd=runner,
         env=environment,
         capture_output=True,
@@ -88,7 +88,7 @@ def test_copied_skill_builds_and_validates_a_generic_project(tmp_path: Path) -> 
     assert build.returncode == 0, build.stderr
 
     check = subprocess.run(
-        [sys.executable, str(builder), str(project), "--output", str(output), "--check"],
+        [sys.executable, str(builder), str(project), "--check"],
         cwd=runner,
         env=environment,
         capture_output=True,
@@ -124,6 +124,14 @@ def test_copied_skill_builds_and_validates_a_generic_project(tmp_path: Path) -> 
         "title": "Nebula Toolkit",
         "description": "Project documentation for nebula-tools.",
         "tags": ["project", "okf"],
+        "sources": [
+            {
+                "id": "project-readme",
+                "resource": "../../README.md",
+                "title": "README.md",
+            }
+        ],
+        "generated": {"by": "process:open-knowledge-format-projector"},
         "source_path": "README.md",
     }
     assert specification_frontmatter["description"] == (
@@ -132,6 +140,9 @@ def test_copied_skill_builds_and_validates_a_generic_project(tmp_path: Path) -> 
     assert specification_frontmatter["tags"] == ["requirements", "okf"]
     assert skill_frontmatter["skill_name"] == "observe-nebulae"
     assert skill_frontmatter["source_path"] == "skills/observe-nebulae/SKILL.md"
+    assert skill_frontmatter["sources"][0]["resource"] == (
+        "../../../skills/observe-nebulae/SKILL.md"
+    )
 
     generated_text = "\n".join(
         path.read_text(encoding="utf-8") for path in sorted(output.rglob("*.md"))

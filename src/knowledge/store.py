@@ -21,18 +21,49 @@ from .errors import (
 
 
 TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
+LOCAL_STORE_DIRECTORY = ".know"
+GLOBAL_STORE_DIRECTORY = ".knowledge"
 
 
 def utc_now() -> str:
     return datetime.now(UTC).replace(microsecond=0).isoformat()
 
 
+def discover_local_store(start: Path | None = None) -> Path | None:
+    """Return the nearest project-local ``.know`` store above *start*."""
+    current = (start or Path.cwd()).expanduser().resolve()
+    if current.is_file():
+        current = current.parent
+    for directory in (current, *current.parents):
+        candidate = directory / LOCAL_STORE_DIRECTORY
+        if candidate.is_dir():
+            return candidate.resolve()
+    return None
+
+
+def default_store_root(start: Path | None = None) -> Path:
+    """Resolve the active store from a local project or the user fallback."""
+    local_store = discover_local_store(start)
+    if local_store is not None:
+        return local_store
+    return (Path.home() / GLOBAL_STORE_DIRECTORY).resolve()
+
+
+def project_store_root(project_directory: Path | None = None) -> Path:
+    """Return the ``.know`` path initialized for a project directory."""
+    return (
+        (project_directory or Path.cwd()).expanduser().resolve()
+        / LOCAL_STORE_DIRECTORY
+    )
+
+
 @dataclass
 class KnowledgeStore:
-    """Manages the local ``~/.knowledge`` store on disk.
+    """Manages a discovered project store or the global user store on disk.
 
     All CRUD operations for keys, sources, credentials, and archives are
-    handled through this class.
+    handled through this class. An explicit root wins over the nearest
+    ancestor ``.know`` directory and the ``~/.knowledge`` fallback.
     """
 
     root_override: Path | None = None
@@ -40,8 +71,8 @@ class KnowledgeStore:
     def __post_init__(self) -> None:
         self.root = (
             self.root_override.expanduser().resolve()
-            if self.root_override
-            else (Path.home() / ".knowledge").resolve()
+            if self.root_override is not None
+            else default_store_root()
         )
         self.temp_root = TEMP_ROOT
         self.config_path = self.root / "config.yaml"

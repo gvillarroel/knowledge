@@ -1,0 +1,72 @@
+{
+  "schema_version": "private-book-retrieval-evaluation/1.0",
+  "dataset_id": "data-science-ai-ml-books-40",
+  "frozen_inputs": {
+    "manifest_sha256": "0cc4ddbd88fb63716d8f65402856637fcd43034802f6e1879544009aa48fe6fd",
+    "questions_sha256": "c087c701954bf78bb759685911184114e7e8f8a57ff114a845a8efa2efaac269"
+  },
+  "question_count": 40,
+  "cohorts": {
+    "development": {
+      "first": "q001-ai-application-engineering",
+      "last": "q030-snowflake-sql-scripting",
+      "questions": 30
+    },
+    "hard": {
+      "first": "q031-sql-foundations-and-matching",
+      "last": "q040-engineering-ml-careers",
+      "questions": 10
+    }
+  },
+  "candidate_policy": {
+    "routes": [
+      "legacy-lexical",
+      "embeddings-lexical",
+      "embeddings-vector",
+      "embeddings-hybrid",
+      "classical-bm25",
+      "classical-topic",
+      "classical-association",
+      "classical-fusion",
+      "adaptive-fusion",
+      "entity-graph-lexical",
+      "entity-graph-entity",
+      "entity-graph-traversal",
+      "entity-graph-fusion",
+      "ensemble-fast",
+      "ensemble-quality",
+      "ensemble-robust",
+      "graphify-search",
+      "turso-lexical-sql"
+    ],
+    "qrel_access": "forbidden-during-retrieval",
+    "profile_forging": "forbidden",
+    "mutation_after_result": "requires-new-evaluation-only-cohort"
+  },
+  "retrieval": {
+    "top_k": 10,
+    "identity": "authoritative-record-id",
+    "qrels": "reviewed-non-exhaustive-book-focus-sets",
+    "replicates": 3
+  },
+  "metrics": [
+    "recall-at-10",
+    "mrr-at-10",
+    "ndcg-at-10",
+    "full-qrel-coverage-at-10",
+    "exact-evidence-validity",
+    "query-ranking-stability",
+    "representative-p95-latency"
+  ],
+  "privacy": {
+    "source_text": "private",
+    "raw_rankings": "private",
+    "publishable": [
+      "paraphrased questions",
+      "record identifiers",
+      "aggregate metrics",
+      "hash-only provenance"
+    ]
+  },
+  "answer_quality_evaluated": false
+}

@@ -1,0 +1,416 @@
+{
+  "schema_version": "qec-paper-benchmark-blueprint/1.0",
+  "dataset_id": "quantum-error-correction-papers-40",
+  "questions": [
+    {
+      "id": "q001-surface-code-braiding",
+      "category": "surface-code-architecture",
+      "question": "Which paper introduces surface-code logical qubits, braiding, and a braid implementation of controlled-NOT?",
+      "dimensions": ["architecture", "logical-gates"],
+      "focus_papers": ["1208.0928v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the surface-code introduction and connect braiding to controlled-NOT."]
+    },
+    {
+      "id": "q002-surface-code-universal-gates",
+      "category": "surface-code-architecture",
+      "question": "Which source develops Hadamard, S, and T operations after describing surface-code stabilizers and logical motion?",
+      "dimensions": ["architecture", "logical-gates"],
+      "focus_papers": ["1208.0928v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the source that completes a universal gate set after its surface-code construction."]
+    },
+    {
+      "id": "q003-biased-noise-thresholds",
+      "category": "surface-code-noise",
+      "question": "Which papers tailor surface-code structure to biased noise in order to obtain unusually high thresholds?",
+      "dimensions": ["noise-bias", "threshold"],
+      "focus_papers": ["1708.08474v3", "2009.07851v3"],
+      "min_papers": 2,
+      "required_points": ["Compare the biased-noise threshold strategy with the XZZX basis choice."]
+    },
+    {
+      "id": "q004-xzzx-hashing-bound",
+      "category": "surface-code-noise",
+      "question": "Which paper reports that an explicit XZZX code matches the hashing bound for every single-qubit Pauli noise channel?",
+      "dimensions": ["xzzx", "threshold"],
+      "focus_papers": ["2009.07851v3"],
+      "min_papers": 1,
+      "required_points": ["Identify the XZZX result and its hashing-bound scope."]
+    },
+    {
+      "id": "q005-distance-five-scaling",
+      "category": "surface-code-experiment",
+      "question": "Which experiment reports a distance-five logical qubit modestly outperforming an ensemble of distance-three logical qubits over 25 cycles?",
+      "dimensions": ["experiment", "distance-scaling"],
+      "focus_papers": ["2207.06431v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the first experimental distance-scaling comparison."]
+    },
+    {
+      "id": "q006-high-energy-event-floor",
+      "category": "surface-code-experiment",
+      "question": "Which study uses a distance-25 repetition code to expose a logical-error floor caused by a single high-energy event?",
+      "dimensions": ["experiment", "rare-errors"],
+      "focus_papers": ["2207.06431v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the repetition-code diagnostic and the rare-event limitation."]
+    },
+    {
+      "id": "q007-distance-seven-memory",
+      "category": "surface-code-experiment",
+      "question": "Which paper operates a 101-qubit distance-seven surface-code memory below threshold and reports error per cycle?",
+      "dimensions": ["experiment", "below-threshold"],
+      "focus_papers": ["2408.13687v1"],
+      "min_papers": 1,
+      "required_points": ["Identify the distance-seven below-threshold memory result."]
+    },
+    {
+      "id": "q008-real-time-decoder-latency",
+      "category": "surface-code-experiment",
+      "question": "Which experiment combines a distance-five surface code with a real-time decoder and reports microsecond-scale decoder latency?",
+      "dimensions": ["experiment", "real-time-decoding"],
+      "focus_papers": ["2408.13687v1"],
+      "min_papers": 1,
+      "required_points": ["Identify the real-time decoder and distinguish latency from the correction-cycle time."]
+    },
+    {
+      "id": "q009-experimental-scaling-sequence",
+      "category": "surface-code-experiment",
+      "question": "Which two papers form the experimental sequence from initial logical improvement with code scaling to operation below the surface-code threshold?",
+      "dimensions": ["experiment", "distance-scaling", "below-threshold"],
+      "focus_papers": ["2207.06431v2", "2408.13687v1"],
+      "min_papers": 2,
+      "required_points": ["Contrast the first scaling improvement with the later below-threshold memory."]
+    },
+    {
+      "id": "q010-rare-correlated-events",
+      "category": "surface-code-experiment",
+      "question": "Which experimental reports use long repetition-code runs to diagnose rare correlated events that limit logical performance?",
+      "dimensions": ["experiment", "rare-errors"],
+      "focus_papers": ["2207.06431v2", "2408.13687v1"],
+      "min_papers": 2,
+      "required_points": ["Explain that rare correlated events remain a limitation even as average code performance improves."]
+    },
+    {
+      "id": "q011-noise-specialized-surface-codes",
+      "category": "surface-code-noise",
+      "question": "Which sources argue that specializing a surface code to physical noise structure improves threshold or sub-threshold overhead?",
+      "dimensions": ["noise-bias", "overhead"],
+      "focus_papers": ["1708.08474v3", "2009.07851v3"],
+      "min_papers": 2,
+      "required_points": ["Relate noise specialization to threshold and resource behavior."]
+    },
+    {
+      "id": "q012-practical-local-surface-codes",
+      "category": "surface-code-architecture",
+      "question": "Which papers retain local stabilizers and practical decoding while presenting surface-code routes to fault-tolerant computation?",
+      "dimensions": ["locality", "decoder", "fault-tolerance"],
+      "focus_papers": ["1208.0928v2", "2009.07851v3"],
+      "min_papers": 2,
+      "required_points": ["Connect local checks and practical decoding to fault-tolerant architecture."]
+    },
+    {
+      "id": "q013-neural-belief-propagation",
+      "category": "decoder",
+      "question": "Which paper maps belief propagation to a deep neural network and trains a loss tailored to quantum error degeneracy?",
+      "dimensions": ["belief-propagation", "machine-learning", "degeneracy"],
+      "focus_papers": ["1811.07835v2"],
+      "min_papers": 1,
+      "required_points": ["Identify neural BP as a degeneracy-aware learned decoder."]
+    },
+    {
+      "id": "q014-bp-osd-landscape",
+      "category": "decoder",
+      "question": "Which work presents belief propagation plus ordered-statistics post-processing as a general decoder across hypergraph-product code families?",
+      "dimensions": ["belief-propagation", "ordered-statistics"],
+      "focus_papers": ["2005.07016v2"],
+      "min_papers": 1,
+      "required_points": ["Identify BP+OSD and its tested hypergraph-product landscape."]
+    },
+    {
+      "id": "q015-semi-topological-tradeoff",
+      "category": "decoder",
+      "question": "Which decoder paper introduces semi-topological codes to control the trade-off between threshold and stabilizer locality?",
+      "dimensions": ["code-family", "locality", "threshold"],
+      "focus_papers": ["2005.07016v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the semi-topological construction and its intended trade-off."]
+    },
+    {
+      "id": "q016-guided-decimation",
+      "category": "decoder",
+      "question": "Which decoder sequentially fixes the values of the most reliable qubits to encourage belief-propagation convergence?",
+      "dimensions": ["belief-propagation", "guided-decimation"],
+      "focus_papers": ["2312.10950v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the guided-decimation mechanism."]
+    },
+    {
+      "id": "q017-decimation-without-linear-systems",
+      "category": "decoder",
+      "question": "Which approach aims to match BP-OSD or stabilizer-inactivation performance without solving systems of linear equations?",
+      "dimensions": ["belief-propagation", "complexity"],
+      "focus_papers": ["2312.10950v2"],
+      "min_papers": 1,
+      "required_points": ["Identify BPGD and its claimed post-processing complexity advantage."]
+    },
+    {
+      "id": "q018-ensemble-bp-short-cycles",
+      "category": "decoder",
+      "question": "Which joint code-and-decoder design uses an ensemble belief-propagation decoder to mitigate unavoidable short cycles?",
+      "dimensions": ["joint-design", "belief-propagation", "short-cycles"],
+      "focus_papers": ["2401.06874v3"],
+      "min_papers": 1,
+      "required_points": ["Identify the ensemble BP mechanism in the joint design."]
+    },
+    {
+      "id": "q019-quasi-cyclic-finite-geometry",
+      "category": "decoder",
+      "question": "Which work constructs qLDPC families from classical quasi-cyclic and finite-geometry codes while co-designing the decoder?",
+      "dimensions": ["joint-design", "code-construction"],
+      "focus_papers": ["2401.06874v3"],
+      "min_papers": 1,
+      "required_points": ["Identify both construction sources used by the joint code/decoder paper."]
+    },
+    {
+      "id": "q020-bp-degeneracy-short-cycles",
+      "category": "decoder-comparison",
+      "question": "Which papers explicitly address belief-propagation failures caused by quantum degeneracy or short cycles?",
+      "dimensions": ["belief-propagation", "degeneracy", "short-cycles"],
+      "focus_papers": ["1811.07835v2", "2312.10950v2", "2401.06874v3"],
+      "min_papers": 3,
+      "required_points": ["Distinguish learned, decimation, and ensemble remedies."]
+    },
+    {
+      "id": "q021-learned-versus-decimated-bp",
+      "category": "decoder-comparison",
+      "question": "Which two papers provide contrasting learned-weight and guided-decimation remedies for nonconvergent quantum belief propagation?",
+      "dimensions": ["belief-propagation", "comparison"],
+      "focus_papers": ["1811.07835v2", "2312.10950v2"],
+      "min_papers": 2,
+      "required_points": ["Contrast offline learned BP parameters with sequential qubit fixation."]
+    },
+    {
+      "id": "q022-ordered-statistics-uses",
+      "category": "decoder-comparison",
+      "question": "Which papers use or directly benchmark ordered-statistics decoding in a qLDPC setting?",
+      "dimensions": ["ordered-statistics", "benchmark"],
+      "focus_papers": ["2005.07016v2", "2312.10950v2", "2508.05095v3"],
+      "min_papers": 3,
+      "required_points": ["Separate BP+OSD as a decoder, BPGD as a comparator, and Tanner-code evaluation."]
+    },
+    {
+      "id": "q023-bp-across-code-families",
+      "category": "decoder-comparison",
+      "question": "Which studies apply BP-based decoding across hypergraph-product or explicit quantum Tanner code families?",
+      "dimensions": ["belief-propagation", "code-family"],
+      "focus_papers": ["2005.07016v2", "2508.05095v3"],
+      "min_papers": 2,
+      "required_points": ["Identify the distinct code families used in the two decoder evaluations."]
+    },
+    {
+      "id": "q024-code-decoder-codesign",
+      "category": "decoder-comparison",
+      "question": "Which papers make code construction and practical decoding part of the same evaluation rather than studying a decoder in isolation?",
+      "dimensions": ["joint-design", "evaluation"],
+      "focus_papers": ["2401.06874v3", "2508.05095v3"],
+      "min_papers": 2,
+      "required_points": ["Explain how construction properties and decoder performance are evaluated together."]
+    },
+    {
+      "id": "q025-almost-linear-distance",
+      "category": "qldpc-construction",
+      "question": "Which paper constructs qLDPC codes with dimension Theta(log N) and distance Theta(N/log N)?",
+      "dimensions": ["qldpc", "distance-scaling"],
+      "focus_papers": ["2012.04068v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the almost-linear-distance construction and both asymptotic parameters."]
+    },
+    {
+      "id": "q026-lifted-product-operation",
+      "category": "qldpc-construction",
+      "question": "Which work introduces the lifted-product operation and derives a quasi-cyclic classical LDPC result as a byproduct?",
+      "dimensions": ["lifted-product", "classical-code"],
+      "focus_papers": ["2012.04068v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the lifted-product operation and the classical-code byproduct."]
+    },
+    {
+      "id": "q027-qldpc-conjecture",
+      "category": "qldpc-construction",
+      "question": "Which paper proves the qLDPC conjecture by constructing asymptotically good constant-rate quantum LDPC codes?",
+      "dimensions": ["qldpc", "asymptotic-goodness"],
+      "focus_papers": ["2111.03654v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the asymptotically good construction and its consequence for the qLDPC conjecture."]
+    },
+    {
+      "id": "q028-locally-testable-classical",
+      "category": "qldpc-construction",
+      "question": "Which qLDPC paper also proves asymptotically good locally testable classical codes with constant query and soundness?",
+      "dimensions": ["local-testability", "classical-code"],
+      "focus_papers": ["2111.03654v2"],
+      "min_papers": 1,
+      "required_points": ["Identify the paired classical locally testable code result."]
+    },
+    {
+      "id": "q029-explicit-tanner-codes",
+      "category": "qldpc-construction",
+      "question": "Which paper builds explicit quantum Tanner codes from dihedral groups and random pairs of classical codes?",
+      "dimensions": ["quantum-tanner", "explicit-construction"],
+      "focus_papers": ["2508.05095v3"],
+      "min_papers": 1,
+      "required_points": ["Identify the ingredients of the explicit Tanner-code construction."]
+    },
+    {
+      "id": "q030-tanner-overhead-decoding",
+      "category": "qldpc-construction",
+      "question": "Which work evaluates quantum Tanner codes with BP+OSD under phenomenological and circuit-level noise and studies space-time overhead?",
+      "dimensions": ["quantum-tanner", "decoder", "overhead"],
+      "focus_papers": ["2508.05095v3"],
+      "min_papers": 1,
+      "required_points": ["Identify both noise settings, the decoder, and the overhead analysis."]
+    },
+    {
+      "id": "q031-lifted-product-progression",
+      "category": "qldpc-hard",
+      "question": "Trace the lifted-product progression from almost-linear minimum distance to asymptotically good qLDPC codes. What did each paper establish, and what claim should not be attributed to the earlier result?",
+      "dimensions": ["qldpc", "comparison", "important-negative"],
+      "focus_papers": ["2012.04068v2", "2111.03654v2"],
+      "min_papers": 2,
+      "required_points": [
+        "The earlier construction obtains distance Theta(N/log N) with dimension Theta(log N) and introduces lifted products.",
+        "The later non-abelian lifted-product construction has constant rate and linear-distance asymptotic goodness.",
+        "Do not describe the earlier almost-linear-distance family as already proving constant-rate asymptotically good qLDPC codes."
+      ],
+      "important_negatives": ["The 2020 construction alone does not prove the full constant-rate qLDPC conjecture."]
+    },
+    {
+      "id": "q032-qldpc-theory-to-instance",
+      "category": "qldpc-hard",
+      "question": "Compare the theoretical construction milestones with explicit Tanner-code instances and decoding. Which sources establish asymptotics, and which one supplies finite instances, noise simulations, and overhead?",
+      "dimensions": ["qldpc", "theory-to-practice", "decoder"],
+      "focus_papers": ["2012.04068v2", "2111.03654v2", "2508.05095v3"],
+      "min_papers": 3,
+      "required_points": [
+        "Separate almost-linear-distance and asymptotically good theoretical results.",
+        "Identify explicit quantum Tanner instances and their BP+OSD evaluation.",
+        "Keep asymptotic proofs distinct from finite pseudo-threshold and overhead measurements."
+      ],
+      "important_negatives": ["Do not treat finite Tanner-code simulations as a new proof of the qLDPC conjecture."]
+    },
+    {
+      "id": "q033-nonabelian-lifted-products",
+      "category": "qldpc-hard",
+      "question": "Which construction uses lifted products over non-abelian groups, what quantum and classical conjectures does it resolve, and how does that differ from the earlier lifted-product result?",
+      "dimensions": ["qldpc", "non-abelian-groups", "comparison"],
+      "focus_papers": ["2012.04068v2", "2111.03654v2"],
+      "min_papers": 2,
+      "required_points": [
+        "Identify non-abelian lifted products as the later construction.",
+        "State the asymptotically good qLDPC and locally testable classical-code consequences.",
+        "Contrast those consequences with the earlier almost-linear minimum-distance family."
+      ],
+      "important_negatives": ["Do not conflate the two lifted-product papers or their asymptotic parameters."]
+    },
+    {
+      "id": "q034-tanner-performance-boundary",
+      "category": "qldpc-hard",
+      "question": "What evidence does the explicit quantum Tanner-code paper provide about rate, distance, pseudo-thresholds, BP+OSD, and space-time overhead, and what broad asymptotic conclusion remains supplied by a different paper?",
+      "dimensions": ["quantum-tanner", "performance", "boundary"],
+      "focus_papers": ["2111.03654v2", "2508.05095v3"],
+      "min_papers": 2,
+      "required_points": [
+        "Describe the explicit Tanner instances, finite performance, and overhead analysis.",
+        "Attribute the asymptotically good qLDPC proof to the non-abelian lifted-product work.",
+        "Distinguish finite comparable-to-surface-code simulations from an asymptotic theorem."
+      ],
+      "important_negatives": ["Do not infer universal hardware advantage from the reported finite Tanner-code instances."]
+    },
+    {
+      "id": "q035-binomial-code-mechanism",
+      "category": "bosonic-hard",
+      "question": "How does the binomial bosonic-code proposal encode information into a single oscillator, which error sets does it target, and why is the construction described as approximate rather than a universal cure for oscillator noise?",
+      "dimensions": ["bosonic-code", "binomial", "error-model"],
+      "focus_papers": ["1602.00008v3"],
+      "min_papers": 1,
+      "required_points": [
+        "Identify finite superpositions of Fock states as the encoding structure.",
+        "Relate code parameters to a selected finite set of loss, gain, or dephasing errors.",
+        "Preserve the approximate and error-model-specific scope."
+      ],
+      "important_negatives": ["Do not claim that one finite binomial code corrects arbitrary oscillator noise exactly."]
+    },
+    {
+      "id": "q036-bosonic-family-comparison",
+      "category": "bosonic-hard",
+      "question": "Compare binomial, cat, and GKP bosonic encodings across the selected sources. Which paper introduces binomial codes, which review spans all three families, and which review concentrates on GKP engineering and applications?",
+      "dimensions": ["bosonic-code", "comparison", "review"],
+      "focus_papers": ["1602.00008v3", "2010.08699v1", "2308.02913v4"],
+      "min_papers": 3,
+      "required_points": [
+        "Attribute the binomial construction to the single-mode proposal.",
+        "Identify the superconducting review as spanning cat, binomial, and GKP codes.",
+        "Identify the later review as GKP-focused and application-oriented."
+      ],
+      "important_negatives": ["Do not present cat, binomial, and GKP codes as the same encoding mechanism."]
+    },
+    {
+      "id": "q037-bosonic-break-even",
+      "category": "bosonic-hard",
+      "question": "What does the superconducting-circuit bosonic-code review mean by reaching break-even, which code families does it cover, and why is break-even not the same as complete fault-tolerant universal computation?",
+      "dimensions": ["bosonic-code", "break-even", "fault-tolerance"],
+      "focus_papers": ["2010.08699v1"],
+      "min_papers": 1,
+      "required_points": [
+        "Define break-even as a logical lifetime exceeding that of the constituent components.",
+        "Name cat, binomial, and GKP code families.",
+        "Distinguish lifetime improvement from a complete scalable fault-tolerant stack."
+      ],
+      "important_negatives": ["Do not equate a break-even memory demonstration with universal fault-tolerant computation."]
+    },
+    {
+      "id": "q038-gkp-engineering-applications",
+      "category": "bosonic-hard",
+      "question": "Map the GKP review from continuous-variable foundations through state preparation and stabilization to multimode and oscillator-to-oscillator codes. Which computing, communication, and sensing applications does that progression support?",
+      "dimensions": ["gkp", "engineering", "applications"],
+      "focus_papers": ["2308.02913v4"],
+      "min_papers": 1,
+      "required_points": [
+        "Cover GKP state preparation and stabilization in physical platforms.",
+        "Include multimode GKP and oscillator-to-oscillator codes.",
+        "Connect the review to computing, communication, and sensing."
+      ],
+      "important_negatives": ["Do not reduce the GKP review to superconducting memory alone."]
+    },
+    {
+      "id": "q039-bosonic-hardware-scope",
+      "category": "bosonic-hard",
+      "question": "Which bosonic-code sources are primarily superconducting-circuit focused, and which GKP review broadens the implementation discussion to optical and trapped-ion platforms?",
+      "dimensions": ["bosonic-code", "hardware", "platform-comparison"],
+      "focus_papers": ["2010.08699v1", "2308.02913v4"],
+      "min_papers": 2,
+      "required_points": [
+        "Identify the superconducting-circuit review's hardware emphasis.",
+        "Identify optical and trapped-ion GKP realization discussions in the broader review.",
+        "Keep platform coverage distinct from proof that all platforms have equal maturity."
+      ],
+      "important_negatives": ["Do not claim equal experimental maturity across superconducting, optical, and trapped-ion GKP platforms."]
+    },
+    {
+      "id": "q040-bosonic-evidence-boundary",
+      "category": "bosonic-hard",
+      "question": "Synthesize the selected bosonic-code evidence into a cautious adoption boundary: what is established about designed single-mode codes, break-even progress, and GKP applications, and what remains unsupported as a universal hardware-independent guarantee?",
+      "dimensions": ["bosonic-code", "synthesis", "important-negative"],
+      "focus_papers": ["1602.00008v3", "2010.08699v1", "2308.02913v4"],
+      "min_papers": 3,
+      "required_points": [
+        "Treat binomial codes as designed finite-error-set encodings.",
+        "Treat break-even and fault-tolerant operation progress as platform-specific evidence.",
+        "Treat GKP computing, communication, and sensing as a broad application program rather than a universal guarantee."
+      ],
+      "important_negatives": ["Do not claim that the selected reviews establish a universally superior bosonic code or hardware-independent fault tolerance."]
+    }
+  ]
+}

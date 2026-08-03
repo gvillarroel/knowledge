@@ -8,7 +8,8 @@ from urllib.parse import urlparse
 import yaml
 
 
-OKF_VERSION = "0.1"
+OKF_VERSION = "0.2"
+GENERATOR_ACTOR = "process:know-export"
 
 FRONTMATTER_RE = re.compile(
     r"\A\ufeff?---\r?\n(?P<frontmatter>.*?)\r?\n---(?:\r?\n|\Z)",
@@ -61,7 +62,11 @@ OKF_FIELD_ORDER = (
     "description",
     "resource",
     "tags",
-    "timestamp",
+    "sources",
+    "generated",
+    "verified",
+    "status",
+    "stale_after",
 )
 
 
@@ -72,7 +77,7 @@ def apply_okf_frontmatter(
     body: str = "",
     fallback_title: str | None = None,
 ) -> dict[str, Any]:
-    """Return frontmatter enriched with Open Knowledge Format v0.1 fields."""
+    """Return frontmatter enriched with Open Knowledge Format v0.2 fields."""
     normalized = dict(frontmatter)
     source = source or {}
 
@@ -93,10 +98,14 @@ def apply_okf_frontmatter(
         resource = _resource_from(normalized, source)
         if resource:
             normalized["resource"] = resource
-    if not _has_value(normalized.get("timestamp")):
-        timestamp = _timestamp_from(normalized, source)
-        if timestamp:
-            normalized["timestamp"] = timestamp
+    generated = _generated_from(normalized, source)
+    normalized.pop("timestamp", None)
+    normalized["generated"] = generated
+
+    if not _has_value(normalized.get("sources")):
+        sources = _sources_from(normalized, source)
+        if sources:
+            normalized["sources"] = sources
 
     tags = _tags_from(normalized, source)
     if tags:
@@ -198,6 +207,40 @@ def _timestamp_from(frontmatter: dict[str, Any], source: dict[str, Any]) -> str 
         if _has_value(value):
             return str(value)
     return None
+
+
+def _generated_from(frontmatter: dict[str, Any], source: dict[str, Any]) -> dict[str, Any]:
+    """Return a valid deterministic OKF v0.2 generation event."""
+
+    existing = frontmatter.get("generated")
+    generated = dict(existing) if isinstance(existing, dict) else {}
+    if not _has_value(generated.get("by")):
+        generated["by"] = GENERATOR_ACTOR
+    if not _has_value(generated.get("at")):
+        timestamp = _timestamp_from(frontmatter, source)
+        if timestamp:
+            generated["at"] = timestamp
+    return generated
+
+
+def _sources_from(
+    frontmatter: dict[str, Any],
+    source: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Derive one OKF v0.2 provenance entry without inventing source facts."""
+
+    resource = _resource_from(frontmatter, source)
+    if not resource:
+        return []
+
+    entry: dict[str, Any] = {"resource": resource}
+    source_id = source.get("id")
+    if _has_value(source_id):
+        entry["id"] = str(source_id)
+    title = source.get("title")
+    if _has_value(title):
+        entry["title"] = str(title)
+    return [entry]
 
 
 def _tags_from(frontmatter: dict[str, Any], source: dict[str, Any]) -> list[str]:

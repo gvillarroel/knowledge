@@ -31,6 +31,7 @@ from _semantic_okf import (  # noqa: E402
 from build_semantic_okf import (  # noqa: E402
     _error_code,
     build,
+    build_incremental,
     discover_source_files,
 )
 
@@ -653,6 +654,8 @@ def refresh_bundle(
                     "candidate": candidate_validation.get("status"),
                 },
             }
+            if "incremental" in build_report:
+                report["build"]["incremental"] = build_report["incremental"]
             if before_tree == after_tree:
                 return report
             if check:
@@ -680,6 +683,11 @@ def build_parser() -> argparse.ArgumentParser:
     update = subparsers.add_parser("update", help="Reprocess all sources and refresh an existing bundle.")
     update.add_argument("manifest", type=Path)
     update.add_argument("output", type=Path)
+    update.add_argument(
+        "--cache-dir",
+        type=Path,
+        help="Parse only added or changed physical files using an external derived cache.",
+    )
     update.add_argument("--check", action="store_true", help="Build and compare without promotion.")
     update.add_argument("--allow-plan-change", action="store_true")
     update.add_argument("--allow-record-removals", action="store_true")
@@ -719,6 +727,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "recover":
             report = recover_bundle(args.output)
         else:
+            build_fn = (
+                (lambda manifest, output: build_incremental(manifest, output, args.cache_dir))
+                if args.cache_dir
+                else build
+            )
             report = refresh_bundle(
                 args.manifest,
                 args.output,
@@ -727,6 +740,7 @@ def main(argv: list[str] | None = None) -> int:
                 allow_record_removals=args.allow_record_removals,
                 expected_current_tree_sha256=args.expected_current_tree_sha256,
                 expected_candidate_tree_sha256=args.expected_candidate_tree_sha256,
+                build_fn=build_fn,
             )
     except RefreshError as exc:
         payload = {"status": "error", "code": exc.code, "error": str(exc)}

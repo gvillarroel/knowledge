@@ -118,9 +118,14 @@ def _load_inputs(
         raise CanonicalEvaluationError("--top-k must be at least 10")
     inventory = BASE.load_inventory(args.inventory)
     questions = BASE.load_questions(args.questions)
-    if len(questions) != 40:
+    if len(questions) != args.expected_question_count:
         raise CanonicalEvaluationError(
-            f"canonical evaluation requires 40 questions, found {len(questions)}"
+            "evaluation requires "
+            f"{args.expected_question_count} questions, found {len(questions)}"
+        )
+    if args.canonical_cohorts and len(questions) != 40:
+        raise CanonicalEvaluationError(
+            "--canonical-cohorts requires exactly 40 questions"
         )
     bundle = args.bundle.resolve()
     baseline = args.baseline_bundle.resolve()
@@ -143,7 +148,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     if raw_verification["status"] != "pass":
         raise CanonicalEvaluationError("raw input inventory verification failed")
     core_parity = COMPARATOR._compare_core(baseline, bundle)
-    if core_parity["status"] != "pass":
+    if core_parity["status"] != "pass" and not args.allow_core_drift:
         raise CanonicalEvaluationError(
             "candidate authoritative core differs from the canonical baseline"
         )
@@ -192,7 +197,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     original_ids = {question.identifier for question in questions[:30]}
     hard_ids = {question.identifier for question in questions[30:]}
     for route in routes:
-        COMPARATOR._attach_cohorts(route, original_ids, hard_ids)
+        if args.canonical_cohorts:
+            COMPARATOR._attach_cohorts(route, original_ids, hard_ids)
         if route["error_count"] != 0:
             raise CanonicalEvaluationError(
                 f"route {route['name']} produced query errors"
@@ -206,6 +212,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "status": "pass",
         "candidate_state": "experimental-comparator-not-registry-family",
+        "dataset_id": args.dataset_id,
         "query_count": len(questions),
         "top_k": args.top_k,
         "deep_validation": args.deep_validation,
@@ -216,7 +223,11 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "mrr_cutoff": 10,
             "ndcg_cutoff": 10,
             "relevance": "binary reviewed qrels",
-            "cohorts": "all 40, original 30, and hard 10",
+            "cohorts": (
+                "all 40, original 30, and hard 10"
+                if args.canonical_cohorts
+                else f"one complete {len(questions)}-question evaluation cohort"
+            ),
         },
         "timing_contract": {
             "unit": "milliseconds",
@@ -267,6 +278,7 @@ def _milliseconds(value: Any) -> str:
 def render_markdown(report: dict[str, Any]) -> str:
     """Render candidate rows in the canonical direct-retrieval shape."""
 
+    has_canonical_cohorts = "cohorts" in report["routes"][0]
     lines = [
         "# Reference-aware RustMallet Canonical Retrieval Run",
         "",
@@ -274,23 +286,43 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"Returned pool: {report['top_k']}. Deep validation: "
         f"{str(report['deep_validation']).lower()}.",
         "",
-        "| Family | Route | All-40 Recall@10 | All-40 MRR@10 | "
-        "All-40 nDCG@10 | Hard-10 Recall@10 | Hard-10 MRR@10 | "
-        "Hard-10 nDCG@10 | Evidence validity | Mean ms | P95 ms |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
+    if has_canonical_cohorts:
+        lines.extend(
+            [
+                "| Family | Route | All-40 Recall@10 | All-40 MRR@10 | "
+                "All-40 nDCG@10 | Hard-10 Recall@10 | Hard-10 MRR@10 | "
+                "Hard-10 nDCG@10 | Evidence validity | Mean ms | P95 ms |",
+                "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                f"| Family | Route | All-{report['query_count']} Recall@10 | "
+                f"All-{report['query_count']} MRR@10 | "
+                f"All-{report['query_count']} nDCG@10 | Evidence validity | Mean ms | P95 ms |",
+                "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
     for route in report["routes"]:
         all_paper = route["paper_metrics"]
-        hard = route["cohorts"]["hard_10"]
-        lines.append(
+        prefix = (
             f"| RustMallet + references | `{route['name']}` | "
             f"{_percent(all_paper['recall_at_10'])} | "
             f"{_percent(all_paper['mrr_at_10'])} | "
             f"{_percent(all_paper['ndcg_at_10'])} | "
-            f"{_percent(hard['paper_metrics']['recall_at_10'])} | "
-            f"{_percent(hard['paper_metrics']['mrr_at_10'])} | "
-            f"{_percent(hard['paper_metrics']['ndcg_at_10'])} | "
-            f"{_percent(route['evidence_validity']['ratio'])} | "
+        )
+        if has_canonical_cohorts:
+            hard = route["cohorts"]["hard_10"]
+            prefix += (
+                f"{_percent(hard['paper_metrics']['recall_at_10'])} | "
+                f"{_percent(hard['paper_metrics']['mrr_at_10'])} | "
+                f"{_percent(hard['paper_metrics']['ndcg_at_10'])} | "
+            )
+        lines.append(
+            prefix
+            + f"{_percent(route['evidence_validity']['ratio'])} | "
             f"{_milliseconds(route['timing_ms']['mean'])} | "
             f"{_milliseconds(route['timing_ms']['p95'])} |"
         )
@@ -325,6 +357,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--consult-script", type=Path, required=True)
     parser.add_argument("--top-k", type=int, default=10)
+    parser.add_argument("--expected-question-count", type=int, default=40)
+    parser.add_argument("--dataset-id", default="graphrag-papers-40")
+    parser.add_argument(
+        "--canonical-cohorts",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+    parser.add_argument("--allow-core-drift", action="store_true")
     parser.add_argument("--deep-validation", action="store_true")
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-markdown", type=Path, required=True)

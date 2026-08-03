@@ -11,6 +11,10 @@ For narrative usage and workflows, use:
 
 The CLI also loads a local `.env` file at startup. When a command below mentions an OS variable, that value can come from the current environment or from `.env`.
 
+Run `know init` at a project root to create `.know`. Other commands use the
+nearest `.know` at or above the working directory, fall back to
+`~/.knowledge`, and always honor an explicit `--store` first.
+
 ## Placeholders
 
 - `$KEY`: knowledge key name
@@ -184,7 +188,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 # Show the top-level CLI help
 `know --help`
 
-# Initialize the knowledge store
+# Initialize `.know` in the current directory
 `know init`
 
 ## Global Flags
@@ -195,7 +199,7 @@ The CLI also loads a local `.env` file at startup. When a command below mentions
 # Suppress non-error output
 `know --quiet export --key $KEY`
 
-# Override the default `~/.knowledge` store path
+# Override local project discovery and the `~/.knowledge` fallback
 `know --store $PATH list keys`
 
 # Print progress messages

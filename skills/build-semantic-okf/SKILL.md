@@ -21,10 +21,10 @@ Create and maintain one deterministic, validated knowledge folder from reviewed 
 3. Inspect the physical fields, identifiers, encodings, and data quality. Record any profiling command and result beside the manifest.
 4. Write a reviewed manifest with explicit classes, properties, source mappings, schemas, and evidence-backed SHACL rules.
 5. Verify the locked Python runtime.
-6. Build into a new output directory. The adapters parse every declared source strictly, normalize records, detect source changes, sort canonical records, and materialize the complete snapshot atomically.
+6. Build into a new output directory. The adapters parse every declared source strictly, normalize records, detect source changes, sort canonical records, and materialize the complete snapshot atomically. For large repeated builds, use an external incremental cache so only added or changed physical files are parsed.
 7. Validate the generated bundle independently.
 8. Run deterministic acceptance fixtures against the generated artifacts without modifying the candidate.
-9. Refresh by rebuilding all declared sources and promoting only a validated replacement snapshot.
+9. Refresh by assembling a complete replacement from every declared source and promoting it only after validation. A derived cache may reuse normalized records for unchanged physical files; it never changes the complete-snapshot publication boundary.
 
 Do not infer classes, relations, rules, identity matches, or source precedence from field names alone. Ask for review when the mapping would change domain meaning.
 
@@ -68,6 +68,18 @@ python scripts/validate_okf_bundle.py semantic-okf-output
 python scripts/validate_semantic_okf.py semantic-okf-output --output-format json
 ```
 
+For repeated builds, keep the discardable parser cache outside both raw input
+and generated output:
+
+```bash
+python scripts/build_semantic_okf.py manifest.json semantic-okf-output \
+  --cache-dir .semantic-okf-cache
+```
+
+Reuse requires the same logical path, raw SHA-256, adapter configuration, and
+processor digest. File modification times and date-based folders are not
+freshness authorities.
+
 The output directory must not already exist. A successful build contains:
 
 ```text
@@ -94,6 +106,14 @@ Preview a complete reprocessing pass:
 
 ```bash
 python scripts/refresh_semantic_okf.py update manifest.json semantic-okf-output --check --output-format json
+```
+
+Use the same external cache on preview and promotion to parse only changed
+physical inputs:
+
+```bash
+python scripts/refresh_semantic_okf.py update manifest.json semantic-okf-output \
+  --cache-dir .semantic-okf-cache --check --output-format json
 ```
 
 Promote an approved candidate:
@@ -130,6 +150,7 @@ Before delivery, confirm all of the following:
 - the build and independent validator pass with no retained staging directory;
 - paper or document text remains readable in the generated concepts;
 - the source manifest reports stable content and record digests;
+- an incremental run reports the exact added, changed, removed, reused, and processed physical files;
 - OKF concepts, ledger subjects, data subjects, provenance origins, ontology classes, and SHACL targets agree;
 - all construction acceptance fixtures pass without changing the candidate snapshot;
 - a second build from unchanged inputs produces the same logical artifacts;

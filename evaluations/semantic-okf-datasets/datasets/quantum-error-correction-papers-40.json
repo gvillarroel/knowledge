@@ -1,0 +1,70 @@
+{
+  "schema_version": "semantic-okf-evaluation-dataset/1.1",
+  "dataset_id": "quantum-error-correction-papers-40",
+  "title": "Quantum error correction cross-paper 40-question benchmark",
+  "description": "Fifteen version-pinned arXiv papers spanning surface codes, qLDPC theory and decoding, and bosonic quantum error correction, with thirty development and ten evidence-first hard questions.",
+  "question_format": "document-qrels",
+  "source_manifest": {
+    "path": "evaluations/quantum-error-correction-papers/manifest.json",
+    "sha256": "ef39d811d1fcb2bc9f8c07e226f05cdc199485a21cf93b6e2cac659b835a490c",
+    "count": 15
+  },
+  "questions": {
+    "path": "evaluations/quantum-error-correction-papers/benchmark/retrieval-questions.jsonl",
+    "sha256": "d0720d3d9a2608b990988ff10c2cb0b571b53486592de2542bb35dba3ff9dcd4",
+    "count": 40
+  },
+  "semantic_rubric": {
+    "path": "evaluations/quantum-error-correction-papers/benchmark/benchmark-blueprint.json",
+    "sha256": "d7976daf661974f4eb0f14dd72183125f619e2dda963bf5cfcb3b829625ce327",
+    "count": 40,
+    "format": "paper-blueprint"
+  },
+  "hard_ground_truth": {
+    "path": "evaluations/quantum-error-correction-papers/benchmark/hard-ground-truth.jsonl",
+    "sha256": "8443e604a1d947813cc70feb35a4b217df3a1948ed5c0b9b42bdcccfc85bf3db",
+    "count": 10,
+    "format": "paper"
+  },
+  "source_combination": {
+    "path": "evaluations/quantum-error-correction-papers/benchmark/source-combination.json",
+    "sha256": "b5b45d24673f97da93804543760a985e91eb51e67768cd3454afa706beb382f3"
+  },
+  "reference_bundle": "evaluations/quantum-error-correction-papers/bundle",
+  "cohorts": {
+    "path": "evaluations/quantum-error-correction-papers/benchmark/cohorts.json",
+    "sha256": "3d1608d237d021d6b70c18f8d6c4adaeeeacd564fb42ce84d21e4fad6a232500"
+  },
+  "partition_cohorts": ["development", "hard"],
+  "evaluation_policy": {
+    "qrel_scope": "non-exhaustive-focus-set",
+    "minimum_document_gate_basis": "valid-evidence-document-count",
+    "semantic_ranking_gate": "manual-review-required",
+    "full_dataset_coverage_required": true
+  },
+  "plans": {
+    "adaptive": {
+      "path": "evaluations/quantum-error-correction-papers/plans/adaptive-plan.json",
+      "sha256": "1e057c764893b30d3ba95ba568b0fb6b3f0174c1220a071b948225f1eca92d1b"
+    },
+    "classical": {
+      "path": "evaluations/quantum-error-correction-papers/plans/classical-plan.json",
+      "sha256": "4bcc91bd00f42bdbed735139245916ef9446c717781d4eb7e6924327758487d0"
+    },
+    "embeddings": {
+      "path": "evaluations/quantum-error-correction-papers/plans/embedding-plan.json",
+      "sha256": "e4eac5555c769d51841b90dc3241afe56197a03dc60e08d884c578148a7c9c48"
+    },
+    "ensemble": {
+      "path": "evaluations/quantum-error-correction-papers/plans/ensemble-plan.json",
+      "sha256": "9dc709226fcbf8340cb7cbe610592eaf11355fa6c98ada6e7a8336d50e01d8ea"
+    },
+    "entity-graph": {
+      "path": "evaluations/quantum-error-correction-papers/plans/entity-graph-plan.json",
+      "sha256": "b0554a36e60ce4c64e007572cd30acb18fe37a4eaee3ce3fa5da7d37a82552e9"
+    },
+    "graphify": null,
+    "legacy": null,
+    "turso": null
+  }
+}

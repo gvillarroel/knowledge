@@ -28,8 +28,8 @@ When you change this project, keep the work aligned with the documented behavior
 - Update tests for every user-visible behavior change.
 - Update documentation in the same change when command shape, defaults, or workflows change.
 - Keep examples realistic and runnable.
-- Preserve Open Knowledge Format compatibility for exported Markdown concept documents.
-- Keep native skill frontmatter limited to `name` and `description`; regenerate the strict project-and-skills projection under `okf/` after changing any skill.
+- Preserve Open Knowledge Format v0.2 compatibility for exported Markdown concept documents, including `sources` provenance and `generated` producer metadata.
+- Keep native skill frontmatter limited to `name` and `description`; generate the ignored project-and-skills projection under `build/okf/` when it is needed.
 
 ## Validation Expectations
 
@@ -45,8 +45,9 @@ The default validation gate used in routine work is:
 
 ```bash
 python scripts/check_coverage.py --threshold 80
-python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf --check
-python skills/open-knowledge-format/scripts/validate_okf_bundle.py okf
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py .
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --check
+python skills/open-knowledge-format/scripts/validate_okf_bundle.py build/okf
 ```
 
 ## Documentation Maintenance Rules

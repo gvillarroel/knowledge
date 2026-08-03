@@ -12,7 +12,7 @@ from .sources.brave import search_brave
 from .sources.confluence import search_confluence
 from .sources.jira import search_jira
 from .sources.video import extract_video_id
-from .store import KnowledgeStore
+from .store import KnowledgeStore, project_store_root
 from .television import (
     format_arxiv_preview,
     format_arxiv_television,
@@ -42,7 +42,8 @@ def _config_value_or_env_ref(explicit_value: str | None, env_name: str) -> str |
 
 
 def cmd_init(args: Namespace) -> dict:
-    store = _store_from_args(args)
+    root = args.store if args.store is not None else project_store_root()
+    store = KnowledgeStore(root)
     store.initialize()
     return {"store": str(store.root), "created": True}
 

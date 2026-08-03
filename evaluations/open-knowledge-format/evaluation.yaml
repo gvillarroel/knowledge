@@ -1,7 +1,7 @@
 schemaVersion: 1
 benchmark:
   id: open-knowledge-format-isolated-compare
-  description: Compare isolated planning for local Open Knowledge Format operations with and without the standalone skill.
+  description: Compare isolated planning for local Open Knowledge Format v0.2 operations with and without the standalone skill.
   tags:
     - knowledge
     - open-knowledge-format
@@ -37,7 +37,7 @@ task:
     - id: project-skill-projection
       description: Plan generation and drift checking of a strict project projection.
       prompt: |-
-        Plan a strict Open Knowledge Format projection from `./project` into `./project/okf`. The project contains `README.md`, `SPEC.md`, and project-local agent skills whose native discovery frontmatter must remain unchanged. Include validation and a non-writing drift check. Do not execute the plan.
+        Plan a strict Open Knowledge Format projection from `./project` into `./project/build/okf`. The project contains `README.md`, `SPEC.md`, and project-local agent skills whose native discovery frontmatter must remain unchanged. Include validation and a non-writing drift check. Do not execute the plan.
 
         Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
       evaluation:
@@ -50,7 +50,11 @@ task:
                 const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase().replace(/\s+/g, ' ');
                 return text.includes('build_project_okf_bundle.py')
                   && text.includes('./project')
-                  && text.includes('--output ./project/okf')
+                  && (
+                    text.includes('--output ./project/build/okf')
+                    || text.includes('--output <project-root>/build/okf')
+                    || text.includes('build/okf')
+                  )
                   && text.includes('--check')
                   && (text.includes('validate_okf_bundle.py') || text.includes('validat'))
                   && text.includes('skill.md')
@@ -59,9 +63,9 @@ task:
                   && (text.includes('unchanged') || text.includes('do not add') || text.includes('separate projection'));
               } catch { return false; }
     - id: convert-nested-library
-      description: Generalize conversion planning to nested concepts, reserved files, links, and producer extensions.
+      description: Generalize a lossless v0.1-to-v0.2 migration across nested concepts, reserved files, links, and producer extensions.
       prompt: |-
-        Plan conversion of the nested Markdown library at `./legacy-library` into an Open Knowledge Format v0.1 bundle. Preserve citations, cross-links, and unknown producer metadata; handle root `index.md` and `log.md` correctly; and add recommended metadata only when it can be derived. Do not execute the plan.
+        Plan conversion of the nested Open Knowledge Format v0.1 Markdown library at `./legacy-library` into v0.2. Migrate legacy `timestamp` and `# Citations` data without losing provenance, preserve cross-links and unknown producer metadata, handle root `index.md` and `log.md` correctly, and add optional metadata only when it can be derived. Do not execute the plan.
 
         Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
       evaluation:
@@ -72,24 +76,66 @@ task:
               try {
                 const value = JSON.parse(output.trim());
                 const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase();
-                const recommended = ['title', 'description', 'resource', 'tags', 'timestamp'];
+                const recommended = ['title', 'description', 'resource', 'tags', 'sources', 'generated'];
                 return text.includes('./legacy-library')
+                  && text.includes('0.2')
                   && text.includes('frontmatter')
                   && text.includes('type')
                   && text.includes('index.md')
                   && text.includes('log.md')
                   && (text.includes('yyyy-mm-dd') || text.includes('date heading'))
                   && text.includes('citation')
+                  && text.includes('generated.at')
+                  && text.includes('generated.by')
+                  && text.includes('sources')
                   && (text.includes('cross-link') || text.includes('cross link') || text.includes('internal link'))
                   && (text.includes('unknown') || text.includes('producer'))
                   && recommended.every((field) => text.includes(field))
-                  && (text.includes('derive') || text.includes('do not guess') || text.includes('without guessing'))
+                  && (
+                    text.includes('deriv')
+                    || text.includes('do not guess')
+                    || text.includes('without guessing')
+                  )
+                  && text.includes('validate_okf_bundle.py');
+              } catch { return false; }
+    - id: attested-computation-contract
+      description: Plan one evidence-bounded Attested Computation without conflating verification and attestation.
+      prompt: |-
+        Plan an Open Knowledge Format v0.2 `Attested Computation` concept for a reviewed BigQuery revenue query. The immutable SQL is at `references/computations/revenue.sql`; agents may supply only an integer `year`; execution returns `job_id`, `executed_sql`, and `result`; deterministic verification code is at `references/attesters/revenue.py`; and the source policy is `https://example.com/revenue-policy`. Distinguish document verification from per-run attestation and include validation. Do not create files or run the query.
+
+        Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
+      evaluation:
+        assertions:
+          - type: javascript
+            metric: attested-computation-contract
+            value: |
+              try {
+                const value = JSON.parse(output.trim());
+                const text = [...value.operations, ...value.checks, ...value.safety].join('\n').toLowerCase().replace(/\s+/g, ' ');
+                return text.includes('attested computation')
+                  && text.includes('runtime')
+                  && text.includes('bigquery')
+                  && text.includes('references/computations/revenue.sql')
+                  && text.includes('parameters')
+                  && text.includes('year')
+                  && text.includes('integer')
+                  && text.includes('executor')
+                  && text.includes('job_id')
+                  && text.includes('executed_sql')
+                  && text.includes('result')
+                  && text.includes('attester')
+                  && text.includes('references/attesters/revenue.py')
+                  && text.includes('sources')
+                  && text.includes('https://example.com/revenue-policy')
+                  && text.includes('verified')
+                  && text.includes('attestation')
+                  && (text.includes('do not run') || text.includes('not execute') || text.includes('must not execute'))
                   && text.includes('validate_okf_bundle.py');
               } catch { return false; }
     - id: native-skill-and-reserved-index
       description: Recover the native skill boundary and reserved-index contract without flattening content.
       prompt: |-
-        A project-local `skills/widget/SKILL.md` was given an extra top-level `type`, while its generated OKF projection is stale and `okf/index.md` was authored as an ordinary concept. Plan the safe correction and drift verification without changing the skill body or deleting producer content. Do not execute the plan.
+        A project-local `skills/widget/SKILL.md` was given an extra top-level `type`, while its generated OKF projection is stale and `build/okf/index.md` was authored as an ordinary concept. Plan the safe correction and drift verification without changing the skill body or deleting producer content. Do not execute the plan.
 
         Return JSON only with exactly these keys in this order: {"operations":["operation", "..."],"checks":["check", "..."],"safety":["constraint", "..."]}.
       evaluation:
@@ -106,7 +152,7 @@ task:
                   && text.includes('type')
                   && (text.includes('remove') || text.includes('restore'))
                   && (text.includes('body') && (text.includes('unchanged') || text.includes('preserve')))
-                  && text.includes('okf/index.md')
+                  && text.includes('build/okf/index.md')
                   && text.includes('reserved')
                   && (text.includes('root') || text.includes('rename'))
                   && text.includes('build_project_okf_bundle.py')

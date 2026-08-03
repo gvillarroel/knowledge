@@ -18,6 +18,7 @@ SKILLS_ROOT = REPO_ROOT / "skills"
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REQUIREMENT_NAME_RE = re.compile(r"^([A-Za-z0-9_.-]+)")
 STANDALONE_BOUNDARY_RE = re.compile(r"^## Standalone(?: [^\n]+)? boundary$", re.MULTILINE)
+MARKDOWN_TITLE_RE = re.compile(r'^(?:"[^"]*"|\'[^\']*\'|\([^)]*\))$')
 IMPORT_TO_DISTRIBUTION = {
     "PIL": "Pillow",
     "pyparsing": "pyparsing",
@@ -43,6 +44,19 @@ def frontmatter(path: Path) -> dict[str, object]:
     payload = yaml.safe_load(raw)
     assert isinstance(payload, dict), path
     return payload
+
+
+def markdown_link_target(raw_target: str) -> str | None:
+    """Return a CommonMark-style destination or ignore invalid prose."""
+
+    raw = raw_target.strip()
+    if raw.startswith("<"):
+        end = raw.find(">")
+        return raw[1:end] if end > 0 else None
+    parts = raw.split(maxsplit=1)
+    if len(parts) == 2 and not MARKDOWN_TITLE_RE.fullmatch(parts[1]):
+        return None
+    return parts[0] if parts else None
 
 
 @pytest.mark.parametrize("skill_root", skill_roots(), ids=lambda path: path.name)
@@ -71,7 +85,9 @@ def test_skill_markdown_links_are_package_local_or_external(skill_root: Path) ->
 
     for markdown in sorted(skill_root.rglob("*.md")):
         for raw_target in MARKDOWN_LINK_RE.findall(markdown.read_text(encoding="utf-8")):
-            target = raw_target.strip().strip("<>").split(maxsplit=1)[0]
+            target = markdown_link_target(raw_target)
+            if target is None:
+                continue
             parsed = urlsplit(target)
             if parsed.scheme or target.startswith("#"):
                 continue

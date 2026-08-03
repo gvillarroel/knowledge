@@ -11,6 +11,7 @@ Everything in this folder is intended to be readable on its own, with links that
 - [TVs.md](TVs.md): Television integration guide and `tv` workflows
 - [site-spikes.md](site-spikes.md): benchmark and strategy-comparison guide for site capture experiments
 - [know-skill.md](know-skill.md): contributor and agent working conventions for this project
+- [knowledge-skill-evolution-playbook.md](knowledge-skill-evolution-playbook.md): ordered strategy for building, evaluating, evolving, and promoting evidence-bound knowledge skills
 
 ## Suggested Reading Paths
 
@@ -34,6 +35,12 @@ Everything in this folder is intended to be readable on its own, with links that
 1. Read [know-skill.md](know-skill.md)
 2. Use [cli.md](cli.md) and [COMMANDS.md](COMMANDS.md) as the behavior contract for user-facing command shape
 
+### I want to create or improve a knowledge skill
+
+1. Read [knowledge-skill-evolution-playbook.md](knowledge-skill-evolution-playbook.md)
+2. Select the knowledge builder and artifact boundary before choosing an evolution strategy
+3. Preserve the development/holdout boundary and use the playbook's validation checklist
+
 ## Documentation Conventions
 
 - `cli.md` is the primary narrative guide.
@@ -41,3 +48,4 @@ Everything in this folder is intended to be readable on its own, with links that
 - `TVs.md` is focused only on Television usage.
 - `site-spikes.md` is focused only on site capture experiments.
 - `know-skill.md` explains contributor expectations and documentation maintenance rules.
+- `knowledge-skill-evolution-playbook.md` defines the evidence and skill order for knowledge-skill creation, evaluation, evolution, and promotion.

@@ -1,0 +1,67 @@
+{
+  "holdoutReleased": true,
+  "ledger": {
+    "eventCount": 28,
+    "headSha256": "541c27c631527f214aef3d0879d57295810e197a00f38dbea101e2bbeed112d3"
+  },
+  "progress": {
+    "completedCount": 5,
+    "completionPercent": 100.0,
+    "stageCount": 5
+  },
+  "publicationPolicy": "indexes-and-result-tables-only-v1",
+  "resultIndex": [
+    {
+      "artifactType": "file",
+      "byteCount": 2618,
+      "evidenceId": "general-strategy-ranking-table-v1",
+      "fileCount": 1,
+      "kind": "final-report",
+      "role": "publication",
+      "sha256": "cc17663fd3c99e7c950c5ab6a98356b8f47c260b8e2f92783ab945201b428d29",
+      "stageId": "general-ranking-publication",
+      "visibility": "public"
+    },
+    {
+      "artifactType": "file",
+      "byteCount": 755,
+      "evidenceId": "quality-latency-frontier-table-v1",
+      "fileCount": 1,
+      "kind": "final-report",
+      "role": "publication",
+      "sha256": "9dbdf2e56e896410f37ca2dff3c531bdbe31c7d029aabe5beb3755a1fe09619a",
+      "stageId": "quality-latency-recommendation",
+      "visibility": "public"
+    },
+    {
+      "artifactType": "file",
+      "byteCount": 3462,
+      "evidenceId": "quality-latency-skill-group-decision-v1",
+      "fileCount": 1,
+      "kind": "decision",
+      "role": "decision",
+      "sha256": "d4f450433e0fb684b51b06ff35b3c4f93ba44ace5cf9eedbeac31a85a525de26",
+      "stageId": "quality-latency-attribution-correction",
+      "visibility": "public"
+    }
+  ],
+  "resultTables": [
+    {
+      "byteCount": 2618,
+      "path": "tables/general-strategy-ranking.table.md",
+      "sha256": "cc17663fd3c99e7c950c5ab6a98356b8f47c260b8e2f92783ab945201b428d29"
+    },
+    {
+      "byteCount": 755,
+      "path": "tables/quality-latency-frontier.table.md",
+      "sha256": "9dbdf2e56e896410f37ca2dff3c531bdbe31c7d029aabe5beb3755a1fe09619a"
+    }
+  ],
+  "schemaVersion": 1,
+  "study": {
+    "comparisonProfile": "graphrag-parallel60-top10-three-replicates-v1",
+    "createdAt": "2026-07-30T18:51:30Z",
+    "studyId": "graphrag-general-strategy-evaluation-20260730-v1",
+    "title": "GraphRAG general strategy evaluation"
+  }
+}

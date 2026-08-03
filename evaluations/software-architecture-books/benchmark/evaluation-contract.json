@@ -1,0 +1,51 @@
+{
+  "schema_version": "software-architecture-books-evaluation-contract/1.0",
+  "dataset_id": "software-architecture-books-40",
+  "frozen_inputs": {
+    "source_manifest_sha256": "fb189ffc79835057ee33d92a0d523999730cbd8c732072a4ccd2e4cd32f80784",
+    "source_combination_sha256": "800e1afbfc827e261d2161e5c0071531b5547adf3f16afacd6338ac6ad5a5151",
+    "classical_plan_file_sha256": "5970a18a717bf7617f5b0c14d8718a753835fbfe87f058e8f360ab5cafadacab",
+    "questions_sha256": "ccb283914a2c851144c104896e098aa35d82fcc5f7ceaf9f8f67d9c6c9ea9a84",
+    "hard_ground_truth_sha256": "a6b780fb521771d90859d158459e46ba16aa7da1661cfac53c78417207837b77"
+  },
+  "cohorts": {
+    "development": 30,
+    "hard": 10
+  },
+  "retrieval": {
+    "routes": [
+      "bm25",
+      "topic",
+      "association",
+      "fusion"
+    ],
+    "top_k": 10,
+    "candidate_snapshot": "one-byte-identical-deep-validated-classical-bundle",
+    "identity": "source_id",
+    "duplicate_policy": "first-page-rank-per-source",
+    "qrel_scope": "non-exhaustive-focus-set",
+    "supervised_query_or_qrel_tuning": false
+  },
+  "metrics": {
+    "primary": "mean-recall-at-10",
+    "tie_breakers": [
+      "mean-ndcg-at-10",
+      "lower-p95-query-latency"
+    ],
+    "secondary": [
+      "mean-mrr-at-10",
+      "mean-source-precision-at-10",
+      "full-qrel-coverage-at-10"
+    ],
+    "hard_diagnostics": [
+      "reviewed-locator-recall-at-10",
+      "full-reviewed-locator-coverage-at-10"
+    ],
+    "answer_quality_evaluated": false
+  },
+  "reporting": {
+    "primary_table": "metric-only",
+    "private_passage_text": "excluded",
+    "per_question_evidence": "source-identities-locators-and-hashes-only"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "selection": {
+    "source_ids": [
+      "book-architecture-for-flow",
+      "book-async-first-playbook",
+      "book-balancing-coupling-in-software-design",
+      "book-continuous-architecture-in-practice",
+      "book-domain-driven-design-distilled",
+      "book-domain-storytelling",
+      "book-effective-software-architecture",
+      "book-functional-and-concurrent-programming",
+      "book-modern-software-engineering",
+      "book-patterns-for-api-design",
+      "book-practical-object-oriented-design",
+      "book-principles-of-web-api-design",
+      "book-righting-software",
+      "book-software-architecture-and-decision-making",
+      "book-software-architecture-in-practice",
+      "book-software-requirements-essentials",
+      "book-strategic-monoliths-and-microservices",
+      "book-understanding-software-dynamics"
+    ]
+  },
+  "tokenization": {
+    "tokenizer": "ascii-alphanumeric-v1",
+    "stopwords": "english-v1",
+    "min_token_length": 2,
+    "ngram_range": [
+      1,
+      2
+    ]
+  },
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "title_weight": 2.0,
+    "body_weight": 1.0
+  },
+  "associations": {
+    "window_size": 8,
+    "min_document_frequency": 2,
+    "min_cooccurrence": 2,
+    "max_vocabulary": 6000,
+    "max_neighbors": 8,
+    "minimum_ppmi": 0.0
+  },
+  "topics": {
+    "topic_count": 24,
+    "max_iterations": 20,
+    "top_terms": 20
+  },
+  "expansion": {
+    "association_terms": 6,
+    "topic_terms": 6,
+    "association_weight": 0.35,
+    "topic_weight": 0.2
+  },
+  "reranking": {
+    "candidate_pool": 100,
+    "relevance_weight": 0.7,
+    "topic_novelty_weight": 0.15,
+    "source_novelty_weight": 0.15,
+    "max_per_evidence_identity": 1,
+    "rrf_k": 60
+  }
+}

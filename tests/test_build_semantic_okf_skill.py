@@ -588,7 +588,7 @@ def test_bundled_okf_validator_rejects_invalid_concepts(tmp_path: Path) -> None:
     concepts = bundle / "concepts"
     concepts.mkdir(parents=True)
     (bundle / "index.md").write_text(
-        '---\nokf_version: "0.1"\n---\n\n# Concepts\n\n* [Example](concepts/example.md)\n',
+        '---\nokf_version: "0.2"\n---\n\n# Concepts\n\n* [Example](concepts/example.md)\n',
         encoding="utf-8",
     )
     concept = concepts / "example.md"
@@ -747,6 +747,28 @@ def test_materializer_builds_exact_reproducible_okf_owl_shacl_bundle(tmp_path: P
         {path.relative_to(first).as_posix() for path in first.rglob("*") if path.is_file()}
     )
     assert core.validate_semantic_bundle(first).valid is True
+    index_frontmatter, _ = core._split_frontmatter(
+        (first / "index.md").read_text(encoding="utf-8")
+    )
+    assert index_frontmatter == {"okf_version": "0.2"}
+    concept_path = next((first / "concepts").rglob("*.md"))
+    concept_frontmatter, _ = core._split_frontmatter(
+        concept_path.read_text(encoding="utf-8")
+    )
+    assert concept_frontmatter["generated"] == {
+        "by": "process:semantic-okf-python"
+    }
+    assert concept_frontmatter["sources"] == [
+        {
+            "id": concept_frontmatter["source_id"],
+            "resource": concept_frontmatter["source_path"],
+            "title": concept_frontmatter["source_id"],
+        }
+    ]
+    source_manifest = json.loads(
+        (first / "semantic" / "source-manifest.json").read_text(encoding="utf-8")
+    )
+    assert source_manifest["okf_version"] == "0.2"
 
     first_files = {path.relative_to(first).as_posix(): path.read_bytes() for path in first.rglob("*") if path.is_file()}
     second_files = {
@@ -1069,6 +1091,121 @@ def test_python_builder_processes_all_sources_and_is_deterministic(tmp_path: Pat
     }
     assert people == {"https://example.org/knowledge/resource/people/person-1"}
     assert active_projects == {"https://example.org/knowledge/resource/projects/project-1"}
+
+
+def test_incremental_builder_reuses_unchanged_files_without_changing_snapshot_bytes(
+    tmp_path: Path,
+) -> None:
+    """A warm derived cache must skip adapters and preserve authoritative output."""
+
+    builder = load_script("build_semantic_okf.py")
+    refresher = load_script("refresh_semantic_okf.py")
+    manifest = write_fixture(tmp_path / "fixture")
+    cache = tmp_path / "incremental-cache"
+    cold_output = tmp_path / "cold"
+    warm_output = tmp_path / "warm"
+
+    cold = builder.build_incremental(manifest, cold_output, cache)
+    warm = builder.build_incremental(manifest, warm_output, cache)
+
+    total = cold["incremental"]["files"]["total"]
+    assert total > 1
+    assert cold["incremental"]["files"]["processed"] == total
+    assert cold["incremental"]["files"]["reused"] == 0
+    assert warm["incremental"]["files"]["processed"] == 0
+    assert warm["incremental"]["files"]["reused"] == total
+    assert warm["incremental"]["records"]["processed"] == 0
+    assert warm["incremental"]["records"]["reused"] == warm["summary"]["records"]
+    assert refresher._tree_sha256(cold_output) == refresher._tree_sha256(warm_output)
+
+
+def test_incremental_builder_processes_only_changed_added_and_removed_inputs(
+    tmp_path: Path,
+) -> None:
+    """File SHA-256 inventory changes must drive the exact adapter work set."""
+
+    builder = load_script("build_semantic_okf.py")
+    core = load_core()
+    manifest = write_fixture(tmp_path / "fixture")
+    cache = tmp_path / "incremental-cache"
+    removable = manifest.parent / "sources" / "policies" / "obsolete.md"
+    removable.write_text(
+        "---\ntitle: Obsolete policy\ncode: POL-OLD\n---\n\n# Obsolete policy\n",
+        encoding="utf-8",
+    )
+    builder.build_incremental(manifest, tmp_path / "baseline", cache)
+    policies = manifest.parent / "sources" / "policies"
+    existing = policies / "retention.md"
+    existing.write_text(
+        existing.read_text(encoding="utf-8") + "\nA checksum-visible policy revision.\n",
+        encoding="utf-8",
+    )
+    added = policies / "policy-added.md"
+    added.write_text(
+        "---\ntitle: Added policy\ncode: POL-NEW\n---\n\n# Added policy\n\nNew knowledge.\n",
+        encoding="utf-8",
+    )
+    removed = removable
+    removed_relative = removed.relative_to(manifest.parent).as_posix()
+    removed.unlink()
+
+    output = tmp_path / "updated"
+    report = builder.build_incremental(manifest, output, cache)
+    files = report["incremental"]["files"]
+
+    assert files["processed"] == 2
+    assert files["reused"] == files["total"] - 2
+    assert files["added"] == ["policies:sources/policies/policy-added.md"]
+    assert files["changed"] == [
+        f"policies:{existing.relative_to(manifest.parent).as_posix()}"
+    ]
+    assert files["removed"] == [f"policies:{removed_relative}"]
+    assert core.validate_semantic_bundle(output).valid
+    ledger = [
+        json.loads(line)
+        for line in (output / "semantic" / "records.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    source_paths = {record["source_path"] for record in ledger}
+    assert "sources/policies/policy-added.md" in source_paths
+    assert removed_relative not in source_paths
+
+
+def test_incremental_builder_reparses_a_corrupt_derived_cache_object(tmp_path: Path) -> None:
+    """Cache corruption is a miss, never accepted as authoritative knowledge."""
+
+    builder = load_script("build_semantic_okf.py")
+    manifest = write_fixture(tmp_path / "fixture")
+    cache = tmp_path / "incremental-cache"
+    builder.build_incremental(manifest, tmp_path / "baseline", cache)
+    cache_manifest = json.loads((cache / "manifest.json").read_text(encoding="utf-8"))
+    entry = cache_manifest["entries"][0]
+    digest = entry["object_sha256"]
+    object_path = cache / "objects" / digest[:2] / f"{digest[2:]}.json"
+    object_path.write_text('{"tampered":true}\n', encoding="utf-8")
+
+    report = builder.build_incremental(manifest, tmp_path / "recovered", cache)
+
+    assert report["incremental"]["files"]["processed"] == 1
+    assert report["incremental"]["files"]["reused"] == (
+        report["incremental"]["files"]["total"] - 1
+    )
+    assert report["valid"] is True
+    assert object_path.read_text(encoding="utf-8") != '{"tampered":true}\n'
+
+
+def test_incremental_builder_rejects_cache_inside_raw_source_directory(
+    tmp_path: Path,
+) -> None:
+    """Derived cache files must never become candidates for source ingestion."""
+
+    builder = load_script("build_semantic_okf.py")
+    manifest = write_fixture(tmp_path / "fixture")
+    cache = manifest.parent / "sources" / "policies" / ".cache"
+
+    with pytest.raises(builder.BundleError, match="outside raw source directories"):
+        builder.build_incremental(manifest, tmp_path / "output", cache)
+
+    assert not cache.exists()
 
 
 def test_python_source_combination_protocol(tmp_path: Path) -> None:
@@ -1686,6 +1823,60 @@ def test_python_refresh_reprocesses_sources_and_publishes_new_record(tmp_path: P
     ]
     added = next(record for record in records if record["record_id"] == "person-3")
     assert added["attributes"] == {"name": "Carol", "role": "Analyst"}
+    assert not refresher_artifacts(output)
+
+
+def test_python_refresh_uses_incremental_cache_and_publishes_complete_snapshot(
+    tmp_path: Path,
+) -> None:
+    """Refresh should parse one changed file and still validate the full replacement."""
+
+    manifest = write_fixture(tmp_path / "fixture")
+    output = tmp_path / "bundle"
+    cache = tmp_path / "incremental-cache"
+    built = run_skill_script(
+        "build_semantic_okf.py",
+        str(manifest),
+        str(output),
+        "--cache-dir",
+        str(cache),
+        "--output-format",
+        "json",
+    )
+    assert built.returncode == 0, f"{built.stdout}\n{built.stderr}"
+    people = manifest.parent / "sources" / "people.csv"
+    people.write_text(
+        "id,name,role\nperson-2,Bob,Reviewer\nperson-1,Alice,Architect\n",
+        encoding="utf-8",
+    )
+
+    refreshed = run_skill_script(
+        "refresh_semantic_okf.py",
+        "update",
+        str(manifest),
+        str(output),
+        "--cache-dir",
+        str(cache),
+        "--output-format",
+        "json",
+    )
+
+    assert refreshed.returncode == 0, f"{refreshed.stdout}\n{refreshed.stderr}"
+    report = json_line(refreshed.stdout)
+    assert report["status"] == "updated"
+    assert report["build"]["incremental"]["files"]["processed"] == 1
+    assert report["build"]["incremental"]["files"]["reused"] == 3
+    assert report["build"]["incremental"]["files"]["changed"] == [
+        "people:sources/people.csv"
+    ]
+    core = load_core()
+    assert core.validate_semantic_bundle(output).valid
+    records = [
+        json.loads(line)
+        for line in (output / "semantic" / "records.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    alice = next(record for record in records if record["record_id"] == "person-1")
+    assert alice["attributes"]["role"] == "Architect"
     assert not refresher_artifacts(output)
 
 

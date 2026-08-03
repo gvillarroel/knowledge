@@ -48,8 +48,12 @@ software and MALLET topics as discovery signals, never ontology truth.
    source whose exact bytes are already the authoritative representation.
 3. Write a closed retrieval plan. Select every intended source ID explicitly and pin
    tokenizer, BM25, PPMI, fixed-seed one-thread MALLET, expansion, and reranking.
-4. Create an isolated CPython 3.12 environment, install only
-   `scripts/requirements.txt`, and preflight explicit Java, Tika, and MALLET paths.
+4. Establish the CPython 3.12 dependency contract. If dependency installation is
+   allowed, create one isolated environment and install only
+   `scripts/requirements.txt`. If downloads or installation are forbidden, verify
+   that the current interpreter already provides every pinned requirement and use
+   it directly; never create an empty virtual environment or invoke an installer.
+   Preflight the explicit Java, Tika, and MALLET paths.
 5. Build into an absent output path. Each raw file is read once into a private,
    hash-bound snapshot before Tika opens it. Any extraction, schema, SHACL, hash,
    MALLET, path-safety, or validation failure must leave no destination.
@@ -62,12 +66,37 @@ software and MALLET topics as discovery signals, never ontology truth.
 
 ## Build and validate
 
+Resolve the three runtime inputs before creating the destination. When
+`SEMANTIC_OKF_JAVA`, `SEMANTIC_OKF_TIKA_HOME`, and
+`SEMANTIC_OKF_MALLET_HOME` are present, treat their values as the caller's exact
+closed runtime contract: use them directly and do not scan `/`, search the PATH,
+or substitute `/usr/bin/java`. The Java argument must name the regular canonical
+JDK file, never a symlink. If any variable is absent, require the caller's explicit
+absolute path instead of guessing or downloading a replacement.
+
+Honor the caller's dependency boundary before preflight. When installation is
+allowed, create one isolated build environment and install
+`scripts/requirements.txt`. When the caller forbids downloads or dependency
+installation, use the supplied CPython 3.12 interpreter directly after verifying
+the installed distributions and versions against every non-comment requirement in
+`scripts/requirements.txt`; fail closed on any missing or mismatched dependency.
+Do not create a virtual environment, run `pip install`, or access the network in
+that qualified-runtime branch.
+
+Run `runtime_smoke.py` exactly once before any build. Require every output path to
+be absent; never delete or overwrite a destination to recover from a preflight or
+build error. A failed private candidate is the builder's responsibility to clean
+up. When two reproducibility destinations are requested, use this exact sequence:
+one runtime smoke, first build, first independent validation, second build, second
+independent validation, then one sorted relative-path/SHA-256 inventory comparison.
+Do not run script `--help` probes or repeat a successful build or validation.
+
 Run from this skill directory, or prefix each script with the copied skill root:
 
 ```bash
-python scripts/runtime_smoke.py --java JAVA --tika-home TIKA_HOME --mallet-home MALLET_HOME
-python scripts/build_semantic_okf_tika_mallet.py ingestion-plan.json retrieval-plan.json OUTPUT --java JAVA --tika-home TIKA_HOME --mallet-home MALLET_HOME --output-format json
-python scripts/validate_semantic_okf_tika_mallet.py OUTPUT --java JAVA --mallet-home MALLET_HOME --output-format json
+python scripts/runtime_smoke.py --java "$SEMANTIC_OKF_JAVA" --tika-home "$SEMANTIC_OKF_TIKA_HOME" --mallet-home "$SEMANTIC_OKF_MALLET_HOME"
+python scripts/build_semantic_okf_tika_mallet.py ingestion-plan.json retrieval-plan.json OUTPUT --java "$SEMANTIC_OKF_JAVA" --tika-home "$SEMANTIC_OKF_TIKA_HOME" --mallet-home "$SEMANTIC_OKF_MALLET_HOME" --output-format json
+python scripts/validate_semantic_okf_tika_mallet.py OUTPUT --java "$SEMANTIC_OKF_JAVA" --mallet-home "$SEMANTIC_OKF_MALLET_HOME" --output-format json
 ```
 
 The destination must not exist. The Tika application directory must contain

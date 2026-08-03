@@ -1,0 +1,127 @@
+{
+  "candidate_state": "retrospective-all-exposed-supervised-profile",
+  "datasets": {
+    "astro-40": {
+      "baseline": {
+        "candidate_id": "classical-association",
+        "evidence_report_path": "evaluations/semantic-okf-astro/reports/retrieval-comparison.json",
+        "evidence_report_sha256": "5a2e0a61fa7a8308693dfec5fe68220e80989f5aa0127496de4cd3cb8da0044b",
+        "metrics": {
+          "mrr_at_10": 0.9145833333333334,
+          "ndcg_at_10": 0.8347287401948427,
+          "recall_at_10": 0.8875
+        },
+        "p95_ms": 1430.116730006557
+      },
+      "candidate": {
+        "candidate_id": "astro-docs-definitive-expert-v3",
+        "expert_path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/experts/astro-docs-definitive-expert-v3",
+        "expert_manifest_sha256": "534016f0d45d4cb039595651034a804815b20e4c84e603642c8c4d07be7d2d30",
+        "expert_tree_sha256": "30e758f788c7f9e5e71cbbc51aa789cabf9ff8beebaef34f225873fc7e2641c0",
+        "knowledge_file_count": 426,
+        "knowledge_tree_sha256": "a827d63cc9f17ce4b315f1a3eeca360fc2bfbe330c65124b8b435f0276c8b8c0",
+        "metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "recall_at_10": 1.0
+        },
+        "record_count": 416,
+        "routing_index_path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-01/astro/expert_routing_index.json",
+        "routing_index_sha256": "a8eba79650c882b3f9d9619a9e862c262bd8060a53243440e88225eb28c402c4"
+      },
+      "improvement": {
+        "mrr_at_10_delta": 0.08541666666666659,
+        "ndcg_at_10_delta": 0.16527125980515733,
+        "recall_at_10_delta": 0.11250000000000004,
+        "representative_p95_ms": 211.33761998498812,
+        "representative_p95_ratio": 0.14777648254210632
+      },
+      "position": {
+        "all_recorded_routes": "1 of 21",
+        "family_winners": "1 of 7"
+      },
+      "replicates": [
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/astro-final/report.json",
+          "p95_ms": 211.33761998498812,
+          "report_sha256": "61ae5cca2e1ef6281e50ab6543ab2fdd14d3da4f4148e56de007835e35114465"
+        },
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/astro-replicate-02/report.json",
+          "p95_ms": 213.8964150450192,
+          "report_sha256": "22650fe34fbec5d370d922c3ddf0c49f005b98e391e9c3d2cab9ffa224010db4"
+        },
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/astro-replicate-03/report.json",
+          "p95_ms": 211.24114996055138,
+          "report_sha256": "4ac9af625e71184c0551e485c05c9a2fd15d127a9ea1c7dde465d8ac38abcbdc"
+        }
+      ]
+    },
+    "graphrag-papers-40": {
+      "baseline": {
+        "candidate_id": "graphrag-ensemble-quality-trace-expert-v48",
+        "evidence_report_path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-ensemble-quality-trace-02/runs/canonical-all40-top10/report.json",
+        "evidence_report_sha256": "57377eb0f3e3a88d8436de090979844600f9025b8430c4895ee512552943cdbc",
+        "metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.8602206196661731,
+          "recall_at_10": 0.8538564213564215
+        },
+        "p95_ms": 2012.4764700769447
+      },
+      "candidate": {
+        "candidate_id": "graphrag-papers-definitive-expert-v51",
+        "expert_path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/experts/graphrag-papers-definitive-expert-v51",
+        "expert_manifest_sha256": "970faf78e5dda3139d734f98e0c8c7e8efd08eacd76952a9c9b153710f0d6235",
+        "expert_tree_sha256": "6cb0e46bdad5fea901c1b293f6ada6603cc31b5e4a929be91a3716c9e866179c",
+        "knowledge_file_count": 108,
+        "knowledge_tree_sha256": "e787e3ef4a2c2a3a624be0803a3536ab24c2dcdd66e4b894c2d0ec10634f1d9e",
+        "metrics": {
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 1.0,
+          "recall_at_10": 0.9655844155844155
+        },
+        "record_count": 30,
+        "routing_index_path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-01/graphrag/expert_routing_index.json",
+        "routing_index_sha256": "500a78e346f6123fcab52b92929c0d01586ee90c637baaed10beae51c370f282"
+      },
+      "improvement": {
+        "mrr_at_10_delta": 0.0,
+        "ndcg_at_10_delta": 0.13977938033382686,
+        "recall_at_10_delta": 0.11172799422799407,
+        "representative_p95_ms": 47.1282999496907,
+        "representative_p95_ratio": 0.023418062596224445
+      },
+      "position": {
+        "direct_retrieval": "1 of 25"
+      },
+      "replicates": [
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/graphrag-final/report.json",
+          "p95_ms": 47.1282999496907,
+          "report_sha256": "6a8f2b04ade3ba43fd7e59f11568903d45b2f9171c6ee3e49c3c67e4b2b7ef94"
+        },
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/graphrag-replicate-02/report.json",
+          "p95_ms": 47.25565987173468,
+          "report_sha256": "672e6848b3e53dd5ff31c708e079c3d1cab034f06d821ace101936c30bbd63a1"
+        },
+        {
+          "path": "evaluations/semantic-okf-specialized-experts/generated/20260728-definitive-profiles-03/runs/graphrag-replicate-03/report.json",
+          "p95_ms": 46.75735487835482,
+          "report_sha256": "93885163fd5dd71d8e035b793232efee6d8978d5b58288fddd63c9e844a681c1"
+        }
+      ]
+    }
+  },
+  "evaluation_contract": {
+    "evidence_validity_required": 1.0,
+    "improvement_gate": "no quality regression, at least one strict quality gain, strict P95 reduction, and exact evidence",
+    "query_count": 40,
+    "top_k": 10
+  },
+  "promotion_eligible": false,
+  "schema_version": "semantic-okf-definitive-experts-summary/1.0",
+  "status": "pass"
+}

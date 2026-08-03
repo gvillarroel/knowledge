@@ -1,0 +1,676 @@
+{
+  "schema_version": "private-book-hard-ground-truth-blueprint/1.0",
+  "dataset_id": "software-architecture-books-40",
+  "rows": [
+    {
+      "id": "q031-context-module-service-distinction",
+      "required_document_ids": [
+        "balancing-coupling-in-software-design",
+        "domain-driven-design-distilled",
+        "strategic-monoliths-and-microservices"
+      ],
+      "evidence": [
+        {
+          "id": "q031-ddd-boundary",
+          "document_id": "domain-driven-design-distilled",
+          "page_number": 30,
+          "interpretation": "A bounded context is a semantic boundary within which a domain model and its language have context-specific meaning."
+        },
+        {
+          "id": "q031-coupling-units",
+          "document_id": "balancing-coupling-in-software-design",
+          "page_number": 40,
+          "interpretation": "Classes, modules, services, and systems are architectural units whose deployment arrangement changes lifecycle coupling but does not erase other coupling dimensions."
+        },
+        {
+          "id": "q031-service-choice",
+          "document_id": "strategic-monoliths-and-microservices",
+          "page_number": 64,
+          "interpretation": "A microservice is not defined reliably by a simplistic size rule, and distribution introduces costs that must be justified by strategic boundaries."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q031-a1",
+          "statement": "Use bounded contexts to delimit model meaning, modules to encapsulate implementation responsibilities, and services to establish an independently operated deployment boundary.",
+          "evidence_ids": [
+            "q031-ddd-boundary",
+            "q031-coupling-units",
+            "q031-service-choice"
+          ]
+        },
+        {
+          "id": "q031-a2",
+          "statement": "A one-to-one mapping is not automatic because semantic scope, implementation structure, and deployment lifecycle are different design axes.",
+          "evidence_ids": [
+            "q031-ddd-boundary",
+            "q031-coupling-units",
+            "q031-service-choice"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q031-n1",
+          "statement": "Do not claim that every bounded context must become exactly one network service.",
+          "evidence_ids": [
+            "q031-ddd-boundary",
+            "q031-coupling-units",
+            "q031-service-choice"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "contrast",
+          "inputs": [
+            "q031-a1",
+            "q031-a2"
+          ],
+          "conclusion": "Keep semantic, modular, and deployment boundaries explicit before choosing their mapping."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q032-principle-proposal-scenario",
+      "required_document_ids": [
+        "continuous-architecture-in-practice",
+        "effective-software-architecture",
+        "software-architecture-in-practice"
+      ],
+      "evidence": [
+        {
+          "id": "q032-principles",
+          "document_id": "continuous-architecture-in-practice",
+          "page_number": 47,
+          "interpretation": "Continuous Architecture uses principles and recurring activities, including driving decisions and implementing feedback loops, to guide ongoing work."
+        },
+        {
+          "id": "q032-proposal",
+          "document_id": "effective-software-architecture",
+          "page_number": 86,
+          "interpretation": "A change proposal is a progressively refined container for capturing and evaluating a possible system change across its stages."
+        },
+        {
+          "id": "q032-scenario",
+          "document_id": "software-architecture-in-practice",
+          "page_number": 61,
+          "interpretation": "A quality attribute scenario makes a requirement analyzable through a structured stimulus, environment, artifact, response, and response measure."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q032-a1",
+          "statement": "A principle supplies durable guidance, a change proposal organizes one candidate change and its alternatives, and a quality attribute scenario supplies a measurable test of architectural behavior.",
+          "evidence_ids": [
+            "q032-principles",
+            "q032-proposal",
+            "q032-scenario"
+          ]
+        },
+        {
+          "id": "q032-a2",
+          "statement": "Used together, the principle guides choices, the proposal records deliberation, and the scenario makes the intended outcome testable.",
+          "evidence_ids": [
+            "q032-principles",
+            "q032-proposal",
+            "q032-scenario"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q032-n1",
+          "statement": "Do not treat a broad principle, a proposed implementation change, and a measurable scenario as interchangeable documentation.",
+          "evidence_ids": [
+            "q032-principles",
+            "q032-proposal",
+            "q032-scenario"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "sequence",
+          "inputs": [
+            "q032-a1",
+            "q032-a2"
+          ],
+          "conclusion": "Guidance, deliberation, and validation form complementary decision stages."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q033-async-decision-trace",
+      "required_document_ids": [
+        "async-first-playbook",
+        "effective-software-architecture",
+        "software-architecture-and-decision-making"
+      ],
+      "evidence": [
+        {
+          "id": "q033-async-context",
+          "document_id": "async-first-playbook",
+          "page_number": 40,
+          "interpretation": "Async collaboration depends on clear written handoffs and durable context, while still allowing meetings when they are the right interaction."
+        },
+        {
+          "id": "q033-alternatives",
+          "document_id": "effective-software-architecture",
+          "page_number": 89,
+          "interpretation": "Architecture work should generate and compare discrete alternatives rather than letting the first concept become the unexamined design."
+        },
+        {
+          "id": "q033-tradeoffs",
+          "document_id": "software-architecture-and-decision-making",
+          "page_number": 28,
+          "interpretation": "Technical decisions require a holistic view of trade-offs, costs, value, constraints, and risks."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q033-a1",
+          "statement": "Start with durable written context, capture alternatives as distinct proposals, and evaluate trade-offs and risks with the affected stakeholders.",
+          "evidence_ids": [
+            "q033-async-context",
+            "q033-alternatives",
+            "q033-tradeoffs"
+          ]
+        },
+        {
+          "id": "q033-a2",
+          "statement": "Use synchronous discussion selectively for ambiguity, conflict, or rapid convergence, then return the resulting context and decision to the durable record.",
+          "evidence_ids": [
+            "q033-async-context",
+            "q033-alternatives",
+            "q033-tradeoffs"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q033-n1",
+          "statement": "Async-first does not mean eliminating all meetings or making architecture decisions without stakeholder dialogue.",
+          "evidence_ids": [
+            "q033-async-context",
+            "q033-tradeoffs"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "workflow",
+          "inputs": [
+            "q033-a1",
+            "q033-a2"
+          ],
+          "conclusion": "The process alternates durable asynchronous preparation with purposeful synchronous convergence."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q034-api-evolution-coupling",
+      "required_document_ids": [
+        "balancing-coupling-in-software-design",
+        "patterns-for-api-design",
+        "principles-of-web-api-design"
+      ],
+      "evidence": [
+        {
+          "id": "q034-coupling",
+          "document_id": "balancing-coupling-in-software-design",
+          "page_number": 150,
+          "interpretation": "Integration strength analyzes cross-module relationships through knowledge, distance, and volatility carried by the integration contract."
+        },
+        {
+          "id": "q034-patterns",
+          "document_id": "patterns-for-api-design",
+          "page_number": 291,
+          "interpretation": "Backward compatibility is an explicit API evolution quality that supports independent development and deployment."
+        },
+        {
+          "id": "q034-versioning",
+          "document_id": "principles-of-web-api-design",
+          "page_number": 299,
+          "interpretation": "Thoughtful evolutionary design and an explicit versioning policy let an API change without unnecessarily breaking existing consumers."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q034-a1",
+          "statement": "Treat consumer knowledge, contract volatility, and interaction distance as coupling costs, then design messages and affordances around consumer goals rather than internal models.",
+          "evidence_ids": [
+            "q034-coupling",
+            "q034-patterns",
+            "q034-versioning"
+          ]
+        },
+        {
+          "id": "q034-a2",
+          "statement": "Prefer compatible additive evolution, test contracts with consumers, and introduce an explicit version boundary only when a breaking change cannot be avoided.",
+          "evidence_ids": [
+            "q034-coupling",
+            "q034-patterns",
+            "q034-versioning"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q034-n1",
+          "statement": "Do not assume that adding a version number by itself removes semantic or temporal coupling.",
+          "evidence_ids": [
+            "q034-coupling",
+            "q034-versioning"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "synthesis",
+          "inputs": [
+            "q034-a1",
+            "q034-a2"
+          ],
+          "conclusion": "Safe evolution combines coupling analysis, consumer-oriented contracts, compatibility, and deliberate version policy."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q035-stakeholder-need-to-architecture-test",
+      "required_document_ids": [
+        "software-architecture-in-practice",
+        "software-requirements-essentials"
+      ],
+      "evidence": [
+        {
+          "id": "q035-intent",
+          "document_id": "software-requirements-essentials",
+          "page_number": 27,
+          "interpretation": "Requirements work establishes business objectives, product vision, stakeholder needs, and solution requirements that connect the project to intended value."
+        },
+        {
+          "id": "q035-validation",
+          "document_id": "software-requirements-essentials",
+          "page_number": 29,
+          "interpretation": "Validation checks whether requirements are likely to satisfy the originating stakeholder need rather than merely whether the specification is well formed."
+        },
+        {
+          "id": "q035-scenario",
+          "document_id": "software-architecture-in-practice",
+          "page_number": 61,
+          "interpretation": "A quality attribute scenario provides a structured, measurable description of the environmental stimulus and required system response."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q035-a1",
+          "statement": "First establish the business objective, stakeholders, need, priority, and acceptance intent; validate that the requirement addresses the original need.",
+          "evidence_ids": [
+            "q035-intent",
+            "q035-validation"
+          ]
+        },
+        {
+          "id": "q035-a2",
+          "statement": "Then express the architecturally significant quality as a scenario with source, stimulus, environment, affected artifact, response, and response measure.",
+          "evidence_ids": [
+            "q035-scenario"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q035-n1",
+          "statement": "Do not jump from a vague stakeholder wish directly to a technology choice without a validated need and measurable response.",
+          "evidence_ids": [
+            "q035-intent",
+            "q035-validation",
+            "q035-scenario"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "trace",
+          "inputs": [
+            "q035-a1",
+            "q035-a2"
+          ],
+          "conclusion": "The evidence chain runs from stakeholder value to a measurable architecture test."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q036-abstraction-versus-measurement",
+      "required_document_ids": [
+        "functional-and-concurrent-programming",
+        "understanding-software-dynamics"
+      ],
+      "evidence": [
+        {
+          "id": "q036-concurrency",
+          "document_id": "functional-and-concurrent-programming",
+          "page_number": 304,
+          "interpretation": "Concurrency semantics and synchronization determine visibility, blocking, progress, and correctness but do not predict every timing outcome under a real scheduler."
+        },
+        {
+          "id": "q036-runtime",
+          "document_id": "understanding-software-dynamics",
+          "page_number": 164,
+          "interpretation": "Runtime diagnosis needs measurements that expose queueing behavior and time spent at system boundaries rather than relying on an abstraction-level explanation alone."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q036-a1",
+          "statement": "A concurrency abstraction can be semantically correct while contention, blocking, queue growth, scheduling, or resource saturation creates poor latency and throughput.",
+          "evidence_ids": [
+            "q036-concurrency",
+            "q036-runtime"
+          ]
+        },
+        {
+          "id": "q036-a2",
+          "statement": "Reason about safety and progress from the programming model, then test performance hypotheses with timelines, queue observations, utilization, and controlled measurements.",
+          "evidence_ids": [
+            "q036-concurrency",
+            "q036-runtime"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q036-n1",
+          "statement": "Do not infer runtime scalability from functional purity or race freedom alone.",
+          "evidence_ids": [
+            "q036-concurrency",
+            "q036-runtime"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "two-layer-diagnosis",
+          "inputs": [
+            "q036-a1",
+            "q036-a2"
+          ],
+          "conclusion": "Semantic correctness and measured dynamics are complementary evidence layers."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q037-story-to-bounded-context",
+      "required_document_ids": [
+        "domain-driven-design-distilled",
+        "domain-storytelling"
+      ],
+      "evidence": [
+        {
+          "id": "q037-story",
+          "document_id": "domain-storytelling",
+          "page_number": 42,
+          "interpretation": "A workshop records a concrete spoken domain story visually while domain experts narrate it, making activities, actors, work objects, and language discussable."
+        },
+        {
+          "id": "q037-context",
+          "document_id": "domain-driven-design-distilled",
+          "page_number": 30,
+          "interpretation": "A bounded context is a semantic boundary for a model and its ubiquitous language, not simply any diagram or process step."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q037-a1",
+          "statement": "Use concrete stories to surface actors, work, terminology, disagreements, and handoffs with domain experts.",
+          "evidence_ids": [
+            "q037-story"
+          ]
+        },
+        {
+          "id": "q037-a2",
+          "statement": "Analyze shifts in language, responsibility, policy, and model meaning as candidate bounded-context boundaries, then refine them with strategic design.",
+          "evidence_ids": [
+            "q037-story",
+            "q037-context"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q037-n1",
+          "statement": "Do not treat one workshop drawing or one activity sequence as a completed bounded-context model.",
+          "evidence_ids": [
+            "q037-story",
+            "q037-context"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "refinement",
+          "inputs": [
+            "q037-a1",
+            "q037-a2"
+          ],
+          "conclusion": "Concrete narrative evidence informs but does not replace strategic boundary modeling."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q038-flow-across-strategy-delivery",
+      "required_document_ids": [
+        "architecture-for-flow",
+        "continuous-architecture-in-practice",
+        "modern-software-engineering"
+      ],
+      "evidence": [
+        {
+          "id": "q038-landscape",
+          "document_id": "architecture-for-flow",
+          "page_number": 36,
+          "interpretation": "Wardley Mapping supplies situational awareness by locating user needs, value-chain components, and their evolutionary position."
+        },
+        {
+          "id": "q038-feedback",
+          "document_id": "continuous-architecture-in-practice",
+          "page_number": 47,
+          "interpretation": "Continuous Architecture explicitly pairs architectural decisions with feedback loops and evolving delivery work."
+        },
+        {
+          "id": "q038-learning",
+          "document_id": "modern-software-engineering",
+          "page_number": 33,
+          "interpretation": "Modern software engineering treats development as empirical learning supported by feedback, iteration, experimentation, and modularity."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q038-a1",
+          "statement": "Use situational awareness to decide where differentiation matters and align domain and team boundaries to reduce coordination drag.",
+          "evidence_ids": [
+            "q038-landscape"
+          ]
+        },
+        {
+          "id": "q038-a2",
+          "statement": "Turn architectural choices into small delivery experiments, collect fast feedback, and update both the design and the strategic map as evidence changes.",
+          "evidence_ids": [
+            "q038-feedback",
+            "q038-learning",
+            "q038-landscape"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q038-n1",
+          "statement": "Do not optimize deployment speed independently of strategic purpose, team interaction, or learning quality.",
+          "evidence_ids": [
+            "q038-landscape",
+            "q038-feedback",
+            "q038-learning"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "feedback-cycle",
+          "inputs": [
+            "q038-a1",
+            "q038-a2"
+          ],
+          "conclusion": "Strategy guides experiments, and delivery evidence continuously updates strategy and architecture."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q039-decomposition-tradeoffs",
+      "required_document_ids": [
+        "domain-driven-design-distilled",
+        "practical-object-oriented-design",
+        "righting-software"
+      ],
+      "evidence": [
+        {
+          "id": "q039-domain",
+          "document_id": "domain-driven-design-distilled",
+          "page_number": 30,
+          "interpretation": "Bounded contexts establish semantic model boundaries at a domain and system collaboration scale."
+        },
+        {
+          "id": "q039-object",
+          "document_id": "practical-object-oriented-design",
+          "page_number": 40,
+          "interpretation": "Single responsibility focuses a class on a coherent purpose so local object behavior remains understandable and changeable."
+        },
+        {
+          "id": "q039-volatility",
+          "document_id": "righting-software",
+          "page_number": 65,
+          "interpretation": "Volatility-based decomposition identifies and encapsulates likely areas of change at the system architecture scale."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q039-a1",
+          "statement": "Use bounded contexts for model meaning and strategic integration, single responsibility for local object collaboration, and volatility for system-level change isolation.",
+          "evidence_ids": [
+            "q039-domain",
+            "q039-object",
+            "q039-volatility"
+          ]
+        },
+        {
+          "id": "q039-a2",
+          "statement": "The lenses can reinforce one another, but they operate at different scales and answer different change questions.",
+          "evidence_ids": [
+            "q039-domain",
+            "q039-object",
+            "q039-volatility"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q039-n1",
+          "statement": "Do not turn every class responsibility or volatile detail into its own domain boundary or deployable service.",
+          "evidence_ids": [
+            "q039-domain",
+            "q039-object",
+            "q039-volatility"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "scale-separation",
+          "inputs": [
+            "q039-a1",
+            "q039-a2"
+          ],
+          "conclusion": "Choose the decomposition lens that matches the semantic and architectural scale of the decision."
+        }
+      ],
+      "acceptable_variants": []
+    },
+    {
+      "id": "q040-monolith-microservice-decision",
+      "required_document_ids": [
+        "balancing-coupling-in-software-design",
+        "continuous-architecture-in-practice",
+        "strategic-monoliths-and-microservices"
+      ],
+      "evidence": [
+        {
+          "id": "q040-coupling",
+          "document_id": "balancing-coupling-in-software-design",
+          "page_number": 40,
+          "interpretation": "Moving modules into separate services can reduce lifecycle coupling, but it changes only one coupling dimension and introduces a distributed interaction."
+        },
+        {
+          "id": "q040-feedback",
+          "document_id": "continuous-architecture-in-practice",
+          "page_number": 54,
+          "interpretation": "Architectural decisions should be explicit and revisited through feedback loops that reveal their impact over the delivery lifecycle."
+        },
+        {
+          "id": "q040-strategy",
+          "document_id": "strategic-monoliths-and-microservices",
+          "page_number": 89,
+          "interpretation": "Neither monoliths nor microservices are universally preferred; a transition is reasonable when strategic and operational evidence supports it."
+        }
+      ],
+      "answer_claims": [
+        {
+          "id": "q040-a1",
+          "statement": "Keep a modular monolith while boundaries are uncertain or independent lifecycle benefits do not exceed distributed coordination and operational costs.",
+          "evidence_ids": [
+            "q040-coupling",
+            "q040-strategy"
+          ]
+        },
+        {
+          "id": "q040-a2",
+          "statement": "Extract a service when a stable strategic boundary needs independent change, scaling, ownership, or release and feedback confirms that the benefits outweigh the added coupling and operations.",
+          "evidence_ids": [
+            "q040-coupling",
+            "q040-feedback",
+            "q040-strategy"
+          ]
+        }
+      ],
+      "important_negatives": [
+        {
+          "id": "q040-n1",
+          "statement": "Do not treat network distribution, service count, or fashion as evidence that microservices are inherently superior.",
+          "evidence_ids": [
+            "q040-coupling",
+            "q040-feedback",
+            "q040-strategy"
+          ]
+        }
+      ],
+      "derivation": [
+        {
+          "operation": "conditional-decision",
+          "inputs": [
+            "q040-a1",
+            "q040-a2"
+          ],
+          "conclusion": "Evolve topology only when stable boundaries and observed lifecycle benefits justify distribution."
+        }
+      ],
+      "acceptable_variants": []
+    }
+  ]
+}

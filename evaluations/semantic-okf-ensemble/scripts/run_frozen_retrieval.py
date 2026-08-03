@@ -212,7 +212,10 @@ def _markdown(report: dict[str, Any]) -> str:
 def run(args: argparse.Namespace) -> dict[str, Any]:
     """Load a deeply validated bundle once and execute every requested policy."""
 
-    manifest, frozen_rows, _ = benchmark_rows()
+    manifest: dict[str, Any] | None = None
+    frozen_rows: list[dict[str, Any]] | None = None
+    if args.questions is None:
+        manifest, frozen_rows, _ = benchmark_rows()
     runtime = _runtime()
     evaluator = _evidence_evaluator()
     bundle = args.bundle.resolve(strict=True)
@@ -220,9 +223,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     inspection = runtime.inspect_snapshot(snapshot)
     if inspection.get("status") != "pass" or inspection.get("deep_validation") is not True:
         raise EvaluationError("ensemble bundle deep validation did not pass")
-    question_path = REPO_ROOT / manifest["cohorts"]["retrieval_questions"]["path"]
+    question_path = (
+        REPO_ROOT / manifest["cohorts"]["retrieval_questions"]["path"]
+        if manifest is not None
+        else args.questions.resolve(strict=True)
+    )
     questions = evaluator.load_questions(question_path)
-    if [item.identifier for item in questions] != [row["id"] for row in frozen_rows]:
+    if len(questions) != args.expected_question_count:
+        raise EvaluationError(
+            f"expected {args.expected_question_count} questions, found {len(questions)}"
+        )
+    if frozen_rows is not None and [item.identifier for item in questions] != [
+        row["id"] for row in frozen_rows
+    ]:
         raise EvaluationError("evidence evaluator question identities differ from the frozen benchmark")
     ledger = evaluator.AuthoritativeLedger.from_bundle(bundle)
     policies = args.policy or list(DEFAULT_POLICIES)
@@ -265,8 +278,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "query_count": len(questions),
         "top_k": args.top_k,
         "benchmark": {
-            "benchmark_id": manifest["benchmark_id"],
-            "manifest_sha256": "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414",
+            "benchmark_id": (
+                manifest["benchmark_id"] if manifest is not None else args.dataset_id
+            ),
+            "manifest_sha256": (
+                "2f905bd9a7ad07991fe215e0b82b3c7bfdcccbff9431ee5bd20095d99b8f4414"
+                if manifest is not None
+                else None
+            ),
             "question_path": display_path(question_path),
             "question_sha256": sha256(question_path),
         },
@@ -300,6 +319,9 @@ def _args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bundle", type=Path, required=True)
+    parser.add_argument("--questions", type=Path)
+    parser.add_argument("--expected-question-count", type=int, default=40)
+    parser.add_argument("--dataset-id", default="graphrag-papers-40")
     parser.add_argument("--policy", action="append", choices=sorted(POLICIES))
     parser.add_argument("--top-k", type=int, default=10, choices=[10])
     parser.add_argument("--repetitions", type=int, default=1, choices=range(1, 11))

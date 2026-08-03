@@ -1,0 +1,98 @@
+{
+  "alternative_count": 24,
+  "candidate_id": "specialized-expert-trace-bm25",
+  "candidate_label": "Specialized expert trace BM25",
+  "candidate_route": "specialized_expert_trace_bm25",
+  "candidate_skill": "graphrag-trace-expert-v43",
+  "dataset_id": "graphrag-papers-40",
+  "deltas": {
+    "ndcg_at_10": 15.193977624801036,
+    "p95_latency_ms": 59.08062013331798,
+    "recall_at_10": 10.680645743145732
+  },
+  "expert": {
+    "file_count": 113,
+    "guidance_sha256": "1c8e81427dcdc60992f522d031326f66a80f6cb122a984718d9f9da89fe9c686",
+    "knowledge_file_count": 108,
+    "knowledge_tree_sha256": "e787e3ef4a2c2a3a624be0803a3536ab24c2dcdd66e4b894c2d0ec10634f1d9e",
+    "manifest_sha256": "eb2f603bb154990e9b5400e422277a1486818e2d8d043311fe4015dc121a064d",
+    "query_helper_sha256": "77717ae4e36b261de0093484667d09f3ce32f69d8a92449dfd793fb7ad7cb6ce",
+    "record_count": 30,
+    "tree_sha256": "c38fe46ee79e2c2b0186e3c95025c96f95a122fd569871fe5117abb5dce4e4e6"
+  },
+  "inputs": {
+    "candidate_pool100": {
+      "bytes": 820326,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-bm25-01/runs/canonical-all40-pool100/report.json",
+      "sha256": "e18c5b411a100b25f53c8dd1113ede1230ec7b04021895a366e54648219b640d"
+    },
+    "candidate_top10": {
+      "bytes": 564107,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-bm25-01/runs/canonical-all40-top10/report.json",
+      "sha256": "ca1ac0a21df9693a26382b3fb8ff5a4024af33687286b5905ab96e2781873f04"
+    },
+    "reference_comparison": {
+      "bytes": 5856,
+      "path": "evaluations/semantic-okf-specialized-experts/reports/canonical-retrieval-20260728.comparison.json",
+      "sha256": "59a4d6da86dd05a35a3e691d5b89457addc3ef64ea6502e8c6f27181604aeca5"
+    }
+  },
+  "position": 10,
+  "previous_metrics": {
+    "ndcg_at_10": 66.57065252577992,
+    "p95_latency_ms": 170.78081491636112,
+    "recall_at_10": 72.19814213564214
+  },
+  "previous_position": 19,
+  "provenance": {
+    "builder_skill": {
+      "file_count": 19,
+      "path": "skills/build-semantic-okf-tika-mallet",
+      "tree_sha256": "20f941c459b6e1517f47221934a4e0d002ca0b382fafa8dd411f74848f246905"
+    },
+    "packager_skill": {
+      "file_count": 8,
+      "path": "skills/build-specialized-skill",
+      "tree_sha256": "1601edf54d1d0c19d7829c3437c93c7c9960acbd07f2217082c5ad5ee144eb55"
+    },
+    "trace_evidence": [
+      {
+        "bytes": 9551,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/trace-distillation/20260728-expert-v43-evidence-v39-01/proposal-state.json",
+        "sha256": "c050038f221e890bb86ae34462d22d5c17815c89bf4a6477ea856abd4b313439"
+      },
+      {
+        "bytes": 4832,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/trace-distillation/20260728-expert-v43-evidence-v42-01/proposal-state.json",
+        "sha256": "35eb181d7618c4a3ceabe6638c57aba09e775155430d5334eeba4f9897d95e7d"
+      },
+      {
+        "bytes": 11067,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/trace-distillation/20260727-consult-v39-promotion-gate-01/development-gate.json",
+        "sha256": "b9e556795d6436c3dd1ae6e326afc61ce303526df1133fc6ac7aa88f4f454d8a"
+      },
+      {
+        "bytes": 11067,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/trace-distillation/20260727-consult-v42-promotion-gate-01/development-gate.json",
+        "sha256": "81af6809b677ce55ef45cdb92a1ff0067d6338bef1af43fdad5d4337da5c4d27"
+      }
+    ]
+  },
+  "ranking_eligible": true,
+  "retrieval_contract_id": "trace-bm25-field-fusion-v1",
+  "schema_version": "semantic-okf-specialized-expert-improvement-audit/1.0",
+  "selected_metrics": {
+    "ndcg_at_10": 81.76463015058096,
+    "p95_latency_ms": 229.8614350496791,
+    "recall_at_10": 82.87878787878788
+  },
+  "status": "pass",
+  "validation": {
+    "evidence_validity": 1.0,
+    "exact_input_binding_between_runs": true,
+    "exact_top10_prefix_in_pool100": true,
+    "expert_immutable": true,
+    "knowledge_immutable": true,
+    "query_error_count": 0
+  }
+}

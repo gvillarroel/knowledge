@@ -215,7 +215,7 @@ def build_bundle(
     ):
         (semantic / name).write_text("# fixture\n", encoding="utf-8")
     (root / "index.md").write_text(
-        '---\nokf_version: "0.1"\n---\n\n# Fixture\n', encoding="utf-8"
+        '---\nokf_version: "0.2"\n---\n\n# Fixture\n', encoding="utf-8"
     )
 
     core_hash = core_tree_sha256(root)

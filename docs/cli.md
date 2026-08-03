@@ -1,6 +1,9 @@
 # know CLI
 
-`know` manages a local knowledge store in `~/.knowledge`.
+`know` manages a project-local knowledge store in `.know`. Run `know init` at
+the project root once; commands in that directory or any descendant discover
+the nearest `.know` automatically. If no local store exists, commands retain
+the global `~/.knowledge` fallback.
 
 Use this document as the main user guide.
 
@@ -16,6 +19,7 @@ Other documents in this directory:
 
 ```bash
 know --help
+know init
 know add key research
 know set credential jira_token secret-token
 know add confluence --space ENG --key research
@@ -36,23 +40,34 @@ know search brave "text to search" --count 5
 know search brave "local coffee" --country US --search-lang en --ui-lang en-US --safesearch moderate --result-filter web --result-filter locations --loc-lat 40.7 --loc-long -74.0 --loc-city "New York"
 know sync --key research
 know export --key research
-know import ~/.knowledge/exports/knowledge-export-20260322T180000Z.zip
+know import .know/exports/knowledge-export-20260322T180000Z.zip
 ```
 
 ## Recommended flow
 
-1. Create a key with `know add key research`.
-2. Attach one or more sources with `know add ... --key research`.
-3. Use `know list sources --key research` to confirm the registrations and saved commands.
-4. Use `know sync --key research` to fetch or generate raw source content.
-5. Use `know export --key research` to build normalized OKF-compatible Markdown and a zip archive.
+1. Initialize the project with `know init`.
+2. Create a key with `know add key research`.
+3. Attach one or more sources with `know add ... --key research`.
+4. Use `know list sources --key research` to confirm the registrations and saved commands.
+5. Use `know sync --key research` to fetch or generate raw source content.
+6. Use `know export --key research` to build normalized OKF-compatible Markdown and a zip archive.
+
+The store is resolved in this order:
+
+1. `--store <PATH>` when supplied.
+2. The nearest `.know` directory at or above the working directory.
+3. `~/.knowledge` when the command is outside a local project.
+
+`know init` is intentionally different from ordinary discovery: without
+`--store`, it always initializes `<current-directory>/.know`, allowing a nested
+project to establish its own knowledge boundary.
 
 When you need an interactive terminal browser, prefer `television` output formats or register a dedicated Television source.
 
 ## Store shape
 
 ```text
-~/.knowledge/
+<project>/.know/
   config.yaml
   keys.yaml
   exports/
@@ -291,7 +306,7 @@ After `know sync television ...`, the generated source directory contains:
 ## Flags
 
 - `--json` — Emit output as JSON.
-- `--store <PATH>` — Override the default store path.
+- `--store <PATH>` — Override project discovery and the global fallback.
 - `--verbose` — Print progress messages during sync and export.
 - `--quiet` — Suppress all non-error output.
 - `--format television` — Emit one-line-per-result output for `tv` source commands.

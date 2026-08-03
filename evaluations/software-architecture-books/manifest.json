@@ -1,0 +1,345 @@
+{
+  "schema_version": "1.0",
+  "bundle": {
+    "title": "Software architecture and engineering book corpus",
+    "description": "A private, page-addressable corpus of eighteen books about software architecture, design, requirements, APIs, delivery, concurrency, and performance.",
+    "base_iri": "https://example.org/knowledge/software-architecture-books/",
+    "ontology_iri": "https://example.org/ontology/software-architecture-books",
+    "version_iri": "https://example.org/ontology/software-architecture-books/1.0.0",
+    "prefix": "sab",
+    "owl_profile": "rl"
+  },
+  "ontology": {
+    "classes": [
+      {
+        "name": "BookDocument",
+        "label": "software architecture book document"
+      }
+    ],
+    "properties": [
+      {
+        "name": "author",
+        "kind": "datatype",
+        "domain": "BookDocument",
+        "range": "xsd:string"
+      },
+      {
+        "name": "documentId",
+        "kind": "datatype",
+        "domain": "BookDocument",
+        "range": "xsd:string"
+      },
+      {
+        "name": "pageCount",
+        "kind": "datatype",
+        "domain": "BookDocument",
+        "range": "xsd:integer"
+      },
+      {
+        "name": "pdfSha256",
+        "kind": "datatype",
+        "domain": "BookDocument",
+        "range": "xsd:string"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "name": "BookAuthorRule",
+      "target_class": "BookDocument",
+      "path": "author",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "message": "Each accepted book must identify exactly one author string.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "book-selection.json"
+        ]
+      }
+    },
+    {
+      "name": "BookDocumentIdRule",
+      "target_class": "BookDocument",
+      "path": "documentId",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "message": "Each accepted book must identify exactly one stable document ID.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "book-selection.json"
+        ]
+      }
+    },
+    {
+      "name": "BookPageCountRule",
+      "target_class": "BookDocument",
+      "path": "pageCount",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:integer",
+      "message": "Each accepted book must preserve its validated PDF page count.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "book-selection.json"
+        ]
+      }
+    },
+    {
+      "name": "BookPdfHashRule",
+      "target_class": "BookDocument",
+      "path": "pdfSha256",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": "^[0-9a-f]{64}$",
+      "message": "Each accepted book must preserve its validated lowercase PDF SHA-256.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "book-selection.json"
+        ]
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "book-architecture-for-flow",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/architecture-for-flow.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-async-first-playbook",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/async-first-playbook.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-balancing-coupling-in-software-design",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/balancing-coupling-in-software-design.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-continuous-architecture-in-practice",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/continuous-architecture-in-practice.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-domain-driven-design-distilled",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/domain-driven-design-distilled.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-domain-storytelling",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/domain-storytelling.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-effective-software-architecture",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/effective-software-architecture.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-functional-and-concurrent-programming",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/functional-and-concurrent-programming.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-modern-software-engineering",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/modern-software-engineering.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-patterns-for-api-design",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/patterns-for-api-design.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-practical-object-oriented-design",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/practical-object-oriented-design.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-principles-of-web-api-design",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/principles-of-web-api-design.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-righting-software",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/righting-software.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-software-architecture-and-decision-making",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/software-architecture-and-decision-making.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-software-architecture-in-practice",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/software-architecture-in-practice.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-software-requirements-essentials",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/software-requirements-essentials.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-strategic-monoliths-and-microservices",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/strategic-monoliths-and-microservices.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    },
+    {
+      "id": "book-understanding-software-dynamics",
+      "kind": "markdown",
+      "path": "processed/sources/markdown/understanding-software-dynamics.md",
+      "concept_type": "Software Architecture Book",
+      "ontology_class": "BookDocument",
+      "fields": {
+        "author": "author",
+        "document_id": "documentId",
+        "page_count": "pageCount",
+        "pdf_sha256": "pdfSha256"
+      }
+    }
+  ]
+}

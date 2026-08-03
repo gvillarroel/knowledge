@@ -11,6 +11,13 @@ passage per source, builds source-grounded extractive claims, validates first-us
 evidence order, writes one new JSON file outside the snapshot, and prints that same
 JSON.
 
+## Standalone read-only boundary
+
+Use only this skill package and the supplied immutable snapshot. Do not import
+or execute sibling skills or repository helpers. The compiler may write only
+the caller-declared new output outside the snapshot; it never builds, repairs,
+refreshes, or mutates knowledge.
+
 ## Closed workflow
 
 1. Read only this `SKILL.md`. Do not read the bundled scripts or any other skill

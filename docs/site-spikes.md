@@ -28,7 +28,7 @@ The current target that motivated this work is:
 Use the standalone runner:
 
 ```bash
-uv run python scripts/run_site_spikes.py https://docs.cloud.google.com/bigquery/docs --max-pages 12 --max-depth 1 --cdp-url http://127.0.0.1:9222 --output-dir evaluation/site_spikes/bigquery_docs
+uv run python scripts/run_site_spikes.py https://docs.cloud.google.com/bigquery/docs --max-pages 12 --max-depth 1 --cdp-url http://127.0.0.1:9222 --output-dir evaluations/site-spikes/bigquery_docs
 ```
 
 Use this runner when you want to answer questions such as:
@@ -41,11 +41,11 @@ For a multi-target comparison across several documentation roots, use the batch 
 
 ```bash
 uv run python scripts/run_site_batch_spikes.py \
-  --urls-file evaluation/site_spikes/bigquery_urls.txt \
+  --urls-file evaluations/site-spikes/bigquery_urls.txt \
   --max-pages 12 \
   --max-depth 1 \
   --cdp-url http://127.0.0.1:9222 \
-  --output-dir evaluation/site_spikes/batch_bigquery
+  --output-dir evaluations/site-spikes/batch_bigquery
 ```
 
 Use the batch runner when you want to answer questions such as:

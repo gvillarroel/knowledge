@@ -1,0 +1,30 @@
+{
+  "schema_version": "semantic-okf-experimental-frozen-consult/1.0",
+  "dataset_id": "graphrag-papers-40",
+  "family": "tika-mallet-tantivy",
+  "candidate_artifact": "evaluations/semantic-okf-tika-mallet-tantivy/generated/trace-distillation/20260727-consult-v39-promotion-gate-01/candidate/skills/consult-semantic-okf-tika-mallet-tantivy",
+  "candidate_digest": "sha256:2f22698579835f1c024fefee1071554618d644f87141e6a49d813a5ce58153cd",
+  "candidate_tree_sha256": "cb9a0218ad79c938ca5a969cba46d32e8ce5a2fa6ed4c61eeb9309921bf21602",
+  "development": {
+    "questions": [
+      "q006",
+      "q007",
+      "q008"
+    ],
+    "rewards": [
+      0.7173651935208513,
+      0.6608238271862031,
+      0.7818994572028688
+    ],
+    "mean_reward": 0.7200294926366411,
+    "passed_trials": 2,
+    "trial_count": 3,
+    "pass_threshold": 0.7,
+    "required_pass_rate": 1.0
+  },
+  "selection_policy": "Maximize the number of development trials at or above the pass threshold; use mean reward only as a tie-breaker.",
+  "selection_status": "experimental-builder-control",
+  "promotion_status": "rejected-in-development",
+  "holdout_status": "closed-and-unread",
+  "source_skill_modified": false
+}

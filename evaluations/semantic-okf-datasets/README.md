@@ -1,6 +1,8 @@
 # Semantic OKF Evaluation Datasets
 
-This directory is the canonical registry and execution scaffold for reusable Semantic OKF evaluations. It turns the existing Astro documentation and GraphRAG paper benchmarks into checked datasets that can run in either of two isolated modes.
+This directory is the canonical registry and execution scaffold for reusable
+Semantic OKF evaluations. It covers the Astro documentation, GraphRAG papers,
+and quantum-error-correction papers benchmarks in two isolated execution modes.
 
 ## Inventory
 
@@ -8,17 +10,19 @@ This directory is the canonical registry and execution scaffold for reusable Sem
 |---|---:|---:|---:|---|---|
 | `astro-40` | 416 Astro MDX files | 40 | 10 | `train=24`, `dev=8`, `holdout=8` | No; build one and pass `--bundle` |
 | `graphrag-papers-40` | 15 papers, 15 reviewed claim files, and 1 vocabulary file | 40 | 10 | `discovery=24`, `holdout=6`, `hard=10` | `evaluations/graphrag-cross-paper/bundle` |
+| `quantum-error-correction-papers-40` | 15 versioned arXiv papers | 40 | 10 | `development=30`, `hard=10` | `evaluations/quantum-error-correction-papers/bundle` |
 
 Every descriptor pins the source manifest, question set, optional semantic rubric, hard ground truth, cohorts, and family-specific plan files by SHA-256. The papers descriptor restores the original q001–q030 document minimums and hidden required points from the authored blueprint.
 
-The `graphrag-papers-40` qrel paper lists are curated, non-exhaustive focus
-sets. They are useful for focus coverage and retrieval diagnostics, but an
-otherwise valid paper is not semantically irrelevant merely because it is
-outside that list. For newly generated tasks, the public minimum-document gate
-therefore counts independent documents with exact valid evidence, while focus
-coverage remains a separate metric. Neither metric establishes answer
-correctness: semantic ranking requires review against every hidden required
-point or hard-ground-truth claim, derivation, and important negative.
+The `graphrag-papers-40` and `quantum-error-correction-papers-40` qrel lists are
+curated, non-exhaustive focus sets. They are useful for focus coverage and
+retrieval diagnostics, but an otherwise valid paper is not semantically
+irrelevant merely because it is outside that list. For newly generated tasks,
+the public minimum-document gate therefore counts independent documents with
+exact valid evidence, while focus coverage remains a separate metric. Neither
+metric establishes answer correctness: semantic ranking requires review
+against every hidden required point or hard-ground-truth claim, derivation, and
+important negative.
 
 A report may claim full-dataset coverage only when every q001–q040 question has
 at least one complete response. Audit the local response archive and the
@@ -139,6 +143,51 @@ python evaluations/semantic-okf-datasets/summarize_consult_campaign.py \
 ```
 
 Strict mode requires all eight families, every declared cohort, one result per question, valid run identities, Pi `0.73.1`, `openai-codex/gpt-5.3-codex-spark`, no provider/evaluator failures, and 40 evaluable final responses per family. For scheduled campaigns it additionally verifies the immutable input binding, exact one-task shard paths, receipts, terminal outcomes, and completed checkpoint; an answer is scorer-observable only when the current verifier emitted its complete finite metric vector and a recognized scored status. `--allow-partial` is only for incomplete progress inspection. `--allow-invalid` emits an explicitly forensic report for a structurally complete but non-rankable campaign. Add `--rescore` to apply the current grader to immutable historical traces; this never changes raw results.
+
+## Token usage accounting
+
+Construction and consultation use different denominators and remain separate
+metrics. Builder cost is measured only from independent single-folder
+builder-direct trials. Consultation cost is measured
+per submitted `consult-only` query, with a separate complete-response view
+where the source artifacts support it. A combined `build-consult` count is
+end-to-end cost and must not be relabeled as construction-only cost.
+
+Harbor `n_input_tokens` already includes cached input. Reports therefore define
+total tokens as `n_input_tokens + n_output_tokens`; `n_cache_tokens` is shown
+separately as a subset and is never added again. Comparative rows remain split
+by model because tokenizer and runtime contracts differ.
+
+The current
+[two-stage token report](reports/20260730-semantic-okf-token-usage.md) and its
+[machine-readable companion](reports/20260730-semantic-okf-token-usage.json)
+rank all eight registered build/consult pairs. The primary construction matrix
+uses two qualified single-folder trials per family; the consultation matrix
+reuses the same six holdout questions for every family and retains runtime
+failures in the submitted-query denominator. All 25 deterministic
+direct-retrieval routes are also listed with their zero-LLM-token helper scope.
+Once compact evidence has been captured, both reports regenerate without a new
+model call:
+
+```bash
+python evaluations/semantic-okf-datasets/summarize_token_usage.py
+python evaluations/semantic-okf-datasets/summarize_token_usage.py --check
+```
+
+After completing a new native eight-family builder matrix, refresh the compact
+evidence before regenerating the report:
+
+```bash
+python evaluations/semantic-okf-datasets/capture_registered_token_evidence.py
+```
+
+The compact
+[`token-usage-evidence.json`](token-usage-evidence.json) binds ignored builder
+results and verifier diagnostics by path and SHA-256 while retaining exact
+token observations and cross-replicate folder identities for clean-checkout
+regeneration. New consultation campaign summaries and current-metrics tables
+include a token section automatically; incomplete usage is omitted from its
+mean rather than converted to zero.
 
 ## Recorded campaigns
 
@@ -278,6 +327,54 @@ python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
 ```
 
 Use `train`, `dev`, or `holdout` as the Astro runner cohort.
+
+## Repeat the quantum error correction evaluation
+
+The QEC dataset is a transfer benchmark created from new source bytes. Its
+acquirer verifies fifteen exact arXiv versions, PDF digests, normalized
+metadata, deterministic page-by-page Markdown extraction, and NFC alignment
+with the Semantic OKF ledger.
+
+```bash
+python evaluations/quantum-error-correction-papers/scripts/acquire_papers.py \
+  --check
+python evaluations/quantum-error-correction-papers/scripts/generate_benchmark.py \
+  --check
+python skills/build-semantic-okf/scripts/validate_okf_bundle.py \
+  evaluations/quantum-error-correction-papers/bundle
+python skills/build-semantic-okf/scripts/validate_semantic_okf.py \
+  evaluations/quantum-error-correction-papers/bundle --output-format json
+```
+
+Stage raw input, generate both isolated task modes, and run all eighty
+mechanical qualification oracles:
+
+```bash
+python evaluations/semantic-okf-datasets/dataset_tool.py prepare \
+  --dataset quantum-error-correction-papers-40 --family legacy
+python evaluations/semantic-okf-datasets/dataset_tool.py prepare \
+  --dataset quantum-error-correction-papers-40 --family legacy --check
+python evaluations/semantic-okf-datasets/generate_harbor_tasks.py \
+  --dataset quantum-error-correction-papers-40 --family legacy \
+  --mode build-consult --verifier-network-mode no-network
+python evaluations/semantic-okf-datasets/generate_harbor_tasks.py \
+  --dataset quantum-error-correction-papers-40 --family legacy \
+  --mode consult-only --verifier-network-mode no-network
+python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
+  --dataset quantum-error-correction-papers-40 --family legacy \
+  --mode build-consult
+python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
+  --dataset quantum-error-correction-papers-40 --family legacy \
+  --mode consult-only
+```
+
+The tracked
+[retrospective retrieval report](../quantum-error-correction-papers/reports/retrospective-supervised-expert-evaluation.md)
+compares a default expert with the builder-owned supervised-profile treatment
+over three replicates. The treatment ranks first with 100% Recall@10, MRR@10,
+nDCG@10, and exact evidence at a 34.006 ms representative P95. All forty qrels
+were exposed, so this is fixed-workload evidence and
+`promotion_eligible: false`; it is not a grounded-answer or holdout result.
 
 ## Run another family
 

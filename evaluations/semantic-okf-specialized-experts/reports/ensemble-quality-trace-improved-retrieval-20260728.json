@@ -1,0 +1,88 @@
+{
+  "alternative_count": 24,
+  "candidate_id": "specialized-expert-ensemble-quality-trace-v48",
+  "candidate_label": "Specialized expert Ensemble quality + trace v48",
+  "candidate_route": "specialized_expert_ensemble_quality_trace",
+  "candidate_skill": "graphrag-ensemble-quality-trace-expert-v48",
+  "dataset_id": "graphrag-papers-40",
+  "deltas": {
+    "ndcg_at_10": 0.8220619666173121,
+    "p95_latency_ms": 550.5564700769446,
+    "recall_at_10": 1.5656421356421504
+  },
+  "expert": {
+    "file_count": 917,
+    "guidance_sha256": "5535b14ad9f5879acfc767b46be585e6efc0b34296348fd0082f6480a4bd2c0c",
+    "knowledge_file_count": 904,
+    "knowledge_tree_sha256": "2d611b958fdde78ad5563fb7d3f88705d850f25b697445194a418d226e452df0",
+    "manifest_sha256": "aed263cc284c03c7b329b75a895e8fa2d05383cc2109986b75a9753016665ae3",
+    "query_helper_sha256": "017ba7b22d1becc89d9fda52d9462b0e18c7b89a11fe29256acc358e44219221",
+    "record_count": 874,
+    "tree_sha256": "c4bc9dca324e34d9f7c4857f0608500309374ed3e7ce65160c4bf7aec382de54"
+  },
+  "inputs": {
+    "candidate_pool100": {
+      "bytes": 518236,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-ensemble-quality-trace-02/runs/canonical-all40-pool100/report.json",
+      "sha256": "eb49dcacf42bc455b203cc9ff1d418478a4f71acad8246c0d3a88de45cf31ebd"
+    },
+    "candidate_top10": {
+      "bytes": 518239,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-ensemble-quality-trace-02/runs/canonical-all40-top10/report.json",
+      "sha256": "57377eb0f3e3a88d8436de090979844600f9025b8430c4895ee512552943cdbc"
+    },
+    "reference_comparison": {
+      "bytes": 5901,
+      "path": "evaluations/semantic-okf-specialized-experts/reports/expertise-improved-retrieval-20260728.comparison.json",
+      "sha256": "1c46c4a3448a31445024f724a1aee870b1e88c60a98dd7ad9f581b4b2207c151"
+    }
+  },
+  "position": 1,
+  "previous_metrics": {
+    "ndcg_at_10": 85.2,
+    "p95_latency_ms": 1461.92,
+    "recall_at_10": 83.82
+  },
+  "previous_position": 1,
+  "provenance": {
+    "builder_skill": {
+      "file_count": 30,
+      "path": "skills/build-semantic-okf-ensemble",
+      "tree_sha256": "235cb66716d83d5924d1c6f49062ddd222408b4bd00ad80d2fc71ec5fde87dd4"
+    },
+    "packager_skill": {
+      "file_count": 9,
+      "path": "skills/build-specialized-skill",
+      "tree_sha256": "8ead6b3cc2bbb7b0c364f333bdd61fafc4a976b4c458116ab92200cc4a2a0917"
+    },
+    "trace_evidence": [
+      {
+        "bytes": 2833,
+        "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-ensemble-quality-trace-02/development-search.json",
+        "sha256": "10d318a540e86dd9474fc3490f768ef0ad3eb1570c33f9ef1e7877121d0467d0"
+      },
+      {
+        "bytes": 10820,
+        "path": "evaluations/semantic-okf-ensemble/population-search-results.json",
+        "sha256": "cf684b0fb097bcca13a79d64241eee9979e688999abd8b51e4a4524b8d42fb14"
+      }
+    ]
+  },
+  "ranking_eligible": true,
+  "retrieval_contract_id": "ensemble-quality-trace-union-rrf-v3",
+  "schema_version": "semantic-okf-specialized-expert-improvement-audit/1.0",
+  "selected_metrics": {
+    "ndcg_at_10": 86.02206196661731,
+    "p95_latency_ms": 2012.4764700769447,
+    "recall_at_10": 85.38564213564214
+  },
+  "status": "pass",
+  "validation": {
+    "evidence_validity": 1.0,
+    "exact_input_binding_between_runs": true,
+    "exact_top10_prefix_in_pool100": true,
+    "expert_immutable": true,
+    "knowledge_immutable": true,
+    "query_error_count": 0
+  }
+}

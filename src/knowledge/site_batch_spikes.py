@@ -40,7 +40,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("evaluation") / "site_spikes" / "batch",
+        default=Path("evaluations") / "site-spikes" / "batch",
         help="Directory where aggregated and per-target reports will be written",
     )
     return parser

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the OKF v0.1 Markdown surface of a generated knowledge folder."""
+"""Validate the OKF v0.2 Markdown surface of a generated knowledge folder."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from typing import Any
 import yaml
 
 
-OKF_VERSION = "0.1"
+OKF_VERSION = "0.2"
 DATE_HEADING_RE = re.compile(r"^##\s+(\d{4}-\d{2}-\d{2})\s*$")
 INDEX_ENTRY_RE = re.compile(r"^\*\s+\[[^\]]+\]\([^)]+\)(?:\s+-\s+.+)?\s*$")
 
@@ -183,7 +183,7 @@ def _validate_log(path: Path, text: str) -> list[ValidationError]:
 
 
 def validate_bundle(bundle_root: Path) -> list[ValidationError]:
-    """Validate a directory tree against the normative OKF v0.1 Markdown rules."""
+    """Validate a directory tree against the normative OKF v0.2 Markdown rules."""
 
     if not bundle_root.exists() or not bundle_root.is_dir():
         return [ValidationError(bundle_root, "bundle root must be an existing directory")]
@@ -211,7 +211,7 @@ def validate_bundle(bundle_root: Path) -> list[ValidationError]:
 def main(argv: list[str] | None = None) -> int:
     """Run the standalone OKF validator CLI."""
 
-    parser = argparse.ArgumentParser(description="Validate an Open Knowledge Format v0.1 bundle.")
+    parser = argparse.ArgumentParser(description="Validate an Open Knowledge Format v0.2 bundle.")
     parser.add_argument("bundle_root", type=Path)
     args = parser.parse_args(argv)
     errors = validate_bundle(args.bundle_root)
