@@ -10,6 +10,11 @@ projection as a single validated release. The projection remains named
 `classical/` because that closed contract is what the frozen Tantivy consultant
 validates and indexes.
 
+## Standalone package boundary
+
+This skill is independently executable from its copied package and supplied
+inputs. It does not import or mutate the frozen consultation skill.
+
 ## Frozen-consumer boundary
 
 - Use only this directory's instructions, references, scripts, and requirements.

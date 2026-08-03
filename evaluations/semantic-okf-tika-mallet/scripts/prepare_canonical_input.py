@@ -19,6 +19,7 @@ EVALUATION = HERE.parent
 REPO = EVALUATION.parents[1]
 SPEC = EVALUATION / "canonical" / "graphrag-papers-40"
 DEFAULT_OUTPUT = EVALUATION / "generated" / "graphrag-papers-40" / "input"
+DEFAULT_FAMILY = "tika-mallet"
 REPARSE_POINT = 0x0400
 
 
@@ -96,6 +97,24 @@ def _canonical_digest(value: Any) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _tree_digest(root: Path, *, exclude: set[str] | None = None) -> str:
+    """Hash relative POSIX paths and bytes in the dataset-registry order."""
+
+    ignored = exclude or set()
+    digest = hashlib.sha256()
+    entries: list[tuple[bytes, str, Path]] = []
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(root).as_posix()
+        if relative in ignored or "__pycache__" in path.parts:
+            continue
+        entries.append((relative.encode("utf-8"), relative, path))
+    for _sort_key, relative, path in sorted(entries, key=lambda item: item[0]):
+        digest.update(relative.encode("utf-8") + b"\0" + path.read_bytes() + b"\0")
+    return digest.hexdigest()
+
+
 def _write_json(path: Path, value: Any) -> None:
     path.write_text(
         json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -109,6 +128,7 @@ def _materialize(
     inventory_path: Path,
     ingestion_plan: Path,
     retrieval_plan: Path,
+    family: str,
 ) -> dict[str, Any]:
     inventory = _load_json(inventory_path)
     if inventory.get("schema_version") != "semantic-okf-tika-mallet-canonical-input/1.0":
@@ -146,6 +166,7 @@ def _materialize(
     receipt = {
         "schema_version": "semantic-okf-tika-mallet-prepared-input/1.0",
         "dataset_id": inventory["dataset_id"],
+        "family": family,
         "evaluator_material_included": False,
         "source_inventory_sha256": _sha256_file(inventory_path),
         "ingestion_plan_sha256": _sha256_file(target / "ingestion-plan.json"),
@@ -153,6 +174,7 @@ def _materialize(
         "source_files": copied,
         "payload_file_count": len(payload_inventory),
         "payload_inventory_sha256": _canonical_digest(payload_inventory),
+        "payload_tree_sha256": _tree_digest(target),
     }
     _write_json(target / "input-manifest.json", receipt)
     return receipt
@@ -165,9 +187,19 @@ def prepare(
     inventory: Path = SPEC / "source-inventory.json",
     ingestion_plan: Path = SPEC / "ingestion-plan.json",
     retrieval_plan: Path = SPEC / "retrieval-plan.json",
+    family: str = DEFAULT_FAMILY,
 ) -> dict[str, Any]:
     """Create or deterministically compare one prepared input tree."""
 
+    if (
+        not family
+        or family != family.strip()
+        or any(
+            character not in "abcdefghijklmnopqrstuvwxyz0123456789-"
+            for character in family
+        )
+    ):
+        raise PreparationError("family must be a lowercase kebab-case identifier")
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     candidate = Path(
@@ -180,6 +212,7 @@ def prepare(
             inventory.resolve(),
             ingestion_plan.resolve(),
             retrieval_plan.resolve(),
+            family,
         )
         if check:
             if not output.is_dir() or output.is_symlink():
@@ -209,6 +242,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--retrieval-plan", type=Path, default=SPEC / "retrieval-plan.json"
     )
+    parser.add_argument("--family", default=DEFAULT_FAMILY)
     parser.add_argument("--check", action="store_true")
     return parser
 
@@ -222,6 +256,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             inventory=args.inventory,
             ingestion_plan=args.ingestion_plan,
             retrieval_plan=args.retrieval_plan,
+            family=args.family,
         )
     except (PreparationError, OSError, UnicodeError, ValueError, TypeError) as exc:
         print(json.dumps({"status": "error", "error": str(exc)}))

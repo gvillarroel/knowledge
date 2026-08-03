@@ -1,0 +1,40 @@
+{
+  "astro-40": {
+    "candidate_id": "classical-association",
+    "evidence_report": {
+      "path": "evaluations/semantic-okf-astro/reports/retrieval-comparison.json",
+      "sha256": "5a2e0a61fa7a8308693dfec5fe68220e80989f5aa0127496de4cd3cb8da0044b"
+    },
+    "metric_contract": {
+      "identity": "document_id joined one-to-one through source-combination.json",
+      "qrels": "binary reviewed qrels",
+      "top_k": 10
+    },
+    "metrics": {
+      "mrr_at_10": 0.9145833333333334,
+      "ndcg_at_10": 0.8347287401948427,
+      "recall_at_10": 0.8875
+    },
+    "p95_ms": 1430.116730006557,
+    "timing_contract": "warm in-process selected route alone; setup excluded"
+  },
+  "graphrag-papers-40": {
+    "candidate_id": "graphrag-ensemble-quality-trace-expert-v48",
+    "evidence_report": {
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-ensemble-quality-trace-02/runs/canonical-all40-top10/report.json",
+      "sha256": "57377eb0f3e3a88d8436de090979844600f9025b8430c4895ee512552943cdbc"
+    },
+    "metric_contract": {
+      "identity": "authoritative paper_id after first-rank deduplication",
+      "qrels": "binary reviewed qrels",
+      "top_k": 10
+    },
+    "metrics": {
+      "mrr_at_10": 1.0,
+      "ndcg_at_10": 0.8602206196661731,
+      "recall_at_10": 0.8538564213564215
+    },
+    "p95_ms": 2012.4764700769447,
+    "timing_contract": "one in-process full expert verification plus one search per query"
+  }
+}

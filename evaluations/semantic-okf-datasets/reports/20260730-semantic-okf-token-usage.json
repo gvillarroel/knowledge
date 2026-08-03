@@ -1,0 +1,2297 @@
+{
+  "build_folder_usage": {
+    "all_measured_rollup": {
+      "generated_folder_count": 16,
+      "mean_cache_tokens_reported_separately": 88000.0,
+      "mean_input_tokens_including_cache": 100828.25,
+      "mean_output_tokens": 1295.8125,
+      "mean_total_tokens": 102124.0625,
+      "methodology_count": 2,
+      "trial_count": 8
+    },
+    "methodologies": [
+      {
+        "generated_folder_count": 4,
+        "label": "Classical direct builder",
+        "mean_cache_tokens_reported_separately": 65280.0,
+        "mean_input_tokens_including_cache": 73460.5,
+        "mean_output_tokens": 1112.75,
+        "mean_total_tokens": 74573.25,
+        "mean_total_tokens_per_builder_trial": 149146.5,
+        "methodology": "classical",
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "qualification": "Both Linux builds passed artifact integrity, replay, validation invocation, workflow efficiency, and workflow safety. The snapshot identity gate failed only because the Linux output used LF while the canonical Windows snapshot used CRLF.",
+        "strictly_qualified": false,
+        "trial_count": 2
+      },
+      {
+        "generated_folder_count": 12,
+        "label": "Tika/MALLET v46 qualified-runtime builder",
+        "mean_cache_tokens_reported_separately": 95573.33333333333,
+        "mean_input_tokens_including_cache": 109950.83333333333,
+        "mean_output_tokens": 1356.8333333333333,
+        "mean_total_tokens": 111307.66666666667,
+        "mean_total_tokens_per_builder_trial": 222615.33333333334,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "qualification": "All development and holdout trials passed artifact integrity, replay, snapshot identity, validation invocation, runtime contract, and workflow efficiency.",
+        "strictly_qualified": true,
+        "trial_count": 6
+      }
+    ],
+    "model": "openrouter/openai/gpt-5.4-mini",
+    "strictly_qualified_rollup": {
+      "generated_folder_count": 12,
+      "mean_cache_tokens_reported_separately": 95573.33333333333,
+      "mean_input_tokens_including_cache": 109950.83333333333,
+      "mean_output_tokens": 1356.8333333333333,
+      "mean_total_tokens": 111307.66666666667,
+      "methodology_count": 1,
+      "trial_count": 6
+    },
+    "trials": [
+      {
+        "generated_folders": 2,
+        "methodology": "classical",
+        "result_path": "evaluations/semantic-okf-datasets/results/20260727-classical-builder-discovery-baseline-04/qualified-build-a__ZC8ss4T/result.json",
+        "result_sha256": "0873b2b2e4a98556ea9df51be1e217a40ba05f863feb9d290bc6133c2507ab1b",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__classical__qualified-build-a",
+        "usage": {
+          "cache_tokens_reported_separately": 134144,
+          "input_tokens_including_cache": 155490,
+          "output_tokens": 2441,
+          "total_tokens": 157931
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "classical",
+        "result_path": "evaluations/semantic-okf-datasets/results/20260727-classical-builder-discovery-baseline-04/qualified-build-b__Epipwdn/result.json",
+        "result_sha256": "71f7c7f7c8b32044004c469562790d27a335d02cd1053e62ff91fb1fb94ea5c6",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__classical__qualified-build-b",
+        "usage": {
+          "cache_tokens_reported_separately": 126976,
+          "input_tokens_including_cache": 138352,
+          "output_tokens": 2010,
+          "total_tokens": 140362
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/development/generation-000/harbor-jobs/tm3-builder-pareto-v7-g000-development-v46-qualified-runtime/qualified-runtime-a__coPqUqE/result.json",
+        "result_sha256": "0c563e5e9d59ef36905e0a9f94add0d0248cb17f5c277ee6d9f9020867344267",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-a",
+        "usage": {
+          "cache_tokens_reported_separately": 189952,
+          "input_tokens_including_cache": 215681,
+          "output_tokens": 3198,
+          "total_tokens": 218879
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/development/generation-000/harbor-jobs/tm3-builder-pareto-v7-g000-development-v46-qualified-runtime/qualified-runtime-b__sGt5SaL/result.json",
+        "result_sha256": "a8e3b847e851175fcadff900a2771fca8135774bce78784d00daba7f40c45f34",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-b",
+        "usage": {
+          "cache_tokens_reported_separately": 165376,
+          "input_tokens_including_cache": 188999,
+          "output_tokens": 2112,
+          "total_tokens": 191111
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-c__2UdEXAJ/result.json",
+        "result_sha256": "38289952bf3086c59e89d927291c85db3645155d246904d21e2d0f030e7dd17d",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-c",
+        "usage": {
+          "cache_tokens_reported_separately": 180736,
+          "input_tokens_including_cache": 214037,
+          "output_tokens": 2684,
+          "total_tokens": 216721
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-c__GScEoEs/result.json",
+        "result_sha256": "4f1f579f738b0a4edbf962d20264a1d3fb48f10fda90dc2d688f9b10961cb430",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-c",
+        "usage": {
+          "cache_tokens_reported_separately": 190976,
+          "input_tokens_including_cache": 207360,
+          "output_tokens": 2402,
+          "total_tokens": 209762
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-d__29m84we/result.json",
+        "result_sha256": "70bc923d0676a9dbbd1ba1ad330f336c30d8f8262190fc6eb941124deb99c1c9",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-d",
+        "usage": {
+          "cache_tokens_reported_separately": 234496,
+          "input_tokens_including_cache": 269443,
+          "output_tokens": 2776,
+          "total_tokens": 272219
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-d__p5FwuG7/result.json",
+        "result_sha256": "e6ffd9c927b5a3a19ee373d959fe1935d2619f0d15c016eb92dea09b3cdda1ed",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-d",
+        "usage": {
+          "cache_tokens_reported_separately": 185344,
+          "input_tokens_including_cache": 223890,
+          "output_tokens": 3110,
+          "total_tokens": 227000
+        }
+      }
+    ],
+    "unit": "one generated knowledge folder"
+  },
+  "controlled_consultation_usage": {
+    "campaign_id": "20260716-pi-spark-one-evolution-pilot",
+    "methodologies": [
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 1185237.3333333333,
+        "mean_input_tokens_including_cache": 1268683.6666666667,
+        "mean_output_tokens": 13614.333333333334,
+        "mean_total_tokens": 1282298.0,
+        "methodology": "legacy",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 744789.3333333334,
+        "mean_input_tokens_including_cache": 810098.0,
+        "mean_output_tokens": 15247.0,
+        "mean_total_tokens": 825345.0,
+        "methodology": "legacy",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 347520.0,
+        "mean_input_tokens_including_cache": 420884.0,
+        "mean_output_tokens": 16125.333333333334,
+        "mean_total_tokens": 437009.3333333333,
+        "methodology": "embeddings",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 297472.0,
+        "mean_input_tokens_including_cache": 331546.6666666667,
+        "mean_output_tokens": 11132.333333333334,
+        "mean_total_tokens": 342679.0,
+        "methodology": "embeddings",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 815360.0,
+        "mean_input_tokens_including_cache": 876752.0,
+        "mean_output_tokens": 13435.0,
+        "mean_total_tokens": 890187.0,
+        "methodology": "classical",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 351488.0,
+        "mean_input_tokens_including_cache": 387025.6666666667,
+        "mean_output_tokens": 8070.0,
+        "mean_total_tokens": 395095.6666666667,
+        "methodology": "classical",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 1282986.6666666667,
+        "mean_input_tokens_including_cache": 1360237.0,
+        "mean_output_tokens": 18814.333333333332,
+        "mean_total_tokens": 1379051.3333333333,
+        "methodology": "adaptive",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 295808.0,
+        "mean_input_tokens_including_cache": 326801.0,
+        "mean_output_tokens": 10033.333333333334,
+        "mean_total_tokens": 336834.3333333333,
+        "methodology": "adaptive",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 1285674.6666666667,
+        "mean_input_tokens_including_cache": 1373829.3333333333,
+        "mean_output_tokens": 13917.333333333334,
+        "mean_total_tokens": 1387746.6666666667,
+        "methodology": "entity-graph",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 1,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 908117.3333333334,
+        "mean_input_tokens_including_cache": 980709.6666666666,
+        "mean_output_tokens": 17138.0,
+        "mean_total_tokens": 997847.6666666666,
+        "methodology": "entity-graph",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "baseline",
+        "mean_cache_tokens_reported_separately": 333568.0,
+        "mean_input_tokens_including_cache": 377138.0,
+        "mean_output_tokens": 9333.666666666666,
+        "mean_total_tokens": 386471.6666666667,
+        "methodology": "ensemble",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 1,
+        "submitted_query_count": 3
+      },
+      {
+        "generation": "evolved",
+        "mean_cache_tokens_reported_separately": 523776.0,
+        "mean_input_tokens_including_cache": 572537.3333333334,
+        "mean_output_tokens": 14109.0,
+        "mean_total_tokens": 586646.3333333334,
+        "methodology": "ensemble",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "runtime_error_count": 0,
+        "submitted_query_count": 3
+      }
+    ],
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "overall": {
+      "mean_cache_tokens_reported_separately": 697649.7777777778,
+      "mean_input_tokens_including_cache": 757186.8611111111,
+      "mean_output_tokens": 13414.138888888889,
+      "mean_total_tokens": 770601.0,
+      "methodology_generation_count": 12,
+      "runtime_error_count": 2,
+      "submitted_query_count": 36
+    },
+    "question_ids": [
+      "q031",
+      "q032",
+      "q034"
+    ],
+    "sources": [
+      {
+        "path": "evaluations/semantic-okf-harbor/reports/campaign-comparison.json",
+        "sha256": "fb037bf36c7e3c183ff66792289b7de9a1f4d074d59a12f288cfff29e09fc5d3"
+      },
+      {
+        "path": "evaluations/semantic-okf-harbor/campaign.json",
+        "sha256": "3776a7ac28790f71004836a46df96a951a433ab6bbee592aa17bed51344612b4"
+      }
+    ],
+    "unit": "one submitted consult-only Harbor query"
+  },
+  "direct_retrieval_usage": {
+    "llm_calls_per_retrieval": 0,
+    "llm_tokens_per_retrieval": 0,
+    "scope": "Deterministic retrieval helper execution only. Any later grounded answer-generation agent is outside this zero-token unit.",
+    "source": {
+      "path": "evaluations/LATEST-REPORT.comparison.json",
+      "sha256": "8f3b62149f3ac7b5cb89505ff395cb6fcaa617ab881af8873081fa0a17e76f9a"
+    },
+    "strategies": [
+      {
+        "label": "Classical association",
+        "strategy": "classical-association"
+      },
+      {
+        "label": "Classical fusion",
+        "strategy": "classical-fusion"
+      },
+      {
+        "label": "Adaptive fusion",
+        "strategy": "adaptive-fusion"
+      },
+      {
+        "label": "Ensemble `robust`",
+        "strategy": "ensemble-robust"
+      },
+      {
+        "label": "Classical topic",
+        "strategy": "classical-topic"
+      },
+      {
+        "label": "Specialized expert early confidence-gated hybrid",
+        "strategy": "specialized-expert-trace-early-confidence"
+      },
+      {
+        "label": "RustMallet association",
+        "strategy": "rust-mallet-association"
+      },
+      {
+        "label": "RustMallet fusion",
+        "strategy": "rust-mallet-fusion"
+      },
+      {
+        "label": "RustMallet topic",
+        "strategy": "rust-mallet-topic"
+      },
+      {
+        "label": "RustMallet BM25",
+        "strategy": "rust-mallet-bm25"
+      },
+      {
+        "label": "Classical BM25",
+        "strategy": "classical-bm25"
+      },
+      {
+        "label": "Ensemble `fast`",
+        "strategy": "ensemble-fast"
+      },
+      {
+        "label": "Specialized expert Ensemble quality + trace v48",
+        "strategy": "specialized-expert-ensemble-quality-trace-v48"
+      },
+      {
+        "label": "Tantivy BM25",
+        "strategy": "tantivy-bm25"
+      },
+      {
+        "label": "Entity Graph lexical",
+        "strategy": "entity-graph-lexical"
+      },
+      {
+        "label": "Embeddings lexical",
+        "strategy": "embeddings-lexical"
+      },
+      {
+        "label": "Tika/MALLET fusion",
+        "strategy": "tika-mallet-fusion"
+      },
+      {
+        "label": "Entity Graph fusion",
+        "strategy": "entity-graph-fusion"
+      },
+      {
+        "label": "Entity Graph entity",
+        "strategy": "entity-graph-entity"
+      },
+      {
+        "label": "Entity Graph traversal",
+        "strategy": "entity-graph-traversal"
+      },
+      {
+        "label": "Tika/MALLET/Tantivy fusion",
+        "strategy": "tika-mallet-tantivy-fusion"
+      },
+      {
+        "label": "Embeddings hybrid",
+        "strategy": "embeddings-hybrid"
+      },
+      {
+        "label": "Legacy lexical",
+        "strategy": "legacy-lexical"
+      },
+      {
+        "label": "Embeddings vector",
+        "strategy": "embeddings-vector"
+      },
+      {
+        "label": "Specialized expert supervised profiles v51",
+        "strategy": "specialized-expert-supervised-profiles-v51"
+      }
+    ],
+    "strategy_count": 25,
+    "unit": "one deterministic direct-retrieval helper invocation"
+  },
+  "evidence_manifest": {
+    "path": "evaluations/semantic-okf-datasets/token-usage-evidence.json",
+    "sha256": "65b2b869acb5f24a8dafd5971c68a707287f375afd93e49d9582846c87ddb884"
+  },
+  "graphrag_complete_response_diagnostic": {
+    "answer_emitted_count": 209,
+    "complete_usage_count": 209,
+    "methodology_model_rows": [
+      {
+        "complete_response_count": 5,
+        "mean_cache_tokens_reported_separately": 1865472.0,
+        "mean_input_tokens_including_cache": 1960390.6,
+        "mean_output_tokens": 19960.0,
+        "mean_total_tokens": 1980350.6,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "adaptive"
+      },
+      {
+        "complete_response_count": 6,
+        "mean_cache_tokens_reported_separately": 1807680.0,
+        "mean_input_tokens_including_cache": 1921402.0,
+        "mean_output_tokens": 19208.333333333332,
+        "mean_total_tokens": 1940610.3333333333,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "classical"
+      },
+      {
+        "complete_response_count": 4,
+        "mean_cache_tokens_reported_separately": 1258560.0,
+        "mean_input_tokens_including_cache": 1388172.25,
+        "mean_output_tokens": 20614.5,
+        "mean_total_tokens": 1408786.75,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "embeddings"
+      },
+      {
+        "complete_response_count": 4,
+        "mean_cache_tokens_reported_separately": 2222016.0,
+        "mean_input_tokens_including_cache": 2368480.75,
+        "mean_output_tokens": 24147.75,
+        "mean_total_tokens": 2392628.5,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "entity-graph"
+      },
+      {
+        "complete_response_count": 7,
+        "mean_cache_tokens_reported_separately": 1954560.0,
+        "mean_input_tokens_including_cache": 2079186.5714285714,
+        "mean_output_tokens": 24986.14285714286,
+        "mean_total_tokens": 2104172.714285714,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "legacy"
+      },
+      {
+        "complete_response_count": 2,
+        "mean_cache_tokens_reported_separately": 1286464.0,
+        "mean_input_tokens_including_cache": 1407214.0,
+        "mean_output_tokens": 21404.5,
+        "mean_total_tokens": 1428618.5,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "tika-mallet-canonical-text"
+      },
+      {
+        "complete_response_count": 5,
+        "mean_cache_tokens_reported_separately": 1080089.6,
+        "mean_input_tokens_including_cache": 1183403.6,
+        "mean_output_tokens": 29363.2,
+        "mean_total_tokens": 1212766.8,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "tika-mallet-canonical-text-v2"
+      },
+      {
+        "complete_response_count": 29,
+        "mean_cache_tokens_reported_separately": 605175.1724137932,
+        "mean_input_tokens_including_cache": 660636.724137931,
+        "mean_output_tokens": 13117.896551724138,
+        "mean_total_tokens": 673754.6206896552,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "tika-mallet-canonical-text-v3"
+      },
+      {
+        "complete_response_count": 3,
+        "mean_cache_tokens_reported_separately": 1208149.3333333333,
+        "mean_input_tokens_including_cache": 1315750.0,
+        "mean_output_tokens": 18368.0,
+        "mean_total_tokens": 1334118.0,
+        "model": "github-copilot/gpt-5.4",
+        "strategy": "tika-mallet-tantivy-canonical-text"
+      },
+      {
+        "complete_response_count": 17,
+        "mean_cache_tokens_reported_separately": 231778.70588235295,
+        "mean_input_tokens_including_cache": 468930.70588235295,
+        "mean_output_tokens": 25168.941176470587,
+        "mean_total_tokens": 494099.64705882355,
+        "model": "openrouter/google/gemini-2.5-flash",
+        "strategy": "tika-mallet-tantivy-canonical-text"
+      },
+      {
+        "complete_response_count": 121,
+        "mean_cache_tokens_reported_separately": 246094.28099173555,
+        "mean_input_tokens_including_cache": 280809.0082644628,
+        "mean_output_tokens": 14610.611570247935,
+        "mean_total_tokens": 295419.6198347107,
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "strategy": "tika-mallet-tantivy-canonical-text"
+      },
+      {
+        "complete_response_count": 6,
+        "mean_cache_tokens_reported_separately": 1960640.0,
+        "mean_input_tokens_including_cache": 2083327.0,
+        "mean_output_tokens": 26218.833333333332,
+        "mean_total_tokens": 2109545.8333333335,
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "strategy": "turso"
+      }
+    ],
+    "model_rollups": [
+      {
+        "complete_response_count": 3,
+        "mean_cache_tokens_reported_separately": 1208149.3333333333,
+        "mean_input_tokens_including_cache": 1315750.0,
+        "mean_output_tokens": 18368.0,
+        "mean_total_tokens": 1334118.0,
+        "model": "github-copilot/gpt-5.4"
+      },
+      {
+        "complete_response_count": 68,
+        "mean_cache_tokens_reported_separately": 1250955.294117647,
+        "mean_input_tokens_including_cache": 1342664.0588235294,
+        "mean_output_tokens": 19064.102941176472,
+        "mean_total_tokens": 1361728.1617647058,
+        "model": "openai-codex/gpt-5.3-codex-spark"
+      },
+      {
+        "complete_response_count": 17,
+        "mean_cache_tokens_reported_separately": 231778.70588235295,
+        "mean_input_tokens_including_cache": 468930.70588235295,
+        "mean_output_tokens": 25168.941176470587,
+        "mean_total_tokens": 494099.64705882355,
+        "model": "openrouter/google/gemini-2.5-flash"
+      },
+      {
+        "complete_response_count": 121,
+        "mean_cache_tokens_reported_separately": 246094.28099173555,
+        "mean_input_tokens_including_cache": 280809.0082644628,
+        "mean_output_tokens": 14610.611570247935,
+        "mean_total_tokens": 295419.6198347107,
+        "model": "openrouter/openai/gpt-5.4-mini"
+      }
+    ],
+    "raw_trial_count": 516,
+    "source": {
+      "path": "evaluations/semantic-okf-datasets/reports/20260724-graphrag-papers-40-current-metrics-table.json",
+      "sha256": "62422c96d6ec5f78a1d4bfd1689647766d5517a62e69e2a548e4731312613395"
+    },
+    "unit": "one answer-emitting GraphRAG Harbor query"
+  },
+  "historical_build_folder_usage": {
+    "all_measured_rollup": {
+      "generated_folder_count": 16,
+      "mean_cache_tokens_reported_separately": 88000.0,
+      "mean_input_tokens_including_cache": 100828.25,
+      "mean_output_tokens": 1295.8125,
+      "mean_total_tokens": 102124.0625,
+      "methodology_count": 2,
+      "trial_count": 8
+    },
+    "methodologies": [
+      {
+        "generated_folder_count": 4,
+        "label": "Classical direct builder",
+        "mean_cache_tokens_reported_separately": 65280.0,
+        "mean_input_tokens_including_cache": 73460.5,
+        "mean_output_tokens": 1112.75,
+        "mean_total_tokens": 74573.25,
+        "mean_total_tokens_per_builder_trial": 149146.5,
+        "methodology": "classical",
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "qualification": "Both Linux builds passed artifact integrity, replay, validation invocation, workflow efficiency, and workflow safety. The snapshot identity gate failed only because the Linux output used LF while the canonical Windows snapshot used CRLF.",
+        "strictly_qualified": false,
+        "trial_count": 2
+      },
+      {
+        "generated_folder_count": 12,
+        "label": "Tika/MALLET v46 qualified-runtime builder",
+        "mean_cache_tokens_reported_separately": 95573.33333333333,
+        "mean_input_tokens_including_cache": 109950.83333333333,
+        "mean_output_tokens": 1356.8333333333333,
+        "mean_total_tokens": 111307.66666666667,
+        "mean_total_tokens_per_builder_trial": 222615.33333333334,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "qualification": "All development and holdout trials passed artifact integrity, replay, snapshot identity, validation invocation, runtime contract, and workflow efficiency.",
+        "strictly_qualified": true,
+        "trial_count": 6
+      }
+    ],
+    "model": "openrouter/openai/gpt-5.4-mini",
+    "strictly_qualified_rollup": {
+      "generated_folder_count": 12,
+      "mean_cache_tokens_reported_separately": 95573.33333333333,
+      "mean_input_tokens_including_cache": 109950.83333333333,
+      "mean_output_tokens": 1356.8333333333333,
+      "mean_total_tokens": 111307.66666666667,
+      "methodology_count": 1,
+      "trial_count": 6
+    },
+    "trials": [
+      {
+        "generated_folders": 2,
+        "methodology": "classical",
+        "result_path": "evaluations/semantic-okf-datasets/results/20260727-classical-builder-discovery-baseline-04/qualified-build-a__ZC8ss4T/result.json",
+        "result_sha256": "0873b2b2e4a98556ea9df51be1e217a40ba05f863feb9d290bc6133c2507ab1b",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__classical__qualified-build-a",
+        "usage": {
+          "cache_tokens_reported_separately": 134144,
+          "input_tokens_including_cache": 155490,
+          "output_tokens": 2441,
+          "total_tokens": 157931
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "classical",
+        "result_path": "evaluations/semantic-okf-datasets/results/20260727-classical-builder-discovery-baseline-04/qualified-build-b__Epipwdn/result.json",
+        "result_sha256": "71f7c7f7c8b32044004c469562790d27a335d02cd1053e62ff91fb1fb94ea5c6",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__classical__qualified-build-b",
+        "usage": {
+          "cache_tokens_reported_separately": 126976,
+          "input_tokens_including_cache": 138352,
+          "output_tokens": 2010,
+          "total_tokens": 140362
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/development/generation-000/harbor-jobs/tm3-builder-pareto-v7-g000-development-v46-qualified-runtime/qualified-runtime-a__coPqUqE/result.json",
+        "result_sha256": "0c563e5e9d59ef36905e0a9f94add0d0248cb17f5c277ee6d9f9020867344267",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-a",
+        "usage": {
+          "cache_tokens_reported_separately": 189952,
+          "input_tokens_including_cache": 215681,
+          "output_tokens": 3198,
+          "total_tokens": 218879
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/development/generation-000/harbor-jobs/tm3-builder-pareto-v7-g000-development-v46-qualified-runtime/qualified-runtime-b__sGt5SaL/result.json",
+        "result_sha256": "a8e3b847e851175fcadff900a2771fca8135774bce78784d00daba7f40c45f34",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-b",
+        "usage": {
+          "cache_tokens_reported_separately": 165376,
+          "input_tokens_including_cache": 188999,
+          "output_tokens": 2112,
+          "total_tokens": 191111
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-c__2UdEXAJ/result.json",
+        "result_sha256": "38289952bf3086c59e89d927291c85db3645155d246904d21e2d0f030e7dd17d",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-c",
+        "usage": {
+          "cache_tokens_reported_separately": 180736,
+          "input_tokens_including_cache": 214037,
+          "output_tokens": 2684,
+          "total_tokens": 216721
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-c__GScEoEs/result.json",
+        "result_sha256": "4f1f579f738b0a4edbf962d20264a1d3fb48f10fda90dc2d688f9b10961cb430",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-c",
+        "usage": {
+          "cache_tokens_reported_separately": 190976,
+          "input_tokens_including_cache": 207360,
+          "output_tokens": 2402,
+          "total_tokens": 209762
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-d__29m84we/result.json",
+        "result_sha256": "70bc923d0676a9dbbd1ba1ad330f336c30d8f8262190fc6eb941124deb99c1c9",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-d",
+        "usage": {
+          "cache_tokens_reported_separately": 234496,
+          "input_tokens_including_cache": 269443,
+          "output_tokens": 2776,
+          "total_tokens": 272219
+        }
+      },
+      {
+        "generated_folders": 2,
+        "methodology": "tika-mallet-v46-qualified-runtime",
+        "result_path": "evaluations/semantic-okf-tika-mallet-tantivy/results/bp-v7-g0-06/holdout/harbor-jobs/tm3-builder-pareto-v7-holdout-v46-qualified-runtime/qualified-runtime-d__p5FwuG7/result.json",
+        "result_sha256": "e6ffd9c927b5a3a19ee373d959fe1935d2619f0d15c016eb92dea09b3cdda1ed",
+        "task_name": "knowledge/graphrag-papers-40__builder-direct__tika-mallet__qualified-runtime-d",
+        "usage": {
+          "cache_tokens_reported_separately": 185344,
+          "input_tokens_including_cache": 223890,
+          "output_tokens": 3110,
+          "total_tokens": 227000
+        }
+      }
+    ],
+    "unit": "one generated knowledge folder"
+  },
+  "limitations": [
+    "Each registered family has two independent single-folder builder calls. Their same-environment folder inventories must be byte-identical, and the per-folder mean has no cross-folder orchestration amortization.",
+    "The consultation ranking measures submitted-query cost. Graphify and Ensemble look inexpensive only because all six of their common trials ended in runtime errors; use the separate zero-error comparison for an operational choice.",
+    "The common consultation matrix is a legacy Harbor campaign with equal tasks, model, Pi version, and thinking level, but it predates the immutable runtime input-binding v2 contract.",
+    "Construction and consultation are different causal stages and remain separate rankings even though their primary rows use the same model and corpus.",
+    "Token rank does not measure wall-clock latency, CPU, memory, storage, or provider price. Script-heavy builders can use few agent tokens while performing substantial local computation.",
+    "The 25 direct-retrieval routes make no LLM call themselves. Their zero-token unit excludes any later grounded answer generation and must not be substituted for consultant cost.",
+    "Two stopped builder rehearsals are excluded from the primary matrix: one amortized two folders inside a call and timed out on Embeddings; the next compared output bytes against a snapshot produced in a different environment. Their partial or non-comparable costs are not strategy means.",
+    "Historical builder and consultation tables use other contracts or uneven archives and remain supplemental rather than part of the eight-family primary ranking."
+  ],
+  "new_model_calls": 16,
+  "registered_build_folder_usage": {
+    "dataset_id": "graphrag-papers-40",
+    "family_count": 8,
+    "highest_token_methodology": {
+      "builder_call_count": 2,
+      "cross_replicate_tree_sha256": "be7e957460bc13308fc7d9d93ede4a7ffd3f6469d7f5d795b734cb05dc90cecf",
+      "generated_folder_count": 2,
+      "label": "Graphify",
+      "mean_cache_tokens_reported_separately": 4352.0,
+      "mean_input_tokens_including_cache": 8009.0,
+      "mean_output_tokens": 1827.0,
+      "mean_total_tokens": 9836.0,
+      "mean_total_tokens_per_builder_call": 9836.0,
+      "methodology": "graphify",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "qualified_builder_call_count": 2,
+      "raw_result_count": 2,
+      "replicates_byte_identical": true,
+      "token_rank_low_to_high": 8
+    },
+    "lowest_token_methodology": {
+      "builder_call_count": 2,
+      "cross_replicate_tree_sha256": "026ce96a72bbebc583b84024230a7b331e0cc6fca3c056532dfde1674bf75eb8",
+      "generated_folder_count": 2,
+      "label": "Classical",
+      "mean_cache_tokens_reported_separately": 2112.0,
+      "mean_input_tokens_including_cache": 4686.5,
+      "mean_output_tokens": 1048.0,
+      "mean_total_tokens": 5734.5,
+      "mean_total_tokens_per_builder_call": 5734.5,
+      "methodology": "classical",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "qualified_builder_call_count": 2,
+      "raw_result_count": 2,
+      "replicates_byte_identical": true,
+      "token_rank_low_to_high": 1
+    },
+    "methodologies": [
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "026ce96a72bbebc583b84024230a7b331e0cc6fca3c056532dfde1674bf75eb8",
+        "generated_folder_count": 2,
+        "label": "Classical",
+        "mean_cache_tokens_reported_separately": 2112.0,
+        "mean_input_tokens_including_cache": 4686.5,
+        "mean_output_tokens": 1048.0,
+        "mean_total_tokens": 5734.5,
+        "mean_total_tokens_per_builder_call": 5734.5,
+        "methodology": "classical",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 1
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "16c1c6873ea62186b7526482e2782438988d3ac7bd3f2a0db3dc75e89a447e37",
+        "generated_folder_count": 2,
+        "label": "Entity Graph",
+        "mean_cache_tokens_reported_separately": 2240.0,
+        "mean_input_tokens_including_cache": 5002.5,
+        "mean_output_tokens": 1296.5,
+        "mean_total_tokens": 6299.0,
+        "mean_total_tokens_per_builder_call": 6299.0,
+        "methodology": "entity-graph",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 2
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "324edbf16d8d84eee8c95cc765032f0163888a866759b49f802bdd6084def43d",
+        "generated_folder_count": 2,
+        "label": "Embeddings",
+        "mean_cache_tokens_reported_separately": 2496.0,
+        "mean_input_tokens_including_cache": 5625.0,
+        "mean_output_tokens": 918.0,
+        "mean_total_tokens": 6543.0,
+        "mean_total_tokens_per_builder_call": 6543.0,
+        "methodology": "embeddings",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 3
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "a05a4d6a099847c134c5721fe84a61c74bb71dd55873abd88112deef34399d92",
+        "generated_folder_count": 2,
+        "label": "Adaptive",
+        "mean_cache_tokens_reported_separately": 3264.0,
+        "mean_input_tokens_including_cache": 5816.0,
+        "mean_output_tokens": 1066.0,
+        "mean_total_tokens": 6882.0,
+        "mean_total_tokens_per_builder_call": 6882.0,
+        "methodology": "adaptive",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 4
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "e0f90a8459a79e0a4fe4370788d53a14f2853fa6e5eb68705ab83fa270e4cbe1",
+        "generated_folder_count": 2,
+        "label": "Legacy",
+        "mean_cache_tokens_reported_separately": 3264.0,
+        "mean_input_tokens_including_cache": 5859.0,
+        "mean_output_tokens": 1144.5,
+        "mean_total_tokens": 7003.5,
+        "mean_total_tokens_per_builder_call": 7003.5,
+        "methodology": "legacy",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 5
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "38bc83153f8fd7f759b0399cc780ec06c60828f1dca766388519e7356a45e181",
+        "generated_folder_count": 2,
+        "label": "Ensemble",
+        "mean_cache_tokens_reported_separately": 1856.0,
+        "mean_input_tokens_including_cache": 5991.0,
+        "mean_output_tokens": 1300.0,
+        "mean_total_tokens": 7291.0,
+        "mean_total_tokens_per_builder_call": 7291.0,
+        "methodology": "ensemble",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 6
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "4bd35760d0fe3b920c0b73ef0ee64f85c01fc012ff3b430c252751b493b0880b",
+        "generated_folder_count": 2,
+        "label": "Turso",
+        "mean_cache_tokens_reported_separately": 3776.0,
+        "mean_input_tokens_including_cache": 7327.5,
+        "mean_output_tokens": 1229.5,
+        "mean_total_tokens": 8557.0,
+        "mean_total_tokens_per_builder_call": 8557.0,
+        "methodology": "turso",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 7
+      },
+      {
+        "builder_call_count": 2,
+        "cross_replicate_tree_sha256": "be7e957460bc13308fc7d9d93ede4a7ffd3f6469d7f5d795b734cb05dc90cecf",
+        "generated_folder_count": 2,
+        "label": "Graphify",
+        "mean_cache_tokens_reported_separately": 4352.0,
+        "mean_input_tokens_including_cache": 8009.0,
+        "mean_output_tokens": 1827.0,
+        "mean_total_tokens": 9836.0,
+        "mean_total_tokens_per_builder_call": 9836.0,
+        "methodology": "graphify",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "qualified_builder_call_count": 2,
+        "raw_result_count": 2,
+        "replicates_byte_identical": true,
+        "token_rank_low_to_high": 8
+      }
+    ],
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "new_model_calls": 16,
+    "overall": {
+      "builder_call_count": 16,
+      "generated_folder_count": 16,
+      "mean_cache_tokens_reported_separately": 2920.0,
+      "mean_input_tokens_including_cache": 6039.5625,
+      "mean_output_tokens": 1228.6875,
+      "mean_total_tokens": 7268.25
+    },
+    "pi_version": "0.73.1",
+    "runtime_image_id": "sha256:bcd2b2b57b968ff8b4976bedf8c5ddf7b7e2ff41c341f7a13a05ae4df2ffc9d8",
+    "thinking": "high",
+    "trials": [
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-adaptive/replicate-a__iEMbQYA/verifier/diagnostics.json",
+        "diagnostics_sha256": "08b34ff635511046502cfd6a8a4eca6faefce3033af6c34aa62fb133218ab91a",
+        "generated_folders": 1,
+        "methodology": "adaptive",
+        "output_tree_sha256": "a05a4d6a099847c134c5721fe84a61c74bb71dd55873abd88112deef34399d92",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-adaptive/replicate-a__iEMbQYA/result.json",
+        "result_sha256": "254b3cb7b2a20f6beaee5d85ce2f92dfa533ad6ada514464c0209316fa00da47",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__adaptive__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 3200,
+          "input_tokens_including_cache": 5632,
+          "output_tokens": 1010,
+          "total_tokens": 6642
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-adaptive/replicate-b__5YbbdPb/verifier/diagnostics.json",
+        "diagnostics_sha256": "f70b4f48a60f9e9b14cb1190d1634d8b4bb39fff2c15b252c63f9fe72f41a98e",
+        "generated_folders": 1,
+        "methodology": "adaptive",
+        "output_tree_sha256": "a05a4d6a099847c134c5721fe84a61c74bb71dd55873abd88112deef34399d92",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-adaptive/replicate-b__5YbbdPb/result.json",
+        "result_sha256": "b6bfb4914dcce48294102fa3dc2e247a792f21e8012459df8cbf583907f7b91b",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__adaptive__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 3328,
+          "input_tokens_including_cache": 6000,
+          "output_tokens": 1122,
+          "total_tokens": 7122
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-classical/replicate-a__mdjZWT6/verifier/diagnostics.json",
+        "diagnostics_sha256": "881903225bb6bbd226b4fa8ea1fb97baccbfc4ced0aa322e7ee489971d80820a",
+        "generated_folders": 1,
+        "methodology": "classical",
+        "output_tree_sha256": "026ce96a72bbebc583b84024230a7b331e0cc6fca3c056532dfde1674bf75eb8",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-classical/replicate-a__mdjZWT6/result.json",
+        "result_sha256": "d5f4dd239ec49e73c61596713215cb328837e12edb459ba87808313811133ee7",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__classical__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 2944,
+          "input_tokens_including_cache": 5334,
+          "output_tokens": 684,
+          "total_tokens": 6018
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-classical/replicate-b__ftnapRA/verifier/diagnostics.json",
+        "diagnostics_sha256": "2671ca528b6fc30bf295aaf0e57b30092a52c5175fd340a17cc97f52071a3deb",
+        "generated_folders": 1,
+        "methodology": "classical",
+        "output_tree_sha256": "026ce96a72bbebc583b84024230a7b331e0cc6fca3c056532dfde1674bf75eb8",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-classical/replicate-b__ftnapRA/result.json",
+        "result_sha256": "3c02587d6ffe8a2d225ee50ffd2ad3d683291921367ceffc1ae8de9067433d42",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__classical__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 1280,
+          "input_tokens_including_cache": 4039,
+          "output_tokens": 1412,
+          "total_tokens": 5451
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-embeddings/replicate-a__KSF2MoF/verifier/diagnostics.json",
+        "diagnostics_sha256": "31d821f58f9cacb42b225a4960ee81553df08ec4f9d4afa554249466a60f8ed7",
+        "generated_folders": 1,
+        "methodology": "embeddings",
+        "output_tree_sha256": "324edbf16d8d84eee8c95cc765032f0163888a866759b49f802bdd6084def43d",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-embeddings/replicate-a__KSF2MoF/result.json",
+        "result_sha256": "2fc9d92534bffe23ab8a2f9459351358be666770aa9b4f22fee03d4ced953273",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__embeddings__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 3200,
+          "input_tokens_including_cache": 5750,
+          "output_tokens": 1076,
+          "total_tokens": 6826
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-embeddings/replicate-b__5uYmvqi/verifier/diagnostics.json",
+        "diagnostics_sha256": "5105a38b0d117197538cee813618fdaa0a7ccd73ea7c05c3e2cbe17268d427f6",
+        "generated_folders": 1,
+        "methodology": "embeddings",
+        "output_tree_sha256": "324edbf16d8d84eee8c95cc765032f0163888a866759b49f802bdd6084def43d",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-embeddings/replicate-b__5uYmvqi/result.json",
+        "result_sha256": "4e72fc31d3192ea3166e4c951e7b3f33515d6822e011c9ac339fc9c93fed6640",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__embeddings__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 1792,
+          "input_tokens_including_cache": 5500,
+          "output_tokens": 760,
+          "total_tokens": 6260
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-ensemble/replicate-a__Lo6qB7C/verifier/diagnostics.json",
+        "diagnostics_sha256": "da60e1e85c0e833b23d6cd0ee727772dc76f6662b7611e972e862487794e3e8f",
+        "generated_folders": 1,
+        "methodology": "ensemble",
+        "output_tree_sha256": "38bc83153f8fd7f759b0399cc780ec06c60828f1dca766388519e7356a45e181",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-ensemble/replicate-a__Lo6qB7C/result.json",
+        "result_sha256": "cbf753c420aad5e6df91ca466f2d2add73235bb8f40f9554d813d35d123b4bdf",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__ensemble__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 1792,
+          "input_tokens_including_cache": 5898,
+          "output_tokens": 1227,
+          "total_tokens": 7125
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-ensemble/replicate-b__T7zDbdG/verifier/diagnostics.json",
+        "diagnostics_sha256": "c4628afb03b4da17acea01b45e1f72b55a3acfbca20ba5bcc8e4b676ce2c569e",
+        "generated_folders": 1,
+        "methodology": "ensemble",
+        "output_tree_sha256": "38bc83153f8fd7f759b0399cc780ec06c60828f1dca766388519e7356a45e181",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-ensemble/replicate-b__T7zDbdG/result.json",
+        "result_sha256": "67de08effe479967a1687873cec4266e7aaa73a7a31dcccb30fe42d0385d2a4f",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__ensemble__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 1920,
+          "input_tokens_including_cache": 6084,
+          "output_tokens": 1373,
+          "total_tokens": 7457
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-entity-graph/replicate-a__7y3VNDJ/verifier/diagnostics.json",
+        "diagnostics_sha256": "581ef382ba0f80afc045ba321a1490a9cdda7d3e962dd58f0f0325415a85562d",
+        "generated_folders": 1,
+        "methodology": "entity-graph",
+        "output_tree_sha256": "16c1c6873ea62186b7526482e2782438988d3ac7bd3f2a0db3dc75e89a447e37",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-entity-graph/replicate-a__7y3VNDJ/result.json",
+        "result_sha256": "9b3518591c1df975cfc1d9de1dc88ea28a1bcd81a69159fcb987113d9308cd0b",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__entity-graph__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 3200,
+          "input_tokens_including_cache": 5880,
+          "output_tokens": 1079,
+          "total_tokens": 6959
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-entity-graph/replicate-b__aCrtSSD/verifier/diagnostics.json",
+        "diagnostics_sha256": "868d5690b394f7a37b407c7ea0825bf010ad28781024ab0b429c58cc6ab86777",
+        "generated_folders": 1,
+        "methodology": "entity-graph",
+        "output_tree_sha256": "16c1c6873ea62186b7526482e2782438988d3ac7bd3f2a0db3dc75e89a447e37",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-entity-graph/replicate-b__aCrtSSD/result.json",
+        "result_sha256": "e98a60040bcb247bf139f4b894704299ac64e32811da09670f8d3440a54b6773",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__entity-graph__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 1280,
+          "input_tokens_including_cache": 4125,
+          "output_tokens": 1514,
+          "total_tokens": 5639
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-graphify/replicate-a__TUcePeC/verifier/diagnostics.json",
+        "diagnostics_sha256": "ebd35bb87a21e27bf574b10f9af35a1490f73f382105064555a3a8d16668d78e",
+        "generated_folders": 1,
+        "methodology": "graphify",
+        "output_tree_sha256": "be7e957460bc13308fc7d9d93ede4a7ffd3f6469d7f5d795b734cb05dc90cecf",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-graphify/replicate-a__TUcePeC/result.json",
+        "result_sha256": "500ce9007949fece29ef6c2f6b641667f981e7e506401d01c7e2825975d44ab1",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__graphify__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 1280,
+          "input_tokens_including_cache": 4218,
+          "output_tokens": 1883,
+          "total_tokens": 6101
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-graphify/replicate-b__hFc3U83/verifier/diagnostics.json",
+        "diagnostics_sha256": "5f72da0145c037d5d86de0aea7d2ce9dbd2181739ca9ded444865b3bfbdc7b3a",
+        "generated_folders": 1,
+        "methodology": "graphify",
+        "output_tree_sha256": "be7e957460bc13308fc7d9d93ede4a7ffd3f6469d7f5d795b734cb05dc90cecf",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-graphify/replicate-b__hFc3U83/result.json",
+        "result_sha256": "388d6abb82862f702cd836a63b9052a5800dc5ffc5fd71462ef824eb1a0124bf",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__graphify__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 7424,
+          "input_tokens_including_cache": 11800,
+          "output_tokens": 1771,
+          "total_tokens": 13571
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-legacy/replicate-a__ncHr5Nh/verifier/diagnostics.json",
+        "diagnostics_sha256": "f009c6b21e3643c04309fe82c8c08ceb05f5a09a5e9a6503e782a7af2b428326",
+        "generated_folders": 1,
+        "methodology": "legacy",
+        "output_tree_sha256": "e0f90a8459a79e0a4fe4370788d53a14f2853fa6e5eb68705ab83fa270e4cbe1",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-legacy/replicate-a__ncHr5Nh/result.json",
+        "result_sha256": "b4438f11dae53284155056bc77a7c43224b17c6d700dedb3c614c6ff7c899df9",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__legacy__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 3200,
+          "input_tokens_including_cache": 5787,
+          "output_tokens": 1116,
+          "total_tokens": 6903
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-legacy/replicate-b__6NAwKtb/verifier/diagnostics.json",
+        "diagnostics_sha256": "88fd890149c38a66edc15a7cee6a63a995248daa7851b9f36c0ddbe6bc2d654f",
+        "generated_folders": 1,
+        "methodology": "legacy",
+        "output_tree_sha256": "e0f90a8459a79e0a4fe4370788d53a14f2853fa6e5eb68705ab83fa270e4cbe1",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-legacy/replicate-b__6NAwKtb/result.json",
+        "result_sha256": "3e99aa2696b5e550903caeaccf4199818c58098e5d41e740b3bf37c24f08baf3",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__legacy__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 3328,
+          "input_tokens_including_cache": 5931,
+          "output_tokens": 1173,
+          "total_tokens": 7104
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-turso/replicate-a__nXh8C7U/verifier/diagnostics.json",
+        "diagnostics_sha256": "65904e6da7ace5671c947ff986dff9bef39a396ff5eb2375d38f0825a4b5ac83",
+        "generated_folders": 1,
+        "methodology": "turso",
+        "output_tree_sha256": "4bd35760d0fe3b920c0b73ef0ee64f85c01fc012ff3b430c252751b493b0880b",
+        "qualified": true,
+        "replicate": "replicate-a",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-a-turso/replicate-a__nXh8C7U/result.json",
+        "result_sha256": "c4e0f1725b508efed40c17020b6e58f341fb6a7516a13721989047ac4e472379",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__turso__replicate-a",
+        "usage": {
+          "cache_tokens_reported_separately": 4480,
+          "input_tokens_including_cache": 9081,
+          "output_tokens": 1467,
+          "total_tokens": 10548
+        }
+      },
+      {
+        "diagnostics_available": true,
+        "diagnostics_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-turso/replicate-b__b4TiWrH/verifier/diagnostics.json",
+        "diagnostics_sha256": "062106cfdd8a09b6031a3613dd9f84e71e4ae0fcf1db5823536f69cde7f46979",
+        "generated_folders": 1,
+        "methodology": "turso",
+        "output_tree_sha256": "4bd35760d0fe3b920c0b73ef0ee64f85c01fc012ff3b430c252751b493b0880b",
+        "qualified": true,
+        "replicate": "replicate-b",
+        "result_path": "evaluations/semantic-okf-token-efficiency-study-v7/private/native-jobs/20260730-graphrag-papers-builder-token-single-spark-v2-replicate-b-turso/replicate-b__b4TiWrH/result.json",
+        "result_sha256": "853963268f0f71f18b6dc13a2527bd6c234348c728c82547e98e775e263a0894",
+        "task_name": "knowledge/graphrag-papers-40__builder-token__turso__replicate-b",
+        "usage": {
+          "cache_tokens_reported_separately": 3072,
+          "input_tokens_including_cache": 5574,
+          "output_tokens": 992,
+          "total_tokens": 6566
+        }
+      }
+    ],
+    "unit": "one generated knowledge folder"
+  },
+  "registered_consultation_query_usage": {
+    "cohort": "holdout",
+    "dataset_id": "graphrag-papers-40",
+    "fairness_basis": "The same six question IDs, model, Pi version, thinking level, corpus, and consult-only task contract are present for all eight families. The legacy campaign predates the immutable runtime input-binding v2 contract.",
+    "family_count": 8,
+    "highest_observed_submitted_cost": {
+      "complete_query_count": 3,
+      "complete_response_usage": {
+        "complete_query_count": 3,
+        "mean_cache_tokens_reported_separately": 1470549.3333333333,
+        "mean_input_tokens_including_cache": 1590715.3333333333,
+        "mean_output_tokens": 23544.666666666668,
+        "mean_total_tokens": 1614260.0
+      },
+      "label": "Entity Graph",
+      "mean_cache_tokens_reported_separately": 2289301.3333333335,
+      "mean_input_tokens_including_cache": 2411379.0,
+      "mean_output_tokens": 21769.666666666668,
+      "mean_total_tokens": 2433148.6666666665,
+      "methodology": "entity-graph",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "raw_result_count": 6,
+      "runtime_error_count": 3,
+      "submitted_query_count": 6,
+      "token_rank_low_to_high": 8
+    },
+    "highest_zero_error_methodology": {
+      "complete_query_count": 6,
+      "complete_response_usage": {
+        "complete_query_count": 6,
+        "mean_cache_tokens_reported_separately": 1960640.0,
+        "mean_input_tokens_including_cache": 2083327.0,
+        "mean_output_tokens": 26218.833333333332,
+        "mean_total_tokens": 2109545.8333333335
+      },
+      "label": "Turso",
+      "mean_cache_tokens_reported_separately": 1960640.0,
+      "mean_input_tokens_including_cache": 2083327.0,
+      "mean_output_tokens": 26218.833333333332,
+      "mean_total_tokens": 2109545.8333333335,
+      "methodology": "turso",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "raw_result_count": 6,
+      "runtime_error_count": 0,
+      "submitted_query_count": 6,
+      "token_rank_low_to_high": 2
+    },
+    "lowest_observed_submitted_cost": {
+      "complete_query_count": 0,
+      "complete_response_usage": null,
+      "label": "Graphify",
+      "mean_cache_tokens_reported_separately": 284757.3333333333,
+      "mean_input_tokens_including_cache": 321910.3333333333,
+      "mean_output_tokens": 3368.6666666666665,
+      "mean_total_tokens": 325279.0,
+      "methodology": "graphify",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "raw_result_count": 6,
+      "runtime_error_count": 6,
+      "submitted_query_count": 6,
+      "token_rank_low_to_high": 1
+    },
+    "lowest_zero_error_methodology": {
+      "complete_query_count": 6,
+      "complete_response_usage": {
+        "complete_query_count": 6,
+        "mean_cache_tokens_reported_separately": 1448832.0,
+        "mean_input_tokens_including_cache": 1573616.1666666667,
+        "mean_output_tokens": 11920.666666666666,
+        "mean_total_tokens": 1585536.8333333333
+      },
+      "label": "Legacy",
+      "mean_cache_tokens_reported_separately": 1448832.0,
+      "mean_input_tokens_including_cache": 1573616.1666666667,
+      "mean_output_tokens": 11920.666666666666,
+      "mean_total_tokens": 1585536.8333333333,
+      "methodology": "legacy",
+      "model": "openai-codex/gpt-5.3-codex-spark",
+      "raw_result_count": 6,
+      "runtime_error_count": 0,
+      "submitted_query_count": 6,
+      "token_rank_low_to_high": 1
+    },
+    "methodologies": [
+      {
+        "complete_query_count": 0,
+        "complete_response_usage": null,
+        "label": "Graphify",
+        "mean_cache_tokens_reported_separately": 284757.3333333333,
+        "mean_input_tokens_including_cache": 321910.3333333333,
+        "mean_output_tokens": 3368.6666666666665,
+        "mean_total_tokens": 325279.0,
+        "methodology": "graphify",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 6,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 1
+      },
+      {
+        "complete_query_count": 0,
+        "complete_response_usage": null,
+        "label": "Ensemble",
+        "mean_cache_tokens_reported_separately": 969834.6666666666,
+        "mean_input_tokens_including_cache": 1075284.1666666667,
+        "mean_output_tokens": 24215.333333333332,
+        "mean_total_tokens": 1099499.5,
+        "methodology": "ensemble",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 6,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 2
+      },
+      {
+        "complete_query_count": 5,
+        "complete_response_usage": {
+          "complete_query_count": 5,
+          "mean_cache_tokens_reported_separately": 1364172.8,
+          "mean_input_tokens_including_cache": 1499166.0,
+          "mean_output_tokens": 18342.6,
+          "mean_total_tokens": 1517508.6
+        },
+        "label": "Embeddings",
+        "mean_cache_tokens_reported_separately": 1231957.3333333333,
+        "mean_input_tokens_including_cache": 1381168.1666666667,
+        "mean_output_tokens": 15976.166666666666,
+        "mean_total_tokens": 1397144.3333333333,
+        "methodology": "embeddings",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 1,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 3
+      },
+      {
+        "complete_query_count": 5,
+        "complete_response_usage": {
+          "complete_query_count": 5,
+          "mean_cache_tokens_reported_separately": 1289753.6,
+          "mean_input_tokens_including_cache": 1401131.6,
+          "mean_output_tokens": 18349.2,
+          "mean_total_tokens": 1419480.8
+        },
+        "label": "Classical",
+        "mean_cache_tokens_reported_separately": 1407530.6666666667,
+        "mean_input_tokens_including_cache": 1521469.8333333333,
+        "mean_output_tokens": 17535.5,
+        "mean_total_tokens": 1539005.3333333333,
+        "methodology": "classical",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 1,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 4
+      },
+      {
+        "complete_query_count": 6,
+        "complete_response_usage": {
+          "complete_query_count": 6,
+          "mean_cache_tokens_reported_separately": 1448832.0,
+          "mean_input_tokens_including_cache": 1573616.1666666667,
+          "mean_output_tokens": 11920.666666666666,
+          "mean_total_tokens": 1585536.8333333333
+        },
+        "label": "Legacy",
+        "mean_cache_tokens_reported_separately": 1448832.0,
+        "mean_input_tokens_including_cache": 1573616.1666666667,
+        "mean_output_tokens": 11920.666666666666,
+        "mean_total_tokens": 1585536.8333333333,
+        "methodology": "legacy",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 0,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 5
+      },
+      {
+        "complete_query_count": 4,
+        "complete_response_usage": {
+          "complete_query_count": 4,
+          "mean_cache_tokens_reported_separately": 1498272.0,
+          "mean_input_tokens_including_cache": 1597194.5,
+          "mean_output_tokens": 15377.25,
+          "mean_total_tokens": 1612571.75
+        },
+        "label": "Adaptive",
+        "mean_cache_tokens_reported_separately": 1755605.3333333333,
+        "mean_input_tokens_including_cache": 1856426.3333333333,
+        "mean_output_tokens": 15218.333333333334,
+        "mean_total_tokens": 1871644.6666666667,
+        "methodology": "adaptive",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 2,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 6
+      },
+      {
+        "complete_query_count": 6,
+        "complete_response_usage": {
+          "complete_query_count": 6,
+          "mean_cache_tokens_reported_separately": 1960640.0,
+          "mean_input_tokens_including_cache": 2083327.0,
+          "mean_output_tokens": 26218.833333333332,
+          "mean_total_tokens": 2109545.8333333335
+        },
+        "label": "Turso",
+        "mean_cache_tokens_reported_separately": 1960640.0,
+        "mean_input_tokens_including_cache": 2083327.0,
+        "mean_output_tokens": 26218.833333333332,
+        "mean_total_tokens": 2109545.8333333335,
+        "methodology": "turso",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 0,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 7
+      },
+      {
+        "complete_query_count": 3,
+        "complete_response_usage": {
+          "complete_query_count": 3,
+          "mean_cache_tokens_reported_separately": 1470549.3333333333,
+          "mean_input_tokens_including_cache": 1590715.3333333333,
+          "mean_output_tokens": 23544.666666666668,
+          "mean_total_tokens": 1614260.0
+        },
+        "label": "Entity Graph",
+        "mean_cache_tokens_reported_separately": 2289301.3333333335,
+        "mean_input_tokens_including_cache": 2411379.0,
+        "mean_output_tokens": 21769.666666666668,
+        "mean_total_tokens": 2433148.6666666665,
+        "methodology": "entity-graph",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 3,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 8
+      }
+    ],
+    "model": "openai-codex/gpt-5.3-codex-spark",
+    "overall": {
+      "mean_cache_tokens_reported_separately": 1418557.3333333333,
+      "mean_input_tokens_including_cache": 1528072.625,
+      "mean_output_tokens": 17027.895833333332,
+      "mean_total_tokens": 1545100.5208333333,
+      "runtime_error_count": 19,
+      "submitted_query_count": 48
+    },
+    "pi_version": "0.73.1",
+    "question_ids": [
+      "q005",
+      "q010",
+      "q015",
+      "q020",
+      "q025",
+      "q029"
+    ],
+    "source_campaign": "20260717-papers-consult-gpt53-spark-01",
+    "thinking": "high",
+    "trials": [
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "adaptive",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q005__X3jbyCS/result.json",
+        "result_sha256": "a1ca98863082d28354cc88d0d84301118a2b72eb6c953bd1ee24a7aa3ede2922",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 1408384,
+          "input_tokens_including_cache": 1485533,
+          "output_tokens": 12467,
+          "total_tokens": 1498000
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "adaptive",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q010__KqryTJk/result.json",
+        "result_sha256": "b4dc1ba40a56da2a91274c9721cd74f57a94ce58bd6a39ea5916ed142a1f82f9",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 738304,
+          "input_tokens_including_cache": 798748,
+          "output_tokens": 14622,
+          "total_tokens": 813370
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "adaptive",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q015__FHVbQZU/result.json",
+        "result_sha256": "745eee115053f294992542792810975605b7e9a75fa241dea9bdb67445ecf6a7",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 1845760,
+          "input_tokens_including_cache": 1955066,
+          "output_tokens": 17486,
+          "total_tokens": 1972552
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "adaptive",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q020__SqAUwSp/result.json",
+        "result_sha256": "d62bfc14ba79d37a2ce86518764e8f4501512f376d5411ff98bffa18dc143866",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 3132160,
+          "input_tokens_including_cache": 3264247,
+          "output_tokens": 17334,
+          "total_tokens": 3281581
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "adaptive",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q025__XyHgrki/result.json",
+        "result_sha256": "e8bd1f9586fc2a964d6ee19d064e7357bd2673a2757984bf15e640653360732d",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 2208000,
+          "input_tokens_including_cache": 2304650,
+          "output_tokens": 24649,
+          "total_tokens": 2329299
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "adaptive",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/adaptive-holdout/q029__azaHoVd/result.json",
+        "result_sha256": "12cbf05846672094f866c321d3eb918999ad661701660c9a2a2186495ac1b1de",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__adaptive__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 1201024,
+          "input_tokens_including_cache": 1330314,
+          "output_tokens": 4752,
+          "total_tokens": 1335066
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "classical",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q005__7mhMq98/result.json",
+        "result_sha256": "53b8016da6d7e2ab50d47b4838d6faa17e3144878ceed95d8afe1159ae77c7ce",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 1331968,
+          "input_tokens_including_cache": 1449206,
+          "output_tokens": 25215,
+          "total_tokens": 1474421
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "classical",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q010__WfBS95N/result.json",
+        "result_sha256": "ae331c5842663282349120803f61d5290da908bc0096a3cb8749183064222367",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 1021696,
+          "input_tokens_including_cache": 1142694,
+          "output_tokens": 14643,
+          "total_tokens": 1157337
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "classical",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q015__2xYEHSZ/result.json",
+        "result_sha256": "8fa02d2e15a04bb7215994bc3ecff8983786c32c17785826c2ca2bb41343fd5c",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 1996416,
+          "input_tokens_including_cache": 2123161,
+          "output_tokens": 13467,
+          "total_tokens": 2136628
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "classical",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q020__aXVDZbf/result.json",
+        "result_sha256": "bf28f495381e16f9554928c2c5b296b7fd41cd482bf0be724f2d7e2f3464c5e6",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 943488,
+          "input_tokens_including_cache": 1045130,
+          "output_tokens": 16189,
+          "total_tokens": 1061319
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "classical",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q025__fxvE4Qw/result.json",
+        "result_sha256": "2faa125de02200ae2534771a962ff36916930c139c09315d47f4ace2115d6b21",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1744256,
+          "input_tokens_including_cache": 1843315,
+          "output_tokens": 20996,
+          "total_tokens": 1864311
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "classical",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/classical-holdout/q029__ccGGwUz/result.json",
+        "result_sha256": "3f85f58e0768cbbea2ab7b8e3fb21076fc7a5546c6ce8ac84973b46b0fec52f5",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__classical__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 1407360,
+          "input_tokens_including_cache": 1525313,
+          "output_tokens": 14703,
+          "total_tokens": 1540016
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "embeddings",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q005__YyjSfDs/result.json",
+        "result_sha256": "d59ef4ed821ea4f18aa2f01ca1a4441807e775d050396b0de6f4a47354e2b8bd",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 1881984,
+          "input_tokens_including_cache": 2005289,
+          "output_tokens": 22242,
+          "total_tokens": 2027531
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "embeddings",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q010__Tbfcz9S/result.json",
+        "result_sha256": "7ef990c43e37b595dd514c183662ffa17260d3760f1931fa7d86c90edf5badb6",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 1118848,
+          "input_tokens_including_cache": 1295613,
+          "output_tokens": 20158,
+          "total_tokens": 1315771
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "embeddings",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q015__MCEZJTF/result.json",
+        "result_sha256": "6df2da4429eda4649e00cadcd08c69df56d4892903463080387ea740445e51d1",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 1577344,
+          "input_tokens_including_cache": 1707013,
+          "output_tokens": 12361,
+          "total_tokens": 1719374
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "embeddings",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q020__3w9oRLK/result.json",
+        "result_sha256": "1215483b85385b55b3ec694585cf2a6b98aa7fa67e14b669d25d09dc299c05ba",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 1204096,
+          "input_tokens_including_cache": 1329093,
+          "output_tokens": 20334,
+          "total_tokens": 1349427
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "embeddings",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q025__2XTrhpu/result.json",
+        "result_sha256": "1326ee9f2308a95dd6f1387892e87d56ef0256b6bad14899a8ac16cb71cab0eb",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1038592,
+          "input_tokens_including_cache": 1158822,
+          "output_tokens": 16618,
+          "total_tokens": 1175440
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "embeddings",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/embeddings-holdout/q029__Vy3RC37/result.json",
+        "result_sha256": "8bce4986e9c33e5ba923cf267b220dd534d2da0de158bc177f1c729eb00397a3",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__embeddings__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 570880,
+          "input_tokens_including_cache": 791179,
+          "output_tokens": 4144,
+          "total_tokens": 795323
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q005__md3HDcu/result.json",
+        "result_sha256": "8a996073cd325c9413002c264cb2e3cd992fe48bc506014036f66174082e87aa",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 671232,
+          "input_tokens_including_cache": 734659,
+          "output_tokens": 9793,
+          "total_tokens": 744452
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q010__nFUm37S/result.json",
+        "result_sha256": "6e76325962b0c426809dfc56b405b3d0e919f37f737cbb90406fb4a9fd4e41cf",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 369664,
+          "input_tokens_including_cache": 492556,
+          "output_tokens": 95764,
+          "total_tokens": 588320
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q015__phdDkGb/result.json",
+        "result_sha256": "bbc1795fcfbc5ed0c5d7fcd12b0f6695d6022b575abf50a0f3b6253d7b45a8d5",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 830592,
+          "input_tokens_including_cache": 917585,
+          "output_tokens": 4630,
+          "total_tokens": 922215
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q020__sgYzFTA/result.json",
+        "result_sha256": "2c1cc3ea0269048eb25090f7dc84dfd020f3f4fd3a3aa9353161d2589908d901",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 1600128,
+          "input_tokens_including_cache": 1743577,
+          "output_tokens": 9869,
+          "total_tokens": 1753446
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q025__iZFBFyg/result.json",
+        "result_sha256": "bb686945fa5e8b5bf945a2ad4d0a5e6076d73c166633a73bbb6c447ee0fec252",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1737728,
+          "input_tokens_including_cache": 1901014,
+          "output_tokens": 16274,
+          "total_tokens": 1917288
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "ensemble",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/ensemble-holdout/q029__BRdyXRd/result.json",
+        "result_sha256": "64b4d806a250be2c72f03317c91dcbeb21f9d0a497e089d1f0bc4aa775258bfb",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__ensemble__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 609664,
+          "input_tokens_including_cache": 662314,
+          "output_tokens": 8962,
+          "total_tokens": 671276
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "entity-graph",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q005__BGairJf/result.json",
+        "result_sha256": "52b6ead64d6b65722e70e1bdb3f956364c7a8b338a267aee8d804cdc48469b78",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 2647808,
+          "input_tokens_including_cache": 2704835,
+          "output_tokens": 17875,
+          "total_tokens": 2722710
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "entity-graph",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q010__jP3fB8g/result.json",
+        "result_sha256": "d88caf9a6b8c393c3482d77a1167adc28f21172938134a496d969cd27d89dfcc",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 2199936,
+          "input_tokens_including_cache": 2289516,
+          "output_tokens": 16152,
+          "total_tokens": 2305668
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "entity-graph",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q015__2ScZo2o/result.json",
+        "result_sha256": "c95eb31310dc845810731393560ba24e59e022e9d35a63734b117d0d59e68722",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 1820160,
+          "input_tokens_including_cache": 1964107,
+          "output_tokens": 31304,
+          "total_tokens": 1995411
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "entity-graph",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q020__pm88Gir/result.json",
+        "result_sha256": "69c45309936d74569692b81563c03e04ae50949387fee043f9c2edeafba79c4e",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 937472,
+          "input_tokens_including_cache": 1060861,
+          "output_tokens": 14039,
+          "total_tokens": 1074900
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "entity-graph",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q025__hws9bNQ/result.json",
+        "result_sha256": "09579c941065bb242f5e35bcd6ab6d4a21cad12790da185cd9fe68b10412099e",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1654016,
+          "input_tokens_including_cache": 1747178,
+          "output_tokens": 25291,
+          "total_tokens": 1772469
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "entity-graph",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/entity-graph-holdout/q029__r6FuVB2/result.json",
+        "result_sha256": "f2bb00384fef0f6d64b39fb22279c507bf0a6e8dd3a1aea23eb1156ec74642d5",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__entity-graph__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 4476416,
+          "input_tokens_including_cache": 4701777,
+          "output_tokens": 25957,
+          "total_tokens": 4727734
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q005__oWaV8x4/result.json",
+        "result_sha256": "fe9a0feba4975dac6b9708e9b6b476df698ba40f014d283326739e7d3728739c",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 86528,
+          "input_tokens_including_cache": 99830,
+          "output_tokens": 1480,
+          "total_tokens": 101310
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q010__xAStiwb/result.json",
+        "result_sha256": "b38acd827ead4a42f98306b4764315526adc4e132ae125fbded98d541ea6b9ce",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 962560,
+          "input_tokens_including_cache": 1034345,
+          "output_tokens": 8275,
+          "total_tokens": 1042620
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q015__THhj5Fc/result.json",
+        "result_sha256": "04fadf3c64cf807b9155a66977c445cef55f8379ed86863f021a70990a958e50",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 152320,
+          "input_tokens_including_cache": 188815,
+          "output_tokens": 2881,
+          "total_tokens": 191696
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q020__LshRYn4/result.json",
+        "result_sha256": "32b734790f97ec74052ab913a63d3e0ff23a52de0472cc8fd4f50750889f60c0",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 126336,
+          "input_tokens_including_cache": 144901,
+          "output_tokens": 2042,
+          "total_tokens": 146943
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q025__GLr5mnt/result.json",
+        "result_sha256": "cada68340397225cf69a3532e739beeff10db1375fddd14c24ab0b6cdbc3848f",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 134272,
+          "input_tokens_including_cache": 169050,
+          "output_tokens": 1679,
+          "total_tokens": 170729
+        }
+      },
+      {
+        "exception_type": "AgentTimeoutError",
+        "methodology": "graphify",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/graphify-holdout/q029__VjbPJhk/result.json",
+        "result_sha256": "264b69b895dd88e96ebbd957b7482d0b5242bfaf6887a180361e9f5f04b2068c",
+        "runtime_error": true,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__graphify__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 246528,
+          "input_tokens_including_cache": 294521,
+          "output_tokens": 3855,
+          "total_tokens": 298376
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q005__iNh7Frt/result.json",
+        "result_sha256": "3dab34577141e0062115bc525609fbbdc8405aa7474f01a42b8efa046313ff10",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 1911168,
+          "input_tokens_including_cache": 2026918,
+          "output_tokens": 21869,
+          "total_tokens": 2048787
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q010__67E5SRG/result.json",
+        "result_sha256": "0caf3f4c213510bb473c024d1c8e27658397b806b6f1d35e2e268116cece7565",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 2627968,
+          "input_tokens_including_cache": 2861841,
+          "output_tokens": 17023,
+          "total_tokens": 2878864
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q015__pDEQ5G8/result.json",
+        "result_sha256": "e1dc477bb1cb6537f76be08c032f55876a000652969d11b1c9a27a223086f71a",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 1590400,
+          "input_tokens_including_cache": 1673162,
+          "output_tokens": 18197,
+          "total_tokens": 1691359
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q020__SEZceZy/result.json",
+        "result_sha256": "ef4304ff582bc9a460926f53b190549142551e3271170c5d4dc8cfb42534a91d",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 444416,
+          "input_tokens_including_cache": 513705,
+          "output_tokens": 4619,
+          "total_tokens": 518324
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q025__tWSSxjJ/result.json",
+        "result_sha256": "824e216a4affcccdca539eb9f503ce74f880f4c2feb346f58d7ed46d8e1d2724",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1412480,
+          "input_tokens_including_cache": 1539019,
+          "output_tokens": 6282,
+          "total_tokens": 1545301
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "legacy",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/legacy-holdout/q029__KpYF8pM/result.json",
+        "result_sha256": "17071c4de11c2fe0f3619af61338cda9e391205bf742b1bea7c89b7bbf7020aa",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__legacy__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 706560,
+          "input_tokens_including_cache": 827052,
+          "output_tokens": 3534,
+          "total_tokens": 830586
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q005",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q005__U6wVt9C/result.json",
+        "result_sha256": "2634693964751050362c51ee88e8eee82ad7b0688e3cec933457b15076acea21",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q005",
+        "usage": {
+          "cache_tokens_reported_separately": 1855488,
+          "input_tokens_including_cache": 1974040,
+          "output_tokens": 29569,
+          "total_tokens": 2003609
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q010",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q010__rf8BN2S/result.json",
+        "result_sha256": "8a7e0aa77f9d069d2af576ff3519f82d1738490b434a076a8d2f1422286a80f8",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q010",
+        "usage": {
+          "cache_tokens_reported_separately": 2212864,
+          "input_tokens_including_cache": 2331029,
+          "output_tokens": 23467,
+          "total_tokens": 2354496
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q015",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q015__3MyZE8q/result.json",
+        "result_sha256": "ca7247aee38f2f5aa62c2ff8f56492131b37e18a51ab3cb8d269f9831224f9ce",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q015",
+        "usage": {
+          "cache_tokens_reported_separately": 2413440,
+          "input_tokens_including_cache": 2529018,
+          "output_tokens": 20295,
+          "total_tokens": 2549313
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q020",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q020__HCMuVsV/result.json",
+        "result_sha256": "7399ec2059828450099879258dcbdc8cf2e19a89e6e13e2bd0978ed965c2c311",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q020",
+        "usage": {
+          "cache_tokens_reported_separately": 1614592,
+          "input_tokens_including_cache": 1722173,
+          "output_tokens": 29416,
+          "total_tokens": 1751589
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q025",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q025__k2Fs7Ee/result.json",
+        "result_sha256": "8a6b374ba29223601bb2eb91c28e46b6a6d315208104028964e1eb054ccb5ad5",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q025",
+        "usage": {
+          "cache_tokens_reported_separately": 1651328,
+          "input_tokens_including_cache": 1758980,
+          "output_tokens": 32253,
+          "total_tokens": 1791233
+        }
+      },
+      {
+        "exception_type": null,
+        "methodology": "turso",
+        "question_id": "q029",
+        "result_path": "evaluations/semantic-okf-datasets/generated/campaigns/20260717-papers-consult-gpt53-spark-01/runs/turso-holdout/q029__uTdWPsh/result.json",
+        "result_sha256": "04c149ec4db10383a92613a11d59327bf5b7bbe0f0d35be0f54755485bce27e4",
+        "runtime_error": false,
+        "task_name": "knowledge/graphrag-papers-40__consult-only__turso__q029",
+        "usage": {
+          "cache_tokens_reported_separately": 2016128,
+          "input_tokens_including_cache": 2184722,
+          "output_tokens": 22313,
+          "total_tokens": 2207035
+        }
+      }
+    ],
+    "unit": "one submitted consult-only Harbor query",
+    "zero_runtime_error_methodologies": [
+      {
+        "complete_query_count": 6,
+        "complete_response_usage": {
+          "complete_query_count": 6,
+          "mean_cache_tokens_reported_separately": 1448832.0,
+          "mean_input_tokens_including_cache": 1573616.1666666667,
+          "mean_output_tokens": 11920.666666666666,
+          "mean_total_tokens": 1585536.8333333333
+        },
+        "label": "Legacy",
+        "mean_cache_tokens_reported_separately": 1448832.0,
+        "mean_input_tokens_including_cache": 1573616.1666666667,
+        "mean_output_tokens": 11920.666666666666,
+        "mean_total_tokens": 1585536.8333333333,
+        "methodology": "legacy",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 0,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 1
+      },
+      {
+        "complete_query_count": 6,
+        "complete_response_usage": {
+          "complete_query_count": 6,
+          "mean_cache_tokens_reported_separately": 1960640.0,
+          "mean_input_tokens_including_cache": 2083327.0,
+          "mean_output_tokens": 26218.833333333332,
+          "mean_total_tokens": 2109545.8333333335
+        },
+        "label": "Turso",
+        "mean_cache_tokens_reported_separately": 1960640.0,
+        "mean_input_tokens_including_cache": 2083327.0,
+        "mean_output_tokens": 26218.833333333332,
+        "mean_total_tokens": 2109545.8333333335,
+        "methodology": "turso",
+        "model": "openai-codex/gpt-5.3-codex-spark",
+        "raw_result_count": 6,
+        "runtime_error_count": 0,
+        "submitted_query_count": 6,
+        "token_rank_low_to_high": 2
+      }
+    ]
+  },
+  "report_date": "2026-07-30",
+  "report_kind": "complete-registered-strategy-two-stage-token-usage",
+  "reused_consultation_model_calls": 48,
+  "schema_version": "semantic-okf-token-usage-report/2.0",
+  "token_semantics": {
+    "cache": "Harbor n_cache_tokens is reported separately as a subset of input and is not added to total",
+    "input": "Harbor n_input_tokens already includes cached input",
+    "total": "n_input_tokens + n_output_tokens"
+  }
+}

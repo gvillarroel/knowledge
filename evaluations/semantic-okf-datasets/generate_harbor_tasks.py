@@ -329,10 +329,17 @@ def instruction(
             )
         workflow += "Do not build, repair, or modify knowledge."
     else:
-        plan = " and `/dataset/plan.json`" if family["uses_plan"] else ""
+        if family["build_skill"] == "build-semantic-okf-tika-mallet":
+            build_inputs = (
+                "`/dataset/ingestion-plan.json` and "
+                "`/dataset/retrieval-plan.json`"
+            )
+        else:
+            plan = " and `/dataset/plan.json`" if family["uses_plan"] else ""
+            build_inputs = f"`/dataset/manifest.json`{plan}"
         workflow = (
             f"Use the installed `{family['build_skill']}` skill to build a new `{family_id}` Semantic OKF "
-            f"snapshot at `/workspace/knowledge` from `/dataset/manifest.json`{plan}. The `/dataset` mount "
+            f"snapshot at `/workspace/knowledge` from {build_inputs}. The `/dataset` mount "
             f"is read-only and contains no questions, qrels, or ground truth. Run `{family['validate_script']}` "
             f"against the new snapshot and continue only after validation passes. Then hand that exact snapshot "
             f"to the installed `{family['consult_skill']}` skill and answer from it read-only. No prebuilt "

@@ -1,0 +1,173 @@
+{
+  "schema_version": "knowledge-methodology-proposal-experiment/1.0",
+  "experiment_id": "knowledge-methodology-offline-ablation-01",
+  "candidate_state": "retrospective-all-qrels-exposed",
+  "promotion_eligible": false,
+  "purpose": "Test whether chunking, simple retrieval baselines, cross-domain comparison, and uncertainty reporting materially change conclusions before investing in model- or human-dependent studies.",
+  "datasets": [
+    {
+      "id": "graphrag-papers-40",
+      "questions": "evaluations/semantic-okf-adaptive/retrieval-questions.jsonl",
+      "questions_sha256": "21ca640514c7378c06f3e2a1a02210d079c5c3048fd2d07b14ade15f1c9788ec",
+      "question_count": 40,
+      "papers": "evaluations/graphrag-cross-paper/sources/markdown",
+      "paper_count": 15,
+      "cohorts": "evaluations/semantic-okf-datasets/datasets/graphrag-papers-40-cohorts.json"
+    },
+    {
+      "id": "quantum-error-correction-papers-40",
+      "questions": "evaluations/quantum-error-correction-papers/benchmark/retrieval-questions.jsonl",
+      "questions_sha256": "d0720d3d9a2608b990988ff10c2cb0b571b53486592de2542bb35dba3ff9dcd4",
+      "question_count": 40,
+      "papers": "evaluations/quantum-error-correction-papers/sources/markdown",
+      "paper_count": 15,
+      "cohorts": "evaluations/quantum-error-correction-papers/benchmark/cohorts.json"
+    }
+  ],
+  "chunking_treatments": [
+    {
+      "id": "document",
+      "kind": "document",
+      "description": "One retrieval unit per complete paper."
+    },
+    {
+      "id": "page",
+      "kind": "page",
+      "description": "One retrieval unit per pinned PDF page."
+    },
+    {
+      "id": "fixed-128",
+      "kind": "fixed",
+      "size": 128,
+      "overlap": 0,
+      "description": "Non-overlapping 128-token units."
+    },
+    {
+      "id": "fixed-256",
+      "kind": "fixed",
+      "size": 256,
+      "overlap": 0,
+      "description": "Non-overlapping 256-token units."
+    },
+    {
+      "id": "fixed-512",
+      "kind": "fixed",
+      "size": 512,
+      "overlap": 0,
+      "description": "Non-overlapping 512-token units."
+    },
+    {
+      "id": "overlap-256-32",
+      "kind": "fixed",
+      "size": 256,
+      "overlap": 32,
+      "description": "Fixed 256-token units with a 32-token overlap."
+    },
+    {
+      "id": "hierarchical-page",
+      "kind": "hierarchical-page",
+      "parent_weight": 0.3,
+      "child_weight": 0.7,
+      "description": "Combine normalized complete-paper and best-page evidence."
+    }
+  ],
+  "retrieval_treatments": [
+    {
+      "id": "bm25-word",
+      "kind": "bm25",
+      "analyzer": "word",
+      "description": "Word-token BM25 lexical baseline."
+    },
+    {
+      "id": "tfidf-char3",
+      "kind": "tfidf",
+      "analyzer": "char3",
+      "description": "Character-trigram TF-IDF baseline for terminology and identifier robustness."
+    },
+    {
+      "id": "rrf-hybrid",
+      "kind": "rrf",
+      "inputs": [
+        "bm25-word",
+        "tfidf-char3"
+      ],
+      "rrf_k": 60,
+      "description": "Reciprocal-rank fusion of the two simple baselines."
+    }
+  ],
+  "metrics": {
+    "cutoff": 10,
+    "primary": "recall_at_10",
+    "secondary": [
+      "mrr_at_10",
+      "ndcg_at_10"
+    ],
+    "runtime": [
+      "median_query_ms",
+      "p95_query_ms",
+      "index_units"
+    ],
+    "qrel_scope": "non-exhaustive-focus-set"
+  },
+  "uncertainty": {
+    "method": "query-bootstrap-percentile",
+    "samples": 2000,
+    "confidence": 0.95,
+    "seed": 20260729
+  },
+  "registered_decision_rules": [
+    {
+      "proposal_id": "KM-004",
+      "test_scope": "partial",
+      "supported_when": "At least one non-document chunker changes Recall@10 by at least 0.02 versus the same retriever's document treatment in either domain.",
+      "strong_support_when": "The paired 95% bootstrap interval for that change excludes zero.",
+      "important_limit": "This phase does not implement neural late chunking or a learned hierarchical chunker."
+    },
+    {
+      "proposal_id": "KM-005",
+      "test_scope": "partial",
+      "supported_when": "The point winner differs by domain or more than one treatment remains on the cross-domain quality-latency Pareto frontier.",
+      "important_limit": "The phase compares lexical, fuzzy lexical, and hybrid baselines; it does not claim a semantic-embedding baseline."
+    },
+    {
+      "proposal_id": "KM-006",
+      "test_scope": "direct",
+      "supported_when": "At least one treatment has a Recall@10 bootstrap interval at least 0.05 wide, showing material finite-query uncertainty.",
+      "important_limit": "Bootstrap uncertainty across exposed questions does not estimate provider, judge, or generation variance."
+    }
+  ],
+  "deferred_registered_proposals": [
+    {
+      "proposal_id": "KM-001",
+      "reason": "Requires claim-level answer annotations and grounded generations."
+    },
+    {
+      "proposal_id": "KM-002",
+      "reason": "Requires blinded human annotations and judge perturbation trials."
+    },
+    {
+      "proposal_id": "KM-003",
+      "reason": "Requires genuinely new source bytes and untouched question authors."
+    },
+    {
+      "proposal_id": "KM-007",
+      "reason": "Requires double-reviewed evidence cards."
+    },
+    {
+      "proposal_id": "KM-008",
+      "reason": "Requires a future search delta and independent screening."
+    },
+    {
+      "proposal_id": "KM-009",
+      "reason": "Requires a dedicated SHACL mutation corpus."
+    },
+    {
+      "proposal_id": "KM-010",
+      "reason": "Requires re-expressing one existing evolution as a component contract."
+    },
+    {
+      "proposal_id": "KM-011",
+      "reason": "Requires visually reviewed PDF extraction fixtures."
+    }
+  ]
+}

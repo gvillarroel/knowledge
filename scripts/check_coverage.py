@@ -26,6 +26,7 @@ NON_APPLICATION_TESTS = (
     "tests/test_roundtrip_confluence_batch_skill.py",
     "tests/test_confluence_8h_campaign.py",
     "tests/test_confluence_8h_live_fixtures.py",
+    "tests/test_data_science_ai_ml_books.py",
     "tests/test_skill_independence.py",
     "tests/test_graphrag_cross_paper_benchmark.py",
     "tests/test_semantic_okf_builder_benchmark.py",
@@ -88,7 +89,6 @@ NON_APPLICATION_TESTS = (
     "tests/test_semantic_okf_provider_reset_metadata.py",
     "tests/test_semantic_okf_task_validator_bundle_binding.py",
     "tests/test_television_skill.py",
-    "tests/test_zotero_cli_poc.py",
 )
 
 

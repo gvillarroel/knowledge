@@ -95,6 +95,59 @@ def parse_time(value: object) -> datetime | None:
         return None
 
 
+def token_count(value: object) -> int | None:
+    """Return one non-negative Harbor token count without inventing zeroes."""
+
+    if (
+        isinstance(value, int)
+        and not isinstance(value, bool)
+        and value >= 0
+    ):
+        return value
+    return None
+
+
+def token_usage(
+    rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Aggregate complete input/output observations using Harbor semantics."""
+
+    observed: list[tuple[int, int, int | None]] = []
+    for row in rows:
+        tokens = row.get("tokens")
+        if not isinstance(tokens, Mapping):
+            continue
+        input_tokens = token_count(tokens.get("input"))
+        output_tokens = token_count(tokens.get("output"))
+        cache_tokens = token_count(tokens.get("cache"))
+        if input_tokens is None or output_tokens is None:
+            continue
+        observed.append((input_tokens, output_tokens, cache_tokens))
+
+    inputs = [value[0] for value in observed]
+    outputs = [value[1] for value in observed]
+    caches = [value[2] for value in observed if value[2] is not None]
+    totals = [
+        input_tokens + output_tokens
+        for input_tokens, output_tokens, _cache_tokens in observed
+    ]
+
+    def measure(values: Sequence[int]) -> dict[str, int | float | None]:
+        return {
+            "total": sum(values) if values else None,
+            "mean": statistics.fmean(values) if values else None,
+        }
+
+    return {
+        "observed_trials": len(observed),
+        "cache_observed_trials": len(caches),
+        "input_tokens_including_cache": measure(inputs),
+        "cache_tokens_reported_separately": measure(caches),
+        "output_tokens": measure(outputs),
+        "total_tokens": measure(totals),
+    }
+
+
 def _validate_v3_execution_receipt(
     run: Path, receipt: Mapping[str, Any]
 ) -> bool:
@@ -1382,9 +1435,9 @@ def trial_row(
         "scoring_source": scoring_source,
         "duration_seconds": duration,
         "tokens": {
-            "input": int(agent.get("n_input_tokens") or 0),
-            "cache": int(agent.get("n_cache_tokens") or 0),
-            "output": int(agent.get("n_output_tokens") or 0),
+            "input": token_count(agent.get("n_input_tokens")),
+            "cache": token_count(agent.get("n_cache_tokens")),
+            "output": token_count(agent.get("n_output_tokens")),
         },
         "metrics": metrics,
         "diagnostics": {
@@ -1416,9 +1469,20 @@ def aggregate(rows: Sequence[Mapping[str, Any]], expected_trials: int) -> dict[s
         str(value) for row in rows for value in row.get("secondary_anomalies", [])
     )
     tokens = {
-        name: sum(int(row["tokens"][name]) for row in rows)
+        name: sum(
+            value
+            for row in rows
+            if (
+                isinstance(row.get("tokens"), Mapping)
+                and (value := token_count(row["tokens"].get(name)))
+                is not None
+            )
+        )
         for name in ("input", "cache", "output")
     }
+    complete_response_rows = [
+        row for row in rows if row["complete_response_observed"]
+    ]
     durations = [
         float(row["duration_seconds"])
         for row in rows
@@ -1434,6 +1498,12 @@ def aggregate(rows: Sequence[Mapping[str, Any]], expected_trials: int) -> dict[s
         "secondary_anomalies": dict(sorted(anomalies.items())),
         "metrics": metrics,
         "tokens": tokens,
+        "token_usage": {
+            "result_trials": token_usage(rows),
+            "complete_response_trials": token_usage(
+                complete_response_rows
+            ),
+        },
         "mean_duration_seconds": statistics.fmean(durations) if durations else None,
     }
 
@@ -1708,7 +1778,7 @@ def summarize(
         {str(receipt.get("records_sha256")) for receipt in receipts if receipt.get("records_sha256")}
     )
     report = {
-        "schema_version": "semantic-okf-consult-campaign-summary/2.0",
+        "schema_version": "semantic-okf-consult-campaign-summary/2.1",
         "campaign": campaign.name,
         "dataset_id": dataset_id,
         "mode": "consult-only",
@@ -1856,6 +1926,71 @@ def markdown(summary: Mapping[str, Any]) -> str:
                     gate_count(row, "evidence_contract_gate"),
                     gate_count(row, "minimum_document_gate"),
                     number(row["metrics"]["reward"]["mean"]),
+                ]
+            )
+            + " |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Consultation token use",
+            "",
+            (
+                "Harbor input already includes cached input. Mean total is "
+                "therefore input plus output; cache is shown separately and "
+                "is never added again. Result means retain execution failures "
+                "when Harbor reported complete usage, while the final column "
+                "uses answer-emitting trials only."
+            ),
+            "",
+            (
+                "| Family | Tokenized results | Complete responses | Mean "
+                "input/result | Mean cache/result | Mean output/result | "
+                "Mean total/result | Mean total/complete response |"
+            ),
+            "|---|---:|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for family, row in family_items:
+        result_usage = row["token_usage"]["result_trials"]
+        complete_usage = row["token_usage"]["complete_response_trials"]
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    family,
+                    (
+                        f"{result_usage['observed_trials']}/"
+                        f"{row['result_trials']}"
+                    ),
+                    (
+                        f"{complete_usage['observed_trials']}/"
+                        f"{row['complete_response_trials']}"
+                    ),
+                    number(
+                        result_usage[
+                            "input_tokens_including_cache"
+                        ]["mean"],
+                        digits=2,
+                    ),
+                    number(
+                        result_usage[
+                            "cache_tokens_reported_separately"
+                        ]["mean"],
+                        digits=2,
+                    ),
+                    number(
+                        result_usage["output_tokens"]["mean"],
+                        digits=2,
+                    ),
+                    number(
+                        result_usage["total_tokens"]["mean"],
+                        digits=2,
+                    ),
+                    number(
+                        complete_usage["total_tokens"]["mean"],
+                        digits=2,
+                    ),
                 ]
             )
             + " |"

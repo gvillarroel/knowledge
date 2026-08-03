@@ -1,0 +1,54 @@
+{
+  "builder": {
+    "candidate": "v46-qualified-runtime",
+    "promoted_bundle_sha256": "3a1d2bfb66def8a911ffe7197740eef90a9638dab0522eb39f12a8c369f5c908",
+    "production_matches_candidate": {
+      "difference_count": 0,
+      "file_count": 19,
+      "ignore_transient_python_cache": true,
+      "status": "pass"
+    },
+    "skill": "build-semantic-okf-tika-mallet"
+  },
+  "build": {
+    "container_exit_code": 0,
+    "log": {
+      "bytes": 3987,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/build-native-03.stdout.log",
+      "sha256": "14080d50a9bf7ae9ac5b65e2840d903523d1697d039c567dda306e60767ab556"
+    },
+    "network": "none",
+    "output": "/workspace/knowledge-v46",
+    "status": "pass"
+  },
+  "knowledge": {
+    "file_count": 108,
+    "record_count": 30,
+    "records_sha256": "b64917f411ea57a18114ba44d7a4779564d528542b3c6ec6084d96a4ddf40805",
+    "tree_sha256": "e787e3ef4a2c2a3a624be0803a3536ab24c2dcdd66e4b894c2d0ec10634f1d9e"
+  },
+  "platform_note": {
+    "native_linux_publication_required": true,
+    "rejected_attempt_code": "source-error",
+    "rejected_attempt_error": "[Errno 22] Invalid argument: '/outputs/knowledge-v46'",
+    "reason": "The DrvFS bind mount did not support the builder's atomic RENAME_NOREPLACE publication contract."
+  },
+  "runtime": {
+    "image_id": "sha256:f1fe60c268fbfceb6554a3999b76ba904856b12d34de756248532df6faa6ec66",
+    "java": "17.0.19",
+    "mallet_jar_tree_sha256": "733877cc8c81ec2d2d05554810360c4a7b2af534d48fd3bf061a1ac49d56c729",
+    "tika_jar_tree_sha256": "314729d48101fc02045ca03763180b632ecdaf9cab160c3c275d11666ce21d45"
+  },
+  "schema_version": "semantic-okf-specialized-expert-builder-reproduction/1.0",
+  "status": "pass",
+  "validation": {
+    "container_exit_code": 0,
+    "log": {
+      "bytes": 611,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/validate-native-01.stdout.log",
+      "sha256": "452837d06b6c9ff5b98658aba1994603966a0a94925179579d882ef9fa420edf"
+    },
+    "status": "pass",
+    "valid": true
+  }
+}

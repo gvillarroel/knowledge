@@ -1,0 +1,45 @@
+{
+  "datasets": [
+    {
+      "classification": "evaluation-only",
+      "dataset_id": "graphrag-papers-parallel-eval-60-v1",
+      "forbidden_uses": [
+        "knowledge construction",
+        "retrieval-profile construction",
+        "skill or query-adapter evolution",
+        "trace distillation",
+        "candidate realization or selection",
+        "discovery, development, or validation fitness"
+      ],
+      "ground_truth_sha256": "1a9adb15c6d1b095efd3f3d3a91ca0ded50a6ace1acfd2e6abe2930c5de9d913",
+      "parent_dataset_id": "graphrag-post-v51-unseen-20-v1",
+      "question_count": 60,
+      "questions_sha256": "876cd033471d0bfcfe4440c76b6b70752c075b64bb586008dd3d41cf41992c33"
+    },
+    {
+      "classification": "evaluation-only",
+      "dataset_id": "graphrag-papers-contradiction-eval-40-v1",
+      "forbidden_uses": [
+        "knowledge construction",
+        "retrieval-profile construction",
+        "skill or query-adapter evolution",
+        "trace distillation",
+        "candidate realization or selection",
+        "discovery, development, or validation fitness"
+      ],
+      "ground_truth_sha256": "8fc30e5f3c01a1f2254b3c7144400afe0d4a9db89baf537bf301140476e2152c",
+      "parent_dataset_id": "graphrag-papers-40",
+      "question_count": 40,
+      "questions_sha256": "1cfcd02df8a62b0539b3399661af99dd207ad9a6a57151f5fdf009a7353c27c1"
+    }
+  ],
+  "policy": {
+    "allowed_uses": [
+      "sealed final evaluation",
+      "aggregate comparison reporting"
+    ],
+    "copying_or_reformatting_does_not_change_policy": true,
+    "default_for_registered_datasets": "deny optimizer-visible use"
+  },
+  "schema_version": "evaluation-only-registry/1.0"
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "private-knowledge-corpus/1.0",
+  "dataset_id": "data-science-ai-ml-books-38",
+  "title": "Data Science, AI, and Machine Learning Books",
+  "description": "A private, content-bound corpus of 38 English EPUB books from two user-provided Google Drive folders.",
+  "language": "en",
+  "source_format": "EPUB",
+  "source_folders": [
+    {
+      "partition": "ai-ml",
+      "folder_id": "1XtIbBz96jm5cTJMrbxqcWtg7EJNa7Ntz",
+      "url": "https://drive.google.com/drive/folders/1XtIbBz96jm5cTJMrbxqcWtg7EJNa7Ntz"
+    },
+    {
+      "partition": "ds",
+      "folder_id": "1h_RJalpoYrGWIj-gWs4GHE5KzzoeMAH-",
+      "url": "https://drive.google.com/drive/folders/1h_RJalpoYrGWIj-gWs4GHE5KzzoeMAH-"
+    }
+  ],
+  "summary": {
+    "files": 38,
+    "bytes": 486970824,
+    "partitions": {
+      "ai-ml": {
+        "files": 18,
+        "bytes": 323858855
+      },
+      "ds": {
+        "files": 20,
+        "bytes": 163111969
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "role": "source-catalog",
+      "path": "sources/drive-files.json",
+      "sha256": "fa1474583446d89ad031615878f3748ddf81ce7a107644ef8d056ed05156d197"
+    },
+    {
+      "role": "source-inventory",
+      "path": "sources/inventory.json",
+      "sha256": "3f069ab0bad4a2c727e5677147749cbad7698fdc7080fe7be4fd8e96061b36a4"
+    },
+    {
+      "role": "semantic-manifest",
+      "path": "manifest.json",
+      "sha256": "0cc4ddbd88fb63716d8f65402856637fcd43034802f6e1879544009aa48fe6fd"
+    },
+    {
+      "role": "source-combination",
+      "path": "source-combination.json",
+      "sha256": "106735a5e7c455ef32add7a0e2462d725ef5a12c31943ec8b8d3fd75309561f1"
+    },
+    {
+      "role": "scope",
+      "path": "scope.md",
+      "sha256": "efe0e755e62e21d5b130772e4613806b9322c6f6f6cfe897dd06e2151b8a172c"
+    }
+  ],
+  "evaluation_status": "corpus-only-not-registered"
+}

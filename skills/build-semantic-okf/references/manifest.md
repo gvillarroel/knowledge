@@ -177,7 +177,7 @@ Source Markdown bodies are preserved verbatim for traceability. Generated struct
 
 The normalized `concept_path` is `concepts/<source-id>/<safe-record-id>.md`; the OKF `concept_id` is that bundle-relative path without `.md`. The normalized subject IRI is `<base_iri>resource/<source-id>/<percent-encoded-record-id>` unless an RDF source already supplies an absolute subject IRI.
 
-Every concept frontmatter records `concept_id`, `concept_path`, `subject_iri`, absolute `ontology_class_iri`, `ontology_version_iri`, `source_id`, `source_kind`, `source_path`, `source_content_sha256`, `record_sha256`, `source_refs`, and `record_id`. Set the OKF `resource` field to `subject_iri`; keep source URIs separate.
+Every concept frontmatter targets OKF v0.2 and records `concept_id`, `concept_path`, `subject_iri`, absolute `ontology_class_iri`, `ontology_version_iri`, `source_id`, `source_kind`, `source_path`, `source_content_sha256`, `record_sha256`, `source_refs`, and `record_id`. Set the OKF `resource` field to `subject_iri`, record the exact input locator in `sources[].resource`, and declare `generated.by: process:semantic-okf-python`. Omit `generated.at` because deterministic builds must not invent or inject a build timestamp; keep source URIs separate.
 
 Hash raw source content, normalized records, and aggregate record sets independently. Compute normalized record hashes from compact UTF-8 JSON with recursively sorted object keys, normalized line endings, stable array order, and no build timestamp.
 

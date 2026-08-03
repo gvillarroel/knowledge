@@ -1,0 +1,71 @@
+{
+  "alternative_count": 24,
+  "builder_skill": {
+    "tree_sha256": "20f941c459b6e1517f47221934a4e0d002ca0b382fafa8dd411f74848f246905"
+  },
+  "candidate_id": "specialized-expert-lexical",
+  "candidate_label": "Specialized expert lexical",
+  "dataset_id": "graphrag-papers-40",
+  "expert_variants": [
+    "graphrag-trace-expert-v39",
+    "graphrag-trace-expert-v42"
+  ],
+  "inputs": {
+    "reference_comparison": {
+      "bytes": 5036,
+      "path": "evaluations/LATEST-REPORT.comparison.json",
+      "sha256": "ddc2c94ac4c65e82c35b43884a8152747219d6afa6b0eb469e7c685e0e36afdf"
+    },
+    "v39_pool100": {
+      "bytes": 811953,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/runs/v39-top100/report.json",
+      "sha256": "498ece565db0ba3b571bbcbf8d4b39d28dbbd2dd52fb310b2c1de3fc1adaae1e"
+    },
+    "v39_top10": {
+      "bytes": 557135,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/runs/v39-top10/report.json",
+      "sha256": "a828839843ff0a98617ac521d19e02ce783266e4e17fe8cfd66f7c96486dc5cf"
+    },
+    "v42_pool100": {
+      "bytes": 811961,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/runs/v42-top100/report.json",
+      "sha256": "800913b68f1c6880eb92a089ed6d4b6dd38f6fcb50f48f322f3b5480b1065f2f"
+    },
+    "v42_top10": {
+      "bytes": 557133,
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/specialized-experts/20260728-trace-guidance-01/runs/v42-top10/report.json",
+      "sha256": "6ae89edf577f558a3d15dda5f0c5fa922b0a6152536d14b3b16209d84b60c347"
+    }
+  },
+  "knowledge": {
+    "file_count": 108,
+    "inventory_sha256": "73817ffceb9093a3f23b67128fac473f31da97441d3970df49b4b3d2fec474b7",
+    "record_count": 30,
+    "tree_sha256": "e787e3ef4a2c2a3a624be0803a3536ab24c2dcdd66e4b894c2d0ec10634f1d9e"
+  },
+  "position": 19,
+  "ranking_eligible": true,
+  "replay_metrics": {
+    "ndcg_at_10": 66.57065252577992,
+    "p95_latency_ms": 169.7483100113459,
+    "recall_at_10": 72.19814213564214
+  },
+  "replication": {
+    "builder_skill_equal": true,
+    "evidence_validity": 1.0,
+    "exact_input_binding_within_variants": true,
+    "exact_pool100_across_experts": true,
+    "exact_top10_across_experts": true,
+    "exact_top10_prefix_in_pool100": true,
+    "knowledge_binding_equal": true,
+    "query_helper_equal": true
+  },
+  "schema_version": "semantic-okf-specialized-expert-retrieval-audit/1.0",
+  "selected_metrics": {
+    "ndcg_at_10": 66.57065252577992,
+    "p95_latency_ms": 170.78081491636112,
+    "recall_at_10": 72.19814213564214
+  },
+  "selection_basis": "v39 is the prospectively selected metric row; v42 is an independent guidance-variant replay over the same immutable knowledge and helper",
+  "status": "pass"
+}

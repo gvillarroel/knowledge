@@ -8,7 +8,7 @@ description: Consult an immutable reference-dictionary RustMallet Semantic OKF s
 Retrieve compact claim references, read only selected evidence, and return the
 snapshot-owned IDs without copying long identity fields through model text.
 
-## Read-only contract
+## Standalone read-only boundary
 
 - Use only this skill and the supplied external bundle.
 - Never write a cache, query, draft, answer, lock, or derived file inside the bundle.

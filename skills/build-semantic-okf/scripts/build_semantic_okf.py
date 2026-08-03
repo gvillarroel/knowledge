@@ -10,8 +10,10 @@ import hashlib
 import html
 import json
 import math
+import os
 import re
 import sys
+import tempfile
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -40,6 +42,7 @@ INTEGER_MIN = -(2**31)
 INTEGER_MAX = 2**31 - 1
 LONG_MIN = -(2**63)
 LONG_MAX = 2**63 - 1
+INCREMENTAL_CACHE_SCHEMA_VERSION = "semantic-okf-incremental-cache/1.0"
 
 
 @dataclass(frozen=True)
@@ -557,6 +560,375 @@ def _source_content_digest(paths: list[Path], manifest_root: Path) -> str:
     return _source_content_digests({"source": paths}, manifest_root)["source"]
 
 
+def _sha256_bytes(value: bytes) -> str:
+    """Return a lowercase SHA-256 digest for raw bytes."""
+
+    return hashlib.sha256(value).hexdigest()
+
+
+def _incremental_processor_sha256() -> str:
+    """Bind cached adapter output to the exact local processing implementation."""
+
+    scripts = (Path(__file__).resolve(), Path(__file__).with_name("_semantic_okf.py"))
+    payload = [
+        {"name": path.name, "sha256": _sha256_bytes(path.read_bytes())}
+        for path in scripts
+    ]
+    return sha256_json(payload)
+
+
+def _source_adapter_sha256(source: Mapping[str, Any]) -> str:
+    """Hash source settings that can alter one file's normalized records."""
+
+    return sha256_json(
+        {
+            key: value
+            for key, value in source.items()
+            if key not in {"path", "allow_empty"}
+        }
+    )
+
+
+def _empty_incremental_cache() -> dict[str, Any]:
+    """Return an empty cache manifest with the current closed schema."""
+
+    return {
+        "schema_version": INCREMENTAL_CACHE_SCHEMA_VERSION,
+        "entries": [],
+    }
+
+
+def _load_incremental_cache(cache_dir: Path) -> tuple[dict[str, Any], list[str]]:
+    """Load a cache manifest, treating invalid derived state as a cold cache."""
+
+    manifest_path = cache_dir / "manifest.json"
+    if not manifest_path.exists():
+        return _empty_incremental_cache(), []
+    warnings: list[str] = []
+    try:
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if (
+            not isinstance(payload, dict)
+            or payload.get("schema_version") != INCREMENTAL_CACHE_SCHEMA_VERSION
+            or not isinstance(payload.get("entries"), list)
+        ):
+            raise ValueError("unsupported cache manifest schema")
+        for entry in payload["entries"]:
+            if not isinstance(entry, dict):
+                raise ValueError("cache entries must be objects")
+        return payload, warnings
+    except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as exc:
+        warnings.append(f"ignored invalid cache manifest: {exc}")
+        return _empty_incremental_cache(), warnings
+
+
+def _cache_entry_key(entry: Mapping[str, Any]) -> tuple[str, str]:
+    """Return the logical input identity of one cache entry."""
+
+    return str(entry.get("source_id", "")), str(entry.get("path", ""))
+
+
+def _cache_object_path(cache_dir: Path, digest: str) -> Path:
+    """Resolve a content-addressed cache object without accepting path input."""
+
+    if not re.fullmatch(r"[0-9a-f]{64}", digest):
+        raise ValueError("cache object digest is invalid")
+    return cache_dir / "objects" / digest[:2] / f"{digest[2:]}.json"
+
+
+def _cacheable_records(
+    records: list[dict[str, Any]],
+    relative_path: str,
+) -> list[dict[str, Any]]:
+    """Replace machine-local source paths with one manifest-relative locator."""
+
+    return [
+        {
+            **record,
+            "source_path": relative_path,
+        }
+        for record in records
+    ]
+
+
+def _load_cached_records(
+    cache_dir: Path,
+    entry: Mapping[str, Any],
+    *,
+    source: Mapping[str, Any],
+    path: Path,
+) -> list[dict[str, Any]] | None:
+    """Return validated cached raw records or None when the object is unusable."""
+
+    digest = str(entry.get("object_sha256", ""))
+    try:
+        object_path = _cache_object_path(cache_dir, digest)
+        raw = object_path.read_bytes()
+        if _sha256_bytes(raw) != digest:
+            return None
+        payload = json.loads(raw)
+    except (OSError, UnicodeError, json.JSONDecodeError, ValueError):
+        return None
+    if not isinstance(payload, dict) or not isinstance(payload.get("records"), list):
+        return None
+    for field in ("input_sha256", "adapter_sha256", "processor_sha256"):
+        if payload.get(field) != entry.get(field):
+            return None
+    result: list[dict[str, Any]] = []
+    for record in payload["records"]:
+        if (
+            not isinstance(record, dict)
+            or record.get("source_id") != source["id"]
+            or record.get("source_kind") != source["kind"]
+            or record.get("source_path") != entry.get("path")
+        ):
+            return None
+        result.append({**record, "source_path": str(path.resolve())})
+    if entry.get("record_count") != len(result):
+        return None
+    return result
+
+
+def _write_bytes_atomic(path: Path, content: bytes) -> None:
+    """Replace one derived cache file atomically within its parent directory."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(path)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+
+
+def _store_cached_records(
+    cache_dir: Path,
+    *,
+    source: Mapping[str, Any],
+    path: Path,
+    manifest_root: Path,
+    records: list[dict[str, Any]],
+    input_sha256: str,
+    adapter_sha256: str,
+    processor_sha256: str,
+) -> tuple[str, int]:
+    """Persist one immutable content-addressed raw-record object."""
+
+    relative_path = path.resolve().relative_to(manifest_root.resolve()).as_posix()
+    payload = {
+        "schema_version": INCREMENTAL_CACHE_SCHEMA_VERSION,
+        "source_id": source["id"],
+        "source_kind": source["kind"],
+        "path": relative_path,
+        "input_sha256": input_sha256,
+        "adapter_sha256": adapter_sha256,
+        "processor_sha256": processor_sha256,
+        "records": _cacheable_records(records, relative_path),
+    }
+    content = (canonical_json(payload) + "\n").encode("utf-8")
+    digest = _sha256_bytes(content)
+    object_path = _cache_object_path(cache_dir, digest)
+    if object_path.exists():
+        if _sha256_bytes(object_path.read_bytes()) != digest:
+            _write_bytes_atomic(object_path, content)
+    else:
+        _write_bytes_atomic(object_path, content)
+    return digest, len(records)
+
+
+def _write_incremental_cache_manifest(cache_dir: Path, entries: list[dict[str, Any]]) -> None:
+    """Publish the current input-to-object index after a successful build."""
+
+    payload = {
+        "schema_version": INCREMENTAL_CACHE_SCHEMA_VERSION,
+        "entries": sorted(entries, key=_cache_entry_key),
+    }
+    _write_bytes_atomic(
+        cache_dir / "manifest.json",
+        (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"),
+    )
+
+
+def build_incremental(
+    manifest_path: Path,
+    output: Path,
+    cache_dir: Path,
+) -> dict[str, Any]:
+    """Build a complete snapshot while parsing only added or changed physical files."""
+
+    manifest_path = manifest_path.expanduser().resolve()
+    manifest = load_manifest(manifest_path)
+    root = manifest_path.parent
+    cache_dir = cache_dir.expanduser().resolve()
+    if cache_dir == output.expanduser().resolve() or cache_dir.is_relative_to(output.expanduser().resolve()):
+        raise BundleError("incremental cache must live outside the generated snapshot")
+    if cache_dir.is_symlink():
+        raise BundleError("incremental cache cannot be a symbolic link")
+    raw_records: list[dict[str, Any]] = []
+    summaries: list[dict[str, Any]] = []
+    paths_by_source: dict[str, list[Path]] = {}
+    next_entries: list[dict[str, Any]] = []
+    reused_files = 0
+    processed_files = 0
+    reused_records = 0
+    processed_records = 0
+    added: list[str] = []
+    changed: list[str] = []
+    unchanged: list[str] = []
+
+    for source in manifest["sources"]:
+        paths = discover_source_files(root, source)
+        paths_by_source[source["id"]] = paths
+        summaries.append(
+            {
+                "id": source["id"],
+                "kind": source["kind"],
+                "path": source["path"],
+                "content_sha256": "",
+                "allow_empty": bool(source.get("allow_empty", False)),
+            }
+        )
+    for paths in paths_by_source.values():
+        for path in paths:
+            if path.resolve().is_relative_to(cache_dir) or cache_dir.is_relative_to(
+                path.resolve().parent
+            ):
+                raise BundleError("incremental cache must live outside raw source directories")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    previous_cache, cache_warnings = _load_incremental_cache(cache_dir)
+    previous_entries = {
+        _cache_entry_key(entry): entry
+        for entry in previous_cache["entries"]
+        if isinstance(entry, dict)
+    }
+    processor_sha256 = _incremental_processor_sha256()
+    initial_digests = _source_content_digests(paths_by_source, root)
+    for summary in summaries:
+        summary["content_sha256"] = initial_digests[summary["id"]]
+
+    for source in manifest["sources"]:
+        adapter_sha256 = _source_adapter_sha256(source)
+        for path in paths_by_source[source["id"]]:
+            relative_path = path.resolve().relative_to(root.resolve()).as_posix()
+            input_sha256 = _sha256_bytes(path.read_bytes())
+            key = (str(source["id"]), relative_path)
+            previous = previous_entries.get(key)
+            reusable = bool(
+                previous
+                and previous.get("input_sha256") == input_sha256
+                and previous.get("adapter_sha256") == adapter_sha256
+                and previous.get("processor_sha256") == processor_sha256
+            )
+            current_records = (
+                _load_cached_records(cache_dir, previous, source=source, path=path)
+                if reusable and previous
+                else None
+            )
+            if current_records is None:
+                current_records = source_records(source, [path], root)
+                object_sha256, record_count = _store_cached_records(
+                    cache_dir,
+                    source=source,
+                    path=path,
+                    manifest_root=root,
+                    records=current_records,
+                    input_sha256=input_sha256,
+                    adapter_sha256=adapter_sha256,
+                    processor_sha256=processor_sha256,
+                )
+                processed_files += 1
+                processed_records += record_count
+                if previous:
+                    changed.append(f"{source['id']}:{relative_path}")
+                else:
+                    added.append(f"{source['id']}:{relative_path}")
+            else:
+                object_sha256 = str(previous["object_sha256"])
+                record_count = len(current_records)
+                reused_files += 1
+                reused_records += record_count
+                unchanged.append(f"{source['id']}:{relative_path}")
+            raw_records.extend(current_records)
+            next_entries.append(
+                {
+                    "source_id": source["id"],
+                    "source_kind": source["kind"],
+                    "path": relative_path,
+                    "size": path.stat().st_size,
+                    "input_sha256": input_sha256,
+                    "adapter_sha256": adapter_sha256,
+                    "processor_sha256": processor_sha256,
+                    "object_sha256": object_sha256,
+                    "record_count": record_count,
+                }
+            )
+
+    current_keys = {_cache_entry_key(entry) for entry in next_entries}
+    removed = [
+        f"{source_id}:{path}"
+        for source_id, path in sorted(set(previous_entries) - current_keys)
+    ]
+    raw_records.sort(
+        key=lambda row: (str(row["source_id"]), str(row["record_id"]), str(row["source_path"]))
+    )
+    source_specs = source_by_id(manifest)
+    summary_by_id = {item["id"]: item for item in summaries}
+    records = [
+        finalize_record(
+            row,
+            source_specs[str(row["source_id"])],
+            summary_by_id[str(row["source_id"])],
+            manifest,
+            root,
+        )
+        for row in raw_records
+    ]
+    final_paths_by_source = {
+        source["id"]: discover_source_files(root, source) for source in manifest["sources"]
+    }
+    for source_id, initial_paths in paths_by_source.items():
+        if [path.resolve() for path in final_paths_by_source[source_id]] != [
+            path.resolve() for path in initial_paths
+        ]:
+            raise BundleError(f"source {source_id!r} membership changed while it was being normalized")
+    final_digests = _source_content_digests(final_paths_by_source, root)
+    for summary in summaries:
+        if final_digests[summary["id"]] != summary["content_sha256"]:
+            raise BundleError(f"source {summary['id']!r} changed while it was being normalized")
+
+    processor_info = {
+        "name": "semantic-okf-python",
+        "contract_version": "1.0",
+        "records": len(records),
+        "sources": len(summaries),
+    }
+    report = materialize_bundle(output, manifest, records, summaries, processor_info)
+    _write_incremental_cache_manifest(cache_dir, next_entries)
+    report["incremental"] = {
+        "schema_version": INCREMENTAL_CACHE_SCHEMA_VERSION,
+        "files": {
+            "total": len(next_entries),
+            "processed": processed_files,
+            "reused": reused_files,
+            "added": sorted(added),
+            "changed": sorted(changed),
+            "removed": removed,
+            "unchanged": sorted(unchanged),
+        },
+        "records": {
+            "processed": processed_records,
+            "reused": reused_records,
+        },
+        "cache_warnings": cache_warnings,
+    }
+    return report
+
+
 def build(manifest_path: Path, output: Path) -> dict[str, Any]:
     """Reprocess every declared source and atomically materialize one bundle."""
     manifest_path = manifest_path.expanduser().resolve()
@@ -625,6 +997,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("manifest", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument(
+        "--cache-dir",
+        type=Path,
+        help="Parse only changed physical inputs using a derived cache outside the snapshot.",
+    )
     parser.add_argument("--output-format", choices=("text", "json"), default="text")
     return parser
 
@@ -647,7 +1024,11 @@ def main(argv: list[str] | None = None) -> int:
     configure_utf8_output()
     args = build_parser().parse_args(argv)
     try:
-        report = build(args.manifest, args.output)
+        report = (
+            build_incremental(args.manifest, args.output, args.cache_dir)
+            if args.cache_dir
+            else build(args.manifest, args.output)
+        )
     except Exception as exc:
         code = _error_code(exc)
         if not code:

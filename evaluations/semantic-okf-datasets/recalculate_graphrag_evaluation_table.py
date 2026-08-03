@@ -27,7 +27,7 @@ import dataset_tool as data  # noqa: E402
 import score as grader  # noqa: E402
 from trace_status import classify_pi_trace  # noqa: E402
 
-SCHEMA_VERSION = "graphrag-current-metrics-evaluation-table/1.1"
+SCHEMA_VERSION = "graphrag-current-metrics-evaluation-table/1.2"
 DIAGNOSTICS_SCHEMA = "semantic-okf-harbor-redacted-diagnostics/3.0"
 QUESTION_PREFIX = re.compile(r"^(q[0-9]{3})")
 WSL_PATH = re.compile(r"^/mnt/([A-Za-z])/(.*)$")
@@ -77,11 +77,17 @@ DEFAULT_ADDITIONAL_RESULTS = (
 )
 DEFAULT_JSON = (
     HERE
-    / "reports/20260724-graphrag-papers-40-current-metrics-table.json"
+    / (
+        "reports/20260730-graphrag-papers-40-"
+        "current-metrics-with-token-usage.json"
+    )
 )
 DEFAULT_MARKDOWN = (
     HERE
-    / "reports/20260724-graphrag-papers-40-current-metrics-table.md"
+    / (
+        "reports/20260730-graphrag-papers-40-"
+        "current-metrics-with-token-usage.md"
+    )
 )
 
 
@@ -295,15 +301,12 @@ def _model_metadata(
 def _usage(trial_result: Mapping[str, Any]) -> dict[str, Any]:
     agent_result = trial_result.get("agent_result")
     agent_result = agent_result if isinstance(agent_result, Mapping) else {}
-    input_tokens = agent_result.get("n_input_tokens")
-    output_tokens = agent_result.get("n_output_tokens")
-    cache_tokens = agent_result.get("n_cache_tokens")
+    input_tokens = _token_count(agent_result.get("n_input_tokens"))
+    output_tokens = _token_count(agent_result.get("n_output_tokens"))
+    cache_tokens = _token_count(agent_result.get("n_cache_tokens"))
     total = (
-        int(input_tokens) + int(output_tokens)
-        if isinstance(input_tokens, int)
-        and not isinstance(input_tokens, bool)
-        and isinstance(output_tokens, int)
-        and not isinstance(output_tokens, bool)
+        input_tokens + output_tokens
+        if input_tokens is not None and output_tokens is not None
         else None
     )
     return {
@@ -312,6 +315,76 @@ def _usage(trial_result: Mapping[str, Any]) -> dict[str, Any]:
         "cache_tokens_reported_separately": cache_tokens,
         "total_tokens": total,
     }
+
+
+def _token_count(value: object) -> int | None:
+    """Return one non-negative token count without coercing missing data."""
+
+    if (
+        isinstance(value, int)
+        and not isinstance(value, bool)
+        and value >= 0
+    ):
+        return value
+    return None
+
+
+def _usage_summary(
+    rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Summarize complete Harbor usage without double-counting cache."""
+
+    observed: list[tuple[int, int, int | None]] = []
+    for row in rows:
+        usage = row.get("usage")
+        if not isinstance(usage, Mapping):
+            continue
+        input_tokens = _token_count(
+            usage.get("input_tokens_including_cache")
+        )
+        output_tokens = _token_count(usage.get("output_tokens"))
+        cache_tokens = _token_count(
+            usage.get("cache_tokens_reported_separately")
+        )
+        if input_tokens is None or output_tokens is None:
+            continue
+        observed.append((input_tokens, output_tokens, cache_tokens))
+
+    inputs = [item[0] for item in observed]
+    outputs = [item[1] for item in observed]
+    caches = [item[2] for item in observed if item[2] is not None]
+    totals = [
+        input_tokens + output_tokens
+        for input_tokens, output_tokens, _cache_tokens in observed
+    ]
+
+    def mean(values: Sequence[int]) -> float | None:
+        return sum(values) / len(values) if values else None
+
+    return {
+        "observed_answer_count": len(observed),
+        "cache_observed_answer_count": len(caches),
+        "mean_input_tokens_including_cache": mean(inputs),
+        "mean_cache_tokens_reported_separately": mean(caches),
+        "mean_output_tokens": mean(outputs),
+        "mean_total_tokens": mean(totals),
+    }
+
+
+def _usage_by_model(
+    rows: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Keep token averages separated by model and tokenizer contract."""
+
+    grouped: dict[str, list[Mapping[str, Any]]] = {}
+    for row in rows:
+        model = row.get("model")
+        label = model if isinstance(model, str) and model else "unknown"
+        grouped.setdefault(label, []).append(row)
+    return [
+        {"model": model, **_usage_summary(grouped[model])}
+        for model in sorted(grouped)
+    ]
 
 
 def _original_metrics(
@@ -622,6 +695,9 @@ def _strategy_rows(
                     / len(metrics)
                     if metrics
                     else None
+                ),
+                "answer_token_usage_by_model": _usage_by_model(
+                    emitted
                 ),
                 "semantic_verdict_counts": dict(sorted(verdicts.items())),
             }
@@ -1238,6 +1314,59 @@ def markdown(report: Mapping[str, Any]) -> str:
         )
     lines.extend(
         [
+            "",
+            "## Consultation token use",
+            "",
+            (
+                "Rows remain split by model because tokenizers and runtime "
+                "contracts are not interchangeable. Harbor input already "
+                "includes cached input, so mean total is input plus output; "
+                "cache is reported separately and is not added again. Means "
+                "use answer-emitting trials with complete usage only."
+            ),
+            "",
+            (
+                "| Strategy | Model | Token n | Mean input including cache | "
+                "Mean cache | Mean output | Mean total |"
+            ),
+            "|---|---|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for row in report["strategies"]:
+        for usage in row["answer_token_usage_by_model"]:
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        f"`{row['strategy']}`",
+                        f"`{usage['model']}`",
+                        str(usage["observed_answer_count"]),
+                        _number(
+                            usage[
+                                "mean_input_tokens_including_cache"
+                            ],
+                            digits=2,
+                        ),
+                        _number(
+                            usage[
+                                "mean_cache_tokens_reported_separately"
+                            ],
+                            digits=2,
+                        ),
+                        _number(
+                            usage["mean_output_tokens"],
+                            digits=2,
+                        ),
+                        _number(
+                            usage["mean_total_tokens"],
+                            digits=2,
+                        ),
+                    ]
+                )
+                + " |"
+            )
+    lines.extend(
+        [
         "",
         "## Every question under the current metrics",
         "",
@@ -1487,7 +1616,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
             "full-baseline-cells.json"
         ),
     )
-    parser.add_argument("--report-date", default="2026-07-24")
+    parser.add_argument("--report-date", default="2026-07-30")
     parser.add_argument("--output-json", type=Path, default=DEFAULT_JSON)
     parser.add_argument(
         "--output-markdown",

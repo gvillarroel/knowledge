@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 import tomllib
@@ -14,6 +15,7 @@ from validate_okf_bundle import OKF_VERSION, validate_bundle
 
 
 NATIVE_SKILL_FIELDS = {"name", "description"}
+GENERATOR_ACTOR = "process:open-knowledge-format-projector"
 
 
 def split_frontmatter(text: str) -> tuple[dict[str, Any], str]:
@@ -40,16 +42,17 @@ def render_concept(frontmatter: dict[str, Any], body: str) -> str:
     return f"---\n{metadata}\n---\n\n{body.rstrip()}\n"
 
 
-def rebase_skill_reference_links(body: str, skill_dir: Path) -> str:
+def rebase_skill_reference_links(body: str, skill_dir: Path, projection_dir: Path) -> str:
     """Keep package reference links resolvable from the flat OKF projection."""
 
-    prefix = f"../../skills/{skill_dir.name}/references/"
+    prefix = f"{_relative_resource(skill_dir / 'references', projection_dir).rstrip('/')}/"
     return re.sub(r"\]\((?:\./)?references/", f"]({prefix}", body)
 
 
-def expected_bundle_files(project_root: Path) -> dict[Path, str]:
+def expected_bundle_files(project_root: Path, output: Path | None = None) -> dict[Path, str]:
     """Return the complete deterministic Markdown projection for a project."""
     project_root = project_root.resolve()
+    output = (output or (project_root / "build" / "okf")).resolve()
     readme_path = project_root / "README.md"
     if not readme_path.is_file():
         raise ValueError(f"project README.md not found: {readme_path}")
@@ -64,6 +67,14 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
                 "title": title,
                 "description": description,
                 "tags": ["project", "okf"],
+                "sources": [
+                    {
+                        "id": "project-readme",
+                        "resource": _relative_resource(readme_path, output),
+                        "title": "README.md",
+                    }
+                ],
+                "generated": {"by": GENERATOR_ACTOR},
                 "source_path": "README.md",
             },
             readme,
@@ -82,6 +93,14 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
                 "title": spec_title,
                 "description": spec_description,
                 "tags": ["requirements", "okf"],
+                "sources": [
+                    {
+                        "id": "project-specification",
+                        "resource": _relative_resource(spec_path, output),
+                        "title": "SPEC.md",
+                    }
+                ],
+                "generated": {"by": GENERATOR_ACTOR},
                 "source_path": "SPEC.md",
             },
             spec_body,
@@ -112,10 +131,18 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
                 "title": display_name,
                 "description": skill_description.strip(),
                 "tags": ["codex", "skill"],
+                "sources": [
+                    {
+                        "id": skill_name.strip(),
+                        "resource": _relative_resource(skill_file, output / "skills"),
+                        "title": relative_source,
+                    }
+                ],
+                "generated": {"by": GENERATOR_ACTOR},
                 "skill_name": skill_name.strip(),
                 "source_path": relative_source,
             },
-            rebase_skill_reference_links(body, skill_file.parent),
+            rebase_skill_reference_links(body, skill_file.parent, output / "skills"),
         )
         skill_entries.append((display_name, output_name, skill_description.strip()))
 
@@ -132,9 +159,10 @@ def expected_bundle_files(project_root: Path) -> dict[Path, str]:
 
 def write_bundle(project_root: Path, output: Path, *, prune: bool = False) -> list[Path]:
     """Write the deterministic project bundle and return written paths."""
-    expected = expected_bundle_files(project_root)
+    project_root = project_root.resolve()
     output = output.resolve()
-    if output == project_root.resolve():
+    expected = expected_bundle_files(project_root, output)
+    if output == project_root:
         raise ValueError("bundle output must be a dedicated subdirectory, not the project root")
     output.mkdir(parents=True, exist_ok=True)
 
@@ -157,8 +185,9 @@ def write_bundle(project_root: Path, output: Path, *, prune: bool = False) -> li
 
 def check_bundle(project_root: Path, output: Path) -> list[str]:
     """Return drift messages for a generated project bundle."""
-    expected = expected_bundle_files(project_root)
+    project_root = project_root.resolve()
     output = output.resolve()
+    expected = expected_bundle_files(project_root, output)
     problems: list[str] = []
     for relative_path, content in expected.items():
         target = output / relative_path
@@ -187,6 +216,16 @@ def _project_metadata(project_root: Path) -> tuple[str, str]:
     name = str(project.get("name") or project_root.name)
     description = str(project.get("description") or f"Project documentation for {name}.")
     return name, description
+
+
+def _relative_resource(target: Path, source_dir: Path) -> str:
+    """Return a portable relative resource path from one bundle directory."""
+
+    try:
+        relative = os.path.relpath(target.resolve(), start=source_dir.resolve())
+    except ValueError as exc:
+        raise ValueError("bundle output and project inputs must share a filesystem volume") from exc
+    return Path(relative).as_posix()
 
 
 def _first_heading(markdown: str) -> str | None:
@@ -227,7 +266,7 @@ def _remove_empty_directories(output: Path) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build a strict OKF v0.1 projection of a project and its skills.")
+    parser = argparse.ArgumentParser(description="Build a strict OKF v0.2 projection of a project and its skills.")
     parser.add_argument("project_root", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--check", action="store_true", help="Fail when the generated bundle is missing or stale.")
@@ -235,7 +274,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     project_root = args.project_root.resolve()
-    output = (args.output or (project_root / "okf")).resolve()
+    output = (args.output or (project_root / "build" / "okf")).resolve()
     try:
         if args.check:
             problems = check_bundle(project_root, output)

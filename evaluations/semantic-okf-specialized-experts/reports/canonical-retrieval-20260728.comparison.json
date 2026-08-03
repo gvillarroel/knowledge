@@ -1,0 +1,256 @@
+{
+  "alternatives": [
+    {
+      "id": "ensemble-quality",
+      "label": "Ensemble `quality`",
+      "metrics": {
+        "ndcg_at_10": 85.2,
+        "p95_latency_ms": 1461.92,
+        "recall_at_10": 83.82
+      }
+    },
+    {
+      "id": "ensemble-fast",
+      "label": "Ensemble `fast`",
+      "metrics": {
+        "ndcg_at_10": 84.3,
+        "p95_latency_ms": 766.57,
+        "recall_at_10": 83.82
+      }
+    },
+    {
+      "id": "adaptive-fusion",
+      "label": "Adaptive fusion",
+      "metrics": {
+        "ndcg_at_10": 83.43,
+        "p95_latency_ms": 407.56,
+        "recall_at_10": 83.82
+      }
+    },
+    {
+      "id": "ensemble-robust",
+      "label": "Ensemble `robust`",
+      "metrics": {
+        "ndcg_at_10": 83.43,
+        "p95_latency_ms": 568.2,
+        "recall_at_10": 83.82
+      }
+    },
+    {
+      "id": "classical-fusion",
+      "label": "Classical fusion",
+      "metrics": {
+        "ndcg_at_10": 83.23,
+        "p95_latency_ms": 106.76,
+        "recall_at_10": 83.46
+      }
+    },
+    {
+      "id": "classical-association",
+      "label": "Classical association",
+      "metrics": {
+        "ndcg_at_10": 82.58,
+        "p95_latency_ms": 111.94,
+        "recall_at_10": 82.56
+      }
+    },
+    {
+      "id": "classical-topic",
+      "label": "Classical topic",
+      "metrics": {
+        "ndcg_at_10": 82.25,
+        "p95_latency_ms": 107.79,
+        "recall_at_10": 82.42
+      }
+    },
+    {
+      "id": "rust-mallet-topic",
+      "label": "RustMallet topic",
+      "metrics": {
+        "ndcg_at_10": 81.86,
+        "p95_latency_ms": 238.7,
+        "recall_at_10": 80.8
+      }
+    },
+    {
+      "id": "rust-mallet-fusion",
+      "label": "RustMallet fusion",
+      "metrics": {
+        "ndcg_at_10": 81.84,
+        "p95_latency_ms": 232.25,
+        "recall_at_10": 80.28
+      }
+    },
+    {
+      "id": "entity-graph-lexical",
+      "label": "Entity Graph lexical",
+      "metrics": {
+        "ndcg_at_10": 81.14,
+        "p95_latency_ms": 241.63,
+        "recall_at_10": 79.76
+      }
+    },
+    {
+      "id": "tantivy-bm25",
+      "label": "Tantivy BM25",
+      "metrics": {
+        "ndcg_at_10": 81.05,
+        "p95_latency_ms": 90.92,
+        "recall_at_10": 80.74
+      }
+    },
+    {
+      "id": "rust-mallet-association",
+      "label": "RustMallet association",
+      "metrics": {
+        "ndcg_at_10": 80.84,
+        "p95_latency_ms": 224.3,
+        "recall_at_10": 79.49
+      }
+    },
+    {
+      "id": "entity-graph-fusion",
+      "label": "Entity Graph fusion",
+      "metrics": {
+        "ndcg_at_10": 79.86,
+        "p95_latency_ms": 237.15,
+        "recall_at_10": 80.84
+      }
+    },
+    {
+      "id": "entity-graph-entity",
+      "label": "Entity Graph entity",
+      "metrics": {
+        "ndcg_at_10": 76.72,
+        "p95_latency_ms": 237.23,
+        "recall_at_10": 79.58
+      }
+    },
+    {
+      "id": "tika-mallet-fusion",
+      "label": "Tika/MALLET fusion",
+      "metrics": {
+        "ndcg_at_10": 75.44,
+        "p95_latency_ms": 86.36,
+        "recall_at_10": 74.82
+      }
+    },
+    {
+      "id": "legacy-lexical",
+      "label": "Legacy lexical",
+      "metrics": {
+        "ndcg_at_10": 74.22,
+        "p95_latency_ms": 4.79,
+        "recall_at_10": 79.31
+      }
+    },
+    {
+      "id": "entity-graph-traversal",
+      "label": "Entity Graph traversal",
+      "metrics": {
+        "ndcg_at_10": 74.03,
+        "p95_latency_ms": 235.99,
+        "recall_at_10": 78.49
+      }
+    },
+    {
+      "id": "tika-mallet-tantivy-fusion",
+      "label": "Tika/MALLET/Tantivy fusion",
+      "metrics": {
+        "ndcg_at_10": 71.75,
+        "p95_latency_ms": 470.74,
+        "recall_at_10": 73.5
+      }
+    },
+    {
+      "id": "specialized-expert-lexical",
+      "label": "Specialized expert lexical",
+      "metrics": {
+        "ndcg_at_10": 66.57065252577992,
+        "p95_latency_ms": 170.78081491636112,
+        "recall_at_10": 72.19814213564214
+      }
+    },
+    {
+      "id": "classical-bm25",
+      "label": "Classical BM25",
+      "metrics": {
+        "ndcg_at_10": 60.94,
+        "p95_latency_ms": 99.46,
+        "recall_at_10": 49.72
+      }
+    },
+    {
+      "id": "rust-mallet-bm25",
+      "label": "RustMallet BM25",
+      "metrics": {
+        "ndcg_at_10": 60.94,
+        "p95_latency_ms": 226.69,
+        "recall_at_10": 49.72
+      }
+    },
+    {
+      "id": "embeddings-lexical",
+      "label": "Embeddings lexical",
+      "metrics": {
+        "ndcg_at_10": 60.92,
+        "p95_latency_ms": 76.2,
+        "recall_at_10": 54.75
+      }
+    },
+    {
+      "id": "embeddings-hybrid",
+      "label": "Embeddings hybrid",
+      "metrics": {
+        "ndcg_at_10": 56.51,
+        "p95_latency_ms": 228.52,
+        "recall_at_10": 48.34
+      }
+    },
+    {
+      "id": "embeddings-vector",
+      "label": "Embeddings vector",
+      "metrics": {
+        "ndcg_at_10": 54.77,
+        "p95_latency_ms": 122.82,
+        "recall_at_10": 50.4
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "all-40",
+    "dataset_id": "graphrag-papers-40",
+    "identity_grouping": "authoritative-paper",
+    "metric_contract": "graphrag-direct-retrieval/1.0"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_latency_ms",
+      "label": "P95",
+      "unit": "ms"
+    }
+  ],
+  "report": "canonical-retrieval-20260728.md",
+  "schema_version": "final-report-comparison/1.0"
+}

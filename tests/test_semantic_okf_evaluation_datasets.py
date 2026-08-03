@@ -24,6 +24,7 @@ import candidate_family as CANDIDATES  # noqa: E402
 import generate_harbor_tasks as GENERATOR  # noqa: E402
 import run_harbor as RUNNER  # noqa: E402
 import summarize_consult_campaign as SUMMARY  # noqa: E402
+import validate_harbor_tasks as VALIDATOR  # noqa: E402
 
 
 def module(name: str, path: Path) -> ModuleType:
@@ -96,19 +97,35 @@ def test_tree_digest_uses_cross_platform_posix_order_and_exclusions(
     assert DATA.tree_digest(root, exclude={"nested/ignored.txt"}) == expected_digest
 
 
-def test_registry_validates_both_datasets_and_all_strategy_pairs() -> None:
+def test_registry_validates_all_datasets_and_strategy_pairs() -> None:
     reports = {identifier: DATA.validate_dataset(identifier) for identifier in DATA.available_datasets()}
-    assert set(reports) == {"astro-40", "graphrag-papers-40"}
+    assert set(reports) == {
+        "astro-40",
+        "graphrag-papers-40",
+        "quantum-error-correction-papers-40",
+    }
     assert reports["astro-40"]["source_file_count"] == 416
     assert reports["graphrag-papers-40"]["source_file_count"] == 31
+    assert reports["quantum-error-correction-papers-40"][
+        "source_file_count"
+    ] == 15
     assert all(report["question_count"] == 40 for report in reports.values())
     assert all(report["hard_question_count"] == 10 for report in reports.values())
     assert all(len(report["families"]) == 8 for report in reports.values())
     assert reports["graphrag-papers-40"]["reference_bundle_present"] is True
+    assert reports["quantum-error-correction-papers-40"][
+        "reference_bundle_present"
+    ] is True
     assert reports["astro-40"]["reference_bundle_present"] is False
     assert reports["graphrag-papers-40"]["semantic_rubric_count"] == 30
+    assert reports["quantum-error-correction-papers-40"][
+        "semantic_rubric_count"
+    ] == 40
     assert reports["astro-40"]["semantic_rubric_count"] == 0
     assert reports["graphrag-papers-40"]["reference_answer_count"] == 40
+    assert reports["quantum-error-correction-papers-40"][
+        "reference_answer_count"
+    ] == 0
     assert reports["astro-40"]["reference_answer_count"] == 0
 
 
@@ -119,8 +136,10 @@ def test_dataset_schema_versions_policy_and_reference_answers() -> None:
 
     legacy = DATA.load_dataset("astro-40")
     current = DATA.load_dataset("graphrag-papers-40")
+    qec = DATA.load_dataset("quantum-error-correction-papers-40")
     validator.validate(legacy)
     validator.validate(current)
+    validator.validate(qec)
 
     missing_policy = json.loads(json.dumps(current))
     missing_policy.pop("evaluation_policy")
@@ -743,6 +762,32 @@ def test_consult_only_instruction_requires_skill_first_bounded_access() -> None:
     assert "prefer up to two additional independently relevant papers" in rendered
 
 
+def test_tika_mallet_build_instruction_names_both_closed_plans() -> None:
+    row = {
+        "id": "q999",
+        "question": "What does the new snapshot support?",
+    }
+    family = {
+        "build_skill": "build-semantic-okf-tika-mallet",
+        "consult_skill": "consult-semantic-okf-tika-mallet-tantivy",
+        "uses_plan": True,
+        "validate_script": "validate_semantic_okf_tika_mallet.py",
+    }
+
+    rendered = GENERATOR.instruction(
+        row,
+        "build-consult",
+        "tika-mallet-tantivy",
+        family,
+    )
+
+    assert "/dataset/ingestion-plan.json" in rendered
+    assert "/dataset/retrieval-plan.json" in rendered
+    assert "/dataset/manifest.json" not in rendered
+    assert "/dataset/plan.json" not in rendered
+    VALIDATOR.mode_boundaries(rendered, "build-consult", family, "q999")
+
+
 def test_bounded_candidate_is_separately_hash_bound_and_uses_one_compiler() -> None:
     specification = (
         REPO
@@ -925,9 +970,27 @@ def test_campaign_summary_binds_runtime_and_preserves_technical_failures(tmp_pat
         "observed": 0,
     }
     assert adaptive["tokens"] == {"input": 100, "cache": 50, "output": 20}
+    assert adaptive["token_usage"]["result_trials"] == {
+        "observed_trials": 1,
+        "cache_observed_trials": 1,
+        "input_tokens_including_cache": {
+            "total": 100,
+            "mean": 100.0,
+        },
+        "cache_tokens_reported_separately": {
+            "total": 50,
+            "mean": 50.0,
+        },
+        "output_tokens": {"total": 20, "mean": 20.0},
+        "total_tokens": {"total": 120, "mean": 120.0},
+    }
+    assert adaptive["token_usage"]["complete_response_trials"][
+        "observed_trials"
+    ] == 0
     rendered = SUMMARY.markdown(report)
     assert "adaptive" in rendered
     assert "INVALID FOR COMPARISON" in rendered
+    assert "## Consultation token use" in rendered
     assert "## Cohort observability" in rendered
 
 

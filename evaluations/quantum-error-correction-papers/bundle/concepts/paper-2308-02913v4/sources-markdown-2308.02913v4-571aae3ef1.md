@@ -1,0 +1,5898 @@
+---
+type: Research Paper
+title: 'Advances in Bosonic Quantum Error Correction with Gottesman-Kitaev-Preskill
+  Codes: Theory, Engineering and Applications'
+description: '- Pinned arXiv record: [2308.02913v4](https://arxiv.org/abs/2308.02913v4)'
+resource: https://example.org/qec-arxiv-papers/resource/paper-2308-02913v4/sources%2Fmarkdown%2F2308.02913v4
+tags:
+- paper-2308-02913v4
+- markdown
+- rl
+concept_id: concepts/paper-2308-02913v4/sources-markdown-2308.02913v4-571aae3ef1
+concept_path: concepts/paper-2308-02913v4/sources-markdown-2308.02913v4-571aae3ef1.md
+subject_iri: https://example.org/qec-arxiv-papers/resource/paper-2308-02913v4/sources%2Fmarkdown%2F2308.02913v4
+ontology_class_iri: https://example.org/ontology/qec-arxiv-papers#Paper
+ontology_version_iri: https://example.org/ontology/qec-arxiv-papers/1.0.0
+source_id: paper-2308-02913v4
+source_kind: markdown
+source_path: sources/markdown/2308.02913v4.md
+source_content_sha256: 166aad1753fdabac046aa5144c1fbafb5032e41eec86c0f4ef623cbfab8881a7
+record_sha256: 27a612ef9c2cef759d4b0b9d7728807dc577f3e4970bcb8ee2321823e3e5f280
+source_refs:
+- https://example.org/qec-arxiv-papers/provenance/record/paper-2308-02913v4/e7a248485d209f813626b68a
+record_id: sources/markdown/2308.02913v4
+---
+
+# Advances in Bosonic Quantum Error Correction with Gottesman-Kitaev-Preskill Codes: Theory, Engineering and Applications
+
+## Source citation
+
+- Pinned arXiv record: [2308.02913v4](https://arxiv.org/abs/2308.02913v4)
+- Authors: Brady, Anthony J.; Eickbusch, Alec; Singh, Shraddha; Wu, Jing; Zhuang, Quntao
+- PDF: [https://arxiv.org/pdf/2308.02913v4](https://arxiv.org/pdf/2308.02913v4)
+- PDF SHA-256: `e0e7c107f12a92d6f3657299f07e2ea0090ec30f885c255b7c6fa2b2e3dc41f1`
+- Extracted pages: 84
+
+The following text was extracted page by page from the pinned PDF. Page headings are stable evidence locators.
+
+## PDF page 1
+
+Advances in Bosonic Quantum Error Correction with Gottesman–Kitaev–Preskill
+Codes: Theory, Engineering and Applications
+Anthony J. Brady,1,2 Alec Eickbusch,3,4 Shraddha Singh,3,4 Jing Wu,5 and Quntao Zhuang1,2,5,6, ∗
+1Ming Hsieh Department of Electrical and Computer Engineering,
+University of Southern California, Los Angeles, California 90089, USA
+2Department of Electrical and Computer Engineering,
+University of Arizona, Tucson, Arizona 85721, USA
+3Departments of Physics and Applied Physics, Yale University, New Haven, 06520, Connecticut, USA
+4Yale Quantum Institute, Yale University, New Haven, 06511, Connecticut, USA
+5J. C. Wyant College of Optical Sciences, University of Arizona, Tucson, Arizona 85721, USA
+6Department of Physics and Astronomy, University of Southern California, Los Angeles, California 90089, USA
+Encoding quantum information into a set of harmonic oscillators is considered a hardware efficient
+approach to mitigate noise for reliable quantum information processing. Various codes have been
+proposed to encode a qubit into an oscillator—including cat codes, binomial codes and Gottesman-
+Kitaev-Preskill (GKP) codes—and are among the first to reach a break-even point for quantum error
+correction. Though GKP codes are widely recognized for their promise in quantum computation,
+they also facilitate near-optimal quantum communication rates in bosonic channels and offer the
+ability to safeguard arbitrary quantum states of oscillators. This review focuses on the basic working
+mechanism, performance characterization, and the many applications of GKP codes—emphasizing
+recent experimental progress in superconducting circuit architectures and theoretical advancements
+in multimode GKP qubit codes and oscillators-to-oscillators (O2O) codes. We begin with a pre-
+liminary continuous-variable formalism needed for bosonic codes. We then proceed to the quantum
+engineering involved to physically realize GKP states. We take a deep dive into GKP stabilization
+and preparation in superconducting architectures and examine proposals for realizing GKP states
+in the optical domain (along with a concise review of GKP realization in trapped-ion platforms).
+Finally, we present multimode GKP qubits and GKP-O2O codes, examine code performance and
+discuss applications of GKP codes in quantum information processing tasks such as computing,
+communication, and sensing.
+∗ qzhuang@usc.edu
+arXiv:2308.02913v4  [quant-ph]  10 May 2025
+
+## PDF page 2
+
+2
+CONTENTS
+I. Introduction 3
+II. Bosonic Quantum Information 5
+A. Physical systems 5
+1. Optical systems 6
+2. Microwave cavities 6
+3. Trapped ions 7
+B. Basics and notation 7
+1. A single harmonic oscillator 7
+2. Multimode bosonic system 8
+C. Quantum channels and dynamics of open quantum systems 10
+D. Gaussian evolution and Gaussian states 11
+1. Gaussian unitaries 11
+2. Gaussian channels 13
+3. Gaussian states 15
+E. Gaussian measurement: homodyne and heterodyne 15
+1. Homodyne measurement 15
+2. Heterodyne measurement 16
+F. Non-Gaussian states and channels 16
+1. No-go theorem for Gaussian error correction 17
+2. General additive noise channel 17
+G. Quantum communication capacity 17
+1. Capacity of Gaussian channels 18
+2. Capacity of general additive noise channel 19
+III. Noise Models 20
+A. Photon loss 21
+B. Additive Gaussian noise via loss conversion 21
+C. Phase noise 22
+D. Auxiliary noise sources 22
+IV. Mathematical Description of GKP Lattice States 23
+A. Introducing GKP states: The square lattice 23
+B. GKP lattice states 25
+1. Canonical lattice states 27
+2. Computational lattice states 28
+C. Error syndromes and stabilizer measurements 30
+1. Syndrome vector 30
+2. Stabilizer measurements: An operational approach 30
+D. Finite-energy GKP states 31
+E. Modular variables and the Zak basis 32
+V. Quantum Engineering with GKP codes 33
+A. GKP Hamiltonian engineering 34
+1. The GKP Hamiltonian 34
+2. Proposals for realizing the GKP Hamiltonian in superconducting circuits 36
+B. GKP dissipation engineering 38
+1. Engineered dissipation using an auxiliary qubit 39
+2. Engineered dissipation with continuous driving 42
+C. Realization of GKP codes in superconducting circuits 43
+1. Experimental architecture and state preparation 43
+2. Experimental realization of GKP quantum error correction 45
+D. Additional proposals for control of finite-energy GKP states using auxiliary qubits 48
+1. State preparation 49
+2. Unitary operations 50
+3. Logical readout 50
+
+## PDF page 3
+
+3
+E. Optical GKP: Proposals and challenges 51
+F. Scaling up GKP codes 53
+VI. QEC with Multimode GKP Qubit Codes 53
+A. Why might a multimode GKP qubit be good for QEC? 55
+B. Assessing practical QEC of two-mode GKP qubit codes 56
+1. Comparison: oscillator errors 56
+2. Comparison: ancilla errors 58
+C. GKP codes concatenated with discrete-variable codes 59
+VII. GKP Oscillators-to-Oscillators Codes 60
+A. General encoding of qumodes 60
+B. Lower bound on output error and break-even points 61
+C. Decoding strategies 62
+1. Linear estimation 63
+2. Minimum mean square error (MMSE) estimation 63
+D. Example of codes and performances 63
+E. General O2O code reduction to TMS codes 65
+1. Code optimization: two mode iid case 65
+2. Numerical results for multimode oscillator codes 66
+3. No threshold for finite squeezing 67
+VIII. Applications 68
+A. Computing 69
+1. Universality with Gaussian operations 69
+2. Fault tolerant quantum computing architectures 70
+B. Communication 71
+1. Achievable Rates 71
+2. Quantum Repeaters 72
+C. Sensing 73
+1. Error correction for entangled sensor networks 73
+2. GKP state as a sensor 74
+IX. Closing Remarks and Open Problems 75
+Acknowledgements 77
+References 78
+I. INTRODUCTION
+Quantum physics has brought new opportunities in information processing, which can be broadly classified into
+three categories: computing, communication, and sensing (see Fig. 1). Quantum computers can speed up the solution
+of classically hard problems such as factoring [1] and unstructured search [2]. Quantum communication allows uncon-
+ditional security and quantum resource allocation to sites to complete distributed quantum information processing
+tasks [3–6]. Quantum sensing protocols enable unprecedented precision in measurement of unknown parameters with
+the help of nonclassical resources such as squeezing and entanglement [7, 8]. Quantum information processing has
+led to paradigm shifts not only in fundamental science but also in engineering capabilities and has emerged as a
+multidisciplinary field of research.
+Various platforms have been proposed and demonstrated for quantum information processing, including optical
+and nanophotonic systems, microwave circuits and cavities, trapped ions and nuclear spins to name a few. Quantum
+information processing across all platforms is challenged by loss and environmental noise. Although much has been
+devoted to achieving quantum advantages in near-term devices, quantum error correction (QEC) is still necessary for
+scalable and robust quantum information processing. Moreover, as we move onto implementing QEC codes in real
+physical systems, the design of such codes needs to be tailored to the physical system at hand.
+Regarding physical systems of quantum information processors, we can broadly classify them into two major types,
+discrete-variable (DV) and continuous-variable (CV) systems. DV systems have finite quantum degrees of freedom, i.e.
+the Hilbert space is finite-dimensional. The most common case of a system with dimension two naturally encodes a
+
+## PDF page 4
+
+4
+quantum bit or qubit. Bosonic CV systems, on the other hand, have infinite quantum degrees of freedom in principle,
+i.e. the Hilbert space is infinite dimensional. 1 A harmonic oscillator is a typical example, where the occupation
+number can in general be zero, one,. . .up to infinity.
+An important goal of QEC concerns the robust encoding of a qubit to a physical system. Regarding bosonic CV
+systems, a qubit can be naively encoded by making the otherwise equidistant gap between energy levels of an oscillator
+unequal, enabling the transition probability between the first two states,|0⟩ and |1⟩, controllable. This realizes an
+anharmonicoscillatorfocusingonthelowesttwolevels, asisthecaseoftransmonqubits[9–11]. However, suchasimple
+zero and one cut-off scheme is not making full use of the bosonic degree of freedom for CV systems, as pointed out by
+the breakthrough works of Chuang, Leung and Yamamoto [12], and Gottesman, Kitaev and Preskill (GKP) [13]—the
+latter being the focus of this review. Alternative approaches that rely on Gaussian states and Gaussian operations of
+bosonic systems have proven inadequate in achieving robust encoding [14–17] as universal quantum computing relies
+non-Gaussian elements [18]. In this sense, non-Gaussian states, such as GKP states, are a necessary ingredient in
+bosonic error correction. Indeed, bosonic quantum error correction is widely recognized as a promising and hardware-
+efficient strategy for combating noise in futuristic quantum information processors. For example, bosonic QEC codes
+implemented with microwave circuit quantum electrodynamics (cQED) systems are among the first codes to surpass
+the QEC break-even point [19, 20].
+While numerous works and reviews have extensively documented the remarkable accomplishments in protecting
+a qubit with GKP codes [21–26], a dedicated review on the engineering and diverse applications of GKP codes is
+currently missing. Notably, the experimental capabilities of cavity QED systems have substantially improved over the
+years. Besides the increase of speed and quality in single-mode control and engineering [27], multiple ocillators can
+now be engineered with high-fidelity fast beamsplitters [28, 29] and universal controls [30]. Furthermore, as multiple
+oscillators can be manipulated in a physical system, there is much more one can do with bosonic QEC. Two emergent
+approaches of multi-oscillator codes have shed new light on how to exploit the power of more modes. The first one
+regards a direct encoding of an oscillator into multiple oscillators as proposed in Ref. [31] (or multiple oscillators
+into more oscillators as in Ref. [32]). Enabled by GKP states, such oscillators-to-oscillators (O2O) codes extend the
+applicability of QEC to protect continuous-variable quantum information such as squeezing and continuous-variable
+multi-partite entanglement that are crucial for suppressing noise in quantum sensors. At the same time, a second
+approach of encoding a qubit into multiple oscillators has also shown advantages in error correction performance
+for a geometrical (lattice) perspective [33–35]. These new perspectives have brought new opportunities in quantum
+computing, quantum sensing and quantum communication.
+This review provides a self-contained introduction and summary of recent advances in bosonic QEC using GKP
+codes—focusing on the engineering of GKP codes and the breadth of applications that they enable. When possible,
+we prioritize pedagogy by presenting simple examples and intuitive explanations of concepts, ensuring accessibility
+to a broad readership. We thoroughly examine recent developments on multimode codes, including both encoding
+qubits into many oscillators and encoding oscillators into more oscillators. We provide an extensive summary on
+the experimental systems to support these new codes—focusing particularly on microwave cQED systems for their
+multimode engineering capabilities and promising demonstration of QEC beyond break-even; we also discuss current
+proposals for generating optical (i.e., “flying”) GKP states. The review also delves into applications of GKP codes
+beyond (but also including) the typical use-case of fault-tolerant quantum computing, such as quantum communication
+and quantum sensing. We conclude with open problems and future research directions, which we hope sparks further
+interest into this exciting field of bosonic QEC with GKP codes. The remainder of the review is organized as follows.
+Chapter II provides a brief overview of bosonic quantum information. We begin with introducing the relevant
+physical systems, and then proceed to the basic theoretical tools required for analysing bosonic quantum information.
+This chapter only assumes knowledge of basic quantum mechanics and provide the additional tools to analyze bosonic
+quantum systems. Readers with backgrounds in these areas can directly jump to later sections, while referring back
+to this section when necessary.
+Chapter III provides a unified description of common noise model adopted for bosonic quantum error correction
+analyses, including photon loss, additive noise and cQED auxiliary noise sources. We also include a summary on
+approaches of noise model conversions (e.g., from loss to additive noise).
+Chapter IV delves into the heart of GKP states, offering a comprehensive mathematical description of multimode
+GKP states from a lattice perspective. We start with a clear presentation of simple single-mode square lattice GKP
+states and gradually progress to explore more complex lattices and multimode GKP states. This section serves as
+a solid foundation for readers to grasp the concepts of GKP QEC codes. By the end of this chapter, we hope that
+readers will be well-prepared to understand and work with GKP QEC codes effectively in cutting edge research.
+1In practice, a system with finite energy does not have infinite Hilbert space dimension. However, it is often still convenient to
+approximate it as an infinite dimensional system.
+
+## PDF page 5
+
+5
+Chapter V summarizes the recent advances in the quantum engineering of GKP states. We focus on microwave
+superconducting cQED systems where GKP memory experiments have achieved beyond break-even results and multi-
+mode engineering capability has been developed. We discuss stabilization using Hamiltonian and dissipation engineer-
+ing, and the universal control of GKP qubits using auxiliary qubits. While a high-fidelity experimental realization of
+GKP states in the optical domain has not yet been achieved (although there is some preliminary work, as indicated in
+Ref. [36]), it is crucial to note that the optical domain stands out as the exclusive platform for long-distance quantum
+communication. We thus provide an overview of recent proposals for optical GKP state engineering along with the
+associated experimental challenges. Limited by length, we do not go into details about recent promising trapped ion
+experiments [37, 38]. Finally, we offer a brief perspective on the potential scalability of GKP codes, which could be a
+resource-efficient path towards quantum computing.
+Chapter VI introduces multimode GKP qubits. We begin with the motivation of multimode GKP codes, and then
+highlight comparison of error correction in the simplest case of two-mode GKP codes using two types of lattices,
+D4 lattice code and tesseract code. These lattices have different benefits when it comes to practical error correction.
+Understanding these differences is important for scaling up to a practical fault-tolerant quantum computation. Finally,
+the concatenation between GKP codes with discrete-variable qubit codes is summarized.
+Chapter VII introduces the general formulation of GKP oscillator-to-oscillator (O2O) codes. We start with the
+general encoding scheme, the stabilizer measurement and error syndromes and then describe decoding strategies.
+Then we review fundamental lower bounds of GKP code performance and discuss the “no-threshold theorem” for
+general O2O codes. To solidify concepts, we provide some simple examples of O2O codes and review recent results of
+O2O code reduction and code optimization.
+Chapter VIII addresses the applications of bosonic QEC in quantum computing, communication and sensing. In
+terms of computing and communication, bosonic codes provide a resource efficient approach of QEC and can be
+adopted in concatenation with qubit codes. On the other hand, protecting CV quantum information in quantum
+sensing applications heavily rely on GKP O2O codes. By the end of this chapter, readers will gain insights into the
+versatile applications of bosonic QEC and how it may positively impact various quantum technologies, paving the
+way for advanced and reliable quantum information processing and sensing capabilities.
+Chapter IX concludes the review with a colloquial summary of the key points covered throughout the document.
+We also discuss open problems in bosonic QEC with GKP codes, shedding light on the challenges that researchers
+may face and the exciting potential for further advancements in the field.
+II. BOSONIC QUANTUM INFORMATION
+In this section, we provide a brief introduction to bosonic quantum information, starting from physical systems in
+Chapter IIA followed by an overview of quantum harmonic oscillators to establish basic notation in Chapter IIB.
+In Chs. IID and IIE, we survey the special class of linear bosonic quantum systems which provides theoretical tools
+for analysing GKP codes; this survey is quick as much of it relies on techniques from Gaussian quantum information
+theory, a well-developed field. In Chapter IIF, we discuss non-Gaussian resources and channels that are pertinent for
+GKP codes. Finally, we provide details on quantum capacity in Chapter IIG, which enables one to find bounds on
+error correction performance.
+A. Physical systems
+Bosonic quantum systems refer to systems of interacting quantum oscillators. There exists a wide spectrum of
+physical realizations of a quantum oscillator (see Figure 1 for an illustration), such as electromagnetic waves at
+microwave and optical frequencies and the motional degrees of freedom of trapped ions. For instance, electromagnetic
+wavesareimportantforvariousquantuminformationprocessingapplications, includingquantumsensing, computation
+and communication. When enhanced by cavities, they can couple to various solid state quantum systems and enable
+powerful quantum control for state engineering and error correction. Here we very briefly introduce a few physical
+realizations of bosonic quantum systems including optical systems, microwave resonators, and trapped ions. In this
+review we focus primarily on optical and microwave modes of light, but we include a succinct description of trapped
+ions below since GKP states have been recently demonstrated in these systems.
+
+## PDF page 6
+
+6
+(a) (b)
+QHO
+Ions Micro-waves
+Optics
+Quantum
+Science &
+T ech.
+Sensing Comms.
+Comp.
+Figure 1. Quantum science with quantum oscillators. (a) Physical manifestations of a quantum harmonic oscillator (QHO):
+Motional degrees of freedom of a trapped ion, modes of a microwave resonator, electromagnetic waves at optical frequencies.
+(b) Quantum harmonic oscillators play a major role in quantum-specific applications such as quantum sensing, quantum
+communication, and quantum computing.
+1. Optical systems
+Optical systems refer to electromagnetic waves with high (visible or near-infrared) frequencies, such that the thermal
+noise at room temperature is negligible. In these systems, quantum effects such as coherence and entanglement can
+be maintained for a fairly long time at room temperature. Quantum information encoded in optical modes can
+propagate through the atmosphere and fibers, with low loss, e.g. 0.2 dB per kilometers in fibers at 1550nm. In this
+regard, optical photons are the ideal candidates for transmitting quantum information over long distances [39–43].
+On the other hand, the capability of state engineering and quantum operations is limited in optical systems due
+to weak nonlinearities that are otherwise required to couple optical photons. The available optical quantum states
+and operations are thus often restricted to the class of Gaussian states and operations; see Chs. IID and IIE for
+descriptions of Gaussian states and operations.
+State-of-the-art experimental systems in the optical domain mainly rely on photon counting to go beyond Gaussian
+operations and Gaussian states. For instance, there are many proposals for generating optical GKP states using
+linear optics, squeezing, and photon counting, as well as a promising (though preliminary) demonstration [36]; see
+Chapter V for further details. Photon counting requires photon-number-resolving detection which is currently one
+drawback in optical systems because high efficiency single photon counting devices typically require extensive cooling.
+On the other hand, photon detectors are usually the only component in optical setups that require cryogenics. We
+note that integrating the required optical components onto a nanophotonic chip is a promising route towards efficient
+and scalable quantum optical information processing [44–47].
+2. Microwave cavities
+Microwave systems refer to electromagnetic waves with frequencies in the range∼ 1 GHz to ∼ 100 GHz. These
+frequencies enable strong nonlinear interaction at the single-quanta level, which can be readily realized with the
+Josephson effect in superconducting circuits [48–51]. Harmonic oscillators realized in 3D microwave cavities have
+longer lifetimes compared to their anharmonic counterparts like transmons and fluxoniums. Hence, interest in bosonic
+error correction in superconducting cavities has peaked in recent years. As we discuss thoroughly in Chapter V, GKP
+state engineering using microwave cavities relies on universal control via auxiliary resources (e.g., an auxiliary qubit)
+or a non-linear term in the Hamiltonian.
+One of the challenges in microwave quantum information processing is the abundant thermal noise at room temper-
+ature at microwave frequencies. To maintain quantum coherence, cooling to∼ 10mK is required. Another drawback
+of microwave frequencies is the high attenuation in either the atmosphere or a waveguide, which prevents direct
+transmission of quantum states at microwave frequencies over long distances. Current realizations with an auxiliary
+control qubit are furthermore limited by auxiliary qubit errors. Nevertheless, superconducting circuits provide one of
+the best platforms for exquisite control of quantum systems [48]. For instance, GKP and other non-Gaussian states
+
+## PDF page 7
+
+7
+have been realized in superconducting circuits [20, 27, 52] via universal control of the qubit-oscillator coupled system.
+The potential for scaling up to multiple interacting modes is also promising [28–30].
+We point out that the complementary characteristics of microwave and optical photons suggests a hybrid quantum
+processing unit where quantum information may be processed by superconducting circuits and then transmitted with
+optical photons. Therefore, an efficient transduction scheme to interconvert quantum states between microwave and
+optical photons is also desired [53–64] and will be a crucial technology in future quantum networks [3–6].
+3. Trapped ions
+Trapped-ion quantum systems, in principle, provide a “clean” approach to process quantum information, as the
+fundamental elements of such systems (ions) are designed by nature and thus do not suffer from inherent fabrication
+errors [65]. Nevertheless, the precise control of ion behavior in a collective and scalable manner presents its own
+challenges and complexities. For example, inhomogeneous trapping fields may cause variations in level splittings,
+leading to effective disparities between the ion qubits at the operational level.
+Many current quantum computing platforms based on trapped ions selectively choose two discrete atomic levels to
+serve as the basis states for a computational qubit [65]. However, in search for a more resource-efficient system of error
+correction, there is rising interest to encode quantum information into continuous-variable degrees of freedom, such
+as the motional degrees of freedom of the ions. For instance, Flühmann et al [37] created a GKP qubit state in the
+axial motional mode of a single ion and, furthermore, implemented single-qubit logical operations with high fidelity.
+In a follow up work [38], de Neeve et al (of the same group) further demonstrated quantum error correction of both
+the square and hexagonal GKP codes through engineered dissipation. An enhancement in the coherence time of the
+logical states by a factor of three was also demonstrated, marking an important step towards break-even in trapped ion
+systems for bosonic error correction. For further details for trapped ion systems, please refer to dedicated reviews such
+as Refs [65–67] and others. In terms of experimental platforms, the main focus of our review is on superconducting
+circuit implementations of GKP codes, for which more literature (in terms of experimental realizations and proposals)
+has currently been published.
+B. Basics and notation
+In this section, we review the basic mathematical formalism to describe a simple quantum harmonic oscillator and
+then broaden the framework to encompass multiple oscillators. This extension is performed in a methodical and
+efficient way, allowing for the analysis of various properties—including the Wigner function and entropy of a bosonic
+quantum state consisting ofN modes.
+Throughout this review, we primarily write a ‘hat’ on operators only in places where operators can potentially
+be confused with numbers—e.g., for the canonical operatorsˆq and ˆp. We omit ‘hat’ for unitary operators, density
+matrices, and others that are easily recognized as operators. For finite-dimensional matrices, vectors etc. associated
+with the phase-space of the modes (see below for more details), we generally use boldface.
+1. A single harmonic oscillator
+We begin with a textbook explanation of a simple quantum harmonic oscillator. Consider the (normalized) position
+and momentum operatorsˆq and ˆp of the oscillator, which obey the canonical commutation relations
+[ˆq, ˆp] = iℏ, (1)
+where ℏ is the reduced Planck’s constant. A quantum harmonic oscillator of massm and frequency ω has a Hamilto-
+nian,
+ˆHosc = 1
+2
+
+mω2 ˆq2 + 1
+m ˆp2
+
+= ℏω(ˆn + 1/2), (2)
+where the additive constantℏω/2 is the ‘zero-point energy’. We ignore it for the most part. The operatorˆn := ˆa†ˆa
+is the number operator and tells us how many quanta occupy an oscillator state. The annihilation and creation
+operators, ˆa and ˆa†, are related to the canonical operatorsˆq and ˆp via
+ˆa =
+r mω
+2ℏ
+
+ˆq + i
+mω ˆp
+
+, (3)
+
+## PDF page 8
+
+8
+which obey
+
+ˆa, ˆa†
+= 1. Likewise,
+p
+2ℏ/mω Re{ˆa} = ˆq and
+√
+2ℏmω Im{ˆa} = ˆp. In this review, we often setℏ = 1 and
+mω = 1 for convenience, so thatˆa = (ˆq + iˆp)/
+√
+2.
+Physically, the annihilation and creation operators describe the destruction or creation of single oscillator quanta.
+One can show that the followingFock statesare eigenstates of the number operator (and thus the oscillator Hamil-
+tonian),
+|n⟩ :=
+
+ˆa†n
+√
+n!
+|vac⟩ and ˆn |n⟩ = n |n⟩ , (4)
+where n is a positive integer and|vac⟩ := |0⟩ is the vacuum (i.e., lowest energy) state defined implicitly viaˆa |vac⟩ = 0.
+The set{|n⟩}∞
+n=0 forms an orthonormal basis in the bosonic Hilbert space of a single mode (of mode frequencyω) H ,
+i.e. ⟨m|n⟩ = δmn and P∞
+n=0 |n⟩ ⟨n| = ˆI, where δmn is the Kronecker delta andˆI is the identity onH . Finally, one
+can show thatˆa |n⟩ = √n |n − 1⟩ , ˆa† |n⟩ = √n + 1 |n + 1⟩ , i.e. ˆa annihilates one quanta andˆa† creates one quanta of
+the oscillator.
+We may also ask, at what position is the oscillator, or what momentum does the oscillator have? In this case, we
+rely on the (non-normalizable) position and momentum eigenstates|q⟩ and |p⟩, where ˆq |q⟩ = q |q⟩, ˆp |p⟩ = p |p⟩ and
+q, p∈ R. The position and momentum eigenstates resolve to the identity in the continuum,
+ˆ
+q∈R
+dq |q⟩ ⟨q| =
+ˆ
+p∈R
+dp |p⟩ ⟨p| = ˆI, (5)
+andarerelatedviaFouriertransform, |q⟩ = 1√
+2π
+´
+p∈R dp e−ipq |p⟩ ,undertheconventionthat δ(x−x′) =
+´
+dk ei(x−x′)k/2π.
+We can “shift” (or displace) the position of the oscillator by an amountx via the unitary operatore−ix ˆp. Likewise
+we can “boost” the momentum by an amountk via eik ˆq. We can both shift and boost the oscillator using the general
+displacement operator
+Dx,k = e−i(x ˆp−k ˆq). (6)
+The general definition of displacement operator is given in terms of annihilation and creation operators. Letα =
+(x + ik)/
+√
+2, then using the fact thatˆq =
+√
+2 Re ˆa and ˆp =
+√
+2 Im ˆa, we can write the displacement operator as
+Dα = e−α∗ˆa+αˆa†
+. (7)
+Displacing the vacuum by an amountα leads to a so-calledcoherent state
+|α⟩ := Dα |vac⟩ . (8)
+The coherent state is an eigenstate of the annihilation operator ˆa with eigenvalue α. Coherent states form an
+(overcomplete) basis of states inH such that
+´
+α∈C
+dα
+π |α⟩ ⟨α| = ˆI. We note that, using the displacement operator, one
+can define the characteristic function and Wigner function of the quantum state, which we defer to the multimode
+case for a general description [see Eqs. (18) and (19)].
+2. Multimode bosonic system
+We can extend the previous discussion for a single harmonic oscillator to a set ofN harmonic oscillators. Consider an
+N-mode bosonic Hilbert spaceH ⊗N, whereH is the Hilbert space of a single bosonic mode similar to Chapter IIB1.
+More formally, we have anN mode bosonic quantum system associated with a Hilbert spaceH ⊗N. The canonical
+variables of the system are theˆq’s andˆp’s of the 2N dimensional phase spaceR2N. The bosonic system has a symplectic
+structure on R2N induced by the commutation relations of the canonical variables. We define a vector of canonical
+operators for theN modes as,
+ˆr⊤ := (ˆq1, ˆp1, . . . ,ˆqN , ˆpN ) , (9)
+such that,
+[ˆrk, ˆrj] = iΩkj , (10)
+
+## PDF page 9
+
+9
+where Ω is a 2N × 2N matrix representing theN-mode symplectic form,
+Ω =
+NM
+i=1
+Ω1 with Ω1 =
+
+0 1
+−1 0
+
+. (11)
+Equation (10) is nothing but the standard canonical commutation relations between the variousˆq’s and ˆp’s of the
+modes. For later use, we define the meanµ and covariance matrixσ for a quantum stateρ as
+µ := Tr
+ˆrρ
+
+, (12)
+σij := 1
+2 Tr
+
+{ˆri − µi, ˆrj − µj}ρ
+
+, (13)
+where { ˆA, ˆB} := ˆA ˆB + ˆB ˆA. For Gaussian quantum states (introduced in Chapter IID3), the mean and covariance
+completelyspecifythestate. Inthissense, thewayofdescribingaGaussianstateisanalogtotheclassicaldescriptionof
+a Gaussian distribution; nevertheless, Gaussian states can in general possess non-classical features such as squeezing
+and entanglement. In addition to quadrature operators, sometimes it is useful to consider annihilation operators
+ˆa1, · · ·, ˆaN, with eachˆak = (ˆqk + iˆpk)/
+√
+2.
+We can shift or displace the canonical coordinates by some constant amountˆr → ˆr + ζ, where ζ ∈ R2N. Displace-
+ments are generated by a Hamiltonian that is strictly linear in the canonical operators. The unitary transformation
+for a shift is given by the multimode displacement (or Weyl) operator,
+Dζ := exp
+
+−iζ⊤Ωˆr
+
+, (14)
+such that D†
+ζ ˆrDζ = ˆr + ζ, which is a generalization of Eq. (6). The displacement operators form an operator
+basis for the space of bounded operatorsB(H ⊗N ), which include physical quantum statesρ ∈ B(H ⊗N ) [68]. The
+orthonormality condition satisfied by displacement operators is given by,
+Tr(DζD−ν ) = (2π)N δ2N (ζ − ν), (15)
+where δ2N (·) is the 2N-dimensional Dirac delta distribution. Therefore, we can expand a general operator function
+f (ˆr) in the Weyl basis via
+f (ˆr) = 1
+(2π)N
+ˆ
+ζ∈R2N
+dζ Tr(f (ˆr)D−ζ)Dζ. (16)
+Displacement operators can be shown to satisfy a composition rule,
+Dζ+ν = eiω(ζ,ν)/2DζDν , (17)
+where ω(ζ, ν) := ζ⊤Ων is thesymplectic inner productbetween ζ and ν. The symplectic product obeys ω(ν, ζ) =
+−ω(ζ, ν) and is invariant under symplectic transformations S where S⊤ΩS = Ω, that is, ω(Sζ , Sν ) = ω(ζ, ν).
+Symplectic transformations represent any basis change in the continuous variable systems and are discussed in greater
+detail in the next section. By swappingζ and ν, it follows thatDζDν = e−iω(ζ,ν)Dν Dζ. If ω(ζ, ν) = 2πn with n ∈ Z,
+then the displacement operators commute; we come back to this point later when we discuss GKP states. Observe
+that displacements are always local in the sense thatDζ = NN
+i=1 Dζi, where ζi ∈ R2 are single-mode displacements.
+We can apply the operator basis expansion of Eq. (16) to a density matrixρ to obtain,
+ρ = 1
+(2π)N
+ˆ
+ζ∈R2N
+dζ χ(ζ)Dζ, (18)
+where χ(ζ) := Tr(ρD−ζ). The function χ(ζ) is known as thecharacteristic functionof ρ. Since Trρ = 1 and ρ† = ρ,
+we have χ(0) = 1 and χ∗(−ζ) = χ(ζ). By a Fourier transform of the characteristic functionχ(ζ), we obtain the
+Wigner function W (ζ),
+W (ζ) := 1
+(2π)2N
+ˆ
+ν∈R2N
+dν eiζ⊤Ων χ(ν). (19)
+TheWignerfunctionisaquasi-probabilitydistributioninphasespace(quasibecauseitcanbenegative). Themarginal
+of the Wigner function along theq (p) direction gives the probability that the state has momentump(position q)—e.g.,
+
+## PDF page 10
+
+10
+for a single mode,
+´
+dq W(q, p) = ⟨p|ρ|p⟩ where |p⟩ is the (non-normalizable) eigenstate of the momentum operatorˆp
+(see Chapter IIB1).
+We conclude this section with the (von Neumann) entropy of a quantum stateρ,
+S(ρ) := − Tr (ρ log ρ) , (20)
+where log is base 2 here. The entropy is strictly 0 for pure states and, for anN mode bosonic system with total mean
+quanta ¯N, the entropy per mode (S/N) is upper-bounded by the thermal entropy
+sth(¯n) := (¯n + 1) log(¯n + 1) − ¯n log ¯n, (21)
+where ¯n = ¯N /Nis the number of quanta per mode. The entropy is invariant under unitaries,S(U ρU†) = S(ρ) and
+is sub-additive, such thatS(ρAB) ≤ S(ρA) + S(ρB). Finally, the entropy is concave—i.e., for an ensemble density of
+matrices {λi, ρi}, where 0 ≤ λi ≤ 1 and P
+i λi = 1, S(P
+i λiρi) ≥ P
+i λiS(ρi).
+C. Quantum channels and dynamics of open quantum systems
+General quantum processes can be modeled as interaction between a quantum system and environment. In the
+following, we describe two theoretical tools that are often adopted in their modeling.
+A quantum channelN models quantum dynamics in a finite time via input-output relations. Consider a quantum
+system S and an environmentE that the system interacts with. The overall evolution of the system-environment can
+be modeled as a unitary evolutionUSE, and the initial environment can always be taken as a pure stateσE = |e0⟩ ⟨e0|E.
+Now, given a system described by the density matrixρS, a set of basis vectors{|ek⟩E} of the environment, and the
+joint unitary interactionUSE, the input-output relations for a quantum channel can be generically written as
+N (ρS) = TrE
+n
+USE (ρS ⊗ σE)U †
+SE
+o
+=
+X
+k
+⟨ek|E
+
+USE (ρS ⊗ |e0⟩ ⟨e0|E)U †
+SE
+
+|ek⟩E
+=
+X
+k
+(⟨ek| USE |e0⟩) ρS
+
+⟨e0| U †
+SE |ek⟩
+
+=
+X
+k
+KkρSK †
+k, (22)
+where Kk = ⟨ek| USE |e0⟩ are the Kraus operators that act on the system Hilbert spaceHS. By the completeness
+relation P
+k |ek⟩ ⟨ek|E = IE and the normality condition⟨e0|e0⟩ = 1, the Kraus operators satisfyP
+k K †
+kKk = IS as
+required of a good quantum channel. Observe that the Kraus decomposition for the channel is not unique, since an
+arbitrary unitary transformation on the environment basis vectors leads to a different set of Kraus operators{Kk}
+but nevertheless describe the same channelN.
+In cases where one tries to control an open quantum system continuously, the simple input-output quantum channel
+model above is insufficient. Instead, it is more appropriate to adopt a dynamic approach to describe the open quantum
+system. We assume a Markov approximation for the open system dynamics, where the system is thought to interact
+with a memoryless environment/bath. In simpler terms, the state of the system (after tracing over the bath degrees
+of freedome) at timet + δt only depends on its state at timet, without considering the complete history of the system.
+Under the Markov approximation, one can show that the density matrixρ obeys the master equation in Lindblad
+form,2
+˙ρ = −i[H, ρ] +
+X
+i
+ΓiD[Li]ρ, (23)
+where D[O]ρ = OρO† − {O†O, ρ}/2 is the standard dissipation superoperator,Li is the (dimensionless) Lindbladian
+jump operator, and Γi is a damping rate. The open system dynamics may lead to a fixed point (or steady-state)
+solution ρ∞ such that ˙ρ∞ = 0. We give some examples of open system dynamics in Chapter III that are important
+for modeling certain bosonic platforms.
+2A concise and pedagogical introduction to the master equation can be found in Section 3.5 of John Preskill’s lecture notes [69].
+
+## PDF page 11
+
+11
+D. Gaussian evolution and Gaussian states
+Gaussian states and unitaries are a fundamental class of quantum resources that enable many quantum information
+processing tasks. They play a crucial role in bosonic QEC and offer significant advantages in terms of feasibility,
+particularly in the optical domain. In the context of infinite-energy GKP qubit codes (refer to Chs. IV and VI),
+Gaussian operations serve as the foundation for basic logical operations. Additionally, GKP oscillators-to-oscillators
+codes (as discussed in Chapter VII) rely on Gaussian unitaries during the encoding and decoding processes. Here we
+briefly review Gaussian unitaries, Gaussian channels, and Gaussian states. For a more complete exposition, we refer
+the reader to Refs. [68, 70]. In superconducting cavities (see Chapter V), displacement operations are relatively easy,
+while the high-fidelity realization of other Gaussian unitaries (such as beamsplitting and squeezing) without inducing
+unwanted interactions/loss is an active topic of research [28, 29].
+1. Gaussian unitaries
+We first provide a formal explanation of Gaussian unitaries—corresponding to symplectic transformations in the
+2N-dimensional phase space ofN modes—as well as some typical examples of single- and two-mode transformations.
+We also make connections between the mathematical formalism and physical realizations throughout, for example,
+parametric amplification and linear-optical networks correspond to squeezing and orthogonal transformations, respec-
+tively.
+Consider a set of N bosonic modes with canonical operators ˆr. We assume the modes interact via quadratic
+interactions—i.e., the Hamiltonian is at most quadratic in ˆq’s and ˆp’s. Since the Hamiltonian is quadratic, the
+evolution of the canonical operators is linear such thatˆr → S ˆr, where S is some 2N × 2N matrix; we ignore possible
+shifts (displacements) in the coordinatesˆr for now. In order to preserve the canonical commutation relations (10),
+we must have that
+SΩS⊤ = Ω. (24)
+That is, the matrixS must preserve the (real) symplectic formΩ. Any matrix which satisfies this condition is called a
+symplectic matrixand S ∈ Sp(2N, R), whereSp(2N, R)isa 2N ×2N matrixrepresentationoftherealsymplecticgroup
+(which has dimension|Sp(2N, R)| = 2N 2 + N). From the symplectic matrixS, we can find a unitary representation
+US, which encodes the symplectic transformationS (or vice versa) and produces an input-output relation for the
+canonical operators as,
+U †
+S ˆrUS = S ˆr. (25)
+Using this equation and the general conjugation formulaU †f (ˆg)U = f (U †ˆgU ), a symplectic transformationS trans-
+forms the displacement operatorsDµ of Eq. (14) as
+U †
+SDζUS = DS−1ζ. (26)
+For an arbitrary symplectic matrixS, it turns out that we can decomposeS into simple single-mode and two-mode
+elements by the so-calledBloch-Messiah decomposition[71]
+S = B′ ·
+ NM
+i=1
+e−riZ
+!
+· B, (27)
+where Z isthe 2×2Pauli-Zmatrixand e−riZ isasinglemodesqueezingtransformationonthe ithmodewithsqueezing
+strength ri. Here B′, B ∈ Sp(2N, R) ∩ SO(2N ) ≃ U (N ), whereU (N ) is the unitary group of dimension|U (N )| = N 2.
+In other words,B′ and B are passive (e.g., linear optical) transformations (BΩB⊤ = Ω and BB ⊤ = I).
+Below, we provide some examples of Gaussian unitaries in the single- and two-mode cases. Simple diagrams
+representing these basic elements, which we can compose to form multimode CV quantum circuits, are shown in
+Figure 2. We also give an explicit example of the Bloch-Messiah decomposition for a TMS interaction in Example II.4
+below.
+Example II.1 (Displacements). Although we introduced displacement as the basis operators in Eq. (14), they are
+physical operations that can be experimentally realized. The sympleclic transformation is the trivial identityI, as
+displacement only leads to constant shifts of quadrature operators. In linear optics, a displacement operation is
+
+## PDF page 12
+
+12
+(a)
+=: SG
+(b)
+=: BT
+(c)
+=: SUMAB
+(d)
+=: Sq(er)
+1
+Figure 2. Diagrammatic representations of common single- and two-mode transformations: (a) two-mode squeezer, (b) beam-
+splitter, (c) SUM gate, and (g) single-mode squeezer. Squeezer notation taken in analogy with classical circuit representations
+of linear amplifiers.
+realized by interacting two modes on a beamsplitter where one of the modes is in a strong coherent state (e.g., high-
+power laser). A vanishing portion of the strong coherent state is then mixed into the the mode, leading to a constant
+displacement. For microwave cavities, a displacement is realized by coupling the oscillator to a transmission line
+(either capacitive or inductive coupling) and driving the oscillator on-resonance with a microwave signal (see [48]).
+Example II.2 (Single-mode transformations). Applying the Bloch-Messiah decomposition (27) to a single mode,
+we have that general single-mode symplectic transformation reduces to a set of phase-shifts and a single-mode-
+squeezing, S = R(ϕ2)Sq(er)R(ϕ1). The single-mode squeezer Sq(er) with squeezing strength r has a symplectic
+matrix representation,
+Sq(er) = e−rZ, (28)
+whereas a phase rotationR(ϕ) is a 2 × 2 rotation matrix,
+R(ϕ) =
+
+cos ϕ sin ϕ
+− sin ϕ cos ϕ
+
+, (29)
+which, for instance, takesˆa → ˆae−iϕ. The single mode squeezer is generated by the Hamiltonianˆa2 + h.c., and the
+phase rotation is generated by the Hamiltonianˆa†ˆa, where h.c. stands for Hermitian conjugate.
+Example II.3 (Beam-splitter). The two-mode beamsplitter has a symplectic representation
+B =
+
+cos θI sin θI
+− sin θI cos θI
+
+, (30)
+where cos2 θ is the transmittance of the beamsplitter. A beamplitter between two modesˆa1 and ˆa2 is generated by
+the Hamiltonian ˆa†
+1ˆa2 + h.c.. For a 50:50 beamsplitter (θ = π/4), we may sometimes express the symplectic matrix
+as B1/2, or for a beamsplitter with transmittanceT = cos 2 θ, we may write BT. Practically, we can concatenate
+phase-shifts and beamsplitters to, e.g., construct a Mach-Zehnder interferometer or an arbitrary linear-optical network
+on N modes [72].
+Example II.4 (Two-mode squeezing). Two-mode squeezing, ubiquitous in CV quantum information processing,
+is used to generate entangled photon pairs. In optics, this is achieved through a process called (non-degenerate)
+spontaneous parametric down conversion [73]. For superconducting circuits, two-mode squeezing can be achieved by
+coupling cavities to nonlinear Josephson mixers and driving three- or four-wave processes (see, for example, [74]). A
+two-mode squeezing transformation with gainG has a symplectic matrix representation,
+SG =
+ √
+GI
+√
+G − 1Z√
+G − 1Z
+√
+GI
+
+. (31)
+As an interesting example of the Bloch-Messiah decomposition (27), we can reparameterize the gainG in terms of the
+squeezing strengthr via G = cosh2 r and write the two-mode squeezer in terms of 50/50 beamsplitters and single-mode
+squeezers,
+SG = B⊤
+1/2 ·
+
+Sq(e−r) ⊕ Sq(er)
+
+· B1/2. (32)
+Example II.5 (SUM-gate or “CV CNOT”) . We introduce the SUM-gate, which has a unitary representation
+SUMAB := e −iˆqA⊗ ˆpB. For many (infinite-energy) GKP encodings, the SUM-gate is the CV equivalent of a CNOT
+
+## PDF page 13
+
+13
+gate [13] and can be used for ancilla-assisted measurement protocols in the CV domain. The SUM gate transforms
+the canonical operators as,
+ˆqA → ˆqA, ˆpA → ˆpA − ˆpB,
+ˆqB → ˆqB + ˆqA, ˆpB → ˆpB. (33)
+and has symplectic representation,
+SUMAB =
+
+I2 −Πp
+Πq I2
+
+, (34)
+where Πq = diag(1 , 0) and Πp = diag(0 , 1) represent projections along the q and p directions of the modes. See
+Ref. [75] for a Bloch-Messiah decomposition of the SUM-gate.
+Before moving forward to general Gaussian channels, we consider a useful property of unitary Gaussian transfor-
+mations:
+Theorem 1 (Modewise entanglement theorem [76]). Consider a subsystem A of N modes and a subsystem B of
+M modes, such that the joint system AB consists of K = M + N modes, and define the positive definite matrix
+τAB = τ SS ⊤, where τ ∈ (0, ∞) and S ∈ Sp(2K, R). Then, there exists local symplectic matricesSA ∈ Sp(2N, R)
+and SB ∈ Sp(2M, R) such that,
+(SA ⊕ SB) τAB
+
+S⊤
+A ⊕ S⊤
+B
+
+= τ
+ NM
+i=1
+SGi S⊤
+Gi
+!
+⊕ I2(M −N ), (35)
+where SGi is a TMS squeezing operation of gainGi [see, e.g., Eq.(31)] between theith mode inA and the (N + i)th
+mode in B and I2(M −N ) is the identity on the remainingM − N modes.
+We refer the reader to Refs. [68, 76–78] for detailed proofs and more in depth discussion. We make use of this
+theorem in Chapter VIIE to significantly reduce the complexity of generic O2O codes that are used to battle additive
+Gaussian noise (AGN) [32].
+2. Gaussian channels
+As alluded to in Chapter IIC, we can describe thenon-unitary evolution of a bosonic quantum systemQ of N
+modes (prepared in an initial stateΨQ) through a quantum channelC : H ⊗N → H ⊗N by a largerunitary evolution
+U : H ⊗N ⊗ H ⊗M → H ⊗N ⊗ H ⊗M which couples the N-mode system Q to a M-mode environment E (in the
+quantum state ρE).3 For a Gaussian channelG, the environment stateρE is a Gaussian state (see Chapter IID3 for
+details about Gaussian states), and the unitary is determined by a symplectic matrixS. Formally, we can write the
+Gaussian channel asG(Ψ) = TrE
+h
+US (ΨQ ⊗ ρE) U †
+S
+i
+, which is a specific instance of Eq. (22).
+Below we introduce some common single-mode Gaussian quantum channels, which will be useful throughout this
+review. We note that all single-mode (non-unitary) Gaussian channels fall within 6 channel classes [79] (see also Table
+1 of Ref. [70] and surrounding discussion), but we focus primarily on four such channels— the unitary displacement
+channel, thermal loss channel, amplifier channel, and additive Gaussian noise channel —because of their prevalence
+in bosonic quantum information processing. Due to the simplicity of Gaussian channels, we find it convenient to
+directly describe them with the evolution of the annihilation operatorˆa; the corresponding quadrature evolution can
+be obtained from the real and imaginary parts.
+Example II.6 (Displacement channel). Consider a single-modeand the displacementoperatorDα = exp
+
+αˆa† − α∗ˆa
+
+,
+where α ∈ C. It acts on the annihilation operatorˆa as
+D†
+αˆaDα = ˆa + α. (36)
+We define the unitary displacement channel,Dα, as a unitary conjugation byDα. For a quantum stateΨ, Dα(Ψ) =
+DαΨD†
+α, which leads to Eq. (36) in the Heisenberg picture. ForN modes with canonical operatorsˆr, the displacement
+operator is Dζ per Eq. (14), whereζ ∈ R2N. We define the displacement channelDζ which acts in the Heisenberg
+picture as Dζ : ˆr − →ˆr + ζ.
+3For a system ofN modes, it is sufficient to choose an environment ofM ≤ 2N modes [70].
+
+## PDF page 14
+
+14
+Example II.7 (Thermal loss channel or Photon loss channel). Consider a thermal loss channelLη, ¯n which obeys the
+following input-output relation on the annihilation operators,
+ˆa′ = √ηˆa +
+p
+1 − ηˆe, (37)
+where 0 ≤ η ≤ 1 is the transmittance of the channel andˆe represents an environment mode in a (Gaussian) thermal
+state with
+
+ˆe†ˆe
+
+
+= ¯n mean number of quanta. The intensity of the input is reduced byη and thermal noise (1 −
+η)(1/2 + ¯n) is added to the quadratures; the factor of1/2 originates from vacuum noise. For¯n = 0, the channel is
+often referred to as a pure-loss channel. Physically, the thermal-loss channel stems from interacting the system mode
+ˆa with a thermal environment modeˆe by a beamsplitter-like interaction.
+Example II.8 (Thermal amplifier channel). Consider an amplifier channelAG,¯n which obeys the following input-
+output relation,
+ˆa′ =
+√
+Gˆa +
+√
+G − 1ˆe†, (38)
+where G ≥ 1 is the gain of the channel andˆe represents an environment mode in a (Gaussian) thermal state with
+ˆe†ˆe
+
+
+= ¯n mean number of quanta. The intensity of the input is amplified byG and thermal noise(G − 1)(1/2 + ¯n)
+is added to the quadratures. For¯n = 0, the channel is often referred to as a quantum-limited amplifier. Physically,
+the thermal amplifier channel stems from interacting the system modeˆa with a thermal environment modeˆe by a
+two-mode squeezing-like interaction.
+Example II.9 (Additive Gaussian noise channel). One can define an additive Gaussian noise (AGN) channel formally
+via
+Nσ = lim
+η→1
+Lη, ¯n/(1−η), (39)
+where σ2 := ¯n is the quadrature variance of the AGN channel. Equivalently, we can view the AGN channel as applying
+Gaussian random displacementsDξ to a quantum stateΨ, where ξ ∈ R2 ∼ N(0, σ2I2) and N (0, σ2I2) is a bi-variate
+normal distribution with varianceσ2,
+Nσ(Ψ) = 1
+2πσ 2
+ˆ
+ξ∈R2
+dξ e− |ξ|2
+2σ2 Dξ (Ψ) . (40)
+We can easily generalize the single-mode AGN channel to aN-mode AGN channel with (a generally correlated) noise
+matrix Y ≥ 0,
+NY (Ψ) = 1
+(2π)N
+√
+det Y
+ˆ
+ξ∈R2N
+dξ e− 1
+2 ξ⊤Y −1ξDξ (Ψ) . (41)
+Furthermore, through symplectic diagonalization, we may decompose theN-mode AGN channel intoN independent
+AGN channels with different variances [80]. Explicitly, there exists a symplectic transformationS such thatSY S⊤ =LN
+i=1 σ2
+i I2, where σ2
+i are the independent variances, also known as symplectic eigenvalues ofY . The correlated AGN
+channel and the independent AGN channels are related via conjugation by the unitary channelUS, US ◦ NY ◦ U−1
+S =NN
+i=1 Nσi. For example,US could be a linear-optical network, potentially with some squeezing if there isq or p bias.
+It is often useful to concatenate Gaussian channels to simplify analyses, prove bounds on information theoretical
+quantities, or use concatenated channels as part of a decoding strategy. For instance, a thermal loss channel can
+be converted to an AGN channel by pre- or post-amplification—making them amenable to quantum error correction
+with GKP states as GKP encoding can combat AGN error quite well [13, 21].
+Interestingly, we can produce less noise by pre-amplification compared to post-amplification4 [81–83]. See the
+example below:
+Example II.10 (Concatenation of Gaussian channels: Amplification then loss = less AGN). Consider a loss channel
+Lη, ¯nL with transmittance 0 < η≤ 1 and noisy quanta¯nL ≥ 0 and an amplifier channelAG,¯nA with gain G = 1/η and
+noisy quanta ¯nA ≥ 0. Amplification prior to loss,Lη, ¯nL ◦ AG,¯nA, results in an AGN channelNσLA with
+σ2
+LA = (1 − η)(1 + 2¯n), (42)
+where ¯n := (¯nL + ¯nA)/2. Furthermore, for the same values ofη and ¯n, pre-amplification introduces less AGN than
+post-amplification, i.e. σ2
+LA ≤ σ2
+AL =
+
+1−η
+η
+
+(1 + 2¯n).
+4As a practical example, in microwave electronics, low-noise amplifiers are often used as the first step to combat noise later in the
+chain. For superconducting circuits, this is often achieved by using a quantum-limited amplifier as the first step in a readout chain.
+
+## PDF page 15
+
+15
+3. Gaussian states
+Gaussian states refer to the class of states with Gaussian Wigner functions of Eq. (19). A Gaussian stateρG is thus
+completely determined by its first and second moments,µG and σG [defined generally in Eqs. (12) and (13)]. Some
+examples of Gaussian states are coherent states, with non-trivial mean and vacuum noiseσvac = I/2; thermal states,
+with zero mean andσth = (1/2 + ¯n)I; and single-mode squeezed states, with zero mean andσsqz = e−2rZ/2. GKP
+states, which are the focus of this review, are examples of non-Gaussian states; we elaborate on non-Gaussianity and
+GKP states in particular in later sections.
+Any Gaussian state can be reduced to a product of thermal states via a Gaussian unitary. The resulting thermal
+quanta in each mode ¯nth,j = νj − 1/2 is related to the the symplectic eigenvaluesνj of the covariance matrixσG.
+It then follows that the entropy of a Gaussian state is given by the sum of the thermal entropies for the individual
+modes.5 Written in terms of the symplectic eigenvaluesνj of ρG,
+S(ρG) =
+NX
+j=1
+sth
+
+νj − 1
+2
+
+, (43)
+where the functionsth(x) is defined in Eq. (21). Gaussian states are particularly special when it comes to additive,
+unitary-invariant quantities like entropy in that Gaussian input states extremize such quantities (Gaussian extremal-
+ity) [84, 85]. For example, given a quantum stateρ and a Gaussian quantum stateρG with the same first and second
+moments, the entropy is maximized byρG,
+S(ρ) ≤ S(ρG). (44)
+E. Gaussian measurement: homodyne and heterodyne
+An ideal Gaussian measurement (sometimes referred to as a general-dyne measurement) of a stateρ is a projection
+onto a pure Gaussian state|ψG⟩ with some probability ∝ ⟨ψG|ρ|ψG⟩. We can think of this at the level of positive
+operator-valued measurements (POVMs) by the resolution of the identity,
+1
+(2π)N
+ˆ
+µ∈R2N
+dµ DµUS |vac⟩ ⟨vac| U †
+SD†
+µ = I, (45)
+where |ψG(µ, S)⟩ = DµUS |vac⟩ defines a (parameterized) pure Gaussian state that we project onto; the POVM is
+thus Eµ,S = |ψG⟩ ⟨ψG| /(2π)N, with the constant factor1/(2π)N due to overcompleteness of the coherent state basis.
+Typical homodyne and heterodyne measurements fall into this general class of Gaussian measurements in certain
+limits as we discuss below.
+1. Homodyne measurement
+Mathematically,homodyne detectionof a single mode follows from Eq. (45) by settingUS as a squeezing operator—
+with squeezing along theq direction such that S = diag(e −r, er)—and taking the infinite squeezing limit (r → ∞).
+This results in a projection along theq quadrature of the mode.
+In the optical domain, if we want to perform homodyne detection on a quantum stateρS, we can mix the systemS
+with a strong coherent state at 50/50 beam-splitter and measure the intensity difference at the output by photodetec-
+tion, however this is a destructive measurement. To measure theq quadrature of ρS non-destructively, we can couple
+the system S via a SUM-gate [see Eq. (34)] to a measurement-ancillaM prepared in a position eigenstate,|q⟩M, and
+then perform a projective homodyne measurement on the ancilla to infer the position of the systemS. Later, we
+discuss a similar non-destructive detection strategy to measure the stabilizers of GKP states.
+Homodyne detection is “off-the-shelf” in the optical domain and commonly applied in telecom systems. Typically,
+efficiency of optical homodyne detection is given by the product of the mode-mixing efficiency and the photodetector
+efficiency. Overall efficiency> 90% can be routinely achieved, not taking into account any additional mode matching
+5Recall that unitaries leave the entropy invariant. Hence the displacementsDµ and symplectic transformationS do not contribute to
+the entropy of the global state.
+
+## PDF page 16
+
+16
+efficiency or fiber coupling efficiency, e.g. as studied in Ref. [86]. In addition, excess noise is usually small, as thermal
+noise is low at optical frequencies.
+Homodyne detection in the microwave domain is more involved, often requiring phase-sensitive quantum-limited
+amplification; see, e.g., Ref. [48] and references therein. As discussed in [23], due to the low measurement efficiency
+in the microwave domain, repeated phase-estimation measurements of GKP logicals and stabilizers using an auxiliary
+qubit can lead to lower error probability than direct homodyne detection given current measurement efficiencies for
+microwave cavities. See Chapter VD3 for a discussion of GKP logical readout.
+2. Heterodyne measurement
+We primarily focus on homodyne measurement in this review, but we mention heterodyne measurements for com-
+pleteness. Heterodyne detectioncorresponds to a projection onto a coherent state (e.g.,Dα |vac⟩); thus, we takeUS = I
+in Eq. (45) to realize a heterodyne measurement. Theoretically, a heterodyne setup can be seen as a double-homodyne
+scheme, where a systemS is split in two and then each output undergoes homodyne measurement (albeit with aπ/2
+phase difference between the homodyne detectors). Similar to the homodyne case, optical heterodyne detection is
+off-the-shelf and efficiency of> 90% can be achieved experimentally. For microwave domain, heterodyne detection
+often involves phase-insensitive (also called phase-preserving) amplification before detection to suppress noise at the
+detector. Loss during the measurement chain and noise added during amplification can limit the fidelity of these
+measurements in the microwave domain [48].
+F. Non-Gaussian states and channels
+General unitary transforms in an infinite dimension system are quite complicated. An arbitrary unitary can be
+generated by Hamiltonians that are polynomial in operatorsˆqk’s and ˆpk’s. A set of operations is considered universal if
+by a finite number of applications of operations in the set, one can approach arbitrarily close to any unitary evolution
+generated by such Hamiltonians [18]. Under this definition of universality, Ref. [18] shows that Gaussian operations
+alone are not universal, since Gaussian unitaries corresponds to generators of second order polynomials inˆqk’s andˆpk’s.
+However, an arbitrary extra unitary with generators of higher order than two, in addition to Gaussian operations,
+is universal. In this regard, non-Gaussian operations can be considered as a resource for quantum information
+processing [87, 88]. In fact, Gaussian operations and Gaussian states alone are efficiently simulatable on a classical
+computer [89]; thus non-Gaussian elements are prerequisite for realizing a quantum computational advantage with
+bosons [90].
+Based on this finding of universality, ref. [91] developed a systematic way of performing the decomposition of any
+unitary generated by polynomial Hamiltonians to a basic set of Gaussian unitaries
+n
+eiπ( ˆp2+ˆq2)/2, eit1 ˆq, eit2 ˆq2
+o
+and the
+cubic phase gateˆV (γ) = eiγ ˆq3
+. The choice of the non-Gaussian unitary is not unique; the cubic phase gate, generated
+by ˆq3, is chosen since it is one of the most simple non-Gaussian unitaries.
+There are a number of experimental proposals of realizing the cubic phase gate in the optical domain, involving
+genuine non-Gaussian resource states and Gaussian operations combined with feed-forward [13, 92–94]. The cubic
+phase gate can be realized by consuming the cubic phase state|γ⟩ = ˆV (γ) |0⟩p =
+´
+dqeiγq 3
+|q⟩ as the resource state,
+where |0⟩p is the zero-momentum state at the infinite squeezing limit and unnormalizable [13]. Normalized version of
+cubic phase state can be defined by having a finite squeezing to begin with. While optical realization is still challenging,
+microwave engineering of cubic phase gate and states have been achieved [95, 96]. However, for the realization of
+non-Gaussian control for microwave superconducting cavities, the cubic phase gate as a resource is likely not the most
+practical option, as Josephson junctions readily gives the necessary nonlinearity to be universal [27, 51, 97]. The
+difficulty instead comes with mitigating the propagation of errors.
+Other types of non-Gaussian states include Fock states, the ON state|ON ⟩ ∝(|0⟩ + a |N ⟩) [94] and GKP states [13]
+that are most relevant to this review. We discuss universality of GKP states plus Gaussian operations in Chap-
+ter VIIIA1.
+To help understand the special role of non-Gaussian states and operations, here we briefly review the resource theory
+of non-Gaussianity. A more detailed review can be found in Ref. [98]. To quantify non-Gaussianity, one can first
+observe that any Gaussian state has a positive Wigner function, which is just a multivariate Gaussian distribution [68,
+70]. For pure states, a state is non-Gaussian if and only if its Wigner function has negative values [99, 100]. Starting
+from this observation, Refs. [87, 101] proposed to utilize logarithmic negativity of the Wigner function to quantify the
+amount of non-Gaussianity, which has been found useful in resource distillation [87, 102]. Negativity as a resource is
+also consistent with the fact that a positive Wigner function renders classical simulation of the system efficient [103]
+
+## PDF page 17
+
+17
+and also serves as a resource for computing in discrete-variable systems [104]. More recently, the stellar rank—the
+number of zeros of Husimi Q function – is introduced to characterize non-Gaussianity, which equals the minimal
+number of single-photon additions needed to engineer them [105], and, furthermore, can be related to the complexity
+of quantum computations with bosons [90]. Besides developing quantifiers, experimentally a more feasible witness
+of Wigner negativity or non-Gaussianity is also important [106, 107]. In terms of resource theory for non-Gaussian
+operations, Ref. [108] proposed quantifiers based on generation power of non-Gaussianity in a non-convex fashion. In
+general, quantifying non-Gaussianity and connecting them to operational tasks is an active research direction.
+1. No-go theorem for Gaussian error correction
+The fact that universality of quantum computation cannot be done by Gaussian operations alone [18] indicates
+that error correction is probably impossible just with Gaussian operations as well. References [14–17] further made
+this intuition rigorous. In Ref. [14], the authors show that Gaussian entanglement cannot be distilled by only local
+Gaussian operations and Gaussian measurement. For example, two identical copies of less squeezed two-mode squeezed
+vacua cannot be transformed by Gaussian operations into a single two-mode squeezed vacuum with higher squeezing.
+Reference [15] shows that probabilistic distillation of entanglement at a single copy level is impossible, simply because
+conditional Gaussian maps changes the covariance matrix in a deterministic fashion. Reference [16] generalizes the
+conclusion to an arbitrary number of modes. Ref. [17] shows that Gaussian operations cannot protect Gaussian states
+against Gaussian errors. The proof considers degradation of entanglement under Gaussian channels and shows that
+Gaussian operations on top of the channel cannot improve the quality of entanglement.
+From these observations, we see that non-Gaussian resource is the key ingredient for quantum error correction. Since
+in-line non-Gaussian operations (where the gates need to be applied on general quantum input) are more challenging
+to implement, ideally we want to have Gaussian encoding and decoding operations, while relying on non-Gaussian
+ancilla—which is exactly the case for the GKP codes discussed in this review.
+2. General additive noise channel
+We previously discussed Gaussian quantum channels, however in some scenarios, non-Gaussian additive noise
+channels naturally arise—e.g., in the input-output relations of multimode GKP-O2O (oscillators-to-oscillators) codes.
+Generally, aN-mode non-Gaussian additive noise channeleN acts on an input quantum stateρ as
+ρ′ = eN (ρ) =
+ˆ
+ζ∈R2N
+dζ P (ζ)DζρD†
+ζ, (46)
+where P (ζ) is a multivariate non-Gaussian pdf. We shall generally assume that the pdfP (ζ) has zero mean⟨ζ⟩ = 0
+and covariance noise matrixeYij = ⟨ζiζj⟩. Though higher-order moments beyond the mean and covariance are needed
+to fully specify the channel, we can still give a Gaussian approximation to the channelρ′
+G = N eY (ρG), where ρG is a
+Gaussian approximation to the inputρ. The Gaussian approximationN eY (see Eq. (41)) is amenable to analysis with
+Gaussian techniques and actually allows us to place a lower bound on the quantum capacity of the corresponding
+non-Gaussian channel eN (see below), which is relevant for quantum information studies of GKP-type QEC codes.
+G. Quantum communication capacity
+A fundamental task in the quantum information sciences is quantum communication. Quantum communication
+revolves around the transmission of quantum information in the form of coherent quantum states, such as qubits or CV
+states, across a noisy channel. A naturally arising question, how much quantum information can we send through a
+noisy quantum channel per channel use in principle? This is quantified by the so-calledquantum capacity[109–111] of
+the channel. We give a pedagogical explanation for the quantum capacity and refer the reader to, e.g., Refs. [112, 113]
+for rigorous details.
+Suppose that a sender, Alice (A), has an entangled stateφAA′ that she wants to share with a receiver, Bob (B),
+where the subsystems A, A′, and B have Hilbert space dimension |A| = |A′| = |B|, and that there is a quantum
+channel Φ := Φ A′→B that Alice can use to communicate with Bob. Alice knows that the channel is noisy, so she
+devises an encoding schemeE := idA ⊗ EA′→A′ n that encodes the sub-systemA′ into a larger systemA′ n to protect
+the information from noise in the channel. Bob is aware of the encoding procedure and possesses a corresponding
+decoder D := idA ⊗ DA′ n→B that he uses to decode the information and retrieve the intended message from his share
+
+## PDF page 18
+
+18
+(a) (b)
+Φ
+A
+B
+V
+A
+B
+E
+Φ
+Φc E D
+φAA′
+A
+B
+A′ n
+Φ
+Φ
+Φ
+Figure 3. Channel schematics: (a) Unitary extension of a channelΦ with complementary channelΦc; (b) General QEC circuit
+with encoder E and decoder D.
+of entanglement, if the channel is not “too noisy”. The whole transmission process from Alice to Bob—encoding, noisy
+transmission, and decoding—results in the quantum state˜φAB = ( D ◦Φ⊗n ◦ E)(φAA′) at Bob’s end. A schematic
+of this setup is shown in Figure 3(b). Therate of the communication process isR = log |A|/n, and we say that the
+rate is achievable for the channelΦ if the transmitted state ˜φAB is ϵ-close to the intended stateφAB, where ϵ is an
+arbitrarily small number. Thequantum capacity CQ(Φ) is then the supremum of all achievable ratesR.
+A landmark result in quantum information theory is thequantum capacity theorem, which states that the quantum
+capacity is equal to the regularized coherent information of the channel [109, 111],
+CQ(Φ) = Qreg(Φ), (47)
+where Qreg = limk→∞ Q(Φ⊗k)/k. The channel coherent informationQ(Φ) is
+Q(Φ) = max
+φ
+
+S(ρB) − S(ρAB)
+
+, (48)
+where ρAB = Φ( φAA′) and ρB = Tr A(ρAB) and the maximization is over all bi-partite pure states φAA′.6 By
+purification, we can introduce an environmentE such that the joint systemABE is described by a pure state; see
+Figure 3(a) for a schematic. ThenS(ρAB) = S(ρE) where ρE = TrA
+
+Φc(φA′A)
+
+is the output state to the environment
+via the complementary channelΦc : A′ → E of Φ. Thus, the quantum capacity directly relates to the amount of
+information Bob receives S(ρB) minus the amount of information the environment receivesS(ρE). We note that
+Q(Φ) ≤ CQ(Φ).
+The regularized coherent information appearing in Eq. (47) makes evaluating the quantum capacity generally quite
+challenging. In principle, an infinite number of channel uses might be needed due to superadditivity [114–118].
+However, fordegradable quantum channels, the problem simplifies sinceQ(Φ⊗k) = kQ(Φ) for such channels [119]; in
+other words, the quantum capacity for degradable quantum channels is equivalent to the single-shot quantum capacity,
+Q(Φ). Furthermore, for anti-degradable channels,CQ(Φ) = 0. A channel Φ is said to be degradable if there exists
+a channel D such that Φc = D ◦Φ; i.e., Bob can simulate the environment channelΦc by “degrading” his channelΦ
+via D. Contrariwise, Φ is anti-degradable if there exists a channelA such that Φ = A ◦Φc; i.e., the environment can
+simulate Bob’s channel.
+1. Capacity of Gaussian channels
+Due to the infinite energies involved in an infinite-dimensional Hilbert space of bosonic systems, a bit of care has to
+be taken when referring to the quantum capacity of Gaussian bosonic quantum channels. As pointed out in Ref. [120],
+it is physically meaningful to place a photon-number constraintTr(ρˆn) ≤ ¯n on input states ρ, and then evaluate
+physically meaningful quantities (such as capacities) under said constraint. For instance, in reality, we always deal
+with a finite amount of squeezing, a finite number of thermal quanta etc.; so such a constraint is implicitly present
+in practice. This has led to a technical separation between energy-constrained (finite¯n) and energy-unconstrained
+(¯n → ∞) capacities. For simplicity though, we focus on the energy-unconstrained setting in this review.
+6We can just as well maximize over all input density matricesφA′ = TrA(φAA′ ).
+
+## PDF page 19
+
+19
+Special cases of degradable, single-mode Gaussian bosonic channels exist, and their quantum capacities have been
+characterized. Examples of single-mode degradable bosonic channels are the quantum-limited amplifier channelAG,0
+and the bosonic pure-loss channelLη,0 for η >1/2. For η <1/2, the bosonic pure-loss channel is anti-degradable and
+thus CQ(Lη,0) = 0. The quantum capacity of the pure-loss channelLη,0 has been known for years [121, 122] and is
+given explicitly by,
+CQ(Lη,0) = log
+ η
+1 − η
+
+, (49)
+which is non-zero iffη >1/2. Here and what follows, it is understood that the quantum capacity is bounded from
+below by zero. Thus, for brevity, we do not include maximization, i.e.max[0, ·], in the corresponding expressions.
+General Gaussian bosonic quantum channels are neither degradable nor anti-degradable, and explicitly finding
+quantum capacity of such channels is an open problem. On the other hand, there exists upper and lower bounds for
+many channels of interest. For instance, lower [122] and upper bounds [82, 83] on the quantum capacity of a thermal
+loss channel Lη, ¯n are known,
+log
+ η
+1 − η
+
+− sth(¯n) ≤ CQ(Lη, ¯n) ≤ log
+ η − (1 − η)¯n
+(1 − η)(1 + ¯n)
+
+. (50)
+The lower bound is obtained from an input thermal state [122] (a Gaussian state), whereas the upper bound follows
+from a data-processing argument [82, 83].
+Since Nσ2 = lim η→1 Lη, ¯n/(1−η) with σ2 = ¯n, we can use the results above to bound the quantum capacity of the
+single-mode AGN channelNσ,7
+log
+ 1
+eσ2
+
+≤ CQ(Nσ) ≤ log
+ 1 − σ2
+σ2
+
+. (51)
+These results can be easily extended to aN-mode AGN channelNY since we can interpret theN-mode channel as a
+set of independent AGN channels viaUS ◦ NY ◦ U−1
+S = NN
+i=1 Nσi, where SY S⊤ = LN
+i=1 σ2
+i I2. From which one can
+show that,
+log
+ 1
+eN
+√
+det Y
+
+≤ CQ(NY ) ≤ log
+ 
+1 −
+√
+det Y√
+det Y
+!
+. (52)
+The lower bound follows by treating theN-modes of the joint channel independently and using uncorrelated thermal
+input states, while the upper bound follows from a data processing argument [80].
+2. Capacity of general additive noise channel
+Using results from the previous section, we can actually lower-bound the quantum capacity of an arbitrary non-
+Gaussian additive noise channel eN (46). Consider the noise covariance matrix eY of eN. By Gaussian extremality8
+and using similar arguments that led to the lower bound of Eq. (52), one can show that,
+log
+ 
+1
+eN
+p
+det eY
+!
+≤ CQ( eN ). (53)
+Thus we can estimate the capacity of a general—not necessarily Gaussian—additive noise channel by considering only
+the additive noise covariance matrixeY of the channel, without the need for higher-order moments. Later, we use the
+lower bound in Eq. (53) to place a lower bound on the QEC properties of GKP-O2O codes (Chapter VIIB).
+7The upper bound follows directly from substitution of¯n → ¯n/(1 − η) into Eq. (50). For the lower bound, letx = ¯n/(1 − η) and use
+sth(x) ≈ log(ex) for x ≫ 1.
+8In particular, Gaussian states minimize the coherent information [85, 123]; i.e.,S(ρB) − S(ρAB) ≥ S[(ρB)G] − S[(ρAB)G] where
+(ρAB)G is a Gaussian state with equal first and second moments asρAB.
+
+## PDF page 20
+
+20
+Figure 4. Wigner functions of bosonic codes that approach the quantum communication capacity of the (single-mode, pure)
+loss-dephasing channel [124]. For pure loss (γϕ = 0), the hexagonal GKP code emerges as optimal (see also Ref. [83] for similar
+results on thermal loss channels). For non-zero dephasing, having rotation symmetry in the code becomes favorable and GKP
+lattice codes are no longer optimal. Hashed region represents a degeneracy of codes with similar performance. Figure adapted
+from Ref. [124] where the authors used semi-definite programming methods for optimal recovery to obtain this figure.
+III. NOISE MODELS
+In this chapter, we review common noise in bosonic quantum systems—including photon loss, AGN, phase noise,
+and cQED auxiliary noise sources—and their models to facilitate quantum error correction analyses. Two theoretical
+frameworks are often adopted for noise modeling: a quantum channel model or an open quantum system dynamics
+approach, as introduced in Chapter IIC. The former is often relevant for propagating bosonic modes, such as in
+quantum communication. While the latter is often relevant in, e.g., cQED analyses, where continuous quantum
+control can be applied. We discuss noise from both perspectives below.
+Beforedivingintodetailsofnoisemodels, letusfirstprovidesomerationaleforwhyGKPcodes(extensivelyreviewed
+in the forthcoming chapters) are effective in mitigating such noises. The original work by Gottesman, Kitaev, and
+Preskill [13] highlighted the effectiveness of GKP lattice codes in dealing with displacement errors because—as we
+explain in more detail in Chapter IVA—such codes allow simultaneous estimation of displacements along both position
+and momentum quadratures (modulo the lattice spacing). This concept can be extended in a heuristic manner to
+other types of noise using the following observation: Since the set of displacement operators is complete [see Eq. (14)],
+one can always decomposeany operation in the basis of displacement operators, similar to the case of Pauli errors in
+the DV setting. This displacement basis decomposition gives some credence as to why GKP codes might be capable
+of protecting more than just random displacements (additive noises), as was also highlighted in the original work of
+Ref. [13] for photon loss. Furthermore, we note that it is theoretically possible to degrade any noise channel to a
+general additive noise channel [Eq. (46)],eN (ρ) =
+´
+ζ∈R2N dζ P (ζ)DζρD†
+ζ, via channel twirling [125], though twirling
+might not be practically feasible. For Gaussian noise sources,P (ζ) is a multivariate Gaussian distribution. Using
+similar arguments regarding QEC capabilities of GKP states for random displacements, we infer that GKP codes are
+likewise ideal for mitigating the noise of the twirled channel˜N.9
+To further reinforce the QEC capabilities of GKP codes, it is crucial to highlight that GKP codes arguably provide
+the optimal encoding scheme for safeguarding quantum information against Gaussian noise sources, such as additive
+noise (mentioned above) and thermal loss. This is evidenced by the many works that discuss achieving quantum
+9We emphasize that, although twirling to an additive noise channel is neat for heuristic arguments (and often convenient for analytical
+assessments), this is not the way one corrects errors in practice and, furthermore, degrading a quantum channel to an AGN channel via
+twirling is not optimal for QEC purposes in principle.
+
+## PDF page 21
+
+21
+capacities of Gaussian noise channels via GKP codes [21, 33, 83, 124] (see also Chapter VIIIB of this review and
+Ref. [21] for comparisons among a zoo of bosonic codes). On the other hand, the situation changes when non-
+Gaussianity enters into the noise model—a prime example of non-Gaussian noise being dephasing. For instance,
+GKP codes are known to be inadequate in combating pure dephasing noise [21, 23, 124], whereas codes with rotation
+symmetry become preferable method of encoding [124, 126]; see Fig. 4 for an illustration of this point. Though, from
+a practical perspective, Gaussian noise sources generally dominate the noise budget, as can be seen by comparing the
+loss and dephasing rates in cQED architectures—with typical intrinsic energy relaxation rates for superconducting
+3D cavities on the order ofκ ≈ 1/(1 ms)down toκ ≈ 1/(30 ms)10 [128, 129] and upper bounds on intrinsic dephasing
+rates on the order ofκϕ ≲ 1/(10 ms) [128, 130] down to κϕ ≲ 1/(500 ms) [20, 27, 129]. In optics (e.g., integrated
+photonic structures [44, 45]), photon loss dominates, and dephasing is usually negligible, at least when active phase
+stabilization (more important for long distance quantum communication) is present.
+A. Photon loss
+Loss of encoded quanta plagues all bosonic quantum information processors and is arguably the most prominent
+source of noise. As a quantum channel model, loss can be described by a pure-loss channelLη,0 in Example II.7.
+Promisingly, Noh et al [83] demonstrated that GKP codes are optimal for combating loss by proving that GKP codes
+approach the quantum capacity of loss channels (up to a constant gap), with numerical support from an optimized
+encoding/decoding strategy; see also Ref. [21] for a prior comparison of many bosonic codes. Unfortunately, the
+encoding/decoding strategy presented in that paper was not constructive, and therefore, at present, there is no known
+concrete and provably optimal encoding/decoding strategy to handle loss with GKP codes. Nevertheless, there exist
+several (sub-optimal) loss-mitigation strategies that are practically relevant.
+In terms of open system dynamics picture, loss can be described with a single dissipation superoperatorD[√κˆa]; see
+Eq. (IIC). As we shall see in Chapter V, one way to combat loss in cQED architectures is via dissipation engineering,
+where loss and coherent Hamiltonian dynamics work in unison to stabilize the microwave modes onto the GKP
+manifold. Another strategy is to convert loss to AGN via pre- or post-amplification (see the following subsection),
+which can be accomplished in the channel model or in the continuous time model, and then correct for the AGN
+directly via SUM-gates plus GKP measurement ancillae [13]. The loss-conversion technique is often used as a neat
+mathematical trick to simplify calculations, however loss conversion may be practically pertinent to optical platforms
+that do not have active stabilization methods.
+B. Additive Gaussian noise via loss conversion
+For the quantum channel model, a pure-loss channel,Lη,0, as defined in Example II.7, can also be converted to an
+AGN channel. Intuitively, amplification can counter the decay of quantum states amplitudes from loss, but at the
+cost of increased noise. As shown in Figure 5(a) and discussed in Examples II.10, a simple approach is to append
+a quantum-limited amplifier AG,0 before the loss channel. From Eq. (42), we have the effective channel as AGN,
+Lη,0 ◦ AG=1/η,0 = Nσ2
+LA
+, with noise11
+σ2
+LA = 1 − η. (54)
+It is known that this conversion strategy is not optimal for quantum error correction performance [21, 83] but a
+better strategy is currently unknown. To this end, we note that quantum-limited amplification has an equivalent
+representation as coupling the data to an ancillary vacuum mode via two-mode squeezing; see Fig 5(a). It thus seems
+plausible that intelligently utilizing the ancillary mode may lead to improved performance but how to explicitly do so
+is an open problem.
+An alternative approach to noise conversion is a CV teleportation-based approach. When it is possible to break
+the loss channel into two parts, Ref. [131] proposed to put a two-mode squeezed vacuum source in between each lossy
+path, then distribute the two-mode squeezed vacuum along each path and perform CV teleportation. The effective
+AGN channel in this scheme isNσ2
+center−TP
+with variance
+σ2
+center−TP = √ηe−2r + 1 − √η, (55)
+10State-of-the art niobium superconducting cavities have even smaller relaxation rates as low asκ = 1/(1 s) [127]. To the best of our
+knowledge, single-photon level intrinsic dephasing rates for these cavities has not yet been measured.
+11Similar conversion to AGN also holds for thermal-loss channel, as discussed in Example II.10.
+
+## PDF page 22
+
+22
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+n
+n
+ITTHE I
+F1IIIE I
+I I IÉ
+(a) (b)
+data
+Nσ
+|vac⟩
+η
+data
+data
+|vac⟩⊗2
+√η
+√η
+m1 m2
+Dc
+Figure 5. Noise conversion from loss to AGN. (a) Pre-amplification (via two-mode squeezing with an ancillary mode) with
+gain G = 1/η. (b) Teleportation-based noise conversion where only ancillary modes undergo noise. Here a two-mode squeezed
+vacuum source is placed “in the middle” of a transmission line with total transmittanceη.
+where r is the two-mode squeezing strength defined in Eq. (31).
+Within the framework of the open system dynamics described by Eq. (23), a continuous-time model of additive
+Gaussian noise can be represented by two dissipation superoperators,D[√κˆq] and D[√κˆp]. Similar to loss conversion
+in the channel model, AGN in continuous time can likewise be generated from a loss dissipator by subsequently
+amplifying the quadratures over time to counteract the loss.
+C. Phase noise
+Phase noise models the uncertainty in phase stabilization or optical path alignment. Likewise, phase noise can
+appear in, e.g., frequency fluctuations of a microwave mode in cQED. In terms of quantum channel model, where
+phase noise is commonly referred to as a dephasing channel [124, 132], it corresponds to randomly applying phase
+rotations which are described by the symplectic transform in Eq. (29). In terms of open system dynamics picture of
+Eq. (23), phase noise can be described by the dissipation superoperatorD[p2κϕˆa†ˆa] with jump operator L = ˆa†ˆa.
+Since the jump operator appearing in the dissipator is non-linear in the quadrature operators, the dephasing channel
+is intrinsically a non-Gaussian quantum channel. We note that this dissipator is a simplified model of dephasing,
+since some physical systems (such as superconducting oscillators) can have phase noise with a non-uniform spectral
+density [133].
+AsnotedintheoriginalGKPpaper, whendecomposedtodisplacementoperators, phasenoiseinvolvesdisplacements
+of arbitrarily large amplitudes. For this reason, the qubit GKP code is known to be less robust against phase noise
+compared to, e.g., rotation symmetric bosonic codes [21, 124, 126]. Indeed, in the pure dephasing case, it is found that
+two-legged cat codes and squeezed two-legged cat codes are preferred in terms of quantum communication rates [124].
+D. Auxiliary noise sources
+Apart from these dominant oscillator noise channels, there are some tertiary noise sources which could harm the
+encoded quantum information. Such noise sources may arise from unavoidable higher order terms or couplings with
+auxiliary qubits. Below, we divide these sources into two categories depending on their effect on the oscillator state,
+coherent and incoherent errors.
+a. Coherent errors To realize non-Gaussian states such as GKP codes, a nonlinearity is required. However,
+the nonlinearity can also introduce unwanted coherent Hamiltonian terms that distort GKP states. One example is
+discussed in Chapter VC1 in the context of realizing GKP codes in superconducting circuits through interactions
+with an auxiliary qubit in the dispersive regime. In such a system, the oscillator inherits a Kerr-type nonlinearity,
+with a Hamiltonian given byH = Kˆa†2ˆa2. Although Kerr could be used to perform non-Clifford gates [34], it is
+generally harmful when idling [20, 21, 27].
+Other types of coherent errors emerge when scaling to multiple oscillators. For example, in superconducting
+circuits, couplers that could be used for realizing multi-oscillator gates as discussed in Chapter VF can also give rise
+to unwanted cross-Kerr interactions of the formH = χabˆa†ˆaˆb†b. Realizing fast gates while suppressing these unwanted
+interactions is the topic of engineering a large on-off ratio [28].
+b. Incoherent errors When GKP code preparation and error correction is realized by coupling the oscillator to
+an auxiliary qubit (Chapter VC1), errors of the auxiliary qubit can propagate to the oscillator in various ways. For
+superconducting circuit architectures in the dispersive regime, thermal jumps of the auxiliary qubit’s state can lead to
+
+## PDF page 23
+
+23
+additional dephasing of the oscillator [128] and coupling to the qubit can decrease theT1 of the oscillator through the
+reverse Purcell effectif the qubit’s bare lifetime is lower than the oscillator [48]. These effects can also be present for
+couplings between superconducting oscillators. Additionally, during gates between the oscillator and qubit, bit flips
+and phase flips of the qubit can propagate to the oscillator state, depending on the exact circuit being performed, as
+described in Chapter VB1 and experimentally measured in Chapter VC1.
+IV. MATHEMATICAL DESCRIPTION OF GKP LATTICE STATES
+So far, we have maintained a broad view on topics in bosonic quantum information processing—discussing bosonic
+quantum channels, unitaries, and common bosonic noise processes along the way—without delving much into the
+specifics of GKP codes and states, which are the central focus of this review. In this section, we take our first deep
+dive into this fascinating topic. Here we present the formalism to describe the mathematical properties of GKP
+lattice states, which is useful for theoretical analyses of multimode GKP codes. For a gentle introduction to GKP
+states, we begin with the single-mode square lattice GKP states in Chapter IVA, where we explicitly write down
+the wave functions and Wigner functions. We then continue towards a generic geometrical description of multimode
+GKP lattice states, which provides an efficient way of mathematically handling multimode states. In Chs. IVB1
+and IVB2, we review canonical GKP states and computational GKP states, respectively. We provide some discussion
+on stabilizer measurements and error syndromes in Chapter IVC and finish in Chapter IVD by discussing the impacts
+of deforming these states to realistic finite-energy GKP codes which occupy a finite volume in phase space.
+A. Introducing GKP states: The square lattice
+GKP states are a class of non-Gaussian states with non-trivial Wigner functions that are highly concentrated at
+points on a rigid lattice in phase space [13]; see Figure 6 for an illustration and Figure 12(d) of Chapter V. To
+motivate the need of GKP states for error correction [134, 135], we begin with the uncertainty principle that all
+states need to obey: ∆2q∆2p ≥ 1
+4 (choosing ℏ = 1). The uncertainty relations imply that the Wigner functions of
+valid quantum states have to spread in phase space. For error correction, the ideal case of a single-mode Wigner
+function is a delta function at origin, for which any random displacement can then be reverted back to the origin.
+According to the uncertainty principle though, having a delta-distribution as a Wigner function is non-physical as
+it implies ∆2p∆2q = 0. Gottesman, Kitaev, and Preskill introduced an ingenuous approach to work around this
+implausibility [13] by constructing quantum states described by grids of delta functions, popularly acronymedthe
+GKP states. In this manner, the variance in both quadratures can be large; while if one focuses on the individual
+lattice points, say origin, there is a delta-like distribution about that point. Thus, if a small displacement error
+happens, one can correct it by reverting the shifted lattice back to the original lattice positions [134, 135].12.
+In Ref. [13], the authors constructed general qudit encoding for d quantum states into N harmonic oscillators
+via what we now broadly refer to as GKP states. Since the inception GKP states, researchers have developed
+different applications and realizations of these states. However, in this context, we concentrate on two fundamental
+versions of GKP states, which have been extensively employed in the scientific literature: thecanonical GKP state
+(d = 1)13—adopted for CV quantum information processing—and thecomputational GKP stateor the GKP qubit
+(d = 2)—widely adopted for digital quantum information processing. The canonical GKP state can be written in the
+position or momentum basis as
+Canonical GKP state: |□⟩ =
+X
+n∈Z
+
+
+
+n
+√
+2π
+E
+q
+=
+X
+n∈Z
+
+
+
+n
+√
+2π
+E
+p
+, (56)
+where we use the simplified notation|·⟩q to represent the infinite-energy position eigenstates (likewise for the mo-
+mentum eigenstate |·⟩p) represented by Eq. (5). The canonical GKP state is a+1 eigenstate of the canonical GKP
+stabilizers,
+Canonical stabilizers: S□
+1 = ei
+√
+2π ˆq and S□
+2 = e−i
+√
+2π ˆp (57)
+12We note, however, that displacement errors on the GKP state are uncorrectable when the shifts of the grid are larger than half of the
+lattice spacing because the direction of the shift error is ambiguous in this case.
+13Sometimes referred to as a qunaught state or sensor state.
+
+## PDF page 24
+
+24
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(a)
+(b) (c) (d)
+λ□
+1
+λ□
+2
+λη
+1
+λη
+2 λ/hexa¢on
+1
+λ/hexa¢on
+2
+Figure 6. Illustrating GKP states. (a) Encoding a qubit into the infinite dimensional Hilbert space of an oscillator that is in
+a GKP lattice state [13]. Common two-dimensional lattices: (b) square lattice, (c) rectangular lattice, (d) hexagonal lattice.
+Basis vectors for the lattices are also shown.
+The computational GKP state, corresponding to a logically encoded qubit with bit valueb ∈ {0, 1} [see Figure 6(a)
+for an illustration], is given by
+Computational GKP state: |b□⟩ =
+X
+n∈Z
+
+
+(2n + b)√π
+
+
+q =
+X
+n∈Z
+e−inπb 
+
+n√π
+
+
+p . (58)
+The computational GKP state is a+1 eigenstate of the computational stabilizers
+Computational stabilizers: SX = e−i2√π ˆp and SZ = ei2√π ˆq, (59)
+where the subscripts Z and X refer to the logical Pauli operators,Z = √SZ and X = √SX, such that Z |b□⟩ =
+(−1)b |b□⟩ and X |b□⟩ = |(b ⊕ 1)□⟩. The GKP states described above correspond to a square lattice in phase space,
+and other lattices can be created from the square GKP state by symplectic transformations. Some common lattices are
+the square lattice just discussed, the rectangular lattice, and the hexagonal lattice; see Figure 6(b-d) for a schematic
+and the following sections for more details.
+While ideal GKP states are not normalizable—and therefore non-physical—the original authors in Ref. [13] pre-
+sented the finite-squeezed GKP state|□(∆)⟩, where ∆ is an effective squeezing parameter. Writing out a canonical
+finite-energy canonical GKP state in the position and momentum bases, we obtain
+|□(∆)⟩ ∝
+∞X
+t=−∞
+e−π∆2t2
+ˆ
+e−(q−ℓt)2/2∆2
+|q⟩ dq ∝
+∞X
+t=−∞
+ˆ
+e−∆2p2/2e−(p−ℓt)2/2∆2
+|p⟩ dp, (60)
+where ℓ =
+√
+2π is often used throughout this review for brevity. For∆ ≪ 1, this complicated expression can be
+written succinctly as |□(∆)⟩ ∝e−∆2 ˆn |□⟩, where e−∆2 ˆn is an envelope operator that restricts the GKP lattice to a
+ball of radius∼ ∆−1 in phase space; see Chapter IVD (and also Refs. [136, 137]) for more details about finite-energy
+GKP states and extension to multiple modes. Also see Ref. [138], where the authors show the equivalence between
+different mathematical descriptions of finite-energy GKP states.
+We can formally solve for the Wigner function of the finite-energy GKP state,
+W (p, q; □(∆)) = 1
+N∆
+∞X
+t1,t2=−∞
+e−∆2p2+iℓp(t1−t2)−π∆2(t2
+1+t2
+2)− 1
+∆2 [q−(t1+t2)ℓ/2]2
+, (61)
+where the normalization constant N∆ = P∞
+t1,t2=−∞ π exp
+
+− π(t1−t2)2
+2∆2 − π∆2(t2
+1 + t2
+2)
+
+. When ∆ ≪ 1, the Wigner
+function of |□(∆)⟩ is peaked around a square grid of spacing
+√
+2π for a canonical square GKP, with positive and
+
+## PDF page 25
+
+25
+vk
+vj
+njk
+L
+Figure 7. Area between lattice vectors is an integernjk for a GKP lattice state|L⟩.
+negative peaks alternating, for example, see Figure 12(d) for the Wigner function of a computational GKP state.
+Hence, for the canonical GKP, displacement errors must be less than
+√
+2π/2 for unambiguous characterization and
+correction. Taking a cut of the Wigner function along theq (or p) direction, the alternating peaks cancel, and the
+position (or momentum) wavefunction is invariant under shifts of
+√
+2π. The quadrature variances are
+
+ˆq2
+
+≃
+
+ˆp2
+
+≃
+1/2∆2 and equal the mean photon numberNS of the state. However, if we consider only the phase space region close
+to a single peak, the variances in positionand momentum around the peak are∆2/2 ≃ 1/4NS ≪ 1, which is twice
+the variance of a squeezed-vacuum state with the same number of photons as the GKP state. Due to the reduced
+variance around lattice points, the (canonical) GKP state has been considered for sensing applications (hence, the
+“sensor state” moniker [135]); see Chapter VIIIC2 for more discussion on this.
+B. GKP lattice states
+In the previous discussion, we introduced the canonical and computational square GKP states, which are char-
+acterized by simple square grids with varying spacings in a two-dimensional phase space. We now aim to expand
+these concepts to encompass multimode GKP states—also known asGKP lattice states—by adopting a geometrical
+approach to describe them. These GKP lattice states exhibit a direct correspondence with classical lattices in a2N-
+dimensional real space, as demonstrated in the original works of [13, 33] and considered in more detail in the recent
+works of [32, 34, 35]. Consequently, we delve a bit into the formalism required to describe useful classical lattices.
+Consider a rigid,2N-dimensional latticeLdefined by some set of lattice basis vectorsvj ∈ R2N where j = 1, . . . ,2N.
+We assume that
+ω(vj, vk) = v⊤
+j Ωvk = njk , (62)
+where njk ∈ Z. In other words, the symplectic inner product between basis vectors—which is equal to the area
+between the two vectors in phase space—is an integer; see Figure 7 for an illustration of this principle. Any lattice
+with basis vectors satisfying this integral condition is called asymplectically integral lattice. From the basis vectors,
+we can build agenerator matrix M,
+M = (v1, v2, . . . ,vN ). (63)
+With this notation, we can more properly define the classical latticeL as the set of pointsL := {M a| a ∈ Z2N }.
+Moreover, the integral conditions (62) can be packaged in a compact form,
+M ⊤ΩM = A, (64)
+where thesymplectic Gram matrix A is an anti-symmetric matrix with integer entries. As we discuss later in more
+detail, in order to encode a d-level system (a qudit) into the classical latticeL, the lattice must satisfy det A =
+d2 [13, 33–35], whered is thecode dimension.
+We can provide an extension of the latticeL to thedual lattice L∗. The dual lattice consists of all pointsv∗ which
+have integer symplectic inner product with the lattice basis vectors, i.e.L∗ = {v∗|M ⊤Ωv∗ ∈ Z2N }. It follows that
+L ⊆ L∗ since integer combinations of the basis vectors are also included inL∗. One can relate the generator matrix of
+the dual latticeM ∗ to the generator matrix of the latticeM via the simple relationM ∗ = M A−⊤. A (symplectic)
+self-dual latticeis a lattice for whichL = L∗ and det A = 1 [13, 33, 35].
+For some insight into code construction from classical lattices, we give examples of valid classical lattices in dimen-
+sions of 2, 4, 8, 24 obtained from [139] and mention the corresponding code dimensions as well as associated lengths
+
+## PDF page 26
+
+26
+of logical Pauli operators (discussed in more detail in the following section). We then show how one can build aGKP
+lattice quantum state |L⟩ from a classical latticeL. For a detailed discussion into why we might care about higher
+dimensional lattices for quantum error correction, see Chapter VI.
+Example IV.1 (Hypercube). The simplest example of a classical lattice in2N dimensions is a scaled hypercube
+with generator matrix M (□N ) = aI2N, such that det A(□N ) = a4N. Since the determinant of the Gram matrix
+determines the code dimensiond via det A = d2, we can encode an ensemble ofN qubits by takinga =
+√
+2.14 With
+N qubits encoded into an2N-dimensional hypercube, the minimal length of logical Pauli operators is1/
+√
+2 (in units
+ℓ =
+√
+2π).
+Example IV.2 (D-Type Lattice or Checkerboard Lattice). The D4 lattice has the densest packing in 4 dimensions
+and could therefore be used to efficiently encode a qubit into two modes. The generator matrix is given by,
+M (D2N ) =
+
+
+−1 −1 0 0 . . 0 0
+1 −1 0 0 . . 0 0
+0 0 1 −1 . . 0 0
+.. ... .. .. .. .. .. ..
+0 0 0 0 0 1 −1 0
+0 0 0 0 0 0 1 −1
+
+
+(65)
+The determinant of the Gram matrix for theD4 lattice is det A(D2N ) = 4 and hence, it can be used to encode a
+qubit in N modes. One can show that the length of all logical operators is 1 (in unitsℓ =
+√
+2π) [34].
+Example IV.3 (E-type Lattice). The E8 lattice has the densest packing in8 dimensions [140]. One can choose a
+canonical generator matrix for theE8 lattice as,
+M (E8) =
+
+
+2 0 0 0 0 0 0 0
+−1 1 0 0 0 0 0 0
+0 −1 1 0 0 0 0 0
+0 0 −1 1 0 0 0 0
+0 0 0 −1 1 0 0 0
+0 0 0 0 −1 1 0 0
+0 0 0 0 0 −1 1 0
+1/2 1 /2 1 /2 1 /2 1 /2 1 /2 1 /2 1 /2
+
+
+, (66)
+with det M (E8) = 1. Hence, scaling of theE8 lattice [M (E8) → aM (E8)] yields a code dimensiond = a8—i.e., 4
+qudits of dimension√a. The length of the logical operators is 1 (in unitsℓ =
+√
+2π) for theE8 lattice, which is larger
+than the ensemble of 4 qubits constructed from square lattices [34].
+Example IV.4 (Leech Lattice). The Leech lattice is the optimal lattice in24 dimensions as proved in Ref. [141]. The
+generator matrix for the Leech lattice is a unimodular matrix with determinantdet MLeech = 1, and hence is valid
+for code dimensionsd = a24 upon scaling MLeech → aMLeech. For a =
+√
+2, it can yield an ensemble of 12 qubits. In
+this case, the length of logical operators (=
+√
+2) is twice as large as the square code.
+We now sketch how to construct a GKP lattice quantum state|L⟩ from a classical lattice L. From some set of
+lattice basis vectors{vj}, we define a corresponding set ofstabilizer generatorsvia,
+Sj := Dℓvj , (67)
+where we have introduced the canonical spacingℓ :=
+√
+2π. Combining the integral conditions (62) with the Weyl
+commutation relation (17), it follows that,
+ω(vj, vk) = njk =⇒ [Sj, Sk] = 0 ∀ j, k. (68)
+The stabilizers therefore generate a2N-dimensional stabilizer groupS(L) := ⟨S1, S2, . . . , S2N ⟩. A GKP lattice state
+|L⟩ is then defined as a simultaneous+1 eigenstate of all the commuting stabilizers, i.e.Sj |L⟩ = |L⟩ ∀j. From here,
+it should be clear that the GKP lattice state|L⟩ has the same symmetries in quantum phase space as the classical
+lattice L does in the classical real space. Before providing some concrete examples of GKP lattice states, we quote a
+fact about all single-mode lattice states.
+14We could try to encoden qubits into an 2N-dimensional hypercube by taking a = 2 n/2N, such that A = an/NI2N and det A =
+d2 = (2n)2. However, for this code to correspond to a symplectically integral lattice, we must have thata2 ∈ Z, which is not satisfied for
+a2 = 2n/N unless n = N.
+
+## PDF page 27
+
+27
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+|□⟩ |/hexa¢on⟩ |□⟩ |η⟩ |□2⟩ |Φ+⟩
+R(π
+6 )Sq(
+4√
+3)R⊤(π
+4 )
+Sq(η)
+B1/2
+(a) (b) (c)
+Figure 8. Circuit schematic of various GKP lattice states: (a) hexagonal GKP|7⟩, (b) rectangular GKP|η⟩, (c) GKP Bell
+state
+
+
+Φ+
+GKP
+
+
+.
+Proposition 1. Any single-mode GKP lattice state|L⟩ can be generated from a square GKP state by a symplectic
+transformation Λ, i.e. |L⟩ = UΛ |□⟩.
+This result follows from the fact that the Gram matrixA for any two-dimensional (symplectically integral) lattice
+is a2 × 2 anti-symmetric matrix with degenerate matrix elements and is thus proportional to the symplectic formΩ1,
+such thatM ⊤Ω1M ∝ Ω1. Therefore, the generator matrixM must be proportional to a symplectic transformation;
+see Refs. [13, 33–35] for formal proofs and extensions. Hexagonal and rectangular GKP states are prototypical
+examples of this.
+1. Canonical lattice states
+Here we restrict to latticesLC that have generator matricesMC satisfying | det MC| = 1, i.e. with trivial code
+dimension (d = 1); we will call such lattice statescanonical lattice states(or canonical GKP states). Though one
+cannot encode digital information into canonical lattice states, these states can nevertheless be useful for other
+purposes, such as protecting arbitrary CV quantum states via oscillators-to-oscillators codes [31, 32].
+We first consider the single-mode canonical GKP state discussed in Chapter IVA. Using lattice notation, we can
+write the stabilizers of the canonical square GKP state|□⟩ as S□
+j = exp
+
+iℓv□ ⊤
+j Ω1 ˆr
+
+, where
+v□
+1 = (1, 0)⊤ and v□
+2 = (0, 1)⊤ , (69)
+are the canonical square lattice vectors. The generator matrix of the canonical square lattice is then,
+MC(□) =
+
+v□
+1 v□
+2
+
+= I2, (70)
+where C refers to canonical. We define anN-mode canonical GKP hypercube as
+
+
+□N 
+ := |□⟩⊗N, with a generator
+matrix MC(□N ) := LN
+i=1 MC(□) = I2N.
+It turns out that we can generate any canonical lattice state|Λ⟩ by applying symplectic transformations on the
+canonical hypercube [13, 33, 35]. Indeed it is easy to show that such states correspond to a valid symplectically
+integral lattice Λ. To see this, define Λ by the basis vectors vΛ
+j = Λv□
+j . It follows that ω(vΛ
+j , vΛ
+k ) = ω(v□
+j , v□
+k )
+because the symplectic inner product is invariant under symplectic transformations. Thus, we can construct the
+stabilizers SΛ
+j := DℓvΛ
+j
+, which generate the stabilizer groupS(Λ) = ⟨SΛ
+1 , SΛ
+2 , . . . , SΛ
+2N ⟩, where e.g.
+SΛ
+j = UΛS□
+j U †
+Λ. (71)
+Hence, the lattice state|Λ⟩ = UΛ
+
+
+□N 
+
+is a +1 eigenstate of S(Λ) by construction. Furthermore, it is straightforward
+to show that a generator matrixMC(Λ) of the latticeΛ and the symplectic transformationΛ can be related via
+MC(Λ) = Λ. (72)
+Therefore, M ⊤
+C (Λ)ΩMC(Λ) = I2N. We show some examples of canonical lattice states in Figure 8 and below.
+Example IV.5 (GKP Bell state). A GKP Bell state
+
+
+Φ+
+□
+
+
+= ( |0□⟩ ⊗ |0□⟩ + |1□⟩ ⊗ |1□⟩)/
+√
+2 can be created by
+interacting two canonical square GKP states on a 50:50 beamsplitter [142]. The GKP Bell state has the same lattice
+spacing as the two-mode canonical GKP state and is thus not very useful for O2O codes. However, GKP Bell states
+are a necessary resource for, e.g., robust DV quantum teleportation [142, 143]. A generator matrix for the GKP Bell
+state is simplyMC(Φ+) = B1/2.
+
+## PDF page 28
+
+28
+Example IV.6 (Canonical D4 GKP). We can generate a canonicalD4 from a canonical hypercube via the following
+two-mode symplectic transformation,
+ΛD4 =
+4√
+2
+
+
+1
+2 − 1√
+2
+1
+2 0
+0 1√
+2 0 1√
+2
+0 1√
+2 0 − 1√
+2
+− 1
+2 0 1
+2
+1√
+2
+
+ , (73)
+such that MC(D4) = ΛD4. The canonical D4 GKP state can be written as|D4⟩ = UΛD4
+
+
+□2
+
+. Since ΛD4Λ⊤
+D4 ̸= I,
+the D4 transformation has squeezing. We consider the QEC properties of the canonicalD4 state in oscillators-to-
+oscillators codes in Chapter VII.
+2. Computational lattice states
+Here we consider lattice states with non-trivial code dimensiond ̸= 1. As previously mentioned, a latticeL can
+support a d-level quantum system if the determinant of the Gram matrix satisfiesdet(A) = d2 [13, 33–35]. For
+instance, a computational square GKP state [introduced in Eq. (58)] can be represented byML(□) =
+√
+2I2 (L for
+logical information) and thus det AL(□) = 2 2, indicating that the computational GKP state can support a single
+qubit as advertised. Conversely, any canonical GKP state hasdet AC = 1, meaning that the encoded Hilbert space
+is trivial (d = 1). Below, we give a few recipes to find generator matrices for multimode GKP qubits from classical
+lattices [34]. We then discuss logical Pauli operators of a multimode GKP qubit and introduce the Pauli displacement
+vectors. The main takeaways from this section are summarized in Table IVB2.
+First, let us consider a general,2N-dimensional (symplectically integral) lattice L with generator matrix M (L)
+and Gram matrixA, with code dimensiond given by det A = d2. We can scale the lattice bya ∈ R, such that,
+M ′ = aM =⇒ A′ = a2A =⇒ det A′ = a4N det A. (74)
+Since det A = d2, we see that the code dimension can perhaps be increased by a factora2N via scaling. We apply
+this intuition to two cases:
+(1) Integral Lattices:If we scale a2N-dimensional canonical latticeLC with Gram matrixAC (such thatdet AC =
+1) to a latticeL′ with A′ = a2AC, then we must have thata2 ∈ N for the latticeL′ to be symplectically integral.
+For a single mode (N = 1), we can use the canonical square lattice, as described in Chapter IVB1, such that
+any constanta =
+√
+d yields a code of dimensiond. Extending this example toN modes, a canonical hypercubic
+lattice with generator matrixMC(□N ) = I2N can only be scaled to obtain an ensemble ofN qubits.
+(2) Non-Integral Lattices: Another strategy is to scale a lattice to an invalid code dimension such that the lattice
+is not symplectically integral. Then we can search for a non-symplectic orthogonal transformation (O⊤ΩO ̸=
+Ω)—which does not change the code dimension sincedet O = 1—but can change the Gram matrix asA =
+M ⊤ΩM → A′ = M ⊤O⊤ΩOM. If the transformation matrixO yields an integral Gram matrixA′, then we
+have a valid lattice with the desired code dimension, which could not be achieved by simply scaling.
+Example IV.7 (Tesseract lattice). A two-modeTesseract qubit code is an example of how one can scale then rotate
+a classical lattice to find an integral lattice that can support a qubit. Consider a scaled 4-dimensional hypercube with
+generator matrix
+4√
+2I4. This alone is not a symplectically integral lattice. However, by performing aπ/4 rotation of
+the p1 and p2 quadratures ˜O, one can show that the generator matrix,15
+M ( e□2) =
+4√
+2 ˜O =
+4√
+2
+
+
+1 0 0 0
+0 1√
+2 0 1√
+2
+0 0 1 0
+0 1√
+2 0 − 1√
+2 ,
+
+ (75)
+corresponds to a valid symplectically integral lattice with code dimensiond = 2.
+15We use the notatione□2 since the tesseract is just a rotated hypercube.
+
+## PDF page 29
+
+29
+Ideal GKP Codespace (S) Matrix form ( M)
+Stabilizer Generators Si = Dℓvi M = (v1, v2, ..,v2N )
+Commutation Relations [Si, Sj] = 0 ∀i, j v⊤
+i Ωvj ∈ 2Z ∀i, j
+Code Dimension d det
+
+M ⊤ΩM
+
+= d2
+Logical Pauli Operators [Dp, Si] = 0 ∀i p⊤Ωvi ∈ 2Z + 1 ∀i
+Table I. Correspondence between a classical latticeL with generator matrixM and the associated multimode GKP qudit, with
+code dimension d, defined by the stabilizer groupS := S(L). Basis vectors {vj} generate the lattice L. Pauli displacement
+vectors p are taken as the shortest vectors of the dual latticeL∗ and have (odd) integer symplectic inner product with{vj}.
+Interestingly, it turns out that anyN-mode GKP qubit—i.e., a2N-dimensional lattice with| det M | = 2—can be
+generated by acting on 1 single-mode GKP square qubit plus(N −1) canonical square GKP states with a (multimode)
+symplectictransformation Λ(seeCorollary2ofRef.[35]). Onecanthuswritedownageneratormatrixfortheresulting
+GKP lattice state as
+ML = Λ
+√
+2I2 ⊕ I2(N −1)
+
+. (76)
+We provide some common examples of this for the simple case of encoding one qubit into one mode below.
+Example IV.8 (Hexagonal GKP). A hexagonal GKP qubit can be generated from the computational square GKP
+by the following symplectic transformation,
+Λ7 = ℓ7
+ℓ
+1 − 1
+2
+0
+√
+3
+2
+
+, (77)
+where ℓ7/ℓ =
+√
+2/31/4 ≈ 1.07. Since Λ7 is a single-mode transformation, it admits a decomposition in terms
+of a single-mode squeezer sandwiched between two phase shifts; see Figure 8(a) for values of the phase shifts and
+squeezing strength. This encoding has logical Pauli vectors that are 1.07 times longer than the square code and, thus,
+in principle, is better for QEC.
+Example IV.9 (Rectangular GKP). A rectangular GKP qubit can be created by squeezing the computational square
+by the symplectic squeezing matrixSq(η) with squeezing strengthη = er. The generator matrix for the rectangular
+lattice is,
+ML(η) =
+√
+2 diag(1/η, η). (78)
+Computational rectangular GKP states have been recently studied for bias-enhanced QEC [144–146].
+So far, we have discussed about encodingd-level systems into a lattice but have yet to discuss, e.g., the logical
+Pauli operators associated with the code. We now make this notion concrete. For simplicity, we restrict to qubit
+encodings such thatd = 2. In Chapter IVB, we introduced the dual latticeL∗ as the set of all vectors{v∗} that have
+an integral symplectic inner product with the lattice basis vectors{vj}. The elements v∗ ∈ L∗/L (i.e., v∗ ∈ L∗ but
+v∗ /∈ L) correspond to (integer multiples of) logicalPauli displacement vectorsp ∈ {x, y, z} that we associate with
+translations Dp [33]. These Pauli translations implement logical Pauli operations—e.g.,XL := Dx. Here we equate
+the logical Pauli vectorsp with the smallest vectors of the dual latticeL∗, such that the norms∥x∥, ∥y∥, and ∥z∥
+represent thePauli distancesof the GKP code. The Pauli distances are significant because they roughly tell us how
+much random displacement noise a GKP qubit code can tolerate before a logical Pauli error occurs. Recall that the
+generator of matrix of the dual lattice can be found fromM ∗ = M A−⊤. Then the Pauli displacements can, more
+or less, be associated with the columns (or rows) ofM ∗. A code is said to bebalanced if ∥x∥ = ∥y∥ = ∥z∥, which is
+the case for the hexagonal lattice andD4 lattice. Two examples for a GKP qubit are provided below to solidify some
+of these concepts.
+Example IV.10 (Square qubit). For the square GKP qubit code, we have thatML(□) =
+√
+2I2 and AL(□) = 2Ω,
+such that M ∗
+L(□) = Ω/
+√
+2. The Pauli vectors (i.e., shortest vectors of the dual lattice) are just the columns of
+M ∗
+L(□). We thus have that∥x□∥ = ∥z□∥ = 1/
+√
+2 and ∥y□∥ = 1.
+
+## PDF page 30
+
+30
+w u
+n
+Λ
+−1
+Λ
+|□⟩ q mod
+√
+2π
+=
+SL
+j
+Figure 9. GKP-assisted stabilizer measurements for the canonical GKP state|Λ⟩ = UΛ
+
+
+□N 
+
+. Similar measurement schemes
+can be be constructed for multimode GKP qubits.
+Example IV.11 (Tesseract qubit). The generator matrix for the tesseract qubit code can be written asM ( e□2) =
+4√
+2 ˜O, where ˜O is a non-symplectic orthogonal transformation; see Eq. (75). It follows thatA( e□2)−⊤ = ˜O⊤Ω ˜O/
+√
+2,
+and one can write down a generator matrix for the dual lattice simply as,M ( e□2)∗ = Ω ˜O/
+4√
+2. This is enough to show
+that
+
+
+x e□2
+
+
+ =
+
+
+z e□2
+
+
+ = 1/
+4√
+2 and
+
+
+y e□2
+
+
+ =
+4√
+2, which are
+4√
+2 larger than the Pauli displacements of the single-mode
+square code.
+C. Error syndromes and stabilizer measurements
+As we summarize in Chapter III, general noise models can be reduced to displacement errors. We briefly consider
+errors induced by random displacements on GKP lattice states and present an operational approach to extract error
+syndromes via stabilizer measurements of the lattice.
+1. Syndrome vector
+Consider a lattice state|L⟩, with stabilizers{Sj}, and a displacement errore. Then define the error state|L; e⟩ =
+De |L⟩. By the Weyl commutation relation (17), it is easy to show that|L; e⟩ is an eigenstate of the stabilizerSj
+with eigenvalueexp[−iω (ℓvj, e)]. The set of quantities{ω(ℓvj, e) mod 2 π}2N
+j=1 (one for each stabilizer) are theerror
+syndromes, and we can package them into a syndrome vectors via,
+s := s(e) = M ⊤Ωe mod
+√
+2π, (79)
+where the modulo operation acts elementwise and we have factored out the canonical spacingℓ =
+√
+2π for convenience.
+Given the syndrome information, we can perform syndrome-informed counter-displacements to the error state|L; e⟩
+to correct for the errore. If the error is small enough, then the error can be corrected with high probability. A simple
+example is the case where the lattice state is a canonical GKP state, such thatM = Λ. Then,
+s = Λ−1e mod
+√
+2π. (80)
+An operational approach to measure the error syndromes is discussed below; see also Figure 9 for a depiction of the
+measurement scheme for canonical GKP states.
+2. Stabilizer measurements: An operational approach
+To measure the stabilizers (and thus extract the syndromes) of an error state |L; e⟩, we could perform direct
+homodyne measurements along the effective quadratures,ˆg = ℓM ⊤Ωˆr mod 2π, which is equivalent to measuring the
+stabilizers {Sj}. However, direct homodyne measurements are destructive; an ancilla-assisted measurement scheme is
+thus desired. One approach to handle this is to perform syndrome measurements with the help of SUM gates and GKP
+measurement ancillae [13]. This is an operational approach and may not be the go-to method for specific platforms
+[see, e.g., Chapter V for measurement methods in a cQED architecture where an auxiliary qubit is used to realize
+stabilizer measurements in a bit-wise fashion], however it illustrates the main features of stabilizer measurements and
+syndrome extraction.
+
+## PDF page 31
+
+31
+For concreteness, we first discuss measuring the stabilizers of a square GKP state. Imagine trying to measure
+the stabilizers S□
+j [Eq. (57)] of a systemA prepared in a canonical GKP state|□⟩A. To do so, we can couple the
+system A to a GKP measurement ancilla|□⟩B via the SUM gateSUMAB and subsequently perform aq-homodyne
+measurement onB to realize a stabilizer measurement ofS□
+1 . Likewise, we can couple the systemA to another ancilla
+B′ via SUM−1
+B′A and perform ap-homodyne measurement onB′ to realize S□
+2 . Or if the systemA can be discarded
+after the syndrome measurements, we can directly perform ap-homodyne on A following the S□
+1 measurement, in
+order to save GKP resources; a similar measurement strategy holds for measuring stabilizers of computational GKP
+states. This stabilizer measurement strategy can be easily extended to measure the stabilizers of any canonical GKP
+state, i.e. states of the form |Λ⟩ = UΛ
+
+
+□N 
+
+. Indeed, we can simply conjugate the aforementioned measurement
+strategy to measure the stabilizersS(Λ); see Figure 9 for a depiction. With this scheme, we can perform homodyne
+measurements in parallel on the individual modes. A slightly augmented setup can be constructed to measure the
+stabilizers of a multimode GKP qubit.
+A few comments about resources for stabilizer measurements are in order. There are generally2N stabilizers—one
+for each quadrature—that need to be measured for aN-mode GKP lattice state. This holds for any GKP lattice
+state, even when, e.g., GKP codes are concatenated with DV qubit codes.16 Observe that, if the lattice state can be
+discarded after the stabilizers have been measured then onlyN additional GKP ancillae (rather than2N) are required,
+thus reducing the GKP resources by half. Furthermore, in principle, we can perform these measurements in parallel
+on the individual modes by pushing the complexity of the measurement to the multimode symplectic transformation
+Λ that generates the lattice state from single-mode square GKP states.
+Finally, we point out that the measurement schemes described above rely on the SUM gate, however the SUM-gate
+necessarily requires some amount of inline squeezing, as the SUM-gate is not a passive transformation. An equivalent
+measurement strategy, which moves squeezing offline, has been proposed in Ref. [143].
+D. Finite-energy GKP states
+One practical issue or limitation with GKP states is the finite amount of squeezing to generate them in the
+lab [20, 37]. The finite squeezing introduces non-idealities which can spoil QEC properties that are derived from the
+infinite-energy code—related to, for instance, fault-tolerance thresholds for quantum computing architectures based
+on GKP codes (Chapter VIIIA)—if the squeezing is not beyond a certain threshold. We briefly covered some aspects
+of single-mode finitely squeezed GKP states in Chapter IVA, but we elaborate further on these matters here and
+extend to multiple modes. By a simple twirling argument, we also heuristically illustrate how the effective GKP noise
+from finite squeezing can affect the QEC performance of GKP codes.
+The version of the GKP lattice state|L⟩ discussed so far has an infinite amount of energy and is thus an unphysical
+(non-normalizable) state. We will now focus on its finite-energy counterpart [13] and regularize the state as follows.
+Consider a positive semi-definite matrix∆, which quantifies the finite amount of squeezing in a GKP state. We then
+define a generic finite-energy GKP state via
+|L(∆)⟩ = N∆ exp
+
+− ˆr⊤∆⊤∆ˆr
+2
+
+| {z }
+:=E∆
+|L⟩ , (81)
+where N∆ is a normalization constant, and we have introduced theenvelope operator, E∆ = exp
+
+− ˆr⊤∆⊤∆ ˆr
+2
+
+. By
+introducing finite squeezing in this generic way, we allow for different levels of regularization for different modes and
+along different quadratures. However, if we assume the same amount of squeezing for all modes and all quadratures
+(isotropic squeezing), then∆ = ∆I2N where ∆ is a positive constant, and we recover typical regularization considered
+in, e.g., Refs. [31, 83, 136, 147]. In this case, finite squeezing has a direct interpretation as restricting the lattice to
+an N-dimensional ball of radius∆−1. We note that an alternative definition of finite-energy GKP states is given by
+the quasi-degenerate ground state manifold of the finite-energy GKP Hamiltonian as discussed in Chapter VA. This
+alternative definition does not rely on non-unitary operators.
+We can gain some insight as to why a finite-energy GKP state can, for instance, add to the noise budget for quantum
+information processing by a simple twirling model introduced in Ref. [147]. We emphasize that the following twirling
+argument is heuristic and appropriate consideration of finite-energy states and operations need to be considered before
+16For a concatenated[[n, k, d]] GKP qubit code (see Chapter VI), one often thinks about measuring the2n stabilizers of the GKP code
+and then measuring then − k stabilizers of the outer qubit code, with a total of3n − k measurements to be performed. In principle, the
+same can be accomplished with less (2n measurements to be precise) [34, 35].
+
+## PDF page 32
+
+32
+strong conclusions are made. To simplify matters, we consider the scenario of isotropic squeezing,∆ = ∆I2N. In this
+case, we can write the envelope operator in the displacement operator basis as,
+E∆ ∝
+ˆ
+dµ exp
+
+− µ2
+4 tanh(∆2/2)
+
+Dµ. (82)
+We can then think about the regularization procedure as coherently applying displacements with a Gaussian envelope
+to a GKP state. To gain further intuition about the effects of finite-energy GKP states, we twirl the finite-energy
+state [125, 147], effectively applying incoherent displacements to the ideal GKP state via
+|L(∆)⟩
+Twirling
+− − − − − →
+NO
+i=1
+NσGKP (|L⟩ ⟨L|), (83)
+where the GKP noise per mode is defined asσ2
+GKP = tanh
+
+∆2/2
+
+. We emphasize that the twirling here is a conceptual
+tool to simplify analyses of finite-energy GKP states and does not correspond to a realistic operation. In this twirling
+model, the lattice points of an ideal GKP state have an intrinsic jiggle with standard deviationσGKP, which one
+can quantify by the effective squeezing in dB viasGKP = −10 log10(2σ2
+GKP). This simple heuristic analysis indicates
+that finite squeezing presents an intrinsic noise that can ultimately constrain the performance of GKP codes. This
+effective “GKP noise” can enter in through the encoded GKP lattice as well as in stabilizer measurements that utilize
+ancillary GKP states. Each layer of GKP noise may effect QEC performance in a different manner. Furthermore,
+such noise can be a limiting factor for low levels of squeezing; see Chapter VIII where the effects of GKP noise on
+fault-tolerant quantum computing are assessed. High quality GKP states are thus crucial for high-fidelity quantum
+information processing with GKP codes.
+One further dilemma with the finite-energy GKP state|L(∆)⟩ is that it is not a+1 eigenstate of the ideal GKP
+stabilizer group S(L)—unless the generators ofS happen to commute with the envelop operatorE∆—which is not
+guaranteed. To alleviate this difficulty, one can introduce the regularized stabilizer generators [136],
+Sj(∆) := E∆SjE−1
+∆ , (84)
+such that Sj(∆) |L(∆)⟩ = +1 |L(∆)⟩ ∀j by construction. The caveat is thatSj(∆) is no longer a unitary operation
+simply becauseE∆ does not correspond to unitary evolution. On the other hand, the envelope mapE∆(•) := E∆ •E−1
+∆
+is technically a quantum channel (• is a placeholder for any linear operator). Thus, in principle, there exists a physical
+scheme to realize finite-energy stabilizer measurements. Indeed, such a scheme was introduced in Ref. [136] where the
+authors considered coupling to an auxiliary qubit (transmon) to effectively realize the envelope map; a similar scheme
+was considered in Ref. [137] to realize finite-energy two-qubit gates. In Chapter V, we discuss details regarding physical
+realizations of finite-energy stabilization, with a special focus on finite-energy logical operations in Chapter VD.
+E. Modular variables and the Zak basis
+In this section we discuss one final approach for the representation of GKP states and operators, called the modular
+variables formalism or the Zak basis [148–155], which is useful for representing oscillator wavefunctions and operators
+on a restricted domain of two variables instead of an unrestricted domain of one variable. In particular, the modular
+wavefunction serves as an efficient basis for representing (and simulating) GKP-like states, or more generally, oscillator
+states that are close to periodic such as finite-energy GKP states. The formalism has been used in various other
+contexts in physics, such as in the analysis of spatial interference patterns and in quantum-Hall-effect literature.
+The (single-mode) Zak basis has been used extensively in GKP literature, with applications in analysis of the GKP
+Hamiltonian (see Chapter VA), engineering superconducting circuits for realizing passive or active error correction
+(see Chapter VA2), and an understanding of GKP error correction through the lens of a modular variable subsystem
+decomposition [155]. In this decomposition, the oscillator’s Hilbert space is divided into two subsystems: one that
+stores logical qubit information and a second continuous-variable gauge subsystem that carries no logical information.
+In this subsection, we will briefly review the single-mode Zak basis and the Zak transform, using the notation and
+conventions from Ref. [155].
+Given a position periodicitya (in GKP, typically chosen to be the length of a stabilizer translation), the Zak kets
+form a complete single-mode basis and are given in the position and momentum representation by
+|u, v⟩ :=
+r a
+2π
+X
+m∈Z
+eiamv |u + am⟩q =
+r
+1
+a e−iuv X
+m∈Z
+e−i2πmu/a |v + 2πm/a⟩p . (85)
+
+## PDF page 33
+
+33
+They are orthonormal in the Dirac-comb sense,⟨u, v|u′, v′⟩ = P
+m δ (u − u′ + am) P
+n δ (v − v′ + (2π/a)n). The Zak
+kets are eigenstates of displacement operators,
+e−ia ˆp |u, v⟩ = e−iav |u, v⟩ and ei 2π
+a ˆq |u, v⟩ = ei 2π
+a u |u, v⟩ , (86)
+with quasi-periodicity in the first variable and periodicity in the second, satisfying
+e−it ˆp |u, v⟩ = |u + t, v⟩ , |u + a, v⟩ = e−iav |u, v⟩ , (87)
+eitˆq |u, v⟩ = eiut |u, v+ t⟩ , |u, v+ 2π/a⟩ = |u, v⟩ . (88)
+This leads to a restricted domain foru (of width a) and v (of width 2π/a), giving a total of domain of area of2π
+called Zak patchP with a center that we are free to choose. One choice of domain that is convenient for representing
+computational GKP states isu ∈ [−a/4, 3a/4) and v ∈ [−π/a, π/a). For example, usinga = 2√π, the (single-mode)
+infinite-energy square GKP computational states are represented as|0□⟩ = |0, 0⟩ and |1□⟩ = |a/2, 0⟩. Arbitrary
+oscillator states can be represented in the basis of modular wavefunctions living on a torus|ψ⟩ =
+´
+P dudv ψ(u, v) |u, v⟩
+with boundary conditionsψ(u + a, v) = eiavψ(u, v) , ψ(u, v+ 2π/a) = ψ(u, v).
+The power of the Zak basis is that square-integrable wavefunctions of an unbounded variable (such as position
+q) can be mapped onto quasi-periodic modular wavefunctions of two real variables with a bounded domain. This
+mapping is given by the Zak transform [148, 155, 156]
+(Zψ ) (u, v) =
+r a
+2π
+X
+m∈Z
+e−iamvψ(u + am). (89)
+Finally, operators can also be described in the context of the Zak basis and modular wavefunctions. Explicitly, the
+position and momentum operators can be broken up into a modular part and a remainder part,
+ˆq = ˆu + a ˆm ˆp = ˆv + 2π
+a ˆn (90)
+where ˆn ( ˆm) have integer eigenvalues (interpreted as the “which-bin” information), andˆu = (ˆq + cq)mod [a] − cq
+(ˆv = (ˆp + cp)mod [2π/a] − cp) are the modular position (momentum) operators (interpreted as the relative position or
+momentum within the specified bin). Here,cq (cp) are constants used to center the Zak patch [150]. In the modular
+wavefunction representation these variables have a differential form,
+⟨u, v| ˆu = u ⟨u, v| ⟨ u, v| ˆv = v ⟨u, v| (91)
+⟨u, v| a ˆm = i ∂
+∂v ⟨u, v| ⟨ u, v| 2π
+a ˆn = −
+
+i ∂
+∂u + v
+
+⟨u, v| , (92)
+giving a differential form for the oscillator position and momentum variables,
+⟨u, v| ˆq =
+
+u + i ∂
+∂v
+
+⟨u, v| ⟨ u, v| ˆp = −i ∂
+∂u ⟨u, v| (93)
+used to analyze the action of operators and Hamiltonians on modular wavefunctions [157], as is done in Chapter VA.
+So far the Zak basis has only been used in the context of single-mode GKP states and GKP error correction. Also, a
+multimode Zak basis and modular variable approach could be useful in the development of error correction strategies
+for multi-oscillator GKP codes [154].
+V. QUANTUM ENGINEERING WITH GKP CODES
+The preceding section introduced a mathematical framework for defining and describing GKP lattice states, but it
+did not address practical methods for their engineering. We now bridge this gap by presenting an overview of recent
+advancements in quantum engineering with GKP codes. Our primary focus will be on progress made in the field of
+superconducting circuits, although we will also touch upon a few proposals related to optical systems.
+By quantum engineering, we are referring to the design, development, and optimization of quantum systems and
+quantum control techniques to realize desired properties, such as protection against environmental noise, non-Gaussian
+evolution, and dissipative dynamics. We classify quantum engineering with GKP codes into two broad sections: (1)
+In Chapter VA, we discussHamiltonian engineering, in which various methods—both driven (active) and non-driven
+
+## PDF page 34
+
+34
+(passive)—have been proposed to realize the GKP Hamiltonian for which the GKP states are ground states; (2) in
+Chapter VB, we discussdissipation engineeringfor GKP codes. Dissipation engineering includes both stroboscopic
+methods—for which repeated interactions with an auxiliary qubit is used—and a recently proposed continuous method
+for direct engineering of the GKP dissipators in a driven superconducting circuit. Next, in Chapter VD we review
+additional techniques for control of finite-energy GKP states using an auxiliary qubit. Lastly, in Chapter VE we
+describe some proposals for realizing GKP codes in optical platforms, and in Chapter VF, we conclude with comments
+on code concatenation and next steps for scaling up towards practical quantum computing.
+A. GKP Hamiltonian engineering
+Quantum error correction requires dissipation to correct errors using measurements or bath engineering [158–160].
+A complimentary approach is realizing protection at the Hamiltonian level by encoding logical information in a
+manifold of eigenstates that is robust to changes in environmental variables coupling as local perturbations [161].
+Such protected qubits often gain error suppression through a combination of related factors, including a degenerate
+gound state manifold with a large energy gap to higher excited states, wavefunction delocalization leading to flat
+energy bands, and wavefunctions with explicit disjoint support so that localized noise only weakly affects the qubit’s
+eigenstates [162, 163].
+Disjoint wavefunction support is also at the heart of realizing a protected GKP codespace. As a result, many
+protected superconducting qubits have wavefunctions resembling GKP states [162–170]. Additionally, a number of
+circuits have been proposed to engineer the GKP Hamiltonian directly [171, 172] or through Floquet engineering
+[125, 173–177]. We discuss these proposals in Chapter VA2.
+In this section, we focus on the single-mode GKP Hamiltonian and proposals for its direct realization in supercon-
+ducting circuits. Later, in Chapter VB1, we discuss proposals and experimental realizations of dissipative QEC with
+the GKP code.
+1. The GKP Hamiltonian
+As we defined in Sec. IIB1,ˆq =
+
+a + a†
+/
+√
+2 and ˆp = −i
+
+a − a†
+/
+√
+2 are the position and momentum operators
+of a quantum harmonic oscillator with
+
+a, a†
+= 1 (unit is chosen asℏ = 1). The infinite-energy GKP Hamiltonian
+for a single-mode rectangular-lattice can be written as [13]
+HGKP = −Ep cos
+ √
+2πd
+η ˆp
+!
+− Eq cos
+
+η
+√
+2πd ˆq
+
+. (94)
+HGKP has a d-fold degenerate ground state manifold encoding the infinite-energy rectangulard-dimensional GKP
+code where η sets the lattice aspect ratio in phase space; hered is the code dimension (introduced in Chapter IVB)
+of the single-mode GKP code.17 Analogous Hamiltonians exist for other lattices, such as the hexagonal lattice. The
+spectrum ofHGKP is continuous with eigenstates given by Zak basis states [148, 155, 157, 171–173] (see Chapter IVE)
+and Eq/Ep can be used to tune the relative dispersion along theq and pdirections. We note that the GKP Hamiltonian
+is closely related to Harper’s equation [178], which is a tight binding model for motional dynamics of noninteracting
+electrons in the presence of a 2D periodic potential and uniform magnetic field, as discussed more below [13, 171, 173,
+179].
+The usual argument behind passive QEC is to construct a Hamiltonian for which the codespace is the degenerate
+ground state manifold, protected by an energy gap [161]. However, passive QEC for continuous-variable systems is
+different than in multi-qubit systems such as the toric or surface code. In both cases, the protection Hamiltonian is
+of the formH = − P
+k EkSk, where {Sk} are the stabilizer generators andEk are the energy scales which should be
+positive and very large compared with typical couplings to the bath. For multi-qubit codes, the discrete spectrum
+of Pauli stabilizers gives rise to a spectral gap. For the infinite-energy GKP code, the spectrum of displacement
+stabilizers is continuous, renderingHGKP gapless. As a result, the perturbation theory argument relying on a gap,
+such that local perturbations of the Hamiltonain give rise to small variations in energy, does not apply toHGKP
+directly [162, 171].
+17In this section, we often restrict to the qubit (d = 2 case) and use the nomenclature “2D GKP” state, Hamiltonian etc. to refer to a
+single-mode GKP with d = 2 code dimension.
+
+## PDF page 35
+
+35
+Depending on the physical realization ofHGKP, it is unclear if a continuous spectrum is really an issue, as proper
+thermalization to a cold bath could still prevent uncorrectable errors; this is highly context dependent and an active
+topic of research. Nonetheless, a gapped spectrum can be engineered by including a weak confinement potential,
+giving rise to the finite-energy GKP HamiltonianHGKP,∆ [13, 157, 162, 171]. The most straightforward is a harmonic
+confinement18,
+HGKP,∆ = ω0
+2
+
+ˆp2 + ˆq2
+− Ep cos
+ √
+2πd
+η ˆp
+!
+− Eq cos
+
+η
+√
+2πd ˆq
+
+. (95)
+The ∆ notation here indicates the quasi-degenerate ground states are now finite-energy GKP states (see, for instance,
+Chapter IV for an introduction to finite-energy GKP). The ground state manifold of theHGKP,∆ serves as an al-
+ternative definition to the single-mode finite-energy code manifold. We anticipate this definition can be extended to
+multimode GKP encodings.
+To analyze the Hamiltonian, the Zak basis introduced in Chapter IVE can be used [157]. In particular, using a Zak
+basis period of a =
+√
+2πd/η and a Zak patch19 of P = u ∈ [−a/2d, a(2d − 1)/2d), v∈ [−π/a, π/a), the Hamiltonian
+can be written as a differential operator in the Zak-wavefunction basisH |ψ⟩ =
+´
+P dudv H(u, v)ψ(u, v) |u, v⟩ using Eq.
+93 as
+HGKP,∆(u, v) = ω0
+2
+
+p2
+u + (u − pv)2
+
+− Ep cos
+ √
+2πd
+η v
+!
+− Eq cos
+
+η
+√
+2πd u
+
+(96)
+where we have defined effective momenta in theu, vdirections as pu = −i ∂
+∂u and pv = −i ∂
+∂v [157]. From this,
+the finite-energy GKP Hamiltonian HGKP,∆ can be thought of as describing a particle of mass 1/ω0 on a torus
+parameterized by u, v, coupled to a vector potential and two cosine potentials.
+In the limit of weak harmonic confinement,Eq, Ep ≫ ω0, the tunneling between cosine minima is suppressed. In this
+regime, HGKP,∆ has a set ofd nearly degenerate ground states, each localized in different minima at positions(u, v) =
+(an/d, 0) with n = 0 , 1, ..., d− 1. The cosine terms can be expanded to quadratic order around a minima, leading
+to a local effective Hamiltonian that is well approximated by two uncoupled harmonic oscillators with frequencies
+ωu =
+
+η
+√
+2πd
+ p
+ω0Eq
+
+and ωv =
+√
+2πd/η
+ p
+ω0Ep
+
+and a spectral gap between the quasi-degenerate ground
+state manifold and the first excited states of approximatelyE ≈ min (ωu, ωv).
+Expanding the cosine potentials in Eq. 96 to quadratic order can also be used to estimate the GKP squeezing
+parameters. GKP states can have different squeezings along the position and momentum directions in cases where
+η ̸= 1 or Eq ̸= Ep, and these can be estimated from the zero-point motion associated with the effective oscillator
+impedances of u and v, given by Zu =
+
+η
+√
+2πd
+−1 p
+ω0/Eq and Zv =
+√
+2πd/η
+−1 p
+ω0/Ep. The zero-point
+motion leads to GKP squeezing parameters of∆q ≈ 1/√Zu and ∆p ≈ 1/
+p
+Zp. Other quantities, such as the tunnel
+splitting of the ground state manifold, can be estimated by applying different perturbation techniques to the Zak-basis
+Hamiltonian, see for example Refs. [157, 171].
+In the case of a square lattice with equal energy scales inq and p (η = 1 , Eq = Ep), the ground states are well
+approximated by the finite-energy Hadamard eigenstates
+ψH+ (q) ≈ cos
+ π
+8
+
+ψ∆,0(q) + sin (π/8) ψ∆,1 (q) , (97)
+ψH− (q) ≈ −sin
+ π
+8
+
+ψ∆,0(q) + cos (π/8) ψ∆,1 (q) , (98)
+where ψ∆,1
+0
+(q) are the wavefunctions for the finite-energy0 and 1 logical states. This can be seen from the Hamilto-
+nian’s invariance with respect to the Fourier transform (aπ/2 rotation in phase space). As an example from Ref. [171],
+the numerically obtained lowest-energy eigenstates are plotted in Figure 10a. Modifying the impedance of the con-
+finement potential can break this symmetry and lead to other ground state manifolds. Varying from one confinement
+potential to another could be used to engineer transformations of the finite-energy GKP states [162].
+TheGKPHamiltoniancanalsoariseasthelow-energyHamiltonianofasingleelectronconfinedtoatwo-dimensional
+plane witha periodic potentialand aperpendicular magneticfield [13,171]. Althoughthis system islikely notpractical
+18A general harmonic confinement of H = ˆp2/2m + k ˆq2/2 can cast into the form of Eq. 95 by scaling position and momentum as
+ˆq → ˆq/
+√
+Z, ˆp → ˆp
+√
+Z, where Z = 1/
+√
+km is the impedance of the harmonic confinement
+19Any patch of of widtha in u and 2π/a in v will do, however we find this patch to be the most convenient for representing GKP qudit
+states
+
+## PDF page 36
+
+36
+a) b)
+Figure 10. a) Position wavefunctions for quasi-degenerate lowest energy states (Eq. (97)) of the 2-D GKP Hamiltonian with
+a weak Harmonic confinement of∆ = 0.25. b) The spectrum ofHLLL (Eq. (99)) plotted as a function of inverse magnetic flux
+ratio t/s, resulting in Hofstadter’s butterfly. The 2D GKP manifold corresponding tos/t = 1 /2 is marked by the red star.
+Figures reproduced with permission from [171].
+to implement, requiring unrealistically large magnetic fields, it is useful for a theoretical understanding of the GKP
+code. In Ref. [171], the authors show that the effective low energy Hamiltonian [the lowest Landau level (LLL)
+Hamiltonian] for this system in the weak Landau-level coupling limit is
+HLLL = −V0
+
+cos
+
+2√π ˆq
+
++ cos
+ t
+s
+√π ˆp
+
+. (99)
+Here {t, s} are coprime natural numbers describing the rational multiple of flux quantum contained in a loop enclosed
+by magnetic translation operators,Φ = (s/t) Φ0 where Φ0 is the (non-superconducting) flux quantum. The eigenvalue
+equation associated with HLLL is the Harper equation, resulting in an energy spectrum in the form of a Hofstadter
+butterfly [179]. We plot the spectrum in Figure 10b as a function oft/s [171, 173]. This spectrum has s bands
+that are t-fold degenerate, and the two-dimensional GKP code space corresponds to the ground state manifold at
+s/t = 1/2 (equivalently t/s = 2) as shown by the red star in the figure. In Ref. [173], the authors discuss this model
+in the context of topological order and introduce the notion of a phase-space interaction potential, connecting to the
+dynamics of some many-body systems.
+2. Proposals for realizing the GKP Hamiltonian in superconducting circuits
+a)
+QPS JJ
+×
+Φ
+E JC L I
+b) d)c)
+Figure 11. Realizing the GKP Hamiltonian in cQED. a) Dualmon circuit consisting of a quantum phase slip (QPS) element and
+Josephson junction (JJ) in parallel [172]. b) Spectrum of the dualmon Hamiltonian [172]. c) Circuit for realizing a hardware-
+encoded confined GKP Hamiltonian, consisting of two fluxonium modes coupled by a gyrator [171]. d) An oscillator with
+impedance Z = 2RQ is periodically displaced via an inductive coupler. When coupled to a junction, GKP states are stabilized
+through the effective Floquet Hamiltonian [125].
+There are a few proposals for realizingHGKP in superconducting circuits, with a selection shown in Figure 11. The
+most direct implementation of HGKP was analyzed in Ref. [172], where the authors proposed thedualmon circuit
+
+## PDF page 37
+
+37
+consisting of a Josephson junction (JJ) in parallel with a quantum phase slip (QPS) element as shown in Figure 11a.
+The JJ is a superconducting circuit element in which particles of charge2e coherently tunnel across an insulating
+barrier between two superconducting films with a current (IJ) and phase (Φ) relation IJ = IC sin (2πΦ/Φ0,s); here,
+Φ =
+´ τ
+−∞ V (τ )dτ is the flux linked by the JJ, V (τ ) is the voltage across the junction, and Φ0,s = 2 e/h is the
+superconducting magnetic flux quantum. The QPS is the dual element with a constitutive voltage (VQ) charge (Q)
+relation VQ = Vc sin (2πQ/(2e)), where Q is the charge that has flowed through the QPS [180–183].20 The quantized
+Hamiltonian of this circuit is given by
+Hdualmon = −EQ cos (2πˆn) − EJ cos
+
+ˆϕ
+
+(100)
+where ˆϕ = 2 π ˆΦ/Φ0,s is the reduced phase across the junction andˆn = Q/2e is the conjugate number of Cooper
+pairs that have tunneled across the junction, such that[ ˆϕ, ˆn] = i. The dualmon Hamiltonian corresponds to the
+d = 1, η= 1/
+√
+2π
+	
+GKP Hamiltonian in Eq. (94), indicating that it has a single ground state given by the canonical
+(d = 1) square GKP state|□⟩; see Chapter IVA for an introduction. The circuit could be promoted to thed = 2
+GKP Hamiltonian—so that the degenerate ground state manifold encodes the GKP qubit (again see Chapter IVA
+for an introduction)—by replacing the Josephson junction with aπ-periodic junction, also called thecos(2ϕ) circuit
+element, which allows coherent tunneling of pairs of Cooper-pairs [162, 169, 172, 186, 187]. We note thatˆϕ is treated
+here as an unbounded variable instead of as a compact variable. For a discussion of such subtleties, we refer the
+reader to Ref. [188].
+The eigenstates of the dualmon|k, φ⟩ are Zak states (see Sec. IVE) and characterized by Bloch quantum numbers
+in the rectangular Zak patchk ∈ (−1/2, 1/2] and φ ∈ (−π, π]. The spectrum is given byEk,φ = −EQ cos (2πk) −
+EJ cos (φ) and plotted in Figure 11b. The spectrum has four critical points,(k, φ) = {(0, 0), (0, π), (1/2, 0), (1/2, π)}
+where ∆Ek,φ = (∂kEk,φ, ∂φEk,φ) = 0. As a result, the sensitivity to charge and flux noise vanishes at these charge-
+and flux- insensitive points to linear order. Additionally, small-amplitude flux and charge noise will commute with
+the Hamiltonian and does not cause transitions between eigenstates to first order. The authors in Ref. [172] proposed
+using the states|0, 0⟩ and |0, π⟩ as a logical qubit, corresponding to the canonical GKP states with±1 eigenvalues of
+the canonical GKP stabilizers. By introducing realistic circuit elements into the dualmon circuit, including a linear
+inductance in series with the QPS element and capacitance shunting the junction, a second high-frequency oscillator
+mode is added, and the dualmon energy dispersion is found as the effective low-energy band of the circuit when
+projected onto the oscillator’s ground state. Importantly, the first excited band could facilitate addressability of the
+logical states.
+In Ref. [171], the authors proposed a different superconducting circuit to realize the GKP Hamiltonian, shown in
+Figure 11c. The circuit consists of two fluxonium modes coupled by a gyrator (shown in red). The gyrator is a
+two-port non-reciprocal circuit element with the current voltage relations
+
+I1
+I2
+
+=
+
+0 −G
+G 0
+ 
+V1
+V2
+
+, (101)
+where Gisthegyrationconductance[189]. ThegyratorcanbeincludedinthecircuitLagrangianas LG = (G/2) ϕ1 ˙ϕ2−
+˙ϕ1ϕ2 where ϕi =
+´ t
+−∞ Vi(τ )dτ are the node fluxes—which is similar to a homogeneous magnetic field of strength
+B = G/e in the ϕ1ϕ2 plane. As a result, the circuit Hamiltonian can be mapped exactly to the Hamiltonian of an
+electron in a periodic potential with a perpendicular magnetic field, as discussed in Chapter VA, for which the effective
+low-energy Hamiltonian takes the form of the LLL Hamiltonian in Eq. (99). The exact mapping of the magnetic field
+to the gyration conductance iss/t = G/G0 where G0 = (2e)2/h is the superconducting conductance quantum. As a
+result, to obtain the 2D GKP Hamiltonian withs/t = 1/2, we require G = G0/2. This value of G ≈ 1/ (13 kOhm)
+is unrealistic for superconducting gyrators [190–192], however it could be easily reached using quantum (anomalous)
+Hall effect devices [193–196].
+Finally, it was shown in Refs. [125],[175], and [174] that the GKP Hamiltonian can emerge as the effective Floquet
+Hamiltonian of a driven superconducting circuit. An example from Ref. [125] is shown in Figure 11, consisting of a
+high-impedance quantum harmonic oscillator shunted by a Josephson junction. The oscillator must be tuned to have
+impedance Z = 2RQ, where RQ = h
+4e2 ≈ 6.5 kOhmis the resistance quantum, such that the circuit’s Hamiltonian (in
+the characteristic function representation) is well supported on points corresponding to the 2D GKP stabilizers (i.e.,
+the GKP qubit stabilizers of Eq. (59)). By periodically displacing the oscillator corresponding to multiples of logical
+20For comprehensive introductions to superconducting circuits, we refer the reader the following reviews [48, 184, 185].
+
+## PDF page 38
+
+38
+displacements in a “bang-bang” approach, the dynamical decoupling sequence approximately filters out Hamiltonian
+terms that are not close to stabilizer shifts, and the effective Floquet Hamiltonian is the 2D GKP Hamiltonian [125].
+A similar GKP-Floquet scheme was introduced in Refs. [175] and [174], consisting of a high-impedance harmonic
+oscillator coupled to a switchable Josephson element, which could be implemented by a flux-driven SQUID. The
+switchable junction allows controllable tunneling of a charge2e which can displace the oscillator. By tunneling every
+quarter period of the oscillator’s frequency, an effective cosine potential can be engineered in both the position and
+momentum. As shown in Ref. [174], as long as the oscillator’s impedance is greater than or equal to twice the resistance
+quantum, the driving can be tuned so that an effective Hamiltonian for the 2D GKP code can be realized by using a
+diamond-shaped lattice in phase space. These methods are superconducting circuit realizations of thekicked Harper
+model, a special case of thekicked harmonic oscillator(see Ref. [173] and references therein).
+Without dissipation, the Floquet approach can be used for preparing GKP states, but they do not stabilize GKP
+states against noise, for which colored dissipation is likely needed. In superconducting circuits, the thermalization of
+effective Floquet Hamiltonians is an active topic of research. The extension of this method to full dissipative QEC
+is discussed in Chapter VB2. We note that other similar Floquet engineering proposals have been introduced for
+realizing protected circuits and Hamiltonians, such as theKapitzonium (a Floquet 0 − π qubit) [177], or the Floquet
+engineering of other lattices in phase space [176, 197].
+Finally, other protected superconducting circuits realize ground state manifolds of GKP states (or GKP-like states)
+since they are designed using wavefunction delocalization and disjoint support for protection against environmental
+noise [162, 163]. For example, the 0 − π qubit [164–166, 198] combines two widely used protected qubits, a high-
+impedance fluxonium mode [167, 168] and atransmon mode [9] to realize a quasi-degenerate ground state manifold
+that is spanned by a pair of two-mode GKP states [35]. Coupling the0 − π qubit to an oscillator leads to encoded
+GKP states of the oscillator that could be used to realize protected gates [198]. Another example is thecos(2φ) qubit
+[162, 169, 170, 199], with GKP-like states as the effective ground state like manifold. Additionally, GKP states can
+arise as the ground state of the RF-SQUID21 in special parameter regimes [188] where effective phase-slip dynamics
+can emerge. Realizing superconducting circuits with emergent dynamics, such as coherent phase slip dynamics or
+pair-wise Cooper pair tunneling, is an active topic of research.
+B. GKP dissipation engineering
+Quantum error correction through stabilizer measurements could be thought of asdissipation engineering. An
+alternative to measuring the stabilizers of the quantum codes is engineering a system-bath interaction,
+H =
+√
+Γ( ˆdˆb(t)† + ˆd†ˆb(t)), (102)
+which relaxes the system to states satisfyingˆd |ψ⟩ = 0, where ˆd is known as the dissipator. Any excitation in the
+system due to ˆd† are transferred to the zero-temperature bath, autonomously cooling the system to the desired state
+|ψ⟩. A Markovian model of dissipation is realized by the above Hamiltonian where the field operators (bath) obey
+[ˆb(t), ˆb(t′)†] = δ(t − t′), with δ(t) being the Dirac-delta distribution.
+There are multiple ways to design dissipators into the codespace. In Ref. [136], the authors defined dissipators to
+the GKP codespace as the natural logarithm of the stabilizersS, sinceln S |ψ⟩ = 0.22 Thus, in order to find equations
+for GKP dissipators, we analyze the finite-energy GKP stabilizers. As discussed in Chapter IVD [see, e.g., Eq. (84)],
+the finite-energy GKP stabilizers can be obtained by the following deformation of an arbitrary ideal GKP stabilizers
+S,
+S(∆) = E∆SE −1
+∆
+= E∆eiˆvE−1
+∆
+= ei[cosh(∆2)ˆv+i sinh(∆2)ˆv⊥] (103)
+where ˆv = αˆq + β ˆp and ˆv⊥ = αˆp − β ˆq. It can be easily checked that,
+[E∆SiE−1
+∆ , E∆SjE−1
+∆ ] = E∆[Si, Sj]E−1
+∆ = 0, (104)
+21RF-SQUID stands for radio-frequency superconducting quantum interference device.
+22We note an alternative definition of the dissipators was introduced in Ref. [174], which we discuss in Chapter VB2.
+
+## PDF page 39
+
+39
+Sx
+Re[⟨̂Sx⟩]
+Im[⟨̂Sx⟩] Re[⟨̂X⟩]
+Re[⟨̂Y⟩]
+Re[⟨̂Z⟩]
+Figure 12. Evolution of system under the master equation given by Eq. (107) starting from vacuum withΓ1 = Γ 2 = Γ and
+∆ = 0.2. As a function of time, the figure shows, a) Excitation number of the system, b) Expectation value of the finite-energy
+stabilizer Sx and, c) Real parts of the logical Pauli operators of the finite energy code. Here,l = 2√π is the lattice constant
+for square GKP codes. (d) Shows the Wigner function atΓt = 10. Figure adapted from [136]
+and thus, the new stabilizers and logical operators commute in the same way as the ideal stabilizers and logical opera-
+tors, satisfying the minimum requirements for stabilizer-based error correction.23 The dissipator corresponding to each
+stabilizer subspace becomes ˆd = − i
+m
+√
+2 cosh ∆2 sinh ∆2 ln S where ln S = (v[m/2 cosh ∆2]/
+√
+tanh ∆2 + iv⊥
+√
+tanh ∆2)/
+√
+2.
+Here v[l] denotes symmetric version of the modular quadraturev mod l also known as the Zak-basis described in
+Ch.IVE. These modular quadratures are obtained from the multi-valued complex logarithm of the stabilizersSx, Sp
+such that v[l] ∈ (−l/2, l/2].
+Focusing the discussion specifically to the single-mode square GKP states, we see that the two stabilizers generators
+and corresponding dissipators of square GKP code stabilizers, using the approximationscosh
+
+∆2
+≃ 1and sinh
+
+∆2
+≃
+∆2, are given by,
+Sx = ei2√π(ˆq+i∆2 ˆp) =⇒ ˆdx = (ˆq[√π]/∆ + iˆp∆)/
+√
+2, (105)
+Sp = e−i2√π( ˆp−i∆2 ˆq) =⇒ ˆdp = −(ˆp[√π]/∆ − iˆq∆)/
+√
+2. (106)
+Figure 12 shows the evolution of the system to the GKP codespace generated by the master equation (see Eq. (23)),
+˙ρ = Γ1D[ ˆdx]ρ + Γ2D[ ˆdp]ρ, (107)
+where D[O]ρ = OρO† − {O†O, ρ}/2 is the standard dissipation superoperator; see Chapter IIC. The photon number
+plot in Fig. 12a shows an instability in choosing these dissipators, as seen by the bump in initial photon number. The
+instabilties are taken care of by an alternative choice of dissipator (see Ref. [174]) which usesˆd = S − I. We discuss
+these alternative dissipators further in section VB2.
+1. Engineered dissipation using an auxiliary qubit
+One way to realize the non-local dissipators introduced just above is to use an auxiliary qubit coupled to the
+oscillator as a means for dissipation engineering. By preparing the auxiliary qubit in a known state, entangling the
+qubit and oscillator via a unitary operation, then resetting the auxiliary qubit, an effective dissipation can be realized.
+This method is sometimes calledstroboscopicdissipation engineering.
+As shown in Ref. [136], the continuous evolution under the Hamiltonian interaction,
+H(t) =
+√
+Γ( ˆdˆb†
+t + ˆd†ˆbt) (108)
+23The non-hermiticity ofSx, Sp or ˆdx, ˆdp is not a problem here because we do not intend to measure these operators. Instead we want
+to build them into the dissipation Hamiltonian which will be Hermitian. In the next section, we discuss the engineering of this dissipation
+using an auxiliary qubit.
+
+## PDF page 40
+
+40
+e) Measurement-based feedback
+Figure 13. Cartoon of the discretization of the dissipation procedure. a) Continuous dissipation with an arbitrary input field
+and an output field carrying away excitations of the GKP state. The combined action ofbin and bout can be envisioned as a
+conveyer belt carrying excess entropy of the oscillator. b) Discretization of the bath mode into slices ofδt. c) The bath modes
+can be replaced by qubits in the limit that excitations∝ Γt → 1 is smaller than 1. d) Sunce the qubits are not re-used post
+this interaction, the same qubit can resetted to the state|g⟩ and used over and over again in the same interaction with the
+oscillator. Figure adapted from [136]
+can be discretized as if the system interacts with a different bath at every time step t, i.e.
+U (t, t0) = T e−i
+´ t
+t0
+dτ H(τ ) (109)
+≈
+TY
+n=0
+e−i
+√
+Γδt( ˆdˆb†
+n+ ˆd†ˆbn) (110)
+=
+TY
+n=0
+Un, (111)
+where t − t0 = T δtand T ∈ Z. In the limit δt → 0, we approach the continuous model. The excitation number,
+proportional to Γδt, as shown in Ref. [136], needs to be small enough such that thenth bath mode contains less
+than one excitation. In this case, the bath mode can be realized using a qubit such thatˆbn → ˆσx,n+iˆσy,n
+2 , where
+ˆσx,n, ˆσy,n, ˆσz,n denote the Pauli matrices ofnth qubit mode. The commutation relation between the bath operators
+[ˆbn, ˆb†
+n] = 1 is transformed as 1
+4 [ˆσx,n + iˆσy,n, ˆσx,n − iˆσy,n] = ˆσz,n. For weakly populated qubits⟨ˆσz,n⟩ ≈1, we retrieve
+the original commutation relation. In this qubit model, the time evolution is replaced by,
+U (t, t0) =
+TY
+n=0
+e
+−i
+r
+Γδt
+2 tanh(∆2) (ˆv[√π] ˆσx,n+ˆv⊥ ˆσy,n tanh(∆2))
+. (112)
+Here, the qubits extract entropy from the oscillator and are left unused after. In other words, the ensemble of qubits
+can be replaced by a single qubit being reset after each time step, i.e.
+U (t, t0) =
+TY
+n=0
+e
+−i
+r
+Γδt
+2 tanh(∆2) (ˆv[√π] ˆσx+ˆv⊥ ˆσy tanh(∆2))
+=
+TY
+n=0
+Utarget (113)
+The correspondence between continuous and discrete models is depicted in Fig. 13.
+The final task is to derive oscillator-qubit circuits which realize the Hamiltonianˆv[m] ˆσx + ˆv⊥ ˆσy tanh
+
+∆2
+for ˆv ∈
+{2√π ˆq, 2√π ˆp} via trotterization. In Ref. [136], authors specify three different circuits using first-order and second-
+order trotterization given by Figs. 14a-c. All the circuits shown here are autonomous, but they can be easily converted
+into measurement-based feedback circuits using the circuit equation shown in Figure 14b.24 We discuss one of the
+24The measurement-based version of the sharpen-trim protocol was first introduced and experimentally demonstrated in [20], as
+discussed in Chapter VC2
+
+## PDF page 41
+
+41
+e)
+I X
+ Y
+ Zcorner  
+point
+a) b)
+c) p
+x
++YL−YL
+̂D(β) ̂D(β)
+Figure 14. Dissipation engineering circuits that can be autonomous or measurement-based feedback circuits. a) Circuits
+obtained from trotterization of Utarget in Eq. (113). The gates are conditional displacements, ˆD(α) = e(αˆa−α∗ ˆa†)⊗ˆσZ while
+Rπ/2 are rotations about the Y-axis of the ancilla Bloch sphere byπ/2. Here l =
+p
+π/2 and ϵ = l∆2. b) Circuit-equation
+to convert an autonomous circuit to measurement-based feedback circuit. The top rail is the oscillator and the bottom rail
+denotes the qubits. c) Effect of displacement errors on a GKP state. If the state is displaced to a point in the {blue, gray,
+orange, yellow}, stabilization corrects it back to the state with a{I, XL, YL, ZL} error, respectively. If stabilizers along the
+arrows are measured in order to stabilize a lattice representing a|±Y ⟩ state, then ancilla decay will only cause logical errors if
+it occurs at the redcorner points. Figures a,b adapted from Ref. [136]. Figure c adapted from Ref. [34].
+circuits in detail called thesmall-Big-small or sBs which was used to achieve beyond break-even quantum error-
+corrected memory in Ref. [52]; it was independently introduced and realized in trapped-ion system [38]. The sBs
+circuit was obtained from using first order trotterization ofUtarget for X, Zstabilization in Eq. (113) as,
+U X
+sBs = eiϵq ˆq ˆσy e−i√π ˆpˆσx eiϵq ˆq ˆσy , where ϵq =
+√π
+2 ∆2
+q, (114)
+and U Z
+sBs = e−iϵp ˆpσy e−i√π ˆq ˆσx e−iϵp ˆpˆσy , where ϵp =
+√π
+2 ∆2
+p. (115)
+The condition on modular quadratures is replaced by conditioning the whole unitary post trotterization to remain
+unchanged under translationˆx → ˆx+m, permitting ˆx[m] → ˆx. This condition is enforced by leveraging the modularity
+of the qubit by choosingΓδt such that the translationˆx → ˆx + m leads to a trivial qubit operation after timeT.
+For a rectangular GKP code, we have∆q ̸= ∆p. We can thus generalize the sBs circuit to any lattice with arbitrary
+envelope shapes and sizes by using different stabilizer vectors forˆv. It should be noted that, prior to Ref. [136], a
+similar circuit was obtained for GKP error correction via adaptive phase estimation using single-qubit ancillas by
+Terhal et al [134]. WhilesBs circuit was interpreted as another explanation for the phase estimation protocol, it is
+different in the sense that in the ideal GKP limit∆ → 0, the sBs protocol comes down to only applying the big
+conditional displacementB = ei√π ˆxσx without any correction . The scheme can be seen as an amplitude amplification
+scheme when the ancilla at the end of both roundsU X
+sBs and U Z
+sBs is in the ground state (g); while if it is in the excited
+state (e) for either round, the circuit generates a corrective back action. See Figure 19 in Chapter VC1 for more
+details on the action of thesBs map on the GKP code states and error states upon different ancillary measurement
+outcomes and Ref. [200] for a complete description of the corrective back action.
+An ancilla decay during the larger conditional displacement could yield displacement errors larger than the distance
+of the code, and hence the logical error of the code depends linearly on ancilla decay. For example, if we define
+CD (
+p
+π/2) = ei√π ˆp⊗σz, then the effect of an ancilla decay during this conditional displacement corresponds to,
+CD (
+p
+π/2 − α/2)(I ⊗Err)CD (α/2) = D(
+p
+π/2 − α) ⊗ RY (π/2), (116)
+where Err = |g⟩ ⟨e| corresponds to an ancilla decay event. The displacementα is determined by the time at which
+the ancilla decay happened. Thus, an ancilla error during the course of conditional displacement can disrupt the
+displacement, leading to an error. Here, a displacement in position by|x| = √π − 2α ∈ [−√π, √π] can cause a logical
+error in the region whereα ∈ [√π/4, 3√π/4]. Thus, the probability that an ancilla decay event causes a logical error
+is 50%, following this heuristic argument.
+
+## PDF page 42
+
+42
+The echoed conditional displacements used in superconducting circuits [20, 52] (further discussed in Chapter VC1)
+will result in an equivalent probability of logical error rate on the GKP codewords due to ancilla decay. Ancilla
+dephasing on the other hand causes small displacement errors or measurement errors; the small displacement errors
+occur due to the dephasing errors which occur in between two conditional displacements of thesBs circuit. These
+effects are correctable for the GKP encoding. Dependencies on ancilla errors have been demonstrated experimentally
+in Ref. [52]. Thus, circuits can be modified to ensure fault-tolerance with biased-noise ancilla such as Kerr-cats, fluxo-
+nium, squeezed cats, dissipatively stabilized cats, additional flag qubits. [201–203]. Another approach for suppression
+of ancilla errors is to use a GKP ancilla for error correction as discussed in Refs. [22, 204].
+ErrorcorrectionofmultimodeGKPcodes(discussedinChs.IVandVI)usingsBshasanothersourceofimprovement
+over the limitations caused by ancilla decay using theisthumus property[34]. The same idea can be used to stabilize
+a qubit for reduction in logical errors if there exist stabilizers which are not parallel to either of the logical operators
+of the code. This trick uses the extra degrees of freedom available when leveraging multiple modes for the encoding.
+The isthmus propertyis discussed in detail in Ch.VD.
+Finally, in the Supplementary Material of Ref. [136], the authors discuss a qutrit model for the dissipation process.
+One major issue with this protocol is the presence of a super lattice which could lead to tunneling in sites with higher
+energy where the GKP state is more susceptible to errors coming from Kerr-nonlinearity (see Chapter IIID). Even
+though the qutrit circuit equivalent to the sBs protocol yields a faster correction rate, the tunneling effect is higher in
+this case due to the larger conditional displacements required by the qutrit model. This is not good for ancilla noise
+nor for tunneling, since the tunneling probability to other cosine wells increases as the photon number increases. A
+protocol that overrides the issues caused by tunneling can benefit from faster error correction using qutrits.
+2. Engineered dissipation with continuous driving
+Chapter VB1 focused on using repeated interactions with an auxiliary qubit to realize quantum error correction
+of GKP codes via engineered dissipation. However, as discussed, errors of the auxiliary qubit can spoil the QEC
+performance. An alternative approach to realizing engineered dissipation in superconducting circuits is to engineer
+an interaction between the target oscillator (or qubit) and a bath mode such that, after elimination of the bath mode,
+the desired dissipators are realized on the target mode [205, 206]. Such continuous engineered dissipation has been
+used to realize experimental stabilization of the cat code [207] and the truncated 4-component cat (T4C) code [208]
+in superconducting circuits. In the proposal from Ref. [174], this is done without an auxiliary qubit, eliminating the
+propagation of auxiliary qubit errors.
+Similar to the dissipators introduced in Chapter VB1, the authors of Ref.[174] introduced a set of dissipators that
+continuously cool the oscillator’s state towards the finite-energy GKP code manifold. Using the Lindblad equation
+˙ρ = Γ P3
+k=0 D [Mk] ρ [see Eq. (23)], they define a set of four dissipatorsMk = Rkπ/2 (Sq(∆) − I) R†
+kπ/2 where Rθ =
+exp
+
+iθˆa†ˆa
+
+performs a rotation byθ in phase space andΓ is the dissipation rate. Here, Sq(∆) = E∆SqE−1
+∆ is the
+finite-energy position stabilizer for the 2D square GKP code introduced in Eq. (84). As is evident from the dissipators,
+each Lindblad operator cancels the finite-energy code manifold. However, these operators are challenging to engineer
+in a continuous manner. Instead, the authors use the BCH formula to derive approximations to these dissipators via
+Lk = ARkπ/2eiξ ˆq (I − ϵˆp) R†
+kπ/2 − I, (117)
+where ϵ = ξ sinh
+
+∆2
+, A = exp (−ξϵ/2), andξ = 2√π is the stabilizer displacement length. The phase-space dynamics
+of these modular Lindblad operators is shown in Figure 15a and b, displaying convergence towards the finite energy
+code manifold.
+To understand the effectiveness of the dissipators, the authors analyzed the evolution of the generalized GKP Pauli
+operators, defined as Z = sgn [cos(ξ ˆq/2)], X = sgn [cos(ξ ˆp/2)] and Y = iXZ, where the functionsgn(x) equals +1
+if x >0, 0 if x = 0, and −1 if x <0. These operators respect the Pauli algebra composition rules throughout the
+oscillator Hilbert space and coincide with the logical qubit Pauli operators inside the code manifold. With these four
+dissipators, the infinite-energy code stabilizers converge to their steady state value at a rateΓc ≳ AϵξΓ. As shown in
+Refs. [174, 209], under weak quadrature noise˙ρ = D [√κq] ρ + D [√κp] ρ, such thatκ ≪ Γ, the generalizedX and Z
+Pauli operators decay at a rateΓL ≃ 4ξ
+π
+q
+κΓ
+2 exp
+
+−
+p
+8Γ/ξ2κ
+
+for an optimal choice in the parameterϵ. Importantly,
+this exponential scaling ensures logical errors can be heavily suppressed with a modest ratio ofΓ/κ.
+The authors of Ref. [174] proposed a way to engineer the aforementioned dissipators using a high-impedance
+superconducting circuit driven with a frequency comb as shown in Figure 15c. Here, a switch controls the coherent
+tunneling of Cooper pairs across a Josephson junction placed in parallel in a two-mode circuit. The target GKP
+mode (top oscillator) has a large impedance such that each tunneling event translates its state by±2√π along the
+
+## PDF page 43
+
+43
+a) b) c)
+Figure 15. a,b) For a finite-energy GKP code state withsinh(∆) = 0.2/ξ displaced byα + iβ, evolution of the state’s center of
+mass (a) and modular coordinates (b) entailed by the Lindblad operators in Eq. (117) is shown for a short time stepdt ≪ 1/Γ.
+c) Proposed circuit for realizing driven dissipation of the GKP code. A switch is closed for a short timeδt every quarter period
+of the target oscillator (top) in series with a cold bath oscillator (bottom). Figures reproduced with permission from [174].
+charge axis. By driving with a train of sharp pulses that activate tunneling every quarter period, shifts are generated
+along the charge axis and phase axis in phase-space, matching a GKP lattice. The second lower impedance auxiliary
+mode (bottom) is coupled to a cold load such that the target mode dynamics is irreversible, realizing the proposed
+dissipators and stabilizing the GKP code. This circuit can be seen as an extension of Floquet circuits discussed in
+Ch. VA2. Without dissipation, the circuits for realizing a Floquet engineered GKP Hamiltonian do not correct errors,
+and the GKP states are not stabilized against noise. On the other hand, here the engineered dissipation provides a
+means of correcting errors, with exponential convergence to the code manifold in the strength of dissipation.
+C. Realization of GKP codes in superconducting circuits
+The past few years have seen rapid advancement in the experimental realization of GKP state preparation and
+quantum error correction in superconducting circuit [20, 27, 52, 96] and trapped ion [37, 38, 210] platforms. In this
+section, we review the architecture for superconducting circuit experiments leading ultimately to the realization of an
+error corrected quantum memory with coherence beyondbreak-even [as defined in Chapter VC2 around Eq. (120)].
+1. Experimental architecture and state preparation
+To date, all explicit realizations of the GKP code in superconducting circuits have been performed using a cQED
+architecture similar to that shown in Figure 16a [48, 185]. Here, a high quality-factor 3D superconducting cavity is
+coupled to an auxiliary superconducting qubit [128, 211, 212] and anchored at the base stage of a dilution refrigerator
+atatypicaltemperatureof 20 mK. TheGKPstateisencodedinthequantizedelectromagneticfieldofthefundamental
+mode of the microwave cavity. Such an architecture has also been used to realize quantum error correction of other
+bosonic codes—including rotation-symmetric bosonic codes [126] such as the cat code [19] and binomial code [213, 214]
+andalsoincludingfullyautonomousrealizations[208]. Typicalhigh-purityaluminumcavitysingle-photonlifetimesare
+on the order of1 ms, with state of the art niobium cavities reaching lifetimes of tens of milliseconds [129] up to seconds
+[127]. For the GKP experimental realizations, a transmon [9] has been used as the auxiliary control element, with
+current typical lifetimes on the order of100 us—of lower quality than the oscillator. As we see later, transmon errors
+during stabilization is a main limiting factor for reaching longer logical lifetimes in current cQED GKP experiments.
+Exploration of other types auxiliary qubits for GKP error correction is an ongoing topic of investigation in the field.
+The transmon-cavity system is operated in the dispersive regime of cQED [48] described by an effective Hamiltonian
+within in the rotating frame of the transmon and cavity as
+H = χˆa†ˆa ˆσZ
+2 + ε∗(t)ˆa + ε(t)ˆa† + Ω∗(t)ˆσ− + Ω(t)ˆσ+ + Hspurious, (118)
+where we have made the rotating wave approximation and two-level system approximation [48]. Both of these
+approximations are broken in GKP error correction experiments, however we use this Hamiltonian to explain the
+
+## PDF page 44
+
+44
+a) b)
+−1
+ 0
+ 1
+−1
+0
+1
+−1
+ 0
+ 1
+ −1
+ 0
+ 1
+c) 1.0     0.5    0.0    -0.5   -1.0
+Figure 16. a) Typical 3-D cQED setup consisting of a superconducting cavity (here, a post acts as aλ/4 resonator where λ
+is the wavelength of the fundamental microwave mode) coupled to a transmon with an on-chip readout resonator and Purcell
+filter. Figure reproduced from [52]. b) Phase-space displacement sequence used to realize the Echoed Conditional Displacement
+(ECD) gate; see [27] for full pulse sequence. c) Measured characteristic functions for GKP states prepared with conditional
+displacements starting from vacuum. Figure reproduced from [27].
+basic operating principles of the control. In the Hamiltonian above,ˆa is the annihilation operator of the oscillator
+with
+
+ˆa, ˆa†
+= 1, ˆσZ is the Z Pauli operator for the auxiliary qubit (realized as the ground and first excited states
+of the transmon), and{ε(t), Ω(t)} are the complex-valued drives at the cavity and transmon frequency, respectively.
+These drives are delivered as microwave pulses sent through transmission lines that are coupled to the cavity mode
+and transmon. Hspurious includes higher-order interactions that are generally harmful for GKP state preparation and
+error correction. For example, the oscillator Kerr nonlinearityHK = Ka †2a2 is a necessary byproduct of the cavity’s
+dispersive coupling to the transmon, however it introduces an unwanted evolution of the oscillator that distorts GKP
+states [20, 21].
+In other bosonic quantum error correction experiments using a similar architecture, the dispersive shift is engineered
+to be roughly χ/2π = 1 MHz, chosen so parity measurements that occur on a timescaleτparity = π/χ can be made
+fast relative to relaxation times of transmons and cavities [19, 215]. This leads to typical values of the inherited
+Kerr in these other experiments on the order ofK/2π ≈ 1 kHz. On the other hand, for GKP experiments, the Kerr
+coefficient must be engineered to be much smaller (on the order ofK/2π ≈ 50 Hzor less) in order for the Kerr effect
+not to reduce QEC performance relative to other error channels given current relaxation rates [20]. One approach to
+suppress Kerr is to reduce the coupling between the transmon and oscillator. Since the Kerr coefficient is proportional
+to the square of the dispersive shift to first order,K ∝ χ2 [48], the Kerr can be strongly suppressed this way. Such
+a low-χ approach was first demonstrated in Ref. [20] with a dispersive shift ofχ/2π = 28 kHzand a suppressed Kerr
+coefficient on the order ofK/2π ≈ 1 Hz.
+To control the oscillator with a weak dispersive shift, an effective interaction is used that can be turned on and
+off in situ using a microwave drive. In this approach, the oscillator is driven with a resonant tone activating a large
+displacement of the mean field, α(t). In the time-dependent displaced frame of the oscillator ˆa → ˆa + α(t), the
+dispersive interaction H = χˆa†ˆaˆσZ/2 becomes
+˜H = χ
+
+α(t)ˆa† + α∗(t)ˆa
+ ˆσZ
+2 + χˆa†ˆa ˆσZ
+2 + χ|α(t)|2 ˆσZ
+2 . (119)
+Here dα(t)/dt = −iε(t) − (κ/2) α(t) is the classical response to a resonant drive [20, 27] andκ is the photon loss rate
+of the oscillator. With a large displacement, the first term in˜H dominates, and the effective interaction between the
+oscillator and qubit becomes a qubit-state-dependent force with an enhanced interaction strengthgeff(t) = χ|α(t)|.
+By using large oscillator displacements, the weak dispersive shift can be overcome.
+As shown in Chapter VB1, the key entangling gate needed between the oscillator and auxiliary qubit is a conditional
+displacement. As introduced in Ref. [20] and later refined in Ref. [27], a conditional displacement can be constructed
+from ˜H using a suitable echo sequence as illustrated in Figure 16b. This sequence is called theEchoed Conditional
+Displacement (ECD) gate, and the associated unitary is ECD(β) = D(β/2) |e⟩ ⟨g| + D(−β/2) |g⟩ ⟨e|. A similar
+conditional displacement gate was also realized in Ref. [30] with a modified trajectory through phase space.
+When the ECD(β) gate is interleaved with rotations of the auxiliary qubit, a universal gate set is obtained, meaning
+any unitary on the oscillator and auxiliary qubit Hilbert space can be realized with enough applications of ECD gates
+and qubit rotations [27]. One particular application of this universality is the unitary state preparation of finite-energy
+
+## PDF page 45
+
+45
+c)
+0.0
+0.4
+0.8
+0.0 0.5 1.0
+ON
+OFF
+sim Z
+X
+Y
+0.0
+0.3
+0.6
+0.0 0.5 1.0
+0
+-1
+1
+0.0
+0.3
+0.6
+0 40 80
+exp
+sim
+0 10 20 30
+# rounds
+t ( µs)
+Re( C ( χ))
+Re( S )
+S q
+S p
+b)
+square
+hex
+a)
+q
+envelope
+trim
+q peaks
+sharpen p
+envelope
+trim
+peaks
+sharpen
+p
+d)
+1.17 μs 1.36 μs
+transmon
+oscillator
+tomography after 200 rounds
+square hex
+Figure 17. a) Measurement based sharpen-trim protocol. b) Left: Evolution of the square-code position and momentum
+stabilizers under repeated QEC cycles starting from vacuum. Right: Measured characteristic function after 200 rounds. c)
+Lifetimes of the uncorrected (crosses) and corrected (circles) square GKP qubit. Inset: Hexagonal lifetimes. d) Measured
+characteristic functions for Hadamard eigenstates prepared with a measurement-based gate teleportation protocol. Figures
+reproduced from [20].
+logical states. As shown in Figure 16, the{|+Z⟩ , |+Y ⟩ , |−Z⟩} logical GKP qubit states are attained in this manner
+with a target squeezing of∆ = 0.31 and an achieved squeezing∆ = 0.35 using N = 9 layers of ECD control for the
+Z eigenstates (and N = 10 for |+Y ⟩). In particular, the measured data is an example of the characteristic function,
+C (β) = Tr (ρD(β)) as introduced in Chapter IIB1. Here the experimental state preparation fidelity ranges from
+F = 0 .8 to F = 0 .85, limited by errors of the auxiliary qubit and cavity errors during the ECD gates. For these
+pulses, the intermediate large displacement used was|α| = 30, corresponding to an average of900 photons during the
+ECD gates.
+2. Experimental realization of GKP quantum error correction
+The first experiment to demonstrate quantum error correction of the GKP code was published in 2020 [20]. In this
+experiment, the authors introduced the measurement-based sharpen-trim protocol shown in Figure 17a. This circuit
+implements engineered dissipation to the GKP code manifold as derived in Chapter VB1. By utilizing fast FPGA
+electronics with a latency on the order of200 ns, the transmon was measured and fast feedback displacements were
+employed to correct for small shift errors in real time in a four-round QEC cycle. As a verification experiment, the
+QEC cycle was repeated starting from the vacuum state of the oscillator, and the expectation values of stabilizers
+were measured after each step. The results of this experiment are shown in Figure 17b, with a convergence to the
+quasi-steady state after about 20 rounds (here, a round is defined as a single sharpen or trim step). The pattern
+in the measured stabilizers is clear: during each four round cycle, the measured position (or momentum) stabilizer
+value increases after the corresponding sharpen round, and slightly decreases during the next 3 rounds, matching
+simulation. Also shown in Fig. 17b is the convergence of the oscillator to a mixed state in the code manifold after 200
+rounds of stabilization, longer than the decay constant of logical information.
+To measure the performance of the quantum error correction protocol, Pauli eigenstates of the GKP code were
+prepared with a measurement-based protocol [20, 37]. In this protocol, the code is first stabilized to an arbitrary
+(mixed) state in the code manifold by many rounds of stabilization. Next, the GKP code is projected into one
+of the |±Z⟩ logical eigenstates by an infinite-energyZ logical measurement. For this measurement, the transmon is
+initialized in the|+x⟩ state, a conditional displacement corresponding to aZ logical Pauli is applied, and the transmon
+
+## PDF page 46
+
+46
+is measured in thex basis. A real-time feedback displacement conditioned on the measurement result was then applied
+to prepare the desired logical state. The same procedure was used to prepareX and Y logical states by measuring
+the corresponding logical displacements. After state preparation, decay of the Pauli expectation values are measured
+in two cases: during free evolution and with repeated QEC cycles applied via the sharpen-trim protocol. The results
+for the square GKP code are shown in Figure 17c. The lifetime of the error-corrected GKP Pauli expectation values
+is longer than the unstabilized counterparts by about a factor of two. The square code has a natural noise bias:
+Because the displacement corresponding to theY logical stabilizer is
+√
+2 times larger in phase-space than theX and
+Z stabilizers (see Example IV.10), the code distance along theY direction is reduced, leading to a reduction in the
+lifetime of Y eigenstates.
+To realize a logical qubit with a depolarizing error channel, a similar 6-round sharpen-trim protocol was used to
+stabilize the hexagonal GKP code, with details given in Ref. [20] and results shown in the inset of Figure 18c. As
+expected, for the hexagonal code, the lifetimes ofX, Yand Z are equal, due to the equal lengths of each displacement
+stablizer (and hence equal code distance). Finally, arbitrary rotations within the code manifold can be performed
+by a measurement-based gate teleportation protocol [20, 37]. With details given in Ref.[20], the gate-teleportation
+protocol is similar to the logical measurement protocol, except the transmon is prepared in an arbitrary state on the
+x − y plane of the Bloch sphere to perform a logical rotation within the manifold. This procedure was used to prepare
+Hadamard eigenstates in both the square and hexagonal codes, as shown in Figure 17d.
+Although the authors of Ref.[20] realized stabilized GKP states with lifetimes longer than their unstabilized coun-
+terparts, the experiment did not realize error correction beyondbreak-even. In particular, for a quantum channel
+E : ρ → E(ρ), we can define the average channel fidelity relative to a target unitary channelU : ρ → U ρU† given by
+¯F =
+´
+dψ ⟨ψ| U †E (|ψ⟩ ⟨ψ|) U |ψ⟩ where the integral is over the uniform measure in state space. Using the Pauli trans-
+fer matrix approach, the experimental decay of Pauli expectation values can be used to compute the channel fidelity to
+the target identity channelU = I [216]. At small timesδt, this fidelity can be expanded as¯F (δt) = 1 − 1
+2 Γδt, allowing
+the short-time decay rate of different qubits and channels (which generally have non-exponential decay curves) to be
+compared through a single decay rate,Γ [52]. With this, thequantum error correction gainis defined as
+G = Γphysical
+Γlogical
+(120)
+where Γphysical isthefidelitydecayconstantofthebestphysicalqubitinanexperimentand Γlogical isthedecayconstant
+of the error-corrected logical qubit.G = 1 corresponds to the break-even point. To the best of our knowledge, only
+three experiments to date have achieved beyond break-even QEC (G >1) of a quantum memory given this metric,
+all using bosonic codes [19, 52, 214]. We note that this definition is in the context of aquantum memoryexperiment,
+where a long-lived stabilized manifold is the target application, i.e. the identity is the target unitaryU = I. A more
+careful definition involving SPAM (state preparation and measurement) errors as well as logical gate errors will be
+needed in future works to compare error-corrected logical qubits for use in quantum computation.
+Using these definitions, for the 2020 GKP error correction experiment [20], the average channel lifetimes of the
+stabilized logical qubits wereΓ−1
+square, 2020 = 222 usfor the square encoding andΓ−1
+hex, 2020 = 205 usfor the hexagonal.
+This should be compared to the the best physical qubit in the system, the{|0⟩ , |1⟩} Fock encoding of the high quality-
+factor microwave cavity, with decay constantΓ−1
+Fock, 2020 = 368 us (for the cavity,T1 = 245 us, and we are assuming
+here that T2 = 2 T1, as the measured cavity intrinsic dephasing rate was negligible). From this, the realized QEC
+gain was Gsquare, 2020 = 0 .6 and Ghex, 2020 = 0 .56. As confirmed by master equation simulations, a limiting factor
+in realizing a larger gain was bit flips of the auxiliary transmon during the large conditional displacements. Since
+bit flips do not commute with the interaction Hamiltonian Eq. (119), they can lead to large displacement errors of
+the GKP state, causing logical errors, as is also discussed in Chapter VB1. The stabilization rounds were spaced
+optimally so the contribution from auxiliary qubit errors was on par with the contribution from cavity errors.
+In a more recent 2023 experiment [52], advancements were made to reach quantum error correction beyond break-
+even. In particular, the incorporation of three main innovations led to this improvement in gain compared to the 2020
+experiment. First, by using recently development fabrication techniques for realizing a 3D transmon with tantalum
+pads [217], a relatively long-lived auxiliary transmon was used with an average lifetime ofT1 = 280 us, close to a
+six-time improvement over the auxiliary transmon used in 2020 [20]. Secondly, the measurement-based sharpen trim
+protocolusedin2020wasreplacedwitha semi-autonomous versionofthesmall-Big-small(sBs)protocol, asintroduced
+and derived in Chapter VB1. Here, we call the protocol semi-autonomous since the final oscillator displacement in
+each sBs round is performed with a conditional displacement, however the auxiliary qubit and oscillator phase was still
+reset between QEC rounds using measurement and feedback (now incorporating reset of the|f ⟩ transmon state). The
+reset could be replaced with an autonomous transmon reset to make the protocol fully autonomous. The third major
+advancement was incorporating online optimization of the QEC protocol using model-free reinforcement learning [218].
+In particular, the sBs protocol was used as an ansatz for the QEC cycle, and a proximal policy optimization (PPO)
+
+## PDF page 47
+
+47
+100 QEC cycles
++1
+-1
+0
+a)
+Time (ms)
+0 cycles; 0.00ms 100 cycles; 0.49ms 200 cycles; 0.98ms 400 cycles; 1.97ms 800 cycles; 3.94ms
+0
+-1
+1
+W
+b)
+auxiliary qubit bit flips
+auxiliary qubit phase flips
+c) physical error rate (1/ms)
+logical error rate
+ (1/ms)
+uncorrected corrected
+Figure 18. Figures reproduced from [52]. a) Lifetimes of the uncorrected (open circles) and corrected (filled circles) square
+GKP code. b) Measured logical error rate sensitivity to increasing auxiliary qubit bit-flip or phase-flip rate. c) Measured
+Wigner functions of an error corrected|+Z⟩ logical state, taken as snapshots after varying number of rounds.
+reinforcement learning algorithm was used to train 45 real-valued parameters of the QEC cyclein-situ to optimize
+the lifetime. Such training was essential to realizing the large QEC gain.
+Together, these improvements led to the square GKP code logical decay curves shown in Figure 18a, with logical life-
+times of TX, 2023 = TZ, 2023 = 2.20 msand TY, 2023 = 1.36 mswith decay time constant of the average channel fidelity
+of 1/Γsquare, 2023 = 1.82 ms. Here, the GKP states were prepared using ECD control [27]. Given the Fock encoding
+{|0⟩ , |1⟩} lifetime of Γ{|0⟩,|1⟩},2023 = 0.8 ms, the achieved QEC gain wasGsquare, 2023 = Γ {|0⟩,|1⟩},2023/Γsquare, 2023 =
+2.27 ± 0.07, well beyond break-even. Snapshots of the Wigner functions at different points in the logical decay curve
+with QEC starting from |+Z⟩ is shown in Figure 18c, indicating the decay of the logical information encoded in
+the interference fringes. Finally, we note that the logical Pauli measurements used in Refs. [52] and [20] were the
+infinite-energy versions, which lowers the contrast of the decay curves. In future applications, these measurements
+could be replaced with measurements of the finite-energy Pauli operators, as discussed in Chapter VD, to increase
+the contrast.
+The authors of Ref. [52] also experimentally studied the stabilized GKP qubit’s sensitivity to auxiliary qubit noise.
+For this, they injected noise to selectively increase the auxiliary qubit’s bit-flip rateγ1 or phase-flip rate γφ. The
+results of this experiment are shown in Figure 18b. Fitting these slopes in the low physical error rate regime, the
+authors found that the QEC logical error rate is65-times more sensitive to auxiliary qubit bit flips than auxiliary
+phase flip, as expected from the discussion in Chapter VB1.
+To better understand the error correction protocol, the authors of Ref. [52] analyzed the Kraus maps for the
+small-Big-small protocol. In particular, the sBs protocol repeatedly implements a composite channel R∆ (ρ) =
+RZ
+∆ ◦ RX
+∆
+
+(ρ) where ρ is the oscillator’s density matrix and
+
+RX
+∆ , RZ
+∆
+	
+are the rank-2 channels associated with
+sBs rounds in the position and momentum directions. These channels can be written as Kraus maps,RX
+∆ (ρ) =P
+i={g,e} K X
+i
+†
+ρK X
+i where P
+i K X
+i
+†
+K X
+i = I and a similar definition for Z. Here, K X
+{g,e} are the Kraus operators
+corresponding to measuring the auxiliary qubit in{|g⟩ , |e⟩}, explicitly given by
+K X
+g = ⟨g| U X
+sBs |g⟩ (121)
+K X
+e = ⟨e| U X
+sBs |g⟩ , (122)
+where U X
+sBs is the unitary corresponding to anX- sBs round given explicitly in Eq. (114); see Chapter IIC for general
+discussion about quantum channels and Kraus operators.
+
+## PDF page 48
+
+48
+0
+1
+a)
+b)
+Figure 19. Figures reproduced from [52]. a) Kraus operators for the composite QEC channel, plotted in the basis for which
+K †
+gg Kgg is diagonal (absolute values of matrix entries is shown). The code and error spaces are labeled, each consisting of two
+states forming a logical Bloch sphere. b) Wigner functions of projectors onto the code and error spaces, along with comparisons
+to a single photon loss or gain error applied toC0.
+To understand these Kraus maps, the authors of Ref. [52] analyzed the four Kraus operators for the composite
+channel R∆ given by Kgg = K Z
+g K X
+g , Kge = K Z
+g K X
+e , Keg = K Z
+e K X
+g , and Kee = K Z
+e K X
+e corresponding to the two
+auxiliary qubit measurement outcomes of each full QEC cycle consisting ofX and Z QEC rounds. For ∆ = 0 .34,
+these Kraus operators are plotted as matrices in the truncated eigenbasis ofK †
+gg Kgg in Figure 19. The eigenbasis
+splits into pairs of statesCi that define the various error spaces and are each orthogonal to the code spaceC0. These
+matrices shed a new light onto the sBs protocol by revealing atrickle-down approach to error correction: measuring
+|e⟩ in either the X or Z sBs round signals that an error has been corrected, and the corresponding Kraus matrix
+applied shifts the state down to the next lower error space. Similar code and error spaces can be defined as the
+quasi-degenerate pairs of eigenstates of the confined GKP Hamiltonian discussed in Chapter VA.
+The authors of Ref. [52] also plotted these spaces explicitly, as reproduced in Figure 19b, displaying the Wigner
+functions of the projectorsΠ0, Π1, and Π2 onto the codespace and first two error spaces. As shown in the figure, the
+first two error spaces are well approximated byΠ1 ≈ aΠ0a† and Π2 ≈ a†Π0a, indicating that the hierarchy closely
+resembles photon lossa and photon gaina† type errors. The higher error spaces can also be studied this way, with
+more details in Ref. [52]. The Kraus operators can also be written in the position or momentum basis, as done in
+Ref. [20] for the case of the sharpen-trim protocol.
+Besides the approaches to mitigate auxiliary qubit noise discussed in Chapter VB1, using the error corrected GKP
+qubits for quantum computation and other applications will require high-fidelity single-qubit and multi-qubit gates.
+For realistic GKP qubits, the gates must be engineered to suppress leakage out of the finite energy manifold. For
+Clifford gates, one simple approach is to apply the infinite-energy version of the gate (a Gaussian unitary) followed
+by many cycles of finite-energy QEC to project the states back onto the finite-energy manifold. An alternative is
+to engineer gates that directly respect the finite-energy condition, with one approach proposed in [137]. In super-
+conducting circuits, purpose-built couplers must be used to achieve these Gaussian operations without introducing
+spurious nonlinearities, as discussed in Chapter VC1. Some promising approaches include using Kerr-free parametric
+three-wave mixing with a SNAIL (Superconducting Nonlinear Asymmetric Inductive eLement) mixer [28, 219, 220]
+or other couplers that could be engineered in a Kerr-free regime [29, 74, 221].
+D. Additional proposals for control of finite-energy GKP states using auxiliary qubits
+As introduced in Ref. [13], Gaussian unitaries can be employed to realize Clifford operations on infinite-energy
+GKP states. However, for realistic finite-energy states as defined in Chapter IVD, Gaussian unitaries do not suffice.25
+25In particular, any Gaussian unitary that does not commute with the number operatora†a (and hence does not commute with the
+envelope operatorE∆ as introduced in Chapter IVD) will lead to leakage outside of the finite-energy code manifold. For the computational
+single-mode GKP states, most Clifford operations fall into this category.
+
+## PDF page 49
+
+49
+In addition, state preparation and measurement of finite-energy GKP states is challenging, requiring a non-linear
+resource to realize the non-Gaussian states.
+In Chs. VA2, VB, and VC, a few methods for state preparation and control of finite-energy GKP states was
+discussed in-depth. In this section, we extend this discussion to some other finite-energy control methods in the liter-
+ature using auxiliary qubits. As these methods are not well-suited for, e.g., optical platforms, we relegate engineering
+optical GKP in to Ch. VE.
+1. State preparation
+Reducing State Preparation And Measurement (SPAM) errors is key to achieving practical quantum computing
+[222]. In spite of the recent beyond break-even results for error correction of a quantum memory described in
+Chapter VC2, the contrast of measured decay curves (see Figs. 17 and 18) as well as the relatively low state
+preparation fidelity (see Ref. [27]) suggest that SPAM errors need improvement to be competitive with other quantum
+computing architectures. Here, we give a brief summary of additional results and proposals for arbitrary finite-energy
+GKP state preparation and attempts to improve upon the fidelity by keeping auxiliary qubit errors in check, which
+is one of the main limitations of the methods presented in the previous sections.
+As discussed in Ch. VC1, experimentalists have used numerically optimized circuits to prepare GKP states with
+conditional displacements realized in a weak dispersive coupling regime [27]. These gates are simpler and more
+favourable to GKP states. A measurement-free logical GKP state teleportation scheme was introduced in Ref. [223]
+using numerical optimization with the same gates. Here, the authors find circuits composed of multiple conditional
+displacements to teleport arbitrary states from the single qubit ancilla to the corresponding logical GKP state in the
+oscillator, without any measurements on the ancilla. Ideally, post selection on the ancilla being in the expected state
+at the end of circuit can yield some protection against ancilla noise. However, both numerically optimized schemes
+yield circuits which are relatively long; thus the methods will still be restricted by multiple ancilla-error events. Due
+to auxiliary qubit errors during large-depth measurement-free circuits, measurement-based approaches or engineered
+dissipation based approaches might be a better option for high-fidelity state preparation of GKP states. For example,
+the states prepared experimentally using engineered dissipation, measurement, and feedback in Ref. [20] (see also Fig.
+17) were visually of higher quality than those prepared using measurement-free approaches in Refs. [27, 52] (see Figs.
+16 and 18).
+To prevent propagation of auxiliary qubit errors during state preparation, a fault-tolerant version of the phase
+estimation protocol introduced in Ref. [134] was developed in Ref. [202]. The authors of the latter use the non-
+adaptive phase estimation with one ancilla and one flag qubit. The flag qubit is used to detect errors during the
+conditional displacements by performing a CNOT gate between the auxiliary qubit and flag qubit before and after
+each conditional displacement. Due to the dependence of phase estimation protocols on measurement outcomes, the
+acceptance chance of this protocol is< 50%. Also, in Ref. [200], the authors introduce an analytic framework from
+which one can derive deterministic generation of Pauli logical GKP states. The authors propose that auxiliary qubit
+resets in the deterministic scheme can be replaced by post-selection to detect auxiliary qubit errors.
+In addition to the above methods, Ref. [34] introduced a new feature, called theisthmus property, to mitigate effects
+of auxiliary qubit errors using two-mode GKP codes (see Ch.VIB). This technique can also be understood in terms
+of single-mode GKP codes via preparation of single-mode|Y ⟩L states. Logical GKP |±Y ⟩ states can be prepared by
+measuring the stabilizers which are parallel to the±YL operators as marked by the arrows along the diagonals in
+Figure 14c. These stabilizers are valid if we stabilize the +1 eigenspace of+YL (right diagonal) and the−1 eigenspace
+of −YL (left diagonal). The path that the oscillator state follows (during dissipative stabilization using dissipators
+engineered from these stabilizers) go along the marked black arrows in the figure. We denote the various regions of
+phase space displacements by colors which indicate whether, after several rounds of error correction, the state would
+be mapped to a logical{no error, XL, YL, ZL}. The black arrows cross the regions ofXL, ZL errors only at corners
+marked in red. If ancilla decay occurs anywhere apart from these points on the paths marked by the black arrows
+then the state suffers with no error since aYL does not affect the logical information contained in a|Y ⟩L state. These
+points can be seen as the isthmus with harmful error regions on either sides. The probability of falling into either
+region decreases with decreasing∆. This is the isthmus property referred to above in the context of multimode GKP
+stabilization. Due to the extra degrees of freedom in two-mode GKP codes, all stabilizers can be measured using a
+path involving anisthmus between erroneous regions; see Ch.VIB for further details.
+
+## PDF page 50
+
+50
+2. Unitary operations
+As we have discussed, when logical gates designed for the infinite-energy GKP codespace are performed on finite-
+energy GKP states, finite-squeezing effects can sometimes be thought of as additional noise. However, an alternative
+approach that is an active topic of research is to consider the finite-energy GKP manifold as a valid code space
+and modify all gates to account for finite-squeezing effects. As a result, in some representations, gates can become
+non-unitary, requiring dissipation.
+Code deformation to finite-energy GKP states by the envelope operatorE∆ = e−∆2 ˆn, as discussed in Chapter IVD,
+transforms all logical operators to non-unitary operations with Hamiltonians of the same order. Gates that commute
+with E∆, such as the Fourier gate, are unchanged. In Ref. [34], it was shown that the square-root Hadamard gate
+for the single-mode computational square code is
+√
+Had = ei π
+8 n2
+which also commutes with the envelope operator.
+Interestingly, as a result, this is a non-Clifford gate which could be performed without finite-squeezing modification.
+However, we do not know a valid teleportation and distillation scheme for the resource state which applies this gate.
+One method to find the finite-energy representation of infinite-energy gates is to apply the mapE∆(•) := E∆ • E−1
+∆ .
+As an example, for single-mode infinite-energy computational GKP states, a phase gate and controlled-Z gate can be
+achieved using Pideal = eiq2
+and CZ ideal = eiˆq⊗ˆq, respectively [13]. These gates do not commute with the envelope
+operator and must be modified to account for finite-energy effects. They are transformed into the analogous finite-
+energy operations by conjugating them with the envelope operatorE∆ according to
+EPidealE−1 = Eeiˆq2
+E−1 = ei(cosh ∆2 ˆq+i sinh ∆2 ˆp)2
+(123)
+≈ ei(ˆq2−∆4 ˆp2+i∆2{ˆq, ˆp}) (Finite-energy Phase gate) (124)
+ECZ idealE−1 = Eeiˆq⊗ˆqE−1 = ei(cosh ∆2 ˆq+i sinh ∆2 ˆp)⊗(cosh ∆2 ˆq+i sinh ∆2 ˆp) (125)
+≈ ei(ˆq⊗ˆq−∆4 ˆp⊗ ˆp+i∆2(ˆq⊗ ˆp+ ˆp⊗ˆq)) (Finite-energy CZ gate) (126)
+where the approximations hold in the small∆ limit such thatcosh ∆2 ≈ 1 and sinh ∆2 ≈ ∆2. In Ref. [137], a circuit
+was proposed to perform these non-unitary gates using an auxiliary qubit through the dissipation model described in
+Ref. [136]. The fidelity for the circuit obtained with first-order trotterization is reported to be60%. The authors have
+shown that further trotterization can improve the circuit, however this would entail the use of ancilla for a longer
+time, subjecting the gate fidelity to be limited by ancilla errors.
+In Ref. [200], the authors utilized an analytic framework to derive circuits for finite-energy GKP codespace using an
+auxiliary qubit. The authors present a measurement-free gate teleportation circuit using a single-qubit ancilla which
+corrects on the codespace while applying a logical operation. This unique property follows from the fact that the
+teleportation circuit is derived from the sBs protocol used for dissipative stabilization, as discussed in Chapter VB1.
+While the oscillator errors are taken care of in the circuits referred to in Ref. [200], the teleportation circuits are not
+fault-tolerant to ancilla errors. In order to achieve high fidelity in the presence of biased-noise ancilla, the authors
+construct piece-wise circuits that significantly mitigate the effects of ancilla dephasing.
+It was shown in Ref. [225] that GKP states can achieve universality with the availability of Gaussian operations
+and logical Pauli eigenstates, modulo finite-energy corrections. The authors suggest preparing the GKP magic state
+using only beam-splitters and Pauli logical states. This direction is quite promising and at the heart of solving the
+issue of resource overhead for practical quantum computing [226], however, it requires some additional analyses of
+how the finite-energy envelope affect the fidelity of the final state and what kind of corrections it entails.
+3. Logical readout
+For optical systems, it is favorable to use Homodyne detection for logical readout of GKP states. However, this
+readout scheme is not well-suited to superconducting systems due to low measurement efficiency [23] (see details in
+Section. IIE). Using the circuit shown in Fig. 20a, logical measurement of infinite-energy GKP operators can be done
+using conditional displacements, which has been used in Refs. [20, 52], however these measurements are not optimal
+for finite-energy GKP since the readout fidelity depends on the GKP squeezing.
+In Ref. [224], the authors appended a small conditional displacement on the ideal logicalXL measurement circuit
+and found the readout fidelity to increase by an order of magnitude, as shown in Fig. 20b. The magnitude of the
+added conditional displacement was optimized and found to be optimal when equal to
+√π
+2 ∆2, similar to the small
+displacement in the big-small-big protocol. This suggests that the circuit is closer to the logical measurement circuit
+for finite-energy GKP states.
+
+## PDF page 51
+
+51
+ P(+|ζ)
+Displacement Error (, in multiples of ) ζ π
+Ideal GKP Readout
+̂D(il/2)
+|+⟩
+|ψ⟩
+ MX
+Finite-Energy GKP Readout
+̂D(il/2)̂D(−ϵ/2)
+̂Rπ/2|+⟩
+|ψ⟩
+ MX
+(a)
+(b)
+(c)
+Inﬁnite-Energy GKP Readout
+Figure 20. Readout fidelity of displaced GKP states [200]. Here,l =
+p
+π/2. (a)Infinite-Energy Readout GKP Readout circuit
+(b) Finite-Energy GKP readout circuit [224]. The circuit was optimized forϵ = 2 l∆2, where ∆ is the envelope-size of the
+concerned GKP state (see Sec. IVD). (c) Readout fidelity as a function of translation error. The graph plots the probability
+of getting the ancilla outcome= +1 upon measurement using the readout circuits shown in (a) and (b) versus the translation
+error in the logical state|ψ⟩ = |0L⟩. Ideally we would like the fidelity to be constant for all states with correctable displacement
+errors, see the blue curve. Finite-energy readout is better approximation to finite energy readout circuits compared to ideal
+readout fidelity, see the peak of the green and orange curves at zero translation errors. With increase in the translation error,
+the fidelities drop as a cosine function ofζ, amount of translation error in the state.
+Finally, we would like to point out that the readout fidelity drops in the presence of correctable displacement errors
+following a cosine with the maxima at zero displacement error (see Figure. 20c). This issue requires one to perform
+a phase estimation type measurement using multiple qubits which might have worse back action on the state and
+also exposes the state to ancilla errors for a longer time. All these considerations indicate that there is still need for
+improvement in the universal control of logical GKP operations beyond achieving Gaussian control.
+E. Optical GKP: Proposals and challenges
+Togeneratenon-Gaussianstates—suchasGKPstates—strongnon-linearitiesaregenerallyrequired. Intheprevious
+sections, we saw that, for microwave resonators, coupling a microwave mode to a nearby auxiliary qubit facilitates
+the necessary non-linearity. The situation is a bit more challenging in optics because the non-linearities are produced
+via third or higher-order photon-photon interactions in a non-linear material which are typically quite weak. Recent
+developments—as evidenced by preliminary work in Ref. [36]—reveal initial glimpses of success, however these efforts
+currently exhibit relatively low fidelity and squeezing around 2.5 dB, below that of other platforms, such as microwave
+circuits and trapped ions, and what is required for fault-tolerant quantum computing with GKP states. Therefore,
+it is imperative to maintain an open-minded approach and investigate various proposals that could facilitate the
+realization of high-fidelity, highly squeezed GKP states within the optical domain. In what follows, we discuss five
+proposals for optical GKP state generation; see Figure 21 for an illustration.
+A popular approach to circumvent the weak non-linearities in optics is to probabilistically generate GKP (and
+other non-Gaussian) states via Gaussian boson sampling (GBS) devices [36, 75, 227–231] (see also Refs. [232, 233]
+for similar but distinct protocols about PNR measurement-based GKP state-generation). The GBS device works as
+follows [see Figure 21(a)]: Displaced squeezed vacua are injected into a multimode linear-optical network consisting
+of beamsplitters and phase-shifters. At the output, all modes but one are projected onto photon-number states via
+photon number resolving (PNR) detectors. Depending on the outcomes of the PNR measurements, the remaining
+mode collapses to the target (e.g., GKP) state with some probability of success. This scheme is probabilistic but
+heralded. Many GBS devices can then be multiplexed together to increase the success probability, however this
+comes with a large resource overhead [230]. For instance, ifpGBS is the probability to successfully generate a (high-
+
+## PDF page 52
+
+52
+3 s
+In
+ite
+YinH
+IGKP
+ainDon T X 3 pappy
+Don
+Mipecator
+Opted
+put Do
+ItfirmsignalDx
+Od
+qp
+(a) (b) (c)
+(d) (e)
+|GKP⟩D
+D
+D
+Click!
+Pump
+Signal D
+D
+q(ϕ)
+|GKP⟩
+OP A
+χ(2)
+Microwave
+Resonator
+ˆain
+|GKP⟩
+Shaped electron
+Optic.
+mode
+N ℏω
+Spectroscopy
+and
+Post-selection
+Figure 21. Schematic of proposed optical GKP state-generation devices. (a) Gaussian boson sampling (GBS) device [75, 227,
+228, 230]. (b) Microwave-to-optical transducer—e.g., aχ(2) non-linear material embedded in a microwave resonator [6, 53, 54].
+(c) Reflection of an optical squeezed state off an optical cavity hosting a three-level system [234]. (d) Non-linear dynamics of
+a optical parametric amplifier (OPA) [235]. (e) Shaped, free electron interacting with an optical mode [236].
+fidelity) GKP state from one GBS device,26 then the probability for successfully generating a GKP state withNGBS
+multiplexed devices ispN −GBS ∼ 1 − (1 − pGBS)NGBS. Moreover, this GKP-via-GBS protocol relies on PNR detectors
+that must be operated at cryogenic temperatures. We note, however, that PNR detectors are the only elements in
+these optical quantum information processors that require such low temperatures.
+An alternative but fairly “straightforward” way to generate optical GKP states is to directly transduce them from the
+microwave domain via an integrated optical-microwave device; see Figure 21(b). For instance, one could have a cQED
+setup that creates GKP states in the microwave domain (something similar to architectures discussed in the previous
+section) but with the added functionality of quantum transduction [6, 53, 54]. Transduction can be achieved by, for
+instance, embedding a non-linear (e.g.,χ(2)) optical material in a microwave resonator and driving the optical material
+with a strong pump field [237]. From the non-linear interactions induced by the pump, one can realize a beamsplitter-
+like interaction between the microwave and optical modes, thereby enabling one to route photons from microwave to
+optical frequencies (or vice versa); this is known as a direct conversion scheme. The caveat here is the low-conversion
+efficiencies (≪ 50%) associated with such devices which can severely degrade the fidelity of non-classical output states
+and render them useless for quantum information processing [54]. Recently, it has been proposed that squeezing can
+help to bypass the efficiency bottleneck of direct-conversion schemes [238]. Another workaround is to utilize two-mode
+squeezing interactions, as opposed to beamsplitter-like interactions, followed by a CV quantum teleporation protocol
+to effectively transduce the quantum state from microwave to optical frequencies [239]; it has been argued that this
+teleporation-based transduction scheme can outperform direct conversion schemes in large regions of parameter space.
+Hastrup and Anderson [234] proposed an auxiliary cavity QED setup to generate optical GKP states. In their
+protocol, an optical squeezed state is iteratively displaced then reflected off an optical cavity hosting a three-level
+“atom” [234]; see also Figure 21(c). More iterations result in a GKP state with more peaks, however the protocol is
+ultimately limited by the cooperativity of the cavity (similar to transduction methods), suggesting that generating
+highly squeezed (> 10 dB) GKP states with this method may be challenging in the near term.
+Yanagimoto et al [235] proposed an entirely optical GKP state-generation setup based on the non-linear dynamics of
+an optical parametric amplifier (OPA); see Figure 21(d) for an illustration. In this proposal, a pump mode initialized in
+a squeezed vacuum and a signal mode initialized in a displace-squeezed state interact via three-wave mixing through
+the OPA. Performing general-dyne measurements on the signal mode realizes a quantum non-demolition (QND)
+measurement on the pump (or vice versa), enabling deterministic generation of non-Gaussian states. Specifically, by
+projecting the signal mode onto a displaced squeezed state, a QND modular homodyne measurement is performed
+on the pump, resulting in the pump mode being projected onto an approximate GKP state (up to feed-forward
+displacements). One advantage of this scheme is that it does not require the integration of microwave and optical
+26We further note that there is a tradeoff between the fidelity of the target GKP state and the success probabilitypGBS [230].
+
+## PDF page 53
+
+53
+quantum technologies. In addition, the use of homodyne detectors instead of PNR detectors eliminates the need for
+cryogenic temperatures. The caveat though is the use of (generally weak) three-wave mixing, however the authors
+argue that their scheme appears promising in the near-term with non-linear nanophotonic structures [44–47].
+Finally, Dahan et al [236] (see also Ref. [240]) proposed a unique method for generating optical GKP states by
+coupling shaped, free-electrons to an optical mode. Their study demonstrates that the electron-photon coupling
+facilitates a conditional displacement on the optical mode, analogous to circuit QED setups. They also quantify the
+amount of squeezing (in dB) of the process, showing that the squeezing scales logarithmically with the number of
+free electrons, while the probability of successfully heralding a GKP state (of certain amount of squeezing) scales
+inversely with the number of free electrons. Projections indicate a GKP state with 10dB of squeezing is possible at
+10% success probability, assuming initial vacuum for the optical mode. Higher success rates (∼ 30%) can be achieved
+by initializing in a squeezed vacuum state.
+F. Scaling up GKP codes
+With the experimental intricacies discussed in this chapter fresh in mind, we now offer a concise perspective on the
+scalability of GKP codes, particularly for applications in fault-tolerant quantum computing (FTQC), and briefly touch
+upon the challenges involved. For a deeper exploration of the theoretical and mathematical aspects of scaling up GKP
+codes using multimode codes, such as concatenated qubit codes, readers can refer to Chapter VI. For more in-depth
+discussions on FTQC with GKP codes, additional references, and further insights, please consult Chapter VIIIA.
+Single-mode GKP codes exhibit a constant distance against translation errors and are limited by errors of the
+auxiliary qubit in the current superconducting circuit approach. Even though GKP qubits have set the record in
+QEC gain, a practical quantum memory necessitates significant improvements in error rates and qubit lifetimes by
+several orders of magnitude. To address this, a promising direction involves concatenating GKP codes with qubit codes
+(see Chapter VI), like surface codes which possess the highest-known threshold to-date [22, 145, 147, 243, 244]. Below
+the threshold value of the concatenated code, logical error rates can be decreased by increasing the size of the code; see
+Chapter VIIIA for further discussion. Furthermore, by using GKP qubits as the base layer of a concatenated code, we
+can achieve resource reduction in terms of the number of qubits required to achieve a target lifetime. Concatenated
+codes are a subset of a broader class of multimode GKP encoding introduced in Ref. [13]. We postpone the discussion
+of error correction with multimode encodings until the next section.
+Scaling up GKP codes to realize multi-oscillator encodings will require the engineering of bosonic modes at scale, and
+the challenges faced will be different than small-scale experiments using one or two modes. It is likely that a co-design
+approach will be needed to realize a scalable bosonic architecture while accounting for trade-offs in physical lifetimes,
+stability, cross-talk, addressability, connectivity, and modularity. In Figure 22, we show schematics for potential
+realizations of scalable fault-tolerant quantum computing architectures based on GKP codes in a superconducting
+architecture (Fig. 22(a); see Ref. [23]) and a photonic chip (Fig. 22(b); see Ref. [230]). For superconducting circuit
+architectures, advances in the materials science and engineering of other types of superconducting qubits and codes,
+such as surface codes realized through arrays of planar transmons, could be adapted in the multimode bosonic code
+setting. For photonic architectures, the biggest hurdle is first generating an optical GKP state, which may require
+a large overhead due to the use of cryogenic components and mode multiplexing (see Chapter VE). Furthermore,
+integrating all the necessary components for MBQC with GKP states on a chip is a grand challenge, especially due
+to the inline active operations (e.g., squeezing and displacements) that are typically required [230]. Figure 22 shows
+the architecture for scaling up the GKP codes to a multi-oscillator code for both superconduting as well as photonic
+systems. Despite the engineering challenges ahead, we are optimistic about the future of scalable bosonic architectures,
+including those built for realizing GKP encodings, and we anticipate rapid progress in this direction in the coming
+years.
+VI. QEC WITH MULTIMODE GKP QUBIT CODES
+There has been a recent surge of interest in understanding the properties and performance of multimode GKP qubit
+codes [33–35, 245, 246]. In Chapter IV, we mathematically demonstrated how to encode a qubit into a multimode
+(2N-dimensional) lattice; see Table IVB2 for a quick overview. Nevertheless, we have yet to emphasize the potential
+benefits or QEC properties of such encodings. Intuitively, we anticipate that a multimode GKP qubit code will
+outperform a single-mode GKP qubit simply due to “diffusion” of logical information across a larger space—the
+2N-dimensional phase of N bosonic modes—as opposed to the smaller 2-dimensional phase space for single mode
+codes; we make this concept more concrete in this section. Of course, it is also important to consider the trade-offs
+
+## PDF page 54
+
+54
+C
+CC
+C
+= Data GKP resonator
+= Ancilla GKP resonator for SC error-correction
+= Ancilla GKP resonator for GKP error-correction= Nonlinear couplers, like transmon     or SNAILS for tunable gates     and non-Gaussian operations
+(a)
+CCC
+C
+C
+CC
+C
+CC
+C
+CC
+C
+CC
+C
+CC
+CCCC
+CCCCC
+C
+C= Readout resonator 
+t
+PhotonicQPUGKP errorcorrection(Inner decoder)
+Qubit errorcorrection(Outer decoder)
+Classical controlMultiplexed GBSstate generation,compute module
+(a)
+(b)
+Figure 22. Scaling up with GKP codes. (a) A schematic of a low-level chip architecture for the all-GKP surface code [23].
+Yellow and white regions indicate X and Z stabilizers for the surface code. The architecture includes nonlinear couplers,
+which could be implemented as three-wave mixers [219–221] or four-wave mixers, such as a transmon [9]. The ancilla GKP
+resonators and measure GKP qubits could be replaced with a biased-noise qubit, such as a Kerr-cat [203, 241], or an auxiliary
+two-level system, such as a transmon. Additionally, as shown here, each coupler includes an on-chip readout resonator. Such
+a GKP surface code could also be realized in a planar (2D) superconducting circuit architecture. (b) Proposed architecture
+for GKP cluster-state generation for MBQC with a photonic chip [230]. The chip (top) generates a resource state—a GKP
+cluster state—in the time domain via switchable beam-splitters, controllable phase shifters, in-line squeezing, and delay lines.
+The GKP cluster state serves as the basis for fault-tolerant computation, which can be achieved through a measurement-based
+version of lattice surgery tailored for the surface code [230, 242]. An array of homodyne detectors (bottom) are used for
+performing stabilizer measurements and measurement-based logical operations. By integrating components on a photonic chip,
+the proposed architecture provides a promising pathway for realizing MBQC with bosonic modes.
+
+## PDF page 55
+
+55
+associated with multimode encoding, such as the potential increase in susceptibility to certain types of errors, e.g.,
+crosstalk between neighboring modes.
+In this chapter, we dive deeper into multimode GKP qubit codes, discuss why such encodings might be beneficial for
+QEC, and assess the QEC performance of some specific multimode codes—such as the tesseract andD4 qubit codes.
+Additionally, we briefly discuss concatenating (inner layer) GKP qubit codes with (outer layer) discrete variable (DV)
+codes, which may prove useful for designing and analyzing fault-tolerant quantum computing architectures based on
+GKP codes.
+A. Why might a multimode GKP qubit be good for QEC?
+Theoretical studies [13, 33–35, 245, 246] suggest that encoding a qubit into many modes via higher dimensional
+lattices is a robust and effective way to deal with noise. For instance, shortly after the conception of GKP states [13],
+Harrington and Preskill [33] argued that high-dimensional (N → ∞) GKP lattice codes can achieve the one-shot
+quantum capacity (optimized over Gaussian inputs) of the AGN channel [the lower bound on the AGN quantum
+capacity shown in Eq. (51)]. These results have since been extended to thermal-loss channels [83]; see Chapter VIIIB
+for details. These findings suggest that multimode GKP codes might not only be good for QEC but are perhaps
+optimal (at least for Gaussian noise channels). Using the mathematical formalism established in this review, we
+provide some simple arguments as to why multimode GKP codes—and thus higher-dimensional lattices—might be
+better for QEC than single-mode encodings.
+We must first quantify the performance of a QEC code; for simplicity, we use the single-qubit error probability. We
+define the single-qubit error probabilitypX∪Y ∪Z as the likelihood of any Pauli error occurring on the encoded qubit.
+To simplify the presentation, we take the union bound approximation,
+pX∪Y ∪Z ≤ pe :=
+X
+J∈{X,Y,Z }
+pJ , (127)
+which is accurate up to events with simultaneous errors that occur with probability∼ O
+
+p2
+J
+
+. We emphasize that
+this is the probability of error induced by AGN on the GKP single-qubit codespace. Generically, this differs from the
+logical error ratepL that could be derived once an explicit decoding algorithm is given for the multimode code. Quite
+generally though, we have thatpe ≤ pL.
+The task now is to identify lattices that yield good GKP codes. In general, quantifying what constitutes a “good
+GKP code” can be challenging. For example, given an iid AGN channel (a mathematical simplification of course),
+codes with larger Pauli distances are good quantum codes, at least indicated by the overly simplistic metric ofpe,
+as we show explicitly just below. However, this is not generically viable. One primary obstacle is constructing a
+good decoding algorithm and error correction procedure to infer the magnitudeand direction of the random shifts,
+a generally hard problem (more on this later). Furthermore, the encoding rateR := k/N, where k is the number of
+encoded logical qubits andN is the number of oscillators or modes, likewise plays a crucial role in gauging performance.
+By definition, the encoding rateR necessarily decreasesalong withpe27 as we go to higher dimensional codes, thereby
+indicating a tradeoff between a higher encoding rate and lower error probability. In follow-up sections, we briefly
+discuss decoding of GKP codes and highlight interesting subtleties arising in practical realizations (e.g., sBs-type
+QEC protocols with a cQED architecture in mind). For the moment, we forget about these important subtleties in
+order to illuminate the potential benefits of scaling to many modes.
+It turns out that, for iid random displacementse ∼ N(0, σ2I2N ), we can compute the Pauli error probabilitiespJ
+exactly and thus estimate the total error probabilitype. Let j ∈ {x, y, z} be the (shortest) Pauli displacement vector
+associated with a logical PauliJL ∈ {XL, YL, ZL} in units ℓ =
+√
+2π, such that ∥j∥ is the Jth Pauli distance of the
+code (see Chapter IVB2 for details). Then, the probability for aJL Pauli error to occur is simply,
+pJ ≈ erfc
+
+
+s
+ℓ2∥j∥2
+8σ2
+
+ , (128)
+where ℓ =
+√
+2π. This can be found by integrating the multivariate Gaussian distribution of the AGN channel outside
+of thecorrectable regionC :=
+h
+− ℓ∥j∥
+2 , ℓ∥j∥
+2
+i
+along the direction ˆȷ · e. The approximation can be made more precise
+27Of course, forpe to decrease, good lattices in higher dimensions must be considered.
+
+## PDF page 56
+
+56
+by considering higher-order correctable regions (corresponding to the likelihood of even numbers of Pauli errors, e.g.
+X 2k
+L ), however for smallσ, the above estimate is very good.
+Since erfc(x) is exponentially decreasing inx, we deduce that codes with fixed noiseσ but larger Pauli distances
+∥j∥ will exhibit substantially better code performance in terms ofpe. We saw several examples of extending Pauli
+lengths by going to higher dimensional GKP codes in Chapter IV. For instance, a two-dimensional (single-mode)
+square GKP qubit has ∥x□∥ = ∥z□∥ = 1 /
+√
+2 and ∥y□∥ = 1. On the other hand, we can encode the qubit into a
+four-dimensional hypercube via the tesseract code [equivalent to a rotated four-dimensional hypercube; see Eq. (75)]
+with
+
+
+x e□2
+
+
+ =
+
+
+z e□2
+
+
+ = 1/
+4√
+2 and
+
+
+y e□2
+
+
+ =
+4√
+2. The logical Pauli’s of the four-dimensional (two-mode) hypercube
+are
+4√
+2 times longer than the two-dimensional square qubit code. To illustrate the relative performance enhancement,
+we plot the error probability for square, tesseract, andD4 qubit encodings in Figure 23(a) assuming ideal GKP states
+and ideal error correction for iid AGN.
+B. Assessing practical QEC of two-mode GKP qubit codes
+In the previous section, we argued that encoding a qubit into many modes and choosing “better lattices” can, in
+principle, lower single-qubit error probabilities and improve QEC performance. However, we made some implicit
+assumptions in arriving at these conclusions. In particular, we assumedperfect error correction, in which case we can
+infer the magnitudeand direction of random displacements (up to logical Paulis) directly from syndrome measure-
+ments, in which casepe directly quantifies the logical error rate. This, in turn, led us to the result that the error
+probability [e.g., derived from Eq. (128)] is the defining metric and, consequently, that the performance of the code
+depends solely on the lengths of the shortest Pauli vectors, which can be relatively large (compared to, e.g., a square
+lattice) for multimode encodings. We discuss here why these assumptions are too idealistic.
+For concreteness, we make a very specific comparison of two alternative two-mode (i.e., four-dimensional lattice)
+qubit codes: (i) theD4 lattice code and (ii) the tesseract code; see Table II for an overview of the two codes. We also
+include the single-mode square code in our analyses for a baseline comparison. Our investigation focuses on the error
+correction capabilities of each code in two different scenarios: (1) by comparing the error probabilities [Eq.(128)] for
+the different codes and (2) by evaluating the channel infidelities when auxiliary-qubit-based dissipative stabilization
+is employed for QEC. The results are succinctly summarized in Fig. 23. Given the assumptions described at the
+beginning of this section, the D4 lattice should, in principle, have optimal performance in four dimensions due to
+longer code distance, however this is no longer the case when qubit-based stabilization is considered, as we elaborate
+further below.
+1. Comparison: oscillator errors
+In Figure 23(a), we plot the error probability derived from Eq. (128) for the various codes assuming iid AGN. We
+see directly that theD4 lattice code outperforms all other encodings by this metric. This is in line with the arguments
+presented in Chapter VIA in the context of densest lattice packings (i.e., longest Pauli vectors). However, the
+introduction of a practical error correction scheme brings about significant alterations to these results. In particular,
+the error probability (and thus the data plotted in Figure 23(a)) is a partial solution to the problem of GKP error
+correction since it assumes that the error vectore—magnitude and direction—can be inferred (modulo logical Paulis)
+from the2N syndromes extracted from stabilizer measurements. However, in reality, the error channel displaces GKP
+states by a random vector in an unknown direction. This presents an added layer of complexity to the decoding
+problem.
+It turns out that the Closest Vector Problem (CVP) is intimately related to the decoding problem for GKP codes.
+This problem—being NP-hard—has an exponential-time solution, the Micciancio-Voulgaris (MV) algorithm [247],
+which is 2O(n) in space and time. The solution is based around the Voronoi cell of the lattice, which to recall is the
+correctable region of a GKP code. This feature makes the MV algorithm ideal for GKP error correction. Various
+different solutions to the CVP with comparable runtimes have been used in previous works to extract logical error
+rates of multimode codes [248]. In contrast to the simple error probability metric, logical error rates from CVP-based
+decoding algorithms may exhibit a crossing point between curves of the same family, akin to a threshold-like behavior,
+as highlighted in Ref. [248]. An example code family are the hypercubic lattices, e.g. square and Tesseract codes.28
+28Note that the stabilizer matrix of a Tesseract code can be obtained from the concatenation of rectangular GKP codes with two-qubit
+repetition code. Thus, if we were to identify the family of codes with concatenation in mind, the generalization of this family would be
+as follows: N = 1 (Rectangular GKP), N = 2 (Two-qubit repetition code on rectangular GKP) as illustrated in [248]. However, from the
+perspective of multimode codes, the Tessearct code (a 4-cube lattice) belongs to the family of hypercubic lattices whose generalization for
+N = 1 case is a square GKP as used in this review.
+
+## PDF page 57
+
+57
+Tesseract Code D4 Code
+Generator Matrix M ( e□2) =
+4√
+2
+
+
+1 0 0 0
+0 1√
+2 0 1√
+2
+0 0 1 0
+0 1√
+2 0 − 1√
+2
+
+ M (D4) =
+
+
+1 1 0 1
+0 0 1 0
+1 0 −1 0
+0 −1 0 1
+
+
+Minimum Stabilizer length
+4√
+2
+√
+2
+Logical Operators
+
+
+x⊤
+y⊤
+z⊤
+
+ =
+4√
+2
+
+
+1
+2 0 1
+2 0
+1
+2
+1√
+2
+1
+2 0
+0 1√
+2 0 0
+
+
+
+
+x⊤
+y⊤
+z⊤
+
+ =
+
+
+1
+2
+1
+2
+1
+2
+1
+2
+− 1
+2
+1
+2
+1
+2
+1
+2
+1 0 0 0
+
+
+Minimum Pauli length 1/
+4√
+2 1
+Hadamard U ⊗2
+R(π/2)UB(1/2) U ⊗2
+R(π/4)UB(1/2)
+Phase Gate e
+− i√
+2 ˆq2
+A ⊗ IA URA(π/2) ⊗ IA
+CZ e−i
+√
+2 ˆqA,1⊗ˆqB,1 e−i2 ˆqA,1⊗ˆqB,1
+Non-Clifford Gate
+√
+H = ei π
+32
+ˆF 2 √
+H = ei π
+8 ˆn2
+A
+Table II. Two-mode GKP qubit code comparison: Tesseract code vsD4 code. The table is inspired from Ref. [34] where the
+Tesseract code was first introduced and a practical set of universal gate operations for both codes were discussed. There are
+other options for gate operations, but the ones presented here are similar to (or better than) other available options in terms
+of the finite-energy GKP errors.R(θ) is the single-mode phase-space rotation gate andB(T ) is the beamsplitter interaction
+with transmission probability T; see Chapter IID1. Both these operations are envelope-preserving on the two modes. The
+Hadamard gate is also an envelope-preserving gate and thus does not suffer from envelope errors. The phase gate on the other
+hand is only envelope-preserving for theD4 code. The two-mode entangling gateCZ is the same for the both codes and equal
+to the corresponding entangling gate for single-mode GKP codes. Here ˆqA,1 represents the ˆq quadrature of the first mode
+(1) in the first qubit (A). Finally, for choices of non-Clifford gates, the Tesseract code can use quartic Hamiltonians like the
+Kerr-interaction to apply the square root of Hadamard,
+√
+H. Here nA = a†
+AaA is the number operator of the first mode while
+F = ˆq2
+1 + ˆp2
+1 + ˆq2
+2 + ˆp2
+2 − 2 + ˆq1 ˆp2 − ˆp1 ˆq2. Justifications for these gates can be found in Ref. [34]. In lieu of the complicated code
+construction from classical lattices, “easy” gate implementations are available for multimode codes without increased difficulty
+(relative to single-mode codes).
+It should be noted that such a crossing point cannot be strictly labeled as a critical point or threshold (as in the
+case of topological codes [249]) unless comparisons are made for a specific family of codes using a large number of
+modes to avoid any boundary effects. Finally, considering that the solution to CVP is exponential in time and space,
+for practical use cases, an approximate mapping of the problem to one with polynomial-time solution is desired, like
+minimum-weight perfect matching for topological codes [250].
+We now examine the scenario where sBs-type circuits (see section VB1) are employed to stabilize the two-mode
+GKPcodes; thecorrespondingresultsareplottedinFigure23(b). Weemphasizethatthestabilizationmethodherehas
+been studied for photon loss errors in the absence of ancilla errors. Contrary to the behaviour of the error probability
+illustrated in Fig. 23(a), theD4 lattice codes exhibits the poorest performance when sBs-type stabilization is used,
+as observed in Fig. 23(b). Intuitively, the longer stabilizers ofD4 code lead to lengthier QEC steps, resulting in an
+accumulation of errors throughout the process. One might expect that the longer logical Pauli vectors of theD4 lattice
+could potentially mitigate this increased error accumulation. However, this expectation does not appear to manifest
+itself in practice. The reason is that sBs performs a bitwise error correction that alternates between two stabilizers;
+thus, the error correction will not be efficient unless the stabilizers are orthogonal. To see this, let us denote any two
+non-orthogonal stabilizers of theD4 code by S1 and S2. During a bit-wise correction due to back action from the sBs
+map alongS1, the error alongS2 is affected in a random way unless explicitly taken care of in the process. Thus, such
+qubit-based dissipative stabilization, in its crudest sense, might not be the optimal error correction strategy for codes
+
+## PDF page 58
+
+58
+10-1 100
+δt
+10-4
+10-3
+10-2
+10-1
+100
+Error Probability Square
+Tesseract
+D4
+...
+ ...
+(a) (b)
+Figure 23. Comparison of multimode qubit codes. (a) Error probabilitype := P
+J∈{X,Y,Z pJ for infinite-energy GKP states,
+assuming noise conversion from loss (with loss rateκ) to AGN via pre-amplification. The AGN is related to the loss probability
+via σ2 = 1 − e−κδt. The plot was generated using Eq. (128). Note that, although the two-mode Tesseract and D4 codes exhibit
+better performance as characterized bype, the encoding rate of these codes is half that of the single-mode square code. (b)
+Logical infidelity extracted from sBs type bit-wise decoding against amplitude damping (with rateκ) for different finite-energy
+GKP codes (¯n = 5 per mode). The channel fidelity is computed fromFt = (1 + P
+α e−γαt)/4 where α ∈ {X, Y, Z}, the rates
+γα are the decay rates of each Pauli eigenstate, andδt corresponds to the time between each round of sBs. These rates are
+obtained by fitting an exponential decay to the time evolution of the associated logical Pauli operator after the projection
+measurement. Each logical damping rate is obtained by averaging over 200 trajectories. See Chapter VB1 for a description of
+sBs. Figure 23(b) is adapted from Ref. [34].
+with non-orthogonal stabilizers like single-mode hexagonal codes and two-modeD4 codes in comparison to hypercubic
+lattice codes, like the single-mode square code and two-mode Tesseract code. There might be cleverer tricks which
+could resolve this issue. We note that we could perform continuous error correction (as opposed to bit-wise extraction)
+by using a GKP measurement ancilla, such that the translation errors could be corrected along each stabilizer in a
+single step. Such error correction has been studied in terms of code concatenation [22, 145, 243, 244, 251].
+Another interesting observation concerning Fig. 23(b) is that, under the error rates simulated in Ref. [34], the
+Tesseract code performs less favorably than the single-mode square code. This may occur for the following reason:
+The GKP states utilized here contain an average of5 photons per mode, resulting in a total of10 photons for the
+two-mode codes compared to only5 photons in the single-mode code. Consequently, the two-mode code exhibits a
+higher total probability of photon loss than the single-mode code. However, it is worth noting that the curves for
+the simulated data are not parallel and might intersect at a lower photon loss rateκδt. This tentatively implies the
+presence of a crossing point, akin the threshold behavior observed in qubit codes, below which two-mode codes may
+exhibit enhanced protection. Further investigations are required to explore this potentiality and generally understand
+its implications for the performance of multimode codes in a practical setting.
+2. Comparison: ancilla errors
+The authors of Ref. [34] noticed that an immediate advantage of two-mode codes can be seen in terms of protection
+against ancilla errors. The state-of-the-art beyond break-even GKP error correction results quoted in Chapter VC1
+show that the logical error rate of GKP codes depend linearly on the ancilla decay rates, making ancilla errors the
+leading order contributor to GKP error rates. Chapter VB1 presents an explanation for this issue and mentioned
+that Ref. [34] used theisthmus property for the stabilization of two-mode codes to suppress these errors by some
+factor. Chapter VD introduces the isthmus property in the context of a single-mode GKP ‘state’ with reference to
+Figure 14c. We revisit this technique here to explain the protection of a two-mode GKP ‘qubit’.
+For stabilization using sBs, if stabilizers are colinear to logical operators, the logical error probability of the code
+directly depends on ancilla decay. In dimensions higher than2, it is possible to choose stabilizers which have minimal
+
+## PDF page 59
+
+59
+overlap with the logical operators. For example, in the tesseract and D4 lattice codes, it is possible to find a
+measurement circuit for each stabilizer such that probability of logical error due to an ancilla decay is limited to a
+point in phase space. Such paths are said to possess theisthumus property. In this case, the effect of ancilla decay
+depends on the squeezing or envelope size of the GKP code.
+The isthumus property yields a degree of protection against single ancilla decay events without the use of biased-
+noise ancilla. However, this protection is limited to an improvement by an approximate factor of 10, determined
+by squeezing of the GKP state. This should be compared to the protection from using a biased-noise ancilla, such
+as a stabilized Kerr-cat [201], which could yield a possibly orders-of-magnitude improvement for GKP stabilization.
+Additionally, the isthmus property is only available for certain special lattices whereas the use of biased-noise ancilla
+is not constrained upon the type of lattice. So far, there has not been any experimental demonstration of either
+approach, but for these reasons, we believe a biased-noise ancilla is likely a more feasible option in the near-term to
+achieve a large improvement in GKP QEC [22, 201, 203].
+C. GKP codes concatenated with discrete-variable codes
+While our previous discussions have mainly focused on encoding a single qubit into a set of oscillators, scaling up
+to perform quantum computations with multiple qubits requires additional error protection. To achieve this, one
+approach is to combine a GKP qubit code—acting as theinner code—with a discrete variable (DV) code—acting
+as the outer code. Examples of DV codes include repetition codes and surface codes. In this context, we explore a
+straightforward method that addresses this challenge. Specifically, we discuss a few lattices recognized in Ref. [34]
+which result from concatenating DV quantum codes with an ensemble of GKP qubits organized in a scaled hypercubic
+lattice.
+We take the inner code lattice to correspond ton disjoint GKP qubits, each defined by the same (for the sake of
+simplicity) two-dimensional generator matrixM2, such that the overall generator matrix
+Minner :=
+nM
+i=1
+M2, (129)
+where det
+
+M ⊤
+2 ΩM2
+
+= 22 and thus det Minner = 2n. We then consider an outer DV codeMouter ∼ [[n, k, d]] that
+uses the n physical GKP qubits of the inner code to encodek logical qubits with distanced (i.e., errors on less than
+d−1
+2 physical qubits can be corrected). Then − k stabilizers of the inner code can then be replaced by the stabilizers
+of the outer code. For the replacement to work properly, the2n × (n − k) stabilizer (parity-check) matrix of the qubit
+code Mouter, and the inner code matrixMinner should have the same ordering of the canonical variables. For instance,
+if the inner GKP code is composed of square GKP qubits with(q1, p1, q2, p2, . . .) ordering, then the stabilizer matrix
+of the outer qubit code should have(X1, Z1, X2, Z2, . . .) ordering.29 Upon direct sum ofMouter with 2In+k×n+k, we
+get the 2n × 2n stabilizer matrix of the outer code,T. The corresponding multimode lattice is then described by,
+Mfinal = LT , (130)
+where,
+L := Minner
+2 and T :=
+
+
+0(n−k)×(n+k)
+Mouter
+2I(n+k)
+
+ . (131)
+By construction,| det Mfinal| = 2k, hence the lattice encodesk qubits as expected. The matrixL represents the logical
+Pauli matrix of the inner GKP code, i.e. with columns consisting of logical Pauli displacement vectorsp for each
+GKP qubit. This construction is based on the assumption that the logical operators of the inner code are colinear
+with the stabilizers. In Ref. [34], the authors point out that further transformations by some unimodular matrixN
+could lead to improved error correction by providing generators of minimal length, such that
+Mfinal = LT N, (132)
+29We further note that then − k stabilizers of the [[n, k, d]] code correspond to the columns ofMouter, as we use column convention
+for generator matrices.
+
+## PDF page 60
+
+60
+where N can be found using the Lenstra–Lenstra–Lovász (LLL) lattice basis reduction algorithm [252]. Examples of
+such codes can be found in Ref. [34]. In the next section, we study a special example of a two-mode code obtained
+from concatenating an outer two-bit repetition code with an inner rectangular GKP qubit code.
+With the aforementioned recipe, we can construct a valid stabilizer generator matrixM and place everything in the
+language of lattices. In the lattice-based formulation, it is clear that ann-mode GKP code requires only2n stabilizer
+measurements, which are effectively the rows ofMfinal. This should be contrasted with “standard approaches” that
+concatenate an inner GKP code with an[[n, k, d]] qubit code and decode in a layered fashion. The first decoding
+layer measures the 2n stabilizers of the inner GKP code—essentially the columns ofMinner; the second decoding
+layer then measures the n − k stabilizers of the outer code—essentially the columns of the parity-check matrix
+Mouter—possibly augmented with analog information from the inner decoding layer [253, 254]. The former approach
+to decoding generically requires less measurements (2n measurements compared to the standard approach requiring
+3n − k measurements), but choosing between these two different decoding approaches may also depend on practical
+considerations as well as preference.
+The lattice-inspired error correction procedure could be similar to what has already been described for GKP codes
+concatenated with surface codes or repetition codes [22, 144–146, 243, 244, 246, 251]. For instance, in Refs. [22, 145,
+243, 244, 251], the stabilizers are measured using CV GKP ancillae (similar to the measurement approach described
+in Chapter IVC) followed by the mapping of syndromes to logical errors (or the identity) using decoding algorithms
+that solve the closest lattice vector problem, minimum-weight perfect matching etc. Taking a different approach,
+the authors of Ref. [23] also suggested a GKP surface code along with a hybrid system—where the ancillae are two-
+level Kerr-cat qubits with a biased-noise spectrum—to extract syndromes of GKP-surface codes fault-tolerantly (via
+similar methods described in Chapter VB1) followed by analysis of syndromes using decoding algorithms that map
+the syndromes to logical errors (or the identity). The claims for all-GKP surface code in these papers are supported
+by numerical simulations for high-distance surface code lattices which use physical GKP qubits as data qubits. The
+hybrid architecture requires a similar analysis to prove its utility against an all-GKP surface code or all-transmon
+surface code. In Chapter VIIIA, we provide a few more details about GKP surface codes, specifically focusing on
+their relevance to thresholds in fault-tolerant quantum computing architectures.
+An alternative to the processes above could be to directly engineer the dissipators or use Hamiltonian-based-
+techniques for the multimode GKP manifold via methods as used in the previous section for Tesseract codes and D4
+codes in [34]. In fact, the stabilizer matrices of Tesseract code and D4 code are the same as that of rectangular GKP
+code concatenated with two-qubit repetition code and square GKP code concatenated with two-qubit repetition code,
+respectively. The difference in this approach is that no classical post-processing is required to map the syndromes to
+logical errors. Such techniques could be meaningful to define local autonomous stabilization on smaller sections of
+larger codes, thus reducing the complexity of the decoding task.
+VII. GKP OSCILLATORS-TO-OSCILLATORS CODES
+The previous chapter argued why multimode GKP qubit encodings may be beneficial for QEC in DV quantum
+information processing tasks. Here we argue in favor of multimode oscillators-to-oscillators (O2O) codes for CV
+quantum information processing. The main goal of an O2O code is to directly combat analog errors with CV
+resources, e.g. squeezing, allowing for protection ofarbitrary CV quantum states [31]. This is pertinent to a variety
+of CV quantum information processing tasks such as quantum sensing, target detection, and entanglement-assisted
+quantum communication to name a few. Early works along this line have explored possibility of protecting oscillators
+with multiple oscillators in limited scenarios [255–257]. Reference [31] proposed GKP oscillator-to-oscillators (O2O)
+codes that are capable of encoding an oscillator into oscillators for universal noise models. Reference [32] further
+generalizes to encoding multiple oscillators into more oscillators and provides optimal code design.
+In this chapter, we introduce the general formulation of GKP-O2O codes, including the encoding in Chapter VIIA,
+and decoding strategies in Chapter VIIC. In Chapter VIID, we use the GKP-two-mode-squeezing (GKP-TMS)
+code with square lattice [31] as a prototypical example. Then we present wide-ranging results on code reduction
+in Chapter VIIE, which shows that all GKP-O2O codes can be reduced to general GKP-TMS codes. Finally, in
+Chapter VIIE3, we address the non-existence of a threshold for generic O2O codes with finite squeezing, which
+establishes ultimate limits of performance on generic O2O codes.
+A. General encoding of qumodes
+A generic O2O code based on Gaussian operations encodesN data modes intoK = N + M modes by entangling
+the data (by a Gaussian unitary) withM ancilla modes that are prepared in some non-Gaussian resource state, e.g.
+
+## PDF page 61
+
+61
+w u
+n
+Data
+Ancilla
+N modes
+N + M modes
+(a) (b)
+Df (s)
+sSenc S−1
+enc
+⨂
+i Nσi
+Figure 24. Oscillators-to-oscillators (O2O) code. (a) Illustration of encoding N modes into N + M modes. (b) O2O QEC
+circuit based on Gaussian encoding (symplectic matrix)Senc and syndrome-informed corrective operations (e.g., displacements
+Df (s)).
+a GKP lattice state; an intuitive picture is shown in Figure 24(a). In general, non-Gaussian states are required due
+to the no-go theorem of Gaussian error correction [17]. In this review, the non-Gaussian resources states are general
+GKP lattice states,|L⟩. Note that the Gaussian unitaryUSenc used for encoding can be described by the symplectic
+transform Senc (see Chapter IID for discussion about Gaussian unitaries).
+On the decoding side, the inverse transformationS−1
+enc is applied to disentangle the data and the ancilla. However,
+such an operation correlates the noises of the data and ancilla, thus allowing for error correction via measurements
+on the ancilla. In particular, one measures the ancilla system to extract information about the data noise, which is
+encoded in anerror syndrome, s. With this information in hand, error correcting displacement operationsDf (s) are
+performed on the data, ideally ridding the data of noise. In our notation,f is an (vector) estimation function that
+takes the syndromess as input and provides an estimate for the error displacements on the data. Due to the analog
+nature of the errors, error correction is never perfect, and there will be residual errorsxout on the output data modes.
+The goal of error correction is to make these errors arbitrarily small so that they negligibly corrupt the data.
+To quantify the error correction performance, we evaluate the output covariance matrixVout of the residual dis-
+placements xout. As Vout is a 2N × 2N symmetric matrix, we instead focus on single-valued quantities drawn from
+Vout, such as the geometric mean (GM) error
+¯σ2
+GM :=
+2N
+p
+det Vout. (133)
+We use the GM error as a figure of merit to benchmark code performance, as it is invariant under symplectic operations
+on the data. Moreover, it can be shown that the GM error provides a lower bound on the quantum capacity of the
+input-output channel of the error correcting circuit, due to the fact that the channel is an additive non-Gaussian noise
+channel for GKP-O2O codes; see, e.g., Eq. (53). As an alternative, one can also consider the root-mean-square (RMS)
+error,
+¯σ2
+RMS := Tr{Vout}
+2N . (134)
+The RMS error is often easier to evaluate since it requires only the diagonal elements ofVout and provides an upper
+bound on the GM error,¯σ2
+RMS ≥ ¯σ2
+GM.
+B. Lower bound on output error and break-even points
+Using quantum capacity arguments, a lower bound on the output error of a GKP-O2O code can be derived which
+only depends on the underlying AGN channel [31, 32]. Consider a multimode GKP-O2O code to protectN data
+modes with M ≥ N GKP ancilla. We assume non-identical AGN, such thatNN +M
+i=1 Nσ2
+i
+is the error channel with
+variances σ2
+i. The output noise covariance matrix,Vout, such that¯σ2
+RMS = Tr{Vout}/2N and ¯σ2
+GM =
+2N√det Vout are,
+
+## PDF page 62
+
+62
+respectively, the RMS and GM errors. It can then be shown that [32],
+¯σRMS ≥ ¯σGM ≥ σLB := 1√e
+2N
+vuut
+ N +MY
+i=1
+σ2
+i
+1 − σ2
+i
+!
+. (135)
+Thekeyobservationinprovingthisresultisthattheinput-outputquantumchanneloftheGKP-O2Ocodecorresponds
+to non-Gaussian additive noise on the data, for which the lower bound of Eq. (53) applies. Moreover, since the GKP
+code is used to combat AGN, the non-Gaussian capacity is an achievable rate for the AGN channel, with the AGN
+channel having an upper bound given by Eq. (52). Combining these upper and lower bounds, one arrives at the
+output error bound quoted above.
+We can apply some data-processing arguments for the underlying AGN channel to find upper and lower bounds
+on the break-even point for GKP codes, resulting in1/√e ≤ σ⋆ ≤ 1/
+√
+2. The upper bound comes from the upper
+bound on the quantum capacity for the AGN channel but can also be derived directly from Eq. (135). The lower
+bound comes from a data-processing argument given that an achievable rate for the effective non-Gaussian additive
+noise channel [e.g., lower bound of Eq. (53)] of the GKP code is also an achievable rate for the underlying AGN
+channel. In Chapter VIIE2, we find break-even points near1/√e for multimode (N = M = 2) GKP-O2O codes that
+use Minimum Mean Square Error (MMSE) estimation, whereas linear estimation leads a lower break-even point of
+.558 [31]; see Chapter VIIC just below about decoding and estimation strategies.
+Per Eq. (135), if the number of ancilla modes is equal to the number of data modes (M = N), then error suppression
+is at best quadratic in σ. The performance can be further enhanced with concatenated codes ( M > N) since
+σout ∼ σ1+ M
+N , where “out” refers to RMS or GM error. This tells us how the output error should scale with the input
+error but does not tell us how to achieve such scaling in practice. In particular, it may require a large amount of
+physical resources to push the error to arbitrarily small values. In Chapter VIIE3, we discuss these issues for general
+O2O codes, where finite squeezing becomes a limiting factor.
+C. Decoding strategies
+For decoding, as shown in Figure 24, one needs to infer the actual error on the data from the error syndromes ob-
+tained by stabilizer measurements on the ancilla modes (described in Chapter IVC), and then perform error correcting
+operations accordingly. In this section, we introduce two decoding strategies: linear estimation (see Chapter VIIC1)
+and minimum mean square error (MMSE) estimation (see Chapter VIIC2).
+The first part of the decoding strategy is applying the Gaussian transformationS−1
+enc that decorrelates the initial
+information in the data from the ancilla but correlates their additive noises; see Figure 24(b). The correlations between
+the additive noises of the dataxd and ancilla xa are described by the covariance matrix
+Vx = S−1
+encVξS−⊤
+enc , (136)
+where Vξ is the covariance matrix of the AGN channel (here we assume general form of noise, which may include
+correlated additive noise sources). Following the Gaussian transformation, one performs GKP-assisted homodyne
+measurements on the ancilla to extract the ancilla noisexa. This leads to an error syndromes = M ⊤Ωxa mod
+√
+2π
+[see Eq. (79)], from which we can estimate the additive noise on the dataxd. To correct the data noise, we apply
+a syndrome-informed displacement on the data according to some estimation functionf (s). The key part of the
+decoding strategy is to choose a good functionf (s) to estimate the error. The information to make use of is the joint
+distribution of the data noise and the syndrome,
+P (xd, s) =
+X
+k
+g(V −1
+d , xd + V −1
+d Vda(s − k
+√
+2π))g(V −1
+d|a , s − k
+√
+2π), (137)
+which can be solved from properties of the GKP lattice [32]. Hereg(Σ, x) is a multivariate Gaussian distribution,
+and the matrices above are defined implicitly via
+ Vd Vda
+V ⊤
+da Va
+−1
+:= (I2N ⊕ M ⊤Ω)Vx(I2N ⊕ (M ⊤Ω)
+⊤
+), (138)
+and Vd|a = Va − V ⊤
+daV −1
+d Vda.
+
+## PDF page 63
+
+63
+After the error correction, the output noise on the data isxout = xd − f (s) and follows the joint probability density
+distribution (PDF)
+P (xout) =
+ˆ
+R2N
+dxd
+ˆ
+I 2M
+ds P (xd, s)δ (xout − xd + f (s)) , (139)
+where δ is the Dirac delta function and I := [ −
+p
+π/2,
+p
+π/2]. From the distribution, one can easily obtain the
+covariance matrix for the output error,Vout, which is just the second moments ofxout.
+We note that the corresponding quantum channeleNO2O : ρin → ρout of the O2O code for a generic input data state
+ρin is a non-Gaussian additive noise channel [see Eq. (46)] with displacement noisexout governed by the non-Gaussian
+PDF P (xout).
+1. Linear estimation
+Linear estimation refers an estimation of the noise which is linear in the syndrome—i.e.,f (s) = As, where A is
+some invertible matrix. Linear estimation is adopted in Ref. [31], while Ref. [32] provided a general form. To obtain
+a reasonable choice ofA, we apply asymptotic analysis. Assume that the additive noisesxd and xa are small, such
+that we can ignore the modular properties of the GKP lattice; then,
+s = M ⊤Ωxa mod
+√
+2π ≈ M ⊤Ωxa. (140)
+In this case, the PDF of the data and the error syndrome, P (xd, s) in Eq. (137), is approximately a Gaussian
+distribution. One can then show that the best choice isA = −V −1
+d Vda, and thus,
+fLinear(s) = −V −1
+d Vdas. (141)
+2. Minimum mean square error (MMSE) estimation
+We consider minimum mean square error (MMSE) estimation, which is developed to minimize the RMS error of
+Eq. (134) and strictly performs better than linear estimation. We start with the joint PDF of the data and the error
+syndrome, P (xd, s). The joint PDF is not a Gaussian distribution but, rather, is a sum of Gaussian distributions.
+The conditional distributionP (xd|s) = P (xd, s)/P (s), where P (s) is the marginal distribution for the syndromes,
+can be used to derive the MMSE estimator viafMMSE(s) =
+´
+R2N dxd xdP (xd|s). For GKP-O2O codes, the MMSE
+estimator can be derived in closed form (see Ref. [32] for a derivation):
+Theorem 2. For a GKP-O2O code with GKP lattice stateL described by generator matrixM, the MMSE estimator
+for an error syndromes is given by
+fMMSE(s) = −
+P
+n V −1
+d Vda(s − n
+√
+2π)g(V −1
+d|a , s − n
+√
+2π)
+P
+m g(V −1
+d|a , s − m
+√
+2π) , (142)
+where g(Σ, x) is a multivariate Gaussian distribution andm, n ∈ Z2M. The matrices Vda, Vd and Va are defined
+through Eq.(138) and Vd|a = Va − V ⊤
+daV −1
+d Vda.
+This can be used to estimate the output error of O2O codes given for the MMSE estimation strategy.
+D. Example of codes and performances
+In this section, we review the performance of a few O2O code examples. In Ref. [31], two codes are proposed based
+on the GKP square lattice, the GKP-TMS code and the GKP-squeezing-repetition code. We consider the simple
+two-mode case (one data mode and one GKP ancilla) and assume a two-mode, heterogenous AGN channelNVξ, with
+noise covarianceVξ = diag(σ2
+1, σ2
+1, σ2
+2, σ2
+2), which are analysed in more detail in Ref. [80].
+
+## PDF page 64
+
+64
+<latexit sha1_base64="YldoJ/UokRSoNC4XwKZyfThvbDA=">AAAB73icbVA9SwNBEJ2LXzF+RS1tFoNgFe5E0TJoYxnBxEByhL3NXrJkd+/cnRNCyJ+wsVDE1r9j579xk1yhiQ8GHu/NMDMvSqWw6PvfXmFldW19o7hZ2tre2d0r7x80bZIZxhsskYlpRdRyKTRvoEDJW6nhVEWSP0TDm6n/8MSNFYm+x1HKQ0X7WsSCUXRSq2NFX9Fu0C1X/Ko/A1kmQU4qkKPeLX91egnLFNfIJLW2HfgphmNqUDDJJ6VOZnlK2ZD2edtRTRW34Xh274ScOKVH4sS40khm6u+JMVXWjlTkOhXFgV30puJ/XjvD+CocC51myDWbL4ozSTAh0+dJTxjOUI4cocwIdythA2ooQxdRyYUQLL68TJpn1eCi6t+dV2rXeRxFOIJjOIUALqEGt1CHBjCQ8Ayv8OY9ei/eu/cxby14+cwh/IH3+QPHF4/L</latexit>
+1
+<latexit sha1_base64="2TKrj1onLT/sZ+BiV5NiMVtdamQ=">AAAB73icbVBNSwMxEJ3Ur1q/qh69BIvgqewWRY9FLx4r2A9ol5JNs21okl2TrFCW/gkvHhTx6t/x5r8xbfegrQ8GHu/NMDMvTAQ31vO+UWFtfWNzq7hd2tnd2z8oHx61TJxqypo0FrHuhMQwwRVrWm4F6ySaERkK1g7HtzO//cS04bF6sJOEBZIMFY84JdZJnZ7hQ0n6tX654lW9OfAq8XNSgRyNfvmrN4hpKpmyVBBjur6X2CAj2nIq2LTUSw1LCB2TIes6qohkJsjm907xmVMGOIq1K2XxXP09kRFpzESGrlMSOzLL3kz8z+umNroOMq6S1DJFF4uiVGAb49nzeMA1o1ZMHCFUc3crpiOiCbUuopILwV9+eZW0alX/surdX1TqN3kcRTiBUzgHH66gDnfQgCZQEPAMr/CGHtELekcfi9YCymeO4Q/Q5w/Im4/M</latexit>
+2
+<latexit sha1_base64="2oeGzYJMJvKDxawYpSljf54qeiw=">AAACAXicbVDLSsNAFJ3UV62vqBvBTbAIrkoiii6rblxWsA9oQ5lMb9qhkwczN8US6sZfceNCEbf+hTv/xmmahbYeuHA4596Ze48XC67Qtr+NwtLyyupacb20sbm1vWPu7jVUlEgGdRaJSLY8qkDwEOrIUUArlkADT0DTG95M/eYIpOJReI/jGNyA9kPuc0ZRS13zoIPwgOmVGgcxRsiZxRI5AjXpmmW7YmewFomTkzLJUeuaX51exJIAQmSCKtV27BjdlEr9qIBJqZMoiCkb0j60NQ1pAMpNswsm1rFWepYfSV0hWpn6eyKlgdIrerozoDhQ895U/M9rJ+hfuikP4wQhZLOP/ERYGFnTOKwel8BQjDWhTPIsgAGVlKEOraRDcOZPXiSN04pzXrHvzsrV6zyOIjkkR+SEOOSCVMktqZE6YeSRPJNX8mY8GS/Gu/Exay0Y+cw++QPj8weVz5ed</latexit>
+Asymptotic curves
+<latexit sha1_base64="10t7KwuZqEfHC++jlYNi4XjJ3cU=">AAAB6nicbVBNS8NAEJ34WetX1aOXxSLUS0lE0WPRi8eK9gPaUDbbSbt0swm7G6GE/gQvHhTx6i/y5r9x2+agrQ8GHu/NMDMvSATXxnW/nZXVtfWNzcJWcXtnd2+/dHDY1HGqGDZYLGLVDqhGwSU2DDcC24lCGgUCW8Hoduq3nlBpHstHM07Qj+hA8pAzaqz0UKFnvVLZrbozkGXi5aQMOeq90le3H7M0QmmYoFp3PDcxfkaV4UzgpNhNNSaUjegAO5ZKGqH2s9mpE3JqlT4JY2VLGjJTf09kNNJ6HAW2M6JmqBe9qfif10lNeO1nXCapQcnmi8JUEBOT6d+kzxUyI8aWUKa4vZWwIVWUGZtO0YbgLb68TJrnVe+y6t5flGs3eRwFOIYTqIAHV1CDO6hDAxgM4Ble4c0Rzovz7nzMW1ecfOYI/sD5/AGJ/Y1O</latexit>
+(a)
+<latexit sha1_base64="5x71RCs6R8UhDPtRSL7AKu0KT+8=">AAAB6nicbVBNS8NAEJ34WetX1aOXxSLUS0lE0WPRi8eK9gPaUDbbSbt0swm7G6GE/gQvHhTx6i/y5r9x2+agrQ8GHu/NMDMvSATXxnW/nZXVtfWNzcJWcXtnd2+/dHDY1HGqGDZYLGLVDqhGwSU2DDcC24lCGgUCW8Hoduq3nlBpHstHM07Qj+hA8pAzaqz0UAnOeqWyW3VnIMvEy0kZctR7pa9uP2ZphNIwQbXueG5i/Iwqw5nASbGbakwoG9EBdiyVNELtZ7NTJ+TUKn0SxsqWNGSm/p7IaKT1OApsZ0TNUC96U/E/r5Oa8NrPuExSg5LNF4WpICYm079JnytkRowtoUxxeythQ6ooMzadog3BW3x5mTTPq95l1b2/KNdu8jgKcAwnUAEPrqAGd1CHBjAYwDO8wpsjnBfn3fmYt644+cwR/IHz+QOLgo1P</latexit>
+(b)
+Figure 25. Contours of the ratio ¯σRMS/ min[σ1, σ2] for (a) GKP-TMS code and (b) GKP-squeezing-repetition code. Linear
+estimators are adopted for concreteness. The end points marked by the red crosses areσ1 = σ2 ≃ 0.56for (a) andσ1 = σ2 ≃ 0.41
+for (b). Figure adopted from Ref. [80].
+Example VII.1 (GKP-two-mode squeezing code). In a GKP-TMS-code with square GKP lattice, the symplectic
+transform of the encoding isSenc = SG, where SG is a TMS transformation of gainG in Eq. (31). From Eq. (141),
+the linear estimator is explicitly
+fLinear(s) = −V −1
+d Vdas = ˜µ
+
+0 1
+1 0
+
+s, (143)
+where ˜µ =
+p
+G(G − 1)(σ2
+1 +σ2
+2)/[(G−1)σ2
+1 +Gσ2
+2]. This linear estimation scheme was adopted in Ref. [31]; essentially,
+it is optimized to reduce variance on the data in the Gaussian approximation (i.e., ignoring lattice effects arising from
+the GKP ancillae measurements) given syndrome information from the GKP ancilla. Likewise, from Eq. (142), the
+MMSE estimator can be obtained as
+fMMSE(s) =
+P
+n ˜µ
+
+0 1
+1 0
+
+(s − n
+√
+2π)g(σ2
+GI, s − n
+√
+2π)
+P
+m g(σ2
+GI, s − m
+√
+2π) , (144)
+where σ2
+G = Gσ2
+2 + (G − 1)σ2
+1. When σ1, σ2 ≪ 1, we obtain the asymptotic result from linear estimation,
+¯σ2
+RMS ≈ 4¯σ4
+π ln
+ π3/2
+2¯σ4
+
+, (145)
+where ¯σ = ( σ1σ2)1/2. The output error result aligns with broader findings on GKP O2O codes (albiet for iid
+AGN), as discussed heuristically in the chapter on no-thresholds for O2O codes (Chapter VIIE3). Specifically, these
+arguments generally indicate a quadratic noise reduction—i.e.,σ → σRMS ∼ σ2—when employing a single layer of
+error correction.
+Example VII.2 (Squeezing-repetition code). The GKP-squeezing-repetition code (see also Ref. [258]) has the fol-
+lowing encoding matrix forN = 2 modes,
+S[2]
+Sq−Rep =
+
+
+κ/λ 0 0 0
+0 λ/κ 0 −λ
+λ 0 λ/κ 0
+0 0 0 κ/λ
+
+ , (146)
+with λ and κ being tunable parameters. Whenσ1, σ2 ≪ 1, we obtain
+¯σ2
+RMS ≈ 4¯σ4
+π ln
+ π3/2
+2¯σ4
+
++ 4¯σ4
+π ln
+ σ2
+1 + σ2
+2
+2σ2
+1
+
+, (147)
+which is identical to Eq. (145) in the leading-order, up to a next-order correction that disappears whenσ1 = σ2. For
+σ1 ̸= σ2, the GKP-SR code is asymmetric between the two channels. We plot contours of the ratio¯σRMS/ min[σ1, σ2]
+in Figure 25(b). The asymptotic results (cyan curves) agree well with the numerical results [80].
+
+## PDF page 65
+
+65
+L
+Ψ
+L′
+Ψ
+Senc Senc
+−1
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+σ
+Df
+s
+Df′
+s′
+(a) (b)
+U−1
+Senc◦
+(
+N⊗K
+σ
+)
+◦U Senc U−1⨁ SGi
+◦
+(
+N⊗K
+σ
+)
+◦U ⨁ SGi
+Figure 26. General reduction of a O2O code to a TMS code (M = N here). (a) A general O2O code with encoding Senc
+and non-Gaussian ancilla|L⟩. The syndromes s are extracted from stabilizer measurements on the ancilla|L⟩ and inform the
+corrective operations (e.g., displacements) on the data,Df (s). (b) An equivalent TMS code, whereby the encoding is reduced to
+a set of TMS operations between the data and ancilla modes (Theorem 3). The state|L′⟩ is related to|L⟩ by a local symplectic
+transformation.
+E. General O2O code reduction to TMS codes
+To make progress towards describing generic features of GKP O2O codes, we focus on the simplifying case of
+independent and identically distributed (iid) AGN, with noise channelN ⊗K
+σ , where K = N + M; here, N is the
+number of data modes while M is the number of ancillary modes. In Ref. [32], it was proven that an arbitrary
+GKP-O2O code can be reduced to a generalized GKP-TMS code. A formal statement of the result is given just below
+in the form of a theorem; see also Figure 26.
+Theorem 3 (GKP-O2O codes reduce toTMS⊗(L)). For an iid AGN channel, the most general GKP-O2O code is
+formally equivalent to a product ofN GKP-TMS codes with anM-mode ancillary lattice state|L⟩. We refer to this
+general construction asTMS⊗(L).
+This result is a consequence of the encoding/decoding structure of the code and follows from the modewise entan-
+glement theorem (see Theorem 1). We sketch the proof here; see Ref. [32] for rigorous details and also Figure 26
+for visual aid. Due to the modewise entanglement theorem, the multimode correlations between a sub-systemA of
+N modes and sub-system B of M ≥ N modes can be decomposed into N pairwise TMS correlations up to local
+operations on A and B. [This also assumes that the joint covariance matrix is of the formVAB ∝ SS ⊤.] We can
+apply this result to our current setting. Consider the sequence of operationsSenc → N⊗K
+σ → S−1
+enc that transforms
+the iid AGN channel to a correlated AGN channel with covariance matrixYenc = σ2S−1
+encS−⊤
+enc. By the modewise
+entanglement theorem, we can decompose the productS−1
+encS−⊤
+enc into N TMS operations between data and ancilla
+(with an identity on the remainingM − N ancilla modes) up to local operations that can ultimately be absorbed into
+state preparation and the estimation strategy.
+Given the TMS code reduction above, to optimize the code design, one needs to optimize over theN gain parameters
+Gi of the TMS operations, as well as theM-mode lattice state|L⟩. Interestingly, Theorem 3 does not actually require
+thenon-Gaussianancilla |L⟩tobeaGKPlatticestate. Inotherwords, ourresultsholdforanycodesbasedonGaussian
+encoding with general non-Gaussian ancilla—not just GKP-O2O codes. This TMS construction therefore represents a
+general coding strategy for O2O codes based on Gaussian encoding. Moreover, considering that Gaussian operations
+supplied with non-Gaussian GKP ancilla are universal and sufficient for fault-tolerant quantum computation [225],
+such codes appear to be generically sufficient for QEC as well. For single-mode data and ancilla, the optimal code
+design problem can be efficiently solved as discussed below. We provide concrete numerical examples of GKP-TMS
+codes in Chs. VIIE1 and VIIE2.
+1. Code optimization: two mode iid case
+Since all single-mode lattice states can be generated by local symplectic transformations on the canonical GKP
+state (see Proposition 1), Theorem 3 immediately implies the following:
+
+## PDF page 66
+
+66
+Figure 27. Output noise for a single-mode (N = M = 1) GKP-O2O code. Input noise variance isσ = 10 −2. We optimize
+the TMS gain G for each point (r, θ). (a) RMS error ¯σ2
+RMS, (b) GM error¯σ2
+GM. For the square lattice (green line),¯σ2
+RMS =
+1.25129(5) × 10−3and ¯σ2
+GM = 1.25129(5) × 10−3. The four hexagonal lattice points (red dots) have the same output noises of
+¯σ2
+RMS = 1.15575(5) × 10−3 for RMS error and¯σ2
+GM = 1.15575(5) × 10−3 for GM error. Only the rangeθ ∈ [0, π/4] is considered
+due to symmetry; see Ref. [32]. This is a re-print of Figure 5 of Ref. [32].
+Theorem 4. For single-mode data and ancilla undergoing iid AGN, the TMS codeTMS(LΛ), with gainG and ancilla
+lattice |LΛ⟩ = UΛ |□⟩, is the optimal GKP-O2O code.
+Therefore, to find the best two-mode GKP-O2O code, we need to optimize the local Gaussian unitaryΛ and the
+TMS gain G, as well as choose the best possible estimatorf. We are unaware of a way to derive an estimatorf that
+minimizes the GM error.30 On the other hand, since¯σ2
+RMS ≥ ¯σ2
+GM, we can obtain an upper bound on the GM error
+from the RMS error, which we can minimize via MMSE estimation of Theorem 2.
+As shown in Example II.2, any single-mode Gaussian transformation has a decompositionR(ϕ)Sq(r)R(θ), where
+R(phi) is a 2 × 2 rotation matrix in Eq. (29) andSq(r) is single-mode squeezing of Eq. (28). Due to the symmetry
+of the AGN, the last phase rotation R(ϕ) does not alter performance; thus, we can ignore the last rotation and
+parameterize the transform as Λ = Sq(r)R(θ) such that |L⟩ = UΛ |□⟩. As examples, a rectangular GKP state
+(Figure 6c) is given byθ = 0 and r >0, and a hexagonal GKP state (Figure 6d) is given byθ = π/4 and r7 =
+4√
+3.
+In Figure 27(a), we plot the contour of the RMS error¯σ2
+RMS for an MMSE decoder optimized over the TMS gainG
+for each point(r, θ); note that each point(r, θ) corresponds to a different GKP ancilla lattice. We find four equivalent
+minima, corresponding to equivalent representations of the hexagonal lattice. The square lattice hasr = 1 with θ
+arbitrary (represented by the green line); the rectangular lattice hasθ = 0 while r squeezes the rectangle (represented
+by the blue line). The hexagonal lattice outperforms the square and rectangular lattices for all levels of AGN. In
+Figure 27(b), we plot the GM error¯σ2
+GM in (r, θ) parameter space for the same optimized gain values of Figure 27(a).
+The GM error and RMS error are almost equal, with some deviations at the left-bottom corner due to the large
+squeezing of a rectangular lattice.
+2. Numerical results for multimode oscillator codes
+In this section, we present recent numerical results for multimode (N = M = 2) GKP-O2O codes [32]. These
+codes could be used to, e.g., protect a two-mode squeezed vacuum state. For simplicity we consider iid noise, as
+30Recall that the GM error has information theoretic roots [Eq. (53)], supporting its relevance.
+
+## PDF page 67
+
+67
+0.1 0.2 0.3 0.4 0.5 0.6 0.7
+σ, Input Noise
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0¯σGM/σ, QEC Ratio
+Break-even
+σLB = σ2
+√
+e (1 − σ2)
+(a)
+Square (Linear)
+Square (MMSE)
+Hex (MMSE)
+D4 (MMSE)
+Break-even (Linear)
+Break-even (MMSE)
+0.45 0.50 0.55 0.60 0.65 0.70
+σ, Input Noise
+0.96
+0.97
+0.98
+0.99
+1.00
+← .607 σ .707 →
+(b)
+Figure 28. QEC gain between output noise and input noise of a multimode (N = M = 2) GKP TMS code TMS⊗2(L)
+for different canonical lattices L (Square, Hexagonal, D4) and estimation strategies (linear, MMSE). The square code with
+linear estimation (dotted purple) is presented as a benchmark [31]. Grey hatched region is forbidden by information theoretic
+arguments. The purple diamond and green star denote break-even points for linear and MMSE estimation, respectively, after
+which point no QEC gain is expected. Figure adapted from Ref. [32].
+our focus is on comparing performance of various two-mode GKP lattices,|L⟩. Since GKP-TMS codes, TMS⊗2(L),
+represent a generic class of O2O codes via the code reduction theorem 3, we focus on these codes here. The encoding
+(decoding) is given by N = 2 TMS operations, with each TMS operation coupling one data mode to one ancilla
+mode; see Figure 26. We numerically optimize the TMS gains to minimize the RMS error¯σ2
+RMS = Tr{Vout}/4 for
+MMSE estimation. To benchmark the results, we consider linear estimation with initial square GKP states, which
+was analyzed in the original work of Noh et al [31].
+In Ref. [32], three initial (canonical) GKP lattice states were considered: a direct product of square GKP states
+(i.e., a 4-dimensional hypercube), a direct product of hexagonal GKP states, and a canonicalD4 lattice that can be
+generated from a hypercube via a two-mode symplectic transformation [see Eq. (73)]. The canonicalD4 GKP state
+is entangled, and thus, theD4 TMS code TMS⊗2(D4) is a genuine multimode O2O code. For the direct product
+codes, since the TMS operations operate on the data modes independently and the additive noises are independent,
+the square and hexagonal TMS codes,TMS⊗2(□) and TMS⊗2(7), produce equivalent results as their single-mode
+counterparts.
+Results for the GM error¯σGM =
+4√det Vout are presented in Fig 28. TheD4 TMS codeTMS⊗2(D4) performs better
+than the square and hexagonal TMS codesTMS⊗2(□) and TMS⊗2(7). This result is not too surprising, since the
+D4 lattice has the densest sphere-packing in four dimensions. To quote some examples from the data, forσ = .1,
+the TMS⊗2(7) code outperforms the TMS⊗2(□) code by a relative difference of about3.95%, whereas TMS⊗(D4)
+achieves a relative difference of about9.04%. Hence, a D4 lattice can improve code performance by roughly10% or
+better. The advantages become larger for lowerσ.
+Interestingly, from our numerical results, we observe that MMSE estimation leads to a break-even pointσ⋆
+MMSE ≈
+.605(5) (teal star in Figure 28) irrespective of the latticeL, whereas linear estimation leads toσ⋆
+lin ≈ .558 [31] (purple
+diamond). The value σ⋆
+MMSE ≈ .605(5) for MMSE agrees with the lower bound on the break-even point taken from
+capacity arguments (.607 ≤ σ⋆ ≤ .707) discussed in the Chapter VIIB. A break-even point σ⋆ ≈ .607 was also
+observed in threshold behavior of GKP-surface codes [246].
+3. No threshold for finite squeezing
+Errors, such as additive Gaussian noise, are continuous errors, in contrast to the discrete Pauli errors in discrete
+variable quantum information processing. Analogously with error suppression in discrete variable systems, one begs
+the question: Can one shrink CV errors to arbitrarily small values? In Ref. [259], it was found that, for GKP-O2O
+
+## PDF page 68
+
+68
+codes relying on maximum likelihood decoding, AGN errorscannot be made arbitrarily small with a finite amount
+of squeezing—no matter if we increase the number of modes—implying the existence of a no-threshold theorem for
+GKP-O2O. The authors of Ref. [32] then extended the no-threshold result toany O2O code relying on Gaussian
+encoding, remarkably without reference to the non-Gaussian ancilla nor the estimation strategy used. In other words,
+we may generally state that O2O codes do not have a threshold. In some respects, the non-existence of a threshold
+is intuitive: We do not expect arbitrary lower error suppression of an analog/continuous error without consuming an
+arbitrarily high continuous-variable resource, such as squeezing.
+Asimpleproofoftheno-thresholdresultfollowsfromthecodereductionofTheorem3andaclassicaldataprocessing
+argument, which we now sketch. Consider a multimode O2O code with Gaussian encoding (decoding)Senc (S−1
+enc).
+Let xd ∈ R2N and xa ∈ R2M be the correlated data and ancilla noises, which are Gaussian distributed random
+variables with covariance matrixVx = σ2S−1
+encS−⊤
+enc. By the Code Reduction Theorem 3, the error matrixVx can be
+decomposed into N TMS blocks (each characterized by a TMS amplification gainGi), with each data mode coupled
+to only one ancilla mode. Letxai be an element ofxa that is correlated withxdi of xd. Due to the structure of the
+TMS operation, there exists onlyqq and pp correlations—i.e., there are no cross correlationsqp. Thus we can consider
+one data quadrature at a time. Furthermore, let˜xdi := ˜xdi (xai ) be the estimation of the data noise given information
+about the ancilla noise (practically extracted from syndrome measurements). A corollary of Theorem 8.6.6 in Ref. [260]
+states that the estimation variance of a generic random variableX, given side informationY, is lower bounded via
+E[(X − ˜X(Y ))2] ≥ exp [2S(X|Y )] /2πe, where S(X|Y ) is the conditional differential entropy. For Gaussian random
+variables that are correlated via two-mode squeezing, it is easy to show thatS(xdi |xai ) = ln
+
+2πeσ 2
+2Gi−1
+
+/2. Therefore,
+E
+h
+xdi − ˜xdi
+2i
+≥ σ2
+2Gi − 1 . (148)
+Summing over all quadratures and accounting for the double degeneracy of q/p variances, we find the following lower
+bound on the output RMS error,31
+¯σ2
+RMS ≥ 1
+N
+NX
+i=1
+σ2
+2Gi − 1 . (149)
+If we benchmark the errorε ≥ ¯σRMS, the average gain must scale asG ∼ σ2/ε in order to be at or below the
+benchmark. Hence, without an infinite amount of squeezing, the error ε cannot be made arbitrarily small, even
+with an infinite number of ancillary modes. This result is a consequence of the Gaussian encoding structure of O2O
+codes and, moreover, does not rely on the particular non-Gaussian ancilla nor the estimation strategy employed.
+No-threshold behavior thus seems to be a universal feature of O2O codes. Furthermore, we observe that the critical
+component for combating analog errors is the CV resource of squeezing, rather than the number of ancillary modes
+M, which does not even play a role in the bound. This contrasts with DV (qubit) codes, where increasing the number
+of ancilla qubits typically leads to vanishing logical error rates, given that the physical error rate is below a certain
+threshold.
+Let us make a final observation before moving forward to applications of GKP codes. Equation (149) suggests that
+we can arbitrarily crank up the gain to attain a low output error, however this appears in contradiction with the
+bounded scaling σout ∼ σ1+M/N inferred from quantum capacity arguments [Eq. (135)] for GKP O2O codes. The
+apparent contradiction is fictitious and can be reconciled by the following heuristics. For GKP-O2O codes, the TMS
+gain G cannot be made arbitrarily large as this would amplify the noisy displacements and harmful lattice effects
+would come into play. We are thus led to a crude constraint on the gain
+√
+Gξ ≲ ℓ, where ξ ∼ N(0, σ2) is a random
+displacement andℓ is the lattice spacing, implying that the TMS gain must be boundedG ∼ ℓ2/σ2. The output error
+after one round of O2O QEC then scales asσout,1 ∼ σ2/ℓ. This argument provides a similar scaling (up to logarithmic
+corrections) as the more detailed analyses given in the original work of Ref. [31]; see also Eqs. (145) and (147). Going
+further, for k = M/N rounds of error correction (or a concatenated code withk levels), σout,k ∼ σ1+k/ℓk. Thus, one
+can shrink the error by increasingk = M/N, in accordance with the lower bound found in Eq. (135). However, with
+decreasing error, the gain must correspondingly increase, in agreement with the no-threshold result (149).
+VIII. APPLICATIONS
+Bosonic QEC with GKP states has a wide range of useful quantum-specific applications, including fault-tolerant
+quantum computing with error-corrected bosonic modes, quantum communication, and error-correction enhanced
+31A similar condition can be found for the GM error.
+
+## PDF page 69
+
+69
+quantum sensing. For example, GKP qubit codes have been shown to benefit from analog information at the CV
+level, enhancing the performance of outer DV codes that are useful in communication and computation. Additionally,
+it has been suggested that bosonic QEC is more resource efficient than typical DV approaches. Finally, it seems
+apparent that, in futuristic quantum networks, bosonic QEC will play a vital role for, e.g., long-distance quantum
+communication, distributed quantum information processing. The promising advantages of bosonic QEC have moti-
+vated extensive development of bosonic QEC codes, as well as a wide range of proposals for fault-tolerant quantum
+computers, quantum repeater designs, and QEC-enhanced sensors based on GKP qubit and O2O codes. In this
+section, we discuss some of these exciting avenues.
+A. Computing
+The race to build a fault-tolerant quantum computer (FTQC) is intensifying, although it may take some time
+before such a device becomes available. Despite this, GKP qubit codes have emerged as a promising solution for
+achieving this objective—offering several advantages over other qubit encoding schemes. Recent theoretical research
+has focused on optimizing the performance of GKP qubit codes and developing novel techniques for fault-tolerant
+quantum computing. On the experimental front, as we saw in previous sections, significant progress has been made
+in implementing GKP qubit codes using various physical systems, such as superconducting circuits and trapped ions,
+with numerous proposals for their use in optics. As we touched on briefly in Chapter VF, significant challenges still
+exist in scaling up these systems to construct large-scale fault-tolerant quantum computers, and further research is
+required to overcome these obstacles.
+There have been a number of recent reviews on quantum computing with bosonic modes [22–25]. These reviews
+have provided valuable insights into the current state of the field, highlighting the progress made in developing and
+optimizing bosonic QEC codes for quantum computing and outlining the challenges that need to be addressed for
+the practical implementation of FTQC using GKP qubits. However, the field of bosonic QEC is progressing rapidly.
+Here we highlight some key aspects of quantum computing with GKP qubits and recent developments on both the
+theoretical and experimental fronts.
+1. Universality with Gaussian operations
+Clifford gates (generated by Hadmard, S gate and CNOT) and measurements for GKP encoding consists of Gaussian
+operations and are therefore, in principle, relatively easy to implement. Remarkably, it has been shown in Ref. [225]
+that universal quantum computation with GKP qubits can be achieved without additional non-Gaussian elements
+beyond the GKP states themselves. This is nontrivial since non-Gaussian gates, such as the cubic phase gate, are
+typically necessary for universality; see Chapter IIF for a quick overview of non-Gaussianity. The driving force behind
+this GKP universality is the following observation [225]: Applying GKP error correction (enabled by preparing
+an ancilla in a GKP state) can produce magic states on Gaussian inputs, in turn enabling the implementation of
+non-Clifford gates (magic gates). This result has important implications for the experimental realization of GKP-
+based quantum computation, as it suggests that the use of non-Gaussian operations is unnecessary, simplifying the
+experimental requirements. However, as described in Chapter VD, the clifford equivalence of Gaussian operations is
+only correct for ideal GKP codes. For finite-energy GKP codes, the Gaussian operations need to be followed by a few
+stabilization rounds, since the finite-energy envelope induces correctable errors when ideal GKP operations are used
+with finite-energy GKP states. These errors can reduce the overall threshold when GKP qubit codes are concatenated
+with DV codes, as we elaborate in forthcoming sections.
+It is worthwhile to precisely pinpoint the resources leading to GKP universality, as such is relevant when consider the
+potential, classical simulatiability of quantum computation with GKP states. Recall that, in the DV domain, classical
+simulability is associated with Clifford operations and computational basis states/measurements. Whereas in the CV
+domain, the Gaussian nature of the quantum states and measurements (e.g., homodyne) is often associated with the
+simulability of CV circuits, as we discussed briefly in Section IIF. The amalgamation of DV-type computations with
+CV resources introduces novel challenges and avenues for identifying or quantifying simulatability in bosonic quantum
+information processing. While negativity of the Wigner function, a property that non-Gaussian states like GKP states
+possess, is necessary for classical non-simulatability [90], it is not necessary and sufficient [261]. In fact, Refs. [261, 262]
+provide a comprehensive analysis and establish conditions under which quantum circuits comprisingonly GKP states,
+Gaussian unitaries, and homodyne detection can be classically simulatable.32 Given these considerations in light of
+32This is due to the fact that one can track the GKP stabilizers through the Gaussian circuit and measurements, similar to stabilizer
+tracking in the DV domain.
+
+## PDF page 70
+
+70
+–19 –18 –17 –16 –15 –14 –13 –12 –11 –10 –9
+Squeezed variance (dB)
+10-5
+10-4
+10-3
+10-2
+10-1
+100
+–12.7 dB–13.6 dB –10.2 dB–17.3 dB
+d = 3
+d = 5
+d = 7
+d = 9
+d = 11
+pσ(z)
+perr(σ)
+Surface-GKP
+σgate = 2σGKP
+2 2
+Surface-4-GKP
+σgate = 2σGKP
+2 2
+Surface-4-GKP
+σgate = 02
+Logic Z and X error rate
+Figure 29. Threshold estimates for GKP surface codes in a MBQC architecture when finite-energy GKP noise and/or gate
+noise contribute to the overall noise budget. Threshold estimates vary from 10-17 dB (effective squeezing) depending on what
+code is utilized and if gate noise is present. Adapted from [199].
+the GKP universality results discussed previously, it begs the question: Which physical resources actually lead to
+GKP universality? Remarkably, it turns out that vacuum or thermal states (albeit, of low occupation number) are
+the only additional elements necessary for universal quantum computation with GKP states [263], as such can be
+utilized to manifest GKP-magic [225].
+2. Fault tolerant quantum computing architectures
+A plethora of FTQC architectures based on GKP codes have been proposed in the last several years. These can
+generally be broken into two categories based on the platforms considered: cQED and ion-based platforms are well-
+suited for gate-based quantum computing [147, 243, 244, 254] because they have high fidelity gates and the ability
+to perform high-fidelity single-shot measurements. In contrast, photonic systems are considered good platforms for
+fault-tolerant measurement-based quantum computing (MBQC), which involves preparing a large entangled state,
+typically a cluster state, and then measuring the state in a particular pattern to perform quantum computations [199,
+230, 264, 265]. In either setting, finite-energy GKP noise and noise from faulty gates are limiting factors that need
+to be considered; see Figure 29 for threshold estimates that include GKP noise and/or gate noise. We discuss both
+cQED- and optics-inspired approaches below.
+In the context of FTQC with cQED, low-loss microwave modes are initialized in GKP qubits and gates and
+measurements are performed via Gaussian operations and, in principle, homodyne detection [22–25] or, in practice,
+via auxiliary qubit-based schemes like those presented in Chapter V. High-Q microwave cavities are a good platform for
+quantum information processing with GKP qubits as witnessed by the recent beyond break-even demonstration [52].
+Furthermore, exquisite control of the quantum state of the microwave resonator is allowed by coupling the mode to
+a nearby transmon which can be used for single- and multimode quantum state engineering; see Chapter V.
+Several architectures based on hybrid topological (e.g., surface) GKP codes have been considered as a viable option
+for FTQC in cQED [22–25, 147, 243, 244, 246, 254]. Here, the GKP qubit code is used as inner code for analog QEC
+and a topological code is used as an outer code, in analogy with the code constructions presented in Chapter VI.
+Intuitively, the inner code provides a first layer of protection against Gaussian noise sources at the single-qubit
+level. The outer DV code then supplements the inner code by permitting single-qubit errors which can otherwise
+be corrected at the logical level. Importantly, since GKP states are the only non-Gaussian resource required for
+universality, logical operations can be implemented with Gaussian transformations on the GKP qubits. State-of-the-
+art results in numerical simulations of fault-tolerance thresholds for an all-GKP code is recorded atσ ≈ 0.602 [246]. In
+Ref. [144, 146], the authors study rectangular GKP codewords using XZZX codes and report threshold values around
+σ ≈ .6 by using an asymmetric rectangular GKP lattice. Ref. [145] claim a threshold aroundσ ≈ .67 is attainable
+via rectangular GKP concatenated with a XZZX code. It is to be noted that many such studies utilized ideal GKP
+operations and error correction with GKP ancillae. As illustrated in Chapter VD, one can achieve improved readout
+fidelities, state preparation, and error correction using single-qubit ancillae—which are pending analyses with respect
+to implementations of GKP-surface codes or concatenation with other qubit codes, like the low-density parity check
+
+## PDF page 71
+
+71
+(LDPC) codes, Color codes, etc.
+In the optical domain, there have been recent proposals for MBQC with optical GKP qubits [199, 230, 264, 265].
+Similar to the microwave regime, a GKP qubit code is used as inner code to complement the outer qubit code.
+Gaussian operations on, e.g., GKP qubits generate an entangled cluster state. One then performs joint homodyne
+measurements on the GKP qubits to execute the computation. Arguably the most challenging obstacle to overcome
+in optical quantum computing architectures is GKP state generation. As discussed in Chapter VE, many proposals
+to create optical GKP qubits rely on probabilistic methods, such as GBS devices that inject displaced squeezed
+vacua into a linear optical network and post-select on photon-number patterns from PNR detectors; see Ref. [36] for a
+recent demonstration. To achieve near-deterministic (but heralded) creation of GKP states, many GBS devices can be
+multiplexed. Additionally, high-quality GKP states are required since finite-squeezed GKP states introduce additional,
+effective noise in the architecture. Nevertheless, if reliable optical GKP states can be generated, cluster-state creation
+via Gaussian operations and computation via homodyne measurements can be straightforwardly achieved on-chip,
+making optical FTQC with optical GKP qubits an attractive prospect.
+Numerical simulations assessing fault-tolerant thresholds based on GKP qubit codes concatenated with DV codes—
+in both cQED- and optics-inspired architectures—should be approached on a case-by-case basis due to the presence
+of caveats and underlying assumptions about noise modeling. However, several simulations targeting both platforms
+indicate a consistent trend. These simulations suggest fault-tolerant threshold behavior around 10-13 dB (equivalent
+squeezing), thus establishing a benchmark for the amount of squeezing required in the GKP qubits. A recent estimate
+using the GKP surface code [199], as shown in Figure 29, exemplifies this trend. Universal FTQC is thus, in principle,
+possible with bosonic systems provided high-quality GKP states are available, and the error rates are within acceptable
+limits.
+B. Communication
+Thefutureofcommunicationandnetworkingwilllikelybeencompassedintheso-called quantum internet[3–6]. The
+quantum internet, or more generally quantum networks, hypothetically consists of a set of quantum channels that
+link many quantum nodes—much like today’s classical internet structure but with key distinctions. The channels
+of a quantum internet are “quantum” in the sense that they allow transmission of delicate quantum information
+(i.e., non-zero quantum capacity), while the nodes are “quantum” in the sense that the users at each node have
+(to varying degrees) some level of quantum information processing capabilities. The development of the quantum
+internet is currently in a gestational period, however the potential technological impact of futuristic quantum networks
+is apparent. Some specific applications that can be realized by a full-fledged quantum internet are, to name a
+few: distributed quantum computing and distributed quantum sensing over large-area networks, provably secure
+communication, and quantum clock synchronization (see Refs. [4, 6] for more details and references)—with unforeseen
+applications and technological breakthroughs awaiting in our future.
+Establishing a functional quantum network is not without its challenges. At the most primitive level, the primary
+task of any quantum network is to allow successful transmission and maintenance of quantum coherence and entan-
+glement over large distances. This is generically a difficult task due to excessive noise in communication links and
+the fragility of quantum states. Similar to current classical communication networks, optical fibers and free-space
+channels are go-to approaches for fast and reliable quantum communication, but these lines of communication are,
+alas, noisy. At the theoretical level, these transmission media can be accurately modeled as thermal-loss channels
+described mathematically in Chapter IID. It is thus vital to determine the best possible communication rates over
+these channels, explore practical avenues to achieve optimal communication rates, and construct approachable ways
+to connect network users in large-area quantum networks.
+For long-distance optical communications, we see GKP QEC codes playing a pivotal role in the future. In this
+section, we discuss how achievable rates with GKP codes approach the capacities of noisy Gaussian channels. This
+establishes GKP codes as a viable route to optimal quantum communication. We then discuss quantum repeaters
+based on GKP codes, which allows one to extend quantum communication links over, in principle, arbitrarily large
+distances.
+1. Achievable Rates
+In Chapter IIG, we discussed, in quite general terms, the quantum capacities of Gaussian channels—placing upper
+bounds or providing achievable rates (lower bounds) in most cases. These bounds, however, are based on “existence
+proofs” with no specific route to achieve such in practice. GKP codes turn out to be a physically viable way of
+approaching such bounds. As a matter of fact, shortly after the conception of computational GKP states [13], it was
+
+## PDF page 72
+
+72
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+101 102 103 104
+Distance (km)
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+Secret-key rate r' (bits per mode)
+Secret-key rate r' vs distance, [[4,1,2]] code
+Hybrid
+Only type-A repeaters
+PLOB bound
+Saturation secret key
+1-layer Tele
+7-layer Tele
+10-layer Tele
+13-layer Tele
+PLOB
+Secret key rate
+L (km)
+100
+10−1
+10−2
+10−3
+10−4
+ kmLΔ=10
+ dBs=s=25(G)
+1 5 10 50 100 500
+10
+-4
+0.001
+0.010
+0.100
+1
+(a)
+(b) (c)
+QR1 QR2 QRN
+L0 = L/N
+Ψ
+□
+□
+N (L0) N (L0)
+E
+Encoding
+Dc
+s
+Correction
+Figure 30. GKP quantum repeater. (a) High-level schematic of a one-way quantum repeater (QR) based on GKP qubits. A
+noisy quantum communication line of lengthL is broken intoN segments of lengthL0 = L/N. At the first repeater station
+QR1, a GKP qubit Ψ is encoded into a multi-qubit code (e.g., a [[4,1,2]] code) and then sent to the next repeater station,
+QR2. A QEC cycle is implemented to correct errors on the multi-qubit state (and re-encoded with fresh ancillae if necessary).
+The encoded information is sent down the line, with iterative QEC cycles implemented at intermediary repeater stations, until
+it reaches its destination at the final repeater stationQRN, where the information is decoded and processed. (b) Secret-key
+rate for one-way GKP-QR architecture based on DV encoding (DV-QKD). Adapted from Ref. [266]. (c) Secret-key rate for
+GKP-QR architecture based on CV encoding and teleportation (CV-QKD;L0 = 10 km). Adapted from Ref. [131]. PLOB
+bound refers to the best secret-key rate via repeaterless communication [267]. In both designs, a critical distance of∼ 100
+km emerges, after which quantum repeaters appear to be an absolute necessity for reliable, high-rate, long-distance quantum
+communication.
+shown that multimode GKP codes can be used to achieve the one-shot quantum capacity of the AGN channel [lower
+bound in Eq. (51)] by encoding the information into a high-dimensional GKP lattice [33]. The results from that work
+suggested that GKP codes may be useful for other types of Gaussian channels as well. This intuition has been proven
+correct. In fact, using loss-to-AGN conversion techniques presented in Chapter IID2, Noh et al [83] showed that GKP
+codes achieve the quantum capacity of thermal-loss channels [upper bound in Eq. (50)] up to at most a constant factor
+gap. For the specific case of single-mode encoding, the authors demonstrated numerically that, starting from random
+initial codes, the hexagonal GKP code emerges as the optimal bosonic code for transmission across a thermal-loss
+channel; see also Fig. 4 in Chapter III and surrounding discussions.
+2. Quantum Repeaters
+As we saw in our previous discussions, quantum capacities of Gaussian channels are (almost) achievable via GKP
+codes. However, these analyses only hold in regimes where the noise is not too large, meaning that the quantum
+capacity remains non-zero throughout the entire communication distance. For long-distance communication, this is
+no longer the case, and new avenues for successful quantum communication need to be explored. The key technology
+typically employed to overcome this pressing challenge is a quantum repeater.
+Quantum repeaters are a crucial technology for long-distance quantum communication and are essential for the
+development of futuristic quantum networks [268]. They allow for the transmission of quantum information over
+
+## PDF page 73
+
+73
+long distances by breaking up the communication line into smaller segments and transmitting quantum information
+between adjacent segments via entanglement swapping or one-way QEC-assisted protocols; see Figure 30 for an
+illustration. Developing good QEC codes (and/or robust quantum memories) is thus critical to realizing effective
+quantum repeaters.
+There has been growing interest in the use of GKP qubits for quantum repeater protocols [131, 266, 269–271],
+which utilize multi-layer QEC codes for the implementation of one- and two-way quantum repeaters; see Figure 30.
+In particular, most proposed architectures employ an inner GKP code to provide a first-line defense against loss,
+followed by an outer layer qubit code—such as a[[4, 1, 2]] or [[7, 1, 3]] code—to protect against single-qubit errors
+that the inner code cannot handle on its own. Furthermore, these hybrid CV-DV architectures have demonstrated
+that, in principle, incorporating analog information for the inner CV code can lead to enhanced quantum repeater
+performance.33
+Apart from transmitting discrete information, transmitting genuinely analog information is essential for many quan-
+tum sensing and CV quantum communication tasks. Motivated by the need to transmit analog quantum information,
+there has been a recent proposal for an all-CV quantum repeater that utilizes GKP-O2O codes and CV quantum
+teleporation to achieve this task [131]. In particular, the authors of Ref. [131] showed that their CV repeater design
+can overcome attenuation in transmission and improve the performance of several physically motivated operational
+tasks such as entanglement-assisted communication, target detection, and CV quantum key distribution; see Fig-
+ure 30(c). Further research to optimize CV repeater architectures that, perhaps, leverage multimode GKP-O2O
+codes is warranted.
+We point out that the resource requirements for the GKP-based (and other) quantum repeater architectures is
+significant because these designs typically require a large number of repeater stations that host quantum memories—
+such as highQ microwave cavities—as well as high-fidelity quantum information processing capabilities in memory—
+such as the ability to couple multiple cavity modes. Additionally, transduction capabilities will likely be necessary
+for translating information between optical communication lines and memory [6, 53, 54]. To bypass the transduction
+issue, one possibility is to directly link the optical channels to optical quantum information processors located at each
+repeater node.
+C. Sensing
+Quantum sensing is a fascinating area of research that is poised to significantly impact society as a whole [6, 277–
+279]. The key advantage of quantum sensing is that it can achieve higher sensitivity than classical sensing methods
+through the Heisenberg scaling of the measurement sensitivity1/N (the fundamental limit on precision quantum
+measurements) which should be compared to the standard quantum limit1/
+√
+N for classical sensing paradigms; here,
+N is the number of sensors.
+The in-principle sensitivity advantage in the quantum sensing paradigm can be greatly beneficial for real-world
+applications—such as secure timing in clock networks [280], high-precision astronomy [281, 282], fundamental physics
+applications like gravitational wave detection [283] and dark matter searches [275, 284–286], and data classification
+in supervised learning tasks [287]—to mention a few examples. However, thepractical advantage of quantum sensors
+is limited, due to the effects of decoherence and noise, which can depreciate the Heisenberg scaling advantage that is
+otherwise present in idealistic sensing scenarios.
+This is where QEC comes in. By encoding quantum-sensor states (e.g., multi-partite entangled state) in a way
+that is robust against errors, QEC can improve the performance of quantum sensors, allowing them to recover the
+Heisenberg limit even in noisy environments [288]. To this end, reducing the variance of estimation for a sensing task
+is paramount for enhanced sensitivity and reemergence of Heisenberg scaling. O2O codes—like those discussed in
+Chapter VII—can substantially reduce the noise, as we have seen explicitly from the variance bound in Eq. (149),
+and thus boost sensing performance. In this section, we discuss the QEC-enhanced sensing paradigm, emphasizing
+applications of GKP states and GKP codes for sensing in the CV domain.
+1. Error correction for entangled sensor networks
+Quantum sensing adopts different types of resources to boost the sensor performance in information acquisition.
+For instance, in the optical domain, sensors rely on squeezed vacua, two-mode squeezed vacua, and multi-partite
+33GKP encodings come with the additional benefit that Bell state measurements (a key ingredient for quantum teleportation) can be
+done deterministically, which is not the case for, e.g., “all-optical” implementations [272].
+
+## PDF page 74
+
+74
+Figure 31. Schematic of distributed quantum sensing applied to (a) a radio-frequency photonic sensor array, (b) opto-mechanical
+sensors for force sensing and (c) microwave cavity sensors for dark matter detection. (d) Schematic of GKP-O2O codes applied
+to protect entanglement between sensors for distributed quantum sensing tasks. (e) Sensing accuracyδα versus number of
+sensors with and without GKP-O2O codes for protection. Black dashed: ideal entangled performance of Heisenberg scaling.
+Gray dashed: ideal classical performance. Blue: practical sensors enhanced by entanglement in presence of loss1 − η = 0.05.
+Red and orange are performance when GKP-O2O codes are used for QEC. Figures adopted from (a) [273], (b) [274], (c) [275],
+(d) [276], and (e) [258].
+continuous-variable entanglement to go beyond standard quantum limit dictated by vacuum fluctuations. The pro-
+tection of these continuous-variable quantum resources against noise requires codes such as the GKP-O2O codes
+discussed in Chapter VII.
+Recent works [258, 276] on applying GKP-TMS codes and its concatenations have shown great promise in enhanc-
+ing distributed quantum sensing—a sensing paradigm where an entangled sensor-network extracts global information
+about local parameters with unprecedented precision [8]. Distributed quantum sensing has a wide range of poten-
+tial applications, including radio-frequency photonic sensor arrays [273], optomechanical sensor networks for force
+sensing [274] and microwave dark matter detection [275], as shown in Figure 31(a)-(c). In these applications, one
+does not have the capability to directly engineer the interactions between the sensors, which is otherwise required to
+implement the continuous-time control to recover Heisenberg scaling [288]. Instead, to entangle the sensors, one must
+distribute an entangled state prepared at a central node to other sensor nodes via noisy quantum channels, as shown
+in Figure 31(d).
+In this regard, entanglement distribution loss is the major imperfection in the system, limiting distributed sensor
+networks to be local in the near-term. To mitigate the distribution loss, one can adopt the GKP-O2O code to encode
+each part being sent to individual sensors and decode at each individual sensor to recover the entangled state before
+participating in thefinal sensing process. Ref. [258] performed initial analyses onthe performance boost brought by the
+GKP-O2O codes in an optical displacement sensing scenario, which is the theoretical model behind the applications
+considered in, e.g., Refs. [273–275]. As shown in Figure 31(e), ideal error correction extends Heisenberg scaling in
+the entangled sensor network to a much larger number of sensors. Reference [276] further analyzed the remaining
+performance advantage with imperfect error correction.
+2. GKP state as a sensor
+GKP grid states can themselves be helpful for quantum sensing purpose. Ref. [135] considers the single-shot mea-
+surement of complex displacementDβ. Suppose one has a single chance of measuring the real and imaginary part of
+
+## PDF page 75
+
+75
+the displacement. Due to uncertainty principle,[ˆq, ˆp] = i, the real and imaginary parts cannot be measured simul-
+taneously with great precision. Indeed, states such as squeezed vacuum suppress the variance in a single quadrature
+at the cost of increasing the variance of the other quadrature. Superdense sensing circumvents this conundrum by
+introducing an entangled ancilla. Without entanglement, it is fundamentally impossible to violate uncertainty prin-
+ciple. However, despite the limitations imposed by the canonical commutation relations, the stabilizers in Eq. (57)
+commute, i.e. [e−i
+√
+2π ˆp, ei
+√
+2π ˆq] = 0 as discussed in more detail in Chapter IV. In other words, simultaneous precise
+estimation of ˆp mod
+√
+2π and ˆq mod
+√
+2π are possible. Suppose that one has prior knowledge that the displace-
+ments are guaranteed to be small, then the GKP state enables simultaneous precise measurement of both quadratures.
+Reference [258] further generalizes this idea to a sensor network. When one has a fairly precise prior knowledge about
+the weighted average of displacements, then one can achieve Heisenberg scaling of the estimation of weighted averages
+of both quadratures of displacement. However, without a precise prior, achieving simultaneous Heisenberg scaling
+will only be possible from entanglement-assisted superdense sensing protocols [289].
+We emphasize that the advantages of GKP states as sensor states hold in single-shot measurements. If multiple
+measurements or continuous monitoring is possible, then a strategy of homodyne measuring a single quadrature at
+one time, boosted by squeezed vacuum, provides a better performance, considering there is no mod-
+√
+2π ambiguity,
+and furthermore, the resources are much easier to engineer. For example, in dark matter detection with microwave
+cavities, the goal is to estimate thermal noise induced by dark matter, modeled as random displacements. Because
+continuous monitoring is possible, GKP states do not provide further advantage in improving the signal-to-noise ratio,
+and single-mode squeezed vacuum is the optimal source without entanglement assistance [275, 286].
+IX. CLOSING REMARKS AND OPEN PROBLEMS
+In this review, we have comprehensively covered recent theoretical and experimental advances in bosonic QEC
+using GKP codes, including proposals that employ multiple oscillators for safeguarding both discrete- and continuous-
+variable quantum information. Our aim has been to offer the reader both a pedagogical introduction to the field of
+bosonic QEC with GKP codes and a presentation of the latest state-of-the-art research results. With the development
+of quantum engineering in microwave cQED systems and the promise of scalable integrated photonic structures, multi-
+mode GKP qubit codes and GKP oscillators-to-oscillators codes provide many opportunities in quantum information
+processing such quantum computing, communication, and sensing. Yet many research directions have yet to be fully
+explored and open problems remain. Just below, we summarize a few open problems that we are aware of and that
+we think are worth addressing.
+a. Concatenated GKP codes With advancements in universal control of single-mode GKP states, we would like
+to understand the required missing pieces to make the concatenation of GKP codes a feasible reality. We lay out a
+few open problems in different directions of GKP control and stabilization in order to improve the performance of
+GKP codes concatenated with qubits codes.
+To further improve the lifetime of GKP memories in superconducting circuits, auxiliary qubit noise must be mit-
+igated. One way is to directly engineer Hamiltonian protection such that no auxiliary qubit is required. Proposals
+towards this approach have been described in Chapter VA2, however these proposals are challenging, requiring the
+combination of a number of recently developed and yet-to-be-developed technologies. For example, a suitable coher-
+ent quantum phase slip element has yet to be demonstrated, and it is likely that the best path forward to realizing
+this is by engineering emergent quantum phase slip dynamics with Josephson junction arrays. Advancements in the
+engineering and realization of other protected superconducting circuits, such as the fluxonium and0 − π qubit, will
+help towards realizing a fully protected GKP Hamiltonian through direct circuit-level engineering. Engineered con-
+tinuous dissipation, as is discussed in Chapter VB2, is another promising candidate, with many challenges towards
+realization, including the need for high-impedance superconducting circuit elements. Any advancements that can
+reduce the requirements on the circuit impedance for these proposals will undoubtedly be beneficial in advancing the
+field.
+An alternative path to mitigate auxiliary qubit noise is through the use of a biased-noise auxiliary qubit, such as a
+stabilized Kerr-cat [201]. This is a promising route forward that is currently being investigated experimentally. The
+heavy fluxonium is another promising candidate under investigation. Additionally, it might be fruitful to think of
+ways to implement conditional displacements using transmons in a fault-tolerant manner. Since conditional gates lie
+at the heart of most auxiliary-qubit based processes, if there were means to implement the conditional displacement
+gate in a path-independent way [290], it could be used to mitigate errors. Such a method could potentially make use
+of the higher auxiliary qubit states.
+Apart from stabilization, concatenation also requires Clifford gates. When using Gaussian operations to implement
+Clifford unitaries on GKP qubits, the finite-energy errors discussed in Chapter IVD and Chapter VD can reduce the
+threshold of the concatenated implementation (also see Chapter VIIIA). Only a few attempts to resolve these errors
+
+## PDF page 76
+
+76
+by direct implementation of non-unitary finite-energy GKP logical operations have been made so far. Also, all of
+these methods use an auxiliary qubit or rely on stabilization rounds post infinite-energy operations. We thus need
+a rigorous study of the gain achieved in the presence of auxiliary qubit noise and also study its effect in threshold
+plots similar to Figure 29. On the experimental side, tunable superconducting circuits are to needed couple oscillators
+encoding GKP states without introducing spurious nonlinearities; this is an active topic of investigation.
+The non-Clifford resources for GKP codes, as proposed by Baragiola et al. [225], are particularly appealing due to
+their reliance on logical Pauli states and Gaussian resources. Thorough analysis of this proposal is essential to assess
+its practicality in reducing the overhead of scalable fault-tolerant quantum computing. Firstly, the scheme relies on
+on how efficiently we can engineer state preparation, and thus SPAM errors become a major issue in realizing this
+scheme. Secondly, it is important to note that the scheme was designed for infinite-energy GKP codes and may not
+directly account for errors arising from the finite-energy envelope. A concrete analysis in this direction would be
+beneficial to gain insights into any potential overhead reduction in fault-tolerant quantum computing.
+For readout, more research is needed to investigate the challenges faced in realistic superconducting circuit ex-
+periments. There has been only one proposal apart from the usual phase estimation approach to improve upon the
+readout fidelity of finite-energy GKP states [224]. This scheme although good, does not solve all our problems. As
+mentioned in Chapter VD, we need to focus on achieving high-fidelity end-of-the-line readout measurements in order
+to be able to use the GKP qubits in realistic quantum circuits where error correction will never fully correct the
+errors on the auxiliary qubit. Hence, a readout scheme closer to the square curve shown in Figure 20 can significantly
+increase the practical use-case of these states. Additionally, a readout scheme which mitigates auxiliary qubit noise
+would help to limit errors in experiment.
+Finally, more research is needed to investigate the technical aspects of a hybrid concatenated code architecture
+in superconducting circuits. For example, linear oscillators with GKP states can be employed as the data qubits,
+while the measure qubits can be of a different variety, perhaps transmons or Kerr-cats. More analysis is needed to
+investigate noise propagation and thresholds for these hybrid architectures, and we believe they are a promising path
+forward in the near term. This was suggested in Ref. [23], however to the best of our knowledge, a full analysis of noise
+in such a hybrid concatenated code architecture has not yet been published. Additionally, it was shown in Ref. [52]
+that postselection on outcome strings in sBs type error correction significantly increased the lifetime of the stabilized
+quantum memory, at the cost of a lower success probability. We anticipate that some classical post-processing on these
+output strings of sBs could yield better lifetimes even without post-selection. Furthermore, it would be intriguing
+to explore whether these measurement strings could be effectively employed for erasure conversions of GKP data
+qubit errors when combined with DV codes (e.g., surface codes), which then could be used to leverage the improved
+threshold with erasure noise. This feature has already been put to use for resource reduction of fault-tolerant quantum
+computing with surface code architectures realized in neutral atoms, trapped ions and superconducting circuits (via
+transmon and dual-rail codes) [291–296].
+b. Optical GKP Another critical engineering task involves the generation of optical GKP states, which play a
+pivotal role in enabling bosonic quantum error correction for quantum communication since optical photons serve as
+the primary carriers of quantum information in this context. Although an initial demonstration of optically generated
+GKP states (albeit with low squeezing, 2.5 dB) shows promise [36], the absence ofhigh-fidelity optical GKP states
+poses challenges in photonic quantum computing, which otherwise offers the advantage of requiring less cooling
+compared to other quantum computing platforms. Chapter VE presents several proposals in this area. Though, to
+achieve high-quality GKP states and photonic quantum information processing therefrom, a series of experimental
+challenges must be addressed. These challenges include developing high-quality photon number-resolving detectors,
+low-loss linear optical circuits, efficient microwave-optical transduction, and strong optical nonlinearity—as well as
+their integration onto novel quantum information processors, such as photonic chips. Overcoming these obstacles is
+essential to realize the full potential of GKP states. Exploring alternative proposals for generating optical GKP states
+may also hold promise in reducing the required engineering capabilities. As research further develops in this area,
+new and innovative approaches may emerge, potentially simplifying the experimental requirements and enhancing the
+feasibility of optical GKP state generation.
+c. Multimode lattice codes While most strategies for scaling up GKP codes involve concatenation with surface
+codes, Chs. IV and VI have highlighted that this approach may only explore a limited subset of the available GKP
+encodings for multiple oscillators. Therefore, a more comprehensive understanding of the error correction properties of
+various high-dimensional GKP lattices is essential, along with assessing the costs associated with their implementation
+in terms of stabilization and control. In Chapter VI, an example of two-mode codes has been studied, presenting
+a practical option for QEC. However, considering the restrictions of practical QEC implementations, only certain
+lattices may demonstrate improvements over single-mode encoding in certain parameter regimes; hence the actual
+practical implementation of GKP codes isabsolutely paramountto consider when gauging performance of such codes.
+At the same time, we also need to explore other options for multimode GKP error correction that can achieve best
+results with optimal lattices. We need to identify good GKP lattices [245] and develop decoding strategies and
+
+## PDF page 77
+
+77
+implementations that match optimal recovery results [21]. Investigating the feasibility of implementing multimode
+encoding using Hamiltonian engineering may offer a more viable path to scaling up GKP codes. Such investigations
+might lead to breakthroughs in developing practical quantum technologies that leverage the advantages of GKP codes
+and enable robust and efficient quantum error correction.
+d. O2O codes In terms of oscillator-to-oscillator encoding, many open directions are worth exploring. The search
+for optimal, higher-dimensional GKP lattice states capable of suppressing various noise sources remains open, despite
+some initial exploration on a few examples. Moreover, whether GKP states represent the best choice for oscillator-to-
+oscillator encoding is still an unresolved question. Employing numerical optimization techniques, akin to those used
+in Ref. [83], could shed light on this matter, providing valuable insights into the most effective encoding schemes.
+Additionally, it is essential to consider the impact of better prior knowledge of errors on the code design, as such may
+lead to the development of more efficient and robust encoding strategies tailored to the specific error characteristics
+of the system.
+e. Multitude of multimode codes The phase-space ofN modes is a big place, and there is much room to explore.
+We have seen GKP codes concatenated with qubit codes for DV quantum information processing, GKP qubits encoded
+into “typical” classical lattices, and GKP O2O codes for protecting analog information. For instance, we have seen
+extensive studies on code-capacity thresholds for GKP qubit codes (e.g., GKP surface code) emerging over the past
+several years. However, more exhaustive comparisons and investigations are warranted, especially utilizing lattice
+GKP qubits, as discussed in Chs. VI and IV. Additionally, it would be intriguing to explore hybrid GKP qubit-O2O
+encodings, combining the strengths from both the CV and DV domains. One unique study in this regard was made
+in Ref. [297] where the authors compared a not-so-analog oscillator-to-oscillator encoding (see Chapter VII) with
+GKP qubit codes—i.e., GKP as the inner layer and repetition codes or five-qubit codes as the outer layer. In these
+preliminary toy examples, some qubit-O2O codes exhibited better performance than certain GKP qubit codes in
+specific parameter regimes. Studies like this showcase the extraordinary richness and potential of multimode GKP
+encodings.
+f. GKP qudit encoding Another direction of GKP-based research which has not been discussed extensively in this
+review is experimental advancement in GKP qudit encoding. We emphasize that for a single-mode GKP quantum
+memory, increasing the dimensiond of the qudit decreases the code distance for displacement errors. However, the
+development of qudit encodings can pave way towards reducing the circuit complexity of algorithms which demonstrate
+quantum advantage. In terms of error correction, Ref [13] further highlights the importance of increasing the code
+dimension of encodings in an oscillator. One major challenge in qudit encoding involves increased squeezing required
+to distinguish the logical states significantly with increasing code dimensiond. Another pending analysis includes
+engineering low-error and easily implementable physical gates for GKP qudits. This could be a parallel next step
+towards improving the quantum volume using GKP encoding.
+Bosonic QEC opens up a wide array of application spaces beyond the long-sought goal of fault-tolerant quantum
+computing, with quantum communication and sensing being prominent examples. For instance, the unique ability of
+bosonic QEC to protect quantum states of oscillators proves valuable in distributing CV multi-partite entanglement,
+offering advantages in quantum sensor networks. Moreover, the engineering of GKP states provides a means for fast
+and universal control of microwave cavities, enabling crucial tasks like entanglement distribution and distillation in
+bosonic quantum information processing. Additionally, unitary engineering holds the potential to open up opportu-
+nities in quantum simulation, offering a pathway to tackle fundamental problems crucial to condensed matter and
+high-energy physics.
+To fully harness the potential capabilities of bosonic QEC with GKP codes, it is essential to address the open
+problems outlined earlier and actively search for new challenges to overcome. This pursuit will undoubtedly push the
+field forward and contribute to the development of fault-tolerant quantum technologies. As research continues in this
+rapidly evolving field, we eagerly anticipate unforeseen breakthroughs that will not only enhance our understanding
+of bosonic quantum error correction but also propel us toward our ultimate goal of achieving large-scale bosonic
+quantum information processing.
+ACKNOWLEDGEMENTS
+The authors acknowledge Ben Barragiola, Philippe Campagne-Ibarcq, Jonathan Conrad, Michel Devoret, Steven M
+Girvin, Xanda Kolesnikow, Kyungjoo Noh, Baptiste Royer, and Volodymyr Sivak for helpful conversations and feed-
+back. QZ, AJB and JW are supported by the DARPA Young Faculty Award (YFA) Grant No. N660012014029.
+QZ also acknowledges support from NSF CAREER Award CCF-2142882, NSF OMA-2326746 and ONR Grant
+No. N00014-23-1-2296. AE and SS acknowledge support by the Army Research Office (ARO) under grant number
+W911NF-23-1-0051. AE is also supported by the U.S. Department of Energy, Office of Science, National Quantum
+
+## PDF page 78
+
+78
+Information Science Research Centers, Co-design Center for Quantum Advantage (C2QA) under contract number
+DE-SC0012704. The views and conclusions contained in this document are those of the authors and should not be
+interpreted as representing the official policies, either expressed or implied, of the U.S. Government. The U.S. Gov-
+ernment is authorized to reproduce and distribute reprints for Government purposes notwithstanding any copyright
+notation herein.
+[1] P. W. Shor, SIAM Journal on Computing41, 303 (1999).
+[2] L. K. Grover, inProceedings, 28th Annual ACM Symposium on the Theory of Computing (STOC)(1996) pp. 212–219.
+[3] H. J. Kimble, Nature453, 1023 (2008).
+[4] S. Wehner, D. Elkouss, and R. Hanson, Science362 (2018), 10.1126/science.aam9288.
+[5] W. Kozlowski and S. Wehner, inProceedings of the Sixth Annual ACM International Conference on Nanoscale Computing
+and Communication(2019) pp. 1–7.
+[6] D. Awschalom, K. K. Berggren, H. Bernien, S. Bhave, L. D. Carr, P. Davids, S. E. Economou, D. Englund, A. Faraon,
+M. Fejer,et al., PRX Quantum2, 017002 (2021).
+[7] V. Giovannetti, S. Lloyd, and L. Maccone, Nat. Photon.5, 222 (2011).
+[8] Z. Zhang and Q. Zhuang, Quantum Sci. Technol. (2020), 10.1088/2058-9565/abd4c3.
+[9] J. Koch, T. M. Yu, J. Gambetta, A. A. Houck, D. I. Schuster, J. Majer, A. Blais, M. H. Devoret, S. M. Girvin, and R. J.
+Schoelkopf, Phys. Rev. A76, 042319 (2007).
+[10] J. Majer, J. Chow, J. Gambetta, J. Koch, B. Johnson, J. Schreier, L. Frunzio, D. Schuster, A. A. Houck, A. Wallraff,
+et al., Nature449, 443 (2007).
+[11] M. Kjaergaard, M. E. Schwartz, J. Braumüller, P. Krantz, J. I.-J. Wang, S. Gustavsson, and W. D. Oliver, Annual
+Review of Condensed Matter Physics11, 369 (2020).
+[12] I. L. Chuang, D. W. Leung, and Y. Yamamoto, Phys. Rev. A56, 1114 (1997).
+[13] D. Gottesman, A. Kitaev, and J. Preskill, Phys. Rev. A64, 012310 (2001).
+[14] J. Eisert, S. Scheel, and M. B. Plenio, Phys. Rev. Lett.89, 137903 (2002).
+[15] J. Fiurášek, Phys. Rev. Lett.89, 137904 (2002).
+[16] G. Giedke and J. I. Cirac, Phys. Rev. A66, 032316 (2002).
+[17] J. Niset, J. Fiurášek, and N. J. Cerf, Phys. Rev. Lett.102, 120501 (2009).
+[18] S. Lloyd and S. L. Braunstein, Phys. Rev. Lett.82, 1784 (1999).
+[19] N. Ofek, A. Petrenko, R. Heeres, P. Reinhold, Z. Leghtas, B. Vlastakis, Y. Liu, L. Frunzio, S. Girvin, L. Jiang,et al.,
+Nature 536, 441 (2016).
+[20] P. Campagne-Ibarcq, A. Eickbusch, S. Touzard, E. Zalys-Geller, N. E. Frattini, V. V. Sivak, P. Reinhold, S. Puri,
+S. Shankar, R. J. Schoelkopf,et al., Nature584, 368 (2020).
+[21] V. V. Albert, K. Noh, K. Duivenvoorden, D. J. Young, R. T. Brierley, P. Reinhold, C. Vuillot, L. Li, C. Shen, S. M.
+Girvin, et al., Phys. Rev. A97, 032346 (2018).
+[22] B. M. Terhal, J. Conrad, and C. Vuillot, Quantum Sci. Technol.5, 043001 (2020).
+[23] A. L. Grimsmo and S. Puri, PRX Quantum2, 020101 (2021).
+[24] W. Cai, Y. Ma, W. Wang, C.-L. Zou, and L. Sun, Fundamental Research1, 50 (2021).
+[25] A. Joshi, K. Noh, and Y. Y. Gao, Quantum Sci. Technol.6, 033001 (2021).
+[26] V. V. Albert, “Bosonic coding: introduction and use cases,” (2022), arXiv:2211.05714 [quant-ph].
+[27] A. Eickbusch, V. Sivak, A. Z. Ding, S. S. Elder, S. R. Jha, J. Venkatraman, B. Royer, S. Girvin, R. J. Schoelkopf, and
+M. H. Devoret, Nat. Phys.18, 1464 (2022).
+[28] B. J. Chapman, S. J. de Graaf, S. H. Xue, Y. Zhang, J. Teoh, J. C. Curtis, T. Tsunoda, A. Eickbusch, A. P. Read,
+A. Koottandavida,et al., “A high on-off ratio beamsplitter interaction for gates on bosonically encoded qubits,” (2022),
+arXiv:2212.11929 [quant-ph].
+[29] Y. Lu, A. Maiti, J. W. O. Garmon, S. Ganjam, Y. Zhang, J. Claes, L. Frunzio, S. M. Girvin, and R. J. Schoelkopf, “A
+high-fidelity microwave beamsplitter with a parity-protected converter,” (2023), arXiv:2303.00959 [quant-ph].
+[30] A. A. Diringer, E. Blumenthal, A. Grinberg, L. Jiang, and S. Hacohen-Gourgy, “Conditional not displacement: fast
+multi-oscillator control with a single qubit,” (2022), arXiv:2301.09831 [quant-ph].
+[31] K. Noh, S. M. Girvin, and L. Jiang, Phys. Rev. Lett.125, 080503 (2020).
+[32] J. Wu, A. J. Brady, and Q. Zhuang, “Optimal encoding of oscillators into more oscillators,” (2022), arXiv:2212.11970
+[quant-ph].
+[33] J. Harrington and J. Preskill, Phys. Rev. A64, 062301 (2001).
+[34] B. Royer, S. Singh, and S. Girvin, PRX Quantum3, 010335 (2022).
+[35] J. Conrad, J. Eisert, and F. Arzani, Quantum6, 648 (2022).
+[36] S. Konno, W. Asavanant, F. Hanamura, H. Nagayoshi, K. Fukui, A. Sakaguchi, R. Ide, F. China, M. Yabuno, S. Miki,
+H. Terai, K. Takase, M. Endo, P. Marek, R. Filip, P. van Loock, and A. Furusawa, “Propagating Gottesman-Kitaev-
+Preskill states encoded in an optical oscillator,” (2023), arXiv:2309.02306 [quant-ph].
+[37] C. Flühmann, T. L. Nguyen, M. Marinelli, V. Negnevitsky, K. Mehta, and J. P. Home, Nature566, 513 (2019).
+[38] B. de Neeve, T.-L. Nguyen, T. Behrle, and J. P. Home, Nat. Phys.18, 296 (2022).
+
+## PDF page 79
+
+79
+[39] C. H. Bennett and G. Brassard, Theoretical Computer Science560, Part 1, 7 (2014).
+[40] A. K. Ekert, Phys. Rev. Lett.67, 661 (1991).
+[41] N. Gisin, G. Ribordy, W. Tittel, and H. Zbinden, Rev. Mod. Phys.74, 145 (2002).
+[42] F. Xu, X. Ma, Q. Zhang, H.-K. Lo, and J.-W. Pan, Rev. Mod. Phys.92, 025002 (2020).
+[43] S. Pirandola, U. L. Andersen, L. Banchi, M. Berta, D. Bunandar, R. Colbeck, D. Englund, T. Gehring, C. Lupo,
+C. Ottaviani,et al., Adv. Opt. Photonics12, 1012 (2020).
+[44] D. Zhu, L. Shao, M. Yu, R. Cheng, B. Desiatov, C. Xin, Y. Hu, J. Holzgrafe, S. Ghosh, A. Shams-Ansari,et al., Advances
+in Optics and Photonics13, 242 (2021).
+[45] G. Moody, V. J. Sorger, D. J. Blumenthal, P. W. Juodawlkis, W. Loh, C. Sorace-Agaskar, A. E. Jones, K. C. Balram,
+J. C. Matthews, A. Laing,et al., Journal of Physics: Photonics4, 012501 (2022).
+[46] J. Lu, M. Li, C.-L. Zou, A. Al Sayem, and H. X. Tang, Optica7, 1654 (2020).
+[47] R. Yanagimoto, E. Ng, M. Jankowski, H. Mabuchi, and R. Hamerly, Optica9, 1289 (2022).
+[48] A. Blais, A. L. Grimsmo, S. M. Girvin, and A. Wallraff, Rev. Mod. Phys.93, 025005 (2021).
+[49] C. S. Wang, J. C. Curtis, B. J. Lester, Y. Zhang, Y. Y. Gao, J. Freeze, V. S. Batista, P. H. Vaccaro, I. L. Chuang,
+L. Frunzio,et al., Phys. Rev. X10, 021060 (2020).
+[50] S. S. Elder, C. S. Wang, P. Reinhold, C. T. Hann, K. S. Chou, B. J. Lester, S. Rosenblum, L. Frunzio, L. Jiang, and
+R. J. Schoelkopf, Phys. Rev. X10, 011001 (2020).
+[51] R. W. Heeres, P. Reinhold, N. Ofek, L. Frunzio, L. Jiang, M. H. Devoret, and R. J. Schoelkopf, Nat. Commun.8, 1
+(2017).
+[52] V. Sivak, A. Eickbusch, B. Royer, S. Singh, I. Tsioutsios, S. Ganjam, A. Miano, B. Brock, A. Ding, L. Frunzio,et al.,
+“Real-time quantum error correction beyond break-even,” (2022), arXiv:2211.09116 [quant-ph].
+[53] N. Lauk, N. Sinclair, S. Barzanjeh, J. P. Covey, M. Saffman, M. Spiropulu, and C. Simon, Quantum Sci. Technol.5,
+020501 (2020).
+[54] X. Han, W. Fu, C.-L. Zou, L. Jiang, and H. X. Tang, Optica8, 1050 (2021).
+[55] A. Vainsencher, K. Satzinger, G. Peairs, and A. Cleland, Appl. Phys. Lett.109, 033107 (2016).
+[56] K. C. Balram, M. I. Davanço, J. D. Song, and K. Srinivasan, Nat. Photonics10, 346 (2016).
+[57] L. Fan, C.-L. Zou, R. Cheng, X. Guo, X. Han, Z. Gong, S. Wang, and H. X. Tang, Sci. Adv.4, eaar4994 (2018).
+[58] L. Shao, M. Yu, S. Maity, N. Sinclair, L. Zheng, C. Chia, A. Shams-Ansari, C. Wang, M. Zhang, K. Lai,et al., Optica6,
+1498 (2019).
+[59] X. Han, W. Fu, C. Zhong, C.-L. Zou, Y. Xu, A. Al Sayem, M. Xu, S. Wang, R. Cheng, L. Jiang,et al., Nat. Commun.
+11, 1 (2020).
+[60] C. Zhong, Z. Wang, C. Zou, M. Zhang, X. Han, W. Fu, M. Xu, S. Shankar, M. H. Devoret, H. X. Tang,et al., Phys. Rev.
+Lett. 124, 010511 (2020).
+[61] M. Mirhosseini, A. Sipahigil, M. Kalaee, and O. Painter, Nature588, 599 (2020).
+[62] M. Forsch, R. Stockill, A. Wallucks, I. Marinković, C. Gärtner, R. A. Norte, F. van Otten, A. Fiore, K. Srinivasan, and
+S. Gröblacher, Nat. Phys.16, 69 (2020).
+[63] W. Jiang, C. J. Sarabalis, Y. D. Dahmani, R. N. Patel, F. M. Mayor, T. P. McKenna, R. Van Laer, and A. H. Safavi-
+Naeini, Nat. Commun.11, 1 (2020).
+[64] N. Fiaschi, B. Hensen, A. Wallucks, R. Benevides, J. Li, T. P. M. Alegre, and S. Gröblacher, Nat. Photon.15, 817
+(2021).
+[65] C. D. Bruzewicz, J. Chiaverini, R. McConnell, and J. M. Sage, Applied Physics Reviews6, 021314 (2019).
+[66] K. R. Brown, J. Chiaverini, J. M. Sage, and H. Häffner, Nat. Rev. Mater.6, 892 (2021).
+[67] C. Monroe, W. C. Campbell, L.-M. Duan, Z.-X. Gong, A. V. Gorshkov, P. W. Hess, R. Islam, K. Kim, N. M. Linke,
+G. Pagano,et al., Rev. Mod. Phys.93, 025001 (2021).
+[68] A. Serafini,Quantum Continuous Variables: A Primer of Theoretical Methods(CRC press, 2017).
+[69] J. Preskill, “Lecture notes for physics 229: Quantum information and computation,” (accessed June 17, 2023).
+[70] C. Weedbrook, S. Pirandola, R. García-Patrón, N. J. Cerf, T. C. Ralph, J. H. Shapiro, and S. Lloyd, Rev. Mod. Phys.
+84, 621 (2012).
+[71] S. L. Braunstein, Phys. Rev. A71, 055801 (2005).
+[72] M. Reck, A. Zeilinger, H. J. Bernstein, and P. Bertani, Phys. Rev. Lett.73, 58 (1994).
+[73] J. H. Shapiro, “6.453 Quantum Optical Communication, Readings and Lecture Slides, 20-21,” https://mitocw.
+ups.edu.ec/courses/electrical-engineering-and-computer-science/6-453-quantum-optical-communication-fall-2016/
+readings-and-lecture-slides/index.htm (2016), [Online; accessed 20-June-2023].
+[74] T.-C. Chien, O. Lanes, C. Liu, X. Cao, P. Lu, S. Motz, G. Liu, D. Pekker, and M. Hatridge, Phys. Rev. A101, 042336
+(2020).
+[75] I. Tzitrin, J. E. Bourassa, N. C. Menicucci, and K. K. Sabapathy, Phys. Rev. A101, 032315 (2020).
+[76] A. Botero and B. Reznik, Phys. Rev. A67, 052311 (2003).
+[77] A. Serafini, G. Adesso, and F. Illuminati, Phys. Rev. A71, 032349 (2005).
+[78] G. Adesso, “Entanglement of Gaussian states,” (2007), arXiv:quant-ph/0702069 [quant-ph].
+[79] A. S. Holevo, Probl. Inf. Transm.43, 1 (2007).
+[80] J. Wu and Q. Zhuang, Phys. Rev. Applied15, 034073 (2021).
+[81] K. Sharma, M. M. Wilde, S. Adhikari, and M. Takeoka, New J. Phys.20, 063025 (2018).
+[82] M. Rosati, A. Mari, and V. Giovannetti, Nat. Commun.9, 1 (2018).
+[83] K. Noh, V. V. Albert, and L. Jiang, IEEE Trans. Inf. Theory65, 2563 (2019).
+
+## PDF page 80
+
+80
+[84] A. S. Holevo, M. Sohma, and O. Hirota, Phys. Rev. A59, 1820 (1999).
+[85] M. M. Wolf, G. Giedke, and J. I. Cirac, Phys. Rev. Lett.96, 080502 (2006).
+[86] S. Grandi, A. Zavatta, M. Bellini, and M. G. Paris, New J. Phys.19, 053015 (2017).
+[87] R. Takagi and Q. Zhuang, Phys. Rev. A97, 062337 (2018).
+[88] M. Walschaers, PRX Quantum2, 030204 (2021).
+[89] S. D. Bartlett, B. C. Sanders, S. L. Braunstein, and K. Nemoto, Phys. Rev. Lett.88, 097904 (2002).
+[90] U. Chabaud and M. Walschaers, Phys. Rev. Lett.130, 090602 (2023).
+[91] S. Sefi and P. van Loock, Phys. Rev. Lett.107, 170501 (2011).
+[92] S. Ghose and B. C. Sanders, J. Mod. Opt.54, 855 (2007).
+[93] P. Marek, R. Filip, and A. Furusawa, Phys. Rev. A84, 053802 (2011).
+[94] K. K. Sabapathy and C. Weedbrook, Phys. Rev. A97, 062315 (2018).
+[95] T. Hillmann, F. Quijandría, G. Johansson, A. Ferraro, S. Gasparinetti, and G. Ferrini, Phys. Rev. Lett.125, 160501
+(2020).
+[96] M. Kudra, M. Kervinen, I. Strandberg, S. Ahmed, M. Scigliuzzo, A. Osman, D. P. Lozano, M. O. Tholén, R. Borgani,
+D. B. Haviland,et al., PRX Quantum3, 030301 (2022).
+[97] W.-L. Ma, S. Puri, R. J. Schoelkopf, M. H. Devoret, S. Girvin, and L. Jiang, Science Bulletin66, 1789 (2021).
+[98] L. Lachman and R. Filip, Progress in Quantum Electronics , 100395 (2022).
+[99] R. L. Hudson, Reports on Mathematical Physics6, 249 (1974).
+[100] F. Soto and P. Claverie, Journal of Mathematical Physics24, 97 (1983).
+[101] F. Albarelli, M. G. Genoni, M. G. Paris, and A. Ferraro, Phys. Rev. A98, 052350 (2018).
+[102] H. H. Jee, C. Sparaciari, and M. Berta, Phys. Rev. A103, 022420 (2021).
+[103] A. Mari and J. Eisert, Phys. Rev. Lett.109, 230503 (2012).
+[104] V. Veitch, C. Ferrie, D. Gross, and J. Emerson, New Journal of Physics14, 113011 (2012).
+[105] U. Chabaud, D. Markham, and F. Grosshans, Phys. Rev. Lett.124, 063605 (2020).
+[106] U. Chabaud, P.-E. Emeriau, and F. Grosshans, Quantum5, 471 (2021).
+[107] U. Chabaud, G. Roeland, M. Walschaers, F. Grosshans, V. Parigi, D. Markham, and N. Treps, PRX Quantum2, 020333
+(2021).
+[108] Q. Zhuang, P. W. Shor, and J. H. Shapiro, Phys. Rev. A97, 052317 (2018).
+[109] S. Lloyd, Phys. Rev. A55, 1613 (1997).
+[110] P. W. Shor, inLecture notes, MSRI Workshop on Quantum Computation(2002).
+[111] I. Devetak, IEEE Trans. Inf. Theory51, 44 (2005).
+[112] M. M. Wilde,Quantum Information Theory(Cambridge University Press, 2013).
+[113] L. Gyongyosi, S. Imre, and H. V. Nguyen, IEEE Communications Surveys & Tutorials20, 1149 (2018).
+[114] G. Smith and J. Yard, Science321, 1812 (2008).
+[115] M. B. Hastings, Nat. Phys.5, 255 (2009).
+[116] G. Smith, J. A. Smolin, and J. Yard, Nat. Photon.5, 624 (2011).
+[117] E. Y. Zhu, Q. Zhuang, and P. W. Shor, Phys. Rev. Lett.119, 040503 (2017).
+[118] E. Y. Zhu, Q. Zhuang, M.-H. Hsieh, and P. W. Shor, IEEE Trans. Inf. Theory (2018), 10.1109/TIT.2018.2889082.
+[119] I. Devetak and P. W. Shor, Commun. Math. Phys.256, 287 (2005).
+[120] M. M. Wilde and H. Qi, IEEE Transactions on Information Theory64, 7802 (2018).
+[121] M. M. Wolf, D. Pérez-García, and G. Giedke, Phys. Rev. Lett.98, 130501 (2007).
+[122] A. S. Holevo and R. F. Werner, Phys. Rev. A63, 032312 (2001).
+[123] J. Eisert and M. M. Wolf, “Gaussian Quantum Channels,” (2005), arXiv:quant-ph/0505151 [quant-ph].
+[124] P. Leviant, Q. Xu, L. Jiang, and S. Rosenblum, Quantum6, 821 (2022).
+[125] J. Conrad, Phys. Rev. A103, 022404 (2021).
+[126] A. L. Grimsmo, J. Combes, and B. Q. Baragiola, Phys. Rev. X10, 011058 (2020).
+[127] A. Romanenko, R. Pilipenko, S. Zorzetti, D. Frolov, M. Awida, S. Belomestnykh, S. Posen, and A. Grassellino, Phys.
+Rev. Appl.13, 034032 (2020).
+[128] M. Reagor, W. Pfaff, C. Axline, R. W. Heeres, N. Ofek, K. Sliwa, E. Holland, C. Wang, J. Blumoff, K. Chou,et al., Phys.
+Rev. B94, 014506 (2016).
+[129] O. Milul, B. Guttel, U. Goldblatt, S. Hazanov, L. M. Joshi, D. Chausovsky, N. Kahn, E. Çiftyürek, F. Lafont, and
+S. Rosenblum, “A superconducting quantum memory with tens of milliseconds coherence time,” (2023), arXiv:2302.06442
+[quant-ph].
+[130] S. Rosenblum, P. Reinhold, M. Mirrahimi, L. Jiang, L. Frunzio, and R. J. Schoelkopf, Science361, 266 (2018).
+[131] B.-H. Wu, Z. Zhang, and Q. Zhuang, Quantum Sci. Technol.7, 025018 (2022).
+[132] L. Lami and M. M. Wilde, Nat. Photon. , 1 (2023).
+[133] D. Niepce, J. J. Burnett, M. Kudra, J. H. Cole, and J. Bylander, Sci. Adv.7, eabh0462 (2021).
+[134] B. M. Terhal and D. Weigand, Phys. Rev. A93, 012315 (2016).
+[135] K. Duivenvoorden, B. M. Terhal, and D. Weigand, Phys. Rev. A95, 012305 (2017).
+[136] B. Royer, S. Singh, and S. M. Girvin, Phys. Rev. Lett.125, 260509 (2020).
+[137] I. Rojkov, P. M. Röggla, M. Wagener, M. Fontboté-Schmidt, S. Welte, J. Home, and F. Reiter, “Two-qubit operations
+for finite-energy Gottesman-Kitaev-Preskill encodings,” (2023), arXiv:2305.05262 [quant-ph].
+[138] T. Matsuura, H. Yamasaki, and M. Koashi, Phys. Rev. A102, 032408 (2020).
+
+## PDF page 81
+
+81
+[139] J. H. Conway and N. J. A. Sloane,Sphere packings, lattices and groups, Vol. 290 (Springer Science & Business Media,
+2013).
+[140] M. Viazovska, inProceedings of the International Congress of Mathematicians: Rio de Janeiro 2018(World Scientific,
+2018) pp. 455–466.
+[141] H. Cohn, A. Kumar, S. Miller, D. Radchenko, and M. Viazovska, Annals of Mathematics185, 1017 (2017).
+[142] B. W. Walshe, B. Q. Baragiola, R. N. Alexander, and N. C. Menicucci, Phys. Rev. A102, 062411 (2020).
+[143] F. Schmidt and P. van Loock, Phys. Rev. A105, 042427 (2022).
+[144] L. Hänggli, M. Heinze, and R. König, Phys. Rev. A102, 052408 (2020).
+[145] J. Zhang, Y.-C. Wu, and G.-P. Guo, Phys. Rev. A107, 062408 (2023).
+[146] M. P. Stafford and N. C. Menicucci, “Biased Gottesman-Kitaev-Preskill repetition code,” (2022), arXiv:2212.11397
+[quant-ph].
+[147] K. Noh and C. Chamberland, Phys. Rev. A101, 012316 (2020).
+[148] J. Zak, Phys. Rev. Lett.19, 1385 (1967).
+[149] Y. Aharonov, H. Pendleton, and A. Petersen, International Journal of Theoretical Physics2, 213 (1969).
+[150] A. Ketterer, A. Keller, S. P. Walborn, T. Coudreau, and P. Milman, Phys. Rev. A94, 022325 (2016).
+[151] G. Pantaleoni, B. Q. Baragiola, and N. C. Menicucci, Phys. Rev. Lett.125, 040501 (2020).
+[152] G. Pantaleoni, B. Q. Baragiola, and N. C. Menicucci, Phys. Rev. A104, 012430 (2021).
+[153] L. J. Mensen, B. Q. Baragiola, and N. C. Menicucci, Phys. Rev. A104, 022408 (2021).
+[154] M. H. Shaw, A. C. Doherty, and A. L. Grimsmo, “Stabilizer subsystem decompositions for single- and multi-mode
+gottesman-kitaev-preskill codes,” (2022), arXiv:2210.14919 [quant-ph].
+[155] G. Pantaleoni, B. Q. Baragiola, and N. C. Menicucci, “The Zak transform: a framework for quantum computation with
+the Gottesman-Kitaev-Preskill code,” (2023), arXiv:2210.09494 [quant-ph].
+[156] J. Zak, Solid State Physics,27, 1 (1972).
+[157] S. Ganeshan and M. Levin, Phys. Rev. B93, 075118 (2016).
+[158] B. M. Terhal, Rev. Mod. Phys.87, 307 (2015).
+[159] D. A. Lidar and T. A. Brun, eds.,Quantum Error Correction(Cambridge University Press, 2013).
+[160] A. G. Fowler, M. Mariantoni, J. M. Martinis, and A. N. Cleland, Phys. Rev. A86, 032324 (2012).
+[161] A. Kitaev, Annals of Physics303, 2 (2003).
+[162] B. Douçot and L. B. Ioffe, Reports on Progress in Physics75, 072001 (2012).
+[163] A. Gyenis, A. Di Paolo, J. Koch, A. Blais, A. A. Houck, and D. I. Schuster, PRX Quantum2, 030101 (2021).
+[164] P. Groszkowski, A. D. Paolo, A. L. Grimsmo, A. Blais, D. I. Schuster, A. A. Houck, and J. Koch, New J. Phys.20,
+043053 (2018).
+[165] A. D. Paolo, A. L. Grimsmo, P. Groszkowski, J. Koch, and A. Blais, New J. Phys.21, 043002 (2019).
+[166] A. Gyenis, P. S. Mundada, A. Di Paolo, T. M. Hazard, X. You, D. I. Schuster, J. Koch, A. Blais, and A. A. Houck, PRX
+Quantum 2, 010339 (2021).
+[167] V. E. Manucharyan, J. Koch, L. I. Glazman, and M. H. Devoret, Science 326, 113 (2009),
+https://www.science.org/doi/pdf/10.1126/science.1175552.
+[168] I. V. Pechenezhskiy, R. A. Mencia, L. B. Nguyen, Y.-H. Lin, and V. E. Manucharyan, Nature585, 368 (2020).
+[169] W. C. Smith, A. Kou, X. Xiao, U. Vool, and M. H. Devoret, npj Quantum Inf.6 (2020), 10.1038/s41534-019-0231-2.
+[170] W. C. Smith, M. Villiers, A. Marquet, J. Palomo, M. R. Delbecq, T. Kontos, P. Campagne-Ibarcq, B. Douçot, and
+Z. Leghtas, Phys. Rev. X12, 021002 (2022).
+[171] M. Rymarz, S. Bosco, A. Ciani, and D. P. DiVincenzo, Phys. Rev. X11, 011032 (2021).
+[172] D. T. Le, A. Grimsmo, C. Müller, and T. M. Stace, Phys. Rev. A100, 062321 (2019).
+[173] P. Liang, M. Marthaler, and L. Guo, New J. Phys.20, 023043 (2018).
+[174] L.-A. Sellem, A. Sarlette, Z. Leghtas, M. Mirrahimi, P. Rouchon, and P. Campagne-Ibarcq, “A GKP qubit protected by
+dissipationinahigh-impedancesuperconductingcircuitdrivenbyamicrowavefrequencycomb,” (2023),arXiv:2304.01425
+[quant-ph].
+[175] X. C. Kolesnikow, R. W. Bomantara, A. C. Doherty, and A. L. Grimsmo, “Gottesman-Kitaev-Preskill state preparation
+using periodic driving,” (2023), arXiv:2303.03541 [quant-ph].
+[176] L. Guo and V. Peano, “Engineering Arbitrary Hamiltonians in Phase Space,” (2023), arXiv:2302.04257 [quant-ph].
+[177] Z. Wang and A. H. Safavi-Naeini, “Quantum control and noise protection of a Floquet 0 − π qubit,” (2023),
+arXiv:2304.05601 [quant-ph].
+[178] P. G. Harper, Proc. Phys. Soc. A68, 879 (1955).
+[179] D. R. Hofstadter, Phys. Rev. B14, 2239 (1976).
+[180] J. E. Mooij and C. J. P. M. Harmans, New J. Phys.7, 219 (2005).
+[181] J. E. Mooij and Y. V. Nazarov, Nat. Phys.2, 169 (2006).
+[182] O. V. Astafiev, L. B. Ioffe, S. Kafanov, Y. A. Pashkin, K. Y. Arutyunov, D. Shahar, O. Cohen, and J. S. Tsai, Nature
+484, 355 (2012).
+[183] S. E. de Graaf, S. T. Skacel, T. Hönigl-Decrinis, R. Shaikhaidarov, H. Rotzinger, S. Linzen, M. Ziegler, U. Hübner, H. G.
+Meyer, V. Antonov,et al., Nat. Phys.14, 590 (2018).
+[184] U. Vool and M. Devoret, International Journal of Circuit Theory and Applications45, 897 (2017).
+[185] P. Krantz, M. Kjaergaard, F. Yan, T. P. Orlando, S. Gustavsson, and W. D. Oliver, Applied Physics Reviews6 (2019),
+10.1063/1.5089550.
+[186] G. Blatter, V. B. Geshkenbein, and L. B. Ioffe, Phys. Rev. B63, 174511 (2001).
+
+## PDF page 82
+
+82
+[187] S. Gladchenko, D. Olaya, E. Dupont-Ferrier, B. Douçot, L. B. Ioffe, and M. E. Gershenson, Nat. Phys.5, 48 (2009).
+[188] M. H. Devoret, J. Supercond. Nov. Magn.34, 1633 (2021).
+[189] C. L. Hogan, The Bell System Technical Journal31, 1 (1952).
+[190] E. I. Rosenthal, B. J. Chapman, A. P. Higginbotham, J. Kerckhoff, and K. W. Lehnert, Phys. Rev. Lett.119, 147703
+(2017).
+[191] B. J. Chapman, E. I. Rosenthal, J. Kerckhoff, B. A. Moores, L. R. Vale, J. A. B. Mates, G. C. Hilton, K. Lalumière,
+A. Blais, and K. W. Lehnert, Phys. Rev. X7, 041043 (2017).
+[192] F. Lecocq, L. Ranzani, G. A. Peterson, K. Cicak, R. W. Simmonds, J. D. Teufel, and J. Aumentado, Phys. Rev. Appl.
+7, 024028 (2017).
+[193] G. Viola and D. P. DiVincenzo, Phys. Rev. X4, 021019 (2014).
+[194] S. Bosco, F. Haupt, and D. P. DiVincenzo, Phys. Rev. Appl.7, 024030 (2017).
+[195] S. Bosco and D. P. DiVincenzo, Phys. Rev. B95, 195317 (2017).
+[196] A. C. Mahoney, J. I. Colless, S. J. Pauka, J. M. Hornibrook, J. D. Watson, G. C. Gardner, M. J. Manfra, A. C. Doherty,
+and D. J. Reilly, Phys. Rev. X7, 011007 (2017).
+[197] L. Guo, V. Peano, and F. Marquardt, Phys. Rev. B105, 094301 (2022).
+[198] P. Brooks, A. Kitaev, and J. Preskill, Phys. Rev. A87, 052306 (2013).
+[199] M. V. Larsen, C. Chamberland, K. Noh, J. S. Neergaard-Nielsen, and U. L. Andersen, PRX Quantum2, 030325 (2021).
+[200] S. Singh, B. Royer, and S. M. Girvin, “Towards Non-Abelian Quantum Signal Processing: Efficient Control of Hybrid
+Continuous- and Discrete-Variable Architectures,” (2025), arXiv:2504.19992 [quant-ph].
+[201] S. Puri, A. Grimm, P. Campagne-Ibarcq, A. Eickbusch, K. Noh, G. Roberts, L. Jiang, M. Mirrahimi, M. H. Devoret,
+and S. M. Girvin, Phys. Rev. X9, 041009 (2019).
+[202] Y. Shi, C. Chamberland, and A. Cross, New Journal of Physics21, 093007 (2019).
+[203] A. Grimm, N. E. Frattini, S. Puri, S. O. Mundhada, S. Touzard, M. Mirrahimi, S. M. Girvin, S. Shankar, and M. H.
+Devoret, Nature584, 205 (2020).
+[204] C. Siegele and P. Campagne-Ibarcq, “Robust suppression of noise propagation in GKP error-correction,” (2023),
+arXiv:2302.12088 [quant-ph].
+[205] M. Mirrahimi, Z. Leghtas, V. V. Albert, S. Touzard, R. J. Schoelkopf, L. Jiang, and M. H. Devoret, New Journal of
+Physics 16, 045014 (2014).
+[206] E. Kapit, Quantum Sci. Technol.2, 033002 (2017).
+[207] Z. Leghtas, S. Touzard, I. M. Pop, A. Kou, B. Vlastakis, A. Petrenko, K. M. Sliwa, A. Narla, S. Shankar, M. J. Hatridge,
+et al., Science347, 853 (2015).
+[208] J. M. Gertler, B. Baker, J. Li, S. Shirol, J. Koch, and C. Wang, Nature590, 243 (2021).
+[209] L.-A. Sellem, R. Robin, P. Campagne-Ibarcq, and P. Rouchon, “Stability and decoherence rates of a GKP qubit protected
+by dissipation,” (2023), arXiv:2304.03806 [quant-ph].
+[210] C. Flühmann, V. Negnevitsky, M. Marinelli, and J. P. Home, Phys. Rev. X8, 021001 (2018).
+[211] H. Paik, D. I. Schuster, L. S. Bishop, G. Kirchmair, G. Catelani, A. P. Sears, B. R. Johnson, M. J. Reagor, L. Frunzio,
+L. I. Glazman,et al., Phys. Rev. Lett.107, 240501 (2011).
+[212] C. Axline, M. Reagor, R. Heeres, P. Reinhold, C. Wang, K. Shain, W. Pfaff, Y. Chu, L. Frunzio, and R. J. Schoelkopf,
+Appl. Phys. Lett.109 (2016), 10.1063/1.4959241.
+[213] L. Hu, Y. Ma, W. Cai, X. Mu, Y. Xu, W. Wang, Y. Wu, H. Wang, Y. P. Song, C. L. Zou,et al., Nat. Phys.15, 503
+(2019).
+[214] Z. Ni, S. Li, X. Deng, Y. Cai, L. Zhang, W. Wang, Z.-B. Yang, H. Yu, F. Yan, S. Liu,et al., Nature616, 56 (2023).
+[215] W.-L. Ma, S. Puri, R. J. Schoelkopf, M. H. Devoret, S. Girvin, and L. Jiang, Science Bulletin66, 1789 (2021).
+[216] M. A. Nielsen, Phys. Lett. A303, 249 (2002).
+[217] A. P. M. Place, L. V. H. Rodgers, P. Mundada, B. M. Smitham, M. Fitzpatrick, Z. Leng, A. Premkumar, J. Bryon,
+A. Vrajitoarea, S. Sussman,et al., Nat. Commun.12, 1779 (2021).
+[218] V. V. Sivak, A. Eickbusch, H. Liu, B. Royer, I. Tsioutsios, and M. H. Devoret, Phys. Rev. X12, 011059 (2022).
+[219] N. E. Frattini, V. V. Sivak, A. Lingenfelter, S. Shankar, and M. H. Devoret, Phys. Rev. Appl.10, 054020 (2018).
+[220] V. Sivak, N. Frattini, V. Joshi, A. Lingenfelter, S. Shankar, and M. Devoret, Phys. Rev. Appl.11, 054060 (2019).
+[221] Y. Ye, K. Peng, M. Naghiloo, G. Cunningham, and K. P. O’Brien, Phys. Rev. Lett.127, 050502 (2021).
+[222] R. Acharya, I. Aleiner, R. Allen, T. I. Andersen, M. Ansmann, F. Arute, K. Arya, A. Asfaw, J. Atalaya, R. Babbush,
+et al., Nature614, 676 (2023).
+[223] J. Hastrup, K. Park, J. B. Brask, R. Filip, and U. L. Andersen, npj Quantum Information7, 17 (2021).
+[224] J. Hastrup and U. L. Andersen, Quantum Sci. Technol.6, 035016 (2021).
+[225] B. Q. Baragiola, G. Pantaleoni, R. N. Alexander, A. Karanjai, and N. C. Menicucci, Phys. Rev. Lett.123, 200502 (2019).
+[226] A. G. Fowler, S. J. Devitt, and C. Jones, Scientific reports3, 1939 (2013).
+[227] K. K. Sabapathy, H. Qi, J. Izaac, and C. Weedbrook, Phys. Rev. A100, 012326 (2019).
+[228] D. Su, C. R. Myers, and K. K. Sabapathy, Phys. Rev. A100, 052301 (2019).
+[229] N. Quesada, L. G. Helt, J. Izaac, J. M. Arrazola, R. Shahrokhshahi, C. R. Myers, and K. K. Sabapathy, Phys. Rev. A
+100, 022341 (2019).
+[230] J. E. Bourassa, R. N. Alexander, M. Vasmer, A. Patil, I. Tzitrin, T. Matsuura, D. Su, B. Q. Baragiola, S. Guha,
+G. Dauphinais,et al., Quantum5, 392 (2021).
+[231] K. Takase, K. Fukui, A. Kawasaki, W. Asavanant, M. Endo, J.-i. Yoshikawa, P. van Loock, and A. Furusawa, npj
+Quantum Inf.9, 98 (2023).
+
+## PDF page 83
+
+83
+[232] M. Eaton, R. Nehra, and O. Pfister, New J. Phys.21, 113034 (2019).
+[233] M. Eaton, C. González-Arciniegas, R. N. Alexander, N. C. Menicucci, and O. Pfister, Quantum6, 769 (2022).
+[234] J. Hastrup and U. L. Andersen, Phys. Rev. Lett.128, 170503 (2022).
+[235] R. Yanagimoto, R. Nehra, R. Hamerly, E. Ng, A. Marandi, and H. Mabuchi, PRX Quantum4, 010333 (2023).
+[236] R. Dahan, G. Baranes, A. Gorlach, R. Ruimy, N. Rivera, and I. Kaminer, Phys. Rev. X13, 031001 (2023).
+[237] C. Wang, I. Gonin, A. Grassellino, S. Kazakov, A. Romanenko, V. P. Yakovlev, and S. Zorzetti, npj Quantum Inf.8,
+149 (2022).
+[238] C. Zhong, M. Xu, A. Clerk, H. X. Tang, and L. Jiang, Phys. Rev. Res.4, L042013 (2022).
+[239] J. Wu, C. Cui, L. Fan, and Q. Zhuang, Phys. Rev. Appl.16, 064044 (2021).
+[240] G. Baranes, S. Even-Haim, R. Ruimy, A. Gorlach, R. Dahan, A. A. Diringer, S. Hacohen-Gourgy, and I. Kaminer,
+“Free-electron interactions with photonic GKP states: universal control and quantum error correction,” (2023),
+arXiv:2303.13244 [quant-ph].
+[241] S. Puri, S. Boutin, and A. Blais, npj Quantum Inf.3, 18 (2017).
+[242] B. J. Brown and S. Roberts, Phys. Rev. Res.2, 033305 (2020).
+[243] K. Noh, C. Chamberland, and F. G. Brandão, PRX Quantum3, 010315 (2022).
+[244] C. Vuillot, H. Asasi, Y. Wang, L. P. Pryadko, and B. M. Terhal, Phys. Rev. A99, 032344 (2019).
+[245] J. Conrad, J. Eisert, and J.-P. Seifert, “Good Gottesman-Kitaev-Preskill codes from the NTRU cryptosystem,” (2023),
+arXiv:2303.02432 [quant-ph].
+[246] M. Lin, C. Chamberland, and K. Noh, “Closest lattice point decoding for multimode Gottesman-Kitaev-Preskill codes,”
+(2023), arXiv:2303.04702 [quant-ph].
+[247] D. Micciancio and P. Voulgaris, inProceedings of the forty-second ACM symposium on Theory of computing(2010) pp.
+351–358.
+[248] M. Lin, C. Chamberland, and K. Noh, arXiv preprint arXiv:2303.04702 (2023).
+[249] E. Dennis, A. Kitaev, A. Landahl, and J. Preskill, Journal of Mathematical Physics43, 4452 (2002).
+[250] V. Kolmogorov, Mathematical Programming Computation1, 43 (2009).
+[251] K. Noh, S. Pirandola, and L. Jiang, Nat. Commun.11, 1 (2020).
+[252] A. K. Lenstra, H. W. Lenstra, and L. Lovász, Math. Ann.261, 515 (1982).
+[253] K. Fukui, A. Tomita, and A. Okamoto, Phys. Rev. Lett.119, 180507 (2017).
+[254] K. Fukui, A. Tomita, A. Okamoto, and K. Fujii, Phys. Rev. X8, 021054 (2018).
+[255] S. Lloyd and J.-J. E. Slotine, Phys. Rev. Lett.80, 4088 (1998).
+[256] S. L. Braunstein, Phys. Rev. Lett.80, 4084 (1998).
+[257] S. L. Braunstein, Quantum Information with Continuous Variables80, 19 (2003).
+[258] Q. Zhuang, J. Preskill, and L. Jiang, New J. Phys.22, 022001 (2020).
+[259] L. Hänggli and R. König, IEEE Trans. Inf. Theory68, 1068 (2021).
+[260] T. M. Cover and J. A. Thomas,Elements of Information Theory, 2nd ed. (John Wiley & Sons, 2006).
+[261] L. García-Álvarez, C. Calcluth, A. Ferraro, and G. Ferrini, Phys. Rev. Res.2, 043322 (2020).
+[262] C. Calcluth, A. Ferraro, and G. Ferrini, Quantum6, 867 (2022).
+[263] C. Calcluth, A. Ferraro, and G. Ferrini, Phys. Rev. A107, 062414 (2023).
+[264] I. Tzitrin, T. Matsuura, R. N. Alexander, G. Dauphinais, J. E. Bourassa, K. K. Sabapathy, N. C. Menicucci, and
+I. Dhand, PRX Quantum2, 040353 (2021).
+[265] B.-H. Wu, R. N. Alexander, S. Liu, and Z. Zhang, Phys. Rev. Res.2, 023138 (2020).
+[266] F. Rozpędek, K. Noh, Q. Xu, S. Guha, and L. Jiang, npj Quantum Inf.7, 1 (2021).
+[267] S. Pirandola, R. Laurenza, C. Ottaviani, and L. Banchi, Nat. Commun.8, 15043 (2017).
+[268] K. Azuma, S. E. Economou, D. Elkouss, P. Hilaire, L. Jiang, H.-K. Lo, and I. Tzitrin, “Quantum repeaters: From
+quantum networks to the quantum internet,” (2022), arXiv:2212.10820 [quant-ph].
+[269] K. Fukui, R. N. Alexander, and P. van Loock, Phys. Rev. Res.3, 033118 (2021).
+[270] F.Schmidt, D.Miller, andP.vanLoock,“Error-correctedquantumrepeaterswithGKPqudits,” (2023),arXiv:2303.16034
+[quant-ph].
+[271] F. Rozpędek, K. P. Seshadreesan, P. Polakos, L. Jiang, and S. Guha, “All-photonic multiplexed quantum repeaters based
+on concatenated bosonic and discrete-variable quantum codes,” (2023), arXiv:2303.14923 [quant-ph].
+[272] S.-W. Lee, T. C. Ralph, and H. Jeong, Phys. Rev. A100, 052303 (2019).
+[273] Y. Xia, W. Li, W. Clark, D. Hart, Q. Zhuang, and Z. Zhang, Phys. Rev. Lett.124, 150502 (2020).
+[274] Y. Xia, A. R. Agrawal, C. M. Pluchar, A. J. Brady, Z. Liu, Q. Zhuang, D. J. Wilson, and Z. Zhang, Nat. Photon. , 1
+(2023).
+[275] A. J. Brady, C. Gao, R. Harnik, Z. Liu, Z. Zhang, and Q. Zhuang, PRX Quantum3, 030333 (2022).
+[276] B. Zhou, A. J. Brady, and Q. Zhuang, Phys. Rev. A106, 012404 (2022).
+[277] C. L. Degen, F. Reinhard, and P. Cappellaro, Rev. Mod. Phys.89, 035002 (2017).
+[278] S. Pirandola, B. R. Bardhan, T. Gehring, C. Weedbrook, and S. Lloyd, Nat. Photonics12, 724 (2018).
+[279] E. Polino, M. Valeri, N. Spagnolo, and F. Sciarrino, AVS Quantum Sci.2, 024703 (2020).
+[280] P. Komar, E. M. Kessler, M. Bishof, L. Jiang, A. S. Sørensen, J. Ye, and M. D. Lukin, Nature Phys.10, 582 (2014).
+[281] D. Gottesman, T. Jennewein, and S. Croke, Phys. Rev. Lett.109, 070503 (2012).
+[282] M. Tsang, R. Nair, and X.-M. Lu, Phys. Rev. X6, 031033 (2016).
+[283] M. Tse, H. Yu, N. Kijbunchoo, A. Fernandez-Galiana, P. Dupej, L. Barsotti, C. Blair, D. Brown, S. Dwyer, A. Effler,
+et al., Phys. Rev. Lett.123, 231107 (2019).
+
+## PDF page 84
+
+84
+[284] K. M. Backes, D. A. Palken, S. A. Kenany, B. M. Brubaker, S. Cahn, A. Droster, G. C. Hilton, S. Ghosh, H. Jackson,
+S. K. Lamoreaux,et al., Nature590, 238 (2021).
+[285] A. V. Dixit, S. Chakram, K. He, A. Agrawal, R. K. Naik, D. I. Schuster, and A. Chou, Phys. Rev. Lett.126, 141302
+(2021).
+[286] H. Shi and Q. Zhuang, npj Quantum Inf.9, 27 (2023).
+[287] Q. Zhuang and Z. Zhang, Phys. Rev. X9, 041023 (2019).
+[288] S. Zhou, M. Zhang, J. Preskill, and L. Jiang, Nat. Commun.9, 78 (2018).
+[289] Q. Zhuang, Z. Zhang, and J. H. Shapiro, Phys. Rev. A96, 040304 (2017).
+[290] W.-L. Ma, M. Zhang, Y. Wong, K. Noh, S. Rosenblum, P. Reinhold, R. J. Schoelkopf, and L. Jiang, Phys. Rev. Lett.
+125, 110503 (2020).
+[291] J. D. Teoh, P. Winkel, H. K. Babla, B. J. Chapman, J. Claes, S. J. de Graaf, J. W. O. Garmon, W. D. Kalfus, Y. Lu,
+A. Maiti, K. Sahay, N. Thakur, T. Tsunoda, S. H. Xue, L. Frunzio, S. M. Girvin, S. Puri, and R. J. Schoelkopf, “Dual-rail
+encoding with superconducting cavities,” (2022), arXiv:2212.12077 [quant-ph].
+[292] Y. Wu, S. Kolkowitz, S. Puri, and J. D. Thompson, Nat. Commun.13, 4657 (2022).
+[293] P. Scholl, A. L. Shaw, R. B.-S. Tsai, R. Finkelstein, J. Choi, and M. Endres, “Erasure conversion in a high-fidelity
+Rydberg quantum simulator,” (2023), arXiv:2305.03406 [quant-ph].
+[294] M. Kang, W. C. Campbell, and K. R. Brown, PRX Quantum4, 020358 (2023).
+[295] A.Kubica, A.Haim, Y.Vaknin, F.Brandão, andA.Retzker,“Erasurequbits: Overcomingthe T1 limitinsuperconducting
+circuits,” (2022), arXiv:2208.05461 [quant-ph].
+[296] H. Levine, A. Haim, J. S. C. Hung, N. Alidoust, M. Kalaee, L. DeLorenzo, E. A. Wollack, P. A. Arriola, A. Khalajhedayati,
+R. Sanil, Y. Vaknin, A. Kubica, A. A. Clerk, D. Hover, F. Brandão, A. Retzker, and O. Painter, “Demonstrating a long-
+coherence dual-rail erasure qubit using tunable transmons,” (2023), arXiv:2307.08737 [quant-ph].
+[297] Y. Xu, Y. Wang, E.-J. Kuo, and V. V. Albert, PRX Quantum4, 020342 (2023).

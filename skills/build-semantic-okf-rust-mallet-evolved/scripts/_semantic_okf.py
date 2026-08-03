@@ -25,7 +25,7 @@ from rdflib.namespace import DCTERMS, OWL, PROV, RDF, RDFS, SH, XSD
 
 
 SCHEMA_VERSION = "1.0"
-OKF_VERSION = "0.1"
+OKF_VERSION = "0.2"
 SOURCE_KINDS = frozenset({"markdown", "csv", "json", "rdf"})
 RDF_FORMATS = frozenset({"turtle", "nt", "n3"})
 RESERVED_LOCAL_NAMES = frozenset(
@@ -1245,6 +1245,14 @@ def _concept_frontmatter(
             record.source_kind,
             manifest["bundle"]["owl_profile"].lower(),
         ],
+        "sources": [
+            {
+                "id": record.source_id,
+                "resource": record.source_path,
+                "title": record.source_id,
+            }
+        ],
+        "generated": {"by": "process:semantic-okf-python"},
         "concept_id": record.concept_id,
         "concept_path": record.concept_path,
         "subject_iri": record.subject_iri,

@@ -1,0 +1,631 @@
+{
+  "dataset_id": "knowledge-methodology-papers-47",
+  "new_paper_count": 32,
+  "papers": [
+    {
+      "abs_url": "https://arxiv.org/abs/1506.02629v2",
+      "abstract": "Overfitting is the bane of data analysts, even when data are plentiful. Formal approaches to understanding this problem focus on statistical inference and generalization of individual analysis procedures. Yet the practice of data analysis is an inherently interactive and adaptive process: new analyses and hypotheses are proposed after seeing the results of previous ones, parameters are tuned on the basis of obtained results, and datasets are shared and reused. An investigation of this gap has recently been initiated by the authors in (Dwork et al., 2014), where we focused on the problem of estimating expectations of adaptively chosen functions. In this paper, we give a simple and practical method for reusing a holdout (or testing) set to validate the accuracy of hypotheses produced by a learning algorithm operating on a training set. Reusing a holdout set adaptively multiple times can easily lead to overfitting to the holdout set itself. We give an algorithm that enables the validation of a large number of adaptively chosen hypotheses, while provably avoiding overfitting. We illustrate the advantages of our algorithm over the standard use of the holdout set via a simple synthetic experiment. We also formalize and address the general problem of data reuse in adaptive data analysis. We show how the differential-privacy based approach given in (Dwork et al., 2014) is applicable much more broadly to adaptive data analysis. We then show that a simple approach based on description length can also be used to give guarantees of statistical validity in adaptive settings. Finally, we demonstrate that these incomparable approaches can be unified via the notion of approximate max-information that we introduce.",
+      "arxiv_id": "1506.02629v2",
+      "authors": [
+        "Dwork, Cynthia",
+        "Feldman, Vitaly",
+        "Hardt, Moritz",
+        "Pitassi, Toniann",
+        "Reingold, Omer",
+        "Roth, Aaron"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/1506.02629v2",
+      "primary_category": "cs.LG",
+      "published": "2015-06-08T00:00:00Z",
+      "title": "Generalization in Adaptive Data Analysis and Holdout Reuse",
+      "updated": "2015-09-25T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2003.02320v6",
+      "abstract": "In this paper we provide a comprehensive introduction to knowledge graphs, which have recently garnered significant attention from both industry and academia in scenarios that require exploiting diverse, dynamic, large-scale collections of data. After some opening remarks, we motivate and contrast various graph-based data models and query languages that are used for knowledge graphs. We discuss the roles of schema, identity, and context in knowledge graphs. We explain how knowledge can be represented and extracted using a combination of deductive and inductive techniques. We summarise methods for the creation, enrichment, quality assessment, refinement, and publication of knowledge graphs. We provide an overview of prominent open knowledge graphs and enterprise knowledge graphs, their applications, and how they use the aforementioned techniques. We conclude with high-level future research directions for knowledge graphs.",
+      "arxiv_id": "2003.02320v6",
+      "authors": [
+        "Hogan, Aidan",
+        "Blomqvist, Eva",
+        "Cochez, Michael",
+        "d'Amato, Claudia",
+        "de Melo, Gerard",
+        "Gutierrez, Claudio",
+        "Gayo, José Emilio Labra",
+        "Kirrane, Sabrina",
+        "Neumaier, Sebastian",
+        "Polleres, Axel",
+        "Navigli, Roberto",
+        "Ngomo, Axel-Cyrille Ngonga",
+        "Rashid, Sabbir M.",
+        "Rula, Anisa",
+        "Schmelzeisen, Lukas",
+        "Sequeda, Juan",
+        "Staab, Steffen",
+        "Zimmermann, Antoine"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2003.02320v6",
+      "primary_category": "cs.AI",
+      "published": "2020-03-04T00:00:00Z",
+      "title": "Knowledge Graphs",
+      "updated": "2021-09-11T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2004.04906v3",
+      "abstract": "Open-domain question answering relies on efficient passage retrieval to select candidate contexts, where traditional sparse vector space models, such as TF-IDF or BM25, are the de facto method. In this work, we show that retrieval can be practically implemented using dense representations alone, where embeddings are learned from a small number of questions and passages by a simple dual-encoder framework. When evaluated on a wide range of open-domain QA datasets, our dense retriever outperforms a strong Lucene-BM25 system largely by 9%-19% absolute in terms of top-20 passage retrieval accuracy, and helps our end-to-end QA system establish new state-of-the-art on multiple open-domain QA benchmarks.",
+      "arxiv_id": "2004.04906v3",
+      "authors": [
+        "Karpukhin, Vladimir",
+        "Oğuz, Barlas",
+        "Min, Sewon",
+        "Lewis, Patrick",
+        "Wu, Ledell",
+        "Edunov, Sergey",
+        "Chen, Danqi",
+        "Yih, Wen-tau"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2004.04906v3",
+      "primary_category": "cs.CL",
+      "published": "2020-04-10T00:00:00Z",
+      "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+      "updated": "2020-09-30T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2004.12832v2",
+      "abstract": "Recent progress in Natural Language Understanding (NLU) is driving fast-paced advances in Information Retrieval (IR), largely owed to fine-tuning deep language models (LMs) for document ranking. While remarkably effective, the ranking models based on these LMs increase computational cost by orders of magnitude over prior approaches, particularly as they must feed each query-document pair through a massive neural network to compute a single relevance score. To tackle this, we present ColBERT, a novel ranking model that adapts deep LMs (in particular, BERT) for efficient retrieval. ColBERT introduces a late interaction architecture that independently encodes the query and the document using BERT and then employs a cheap yet powerful interaction step that models their fine-grained similarity. By delaying and yet retaining this fine-granular interaction, ColBERT can leverage the expressiveness of deep LMs while simultaneously gaining the ability to pre-compute document representations offline, considerably speeding up query processing. Beyond reducing the cost of re-ranking the documents retrieved by a traditional model, ColBERT's pruning-friendly interaction mechanism enables leveraging vector-similarity indexes for end-to-end retrieval directly from a large document collection. We extensively evaluate ColBERT using two recent passage search datasets. Results show that ColBERT's effectiveness is competitive with existing BERT-based models (and outperforms every non-BERT baseline), while executing two orders-of-magnitude faster and requiring four orders-of-magnitude fewer FLOPs per query.",
+      "arxiv_id": "2004.12832v2",
+      "authors": [
+        "Khattab, Omar",
+        "Zaharia, Matei"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2004.12832v2",
+      "primary_category": "cs.IR",
+      "published": "2020-04-27T00:00:00Z",
+      "title": "ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT",
+      "updated": "2020-06-04T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2005.11401v4",
+      "abstract": "Large pre-trained language models have been shown to store factual knowledge in their parameters, and achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, their ability to access and precisely manipulate knowledge is still limited, and hence on knowledge-intensive tasks, their performance lags behind task-specific architectures. Additionally, providing provenance for their decisions and updating their world knowledge remain open research problems. Pre-trained models with a differentiable access mechanism to explicit non-parametric memory can overcome this issue, but have so far been only investigated for extractive downstream tasks. We explore a general-purpose fine-tuning recipe for retrieval-augmented generation (RAG) -- models which combine pre-trained parametric and non-parametric memory for language generation. We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever. We compare two RAG formulations, one which conditions on the same retrieved passages across the whole generated sequence, the other can use different passages per token. We fine-tune and evaluate our models on a wide range of knowledge-intensive NLP tasks and set the state-of-the-art on three open domain QA tasks, outperforming parametric seq2seq models and task-specific retrieve-and-extract architectures. For language generation tasks, we find that RAG models generate more specific, diverse and factual language than a state-of-the-art parametric-only seq2seq baseline.",
+      "arxiv_id": "2005.11401v4",
+      "authors": [
+        "Lewis, Patrick",
+        "Perez, Ethan",
+        "Piktus, Aleksandra",
+        "Petroni, Fabio",
+        "Karpukhin, Vladimir",
+        "Goyal, Naman",
+        "Küttler, Heinrich",
+        "Lewis, Mike",
+        "Yih, Wen-tau",
+        "Rocktäschel, Tim",
+        "Riedel, Sebastian",
+        "Kiela, Douwe"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2005.11401v4",
+      "primary_category": "cs.CL",
+      "published": "2020-05-22T00:00:00Z",
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "updated": "2021-04-12T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2103.03098v1",
+      "abstract": "Strong empirical evidence that one machine-learning algorithm A outperforms another one B ideally calls for multiple trials optimizing the learning pipeline over sources of variation such as data sampling, data augmentation, parameter initialization, and hyperparameters choices. This is prohibitively expensive, and corners are cut to reach conclusions. We model the whole benchmarking process, revealing that variance due to data sampling, parameter initialization and hyperparameter choice impact markedly the results. We analyze the predominant comparison methods used today in the light of this variance. We show a counter-intuitive result that adding more sources of variation to an imperfect estimator approaches better the ideal estimator at a 51 times reduction in compute cost. Building on these results, we study the error rate of detecting improvements, on five different deep-learning tasks/architectures. This study leads us to propose recommendations for performance comparisons.",
+      "arxiv_id": "2103.03098v1",
+      "authors": [
+        "Bouthillier, Xavier",
+        "Delaunay, Pierre",
+        "Bronzi, Mirko",
+        "Trofimov, Assya",
+        "Nichyporuk, Brennan",
+        "Szeto, Justin",
+        "Sepah, Naz",
+        "Raff, Edward",
+        "Madan, Kanika",
+        "Voleti, Vikram",
+        "Kahou, Samira Ebrahimi",
+        "Michalski, Vincent",
+        "Serdyuk, Dmitriy",
+        "Arbel, Tal",
+        "Pal, Chris",
+        "Varoquaux, Gaël",
+        "Vincent, Pascal"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2103.03098v1",
+      "primary_category": "cs.LG",
+      "published": "2021-03-01T00:00:00Z",
+      "title": "Accounting for Variance in Machine Learning Benchmarks",
+      "updated": "2021-03-01T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2104.08663v4",
+      "abstract": "Existing neural information retrieval (IR) models have often been studied in homogeneous and narrow settings, which has considerably limited insights into their out-of-distribution (OOD) generalization capabilities. To address this, and to facilitate researchers to broadly evaluate the effectiveness of their models, we introduce Benchmarking-IR (BEIR), a robust and heterogeneous evaluation benchmark for information retrieval. We leverage a careful selection of 18 publicly available datasets from diverse text retrieval tasks and domains and evaluate 10 state-of-the-art retrieval systems including lexical, sparse, dense, late-interaction and re-ranking architectures on the BEIR benchmark. Our results show BM25 is a robust baseline and re-ranking and late-interaction-based models on average achieve the best zero-shot performances, however, at high computational costs. In contrast, dense and sparse-retrieval models are computationally more efficient but often underperform other approaches, highlighting the considerable room for improvement in their generalization capabilities. We hope this framework allows us to better evaluate and understand existing retrieval systems, and contributes to accelerating progress towards better robust and generalizable systems in the future. BEIR is publicly available at https://github.com/UKPLab/beir.",
+      "arxiv_id": "2104.08663v4",
+      "authors": [
+        "Thakur, Nandan",
+        "Reimers, Nils",
+        "Rücklé, Andreas",
+        "Srivastava, Abhishek",
+        "Gurevych, Iryna"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2104.08663v4",
+      "primary_category": "cs.IR",
+      "published": "2021-04-17T00:00:00Z",
+      "title": "BEIR: A Heterogenous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+      "updated": "2021-10-21T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2107.05720v1",
+      "abstract": "In neural Information Retrieval, ongoing research is directed towards improving the first retriever in ranking pipelines. Learning dense embeddings to conduct retrieval using efficient approximate nearest neighbors methods has proven to work well. Meanwhile, there has been a growing interest in learning sparse representations for documents and queries, that could inherit from the desirable properties of bag-of-words models such as the exact matching of terms and the efficiency of inverted indexes. In this work, we present a new first-stage ranker based on explicit sparsity regularization and a log-saturation effect on term weights, leading to highly sparse representations and competitive results with respect to state-of-the-art dense and sparse methods. Our approach is simple, trained end-to-end in a single stage. We also explore the trade-off between effectiveness and efficiency, by controlling the contribution of the sparsity regularization.",
+      "arxiv_id": "2107.05720v1",
+      "authors": [
+        "Formal, Thibault",
+        "Piwowarski, Benjamin",
+        "Clinchant, Stéphane"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2107.05720v1",
+      "primary_category": "cs.IR",
+      "published": "2021-07-12T00:00:00Z",
+      "title": "SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking",
+      "updated": "2021-07-12T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2112.01441v1",
+      "abstract": "We present an introduction and a review of the Shapes Constraint Language (SHACL), the W3C recommendation language for validating RDF data. A SHACL document describes a set of constraints on RDF nodes, and a graph is valid with respect to the document if its nodes satisfy these constraints. We revisit the basic concepts of the language, its constructs and components and their interaction. We review the different formal frameworks used to study this language and the different semantics proposed. We examine a number of related problems, from containment and satisfiability to the interaction of SHACL with inference rules, and exhibit how different modellings of the language are useful for different problems. We also cover practical aspects of SHACL, discussing its implementations and state of adoption, to present a holistic review useful to practitioners and theoreticians alike.",
+      "arxiv_id": "2112.01441v1",
+      "authors": [
+        "Pareti, Paolo",
+        "Konstantinidis, George"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2112.01441v1",
+      "primary_category": "cs.AI",
+      "published": "2021-12-02T00:00:00Z",
+      "title": "A Review of SHACL: From Data Validation to Schema Reasoning for RDF Graphs",
+      "updated": "2021-12-02T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2112.09118v4",
+      "abstract": "Recently, information retrieval has seen the emergence of dense retrievers, using neural networks, as an alternative to classical sparse methods based on term-frequency. These models have obtained state-of-the-art results on datasets and tasks where large training sets are available. However, they do not transfer well to new applications with no training data, and are outperformed by unsupervised term-frequency methods such as BM25. In this work, we explore the limits of contrastive learning as a way to train unsupervised dense retrievers and show that it leads to strong performance in various retrieval settings. On the BEIR benchmark our unsupervised model outperforms BM25 on 11 out of 15 datasets for the Recall@100. When used as pre-training before fine-tuning, either on a few thousands in-domain examples or on the large MS~MARCO dataset, our contrastive model leads to improvements on the BEIR benchmark. Finally, we evaluate our approach for multi-lingual retrieval, where training data is even scarcer than for English, and show that our approach leads to strong unsupervised performance. Our model also exhibits strong cross-lingual transfer when fine-tuned on supervised English data only and evaluated on low resources language such as Swahili. We show that our unsupervised models can perform cross-lingual retrieval between different scripts, such as retrieving English documents from Arabic queries, which would not be possible with term matching methods.",
+      "arxiv_id": "2112.09118v4",
+      "authors": [
+        "Izacard, Gautier",
+        "Caron, Mathilde",
+        "Hosseini, Lucas",
+        "Riedel, Sebastian",
+        "Bojanowski, Piotr",
+        "Joulin, Armand",
+        "Grave, Edouard"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2112.09118v4",
+      "primary_category": "cs.IR",
+      "published": "2021-12-16T00:00:00Z",
+      "title": "Unsupervised Dense Information Retrieval with Contrastive Learning",
+      "updated": "2022-08-29T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2307.16648v2",
+      "abstract": "We propose the LLMs4OL approach, which utilizes Large Language Models (LLMs) for Ontology Learning (OL). LLMs have shown significant advancements in natural language processing, demonstrating their ability to capture complex language patterns in different knowledge domains. Our LLMs4OL paradigm investigates the following hypothesis: \\textit{Can LLMs effectively apply their language pattern capturing capability to OL, which involves automatically extracting and structuring knowledge from natural language text?} To test this hypothesis, we conduct a comprehensive evaluation using the zero-shot prompting method. We evaluate nine different LLM model families for three main OL tasks: term typing, taxonomy discovery, and extraction of non-taxonomic relations. Additionally, the evaluations encompass diverse genres of ontological knowledge, including lexicosemantic knowledge in WordNet, geographical knowledge in GeoNames, and medical knowledge in UMLS.",
+      "arxiv_id": "2307.16648v2",
+      "authors": [
+        "Giglou, Hamed Babaei",
+        "D'Souza, Jennifer",
+        "Auer, Sören"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2307.16648v2",
+      "primary_category": "cs.AI",
+      "published": "2023-07-31T00:00:00Z",
+      "title": "LLMs4OL: Large Language Models for Ontology Learning",
+      "updated": "2023-08-02T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2308.06374v1",
+      "abstract": "Large Language Models (LLMs) have taken Knowledge Representation -- and the world -- by storm. This inflection point marks a shift from explicit knowledge representation to a renewed focus on the hybrid representation of both explicit knowledge and parametric knowledge. In this position paper, we will discuss some of the common debate points within the community on LLMs (parametric knowledge) and Knowledge Graphs (explicit knowledge) and speculate on opportunities and visions that the renewed focus brings, as well as related research topics and challenges.",
+      "arxiv_id": "2308.06374v1",
+      "authors": [
+        "Pan, Jeff Z.",
+        "Razniewski, Simon",
+        "Kalo, Jan-Christoph",
+        "Singhania, Sneha",
+        "Chen, Jiaoyan",
+        "Dietze, Stefan",
+        "Jabeen, Hajira",
+        "Omeliyanenko, Janna",
+        "Zhang, Wen",
+        "Lissandrini, Matteo",
+        "Biswas, Russa",
+        "de Melo, Gerard",
+        "Bonifati, Angela",
+        "Vakaj, Edlira",
+        "Dragoni, Mauro",
+        "Graux, Damien"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2308.06374v1",
+      "primary_category": "cs.AI",
+      "published": "2023-08-11T00:00:00Z",
+      "title": "Large Language Models and Knowledge Graphs: Opportunities and Challenges",
+      "updated": "2023-08-11T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2309.08532v3",
+      "abstract": "Large Language Models (LLMs) excel in various tasks, but they rely on carefully crafted prompts that often demand substantial human effort. To automate this process, in this paper, we propose a novel framework for discrete prompt optimization, called EvoPrompt, which borrows the idea of evolutionary algorithms (EAs) as they exhibit good performance and fast convergence. To enable EAs to work on discrete prompts, which are natural language expressions that need to be coherent and human-readable, we connect LLMs with EAs. This approach allows us to simultaneously leverage the powerful language processing capabilities of LLMs and the efficient optimization performance of EAs. Specifically, abstaining from any gradients or parameters, EvoPrompt starts from a population of prompts and iteratively generates new prompts with LLMs based on the evolutionary operators, improving the population based on the development set. We optimize prompts for both closed- and open-source LLMs including GPT-3.5 and Alpaca, on 31 datasets covering language understanding, generation tasks, as well as BIG-Bench Hard (BBH) tasks. EvoPrompt significantly outperforms human-engineered prompts and existing methods for automatic prompt generation (e.g., up to 25% on BBH). Furthermore, EvoPrompt demonstrates that connecting LLMs with EAs creates synergies, which could inspire further research on the combination of LLMs and conventional algorithms.",
+      "arxiv_id": "2309.08532v3",
+      "authors": [
+        "Guo, Qingyan",
+        "Wang, Rui",
+        "Guo, Junliang",
+        "Li, Bei",
+        "Song, Kaitao",
+        "Tan, Xu",
+        "Liu, Guoqing",
+        "Bian, Jiang",
+        "Yang, Yujiu"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2309.08532v3",
+      "primary_category": "cs.CL",
+      "published": "2023-09-15T00:00:00Z",
+      "title": "EvoPrompt: Connecting LLMs with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+      "updated": "2025-05-01T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2309.08754v1",
+      "abstract": "Knowledge graphs (KGs) are widely used for representing and organizing structured knowledge in diverse domains. However, the creation and upkeep of KGs pose substantial challenges. Developing a KG demands extensive expertise in data modeling, ontology design, and data curation. Furthermore, KGs are dynamic, requiring continuous updates and quality control to ensure accuracy and relevance. These intricacies contribute to the considerable effort required for their development and maintenance. One critical dimension of KGs that warrants attention is reproducibility. The ability to replicate and validate KGs is fundamental for ensuring the trustworthiness and sustainability of the knowledge they represent. Reproducible KGs not only support open science by allowing others to build upon existing knowledge but also enhance transparency and reliability in disseminating information. Despite the growing number of domain-specific KGs, a comprehensive analysis concerning their reproducibility has been lacking. This paper addresses this gap by offering a general overview of domain-specific KGs and comparing them based on various reproducibility criteria. Our study over 19 different domains shows only eight out of 250 domain-specific KGs (3.2%) provide publicly available source code. Among these, only one system could successfully pass our reproducibility assessment (14.3%). These findings highlight the challenges and gaps in achieving reproducibility across domain-specific KGs. Our finding that only 0.4% of published domain-specific KGs are reproducible shows a clear need for further research and a shift in cultural practices.",
+      "arxiv_id": "2309.08754v1",
+      "authors": [
+        "Babalou, Samira",
+        "Samuel, Sheeba",
+        "König-Ries, Birgitta"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2309.08754v1",
+      "primary_category": "cs.IR",
+      "published": "2023-09-15T00:00:00Z",
+      "title": "Reproducible Domain-Specific Knowledge Graphs in the Life Sciences: a Systematic Literature Review",
+      "updated": "2023-09-15T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2309.15217v2",
+      "abstract": "We introduce Ragas (Retrieval Augmented Generation Assessment), a framework for reference-free evaluation of Retrieval Augmented Generation (RAG) pipelines. RAG systems are composed of a retrieval and an LLM based generation module, and provide LLMs with knowledge from a reference textual database, which enables them to act as a natural language layer between a user and textual databases, reducing the risk of hallucinations. Evaluating RAG architectures is, however, challenging because there are several dimensions to consider: the ability of the retrieval system to identify relevant and focused context passages, the ability of the LLM to exploit such passages in a faithful way, or the quality of the generation itself. With Ragas, we put forward a suite of metrics which can be used to evaluate these different dimensions \\textit{without having to rely on ground truth human annotations}. We posit that such a framework can crucially contribute to faster evaluation cycles of RAG architectures, which is especially important given the fast adoption of LLMs.",
+      "arxiv_id": "2309.15217v2",
+      "authors": [
+        "Es, Shahul",
+        "James, Jithin",
+        "Espinosa-Anke, Luis",
+        "Schockaert, Steven"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2309.15217v2",
+      "primary_category": "cs.CL",
+      "published": "2023-09-26T00:00:00Z",
+      "title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+      "updated": "2025-04-28T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2309.16797v1",
+      "abstract": "Popular prompt strategies like Chain-of-Thought Prompting can dramatically improve the reasoning abilities of Large Language Models (LLMs) in various domains. However, such hand-crafted prompt-strategies are often sub-optimal. In this paper, we present Promptbreeder, a general-purpose self-referential self-improvement mechanism that evolves and adapts prompts for a given domain. Driven by an LLM, Promptbreeder mutates a population of task-prompts, and subsequently evaluates them for fitness on a training set. Crucially, the mutation of these task-prompts is governed by mutation-prompts that the LLM generates and improves throughout evolution in a self-referential way. That is, Promptbreeder is not just improving task-prompts, but it is also improving the mutationprompts that improve these task-prompts. Promptbreeder outperforms state-of-the-art prompt strategies such as Chain-of-Thought and Plan-and-Solve Prompting on commonly used arithmetic and commonsense reasoning benchmarks. Furthermore, Promptbreeder is able to evolve intricate task-prompts for the challenging problem of hate speech classification.",
+      "arxiv_id": "2309.16797v1",
+      "authors": [
+        "Fernando, Chrisantha",
+        "Banarse, Dylan",
+        "Michalewski, Henryk",
+        "Osindero, Simon",
+        "Rocktäschel, Tim"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2309.16797v1",
+      "primary_category": "cs.CL",
+      "published": "2023-09-28T00:00:00Z",
+      "title": "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution",
+      "updated": "2023-09-28T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2310.03714v1",
+      "abstract": "The ML community is rapidly exploring techniques for prompting language models (LMs) and for stacking them into pipelines that solve complex tasks. Unfortunately, existing LM pipelines are typically implemented using hard-coded \"prompt templates\", i.e. lengthy strings discovered via trial and error. Toward a more systematic approach for developing and optimizing LM pipelines, we introduce DSPy, a programming model that abstracts LM pipelines as text transformation graphs, i.e. imperative computational graphs where LMs are invoked through declarative modules. DSPy modules are parameterized, meaning they can learn (by creating and collecting demonstrations) how to apply compositions of prompting, finetuning, augmentation, and reasoning techniques. We design a compiler that will optimize any DSPy pipeline to maximize a given metric. We conduct two case studies, showing that succinct DSPy programs can express and optimize sophisticated LM pipelines that reason about math word problems, tackle multi-hop retrieval, answer complex questions, and control agent loops. Within minutes of compiling, a few lines of DSPy allow GPT-3.5 and llama2-13b-chat to self-bootstrap pipelines that outperform standard few-shot prompting (generally by over 25% and 65%, respectively) and pipelines with expert-created demonstrations (by up to 5-46% and 16-40%, respectively). On top of that, DSPy programs compiled to open and relatively small LMs like 770M-parameter T5 and llama2-13b-chat are competitive with approaches that rely on expert-written prompt chains for proprietary GPT-3.5. DSPy is available at https://github.com/stanfordnlp/dspy",
+      "arxiv_id": "2310.03714v1",
+      "authors": [
+        "Khattab, Omar",
+        "Singhvi, Arnav",
+        "Maheshwari, Paridhi",
+        "Zhang, Zhiyuan",
+        "Santhanam, Keshav",
+        "Vardhamanan, Sri",
+        "Haq, Saiful",
+        "Sharma, Ashutosh",
+        "Joshi, Thomas T.",
+        "Moazam, Hanna",
+        "Miller, Heather",
+        "Zaharia, Matei",
+        "Potts, Christopher"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2310.03714v1",
+      "primary_category": "cs.CL",
+      "published": "2023-10-05T00:00:00Z",
+      "title": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+      "updated": "2023-10-05T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2312.10997v5",
+      "abstract": "Large Language Models (LLMs) showcase impressive capabilities but encounter challenges like hallucination, outdated knowledge, and non-transparent, untraceable reasoning processes. Retrieval-Augmented Generation (RAG) has emerged as a promising solution by incorporating knowledge from external databases. This enhances the accuracy and credibility of the generation, particularly for knowledge-intensive tasks, and allows for continuous knowledge updates and integration of domain-specific information. RAG synergistically merges LLMs' intrinsic knowledge with the vast, dynamic repositories of external databases. This comprehensive review paper offers a detailed examination of the progression of RAG paradigms, encompassing the Naive RAG, the Advanced RAG, and the Modular RAG. It meticulously scrutinizes the tripartite foundation of RAG frameworks, which includes the retrieval, the generation and the augmentation techniques. The paper highlights the state-of-the-art technologies embedded in each of these critical components, providing a profound understanding of the advancements in RAG systems. Furthermore, this paper introduces up-to-date evaluation framework and benchmark. At the end, this article delineates the challenges currently faced and points out prospective avenues for research and development.",
+      "arxiv_id": "2312.10997v5",
+      "authors": [
+        "Gao, Yunfan",
+        "Xiong, Yun",
+        "Gao, Xinyu",
+        "Jia, Kangxiang",
+        "Pan, Jinliu",
+        "Bi, Yuxi",
+        "Dai, Yi",
+        "Sun, Jiawei",
+        "Wang, Meng",
+        "Wang, Haofen"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2312.10997v5",
+      "primary_category": "cs.CL",
+      "published": "2023-12-18T00:00:00Z",
+      "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "updated": "2024-03-27T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2401.18059v1",
+      "abstract": "Retrieval-augmented language models can better adapt to changes in world state and incorporate long-tail knowledge. However, most existing methods retrieve only short contiguous chunks from a retrieval corpus, limiting holistic understanding of the overall document context. We introduce the novel approach of recursively embedding, clustering, and summarizing chunks of text, constructing a tree with differing levels of summarization from the bottom up. At inference time, our RAPTOR model retrieves from this tree, integrating information across lengthy documents at different levels of abstraction. Controlled experiments show that retrieval with recursive summaries offers significant improvements over traditional retrieval-augmented LMs on several tasks. On question-answering tasks that involve complex, multi-step reasoning, we show state-of-the-art results; for example, by coupling RAPTOR retrieval with the use of GPT-4, we can improve the best performance on the QuALITY benchmark by 20% in absolute accuracy.",
+      "arxiv_id": "2401.18059v1",
+      "authors": [
+        "Sarthi, Parth",
+        "Abdullah, Salman",
+        "Tuli, Aditi",
+        "Khanna, Shubh",
+        "Goldie, Anna",
+        "Manning, Christopher D."
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2401.18059v1",
+      "primary_category": "cs.CL",
+      "published": "2024-01-31T00:00:00Z",
+      "title": "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval",
+      "updated": "2024-01-31T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2402.10669v5",
+      "abstract": "Adopting human and large language models (LLM) as judges (a.k.a human- and LLM-as-a-judge) for evaluating the performance of LLMs has recently gained attention. Nonetheless, this approach concurrently introduces potential biases from human and LLMs, questioning the reliability of the evaluation results. In this paper, we propose a novel framework that is free from referencing groundtruth annotations for investigating Misinformation Oversight Bias, Gender Bias, Authority Bias and Beauty Bias on LLM and human judges. We curate a dataset referring to the revised Bloom's Taxonomy and conduct thousands of evaluations. Results show that human and LLM judges are vulnerable to perturbations to various degrees, and that even the cutting-edge judges possess considerable biases. We further exploit these biases to conduct attacks on LLM judges. We hope that our work can notify the community of the bias and vulnerability of human- and LLM-as-a-judge, as well as the urgency of developing robust evaluation systems.",
+      "arxiv_id": "2402.10669v5",
+      "authors": [
+        "Chen, Guiming Hardy",
+        "Chen, Shunian",
+        "Liu, Ziche",
+        "Jiang, Feng",
+        "Wang, Benyou"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2402.10669v5",
+      "primary_category": "cs.CL",
+      "published": "2024-02-16T00:00:00Z",
+      "title": "Humans or LLMs as the Judge? A Study on Judgement Biases",
+      "updated": "2024-09-26T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2406.04244v1",
+      "abstract": "The rapid development of Large Language Models (LLMs) like GPT-4, Claude-3, and Gemini has transformed the field of natural language processing. However, it has also resulted in a significant issue known as Benchmark Data Contamination (BDC). This occurs when language models inadvertently incorporate evaluation benchmark information from their training data, leading to inaccurate or unreliable performance during the evaluation phase of the process. This paper reviews the complex challenge of BDC in LLM evaluation and explores alternative assessment methods to mitigate the risks associated with traditional benchmarks. The paper also examines challenges and future directions in mitigating BDC risks, highlighting the complexity of the issue and the need for innovative solutions to ensure the reliability of LLM evaluation in real-world applications.",
+      "arxiv_id": "2406.04244v1",
+      "authors": [
+        "Xu, Cheng",
+        "Guan, Shuhao",
+        "Greene, Derek",
+        "Kechadi, M-Tahar"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2406.04244v1",
+      "primary_category": "cs.CL",
+      "published": "2024-06-06T00:00:00Z",
+      "title": "Benchmark Data Contamination of Large Language Models: A Survey",
+      "updated": "2024-06-06T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2406.15319v3",
+      "abstract": "In traditional RAG framework, the basic retrieval units are normally short. The common retrievers like DPR normally work with 100-word Wikipedia paragraphs. Such a design forces the retriever to search over a large corpus to find the `needle' unit. In contrast, the readers only need to generate answers from the short retrieved units. The imbalanced `heavy' retriever and `light' reader design can lead to sub-optimal performance. The loss of contextual information in the short, chunked units may increase the likelihood of introducing hard negatives during the retrieval stage. Additionally, the reader might not fully leverage the capabilities of recent advancements in LLMs. In order to alleviate the imbalance, we propose a new framework LongRAG, consisting of a `long retriever' and a `long reader'. In the two Wikipedia-based datasets, NQ and HotpotQA, LongRAG processes the entire Wikipedia corpus into 4K-token units by grouping related documents. By increasing the unit size, we significantly reduce the total number of units. This greatly reduces the burden on the retriever, resulting in strong retrieval performance with only a few (less than 8) top units. Without requiring any training, LongRAG achieves an EM of 62.7% on NQ and 64.3% on HotpotQA, which are on par with the (fully-trained) SoTA model. Furthermore, we test on two non-Wikipedia-based datasets, Qasper and MultiFieldQA-en. LongRAG processes each individual document as a single (long) unit rather than chunking them into smaller units. By doing so, we achieve an F1 score of 25.9% on Qasper and 57.5% on MultiFieldQA-en. Our study offers insights into the future roadmap for combining RAG with long-context LLMs.",
+      "arxiv_id": "2406.15319v3",
+      "authors": [
+        "Jiang, Ziyan",
+        "Ma, Xueguang",
+        "Chen, Wenhu"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2406.15319v3",
+      "primary_category": "cs.CL",
+      "published": "2024-06-21T00:00:00Z",
+      "title": "LongRAG: Enhancing Retrieval-Augmented Generation with Long-context LLMs",
+      "updated": "2024-09-01T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2407.12883v4",
+      "abstract": "Existing retrieval benchmarks primarily consist of information-seeking queries (e.g., aggregated questions from search engines) where keyword or semantic-based retrieval is usually sufficient. However, many complex real-world queries require in-depth reasoning to identify relevant documents that go beyond surface form matching. For example, finding documentation for a coding question requires understanding the logic and syntax of the functions involved. To better benchmark retrieval on such challenging queries, we introduce BRIGHT, the first text retrieval benchmark that requires intensive reasoning to retrieve relevant documents. Our dataset consists of 1,384 real-world queries spanning diverse domains, such as economics, psychology, mathematics, and coding. These queries are drawn from naturally occurring and carefully curated human data. Extensive evaluation reveals that even state-of-the-art retrieval models perform poorly on BRIGHT. The leading model on the MTEB leaderboard (Muennighoff et al., 2023) SFR-Embedding-Mistral (Meng et al., 2024), which achieves a score of 59.0 nDCG@10,1 produces a score of nDCG@10 of 18.3 on BRIGHT. We show that incorporating explicit reasoning about the query improves retrieval performance by up to 12.2 points. Moreover, incorporating retrieved documents from the top-performing retriever boosts question-answering performance. We believe that BRIGHT paves the way for future research on retrieval systems in more realistic and challenging settings.",
+      "arxiv_id": "2407.12883v4",
+      "authors": [
+        "Su, Hongjin",
+        "Yen, Howard",
+        "Xia, Mengzhou",
+        "Shi, Weijia",
+        "Muennighoff, Niklas",
+        "Wang, Han-yu",
+        "Liu, Haisu",
+        "Shi, Quan",
+        "Siegel, Zachary S.",
+        "Tang, Michael",
+        "Sun, Ruoxi",
+        "Yoon, Jinsung",
+        "Arik, Sercan O.",
+        "Chen, Danqi",
+        "Yu, Tao"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2407.12883v4",
+      "primary_category": "cs.CL",
+      "published": "2024-07-16T00:00:00Z",
+      "title": "BRIGHT: A Realistic and Challenging Benchmark for Reasoning-Intensive Retrieval",
+      "updated": "2025-03-26T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2408.08067v2",
+      "abstract": "Despite Retrieval-Augmented Generation (RAG) showing promising capability in leveraging external knowledge, a comprehensive evaluation of RAG systems is still challenging due to the modular nature of RAG, evaluation of long-form responses and reliability of measurements. In this paper, we propose a fine-grained evaluation framework, RAGChecker, that incorporates a suite of diagnostic metrics for both the retrieval and generation modules. Meta evaluation verifies that RAGChecker has significantly better correlations with human judgments than other evaluation metrics. Using RAGChecker, we evaluate 8 RAG systems and conduct an in-depth analysis of their performance, revealing insightful patterns and trade-offs in the design choices of RAG architectures. The metrics of RAGChecker can guide researchers and practitioners in developing more effective RAG systems. This work has been open sourced at https://github.com/amazon-science/RAGChecker.",
+      "arxiv_id": "2408.08067v2",
+      "authors": [
+        "Ru, Dongyu",
+        "Qiu, Lin",
+        "Hu, Xiangkun",
+        "Zhang, Tianhang",
+        "Shi, Peng",
+        "Chang, Shuaichen",
+        "Jiayang, Cheng",
+        "Wang, Cunxiang",
+        "Sun, Shichao",
+        "Li, Huanyu",
+        "Zhang, Zizhao",
+        "Wang, Binjie",
+        "Jiang, Jiarong",
+        "He, Tong",
+        "Wang, Zhiguo",
+        "Liu, Pengfei",
+        "Zhang, Yue",
+        "Zhang, Zheng"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.08067v2",
+      "primary_category": "cs.CL",
+      "published": "2024-08-15T00:00:00Z",
+      "title": "RAGChecker: A Fine-grained Framework for Diagnosing Retrieval-Augmented Generation",
+      "updated": "2024-08-17T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2409.04701v3",
+      "abstract": "Many use cases require retrieving smaller portions of text, and dense vector-based retrieval systems often perform better with shorter text segments, as the semantics are less likely to be over-compressed in the embeddings. Consequently, practitioners often split text documents into smaller chunks and encode them separately. However, chunk embeddings created in this way can lose contextual information from surrounding chunks, resulting in sub-optimal representations. In this paper, we introduce a novel method called late chunking, which leverages long context embedding models to first embed all tokens of the long text, with chunking applied after the transformer model and just before mean pooling - hence the term late in its naming. The resulting chunk embeddings capture the full contextual information, leading to superior results across various retrieval tasks. The method is generic enough to be applied to a wide range of long-context embedding models and works without additional training. To further increase the effectiveness of late chunking, we propose a dedicated fine-tuning approach for embedding models.",
+      "arxiv_id": "2409.04701v3",
+      "authors": [
+        "Günther, Michael",
+        "Mohr, Isabelle",
+        "Williams, Daniel James",
+        "Wang, Bo",
+        "Xiao, Han"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.04701v3",
+      "primary_category": "cs.CL",
+      "published": "2024-09-07T00:00:00Z",
+      "title": "Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models",
+      "updated": "2025-07-07T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2501.09136v4",
+      "abstract": "Large Language Models (LLMs) have advanced artificial intelligence by enabling human-like text generation and natural language understanding. However, their reliance on static training data limits their ability to respond to dynamic, real-time queries, resulting in outdated or inaccurate outputs. Retrieval-Augmented Generation (RAG) has emerged as a solution, enhancing LLMs by integrating real-time data retrieval to provide contextually relevant and up-to-date responses. Despite its promise, traditional RAG systems are constrained by static workflows and lack the adaptability required for multi-step reasoning and complex task management. Agentic Retrieval-Augmented Generation (Agentic RAG) transcends these limitations by embedding autonomous AI agents into the RAG pipeline. These agents leverage agentic design patterns reflection, planning, tool use, and multi-agent collaboration to dynamically manage retrieval strategies, iteratively refine contextual understanding, and adapt workflows through operational structures ranging from sequential steps to adaptive collaboration. This integration enables Agentic RAG systems to deliver flexibility, scalability, and context-awareness across diverse applications. This paper presents an analytical survey of Agentic RAG systems. It traces the evolution of RAG paradigms, introduces a principled taxonomy of Agentic RAG architectures based on agent cardinality, control structure, autonomy, and knowledge representation, and provides a comparative analysis of design trade-offs across existing frameworks. The survey examines applications in healthcare, finance, education, and enterprise document processing, and distills practical lessons for system designers and practitioners. Finally, it identifies key open research challenges related to evaluation, coordination, memory management, efficiency, and governance, outlining directions for future research.",
+      "arxiv_id": "2501.09136v4",
+      "authors": [
+        "Singh, Aditi",
+        "Ehtesham, Abul",
+        "Kumar, Saket",
+        "Khoei, Tala Talaei",
+        "Vasilakos, Athanasios V."
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2501.09136v4",
+      "primary_category": "cs.AI",
+      "published": "2025-01-15T00:00:00Z",
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "updated": "2026-04-01T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2504.14891v1",
+      "abstract": "Recent advancements in Retrieval-Augmented Generation (RAG) have revolutionized natural language processing by integrating Large Language Models (LLMs) with external information retrieval, enabling accurate, up-to-date, and verifiable text generation across diverse applications. However, evaluating RAG systems presents unique challenges due to their hybrid architecture that combines retrieval and generation components, as well as their dependence on dynamic knowledge sources in the LLM era. In response, this paper provides a comprehensive survey of RAG evaluation methods and frameworks, systematically reviewing traditional and emerging evaluation approaches, for system performance, factual accuracy, safety, and computational efficiency in the LLM era. We also compile and categorize the RAG-specific datasets and evaluation frameworks, conducting a meta-analysis of evaluation practices in high-impact RAG research. To the best of our knowledge, this work represents the most comprehensive survey for RAG evaluation, bridging traditional and LLM-driven methods, and serves as a critical resource for advancing RAG development.",
+      "arxiv_id": "2504.14891v1",
+      "authors": [
+        "Gan, Aoran",
+        "Yu, Hao",
+        "Zhang, Kai",
+        "Liu, Qi",
+        "Yan, Wenyu",
+        "Huang, Zhenya",
+        "Tong, Shiwei",
+        "Hu, Guoping"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2504.14891v1",
+      "primary_category": "cs.CL",
+      "published": "2025-04-21T00:00:00Z",
+      "title": "Retrieval Augmented Generation Evaluation in the Era of Large Language Models: A Comprehensive Survey",
+      "updated": "2025-04-21T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2507.19457v2",
+      "abstract": "Large language models (LLMs) are increasingly adapted to downstream tasks via reinforcement learning (RL) methods like Group Relative Policy Optimization (GRPO), which often require thousands of rollouts to learn new tasks. We argue that the interpretable nature of language often provides a much richer learning medium for LLMs, compared to policy gradients derived from sparse, scalar rewards. To test this, we introduce GEPA (Genetic-Pareto), a prompt optimizer that thoroughly incorporates natural language reflection to learn high-level rules from trial and error. Given any AI system containing one or more LLM prompts, GEPA samples trajectories (e.g., reasoning, tool calls, and tool outputs) and reflects on them in natural language to diagnose problems, propose and test prompt updates, and combine complementary lessons from the Pareto frontier of its own attempts. As a result of GEPA's design, it can often turn even just a few rollouts into a large quality gain. Across six tasks, GEPA outperforms GRPO by 6% on average and by up to 20%, while using up to 35x fewer rollouts. GEPA also outperforms the leading prompt optimizer, MIPROv2, by over 10% (e.g., +12% accuracy on AIME-2025), and demonstrates promising results as an inference-time search strategy for code optimization. We release our code at https://github.com/gepa-ai/gepa .",
+      "arxiv_id": "2507.19457v2",
+      "authors": [
+        "Agrawal, Lakshya A",
+        "Tan, Shangyin",
+        "Soylu, Dilara",
+        "Ziems, Noah",
+        "Khare, Rishi",
+        "Opsahl-Ong, Krista",
+        "Singhvi, Arnav",
+        "Shandilya, Herumb",
+        "Ryan, Michael J",
+        "Jiang, Meng",
+        "Potts, Christopher",
+        "Sen, Koushik",
+        "Dimakis, Alexandros G.",
+        "Stoica, Ion",
+        "Klein, Dan",
+        "Zaharia, Matei",
+        "Khattab, Omar"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2507.19457v2",
+      "primary_category": "cs.CL",
+      "published": "2025-07-25T00:00:00Z",
+      "title": "GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning",
+      "updated": "2026-02-14T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2509.11552v3",
+      "abstract": "Retrieval-Augmented Generation (RAG) enhances the response capabilities of language models by integrating external knowledge sources. However, document chunking as an important part of RAG system often lacks effective evaluation tools. This paper first analyzes why existing RAG evaluation benchmarks are inadequate for assessing document chunking quality, specifically due to evidence sparsity. Based on this conclusion, we propose HiCBench, which includes manually annotated multi-level document chunking points, synthesized evidence-dense quetion answer(QA) pairs, and their corresponding evidence sources. Additionally, we introduce the HiChunk framework, a multi-level document structuring framework based on fine-tuned LLMs, combined with the Auto-Merge retrieval algorithm to improve retrieval quality. Experiments demonstrate that HiCBench effectively evaluates the impact of different chunking methods across the entire RAG pipeline. Moreover, HiChunk achieves better chunking quality within reasonable time consumption, thereby enhancing the overall performance of RAG systems.",
+      "arxiv_id": "2509.11552v3",
+      "authors": [
+        "Lu, Wensheng",
+        "Chen, Keyu",
+        "Qiao, Ruizhi",
+        "Sun, Xing"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.11552v3",
+      "primary_category": "cs.CL",
+      "published": "2025-09-15T00:00:00Z",
+      "title": "HiChunk: Evaluating and Enhancing Retrieval-Augmented Generation with Hierarchical Chunking",
+      "updated": "2025-10-09T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2510.20345v1",
+      "abstract": "Knowledge Graphs (KGs) have long served as a fundamental infrastructure for structured knowledge representation and reasoning. With the advent of Large Language Models (LLMs), the construction of KGs has entered a new paradigm-shifting from rule-based and statistical pipelines to language-driven and generative frameworks. This survey provides a comprehensive overview of recent progress in LLM-empowered knowledge graph construction, systematically analyzing how LLMs reshape the classical three-layered pipeline of ontology engineering, knowledge extraction, and knowledge fusion. We first revisit traditional KG methodologies to establish conceptual foundations, and then review emerging LLM-driven approaches from two complementary perspectives: schema-based paradigms, which emphasize structure, normalization, and consistency; and schema-free paradigms, which highlight flexibility, adaptability, and open discovery. Across each stage, we synthesize representative frameworks, analyze their technical mechanisms, and identify their limitations. Finally, the survey outlines key trends and future research directions, including KG-based reasoning for LLMs, dynamic knowledge memory for agentic systems, and multimodal KG construction. Through this systematic review, we aim to clarify the evolving interplay between LLMs and knowledge graphs, bridging symbolic knowledge engineering and neural semantic understanding toward the development of adaptive, explainable, and intelligent knowledge systems.",
+      "arxiv_id": "2510.20345v1",
+      "authors": [
+        "Bian, Haonan"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2510.20345v1",
+      "primary_category": "cs.AI",
+      "published": "2025-10-23T00:00:00Z",
+      "title": "LLM-empowered knowledge graph construction: A survey",
+      "updated": "2025-10-23T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2606.03502v1",
+      "abstract": "This paper examines RDF validation practices and challenges to understand stakeholder applications, their needs, and identify areas for improvement in technologies and methodologies, thereby guiding future research and standardization efforts. A community survey was conducted, targeting a diverse group of RDF validation technology users across academia and industry. The survey collected data on current practices, tool usage, perceived benefits, limitations, and desired enhancements to gain a broad overview of the validation landscape. Our analysis shows that while RDF validation is widely adopted and valued for enhancing data quality, significant challenges remain. In particular, users report a need for better documentation, improved tool support, enhanced performance, and greater language expressiveness to handle complex large-scale validation tasks effectively. This work provides crucial insights into the RDF validation landscape, highlighting current practices and key areas for development. It offers a foundation for researchers, developers, and standardization bodies to address current limitations and advance validation technologies, ultimately improving data quality and usability in knowledge graphs.",
+      "arxiv_id": "2606.03502v1",
+      "authors": [
+        "Jakubowski, Maxime",
+        "Tomaszuk, Dominik",
+        "Hose, Katja"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2606.03502v1",
+      "primary_category": "cs.DB",
+      "published": "2026-06-02T00:00:00Z",
+      "title": "A Community Survey on SHACL and ShEx: Briding Gaps in RDF Validation",
+      "updated": "2026-06-02T00:00:00Z"
+    },
+    {
+      "abs_url": "https://arxiv.org/abs/2607.01852v1",
+      "abstract": "Retrieval-Augmented Generation (RAG) systems use the question-answering capabilities of Large Language Models (LLMs) to access information outside their parameters. We evaluate if cluster-based semantic chunking improves retrieval and answer quality compared to fixed-size and recursive chunking evaluating on long, structured academic theses using the Retrieval Augmented Generation Assessment (RAGAs) framework. RAGAs based faithfulness shows limited reliability in this setup. Performance on fixed versus document specific questions varied substantially, likely related to the formatting of documents and preprocessing. Under the tested configuration, cluster-based chunking did not outperform simpler strategies.",
+      "arxiv_id": "2607.01852v1",
+      "authors": [
+        "Kreileder, Valentin J. J.",
+        "Reisinger, Johannes",
+        "Fischer, Andreas"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2607.01852v1",
+      "primary_category": "cs.IR",
+      "published": "2026-07-02T00:00:00Z",
+      "title": "Evaluating Chunking Strategies for Retrieval-Augmented Generation on Academic Texts",
+      "updated": "2026-07-02T00:00:00Z"
+    }
+  ],
+  "schema_version": "arxiv-normalized-metadata/1.0"
+}

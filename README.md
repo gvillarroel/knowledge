@@ -1,6 +1,9 @@
 # knowledge
 
-`know` is a Python CLI for building a local knowledge base in `~/.knowledge`.
+`know` is a Python CLI for building project-local knowledge bases. Run
+`know init` in a project to create `.know`; commands in that directory and its
+descendants use that store automatically. Outside a local project, the CLI
+falls back to `~/.knowledge`.
 
 Each knowledge key is an independent local collection with declarative source registrations, raw synchronized content, Open Knowledge Format-compatible exported Markdown, and repeatable commands stored in metadata.
 
@@ -37,6 +40,7 @@ This matters because the CDP BFS site workflow depends on the Python `playwright
 ## Quick Start
 
 ```bash
+know init
 know add key research
 know set credential jira_token secret-token
 know add confluence --space ENG --key research
@@ -54,11 +58,12 @@ know export --key research
 
 ## Typical Workflow
 
-1. Create a key with `know add key <KEY>`.
-2. Register one or more sources under that key.
-3. Inspect registrations with `know list sources --key <KEY>`.
-4. Run `know sync --key <KEY>` to materialize raw source data locally.
-5. Run `know export --key <KEY>` to build Markdown output and a zip archive.
+1. Run `know init` at the project root to create its `.know` store.
+2. Create a key with `know add key <KEY>`.
+3. Register one or more sources under that key.
+4. Inspect registrations with `know list sources --key <KEY>`.
+5. Run `know sync --key <KEY>` to materialize raw source data locally.
+6. Run `know export --key <KEY>` to build Markdown output and a zip archive.
 
 The command family stays consistent across source types, so the same pattern works for Confluence, Jira, arXiv, websites, videos, GitHub repositories, Google release feeds, Aha workspaces, and Television channel definitions.
 
@@ -142,7 +147,7 @@ If you want to compare multiple crawl strategies side by side, use the separate 
 ## Store Layout
 
 ```text
-~/.knowledge/
+<project>/.know/           # preferred project-local store
   config.yaml
   keys.yaml
   exports/
@@ -159,10 +164,16 @@ If you want to compare multiple crawl strategies side by side, use the separate 
     cache/
 ```
 
+Store selection follows this precedence: an explicit `--store <PATH>`, the
+nearest `.know` directory at or above the current working directory, then the
+global `~/.knowledge` fallback. This lets every command launched anywhere
+inside a project work on the same project knowledge.
+
 ## Common Commands
 
 ```bash
 know --help
+know init
 know add key <KEY>
 know set credential <NAME> <VALUE>
 know list keys
@@ -184,7 +195,18 @@ know import <ARCHIVE.zip>
 
 ## Semantic OKF Evaluation Datasets
 
-The reusable Astro and GraphRAG paper evaluations, including separate `build-consult` and `consult-only` Harbor modes, provider-aware campaign validity, and the invalidation of the first quota-dominated papers campaign, are documented in [evaluations/semantic-okf-datasets/README.md](evaluations/semantic-okf-datasets/README.md).
+The reusable Astro, GraphRAG-paper, and quantum-error-correction-paper
+evaluations are documented in
+[evaluations/semantic-okf-datasets/README.md](evaluations/semantic-okf-datasets/README.md).
+They include separate `build-consult` and `consult-only` Harbor modes, checked
+dataset and evidence bindings, provider-aware campaign validity, and an
+explicit boundary between holdout-qualified studies and retrospective
+all-exposed retrieval profiles.
+
+The consolidated
+[skill exploration and evolution index](evaluations/SKILL-EXPLORATION-AND-EVOLUTION.md)
+records which skills and strategies were tried, their results, and the
+promotion or rejection boundary for each major lineage.
 
 ## Television Workflows
 
@@ -284,16 +306,16 @@ The bundled `know-follow` cable uses PowerShell `start` on `Enter`, opening the 
 
 ## Open Knowledge Format
 
-The project publishes a strict [Google Open Knowledge Format v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle under `okf/`. The repository root remains normal project documentation; the dedicated bundle is the portable interoperability boundary.
+The project can generate a strict [Google Open Knowledge Format v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle on demand under `build/okf/`. The repository root remains normal project documentation, and the ignored build output is the portable interoperability artifact.
 
 The bundle projects this README, `SPEC.md`, and every native `skills/*/SKILL.md` into standard OKF concept documents. Native skill frontmatter remains limited to `name` and `description`, while projected skill concepts use a top-level `type: Agent Skill` and preserve source traceability.
 
 Regenerate and validate it with:
 
 ```bash
-python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf
-python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --output okf --check
-python skills/open-knowledge-format/scripts/validate_okf_bundle.py okf
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py .
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --check
+python skills/open-knowledge-format/scripts/validate_okf_bundle.py build/okf
 ```
 
 ## Semantic OKF embedding retrieval
@@ -313,9 +335,9 @@ The pinned 30-input GraphRAG comparison, reproducible runner, raw metrics, and i
 - Credential management also follows the `know <verb> <object>` pattern: `know set credential ...` and `know list credentials`.
 - `know add aha <PRODUCT> --key <KEY>` can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, storing the token as `$env:AHA_TOKEN` instead of copying the secret into metadata.
 - Exported Markdown always includes YAML frontmatter with source provenance and a non-empty OKF `type` field.
-- `know export` preserves producer-specific fields while deriving OKF `resource`, `tags`, and `timestamp` values when available.
+- `know export` preserves producer-specific fields while deriving OKF `resource`, `tags`, and `sources` when available, recording the producer in `generated.by`, and migrating a known legacy `timestamp` to `generated.at`.
 - `know export` renders Markdown into each key library and also produces a zip archive for import or transfer.
-- The checked-in `okf/` subdirectory is the strict project-and-skills bundle; generated `know export` documents use the same concept-frontmatter rules.
+- Native skill packages live only under `skills/`; the reproducible `build/okf/` projection is ignored and generated when needed. Generated `know export` documents use the same concept-frontmatter rules.
 - Television channel sources materialize a reusable `channel.toml` plus install/run commands for `tv`.
 - Google release feeds are normalized into one Markdown document per feed entry date plus the raw `feed.xml`.
 - Human docs are in `docs/`.

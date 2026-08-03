@@ -1,0 +1,86 @@
+{
+  "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+  "candidate_id": "tika-mallet-tantivy",
+  "candidate_state": "experimental-comparator-not-registry-family",
+  "dataset_id": "graphrag-papers-40",
+  "interpretation": {
+    "metrics_source": "prospectively defined attempt-10 direct Top-10 run",
+    "selection_basis": "ADR 0055 defined fusion as the combination of native Tantivy, MALLET topic, and PPMI association rankings before evaluation.",
+    "semantic_answer_quality": "not-measured-by-this-retrieval-audit",
+    "timing_excludes_setup": true
+  },
+  "parity": {
+    "attempt_10_top10_pool100_prefix_exact": true,
+    "attempt_11_top10_pool100_prefix_exact": true,
+    "bundle_inventory_exact": true,
+    "evaluator_inputs_exact": true,
+    "pool100_replicate_exact": true,
+    "records_exact": true,
+    "top10_replicate_exact": true
+  },
+  "question_count": 40,
+  "ranking_eligible": true,
+  "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+  "replicate_latency_ms": {
+    "attempt_10_pool100": {
+      "mean": 380.7343924941961,
+      "p95": 517.8129950189032
+    },
+    "attempt_10_top10": {
+      "mean": 353.4138475020882,
+      "p95": 470.74269502190873
+    },
+    "attempt_11_pool100": {
+      "mean": 374.6289775124751,
+      "p95": 508.4267000667751
+    },
+    "attempt_11_top10": {
+      "mean": 373.9721950085368,
+      "p95": 498.2977198669687
+    }
+  },
+  "reports": {
+    "attempt_10_pool100": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/graphrag-papers-40/retrieval-20260727-attempt10-pool100/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "51c41b6d0dcad7790195240a9c4f907c85cc2beb911a046ff42bd585fd095442",
+      "top_k": 100
+    },
+    "attempt_10_top10": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/graphrag-papers-40/retrieval-20260727-attempt10-top10/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "a57eb7b18f091f30ca188ae8bf49735df7c4f19364176a9b9e8ff3ebbfa97f6e",
+      "top_k": 10
+    },
+    "attempt_11_pool100": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/graphrag-papers-40/retrieval-20260727-attempt11-pool100/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "163aaf8ff7e5b30af058c52385656c05a1e9f5c2d803e15c6a16a78ce5cc93b9",
+      "top_k": 100
+    },
+    "attempt_11_top10": {
+      "bundle_inventory_sha256": "bc7db567bb8dfbbe3f3e80c2279f002bdc1e1af57d143bfc1c70707ab029d993",
+      "path": "evaluations/semantic-okf-tika-mallet-tantivy/generated/graphrag-papers-40/retrieval-20260727-attempt11-top10/report.json",
+      "records_sha256": "faac75af34f1a3bd67c10354fbf217850cd1b4d0468a93b1a90416e236e9286c",
+      "sha256": "060c2402e6674c5b236e3f0499478c562486f172738c2aacbf97245c20b61770",
+      "top_k": 10
+    }
+  },
+  "schema_version": "semantic-okf-tika-mallet-tantivy-retrieval-audit/1.0",
+  "selected_metrics": {
+    "evidence_valid_rate": 1.0,
+    "hard_mrr_at_10": 0.5416666666666667,
+    "hard_ndcg_at_10": 0.55040747716057,
+    "hard_recall_at_10": 0.7383333333333333,
+    "mean_latency_ms": 353.4138475020882,
+    "mrr_at_10": 0.8479166666666667,
+    "ndcg_at_10": 0.7175065318768821,
+    "p95_latency_ms": 470.74269502190873,
+    "recall_at_10": 0.7350180375180375
+  },
+  "selected_route": "tika_mallet_tantivy_fusion",
+  "status": "pass"
+}

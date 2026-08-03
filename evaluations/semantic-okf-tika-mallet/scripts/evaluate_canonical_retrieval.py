@@ -223,17 +223,27 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     for path, label in (
         (args.bundle, "bundle"),
         (args.consult_script, "consult script"),
-        (args.java, "Java executable"),
-        (args.mallet_home, "MALLET home"),
         (args.questions, "questions"),
         (args.inventory, "source inventory"),
     ):
         if not path.resolve().exists():
             raise EvaluationError(f"{label} is missing: {path}")
+    if args.deep_validation:
+        for path, label in (
+            (args.java, "Java executable"),
+            (args.mallet_home, "MALLET home"),
+        ):
+            if path is None or not path.resolve().exists():
+                raise EvaluationError(f"{label} is missing: {path}")
     source_verification = _verify_source_inventory(args.inventory.resolve())
     questions = BASE.load_questions(args.questions.resolve())
-    if len(questions) != 40:
-        raise EvaluationError(f"canonical evaluation requires 40 questions, found {len(questions)}")
+    if len(questions) != args.expected_question_count:
+        raise EvaluationError(
+            "evaluation requires "
+            f"{args.expected_question_count} questions, found {len(questions)}"
+        )
+    if args.canonical_cohorts and len(questions) != 40:
+        raise EvaluationError("--canonical-cohorts requires exactly 40 questions")
     bundle = args.bundle.resolve()
     before = _tree_inventory(bundle)
     started = time.perf_counter()
@@ -243,9 +253,11 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     try:
         snapshot = runtime.load_snapshot(
             bundle,
-            deep_validation=True,
-            java=args.java.resolve(),
-            mallet_home=args.mallet_home.resolve(),
+            deep_validation=args.deep_validation,
+            java=args.java.resolve() if args.java is not None else None,
+            mallet_home=(
+                args.mallet_home.resolve() if args.mallet_home is not None else None
+            ),
         )
     except Exception as exc:
         if isinstance(exc, (KeyboardInterrupt, SystemExit)):
@@ -264,7 +276,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             ),
             continue_on_error=False,
         )
-        _attach_cohorts(route)
+        if args.canonical_cohorts:
+            _attach_cohorts(route)
         if route["error_count"] != 0:
             raise EvaluationError(f"route {mode} produced query errors")
         if route["evidence_validity"]["ratio"] != 1.0:
@@ -281,14 +294,14 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "pass",
-        "dataset_id": "graphrag-papers-40",
+        "dataset_id": args.dataset_id,
         "candidate_id": "tika-mallet",
         "ranking_eligible": True,
         "selected_route": "tika_mallet_fusion",
         "selection_timing": "frozen-before-canonical-build-and-retrieval",
         "query_count": len(questions),
         "top_k": args.top_k,
-        "deep_validation": True,
+        "deep_validation": args.deep_validation,
         "metric_contract": {
             "primary_identity": "paper_id",
             "duplicate_policy": "keep first rank per paper",
@@ -296,7 +309,11 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "mrr_cutoff": 10,
             "ndcg_cutoff": 10,
             "relevance": "binary reviewed qrels",
-            "cohorts": "all 40, original 30, and hard 10",
+            "cohorts": (
+                "all 40, original 30, and hard 10"
+                if args.canonical_cohorts
+                else f"one complete {len(questions)}-question evaluation cohort"
+            ),
         },
         "timing_contract": {
             "unit": "milliseconds",
@@ -320,8 +337,14 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "unchanged_after_evaluation": True,
         },
         "selected_metrics": {
-            "all_40": selected["paper_metrics"],
-            "hard_10": selected["cohorts"]["hard_10"]["paper_metrics"],
+            **(
+                {
+                    "all_40": selected["paper_metrics"],
+                    "hard_10": selected["cohorts"]["hard_10"]["paper_metrics"],
+                }
+                if args.canonical_cohorts
+                else {"all": selected["paper_metrics"]}
+            ),
             "evidence_validity": selected["evidence_validity"],
             "timing_ms": selected["timing_ms"],
         },
@@ -346,19 +369,37 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"Status: **{report['status']}**. Dataset: `{report['dataset_id']}`. "
         f"Questions: {report['query_count']}. Returned pool: {report['top_k']}.",
         "",
-        "| Route | Recall@10 | Hard Recall@10 | MRR@10 | nDCG@10 | "
-        "Evidence valid | Mean ms | p95 ms |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
+    if "cohorts" in report["routes"][0]:
+        lines.extend(
+            [
+                "| Route | Recall@10 | Hard Recall@10 | MRR@10 | nDCG@10 | "
+                "Evidence valid | Mean ms | p95 ms |",
+                "|---|---:|---:|---:|---:|---:|---:|---:|",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "| Route | Recall@10 | MRR@10 | nDCG@10 | "
+                "Evidence valid | Mean ms | p95 ms |",
+                "|---|---:|---:|---:|---:|---:|---:|",
+            ]
+        )
     for route in report["routes"]:
         all_metrics = route["paper_metrics"]
-        hard_metrics = route["cohorts"]["hard_10"]["paper_metrics"]
         selected = " **(selected)**" if route["name"] == report["selected_route"] else ""
-        lines.append(
+        row = (
             f"| `{route['name']}`{selected} | "
             f"{_percent(all_metrics['recall_at_10'])} | "
-            f"{_percent(hard_metrics['recall_at_10'])} | "
-            f"{_number(all_metrics['mrr_at_10'])} | "
+        )
+        if "cohorts" in route:
+            row += (
+                f"{_percent(route['cohorts']['hard_10']['paper_metrics']['recall_at_10'])} | "
+            )
+        lines.append(
+            row
+            + f"{_number(all_metrics['mrr_at_10'])} | "
             f"{_number(all_metrics['ndcg_at_10'])} | "
             f"{_percent(route['evidence_validity']['ratio'])} | "
             f"{route['timing_ms']['mean']:.1f} | "
@@ -371,7 +412,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "the canonical build and retrieval results existed. Other routes are "
             "diagnostics and do not replace it post hoc.",
             "",
-            f"Deep validation took "
+            f"Snapshot validation took "
             f"{report['timing_contract']['shared_deep_validation_ms']:.1f} ms. "
             f"The {report['bundle']['file_count']}-file bundle retained inventory "
             f"SHA-256 `{report['bundle']['inventory_sha256']}` before and after the run.",
@@ -385,8 +426,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--consult-script", type=Path, required=True)
-    parser.add_argument("--java", type=Path, required=True)
-    parser.add_argument("--mallet-home", type=Path, required=True)
+    parser.add_argument("--java", type=Path)
+    parser.add_argument("--mallet-home", type=Path)
+    parser.add_argument(
+        "--deep-validation",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
     parser.add_argument(
         "--questions",
         type=Path,
@@ -401,6 +447,13 @@ def build_parser() -> argparse.ArgumentParser:
         default=SPEC / "source-inventory.json",
     )
     parser.add_argument("--top-k", type=int, default=10)
+    parser.add_argument("--expected-question-count", type=int, default=40)
+    parser.add_argument("--dataset-id", default="graphrag-papers-40")
+    parser.add_argument(
+        "--canonical-cohorts",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-markdown", type=Path, required=True)
     return parser

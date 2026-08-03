@@ -11,7 +11,6 @@ import yaml
 
 from tika_mallet_test_support import (
     BUILD_ROOT,
-    REPO_ROOT,
     build_portable_bundle,
     load_build_modules,
     plans,
@@ -20,7 +19,7 @@ from tika_mallet_test_support import (
 )
 
 
-def test_skill_metadata_references_and_okf_projection_are_complete() -> None:
+def test_skill_metadata_and_references_are_complete() -> None:
     skill = (BUILD_ROOT / "SKILL.md").read_text(encoding="utf-8")
     metadata = yaml.safe_load(skill.split("---", 2)[1])
     package_text = "\n".join(
@@ -47,11 +46,6 @@ def test_skill_metadata_references_and_okf_projection_are_complete() -> None:
     assert "python scripts/runtime_smoke.py\n" not in runtime_reference
     assert "$build-semantic-okf-tika-mallet" in (
         BUILD_ROOT / "agents" / "openai.yaml"
-    ).read_text(encoding="utf-8")
-    okf_page = REPO_ROOT / "okf" / "skills" / "build-semantic-okf-tika-mallet.md"
-    assert okf_page.is_file()
-    assert "build-semantic-okf-tika-mallet.md" in (
-        REPO_ROOT / "okf" / "skills" / "index.md"
     ).read_text(encoding="utf-8")
 
 

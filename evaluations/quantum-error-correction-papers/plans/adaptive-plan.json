@@ -1,0 +1,114 @@
+{
+  "adaptive": {
+    "aspect_weight": 0.25,
+    "best_aspect_weight": 0.0,
+    "full_query_weight": 2.0,
+    "maximum_aspects": 10,
+    "maximum_novel_aspect_rank": 1,
+    "minimum_aspect_tokens": 4,
+    "protected_full_results": 10,
+    "rrf_k": 0
+  },
+  "associations": {
+    "max_neighbors": 10,
+    "max_vocabulary": 5000,
+    "min_cooccurrence": 2,
+    "min_document_frequency": 2,
+    "minimum_ppmi": 0.0,
+    "window_size": 8
+  },
+  "bm25": {
+    "b": 0.75,
+    "body_weight": 1.0,
+    "k1": 1.2,
+    "title_weight": 2.0
+  },
+  "evidence_identity": {
+    "default_mode": "source-record",
+    "paper_ids_by_source": {
+      "paper-1208-0928v2": "1208.0928v2",
+      "paper-1602-00008v3": "1602.00008v3",
+      "paper-1708-08474v3": "1708.08474v3",
+      "paper-1811-07835v2": "1811.07835v2",
+      "paper-2005-07016v2": "2005.07016v2",
+      "paper-2009-07851v3": "2009.07851v3",
+      "paper-2010-08699v1": "2010.08699v1",
+      "paper-2012-04068v2": "2012.04068v2",
+      "paper-2111-03654v2": "2111.03654v2",
+      "paper-2207-06431v2": "2207.06431v2",
+      "paper-2308-02913v4": "2308.02913v4",
+      "paper-2312-10950v2": "2312.10950v2",
+      "paper-2401-06874v3": "2401.06874v3",
+      "paper-2408-13687v1": "2408.13687v1",
+      "paper-2508-05095v3": "2508.05095v3"
+    }
+  },
+  "expansion": {
+    "association_terms": 8,
+    "association_weight": 0.35,
+    "topic_terms": 8,
+    "topic_weight": 0.2
+  },
+  "passages": {
+    "default_mode": "full-record",
+    "markdown_pdf_page_source_ids": [
+      "paper-1208-0928v2",
+      "paper-1602-00008v3",
+      "paper-1708-08474v3",
+      "paper-1811-07835v2",
+      "paper-2005-07016v2",
+      "paper-2009-07851v3",
+      "paper-2010-08699v1",
+      "paper-2012-04068v2",
+      "paper-2111-03654v2",
+      "paper-2207-06431v2",
+      "paper-2308-02913v4",
+      "paper-2312-10950v2",
+      "paper-2401-06874v3",
+      "paper-2408-13687v1",
+      "paper-2508-05095v3"
+    ]
+  },
+  "reranking": {
+    "candidate_pool": 100,
+    "max_per_evidence_identity": 1,
+    "relevance_weight": 0.7,
+    "rrf_k": 60,
+    "source_novelty_weight": 0.15,
+    "topic_novelty_weight": 0.15
+  },
+  "schema_version": "1.1",
+  "selection": {
+    "source_ids": [
+      "paper-1208-0928v2",
+      "paper-1602-00008v3",
+      "paper-1708-08474v3",
+      "paper-1811-07835v2",
+      "paper-2005-07016v2",
+      "paper-2009-07851v3",
+      "paper-2010-08699v1",
+      "paper-2012-04068v2",
+      "paper-2111-03654v2",
+      "paper-2207-06431v2",
+      "paper-2308-02913v4",
+      "paper-2312-10950v2",
+      "paper-2401-06874v3",
+      "paper-2408-13687v1",
+      "paper-2508-05095v3"
+    ]
+  },
+  "tokenization": {
+    "min_token_length": 2,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "stopwords": "english-v1",
+    "tokenizer": "ascii-alphanumeric-v1"
+  },
+  "topics": {
+    "max_iterations": 24,
+    "top_terms": 24,
+    "topic_count": 12
+  }
+}

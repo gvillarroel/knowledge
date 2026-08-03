@@ -14,11 +14,15 @@
 Keep initial creation and refresh separate:
 
 - `build_semantic_okf.py` creates a new output path and refuses an existing destination.
-- `refresh_semantic_okf.py update` requires an existing validated bundle, reprocesses every declared source, builds a complete candidate, compares snapshots, and promotes only the validated candidate.
+- `refresh_semantic_okf.py update` requires an existing validated bundle, accounts for every declared source, builds a complete candidate, compares snapshots, and promotes only the validated candidate.
 
 Always pass the original manifest in its original directory. Relative source paths in the copied `semantic/semantic-plan.json` are traceability data, not a relocated refresh root.
 
-Refresh is a full rebuild. It never copies old concepts or merges RDF, so source deletions cannot leave stale Markdown, triples, or provenance.
+Refresh always publishes a complete replacement. It never copies generated
+concepts or merges RDF, so source deletions cannot leave stale Markdown,
+triples, or provenance. An optional external cache may reuse pre-materialization
+adapter results for unchanged physical files. The cache is derived,
+content-addressed, independently invalidated, and never authoritative.
 
 ## 2. Check and update
 
@@ -29,6 +33,24 @@ python scripts/refresh_semantic_okf.py update manifest.json OUTPUT_DIR \
   --check --output-format json
 ```
 
+For large corpora, use a cache outside the raw source tree and output snapshot:
+
+```bash
+python scripts/refresh_semantic_okf.py update manifest.json OUTPUT_DIR \
+  --cache-dir CACHE_DIR --check --output-format json
+```
+
+The cache inventory compares `(source_id, logical_path)` entries by raw
+SHA-256, adapter configuration digest, and processor digest. Only exact matches
+are reused. Added and changed files run through their real adapter; removed
+files disappear from the next complete candidate. Modification times and
+date-based directory names are not freshness evidence.
+
+The JSON build section reports processed and reused file and record counts plus
+the exact added, changed, removed, and unchanged input identities. A corrupt
+cache object is reparsed. Deleting the whole cache changes performance only,
+not snapshot bytes.
+
 `--check` exits `0` when the rebuilt snapshot is byte-identical and `3` when changes are pending. Its JSON includes source, record, artifact, plan, revision, and tree differences plus any review blockers.
 
 Promote an ordinary source-content update:
@@ -38,7 +60,7 @@ python scripts/refresh_semantic_okf.py update manifest.json OUTPUT_DIR \
   --output-format json
 ```
 
-Preview and promotion are separate complete rebuilds. For compare-and-swap automation, pin both the observed published tree and the exact candidate tree reviewed in the preview:
+Preview and promotion are separate complete candidate assemblies. For compare-and-swap automation, pin both the observed published tree and the exact candidate tree reviewed in the preview:
 
 ```bash
 python scripts/refresh_semantic_okf.py update manifest.json OUTPUT_DIR \
@@ -101,6 +123,8 @@ When `--check` finds changes, it exits `3` even if the JSON also contains policy
 
 - Promotion of a populated directory is two atomic renames, not one portable atomic exchange; the direct path may be absent briefly.
 - Keep enough free space for the old bundle, candidate, and temporary backup.
+- Keep the incremental cache outside the immutable bundle. It may be discarded
+  at any time and must not be used as answer evidence.
 - Open files, antivirus, indexers, network shares, or permission changes can block directory renames. UNC refresh targets are rejected on Windows.
 - Refresh supports local manifest-relative sources only, matching the builder contract.
 - Do not place credentials in the manifest or generated bundle.

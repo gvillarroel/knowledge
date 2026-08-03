@@ -1,0 +1,77 @@
+{
+  "schema_version": "software-architecture-books-harbor-rehearsal/1.0",
+  "status": "pass",
+  "dataset_id": "software-architecture-books-40",
+  "family": "classical",
+  "descriptor_sha256": "acb0dcc18c491c76868fbc5cc8ed5f4d8fadaebdbc50ce4f8726194933d232e8",
+  "reference_bundle_tree_sha256": "aa446d85e2282ad2982c80a46d41d72b23b6cdcb267b14ccf35daec5c5f75019",
+  "reference_records_sha256": "4b4db0143bf87ad35b67e960340589d3024ead73d396b1a62a8fbac23dd692cf",
+  "staged_input_tree_sha256": "f08fec347c31a1c973f598f3cb8a6c5db3614c89281a86bf9c097466b9e0f01c",
+  "modes": [
+    {
+      "mode": "build-consult",
+      "question_count": 40,
+      "task_tree_sha256": "5e4ea2da4b31068084e26a7a0f54b69d754af78da7d074fd49024bef7f581503",
+      "deterministic_regeneration": true,
+      "leak_checks": "pass",
+      "oracle_mechanical_qualification_gates": 40,
+      "installed_skills": [
+        "build-semantic-okf-classical",
+        "consult-semantic-okf-classical"
+      ],
+      "mount_target": "/dataset",
+      "raw_sources_mounted": true,
+      "prebuilt_knowledge_mounted": false
+    },
+    {
+      "mode": "consult-only",
+      "question_count": 40,
+      "task_tree_sha256": "5d1f81e9f212d98a0ab9088f6f2b989591e098c09be357393f3c8e0e1264d160",
+      "deterministic_regeneration": true,
+      "leak_checks": "pass",
+      "oracle_mechanical_qualification_gates": 40,
+      "installed_skills": [
+        "consult-semantic-okf-classical"
+      ],
+      "mount_target": "/knowledge",
+      "raw_sources_mounted": false,
+      "prebuilt_knowledge_mounted": true
+    }
+  ],
+  "dry_runs": [
+    {
+      "mode": "build-consult",
+      "cohort": "development",
+      "task_count": 30,
+      "run_status": "dry-run"
+    },
+    {
+      "mode": "build-consult",
+      "cohort": "hard",
+      "task_count": 10,
+      "run_status": "dry-run"
+    },
+    {
+      "mode": "consult-only",
+      "cohort": "development",
+      "task_count": 30,
+      "run_status": "dry-run"
+    },
+    {
+      "mode": "consult-only",
+      "cohort": "hard",
+      "task_count": 10,
+      "run_status": "dry-run"
+    }
+  ],
+  "live_harbor_execution": {
+    "performed": false,
+    "reason": "Live Harbor execution is restricted to Linux or WSL; the current host is Windows."
+  },
+  "privacy": {
+    "descriptor": "local-ignored",
+    "raw_tasks_and_receipts": "local-ignored",
+    "authentication_serialized": false,
+    "private_passage_text_in_summary": false
+  }
+}

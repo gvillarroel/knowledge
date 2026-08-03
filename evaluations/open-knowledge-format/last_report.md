@@ -1,10 +1,13 @@
 # open-knowledge-format-isolated-compare
 
-Compare isolated planning for local Open Knowledge Format operations with and without the standalone skill.
+Compare isolated planning for local Open Knowledge Format v0.2 operations with and without the standalone skill.
 
 | Prompt | Agent/Config | no-skill | open-knowledge-format |
 | --- | --- | ---: | ---: |
-| Generalize conversion planning to nested concepts, reserved files, links, and producer extensions. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 70942, sd 0.0<br>time avg 54084 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 71216, sd 0.0<br>time avg 47291 ms, sd 0.0 ms |
-| Plan generation and drift checking of a strict project projection. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 58374, sd 0.0<br>time avg 53221 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 27677, sd 0.0<br>time avg 22168 ms, sd 0.0 ms |
-| Plan repair of a concept missing its required type while preserving producer metadata. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 60673, sd 0.0<br>time avg 46565 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 26606, sd 0.0<br>time avg 36813 ms, sd 0.0 ms |
-| Recover the native skill boundary and reserved-index contract without flattening content. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 69410, sd 0.0<br>time avg 43185 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 28577, sd 0.0<br>time avg 29635 ms, sd 0.0 ms |
+| Generalize a lossless v0.1-to-v0.2 migration across nested concepts, reserved files, links, and producer extensions. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 159618, sd 0.0<br>time avg 106252 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 124727, sd 0.0<br>time avg 82864 ms, sd 0.0 ms |
+| Plan generation and drift checking of a strict project projection. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 203039, sd 0.0<br>time avg 72562 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 35495, sd 0.0<br>time avg 27719 ms, sd 0.0 ms |
+| Plan one evidence-bounded Attested Computation without conflating verification and attestation. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 110370, sd 0.0<br>time avg 61318 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 76983, sd 0.0<br>time avg 74228 ms, sd 0.0 ms |
+| Plan repair of a concept missing its required type while preserving producer metadata. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 96992, sd 0.0<br>time avg 47902 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 90100, sd 0.0<br>time avg 47797 ms, sd 0.0 ms |
+| Recover the native skill boundary and reserved-index contract without flattening content. | Codex GPT-5.6 Sol | 0% (0/1)<br>tokens avg 61733, sd 0.0<br>time avg 36507 ms, sd 0.0 ms | 100% (1/1)<br>tokens avg 94485, sd 0.0<br>time avg 81520 ms, sd 0.0 ms |
+
+Calibrated run: `eval-xEl-2026-07-29T22:33:18`. The control passed 0/5 scenarios; the isolated OKF skill passed 5/5.

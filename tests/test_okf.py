@@ -18,6 +18,26 @@ def make_store(tmp_path: Path) -> KnowledgeStore:
     return store
 
 
+def _build_repository_okf_bundle(output: Path) -> Path:
+    repo_root = Path(__file__).resolve().parents[1]
+    builder = (
+        repo_root
+        / "skills"
+        / "open-knowledge-format"
+        / "scripts"
+        / "build_project_okf_bundle.py"
+    )
+    result = subprocess.run(
+        [sys.executable, str(builder), str(repo_root), "--output", str(output)],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    return repo_root
+
+
 def test_apply_okf_frontmatter_derives_required_and_recommended_fields() -> None:
     source = {
         "key": "research",
@@ -37,7 +57,17 @@ def test_apply_okf_frontmatter_derives_required_and_recommended_fields() -> None
     assert payload["title"] == "https://arxiv.org/abs/1706.03762"
     assert payload["description"] == "Transformer paper summary."
     assert payload["resource"] == "https://arxiv.org/abs/1706.03762"
-    assert payload["timestamp"] == "2026-07-05T12:00:00+00:00"
+    assert payload["generated"] == {
+        "by": "process:know-export",
+        "at": "2026-07-05T12:00:00+00:00",
+    }
+    assert payload["sources"] == [
+        {
+            "resource": "https://arxiv.org/abs/1706.03762",
+            "title": "https://arxiv.org/abs/1706.03762",
+        }
+    ]
+    assert "timestamp" not in payload
     assert payload["tags"] == ["cs.cl", "arxiv", "research"]
 
 
@@ -49,6 +79,31 @@ def test_apply_okf_frontmatter_repairs_invalid_type_and_accepts_urn_resource() -
 
     assert payload["type"] == "Television Channel"
     assert payload["resource"] == "urn:codex:skill:know"
+    assert payload["generated"] == {"by": "process:know-export"}
+
+
+def test_apply_okf_frontmatter_migrates_legacy_timestamp_and_preserves_v02_families() -> None:
+    payload = apply_okf_frontmatter(
+        {
+            "type": "Reference",
+            "timestamp": "2026-07-05T12:00:00Z",
+            "generated": {"by": "publisher/2.4"},
+            "sources": [{"id": "policy", "resource": "https://example.com/policy"}],
+            "verified": {"by": "human:reviewer", "at": "2026-07-06T09:00:00Z"},
+            "status": "stable",
+        }
+    )
+
+    assert payload["generated"] == {
+        "by": "publisher/2.4",
+        "at": "2026-07-05T12:00:00Z",
+    }
+    assert payload["sources"] == [
+        {"id": "policy", "resource": "https://example.com/policy"}
+    ]
+    assert payload["verified"]["by"] == "human:reviewer"
+    assert payload["status"] == "stable"
+    assert "timestamp" not in payload
 
 
 def test_split_frontmatter_accepts_bom_and_crlf() -> None:
@@ -83,6 +138,8 @@ def test_exported_raw_markdown_is_okf_conformant(tmp_path: Path) -> None:
     assert frontmatter["type"] == "arXiv Paper"
     assert frontmatter["resource"] == "https://arxiv.org/abs/1706.03762"
     assert "arxiv" in frontmatter["tags"]
+    assert frontmatter["sources"][0]["resource"] == "https://arxiv.org/abs/1706.03762"
+    assert frontmatter["generated"]["by"] == "process:know-export"
     assert "Attention Is All You Need" in body
 
 
@@ -110,6 +167,7 @@ def test_export_repairs_existing_final_layout_markdown(tmp_path: Path) -> None:
     assert frontmatter["type"] == "Web Page"
     assert frontmatter["description"] == "A short guide."
     assert frontmatter["resource"] == "https://example.com/docs"
+    assert frontmatter["sources"][0]["resource"] == "https://example.com/docs"
 
 
 def test_export_repairs_legacy_raw_and_library_markdown(tmp_path: Path) -> None:
@@ -201,6 +259,9 @@ def test_open_knowledge_format_skill_validator_accepts_valid_bundle(tmp_path: Pa
         "---\n"
         "type: Reference\n"
         "title: Concept\n"
+        "generated: {by: process:test-suite}\n"
+        "sources:\n"
+        "  - {id: source, resource: https://example.com/source}\n"
         "---\n\n"
         "# Concept\n",
         encoding="utf-8",
@@ -222,8 +283,12 @@ def test_open_knowledge_format_skill_validator_accepts_valid_bundle(tmp_path: Pa
     assert "OKF validation passed" in result.stdout
 
 
-def test_repository_skills_keep_native_frontmatter_and_have_okf_projections() -> None:
-    skills_dir = Path(__file__).resolve().parents[1] / "skills"
+def test_repository_skills_generate_okf_projections_without_a_second_skill_tree(
+    tmp_path: Path,
+) -> None:
+    projection_root = tmp_path / "project-okf"
+    repo_root = _build_repository_okf_bundle(projection_root)
+    skills_dir = repo_root / "skills"
     skill_files = sorted(skills_dir.glob("*/SKILL.md"))
     assert skill_files
 
@@ -234,17 +299,45 @@ def test_repository_skills_keep_native_frontmatter_and_have_okf_projections() ->
         frontmatter = yaml.safe_load(raw_frontmatter)
         assert set(frontmatter) == {"name", "description"}, skill_file
 
-        projection = skills_dir.parent / "okf" / "skills" / f"{skill_file.parent.name}.md"
+        projection = projection_root / "skills" / f"{skill_file.parent.name}.md"
         assert projection.is_file(), projection
         projected_frontmatter = yaml.safe_load(projection.read_text(encoding="utf-8").split("---", 2)[1])
         assert projected_frontmatter["type"] == "Agent Skill"
         assert projected_frontmatter["skill_name"] == frontmatter["name"]
         assert projected_frontmatter["source_path"] == f"skills/{skill_file.parent.name}/SKILL.md"
+        assert projected_frontmatter["generated"]["by"] == (
+            "process:open-knowledge-format-projector"
+        )
+        projected_source = (
+            projection.parent / projected_frontmatter["sources"][0]["resource"]
+        )
+        assert projected_source.resolve() == skill_file.resolve()
 
 
-def test_projected_skill_reference_links_resolve_to_package_files() -> None:
+def test_every_semantic_okf_builder_targets_v02_with_provenance() -> None:
     repo_root = Path(__file__).resolve().parents[1]
-    projection_root = repo_root / "okf" / "skills"
+    builders = sorted(
+        path
+        for path in (repo_root / "skills").glob("build-semantic-okf*")
+        if (path / "scripts" / "_semantic_okf.py").is_file()
+    )
+    assert len(builders) >= 13
+
+    for builder in builders:
+        core = (builder / "scripts" / "_semantic_okf.py").read_text(encoding="utf-8")
+        validator = (builder / "scripts" / "validate_okf_bundle.py").read_text(
+            encoding="utf-8"
+        )
+        assert 'OKF_VERSION = "0.2"' in core, builder
+        assert '"sources": [' in core, builder
+        assert '"generated": {"by": "process:semantic-okf-python"}' in core, builder
+        assert 'OKF_VERSION = "0.2"' in validator, builder
+
+
+def test_projected_skill_reference_links_resolve_to_package_files(tmp_path: Path) -> None:
+    output = tmp_path / "project-okf"
+    _build_repository_okf_bundle(output)
+    projection_root = output / "skills"
     link_pattern = re.compile(r"\]\((?!https?://|#|/)([^)\s]+)\)")
     checked = 0
 
@@ -260,13 +353,14 @@ def test_projected_skill_reference_links_resolve_to_package_files() -> None:
     assert checked >= 50
 
 
-def test_project_okf_bundle_is_current_and_conformant() -> None:
-    repo_root = Path(__file__).resolve().parents[1]
+def test_project_okf_bundle_is_reproducible_and_conformant(tmp_path: Path) -> None:
+    output = tmp_path / "project-okf"
+    repo_root = _build_repository_okf_bundle(output)
     builder = repo_root / "skills" / "open-knowledge-format" / "scripts" / "build_project_okf_bundle.py"
     validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
 
     check = subprocess.run(
-        [sys.executable, str(builder), str(repo_root), "--output", str(repo_root / "okf"), "--check"],
+        [sys.executable, str(builder), str(repo_root), "--output", str(output), "--check"],
         cwd=repo_root,
         capture_output=True,
         text=True,
@@ -275,7 +369,7 @@ def test_project_okf_bundle_is_current_and_conformant() -> None:
     assert check.returncode == 0, check.stderr
 
     validation = subprocess.run(
-        [sys.executable, str(validator), str(repo_root / "okf")],
+        [sys.executable, str(validator), str(output)],
         cwd=repo_root,
         capture_output=True,
         text=True,
@@ -290,7 +384,7 @@ def test_okf_validator_accepts_crlf_and_root_version_frontmatter(tmp_path: Path)
     bundle = tmp_path / "bundle"
     bundle.mkdir()
     (bundle / "index.md").write_bytes(
-        b"---\r\nokf_version: '0.1'\r\n---\r\n\r\n# Concepts\r\n\r\n* [Example](example.md) - Example.\r\n"
+        b"---\r\nokf_version: '0.2'\r\n---\r\n\r\n# Concepts\r\n\r\n* [Example](example.md) - Example.\r\n"
     )
     (bundle / "example.md").write_bytes(b"---\r\ntype: Reference\r\n---\r\n\r\n# Example\r\n")
 
@@ -312,7 +406,7 @@ def test_okf_validator_rejects_invalid_concepts_and_reserved_files(tmp_path: Pat
     nested = bundle / "nested"
     nested.mkdir(parents=True)
     (bundle / "concept.md").write_text("---\ntitle: Missing type\n---\n\nBody.\n", encoding="utf-8")
-    (nested / "index.md").write_text("---\nokf_version: '0.1'\n---\n\n# Concepts\n", encoding="utf-8")
+    (nested / "index.md").write_text("---\nokf_version: '0.2'\n---\n\n# Concepts\n", encoding="utf-8")
     (bundle / "log.md").write_text(
         "# Updates\n\n## 2026-07-08\n* **Update**: New.\n\n## 2026-07-09\n* **Update**: Out of order.\n",
         encoding="utf-8",
@@ -330,3 +424,81 @@ def test_okf_validator_rejects_invalid_concepts_and_reserved_files(tmp_path: Pat
     assert "non-empty top-level 'type'" in result.stderr
     assert "only the bundle-root index.md" in result.stderr
     assert "newest first" in result.stderr
+
+
+def test_okf_validator_accepts_v02_trust_and_attested_computation(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "index.md").write_text(
+        '---\nokf_version: "0.2"\n---\n\n# Computations\n\n'
+        "* [Revenue](revenue.md) - Revenue computation.\n",
+        encoding="utf-8",
+    )
+    (bundle / "revenue.md").write_text(
+        "---\n"
+        "type: Attested Computation\n"
+        "runtime: bigquery\n"
+        "parameters:\n"
+        "  - {name: year, type: integer, required: true}\n"
+        "executor:\n"
+        "  resource: references/run.md\n"
+        "  receipt: [job_id, executed_sql, result]\n"
+        "attester: {resource: references/check.py}\n"
+        "generated: {by: builder/2.0, at: 2026-07-24T16:45:43Z}\n"
+        "verified: {by: human:reviewer, at: 2026-07-25T09:00:00Z}\n"
+        "status: stable\n"
+        "stale_after: 2026-12-31\n"
+        "sources:\n"
+        "  - {id: policy, resource: https://example.com/policy, last_modified: 2026-07-20}\n"
+        "---\n\n"
+        "# Computation\n\n"
+        "```sql\nSELECT 1\n```\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(validator), str(bundle)],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+
+
+def test_okf_validator_rejects_malformed_v02_families(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    validator = repo_root / "skills" / "open-knowledge-format" / "scripts" / "validate_okf_bundle.py"
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "broken.md").write_text(
+        "---\n"
+        "type: Attested Computation\n"
+        "generated: {by: unknown}\n"
+        "verified: {by: human:reviewer}\n"
+        "sources: [{id: missing-resource}]\n"
+        "status: obsolete\n"
+        "stale_after: soon\n"
+        "---\n\n"
+        "# Broken\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(validator), str(bundle)],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 1
+    assert "generated.by" in result.stderr
+    assert "verified[0].at" in result.stderr
+    assert "sources[0].resource" in result.stderr
+    assert "status" in result.stderr
+    assert "stale_after" in result.stderr
+    assert "requires a non-empty 'runtime'" in result.stderr

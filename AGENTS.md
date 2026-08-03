@@ -14,6 +14,14 @@
 - Record durable technical or workflow decisions as ADRs under `.specs/adr/*.md`.
 - Read existing ADRs before changing a previously chosen technical direction.
 
+## Knowledge Skill Creation and Evolution
+
+- Before creating, packaging, evaluating, evolving, ranking, or promoting a knowledge skill, read the [evidence-driven knowledge skill creation and evolution playbook](docs/knowledge-skill-evolution-playbook.md).
+- Follow the playbook's skill order, keep builder and consultation mutations in separate treatments, assign one primary evolution controller per development stage, and preserve the one-way holdout boundary.
+- Before starting a stage owned by `harbor-population-search`, `harbor-trace-distillation`, `harbor-reflective-pareto-search`, `harbor-operator-coevolution`, or `harbor-evolve-skill`, also read the maintained [`harbor-organize-evaluations` contract](../skill-arena/skills/harbor-organize-evaluations/SKILL.md), the owning evolver's `SKILL.md`, and the [independent-validation ADR](../skill-arena/.specs/adr/2026-08-01-independent-validation-before-evolution.md). This boundary is authoritative over older wording that treats validation as optimizer-visible selection data.
+- At study initialization, register and digest-lock disjoint evolution and validation datasets and declare the downstream validation stage before evolution may run. Only the organizer's `development` split, or schema 2's `evolution` split, may drive diagnosis, mutation, ranking, merging, or selection.
+- Keep validation sealed until one selected candidate is frozen and digest-bound. Validation is a one-way acceptance gate: never feed its tasks, rewards, diagnostics, or outcome back into evolution in the same study. A failed gate requires a new study and fresh validation; holdout, when declared, remains a third sealed final gate.
+
 ## Semantic OKF Evaluation Datasets
 - Use `evaluations/semantic-okf-datasets/` as the canonical registry for the `astro-40` and `graphrag-papers-40` Harbor datasets. Read its `README.md` before creating or running evaluation tasks.
 - Validate all pinned descriptors and all eight build/consult strategy pairs with `python evaluations/semantic-okf-datasets/dataset_tool.py validate --dataset all`.

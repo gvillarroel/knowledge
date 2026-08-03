@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "bundle": {
+    "title": "Data Science, AI, and Machine Learning Book Corpus",
+    "description": "Thirty-eight English technical books acquired from two private Google Drive folders and deterministically extracted from content-bound EPUB files.",
+    "base_iri": "https://example.org/data-science-ai-ml-books/",
+    "ontology_iri": "https://example.org/ontology/data-science-ai-ml-books",
+    "version_iri": "https://example.org/ontology/data-science-ai-ml-books/1.0.0",
+    "prefix": "techbooks",
+    "owl_profile": "rl"
+  },
+  "ontology": {
+    "classes": [
+      {
+        "name": "TechnicalBook",
+        "label": "technical book"
+      }
+    ],
+    "properties": [
+      {
+        "name": "bookTitle",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "authors",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "publisher",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "language",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "publicationDate",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:date"
+      },
+      {
+        "name": "isbn",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "collection",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "sourceFormat",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "driveFileId",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "driveUrl",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "epubSha256",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:string"
+      },
+      {
+        "name": "epubSizeBytes",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:long"
+      },
+      {
+        "name": "spineDocumentCount",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:integer"
+      },
+      {
+        "name": "extractedCharacters",
+        "kind": "datatype",
+        "domain": "TechnicalBook",
+        "range": "xsd:long"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "name": "BookTitleRule",
+      "target_class": "TechnicalBook",
+      "path": "bookTitle",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": ".+",
+      "message": "Every book must retain its non-empty OPF title.",
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "EPUB-OPF-METADATA-1"
+        ]
+      }
+    },
+    {
+      "name": "EnglishLanguageRule",
+      "target_class": "TechnicalBook",
+      "path": "language",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": "^en(?:-[A-Za-z0-9]+)*$",
+      "message": "Every book in this corpus must declare an English OPF language.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "ADR-0089"
+        ]
+      }
+    },
+    {
+      "name": "EpubDigestRule",
+      "target_class": "TechnicalBook",
+      "path": "epubSha256",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": "^[0-9a-f]{64}$",
+      "message": "Every book must retain the SHA-256 digest of its exact EPUB bytes.",
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "EPUB-INVENTORY-1"
+        ]
+      }
+    },
+    {
+      "name": "DriveFileIdentityRule",
+      "target_class": "TechnicalBook",
+      "path": "driveFileId",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": "^[A-Za-z0-9_-]{10,}$",
+      "message": "Every book must retain its exact Google Drive file identity.",
+      "basis": {
+        "kind": "evidence",
+        "references": [
+          "GOOGLE-DRIVE-CATALOG-1"
+        ]
+      }
+    },
+    {
+      "name": "EpubSourceFormatRule",
+      "target_class": "TechnicalBook",
+      "path": "sourceFormat",
+      "min_count": 1,
+      "max_count": 1,
+      "datatype": "xsd:string",
+      "pattern": "^EPUB$",
+      "message": "Every accepted source must be an EPUB document.",
+      "basis": {
+        "kind": "operational-policy",
+        "references": [
+          "EPUB-PREPARATION-1"
+        ]
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "ai-ml-books",
+      "kind": "markdown",
+      "path": "processed/markdown/ai-ml/*.md",
+      "concept_type": "Technical Book",
+      "ontology_class": "TechnicalBook",
+      "fields": {
+        "title": "bookTitle",
+        "authors": "authors",
+        "publisher": "publisher",
+        "language": "language",
+        "publication_date": "publicationDate",
+        "isbn": "isbn",
+        "collection": "collection",
+        "source_format": "sourceFormat",
+        "drive_file_id": "driveFileId",
+        "drive_url": "driveUrl",
+        "epub_sha256": "epubSha256",
+        "epub_size_bytes": "epubSizeBytes",
+        "spine_documents": "spineDocumentCount",
+        "extracted_characters": "extractedCharacters"
+      }
+    },
+    {
+      "id": "ds-books",
+      "kind": "markdown",
+      "path": "processed/markdown/ds/*.md",
+      "concept_type": "Technical Book",
+      "ontology_class": "TechnicalBook",
+      "fields": {
+        "title": "bookTitle",
+        "authors": "authors",
+        "publisher": "publisher",
+        "language": "language",
+        "publication_date": "publicationDate",
+        "isbn": "isbn",
+        "collection": "collection",
+        "source_format": "sourceFormat",
+        "drive_file_id": "driveFileId",
+        "drive_url": "driveUrl",
+        "epub_sha256": "epubSha256",
+        "epub_size_bytes": "epubSizeBytes",
+        "spine_documents": "spineDocumentCount",
+        "extracted_characters": "extractedCharacters"
+      }
+    }
+  ]
+}

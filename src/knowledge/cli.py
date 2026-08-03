@@ -107,9 +107,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(
         prog="know",
-        description="Manage a local knowledge base in ~/.knowledge.",
+        description=(
+            "Manage a project-local .know knowledge base, falling back to "
+            "~/.knowledge."
+        ),
     )
-    parser.add_argument("--store", type=Path, default=None, help="Override the knowledge store path.")
+    parser.add_argument(
+        "--store",
+        type=Path,
+        default=None,
+        help="Override project discovery and use this knowledge store path.",
+    )
     parser.add_argument("--json", action="store_true", help="Emit command output as JSON.")
     parser.add_argument("--verbose", action="store_true", help="Print progress messages.")
     parser.add_argument("--quiet", action="store_true", help="Suppress non-error output.")
@@ -465,7 +473,9 @@ def build_parser() -> argparse.ArgumentParser:
     del_parser.add_argument("source_id", help="Registered source id.")
     del_parser.set_defaults(handler=cmd_delete_source)
 
-    init_parser = subparsers.add_parser("init", help="Initialize the knowledge store.")
+    init_parser = subparsers.add_parser(
+        "init", help="Initialize a .know store in the current directory."
+    )
     init_parser.set_defaults(handler=cmd_init)
 
     set_parser = subparsers.add_parser("set", help="Store mutable configuration values.")

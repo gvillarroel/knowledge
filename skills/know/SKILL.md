@@ -1,11 +1,14 @@
 ---
 name: know
-description: Operate the `know` CLI to create local knowledge keys, register sources, inspect configuration, synchronize content into `~/.knowledge`, export normalized Markdown libraries, import archives, or connect Television output. Use when Codex needs to run or explain a reproducible `know` knowledge-base workflow.
+description: Operate the `know` CLI to initialize project-local knowledge, create knowledge keys, register sources, inspect configuration, synchronize content, export normalized Markdown libraries, import archives, or connect Television output. Use when Codex needs to run or explain a reproducible `know` knowledge-base workflow.
 ---
 
 # Know CLI
 
-Use the `know` CLI to build and maintain a local, reproducible knowledge base inside `~/.knowledge`.
+Use the `know` CLI to build and maintain a local, reproducible knowledge base.
+Prefer `know init` at the project root so commands in that directory and its
+descendants automatically use the nearest `.know` store. Outside a project,
+the CLI falls back to `~/.knowledge`; `--store` overrides both behaviors.
 
 ## Standalone boundary
 
@@ -15,8 +18,9 @@ Use the `know` CLI to build and maintain a local, reproducible knowledge base in
 
 ## Follow the standard workflow
 
-1. Create a key with `know add key <KEY>`.
-2. Attach sources with commands such as:
+1. Initialize the project with `know init`.
+2. Create a key with `know add key <KEY>`.
+3. Attach sources with commands such as:
    `know add confluence --space <SPACE> --key <KEY>`
    `know add arxiv <URL> --key <KEY>`
    `know add google-releases <FEED_URL> --key <KEY>`
@@ -24,7 +28,7 @@ Use the `know` CLI to build and maintain a local, reproducible knowledge base in
    `know add jira-project <PROJECT> --key <KEY>`
    `know add television <CHANNEL> --key <KEY> --source-command <COMMAND>`
    `know add video <VIDEO_URL_OR_PATH> --key <KEY>`
-3. Inspect registered sources with `know list sources --key <KEY>`.
+4. Inspect registered sources with `know list sources --key <KEY>`.
 
 
 ## Preserve operational expectations
@@ -33,12 +37,12 @@ Use the `know` CLI to build and maintain a local, reproducible knowledge base in
 - Prefer the command shape `know <verb> <object>` consistently and avoid noun-first top-level forms such as `know key ...`.
 - Preserve source content under `<key>/<source-type>/<source-id>/`.
 - Ensure exported Markdown includes YAML frontmatter with source provenance.
-- Ensure exported Markdown remains Open Knowledge Format compatible: every concept document needs a non-empty `type` field and should preserve `resource`, `tags`, and `timestamp` when they can be derived.
+- Ensure exported Markdown remains Open Knowledge Format v0.2 compatible: every concept document needs a non-empty `type`, should preserve `resource` and `tags` when derivable, records provenance in `sources`, and records the producer plus known content-change time in `generated` rather than legacy `timestamp`.
 - Verify unfamiliar command shapes through the installed CLI's `--help` output.
 
 ## Use credentials and metadata consistently
 
-- Read `~/.knowledge/keys.yaml` when integrations refer to credential aliases such as `$name`.
+- Read `<active-store>/keys.yaml` when integrations refer to credential aliases such as `$name`.
 - Keep source registrations traceable through each key's `metadata.yaml`.
 - Preserve update and delete command fields when modifying registered sources.
 
@@ -56,7 +60,7 @@ Place global flags before the command name. For example, use `know --store ./sto
 - `--json` — Emit structured JSON output. It is a global flag, so place it before the command, for example `know --json list sources --key research`; use a subcommand's `--format json` option when available.
 - `--verbose` — Show progress messages during sync and export.
 - `--quiet` — Suppress non-error output.
-- `--store <PATH>` — Override the default `~/.knowledge` store path.
+- `--store <PATH>` — Override project discovery and the global `~/.knowledge` fallback.
 - `--format television` — Emit one-line-per-result output for `tv` source commands.
 - `--format television-preview` — Render a detail pane for the selected `tv` row.
 - `--entry <ROW>` — Select the row to preview when using `--format television-preview`.

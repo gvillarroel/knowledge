@@ -154,9 +154,14 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         raise CanonicalEvaluationError("--top-k must be at least 10")
     inventory = BASE.load_inventory(args.inventory)
     questions = BASE.load_questions(args.questions)
-    if len(questions) != 40:
+    if len(questions) != args.expected_question_count:
         raise CanonicalEvaluationError(
-            f"canonical evaluation requires 40 questions, found {len(questions)}"
+            "evaluation requires "
+            f"{args.expected_question_count} questions, found {len(questions)}"
+        )
+    if args.canonical_cohorts and len(questions) != 40:
+        raise CanonicalEvaluationError(
+            "--canonical-cohorts requires exactly 40 questions"
         )
     bundle = args.bundle.resolve()
     consult_script = args.consult_script.resolve()
@@ -187,11 +192,12 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         lambda query: tantivy_hits(runtime, snapshot, query, args.top_k),
         continue_on_error=False,
     )
-    attach_cohorts(
-        route,
-        {question.identifier for question in questions[:30]},
-        {question.identifier for question in questions[30:]},
-    )
+    if args.canonical_cohorts:
+        attach_cohorts(
+            route,
+            {question.identifier for question in questions[:30]},
+            {question.identifier for question in questions[30:]},
+        )
     if route["error_count"] != 0:
         raise CanonicalEvaluationError("Tantivy route produced query errors")
     if route["evidence_validity"]["ratio"] != 1.0:
@@ -206,7 +212,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "status": "pass",
         "candidate_state": "experimental-comparator-not-registry-family",
-        "query_count": 40,
+        "dataset_id": args.dataset_id,
+        "query_count": len(questions),
         "top_k": args.top_k,
         "metric_contract": {
             "primary_identity": "paper_id",
@@ -215,7 +222,11 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "mrr_cutoff": 10,
             "ndcg_cutoff": 10,
             "relevance": "binary reviewed qrels",
-            "cohorts": "all 40, original 30, and hard 10",
+            "cohorts": (
+                "all 40, original 30, and hard 10"
+                if args.canonical_cohorts
+                else f"one complete {len(questions)}-question evaluation cohort"
+            ),
             "query_adapter": (
                 "Unicode-insensitive ASCII alphanumeric token extraction followed "
                 "by Tantivy default-parser whitespace terms; no qrel-aware expansion"
@@ -270,15 +281,18 @@ def render_markdown(report: Mapping[str, Any]) -> str:
 
     route = report["route"]
     all_metrics = route["paper_metrics"]
-    hard = route["cohorts"]["hard_10"]["paper_metrics"]
     timing = report["timing_contract"]
-    return "\n".join(
-        [
+    lines = [
             "# Tantivy Canonical Direct-Retrieval Run",
             "",
             f"Status: **{report['status']}**. Questions: {report['query_count']}. "
             f"Returned pool: {report['top_k']}.",
             "",
+    ]
+    if "cohorts" in route:
+        hard = route["cohorts"]["hard_10"]["paper_metrics"]
+        lines.extend(
+            [
             "| Family | Route | All-40 Recall@10 | All-40 MRR@10 | "
             "All-40 nDCG@10 | Hard-10 Recall@10 | Hard-10 MRR@10 | "
             "Hard-10 nDCG@10 | Evidence validity | Mean ms | P95 ms |",
@@ -293,17 +307,38 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             f"{percent(route['evidence_validity']['ratio'])} | "
             f"{route['timing_ms']['mean']:.2f} | "
             f"{route['timing_ms']['p95']:.2f} |",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+            f"| Family | Route | All-{report['query_count']} Recall@10 | "
+            f"All-{report['query_count']} MRR@10 | "
+            f"All-{report['query_count']} nDCG@10 | Evidence validity | Mean ms | P95 ms |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+            f"| Tantivy (experimental) | `tantivy_bm25` | "
+            f"{percent(all_metrics['recall_at_10'])} | "
+            f"{percent(all_metrics['mrr_at_10'])} | "
+            f"{percent(all_metrics['ndcg_at_10'])} | "
+            f"{percent(route['evidence_validity']['ratio'])} | "
+            f"{route['timing_ms']['mean']:.2f} | "
+            f"{route['timing_ms']['p95']:.2f} |",
+            ]
+        )
+    lines.extend(
+        [
             "",
             "## Timing and validation",
             "",
             f"- Shared closed-snapshot validation: {timing['shared_setup_ms']:.2f} ms.",
             f"- Full evaluator wall time: {timing['evaluation_wall_ms']:.2f} ms.",
-            "- Raw-input inventory, all 40 route executions, and exact evidence "
+            f"- Raw-input inventory, all {report['query_count']} route executions, and exact evidence "
             "validity passed.",
             f"- {timing['cross_family_warning']}",
             "",
         ]
     )
+    return "\n".join(lines)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -316,6 +351,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--consult-script", type=Path, required=True)
     parser.add_argument("--top-k", type=int, default=10)
+    parser.add_argument("--expected-question-count", type=int, default=40)
+    parser.add_argument("--dataset-id", default="graphrag-papers-40")
+    parser.add_argument(
+        "--canonical-cohorts",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-markdown", type=Path, required=True)
     return parser
