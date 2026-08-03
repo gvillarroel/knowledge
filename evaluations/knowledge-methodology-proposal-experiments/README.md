@@ -33,6 +33,8 @@ The concise go/keep/reject interpretation is in
 [`reports/offline-ablation-01-decision-table.md`](reports/offline-ablation-01-decision-table.md),
 with exact machine-readable values in
 [`reports/offline-ablation-01-decisions.json`](reports/offline-ablation-01-decisions.json).
+The clean-main checks and unrelated residual failures are preserved in
+[`reports/main-merge-validation-20260729.md`](reports/main-merge-validation-20260729.md).
 
 ## Regeneration boundary
 
