@@ -2,8 +2,6 @@
 
 This directory catalogs the 65 arXiv papers collected for the repository's knowledge-methodology research. Dates identify the first-submission month encoded in each arXiv identifier. Relevance is scored from 1 (peripheral) to 10 (essential) against this repository's focus on knowledge engineering, ontologies, retrieval, RAG/GraphRAG, evaluation harnesses, and reliable evaluation.
 
-Google Drive mirror: [knowledge-methodology-papers-65](https://drive.google.com/drive/folders/1930x9Z0t9TUDKcPfBjhYIKtnw-phSrFW). The mirror contains all 65 exact-version PDFs plus an integrity manifest. The machine-readable folder binding is stored in [`drive-folder.json`](drive-folder.json).
-
 | Title | Date | Description | Relevance |
 |---|---|---|---:|
 | [Generalization in Adaptive Data Analysis and Holdout Reuse](https://arxiv.org/abs/1506.02629v2) | 2015-06 | Formal controls for adaptive reuse of holdout evidence and avoiding evaluation overfitting. | 9/10 |
