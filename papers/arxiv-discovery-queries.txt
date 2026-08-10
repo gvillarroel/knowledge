@@ -1,0 +1,15 @@
+# Weekly arXiv discovery profile for knowledge-methodology research.
+# Keep one independent query lane per line. Temporal filtering is applied by
+# the caller so this profile remains stable and reviewable.
+
+(all:"long-horizon agent" OR all:"long-horizon agents" OR all:"long horizon agent" OR all:"long horizon agents")
+(all:harness OR ti:harness) AND (all:agent OR all:agents OR all:agentic OR all:LLM)
+(all:"agent harness" OR all:"runtime harness" OR all:"execution harness") AND (all:agent OR all:agents OR all:LLM)
+(all:"task-state management" OR all:"task state management" OR all:"context management") AND (all:agent OR all:agents OR all:LLM)
+(all:"self-improvement" OR all:"self-improving" OR all:"recursive improvement") AND (all:agent OR all:agents OR all:LLM)
+(all:"self-evolving" OR all:"self evolution" OR all:"continual learning") AND (all:agent OR all:agents OR all:LLM)
+(all:"long-term memory" OR all:"persistent memory" OR all:"episodic memory" OR all:"memory management") AND (all:agent OR all:agents OR all:LLM)
+(all:"knowledge management" OR all:"knowledge graph" OR all:"knowledge base") AND (all:agent OR all:agents OR all:LLM)
+(all:"agent skill" OR all:"agent skills" OR all:"skill library" OR all:"tool use") AND (all:agent OR all:agents OR all:LLM)
+(all:"agent evaluation" OR all:"agent benchmark" OR all:"trajectory audit") AND (all:harness OR all:agent OR all:agents)
+(all:"context engineering" OR all:"context compression" OR all:"context retrieval") AND (all:agent OR all:agents OR all:LLM)

@@ -1,13 +1,23 @@
 from __future__ import annotations
 
 from argparse import Namespace
+from datetime import datetime, timezone
 import os
 from pathlib import Path
 import shutil
 
 from .exporter import export_source
 from .registry import create_source_adapter
-from .sources.arxiv import search_arxiv
+from .errors import SourceAlreadyExistsError
+from .sources.arxiv import (
+    arxiv_submitted_after_query,
+    canonical_arxiv_url,
+    extract_arxiv_id,
+    search_arxiv,
+    search_arxiv_many,
+    sync_arxiv_batch,
+    versionless_arxiv_id,
+)
 from .sources.brave import search_brave
 from .sources.confluence import search_confluence
 from .sources.jira import search_jira
@@ -181,15 +191,57 @@ def cmd_add_confluence(args: Namespace) -> dict:
 def cmd_add_arxiv(args: Namespace) -> dict:
     store = _store_from_args(args)
     store.initialize()
-    source = store.add_collection_source(
-        key_name=args.key,
-        source_type="arxiv",
-        title=args.url,
-        config={"url": args.url},
-        update_command=f"know sync arxiv {args.url} --key {args.key}",
-        delete_command=f"know del --key {args.key} {store._source_id('arxiv', args.url)}",
+    raw_urls = args.url if isinstance(args.url, list) else [args.url]
+    urls = list(dict.fromkeys(canonical_arxiv_url(url) for url in raw_urls))
+    skip_existing = bool(getattr(args, "if_missing", False))
+    sync_requested = bool(getattr(args, "sync", False))
+    request_delay = float(getattr(args, "request_delay", 3.0))
+    batch_size = int(getattr(args, "batch_size", 50))
+    if request_delay < 0:
+        raise ValueError("arXiv request delay must be non-negative")
+    if batch_size < 1 or batch_size > 200:
+        raise ValueError("arXiv batch size must be between 1 and 200")
+
+    existing_sources = {
+        source["id"]: source
+        for source in store.list_collection_sources(key_name=args.key, source_type="arxiv")
+    }
+    registrations: list[dict] = []
+    sources: list[dict] = []
+    for url in urls:
+        source_id = store._source_id("arxiv", url)
+        source = existing_sources.get(source_id)
+        created = source is None
+        if source is not None and not skip_existing:
+            raise SourceAlreadyExistsError(args.key, source_id)
+        if source is None:
+            source = store.add_collection_source(
+                key_name=args.key,
+                source_type="arxiv",
+                source_id=source_id,
+                title=url,
+                config={"url": url},
+                update_command=f"know sync arxiv {url} --key {args.key}",
+                delete_command=f"know del --key {args.key} {source_id}",
+            )
+            existing_sources[source_id] = source
+        registrations.append({"created": created, "source": source})
+        sources.append(source)
+
+    synced = (
+        sync_arxiv_batch(
+            sources,
+            store,
+            request_delay=request_delay,
+            batch_size=batch_size,
+        )
+        if sync_requested
+        else []
     )
-    return {"key": args.key, "source": source}
+
+    if len(registrations) == 1 and not skip_existing and not sync_requested:
+        return {"key": args.key, "source": registrations[0]["source"]}
+    return {"key": args.key, "registrations": registrations, "synced": synced}
 
 
 def cmd_add_site(args: Namespace) -> dict:
@@ -572,29 +624,151 @@ def cmd_search_jira(args: Namespace) -> dict:
 
 
 def cmd_search_arxiv(args: Namespace) -> dict:
-    results = search_arxiv(
-        args.query,
-        start=args.start,
-        max_results=args.max_results,
-        sort_by=args.sort_by,
-        sort_order=args.sort_order,
-    )
+    queries = _arxiv_queries(args)
+    published_after = getattr(args, "published_after", None)
+    boundary = _parse_iso_datetime(published_after) if published_after else None
+    multi_query = len(queries) > 1 or bool(getattr(args, "query_file", None))
+    if multi_query:
+        results = search_arxiv_many(
+            queries,
+            start=args.start,
+            max_results=args.max_results,
+            sort_by=args.sort_by,
+            sort_order=args.sort_order,
+            request_delay=args.request_delay,
+            published_after=boundary,
+        )
+    else:
+        effective_query = arxiv_submitted_after_query(queries[0], boundary) if boundary else queries[0]
+        result = search_arxiv(
+            effective_query,
+            start=args.start,
+            max_results=args.max_results,
+            sort_by=args.sort_by,
+            sort_order=args.sort_order,
+        )
+        results = {
+            **result,
+            "queries": queries,
+            "truncated_queries": [queries[0]]
+            if int(result.get("total_results", 0)) > len(result.get("entries", []))
+            else [],
+            "entries": [
+                {
+                    **entry,
+                    "arxiv_id": extract_arxiv_id(str(entry["id"])),
+                    "matched_queries": queries,
+                }
+                for entry in result.get("entries", [])
+                if isinstance(entry, dict) and entry.get("id")
+            ],
+        }
+
+    entries = list(results.get("entries", []))
+    if boundary:
+        entries = [
+            entry
+            for entry in entries
+            if entry.get("published") and _parse_iso_datetime(str(entry["published"])) > boundary
+        ]
+
+    registered_key = getattr(args, "registered_key", None)
+    only_unregistered = bool(getattr(args, "only_unregistered", False))
+    if only_unregistered and not registered_key:
+        raise ValueError("--only-unregistered requires --registered-key")
+    if registered_key:
+        entries = _annotate_arxiv_registration(args, entries, registered_key)
+        if only_unregistered:
+            entries = [entry for entry in entries if not entry["registered_exact"]]
+    results["entries"] = entries
+
     output_format = getattr(args, "format", "json")
     if output_format == "television":
-        entries = results.get("entries", [])
         return format_arxiv_television(entries)
     if output_format == "television-preview":
-        entries = results.get("entries", [])
         return format_arxiv_preview(entries, getattr(args, "entry", None))
-    return {
-        "query": args.query,
-        "search_query": results.pop("search_query", None) or None,
+    output = {
+        "query": queries[0] if len(queries) == 1 else None,
+        "queries": queries,
         "start": args.start,
         "max_results": args.max_results,
         "sort_by": args.sort_by,
         "sort_order": args.sort_order,
+        "published_after": published_after,
+        "registered_key": registered_key,
+        "only_unregistered": only_unregistered,
         **results,
     }
+    output["search_query"] = results.get("search_query")
+    return output
+
+
+def _arxiv_queries(args: Namespace) -> list[str]:
+    """Collect positional, repeated, and file-backed arXiv query lanes."""
+    queries: list[str] = []
+    if getattr(args, "query", None):
+        queries.append(args.query)
+    queries.extend(getattr(args, "additional_query", None) or [])
+    query_file = getattr(args, "query_file", None)
+    if query_file:
+        for raw_line in Path(query_file).read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if line and not line.startswith("#"):
+                queries.append(line)
+    queries = list(dict.fromkeys(query.strip() for query in queries if query.strip()))
+    if not queries:
+        raise ValueError("provide an arXiv query or --query-file")
+    return queries
+
+
+def _parse_iso_datetime(value: str) -> datetime:
+    """Parse an ISO-8601 timestamp and normalize it to an aware UTC value."""
+    normalized = value.strip().replace("Z", "+00:00")
+    parsed = datetime.fromisoformat(normalized)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _annotate_arxiv_registration(
+    args: Namespace,
+    entries: list[dict],
+    key_name: str,
+) -> list[dict]:
+    """Add exact-version and any-version registration state to arXiv hits."""
+    store = _store_from_args(args)
+    store.initialize()
+    exact_sources: dict[str, dict] = {}
+    sources_by_work: dict[str, list[dict]] = {}
+    for source in store.list_collection_sources(key_name=key_name, source_type="arxiv"):
+        value = source.get("paper_id") or source.get("config", {}).get("url")
+        if not value:
+            continue
+        try:
+            paper_id = extract_arxiv_id(str(value))
+        except ValueError:
+            continue
+        exact_sources[paper_id] = source
+        sources_by_work.setdefault(versionless_arxiv_id(paper_id), []).append(source)
+
+    annotated: list[dict] = []
+    for entry in entries:
+        paper_id = str(entry.get("arxiv_id") or extract_arxiv_id(str(entry["id"])))
+        exact = exact_sources.get(paper_id)
+        work_sources = sources_by_work.get(versionless_arxiv_id(paper_id), [])
+        annotated.append(
+            {
+                **entry,
+                "arxiv_id": paper_id,
+                "registered_exact": exact is not None,
+                "registered_source_id": exact.get("id") if exact else None,
+                "registered_versions": sorted(
+                    str(source.get("paper_id") or extract_arxiv_id(str(source["config"]["url"])))
+                    for source in work_sources
+                ),
+            }
+        )
+    return annotated
 
 
 def cmd_search_brave(args: Namespace) -> dict:

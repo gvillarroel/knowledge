@@ -425,6 +425,217 @@ def test_add_arxiv_registers_url_under_key(tmp_path: Path) -> None:
     assert metadata["sources"][0]["id"] == "arxiv-1706.03762"
 
 
+def test_add_arxiv_normalizes_alphaxiv_and_skips_equivalent_duplicate(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    assert main(["--store", str(tmp_path), "add", "key", "papers"]) == 0
+    capsys.readouterr()
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "arxiv",
+                "https://www.alphaxiv.org/overview/2608.01964v1",
+                "--key",
+                "papers",
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "arxiv",
+                "https://arxiv.org/pdf/2608.01964v1.pdf",
+                "--key",
+                "papers",
+                "--if-missing",
+            ]
+        )
+        == 0
+    )
+
+    output = json.loads(capsys.readouterr().out)
+    metadata = yaml.safe_load((tmp_path / "papers" / "metadata.yaml").read_text(encoding="utf-8"))
+    assert len(metadata["sources"]) == 1
+    assert metadata["sources"][0]["id"] == "arxiv-2608.01964v1"
+    assert metadata["sources"][0]["config"]["url"] == "https://arxiv.org/abs/2608.01964v1"
+    assert output["registrations"][0]["created"] is False
+
+
+def test_add_arxiv_batch_syncs_with_polite_delay_and_enriches_sources(
+    tmp_path: Path,
+    capsys,
+    monkeypatch,
+) -> None:
+    from knowledge.sources import arxiv as arxiv_module
+
+    assert main(["--store", str(tmp_path), "add", "key", "papers"]) == 0
+    capsys.readouterr()
+    sleeps: list[float] = []
+    calls: list[list[str]] = []
+
+    class StubResponse:
+        status_code = 200
+        headers: dict[str, str] = {}
+
+        def __init__(self, paper_ids: list[str]) -> None:
+            entries = "".join(
+                f"""
+  <entry>
+    <id>http://arxiv.org/abs/{paper_id}</id>
+    <updated>2026-08-06T00:00:00Z</updated>
+    <published>2026-08-05T00:00:00Z</published>
+    <title>Paper {paper_id}</title>
+    <summary>Harness research.</summary>
+    <author><name>Researcher</name></author>
+    <category term="cs.AI" />
+    <link title="pdf" href="http://arxiv.org/pdf/{paper_id}" />
+  </entry>"""
+                for paper_id in paper_ids
+            )
+            self.text = f"""<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+{entries}
+</feed>"""
+
+        def raise_for_status(self) -> None:
+            return None
+
+    def fake_get(url: str, **kwargs: object) -> StubResponse:
+        assert url == "https://export.arxiv.org/api/query"
+        params = kwargs["params"]
+        assert isinstance(params, dict)
+        paper_ids = str(params["id_list"]).split(",")
+        assert params["max_results"] == len(paper_ids)
+        calls.append(paper_ids)
+        return StubResponse(paper_ids)
+
+    monkeypatch.setattr(arxiv_module.requests, "get", fake_get)
+    monkeypatch.setattr(arxiv_module.time, "sleep", lambda delay: sleeps.append(delay))
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "arxiv",
+                "https://arxiv.org/abs/2608.01964v1",
+                "https://arxiv.org/abs/2608.05013v1",
+                "https://arxiv.org/abs/2608.05446v1",
+                "--key",
+                "papers",
+                "--sync",
+                "--request-delay",
+                "0.25",
+                "--batch-size",
+                "2",
+            ]
+        )
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    metadata = yaml.safe_load((tmp_path / "papers" / "metadata.yaml").read_text(encoding="utf-8"))
+    assert [source["paper_id"] for source in metadata["sources"]] == [
+        "2608.01964v1",
+        "2608.05013v1",
+        "2608.05446v1",
+    ]
+    assert [source["title"] for source in metadata["sources"]] == [
+        "Paper 2608.01964v1",
+        "Paper 2608.05013v1",
+        "Paper 2608.05446v1",
+    ]
+    assert len(output["synced"]) == 3
+    assert calls == [
+        ["2608.01964v1", "2608.05013v1"],
+        ["2608.05446v1"],
+    ]
+    assert sleeps == [0.25]
+
+
+def test_add_arxiv_sync_falls_back_to_official_abstract_page(
+    tmp_path: Path,
+    capsys,
+    monkeypatch,
+) -> None:
+    import requests
+    from knowledge.sources import arxiv as arxiv_module
+
+    assert main(["--store", str(tmp_path), "add", "key", "papers"]) == 0
+    capsys.readouterr()
+    calls: list[str] = []
+    html = """<!doctype html><html><head>
+<meta name="citation_title" content="Fallback Paper" />
+<meta name="citation_author" content="Researcher, Ada" />
+<meta name="citation_date" content="2026/08/03" />
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.01964" />
+<meta name="citation_abstract" content="Verified fallback abstract." />
+</head><body>
+<td class="tablecell subjects"><span class="primary-subject">Artificial Intelligence (cs.AI)</span>; Software Engineering (cs.SE)</td>
+<div class="submission-history"><b>[v1]</b> Mon, 3 Aug 2026 09:32:21 UTC (100 KB)</div>
+</body></html>"""
+
+    class StubResponse:
+        headers: dict[str, str] = {}
+
+        def __init__(self, status_code: int, text: str = "") -> None:
+            self.status_code = status_code
+            self.text = text
+
+        def raise_for_status(self) -> None:
+            if self.status_code >= 400:
+                raise requests.HTTPError(f"HTTP {self.status_code}")
+
+    def fake_get(url: str, **_kwargs: object) -> StubResponse:
+        calls.append(url)
+        if url == "https://export.arxiv.org/api/query":
+            return StubResponse(429)
+        assert url == "https://arxiv.org/abs/2608.01964v1"
+        return StubResponse(200, html)
+
+    monkeypatch.setattr(arxiv_module, "ARXIV_MAX_ATTEMPTS", 1)
+    monkeypatch.setattr(arxiv_module.requests, "get", fake_get)
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "arxiv",
+                "https://arxiv.org/abs/2608.01964v1",
+                "--key",
+                "papers",
+                "--sync",
+            ]
+        )
+        == 0
+    )
+    metadata = yaml.safe_load((tmp_path / "papers" / "metadata.yaml").read_text(encoding="utf-8"))
+    source = metadata["sources"][0]
+    assert source["title"] == "Fallback Paper"
+    assert source["authors"] == ["Ada Researcher"]
+    assert source["categories"] == ["cs.AI", "cs.SE"]
+    assert source["published"] == "2026-08-03T09:32:21Z"
+    paper = (tmp_path / "papers" / "arxiv" / source["id"] / "paper.md").read_text(encoding="utf-8")
+    assert "Verified fallback abstract." in paper
+    assert calls == [
+        "https://export.arxiv.org/api/query",
+        "https://arxiv.org/abs/2608.01964v1",
+    ]
+
+
 def test_add_site_registers_url_under_key(tmp_path: Path) -> None:
     assert main(["--store", str(tmp_path), "add", "key", "sites"]) == 0
     assert (
@@ -998,6 +1209,7 @@ def test_search_arxiv_queries_public_api(tmp_path: Path, capsys, monkeypatch) ->
         assert params["sortBy"] == "submittedDate"
         assert params["sortOrder"] == "descending"
         assert headers["Accept"] == "application/atom+xml"
+        assert headers["User-Agent"] == "knowledge-cli/0.1.0"
         assert timeout == 60
         return StubResponse()
 
@@ -1024,6 +1236,131 @@ def test_search_arxiv_queries_public_api(tmp_path: Path, capsys, monkeypatch) ->
     assert '"total_results": 1' in output
     assert '"title": "Attention Is All You Need"' in output
     assert '"pdf_url": "http://arxiv.org/pdf/1706.03762v7"' in output
+
+
+def test_search_arxiv_query_file_deduplicates_and_marks_registered_versions(
+    tmp_path: Path,
+    capsys,
+    monkeypatch,
+) -> None:
+    from knowledge.sources import arxiv as arxiv_module
+
+    assert main(["--store", str(tmp_path), "add", "key", "papers"]) == 0
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "add",
+                "arxiv",
+                "https://arxiv.org/abs/2608.01964v1",
+                "--key",
+                "papers",
+            ]
+        )
+        == 0
+    )
+    capsys.readouterr()
+    query_file = tmp_path / "queries.txt"
+    query_file.write_text(
+        "# Research lanes\nall:harness\nall:\"long-horizon\"\n",
+        encoding="utf-8",
+    )
+    sleeps: list[float] = []
+
+    def entry(paper_id: str, published: str, title: str) -> dict[str, object]:
+        return {
+            "id": f"http://arxiv.org/abs/{paper_id}",
+            "title": title,
+            "summary": "Agent harness research.",
+            "published": published,
+            "updated": published,
+            "authors": ["Researcher"],
+            "categories": ["cs.AI"],
+            "primary_category": "cs.AI",
+            "links": {},
+            "pdf_url": f"http://arxiv.org/pdf/{paper_id}",
+        }
+
+    def fake_search(query: str, **_kwargs: object) -> dict[str, object]:
+        common = entry("2608.01964v1", "2026-08-03T09:32:21Z", "Existing version")
+        harness_query = "(all:harness) AND submittedDate:[202608030000 TO 999912312359]"
+        if query == harness_query:
+            rows = [common, entry("2608.01964v2", "2026-08-05T09:32:21Z", "New version")]
+        else:
+            assert query == '(all:"long-horizon") AND submittedDate:[202608030000 TO 999912312359]'
+            rows = [common, entry("2608.05013v1", "2026-08-04T17:55:41Z", "New paper")]
+        return {
+            "search_query": query,
+            "total_results": len(rows),
+            "start_index": 0,
+            "items_per_page": len(rows),
+            "entries": rows,
+        }
+
+    monkeypatch.setattr(arxiv_module, "search_arxiv", fake_search)
+    monkeypatch.setattr(arxiv_module.time, "sleep", lambda delay: sleeps.append(delay))
+
+    assert (
+        main(
+            [
+                "--store",
+                str(tmp_path),
+                "search",
+                "arxiv",
+                "--query-file",
+                str(query_file),
+                "--published-after",
+                "2026-08-03T00:00:00Z",
+                "--registered-key",
+                "papers",
+                "--only-unregistered",
+                "--request-delay",
+                "0.5",
+            ]
+        )
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["queries"] == ["all:harness", 'all:"long-horizon"']
+    assert [row["arxiv_id"] for row in output["entries"]] == [
+        "2608.01964v2",
+        "2608.05013v1",
+    ]
+    assert output["entries"][0]["registered_versions"] == ["2608.01964v1"]
+    assert output["entries"][1]["registered_versions"] == []
+    assert output["truncated_queries"] == []
+    assert sleeps == [0.5]
+
+
+def test_search_arxiv_retries_retry_after_response(monkeypatch) -> None:
+    from knowledge.sources import arxiv as arxiv_module
+
+    calls: list[int] = []
+    sleeps: list[float] = []
+
+    class StubResponse:
+        text = "<feed/>"
+
+        def __init__(self, status_code: int) -> None:
+            self.status_code = status_code
+            self.headers = {"Retry-After": "1"} if status_code == 429 else {}
+
+        def raise_for_status(self) -> None:
+            if self.status_code >= 400:
+                raise AssertionError("unexpected terminal response")
+
+    def fake_get(*_args: object, **_kwargs: object) -> StubResponse:
+        calls.append(1)
+        return StubResponse(429 if len(calls) == 1 else 200)
+
+    monkeypatch.setattr(arxiv_module.requests, "get", fake_get)
+    monkeypatch.setattr(arxiv_module.time, "sleep", lambda delay: sleeps.append(delay))
+
+    result = arxiv_module.search_arxiv("harness")
+    assert result["entries"] == []
+    assert len(calls) == 2
+    assert sleeps == [1.0]
 
 
 def test_search_arxiv_television_format_lists_titles(tmp_path: Path, capsys, monkeypatch) -> None:

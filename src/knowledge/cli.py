@@ -141,9 +141,31 @@ def build_parser() -> argparse.ArgumentParser:
     add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
 
-    add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach an arXiv paper URL.")
-    add_arxiv_parser.add_argument("url", help="arXiv URL.")
+    add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach one or more arXiv paper URLs.")
+    add_arxiv_parser.add_argument("url", nargs="+", help="arXiv or alphaXiv paper URL. Repeatable.")
     add_arxiv_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    add_arxiv_parser.add_argument(
+        "--if-missing",
+        action="store_true",
+        help="Treat already registered canonical paper versions as successful no-ops.",
+    )
+    add_arxiv_parser.add_argument(
+        "--sync",
+        action="store_true",
+        help="Synchronize every supplied paper after registration.",
+    )
+    add_arxiv_parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=3.0,
+        help="Seconds to wait between arXiv sync requests in a batch.",
+    )
+    add_arxiv_parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=50,
+        help="Paper IDs per arXiv metadata request (1-200).",
+    )
     add_arxiv_parser.set_defaults(handler=cmd_add_arxiv)
 
     add_site_parser = add_subparsers.add_parser("site", help="Attach a website URL.")
@@ -281,7 +303,18 @@ def build_parser() -> argparse.ArgumentParser:
     search_jira_parser.set_defaults(handler=cmd_search_jira)
 
     search_arxiv_parser = search_subparsers.add_parser("arxiv", help="Search arXiv via the public API.")
-    search_arxiv_parser.add_argument("query", help="arXiv search_query expression or plain text.")
+    search_arxiv_parser.add_argument("query", nargs="?", help="arXiv search_query expression or plain text.")
+    search_arxiv_parser.add_argument(
+        "--query",
+        dest="additional_query",
+        action="append",
+        help="Add another query lane. Repeatable; lanes are searched sequentially and deduplicated.",
+    )
+    search_arxiv_parser.add_argument(
+        "--query-file",
+        type=Path,
+        help="UTF-8 file containing one query lane per line; blank lines and # comments are ignored.",
+    )
     search_arxiv_parser.add_argument(
         "--format",
         choices=("json", "television", "television-preview"),
@@ -305,6 +338,25 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("ascending", "descending"),
         default="descending",
         help="Sort direction supported by the arXiv API.",
+    )
+    search_arxiv_parser.add_argument(
+        "--published-after",
+        help="Keep papers published strictly after this ISO-8601 timestamp.",
+    )
+    search_arxiv_parser.add_argument(
+        "--registered-key",
+        help="Annotate results with exact-version and any-version registration state for this key.",
+    )
+    search_arxiv_parser.add_argument(
+        "--only-unregistered",
+        action="store_true",
+        help="Return only exact versions absent from --registered-key.",
+    )
+    search_arxiv_parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=3.0,
+        help="Seconds to wait between query lanes.",
     )
     search_arxiv_parser.set_defaults(handler=cmd_search_arxiv)
 
@@ -753,7 +805,9 @@ def main(argv: list[str] | None = None) -> int:
     # URL validation for source registration commands --------------------
     add_cmd = getattr(args, "add_command", None)
     if add_cmd in {"arxiv", "site", "google-releases"} and hasattr(args, "url"):
-        _validate_url(args.url)
+        values = args.url if isinstance(args.url, list) else [args.url]
+        for value in values:
+            _validate_url(value)
 
     try:
         result = args.handler(args)

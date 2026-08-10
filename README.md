@@ -45,7 +45,7 @@ know add key research
 know set credential jira_token secret-token
 know add confluence --space ENG --key research
 know add aha PROD --key research
-know add arxiv https://arxiv.org/abs/1706.03762 --key research
+know add arxiv https://arxiv.org/abs/1706.03762v7 --key research --if-missing --sync
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
 know add tv research-sources --key research --source-command "know list sources --key research --format json"
@@ -181,7 +181,8 @@ know list sources --key <KEY>
 know add confluence --space <SPACE> --key <KEY>
 know search confluence "text search"
 know search arxiv "all:transformer" --max-results 10
-know add arxiv <URL> --key <KEY>
+know search arxiv --query-file papers/arxiv-discovery-queries.txt --published-after <ISO_TIMESTAMP> --registered-key <KEY> --only-unregistered
+know add arxiv <URL> [<URL> ...] --key <KEY> [--if-missing] [--sync] [--request-delay SECONDS] [--batch-size N]
 know add google-releases <FEED_URL> --key <KEY>
 know add github-repo <REPO_URL> --key <KEY> --branch <BRANCH>
 know add jira-project <PROJECT> --key <KEY>

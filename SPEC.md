@@ -127,7 +127,7 @@ always wins.
 ```bash
 know add key <KEY>
 know add confluence --space <SPACE> --key <KEY> [--base-url URL] [--username REF] [--token REF] [--limit N]
-know add arxiv <URL> --key <KEY>
+know add arxiv <URL> [<URL> ...] --key <KEY> [--if-missing] [--sync] [--request-delay SECONDS] [--batch-size N]
 know add site <URL> --key <KEY> [--max-depth N] [--max-pages N]
 know add video <VIDEO_URL_OR_PATH> --key <KEY> [--language LANG ...]
 know add tv <CHANNEL_NAME> --key <KEY> --source-command <CMD> [--preview-command CMD] [--description TEXT] [--source-display TPL] [--action-command CMD]
@@ -150,7 +150,7 @@ know list sources [--key KEY] [--type TYPE] [--format json|television|television
 ```bash
 know search confluence "text" [filters...] [--format json|television|television-preview] [--entry ROW]
 know search jira "text" [filters...] [--format json|television|television-preview] [--entry ROW]
-know search arxiv "query" [--max-results N] [--sort-by FIELD] [--sort-order DIR] [--format json|television|television-preview] [--entry ROW]
+know search arxiv ["query"] [--query QUERY ...] [--query-file PATH] [--max-results N] [--sort-by FIELD] [--sort-order DIR] [--published-after ISO_TIMESTAMP] [--registered-key KEY] [--only-unregistered] [--request-delay SECONDS] [--format json|television|television-preview] [--entry ROW]
 know search brave "text" [--count N] [--format json|television|television-preview] [--entry ROW]
 ```
 
@@ -357,11 +357,21 @@ sources:
 - Stores the source in key metadata with config for space, base_url, username, token.
 - Creates a source record under `<active-store>/<key>/confluence/`.
 
-### `know add arxiv <URL> --key <KEY>`
-- Validates the URL (must be http/https).
-- Registers an arXiv source under the selected key.
-- Stores the original URL in the source config.
-- Creates a source record under `<active-store>/<key>/arxiv/`.
+### `know add arxiv <URL> [<URL> ...] --key <KEY>`
+- Validates every URL and accepts official arXiv abstract, HTML, and PDF URLs
+  plus alphaXiv overview URLs.
+- Normalizes every input to an official arXiv abstract URL and registers exact
+  paper versions under the selected key.
+- `--if-missing` makes exact-version duplicates successful no-ops.
+- `--sync` synchronizes the complete batch immediately; `--request-delay`
+  controls the polite delay between arXiv requests, and `--batch-size` groups
+  up to 200 exact IDs in each metadata request.
+- Creates source records under `<active-store>/<key>/arxiv/` and enriches them
+  during sync with canonical identity, title, authors, categories, dates, and
+  PDF URL.
+- If the API exhausts bounded retries, synchronization may recover from the
+  official exact-version abstract page. The persisted sync statistics must
+  identify that acquisition path as `arxiv-abs-html`.
 
 ### `know add video <VIDEO_URL_OR_PATH> --key <KEY>`
 - Registers a video source under the selected key.
@@ -440,10 +450,22 @@ Filters:
 ### `know search arxiv "query"`
 Searches the arXiv public API.
 Filters:
+- `--query` additional query lanes (repeatable);
+- `--query-file` UTF-8 query lanes, one per non-comment line;
 - `--start` result offset;
-- `--max-results` maximum results;
+- `--max-results` maximum results per query lane;
 - `--sort-by` sort field (`relevance`, `lastUpdatedDate`, `submittedDate`);
-- `--sort-order` sort direction (`ascending`, `descending`).
+- `--sort-order` sort direction (`ascending`, `descending`);
+- `--published-after` strict ISO-8601 publication boundary;
+- `--registered-key` exact-version and any-version registration annotations;
+- `--only-unregistered` omit exact versions already attached to the registered
+  key;
+- `--request-delay` delay between query lanes.
+
+Multi-lane search executes sequentially, identifies the client, retries
+transient failures, applies the publication boundary within each API query,
+deduplicates exact paper versions, and reports any lane whose window was
+truncated by `--max-results`.
 
 ### `know search brave "text"`
 Executes a web search through the Brave Search API.
@@ -476,9 +498,14 @@ Credentials are stored in `<active-store>/keys.yaml`. Sources reference them usi
 - Search uses JQL with full filter parameter support.
 
 ### arXiv (`arxiv.py`)
-- Syncs paper metadata and content from arXiv URLs.
+- Canonicalizes official arXiv and alphaXiv paper URLs and syncs paper metadata
+  and abstracts from exact arXiv identifiers.
 - Stores Markdown files under the source directory.
-- Search uses the arXiv API with query expression support.
+- Search uses the arXiv API with single- or multi-lane query expression
+  support, exact-version deduplication, registration annotations, request
+  pacing, and bounded transient-failure retries.
+- Source sync uses exact-ID API batches and an official abstract-page metadata
+  fallback when API retries are exhausted.
 
 ### GitHub Repository (`github_repo.py`)
 - Clones or fetches repository content for specified branches.

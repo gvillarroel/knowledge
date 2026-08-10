@@ -45,8 +45,8 @@ nearest `.know` at or above the working directory, fall back to
 # Register an Aha workspace source; if flags are omitted, default connection values can come from `AHA_BASE_URL` and `AHA_TOKEN`
 `know add aha $NAME --key $KEY [--base-url $URL] [--token $NAME] [--limit N]`
 
-# Register an arXiv paper source
-`know add arxiv $URL --key $KEY`
+# Register one or more canonical, exact-version arXiv paper sources; alphaXiv overview URLs are accepted and normalized
+`know add arxiv $URL [$URL ...] --key $KEY [--if-missing] [--sync] [--request-delay SECONDS] [--batch-size N]`
 
 # Register a Confluence source by space or by a saved CQL query; if flags are omitted, default connection values can come from `CONFLUENCE_BASE_URL`, `CONFLUENCE_USERNAME`, and `CONFLUENCE_TOKEN`
 `know add confluence [--space $NAME] [--cql $CQL] --key $KEY [--base-url $URL] [--username $NAME] [--token $NAME] [--limit N]`
@@ -218,8 +218,8 @@ nearest `.know` at or above the working directory, fall back to
 
 ## Search Commands
 
-# Search the arXiv public API
-`know search arxiv "$VALUE" [--start N] [--max-results N] [--sort-by relevance|lastUpdatedDate|submittedDate] [--sort-order ascending|descending] [--format $FORMAT] [--entry $ENTRY]`
+# Search one or more arXiv query lanes, optionally from a UTF-8 profile, with exact-version registration annotations
+`know search arxiv ["$VALUE"] [--query "$VALUE" ...] [--query-file $PATH] [--start N] [--max-results N] [--sort-by relevance|lastUpdatedDate|submittedDate] [--sort-order ascending|descending] [--published-after ISO_TIMESTAMP] [--registered-key $KEY] [--only-unregistered] [--request-delay SECONDS] [--format $FORMAT] [--entry $ENTRY]`
 
 # Search the web through Brave Search API; requires `BRAVE_SEARCH_API_KEY` or stored credential `brave_search_api_key`
 `know search brave "$VALUE" [--country CC] [--search-lang LANG] [--ui-lang LOCALE] [--count N] [--offset N] [--safesearch off|moderate|strict] [--spellcheck|--no-spellcheck] [--freshness VALUE] [--text-decorations|--no-text-decorations] [--result-filter TYPE ...] [--units imperial|metric] [--goggles VALUE ...] [--extra-snippets|--no-extra-snippets] [--summary|--no-summary] [--enable-rich-callback|--no-enable-rich-callback] [--include-fetch-metadata|--no-include-fetch-metadata] [--operators|--no-operators] [--loc-lat FLOAT] [--loc-long FLOAT] [--loc-timezone NAME] [--loc-city NAME] [--loc-state CODE] [--loc-state-name NAME] [--loc-country CC] [--loc-postal-code CODE] [--api-version YYYY-MM-DD] [--accept application/json|*/*] [--cache-control no-cache] [--user-agent VALUE] [--format $FORMAT] [--entry $ENTRY]`

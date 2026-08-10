@@ -25,7 +25,7 @@ know set credential jira_token secret-token
 know add confluence --space ENG --key research
 know add jira-project KAN --key research
 know add aha PROD --key research
-know add arxiv https://arxiv.org/abs/1706.03762 --key research
+know add arxiv https://arxiv.org/abs/1706.03762v7 --key research --if-missing --sync
 know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
 know add site https://openai.com/index/harness-engineering/ --key research
 know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
@@ -42,6 +42,45 @@ know sync --key research
 know export --key research
 know import .know/exports/knowledge-export-20260322T180000Z.zip
 ```
+
+### Discover and register arXiv papers in batches
+
+Use repeated `--query` flags or a UTF-8 query file to search several topic
+lanes sequentially. Results are deduplicated by exact arXiv version. An
+optional UTC boundary filters older submissions, and registration annotations
+make overlapping scheduled searches safe to rerun.
+
+```powershell
+know --store C:\Users\villa\.knowledge search arxiv `
+  --query-file papers\arxiv-discovery-queries.txt `
+  --published-after 2026-07-20T00:00:00Z `
+  --registered-key papers-self-improvement-km `
+  --only-unregistered `
+  --max-results 200 `
+  --sort-by submittedDate
+
+know --store C:\Users\villa\.knowledge add arxiv `
+  https://arxiv.org/abs/2608.01964v1 `
+  https://arxiv.org/abs/2608.05013v1 `
+  --key papers-self-improvement-km `
+  --if-missing --sync
+```
+
+`know add arxiv` accepts official arXiv abstract, HTML, and PDF URLs as well
+as alphaXiv overview URLs. It stores the canonical official abstract URL.
+`--if-missing` turns exact-version duplicates into successful no-ops, `--sync`
+fetches metadata and abstracts immediately, and `--request-delay` controls the
+pause between batched API calls. `--batch-size` controls how many exact paper
+IDs share one metadata request, avoiding one request per paper. Multi-lane
+search uses the same delay between query requests and retries transient arXiv
+failures. A publication boundary is sent
+to arXiv as part of each query; increase `--max-results` until
+`truncated_queries` is empty before treating a window as complete.
+
+If the public API exhausts its retries during synchronization, the adapter
+falls back to the official versioned abstract page and extracts its citation,
+subject, and submission-history metadata. The source sync statistics identify
+this route as `arxiv-abs-html`.
 
 ## Recommended flow
 
