@@ -20,7 +20,9 @@ Use Graphify to orient discovery, then verify selected claims in the unchanged S
 - Use pinned Graphify scoring and BFS in memory; never run extraction, update, clustering, or semantic LLM workflows.
 - Hash every published file before and after consultation and fail if any byte changes.
 - Never create a cache or query log, repair an edge, rewrite a digest, or mutate the release.
-- Treat traversal as discovery only and open the authoritative `concept_path` before citing a fact.
+- Treat traversal as discovery only. Resolve the logical `concept_path` through
+  the declared physical layout and verify the exact file or hash-anchored
+  collection body before citing a fact.
 
 Read [querying.md](references/querying.md) before choosing a route and [source-boundaries.md](references/source-boundaries.md) when authority matters.
 
@@ -43,7 +45,7 @@ python scripts/query_semantic_okf_graphify.py SNAPSHOT read concepts/source/item
 python scripts/query_semantic_okf_graphify.py SNAPSHOT aggregate
 ```
 
-Exact identity and counts come from `semantic/records.jsonl`. Search reports deterministic Graphify seeds, bounded context nodes, traversal counts, scores, ledger-derived paper identity, and exact authoritative concept-file locators. It reports `fallback: null`; any alternative route must be explicit.
+Exact identity and counts come from `semantic/records.jsonl`. Search reports deterministic Graphify seeds, bounded context nodes, traversal counts, scores, ledger-derived paper identity, and exact authoritative concept-file or concept-collection locators. It reports `fallback: null`; any alternative route must be explicit.
 
 ## Completion gate
 

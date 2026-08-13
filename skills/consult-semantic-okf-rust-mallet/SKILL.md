@@ -28,7 +28,9 @@ Discover relevant page and claim passages in an immutable Semantic OKF snapshot,
 3. Apply source, concept, and type filters before ranking.
 4. Use `bm25`, `topic`, `association`, or `fusion` for candidate discovery.
 5. Preserve requested/effective mode, query expansions, topic activations, index hashes, and component ranks.
-6. Open the exact returned `concept_path`; resolve its locator to authoritative record text.
+6. Resolve the exact returned logical `concept_path`. If a source-packed build
+   stores it in `concepts/<source_id>.md`, open that collection and use the
+   record ledger plus returned locator; never derive or rewrite the logical path.
 7. Use the ledger for exact metadata or selected RDF graphs for joins, aggregation, schema, lineage, shapes, or validation.
 8. Cite authoritative paths and page locators. Never cite a retrieval score as factual support.
 
@@ -80,7 +82,8 @@ Before answering, confirm:
 - filters were applied before ranking;
 - requested and effective mode are identical and disclosed;
 - expansion terms and activated topics are visible rather than hidden;
-- every cited concept path exists and binds to the returned record;
+- every cited logical concept path binds to the returned record and resolves to
+  either its own Markdown file or its declared source-packed collection;
 - every locator resolves to the returned text and text hash;
 - factual claims were checked in an authoritative layer; and
 - no topic label, association edge, retrieval score, web result, or model memory is presented as ground truth.

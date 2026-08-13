@@ -32,6 +32,7 @@ NON_APPLICATION_TESTS = (
     "tests/test_semantic_okf_builder_benchmark.py",
     "tests/test_semantic_okf_embeddings_comparison.py",
     "tests/test_semantic_okf_reader_benchmark.py",
+    "tests/test_semantic_okf_remaining_strategy_compaction.py",
     "tests/test_semantic_okf_rust_mallet_evaluation.py",
     "tests/test_build_semantic_okf_tika_mallet_skill.py",
     "tests/test_consult_semantic_okf_tika_mallet_skill.py",

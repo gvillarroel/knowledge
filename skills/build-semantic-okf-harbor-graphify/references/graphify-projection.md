@@ -8,6 +8,13 @@ Markdown structural punctuation, so only links emitted by the builder can add
 edges. Views and external Graphify caches must be verifiably absent before
 publication.
 
+For `source-packed-v1`, Graphify must not parse the aggregate collection shape:
+that would make discovery scores depend on physical storage. The builder
+reconstructs the exact record-per-file Markdown and root index in memory from
+the authoritative ledger and semantic plan, passes those virtual inputs through
+the pinned Markdown extractor, and publishes no expanded concepts. The graph
+bytes must equal a record-per-file build over the same logical records.
+
 The published `retrieval/graphify/index.json` binds the native node-link graph to
 the complete Semantic OKF core, `records.jsonl`, every normalized record, and the
 deterministic view-input digest. A release is invalid when any core artifact,
@@ -16,8 +23,10 @@ Validation regenerates every view in memory from the ledger and compares the
 complete derived record, paper, node, link, and view identity rather than
 trusting self-declared index metadata.
 
-Graph labels and traversal paths are discovery evidence only. Open the bound
-`concept_path` before citing a fact.
+Graph labels and traversal paths are discovery evidence only. Resolve the bound
+logical `concept_path` through the declared layout and verify either the exact
+concept file or the record's hash-derived collection anchor and complete body
+before citing a fact.
 
 ## Harbor lexical-root evolution
 
@@ -36,4 +45,4 @@ evaluation questions or relevance judgments.
 Each derived edge declares `projection: harbor-lexical-similarity`. Validation
 must regenerate all roots and edges from `records.jsonl` and reject any
 mismatch. Similarity and traversal remain non-authoritative and must never be
-cited instead of the bound concept file.
+cited instead of the bound concept file or anchored collection record.

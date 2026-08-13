@@ -72,12 +72,18 @@ topics presented as ontology truth.
 Run from this skill directory, or prefix scripts with the copied skill root:
 
 ```bash
-python -B scripts/build_semantic_okf_tantivy.py manifest.json plan.json semantic-okf-tantivy --output-format json
+python -B scripts/build_semantic_okf_tantivy.py manifest.json plan.json semantic-okf-tantivy --concept-layout source-packed-v1 --output-format json
 python -B scripts/validate_semantic_okf_tantivy.py semantic-okf-tantivy --output-format json
 ```
 
 The destination must not exist. A successful release contains the complete core
 and exactly six consumer-facing projection files:
+
+The recommended source-packed layout combines repeated CSV, JSON, and RDF
+records into one authoritative Markdown collection per source. It does not
+change logical concept paths, ledger records, evidence locators, or ranking
+content. Core-bound indexes and reports are regenerated for the new
+physical tree.
 
 ```text
 semantic-okf-tantivy/

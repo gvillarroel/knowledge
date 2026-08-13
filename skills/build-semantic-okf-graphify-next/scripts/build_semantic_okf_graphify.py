@@ -16,10 +16,21 @@ from _graphify_projection import (
     materialize_graphify_projection,
     validate_graphify_projection,
 )
-from _semantic_okf import BundleError, ManifestError, configure_utf8_output
+from _semantic_okf import (
+    BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUTS,
+    ManifestError,
+    configure_utf8_output,
+)
 
 
-def build(manifest: Path, output: Path) -> dict[str, object]:
+def build(
+    manifest: Path,
+    output: Path,
+    *,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
+) -> dict[str, object]:
     output = output.expanduser().resolve()
     if output.exists():
         raise GraphifyProjectionError(f"output already exists: {output}")
@@ -30,7 +41,11 @@ def build(manifest: Path, output: Path) -> dict[str, object]:
     candidate = workspace / "bundle"
     promoted = False
     try:
-        core_report = build_core(manifest, candidate)
+        core_report = build_core(
+            manifest,
+            candidate,
+            concept_layout=concept_layout,
+        )
         projection = materialize_graphify_projection(candidate)
         if output.exists():
             raise GraphifyProjectionError(
@@ -64,6 +79,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path, help="Closed Semantic OKF manifest.")
     parser.add_argument("output", type=Path, help="New output directory.")
+    parser.add_argument(
+        "--concept-layout",
+        choices=sorted(CONCEPT_LAYOUTS),
+        default=CONCEPT_LAYOUT_RECORD_PER_FILE,
+    )
     parser.add_argument("--output-format", choices=("text", "json"), default="text")
     return parser
 
@@ -84,7 +104,11 @@ def main(argv: list[str] | None = None) -> int:
     configure_utf8_output()
     args = build_parser().parse_args(argv)
     try:
-        report = build(args.manifest, args.output)
+        report = build(
+            args.manifest,
+            args.output,
+            concept_layout=args.concept_layout,
+        )
     except Exception as exc:
         code = _code(exc)
         if not code:

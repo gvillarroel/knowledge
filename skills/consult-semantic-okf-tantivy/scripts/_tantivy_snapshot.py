@@ -14,6 +14,8 @@ from typing import Any, Mapping, Sequence
 
 
 SCHEMA_VERSION = "1.0"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 TANTIVY_VERSION = "0.26.0"
 ENGINE_ID = "tantivy-0.26.0-native-bm25-diversified-v2"
 DOCUMENT_ID_RE = re.compile(r"document-[0-9a-f]{32}")
@@ -259,10 +261,38 @@ def _validate_bm25_plan(index: Mapping[str, Any]) -> dict[str, float]:
     return values
 
 
+def _validate_packed_record(
+    concept_file: Path, record: Mapping[str, Any], label: str
+) -> None:
+    """Verify one packed anchor and its complete authoritative record body."""
+
+    digest = record.get("record_sha256")
+    body = record.get("body")
+    title = record.get("title")
+    if not isinstance(digest, str) or not isinstance(body, str):
+        raise SnapshotError(f"{label} has invalid packed record identity")
+    marker = f'<a id="record-{digest[:16]}"></a>\n\n'
+    try:
+        text = concept_file.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        raise SnapshotError(f"{label} packed concept is unreadable") from exc
+    if text.count(marker) != 1:
+        raise SnapshotError(f"{label} packed concept anchor is missing or duplicated")
+    remainder = text.split(marker, 1)[1]
+    expected = body.rstrip() or f"# {title}"
+    if not remainder.startswith(expected):
+        raise SnapshotError(f"{label} packed concept body differs from the ledger")
+    boundary = remainder[len(expected) :]
+    if boundary != "\n" and not boundary.startswith("\n\n---\n\n<a id=\""):
+        raise SnapshotError(f"{label} packed concept record boundary is invalid")
+
+
 def _validate_document(
     root: Path,
     document: Mapping[str, Any],
     record_by_key: Mapping[tuple[Any, Any], Mapping[str, Any]],
+    source_counts: Mapping[str, int],
+    semantic_report: Mapping[str, Any],
     number: int,
 ) -> None:
     label = f"classical/documents.jsonl:{number}"
@@ -304,9 +334,27 @@ def _validate_document(
     concept = _safe_relative(document["concept_path"], "document concept_path")
     if concept.parts[0] != "concepts" or concept.suffix.lower() != ".md":
         raise SnapshotError(f"{label} concept_path is outside concepts/")
-    concept_file = root.joinpath(*concept.parts)
+    processor = semantic_report.get("processor")
+    concept_layout = (
+        processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    )
+    packed = (
+        concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+        and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+        and source_counts.get(str(record.get("source_id")), 0) > 1
+    )
+    if packed:
+        collection = _safe_relative(
+            f"concepts/{record.get('source_id')}.md",
+            "packed concept collection",
+        )
+        concept_file = root.joinpath(*collection.parts)
+    else:
+        concept_file = root.joinpath(*concept.parts)
     if not concept_file.is_file() or concept_file.is_symlink():
         raise SnapshotError(f"{label} concept file is missing or unsafe")
+    if packed:
+        _validate_packed_record(concept_file, record, label)
     text = document["text"]
     if document["text_sha256"] != sha256_bytes(text.encode("utf-8")):
         raise SnapshotError(f"{label} text digest is invalid")
@@ -391,6 +439,11 @@ def load_snapshot(root: Path) -> TantivySnapshot:
     record_by_key = {
         (row.get("source_id"), row.get("record_id")): row for row in records
     }
+    source_counts: dict[str, int] = {}
+    for record in records:
+        source_id = record.get("source_id")
+        if isinstance(source_id, str):
+            source_counts[source_id] = source_counts.get(source_id, 0) + 1
     if len(record_by_key) != len(records):
         raise SnapshotError(
             "authoritative ledger has duplicate source/record identities"
@@ -398,7 +451,14 @@ def load_snapshot(root: Path) -> TantivySnapshot:
     documents = _read_jsonl(classical / "documents.jsonl", "classical/documents.jsonl")
     identifiers: list[str] = []
     for number, document in enumerate(documents, start=1):
-        _validate_document(root, document, record_by_key, number)
+        _validate_document(
+            root,
+            document,
+            record_by_key,
+            source_counts,
+            semantic_report,
+            number,
+        )
         identifiers.append(document["document_id"])
     if identifiers != sorted(identifiers) or len(identifiers) != len(set(identifiers)):
         raise SnapshotError(

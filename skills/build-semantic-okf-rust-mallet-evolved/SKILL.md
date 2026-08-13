@@ -43,11 +43,17 @@ Never accept unknown plan members, implicit defaults, partial source selection, 
 Run from this skill directory, or prefix scripts with the copied skill root:
 
 ```bash
-python scripts/build_semantic_okf_rust_mallet.py manifest.json rust-mallet-plan.json semantic-okf-rust-mallet --output-format json
+python scripts/build_semantic_okf_rust_mallet.py manifest.json rust-mallet-plan.json semantic-okf-rust-mallet --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_rust_mallet.py semantic-okf-rust-mallet --output-format json
 ```
 
 The destination must not exist. A successful release contains the complete core and exactly six classical files:
+
+The recommended source-packed layout combines repeated CSV, JSON, and RDF
+records into one authoritative Markdown collection per source. Logical concept
+paths, ledger records, evidence locators, reference IDs, and RustMallet
+ranking content remain record-specific. Core-bound indexes, reports, and
+reference dictionaries are regenerated for the new physical tree.
 
 ```text
 semantic-okf-rust-mallet/

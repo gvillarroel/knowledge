@@ -12,7 +12,9 @@ Use Graphify only for discovery, hydrate every selected result from the exact le
 - Use only this directory and the read-only bundle supplied by the user.
 - Do not import sibling skills, evaluator data, fixtures, answer keys, the web, or model memory as evidence.
 - Keep the copied Graphify runtime unchanged. Treat graph scores, labels, seeds, and traversed edges as non-authoritative discovery signals.
-- Fail on stale hashes, corrupt graphs, unknown identities, unsafe paths, altered support packs, or output-contract violations.
+- Fail on stale hashes, corrupt graphs, unknown identities, unsafe paths,
+  missing or duplicate packed-record anchors, altered packed bodies, altered
+  support packs, or output-contract violations.
 
 Read [querying.md](references/querying.md) before selecting supports and [source-boundaries.md](references/source-boundaries.md) when authority matters.
 
@@ -37,4 +39,4 @@ Use a location outside the bundle for ephemeral drafts. Preserve the exact close
 
 ## Completion gate
 
-Confirm snapshot verification passed; the bundle hash is unchanged; every facet used Graphify with the declared depth; every claim maps to directly supporting authoritative record text; all identifiers, paths, locators, and hashes were compiler-generated; every evidence row is used in first-use order; unsupported facets are qualified; and finalization succeeded without fallback.
+Confirm snapshot verification passed; the bundle hash is unchanged; every facet used Graphify with the declared depth; every claim maps to directly supporting authoritative record text in an exact concept file or hash-anchored collection record; all identifiers, paths, locators, and hashes were compiler-generated; every evidence row is used in first-use order; unsupported facets are qualified; and finalization succeeded without fallback.

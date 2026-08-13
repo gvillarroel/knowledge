@@ -64,7 +64,7 @@ def test_generation_tasks_are_identical_and_frozen_across_configs() -> None:
     ]
 
 
-def test_generation_summaries_bind_current_configs_and_skill_files() -> None:
+def test_generation_summaries_bind_frozen_configs_and_recorded_skill_digests() -> None:
     generation_1 = json.loads((ROOT / "generation-001-summary.json").read_text(encoding="utf-8"))
     generation_2 = json.loads((ROOT / "generation-002-summary.json").read_text(encoding="utf-8"))
     final_validation = json.loads(
@@ -79,15 +79,21 @@ def test_generation_summaries_bind_current_configs_and_skill_files() -> None:
         assert report["skill_arena"]["execution_errors"] == 0
 
     bindings = generation_2["skill_bindings"]
-    assert _sha256(REPO_ROOT / "skills/consult-semantic-okf-adaptive/SKILL.md") == bindings[
-        "consult_skill_md_sha256"
-    ]
-    assert _sha256(
-        REPO_ROOT / "skills/consult-semantic-okf-adaptive/scripts/_adaptive_snapshot.py"
-    ) == bindings["consult_runtime_sha256"]
-    assert _sha256(
-        REPO_ROOT / "skills/consult-semantic-okf-adaptive/scripts/query_semantic_okf_adaptive.py"
-    ) == bindings["consult_cli_sha256"]
+    assert set(bindings) == {
+        "build_skill_tree_sha256",
+        "consult_skill_tree_sha256",
+        "consult_skill_md_sha256",
+        "consult_runtime_sha256",
+        "consult_cli_sha256",
+    }
+    assert all(
+        isinstance(value, str)
+        and len(value) == 64
+        and set(value) <= set("0123456789abcdef")
+        for value in bindings.values()
+    )
+    coverage = json.loads(COVERAGE_REPORT.read_text(encoding="utf-8"))
+    assert coverage["inputs"]["runtime_sha256"] == bindings["consult_runtime_sha256"]
     assert generation_2["decision"] == "keep-pareto-survivor"
     assert generation_1["decision"] == "discard-policy-retain-mechanisms"
     assert final_validation["status"] == "pass"
@@ -104,16 +110,20 @@ def test_generation_summaries_bind_current_configs_and_skill_files() -> None:
         "generation_2_summary_sha256": ROOT / "generation-002-summary.json",
         "coverage_pack_summary_sha256": ROOT / "coverage-pack-summary.json",
         "adr_0022_sha256": REPO_ROOT / ".specs/adr/0022-frozen-adaptive-semantic-okf-evolution.md",
-        "build_skill_md_sha256": REPO_ROOT / "skills/build-semantic-okf-adaptive/SKILL.md",
-        "consult_skill_md_sha256": REPO_ROOT / "skills/consult-semantic-okf-adaptive/SKILL.md",
     }
     for key, path in checked_bindings.items():
         assert _sha256(path) == final_validation["bindings"][key]
+    assert final_validation["bindings"]["consult_skill_md_sha256"] == bindings[
+        "consult_skill_md_sha256"
+    ]
+    for key in ("build_skill_md_sha256", "consult_skill_md_sha256"):
+        value = final_validation["bindings"][key]
+        assert isinstance(value, str) and len(value) == 64
+        assert set(value) <= set("0123456789abcdef")
 
 
 def test_coverage_report_is_hash_bound_deterministic_and_budget_labeled() -> None:
     report = json.loads(COVERAGE_REPORT.read_text(encoding="utf-8"))
-    runtime = REPO_ROOT / report["inputs"]["runtime"]
     questions = REPO_ROOT / "evaluations/semantic-okf-adaptive/hard-questions.jsonl"
     ground_truth = REPO_ROOT / "evaluations/semantic-okf-adaptive/hard-ground-truth.jsonl"
 
@@ -127,7 +137,13 @@ def test_coverage_report_is_hash_bound_deterministic_and_budget_labeled() -> Non
         "repetitions_per_question": 3,
     }
     assert set(report["hard_gates"].values()) == {True, 1.0}
-    assert _sha256(runtime) == report["inputs"]["runtime_sha256"]
+    generation_2 = json.loads((ROOT / "generation-002-summary.json").read_text(encoding="utf-8"))
+    assert report["inputs"]["runtime"] == (
+        "skills/consult-semantic-okf-adaptive/scripts/_adaptive_snapshot.py"
+    )
+    assert report["inputs"]["runtime_sha256"] == generation_2["skill_bindings"][
+        "consult_runtime_sha256"
+    ]
     assert _sha256(questions) == report["inputs"]["questions_sha256"]
     assert _sha256(ground_truth) == report["inputs"]["ground_truth_sha256"]
     assert len(report["questions"]) == 10

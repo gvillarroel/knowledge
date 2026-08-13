@@ -358,6 +358,32 @@ def _safe_file(root: Path, relative: Any, label: str) -> Path:
     return candidate
 
 
+def _validate_packed_record(
+    concept_file: Path, record: Mapping[str, Any], label: str
+) -> None:
+    """Verify one packed anchor and its complete authoritative record body."""
+
+    digest = record.get("record_sha256")
+    body = record.get("body")
+    title = record.get("title")
+    if not isinstance(digest, str) or not isinstance(body, str):
+        raise SnapshotError(f"{label} has invalid packed record identity")
+    marker = f'<a id="record-{digest[:16]}"></a>\n\n'
+    try:
+        text = concept_file.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        raise SnapshotError(f"{label} packed concept is unreadable") from exc
+    if text.count(marker) != 1:
+        raise SnapshotError(f"{label} packed concept anchor is missing or duplicated")
+    remainder = text.split(marker, 1)[1]
+    expected = body.rstrip() or f"# {title}"
+    if not remainder.startswith(expected):
+        raise SnapshotError(f"{label} packed concept body differs from the ledger")
+    boundary = remainder[len(expected) :]
+    if boundary != "\n" and not boundary.startswith("\n\n---\n\n<a id=\""):
+        raise SnapshotError(f"{label} packed concept record boundary is invalid")
+
+
 def _concept_document_paths(
     root: Path, records: list[dict[str, Any]]
 ) -> dict[str, str]:
@@ -418,6 +444,12 @@ class Snapshot:
             try:
                 if record.get("record_sha256") != _record_digest(record):
                     errors.append(f"authoritative record digest mismatch for {path}")
+                document_path = self.concept_documents.get(path, path)
+                concept_file = _safe_file(
+                    self.root, document_path, f"concept document for {path}"
+                )
+                if document_path != path:
+                    _validate_packed_record(concept_file, record, f"concept document for {path}")
             except SnapshotError as exc:
                 errors.append(str(exc))
         if self.index.get("contract") != CONTRACT:

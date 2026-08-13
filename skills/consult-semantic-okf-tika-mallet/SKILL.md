@@ -56,8 +56,9 @@ RDF graph.
    index.
 5. Preserve requested and effective mode, query expansions, activated topics,
    toolchain and index hashes, component ranks, and filters.
-6. Open each returned `concept_path` and resolve the exact locator against the
-   authoritative ledger text.
+6. Resolve each returned logical `concept_path`. In a source-packed build, open
+   `concepts/<source_id>.md`; always resolve the exact locator against the
+   authoritative ledger text and never rewrite the logical identity.
 7. Use the ledger for exact metadata or a purpose-selected RDF graph for joins,
    schema, lineage, aggregation, shapes, or validation.
 8. For a manually assembled structured answer outside the bounded workflow, run
@@ -145,7 +146,8 @@ Before answering, confirm:
   UTF-8-verbatim textual source;
 - filters were applied before ranking and requested/effective modes are disclosed;
 - expansion terms and activated topics are visible;
-- every cited concept path exists and every locator resolves to returned text and hash;
+- every cited logical concept path resolves to its own Markdown file or declared
+  source-packed collection, and every locator resolves to returned text and hash;
 - the final structured response passed `validate-answer`, including exact nested
   evidence copies and complete first-use order, or was compiled and passed by
   `finalize-answer`;

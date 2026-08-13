@@ -67,6 +67,9 @@ fields. `show` returns authoritative text. `finalize` validates every ID against
 the current `classical/references.json`, enforces independent-source breadth and
 first-use order, and emits only those IDs. The verifier, not the model, resolves
 the seven exact evidence fields from the same dictionary.
+The snapshot validator accepts both record-per-file and source-packed physical
+Markdown layouts; reference IDs and all logical evidence identities remain
+byte-exact in either layout.
 
 ## Other consultation
 

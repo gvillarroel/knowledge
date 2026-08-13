@@ -15,7 +15,13 @@ from pathlib import Path
 from typing import Any
 
 from _build_semantic_okf_core import build as build_core
-from _semantic_okf import BundleError, ManifestError, configure_utf8_output
+from _semantic_okf import (
+    BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUTS,
+    ManifestError,
+    configure_utf8_output,
+)
 from _safe_paths import (
     UnsafePathError,
     assert_no_links,
@@ -52,6 +58,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("ingestion_plan", type=Path, help="Closed Tika ingestion plan")
     parser.add_argument("retrieval_plan", type=Path, help="Closed MALLET retrieval plan")
     parser.add_argument("output", type=Path, help="New output directory")
+    parser.add_argument(
+        "--concept-layout",
+        choices=sorted(CONCEPT_LAYOUTS),
+        default=CONCEPT_LAYOUT_RECORD_PER_FILE,
+    )
     parser.add_argument("--java", type=Path, required=True, help="Java 17+ executable")
     parser.add_argument(
         "--tika-home", type=Path, required=True, help="Unpacked Tika application directory"
@@ -71,6 +82,7 @@ def atomic_build(
     java: Path,
     tika_home: Path,
     mallet_home: Path,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
 ) -> dict[str, Any]:
     """Build every layer in private paths and publish with one final rename."""
 
@@ -107,7 +119,14 @@ def atomic_build(
             )
         )
         candidate = workspace / "bundle"
-        build_core(semantic_manifest, candidate)
+        if concept_layout == CONCEPT_LAYOUT_RECORD_PER_FILE:
+            build_core(semantic_manifest, candidate)
+        else:
+            build_core(
+                semantic_manifest,
+                candidate,
+                concept_layout=concept_layout,
+            )
         copy_tika_tree(stage, candidate)
         tika_report = validate_tika_semantic_bindings(candidate)
         mallet_report = build_projection(candidate, retrieval_plan, mallet_runtime)
@@ -216,6 +235,7 @@ def main(argv: list[str] | None = None) -> int:
             java=args.java,
             tika_home=args.tika_home,
             mallet_home=args.mallet_home,
+            concept_layout=args.concept_layout,
         )
     except Exception as exc:
         code = _code(exc)

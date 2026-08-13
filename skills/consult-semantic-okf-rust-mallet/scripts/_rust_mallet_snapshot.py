@@ -14,6 +14,8 @@ from typing import Any, Iterable, Mapping, Sequence
 
 
 SCHEMA_VERSION = "1.0"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 TOKENIZER_ID = "ascii-alphanumeric-v1"
 STOPWORDS_ID = "english-v1"
 TOKEN_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
@@ -837,12 +839,39 @@ def _artifact(path: Path, relative: str, count: int | None = None) -> dict[str, 
     return result
 
 
+def _validate_packed_record(
+    concept_file: Path, record: Mapping[str, Any], label: str
+) -> None:
+    """Verify one packed anchor and its complete authoritative record body."""
+
+    digest = record.get("record_sha256")
+    body = record.get("body")
+    title = record.get("title")
+    if not isinstance(digest, str) or not isinstance(body, str):
+        raise SnapshotError(f"{label} has invalid packed record identity")
+    marker = f'<a id="record-{digest[:16]}"></a>\n\n'
+    try:
+        text = concept_file.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        raise SnapshotError(f"{label} packed concept is unreadable") from exc
+    if text.count(marker) != 1:
+        raise SnapshotError(f"{label} packed concept anchor is missing or duplicated")
+    remainder = text.split(marker, 1)[1]
+    expected = body.rstrip() or f"# {title}"
+    if not remainder.startswith(expected):
+        raise SnapshotError(f"{label} packed concept body differs from the ledger")
+    boundary = remainder[len(expected) :]
+    if boundary != "\n" and not boundary.startswith("\n\n---\n\n<a id=\""):
+        raise SnapshotError(f"{label} packed concept record boundary is invalid")
+
+
 def _validate_documents(
     root: Path,
     documents: Sequence[dict[str, Any]],
     records: Sequence[dict[str, Any]],
     plan: Mapping[str, Any],
     topics: Mapping[str, Any],
+    semantic_report: Mapping[str, Any],
 ) -> None:
     record_by_key = {
         (row.get("source_id"), row.get("record_id")): row for row in records
@@ -853,6 +882,11 @@ def _validate_documents(
         )
     term_topics = {row["term"]: row["topic_id"] for row in topics["term_topics"]}
     topic_ids = {row["topic_id"] for row in topics["topics"]}
+    source_counts = Counter(str(record.get("source_id")) for record in records)
+    processor = semantic_report.get("processor")
+    concept_layout = (
+        processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    )
     ids: list[str] = []
     for number, document in enumerate(documents, start=1):
         _exact_keys(document, DOCUMENT_KEYS, f"classical/documents.jsonl:{number}")
@@ -899,11 +933,25 @@ def _validate_documents(
         concept = _safe_relative(document["concept_path"], "document concept_path")
         if concept.parts[0] != "concepts":
             raise SnapshotError("document concept path is outside concepts/")
-        concept_file = root.joinpath(*concept.parts)
+        packed = (
+            concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and source_counts[str(record.get("source_id"))] > 1
+        )
+        if packed:
+            collection = _safe_relative(
+                f"concepts/{record.get('source_id')}.md",
+                "packed concept collection",
+            )
+            concept_file = root.joinpath(*collection.parts)
+        else:
+            concept_file = root.joinpath(*concept.parts)
         if not concept_file.is_file() or concept_file.is_symlink():
             raise SnapshotError(
                 f"document concept file is missing or unsafe: {document['concept_path']}"
             )
+        if packed:
+            _validate_packed_record(concept_file, record, f"document {number}")
         text = document["text"]
         if (
             not isinstance(text, str)
@@ -1272,7 +1320,7 @@ def load_snapshot(root: Path, *, deep_validation: bool = False) -> ClassicalSnap
     )
     topics = _load_json(classical / "topics.json", "classical/topics.json")
     _validate_topics(topics, lexicon, plan)
-    _validate_documents(root, documents, records, plan, topics)
+    _validate_documents(root, documents, records, plan, topics, semantic_report)
     if lexicon != _derive_lexicon(documents, plan):
         raise SnapshotError("classical lexicon differs from live document statistics")
     _validate_associations(associations, lexicon, plan)

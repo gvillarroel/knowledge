@@ -57,3 +57,5 @@ fusion only as discovery signals. Its evidence rows come from the validated
 authoritative OKF ledger and retain exact source, record, path, locator, and hash
 identities. It refuses linked snapshots, unsafe outputs, overwrites, malformed
 indexes, insufficient source diversity, or evidence-order drift.
+It accepts record-per-file and source-packed physical Markdown layouts without
+changing any logical evidence identity or compiler output.

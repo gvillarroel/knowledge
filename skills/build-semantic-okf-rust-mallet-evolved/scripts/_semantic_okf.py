@@ -27,6 +27,12 @@ from rdflib.namespace import DCTERMS, OWL, PROV, RDF, RDFS, SH, XSD
 SCHEMA_VERSION = "1.0"
 OKF_VERSION = "0.2"
 SOURCE_KINDS = frozenset({"markdown", "csv", "json", "rdf"})
+STRUCTURED_SOURCE_KINDS = frozenset({"csv", "json", "rdf"})
+CONCEPT_LAYOUT_RECORD_PER_FILE = "record-per-file-v1"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+CONCEPT_LAYOUTS = frozenset(
+    {CONCEPT_LAYOUT_RECORD_PER_FILE, CONCEPT_LAYOUT_SOURCE_PACKED}
+)
 RDF_FORMATS = frozenset({"turtle", "nt", "n3"})
 RESERVED_LOCAL_NAMES = frozenset(
     {
@@ -1268,26 +1274,151 @@ def _concept_frontmatter(
     }
 
 
-def _write_concepts(
-    root: Path, records: Sequence[NormalizedRecord], manifest: Mapping[str, Any]
-) -> None:
+def _validate_concept_layout(concept_layout: str) -> str:
+    """Return one supported physical concept layout or fail closed."""
+
+    if concept_layout not in CONCEPT_LAYOUTS:
+        choices = ", ".join(sorted(CONCEPT_LAYOUTS))
+        raise BundleError(
+            f"unsupported concept layout {concept_layout!r}; choose one of: {choices}"
+        )
+    return concept_layout
+
+
+def _concept_document_groups(
+    records: Sequence[NormalizedRecord], concept_layout: str
+) -> dict[str, tuple[NormalizedRecord, ...]]:
+    """Map physical OKF documents to the logical records they render."""
+
+    _validate_concept_layout(concept_layout)
+    source_counts: dict[str, int] = {}
     for record in records:
-        target = root / record.concept_path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        frontmatter = yaml.safe_dump(
+        source_counts[record.source_id] = source_counts.get(record.source_id, 0) + 1
+    grouped: dict[str, list[NormalizedRecord]] = {}
+    for record in sorted(records, key=lambda item: item.concept_id):
+        packed = (
+            concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.source_kind in STRUCTURED_SOURCE_KINDS
+            and source_counts[record.source_id] > 1
+        )
+        path = f"concepts/{record.source_id}.md" if packed else record.concept_path
+        grouped.setdefault(path, []).append(record)
+    return {path: tuple(grouped[path]) for path in sorted(grouped)}
+
+
+def _record_anchor(record: NormalizedRecord) -> str:
+    """Return a deterministic collection anchor without changing logical identity."""
+
+    return f"record-{record.record_sha256[:16]}"
+
+
+def _collection_frontmatter(
+    path: str,
+    records: Sequence[NormalizedRecord],
+    manifest: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Render minimal aggregate metadata once for a packed structured source."""
+
+    first = records[0]
+    source_plan = source_by_id(manifest)[first.source_id]
+    return {
+        "type": "Semantic OKF Record Collection",
+        "title": f"{first.source_id} records",
+        "description": (
+            f"{len(records)} normalized {first.concept_type} records from "
+            f"{first.source_id}."
+        ),
+        "tags": [
+            first.source_id,
+            first.source_kind,
+            manifest["bundle"]["owl_profile"].lower(),
+        ],
+        "sources": [
+            {
+                "id": first.source_id,
+                "resource": source_plan["path"],
+                "title": first.source_id,
+            }
+        ],
+        "generated": {"by": "process:semantic-okf-python"},
+        "concept_id": path.removesuffix(".md"),
+        "concept_path": path,
+        "ontology_version_iri": manifest["bundle"]["version_iri"],
+        "source_id": first.source_id,
+        "source_kind": first.source_kind,
+        "source_path": source_plan["path"],
+        "source_content_sha256": first.source_content_sha256,
+        "records_sha256": _aggregate_record_digest(records),
+        "record_count": len(records),
+    }
+
+
+def _collection_body(records: Sequence[NormalizedRecord]) -> str:
+    """Combine complete record bodies with stable, directly addressable anchors."""
+
+    sections = [
+        f"# {records[0].source_id} records",
+        "",
+        f"This collection contains {len(records)} normalized records. "
+        "Exact identities and provenance remain in `semantic/records.jsonl`.",
+    ]
+    for record in records:
+        sections.extend(
+            [
+                "",
+                "---",
+                "",
+                f'<a id="{_record_anchor(record)}"></a>',
+                "",
+                record.body.rstrip() or f"# {record.title}",
+            ]
+        )
+    return "\n".join(sections).rstrip()
+
+
+def _concept_document(
+    path: str,
+    records: Sequence[NormalizedRecord],
+    manifest: Mapping[str, Any],
+) -> tuple[dict[str, Any], str]:
+    """Return exact frontmatter and body for one physical concept document."""
+
+    if len(records) == 1 and path == records[0].concept_path:
+        record = records[0]
+        return (
             _concept_frontmatter(record, manifest),
+            record.body.rstrip() or f"# {record.title}",
+        )
+    return _collection_frontmatter(path, records, manifest), _collection_body(records)
+
+
+def _write_concepts(
+    root: Path,
+    records: Sequence[NormalizedRecord],
+    manifest: Mapping[str, Any],
+    concept_layout: str,
+) -> None:
+    for path, grouped_records in _concept_document_groups(
+        records, concept_layout
+    ).items():
+        target = root / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        payload, body = _concept_document(path, grouped_records, manifest)
+        frontmatter = yaml.safe_dump(
+            payload,
             allow_unicode=True,
             sort_keys=False,
             default_flow_style=False,
         ).rstrip()
-        body = record.body.rstrip() or f"# {record.title}"
         target.write_text(
             f"---\n{frontmatter}\n---\n\n{body}\n", encoding="utf-8", newline="\n"
         )
 
 
 def _root_index_text(
-    records: Sequence[NormalizedRecord], manifest: Mapping[str, Any]
+    records: Sequence[NormalizedRecord],
+    manifest: Mapping[str, Any],
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
 ) -> str:
     """Render the deterministic root OKF index."""
 
@@ -1299,18 +1430,34 @@ def _root_index_text(
         f"# {manifest['bundle']['title']}",
         "",
     ]
-    for record in records:
-        lines.append(
-            f"* [{record.title}]({record.concept_path}) - {record.concept_type} from {record.source_id}."
-        )
+    for path, grouped_records in _concept_document_groups(
+        records, concept_layout
+    ).items():
+        if len(grouped_records) == 1 and path == grouped_records[0].concept_path:
+            record = grouped_records[0]
+            lines.append(
+                f"* [{record.title}]({record.concept_path}) - "
+                f"{record.concept_type} from {record.source_id}."
+            )
+        else:
+            first = grouped_records[0]
+            lines.append(
+                f"* [{first.source_id} records]({path}) - "
+                f"Semantic OKF Record Collection from {first.source_id}."
+            )
     return "\n".join(lines) + "\n"
 
 
 def _write_root_index(
-    root: Path, records: Sequence[NormalizedRecord], manifest: Mapping[str, Any]
+    root: Path,
+    records: Sequence[NormalizedRecord],
+    manifest: Mapping[str, Any],
+    concept_layout: str,
 ) -> None:
     (root / "index.md").write_text(
-        _root_index_text(records, manifest), encoding="utf-8", newline="\n"
+        _root_index_text(records, manifest, concept_layout),
+        encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -1385,9 +1532,15 @@ def materialize_bundle(
     records: Sequence[NormalizedRecord],
     source_summaries: Sequence[Mapping[str, Any]],
     processor_info: Mapping[str, Any],
+    *,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
 ) -> dict[str, Any]:
     """Atomically materialize and validate a semantic OKF bundle."""
 
+    concept_layout = _validate_concept_layout(concept_layout)
+    effective_processor_info = dict(processor_info)
+    if concept_layout != CONCEPT_LAYOUT_RECORD_PER_FILE:
+        effective_processor_info["concept_layout"] = concept_layout
     output = output.expanduser().resolve()
     if output.exists():
         raise BundleError(f"output already exists: {output}")
@@ -1410,8 +1563,8 @@ def materialize_bundle(
     try:
         semantic = staging / "semantic"
         semantic.mkdir(parents=True)
-        _write_concepts(staging, ordered, manifest)
-        _write_root_index(staging, ordered, manifest)
+        _write_concepts(staging, ordered, manifest, concept_layout)
+        _write_root_index(staging, ordered, manifest, concept_layout)
         ontology, data, shapes, provenance = _graphs_for_bundle(
             manifest, ordered, source_summaries
         )
@@ -1496,7 +1649,7 @@ def materialize_bundle(
                 ),
             },
             "sources": sources_payload,
-            "processor": dict(processor_info),
+            "processor": effective_processor_info,
             "validation": {
                 "okf": "pass",
                 "rdf": "pass",
@@ -1519,7 +1672,7 @@ def materialize_bundle(
                 f"generated bundle failed coherence validation: {messages}"
             )
         build_report = validation.to_dict()
-        build_report["processor"] = dict(processor_info)
+        build_report["processor"] = effective_processor_info
         (semantic / "build-report.json").write_text(
             json.dumps(build_report, ensure_ascii=False, indent=2, sort_keys=True)
             + "\n",
@@ -1932,6 +2085,14 @@ def validate_semantic_bundle(
             "processor metadata must be an object",
         )
         processor_manifest = {}
+    concept_layout = processor_manifest.get(
+        "concept_layout", CONCEPT_LAYOUT_RECORD_PER_FILE
+    )
+    try:
+        concept_layout = _validate_concept_layout(str(concept_layout))
+    except BundleError as exc:
+        _error(errors, "semantic-error", "semantic/source-manifest.json", str(exc))
+        concept_layout = CONCEPT_LAYOUT_RECORD_PER_FILE
     if isinstance(source_manifest, dict) and source_manifest.get(
         "plan_sha256"
     ) != sha256_json(semantic_plan):
@@ -2065,13 +2226,43 @@ def validate_semantic_bundle(
             )
         record_by_concept[str(concept_id)] = record
         record_by_subject[str(subject_iri)] = record
-    if set(concept_payloads) != set(record_by_concept):
-        _error(
-            errors,
-            "coherence-error",
-            "semantic/records.jsonl",
-            "concept and record-ledger ID sets differ",
+    expected_document_groups: dict[str, tuple[NormalizedRecord, ...]] = {}
+    if not plan_errors and len(normalized_records) == len(records):
+        expected_document_groups = _concept_document_groups(
+            normalized_records, concept_layout
         )
+        expected_document_ids = {
+            path.removesuffix(".md") for path in expected_document_groups
+        }
+        if set(concept_payloads) != expected_document_ids:
+            _error(
+                errors,
+                "coherence-error",
+                "semantic/records.jsonl",
+                "physical concept documents differ from the declared layout and record ledger",
+            )
+        for path, grouped_records in expected_document_groups.items():
+            payload = concept_payloads.get(path.removesuffix(".md"), {})
+            expected_frontmatter, expected_body = _concept_document(
+                path, grouped_records, semantic_plan
+            )
+            actual_frontmatter = {
+                key: value for key, value in payload.items() if key != "_body"
+            }
+            if actual_frontmatter != expected_frontmatter:
+                _error(
+                    errors,
+                    "coherence-error",
+                    path,
+                    "concept frontmatter differs from the declared layout and normalized records",
+                )
+            if payload.get("_body") != expected_body.rstrip():
+                _error(
+                    errors,
+                    "coherence-error",
+                    path,
+                    "concept body differs from the declared layout and normalized records",
+                )
 
     try:
         ontology = Graph().parse(semantic / "ontology.ttl", format="turtle")
@@ -2289,7 +2480,9 @@ def validate_semantic_bundle(
             )
         try:
             actual_index = (root / "index.md").read_text(encoding="utf-8")
-            if actual_index != _root_index_text(ordered_records, semantic_plan):
+            if actual_index != _root_index_text(
+                ordered_records, semantic_plan, concept_layout
+            ):
                 _error(
                     errors,
                     "coherence-error",
@@ -2298,61 +2491,58 @@ def validate_semantic_bundle(
                 )
         except (OSError, UnicodeError) as exc:
             _error(errors, "okf-error", "index.md", f"cannot compare root index: {exc}")
+    physical_path_by_concept = {
+        record.concept_id: path
+        for path, grouped_records in expected_document_groups.items()
+        for record in grouped_records
+    }
+    individual_concept_ids = {
+        grouped_records[0].concept_id
+        for path, grouped_records in expected_document_groups.items()
+        if len(grouped_records) == 1 and path == grouped_records[0].concept_path
+    }
     for concept_id, record in record_by_concept.items():
-        payload = concept_payloads.get(concept_id, {})
-        relative = str(record.get("concept_path"))
+        relative = physical_path_by_concept.get(
+            concept_id, str(record.get("concept_path"))
+        )
         normalized_record = normalized_by_concept.get(concept_id)
-        if normalized_record is not None and not plan_errors:
-            expected_frontmatter = _concept_frontmatter(
-                normalized_record, semantic_plan
-            )
-            actual_frontmatter = {
-                key: value for key, value in payload.items() if key != "_body"
-            }
-            if actual_frontmatter != expected_frontmatter:
+        if concept_id in individual_concept_ids:
+            payload = concept_payloads.get(concept_id, {})
+            for field in (
+                "concept_id",
+                "concept_path",
+                "subject_iri",
+                "ontology_class_iri",
+                "source_id",
+                "source_kind",
+                "source_path",
+                "source_content_sha256",
+                "record_sha256",
+                "record_id",
+            ):
+                if payload.get(field) != record.get(field):
+                    _error(
+                        errors,
+                        "coherence-error",
+                        relative,
+                        f"frontmatter/ledger mismatch for {field}",
+                    )
+            if payload.get("resource") != record.get("subject_iri"):
                 _error(
                     errors,
                     "coherence-error",
                     relative,
-                    "concept frontmatter differs from normalized record",
+                    "OKF resource must equal subject_iri",
                 )
-            if payload.get("_body") != normalized_record.body.rstrip():
+            if payload.get("ontology_version_iri") != version_iri:
                 _error(
                     errors,
                     "coherence-error",
                     relative,
-                    "concept body differs from normalized record",
+                    "ontology version IRI mismatch",
                 )
-        for field in (
-            "concept_id",
-            "concept_path",
-            "subject_iri",
-            "ontology_class_iri",
-            "source_id",
-            "source_kind",
-            "source_path",
-            "source_content_sha256",
-            "record_sha256",
-            "record_id",
-        ):
-            if payload.get(field) != record.get(field):
-                _error(
-                    errors,
-                    "coherence-error",
-                    relative,
-                    f"frontmatter/ledger mismatch for {field}",
-                )
-        if payload.get("resource") != record.get("subject_iri"):
-            _error(
-                errors,
-                "coherence-error",
-                relative,
-                "OKF resource must equal subject_iri",
-            )
-        if payload.get("ontology_version_iri") != version_iri:
-            _error(errors, "coherence-error", relative, "ontology version IRI mismatch")
-        if payload.get("source_refs") != record.get("source_refs"):
-            _error(errors, "coherence-error", relative, "source_refs mismatch")
+            if payload.get("source_refs") != record.get("source_refs"):
+                _error(errors, "coherence-error", relative, "source_refs mismatch")
         subject = URIRef(str(record.get("subject_iri")))
         class_iri = URIRef(str(record.get("ontology_class_iri")))
         if (class_iri, RDF.type, OWL.Class) not in ontology:

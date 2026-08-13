@@ -49,8 +49,10 @@ authoritative Semantic OKF concept, ledger record, or selected RDF graph.
    one `answer-pack` call, draft claims with its support IDs, then run
    `finalize-answer`. Write these derived JSON files only to new paths outside the
    bundle.
-6. Open each selected `concept_path`, resolve the locator against
-   `semantic/records.jsonl`, and verify returned text and hashes.
+6. Resolve each selected logical `concept_path`. In a source-packed build, open
+   `concepts/<source_id>.md`; always resolve the locator against
+   `semantic/records.jsonl`, verify returned text and hashes, and never rewrite
+   the logical identity.
 7. Use the ledger for exact metadata and purpose-selected RDF graphs for joins,
    aggregation, schema, lineage, shapes, or validation.
 8. Cite authoritative paths and locators. Never cite a score, topic, association,
@@ -139,6 +141,7 @@ Before answering, confirm:
 - filters were applied before the pathless Tantivy index was built;
 - the output discloses Tantivy `0.26.0`, native Rust BM25, in-memory storage,
   tokenizer, boosts, indexed count, lexical queries, expansions, and modes;
-- every cited concept path exists and every locator resolves to the returned text;
+- every cited logical concept path resolves to its own Markdown file or declared
+  source-packed collection, and every locator resolves to the returned text;
 - the final structured response passed exact-evidence validation; and
 - a before/after path-and-hash inventory proves the bundle did not change.

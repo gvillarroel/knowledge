@@ -10,7 +10,13 @@ from pathlib import Path
 
 from _build_semantic_okf_core import build as build_core
 from _rust_mallet_retrieval import ClassicalError, atomic_build
-from _semantic_okf import BundleError, ManifestError, configure_utf8_output
+from _semantic_okf import (
+    BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUTS,
+    ManifestError,
+    configure_utf8_output,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -27,6 +33,11 @@ def build_parser() -> argparse.ArgumentParser:
         "classical_plan", type=Path, help="Closed RustMallet retrieval plan JSON"
     )
     parser.add_argument("output", type=Path, help="New output directory")
+    parser.add_argument(
+        "--concept-layout",
+        choices=sorted(CONCEPT_LAYOUTS),
+        default=CONCEPT_LAYOUT_RECORD_PER_FILE,
+    )
     parser.add_argument("--output-format", choices=("text", "json"), default="text")
     return parser
 
@@ -50,7 +61,14 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         report = atomic_build(
-            args.manifest, args.classical_plan, args.output, build_core
+            args.manifest,
+            args.classical_plan,
+            args.output,
+            lambda manifest, output: build_core(
+                manifest,
+                output,
+                concept_layout=args.concept_layout,
+            ),
         )
     except Exception as exc:
         code = _code(exc)

@@ -8,7 +8,7 @@ description: Generate and validate a standalone, read-only interactive atlas fro
 Generate one deterministic external atlas that explains both the authoritative
 knowledge and its non-authoritative classical discovery projection.
 
-## Authority boundary
+## Standalone authority boundary
 
 - Treat the supplied knowledge directory as immutable input.
 - Write only to a separate absent output directory.

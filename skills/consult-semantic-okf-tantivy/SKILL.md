@@ -34,7 +34,9 @@ For routine use, load neither reference. Otherwise:
    evidence-identity cap to a bounded native candidate pool without changing
    Tantivy scores.
 6. Preserve the engine version, tokenizer, boosts, snapshot hashes, score, and exact evidence identity.
-7. Open each selected `concept_path` and resolve its locator against `semantic/records.jsonl`.
+7. Resolve each selected logical `concept_path`. In a source-packed build, open
+   `concepts/<source_id>.md`; always resolve the locator against
+   `semantic/records.jsonl` and never rewrite the logical identity.
 8. Use the ledger for exact metadata and selected RDF graphs for joins, aggregation, schema, or lineage.
 9. Cite authoritative paths and locators; never cite a retrieval score as factual support.
 
@@ -73,7 +75,8 @@ Before answering, confirm:
 - runtime preflight and bundle inspection passed;
 - filters were applied before the in-memory index was built;
 - the reported engine is pinned Tantivy 0.26.0 with native BM25 scoring;
-- every cited concept path exists and binds to the returned record;
+- every cited logical concept path binds to the returned record and resolves to
+  either its own Markdown file or its declared source-packed collection;
 - every locator resolves to the returned text and text hash;
 - factual claims were checked in an authoritative layer; and
 - the bundle tree remained unchanged.

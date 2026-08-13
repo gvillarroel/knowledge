@@ -20,6 +20,8 @@ import tempfile
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Mapping
 
+import yaml
+
 
 CONTRACT = "semantic-okf-graphify/1.0"
 GRAPHIFY_DISTRIBUTION = "graphifyy"
@@ -35,6 +37,10 @@ INDEX_RELATIVE_PATH = PROJECTION_RELATIVE_PATH / "index.json"
 RECORDS_RELATIVE_PATH = PurePosixPath("semantic/records.jsonl")
 VIEW_ROOT_NAME = ".graphify-views"
 HEX_RE = re.compile(r"^[0-9a-f]{64}$")
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+CONCEPT_LAYOUT_RECORD_PER_FILE = "record-per-file-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
+OKF_VERSION = "0.2"
 RECORD_IDENTITY_FIELDS = (
     "concept_id",
     "concept_path",
@@ -155,6 +161,33 @@ def load_records(root: Path) -> list[dict[str, Any]]:
     if not records:
         raise GraphifyProjectionError("record ledger is empty")
     return records
+
+
+def _concept_document_paths(
+    root: Path, records: list[dict[str, Any]]
+) -> dict[str, str]:
+    """Map stable logical concept locators to physical Markdown documents."""
+
+    report = _load_json_object(root / "semantic" / "build-report.json", "build report")
+    processor = report.get("processor")
+    layout = processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    source_counts: dict[str, int] = {}
+    for record in records:
+        source_id = record.get("source_id")
+        if isinstance(source_id, str):
+            source_counts[source_id] = source_counts.get(source_id, 0) + 1
+    result: dict[str, str] = {}
+    for record in records:
+        logical = str(record.get("concept_path", ""))
+        source_id = record.get("source_id")
+        packed = (
+            layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and isinstance(source_id, str)
+            and source_counts.get(source_id, 0) > 1
+        )
+        result[logical] = f"concepts/{source_id}.md" if packed else logical
+    return result
 
 
 def _safe_text(value: Any) -> str:
@@ -427,10 +460,11 @@ def _write_views(root: Path, records: list[dict[str, Any]]) -> tuple[Path, list[
     record_root = view_root / "records"
     record_root.mkdir(parents=True)
     subject_records, subject_views = _record_maps(records)
+    concept_documents = _concept_document_paths(root, records)
     entries: list[dict[str, Any]] = []
     for record in records:
         concept_path = str(record.get("concept_path", ""))
-        concept = root / PurePosixPath(concept_path)
+        concept = root / PurePosixPath(concept_documents.get(concept_path, ""))
         if not concept_path or not concept.is_file() or concept.is_symlink():
             raise GraphifyProjectionError(f"record has an invalid concept_path: {concept_path!r}")
         view_relative, text = _render_view(record, subject_records, subject_views)
@@ -468,6 +502,232 @@ def _canonical_graph(data: dict[str, Any]) -> dict[str, Any]:
     return data
 
 
+class _VirtualMarkdownPath:
+    """Expose deterministic Markdown text to Graphify without materializing a file."""
+
+    def __init__(self, path: Path, text: str) -> None:
+        self._path = path
+        self._text = text
+
+    @property
+    def name(self) -> str:
+        return self._path.name
+
+    @property
+    def parent(self) -> Path:
+        return self._path.parent
+
+    def read_text(self, *_args: Any, **_kwargs: Any) -> str:
+        return self._text
+
+    def with_suffix(self, suffix: str) -> Path:
+        return self._path.with_suffix(suffix)
+
+    def __fspath__(self) -> str:
+        return os.fspath(self._path)
+
+    def __str__(self) -> str:
+        return str(self._path)
+
+
+def _record_per_file_text(
+    record: Mapping[str, Any], manifest: Mapping[str, Any]
+) -> str:
+    """Reconstruct the exact legacy concept Markdown used by Graphify discovery."""
+
+    body = record.get("body")
+    title = record.get("title")
+    bundle = manifest.get("bundle")
+    if not isinstance(body, str) or not isinstance(title, str) or not isinstance(bundle, Mapping):
+        raise GraphifyProjectionError("cannot reconstruct a record-per-file Graphify view")
+    description = next(
+        (line.strip() for line in body.splitlines() if line.strip() and not line.startswith("#")),
+        title,
+    )
+    payload = {
+        "type": record.get("concept_type"),
+        "title": title,
+        "description": description[:240],
+        "resource": record.get("subject_iri"),
+        "tags": [
+            record.get("source_id"),
+            record.get("source_kind"),
+            str(bundle.get("owl_profile", "")).lower(),
+        ],
+        "sources": [
+            {
+                "id": record.get("source_id"),
+                "resource": record.get("source_path"),
+                "title": record.get("source_id"),
+            }
+        ],
+        "generated": {"by": "process:semantic-okf-python"},
+        "concept_id": record.get("concept_id"),
+        "concept_path": record.get("concept_path"),
+        "subject_iri": record.get("subject_iri"),
+        "ontology_class_iri": record.get("ontology_class_iri"),
+        "ontology_version_iri": bundle.get("version_iri"),
+        "source_id": record.get("source_id"),
+        "source_kind": record.get("source_kind"),
+        "source_path": record.get("source_path"),
+        "source_content_sha256": record.get("source_content_sha256"),
+        "record_sha256": record.get("record_sha256"),
+        "source_refs": record.get("source_refs"),
+        "record_id": record.get("record_id"),
+    }
+    frontmatter = yaml.safe_dump(
+        payload,
+        allow_unicode=True,
+        sort_keys=False,
+        default_flow_style=False,
+    ).rstrip()
+    rendered_body = body.rstrip() or f"# {title}"
+    return f"---\n{frontmatter}\n---\n\n{rendered_body}\n"
+
+
+def _record_per_file_index_text(
+    records: Iterable[Mapping[str, Any]], manifest: Mapping[str, Any]
+) -> str:
+    bundle = manifest.get("bundle")
+    if not isinstance(bundle, Mapping) or not isinstance(bundle.get("title"), str):
+        raise GraphifyProjectionError("semantic plan has invalid bundle metadata")
+    lines = ["---", f'okf_version: "{OKF_VERSION}"', "---", "", f"# {bundle['title']}", ""]
+    for record in sorted(records, key=lambda item: str(item.get("concept_id", ""))):
+        lines.append(
+            f"* [{record.get('title')}]({record.get('concept_path')}) - "
+            f"{record.get('concept_type')} from {record.get('source_id')}."
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _declared_concept_layout(root: Path) -> str:
+    report = _load_json_object(root / "semantic" / "build-report.json", "build report")
+    processor = report.get("processor")
+    if not isinstance(processor, Mapping):
+        raise GraphifyProjectionError("build report processor metadata is missing")
+    layout = processor.get("concept_layout", CONCEPT_LAYOUT_RECORD_PER_FILE)
+    if layout not in {CONCEPT_LAYOUT_RECORD_PER_FILE, CONCEPT_LAYOUT_SOURCE_PACKED}:
+        raise GraphifyProjectionError(f"unsupported concept layout in build report: {layout!r}")
+    return str(layout)
+
+
+def _legacy_graphify_documents(
+    root: Path,
+    records: list[dict[str, Any]],
+    view_entries: list[dict[str, Any]],
+) -> list[tuple[str, str]]:
+    """Return legacy-equivalent Markdown inputs without expanding the packed bundle."""
+
+    manifest = _load_json_object(root / "semantic" / "semantic-plan.json", "semantic plan")
+    documents: dict[str, str] = {"index.md": _record_per_file_index_text(records, manifest)}
+    for record in records:
+        relative = record.get("concept_path")
+        if not isinstance(relative, str):
+            raise GraphifyProjectionError("record has an invalid logical concept path")
+        logical = PurePosixPath(relative)
+        if logical.is_absolute() or ".." in logical.parts or "\\" in relative:
+            raise GraphifyProjectionError(f"record has an unsafe logical concept path: {relative}")
+        if relative in documents:
+            raise GraphifyProjectionError(f"duplicate virtual Graphify document: {relative}")
+        documents[relative] = _record_per_file_text(record, manifest)
+    for entry in view_entries:
+        relative = entry.get("view_path")
+        view = _safe_bundle_path(root, relative, "record view path")
+        assert isinstance(relative, str)
+        if relative in documents:
+            raise GraphifyProjectionError(f"duplicate virtual Graphify document: {relative}")
+        try:
+            documents[relative] = view.read_text(encoding="utf-8")
+        except (OSError, UnicodeError) as exc:
+            raise GraphifyProjectionError(f"cannot read record view: {relative}") from exc
+    return sorted(documents.items())
+
+
+def _extract_virtual_markdown(
+    root: Path, documents: list[tuple[str, str]]
+) -> dict[str, Any]:
+    """Run the pinned Markdown extractor in memory with Graphify's canonical IDs."""
+
+    extract_module = importlib.import_module("graphify.extract")
+    markdown_module = importlib.import_module("graphify.extractors.markdown")
+    base_module = importlib.import_module("graphify.extractors.base")
+    extract_markdown = getattr(markdown_module, "extract_markdown", None)
+    file_node_id = getattr(extract_module, "_file_node_id", None)
+    disambiguate = getattr(extract_module, "_disambiguate_colliding_node_ids", None)
+    rewire = getattr(extract_module, "_rewire_unique_stub_nodes", None)
+    make_id = getattr(base_module, "_make_id", None)
+    if not all(callable(item) for item in (extract_markdown, file_node_id, disambiguate, rewire, make_id)):
+        raise GraphifyProjectionError("pinned Graphify Markdown extraction API is unavailable")
+
+    root = root.resolve()
+    paths: list[tuple[Path, Path, str]] = []
+    nodes: list[dict[str, Any]] = []
+    edges: list[dict[str, Any]] = []
+    for relative, text in documents:
+        posix = PurePosixPath(relative)
+        path = root.joinpath(*posix.parts)
+        result = extract_markdown(_VirtualMarkdownPath(path, text))
+        if not isinstance(result, dict) or result.get("error"):
+            raise GraphifyProjectionError(
+                f"Graphify could not extract virtual Markdown {relative}: {result.get('error') if isinstance(result, dict) else 'invalid result'}"
+            )
+        nodes.extend(result.get("nodes", []))
+        edges.extend(result.get("edges", []))
+        paths.append((path, Path(*posix.parts), relative))
+
+    id_remap: dict[str, str] = {}
+    prefix_remap: dict[Path, tuple[str, str]] = {}
+    for path, relative_path, _relative in paths:
+        new_id = file_node_id(relative_path)
+        old_file_id = make_id(str(path))
+        old_prefix = file_node_id(path)
+        if old_file_id != new_id:
+            id_remap[old_file_id] = new_id
+        if old_prefix != new_id:
+            prefix_remap[path.resolve()] = (old_prefix, new_id)
+    for node in nodes:
+        if node.get("id") in id_remap:
+            node["id"] = id_remap[node["id"]]
+    for edge in edges:
+        if edge.get("source") in id_remap:
+            edge["source"] = id_remap[edge["source"]]
+        if edge.get("target") in id_remap:
+            edge["target"] = id_remap[edge["target"]]
+
+    symbol_remap: dict[str, str] = {}
+    for node in nodes:
+        source_file = node.get("source_file")
+        remap = prefix_remap.get(Path(source_file).resolve()) if source_file else None
+        node_id = node.get("id")
+        if remap and isinstance(node_id, str) and node_id.startswith(remap[0] + "_"):
+            symbol_remap[node_id] = remap[1] + node_id[len(remap[0]) :]
+    for node in nodes:
+        if node.get("id") in symbol_remap:
+            node["id"] = symbol_remap[node["id"]]
+    for edge in edges:
+        if edge.get("source") in symbol_remap:
+            edge["source"] = symbol_remap[edge["source"]]
+        if edge.get("target") in symbol_remap:
+            edge["target"] = symbol_remap[edge["target"]]
+
+    disambiguate(nodes, edges, [], root)
+    rewire(nodes, edges)
+    for item in [*nodes, *edges]:
+        source_file = item.get("source_file")
+        if source_file and Path(source_file).is_absolute():
+            try:
+                item["source_file"] = Path(source_file).relative_to(root).as_posix()
+            except ValueError as exc:
+                raise GraphifyProjectionError("virtual Graphify source escaped the bundle") from exc
+    for node in nodes:
+        node.pop("origin_file", None)
+        node.pop("_callable", None)
+        node["_origin"] = "ast"
+    for edge in edges:
+        edge["_origin"] = "ast"
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
 def _run_graphify(root: Path, view_entries: list[dict[str, Any]], output: Path) -> dict[str, Any]:
     installed = importlib.metadata.version(GRAPHIFY_DISTRIBUTION)
     if installed != GRAPHIFY_VERSION:
@@ -480,11 +740,22 @@ def _run_graphify(root: Path, view_entries: list[dict[str, Any]], output: Path) 
     try:
         graphify = importlib.import_module("graphify")
         export = importlib.import_module("graphify.export")
-        markdown_paths = sorted(
-            (path for path in root.rglob("*.md") if path.is_file() and not _projection_path(path.relative_to(root).as_posix())),
-            key=lambda path: path.relative_to(root).as_posix(),
-        )
-        extraction = graphify.extract(markdown_paths, cache_root=root, parallel=False)
+        graphify_extract = graphify.extract
+        if _declared_concept_layout(root) == CONCEPT_LAYOUT_SOURCE_PACKED:
+            extraction = _extract_virtual_markdown(
+                root, _legacy_graphify_documents(root, load_records(root), view_entries)
+            )
+        else:
+            markdown_paths = sorted(
+                (
+                    path
+                    for path in root.rglob("*.md")
+                    if path.is_file()
+                    and not _projection_path(path.relative_to(root).as_posix())
+                ),
+                key=lambda path: path.relative_to(root).as_posix(),
+            )
+            extraction = graphify_extract(markdown_paths, cache_root=root, parallel=False)
         graph = graphify.build_from_json(extraction, directed=False, root=root)
         output.parent.mkdir(parents=True, exist_ok=True)
         if not export.to_json(graph, {}, str(output), force=True, built_at_commit=""):
@@ -695,6 +966,7 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
         if (root / VIEW_ROOT_NAME).exists():
             errors.append("published bundle contains reserved temporary Graphify views")
         ledger_by_path = {str(record.get("concept_path")): record for record in records}
+        concept_documents = _concept_document_paths(root, records)
         if len(ledger_by_path) != len(records):
             errors.append("authoritative ledger contains duplicate concept paths")
         subject_records, subject_views = _record_maps(records)
@@ -757,7 +1029,11 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
             node_ids.add(node["id"])
             source = node.get("source_file")
             try:
-                _safe_bundle_path(root, source, f"node {node['id']} source_file")
+                _safe_bundle_path(
+                    root,
+                    concept_documents.get(str(source), source),
+                    f"node {node['id']} source_file",
+                )
             except GraphifyProjectionError as exc:
                 errors.append(str(exc))
             if node.get("projection") == "graphify-view":
@@ -795,7 +1071,11 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
             source_file = link.get("source_file")
             if source_file:
                 try:
-                    _safe_bundle_path(root, source_file, f"link {number} source_file")
+                    _safe_bundle_path(
+                        root,
+                        concept_documents.get(str(source_file), source_file),
+                        f"link {number} source_file",
+                    )
                 except GraphifyProjectionError as exc:
                     errors.append(str(exc))
             if link.get("projection") == "graphify-view":

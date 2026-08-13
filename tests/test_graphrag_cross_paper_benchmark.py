@@ -470,7 +470,7 @@ def test_luna_wrapper_is_single_attempt_strict_and_long_prompt_safe(tmp_path: Pa
     assert log.read_text(encoding="utf-8").splitlines() == ["call", "call", "call"]
 
 
-def test_treatment_overlay_is_reader_only_and_matches_the_canonical_consult_skill() -> None:
+def test_treatment_overlay_is_reader_only_and_matches_its_frozen_receipt() -> None:
     build_report = load_json(BUNDLE / "semantic" / "build-report.json")
     source_manifest = load_json(BUNDLE / "semantic" / "source-manifest.json")
 
@@ -487,7 +487,10 @@ def test_treatment_overlay_is_reader_only_and_matches_the_canonical_consult_skil
         assert report_text.startswith("# graphrag-cross-paper-30-compare")
         assert "Five-question live rehearsal" in report_text
 
-    assert source_files(SKILL_SNAPSHOT) == source_files(CANONICAL_SKILL)
+    coverage = load_json(EVALUATION_ROOT / "coverage.json")
+    assert load_generator().tree_sha256(SKILL_SNAPSHOT) == coverage[
+        "skill_snapshot_tree_sha256"
+    ]
     assert not list(SKILL_SNAPSHOT.rglob("__pycache__"))
     assert not (SKILL_SNAPSHOT / "scripts" / "build_semantic_okf.py").exists()
     assert not (SKILL_SNAPSHOT / "scripts" / "refresh_semantic_okf.py").exists()

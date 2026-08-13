@@ -61,6 +61,11 @@ for its complete records.
   resolve both layouts. A compact-bundle evidence check must verify the safe
   physical path, the hash-derived anchor, and the exact authoritative body. It
   must not treat a merely existing collection as sufficient.
+- Keep retrieval projections independent of physical materialization. When a
+  Graphify projection would otherwise parse packed collection structure, rebuild
+  the exact record-per-file Markdown inputs in memory from the ledger and
+  semantic plan. Do not materialize the expanded documents, and require graph
+  byte parity with the record-per-file build before accepting the compact path.
 - Do not delete short or metadata-heavy records solely because of size. A
   record may be removed only under an independent semantic-content decision
   with its own quality evaluation.
@@ -138,6 +143,42 @@ sources are not collapsed. The canonical dataset registry validated all
 registered datasets and all eight strategy families. Generated GraphRAG
 `build-consult` and compact `consult-only` task sets each passed deterministic
 regeneration, leakage checks, and all 40 mechanical oracle gates.
+
+An extension on 2026-08-13 applied the same layout contract to the remaining
+specialized builders and consultation adapters:
+
+| Specialized bundle | Record-per-file files | Source-packed files | Reduction | Quality gate |
+|---|---:|---:|---:|---|
+| Graphify Next | 886 | 43 | 95.15% | 0/40 ranking mismatches; 400/400 evidence hits |
+| Harbor Graphify | 886 | 43 | 95.15% | 0/40 ranking mismatches; 400/400 evidence hits |
+| Tantivy | 890 | 47 | 94.72% | 0/40 ranking mismatches; 400/400 evidence hits |
+| Rust + MALLET | 891 | 48 | 94.61% | exact metrics on four routes; 1,598/1,598 evidence hits |
+
+Graphify required an additional storage-independent projection rule. Directly
+parsing packed collections changed six of forty rankings and reduced source-level
+MRR and nDCG, so that implementation was rejected. Extracting only temporary
+record views also reduced source-level early-rank metrics and was rejected. The
+accepted implementation reconstructs legacy-equivalent Markdown in memory and
+passes it through the pinned Graphify Markdown extractor. Both Graphify variants
+then produced graph bytes identical to their record-per-file baselines, exact
+aggregate metrics, and identical per-question rankings without publishing or
+temporarily materializing the expanded concept tree.
+
+The Tantivy documents, lexicon, associations, and topics were byte-identical
+across layouts. The Rust documents, lexicon, associations, topics, and reference
+dictionary were byte-identical; only the layout-bound index changed. Its BM25,
+association, fusion, and topic routes retained their complete rankings and exact
+metrics. Rust-evolved uses the same compact core and its frozen consultant was
+the consultation implementation exercised by that four-route comparison.
+
+The Tika-integrated GraphRAG path normalizes Tika extractions as substantive
+Markdown documents, so it correctly remained at one physical concept per input
+and gained no artificial file-count reduction. Its underlying Semantic OKF core
+and all Tika, bounded-Tika, and Tika-Tantivy consultants nevertheless support
+source-packed CSV, JSON, and RDF inputs; controlled two-record fixtures verified
+one collection, unchanged semantic artifacts, exact anchors and bodies, and
+fail-closed tamper rejection. This preserves the rule that prose must not be
+collapsed merely to improve a file-count metric.
 
 ## Consequences
 

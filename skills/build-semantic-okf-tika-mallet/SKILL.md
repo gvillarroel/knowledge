@@ -95,13 +95,18 @@ Run from this skill directory, or prefix each script with the copied skill root:
 
 ```bash
 python scripts/runtime_smoke.py --java "$SEMANTIC_OKF_JAVA" --tika-home "$SEMANTIC_OKF_TIKA_HOME" --mallet-home "$SEMANTIC_OKF_MALLET_HOME"
-python scripts/build_semantic_okf_tika_mallet.py ingestion-plan.json retrieval-plan.json OUTPUT --java "$SEMANTIC_OKF_JAVA" --tika-home "$SEMANTIC_OKF_TIKA_HOME" --mallet-home "$SEMANTIC_OKF_MALLET_HOME" --output-format json
+python scripts/build_semantic_okf_tika_mallet.py ingestion-plan.json retrieval-plan.json OUTPUT --java "$SEMANTIC_OKF_JAVA" --tika-home "$SEMANTIC_OKF_TIKA_HOME" --mallet-home "$SEMANTIC_OKF_MALLET_HOME" --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_tika_mallet.py OUTPUT --java "$SEMANTIC_OKF_JAVA" --mallet-home "$SEMANTIC_OKF_MALLET_HOME" --output-format json
 ```
 
 The destination must not exist. The Tika application directory must contain
 `tika-app-4.0.0-beta-1.jar`; the MALLET directory must contain
 `lib/mallet-2.1.0.jar`; Java must be version 17 or later.
+The recommended source-packed layout affects only repeated structured CSV,
+JSON, or RDF records. Tika-extracted Markdown documents remain one file per
+source, and all ledger identities, exact bodies, extraction receipts, locators,
+and MALLET ranking content remain unchanged. Core-bound indexes and reports are
+regenerated for the new physical tree.
 
 The builder verifies that Tika's no-flag output equals explicit `--md`, stores
 canonical `--json` metadata, generates the fixed OKF ontology and SHACL rules,

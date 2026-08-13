@@ -20,6 +20,10 @@ Build one authoritative Semantic OKF release plus a non-authoritative Graphify g
 - The ledger, concept Markdown, RDF graphs, provenance, and validation evidence remain authoritative.
 - `retrieval/graphify/graph.json` is a hash-bound discovery projection only.
 - Pin `graphifyy==0.9.17`; use structural Markdown extraction with no semantic LLM and no clustering.
+- When the authoritative core is source-packed, reconstruct the record-per-file
+  Graphify input in memory from the ledger and semantic plan. Never materialize
+  those logical documents; require the resulting graph to remain byte-equivalent
+  to the same records built with the record-per-file layout.
 - Put reviewed values into deterministic temporary headings, neutralize Markdown structural punctuation in scalar text, and emit links only for reviewed IRI relationships because Graphify's structural extractor does not index ordinary paragraph or bullet text.
 - Preserve Graphify's original labels. Identify exactly one `record-root` per ledger record, derive binary TF-IDF similarity from authoritative title, record ID, concept type, and body, and connect roots only when they are reciprocal nearest neighbors outside their record-ID partitions. Derive partitions from the first segment after the corpus-wide common record-ID prefix; fall back to unrestricted reciprocal neighbors when the corpus has only one partition.
 - Publish similarity links as `harbor-lexical-similarity`, validate them by complete ledger regeneration, and never treat their scores or paths as evidence.
@@ -40,12 +44,16 @@ On Windows PowerShell activate with `.\.venv\Scripts\Activate.ps1`.
 ## Build and validate
 
 ```bash
-python scripts/build_semantic_okf_graphify.py manifest.json semantic-okf-graphify-output
+python scripts/build_semantic_okf_graphify.py manifest.json semantic-okf-graphify-output --concept-layout source-packed-v1
 python scripts/validate_okf_bundle.py semantic-okf-graphify-output
 python scripts/validate_semantic_okf_graphify.py semantic-okf-graphify-output --output-format json
 ```
 
 The output must not exist. A passing release adds `retrieval/graphify/graph.json` and `retrieval/graphify/index.json`.
+The recommended source-packed layout combines repeated CSV, JSON, and RDF
+records into one authoritative Markdown collection per source while preserving
+every logical ledger identity, complete body, digest, and byte-equivalent
+Graphify retrieval projection.
 
 For a create-only migration of an existing validated core:
 
@@ -63,6 +71,9 @@ Refresh into a new directory by rerunning the complete manifest. Compare core tr
 - Every source and the unchanged Semantic OKF core validate.
 - Graph nodes and edges are closed, relative, non-orphaned, and bound to regenerated record, paper, and view identity.
 - Every ledger record has exactly one deterministic `record-root`; every lexical-similarity link equals the value regenerated from the ledger.
-- Every ledger record has a projected node and readable authoritative concept.
+- Every ledger record has a projected node and a readable authoritative concept
+  file or hash-anchored collection record.
+- The source-packed and record-per-file builds of the same ledger produce the
+  same Graphify graph bytes and ranked query results.
 - An independent second build has the same core and graph logical digests.
 - No view, cache, query log, credential, remote call, or semantic LLM output was published.
