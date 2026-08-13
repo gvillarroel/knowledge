@@ -40,7 +40,8 @@ On Windows PowerShell activate with `.\.venv\Scripts\Activate.ps1`.
 ## Build and validate
 
 ```bash
-python scripts/build_semantic_okf_graphify.py manifest.json semantic-okf-graphify-output
+python scripts/build_semantic_okf_graphify.py manifest.json semantic-okf-graphify-output \
+  --concept-layout source-packed-v1
 python scripts/validate_okf_bundle.py semantic-okf-graphify-output
 python scripts/validate_semantic_okf_graphify.py semantic-okf-graphify-output --output-format json
 ```

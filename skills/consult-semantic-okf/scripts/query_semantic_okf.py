@@ -27,7 +27,8 @@ from _consult_semantic_okf import (  # noqa: E402
     configure_utf8_output,
     ontology_namespace,
     read_json_object,
-    safe_concept_path,
+    resolve_record_concept_document,
+    snapshot_file,
     validate_snapshot,
 )
 
@@ -118,7 +119,18 @@ def _record_matches(record: Mapping[str, Any], args: argparse.Namespace) -> bool
 def _concept_content(root: Path, record: Mapping[str, Any]) -> str:
     value = record.get("concept_path")
     try:
-        path = safe_concept_path(root, value)
+        report = read_json_object(
+            snapshot_file(root, "semantic/build-report.json"), "build report"
+        )
+        path, packed = resolve_record_concept_document(root, record, report)
+        if packed:
+            body = record.get("body")
+            if not isinstance(body, str) or not body.strip():
+                raise QueryError(
+                    "bundle-invalid",
+                    f"packed ledger record {value!r} has no readable body",
+                )
+            return body.rstrip() + "\n"
         return path.read_text(encoding="utf-8")
     except SnapshotError as exc:
         raise QueryError("bundle-invalid", str(exc)) from exc

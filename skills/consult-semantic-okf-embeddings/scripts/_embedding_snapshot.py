@@ -25,6 +25,8 @@ RETRIEVAL_BUILD_REPORT_RELATIVE = "retrieval/build-report.json"
 RECORDS_RELATIVE = "semantic/records.jsonl"
 SOURCE_MANIFEST_RELATIVE = "semantic/source-manifest.json"
 BUILD_REPORT_RELATIVE = "semantic/build-report.json"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 AUTHORITATIVE_READ_FILES = (
     "semantic/semantic-plan.json",
     "semantic/data.ttl",
@@ -316,6 +318,32 @@ def concept_file(root: Path, relative: Any) -> Path:
     return snapshot_file(root, relative)
 
 
+def _validate_record_concept_files(
+    root: Path, rows: Sequence[Mapping[str, Any]]
+) -> None:
+    """Resolve every logical record through the snapshot's physical Markdown layout."""
+
+    report = _json_object(snapshot_file(root, BUILD_REPORT_RELATIVE), "build report")
+    processor = report.get("processor")
+    layout = processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    source_counts = Counter(str(row.get("source_id")) for row in rows)
+    for row in rows:
+        logical = row.get("concept_path")
+        try:
+            concept_file(root, logical)
+            continue
+        except SnapshotError as logical_error:
+            source_id = row.get("source_id")
+            if (
+                layout != CONCEPT_LAYOUT_SOURCE_PACKED
+                or row.get("source_kind") not in STRUCTURED_SOURCE_KINDS
+                or not isinstance(source_id, str)
+                or source_counts[source_id] <= 1
+            ):
+                raise logical_error
+        concept_file(root, f"concepts/{source_id}.md")
+
+
 def core_tree_members(root: Path) -> list[dict[str, str]]:
     """Describe every non-retrieval core file by exact relative path and raw digest."""
 
@@ -359,8 +387,8 @@ def _load_records(root: Path) -> dict[str, Mapping[str, Any]]:
         _require_nonempty_string(row.get("concept_type"), f"{label}.concept_type")
         _require_nonempty_string(row.get("body"), f"{label}.body")
         _require_digest(row.get("record_sha256"), f"{label}.record_sha256")
-        concept_file(root, row.get("concept_path"))
         records[concept_id] = row
+    _validate_record_concept_files(root, rows)
     return records
 
 
@@ -571,7 +599,6 @@ def _validate_chunks(
             if row.get(field) != record.get(field):
                 raise SnapshotError(f"{label}.{field} does not match the authoritative record")
         _require_digest(row.get("record_sha256"), f"{label}.record_sha256")
-        concept_file(root, row.get("concept_path"))
         ordinal = _require_integer(row.get("ordinal"), f"{label}.ordinal")
         record_key = (source_id, str(row["record_id"]))
         ordinals.setdefault(record_key, []).append(ordinal)

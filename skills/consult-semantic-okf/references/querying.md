@@ -15,7 +15,7 @@
 | Question | Use | Why |
 |---|---|---|
 | Find by concept, subject, source, type, record ID, or mapped attribute | `semantic/records.jsonl` | Canonically ordered, streaming JSONL; no RDF parse |
-| Find words and read the full human explanation | `concepts/**/*.md` | Preserves source-oriented Markdown and frontmatter |
+| Find words and read the full human explanation | `concepts/**/*.md` | Preserves source-oriented Markdown; structured records may share one source collection |
 | Join entities, filter typed values, aggregate, or traverse relations | `semantic/data.ttl` | Accepted normalized domain assertions |
 | Inspect declared classes and properties | `semantic/semantic-plan.json` and `ontology.ttl` | Reviewed model and OWL declarations |
 | Trace a subject to its source | `data.ttl` plus `provenance.ttl` | Explicit `prov:wasDerivedFrom` chain |
@@ -61,7 +61,7 @@ If `rg` is already available, it is an optional accelerator for searching concep
 rg -i -n --glob '*.md' --fixed-strings -- 'retention policy' BUNDLE/concepts
 ```
 
-Resolve the selected concept through `records.jsonl` or the ledger command before opening it. Query durable identifiers rather than relying on the hashed filename suffix.
+Resolve the selected concept through `records.jsonl` or the ledger command before opening it. In `source-packed-v1`, `--show-content` returns the exact ledger body while validating the source collection document. Query durable identifiers rather than relying on the hashed filename suffix.
 
 ## 4. Query RDF with SPARQL
 
@@ -128,5 +128,5 @@ RDFLib reparses only the selected Turtle graphs for each invocation. This bundle
 - Only local read-only SPARQL `SELECT` and `ASK` are accepted.
 - `SERVICE`, `FROM`, and `FROM NAMED` are rejected; `--graph` is the only graph-selection mechanism.
 - Query text is limited to 64 KiB.
-- `--validate` parses the complete read surface before a query: the ledger, exact concept paths, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. It is a read-only integrity gate; if the folder is moved, untrusted, structurally changed, or invalid, report the condition and stop.
+- `--validate` parses the complete read surface before a query: the ledger, declared physical concept layout, semantic plan, and all local Turtle graphs. Without it, the helper requires a passing build report and required local artifacts. It is a read-only integrity gate; if the folder is moved, untrusted, structurally changed, or invalid, report the condition and stop.
 - The helper never mutates a bundle, dereferences ontology imports, or creates indexes inside it.

@@ -181,6 +181,9 @@ def test_skill_metadata_and_standalone_boundary_are_complete() -> None:
     assert set(metadata) == {"name", "description"}
     assert metadata["name"] == "build-semantic-okf-classical"
     assert "## Standalone and authority boundary" in skill
+    assert "## Reference routing" in skill
+    assert "## Required references" not in skill
+    assert "load no reference" in skill
     assert "non-authoritative" in skill
     assert "$build-semantic-okf-classical" in (
         SKILL_ROOT / "agents" / "openai.yaml"
@@ -192,7 +195,8 @@ def test_skill_metadata_and_standalone_boundary_are_complete() -> None:
     )
     assert not any("embeddings" in path.name for path in SKILL_ROOT.rglob("*"))
     assert (SKILL_ROOT / "references" / "classical-plan.md").is_file()
-    assert (SKILL_ROOT / "references" / "classical-format.md").is_file()
+    assert not (SKILL_ROOT / "references" / "classical-format.md").exists()
+    assert not (SKILL_ROOT / "references" / "python-runtime.md").exists()
 
 
 def test_plan_parser_is_closed_and_rejects_duplicate_keys(tmp_path: Path) -> None:

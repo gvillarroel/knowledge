@@ -15,6 +15,8 @@ from typing import Any, Iterable, Mapping, Sequence
 
 
 STORE_CONTRACT = "semantic-okf-turso/1.0"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 DATABASE_RELATIVE_PATH = "semantic/knowledge.db"
 INDEXED_GRAPHS = {
     "data": "semantic/data.ttl",
@@ -467,6 +469,15 @@ def _record_rows(
     record_rows: list[tuple[str, ...]] = []
     concept_rows: list[tuple[str, ...]] = []
     attribute_rows: list[tuple[Any, ...]] = []
+    report = _json_object(root / "semantic" / "build-report.json", "build report")
+    processor = report.get("processor")
+    concept_layout = (
+        processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    )
+    source_counts: dict[str, int] = {}
+    for record in records:
+        source_id = str(record.get("source_id", ""))
+        source_counts[source_id] = source_counts.get(source_id, 0) + 1
     for record in sorted(records, key=lambda item: str(item.get("concept_id", ""))):
         missing = sorted(required - set(record))
         if missing:
@@ -477,8 +488,18 @@ def _record_rows(
                 f"record {record['concept_id']!r} attributes must be an object"
             )
         concept_path = str(record["concept_path"])
-        concept_file = _safe_relative_path(root, concept_path, prefix="concepts")
-        concept_content = _read_text(concept_file, concept_path)
+        source_id = str(record.get("source_id", ""))
+        packed = (
+            concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and source_counts.get(source_id, 0) > 1
+        )
+        if packed:
+            _safe_relative_path(root, f"concepts/{source_id}.md", prefix="concepts")
+            concept_content = str(record["body"]).rstrip() + "\n"
+        else:
+            concept_file = _safe_relative_path(root, concept_path, prefix="concepts")
+            concept_content = _read_text(concept_file, concept_path)
         record_json = canonical_json(record)
         record_rows.append(
             tuple(
@@ -803,6 +824,7 @@ def validate_turso_store(
             if missing_concepts or summary["concepts"] != summary["records"]:
                 errors.append("records and concepts are not one-to-one")
             bad_record_json = 0
+            record_payloads: dict[str, Mapping[str, Any]] = {}
             for row in connection.execute(
                 """
                 SELECT concept_id, concept_path, subject_iri, source_id, record_id,
@@ -815,6 +837,8 @@ def validate_turso_store(
                 except (TypeError, json.JSONDecodeError):
                     bad_record_json += 1
                     continue
+                if isinstance(payload, dict):
+                    record_payloads[str(row[0])] = payload
                 expected = row[:8]
                 observed = tuple(
                     payload.get(name)
@@ -858,6 +882,19 @@ def validate_turso_store(
                         errors.append(
                             f"database artifact differs from bundle: {relative}"
                         )
+                report = _json_object(
+                    root / "semantic" / "build-report.json", "build report"
+                )
+                processor = report.get("processor")
+                layout = (
+                    processor.get("concept_layout")
+                    if isinstance(processor, Mapping)
+                    else None
+                )
+                source_counts: dict[str, int] = {}
+                for payload in record_payloads.values():
+                    source_id = str(payload.get("source_id", ""))
+                    source_counts[source_id] = source_counts.get(source_id, 0) + 1
                 for (
                     concept_id,
                     relative,
@@ -867,8 +904,21 @@ def validate_turso_store(
                     "SELECT concept_id, concept_path, sha256, content FROM concepts ORDER BY concept_id"
                 ).fetchall():
                     try:
-                        source = _safe_relative_path(root, relative, prefix="concepts")
-                        content = _read_text(source, str(relative))
+                        payload = record_payloads.get(str(concept_id), {})
+                        source_id = str(payload.get("source_id", ""))
+                        packed = (
+                            layout == CONCEPT_LAYOUT_SOURCE_PACKED
+                            and payload.get("source_kind") in STRUCTURED_SOURCE_KINDS
+                            and source_counts.get(source_id, 0) > 1
+                        )
+                        if packed:
+                            _safe_relative_path(
+                                root, f"concepts/{source_id}.md", prefix="concepts"
+                            )
+                            content = str(payload.get("body", "")).rstrip() + "\n"
+                        else:
+                            source = _safe_relative_path(root, relative, prefix="concepts")
+                            content = _read_text(source, str(relative))
                     except TursoStoreError as exc:
                         errors.append(str(exc))
                         continue

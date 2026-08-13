@@ -298,6 +298,74 @@ def test_runtime_smoke_reports_read_only_standalone_runtime() -> None:
     assert payload["network"] == "none"
 
 
+def test_packed_records_resolve_to_collection_but_return_exact_record_body(
+    tmp_path: Path,
+) -> None:
+    query = load_script("query_semantic_okf.py")
+    support = sys.modules["_consult_semantic_okf"]
+    root = tmp_path / "packed"
+    (root / "semantic").mkdir(parents=True)
+    (root / "concepts").mkdir()
+    report = {
+        "valid": True,
+        "status": "pass",
+        "processor": {
+            "name": "semantic-okf-python",
+            "contract_version": "1.0",
+            "concept_layout": "source-packed-v1",
+        },
+    }
+    (root / "semantic" / "build-report.json").write_text(
+        json.dumps(report), encoding="utf-8"
+    )
+    (root / "concepts" / "claims.md").write_text(
+        "---\ntype: Semantic OKF Record Collection\n---\n\n# Claims\n",
+        encoding="utf-8",
+    )
+    records = [
+        {
+            "concept_path": f"concepts/claims/claim-{number}.md",
+            "source_id": "claims",
+            "source_kind": "json",
+            "body": f"# Claim {number}\n\nExact evidence {number}.",
+        }
+        for number in (1, 2)
+    ]
+
+    support.validate_concept_documents(root, records, report)
+    document, packed = support.resolve_record_concept_document(root, records[0], report)
+
+    assert document == (root / "concepts" / "claims.md").resolve()
+    assert packed is True
+    assert query._concept_content(root, records[0]) == records[0]["body"] + "\n"
+
+
+def test_missing_legacy_concept_is_not_hidden_by_ledger_body(tmp_path: Path) -> None:
+    query = load_script("query_semantic_okf.py")
+    root = tmp_path / "legacy"
+    (root / "semantic").mkdir(parents=True)
+    report = {
+        "valid": True,
+        "status": "pass",
+        "processor": {
+            "name": "semantic-okf-python",
+            "contract_version": "1.0",
+        },
+    }
+    (root / "semantic" / "build-report.json").write_text(
+        json.dumps(report), encoding="utf-8"
+    )
+    record = {
+        "concept_path": "concepts/claims/missing.md",
+        "source_id": "claims",
+        "source_kind": "json",
+        "body": "# Missing",
+    }
+
+    with pytest.raises(query.QueryError, match="escapes or is missing"):
+        query._concept_content(root, record)
+
+
 def test_ledger_filters_typed_attributes_and_opens_exact_content() -> None:
     paper = run_query(
         "ledger",

@@ -44,6 +44,9 @@ def test_dedicated_builder_is_standalone_and_bound_to_frozen_consult() -> None:
     assert set(metadata) == {"name", "description"}
     assert metadata["name"] == "build-semantic-okf-tantivy"
     assert "## Frozen-consumer boundary" in skill
+    assert "## Reference routing" in skill
+    assert "## Required references" not in skill
+    assert "load no reference" in skill
     assert "Do not import or execute a sibling skill" in skill
     assert "$build-semantic-okf-tantivy" in (
         SKILL_ROOT / "agents" / "openai.yaml"
@@ -54,6 +57,8 @@ def test_dedicated_builder_is_standalone_and_bound_to_frozen_consult() -> None:
     assert "Validate one published Tantivy-compatible bundle" in validator
     assert "build-semantic-okf-classical" not in entrypoint + validator
     assert (SKILL_ROOT / "references" / "tantivy-consumer-contract.md").is_file()
+    assert not (SKILL_ROOT / "references" / "classical-format.md").exists()
+    assert not (SKILL_ROOT / "references" / "python-runtime.md").exists()
 
 
 def test_projection_serializers_force_utf8_lf_bytes(tmp_path: Path) -> None:

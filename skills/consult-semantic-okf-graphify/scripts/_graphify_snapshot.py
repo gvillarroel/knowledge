@@ -21,6 +21,8 @@ INDEX_PATH = PROJECTION / "index.json"
 GRAPH_PATH = PROJECTION / "graph.json"
 RECORDS_PATH = PurePosixPath("semantic/records.jsonl")
 VIEW_ROOT_NAME = ".graphify-views"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 HEX_RE = re.compile(r"^[0-9a-f]{64}$")
 RECORD_DIGEST_FIELDS = (
     "source_id",
@@ -356,6 +358,29 @@ def _safe_file(root: Path, relative: Any, label: str) -> Path:
     return candidate
 
 
+def _concept_document_paths(
+    root: Path, records: list[dict[str, Any]]
+) -> dict[str, str]:
+    """Map stable logical locators to physical concept or collection documents."""
+
+    report = _load_object(root / "semantic" / "build-report.json", "build report")
+    processor = report.get("processor")
+    layout = processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    source_counts = Counter(str(record.get("source_id")) for record in records)
+    result: dict[str, str] = {}
+    for record in records:
+        logical = str(record.get("concept_path", ""))
+        source_id = record.get("source_id")
+        packed = (
+            layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and isinstance(source_id, str)
+            and source_counts[source_id] > 1
+        )
+        result[logical] = f"concepts/{source_id}.md" if packed else logical
+    return result
+
+
 class Snapshot:
     """One fully verified immutable Semantic OKF + Graphify release."""
 
@@ -369,6 +394,7 @@ class Snapshot:
         self.records_by_path = {
             str(record.get("concept_path")): record for record in self.records
         }
+        self.concept_documents = _concept_document_paths(self.root, self.records)
         self.subject_records, self.subject_views = _record_maps(self.records)
         self.expected_by_path = {
             path: _expected_index_entry(record, self.subject_records, self.subject_views)
@@ -439,7 +465,12 @@ class Snapshot:
                 errors.append(f"duplicate node id: {node['id']}")
             node_ids.add(node["id"])
             try:
-                _safe_file(self.root, node.get("source_file"), f"node {node['id']} source_file")
+                source_file = node.get("source_file")
+                _safe_file(
+                    self.root,
+                    self.concept_documents.get(str(source_file), source_file),
+                    f"node {node['id']} source_file",
+                )
             except SnapshotError as exc:
                 errors.append(str(exc))
             if node.get("projection") == "graphify-view":
@@ -470,7 +501,12 @@ class Snapshot:
             degree[str(link["target"])] += 1
             if link.get("source_file"):
                 try:
-                    _safe_file(self.root, link["source_file"], f"link {number} source_file")
+                    source_file = link["source_file"]
+                    _safe_file(
+                        self.root,
+                        self.concept_documents.get(str(source_file), source_file),
+                        f"link {number} source_file",
+                    )
                 except SnapshotError as exc:
                     errors.append(str(exc))
             if link.get("projection") == "graphify-view":
@@ -537,7 +573,8 @@ class Snapshot:
 
     def _concept_payload(self, record: Mapping[str, Any], *, show_content: bool) -> dict[str, Any]:
         concept_path = str(record["concept_path"])
-        concept = _safe_file(self.root, concept_path, "concept_path")
+        document_path = self.concept_documents.get(concept_path, concept_path)
+        concept = _safe_file(self.root, document_path, "concept document path")
         concept_sha256 = sha256_file(concept)
         payload = {
             "attributes": record.get("attributes", {}),
@@ -546,8 +583,8 @@ class Snapshot:
             "concept_sha256": concept_sha256,
             "concept_type": record.get("concept_type"),
             "evidence": {
-                "kind": "concept-file",
-                "path": concept_path,
+                "kind": "concept-file" if document_path == concept_path else "concept-collection",
+                "path": document_path,
                 "sha256": concept_sha256,
             },
             "paper_id": _paper_id(record, self.subject_records),
@@ -558,7 +595,11 @@ class Snapshot:
             "title": record.get("title"),
         }
         if show_content:
-            payload["content"] = concept.read_text(encoding="utf-8")
+            payload["content"] = (
+                concept.read_text(encoding="utf-8")
+                if document_path == concept_path
+                else str(record.get("body", "")).rstrip() + "\n"
+            )
         return payload
 
     def exact(

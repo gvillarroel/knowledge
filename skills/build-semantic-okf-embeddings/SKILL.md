@@ -40,7 +40,7 @@ Never accept an implicit provider, hosted model, mutable model revision, network
 Run commands from the directory containing this `SKILL.md`, or prefix paths with the copied skill root:
 
 ```bash
-python scripts/build_semantic_okf_embeddings.py manifest.json retrieval-plan.json semantic-okf-embeddings --output-format json
+python scripts/build_semantic_okf_embeddings.py manifest.json retrieval-plan.json semantic-okf-embeddings --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_embeddings.py semantic-okf-embeddings --output-format json
 ```
 

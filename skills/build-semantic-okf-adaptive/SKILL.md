@@ -41,7 +41,7 @@ Reject unknown plan members, implicit defaults, partial selection, unsafe paths,
 ## Build and validate
 
 ```bash
-python scripts/build_semantic_okf_adaptive.py manifest.json adaptive-plan.json semantic-okf-adaptive --output-format json
+python scripts/build_semantic_okf_adaptive.py manifest.json adaptive-plan.json semantic-okf-adaptive --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_adaptive.py semantic-okf-adaptive --output-format json
 ```
 

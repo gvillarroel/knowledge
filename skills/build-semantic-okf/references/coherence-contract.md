@@ -14,8 +14,8 @@
 
 For each `records.jsonl` entry, require all of the following:
 
-1. Its `concept_id` resolves to exactly one OKF concept file.
-2. The concept frontmatter fields match the record entry.
+1. Its stable `concept_id` and logical `concept_path` remain derived from `(source_id, record_id)` independently of physical Markdown layout.
+2. The declared layout resolves it exactly once: `record-per-file-v1` uses its own concept document, while `source-packed-v1` places repeated structured records in one source collection with a deterministic record anchor and the complete normalized body.
 3. Its `ontology_class_iri` is declared as `owl:Class`.
 4. Its `subject_iri` is an absolute IRI and has that `rdf:type` in `data.ttl`.
 5. The subject has exactly one semantic `okfConceptId` equal to `concept_id`.
@@ -23,7 +23,9 @@ For each `records.jsonl` entry, require all of the following:
 7. The source exists in `source-manifest.json` and contributes to its sorted records digest.
 8. Its `source_refs` exactly match the PROV-O record entities linked with `prov:wasDerivedFrom`.
 
-Also require the reverse direction: every generated concept has one record entry, and the complete subject set in accepted `data.ttl` equals the record-ledger subject set. Keep ontology, shapes, validation, and provenance triples out of the accepted data graph.
+Also require the reverse direction: every physical concept document is deterministically reconstructed from one or more ledger records, every record occurs in exactly one physical document, individual concept frontmatter matches its record, and collection frontmatter matches its aggregate source/count/digests. The root index must enumerate physical documents exactly once. The complete subject set in accepted `data.ttl` equals the record-ledger subject set. Keep ontology, shapes, validation, and provenance triples out of the accepted data graph.
+
+Physical compaction is not semantic deduplication. It must not remove, merge, rewrite, or reorder normalized records; change record hashes, logical paths, graph subjects, assertions, or provenance; or pack independent Markdown documents. A short record remains a ledger and graph record even when its readable body shares a collection document.
 
 Preserve the reviewed manifest as `semantic/semantic-plan.json`. Reconstruct the ontology, accepted data, SHACL shapes, and provenance graphs from that plan plus `records.jsonl`, then require RDF graph isomorphism. Artifact hashes detect accidental byte changes; reconstruction detects coordinated semantic changes.
 

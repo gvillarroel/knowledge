@@ -63,7 +63,8 @@ Keep the environment activated for every command below. CPython 3.12 is the comp
 ## Build and validate
 
 ```bash
-python scripts/build_semantic_okf.py manifest.json semantic-okf-output
+python scripts/build_semantic_okf.py manifest.json semantic-okf-output \
+  --concept-layout source-packed-v1
 python scripts/validate_okf_bundle.py semantic-okf-output
 python scripts/validate_semantic_okf.py semantic-okf-output --output-format json
 ```
@@ -73,7 +74,7 @@ and generated output:
 
 ```bash
 python scripts/build_semantic_okf.py manifest.json semantic-okf-output \
-  --cache-dir .semantic-okf-cache
+  --cache-dir .semantic-okf-cache --concept-layout source-packed-v1
 ```
 
 Reuse requires the same logical path, raw SHA-256, adapter configuration, and
@@ -135,6 +136,8 @@ python scripts/refresh_semantic_okf.py recover semantic-okf-output
 ## Source rules
 
 - `markdown`: one concept per file; mapped YAML values must be scalars; the body is preserved for reading.
+- `source-packed-v1` keeps Markdown one-file-per-record and combines repeated CSV, JSON, or RDF records into one validated collection document per source. Logical `concept_id`, `concept_path`, record body, hashes, RDF, provenance, and ledger order do not change.
+- Do not delete a normalized record merely because its body is short. Compact physical rendering only after preserving every record in `semantic/records.jsonl` and the semantic graphs.
 - `csv`: exact, case-sensitive headers; header order is irrelevant; duplicate, missing, and extra columns fail; scalar conversion is strict.
 - `json`: one object per line unless `multiLine=true`; missing declared fields become null; unknown fields are ignored; malformed or non-object records fail.
 - `rdf`: one concept per absolute URI subject; blank nodes must be skolemized; repeated mapped predicate values remain repeated values.

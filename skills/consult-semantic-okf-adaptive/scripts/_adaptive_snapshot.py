@@ -15,6 +15,8 @@ from typing import Any, Iterable, Mapping, Sequence
 
 
 SCHEMA_VERSION = "1.2"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 PLAN_SCHEMA_VERSION = "1.1"
 TOKENIZER_ID = "ascii-alphanumeric-v1"
 STOPWORDS_ID = "english-v1"
@@ -1010,12 +1012,18 @@ def _validate_documents(
     records: Sequence[dict[str, Any]],
     plan: Mapping[str, Any],
     topics: Mapping[str, Any],
+    semantic_report: Mapping[str, Any],
 ) -> None:
     record_by_key = {(row.get("source_id"), row.get("record_id")): row for row in records}
     if len(record_by_key) != len(records):
         raise SnapshotError("authoritative ledger contains duplicate source/record identities")
     term_topics = {row["term"]: row["topic_id"] for row in topics["term_topics"]}
     topic_ids = {row["topic_id"] for row in topics["topics"]}
+    source_counts = Counter(str(record.get("source_id")) for record in records)
+    processor = semantic_report.get("processor")
+    concept_layout = (
+        processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    )
     ids: list[str] = []
     for number, document in enumerate(documents, start=1):
         _exact_keys(document, DOCUMENT_KEYS, f"adaptive/documents.jsonl:{number}")
@@ -1045,6 +1053,17 @@ def _validate_documents(
         if concept.parts[0] != "concepts":
             raise SnapshotError("document concept path is outside concepts/")
         concept_file = root.joinpath(*concept.parts)
+        if (
+            not concept_file.is_file()
+            and concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and source_counts[str(record.get("source_id"))] > 1
+        ):
+            collection = _safe_relative(
+                f"concepts/{record.get('source_id')}.md",
+                "packed concept collection",
+            )
+            concept_file = root.joinpath(*collection.parts)
         if not concept_file.is_file() or concept_file.is_symlink():
             raise SnapshotError(f"document concept file is missing or unsafe: {document['concept_path']}")
         text = document["text"]
@@ -1268,7 +1287,7 @@ def load_snapshot(root: Path, *, deep_validation: bool = False) -> AdaptiveSnaps
     associations = _read_jsonl(adaptive / "associations.jsonl", "adaptive/associations.jsonl")
     topics = _load_json(adaptive / "topics.json", "adaptive/topics.json")
     _validate_topics(topics, associations, plan)
-    _validate_documents(root, documents, records, plan, topics)
+    _validate_documents(root, documents, records, plan, topics, semantic_report)
     expected_answer_bindings = _derive_answer_bindings(selected_records, plan)
     if answer_bindings != expected_answer_bindings:
         raise SnapshotError(

@@ -16,21 +16,21 @@ Build one authoritative Semantic OKF core and one model-free classical discovery
 - Do not search, answer, compare claims, cite, or synthesize from a published snapshot.
 - Treat `classical/` as non-authoritative discovery data. Keep `concepts/`, `semantic/records.jsonl`, and purpose-selected RDF graphs authoritative.
 
-## Required references
+## Reference routing
 
-- Read [source-combination.md](references/source-combination.md) before combining physical sources.
-- Read [manifest.md](references/manifest.md) before writing or changing the Semantic OKF manifest.
-- Read [coherence-contract.md](references/coherence-contract.md) before changing mappings or validation.
-- Read [classical-plan.md](references/classical-plan.md) before selecting sources or text-processing parameters.
-- Read [classical-format.md](references/classical-format.md) before reviewing or diagnosing derived artifacts.
-- Read [python-runtime.md](references/python-runtime.md) before installing or running the package.
+For an unchanged reviewed manifest and plan, load no reference. Otherwise:
+
+- [source-combination.md](references/source-combination.md): multiple inputs or source topology.
+- [manifest.md](references/manifest.md): manifest authoring or diagnosis.
+- [coherence-contract.md](references/coherence-contract.md): mapping, validation, or cross-layer diagnosis.
+- [classical-plan.md](references/classical-plan.md): retrieval-plan authoring or tuning.
 
 ## Workflow
 
 1. Define the source authority, exact physical input set, competency questions, and evidence identities.
 2. Inspect source identifiers, schemas, encodings, and mappings; write the closed Semantic OKF manifest.
 3. Write a closed classical plan. Select source IDs explicitly and pin tokenizer, n-grams, BM25, association, topic, expansion, and reranking parameters.
-4. Install only `scripts/requirements.txt`. The classical layer uses the Python standard library and requires no model or network access.
+4. Use CPython 3.12 in an isolated environment; install only `scripts/requirements.txt` and run `python -B scripts/runtime_smoke.py`. The classical layer needs no model or network access.
 5. Build into a new output path. The command creates the authoritative core, derives exact page or record passages, validates every binding, and publishes with one final rename.
 6. Run the independent validator against the published output.
 7. Rebuild unchanged inputs and plan into another absent path; require identical sorted path-and-byte hashes.
@@ -43,8 +43,8 @@ Never accept unknown plan members, implicit defaults, partial source selection, 
 Run from this skill directory, or prefix scripts with the copied skill root:
 
 ```bash
-python scripts/build_semantic_okf_classical.py manifest.json classical-plan.json semantic-okf-classical --output-format json
-python scripts/validate_semantic_okf_classical.py semantic-okf-classical --output-format json
+python -B scripts/build_semantic_okf_classical.py manifest.json classical-plan.json semantic-okf-classical --concept-layout source-packed-v1 --output-format json
+python -B scripts/validate_semantic_okf_classical.py semantic-okf-classical --output-format json
 ```
 
 The destination must not exist. A successful release contains the complete core and exactly six classical files:

@@ -28,7 +28,7 @@ Navigate and answer from one published Semantic OKF knowledge folder while prese
 2. Locate the bundle and require a passing `semantic/build-report.json` plus the declared read artifacts.
 3. Choose the cheapest authoritative layer that can answer the operation.
 4. Discover exact identifiers and artifact paths through `semantic/records.jsonl` before opening large concepts or graphs.
-5. Read selected `concepts/` Markdown for full explanations and source-oriented context.
+5. Read selected record bodies for exact evidence and resolve their declared concept documents for source-oriented context. A packed structured source may use one collection document for many stable ledger records.
 6. Use `semantic/data.ttl` only when the question needs joins, traversal, grouping, aggregation, or typed values. Add other graphs only for their declared purpose.
 7. For multi-source questions, establish breadth and evidence coverage before reading any one source deeply.
 8. Verify every returned value, citation, page locator, and `concept_path` against the selected authoritative layer.
@@ -69,7 +69,7 @@ The bundled Python helper is the supported baseline. `rg`, external reasoners, a
 ## Choose the authoritative layer
 
 1. Use `semantic/records.jsonl` for exact identifiers, source filters, record types, mapped attributes, counts, and literal artifact paths.
-2. Use `concepts/` Markdown with fixed-string search for lexical discovery and human reading.
+2. Use `concepts/` Markdown collections with fixed-string search for lexical discovery and human reading; use the ledger body when one exact packed record is required.
 3. Use `semantic/data.ttl` for accepted domain facts and semantic operations.
 4. Add `ontology.ttl` only for reviewed schema questions.
 5. Add `provenance.ttl` only for lineage or physical-source questions.
@@ -101,7 +101,7 @@ Use `--validate` to parse the complete read surface before consultation. This ve
 
 Work breadth before depth. Convert the request into a clause checklist and build a source-by-clause-by-dimension ledger from one batched query. Count a source only when a selected claim directly supports a requested clause. Meet the independent-source minimum with verified relevant sources before reading any one source deeply.
 
-Copy artifact paths verbatim from ledger `concept_path` values. Never reconstruct hashes, shorten generated names, use wildcard paths, or substitute a topic-adjacent source for a relevant one. Keep source IDs, cited pages, and evidence paths aligned.
+Copy stable logical locators verbatim from ledger `concept_path` values. Never reconstruct hashes, shorten generated names, use wildcard paths, or substitute a topic-adjacent source for a relevant one. The helper resolves a logical locator to its own Markdown file or the source collection declared by the build layout. Keep source IDs, cited pages, and evidence paths aligned.
 
 Read [cross-source-synthesis.md](references/cross-source-synthesis.md) only when the request needs multi-source comparison or a strict evidence contract. Its optional helpers remain local and read-only.
 

@@ -215,6 +215,8 @@ def test_skill_metadata_documents_and_runtime_are_standalone() -> None:
     assert set(metadata) == {"name", "description"}
     assert metadata["name"] == "consult-semantic-okf-classical"
     assert "## Standalone and read-only boundary" in skill
+    assert "## Reference routing" in skill
+    assert "## Required references" not in skill
     assert "--deep-validation" in skill
     assert "$consult-semantic-okf-classical" in (
         SKILL_ROOT / "agents" / "openai.yaml"
@@ -222,6 +224,7 @@ def test_skill_metadata_documents_and_runtime_are_standalone() -> None:
     assert (SCRIPTS / "requirements.txt").read_text(encoding="utf-8").strip() == (
         "# No third-party packages are required."
     )
+    assert not (SKILL_ROOT / "references" / "classical-format.md").exists()
     source = (SCRIPTS / "_classical_snapshot.py").read_text(encoding="utf-8")
     assert "_classical_retrieval" not in source
     assert "sentence_transformers" not in source

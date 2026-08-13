@@ -35,6 +35,8 @@ INDEX_RELATIVE_PATH = PROJECTION_RELATIVE_PATH / "index.json"
 RECORDS_RELATIVE_PATH = PurePosixPath("semantic/records.jsonl")
 VIEW_ROOT_NAME = ".graphify-views"
 HEX_RE = re.compile(r"^[0-9a-f]{64}$")
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 RECORD_IDENTITY_FIELDS = (
     "concept_id",
     "concept_path",
@@ -155,6 +157,33 @@ def load_records(root: Path) -> list[dict[str, Any]]:
     if not records:
         raise GraphifyProjectionError("record ledger is empty")
     return records
+
+
+def _concept_document_paths(
+    root: Path, records: list[dict[str, Any]]
+) -> dict[str, str]:
+    """Map stable logical concept locators to physical Markdown documents."""
+
+    report = _load_json_object(root / "semantic" / "build-report.json", "build report")
+    processor = report.get("processor")
+    layout = processor.get("concept_layout") if isinstance(processor, Mapping) else None
+    source_counts: dict[str, int] = {}
+    for record in records:
+        source_id = record.get("source_id")
+        if isinstance(source_id, str):
+            source_counts[source_id] = source_counts.get(source_id, 0) + 1
+    result: dict[str, str] = {}
+    for record in records:
+        logical = str(record.get("concept_path", ""))
+        source_id = record.get("source_id")
+        packed = (
+            layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and isinstance(source_id, str)
+            and source_counts.get(source_id, 0) > 1
+        )
+        result[logical] = f"concepts/{source_id}.md" if packed else logical
+    return result
 
 
 def _safe_text(value: Any) -> str:
@@ -427,10 +456,11 @@ def _write_views(root: Path, records: list[dict[str, Any]]) -> tuple[Path, list[
     record_root = view_root / "records"
     record_root.mkdir(parents=True)
     subject_records, subject_views = _record_maps(records)
+    concept_documents = _concept_document_paths(root, records)
     entries: list[dict[str, Any]] = []
     for record in records:
         concept_path = str(record.get("concept_path", ""))
-        concept = root / PurePosixPath(concept_path)
+        concept = root / PurePosixPath(concept_documents.get(concept_path, ""))
         if not concept_path or not concept.is_file() or concept.is_symlink():
             raise GraphifyProjectionError(f"record has an invalid concept_path: {concept_path!r}")
         view_relative, text = _render_view(record, subject_records, subject_views)
@@ -695,6 +725,7 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
         if (root / VIEW_ROOT_NAME).exists():
             errors.append("published bundle contains reserved temporary Graphify views")
         ledger_by_path = {str(record.get("concept_path")): record for record in records}
+        concept_documents = _concept_document_paths(root, records)
         if len(ledger_by_path) != len(records):
             errors.append("authoritative ledger contains duplicate concept paths")
         subject_records, subject_views = _record_maps(records)
@@ -757,7 +788,11 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
             node_ids.add(node["id"])
             source = node.get("source_file")
             try:
-                _safe_bundle_path(root, source, f"node {node['id']} source_file")
+                _safe_bundle_path(
+                    root,
+                    concept_documents.get(str(source), source),
+                    f"node {node['id']} source_file",
+                )
             except GraphifyProjectionError as exc:
                 errors.append(str(exc))
             if node.get("projection") == "graphify-view":
@@ -795,7 +830,11 @@ def validate_graphify_projection(root: Path, *, require_runtime: bool = True) ->
             source_file = link.get("source_file")
             if source_file:
                 try:
-                    _safe_bundle_path(root, source_file, f"link {number} source_file")
+                    _safe_bundle_path(
+                        root,
+                        concept_documents.get(str(source_file), source_file),
+                        f"link {number} source_file",
+                    )
                 except GraphifyProjectionError as exc:
                     errors.append(str(exc))
             if link.get("projection") == "graphify-view":

@@ -248,6 +248,86 @@ def test_ranking_metrics_deduplicate_identifiers() -> None:
     assert metrics["ndcg_at_10"] == pytest.approx(expected_dcg / ideal_dcg)
 
 
+def test_evidence_validation_resolves_and_verifies_packed_concept_documents(
+    tmp_path: Path,
+) -> None:
+    comparator = load_comparator()
+    bundle = tmp_path / "packed"
+    source_id = "claims-example"
+    physical_path = f"concepts/{source_id}.md"
+    records = [
+        {
+            "source_id": source_id,
+            "source_kind": "json",
+            "record_id": f"claim-{number}",
+            "record_sha256": digest * 64,
+            "concept_id": f"concepts/{source_id}/claim-{number}",
+            "concept_path": f"concepts/{source_id}/claim-{number}.md",
+            "source_path": "sources/claims/example.jsonl",
+            "body": f"# Claim {number}\n\nExact evidence {number}.",
+        }
+        for number, digest in ((1, "a"), (2, "b"))
+    ]
+    write_json(
+        bundle / "semantic" / "build-report.json",
+        {"processor": {"concept_layout": "source-packed-v1"}},
+    )
+    (bundle / "semantic" / "records.jsonl").write_text(
+        "".join(json.dumps(record, separators=(",", ":")) + "\n" for record in records),
+        encoding="utf-8",
+    )
+    concept = bundle / physical_path
+    concept.parent.mkdir(parents=True, exist_ok=True)
+    concept.write_text(
+        "---\nconcept_path: concepts/claims-example.md\n---\n\n"
+        + "\n\n---\n\n".join(
+            f'<a id="record-{record["record_sha256"][:16]}"></a>\n\n{record["body"]}'
+            for record in records
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    ledger = comparator.AuthoritativeLedger.from_bundle(bundle)
+    record = records[1]
+    hit = comparator.RetrievalHit(
+        source_id=record["source_id"],
+        paper_id=None,
+        chunk_id=None,
+        ordinal=None,
+        concept_path=record["concept_path"],
+        concept_id=record["concept_id"],
+        record_id=record["record_id"],
+        record_sha256=record["record_sha256"],
+        source_path=record["source_path"],
+        locator={"kind": "record"},
+        text=record["body"],
+        text_sha256=comparator.sha256_bytes(record["body"].encode("utf-8")),
+        score=1.0,
+    )
+
+    validation = comparator._validate_hit_evidence(bundle, ledger, hit)
+
+    assert validation == {
+        "valid": True,
+        "issues": [],
+        "concept_document_path": physical_path,
+    }
+
+    concept.write_text(
+        concept.read_text(encoding="utf-8").replace(
+            f'<a id="record-{record["record_sha256"][:16]}"></a>',
+            '<a id="record-tampered"></a>',
+        ),
+        encoding="utf-8",
+    )
+    drifted = comparator._validate_hit_evidence(
+        bundle, comparator.AuthoritativeLedger.from_bundle(bundle), hit
+    )
+    assert drifted["valid"] is False
+    assert [issue["code"] for issue in drifted["issues"]] == ["packed-record-section"]
+
+
 def test_comparator_runs_four_routes_and_writes_explicit_reports(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

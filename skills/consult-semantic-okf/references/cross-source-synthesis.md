@@ -86,7 +86,7 @@ Before returning the answer, check all of the following:
 - the relevant independent-source count meets the minimum;
 - selected source IDs, citations, pages, and evidence paths agree;
 - every citation page is within the verified source and supports the associated statement;
-- every evidence item is a string copied from a verified `concept_path` and exists locally;
+- every evidence item is a string copied from a verified logical `concept_path`, and that record resolves to a local concept or collection document;
 - no wildcard, abbreviated generated name, placeholder, or synthesized hash appears.
 
 If any gate fails, repair the coverage ledger or output structure, then rerun the preflight. Safe structural repairs appear in `normalized_response`; guessed paths and semantic coverage gaps remain hard failures and require exact planner evidence. Do not hide a coverage gap by adding unrelated sources or unverifiable paths. A passing preflight proves structural and local evidence alignment, not that every prose sentence is semantically entailed; retain that responsibility during close reading.

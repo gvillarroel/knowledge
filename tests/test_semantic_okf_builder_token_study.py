@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import sys
 from pathlib import Path
+
+import pytest
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -74,6 +77,18 @@ def test_frozen_builder_study_has_all_eight_registered_families() -> None:
             assert PREPARE.RUNTIME_IMAGE in text
             assert "builder-token" in text
         assert record["build_skill"].startswith("build-semantic-okf")
+
+
+def test_frozen_builder_verification_rejects_internal_skill_drift(
+    tmp_path: Path,
+) -> None:
+    frozen = tmp_path / "frozen"
+    shutil.copytree(PREPARE.DEFAULT_OUTPUT, frozen)
+    skill = frozen / "skills" / "build-semantic-okf" / "SKILL.md"
+    skill.write_text(skill.read_text(encoding="utf-8") + "\nDrift.\n", encoding="utf-8")
+
+    with pytest.raises(PREPARE.StudyPreparationError, match="skill tree digest"):
+        PREPARE.verify(frozen)
 
 
 def test_builder_scorer_qualifies_one_valid_folder(

@@ -7,7 +7,6 @@ import argparse
 import hashlib
 import json
 import shutil
-import tempfile
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -487,17 +486,101 @@ def materialize(output: Path) -> dict[str, Any]:
 
 
 def verify(output: Path) -> dict[str, Any]:
-    """Require exact deterministic regeneration from the current sources."""
+    """Verify one immutable frozen study against its recorded internal digests."""
 
     if not output.is_dir():
         raise StudyPreparationError(f"frozen study does not exist: {output}")
-    with tempfile.TemporaryDirectory(prefix="builder-token-study-") as temporary:
-        expected = Path(temporary) / "frozen"
-        manifest = materialize(expected)
-        if tree_digest(output) != tree_digest(expected):
-            raise StudyPreparationError(
-                "frozen builder study differs from deterministic regeneration"
+    expected_entries = {
+        "families.json",
+        "frozen-inputs.json",
+        "harbor",
+        "inputs",
+        "skills",
+        "tasks",
+    }
+    actual_entries = {path.name for path in output.iterdir()}
+    if actual_entries != expected_entries:
+        raise StudyPreparationError(
+            "frozen builder study has unexpected top-level entries"
+        )
+    manifest = load_object(output / "frozen-inputs.json")
+    if manifest.get("schema_version") != "semantic-okf-builder-token-frozen-inputs/3.0":
+        raise StudyPreparationError("frozen builder study has an unsupported schema")
+
+    def require_digest(actual: str, expected: Any, label: str) -> None:
+        if not isinstance(expected, str) or actual != expected:
+            raise StudyPreparationError(f"frozen {label} digest differs from its manifest")
+
+    require_digest(
+        sha256_file(output / "families.json"),
+        manifest.get("families_registry_sha256"),
+        "family registry",
+    )
+    families = manifest.get("families")
+    if not isinstance(families, Mapping) or not families:
+        raise StudyPreparationError("frozen builder study has no family bindings")
+    expected_family_ids = set(families)
+    for relative in ("inputs", "tasks/development"):
+        actual = {path.name for path in (output / relative).iterdir() if path.is_dir()}
+        if actual != expected_family_ids:
+            raise StudyPreparationError(f"frozen {relative} family set differs from its manifest")
+
+    expected_skill_names: set[str] = set()
+    for family_id, value in families.items():
+        if not isinstance(family_id, str) or not isinstance(value, Mapping):
+            raise StudyPreparationError("frozen family binding is invalid")
+        build_skill = value.get("build_skill")
+        if not isinstance(build_skill, str) or not build_skill:
+            raise StudyPreparationError(f"frozen family {family_id} has no build skill")
+        expected_skill_names.add(build_skill)
+        input_root = output / "inputs" / family_id
+        skill_root = output / "skills" / build_skill
+        task_root = output / "tasks" / "development" / family_id
+        require_digest(
+            tree_digest(input_root), value.get("input_tree_sha256"), f"{family_id} input tree"
+        )
+        require_digest(
+            sha256_file(input_root / "input-manifest.json"),
+            value.get("input_manifest_sha256"),
+            f"{family_id} input manifest",
+        )
+        require_digest(
+            tree_digest(skill_root), value.get("skill_tree_sha256"), f"{family_id} skill tree"
+        )
+        require_digest(
+            tree_digest(task_root), value.get("task_tree_sha256"), f"{family_id} task tree"
+        )
+        for replicate in manifest.get("replicates", {}):
+            scorer = task_root / str(replicate) / "tests" / "score.py"
+            require_digest(
+                sha256_file(scorer), manifest.get("scorer_sha256"), f"{family_id} scorer"
             )
+
+    actual_skill_names = {
+        path.name for path in (output / "skills").iterdir() if path.is_dir()
+    }
+    if actual_skill_names != expected_skill_names:
+        raise StudyPreparationError("frozen skill set differs from its manifest")
+
+    harbor = manifest.get("harbor")
+    if not isinstance(harbor, Mapping):
+        raise StudyPreparationError("frozen builder study has no Harbor binding")
+    harbor_root = output / "harbor"
+    require_digest(
+        tree_digest(harbor_root / "harbor"),
+        harbor.get("patched_tree_sha256"),
+        "Harbor tree",
+    )
+    require_digest(
+        sha256_file(harbor_root / "harbor-cli"),
+        harbor.get("patched_entrypoint_sha256"),
+        "Harbor entrypoint",
+    )
+    require_digest(
+        sha256_file(harbor_root / "harbor" / "agents" / "installed" / "pi.py"),
+        harbor.get("patched_adapter_sha256"),
+        "Harbor Pi adapter",
+    )
     return manifest
 
 

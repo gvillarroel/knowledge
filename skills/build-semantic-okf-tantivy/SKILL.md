@@ -32,15 +32,15 @@ inputs. It does not import or mutate the frozen consultation skill.
 - Treat `classical/` as non-authoritative discovery data. Keep `concepts/`,
   `semantic/records.jsonl`, and purpose-selected RDF graphs authoritative.
 
-## Required references
+## Reference routing
 
-- Read [source-combination.md](references/source-combination.md) before combining physical sources.
-- Read [manifest.md](references/manifest.md) before writing or changing the Semantic OKF manifest.
-- Read [coherence-contract.md](references/coherence-contract.md) before changing mappings or validation.
-- Read [classical-plan.md](references/classical-plan.md) before selecting sources or text-processing parameters.
-- Read [classical-format.md](references/classical-format.md) before changing any artifact consumed by Tantivy.
-- Read [tantivy-consumer-contract.md](references/tantivy-consumer-contract.md) before builder evolution or evaluation.
-- Read [python-runtime.md](references/python-runtime.md) before installing or running the package.
+For an unchanged reviewed manifest and plan, load no reference. Otherwise:
+
+- [source-combination.md](references/source-combination.md): multiple inputs or source topology.
+- [manifest.md](references/manifest.md): manifest authoring or diagnosis.
+- [coherence-contract.md](references/coherence-contract.md): mapping, validation, or cross-layer diagnosis.
+- [classical-plan.md](references/classical-plan.md): lexical-plan authoring or tuning.
+- [tantivy-consumer-contract.md](references/tantivy-consumer-contract.md): consumer-facing changes, builder evolution, or frozen-consumer evaluation.
 
 ## Workflow
 
@@ -52,7 +52,8 @@ inputs. It does not import or mutate the frozen consultation skill.
    closed Semantic OKF manifest.
 4. Write a closed lexical plan. Select source IDs and pin tokenizer, n-grams,
    BM25, association, topic, expansion, and reranking parameters.
-5. Install only `scripts/requirements.txt`.
+5. Use CPython 3.12 in an isolated environment, install only `scripts/requirements.txt`, and run
+   `python -B scripts/runtime_smoke.py`.
 6. Build into a new output path. The command creates the authoritative core,
    derives exact page or record passages, validates every binding, and publishes
    with one final rename.
@@ -71,8 +72,8 @@ topics presented as ontology truth.
 Run from this skill directory, or prefix scripts with the copied skill root:
 
 ```bash
-python scripts/build_semantic_okf_tantivy.py manifest.json plan.json semantic-okf-tantivy --output-format json
-python scripts/validate_semantic_okf_tantivy.py semantic-okf-tantivy --output-format json
+python -B scripts/build_semantic_okf_tantivy.py manifest.json plan.json semantic-okf-tantivy --output-format json
+python -B scripts/validate_semantic_okf_tantivy.py semantic-okf-tantivy --output-format json
 ```
 
 The destination must not exist. A successful release contains the complete core

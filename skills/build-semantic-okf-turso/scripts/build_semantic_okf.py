@@ -22,6 +22,8 @@ from urllib.parse import unquote, urlsplit
 
 from _semantic_okf import (
     BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUTS,
     CSV_READER_OPTIONS,
     JSON_READER_OPTIONS,
     ManifestError,
@@ -658,7 +660,12 @@ def _source_content_digest(paths: list[Path], manifest_root: Path) -> str:
     return _source_content_digests({"source": paths}, manifest_root)["source"]
 
 
-def build(manifest_path: Path, output: Path) -> dict[str, Any]:
+def build(
+    manifest_path: Path,
+    output: Path,
+    *,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
+) -> dict[str, Any]:
     """Reprocess every source and atomically publish a Turso-backed bundle."""
     manifest_path = manifest_path.expanduser().resolve()
     manifest = load_manifest(manifest_path)
@@ -735,7 +742,12 @@ def build(manifest_path: Path, output: Path) -> dict[str, Any]:
     candidate = workspace / "bundle"
     try:
         report = materialize_bundle(
-            candidate, manifest, records, summaries, processor_info
+            candidate,
+            manifest,
+            records,
+            summaries,
+            processor_info,
+            concept_layout=concept_layout,
         )
         turso_report = materialize_turso_store(candidate)
         if output.exists():
@@ -759,6 +771,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("manifest", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument(
+        "--concept-layout",
+        choices=sorted(CONCEPT_LAYOUTS),
+        default=CONCEPT_LAYOUT_RECORD_PER_FILE,
+    )
     parser.add_argument("--output-format", choices=("text", "json"), default="text")
     return parser
 
@@ -787,7 +804,11 @@ def main(argv: list[str] | None = None) -> int:
     configure_utf8_output()
     args = build_parser().parse_args(argv)
     try:
-        report = build(args.manifest, args.output)
+        report = build(
+            args.manifest,
+            args.output,
+            concept_layout=args.concept_layout,
+        )
     except Exception as exc:
         code = _error_code(exc)
         if not code:

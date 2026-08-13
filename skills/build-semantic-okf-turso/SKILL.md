@@ -64,7 +64,8 @@ On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1`. A platform 
 ## Build and validate
 
 ```bash
-python scripts/build_semantic_okf.py manifest.json semantic-okf-turso-output
+python scripts/build_semantic_okf.py manifest.json semantic-okf-turso-output \
+  --concept-layout source-packed-v1
 python scripts/validate_okf_bundle.py semantic-okf-turso-output
 python scripts/validate_semantic_okf.py semantic-okf-turso-output --output-format json
 python scripts/validate_turso_store.py \

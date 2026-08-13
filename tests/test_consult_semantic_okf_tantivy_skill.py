@@ -230,6 +230,9 @@ def test_skill_metadata_dependency_and_implementation_are_standalone() -> None:
     assert set(metadata) == {"name", "description"}
     assert metadata["name"] == "consult-semantic-okf-tantivy"
     assert "## Standalone and read-only boundary" in skill
+    assert "## Reference routing" in skill
+    assert "## Required references" not in skill
+    assert "load neither reference" in skill
     assert "in memory" in skill
     assert "$consult-semantic-okf-tantivy" in (
         SKILL_ROOT / "agents" / "openai.yaml"

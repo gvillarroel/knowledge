@@ -44,7 +44,7 @@ Run from this skill directory, or prefix scripts with the copied skill root:
 
 ```bash
 python scripts/runtime_smoke.py
-python scripts/build_semantic_okf_entity_graph.py manifest.json entity-graph-plan.json semantic-okf-entity-graph --output-format json
+python scripts/build_semantic_okf_entity_graph.py manifest.json entity-graph-plan.json semantic-okf-entity-graph --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_entity_graph.py semantic-okf-entity-graph --output-format json
 ```
 

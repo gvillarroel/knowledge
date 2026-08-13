@@ -16,10 +16,12 @@ Use Tantivy's Rust search engine to rank validated classical passages in memory,
 - Stop on a stale core binding, closed-schema violation, symlink, unsafe path, orphan passage, invalid locator, artifact hash mismatch, or failing build report.
 - Treat Tantivy scores as discovery signals rather than domain evidence.
 
-## Required references
+## Reference routing
 
-- Read [tantivy-runtime.md](references/tantivy-runtime.md) before installing or diagnosing the pinned native dependency.
-- Read [querying.md](references/querying.md) before interpreting query syntax, scores, filters, or evidence.
+For routine use, load neither reference. Otherwise:
+
+- [tantivy-runtime.md](references/tantivy-runtime.md): install/runtime diagnosis.
+- [querying.md](references/querying.md): syntax, scoring, filters, or evidence selection.
 
 ## Workflow
 
@@ -40,8 +42,8 @@ Use Tantivy's Rust search engine to rank validated classical passages in memory,
 
 ```bash
 python -m pip install -r scripts/requirements.txt
-python scripts/runtime_smoke.py
-python scripts/query_semantic_okf_tantivy.py BUNDLE inspect
+python -B scripts/runtime_smoke.py
+python -B scripts/query_semantic_okf_tantivy.py BUNDLE inspect
 ```
 
 Use `python -B` or set `PYTHONDONTWRITEBYTECODE=1` when the copied skill directory itself must remain byte-for-byte unchanged. The query helper creates no filesystem index and does not write inside the bundle.
@@ -49,7 +51,7 @@ Use `python -B` or set `PYTHONDONTWRITEBYTECODE=1` when the copied skill directo
 ## Search
 
 ```bash
-python scripts/query_semantic_okf_tantivy.py BUNDLE search \
+python -B scripts/query_semantic_okf_tantivy.py BUNDLE search \
   --query '"Prize-Collecting Steiner Tree" OR graph retrieval' \
   --top-k 10
 ```

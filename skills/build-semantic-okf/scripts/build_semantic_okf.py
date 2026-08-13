@@ -22,6 +22,8 @@ from urllib.parse import unquote, urlsplit
 
 from _semantic_okf import (
     BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUTS,
     CSV_READER_OPTIONS,
     JSON_READER_OPTIONS,
     ManifestError,
@@ -758,6 +760,8 @@ def build_incremental(
     manifest_path: Path,
     output: Path,
     cache_dir: Path,
+    *,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
 ) -> dict[str, Any]:
     """Build a complete snapshot while parsing only added or changed physical files."""
 
@@ -907,7 +911,14 @@ def build_incremental(
         "records": len(records),
         "sources": len(summaries),
     }
-    report = materialize_bundle(output, manifest, records, summaries, processor_info)
+    report = materialize_bundle(
+        output,
+        manifest,
+        records,
+        summaries,
+        processor_info,
+        concept_layout=concept_layout,
+    )
     _write_incremental_cache_manifest(cache_dir, next_entries)
     report["incremental"] = {
         "schema_version": INCREMENTAL_CACHE_SCHEMA_VERSION,
@@ -929,7 +940,12 @@ def build_incremental(
     return report
 
 
-def build(manifest_path: Path, output: Path) -> dict[str, Any]:
+def build(
+    manifest_path: Path,
+    output: Path,
+    *,
+    concept_layout: str = CONCEPT_LAYOUT_RECORD_PER_FILE,
+) -> dict[str, Any]:
     """Reprocess every declared source and atomically materialize one bundle."""
     manifest_path = manifest_path.expanduser().resolve()
     manifest = load_manifest(manifest_path)
@@ -987,7 +1003,14 @@ def build(manifest_path: Path, output: Path) -> dict[str, Any]:
         "records": len(records),
         "sources": len(summaries),
     }
-    return materialize_bundle(output, manifest, records, summaries, processor_info)
+    return materialize_bundle(
+        output,
+        manifest,
+        records,
+        summaries,
+        processor_info,
+        concept_layout=concept_layout,
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1001,6 +1024,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--cache-dir",
         type=Path,
         help="Parse only changed physical inputs using a derived cache outside the snapshot.",
+    )
+    parser.add_argument(
+        "--concept-layout",
+        choices=sorted(CONCEPT_LAYOUTS),
+        default=CONCEPT_LAYOUT_RECORD_PER_FILE,
+        help="Choose one physical Markdown file per record or pack repeated structured records by source.",
     )
     parser.add_argument("--output-format", choices=("text", "json"), default="text")
     return parser
@@ -1025,9 +1054,18 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         report = (
-            build_incremental(args.manifest, args.output, args.cache_dir)
+            build_incremental(
+                args.manifest,
+                args.output,
+                args.cache_dir,
+                concept_layout=args.concept_layout,
+            )
             if args.cache_dir
-            else build(args.manifest, args.output)
+            else build(
+                args.manifest,
+                args.output,
+                concept_layout=args.concept_layout,
+            )
         )
     except Exception as exc:
         code = _error_code(exc)

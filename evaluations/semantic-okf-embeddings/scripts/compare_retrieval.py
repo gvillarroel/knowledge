@@ -19,6 +19,12 @@ from typing import Any, Callable, Iterable, Sequence
 
 
 METRIC_CUTOFFS = (1, 3, 5, 10)
+CONCEPT_LAYOUT_RECORD_PER_FILE = "record-per-file-v1"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+CONCEPT_LAYOUTS = frozenset(
+    {CONCEPT_LAYOUT_RECORD_PER_FILE, CONCEPT_LAYOUT_SOURCE_PACKED}
+)
+STRUCTURED_SOURCE_KINDS = frozenset({"csv", "json", "rdf"})
 CORE_KEY_ARTIFACTS = (
     "semantic/records.jsonl",
     "semantic/source-manifest.json",
@@ -503,12 +509,93 @@ class AuthoritativeLedger:
     def __init__(self, bundle: Path, records: list[dict[str, Any]]) -> None:
         self.bundle = bundle.resolve()
         self.records = records
+        self.concept_layout = self._load_concept_layout()
+        self.source_counts = Counter(str(record["source_id"]) for record in records)
+        self._concept_text: dict[str, str] = {}
         self.by_identity: dict[tuple[str, str], dict[str, Any]] = {}
         for record in records:
             identity = (str(record["source_id"]), str(record["record_id"]))
             if identity in self.by_identity:
                 raise ComparisonError(f"Duplicate authoritative ledger identity: {identity[0]}/{identity[1]}")
             self.by_identity[identity] = record
+
+    def _load_concept_layout(self) -> str:
+        """Read the declared physical layout, defaulting old bundles to one file per record."""
+
+        report_path = self.bundle / "semantic" / "build-report.json"
+        if not report_path.is_file():
+            return CONCEPT_LAYOUT_RECORD_PER_FILE
+        report = _load_json_object(report_path, "semantic build report")
+        processor = report.get("processor")
+        layout = (
+            processor.get("concept_layout")
+            if isinstance(processor, dict)
+            else None
+        )
+        if layout is None:
+            return CONCEPT_LAYOUT_RECORD_PER_FILE
+        if layout not in CONCEPT_LAYOUTS:
+            raise ComparisonError(
+                f"Unsupported semantic concept layout {layout!r}: {report_path}"
+            )
+        return str(layout)
+
+    def concept_document_path(self, record: dict[str, Any]) -> str:
+        """Resolve one logical ledger record to its physical OKF document."""
+
+        source_id = str(record["source_id"])
+        source_kind = str(record.get("source_kind") or "")
+        packed = (
+            self.concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and source_kind in STRUCTURED_SOURCE_KINDS
+            and self.source_counts[source_id] > 1
+        )
+        path = f"concepts/{source_id}.md" if packed else str(record["concept_path"])
+        safe = _safe_relative_path(path)
+        if not safe.parts or safe.parts[0] != "concepts":
+            raise ComparisonError(f"Resolved concept document is outside concepts/: {path!r}")
+        return path
+
+    def validate_concept_document(
+        self, record: dict[str, Any]
+    ) -> tuple[str, dict[str, str] | None]:
+        """Strictly bind a logical record to its declared physical concept document."""
+
+        path = self.concept_document_path(record)
+        concept_file = _local_file(self.bundle, path)
+        if not concept_file.is_file():
+            return path, {
+                "code": "missing-concept-file",
+                "message": f"The resolved concept document does not exist: {path}",
+            }
+        if path == str(record["concept_path"]):
+            return path, None
+        try:
+            if path not in self._concept_text:
+                self._concept_text[path] = concept_file.read_text(encoding="utf-8")
+            text = self._concept_text[path]
+        except (OSError, UnicodeError) as exc:
+            return path, {
+                "code": "unreadable-concept-file",
+                "message": f"Cannot read the resolved concept document {path}: {exc}",
+            }
+        record_hash = record.get("record_sha256")
+        body = str(record.get("body") or "").rstrip()
+        if not isinstance(record_hash, str) or len(record_hash) < 16:
+            return path, {
+                "code": "packed-record-hash",
+                "message": "The packed record has no usable record_sha256 anchor.",
+            }
+        marker = f'<a id="record-{record_hash[:16]}"></a>\n\n{body}'
+        if marker not in text:
+            return path, {
+                "code": "packed-record-section",
+                "message": (
+                    "The resolved collection does not contain the exact anchored "
+                    "authoritative record body."
+                ),
+            }
+        return path, None
 
     @classmethod
     def from_bundle(cls, bundle: Path) -> "AuthoritativeLedger":
@@ -706,7 +793,6 @@ def _validate_hit_evidence(
     def issue(code: str, message: str) -> None:
         issues.append({"code": code, "message": message})
 
-    concept_file: Path | None = None
     if hit.concept_path is None:
         issue("missing-concept-path", "The hit has no concept_path.")
     else:
@@ -714,14 +800,11 @@ def _validate_hit_evidence(
             safe = _safe_relative_path(hit.concept_path)
             if not safe.parts or safe.parts[0] != "concepts":
                 issue("concept-path-scope", "The concept path is outside concepts/.")
-            else:
-                concept_file = _local_file(bundle, hit.concept_path)
         except ComparisonError as exc:
             issue("unsafe-concept-path", str(exc))
-        if concept_file is not None and not concept_file.is_file():
-            issue("missing-concept-file", f"The bound concept file does not exist: {hit.concept_path}")
 
     record = ledger.lookup(hit)
+    concept_document_path: str | None = None
     if record is None:
         issue("ledger-binding", "No authoritative record matches the hit source_id and record_id.")
     else:
@@ -741,6 +824,13 @@ def _validate_hit_evidence(
                     f"{field.replace('_', '-')}-binding",
                     f"Hit {field} {actual!r} does not match ledger value {expected!r}.",
                 )
+        try:
+            concept_document_path, document_issue = ledger.validate_concept_document(record)
+        except ComparisonError as exc:
+            issue("concept-document-resolution", str(exc))
+        else:
+            if document_issue is not None:
+                issues.append(document_issue)
         expected_record_hash = record.get("record_sha256")
         if hit.record_sha256 is not None and hit.record_sha256 != expected_record_hash:
             issue("record-sha256-binding", "The hit record_sha256 does not match the ledger.")
@@ -784,6 +874,7 @@ def _validate_hit_evidence(
     return {
         "valid": not issues,
         "issues": issues,
+        "concept_document_path": concept_document_path,
     }
 
 
@@ -801,6 +892,7 @@ def _hit_report(hit: RetrievalHit, validation: dict[str, Any], rank: int) -> dic
         "ordinal": hit.ordinal,
         "concept_id": hit.concept_id,
         "concept_path": hit.concept_path,
+        "concept_document_path": validation.get("concept_document_path"),
         "record_id": hit.record_id,
         "record_sha256": hit.record_sha256,
         "source_path": hit.source_path,
@@ -809,7 +901,10 @@ def _hit_report(hit: RetrievalHit, validation: dict[str, Any], rank: int) -> dic
         "text_bytes": text_bytes,
         "text_characters": text_characters,
         "score": hit.score,
-        "evidence_validation": validation,
+        "evidence_validation": {
+            "valid": validation["valid"],
+            "issues": validation["issues"],
+        },
     }
 
 
@@ -910,10 +1005,11 @@ def evaluate_route(
         "source_metrics": _mean_metrics(rows, "source_metrics"),
         "evidence_validity": {
             "contract": (
-                "Each retained hit must have a safe concepts/ path and existing concept file; bind to one "
-                "authoritative ledger record by source_id and record_id; match source, record, concept, path, "
-                "and source-path identity; hash its retained text; and resolve an exact record or character-range "
-                "locator against the authoritative record body."
+                "Each retained hit must have a safe logical concepts/ path and resolve through the declared "
+                "layout to an existing concept document; packed records must match their exact hash-derived "
+                "anchor and authoritative body; every hit must bind by source_id and record_id, match source, "
+                "record, concept, logical path, and source-path identity, hash its retained text, and resolve "
+                "an exact record or character-range locator against the authoritative record body."
             ),
             "ledger": ledger.fingerprint(),
             "returned": total_hits,

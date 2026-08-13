@@ -790,6 +790,117 @@ def test_materializer_builds_exact_reproducible_okf_owl_shacl_bundle(tmp_path: P
     assert okf.returncode == 0, okf.stderr
 
 
+def test_source_packed_layout_reduces_files_without_changing_logical_artifacts(
+    tmp_path: Path,
+) -> None:
+    core = load_core()
+    manifest_path = write_fixture(tmp_path / "fixture")
+    manifest = core.load_manifest(manifest_path)
+    records, summaries = make_records(core, manifest, manifest_path.parent)
+    processor = processor_info(records=6, sources=4)
+    legacy = tmp_path / "legacy"
+    packed = tmp_path / "packed"
+
+    core.materialize_bundle(legacy, manifest, records, summaries, processor)
+    report = core.materialize_bundle(
+        packed,
+        manifest,
+        records,
+        summaries,
+        processor,
+        concept_layout=core.CONCEPT_LAYOUT_SOURCE_PACKED,
+    )
+
+    assert report["summary"]["concepts"] == 4
+    assert report["summary"]["records"] == 6
+    assert len(list((legacy / "concepts").rglob("*.md"))) == 6
+    assert len(list((packed / "concepts").rglob("*.md"))) == 4
+    assert (packed / "concepts" / "people.md").is_file()
+    assert (packed / "concepts" / "projects.md").is_file()
+    assert not (packed / records[1].concept_path).exists()
+    assert (packed / records[0].concept_path).is_file()
+
+    immutable_semantic_artifacts = {
+        "semantic/records.jsonl",
+        "semantic/semantic-plan.json",
+        "semantic/ontology.ttl",
+        "semantic/data.ttl",
+        "semantic/shapes.ttl",
+        "semantic/provenance.ttl",
+        "semantic/validation-report.ttl",
+    }
+    for relative in immutable_semantic_artifacts:
+        assert (legacy / relative).read_bytes() == (packed / relative).read_bytes()
+
+    people_frontmatter, people_body = core._split_frontmatter(
+        (packed / "concepts" / "people.md").read_text(encoding="utf-8")
+    )
+    assert people_frontmatter["type"] == "Semantic OKF Record Collection"
+    assert people_frontmatter["record_count"] == 2
+    assert people_frontmatter["records_sha256"] == core._aggregate_record_digest(
+        [record for record in records if record.source_id == "people"]
+    )
+    for record in records:
+        if record.source_id == "people":
+            assert record.body in people_body
+            assert f'id="{core._record_anchor(record)}"' in people_body
+
+    source_manifest = json.loads(
+        (packed / "semantic" / "source-manifest.json").read_text(encoding="utf-8")
+    )
+    assert source_manifest["processor"]["concept_layout"] == "source-packed-v1"
+    assert core.validate_semantic_bundle(packed).valid is True
+
+    okf = subprocess.run(
+        [
+            sys.executable,
+            str(
+                REPO_ROOT
+                / "skills"
+                / "open-knowledge-format"
+                / "scripts"
+                / "validate_okf_bundle.py"
+            ),
+            str(packed),
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert okf.returncode == 0, okf.stderr
+
+
+def test_source_packed_layout_rejects_collection_drift(tmp_path: Path) -> None:
+    core = load_core()
+    manifest_path = write_fixture(tmp_path / "fixture")
+    manifest = core.load_manifest(manifest_path)
+    records, summaries = make_records(core, manifest, manifest_path.parent)
+    packed = tmp_path / "packed"
+    core.materialize_bundle(
+        packed,
+        manifest,
+        records,
+        summaries,
+        processor_info(records=6, sources=4),
+        concept_layout=core.CONCEPT_LAYOUT_SOURCE_PACKED,
+    )
+
+    collection = packed / "concepts" / "people.md"
+    collection.write_text(
+        collection.read_text(encoding="utf-8") + "\nUntracked mutation.\n",
+        encoding="utf-8",
+    )
+    result = core.validate_semantic_bundle(packed)
+
+    assert result.valid is False
+    assert any(
+        error["path"] == "concepts/people.md"
+        and "concept body differs" in error["message"]
+        for error in result.errors
+    )
+
+
 def test_source_combination_modes_preserve_identity_provenance_and_queries(
     tmp_path: Path,
 ) -> None:

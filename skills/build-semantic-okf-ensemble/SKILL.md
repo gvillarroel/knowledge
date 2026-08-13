@@ -39,7 +39,7 @@ Create a new immutable bundle in one atomic publication. Preserve the Semantic O
 
 ```bash
 python scripts/runtime_smoke.py
-python scripts/build_semantic_okf_ensemble.py MANIFEST.json ENSEMBLE-PLAN.json OUTPUT --output-format json
+python scripts/build_semantic_okf_ensemble.py MANIFEST.json ENSEMBLE-PLAN.json OUTPUT --concept-layout source-packed-v1 --output-format json
 python scripts/validate_semantic_okf_ensemble.py OUTPUT --output-format json
 ```
 

@@ -11,7 +11,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-from _consult_semantic_okf import SnapshotError, safe_concept_path, snapshot_file, validate_snapshot
+from _consult_semantic_okf import (
+    SnapshotError,
+    read_json_object,
+    snapshot_file,
+    validate_concept_documents,
+    validate_snapshot,
+)
 
 
 PAGE_PATTERN = re.compile(r"#PDF-page-(\d+)$")
@@ -145,8 +151,11 @@ def _load_ledger(root: Path) -> list[dict[str, Any]]:
             raise SnapshotError(f"invalid records.jsonl line {number}: {exc}") from exc
         if not isinstance(value, dict):
             raise SnapshotError(f"records.jsonl line {number} must be an object")
-        safe_concept_path(root, value.get("concept_path"))
         records.append(value)
+    report = read_json_object(
+        snapshot_file(root, "semantic/build-report.json"), "build report"
+    )
+    validate_concept_documents(root, records, report)
     return records
 
 

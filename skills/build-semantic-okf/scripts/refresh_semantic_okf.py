@@ -21,6 +21,10 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from _semantic_okf import (  # noqa: E402
     BundleError,
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUT_SOURCE_PACKED,
+    CONCEPT_LAYOUTS,
+    STRUCTURED_SOURCE_KINDS,
     canonical_json,
     configure_utf8_output,
     load_manifest,
@@ -108,11 +112,11 @@ def _write_json_atomic(path: Path, payload: Mapping[str, Any]) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def _safe_concept_path(value: Any) -> str:
+def _safe_concept_path(value: Any, *, minimum_parts: int = 3) -> str:
     if not isinstance(value, str) or "\\" in value:
         raise RefreshError("current-diverged", "record ledger contains an unsafe concept_path")
     pure = PurePosixPath(value)
-    if pure.is_absolute() or ".." in pure.parts or len(pure.parts) < 3:
+    if pure.is_absolute() or ".." in pure.parts or len(pure.parts) < minimum_parts:
         raise RefreshError("current-diverged", f"unsafe concept_path in record ledger: {value!r}")
     if pure.parts[0] != "concepts" or pure.suffix.lower() != ".md":
         raise RefreshError("current-diverged", f"unexpected concept_path in record ledger: {value!r}")
@@ -141,14 +145,55 @@ def _records_by_id(root: Path) -> dict[str, dict[str, Any]]:
     return records
 
 
+def _declared_concept_layout(source_manifest: Mapping[str, Any]) -> str:
+    """Return the snapshot layout while treating omitted legacy metadata compatibly."""
+
+    processor = source_manifest.get("processor")
+    if not isinstance(processor, Mapping):
+        raise RefreshError("current-invalid", "source manifest has no processor metadata")
+    layout = processor.get("concept_layout", CONCEPT_LAYOUT_RECORD_PER_FILE)
+    if layout not in CONCEPT_LAYOUTS:
+        raise RefreshError("current-invalid", f"unsupported concept layout: {layout!r}")
+    return str(layout)
+
+
+def _managed_concept_paths(
+    records: Mapping[str, Mapping[str, Any]], concept_layout: str
+) -> set[str]:
+    """Resolve logical ledger rows to the physical concept documents refresh owns."""
+
+    source_counts: dict[str, int] = {}
+    for record in records.values():
+        source_id = record.get("source_id")
+        if isinstance(source_id, str):
+            source_counts[source_id] = source_counts.get(source_id, 0) + 1
+    paths: set[str] = set()
+    for record in records.values():
+        logical = _safe_concept_path(record.get("concept_path"))
+        source_id = record.get("source_id")
+        packed = (
+            concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+            and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+            and isinstance(source_id, str)
+            and source_counts.get(source_id, 0) > 1
+        )
+        paths.add(
+            _safe_concept_path(f"concepts/{source_id}.md", minimum_parts=2)
+            if packed
+            else logical
+        )
+    return paths
+
+
 def _assert_managed_tree(root: Path) -> dict[str, dict[str, Any]]:
     """Reject links, missing managed files, and unmanaged files that refresh would erase."""
 
     if _is_link(root):
         raise RefreshError("current-diverged", f"bundle root cannot be a link or junction: {root}")
     records = _records_by_id(root)
+    concept_layout = _declared_concept_layout(_source_manifest(root))
     expected = {"index.md", *MANAGED_SEMANTIC_FILES}
-    expected.update(_safe_concept_path(record["concept_path"]) for record in records.values())
+    expected.update(_managed_concept_paths(records, concept_layout))
     actual: set[str] = set()
     for path in root.rglob("*"):
         if _is_link(path):
@@ -560,6 +605,14 @@ def refresh_bundle(
         current_validation = _validate_snapshot(output, "current-invalid")
         before_records = _assert_managed_tree(output)
         before_manifest = _source_manifest(output)
+        current_concept_layout = _declared_concept_layout(before_manifest)
+        effective_build_fn = build_fn
+        if build_fn is build:
+            effective_build_fn = lambda manifest, candidate: build(
+                manifest,
+                candidate,
+                concept_layout=current_concept_layout,
+            )
         before_plan = _semantic_plan(output)
         before_tree = _tree_sha256(output)
         if expected_current_tree_sha256 and before_tree != expected_current_tree_sha256.lower():
@@ -573,7 +626,7 @@ def refresh_bundle(
         manifest = load_manifest(manifest_path)
         try:
             try:
-                build_report = build_fn(manifest_path, candidate)
+                build_report = effective_build_fn(manifest_path, candidate)
             except Exception as exc:
                 if isinstance(exc, RefreshError):
                     raise
@@ -688,6 +741,12 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         help="Parse only added or changed physical files using an external derived cache.",
     )
+    update.add_argument(
+        "--concept-layout",
+        choices=("preserve", *sorted(CONCEPT_LAYOUTS)),
+        default="preserve",
+        help="Preserve the published Markdown layout or explicitly migrate it.",
+    )
     update.add_argument("--check", action="store_true", help="Build and compare without promotion.")
     update.add_argument("--allow-plan-change", action="store_true")
     update.add_argument("--allow-record-removals", action="store_true")
@@ -727,10 +786,26 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "recover":
             report = recover_bundle(args.output)
         else:
+            concept_layout = args.concept_layout
+            if concept_layout == "preserve":
+                concept_layout = _declared_concept_layout(_source_manifest(args.output))
             build_fn = (
-                (lambda manifest, output: build_incremental(manifest, output, args.cache_dir))
+                (
+                    lambda manifest, output: build_incremental(
+                        manifest,
+                        output,
+                        args.cache_dir,
+                        concept_layout=concept_layout,
+                    )
+                )
                 if args.cache_dir
-                else build
+                else (
+                    lambda manifest, output: build(
+                        manifest,
+                        output,
+                        concept_layout=concept_layout,
+                    )
+                )
             )
             report = refresh_bundle(
                 args.manifest,

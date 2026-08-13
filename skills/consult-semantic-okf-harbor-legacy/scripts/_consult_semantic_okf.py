@@ -18,10 +18,18 @@ GRAPH_FILES = {
     "provenance": "semantic/provenance.ttl",
     "validation": "semantic/validation-report.ttl",
 }
+CONCEPT_LAYOUT_RECORD_PER_FILE = "record-per-file-v1"
+CONCEPT_LAYOUT_SOURCE_PACKED = "source-packed-v1"
+CONCEPT_LAYOUTS = {
+    CONCEPT_LAYOUT_RECORD_PER_FILE,
+    CONCEPT_LAYOUT_SOURCE_PACKED,
+}
+STRUCTURED_SOURCE_KINDS = {"csv", "json", "rdf"}
 REQUIRED_QUERY_FILES = {
     "semantic/build-report.json",
     "semantic/records.jsonl",
     "semantic/semantic-plan.json",
+    "semantic/source-manifest.json",
     *GRAPH_FILES.values(),
 }
 
@@ -83,8 +91,8 @@ def snapshot_file(root: Path, relative: str) -> Path:
     return resolved
 
 
-def safe_concept_path(root: Path, value: Any) -> Path:
-    """Resolve an exact ledger concept path without allowing escape."""
+def _safe_concept_relative(value: Any) -> str:
+    """Validate one bundle-local Markdown locator without requiring it to exist."""
 
     if not isinstance(value, str) or "\\" in value:
         raise SnapshotError("record contains an unsafe concept_path")
@@ -93,7 +101,14 @@ def safe_concept_path(root: Path, value: Any) -> Path:
         raise SnapshotError(f"unsafe concept_path: {value!r}")
     if pure.suffix.lower() != ".md":
         raise SnapshotError(f"concept_path is not Markdown: {value!r}")
-    target = root.joinpath(*pure.parts)
+    return pure.as_posix()
+
+
+def safe_concept_path(root: Path, value: Any) -> Path:
+    """Resolve one physical concept document without allowing escape."""
+
+    relative = _safe_concept_relative(value)
+    target = root.joinpath(*PurePosixPath(relative).parts)
     try:
         resolved = target.resolve(strict=True)
         resolved.relative_to(root.resolve())
@@ -102,6 +117,78 @@ def safe_concept_path(root: Path, value: Any) -> Path:
     if not resolved.is_file():
         raise SnapshotError(f"concept_path does not identify a local file: {value!r}")
     return resolved
+
+
+def snapshot_concept_layout(report: Mapping[str, Any]) -> str:
+    """Read and validate the physical Markdown layout declared by a build report."""
+
+    processor = report.get("processor")
+    if not isinstance(processor, Mapping):
+        raise SnapshotError("build report has no processor metadata")
+    layout = processor.get("concept_layout", CONCEPT_LAYOUT_RECORD_PER_FILE)
+    if layout not in CONCEPT_LAYOUTS:
+        raise SnapshotError(f"build report declares an unsupported concept layout: {layout!r}")
+    return str(layout)
+
+
+def concept_document_value(
+    record: Mapping[str, Any],
+    source_counts: Mapping[str, int],
+    concept_layout: str,
+) -> str:
+    """Resolve a logical ledger record to its physical readable Markdown document."""
+
+    logical = _safe_concept_relative(record.get("concept_path"))
+    source_id = record.get("source_id")
+    if (
+        concept_layout == CONCEPT_LAYOUT_SOURCE_PACKED
+        and record.get("source_kind") in STRUCTURED_SOURCE_KINDS
+        and isinstance(source_id, str)
+        and source_counts.get(source_id, 0) > 1
+    ):
+        return _safe_concept_relative(f"concepts/{source_id}.md")
+    return logical
+
+
+def validate_concept_documents(
+    root: Path,
+    records: list[Mapping[str, Any]],
+    report: Mapping[str, Any],
+) -> None:
+    """Verify every logical record resolves through the declared physical layout."""
+
+    concept_layout = snapshot_concept_layout(report)
+    source_counts: dict[str, int] = {}
+    for record in records:
+        source_id = record.get("source_id")
+        if isinstance(source_id, str):
+            source_counts[source_id] = source_counts.get(source_id, 0) + 1
+    for record in records:
+        safe_concept_path(
+            root,
+            concept_document_value(record, source_counts, concept_layout),
+        )
+
+
+def resolve_record_concept_document(
+    root: Path,
+    record: Mapping[str, Any],
+    report: Mapping[str, Any],
+) -> tuple[Path, bool]:
+    """Open one record's own document or its packed source collection."""
+
+    logical = _safe_concept_relative(record.get("concept_path"))
+    try:
+        return safe_concept_path(root, logical), False
+    except SnapshotError as logical_error:
+        source_id = record.get("source_id")
+        if (
+            snapshot_concept_layout(report) != CONCEPT_LAYOUT_SOURCE_PACKED
+            or record.get("source_kind") not in STRUCTURED_SOURCE_KINDS
+            or not isinstance(source_id, str)
+        ):
+            raise logical_error
+        return safe_concept_path(root, f"concepts/{source_id}.md"), True
 
 
 def validate_snapshot(root: Path, *, full_read_surface: bool) -> None:
@@ -127,6 +214,7 @@ def validate_snapshot(root: Path, *, full_read_surface: bool) -> None:
         raise SnapshotError(f"cannot read record ledger: {exc}") from exc
     if not lines:
         raise SnapshotError("records.jsonl must not be empty")
+    records: list[Mapping[str, Any]] = []
     for number, line in enumerate(lines, start=1):
         try:
             record = json.loads(line)
@@ -134,7 +222,8 @@ def validate_snapshot(root: Path, *, full_read_surface: bool) -> None:
             raise SnapshotError(f"invalid records.jsonl line {number}: {exc}") from exc
         if not isinstance(record, dict):
             raise SnapshotError(f"records.jsonl line {number} must be an object")
-        safe_concept_path(root, record.get("concept_path"))
+        records.append(record)
+    validate_concept_documents(root, records, report)
 
     for graph_name, relative in GRAPH_FILES.items():
         try:

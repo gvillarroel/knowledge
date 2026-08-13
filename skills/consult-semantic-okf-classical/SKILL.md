@@ -16,10 +16,9 @@ Discover relevant page and claim passages in an immutable Semantic OKF snapshot,
 - Stop on a stale hash, closed-schema violation, symlink, unsafe path, orphan document, invalid locator, token-statistic mismatch, or failing build report.
 - Treat BM25, topic, PPMI, fusion, and reranking scores as discovery signals rather than domain evidence.
 
-## Required references
+## Reference routing
 
-- Read [classical-format.md](references/classical-format.md) when inspecting integrity or diagnosing a bundle.
-- Read [querying.md](references/querying.md) before selecting a mode, interpreting expansion, or citing results.
+For ordinary inspection or search, load no reference. Read [querying.md](references/querying.md) only to compare modes, interpret expansion or ranking, or plan multi-paper retrieval.
 
 ## Workflow
 
@@ -37,9 +36,9 @@ Discover relevant page and claim passages in an immutable Semantic OKF snapshot,
 The package uses only the Python standard library:
 
 ```bash
-python scripts/runtime_smoke.py
-python scripts/query_semantic_okf_classical.py BUNDLE inspect
-python scripts/query_semantic_okf_classical.py BUNDLE inspect --deep-validation
+python -B scripts/runtime_smoke.py
+python -B scripts/query_semantic_okf_classical.py BUNDLE inspect
+python -B scripts/query_semantic_okf_classical.py BUNDLE inspect --deep-validation
 ```
 
 Use `python -B` or set `PYTHONDONTWRITEBYTECODE=1` when the copied skill directory itself must remain byte-for-byte unchanged. The helper does not write inside the bundle.
@@ -49,25 +48,25 @@ Use `python -B` or set `PYTHONDONTWRITEBYTECODE=1` when the copied skill directo
 Exact lexical terminology and identifiers:
 
 ```bash
-python scripts/query_semantic_okf_classical.py BUNDLE search --query "Prize-Collecting Steiner Tree" --mode bm25 --top-k 10
+python -B scripts/query_semantic_okf_classical.py BUNDLE search --query "Prize-Collecting Steiner Tree" --mode bm25 --top-k 10
 ```
 
 Topic-aware query expansion and topic-diverse evidence:
 
 ```bash
-python scripts/query_semantic_okf_classical.py BUNDLE search --query "global sensemaking from graph communities" --mode topic --top-k 10
+python -B scripts/query_semantic_okf_classical.py BUNDLE search --query "global sensemaking from graph communities" --mode topic --top-k 10
 ```
 
 Two-step propagation over the PPMI term graph:
 
 ```bash
-python scripts/query_semantic_okf_classical.py BUNDLE search --query "adaptive traversal and pruning" --mode association --top-k 10
+python -B scripts/query_semantic_okf_classical.py BUNDLE search --query "adaptive traversal and pruning" --mode association --top-k 10
 ```
 
 Reciprocal-rank fusion of all three independent rankings:
 
 ```bash
-python scripts/query_semantic_okf_classical.py BUNDLE search --query "compare evidence organization mechanisms" --mode fusion --top-k 10
+python -B scripts/query_semantic_okf_classical.py BUNDLE search --query "compare evidence organization mechanisms" --mode fusion --top-k 10
 ```
 
 Repeat `--source-id`, `--concept-id`, or `--concept-type` to select a union within that filter. Different filter kinds combine with logical AND.
