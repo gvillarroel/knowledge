@@ -32,6 +32,10 @@ CONSULT_SNAPSHOTS = (
 )
 GRAPHIFY_STRATEGIES = (
     (
+        "build-semantic-okf-graphify",
+        "consult-semantic-okf-graphify/scripts/_graphify_snapshot.py",
+    ),
+    (
         "build-semantic-okf-graphify-next",
         "consult-semantic-okf-graphify/scripts/_graphify_snapshot.py",
     ),

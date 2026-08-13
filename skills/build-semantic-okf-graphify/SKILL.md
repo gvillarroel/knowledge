@@ -20,6 +20,7 @@ Build one authoritative Semantic OKF release plus a non-authoritative Graphify g
 - The ledger, concept Markdown, RDF graphs, provenance, and validation evidence remain authoritative.
 - `retrieval/graphify/graph.json` is a hash-bound discovery projection only.
 - Pin `graphifyy==0.9.17`; use structural Markdown extraction with no semantic LLM and no clustering.
+- With `source-packed-v1`, reconstruct the exact `record-per-file-v1` Markdown inputs in memory and feed those virtual documents to the pinned extractor. Never materialize the expanded concept tree, and require the published graph bytes and query rankings to match the record-per-file build.
 - Put reviewed values into deterministic temporary headings, neutralize Markdown structural punctuation in scalar text, and emit links only for reviewed IRI relationships because Graphify's structural extractor does not index ordinary paragraph or bullet text.
 - Preserve Graphify's original labels. Identify exactly one `record-root` per ledger record, derive binary TF-IDF similarity from authoritative title, record ID, concept type, and body, and connect roots only when they are reciprocal nearest neighbors outside their record-ID partitions. Derive partitions from the first segment after the corpus-wide common record-ID prefix; fall back to unrestricted reciprocal neighbors when the corpus has only one partition.
 - Publish similarity links as `harbor-lexical-similarity`, validate them by complete ledger regeneration, and never treat their scores or paths as evidence.

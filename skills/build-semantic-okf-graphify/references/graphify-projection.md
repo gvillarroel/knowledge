@@ -8,6 +8,12 @@ Markdown structural punctuation, so only links emitted by the builder can add
 edges. Views and external Graphify caches must be verifiably absent before
 publication.
 
+For `source-packed-v1`, the builder reconstructs the exact legacy
+`record-per-file-v1` concept and index Markdown in memory and runs Graphify over
+those virtual paths. The expanded concepts are never written to the bundle.
+The resulting canonical graph bytes and retrieval rankings must be identical
+to the record-per-file release; file reduction alone is not sufficient.
+
 The published `retrieval/graphify/index.json` binds the native node-link graph to
 the complete Semantic OKF core, `records.jsonl`, every normalized record, and the
 deterministic view-input digest. A release is invalid when any core artifact,

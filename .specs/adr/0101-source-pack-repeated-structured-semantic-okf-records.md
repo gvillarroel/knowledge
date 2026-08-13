@@ -149,10 +149,11 @@ specialized builders and consultation adapters:
 
 | Specialized bundle | Record-per-file files | Source-packed files | Reduction | Quality gate |
 |---|---:|---:|---:|---|
+| Registered Graphify | 886 | 43 | 95.15% | 0/40 ranking mismatches; 400/400 evidence hits |
 | Graphify Next | 886 | 43 | 95.15% | 0/40 ranking mismatches; 400/400 evidence hits |
 | Harbor Graphify | 886 | 43 | 95.15% | 0/40 ranking mismatches; 400/400 evidence hits |
 | Tantivy | 890 | 47 | 94.72% | 0/40 ranking mismatches; 400/400 evidence hits |
-| Rust + MALLET | 891 | 48 | 94.61% | exact metrics on four routes; 1,598/1,598 evidence hits |
+| Rust + MALLET | 890 | 47 | 94.72% | 0/40 ranking mismatches on four routes; 1,598/1,598 evidence hits |
 
 Graphify required an additional storage-independent projection rule. Directly
 parsing packed collections changed six of forty rankings and reduced source-level
@@ -165,11 +166,12 @@ aggregate metrics, and identical per-question rankings without publishing or
 temporarily materializing the expanded concept tree.
 
 The Tantivy documents, lexicon, associations, and topics were byte-identical
-across layouts. The Rust documents, lexicon, associations, topics, and reference
-dictionary were byte-identical; only the layout-bound index changed. Its BM25,
+across layouts. The Rust documents, lexicon, associations, and topics were also
+byte-identical; only layout-bound indexes and reports changed. Its BM25,
 association, fusion, and topic routes retained their complete rankings and exact
-metrics. Rust-evolved uses the same compact core and its frozen consultant was
-the consultation implementation exercised by that four-route comparison.
+metrics. The reference-dictionary builder candidate remains unpromoted because
+its frozen holdout contained a negative task delta; compaction does not override
+that quality decision.
 
 The Tika-integrated GraphRAG path normalizes Tika extractions as substantive
 Markdown documents, so it correctly remained at one physical concept per input
@@ -179,6 +181,10 @@ source-packed CSV, JSON, and RDF inputs; controlled two-record fixtures verified
 one collection, unchanged semantic artifacts, exact anchors and bodies, and
 fail-closed tamper rejection. This preserves the rule that prose must not be
 collapsed merely to improve a file-count metric.
+
+The complete fresh per-builder storage inventory and 28-route current quality
+table are recorded in
+[`20260813-semantic-okf-compaction-metrics.md`](../../evaluations/semantic-okf-datasets/reports/20260813-semantic-okf-compaction-metrics.md).
 
 ## Consequences
 
