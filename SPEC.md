@@ -733,6 +733,48 @@ read-only expert skill.
   specialized path does not alter the `build-consult` or `consult-only`
   resource-isolation contracts.
 
+### Integrated classical knowledge skill generator
+
+The repository also ships `skills/build-classical-knowledge-skill/` for an
+explicit direct-delivery workflow. It accepts one closed Semantic OKF source
+manifest, one closed classical retrieval plan, and reviewed domain guidance,
+then publishes one standalone read-only expert skill whose knowledge is built
+directly under `references/knowledge/`. It does not require or invoke a sibling
+builder, consultant, repository module, or prebuilt snapshot at runtime.
+
+- The generator must materialize and deeply validate the complete Semantic OKF
+  core and classical retrieval projection before packaging or publication.
+- The generated artifact must retain every authoritative ledger identity,
+  body, provenance binding, semantic graph, validation result, and classical
+  retrieval artifact. Its embedded classical runtime must be byte-identical to
+  the accepted separate classical consultant runtime for the same release.
+- `source-packed-v1` is the default physical layout. Every generated query hit
+  must include a resolvable `references/knowledge/...` evidence path and, for a
+  packed record, its unique hash-derived anchor. Validation must prove that the
+  exact record body occurs inside that anchor's section, not merely elsewhere
+  in the collection document.
+- Generated experts default to classical `fusion`, retain explicit `bm25`,
+  `topic`, `association`, and `fusion` routes, and label retrieval scores as
+  discovery rather than authoritative evidence.
+- Publication must be atomic, deterministic, timestamp-free, free of absolute
+  paths, overwrite-refusing, and reproducible through a non-mutating `--check`
+  mode. The generator and every generated expert must remain executable after
+  their directory is copied outside the repository.
+- The generated expert must verify its manifest, packaged scripts, complete
+  knowledge tree, authoritative core, classical plan and index, ledger count,
+  and physical evidence bindings before consultation. It must never build,
+  refresh, repair, or mutate its embedded knowledge.
+- Promotion requires exact knowledge-byte and classical-runtime parity with a
+  separately built baseline plus zero full-payload or ranking mismatches over
+  every canonical question and all four classical routes in each declared test
+  dataset. Every authoritative record and every retained evaluation hit must
+  resolve to exact physical evidence. This deterministic gate must not be
+  mislabeled as a new model-judged Harbor answer-quality result.
+- This direct-delivery path is an optional construction variant. It does not
+  replace the generic lifecycle or specialized-skill pipeline and must not
+  alter the canonical Harbor `build-consult` or `consult-only` skill and mount
+  isolation contracts.
+
 Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
 
 ### Semantic OKF embedding retrieval
