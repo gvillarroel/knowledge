@@ -129,6 +129,11 @@ def test_registry_validates_all_datasets_and_strategy_pairs() -> None:
     assert reports["astro-40"]["reference_answer_count"] == 0
 
 
+def test_harbor_generation_normalizes_both_arxiv_identifier_widths() -> None:
+    assert GENERATOR.paper_document_id("paper-1208-0928v2") == "1208.0928v2"
+    assert GENERATOR.paper_document_id("paper-2508-05095v3") == "2508.05095v3"
+
+
 def test_dataset_schema_versions_policy_and_reference_answers() -> None:
     jsonschema = pytest.importorskip("jsonschema")
     schema = json.loads((ROOT / "dataset.schema.json").read_text(encoding="utf-8"))

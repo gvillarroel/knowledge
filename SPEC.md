@@ -775,6 +775,69 @@ builder, consultant, repository module, or prebuilt snapshot at runtime.
   alter the canonical Harbor `build-consult` or `consult-only` skill and mount
   isolation contracts.
 
+### Canonical multi-family knowledge skill generator
+
+The repository also ships `skills/build-semantic-okf-knowledge-skill/` as the
+single direct generator for every family registered by
+`evaluations/semantic-okf-datasets/families.json`: `legacy`, `embeddings`,
+`classical`, `adaptive`, `entity-graph`, `ensemble`, `graphify`, and `turso`.
+It accepts one closed source manifest, the exact family plan when required,
+reviewed application guidance, and generated-skill metadata, then publishes
+one ready-to-use read-only expert with immutable knowledge under
+`references/knowledge/`.
+
+- The generator must be standalone. Its package must vendor the exact accepted
+  builder and consultant pair for each family and must never import or execute
+  a sibling skill. Automated tests must require byte parity between every
+  vendored package and its canonical source before release.
+- Family selection must be explicit and closed. Planless and plan-based
+  families, allowed routes, default route, target shape, optional model policy,
+  build command, validation command, and consultation command must remain
+  bound in the generated manifest.
+- Construction must use the matched family builder and validator directly
+  against the explicit source manifest and plan. It must reject an existing
+  destination, unsafe input or output paths, links, special files, unknown
+  artifacts, silent dependency or model fallback, and incomplete bindings.
+- Publication must be atomic, deterministic, timestamp-free, and free of
+  absolute source dependencies. A non-mutating `--check` rebuild must compare
+  the complete generated artifact, and a copied generator or expert must
+  remain executable outside this repository.
+- The generated expert must contain the matched consultant instructions,
+  references, runtime, and exact dependency declarations, but no builder code.
+  It must provide stable `verify`, `inspect`, `search`, and `get` operations,
+  retain all native advanced commands, and remain read-only before, during,
+  and after consultation.
+- The expert manifest must digest-bind every non-knowledge artifact, the
+  complete knowledge tree, source manifest, optional plan, family contract,
+  record count, build report, and physical evidence mapping. Deep validation
+  must independently verify the authoritative core and the selected family
+  projection before publication and before consultation.
+- `source-packed-v1` remains the default physical layout. Every authoritative
+  hit must expose a resolvable `references/knowledge/...` path and, for a
+  packed record, one unique hash-derived anchor whose section contains the
+  exact authoritative body.
+- Historical and current versioned arXiv identities are both canonical. New
+  style identifiers must accept exactly four year/month digits, a dot or
+  normalized source-ID separator, four or five sequence digits, and a version
+  suffix. Builders, consultants, dataset staging, and evaluation identity
+  normalization must agree on this width contract.
+- Promotion requires complete byte equality with an independently executed
+  separate builder output and complete byte equality with the matched
+  consultant instructions, references, and runtime on every declared test
+  dataset. A native default-route query and the stable citation façade must
+  also match before enrichment, every retained hit must resolve to physical
+  evidence, and an exact record lookup must reproduce the ledger body.
+- Complete knowledge and consultation byte equality establishes mechanical
+  behavior equivalence for all questions bound by a digest-frozen dataset.
+  Representative executed query cells guard command translation and citation
+  enrichment. This gate must not be described as a new model-judged Harbor
+  answer-quality result.
+
+This generator extends rather than removes the family-specific direct
+generator, separate build/consult pairs, generic specialized-skill workflow,
+and Harbor execution modes. The one-way evolution, validation, and holdout
+boundaries remain unchanged.
+
 Separate declarations scope non-RDF identity and provenance but share one accepted data graph and one release lifecycle. One glob-backed declaration is a homogeneous append-only partition union and requires unique record IDs across all members. True entity fusion, conflict resolution, and multi-origin lineage require an upstream canonicalization contract. Refresh remains a full rebuild rather than an incremental file merge so deleted source records cannot leave stale concepts or triples. Consultation must retain source identity and prefer `records.jsonl` for metadata lookups, Markdown for human/full-text reading, and selected RDF graphs for joins, aggregation, or lineage.
 
 ### Semantic OKF embedding retrieval

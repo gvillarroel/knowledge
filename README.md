@@ -343,3 +343,17 @@ The pinned 30-input GraphRAG comparison, reproducible runner, raw metrics, and i
 - Google release feeds are normalized into one Markdown document per feed entry date plus the raw `feed.xml`.
 - Human docs are in `docs/`.
 - Coverage gate command: `python scripts/check_coverage.py --threshold 80`
+
+## Direct multi-family knowledge skills
+
+`skills/build-semantic-okf-knowledge-skill/` turns a closed source manifest,
+the selected family plan when required, and reviewed application guidance into
+one portable read-only expert. It directly supports all canonical families:
+legacy, embeddings, classical, adaptive, entity graph, ensemble, Graphify, and
+Turso. The generated skill contains its immutable knowledge, exactly matched
+consultant, stable search and exact-record façade, and physical citations; it
+does not require sibling skills or a prebuilt snapshot after generation.
+
+See the skill's `SKILL.md` for commands and
+`evaluations/integrated-semantic-okf-knowledge-skill/` for the independent
+separate-versus-integrated parity gate.

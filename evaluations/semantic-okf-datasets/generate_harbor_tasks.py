@@ -142,7 +142,7 @@ def paper_document_id(source_id: str) -> str | None:
     for prefix in ("paper-", "claims-"):
         if source_id.startswith(prefix):
             value = source_id[len(prefix) :]
-            match = re.fullmatch(r"([0-9]{4})-([0-9]{5}v[0-9]+)", value)
+            match = re.fullmatch(r"([0-9]{4})-([0-9]{4,5}v[0-9]+)", value)
             return f"{match.group(1)}.{match.group(2)}" if match else value
     return None
 

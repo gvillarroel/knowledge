@@ -213,6 +213,16 @@ def test_plan_parser_is_closed_and_rejects_duplicate_keys(tmp_path: Path) -> Non
         module.load_plan(plan_path)
 
 
+def test_paper_identity_accepts_historical_and_current_arxiv_widths() -> None:
+    module = load_retrieval_module()
+
+    historical = module.PAPER_RE.search("paper-1208-0928v2")
+    current = module.PAPER_RE.search("paper-2508-05095v3")
+
+    assert historical and ".".join(historical.groups()) == "1208.0928v2"
+    assert current and ".".join(current.groups()) == "2508.05095v3"
+
+
 @pytest.mark.parametrize(
     ("path", "value", "message"),
     [

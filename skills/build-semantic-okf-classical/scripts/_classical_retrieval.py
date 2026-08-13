@@ -23,7 +23,7 @@ STOPWORDS_ID = "english-v1"
 TOKENIZER_ID = "ascii-alphanumeric-v1"
 TOKEN_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
 PAGE_RE = re.compile(r"(?m)^## PDF page \d+\s*$")
-PAPER_RE = re.compile(r"(?<!\d)(\d{4})[.-](\d{5}v\d+)(?!\d)", re.IGNORECASE)
+PAPER_RE = re.compile(r"(?<!\d)(\d{4})[.-](\d{4,5}v\d+)(?!\d)", re.IGNORECASE)
 HEX_64 = re.compile(r"[0-9a-f]{64}")
 DOCUMENT_KEYS = {
     "document_id",

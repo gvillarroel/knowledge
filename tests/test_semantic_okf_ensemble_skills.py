@@ -400,6 +400,13 @@ def _policy(
     }
 
 
+def test_ensemble_normalizes_historical_and_current_arxiv_source_ids(
+    runtime: ModuleType,
+) -> None:
+    assert runtime._paper_id({"source_id": "paper-1208-0928v2"}) == "1208.0928v2"
+    assert runtime._paper_id({"source_id": "paper-2508-05095v3"}) == "2508.05095v3"
+
+
 def _plan(*, quality_uses_embedding: bool = False) -> dict[str, Any]:
     direct = _policy(["adaptive", "graph_lexical"], [4.0, 1.0])
     quality = (

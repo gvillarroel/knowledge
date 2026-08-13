@@ -88,6 +88,18 @@ def test_qec_benchmark_regenerates_and_hard_spans_join_the_ledger() -> None:
     assert len(truths) == 10
     assert len(by_source) == 15
 
+    adaptive_plan = json.loads(
+        (ROOT / "plans" / "adaptive-plan.json").read_text(encoding="utf-8")
+    )
+    ensemble_plan = json.loads(
+        (ROOT / "plans" / "ensemble-plan.json").read_text(encoding="utf-8")
+    )
+    assert adaptive_plan["passages"]["markdown_pdf_page_source_ids"]
+    assert ensemble_plan["schema_version"] == "2.0"
+    assert ensemble_plan["adaptive"]["passages"][
+        "markdown_pdf_page_source_ids"
+    ] == []
+
     for truth in truths:
         for authority in truth["authoritative_evidence"]:
             source_id = f"paper-{authority['paper_id'].replace('.', '-', 1)}"

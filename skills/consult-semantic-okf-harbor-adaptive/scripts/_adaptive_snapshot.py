@@ -31,7 +31,7 @@ FACET_SPLIT_RE = re.compile(
     re.IGNORECASE,
 )
 PAGE_RE = re.compile(r"(?m)^## PDF page \d+\s*$")
-PAPER_ID_RE = re.compile(r"\d{4}\.\d{5}v\d+", re.IGNORECASE)
+PAPER_ID_RE = re.compile(r"\d{4}\.\d{4,5}v\d+", re.IGNORECASE)
 EVIDENCE_FRAGMENT_RE = re.compile(r"(?P<path>[^#]+)#PDF-page-(?P<page>[1-9]\d*)")
 HEX_64 = re.compile(r"[0-9a-f]{64}")
 DOCUMENT_ID_RE = re.compile(r"document-[0-9a-f]{32}")

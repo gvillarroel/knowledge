@@ -42,6 +42,7 @@ NON_APPLICATION_TESTS = (
     "tests/test_build_semantic_okf_adaptive_skill.py",
     "tests/test_build_semantic_okf_classical_skill.py",
     "tests/test_build_classical_knowledge_skill.py",
+    "tests/test_build_semantic_okf_knowledge_skill.py",
     "tests/test_build_semantic_okf_rust_mallet_skill.py",
     "tests/test_consult_semantic_okf_adaptive_skill.py",
     "tests/test_consult_semantic_okf_classical_skill.py",

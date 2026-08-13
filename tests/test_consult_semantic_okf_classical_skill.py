@@ -231,6 +231,16 @@ def test_skill_metadata_documents_and_runtime_are_standalone() -> None:
     assert "openai" not in source.casefold()
 
 
+def test_snapshot_accepts_historical_and_current_arxiv_widths() -> None:
+    module = load_snapshot_module()
+
+    historical = module.PAPER_RE.search("paper-1208-0928v2")
+    current = module.PAPER_RE.search("paper-2508-05095v3")
+
+    assert historical and ".".join(historical.groups()) == "1208.0928v2"
+    assert current and ".".join(current.groups()) == "2508.05095v3"
+
+
 def test_deep_inspection_independently_rederives_every_artifact(bundle: Path) -> None:
     before = tree_hashes(bundle)
     completed = run_query(bundle, "inspect", "--deep-validation")

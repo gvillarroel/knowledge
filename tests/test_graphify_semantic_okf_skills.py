@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
@@ -157,6 +158,27 @@ def test_graphify_skills_declare_distinct_standalone_authorities() -> None:
     assert (CONSULT_SKILL / "scripts" / "requirements.in").read_text(
         encoding="utf-8"
     ).strip() == "graphifyy==0.9.17"
+
+
+def test_graphify_normalizes_historical_and_current_arxiv_source_ids() -> None:
+    for role, path in (
+        ("builder", BUILD_SKILL / "scripts" / "_graphify_projection.py"),
+        ("consultant", CONSULT_SKILL / "scripts" / "_graphify_snapshot.py"),
+    ):
+        specification = importlib.util.spec_from_file_location(
+            f"test_graphify_{role}_paper_identity",
+            path,
+        )
+        assert specification and specification.loader
+        module = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(module)
+
+        assert module._paper_id({"source_id": "paper-1208-0928v2"}, {}) == (
+            "1208.0928v2"
+        )
+        assert module._paper_id({"source_id": "paper-2508-05095v3"}, {}) == (
+            "2508.05095v3"
+        )
 
 
 def test_copied_graphify_skills_build_query_deterministically_and_fail_closed(

@@ -942,7 +942,7 @@ def _paper_id(row: Mapping[str, Any]) -> str | None:
     source_id = row.get("source_id")
     if isinstance(source_id, str) and source_id.startswith("paper-"):
         candidate = source_id[len("paper-") :]
-        match = re.fullmatch(r"(\d{4})-(\d{5}v\d+)", candidate, re.IGNORECASE)
+        match = re.fullmatch(r"(\d{4})-(\d{4,5}v\d+)", candidate, re.IGNORECASE)
         return f"{match.group(1)}.{match.group(2)}" if match else candidate
     record_id = row.get("record_id")
     if isinstance(record_id, str) and record_id.startswith("sources/markdown/"):

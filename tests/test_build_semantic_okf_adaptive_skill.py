@@ -373,6 +373,26 @@ def test_plan_rejects_unselected_or_invalid_paper_identity_mapping(tmp_path: Pat
         module.load_plan(plan_path)
 
 
+def test_plan_accepts_historical_and_current_versioned_arxiv_identifiers(
+    tmp_path: Path,
+) -> None:
+    module = load_retrieval_module()
+    _, plan_path = write_fixture(tmp_path)
+    payload = json.loads(plan_path.read_text(encoding="utf-8"))
+    payload["evidence_identity"]["paper_ids_by_source"] = {
+        "alpha": "1208.0928v2",
+        "beta": "2508.05095v3",
+    }
+    plan_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    plan = module.load_plan(plan_path)
+
+    assert plan.raw["evidence_identity"]["paper_ids_by_source"] == {
+        "alpha": "1208.0928v2",
+        "beta": "2508.05095v3",
+    }
+
+
 def test_atomic_build_is_deterministic_and_excludes_auxiliary_source(tmp_path: Path) -> None:
     manifest, plan = write_fixture(tmp_path)
     first = tmp_path / "bundle-a"

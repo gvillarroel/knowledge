@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -410,11 +411,13 @@ def _ensemble_plan(
     embedding: Mapping[str, Any],
     entity: Mapping[str, Any],
 ) -> dict[str, Any]:
+    ensemble_adaptive = copy.deepcopy(adaptive)
+    ensemble_adaptive["passages"]["markdown_pdf_page_source_ids"] = []
     return {
         "schema_version": "2.0",
-        "adaptive": adaptive,
-        "embedding": embedding,
-        "entity_graph": entity,
+        "adaptive": ensemble_adaptive,
+        "embedding": copy.deepcopy(embedding),
+        "entity_graph": copy.deepcopy(entity),
         "identity": {"default_grouping": "source-record-v1", "overrides": []},
         "quality_gates": {
             "candidate_edge_weight": 0.0,
