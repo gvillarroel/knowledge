@@ -4,12 +4,20 @@ This directory contains reproducible evaluation definitions, validators, and
 compact reviewed documentation. Large or sensitive evaluation data stays local
 and is ignored by Git.
 
-## Current report
+## Comparison report catalog
 
-Read [`LATEST-REPORT.md`](LATEST-REPORT.md) for the current ordered comparison
-of Semantic OKF build/consult pairs, experimental candidates, grounded Harbor
-status, and capability-only evaluations. It orders evidence by comparability
-and recency without moving immutable or digest-bound artifacts.
+Start with [`COMPARISON-REPORTS.md`](COMPARISON-REPORTS.md) to find the current
+report for each comparison question. The catalog separates construction,
+retrieval, live consultation, semantic quality, efficiency, and capability
+evidence; records which reports supersede older semantic reviews; and links the
+Git-safe publication indexes for the latest Classical chunking studies.
+
+## Retrieval portfolio report
+
+Read [`LATEST-REPORT.md`](LATEST-REPORT.md) for the 2026-07-30 ordered
+comparison of Semantic OKF build/consult pairs, experimental candidates,
+grounded Harbor status, and capability-only evaluations. It orders evidence by
+comparability and recency without moving immutable or digest-bound artifacts.
 
 Read
 [`SKILL-EXPLORATION-AND-EVOLUTION.md`](SKILL-EXPLORATION-AND-EVOLUTION.md)

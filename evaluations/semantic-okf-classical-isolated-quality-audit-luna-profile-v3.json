@@ -1,0 +1,37 @@
+{
+  "agent": {
+    "model": "openai-codex/gpt-5.6-luna",
+    "piVersion": "0.84.2",
+    "thinking": "high"
+  },
+  "answerGeneration": "reuse-frozen-completed-harbor-responses",
+  "auditPurpose": "retrospective-evaluator-correction",
+  "cohorts": [
+    "q019-q024",
+    "q041-q046",
+    "q047-q052"
+  ],
+  "comparison": {
+    "baseline": "canonical-within-each-cohort",
+    "crossCohortRankingAllowed": false,
+    "requiredPointComparison": "component-wise-no-compensation",
+    "semanticGate": "zero-regressed-mixed-or-indeterminate-cases"
+  },
+  "judge": {
+    "answersPerCall": 1,
+    "calibrationControls": [
+      "contract-derived-positive",
+      "empty-answer-negative"
+    ],
+    "criterionOrders": [
+      "forward",
+      "reverse",
+      "deterministic-rotation"
+    ],
+    "model": "openai-codex/gpt-5.6-luna",
+    "replicatesPerAnswer": 3,
+    "thinking": "high"
+  },
+  "promotionEligible": false,
+  "schemaVersion": "classical-isolated-quality-audit-profile/1.0"
+}

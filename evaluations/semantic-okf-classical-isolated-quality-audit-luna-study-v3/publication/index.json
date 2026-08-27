@@ -1,0 +1,62 @@
+{
+  "holdoutReleased": false,
+  "ledger": {
+    "eventCount": 20,
+    "headSha256": "b157676f057f439209b333acf432bbc1b542b1158469b65d9f64a873fd1928da"
+  },
+  "progress": {
+    "completedCount": 2,
+    "completionPercent": 100.0,
+    "stageCount": 2
+  },
+  "publicationPolicy": "indexes-and-result-tables-only-v1",
+  "resultIndex": [
+    {
+      "artifactType": "file",
+      "byteCount": 4867,
+      "evidenceId": "all-strategies-table-r5",
+      "fileCount": 1,
+      "kind": "final-report",
+      "role": "publication",
+      "sha256": "10d555242b2b6fec75a5013bf749dff6939f64a0059cbec35f29d7dc6e20d04c",
+      "stageId": "publish-correction",
+      "visibility": "public"
+    },
+    {
+      "artifactType": "file",
+      "byteCount": 4153,
+      "evidenceId": "methodology-delta-table-r5",
+      "fileCount": 1,
+      "kind": "decision",
+      "role": "publication",
+      "sha256": "6cd4d484011a0c58824c2eee9944ae3b7d083b1e7e74aaf7575801d9f31e81cd",
+      "stageId": "publish-correction",
+      "visibility": "public"
+    }
+  ],
+  "resultTables": [
+    {
+      "byteCount": 4153,
+      "path": "tables/methodology-and-result-delta-r5.table.md",
+      "sha256": "6cd4d484011a0c58824c2eee9944ae3b7d083b1e7e74aaf7575801d9f31e81cd"
+    },
+    {
+      "byteCount": 4867,
+      "path": "tables/superseding-isolated-all-strategies-r4.table.md",
+      "sha256": "10d555242b2b6fec75a5013bf749dff6939f64a0059cbec35f29d7dc6e20d04c"
+    },
+    {
+      "byteCount": 4867,
+      "path": "tables/superseding-isolated-all-strategies-r5.table.md",
+      "sha256": "10d555242b2b6fec75a5013bf749dff6939f64a0059cbec35f29d7dc6e20d04c"
+    }
+  ],
+  "schemaVersion": 1,
+  "study": {
+    "comparisonProfile": "evaluations/semantic-okf-classical-isolated-quality-audit-luna-profile-v3.json",
+    "createdAt": "2026-08-15T10:54:24Z",
+    "studyId": "semantic-okf-classical-isolated-quality-audit-luna-v3",
+    "title": "Retrospective isolated Classical answer-quality audit with Luna"
+  },
+  "validationReleased": false
+}
