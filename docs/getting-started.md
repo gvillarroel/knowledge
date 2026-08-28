@@ -1,0 +1,361 @@
+# Knowledge CLI: usage and operations
+
+Run commands from the repository root unless a different working directory is shown.
+
+`know` is a Python CLI for building project-local knowledge bases. Run
+`know init` in a project to create `.know`; commands in that directory and its
+descendants use that store automatically. Outside a local project, the CLI
+falls back to `~/.knowledge`.
+
+Each knowledge key is an independent local collection with declarative source registrations, raw synchronized content, Open Knowledge Format-compatible exported Markdown, and repeatable commands stored in metadata.
+
+## Install
+
+```bash
+uv tool install .
+```
+
+From GitHub:
+
+```bash
+uv tool install git+https://github.com/<owner>/<repo>.git
+```
+
+The installed executable is `know`.
+
+For browser-assisted `site` capture on Windows, install `know` with Python 3.12 explicitly:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force .
+```
+
+Use the same pattern for GitHub installs:
+
+```powershell
+uv python install 3.12
+uv tool install --python 3.12 --force git+https://github.com/<owner>/<repo>.git
+```
+
+This matters because the CDP BFS site workflow depends on the Python `playwright` package in the tool runtime. In this workspace, Python 3.14 was not a reliable runtime for the full `site` stack, while Python 3.12 worked with the required dependencies.
+
+## Quick Start
+
+```bash
+know init
+know add key research
+know set credential jira_token secret-token
+know add confluence --space ENG --key research
+know add aha PROD --key research
+know add arxiv https://arxiv.org/abs/1706.03762v7 --key research --if-missing --sync
+know add google-releases https://docs.cloud.google.com/feeds/gcp-release-notes.xml --key research
+know add github-repo https://github.com/example/repo.git --key research --branch main --branch develop
+know add tv research-sources --key research --source-command "know list sources --key research --format json"
+know list sources --key research
+know search confluence "incident postmortem"
+know search arxiv "attention is all you need" --max-results 5 --sort-by submittedDate
+know sync --key research
+know export --key research
+```
+
+## Typical Workflow
+
+1. Run `know init` at the project root to create its `.know` store.
+2. Create a key with `know add key <KEY>`.
+3. Register one or more sources under that key.
+4. Inspect registrations with `know list sources --key <KEY>`.
+5. Run `know sync --key <KEY>` to materialize raw source data locally.
+6. Run `know export --key <KEY>` to build Markdown output and a zip archive.
+
+The command family stays consistent across source types, so the same pattern works for Confluence, Jira, arXiv, websites, videos, GitHub repositories, Google release feeds, Aha workspaces, and Television channel definitions.
+
+## Browser-Assisted Site Capture
+
+The `site` source supports a browser-assisted capture mode for sites that rate-limit plain HTTP scraping.
+There is no separate `know cdp-bfs` command. You keep using the normal `site` commands:
+
+- `know add site ...`
+- `know sync site ...`
+
+The default site strategy is now BFS over HTTP whenever possible.
+If `KNOW_SITE_CDP_URL` is set, that same BFS flow can reuse your live browser session.
+Use `KNOW_SITE_FORCE_CRAWL4AI=1` only when you explicitly want the `crawl4ai` strategy instead.
+
+Set `KNOW_SITE_CDP_URL` to a live Chrome or Brave DevTools endpoint such as `http://127.0.0.1:9222`.
+When that variable is present, `know` reuses cookies from the connected browser session and applies them to the HTTP crawler.
+
+This is especially useful for `docs.cloud.google.com`, where:
+
+- plain automated requests can be redirected to Google `sorry` pages
+- HTTP BFS crawling with the browser session cookies can capture the intended documentation subtree more reliably
+- scoped extraction from the primary page content produces cleaner Markdown than full-document stripping
+
+Recommended workflow:
+
+```powershell
+& "$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe" `
+  --remote-debugging-port=9222 `
+  --remote-debugging-address=127.0.0.1 `
+  --user-data-dir="$env:TEMP\\chrome-cdp-profile"
+
+$env:KNOW_SITE_CDP_URL = "http://127.0.0.1:9222"
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10
+know sync site https://docs.cloud.google.com/bigquery/docs --key research
+```
+
+What happens in that flow:
+
+1. Chrome or Brave stays open with your authenticated browser session.
+2. `know` connects to the DevTools endpoint from `KNOW_SITE_CDP_URL`.
+3. For `docs.cloud.google.com`, the `site` adapter prefers the CDP-assisted BFS HTTP path.
+4. The crawler reuses browser cookies, stays inside the documentation subtree, and extracts primary page content before converting it to Markdown.
+
+Safety behavior:
+
+- anti-bot pages are detected and fail the sync instead of overwriting a healthy corpus
+- site sync prefers BFS by default
+- when `KNOW_SITE_CDP_URL` is present, the BFS path can reuse the connected browser session
+- `KNOW_SITE_FORCE_CRAWL4AI=1` switches the primary strategy to `crawl4ai`
+- the CDP mode requires the Python `playwright` package, but it connects to your existing Chrome session and does not require a bundled Playwright browser install
+
+For a cleaner on-disk layout, register site sources with `--compact`:
+
+```bash
+know add site https://docs.cloud.google.com/bigquery/docs --key research --max-depth 1 --max-pages 10 --compact
+```
+
+Compact site output keeps only:
+
+- `pages/*.md` with YAML frontmatter
+- `pages.json` as the page index
+- `source-metadata.yaml` as source-level sync metadata
+
+It does not write per-page JSON sidecars.
+
+### Verifying that CDP BFS was used
+
+After sync, inspect the generated Markdown frontmatter under the site source directory. The page metadata should include a fetch mode such as:
+
+- `http_cdp_bfs` for the HTTP crawler seeded with browser cookies
+- `browser_cdp` for pages fetched directly through the live browser session
+
+If you do not set `KNOW_SITE_CDP_URL`, the same site source falls back to the regular non-CDP path.
+
+### When to use `site-spikes`
+
+The production workflow above is for normal `know sync site ...` usage.
+If you want to compare multiple crawl strategies side by side, use the separate benchmark runner documented in [docs/site-spikes.md](site-spikes.md).
+
+## Store Layout
+
+```text
+<project>/.know/           # preferred project-local store
+  config.yaml
+  keys.yaml
+  exports/
+  <key>/
+    metadata.yaml
+    confluence/
+    arxiv/
+    google_releases/
+    github/
+    jira/
+    aha/
+    raw/
+    library/
+    cache/
+```
+
+Store selection follows this precedence: an explicit `--store <PATH>`, the
+nearest `.know` directory at or above the current working directory, then the
+global `~/.knowledge` fallback. This lets every command launched anywhere
+inside a project work on the same project knowledge.
+
+## Common Commands
+
+```bash
+know --help
+know init
+know add key <KEY>
+know set credential <NAME> <VALUE>
+know list keys
+know list sources --key <KEY>
+know add confluence --space <SPACE> --key <KEY>
+know search confluence "text search"
+know search arxiv "all:transformer" --max-results 10
+know search arxiv --query-file papers/arxiv-discovery-queries.txt --published-after <ISO_TIMESTAMP> --registered-key <KEY> --only-unregistered
+know add arxiv <URL> [<URL> ...] --key <KEY> [--if-missing] [--sync] [--request-delay SECONDS] [--batch-size N]
+know add google-releases <FEED_URL> --key <KEY>
+know add github-repo <REPO_URL> --key <KEY> --branch <BRANCH>
+know add jira-project <PROJECT> --key <KEY>
+know add aha <PRODUCT> --key <KEY>
+know add tv
+know add tv <CHANNEL> --key <KEY> --source-command <COMMAND>
+know sync --key <KEY>
+know export --key <KEY>
+know import <ARCHIVE.zip>
+```
+
+## Semantic OKF Evaluation Datasets
+
+The reusable Astro, GraphRAG-paper, and quantum-error-correction-paper
+evaluations are documented in
+[evaluations/semantic-okf-datasets/README.md](../evaluations/semantic-okf-datasets/README.md).
+They include separate `build-consult` and `consult-only` Harbor modes, checked
+dataset and evidence bindings, provider-aware campaign validity, and an
+explicit boundary between holdout-qualified studies and retrospective
+all-exposed retrieval profiles.
+
+The consolidated
+[skill exploration and evolution index](../evaluations/SKILL-EXPLORATION-AND-EVOLUTION.md)
+records which skills and strategies were tried, their results, and the
+promotion or rejection boundary for each major lineage.
+
+## Television Workflows
+
+`know` supports Television in two complementary ways:
+
+- You can register a `television` source so a reusable `channel.toml` is generated and stored under the knowledge key.
+- Several list and search commands can emit `--format television` or `--format television-preview` output directly for `tv`.
+
+### Browse knowledge keys in Television
+
+```bash
+tv \
+  --source-command "know list keys --format television" \
+  --preview-command "know list keys --format television-preview --entry '{}'"
+```
+
+### Browse registered sources for one key
+
+```bash
+tv \
+  --source-command "know list sources --key research --format television" \
+  --preview-command "know list sources --key research --format television-preview --entry '{}'"
+```
+
+### Install the bundled Television cables
+
+```bash
+know add tv
+```
+
+This copies the repository's pre-built `.toml` channel files into the active
+Television cable directories. It honors `TELEVISION_CONFIG`, uses
+`%LOCALAPPDATA%\television\config\cable` on Windows, and also supports the
+macOS/Unix `$HOME/.config/television/cable` location.
+
+### Create a reusable Television channel from `know list sources`
+
+```bash
+know add tv research-sources --key research \
+  --description "Browse all registered sources for the research key" \
+  --source-command "know list sources --key research --format television" \
+  --preview-command "know list sources --key research --format television-preview --entry '{}'"
+know sync television research-sources --key research
+```
+
+### Create a reusable Television channel from arXiv search
+
+```bash
+know add tv arxiv-transformers --key research \
+  --description "Browse arXiv search results for transformer papers" \
+  --source-command "know search arxiv \"attention is all you need\" --format television --max-results 20 --sort-by submittedDate" \
+  --preview-command "know search arxiv \"attention is all you need\" --format television-preview --entry '{}'"
+know sync television arxiv-transformers --key research
+```
+
+After sync, the generated Television source writes a `channel.toml`, a command
+manifest, and a short README under the source raw directory. Use the platform
+installer in `commands.json`, or run the inline command from the manifest.
+
+### Pre-built cables
+
+The repository includes ready-to-use Television cable files in the `cables/` directory at the repository root:
+
+| Cable file | Channel | Description |
+|---|---|---|
+| `know-keys.toml` | `know-keys` | Browse knowledge keys |
+| `know-sources.toml` | `know-sources` | Browse all registered sources |
+| `know-confluence.toml` | `know-confluence` | Search Confluence pages |
+| `know-jira.toml` | `know-jira` | Search Jira issues |
+| `know-arxiv.toml` | `know-arxiv` | Search arXiv papers |
+| `know-follow.toml` | `know-follow` | Inspect follow-up items from GitHub, starred GitHub repos, and Jira |
+
+Install them all at once:
+
+```bash
+# Unix / macOS
+mkdir -p ~/.config/television/cable
+cp cables/*.toml ~/.config/television/cable/
+
+# Windows PowerShell
+$ConfigDir = if ($env:TELEVISION_CONFIG) { $env:TELEVISION_CONFIG } elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'television' } else { Join-Path $env:LOCALAPPDATA 'television\config' }
+$CableDir = Join-Path $ConfigDir 'cable'
+New-Item -ItemType Directory -Force -Path $CableDir | Out-Null
+Copy-Item cables/*.toml $CableDir/
+```
+
+Then run any channel:
+
+```bash
+tv know-keys
+tv know-arxiv
+tv know-jira
+tv know-follow
+```
+
+The bundled `know-follow` cable uses PowerShell `start` on `Enter`, opening the URL returned by `know browse follow-url`. If you want a Python-managed fallback, `know browse follow-open` is still available as a CLI command. GitHub follow items are collected from both your accessible repositories and repositories you have starred, then filtered down to recently active repos before loading open issues, PRs, and discussions.
+
+## Open Knowledge Format
+
+The project can generate a strict [Google Open Knowledge Format v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle on demand under `build/okf/`. The repository root remains normal project documentation, and the ignored build output is the portable interoperability artifact.
+
+The bundle projects this README, `SPEC.md`, and every native `skills/*/SKILL.md` into standard OKF concept documents. Native skill frontmatter remains limited to `name` and `description`, while projected skill concepts use a top-level `type: Agent Skill` and preserve source traceability.
+
+Regenerate and validate it with:
+
+```bash
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py .
+python skills/open-knowledge-format/scripts/build_project_okf_bundle.py . --check
+python skills/open-knowledge-format/scripts/validate_okf_bundle.py build/okf
+```
+
+## Semantic OKF embedding retrieval
+
+The repository includes a second standalone Semantic OKF skill pair for local embedding-based discovery:
+
+- `build-semantic-okf-embeddings` builds the unchanged authoritative OKF/RDF snapshot plus a hash-bound retrieval projection with native or LlamaIndex chunking and explicit embedding providers resolved from immutable, preloaded offline model snapshots.
+- `consult-semantic-okf-embeddings` performs read-only lexical, exact-vector, or hybrid retrieval and returns the authoritative concept paths and locators that must be opened before citation.
+
+The embedding projection is a discovery index, not a replacement for `records.jsonl`, concept Markdown, RDF, provenance, or validation evidence. The deterministic `build-semantic-okf` and `consult-semantic-okf` pair remains available as the lightweight baseline.
+
+The pinned 30-input GraphRAG comparison, reproducible runner, raw metrics, and interpretation are under [`evaluations/semantic-okf-embeddings/`](../evaluations/semantic-okf-embeddings/summary.md).
+
+## Notes
+
+- `keys.yaml` stores named credentials that can be referenced as `$name`.
+- Credential management also follows the `know <verb> <object>` pattern: `know set credential ...` and `know list credentials`.
+- `know add aha <PRODUCT> --key <KEY>` can read `AHA_BASE_URL` and `AHA_TOKEN` from `.env`, storing the token as `$env:AHA_TOKEN` instead of copying the secret into metadata.
+- Exported Markdown always includes YAML frontmatter with source provenance and a non-empty OKF `type` field.
+- `know export` preserves producer-specific fields while deriving OKF `resource`, `tags`, and `sources` when available, recording the producer in `generated.by`, and migrating a known legacy `timestamp` to `generated.at`.
+- `know export` renders Markdown into each key library and also produces a zip archive for import or transfer.
+- Native skill packages live only under `skills/`; the reproducible `build/okf/` projection is ignored and generated when needed. Generated `know export` documents use the same concept-frontmatter rules.
+- Television channel sources materialize a reusable `channel.toml` plus install/run commands for `tv`.
+- Google release feeds are normalized into one Markdown document per feed entry date plus the raw `feed.xml`.
+- Human docs are in `docs/`.
+- Coverage gate command: `python scripts/check_coverage.py --threshold 80`
+
+## Direct multi-family knowledge skills
+
+`skills/build-semantic-okf-knowledge-skill/` turns a closed source manifest,
+the selected family plan when required, and reviewed application guidance into
+one portable read-only expert. It directly supports all canonical families:
+legacy, embeddings, classical, adaptive, entity graph, ensemble, Graphify, and
+Turso. The generated skill contains its immutable knowledge, exactly matched
+consultant, stable search and exact-record façade, and physical citations; it
+does not require sibling skills or a prebuilt snapshot after generation.
+
+See the skill's `SKILL.md` for commands and
+`evaluations/integrated-semantic-okf-knowledge-skill/` for the independent
+separate-versus-integrated parity gate.

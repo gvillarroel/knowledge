@@ -1,5 +1,15 @@
 # Documentation Index
 
+## Start here
+
+- [Usage and setup](getting-started.md)
+- [Repository layout, maintenance, and validation](repository-guide.md)
+- [Agent instructions](../AGENTS.md)
+- [CLI reference](cli.md)
+- [Specification](../SPEC.md)
+- [Knowledge skill evolution playbook](knowledge-skill-evolution-playbook.md)
+
+
 This directory is the canonical documentation set for the `know` CLI.
 
 Everything in this folder is intended to be readable on its own, with links that stay inside `docs/`.

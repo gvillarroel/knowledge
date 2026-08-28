@@ -41,3 +41,12 @@
 - Treat paths outside this root as read-only unless the user explicitly authorizes a broader scope.
 - A reference to another repository or shared tool does not grant write access to it.
 - A more specific nested `AGENTS.md` may narrow this scope for its subtree.
+
+## Repository organization and documentation
+
+- Keep `README.md` as an overview: purpose, critical boundaries, first useful action, and links into `docs/README.md`.
+- Put detailed procedures and reference material in `docs/`; update its index with every addition or move.
+- Follow the [repository guide](docs/repository-guide.md) for file placement, validation, and data boundaries.
+- Preserve existing canonical specs, ADRs, skill bundles, and evidence paths; do not reorganize sealed or generated data as documentation.
+- Preserve prior work, stage explicit paths, and verify links, relevant checks, and the diff before an authorized push.
+- Build tools must not delete authored documentation. Keep transient output and credentials outside tracked source.
