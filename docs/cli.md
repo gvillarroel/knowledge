@@ -11,6 +11,7 @@ Other documents in this directory:
 
 - [README.md](README.md): documentation map
 - [COMMANDS.md](COMMANDS.md): compact command lookup
+- [servicenow.md](servicenow.md): ServiceNow ticket creation, reads, and knowledge-base sync
 - [TVs.md](TVs.md): Television integration guide
 - [site-spikes.md](site-spikes.md): site capture benchmarking guide
 - [know-skill.md](know-skill.md): contributor workflow and maintenance rules
@@ -69,9 +70,11 @@ know --store C:\Users\villa\.knowledge add arxiv `
 `know add arxiv` accepts official arXiv abstract, HTML, and PDF URLs as well
 as alphaXiv overview URLs. It stores the canonical official abstract URL.
 `--if-missing` turns exact-version duplicates into successful no-ops, `--sync`
-fetches metadata and abstracts immediately, and `--request-delay` controls the
-pause between batched API calls. `--batch-size` controls how many exact paper
-IDs share one metadata request, avoiding one request per paper. Multi-lane
+fetches metadata and the complete official PDF immediately, validates and
+hashes the PDF, and writes page-addressable text to `paper.md` under
+`## PDF page N` headings. `--request-delay` paces metadata fallbacks and PDF
+downloads during batch synchronization. `--batch-size` controls how many exact
+paper IDs share one metadata request, avoiding one request per paper. Multi-lane
 search uses the same delay between query requests and retries transient arXiv
 failures. A publication boundary is sent
 to arXiv as part of each query; increase `--max-results` until
@@ -80,7 +83,10 @@ to arXiv as part of each query; increase `--max-results` until
 If the public API exhausts its retries during synchronization, the adapter
 falls back to the official versioned abstract page and extracts its citation,
 subject, and submission-history metadata. The source sync statistics identify
-this route as `arxiv-abs-html`.
+this route as `arxiv-abs-html`; paper content still comes from a validated PDF.
+If both official PDF hosts return HTML or invalid bytes, or pypdf cannot extract
+useful text, synchronization fails without replacing the last successful
+document.
 
 ## Recommended flow
 
@@ -133,7 +139,7 @@ When you need an interactive terminal browser, prefer `television` output format
 
 ## Source behavior
 
-- Confluence sync stores one Markdown file per page with YAML frontmatter and OKF concept metadata.
+- Confluence sync stores one Markdown file per page with YAML frontmatter and OKF concept metadata. It uses bounded concurrent downloads, safe read retries, and version-checked checkpoints; incomplete runs preserve the previous corpus. See [Reliable Confluence synchronization](confluence-sync.md) for controls, recovery, and validation.
 - Jira sync stores one Markdown file per issue with YAML frontmatter and OKF concept metadata.
 - `know export` ensures every non-reserved Markdown concept document has a non-empty OKF `type` field and preserves source provenance fields.
 - Confluence search uses the current Confluence search API with CQL filters.

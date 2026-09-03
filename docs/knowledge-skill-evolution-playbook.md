@@ -23,6 +23,14 @@ Never change the knowledge builder and the consultation behavior in the same
 treatment. Improve one layer while the other is digest-frozen; otherwise, the
 cause of a score change cannot be identified.
 
+The current release invariant is `discovery` (optional), optimizer-visible
+`development`, sealed one-way `validation`, and an optional later sealed
+`holdout`. Select exactly one candidate using development evidence, freeze and
+digest-bind it, and only then release validation once. A failed validation or
+any feedback-driven revision ends the study and requires fresh validation in a
+new study. Holdout, when declared, is a third final gate and never a source of
+same-study mutation feedback.
+
 ## The skill stack
 
 Use the following skills in the stated roles. Skills marked **required** form
@@ -32,17 +40,18 @@ trigger applies.
 | Order | Skill | When to use it | Output |
 | ---: | --- | --- | --- |
 | 1 | `skill-creator` | **Required** when creating a new skill or changing its public trigger, structure, instructions, references, scripts, or assets | A valid, progressively disclosed skill package |
-| 2 | `harbor-organize-evaluations` | **Required** before a study that may influence selection or promotion | Frozen dataset manifests, disjoint splits, ordered stages, evidence bindings, and one controlled holdout release |
-| 3 | Matched `build-semantic-okf-*` skill | **Required** for Semantic OKF knowledge construction | A deterministic, independently validated, immutable knowledge snapshot |
-| 4 | `build-specialized-skill` | **Required** for a standalone snapshot-bound expert; omit it when a generic consultant will read an external snapshot | A portable expert skill with embedded knowledge, reviewed guidance, query helper, and digest-bound manifest |
-| 5 | `harbor-run-results` | **Required** for baseline execution, result validation, comparison, and reporting | Native Harbor jobs and comparable case-level evidence |
-| 6 | One primary evolution controller | **Required only when improving a baseline**; choose from the strategy matrix below | One or more proposed or evaluated mutations |
-| 7 | `harbor-realize-skill-candidate` | Use when an evolution controller emits a mutation contract rather than a complete sealed bundle | A validated, digest-sealed candidate derived from the frozen parent |
-| 8 | `harbor-run-results` | **Required** after realization unless the primary controller already owns that exact evaluation | Fresh development evidence for the exact candidate digest |
-| 9 | `harbor-resume-external-failures` | Use only for proven provider or infrastructure failures | Append-only retries without laundering semantic failures |
-| 10 | `harbor-organize-evaluations` | **Required** to freeze selection and release untouched holdout once | A one-way, auditable transition from development to holdout |
-| 11 | The owning evolution skill or `harbor-run-results` | **Required** for baseline-versus-candidate holdout | Final qualification evidence |
-| 12 | `harbor-metaskill-evolution` | Optional after several comparable development generations | An analysis-only meta-policy frontier; never a promotion decision |
+| 2 | `harbor-author-evaluation-datasets` | **Required** when creating or revising task families, split candidates, hardware strata, or adapter response surfaces | A reviewed private authoring plan with family-safe partitions and replayable nuisance variants |
+| 3 | `harbor-organize-evaluations` | **Required** before a study that may influence selection or promotion | Digest-locked dataset manifests, disjoint splits, ordered stages, evidence bindings, and controlled validation/holdout release |
+| 4 | Matched `build-semantic-okf-*` skill | **Required** for Semantic OKF knowledge construction | A deterministic, independently validated, immutable knowledge snapshot |
+| 5 | `build-specialized-skill` | **Required** for a standalone snapshot-bound expert; omit it when a generic consultant will read an external snapshot | A portable expert skill with embedded knowledge, reviewed guidance, query helper, and digest-bound manifest |
+| 6 | `harbor-run-results` | **Required** for baseline execution, result validation, comparison, and reporting | Native Harbor jobs and comparable case-level evidence |
+| 7 | One primary evolution controller | **Required only when improving a baseline**; choose from the strategy matrix below | One or more proposed or evaluated mutations |
+| 8 | `harbor-realize-skill-candidate` | Use when an evolution controller emits a mutation contract rather than a complete sealed bundle | A validated, digest-sealed candidate derived from the frozen parent |
+| 9 | `harbor-run-results` | **Required** after realization unless the primary controller already owns that exact evaluation | Fresh development evidence for the exact candidate digest |
+| 10 | `harbor-resume-external-failures` | Use only for proven provider or infrastructure failures | Append-only retries without laundering semantic failures |
+| 11 | `harbor-organize-evaluations` | **Required** to freeze selection and release untouched validation once | A one-way, auditable transition from development to validation |
+| 12 | The owning evolution skill or `harbor-run-results` | **Required** for baseline-versus-candidate validation and any declared optional holdout | Final qualification evidence |
+| 13 | `harbor-metaskill-evolution` | Optional after several comparable development generations | An analysis-only meta-policy frontier; never a promotion decision |
 
 The primary evolution controllers are:
 
@@ -62,7 +71,8 @@ controller should own selection inside a stage.
 ```mermaid
 flowchart TD
     A["Define use cases, triggers, and success contract<br/><code>skill-creator</code>"]
-    B["Freeze datasets, splits, stages, and evidence<br/><code>harbor-organize-evaluations</code>"]
+    AA["Author families, response surfaces, and hardware strata<br/><code>harbor-author-evaluation-datasets</code>"]
+    B["Digest-lock datasets, splits, stages, and evidence<br/><code>harbor-organize-evaluations</code>"]
     C["Build and independently validate knowledge<br/><code>build-semantic-okf-*</code>"]
     D{"Artifact boundary"}
     E["Author a generic procedural skill<br/><code>skill-creator</code>"]
@@ -79,13 +89,16 @@ flowchart TD
     P["Re-evaluate exact candidate on development<br/><code>harbor-run-results</code>"]
     Q{"Proven external failure?"}
     R["Retry only affected cells<br/><code>harbor-resume-external-failures</code>"]
-    S["Freeze selection and release holdout once<br/><code>harbor-organize-evaluations</code>"]
-    T["Run baseline and candidate on untouched holdout"]
-    U{"All qualification and promotion gates pass?"}
+    S["Freeze selection and release validation once<br/><code>harbor-organize-evaluations</code>"]
+    T["Run baseline and candidate on untouched validation"]
+    U{"All validation gates pass?"}
+    X{"Optional holdout declared?"}
+    Y["Release and run the frozen optional holdout"]
+    Z{"All holdout gates pass?"}
     V["Promote exact digest; publish ADR and safe aggregates"]
     W["Retain baseline; preserve candidate as negative evidence"]
 
-    A --> B --> C --> D
+    A --> AA --> B --> C --> D
     D -->|"External snapshot"| E
     D -->|"Portable expert"| F
     E --> G
@@ -106,30 +119,40 @@ flowchart TD
     P --> Q
     Q -->|"Yes"| R --> P
     Q -->|"No"| S --> T --> U
-    U -->|"Yes"| V
+    U -->|"Yes"| X
     U -->|"No"| W
+    X -->|"No"| V
+    X -->|"Yes"| Y --> Z
+    Z -->|"Yes"| V
+    Z -->|"No"| W
 ```
 
-The holdout boundary is one-way:
+The validation boundary, followed by optional holdout, is one-way:
 
 ```mermaid
 stateDiagram-v2
     state "Selection frozen" as SelectionFrozen
+    state "Validation released" as ValidationReleased
+    state "Validation passed" as ValidationPassed
     state "Holdout released" as HoldoutReleased
     state "Baseline retained" as BaselineRetained
     [*] --> Discovery
     Discovery --> Development: freeze task and metric contract
-    Development --> Validation: select by development evidence
-    Validation --> SelectionFrozen: bind candidate and baseline digests
-    SelectionFrozen --> HoldoutReleased: release once
+    Development --> SelectionFrozen: select only from development; bind digests
+    SelectionFrozen --> ValidationReleased: release validation once
+    ValidationReleased --> ValidationPassed: all validation gates pass
+    ValidationReleased --> BaselineRetained: any validation gate fails
+    ValidationPassed --> Promoted: no holdout declared
+    ValidationPassed --> HoldoutReleased: release optional holdout once
     HoldoutReleased --> Promoted: all gates pass with no forbidden regression
     HoldoutReleased --> BaselineRetained: any gate fails
     Promoted --> [*]
     BaselineRetained --> [*]
 ```
 
-After holdout is released, do not return to development with knowledge learned
-from it. A new mutation requires a newly registered, untouched holdout.
+After validation or holdout is released, do not return to development with
+knowledge learned from it. A new mutation requires a new study with freshly
+registered validation and, when used, a fresh optional holdout.
 
 ## Step 1: define the expertise contract
 
@@ -150,7 +173,14 @@ inputs in `assets/`. Validate the package before evaluating it.
 
 ## Step 2: freeze the evaluation before optimization
 
-Use `harbor-organize-evaluations` to create the study before inspecting
+Use `harbor-author-evaluation-datasets` to define semantic families, response
+profiles, nuisance axes, and hardware strata before materializing tasks. Vary
+working directories, input paths, output filenames, and response forms only
+when the oracle accepts them as semantically equivalent. Select variations
+with task-keyed deterministic seeds, record the realized private plan, and
+never choose verifier behavior randomly at runtime.
+
+Then use `harbor-organize-evaluations` to create the study before inspecting
 candidate performance. Freeze:
 
 - dataset and task identities;
@@ -163,9 +193,12 @@ candidate performance. Freeze:
 - baseline bundle and resource SHA-256 digests; and
 - stage ownership and dependencies.
 
-The development and holdout tasks must be disjoint. The holdout must remain
-unavailable to mutation, reflection, routing, merging, and candidate selection.
-Use append-only paths for jobs, reports, retry receipts, and superseding audits.
+All related semantic families must remain inside one split. Development and
+validation are required and disjoint; only development may drive mutation,
+reflection, routing, merging, ranking, or selection. Keep validation sealed
+until one candidate is frozen and digest-bound. Holdout is optional, remains
+sealed until validation passes, and uses the same one-way rule. Use append-only
+paths for jobs, reports, retry receipts, and superseding audits.
 
 Reusable evaluation-only question extensions are registered in
 `evaluations/evaluation-only-registry.json`. Their question and ground-truth
@@ -284,7 +317,8 @@ cells, provider failures, and verifier faults are not semantic zeroes.
 
 Use `harbor-evolve-skill` when:
 
-- clean train, validation, and untouched holdout splits exist;
+- clean development and untouched validation splits exist, plus optional
+  holdout when the protocol declares it;
 - only `SKILL.md` needs to change;
 - reflective iterative search is desirable; and
 - scripts, references, assets, and knowledge bytes must remain fixed.
@@ -296,8 +330,9 @@ Order:
 3. `harbor-evolve-skill` dry-run and doctor
 4. `harbor-evolve-skill` development search
 5. freeze the selected candidate digest
-6. `harbor-evolve-skill` holdout gate
-7. publish only if the holdout gates pass
+6. `harbor-evolve-skill` one-way validation gate
+7. run the optional holdout only if it was declared before evolution
+8. publish only if every declared gate passes
 
 Do not use this path to mutate query helpers, support modules, references, or
 embedded knowledge. Use a candidate-realization workflow for those artifacts.
@@ -317,8 +352,9 @@ Order:
 4. review the evidence-cited mutation contract
 5. `harbor-realize-skill-candidate` when a complete bundle was not emitted
 6. `harbor-trace-distillation` candidate-development gate
-7. freeze selection and release holdout
-8. `harbor-trace-distillation` holdout gate
+7. freeze selection and release validation
+8. `harbor-trace-distillation` validation gate
+9. run the optional holdout only if the frozen protocol declared it
 
 Use at least two distinct successful trials from at least two tasks before
 generalizing a behavior into an instruction. A single memorable trajectory is
@@ -339,12 +375,13 @@ Order:
 5. fresh Harbor jobs for every realized child
 6. repeat bounded generations while the archive improves
 7. freeze one candidate by the predeclared selection rule
-8. release holdout and compare the frozen baseline and candidate
+8. release validation and compare the frozen baseline and candidate
+9. run the optional holdout only if the frozen protocol declared it
 
 Use this strategy when "best" is multi-objective—for example, answer quality,
 no case regression, evidence validity, and latency—not merely the highest
 mean. Preserve complementary archive members even when one aggregate winner is
-needed for holdout.
+needed for validation.
 
 ### Strategy D: scalar population search
 
@@ -359,7 +396,8 @@ Order:
 4. `harbor-population-search` for development ranking and survivor selection
 5. optionally realize and evaluate the next declared generation
 6. freeze the selected survivor
-7. release holdout and run baseline versus survivor
+7. release validation and run baseline versus survivor
+8. run the optional holdout only if the frozen protocol declared it
 
 The baseline must remain in every population. Do not use scalar ranking when a
 hard gate or a meaningful per-case regression would be hidden by averaging;
@@ -382,10 +420,11 @@ Order:
 7. assign parent-to-child operator credit and select candidate/operator
    survivors
 8. repeat only on the development chain
-9. freeze the final candidate, then run one full untouched holdout
+9. freeze the final candidate, then run one full untouched validation
+10. run the optional holdout only if the frozen protocol declared it
 
 This strategy costs more but can improve the search process itself. It must not
-adapt operators from holdout observations.
+adapt operators from validation or holdout observations.
 
 ## Combined strategies
 
@@ -405,7 +444,8 @@ Recommended when traces expose several plausible fixes:
 6. `harbor-reflective-pareto-search` to preserve complementary candidates and
    propose bounded merges
 7. realize and re-evaluate each merge
-8. freeze selection, release holdout, and gate promotion
+8. freeze selection, release validation, and apply the one-way gate
+9. run the optional holdout only if the frozen protocol declared it
 
 Trace distillation explains *what failed and why*; Pareto search determines
 which fixes remain useful across cases and objectives.
@@ -425,7 +465,7 @@ operator credit meaningful.
 ### Frozen-query profile forging
 
 Use this strategy only when the intended workload is a fixed, fully exposed
-question set or FAQ and no untouched holdout remains. It can produce an
+question set or FAQ and no untouched validation remains. It can produce an
 excellent retrospective expert and a fast routing cache, but it is
 promotion-ineligible by construction.
 
@@ -433,8 +473,9 @@ Use the skills in this order:
 
 1. `skill-creator` to define the fixed workload, authority boundary, and
    separate knowledge-versus-routing contract.
-2. `harbor-organize-evaluations` to register every exposed case, mark holdout
-   unavailable, and freeze the baseline and metric directions.
+2. `harbor-organize-evaluations` to register every exposed case, mark
+   validation and holdout unavailable, and freeze the baseline and metric
+   directions.
 3. the matched `build-semantic-okf-*` skill to build and independently validate
    the complete authoritative snapshot.
 4. `build-specialized-skill` to package the default standalone expert that
@@ -516,12 +557,12 @@ ledger and concept files remain the only answer evidence.
 | Situation | Primary strategy | Why | Next skill when needed |
 | --- | --- | --- | --- |
 | New skill, no baseline | `skill-creator` | Establishes triggers, workflow, resources, and validation | `harbor-run-results` |
-| Clean splits; instruction-only mutation | `harbor-evolve-skill` | End-to-end GEPA search with a holdout gate | None unless a non-`SKILL.md` artifact must change |
+| Clean splits; instruction-only mutation | `harbor-evolve-skill` | End-to-end GEPA search with a one-way validation gate | None unless a non-`SKILL.md` artifact must change |
 | Completed traces reveal repeated mistakes | `harbor-trace-distillation` | Converts case evidence into cited instructions | `harbor-realize-skill-candidate` |
 | Candidates win on different cases or metrics | `harbor-reflective-pareto-search` | Preserves non-dominated alternatives and supports merges | `harbor-realize-skill-candidate` |
 | Many sealed candidates; one trusted scalar score | `harbor-population-search` | Efficient survivor ranking with baseline preservation | `harbor-realize-skill-candidate` for later generations |
 | Repeated generations need better mutation operators | `harbor-operator-coevolution` | Attributes improvement to candidate-producing operators | `harbor-metaskill-evolution` for later analysis |
-| Fixed exposed FAQ; no untouched holdout | Manual profiles or `harbor-reflective-pareto-search` | Optimizes frozen-query discovery and latency without pretending to promote | `build-specialized-skill`, then `harbor-run-results` |
+| Fixed exposed FAQ; no untouched validation | Manual profiles or `harbor-reflective-pareto-search` | Optimizes frozen-query discovery and latency without pretending to promote | `build-specialized-skill`, then `harbor-run-results` |
 | Only external cells failed | `harbor-resume-external-failures` | Retries infrastructure/provider failures without changing semantics | Return to the owning evaluator |
 | Several historical ledgers need policy analysis | `harbor-metaskill-evolution` | Replays comparable development evidence without mutating or promoting | None; analysis only |
 
@@ -581,19 +622,19 @@ Bind retries to the original cells, keep both attempts, and use the contract's
 first-evaluable selection rule. Never choose the best attempt after seeing its
 score.
 
-## Step 10: freeze selection and gate on holdout
+## Step 10: freeze selection and gate on validation
 
-Before holdout:
+Before validation:
 
 1. confirm development is complete and structurally valid;
 2. apply the predeclared candidate selection rule;
 3. bind the exact baseline, candidate, knowledge, task, and runtime digests;
 4. close all mutation and reflection stages; and
-5. use `harbor-organize-evaluations` to release holdout once.
+5. use `harbor-organize-evaluations` to release validation once.
 
 Promotion requires:
 
-- every expected holdout cell is scorer-observable;
+- every expected validation cell is scorer-observable;
 - zero provider, infrastructure, or evaluator failure;
 - every artifact, evidence, and response-contract gate passes;
 - the predeclared aggregate improvement is met;
@@ -602,9 +643,11 @@ Promotion requires:
 - the promoted bundle exactly matches the evaluated digest.
 
 If any gate fails, retain the baseline. Preserve the candidate and diagnostics
-as negative evidence; do not tune against the opened holdout.
+as negative evidence; do not tune against the opened validation. If the study
+declared an optional holdout, release it only after validation passes and apply
+the same one-way rule. A holdout failure also retains the baseline.
 
-## When no untouched holdout exists
+## When no untouched validation exists
 
 A closed retrospective search may still identify a useful experimental
 candidate, but it cannot support formal promotion.
@@ -616,7 +659,8 @@ In that situation:
 - preserve the current production baseline;
 - avoid "best", "qualified", or "promoted" claims;
 - report deterministic retrieval separately from grounded answer quality; and
-- register a genuinely new cohort before the next promotion attempt.
+- register a genuinely new validation cohort before the next promotion
+  attempt.
 
 The v43–v51 GraphRAG lineage demonstrates this distinction. Trace-derived v43
 was improved through retrospective Pareto and bounded fusion work; v48 reached
@@ -672,8 +716,8 @@ Every selection or promotion decision should preserve:
 - mutation contracts and candidate realization receipts;
 - retry receipts and effective-job mapping, if any;
 - development comparison and selection seal;
-- one-time holdout release record;
-- holdout comparison;
+- one-time validation release record and comparison;
+- optional holdout release record and comparison, when declared;
 - machine-readable final comparison companion; and
 - ADR describing the decision, scope, evidence, and limitations.
 
@@ -686,6 +730,8 @@ private.
 ### Before building
 
 - [ ] `skill-creator` use cases, triggers, scope, and non-goals are explicit.
+- [ ] `harbor-author-evaluation-datasets` has reviewed semantic families,
+      adapter nuisance variations, and hardware strata.
 - [ ] `harbor-organize-evaluations` has frozen the study and disjoint splits.
 - [ ] Builder/consult family and execution mode are matched.
 - [ ] Raw sources, prebuilt knowledge, and verifier-only material obey their
@@ -697,14 +743,16 @@ private.
 - [ ] Only one layer—builder, consultation skill, or query adapter—is mutable.
 - [ ] One primary controller owns the current development stage.
 - [ ] Candidate and evaluation budgets are fixed.
-- [ ] Holdout remains unavailable.
+- [ ] Validation and optional holdout remain sealed.
 
 ### Before promotion
 
 - [ ] The selected candidate is realized, validated, and sealed.
 - [ ] Development evidence covers every expected cell.
-- [ ] Selection is frozen before holdout release.
-- [ ] Baseline and candidate use identical holdout contracts.
+- [ ] Selection is frozen before validation release.
+- [ ] Baseline and candidate use identical validation contracts.
+- [ ] Any declared optional holdout remains sealed until validation passes and
+      uses the frozen baseline and candidate digests.
 - [ ] Every hard gate passes and no forbidden regression exists.
 - [ ] Production bytes match the evaluated candidate digest.
 - [ ] The final report and ADR state limitations without overstating retrieval

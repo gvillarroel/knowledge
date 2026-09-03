@@ -1,0 +1,9 @@
+{
+  "schema_version": "knowledge-source-combination-decision/1.0",
+  "decision": "union",
+  "reason": "All 698 inputs are peer documents from one homogeneous, pinned Rho-Bank knowledge base. Each document remains a distinct evidence identity so diversification does not collapse unrelated records. No source overrides or source precedence are appropriate.",
+  "expected_source_count": 698,
+  "source_id_pattern": "^doc-[a-z0-9-]+$",
+  "sources": [],
+  "conflict_policy": "Preserve every source document exactly; report contradictions rather than silently reconciling them."
+}

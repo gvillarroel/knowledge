@@ -210,6 +210,7 @@ def cmd_browse_confluence(args: Namespace) -> object:
         if base_url and config.get("username") and config.get("token"):
             try:
                 from .sources.confluence import search_confluence
+                from .sources.confluence_http import ConfluenceOptions
 
                 space = config.get("space") or config.get("space_key")
                 results = search_confluence(
@@ -218,6 +219,7 @@ def cmd_browse_confluence(args: Namespace) -> object:
                     token=store.resolve_key(config["token"]),
                     query=" ",
                     space=space,
+                    options=ConfluenceOptions.from_config(config),
                     limit=50,
                 )
                 for result in results.get("results", []):
@@ -748,9 +750,11 @@ def cmd_browse_confluence_spaces(args: Namespace) -> object:
             continue
         try:
             from .sources.confluence import list_confluence_spaces
+            from .sources.confluence_http import ConfluenceOptions
 
             spaces = list_confluence_spaces(
                 base_url=base_url,
+                options=ConfluenceOptions.from_config(config),
                 username=store.resolve_key(config["username"]),
                 token=store.resolve_key(config["token"]),
             )
@@ -808,9 +812,11 @@ def cmd_browse_confluence_pages(args: Namespace) -> object:
             continue
         try:
             from .sources.confluence import list_confluence_pages
+            from .sources.confluence_http import ConfluenceOptions
 
             pages = list_confluence_pages(
                 base_url=base_url,
+                options=ConfluenceOptions.from_config(config),
                 username=store.resolve_key(config["username"]),
                 token=store.resolve_key(config["token"]),
                 space=space_filter or source_space or "",

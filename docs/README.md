@@ -6,6 +6,8 @@
 - [Repository layout, maintenance, and validation](repository-guide.md)
 - [Agent instructions](../AGENTS.md)
 - [CLI reference](cli.md)
+- [ServiceNow tickets and knowledge-base synchronization](servicenow.md)
+- [Reliable Confluence synchronization](confluence-sync.md)
 - [Specification](../SPEC.md)
 - [Knowledge skill evolution playbook](knowledge-skill-evolution-playbook.md)
 
@@ -48,8 +50,11 @@ Everything in this folder is intended to be readable on its own, with links that
 ### I want to create or improve a knowledge skill
 
 1. Read [knowledge-skill-evolution-playbook.md](knowledge-skill-evolution-playbook.md)
-2. Select the knowledge builder and artifact boundary before choosing an evolution strategy
-3. Preserve the development/holdout boundary and use the playbook's validation checklist
+2. Author disjoint task families and replayable adapter variations with the
+   [`harbor-author-evaluation-datasets` skill](../skills/harbor-author-evaluation-datasets/SKILL.md)
+3. Select the knowledge builder and artifact boundary before choosing an evolution strategy
+4. Keep only development optimizer-visible; release sealed validation once for
+   the frozen winner, then use optional holdout only when the study declares it
 
 ## Documentation Conventions
 

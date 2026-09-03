@@ -1,0 +1,42 @@
+{
+  "schema_version": "semantic-okf-chunking-comparison/1.0",
+  "study_id": "semantic-okf-classical-chunking-pareto-luna-v1",
+  "objective": "Find a bounded evidence-delivery strategy with materially lower provider-visible tokens and no semantic or mechanical regression against the canonical classical consultant.",
+  "task_contract": {
+    "dataset": "quantum-error-correction-papers-40",
+    "mode": "consult-only",
+    "development_task_ids": ["q019", "q020", "q021", "q022", "q023", "q024"],
+    "validation_task_count": 6,
+    "holdout_task_count": 6
+  },
+  "agent_contract": {
+    "adapter": "pi_luna_agent:PiLuna",
+    "pi_package": "@earendil-works/pi-coding-agent",
+    "pi_version": "0.84.2",
+    "model": "openai-codex/gpt-5.6-luna",
+    "reasoning_effort": "high",
+    "attempts_per_task": 1
+  },
+  "metrics": {
+    "primary_quality": "Harbor scalar reward plus independent blinded semantic non-regression review",
+    "primary_efficiency": "n_input_tokens + n_output_tokens",
+    "secondary_efficiency": ["cost_usd", "agent_execution_seconds"],
+    "mechanical_gates": [
+      "completed trial",
+      "valid exact evidence rows",
+      "minimum independent-document evidence",
+      "no verifier or execution error"
+    ]
+  },
+  "development_selection": {
+    "hard_quality_gate": "no case-level semantic regression and no new mechanical failure versus canonical",
+    "quality_tolerance": 0.0,
+    "token_objective": "minimize paired total tokens after the hard quality gate",
+    "minimum_mean_token_reduction_fraction": 0.10
+  },
+  "independence": {
+    "validation_is_optimizer_invisible": true,
+    "failed_validation_requires_new_study": true,
+    "holdout_is_final_one_way_gate": true
+  }
+}

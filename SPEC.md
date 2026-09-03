@@ -369,6 +369,13 @@ sources:
 - Creates source records under `<active-store>/<key>/arxiv/` and enriches them
   during sync with canonical identity, title, authors, categories, dates, and
   PDF URL.
+- Downloads the official PDF, validates its signature and size, extracts every
+  page into `paper.md` under stable `## PDF page N` headings, and records the
+  PDF SHA-256, byte count, page counts, extracted-character count, and extractor
+  version in the document or source sync statistics.
+- A non-PDF response, corrupt or oversized PDF, version mismatch, or
+  suspiciously empty extraction fails closed before replacing a previously
+  successful `paper.md`.
 - If the API exhausts bounded retries, synchronization may recover from the
   official exact-version abstract page. The persisted sync statistics must
   identify that acquisition path as `arxiv-abs-html`.
@@ -488,9 +495,17 @@ Credentials are stored in `<active-store>/keys.yaml`. Sources reference them usi
 ## Source Adapters
 
 ### Confluence (`confluence.py`)
-- Syncs pages from a Confluence space using the search API.
+- Resolves space keys to numeric IDs and inventories current published pages through the v2 API without body expansion; CQL selections use the search API.
+- Downloads page bodies with bounded concurrency, pooled sessions, explicit timeouts, safe GET retries, and shared Retry-After cooldowns.
+- Treats Atlassian's `SUSPENDED_INACTIVITY` response as a permanent tenant state, fails after one request with a sanitized reactivation diagnostic, and does not spend the transient retry budget.
+- Treats Atlassian's explicit `caller cannot access Confluence` response as a permanent account-access failure, cancels the request group after one request, and reports how to grant app access without copying the remote response body.
+- Validates pagination origin, endpoint, filters, and progress; it must never silently publish an incomplete inventory.
+- Checkpoints bodies with integrity digests and fresh version/metadata checks, then publishes only a complete replacement while preserving authored files.
+- Partial failures retain the previous corpus and sync timestamp, expose per-page diagnostics, exit unsuccessfully, and permit a subsequent run to reuse validated downloads.
+- Supports saved and per-run workers, page-size, timeout, connect-timeout, max-retries, max-retry-wait, and max-pages controls. Explicit legacy limit behavior remains compatible; missing CQL limits do not imply a 100-page cap.
 - Stores one Markdown file per page with YAML frontmatter (title, source_url, space, type).
-- Search uses CQL with extensive filter support.
+- Search uses CQL with extensive filter support. Search and browsing share the safe read client.
+- Native Confluence write/round-trip contracts remain separate from read synchronization. See [the Confluence sync guide](docs/confluence-sync.md) and [ADR 0113](.specs/adr/0113-make-confluence-sync-bounded-and-resumable.md).
 
 ### Jira (`jira.py`)
 - Syncs issues from a Jira project using REST API v3.
@@ -498,9 +513,14 @@ Credentials are stored in `<active-store>/keys.yaml`. Sources reference them usi
 - Search uses JQL with full filter parameter support.
 
 ### arXiv (`arxiv.py`)
-- Canonicalizes official arXiv and alphaXiv paper URLs and syncs paper metadata
-  and abstracts from exact arXiv identifiers.
-- Stores Markdown files under the source directory.
+- Canonicalizes official arXiv and alphaXiv paper URLs, syncs metadata from
+  exact arXiv identifiers, downloads validated official PDFs, and extracts the
+  complete text page by page with pypdf.
+- Stores one `paper.md` plus `source-metadata.yaml` under the source directory;
+  `paper.md` retains the abstract, PDF provenance, and stable PDF-page headings.
+- Tries both official PDF hosts, rejects HTML or corrupt responses, enforces a
+  bounded download size and minimum useful extraction, and preserves the last
+  successful document when a refresh fails.
 - Search uses the arXiv API with single- or multi-lane query expression
   support, exact-version deduplication, registration annotations, request
   pacing, and bounded transient-failure retries.
@@ -532,6 +552,18 @@ Credentials are stored in `<active-store>/keys.yaml`. Sources reference them usi
 ### Aha (`aha.py`)
 - Syncs features from an Aha workspace.
 - Reads `AHA_BASE_URL` and `AHA_TOKEN` from `.env`; stores tokens as `$env:` references.
+
+### ServiceNow (`servicenow.py`)
+
+- Register scoped incident, problem, change_request, sc_task, sc_req_item, or kb_knowledge sources with `know add servicenow --key KEY --table TABLE`.
+- Support encoded query filters, exact assignment-group or knowledge-base sys_ids, bounded field projections, a total record limit, and page sizes of 1-100.
+- Read and search through the Table API with referenced Basic or bearer credentials, HTTPS-only instance origins, no redirects, and redacted failures.
+- Expose explicit `know servicenow create-ticket` and `read-ticket` commands. Creation supports incidents, offers a network-free dry run, never retries POST automatically, and verifies the returned sys_id with a separate GET.
+- Discover knowledge-base identities with `know servicenow knowledge-bases`; synchronize their articles using kb_knowledge and a verified kb_knowledge_base reference filter.
+- Preserve existing Markdown on fetch or validation failure. Upsert by sys_id, retain unreturned records, preserve authored files, and report truncation instead of implying a complete deletion-aware mirror.
+- Integrate with normal key sync, exact source-id sync, local browsing, and OKF-compatible export. Do not persist resolved secrets in registration or exported metadata.
+- Keep simulated API verification separate from live instance acceptance. Account registration and instance provisioning require the user's identity and any provider-mandated verification.
+- See [ServiceNow integration](docs/servicenow.md) and [ADR 0114](.specs/adr/0114-servicenow-scoped-sync-and-explicit-ticket-writes.md).
 
 ### Television (`sources/television.py`)
 - Generates a Television cable TOML file, command manifest, and README during sync.
@@ -775,6 +807,50 @@ builder, consultant, repository module, or prebuilt snapshot at runtime.
   alter the canonical Harbor `build-consult` or `consult-only` skill and mount
   isolation contracts.
 
+### Budgeted chunked classical knowledge skill generator
+
+The repository additionally ships
+`skills/build-classical-chunked-knowledge-skill/` as an opt-in successor for
+token-efficient consultation. It must not overwrite or silently change
+`skills/build-classical-knowledge-skill/`. The successor retains the complete
+immutable classical knowledge tree and unchanged retrieval routes, then adds a
+derived metadata-only context projection outside `references/knowledge/`.
+
+- Context chunks must bind exact ledger character ranges, record and span
+  digests, structural heading ancestry, conservative token estimates, and
+  deterministic previous/next links. The projection must not store copied
+  evidence text or summaries.
+- Chunk construction must prefer Markdown structural boundaries, split
+  oversized units deterministically without overlapping evidence, rederive
+  byte-identically during deep validation, and remain independent of an
+  embedding service or language model.
+- Normal consultation must run the unchanged classical route internally but
+  emit only a budgeted Markdown evidence bundle. Full classical `search` and
+  exact-record `get` must remain available as fail-closed diagnostic paths.
+- Selection must reserve distinct evidence identities, repair uncovered
+  retrievable query facets, then apply cost-aware relevance and diversity
+  ranking. Jensen-Shannon similarity may penalize redundant vocabulary only;
+  it must never substitute for query relevance or exact evidence.
+- The default closed plan must cap emitted context at 6,000 estimated tokens,
+  support one explicit escalation up to 12,000, and limit the result to 48
+  chunks. The deterministic estimate is the greater of lexical-token count and
+  UTF-8 bytes divided by four and must not be labeled provider-native usage.
+- Every emitted chunk must be hydrated from the authoritative ledger and
+  rehashed at query time. It must expose a physical evidence path, the packed
+  record anchor when applicable, and its exact record-relative range.
+- A visible quality guard must report retrievable-query coverage, distinct
+  evidence identities, and uncovered facets. A small payload is not complete
+  unless the frozen thresholds pass; unresolved cases must escalate or fall
+  back rather than infer absence from unselected spans.
+- Release validation must prove exact authoritative knowledge bytes, unchanged
+  classical rankings and payloads before additive citations, deterministic
+  build and rederivation, exact span reconstruction, package portability, and
+  lower provider-visible context on identical questions.
+- Deterministic context regression is not a semantic promotion gate. Any claim
+  that grounded answer quality is preserved must use a newly registered,
+  digest-locked, independently validated study with the one-way validation and
+  holdout boundaries defined above.
+
 ### Canonical multi-family knowledge skill generator
 
 The repository also ships `skills/build-semantic-okf-knowledge-skill/` as the
@@ -1007,6 +1083,7 @@ The repository must keep a shared, reproducible dataset registry under `evaluati
 - Terminal Pi traces must distinguish complete responses, provider quota/rate/context failures, output limits, agent interruption, invalid complete responses, and true verifier faults without serializing raw provider headers or answer text. Provider and infrastructure failures must never be converted into semantic zeroes or mislabeled as verifier errors.
 - Campaign reports must expose `structurally_complete`, `evaluation_complete`, and `ranking_eligible` separately. A campaign is rankable only when every expected family/question cell has a complete scorer-observable response and no provider or evaluator failure; result directories and receipts alone are insufficient.
 - Mechanical response-contract, evidence validity, retrieval, minimum-document, and hard evidence-anchor metrics must remain separate from semantic correctness. Evidence-anchor coverage must not be labeled claim entailment or semantic completeness; authored required points require a separate blinded or documented manual review.
+- Automated semantic answer-quality review must score normalized answer prose independently against a fixed question, required-point, available separately authored ground-truth-claim, and important-negative contract. Historical tasks without a separate ground-truth artifact must be labeled `qrel-grounded-rubric` when frozen qrel identities exist and must not be represented as equivalent to a `hard-ground-truth` cohort. Reviewer-visible packets must exclude answer-selected evidence, retrieval traces, strategy and job identities, paths, hashes, locators, native rewards, and token usage. A superseding audit must show one answer per call, repeat each judgment in at least three deterministic criterion orders with stable criterion identifiers, derive per-cell majority with an unresolved state, and compare paired answers component by component without score compensation. It must calibrate every cohort with negative controls, add complete contract-derived positive controls only for hard-ground-truth tasks, bind results to prompts in the runner instead of trusting model-authored digest transcription, capture invalid attempts under a fixed cap, bind the evaluator implementation hash, validate every declared population arm, retain complete responses without semantic answer content as quality failures, and fail the non-regression gate when any paired case is semantically worse, mixed, or indeterminate.
 - Eight-family live scheduling must interleave and rotate families by question, use the first counted trial as a real quota preflight, preserve one-task append-only shards, and stop submitting new work on the first terminal quota or rate failure while allowing already in-flight work to finish.
 - Evaluator corrections must preserve raw campaign artifacts and original report hashes, append a superseding audit checkpoint, and suppress winner claims in every current-facing document when a historical campaign is invalidated.
 

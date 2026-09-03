@@ -4,6 +4,37 @@ This directory contains reproducible evaluation definitions, validators, and
 compact reviewed documentation. Large or sensitive evaluation data stays local
 and is ignored by Git.
 
+## Authoring new Harbor datasets
+
+Use the standalone
+[`harbor-author-evaluation-datasets` skill](../skills/harbor-author-evaluation-datasets/SKILL.md)
+before registering a new study. It assigns semantic families before task
+materialization, keeps only `development` optimizer-visible, seals `validation`
+until one candidate is frozen and digest-bound, and supports a later optional
+`holdout` gate. Its seeded adapter profiles vary semantically irrelevant
+surfaces such as working directories, input locations, output filenames, and
+accepted response forms without changing the oracle. The private plan records
+the exact realized variants so every run is replayable.
+
+After `harbor-run-results` has produced schema-version-1 `final-report.json`
+artifacts, the bundled `consolidate_harbor_reports.py` script can publish a
+reviewable comparison:
+
+```powershell
+python skills/harbor-author-evaluation-datasets/scripts/consolidate_harbor_reports.py `
+  <run-a>/final-report.json <run-b>/final-report.json `
+  --baseline <run-label-or-id> --output-dir <private-or-reviewed-output>
+```
+
+The output includes aggregate Markdown and JSON plus accessible static SVGs for
+quality, resources, and the cost/quality frontier. It reports task outcomes,
+tokens (with cached input kept as a subset), USD cost, agent and wall time,
+throughput, observation coverage, and baseline deltas when present. It never
+publishes prompts, answers, task IDs, per-case results, diagnostics, traces, or
+raw local paths. Validation and holdout aggregates remain private until their
+declared one-way release, and no gate outcome may return to same-study
+evolution.
+
 ## Comparison report catalog
 
 Start with [`COMPARISON-REPORTS.md`](COMPARISON-REPORTS.md) to find the current

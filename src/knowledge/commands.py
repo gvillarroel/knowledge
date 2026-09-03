@@ -19,7 +19,8 @@ from .sources.arxiv import (
     versionless_arxiv_id,
 )
 from .sources.brave import search_brave
-from .sources.confluence import search_confluence
+from .sources.confluence import ConfluenceSyncError, search_confluence
+from .sources.confluence_http import ConfluenceOptions
 from .sources.jira import search_jira
 from .sources.video import extract_video_id
 from .store import KnowledgeStore, project_store_root
@@ -171,6 +172,12 @@ def cmd_add_confluence(args: Namespace) -> dict:
         "cql": args.cql,
         "limit": args.limit,
     }
+    config.update({
+        name: getattr(args, name)
+        for name in ConfluenceOptions.__dataclass_fields__
+        if getattr(args, name, None) is not None
+    })
+    ConfluenceOptions.from_config(config)
     title = args.space or args.cql
     update_command = (
         f"know sync confluence --space {args.space} --key {args.key}"
@@ -548,6 +555,7 @@ def cmd_search_confluence(args: Namespace) -> dict:
             updated_before=getattr(args, "updated_before", None),
             limit=getattr(args, "limit", 25),
             cursor=getattr(args, "cursor", None),
+            options=ConfluenceOptions.from_config(config),
         )
         matches.append(
             {
@@ -887,8 +895,14 @@ def cmd_sync(args: Namespace) -> dict:
     sources = store.list_collection_sources(key_name=key_name, source_type=source_type)
     if matched_value:
         sources = [source for source in sources if _matches_source(source, matched_value)]
-    synced = [create_source_adapter(_prepare_source_for_sync(source, args), store).sync() for source in sources]
-    return {"synced": synced}
+    synced = []
+    failed = []
+    for source in sources:
+        try:
+            synced.append(create_source_adapter(_prepare_source_for_sync(source, args), store).sync())
+        except ConfluenceSyncError as exc:
+            failed.append({"key": source["key"], "source": source["id"], **exc.stats})
+    return {"synced": synced, **({"failed": failed} if failed else {})}
 
 
 def cmd_export(args: Namespace) -> dict:
@@ -938,6 +952,14 @@ def _prepare_source_for_sync(source: dict, args: Namespace) -> dict:
         **source,
         "config": dict(source.get("config", {})),
     }
+    if prepared.get("type") == "confluence":
+        prepared["_confluence_sync_options"] = {
+            name: getattr(args, name)
+            for name in ConfluenceOptions.__dataclass_fields__
+            if getattr(args, name, None) is not None
+        }
+        if getattr(args, "refresh", False):
+            prepared["_confluence_sync_options"]["refresh"] = True
     branch_override = getattr(args, "branch", None)
     if prepared.get("type") == "github" and branch_override:
         prepared["_sync_branches"] = list(branch_override)

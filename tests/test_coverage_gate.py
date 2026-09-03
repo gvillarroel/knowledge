@@ -40,6 +40,17 @@ def test_coverage_scope_can_include_every_repository_test() -> None:
     assert coverage.coverage_pytest_args(args) == []
 
 
+def test_coverage_scope_excludes_skill_suites_with_package_local_dependencies() -> None:
+    coverage = load_coverage_script()
+
+    assert {
+        "tests/test_build_semantic_okf_tantivy_skill.py",
+        "tests/test_consult_semantic_okf_tika_mallet_bounded_skill.py",
+        "tests/test_consult_semantic_okf_tika_mallet_tantivy_skill.py",
+        "tests/test_visualize_semantic_okf_classical_skill.py",
+    } <= set(coverage.NON_APPLICATION_TESTS)
+
+
 def test_trace_environment_prioritizes_the_current_checkout(
     monkeypatch,
 ) -> None:

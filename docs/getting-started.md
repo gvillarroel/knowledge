@@ -1,5 +1,7 @@
 # Knowledge CLI: usage and operations
 
+This working-copy guide retains pre-existing local changes that are not part of the published documentation commit. Validate local implementation before publishing those changes.
+
 Run commands from the repository root unless a different working directory is shown.
 
 `know` is a Python CLI for building project-local knowledge bases. Run
@@ -359,3 +361,21 @@ does not require sibling skills or a prebuilt snapshot after generation.
 See the skill's `SKILL.md` for commands and
 `evaluations/integrated-semantic-okf-knowledge-skill/` for the independent
 separate-versus-integrated parity gate.
+
+## Budgeted classical knowledge skills
+
+`skills/build-classical-chunked-knowledge-skill/` is an additive alternative to
+the original integrated classical generator. It preserves the complete
+immutable Semantic OKF knowledge tree and the unchanged classical search routes,
+but its normal `context` operation returns a budgeted set of exact, linked
+ledger spans instead of placing the full discovery payload into model context.
+
+The generated expert uses structural non-overlapping chunks, exact character
+ranges and hashes, query-facet coverage, evidence diversity, cost-aware MMR, and
+bounded Jensen-Shannon redundancy. Its default/maximum context budgets are
+6,000/12,000 deterministic estimated tokens. Full search and exact record lookup
+remain available as fail-closed diagnostics.
+
+The original `skills/build-classical-knowledge-skill/` remains unchanged. See
+the successor skill's `SKILL.md`, ADR 0106, and the deterministic
+[`120-question context-efficiency report`](../evaluations/semantic-okf-datasets/reports/20260814-classical-chunked-context-efficiency.md).

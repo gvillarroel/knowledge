@@ -1,316 +1,329 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import hashlib
 from html import unescape
 from html.parser import HTMLParser
+import json
+import logging
+from pathlib import Path
 import re
-from typing import Any
-from urllib.parse import urljoin
+from typing import Any, Iterator
+from urllib.parse import parse_qs, urljoin, urlsplit
 
 import requests
 
+from ..errors import KnowledgeError
 from .base import SourceAdapter
+from .confluence_http import ConfluenceClient, ConfluenceOptions, ConfluenceRequestError, normalize_confluence_base_url
+from .confluence_snapshot import ConfluenceSnapshot, atomic_json, cache_page, cached_page
+
+_LOG = logging.getLogger(__name__)
+
+
+class ConfluenceSyncError(KnowledgeError):
+    """An incomplete sync with a durable report and reusable page checkpoints."""
+
+    def __init__(self, stats: dict[str, Any]) -> None:
+        self.stats = stats
+        super().__init__(
+            f"Confluence sync incomplete: {stats['pages']} page(s) ready, "
+            f"{len(stats['failures'])} error(s). Previous files preserved. "
+            f"Retry the same command. Report: {stats['report']}"
+        )
 
 
 class ConfluenceSource(SourceAdapter):
-    """Adapter that synchronizes pages from a Confluence space."""
+    """Synchronize Confluence pages with bounded downloads and resumable checkpoints."""
 
     def sync(self) -> dict[str, object]:
-        base_url = self.config["base_url"].rstrip("/") + "/"
+        """Publish a complete snapshot, or retain the last successful corpus on failure."""
+        config = {**self.config, **self.source.get("_confluence_sync_options", {})}
+        options = ConfluenceOptions.from_config(config)
         auth = self._auth()
-        space_key = self.config.get("space_key") or self.config.get("space")
-        limit = int(self.config.get("limit", 100))
-        cql = self.config.get("cql")
-
-        if cql:
-            pages = self._sync_pages_with_cql(base_url, auth, cql, limit)
-        else:
-            pages = self._sync_space_pages(base_url, auth, space_key, limit)
-
-        self.clear_source_dir()
-        for page in pages:
-            page_id = page["id"]
-            storage_body = page.get("body", {}).get("storage", {}).get("value", "")
-            body = confluence_storage_to_markdown(storage_body)
-            title = str(page.get("title") or f"Page {page_id}")
-            frontmatter = {
-                "title": title,
-                "knowledge_key": self.source["key"],
-                "source_id": self.source["id"],
-                "source_type": self.source["type"],
-                "document_id": str(page_id),
-                "space_key": space_key,
-                "space_id": page.get("spaceId"),
-                "status": page.get("status"),
-                "author_id": page.get("authorId"),
-                "owner_id": page.get("ownerId"),
-                "parent_id": page.get("parentId"),
-                "parent_type": page.get("parentType"),
-                "created_at": page.get("createdAt"),
-                "updated_at": page.get("version", {}).get("createdAt") or page.get("updatedAt"),
-                "version_number": (page.get("version", {}) or {}).get("number"),
-                "web_url": _page_url(base_url, page),
-            }
-            self.write_markdown(self.raw_dir / f"{page_id}-{_slugify(title)}.md", frontmatter, body)
-
-        return self.finalize_sync(
-            {
-                "pages": len(pages),
-                "space_key": space_key,
-                "cql": cql,
-                "raw_dir": str(self.raw_dir),
-            }
+        base_url = normalize_confluence_base_url(config["base_url"])
+        scope = json.dumps(
+            [str(self.store.root.resolve()), base_url, auth[0], config.get("space_key") or config.get("space"), config.get("cql")],
+            sort_keys=True,
         )
+        checkpoint = self.cache_dir / "confluence-v1" / hashlib.sha256(scope.encode()).hexdigest()
+        report = checkpoint / "sync-report.json"
+        stats: dict[str, Any] = {
+            "pages": 0, "discovered": 0, "downloaded": 0, "reused": 0,
+            "failures": [], "complete": False, "snapshot_schema": 1,
+            "space_key": config.get("space_key") or config.get("space"),
+            "cql": config.get("cql"), "raw_dir": str(self.raw_dir),
+            "report": str(report), "workers": options.workers, "page_size": options.page_size,
+        }
+        previous_source = dict(self.source)
+        owns_snapshot = False
+        with ConfluenceClient(base_url, auth, options) as client:
+            try:
+                with ConfluenceSnapshot(self.raw_dir, self.source) as snapshot:
+                    owns_snapshot = True
+                    assert snapshot.stage is not None
+                    with ThreadPoolExecutor(max_workers=options.workers, thread_name_prefix="confluence") as executor:
+                        try:
+                            self._download_batches(client, executor, snapshot.stage, checkpoint, config, stats)
+                        except BaseException:
+                            client.cancel()
+                            executor.shutdown(wait=True, cancel_futures=True)
+                            raise
+                    stats.update(requests=client.requests, retries=client.retries)
+                    if stats["failures"]:
+                        atomic_json(report, stats)
+                        raise ConfluenceSyncError(stats)
+                    stats["complete"] = True
+                    result = snapshot.publish(lambda: self.finalize_sync(stats))
+                    # Report bookkeeping must not turn an already published corpus into failure.
+                    try:
+                        atomic_json(report, stats)
+                    except OSError:
+                        _LOG.warning("Confluence snapshot saved, but its cache report could not be updated")
+                    return result
+            except ConfluenceSyncError:
+                raise
+            except (ConfluenceRequestError, OSError, ValueError, KeyboardInterrupt, KnowledgeError) as exc:
+                if not owns_snapshot:
+                    raise
+                self.source.clear()
+                self.source.update(previous_source)
+                stats.update(complete=False, requests=client.requests, retries=client.retries)
+                reason = str(exc) if isinstance(exc, KnowledgeError) else type(exc).__name__
+                stats["failures"].append({"phase": "sync", "error": reason})
+                atomic_json(report, stats)
+                raise ConfluenceSyncError(stats) from None
 
     def _auth(self) -> tuple[str, str]:
-        username = self.store.resolve_key(self.config["username"])
-        token = self.store.resolve_key(self.config["token"])
-        return (username, token)
+        return (self.store.resolve_key(self.config["username"]), self.store.resolve_key(self.config["token"]))
 
-    def _sync_space_pages(
-        self,
-        base_url: str,
-        auth: tuple[str, str],
-        space_key: str,
-        limit: int,
-    ) -> list[dict[str, object]]:
-        pages: list[dict[str, object]] = []
-        next_url = urljoin(base_url, "wiki/api/v2/pages")
-        params: dict[str, object] | None = {
-            "space-key": space_key,
-            "limit": limit,
-            "body-format": "storage",
-        }
-        while next_url:
-            response = requests.get(
-                next_url,
-                headers={"Accept": "application/json"},
-                params=params,
-                auth=auth,
-                timeout=60,
+    def _inventory(self, client: ConfluenceClient, config: dict[str, Any]) -> Iterator[list[dict[str, Any]]]:
+        options = client.options
+        if config.get("cql"):
+            yield from client.iter_batches(
+                "rest/api/search",
+                {"cql": config["cql"], "limit": min(options.page_size, options.max_pages or options.page_size),
+                 "expand": "content.version"},
             )
-            response.raise_for_status()
-            data = response.json()
-            pages.extend(data.get("results", []))
+            return
+        space_key = config.get("space_key") or config.get("space")
+        if not space_key:
+            raise ConfluenceRequestError("Confluence sync requires a space or CQL filter")
+        spaces = client.get_json("api/v2/spaces", {"keys": space_key, "limit": 2}).get("results")
+        if not isinstance(spaces, list) or any(not isinstance(row, dict) for row in spaces):
+            raise ConfluenceRequestError("Confluence returned a malformed space lookup")
+        matches = [space for space in spaces if space.get("key") == space_key]
+        if len(matches) != 1:
+            raise ConfluenceRequestError("Confluence space was not found or is not uniquely accessible")
+        space_id = _valid_page_id(matches[0].get("id"))
+        for batch in client.iter_batches(
+            "api/v2/pages",
+            {"space-id": space_id, "status": "current", "subtype": "page", "limit": options.page_size},
+        ):
+            for page in batch:
+                if str(page.get("spaceId")) != space_id:
+                    raise ConfluenceRequestError("Confluence inventory returned a page outside the requested space")
+            yield batch
 
-            next_path = data.get("_links", {}).get("next")
-            next_url = urljoin(base_url, next_path) if next_path else ""
-            params = None
-        return pages
-
-    def _sync_pages_with_cql(
-        self,
-        base_url: str,
-        auth: tuple[str, str],
-        cql: str,
-        limit: int,
-    ) -> list[dict[str, object]]:
-        pages: list[dict[str, object]] = []
-        cursor: str | None = None
-        seen_page_ids: set[str] = set()
-        search_url = urljoin(base_url, "wiki/rest/api/search")
-        remaining = limit
-
-        while True:
-            params: dict[str, object] = {"cql": cql, "limit": remaining}
-            if cursor:
-                params["cursor"] = cursor
-            response = requests.get(
-                search_url,
-                headers={"Accept": "application/json"},
-                params=params,
-                auth=auth,
-                timeout=60,
-            )
-            response.raise_for_status()
-            payload = response.json()
-
-            for result in payload.get("results", []):
-                page_id = _search_result_page_id(result)
-                if not page_id or page_id in seen_page_ids:
+    def _download_batches(
+        self, client: ConfluenceClient, executor: ThreadPoolExecutor, stage: Path,
+        checkpoint: Path, config: dict[str, Any], stats: dict[str, Any],
+    ) -> None:
+        seen: set[str] = set()
+        for batch in self._inventory(client, config):
+            selected = []
+            for row in batch:
+                page = row.get("content", row) if config.get("cql") else row
+                if not isinstance(page, dict):
+                    raise ConfluenceRequestError("Confluence search returned malformed content")
+                if page.get("type", "page") != "page":
                     continue
-                seen_page_ids.add(page_id)
-                pages.append(self._fetch_page(base_url, auth, page_id))
-                remaining -= 1
-                if remaining == 0:
-                    return pages
+                page_id = _valid_page_id(page.get("id"))
+                if page_id in seen:
+                    continue
+                seen.add(page_id)
+                selected.append(page)
+                if client.options.max_pages and len(seen) >= client.options.max_pages:
+                    break
+            if batch and not selected and all(
+                (row.get("content", row) if config.get("cql") else row).get("type", "page") == "page"
+                for row in batch
+            ):
+                raise ConfluenceRequestError("Confluence pagination made no progress")
+            stats["discovered"] += len(selected)
+            # Bound pending futures as well as active requests, even for a large page_size.
+            for offset in range(0, len(selected), client.options.workers * 2):
+                pending = {
+                    executor.submit(self._download_page, client, page, checkpoint, bool(config.get("refresh"))): str(page["id"])
+                    for page in selected[offset:offset + client.options.workers * 2]
+                }
+                for future in as_completed(pending):
+                    page_id = pending[future]
+                    try:
+                        page, reused = future.result()
+                        self._write_page(stage, client.base_url, page)
+                    except ConfluenceRequestError as exc:
+                        stats["failures"].append({"page_id": page_id, "status": exc.status, "error": str(exc)})
+                        _LOG.warning("Confluence page %s could not be downloaded: %s", page_id, exc)
+                        if exc.fatal:
+                            raise
+                        continue
+                    stats["pages"] += 1
+                    stats["reused" if reused else "downloaded"] += 1
+                atomic_json(Path(stats["report"]), stats)
+                _LOG.info(
+                    "Confluence: %d ready (%d downloaded, %d reused), %d errors",
+                    stats["pages"], stats["downloaded"], stats["reused"], len(stats["failures"]),
+                )
+            if client.options.max_pages and len(seen) >= client.options.max_pages:
+                return
 
-            cursor = _next_cursor(payload)
-            if not cursor:
-                break
+    def _download_page(
+        self, client: ConfluenceClient, metadata: dict[str, Any], checkpoint: Path, refresh: bool
+    ) -> tuple[dict[str, Any], bool]:
+        page_id = _valid_page_id(metadata.get("id"))
+        path = checkpoint / f"{page_id}.json"
+        page = None if refresh else cached_page(path, metadata)
+        if page is not None:
+            return page, True
+        page = client.get_json(f"api/v2/pages/{page_id}", {"body-format": "storage"})
+        if _valid_page_id(page.get("id")) != page_id:
+            raise ConfluenceRequestError("Confluence page response has the wrong identity")
+        if metadata.get("spaceId") is not None and page.get("spaceId") != metadata["spaceId"]:
+            raise ConfluenceRequestError("Confluence page moved out of the listed space")
+        if page.get("status", "current") != "current" or page.get("subtype", "page") != "page":
+            raise ConfluenceRequestError("Confluence page is no longer a current published page")
+        body = page.get("body")
+        storage = body.get("storage") if isinstance(body, dict) else None
+        if not isinstance(storage, dict) or not isinstance(storage.get("value"), str):
+            raise ConfluenceRequestError("Confluence page response is missing its storage body")
+        cache_page(path, page)
+        return page, False
 
-        return pages
-
-    def _fetch_page(self, base_url: str, auth: tuple[str, str], page_id: str) -> dict[str, object]:
-        response = requests.get(
-            urljoin(base_url, f"wiki/api/v2/pages/{page_id}"),
-            headers={"Accept": "application/json"},
-            params={"body-format": "storage"},
-            auth=auth,
-            timeout=60,
+    def _write_page(self, directory: Path, base_url: str, page: dict[str, Any]) -> None:
+        page_id = _valid_page_id(page["id"])
+        title = str(page.get("title") or f"Page {page_id}")
+        version = page.get("version") or {}
+        if not isinstance(version, dict):
+            raise ConfluenceRequestError("Confluence page has malformed version metadata")
+        frontmatter = {
+            "title": title, "knowledge_key": self.source["key"],
+            "source_id": self.source["id"], "source_type": self.source["type"],
+            "document_id": page_id, "space_key": self.config.get("space_key") or self.config.get("space"),
+            "space_id": page.get("spaceId"), "status": page.get("status"),
+            "author_id": page.get("authorId"), "owner_id": page.get("ownerId"),
+            "parent_id": page.get("parentId"), "parent_type": page.get("parentType"),
+            "created_at": page.get("createdAt"), "updated_at": version.get("createdAt") or page.get("updatedAt"),
+            "version_number": version.get("number"), "web_url": _page_url(base_url, page),
+        }
+        self.write_markdown(
+            directory / f"{page_id}-{_slugify(title)[:80]}.md",
+            frontmatter, confluence_storage_to_markdown(page["body"]["storage"]["value"]),
         )
-        response.raise_for_status()
-        payload = response.json()
-        return payload if isinstance(payload, dict) else {}
+
+
+def _valid_page_id(value: object) -> str:
+    if not isinstance(value, (str, int)) or isinstance(value, bool) or not re.fullmatch(r"[0-9]+", str(value)):
+        raise ConfluenceRequestError("Confluence returned an invalid page or space ID")
+    return str(value)
 
 
 def search_confluence(
     *,
-    base_url: str,
-    username: str,
-    token: str,
-    query: str | None = None,
-    cql: str | None = None,
-    space: str | None = None,
-    content_type: str | None = None,
-    labels: list[str] | None = None,
-    title_contains: str | None = None,
-    text_contains: str | None = None,
-    created_after: str | None = None,
-    created_before: str | None = None,
-    updated_after: str | None = None,
-    updated_before: str | None = None,
-    limit: int = 25,
-    cursor: str | None = None,
+    base_url: str, username: str, token: str,
+    query: str | None = None, cql: str | None = None, space: str | None = None,
+    content_type: str | None = None, labels: list[str] | None = None,
+    title_contains: str | None = None, text_contains: str | None = None,
+    created_after: str | None = None, created_before: str | None = None,
+    updated_after: str | None = None, updated_before: str | None = None,
+    limit: int = 25, cursor: str | None = None,
+    options: ConfluenceOptions | None = None,
 ) -> dict[str, object]:
+    """Search one CQL result page with safe retries and a decoded continuation cursor."""
+    if type(limit) is not int or limit < 1:
+        raise ValueError("Confluence search limit must be a positive integer")
     compiled_cql = cql or _build_cql(
-        query=query,
-        space=space,
-        content_type=content_type,
-        labels=labels,
-        title_contains=title_contains,
-        text_contains=text_contains,
-        created_after=created_after,
-        created_before=created_before,
-        updated_after=updated_after,
-        updated_before=updated_before,
+        query=query, space=space, content_type=content_type, labels=labels,
+        title_contains=title_contains, text_contains=text_contains,
+        created_after=created_after, created_before=created_before,
+        updated_after=updated_after, updated_before=updated_before,
     )
-    params: dict[str, object] = {
-        "cql": compiled_cql,
-        "limit": limit,
-    }
+    params: dict[str, Any] = {"cql": compiled_cql, "limit": min(limit, 250)}
     if cursor:
         params["cursor"] = cursor
-
-    response = requests.get(
-        urljoin(base_url.rstrip("/") + "/", "wiki/rest/api/search"),
-        headers={"Accept": "application/json"},
-        params=params,
-        auth=(username, token),
-        timeout=60,
-    )
-    response.raise_for_status()
-    payload = response.json()
+    with ConfluenceClient(base_url, (username, token), options) as client:
+        payload = client.get_json("rest/api/search", params)
+        results = payload.get("results")
+        if not isinstance(results, list) or any(not isinstance(row, dict) for row in results):
+            raise ConfluenceRequestError("Confluence search returned malformed results")
     return {
-        "query": query,
-        "cql": compiled_cql,
-        "limit": limit,
-        "cursor": cursor,
-        "results": payload.get("results", []),
-        "next_cursor": _next_cursor(payload),
+        "query": query, "cql": compiled_cql, "limit": limit, "cursor": cursor,
+        "results": results, "next_cursor": _next_cursor(payload),
     }
+
+
+def _limited_confluence_rows(
+    client: ConfluenceClient, path: str, params: dict[str, Any], limit: int, identity: str
+) -> Iterator[dict[str, Any]]:
+    if type(limit) is not int or limit < 1:
+        raise ValueError("Confluence browse limit must be a positive integer")
+    seen: set[str] = set()
+    for batch in client.iter_batches(path, params):
+        before = len(seen)
+        for row in batch:
+            key = str(row.get(identity) or "")
+            if not key:
+                raise ConfluenceRequestError("Confluence listing returned an item without an identity")
+            if key in seen:
+                continue
+            seen.add(key)
+            yield row
+            if len(seen) >= limit:
+                return
+        if batch and len(seen) == before:
+            raise ConfluenceRequestError("Confluence pagination made no progress")
 
 
 def list_confluence_spaces(
-    *,
-    base_url: str,
-    username: str,
-    token: str,
-    limit: int = 250,
+    *, base_url: str, username: str, token: str, limit: int = 250,
+    options: ConfluenceOptions | None = None,
 ) -> list[dict[str, object]]:
-    """Return all Confluence spaces visible to the authenticated user."""
-    spaces: list[dict[str, object]] = []
-    next_url: str | None = urljoin(base_url.rstrip("/") + "/", "wiki/rest/api/space")
-    params: dict[str, object] | None = {"limit": min(limit, 250)}
-
-    while next_url:
-        response = requests.get(
-            next_url,
-            headers={"Accept": "application/json"},
-            params=params,
-            auth=(username, token),
-            timeout=60,
+    """Return up to limit visible spaces with bounded pagination and retries."""
+    spaces = []
+    with ConfluenceClient(base_url, (username, token), options) as client:
+        rows = _limited_confluence_rows(
+            client, "rest/api/space", {"limit": min(limit, client.options.page_size)}, limit, "key"
         )
-        response.raise_for_status()
-        payload = response.json()
-        for space in payload.get("results", []):
+        for space in rows:
             spaces.append({
-                "key": space.get("key", ""),
-                "name": space.get("name", ""),
-                "type": space.get("type", ""),
+                "key": space.get("key", ""), "name": space.get("name", ""), "type": space.get("type", ""),
                 "description": (space.get("description", {}) or {}).get("plain", {}).get("value", ""),
-                "web_url": f"{base_url.rstrip('/')}/wiki/spaces/{space.get('key', '')}",
+                "web_url": urljoin(client.base_url, f"wiki/spaces/{space['key']}"),
             })
-            if len(spaces) >= limit:
-                return spaces
-
-        next_path = (payload.get("_links", {}) or {}).get("next")
-        next_url = urljoin(base_url, next_path) if next_path else None
-        params = None
-
     return spaces
 
 
 def list_confluence_pages(
-    *,
-    base_url: str,
-    username: str,
-    token: str,
-    space: str,
-    limit: int = 500,
+    *, base_url: str, username: str, token: str, space: str, limit: int = 500,
+    options: ConfluenceOptions | None = None,
 ) -> list[dict[str, object]]:
-    """Return Confluence pages in a space with ancestor-based path.
-
-    Each returned dict contains ``title``, ``path`` (``/ancestor1/ancestor2/title``),
-    ``web_url``, and ``page_id``.
-    """
-    pages: list[dict[str, object]] = []
-    next_url: str | None = urljoin(
-        base_url.rstrip("/") + "/",
-        "wiki/rest/api/content",
-    )
-    params: dict[str, object] | None = {
-        "type": "page",
-        "spaceKey": space,
-        "expand": "ancestors",
-        "limit": min(limit, 100),
-    }
-
-    while next_url:
-        response = requests.get(
-            next_url,
-            headers={"Accept": "application/json"},
-            params=params,
-            auth=(username, token),
-            timeout=60,
+    """Return up to limit pages with ancestor paths, without downloading their bodies."""
+    pages = []
+    with ConfluenceClient(base_url, (username, token), options) as client:
+        rows = _limited_confluence_rows(
+            client, "rest/api/content",
+            {"type": "page", "spaceKey": space, "expand": "ancestors",
+             "limit": min(limit, client.options.page_size)}, limit, "id",
         )
-        response.raise_for_status()
-        payload = response.json()
-
-        for page in payload.get("results", []):
+        for page in rows:
             title = page.get("title", "Untitled")
-            ancestors = page.get("ancestors", []) or []
-            path_parts = [a.get("title", "") for a in ancestors if a.get("title")]
-            path_parts.append(title)
-            path_str = "/" + "/".join(path_parts)
-
-            links = page.get("_links", {}) or {}
-            webui = links.get("webui", "")
-            web_url = f"{base_url.rstrip('/')}{webui}" if webui else ""
-
+            parts = [a.get("title", "") for a in (page.get("ancestors") or []) if a.get("title")]
+            parts.append(title)
             pages.append({
-                "title": title,
-                "path": path_str,
-                "web_url": web_url,
-                "page_id": str(page.get("id", "")),
-                "space": space,
+                "title": title, "path": "/" + "/".join(parts),
+                "web_url": _page_url(client.base_url, page) or "",
+                "page_id": str(page["id"]), "space": space,
             })
-            if len(pages) >= limit:
-                return pages
-
-        next_path = (payload.get("_links", {}) or {}).get("next")
-        next_url = urljoin(base_url, next_path) if next_path else None
-        params = None
-
     return pages
 
 
@@ -323,6 +336,8 @@ def _page_url(base_url: str, page: dict[str, object]) -> str | None:
     links = page.get("_links", {}) if isinstance(page, dict) else {}
     webui = links.get("webui") if isinstance(links, dict) else None
     if isinstance(webui, str) and webui:
+        if webui.startswith(("/spaces/", "spaces/")):
+            return urljoin(normalize_confluence_base_url(base_url), "wiki/" + webui.lstrip("/"))
         return urljoin(base_url, webui)
     return None
 
@@ -374,7 +389,7 @@ def _next_cursor(payload: dict[str, object]) -> str | None:
     next_link = links.get("next") if isinstance(links, dict) else None
     if not isinstance(next_link, str) or "cursor=" not in next_link:
         return None
-    return next_link.rsplit("cursor=", 1)[-1].split("&", 1)[0]
+    return parse_qs(urlsplit(next_link).query).get("cursor", [None])[0]
 
 
 def _search_result_page_id(result: dict[str, object]) -> str | None:

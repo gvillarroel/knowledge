@@ -17,6 +17,7 @@ _FINAL_LAYOUT_SOURCE_TYPES = {
     "confluence",
     "google_releases",
     "jira",
+    "servicenow",
     "site",
     "television",
     "video",

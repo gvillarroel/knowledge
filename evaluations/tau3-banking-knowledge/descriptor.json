@@ -1,0 +1,26 @@
+{
+  "schema_version": "tau3-banking-knowledge-evaluation/1.0",
+  "harbor_dataset": {
+    "name": "sierra-research/tau3-bench",
+    "version": "latest",
+    "domain": "banking_knowledge",
+    "expected_task_count": 97,
+    "expected_task_config_tree_sha256": "e6f44065459e1ad324f05407d43c8402fa37c55713072fe320421868c215137f"
+  },
+  "upstream": {
+    "repository": "https://github.com/sierra-research/tau2-bench.git",
+    "release": "v1.0.0",
+    "commit": "17e07b1da2bbc0cadfddeea36412686e0604127b",
+    "expected_document_count": 698,
+    "expected_document_tree_sha256": "5f6421a037ea3670db4872d0b653a7a55473a574c212ef49fa956cc08a8e2b7b",
+    "clone_directory": "evaluations/semantic-okf-datasets/generated/external/tau2-v100",
+    "harbor_download_directory": "evaluations/semantic-okf-datasets/generated/external/tau3-bench"
+  },
+  "retrieval_evaluation": {
+    "query_field": "task.user_scenario.instructions",
+    "qrels_field": "task.required_documents",
+    "cutoffs": [1, 5, 10],
+    "modes": ["bm25", "association", "topic", "fusion"],
+    "interpretation": "Retrospective oracle-context retrieval diagnostic; it does not use expected actions or expected answers as query text and is not an official end-to-end tau3 score."
+  }
+}

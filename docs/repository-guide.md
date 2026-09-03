@@ -10,8 +10,8 @@
 | `tests/` | Unit and integration coverage. |
 | `scripts/` | Coverage gate and maintenance helpers. |
 | `docs/` | CLI reference, source workflows, and engineering guides. |
-| `skills/` | Self-contained knowledge builder and consultation bundles. |
-| `evaluations/` | Governed datasets, study contracts, and reviewed evidence. |
+| `skills/` | Self-contained knowledge builder, consultation, and Harbor dataset-authoring bundles. |
+| `evaluations/` | Governed datasets, study contracts, private execution boundaries, and reviewed aggregate evidence. |
 | `.specs/adr/` | Architecture and evidence decisions. |
 
 ## Documentation policy

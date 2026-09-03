@@ -8,6 +8,7 @@ from .sources.crawl4ai_site import SiteSource
 from .sources.github_repo import GitHubRepoSource
 from .sources.google_releases import GoogleReleasesSource
 from .sources.jira import JiraSource
+from .sources.servicenow import ServiceNowSource
 from .sources.television import TelevisionSource
 from .sources.video import VideoSource
 
@@ -19,6 +20,7 @@ SOURCE_TYPES: dict[str, type[SourceAdapter]] = {
     "github": GitHubRepoSource,
     "google_releases": GoogleReleasesSource,
     "jira": JiraSource,
+    "servicenow": ServiceNowSource,
     "site": SiteSource,
     "television": TelevisionSource,
     "video": VideoSource,

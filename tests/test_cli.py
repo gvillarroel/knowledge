@@ -522,6 +522,19 @@ def test_add_arxiv_batch_syncs_with_polite_delay_and_enriches_sources(
 
     monkeypatch.setattr(arxiv_module.requests, "get", fake_get)
     monkeypatch.setattr(arxiv_module.time, "sleep", lambda delay: sleeps.append(delay))
+    monkeypatch.setattr(
+        arxiv_module,
+        "_download_and_process_arxiv_pdf",
+        lambda paper_id, **_kwargs: arxiv_module._ProcessedPDF(
+            url=f"https://arxiv.org/pdf/{paper_id}",
+            content_type="application/pdf",
+            byte_count=1024,
+            sha256="a" * 64,
+            pages=("## PDF page 1\n\nComplete extracted paper body.",),
+            extracted_characters=30,
+            nonempty_pages=1,
+        ),
+    )
 
     assert (
         main(
@@ -557,11 +570,12 @@ def test_add_arxiv_batch_syncs_with_polite_delay_and_enriches_sources(
         "Paper 2608.05446v1",
     ]
     assert len(output["synced"]) == 3
+    assert all(item["content_source"] == "arxiv-pdf" for item in output["synced"])
     assert calls == [
         ["2608.01964v1", "2608.05013v1"],
         ["2608.05446v1"],
     ]
-    assert sleeps == [0.25]
+    assert sleeps == [0.25, 0.25, 0.25, 0.25]
 
 
 def test_add_arxiv_sync_falls_back_to_official_abstract_page(
@@ -606,6 +620,19 @@ def test_add_arxiv_sync_falls_back_to_official_abstract_page(
 
     monkeypatch.setattr(arxiv_module, "ARXIV_MAX_ATTEMPTS", 1)
     monkeypatch.setattr(arxiv_module.requests, "get", fake_get)
+    monkeypatch.setattr(
+        arxiv_module,
+        "_download_and_process_arxiv_pdf",
+        lambda paper_id, **_kwargs: arxiv_module._ProcessedPDF(
+            url=f"https://arxiv.org/pdf/{paper_id}",
+            content_type="application/pdf",
+            byte_count=2048,
+            sha256="b" * 64,
+            pages=("## PDF page 1\n\nVerified full paper body.",),
+            extracted_characters=25,
+            nonempty_pages=1,
+        ),
+    )
 
     assert (
         main(
@@ -618,6 +645,8 @@ def test_add_arxiv_sync_falls_back_to_official_abstract_page(
                 "--key",
                 "papers",
                 "--sync",
+                "--request-delay",
+                "0",
             ]
         )
         == 0
@@ -630,6 +659,8 @@ def test_add_arxiv_sync_falls_back_to_official_abstract_page(
     assert source["published"] == "2026-08-03T09:32:21Z"
     paper = (tmp_path / "papers" / "arxiv" / source["id"] / "paper.md").read_text(encoding="utf-8")
     assert "Verified fallback abstract." in paper
+    assert "## PDF page 1" in paper
+    assert "Verified full paper body." in paper
     assert calls == [
         "https://export.arxiv.org/api/query",
         "https://arxiv.org/abs/2608.01964v1",
@@ -955,6 +986,13 @@ def test_search_confluence_queries_live_api(tmp_path: Path, capsys, monkeypatch:
     )
 
     class StubResponse:
+        status_code = 200
+        headers: dict = {}
+        links: dict = {}
+
+        def close(self) -> None:
+            pass
+
         def raise_for_status(self) -> None:
             return None
 
@@ -977,10 +1015,10 @@ def test_search_confluence_queries_live_api(tmp_path: Path, capsys, monkeypatch:
             "limit": 25,
         }
         assert auth == ("user@example.com", "secret")
-        assert timeout == 60
+        assert timeout == (10.0, 60.0)
         return StubResponse()
 
-    monkeypatch.setattr(confluence_module.requests, "get", fake_get)
+    monkeypatch.setattr(confluence_module.requests.Session, "get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     assert main(["--store", str(tmp_path), "search", "confluence", "incident postmortem"]) == 0
     output = capsys.readouterr().out
@@ -1042,6 +1080,13 @@ def test_search_confluence_honors_key_and_space_filters(tmp_path: Path, capsys, 
     calls: list[dict[str, object]] = []
 
     class StubResponse:
+        status_code = 200
+        headers: dict = {}
+        links: dict = {}
+
+        def close(self) -> None:
+            pass
+
         def raise_for_status(self) -> None:
             return None
 
@@ -1059,7 +1104,7 @@ def test_search_confluence_honors_key_and_space_filters(tmp_path: Path, capsys, 
         )
         return StubResponse()
 
-    monkeypatch.setattr(confluence_module.requests, "get", fake_get)
+    monkeypatch.setattr(confluence_module.requests.Session, "get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     capsys.readouterr()
     assert (
@@ -1715,3 +1760,81 @@ def test_pyproject_exposes_know_console_script() -> None:
     pyproject = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
     scripts = pyproject["project"]["scripts"]
     assert scripts["know"] == "knowledge.cli:main"
+
+
+def test_confluence_cli_persists_resource_and_retry_controls(tmp_path, capsys):
+    assert main(["--store", str(tmp_path), "add", "key", "docs"]) == 0
+    assert main([
+        "--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "docs",
+        "--workers", "2", "--page-size", "10", "--timeout", "90", "--connect-timeout", "5",
+        "--max-retries", "3", "--max-retry-wait", "45", "--max-pages", "0",
+    ]) == 0
+    metadata = yaml.safe_load((tmp_path / "docs" / "metadata.yaml").read_text(encoding="utf-8"))
+    config = metadata["sources"][0]["config"]
+    assert {key: config[key] for key in ("workers", "page_size", "timeout", "connect_timeout",
+                                       "max_retries", "max_retry_wait", "max_pages")} == {
+        "workers": 2, "page_size": 10, "timeout": 90.0, "connect_timeout": 5.0,
+        "max_retries": 3, "max_retry_wait": 45.0, "max_pages": 0,
+    }
+
+
+@pytest.mark.parametrize("flag,value", [("--workers", "17"), ("--page-size", "0"), ("--timeout", "nan"),
+                                       ("--max-retries", "-1"), ("--max-pages", "-1")])
+def test_confluence_cli_rejects_bad_controls_before_registration(tmp_path, capsys, flag, value):
+    assert main(["--store", str(tmp_path), "add", "key", "docs"]) == 0
+    assert main(["--store", str(tmp_path), "add", "confluence", "--space", "ENG", "--key", "docs",
+                 flag, value]) == 1
+    metadata = yaml.safe_load((tmp_path / "docs" / "metadata.yaml").read_text(encoding="utf-8"))
+    assert not metadata["sources"]
+
+
+def test_confluence_cli_sync_overrides_are_not_persisted(tmp_path, capsys, monkeypatch):
+    from knowledge import commands
+    from knowledge.sources.confluence import ConfluenceSource
+
+    assert main(["--store", str(tmp_path), "add", "key", "docs"]) == 0
+    assert main(["--store", str(tmp_path), "add", "confluence", "--cql", "type=page", "--key", "docs",
+                 "--workers", "2"]) == 0
+    seen = []
+
+    class StubAdapter(ConfluenceSource):
+        def sync(self):
+            seen.append(self.source["_confluence_sync_options"])
+            return self.finalize_sync({"pages": 0})
+
+    monkeypatch.setattr(commands, "create_source_adapter", lambda source, store: StubAdapter(source, store))
+    assert main(["--store", str(tmp_path), "sync", "confluence", "--key", "docs", "--workers", "6",
+                 "--page-size", "7", "--max-retries", "0", "--refresh"]) == 0
+    assert seen == [{"workers": 6, "page_size": 7, "max_retries": 0, "refresh": True}]
+    metadata = yaml.safe_load((tmp_path / "docs" / "metadata.yaml").read_text(encoding="utf-8"))
+    assert metadata["sources"][0]["config"]["workers"] == 2
+    assert "_confluence_sync_options" not in metadata["sources"][0]
+
+
+def test_confluence_cli_reports_partial_sync_and_continues_other_sources(tmp_path, capsys, monkeypatch):
+    from knowledge import commands
+    from knowledge.sources.confluence import ConfluenceSyncError
+
+    assert main(["--store", str(tmp_path), "add", "key", "docs"]) == 0
+    for space in ("ENG", "OPS"):
+        assert main(["--store", str(tmp_path), "add", "confluence", "--space", space, "--key", "docs"]) == 0
+
+    class StubAdapter:
+        def __init__(self, source, _store):
+            self.source = source
+
+        def sync(self):
+            if self.source["title"] == "ENG":
+                raise ConfluenceSyncError({
+                    "pages": 2, "complete": False, "report": "sync-report.json",
+                    "failures": [{"page_id": "3", "error": "Confluence HTTP 503"}],
+                })
+            return {"source": self.source["id"], "pages": 4}
+
+    monkeypatch.setattr(commands, "create_source_adapter", StubAdapter)
+    capsys.readouterr()
+    assert main(["--store", str(tmp_path), "--json", "sync", "--key", "docs"]) == 1
+    result = json.loads(capsys.readouterr().out)
+    assert result["synced"] == [{"source": "confluence-ops", "pages": 4}]
+    assert result["failed"][0]["source"] == "confluence-eng"
+    assert result["failed"][0]["failures"][0]["page_id"] == "3"

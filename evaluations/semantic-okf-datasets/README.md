@@ -287,6 +287,113 @@ python evaluations/semantic-okf-datasets/validate_harbor_tasks.py \
 
 Each validator command checks deterministic regeneration, prompt leakage, mode boundaries, hidden bindings, and 40 successful mechanical qualification oracles. Mechanical contract, retrieval, document-minimum, and anchor metrics do not establish semantic correctness.
 
+## Review answer quality without solution coupling
+
+`answer_quality_review.py` re-adjudicates completed Pi responses against a
+fixed semantic quality contract. Reviewer-visible packets contain only the
+question, authored required points, available separately authored ground-truth
+claims, important negatives, and normalized answer prose. They exclude
+answer-selected evidence, retrieval traces, strategy and job identities, paths,
+hashes, locators, native rewards, and token usage. Historical tasks without a
+separate hard-ground-truth artifact are explicitly labeled `rubric-only`; they
+must not be represented as equivalent to a `rubric+truth` cohort.
+
+The runner uses Pi with GPT-5.6 Luna at high thinking and no tools, skills,
+extensions, context files, or saved session. It supports two-arm comparisons
+and complete populations. Each case is reviewed twice with the whole answer
+order reversed. Results are validated against the exact packet digest; the
+aggregate uses conservative per-point consensus and derives coverage from the
+statuses instead of accepting a model-authored scalar score. A complete Pi
+response without semantic answer content remains an evaluable quality failure,
+not an infrastructure error and not a dropped case.
+
+Prepare a new append-only review directory, run the missing calls, derive a
+private report plus a reviewed aggregate table, and then validate all results:
+
+```bash
+python evaluations/semantic-okf-datasets/answer_quality_review.py prepare \
+  --task-root <frozen-task-root> \
+  --job baseline=<completed-baseline-job> \
+  --job candidate=<completed-candidate-job> \
+  --output-dir <new-private-review-directory>
+python evaluations/semantic-okf-datasets/answer_quality_review.py run \
+  --manifest <new-private-review-directory>/manifest.json \
+  --max-workers 2
+python evaluations/semantic-okf-datasets/answer_quality_review.py report \
+  --manifest <new-private-review-directory>/manifest.json \
+  --report <new-private-report.json> \
+  --table <new-reviewed-aggregate.table.md>
+python evaluations/semantic-okf-datasets/answer_quality_review.py validate \
+  --manifest <new-private-review-directory>/manifest.json \
+  --results
+```
+
+Repeat `--job arm-id=<completed-job>` to review a whole comparable population.
+After each cohort report is complete, generate a cohort-grouped table without
+ranking across datasets or contract bases:
+
+```bash
+python evaluations/semantic-okf-datasets/answer_quality_review.py consolidate \
+  --cohort q019-q024=<q019-q024-manifest.json> \
+  --cohort q041-q046=<q041-q046-manifest.json> \
+  --cohort q047-q052=<q047-q052-manifest.json> \
+  --report <new-private-consolidated-report.json> \
+  --table <new-reviewed-consolidated.table.md>
+```
+
+Re-adjudicating fixed completed answers isolates an evaluator correction from
+answer-generation variance. It does not authorize validation reuse for
+candidate evolution; any repair still requires a new study and fresh sealed
+validation data.
+
+### Superseding isolated replicated review
+
+`isolated_answer_quality_review.py` supersedes the two-answer population
+protocol for retrospective corrections. It keeps the frozen answer generations
+but presents one anonymized answer per call in three deterministic criterion
+orders. Stable criterion IDs, per-cell majority, an unresolved state, and
+component-wise paired comparison prevent response-order contamination,
+synthetic worst-case merging, and aggregate score compensation.
+
+The manifest binds every arm, task checksum, raw and projected answer digest,
+job lock, native Harbor report, packet, prompt, and evaluator implementation.
+The runner captures invalid private outputs under a three-attempt cap. Packet
+binding is assigned by the runner; a model-authored digest echo is diagnostic
+only. Valid judgments may be imported into a successor manifest only when both
+packet and prompt digests are identical.
+
+Every task receives an empty-answer negative control. A complete
+contract-derived positive control is added only for tasks with separately
+authored hard ground truth. Qrel-only historical tasks use the rubric as the
+semantic claim contract and retain qrel identities only as evidence-neighborhood
+anchors; document IDs and titles are not answer claims.
+
+Run native Harbor validation before preparing the audit, then use:
+
+```bash
+python evaluations/semantic-okf-datasets/isolated_answer_quality_review.py prepare \
+  --task-root <frozen-task-root> \
+  --job canonical=<completed-canonical-job> \
+  --job candidate=<completed-candidate-job> \
+  --native-report <native-final-report.json> \
+  --output-dir <new-private-review-directory>
+python evaluations/semantic-okf-datasets/isolated_answer_quality_review.py run \
+  --manifest <new-private-review-directory>/manifest.json \
+  --max-workers 4
+python evaluations/semantic-okf-datasets/isolated_answer_quality_review.py report \
+  --manifest <new-private-review-directory>/manifest.json \
+  --cohort q047-q052 \
+  --report <new-private-report.json> \
+  --table <new-private-aggregate.table.md>
+python evaluations/semantic-okf-datasets/isolated_answer_quality_review.py validate \
+  --manifest <new-private-review-directory>/manifest.json \
+  --results
+```
+
+The resulting audit is retrospective and not promotion eligible. A failed
+calibration rejects the methodology version; it must not be interpreted as a
+candidate result.
+
 Create cross-platform redacted Harbor dry runs:
 
 ```bash

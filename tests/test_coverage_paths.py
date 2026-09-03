@@ -26,6 +26,13 @@ from knowledge.store import KnowledgeStore
 
 
 class DummyResponse:
+    status_code = 200
+    headers: dict = {}
+    links: dict = {}
+
+    def close(self) -> None:
+        pass
+
     def __init__(self, payload: dict | None = None, text: str = "") -> None:
         self._payload = payload or {}
         self.text = text
@@ -583,42 +590,31 @@ def test_confluence_sync_writes_pages_and_resolves_auth(tmp_path: Path, monkeypa
     store.set_key("confluence_user", "user@example.com")
     store.set_key("confluence_token", "token")
     source = store.add_collection_source(
-        "docs",
-        "confluence",
-        title="ENG",
-        config={
-            "base_url": "https://conf.example.com",
-            "space_key": "ENG",
-            "username": "$confluence_user",
-            "token": "$confluence_token",
-            "limit": 5,
-        },
-        update_command="sync",
-        delete_command="del",
+        "docs", "confluence", title="ENG",
+        config={"base_url": "https://conf.example.com", "space_key": "ENG",
+                "username": "$confluence_user", "token": "$confluence_token", "limit": 5},
+        update_command="sync", delete_command="del",
     )
-
-    captured: dict[str, object] = {}
+    captured = []
+    page = {"id": "1", "spaceId": "10", "title": "Guide", "version": {"number": 1},
+            "body": {"storage": {"value": "<p>Hello</p>"}}}
 
     def fake_get(url: str, **kwargs: object) -> DummyResponse:
-        captured["url"] = url
-        captured["kwargs"] = kwargs
-        return DummyResponse(
-            payload={
-                "results": [
-                    {
-                        "id": "1",
-                        "body": {"storage": {"value": "<p>Hello</p>"}},
-                    }
-                ]
-            }
-        )
+        captured.append((url, kwargs))
+        if url.endswith("/spaces"):
+            return DummyResponse({"results": [{"id": "10", "key": "ENG"}]})
+        if url.endswith("/pages"):
+            return DummyResponse({"results": [{key: value for key, value in page.items() if key != "body"}]})
+        return DummyResponse(page)
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get",
+                        lambda _session, url, **kwargs: fake_get(url, **kwargs))
     payload = ConfluenceSource(source, store).sync()
-
     assert payload["pages"] == 1
-    assert captured["url"] == "https://conf.example.com/wiki/api/v2/pages"
-    assert captured["kwargs"]["auth"] == ("user@example.com", "token")
+    assert captured[0][1]["params"] == {"keys": "ENG", "limit": 2}
+    assert captured[1][1]["params"] == {"space-id": "10", "status": "current", "subtype": "page", "limit": 5}
+    assert captured[-1][0] == "https://conf.example.com/wiki/api/v2/pages/1"
+    assert all(kwargs["auth"] == ("user@example.com", "token") for _, kwargs in captured)
     markdown_files = list(store.source_raw_dir(source).glob("*.md"))
     assert len(markdown_files) == 1
     contents = markdown_files[0].read_text(encoding="utf-8")
@@ -631,51 +627,37 @@ def test_confluence_sync_follows_pagination_links(tmp_path: Path, monkeypatch: p
     store = make_store(tmp_path)
     store.create_collection_key("docs")
     source = store.add_collection_source(
-        "docs",
-        "confluence",
-        title="ENG",
-        config={
-            "base_url": "https://conf.example.com",
-            "space_key": "ENG",
-            "username": "user@example.com",
-            "token": "token",
-            "limit": 1,
-        },
-        update_command="sync",
-        delete_command="del",
+        "docs", "confluence", title="ENG",
+        config={"base_url": "https://conf.example.com", "space_key": "ENG",
+                "username": "user@example.com", "token": "token", "limit": 1},
+        update_command="sync", delete_command="del",
     )
-
-    calls: list[tuple[str, object | None]] = []
+    calls = []
 
     def fake_get(url: str, **kwargs: object) -> DummyResponse:
-        calls.append((url, kwargs.get("params")))
-        if url == "https://conf.example.com/wiki/api/v2/pages":
-            return DummyResponse(
-                payload={
-                    "results": [{"id": "1", "body": {"storage": {"value": "<p>One</p>"}}}],
-                    "_links": {"next": "/wiki/api/v2/pages?cursor=abc"},
-                }
-            )
-        if url == "https://conf.example.com/wiki/api/v2/pages?cursor=abc":
-            return DummyResponse(
-                payload={
-                    "results": [{"id": "2", "body": {"storage": {"value": "<p>Two</p>"}}}],
-                    "_links": {},
-                }
-            )
-        raise AssertionError(url)
+        params = kwargs.get("params")
+        calls.append((url, params))
+        if url.endswith("/spaces"):
+            return DummyResponse({"results": [{"id": "10", "key": "ENG"}]})
+        if url.endswith("/pages"):
+            page_id = "2" if params.get("cursor") else "1"
+            return DummyResponse({
+                "results": [{"id": page_id, "spaceId": "10"}],
+                "_links": {} if page_id == "2" else {"next": "/wiki/api/v2/pages?cursor=abc"},
+            })
+        page_id = url.rsplit("/", 1)[-1]
+        return DummyResponse({"id": page_id, "spaceId": "10", "body": {"storage": {"value": f"<p>{page_id}</p>"}}})
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
-
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get",
+                        lambda _session, url, **kwargs: fake_get(url, **kwargs))
     payload = ConfluenceSource(source, store).sync()
-
     assert payload["pages"] == 2
-    assert calls == [
-        (
-            "https://conf.example.com/wiki/api/v2/pages",
-            {"space-key": "ENG", "limit": 1, "body-format": "storage"},
-        ),
-        ("https://conf.example.com/wiki/api/v2/pages?cursor=abc", None),
+    inventory = [(url, params) for url, params in calls if url.endswith("/pages")]
+    assert inventory == [
+        ("https://conf.example.com/wiki/api/v2/pages",
+         {"space-id": "10", "status": "current", "subtype": "page", "limit": 1}),
+        ("https://conf.example.com/wiki/api/v2/pages",
+         {"space-id": "10", "status": "current", "subtype": "page", "limit": 1, "cursor": "abc"}),
     ]
     assert len(list(store.source_raw_dir(source).glob("*.md"))) == 2
 
@@ -720,7 +702,7 @@ def test_confluence_sync_uses_registered_cql_filter(tmp_path: Path, monkeypatch:
             )
         raise AssertionError(url)
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     payload = ConfluenceSource(source, store).sync()
 
@@ -729,7 +711,7 @@ def test_confluence_sync_uses_registered_cql_filter(tmp_path: Path, monkeypatch:
     assert calls == [
         (
             "https://conf.example.com/wiki/rest/api/search",
-            {"cql": 'type = "page" AND label = "runbook"', "limit": 10},
+            {"cql": 'type = "page" AND label = "runbook"', "limit": 10, "expand": "content.version"},
         ),
         (
             "https://conf.example.com/wiki/api/v2/pages/123",
@@ -783,7 +765,7 @@ def test_confluence_sync_with_cql_stops_after_limit(tmp_path: Path, monkeypatch:
             )
         raise AssertionError(url)
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     payload = ConfluenceSource(source, store).sync()
 
@@ -791,7 +773,7 @@ def test_confluence_sync_with_cql_stops_after_limit(tmp_path: Path, monkeypatch:
     assert calls == [
         (
             "https://conf.example.com/wiki/rest/api/search",
-            {"cql": 'type = "page"', "limit": 1},
+            {"cql": 'type = "page"', "limit": 1, "expand": "content.version"},
         ),
         (
             "https://conf.example.com/wiki/api/v2/pages/123",
@@ -813,7 +795,7 @@ def test_search_confluence_uses_search_endpoint_and_returns_cursor(monkeypatch: 
             }
         )
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     payload = search_confluence(
         base_url="https://conf.example.com",
@@ -843,7 +825,7 @@ def test_search_confluence_builds_cql_with_extended_filters(monkeypatch: pytest.
         captured["kwargs"] = kwargs
         return DummyResponse(payload={"results": [], "_links": {}})
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     payload = search_confluence(
         base_url="https://conf.example.com",
@@ -873,7 +855,7 @@ def test_search_confluence_passes_cursor_and_allows_text_contains(monkeypatch: p
         captured["kwargs"] = kwargs
         return DummyResponse(payload={"results": [], "_links": {"next": "/wiki/rest/api/search?cursor=next-2&limit=5"}})
 
-    monkeypatch.setattr("knowledge.sources.confluence.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.confluence.requests.Session.get", lambda _session, url, **kwargs: fake_get(url, **{key: value for key, value in kwargs.items() if key != "allow_redirects"}))
 
     payload = search_confluence(
         base_url="https://conf.example.com",
@@ -1405,6 +1387,8 @@ def test_aha_sync_respects_limit_across_pages(tmp_path: Path, monkeypatch: pytes
 
 
 def test_arxiv_sync_fetches_feed_and_extracts_pdf_id(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from knowledge.sources import arxiv as arxiv_module
+
     store = make_store(tmp_path)
     store.create_collection_key("papers")
     source = store.add_collection_source(
@@ -1420,12 +1404,37 @@ def test_arxiv_sync_fetches_feed_and_extracts_pdf_id(tmp_path: Path, monkeypatch
 
     def fake_get(url: str, **_kwargs: object) -> DummyResponse:
         captured["url"] = url
-        return DummyResponse(text="<feed/>")
+        return DummyResponse(
+            text="""<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <id>https://arxiv.org/abs/1706.03762v7</id>
+    <title>Attention Is All You Need</title>
+    <summary>Transformer paper abstract.</summary>
+    <author><name>Ashish Vaswani</name></author>
+    <category term="cs.CL" />
+    <link title="pdf" href="https://arxiv.org/pdf/1706.03762v7" />
+  </entry>
+</feed>"""
+        )
 
     monkeypatch.setattr("knowledge.sources.arxiv.requests.get", fake_get)
+    monkeypatch.setattr("knowledge.sources.arxiv.time.sleep", lambda _delay: None)
+    monkeypatch.setattr(
+        arxiv_module,
+        "_download_and_process_arxiv_pdf",
+        lambda paper_id, **_kwargs: arxiv_module._ProcessedPDF(
+            url=f"https://arxiv.org/pdf/{paper_id}",
+            content_type="application/pdf",
+            byte_count=1024,
+            sha256="c" * 64,
+            pages=("## PDF page 1\n\nComplete extracted paper body.",),
+            extracted_characters=30,
+            nonempty_pages=1,
+        ),
+    )
     payload = ArxivSource(source, store).sync()
 
-    assert payload["paper_id"] == "1706.03762"
+    assert payload["paper_id"] == "1706.03762v7"
     assert "1706.03762" in captured["url"]
     assert (store.source_raw_dir(source) / "paper.md").exists()
     assert (store.source_raw_dir(source) / "source-metadata.yaml").exists()

@@ -69,6 +69,7 @@ from .commands import (
     cmd_sync,
 )
 from .television import TV_FORMAT_CHOICES
+from .servicenow_commands import register_servicenow_parsers
 
 
 def load_dotenv(dotenv_path: Path | None = None) -> None:
@@ -138,7 +139,8 @@ def build_parser() -> argparse.ArgumentParser:
     add_confluence_parser.add_argument("--username", help="Username or credential key reference.")
     add_confluence_parser.add_argument("--token", help="Token or credential key reference.")
     add_confluence_parser.add_argument("--cql", help="Persist a custom Confluence CQL filter for sync.")
-    add_confluence_parser.add_argument("--limit", type=int, help="Page sync limit.")
+    add_confluence_parser.add_argument("--limit", type=int, help="Legacy limit: inventory size for spaces, total cap for CQL.")
+    _add_confluence_controls(add_confluence_parser)
     add_confluence_parser.set_defaults(handler=cmd_add_confluence)
 
     add_arxiv_parser = add_subparsers.add_parser("arxiv", help="Attach one or more arXiv paper URLs.")
@@ -472,8 +474,9 @@ def build_parser() -> argparse.ArgumentParser:
     sync_parser.set_defaults(handler=cmd_sync, source_type=None, match_value=None)
 
     sync_confluence_parser = sync_subparsers.add_parser("confluence", help="Sync a Confluence source.")
-    sync_confluence_parser.add_argument("--space", required=True, help="Confluence space key.")
+    sync_confluence_parser.add_argument("--space", help="Restrict sync to one Confluence space key.")
     sync_confluence_parser.add_argument("--key", required=True, help="Knowledge key name.")
+    _add_confluence_controls(sync_confluence_parser, refresh=True)
     sync_confluence_parser.set_defaults(handler=cmd_sync, source_type="confluence", match_value=None)
 
     sync_arxiv_parser = sync_subparsers.add_parser("arxiv", help="Sync an arXiv source.")
@@ -741,6 +744,8 @@ def build_parser() -> argparse.ArgumentParser:
     browse_source_files_parser.add_argument("--entry", help="Entry to preview.")
     browse_source_files_parser.set_defaults(handler=cmd_browse_source_files)
 
+    register_servicenow_parsers(subparsers, add_subparsers, search_subparsers, sync_subparsers, browse_subparsers)
+
     return parser
 
 
@@ -781,6 +786,22 @@ def _validate_url(value: str) -> None:
         raise InvalidURLError(value, reason="URL must start with http:// or https://")
 
 
+def _add_confluence_controls(parser: argparse.ArgumentParser, *, refresh: bool = False) -> None:
+    """Add persisted or per-run Confluence resource and retry controls."""
+    for name, value_type, help_text in (
+        ("workers", int, "Concurrent page downloads (1-16; default: 4)."),
+        ("page-size", int, "Items per inventory request (1-250; default: 25)."),
+        ("timeout", float, "Read timeout per request in seconds (default: 60)."),
+        ("connect-timeout", float, "Connection timeout in seconds (default: 10)."),
+        ("max-retries", int, "Retries after the initial GET attempt (0-10; default: 4)."),
+        ("max-retry-wait", float, "Maximum retry/cooldown wait per request in seconds (default: 120)."),
+        ("max-pages", int, "Total pages to sync; 0 means all pages (default: 0)."),
+    ):
+        parser.add_argument("--" + name, type=value_type, help=help_text)
+    if refresh:
+        parser.add_argument("--refresh", action="store_true", help="Ignore cached bodies and download every selected page.")
+
+
 def main(argv: list[str] | None = None) -> int:
     """Entry-point for the ``know`` CLI."""
 
@@ -814,7 +835,10 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as exc:  # pragma: no cover - CLI boundary
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    return emit(result, args.json)
+    exit_code = emit(result, args.json)
+    if args.command == "sync" and isinstance(result, dict) and result.get("failed"):
+        return 1
+    return exit_code
 
 
 if __name__ == "__main__":  # pragma: no cover

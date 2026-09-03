@@ -42,6 +42,25 @@ nearest `.know` at or above the working directory, fall back to
 
 ## Add Commands
 
+### ServiceNow
+
+See [ServiceNow integration](servicenow.md) for credentials, safe scope selection, and live acceptance.
+
+```sh
+know add servicenow --key KEY [--table TABLE] [--query QUERY] [--knowledge-base SYS_ID] [--assignment-group SYS_ID] [--field FIELD ...] [--limit N] [--page-size N]
+know sync servicenow --key KEY [--source-id SOURCE_ID]
+know search servicenow [TEXT] [--key KEY] [--source-id SOURCE_ID] [--table TABLE] [--query QUERY] [--limit N] [--offset N] [--format FORMAT] [--entry ROW]
+know browse servicenow [--key KEY] [--format FORMAT] [--entry ROW]
+know servicenow read-ticket NUMBER_OR_SYS_ID [--key KEY] [--source-id SOURCE_ID] [--table TABLE]
+know servicenow create-ticket --short-description TITLE [--description TEXT | --description-file PATH] [--key KEY] [--source-id SOURCE_ID] [--caller-id SYS_ID] [--assignment-group SYS_ID] [--impact 1|2|3] [--urgency 1|2|3] [--correlation-id ID] [--dry-run]
+know servicenow knowledge-bases [--key KEY] [--source-id SOURCE_ID] [--limit N] [--offset N] [--format FORMAT] [--entry ROW]
+```
+
+Registration and direct remote commands accept `--base-url`, `--username`,
+`--password`, or `--token`. Secrets must be credential references. Direct
+connection flags cannot be combined with a registered `--key` connection.
+
+
 # Register an Aha workspace source; if flags are omitted, default connection values can come from `AHA_BASE_URL` and `AHA_TOKEN`
 `know add aha $NAME --key $KEY [--base-url $URL] [--token $NAME] [--limit N]`
 
@@ -244,7 +263,9 @@ nearest `.know` at or above the working directory, fall back to
 `know sync arxiv $URL --key $KEY`
 
 # Synchronize a Confluence source
-`know sync confluence --space $NAME --key $KEY`
+`know sync confluence [--space $NAME] --key $KEY [--workers N] [--page-size N] [--timeout SECONDS] [--connect-timeout SECONDS] [--max-retries N] [--max-retry-wait SECONDS] [--max-pages N] [--refresh]`
+
+See [Reliable Confluence synchronization](confluence-sync.md) for persisted controls, legacy limits, and partial-result recovery.
 
 # Synchronize a GitHub repository source
 `know sync github-repo $REPO --key $KEY [--branch $NAME ...]`

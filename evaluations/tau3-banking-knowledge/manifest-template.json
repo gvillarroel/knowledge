@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "bundle": {
+    "title": "Rho-Bank Knowledge Corpus",
+    "description": "The pinned tau3 banking-knowledge document corpus for retrieval evaluation.",
+    "base_iri": "https://example.org/tau3/rho-bank/",
+    "ontology_iri": "https://example.org/ontology/tau3-rho-bank",
+    "version_iri": "https://example.org/ontology/tau3-rho-bank/1.0.0",
+    "prefix": "rhobank",
+    "owl_profile": "rl"
+  },
+  "ontology": {
+    "classes": [
+      {
+        "name": "KnowledgeDocument",
+        "label": "knowledge document"
+      }
+    ],
+    "properties": [
+      {
+        "name": "documentTitle",
+        "kind": "datatype",
+        "domain": "KnowledgeDocument",
+        "range": "xsd:string"
+      },
+      {
+        "name": "documentContent",
+        "kind": "datatype",
+        "domain": "KnowledgeDocument",
+        "range": "xsd:string"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "name": "KnowledgeDocumentTitleRule",
+      "target_class": "KnowledgeDocument",
+      "path": "documentTitle",
+      "min_count": 1,
+      "max_count": 1,
+      "message": "Every knowledge document must retain its title.",
+      "basis": {
+        "kind": "evidence",
+        "references": []
+      },
+      "datatype": "xsd:string",
+      "pattern": ".+"
+    },
+    {
+      "name": "KnowledgeDocumentContentRule",
+      "target_class": "KnowledgeDocument",
+      "path": "documentContent",
+      "min_count": 1,
+      "max_count": 1,
+      "message": "Every knowledge document must retain nonempty policy content.",
+      "basis": {
+        "kind": "evidence",
+        "references": []
+      },
+      "datatype": "xsd:string",
+      "pattern": ".+"
+    }
+  ],
+  "sources": []
+}

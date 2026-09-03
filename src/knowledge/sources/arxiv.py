@@ -1,16 +1,30 @@
 from __future__ import annotations
 
+from copy import deepcopy
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
+import hashlib
 from html.parser import HTMLParser
+from io import BytesIO
+from pathlib import Path
 import re
+import shutil
+import tempfile
 import time
+import unicodedata
 from xml.etree import ElementTree
 from urllib.parse import quote, urlparse
 
 import requests
 
+try:
+    import pypdf
+except ImportError:  # pragma: no cover - exercised with an intentionally stale tool environment
+    pypdf = None  # type: ignore[assignment]
+
 from .base import SourceAdapter
+from ..errors import SyncError
 from ..store import KnowledgeStore
 
 
@@ -19,6 +33,9 @@ ATOM_NAMESPACE = {"atom": "http://www.w3.org/2005/Atom", "opensearch": "http://a
 ARXIV_USER_AGENT = "knowledge-cli/0.1.0"
 ARXIV_RETRY_STATUSES = {429, 500, 502, 503, 504}
 ARXIV_MAX_ATTEMPTS = 3
+ARXIV_DEFAULT_REQUEST_DELAY = 3.0
+ARXIV_MAX_PDF_BYTES = 100 * 1024 * 1024
+ARXIV_MIN_EXTRACTED_CHARACTERS = 256
 ARXIV_ID_RE = re.compile(
     r"^(?:arxiv:)?(?P<identifier>(?:\d{4}\.\d{4,5}|[a-z0-9.-]+/\d{7})(?:v\d+)?)$",
     re.IGNORECASE,
@@ -43,29 +60,70 @@ HTML_VOID_TAGS = {
 }
 
 
+@dataclass(frozen=True)
+class _ProcessedPDF:
+    """Validated PDF bytes and their page-addressable text projection."""
+
+    url: str
+    content_type: str
+    byte_count: int
+    sha256: str
+    pages: tuple[str, ...]
+    extracted_characters: int
+    nonempty_pages: int
+
+
 class ArxivSource(SourceAdapter):
+    """Synchronize one arXiv source into validated, page-addressable Markdown."""
+
     def sync(self) -> dict[str, object]:
+        """Acquire metadata and the complete PDF for this registered source."""
         url = canonical_arxiv_url(str(self.config["url"]))
         paper_id = extract_arxiv_id(url)
         api_url = f"{ARXIV_API_URL}?id_list={quote(paper_id)}"
 
+        entry: dict[str, object] | None
         try:
             response = _request_arxiv(api_url)
             feed = _parse_arxiv_feed(response.text)
-            entry = next(iter(feed.get("entries", [])), {})
-        except requests.RequestException:
+            entry = _entry_for_paper_id(feed.get("entries", []), paper_id)
+        except (requests.RequestException, ElementTree.ParseError, ValueError):
+            entry = None
+        if entry is None:
+            time.sleep(ARXIV_DEFAULT_REQUEST_DELAY)
             entry = _fetch_arxiv_html_entry(paper_id)
-        return self.sync_from_entry(entry)
+        return self.sync_from_entry(entry, download_delay=ARXIV_DEFAULT_REQUEST_DELAY)
 
-    def sync_from_entry(self, entry: dict[str, object]) -> dict[str, object]:
-        """Persist one already-fetched arXiv entry for this registered source."""
-        url = canonical_arxiv_url(str(self.config["url"]))
-        paper_id = extract_arxiv_id(url)
+    def sync_from_entry(
+        self,
+        entry: dict[str, object],
+        *,
+        download_delay: float = 0.0,
+    ) -> dict[str, object]:
+        """Download, validate, extract, and persist one arXiv paper."""
+        if download_delay < 0:
+            raise ValueError("arXiv request delay must be non-negative")
+        registered_url = canonical_arxiv_url(str(self.config["url"]))
+        requested_paper_id = extract_arxiv_id(registered_url)
+        try:
+            paper_id = _resolved_entry_paper_id(entry, requested_paper_id)
+            url = canonical_arxiv_url(paper_id)
+            if download_delay:
+                time.sleep(download_delay)
+            processed_pdf = _download_and_process_arxiv_pdf(
+                paper_id,
+                preferred_url=str(entry.get("pdf_url") or "") or None,
+            )
+        except (OSError, requests.RequestException, ValueError) as exc:
+            raise SyncError(self.source["key"], self.source["id"], str(exc)) from exc
+
         title = entry.get("title") or self.source.get("title") or self.source["id"]
         summary = str(entry.get("summary") or "").strip()
-        authors = [author for author in entry.get("authors", []) if author]
-        categories = [category for category in entry.get("categories", []) if category]
-        links = entry.get("links", {})
+        authors = _clean_string_list(entry.get("authors"))
+        categories = _clean_string_list(entry.get("categories"))
+        entry_links = entry.get("links")
+        links = dict(entry_links) if isinstance(entry_links, dict) else {}
+        links["pdf"] = processed_pdf.url
         frontmatter = {
             "title": title,
             "knowledge_key": self.source["key"],
@@ -78,7 +136,13 @@ class ArxivSource(SourceAdapter):
             "updated": entry.get("updated"),
             "categories": categories,
             "primary_category": entry.get("primary_category"),
-            "pdf_url": entry.get("pdf_url"),
+            "pdf_url": processed_pdf.url,
+            "pdf_content_type": processed_pdf.content_type,
+            "pdf_sha256": processed_pdf.sha256,
+            "page_count": len(processed_pdf.pages),
+            "nonempty_page_count": processed_pdf.nonempty_pages,
+            "extracted_characters": processed_pdf.extracted_characters,
+            "pdf_extractor": _pdf_extractor_name(),
             "links": links,
         }
         lines = [f"# {title}"]
@@ -86,29 +150,137 @@ class ArxivSource(SourceAdapter):
             lines.extend(["", "Authors: " + ", ".join(str(author) for author in authors)])
         if summary:
             lines.extend(["", "## Summary", "", summary])
+        lines.extend(
+            [
+                "",
+                "## Source citation",
+                "",
+                f"- Pinned arXiv record: [{paper_id}]({url})",
+                f"- PDF: [{processed_pdf.url}]({processed_pdf.url})",
+                f"- PDF SHA-256: `{processed_pdf.sha256}`",
+                f"- Extracted pages: {len(processed_pdf.pages)}",
+                "",
+                (
+                    "The following text was extracted page by page from the pinned PDF. "
+                    "Page headings are stable evidence locators."
+                ),
+                "",
+                *processed_pdf.pages,
+            ]
+        )
 
-        self.config["url"] = url
-        self.source.update(
-            {
-                "title": title,
-                "paper_id": paper_id,
-                "authors": authors,
-                "categories": categories,
-                "published": entry.get("published"),
-                "updated": entry.get("updated"),
-                "pdf_url": entry.get("pdf_url"),
-            }
+        source_updates = {
+            "title": title,
+            "paper_id": paper_id,
+            "authors": authors,
+            "categories": categories,
+            "published": entry.get("published"),
+            "updated": entry.get("updated"),
+            "pdf_url": processed_pdf.url,
+            "pdf_sha256": processed_pdf.sha256,
+            "page_count": len(processed_pdf.pages),
+            "extracted_characters": processed_pdf.extracted_characters,
+        }
+        stats = {
+            "paper_id": paper_id,
+            "documents": 1,
+            "library_dir": str(self.raw_dir),
+            "metadata_source": entry.get("_metadata_source", "arxiv-api"),
+            "content_source": "arxiv-pdf",
+            "pdf_url": processed_pdf.url,
+            "pdf_content_type": processed_pdf.content_type,
+            "pdf_bytes": processed_pdf.byte_count,
+            "pdf_sha256": processed_pdf.sha256,
+            "page_count": len(processed_pdf.pages),
+            "nonempty_page_count": processed_pdf.nonempty_pages,
+            "extracted_characters": processed_pdf.extracted_characters,
+            "pdf_extractor": _pdf_extractor_name(),
+        }
+        return self._publish_paper_snapshot(
+            frontmatter,
+            "\n".join(lines).strip(),
+            stats,
+            registered_url=registered_url,
+            source_updates=source_updates,
         )
-        self.clear_source_dir()
-        self.write_markdown(self.raw_dir / "paper.md", frontmatter, "\n".join(lines).strip())
-        return self.finalize_sync(
-            {
-                "paper_id": paper_id,
-                "documents": 1,
-                "library_dir": str(self.raw_dir),
-                "metadata_source": entry.get("_metadata_source", "arxiv-api"),
-            }
-        )
+
+    def _publish_paper_snapshot(
+        self,
+        frontmatter: dict[str, object],
+        body: str,
+        stats: dict[str, object],
+        *,
+        registered_url: str,
+        source_updates: dict[str, object],
+    ) -> dict[str, object]:
+        """Stage a complete paper snapshot and restore the previous one on failure."""
+        previous_source = deepcopy(self.source)
+        control_dir = self.store.root / ".arxiv-sync"
+        control_dir.mkdir(parents=True, exist_ok=True)
+        workspace = Path(tempfile.mkdtemp(prefix="candidate-", dir=control_dir))
+        stage = workspace / "next"
+        backup = workspace / "previous"
+        failed = workspace / "failed"
+        stage.mkdir()
+
+        collection_metadata = self.store.key_dir(self.source["key"]) / "metadata.yaml"
+        collection_backup = workspace / "collection-metadata.yaml"
+        metadata_existed = collection_metadata.exists()
+        previous_moved = False
+        candidate_published = False
+        finalize_started = False
+        completed = False
+        preserve_workspace = False
+        try:
+            if metadata_existed:
+                shutil.copy2(collection_metadata, collection_backup)
+            self.write_markdown(stage / "paper.md", frontmatter, body)
+
+            self.config["url"] = registered_url
+            self.source.update(source_updates)
+            if self.raw_dir.is_symlink():
+                raise OSError("arXiv source directory must not be a symbolic link")
+
+            try:
+                self.raw_dir.rename(backup)
+                previous_moved = True
+                stage.rename(self.raw_dir)
+                candidate_published = True
+                finalize_started = True
+                result = self.finalize_sync(stats)
+                completed = True
+                return result
+            except BaseException as error:
+                rollback_errors: list[str] = []
+                try:
+                    if candidate_published and self.raw_dir.exists():
+                        self.raw_dir.rename(failed)
+                    if previous_moved and backup.exists() and not self.raw_dir.exists():
+                        backup.rename(self.raw_dir)
+                except BaseException as rollback_error:
+                    rollback_errors.append(f"source snapshot: {rollback_error}")
+                if finalize_started:
+                    try:
+                        if metadata_existed:
+                            collection_backup.replace(collection_metadata)
+                        else:
+                            collection_metadata.unlink(missing_ok=True)
+                    except BaseException as rollback_error:
+                        rollback_errors.append(f"collection metadata: {rollback_error}")
+                if rollback_errors:
+                    preserve_workspace = True
+                    error.add_note(
+                        "arXiv rollback also failed; recovery files remain at "
+                        f"{workspace}: {'; '.join(rollback_errors)}"
+                    )
+                raise
+        finally:
+            if not completed:
+                self.source.clear()
+                self.source.update(previous_source)
+                self.config = self.source["config"]
+            if not preserve_workspace:
+                shutil.rmtree(workspace, ignore_errors=True)
 
     def _extract_paper_id(self, url: str) -> str:
         """Extract the stable arXiv identifier from a supported URL."""
@@ -147,6 +319,61 @@ def canonical_arxiv_url(value: str) -> str:
 def versionless_arxiv_id(value: str) -> str:
     """Return an arXiv identifier without its optional version suffix."""
     return re.sub(r"v\d+$", "", extract_arxiv_id(value), flags=re.IGNORECASE)
+
+
+def _entry_for_paper_id(
+    entries: object,
+    requested_paper_id: str,
+) -> dict[str, object] | None:
+    """Return the API entry matching an exact ID or an unversioned work ID."""
+    if not isinstance(entries, list):
+        return None
+    requested_is_versioned = re.search(r"v\d+$", requested_paper_id, re.IGNORECASE) is not None
+    versionless_requested = versionless_arxiv_id(requested_paper_id)
+    for entry in entries:
+        if not isinstance(entry, dict) or not entry.get("id"):
+            continue
+        try:
+            entry_id = extract_arxiv_id(str(entry["id"]))
+        except ValueError:
+            continue
+        if entry_id == requested_paper_id:
+            return entry
+        if not requested_is_versioned and versionless_arxiv_id(entry_id) == versionless_requested:
+            return entry
+    return None
+
+
+def _resolved_entry_paper_id(entry: dict[str, object], requested_paper_id: str) -> str:
+    """Resolve the downloaded identity while refusing a different requested version."""
+    candidates = (entry.get("id"), entry.get("pdf_url"))
+    entry_id: str | None = None
+    for value in candidates:
+        if not value:
+            continue
+        try:
+            entry_id = extract_arxiv_id(str(value))
+            break
+        except ValueError:
+            continue
+    if entry_id is None:
+        return requested_paper_id
+    if versionless_arxiv_id(entry_id) != versionless_arxiv_id(requested_paper_id):
+        raise ValueError(
+            f"arXiv metadata identity {entry_id} does not match requested paper {requested_paper_id}"
+        )
+    if re.search(r"v\d+$", requested_paper_id, re.IGNORECASE) and entry_id != requested_paper_id:
+        raise ValueError(
+            f"arXiv metadata returned {entry_id} instead of requested version {requested_paper_id}"
+        )
+    return entry_id
+
+
+def _clean_string_list(value: object) -> list[str]:
+    """Return nonempty string values without treating a scalar as an iterable."""
+    if not isinstance(value, (list, tuple)):
+        return []
+    return [str(item).strip() for item in value if str(item).strip()]
 
 
 def search_arxiv(
@@ -273,20 +500,26 @@ def sync_arxiv_batch(
                 ARXIV_API_URL,
                 params={"id_list": ",".join(paper_ids), "max_results": len(paper_ids)},
             )
+            parsed_entries = _parse_arxiv_feed(response.text).get("entries", [])
             entries = {
-                extract_arxiv_id(str(entry["id"])): entry
-                for entry in _parse_arxiv_feed(response.text).get("entries", [])
-                if isinstance(entry, dict) and entry.get("id")
+                paper_id: entry
+                for paper_id in paper_ids
+                if (entry := _entry_for_paper_id(parsed_entries, paper_id)) is not None
             }
-        except requests.RequestException:
+        except (requests.RequestException, ElementTree.ParseError, ValueError):
             entries = {}
         missing = [paper_id for paper_id in paper_ids if paper_id not in entries]
-        for index, paper_id in enumerate(missing):
-            if index:
+        for paper_id in missing:
+            if request_delay:
                 time.sleep(request_delay)
             entries[paper_id] = _fetch_arxiv_html_entry(paper_id)
         for source, paper_id in zip(batch, paper_ids, strict=True):
-            synced.append(ArxivSource(source, store).sync_from_entry(entries[paper_id]))
+            synced.append(
+                ArxivSource(source, store).sync_from_entry(
+                    entries[paper_id],
+                    download_delay=request_delay,
+                )
+            )
     return synced
 
 
@@ -330,6 +563,210 @@ def _request_arxiv(url: str, *, params: dict[str, object] | None = None) -> requ
     if last_error is not None:  # pragma: no cover - defensive exhaustion guard
         raise last_error
     raise RuntimeError("arXiv request retry loop exhausted")  # pragma: no cover
+
+
+def _download_and_process_arxiv_pdf(
+    paper_id: str,
+    *,
+    preferred_url: str | None = None,
+) -> _ProcessedPDF:
+    """Download an official PDF, validate its bytes, and extract every page."""
+    urls = _official_pdf_urls(paper_id, preferred_url)
+    failures: list[str] = []
+    for url in urls:
+        try:
+            response = _request_arxiv_pdf(url)
+            try:
+                headers = getattr(response, "headers", {}) or {}
+                pdf_bytes = _read_pdf_response(response)
+                if not pdf_bytes.startswith(b"%PDF-"):
+                    content_type = str(headers.get("Content-Type", "unknown"))
+                    raise ValueError(
+                        f"response is not a PDF (content type {content_type}, "
+                        f"{len(pdf_bytes)} bytes)"
+                    )
+                return _process_arxiv_pdf(
+                    pdf_bytes,
+                    paper_id=paper_id,
+                    url=str(getattr(response, "url", "") or url),
+                    content_type=str(headers.get("Content-Type", "")),
+                )
+            finally:
+                close = getattr(response, "close", None)
+                if callable(close):
+                    close()
+        except (OSError, requests.RequestException, ValueError) as exc:
+            failures.append(f"{url}: {exc}")
+    raise ValueError(
+        f"could not acquire a valid, extractable PDF for {paper_id}: " + "; ".join(failures)
+    )
+
+
+def _read_pdf_response(response: requests.Response) -> bytes:
+    """Read a streamed PDF response without exceeding the configured byte cap."""
+    headers = getattr(response, "headers", {}) or {}
+    declared_size = str(headers.get("Content-Length", "")).strip()
+    if declared_size.isdigit() and int(declared_size) > ARXIV_MAX_PDF_BYTES:
+        raise ValueError(f"PDF exceeds the {ARXIV_MAX_PDF_BYTES}-byte download limit")
+
+    iter_content = getattr(response, "iter_content", None)
+    if callable(iter_content):
+        payload = bytearray()
+        for chunk in iter_content(chunk_size=1024 * 1024):
+            if not chunk:
+                continue
+            payload.extend(chunk)
+            if len(payload) > ARXIV_MAX_PDF_BYTES:
+                raise ValueError(
+                    f"PDF exceeds the {ARXIV_MAX_PDF_BYTES}-byte download limit"
+                )
+        return bytes(payload)
+
+    payload = bytes(response.content)
+    if len(payload) > ARXIV_MAX_PDF_BYTES:
+        raise ValueError(f"PDF exceeds the {ARXIV_MAX_PDF_BYTES}-byte download limit")
+    return payload
+
+
+def _official_pdf_urls(paper_id: str, preferred_url: str | None) -> list[str]:
+    """Return deduplicated official PDF endpoints for one exact paper identity."""
+    identity = extract_arxiv_id(paper_id)
+    urls: list[str] = []
+    if preferred_url:
+        try:
+            preferred_id = extract_arxiv_id(preferred_url)
+        except ValueError:
+            preferred_id = None
+        if preferred_id == identity:
+            preferred_host = (urlparse(preferred_url).hostname or "").lower()
+            host = "export.arxiv.org" if preferred_host == "export.arxiv.org" else "arxiv.org"
+            urls.append(f"https://{host}/pdf/{identity}")
+    urls.extend(
+        [
+            f"https://arxiv.org/pdf/{identity}",
+            f"https://export.arxiv.org/pdf/{identity}",
+        ]
+    )
+    return list(dict.fromkeys(urls))
+
+
+def _request_arxiv_pdf(url: str) -> requests.Response:
+    """Issue a PDF request with bounded Retry-After-aware retries."""
+    last_error: requests.RequestException | None = None
+    for attempt in range(ARXIV_MAX_ATTEMPTS):
+        try:
+            response = requests.get(
+                url,
+                headers={
+                    "Accept": "application/pdf",
+                    "User-Agent": ARXIV_USER_AGENT,
+                },
+                stream=True,
+                timeout=(15, 240),
+            )
+        except requests.RequestException as exc:
+            last_error = exc
+            if attempt + 1 == ARXIV_MAX_ATTEMPTS:
+                raise
+            time.sleep(3.0 * (2**attempt))
+            continue
+
+        status_code = int(getattr(response, "status_code", 200))
+        if status_code in ARXIV_RETRY_STATUSES and attempt + 1 < ARXIV_MAX_ATTEMPTS:
+            close = getattr(response, "close", None)
+            if callable(close):
+                close()
+            time.sleep(_retry_delay(response, attempt))
+            continue
+        try:
+            response.raise_for_status()
+        except requests.RequestException:
+            close = getattr(response, "close", None)
+            if callable(close):
+                close()
+            raise
+        return response
+
+    if last_error is not None:  # pragma: no cover - defensive exhaustion guard
+        raise last_error
+    raise RuntimeError("arXiv PDF request retry loop exhausted")  # pragma: no cover
+
+
+def _process_arxiv_pdf(
+    pdf_bytes: bytes,
+    *,
+    paper_id: str,
+    url: str,
+    content_type: str,
+) -> _ProcessedPDF:
+    """Parse a PDF and return normalized text with stable per-page locators."""
+    if pypdf is None:
+        raise ValueError(
+            "pypdf is required for arXiv PDF extraction; reinstall or upgrade knowledge-cli"
+        )
+    try:
+        reader = pypdf.PdfReader(BytesIO(pdf_bytes))
+        if reader.is_encrypted and reader.decrypt("") == 0:
+            raise ValueError(
+                f"PDF for {paper_id} is encrypted and cannot be opened with an empty password"
+            )
+    except ValueError:
+        raise
+    except Exception as exc:
+        raise ValueError(f"cannot parse PDF for {paper_id}: {exc}") from exc
+
+    if not reader.pages:
+        raise ValueError(f"PDF has no pages for {paper_id}")
+
+    page_sections: list[str] = []
+    extracted_characters = 0
+    meaningful_characters = 0
+    nonempty_pages = 0
+    for page_number, page in enumerate(reader.pages, start=1):
+        try:
+            text = _normalize_pdf_page_text(page.extract_text() or "")
+        except Exception as exc:
+            raise ValueError(
+                f"cannot extract {paper_id} PDF page {page_number}: {exc}"
+            ) from exc
+        if text:
+            nonempty_pages += 1
+            extracted_characters += len(text)
+            meaningful_characters += len(re.sub(r"\s+", "", text))
+        else:
+            text = "[No extractable text on this page.]"
+        page_sections.append(f"## PDF page {page_number}\n\n{text}\n")
+
+    if meaningful_characters < ARXIV_MIN_EXTRACTED_CHARACTERS:
+        raise ValueError(
+            f"PDF extraction for {paper_id} produced only {meaningful_characters} "
+            "non-whitespace characters; "
+            f"expected at least {ARXIV_MIN_EXTRACTED_CHARACTERS}"
+        )
+    return _ProcessedPDF(
+        url=url,
+        content_type=content_type,
+        byte_count=len(pdf_bytes),
+        sha256=hashlib.sha256(pdf_bytes).hexdigest(),
+        pages=tuple(page_sections),
+        extracted_characters=extracted_characters,
+        nonempty_pages=nonempty_pages,
+    )
+
+
+def _pdf_extractor_name() -> str:
+    """Return the active PDF extractor name and version."""
+    version = getattr(pypdf, "__version__", "unavailable")
+    return f"pypdf {version}"
+
+
+def _normalize_pdf_page_text(value: str) -> str:
+    """Normalize PDF extractor output while preserving page-local line structure."""
+    normalized = unicodedata.normalize(
+        "NFC",
+        value.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n"),
+    )
+    return normalized.rstrip()
 
 
 def _retry_delay(response: requests.Response, attempt: int) -> float:

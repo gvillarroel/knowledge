@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import re
 import threading
 from argparse import Namespace
@@ -260,6 +261,19 @@ class TestResolveFollowUrl:
 # ── cmd_browse_follow ────────────────────────────────────────────────────
 
 class TestCmdBrowseFollow:
+    @pytest.fixture(autouse=True)
+    def fixed_follow_clock(self, monkeypatch):
+        """Keep the six-month filter independent of the machine's current date."""
+        fixed = dt.datetime(2026, 4, 1, tzinfo=dt.timezone.utc)
+
+        class FixedDateTime(dt.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                value = fixed.astimezone(tz)
+                return value if tz is not None else value.replace(tzinfo=None)
+
+        monkeypatch.setattr(dt, "datetime", FixedDateTime)
+
     def test_json_format_no_data(self):
         mock_store = MagicMock()
         mock_store.list_collection_sources.return_value = []

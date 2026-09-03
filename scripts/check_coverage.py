@@ -42,12 +42,16 @@ NON_APPLICATION_TESTS = (
     "tests/test_build_semantic_okf_adaptive_skill.py",
     "tests/test_build_semantic_okf_classical_skill.py",
     "tests/test_build_classical_knowledge_skill.py",
+    "tests/test_build_classical_chunked_knowledge_skill.py",
     "tests/test_build_semantic_okf_knowledge_skill.py",
     "tests/test_build_semantic_okf_rust_mallet_skill.py",
+    "tests/test_build_semantic_okf_tantivy_skill.py",
     "tests/test_consult_semantic_okf_adaptive_skill.py",
     "tests/test_consult_semantic_okf_classical_skill.py",
     "tests/test_consult_semantic_okf_rust_mallet_skill.py",
     "tests/test_consult_semantic_okf_tantivy_skill.py",
+    "tests/test_consult_semantic_okf_tika_mallet_bounded_skill.py",
+    "tests/test_consult_semantic_okf_tika_mallet_tantivy_skill.py",
     "tests/test_consult_semantic_okf_harbor_graph_ensemble_evolutions.py",
     "tests/test_consult_semantic_okf_harbor_legacy_embeddings.py",
     "tests/test_endocrine_hygiene_atomic_publication.py",
@@ -92,6 +96,7 @@ NON_APPLICATION_TESTS = (
     "tests/test_semantic_okf_provider_reset_metadata.py",
     "tests/test_semantic_okf_task_validator_bundle_binding.py",
     "tests/test_television_skill.py",
+    "tests/test_visualize_semantic_okf_classical_skill.py",
 )
 
 

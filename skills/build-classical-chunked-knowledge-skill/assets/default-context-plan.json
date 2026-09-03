@@ -1,0 +1,30 @@
+{
+  "chunking": {
+    "boundary_policy": "markdown-structure-v1",
+    "maximum_tokens": 720,
+    "minimum_tokens": 96,
+    "target_tokens": 360,
+    "token_estimator": "utf8-bytes-or-lexical-v1"
+  },
+  "schema_version": "classical-context-plan/1.0",
+  "selection": {
+    "bundle_overhead_tokens": 128,
+    "candidate_documents": 30,
+    "cost_power": 0.35,
+    "default_budget_tokens": 6000,
+    "maximum_budget_tokens": 12000,
+    "maximum_chunks": 48,
+    "metadata_tokens_per_chunk": 56,
+    "minimum_evidence_identities": 4,
+    "minimum_query_coverage": 0.85,
+    "neighbor_relative_relevance": 0.55,
+    "redundancy_penalty": 0.15,
+    "weights": {
+      "continuity": 0.05,
+      "coverage": 0.25,
+      "rank": 0.1,
+      "relevance": 0.5,
+      "source_novelty": 0.1
+    }
+  }
+}

@@ -23,6 +23,7 @@ SOURCE_TYPE_CONCEPT_TYPES = {
     "github": "Repository File",
     "google_releases": "Google Cloud Release Note",
     "jira": "Jira Issue",
+    "servicenow": "ServiceNow Record",
     "site": "Web Page",
     "television": "Television Channel",
     "video": "Video Transcript",

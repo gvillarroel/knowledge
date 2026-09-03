@@ -1154,6 +1154,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "playwright" },
+    { name = "pypdf" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "youtube-transcript-api" },
@@ -1168,6 +1169,7 @@ crawl4ai = [
 requires-dist = [
     { name = "crawl4ai", marker = "extra == 'crawl4ai'", specifier = ">=0.6.0" },
     { name = "playwright", specifier = ">=1.58.0" },
+    { name = "pypdf", specifier = ">=6.0.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "requests", specifier = ">=2.32.0" },
     { name = "youtube-transcript-api", specifier = ">=1.2.4" },
@@ -2025,6 +2027,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8e/11/a62e1d33b373da2b2c2cd9eb508147871c80f12b1cacde3c5d314922afdd/pyopenssl-26.0.0.tar.gz", hash = "sha256:f293934e52936f2e3413b89c6ce36df66a0b34ae1ea3a053b8c5020ff2f513fc", size = 185534, upload-time = "2026-03-15T14:28:26.353Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fb/7d/d4f7d908fa8415571771b30669251d57c3cf313b36a856e6d7548ae01619/pyopenssl-26.0.0-py3-none-any.whl", hash = "sha256:df94d28498848b98cc1c0ffb8ef1e71e40210d3b0a8064c9d29571ed2904bf81", size = 57969, upload-time = "2026-03-15T14:28:24.864Z" },
+]
+
+[[package]]
+name = "pypdf"
+version = "6.16.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b6/5a/df92d1c1ef8806ca28f20f978ee059894868d93de797a7e2edebe7fe1a43/pypdf-6.16.1.tar.gz", hash = "sha256:c4d1b43ddae921387321cf63936cd16a7743b91d2da92f165c149a195c972ba9", size = 7003737, upload-time = "2026-08-14T12:24:04.531Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/33/a1/724b18d6757ab7253a8fecd3a430eb8d980ed26872ba16651e7b5ddfc63f/pypdf-6.16.1-py3-none-any.whl", hash = "sha256:63fec31c4092ae50b6729beedcb469055b60d20c834bde1c402df241f371f644", size = 382924, upload-time = "2026-08-14T12:24:02.854Z" },
 ]
 
 [[package]]
