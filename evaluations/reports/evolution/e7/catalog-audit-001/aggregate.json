@@ -1,0 +1,94 @@
+{
+  "adaptive_constraint": {
+    "aspect_weights_checked": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "condition": "The full-query ranking contains at least ten distinct source-record identities.",
+    "control_identity_order_changed": true,
+    "enterprise_incidence_measured": false,
+    "native_module_sha256": "26270ed6e03577526efb71467ec22f2d7bbf984ee877e255746a40fde1b34422",
+    "protected_full_results": 10,
+    "protected_identity_order_unchanged": true,
+    "protected_numeric_scores_changed": true,
+    "synthetic_control_protected_full_results": 0,
+    "synthetic_full_query_identities": 20,
+    "top_k": 10
+  },
+  "all_families_evaluated_by_this_audit": false,
+  "bindings": {
+    "bridge_sha256": "c2b305449f7b1b97a40c739207f6d89a4f753b4266b22ae52b096b46a90341a1",
+    "construction_audit_sha256": "4765a765a9877a25892153e8b888d76a065a4fad3b468c25b7fc26d9539c465f",
+    "construction_probe_sha256": "9c32ce91cc33ae03399df327daca84c73fc34bc71a892484b4ae7f435bf1c7b5",
+    "consultation_audit_sha256": "307ee691605a50703dcb13fe963b163c1482f7c0a579523308e7bb8ba74ff186",
+    "consultation_probe_sha256": "a0c8e97c4956711c1839f48abe2e024fc3c5238828ed9ed1ebc3951ece8cc453",
+    "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+    "plans_sha256": "274281cd7f256215687d6c91deb754c0057c6403ac56ef28ee4888119ab7b58f",
+    "profiles_sha256": "a10e182b67a4d0ce1fb8754339812cf8490e73921357696da4f5a21c56c977a7"
+  },
+  "candidate_created": false,
+  "families": [
+    {
+      "channel": "construction",
+      "check": "native-builder-plan-parser",
+      "family": "adaptive",
+      "native_plan_loader_sha256": "e93b28ca1ffa0c54c958aa2e6fdb6f25b5950e73180d7660b25742f1344939d3",
+      "variants_checked": 20
+    },
+    {
+      "channel": "construction",
+      "check": "native-builder-plan-parser",
+      "family": "classical",
+      "native_plan_loader_sha256": "c752137324c16ac6a2685b25f242fbff2e9a83b6583f46c9a4ed6e782852aca4",
+      "variants_checked": 17
+    },
+    {
+      "channel": "construction",
+      "check": "native-builder-plan-parser",
+      "family": "embeddings",
+      "native_plan_loader_sha256": "772edcb1b57da8b8542cbdca9d7c19a898ac6fd87bdf705c68f4780a34419f90",
+      "variants_checked": 8
+    },
+    {
+      "channel": "construction",
+      "check": "native-builder-plan-parser",
+      "family": "ensemble",
+      "native_plan_loader_sha256": "fd9782bc49c258902a51f9272b2166eb7e3918210f3c894b3bce6023a62506e9",
+      "variants_checked": 21
+    },
+    {
+      "channel": "construction",
+      "check": "native-builder-plan-parser",
+      "family": "entity-graph",
+      "native_plan_loader_sha256": "fc3f8bf159b713a05ce7400d20837d16bf4e5ea51af43ae02c428228623cab8c",
+      "variants_checked": 16
+    },
+    {
+      "channel": "consultation",
+      "check": "fixed-bridge-with-fixture-dependencies",
+      "family": "graphify",
+      "variants_checked": 13
+    },
+    {
+      "channel": "consultation",
+      "check": "fixed-bridge-with-fixture-dependencies",
+      "family": "legacy",
+      "variants_checked": 11
+    },
+    {
+      "channel": "consultation",
+      "check": "fixed-bridge-with-fixture-dependencies",
+      "family": "turso",
+      "variants_checked": 11
+    }
+  ],
+  "llm_calls": 0,
+  "native_benchmark_jobs": 0,
+  "observed_at_utc": "2026-09-08T17:08:23.992269+00:00",
+  "private_data_used": false,
+  "schema_version": "enterprise-e7-catalog-audit-public/1.0",
+  "selection_changed": false,
+  "status": "configuration-audit-complete",
+  "total_variants": 117
+}

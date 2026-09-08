@@ -4,12 +4,13 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-002/README.md), observed at 2026-09-08
-16:47 UTC, records one completed search, three qualified baselines and two
+The [all-family progress audit](status-003/README.md), observed at 2026-09-08
+17:10 UTC, records one completed search, three qualified baselines and two
 verified live trials. Classical now retains 56.06% weighted nDCG@10, up from
-55.04%, while its second variant runs. The five remaining families
+55.04%, while its third variant runs. The five remaining families
 have not started and are explicitly excluded from completed opportunity counts.
-The [preceding audit](status-001/README.md) remains unchanged.
+The preceding [first audit](status-001/README.md) and
+[second audit](status-002/README.md) remain unchanged.
 
 The [first Classical gain](classical-progress-001/README.md) changes the
 construction profile to `bm25.b=0.25`. Its fixed fusion route gains 1.02
@@ -17,8 +18,11 @@ percentage points: 8 eligible questions improve, 8 regress and 96 tie.
 The report includes all four diagnostic routes and measured build/runtime
 costs. This is a provisional development improvement; the family search
 and all-500 measurement remain pending.
+The following `bm25.b=0` variant scored 54.30% and was rejected, leaving
+candidate001 retained and one consecutive miss. It completed without an
+execution error, so its lower score is a measured quality result.
 
-The subsequent [Embeddings mechanism transition](runtime-002/README.md),
+The [Embeddings mechanism transition](runtime-002/README.md),
 observed at 16:54 UTC, records three original build timeouts at semantic
 thresholds 95, 90 and 80. The three-miss rule stopped that mechanism and a
 neighboring-sentence context candidate with buffer size 2 is running.
@@ -51,6 +55,9 @@ comparison covers all 500 public questions, of which 470 have original qrels.
 The [strategy coverage matrix](strategy-coverage.md) lists every family's
 mutation channel, primary route and predeclared mechanisms, including all
 seven families whose work follows the completed Legacy search.
+The [configuration audit](catalog-audit-001/README.md) checks the 117 declared
+variants and records a conditional Adaptive protection limit. These synthetic
+checks do not add to the native opportunity or performance counts.
 This is an internal, reference-enriched retrieval experiment. It does not
 replace the [full-corpus Classical/Luna report](../../enterprise-classical-full/README.md)
 and does not establish an official public rank or answer Overall score.

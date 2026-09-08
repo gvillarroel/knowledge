@@ -74,6 +74,13 @@ evidence, separate verification, offline models and deterministic reconstruction
 Five families mutate construction settings; three mutate consultation settings.
 E7 makes no language-model calls and does not measure autonomous skill selection.
 
+The [configuration audit](../evaluations/reports/evolution/e7/catalog-audit-001/README.md)
+checks plan acceptance and consultation parameter delivery without scoring.
+It identifies a conditional Adaptive limitation: protecting ten full-query
+results at a cutoff of ten prevents aspect-weight changes from changing their
+identity order when the full query already supplies ten distinct identities.
+This finding limits interpretation; it does not change the frozen catalog.
+
 After every family finishes, the exact eight retained configurations are merged
 and replayed jointly. Their development scores must reproduce before the entire
 package is frozen. The all-500 comparison follows, without changing selection.

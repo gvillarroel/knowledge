@@ -22,6 +22,14 @@ After an improving round, repeat the catalog with the retained configuration.
 A complete round without improvement ends that family. A five-round resource
 limit, if reached while still improving, must be reported as budget exhaustion.
 
+The [configuration audit](catalog-audit-001/README.md) checks all 117 variants:
+82 against the native builder plan parsers and 35 through the frozen
+consultation bridge with fixture dependencies. These checks do not count as
+native dataset trials. It also identifies a conditional Adaptive limitation:
+when the full query supplies ten identities, protecting all ten prevents
+aspect-weight changes from changing the top ten. Other Adaptive construction
+mechanisms remain able to change that full-query ranking.
+
 ## Execution and interpretation
 
 Two family lanes execute concurrently, with one trial at a time in each lane.
