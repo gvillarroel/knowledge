@@ -4,35 +4,40 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-005/README.md), observed at 2026-09-08
-17:42 UTC, records one completed search, three qualified baselines and two
-verified live trials. Classical now retains 56.06% weighted nDCG@10, up from
-55.04%, while its fourth variant runs. The five remaining families
+The [all-family progress audit](status-006/README.md), observed at 2026-09-08
+18:16 UTC, records one completed search, three qualified baselines and two
+verified live trials. Classical now retains 57.10% weighted nDCG@10, up from
+55.04%, while its fifth variant runs. The five remaining families
 have not started and are explicitly excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
-[second audit](status-002/README.md), [third audit](status-003/README.md) and
-[fourth audit](status-004/README.md)
+[second audit](status-002/README.md), [third audit](status-003/README.md),
+[fourth audit](status-004/README.md) and [fifth audit](status-005/README.md)
 remain unchanged.
 
-The [first Classical gain](classical-progress-001/README.md) changes the
-construction profile to `bm25.b=0.25`. Its fixed fusion route gains 1.02
-percentage points: 8 eligible questions improve, 8 regress and 96 tie.
-The report includes all four diagnostic routes and measured build/runtime
-costs. This is a provisional development improvement; the family search
-and all-500 measurement remain pending.
-The following `bm25.b=0` and `bm25.b=0.5` variants scored 54.30% and 54.83%
-and were rejected, leaving candidate001 retained and two consecutive misses.
-Both completed without execution errors, so their lower scores are measured
-quality results. The next predeclared length-normalization variant is running.
+The [second Classical gain](classical-progress-002/README.md) sets
+`bm25.b=1.0`. The fixed fusion route gains 2.06 percentage points over the
+baseline and 1.04 over the previous retained setting. Against the baseline,
+11 eligible questions improve, 2 regress and 99 tie. All four diagnostic
+routes, build time and original native runtime are included in the report.
+The fourth variant replaced candidate001 and reset the miss counter.
+The finite length-normalization catalog is exhausted, and the next declared
+mechanism is BM25 saturation, starting with `bm25.k1=0.6` on the new incumbent.
+This transition follows catalog exhaustion, not a third consecutive miss.
+
+The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
+remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
+and 54.83% and were rejected before the later gain. All four variants have
+qualified measurements with no execution errors. The full family search and
+all-500 comparison remain pending.
 
 The [Embeddings mechanism transition](runtime-002/README.md),
 observed at 16:54 UTC, records three original build timeouts at semantic
 thresholds 95, 90 and 80. The three-miss rule stopped that mechanism.
-The first neighboring-sentence context candidate, with buffer size 2,
-subsequently exceeded the same construction limit. It is the first miss of
-that mechanism, and the next distinct variant with buffer size 3 is running.
+The first two neighboring-sentence context candidates, with buffer sizes 2
+and 3, subsequently exceeded the same construction limit. This mechanism
+has two consecutive misses; the next distinct variant, buffer size 4, is running.
 Embeddings retains its 63.51% baseline. The three segmentation failures
-consumed 121.62 minutes; all four failed variants have no retrieval quality
+consumed 121.62 minutes; all five failed variants have no retrieval quality
 measurement and were not retried.
 
 The [completed Legacy search](legacy-complete-001/README.md) retained 72.38%
@@ -52,7 +57,7 @@ and all nine overlapping application groups, with their sample sizes and
 sampling weights. The aggregate gain does not hide individual regressions.
 
 The [first semantic-segmentation timeout receipt](runtime-001/README.md)
-remains preserved. All four failures used the same fixed 40-minute builder
+remains preserved. All five failures used the same fixed 40-minute builder
 subprocess limit.
 
 The study covers all eight knowledge families with 120 category-stratified
