@@ -4,24 +4,38 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-010/README.md), observed at 2026-09-08
-19:24 UTC, records two completed searches, four qualified baselines and two
-verified live trials. Classical now retains 58.24% weighted nDCG@10, up from
-55.04%, while its seventh variant runs. Adaptive completed its baseline at
-60.04% and is running its first construction variant. Entity Graph, Ensemble,
+The latest [all-family progress audit](status-011/README.md) records two
+completed searches and four qualified baselines. Classical now retains 58.67%
+weighted nDCG@10, up from 55.04%, while its eighth variant runs. Adaptive
+retains its 60.04% baseline after its first construction variant scored 59.69%.
+Its second variant is the next declared attempt. Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
 [fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
-[sixth audit](status-006/README.md), [seventh audit](status-007/README.md)
-[eighth audit](status-008/README.md) and [ninth audit](status-009/README.md)
+[sixth audit](status-006/README.md), [seventh audit](status-007/README.md),
+[eighth audit](status-008/README.md), [ninth audit](status-009/README.md)
+and [tenth audit](status-010/README.md)
 remain unchanged.
+
+The [fourth Classical gain](classical-progress-004/README.md) combines
+`bm25.b=1.0` with `bm25.k1=3.0`. Fusion gains 3.63 percentage points over the
+baseline and 0.43 over candidate006. It improves 15 eligible questions,
+regresses on 8 and ties on 89. The finite saturation catalog ends with this
+gain and a reset miss counter; the next mechanism tests title weighting,
+starting at `bm25.title_weight=4.0`. This transition follows catalog exhaustion,
+not three consecutive misses.
+The [category and application breakdown](classical-progress-004/subgroups.md)
+shows that the basic category contributes 2.94 of the 3.63-point overall gain.
+Linear gains 11.27 points, GitHub 8.57 and Gmail 5.21, while Fireflies loses
+1.25 and Jira loses 1.17. Application groups overlap, and the profile remains
+a development selection pending the whole-bundle gates.
 
 The [third Classical gain](classical-progress-003/README.md) combines
 `bm25.b=1.0` with `bm25.k1=2.0`. Fusion gains 3.20 percentage points over the
 baseline and 1.14 over candidate004. It improves 13 eligible questions,
 regresses on 4 and ties on 95. All four retrieval metrics improve in aggregate;
-the miss counter resets, and `bm25.k1=3.0` is the next running variant.
+the miss counter reset before the subsequent `bm25.k1=3.0` gain.
 The [paired category and application breakdown](classical-progress-003/subgroups.md)
 shows that two basic questions contribute 2.33 of the 3.20-point overall gain.
 Linear gains 10.53 points, GitHub 9.95 and Slack 3.75, while Confluence loses
@@ -42,7 +56,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All six completed variants have
+and 54.83% and were rejected before the later gains. All seven completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
@@ -57,8 +71,10 @@ The [Adaptive baseline](adaptive-baseline-001/README.md) records 60.04%
 nDCG@10, 69.19% recall@10, 60.70% MRR@10 and 62.39% full qrel coverage@10.
 Its native job completed in 23.13 minutes with no execution errors or retries.
 This is an initial measurement, not an improvement. The first declared
-construction variant sets `bm25.b=0.25`; the remaining mechanisms and complete
-stopping history still have to run.
+construction variant, `bm25.b=0.25`, completed at 59.69% nDCG@10 without
+execution errors. It is the first measured miss; the baseline is retained,
+and `bm25.b=0.0` is next. The remaining mechanisms and complete stopping
+history still have to run.
 
 The [completed Embeddings search](embeddings-complete-001/README.md) retains
 its 63.51% baseline. Six distinct construction variants exceeded the same
