@@ -4,14 +4,17 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-018/README.md) records two
+The latest [all-family progress audit](status-019/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
-weighted nDCG@10, up from 55.04%, after two expansion variants produced losses.
-Its fourteenth variant tests association weight `0.7` and topic weight `0.4`.
-Adaptive retains 61.49%, up from 60.04%, after title weights `4.0` and `8.0`
-scored 53.48% and 47.06%. Its ninth variant tests title weight `1.0`.
+weighted nDCG@10, up from 55.04%, after three consecutive expansion misses.
+Its fifteenth variant tests relevance weight `1.0` with both novelty weights
+at zero. Adaptive now retains 65.23%, up from 60.04%, after its ninth variant
+improved with title weight `1.0` on `bm25.k1=3.0`. Its tenth variant tests
+association weight `0.0875` and topic weight `0.05` on this new base.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
+The current audit contains 45 completed variants: 39 qualified measurements
+and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
 [fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
@@ -20,18 +23,41 @@ The preceding [first audit](status-001/README.md),
 [tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
 [twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md),
 [fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md),
-[sixteenth audit](status-016/README.md) and [seventeenth audit](status-017/README.md)
+[sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md)
+and [eighteenth audit](status-018/README.md)
 remain unchanged.
 
-The [provisional cross-family comparison](retained-cross-family-002/README.md)
-aligns the four retained profiles from status016 across all question categories
+The [provisional cross-family comparison](retained-cross-family-003/README.md)
+aligns the four retained profiles from status019 across all question categories
 and application groups. Among these four, Embeddings has the highest nDCG in
 Confluence, GitHub and Slack; Adaptive in Fireflies; and Legacy in the other
 five application groups. Legacy has the highest aggregate, while Embeddings
 leads the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
-The [preceding comparison](retained-cross-family-001/README.md) remains unchanged.
+The [first comparison](retained-cross-family-001/README.md) and
+[second comparison](retained-cross-family-002/README.md) remain unchanged.
+
+The [third Adaptive gain](adaptive-progress-003/README.md) reduces title weight
+to `1.0` on the retained `bm25.k1=3.0` base. It gains 5.20 percentage points
+over the initial baseline and 3.74 over candidate006. Against the baseline,
+29 eligible questions improve, 6 regress and 77 tie; against candidate006,
+the counts are 19, 6 and 87. The
+[category and application breakdown](adaptive-progress-003/subgroups.md)
+shows basic and semantic questions contributing 2.76 and 1.40 points to the
+overall baseline gain. Gmail gains 12.64 points and Google Drive 7.91, while
+the constrained category loses 2.43. The title catalog ends on a gain and
+reset counter, followed by expansion. The nine-variant prefix and the next
+sealed mutation were replayed exactly; this remains a development selection.
+
+The [Classical expansion stopping audit](classical-expansion-002/README.md)
+records the three qualified misses following candidate011. The last setting,
+association weight `0.7` and topic weight `0.4`, scored 59.994413%, losing
+0.103408 percentage points. Its paired counts against candidate011 are
+3 improvements, 4 regressions and 105 ties. All four declared expansion
+options were exercised, and the third consecutive miss ends this mechanism.
+The fourteen-variant prefix and the next relevance-diversity mutation matched
+the frozen scheduler and sealed contract. The complete family search continues.
 
 The [zero-expansion Classical trial](classical-expansion-001/README.md) scored
 60.095906%, just below the retained 60.097820%. The loss is 0.001915 percentage
@@ -40,24 +66,23 @@ question improves, one regresses and 110 tie against candidate011. This is the
 first qualified expansion miss; display rounding does not change the decision.
 Adaptive's first title-weight trial, at `4.0` on its retained `bm25.k1=3.0`
 base, scored 53.48%, losing 8.02 points against 61.49%. It is the first
-qualified title miss. Both trials completed without execution errors, and
-both families retain their preceding profiles while testing the next settings.
+qualified title miss. Both trials completed without execution errors and
+retained their preceding profiles for the next tests.
 
 The following Classical expansion trial, at association weight `0.175` and
 topic weight `0.1`, scored 60.014757%, a loss of 0.083063 percentage points
 against candidate011. Adaptive's following title-weight trial, at `8.0`,
 scored 47.059863%, a loss of 14.433991 points against candidate006. Both
-qualified with no execution errors or retries. Each is its mechanism's second
-consecutive miss, so both mechanisms continue to their next declared variant.
-The current audit contains 43 completed variants: 37 qualified measurements
-and six Embeddings execution errors, plus four qualified native baselines.
+qualified with no execution errors or retries. Each was its mechanism's second
+consecutive miss. The subsequent variants produced the Adaptive gain and the
+Classical third miss documented above.
 
 The [second Adaptive gain](adaptive-progress-002/README.md) sets `bm25.k1=3.0`
 and gains 1.46 percentage points over the baseline, including 0.34 over
 candidate005. Against the baseline, 24 eligible questions improve, 6 regress
 and 82 tie; against candidate005, the counts are 11, 2 and 99. All four
-aggregate retrieval metrics improve. The saturation catalog ends on this gain
-with a reset miss counter, and title weighting starts next. The
+aggregate retrieval metrics improve. The saturation catalog ended on this gain
+with a reset miss counter, and title weighting followed. The
 [category and application breakdown](adaptive-progress-002/subgroups.md)
 shows GitHub gaining 6.50 points, Google Drive 2.38 and Confluence 1.28, while
 Fireflies loses 0.14 and HubSpot loses 0.12. The profile remains provisional.
@@ -70,7 +95,8 @@ ties on 110 against the incumbent. The
 [category and application breakdown](classical-progress-006/subgroups.md)
 shows reduced loss on constrained questions and a small semantic-category
 increment. The next variant set both expansion weights to zero and produced
-the small measured loss documented above. The mechanism remains in progress.
+the small measured loss documented above. Two further misses then ended the
+mechanism with this same retained profile.
 
 The [first Adaptive gain](adaptive-progress-001/README.md) sets `bm25.k1=2.0`
 and gains 1.12 percentage points over the initial baseline. It improves 18
@@ -142,7 +168,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All thirteen completed variants have
+and 54.83% and were rejected before the later gains. All fourteen completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
