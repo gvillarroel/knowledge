@@ -1,0 +1,1995 @@
+{
+  "datasets": [
+    {
+      "id": "graphrag-papers-parallel-eval-60-v1",
+      "label": "GraphRAG generalization (60)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 60,
+      "rows": [
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 99.601136986102,
+            "p95_ms": 664.650234952569,
+            "recall_at_10": 100.0
+          },
+          "route": "Classical association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 99.37884235055895,
+            "p95_ms": 671.4319349150173,
+            "recall_at_10": 100.0
+          },
+          "route": "Classical fusion",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 99.37884235055895,
+            "p95_ms": 2405.7979199453257,
+            "recall_at_10": 100.0
+          },
+          "route": "Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 99.37884235055895,
+            "p95_ms": 2486.933890020009,
+            "recall_at_10": 100.0
+          },
+          "route": "Ensemble `robust`",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 99.30799989420872,
+            "p95_ms": 665.7608299399726,
+            "recall_at_10": 100.0
+          },
+          "route": "Classical topic",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "mrr_at_10": 99.16666666666667,
+            "ndcg_at_10": 99.028789602323,
+            "p95_ms": 989.6283299196512,
+            "recall_at_10": 100.0
+          },
+          "route": "Specialized expert early confidence-gated hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 98.90712255757381,
+            "p95_ms": 677.6428851531819,
+            "recall_at_10": 100.0
+          },
+          "route": "RustMallet association",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 98.84950232732183,
+            "p95_ms": 684.8005100269802,
+            "recall_at_10": 100.0
+          },
+          "route": "RustMallet fusion",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 98.6814277192968,
+            "p95_ms": 682.3837300180458,
+            "recall_at_10": 100.0
+          },
+          "route": "RustMallet topic",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 98.11215858246632,
+            "p95_ms": 650.8141351048835,
+            "recall_at_10": 98.33333333333333
+          },
+          "route": "RustMallet BM25",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 98.11215858246632,
+            "p95_ms": 665.7155048917048,
+            "recall_at_10": 98.33333333333333
+          },
+          "route": "Classical BM25",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 96.66666666666667,
+            "ndcg_at_10": 97.58004433474485,
+            "p95_ms": 2794.8288199491794,
+            "recall_at_10": 100.0
+          },
+          "route": "Ensemble `fast`",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "mrr_at_10": 96.66666666666667,
+            "ndcg_at_10": 97.23540134836492,
+            "p95_ms": 4855.895709944888,
+            "recall_at_10": 100.0
+          },
+          "route": "Specialized expert Ensemble quality + trace v48",
+          "status": "measured"
+        },
+        {
+          "family": "tantivy",
+          "metrics": {
+            "mrr_at_10": 96.25,
+            "ndcg_at_10": 96.24733804634862,
+            "p95_ms": 128.26868994161487,
+            "recall_at_10": 100.0
+          },
+          "route": "Tantivy BM25",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 92.54629629629629,
+            "ndcg_at_10": 92.70043501307684,
+            "p95_ms": 485.78051002696157,
+            "recall_at_10": 98.88888888888889
+          },
+          "route": "Entity Graph lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 91.94444444444444,
+            "ndcg_at_10": 92.04867675838491,
+            "p95_ms": 298.041875124909,
+            "recall_at_10": 98.88888888888889
+          },
+          "route": "Embeddings lexical",
+          "status": "measured"
+        },
+        {
+          "family": "tika-mallet",
+          "metrics": {
+            "mrr_at_10": 90.84920634920636,
+            "ndcg_at_10": 91.27587593944101,
+            "p95_ms": 99.47604996850714,
+            "recall_at_10": 99.44444444444443
+          },
+          "route": "Tika/MALLET fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 86.80555555555556,
+            "ndcg_at_10": 86.05001933288146,
+            "p95_ms": 478.66904004476964,
+            "recall_at_10": 97.77777777777777
+          },
+          "route": "Entity Graph fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 82.38888888888887,
+            "ndcg_at_10": 81.77244426333978,
+            "p95_ms": 471.6600749408826,
+            "recall_at_10": 95.83333333333334
+          },
+          "route": "Entity Graph entity",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 75.22222222222223,
+            "ndcg_at_10": 75.89459998591114,
+            "p95_ms": 478.0477899708785,
+            "recall_at_10": 93.88888888888889
+          },
+          "route": "Entity Graph traversal",
+          "status": "measured"
+        },
+        {
+          "family": "tika-mallet-tantivy",
+          "metrics": {
+            "mrr_at_10": 61.30026455026455,
+            "ndcg_at_10": 66.38497927673225,
+            "p95_ms": 2883.26924496796,
+            "recall_at_10": 93.05555555555556
+          },
+          "route": "Tika/MALLET/Tantivy fusion",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 65.61111111111111,
+            "ndcg_at_10": 65.32680535979235,
+            "p95_ms": 545.4476901562884,
+            "recall_at_10": 79.72222222222223
+          },
+          "route": "Embeddings hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 49.6931216931217,
+            "ndcg_at_10": 60.54268696876115,
+            "p95_ms": 9.958979953080414,
+            "recall_at_10": 97.77777777777777
+          },
+          "route": "Legacy lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 53.58333333333333,
+            "ndcg_at_10": 52.59503655259541,
+            "p95_ms": 251.6107399598695,
+            "recall_at_10": 69.44444444444444
+          },
+          "route": "Embeddings vector",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "mrr_at_10": 34.113756613756614,
+            "ndcg_at_10": 41.03435888928605,
+            "p95_ms": 142.67346991691738,
+            "recall_at_10": 71.1111111111111
+          },
+          "route": "Specialized expert supervised profiles v51",
+          "status": "measured"
+        }
+      ],
+      "scope": "Released evaluation-only 60-question cohort; authoritative-paper Top-10; no new execution.",
+      "source": "evaluations/LATEST-REPORT.comparison.json",
+      "source_report": "evaluations/LATEST-REPORT.md",
+      "source_sha256": "8f3b62149f3ac7b5cb89505ff395cb6fcaa617ab881af8873081fa0a17e76f9a"
+    },
+    {
+      "id": "graphrag-papers-contradiction-eval-40-v1",
+      "label": "GraphRAG contradictions (40)",
+      "primary_metric": "full_evidence_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "full_evidence_at_10": 92.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 85.11,
+            "p95_ms": 941.6,
+            "recall_at_10": 97.71
+          },
+          "route": "Specialized expert early confidence-gated hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "full_evidence_at_10": 90.0,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 87.09,
+            "p95_ms": 492.97,
+            "recall_at_10": 97.08
+          },
+          "route": "RustMallet association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 86.83,
+            "p95_ms": 454.25,
+            "recall_at_10": 96.25
+          },
+          "route": "Classical association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 86.22,
+            "p95_ms": 455.04,
+            "recall_at_10": 96.25
+          },
+          "route": "Classical fusion",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 86.22,
+            "p95_ms": 1995.64,
+            "recall_at_10": 96.25
+          },
+          "route": "Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 86.22,
+            "p95_ms": 2017.18,
+            "recall_at_10": 96.25
+          },
+          "route": "Ensemble robust",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 88.33,
+            "ndcg_at_10": 85.86,
+            "p95_ms": 496.45,
+            "recall_at_10": 96.25
+          },
+          "route": "RustMallet fusion",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 85.83,
+            "ndcg_at_10": 84.63,
+            "p95_ms": 450.19,
+            "recall_at_10": 96.25
+          },
+          "route": "Classical topic",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 84.58,
+            "ndcg_at_10": 84.06,
+            "p95_ms": 2308.88,
+            "recall_at_10": 96.25
+          },
+          "route": "Ensemble fast",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 84.17,
+            "ndcg_at_10": 83.49,
+            "p95_ms": 497.68,
+            "recall_at_10": 96.25
+          },
+          "route": "RustMallet topic",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "full_evidence_at_10": 87.5,
+            "mrr_at_10": 78.96,
+            "ndcg_at_10": 81.35,
+            "p95_ms": 4088.78,
+            "recall_at_10": 96.25
+          },
+          "route": "Specialized expert Ensemble quality + trace v48",
+          "status": "measured"
+        },
+        {
+          "family": "tantivy",
+          "metrics": {
+            "full_evidence_at_10": 82.5,
+            "mrr_at_10": 87.5,
+            "ndcg_at_10": 81.28,
+            "p95_ms": 122.69,
+            "recall_at_10": 93.75
+          },
+          "route": "Tantivy BM25",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "full_evidence_at_10": 67.5,
+            "mrr_at_10": 70.44,
+            "ndcg_at_10": 68.19,
+            "p95_ms": 497.28,
+            "recall_at_10": 88.12
+          },
+          "route": "Entity Graph lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "full_evidence_at_10": 65.0,
+            "mrr_at_10": 90.0,
+            "ndcg_at_10": 81.93,
+            "p95_ms": 435.86,
+            "recall_at_10": 86.25
+          },
+          "route": "Classical BM25",
+          "status": "measured"
+        },
+        {
+          "family": "rust-mallet",
+          "metrics": {
+            "full_evidence_at_10": 65.0,
+            "mrr_at_10": 90.0,
+            "ndcg_at_10": 81.93,
+            "p95_ms": 470.43,
+            "recall_at_10": 86.25
+          },
+          "route": "RustMallet BM25",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "full_evidence_at_10": 65.0,
+            "mrr_at_10": 66.46,
+            "ndcg_at_10": 65.27,
+            "p95_ms": 505.72,
+            "recall_at_10": 87.92
+          },
+          "route": "Entity Graph fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "full_evidence_at_10": 62.5,
+            "mrr_at_10": 63.47,
+            "ndcg_at_10": 63.48,
+            "p95_ms": 501.14,
+            "recall_at_10": 86.88
+          },
+          "route": "Entity Graph traversal",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "full_evidence_at_10": 60.0,
+            "mrr_at_10": 66.42,
+            "ndcg_at_10": 64.93,
+            "p95_ms": 493.58,
+            "recall_at_10": 86.25
+          },
+          "route": "Entity Graph entity",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "full_evidence_at_10": 60.0,
+            "mrr_at_10": 51.28,
+            "ndcg_at_10": 54.46,
+            "p95_ms": 7.78,
+            "recall_at_10": 83.96
+          },
+          "route": "Legacy lexical",
+          "status": "measured"
+        },
+        {
+          "family": "tika-mallet",
+          "metrics": {
+            "full_evidence_at_10": 55.0,
+            "mrr_at_10": 60.8,
+            "ndcg_at_10": 59.9,
+            "p95_ms": 104.4,
+            "recall_at_10": 83.33
+          },
+          "route": "Tika/MALLET fusion",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "full_evidence_at_10": 52.5,
+            "mrr_at_10": 41.3,
+            "ndcg_at_10": 48.08,
+            "p95_ms": 47.04,
+            "recall_at_10": 77.92
+          },
+          "route": "Specialized expert supervised profiles v51",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "full_evidence_at_10": 47.5,
+            "mrr_at_10": 62.96,
+            "ndcg_at_10": 61.23,
+            "p95_ms": 259.01,
+            "recall_at_10": 77.92
+          },
+          "route": "Embeddings lexical",
+          "status": "measured"
+        },
+        {
+          "family": "tika-mallet-tantivy",
+          "metrics": {
+            "full_evidence_at_10": 45.0,
+            "mrr_at_10": 56.38,
+            "ndcg_at_10": 56.06,
+            "p95_ms": 1990.39,
+            "recall_at_10": 78.33
+          },
+          "route": "Tika/MALLET/Tantivy fusion",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "full_evidence_at_10": 37.5,
+            "mrr_at_10": 81.75,
+            "ndcg_at_10": 66.96,
+            "p95_ms": 472.63,
+            "recall_at_10": 70.0
+          },
+          "route": "Embeddings hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "full_evidence_at_10": 32.5,
+            "mrr_at_10": 71.5,
+            "ndcg_at_10": 57.74,
+            "p95_ms": 222.01,
+            "recall_at_10": 65.83
+          },
+          "route": "Embeddings vector",
+          "status": "measured"
+        }
+      ],
+      "scope": "Released evaluation-only contradiction cohort; complete evidence is the primary metric; 25 compatible routes.",
+      "source": "evaluations/graphrag-unseen-generalization/study-v5-contradictions/publication/tables/contradiction-strategy-ranking.table.md",
+      "source_report": "evaluations/graphrag-unseen-generalization/study-v5-contradictions/publication/tables/contradiction-strategy-ranking.table.md",
+      "source_sha256": "ba810f756d83a0673730c5ef7f68eb24f1e4448d34898c63188590fcecffa1c6"
+    },
+    {
+      "id": "software-architecture-books-40",
+      "label": "Software architecture books (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 97.5,
+            "ndcg_at_10": 92.58,
+            "p95_ms": 1832.07,
+            "recall_at_10": 97.29
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 97.5,
+            "ndcg_at_10": 92.56,
+            "p95_ms": 1799.42,
+            "recall_at_10": 97.29
+          },
+          "route": "Association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 97.5,
+            "ndcg_at_10": 92.56,
+            "p95_ms": 1882.9,
+            "recall_at_10": 97.29
+          },
+          "route": "Topic",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 89.25,
+            "ndcg_at_10": 88.98,
+            "p95_ms": 5473.1,
+            "recall_at_10": 98.33
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 89.38,
+            "ndcg_at_10": 86.04,
+            "p95_ms": 7820.74,
+            "recall_at_10": 95.21
+          },
+          "route": "Fast",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 90.5,
+            "ndcg_at_10": 85.61,
+            "p95_ms": 3901.24,
+            "recall_at_10": 95.21
+          },
+          "route": "Robust",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 90.5,
+            "ndcg_at_10": 85.61,
+            "p95_ms": 4206.12,
+            "recall_at_10": 95.21
+          },
+          "route": "Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 88.0,
+            "ndcg_at_10": 85.01,
+            "p95_ms": 9788.55,
+            "recall_at_10": 95.21
+          },
+          "route": "Quality",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 95.0,
+            "ndcg_at_10": 84.18,
+            "p95_ms": 1858.98,
+            "recall_at_10": 83.75
+          },
+          "route": "BM25",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 81.33,
+            "ndcg_at_10": 83.5,
+            "p95_ms": 5612.2,
+            "recall_at_10": 97.5
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 81.15,
+            "ndcg_at_10": 81.76,
+            "p95_ms": 4262.95,
+            "recall_at_10": 93.54
+          },
+          "route": "Entity",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 80.62,
+            "ndcg_at_10": 81.55,
+            "p95_ms": 0.56,
+            "recall_at_10": 95.0
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 80.92,
+            "ndcg_at_10": 80.3,
+            "p95_ms": 4336.46,
+            "recall_at_10": 92.92
+          },
+          "route": "Traversal",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 72.92,
+            "ndcg_at_10": 73.39,
+            "p95_ms": 1182.23,
+            "recall_at_10": 92.08
+          },
+          "route": "Hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 71.57,
+            "ndcg_at_10": 72.13,
+            "p95_ms": 1154.39,
+            "recall_at_10": 92.92
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 65.99,
+            "ndcg_at_10": 65.56,
+            "p95_ms": 2.98,
+            "recall_at_10": 84.38
+          },
+          "route": "Vector",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 52.72,
+            "ndcg_at_10": 58.4,
+            "p95_ms": 1372.74,
+            "recall_at_10": 86.25
+          },
+          "route": "Lexical SQL comparator",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 67.92,
+            "ndcg_at_10": 57.1,
+            "p95_ms": 211.65,
+            "recall_at_10": 59.58
+          },
+          "route": "Graph search",
+          "status": "measured"
+        }
+      ],
+      "scope": "Private book corpus; 18 direct routes, Top-10, three repetitions; published rounded aggregates.",
+      "source": "evaluations/software-architecture-books/reports/all-route-comparison.md",
+      "source_report": "evaluations/software-architecture-books/reports/all-route-comparison.md",
+      "source_sha256": "7f1d160e8831ef8f953b6b8839b7ff8ad1d774493a37f992724a0bc8b28648b6"
+    },
+    {
+      "id": "data-science-ai-ml-books-40",
+      "label": "Data science / AI / ML books (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 96.75,
+            "ndcg_at_10": 94.44,
+            "p95_ms": 16155.87,
+            "recall_at_10": 99.17
+          },
+          "route": "Fast",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 94.06,
+            "ndcg_at_10": 93.08,
+            "p95_ms": 1766.7,
+            "recall_at_10": 98.33
+          },
+          "route": "BM25",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 94.11,
+            "ndcg_at_10": 92.78,
+            "p95_ms": 22566.2,
+            "recall_at_10": 99.17
+          },
+          "route": "Quality",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 93.23,
+            "ndcg_at_10": 91.78,
+            "p95_ms": 5359.04,
+            "recall_at_10": 99.17
+          },
+          "route": "Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 93.23,
+            "ndcg_at_10": 91.78,
+            "p95_ms": 5403.21,
+            "recall_at_10": 99.17
+          },
+          "route": "Robust",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 88.75,
+            "ndcg_at_10": 90.31,
+            "p95_ms": 14174.95,
+            "recall_at_10": 99.17
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 86.88,
+            "ndcg_at_10": 85.83,
+            "p95_ms": 14003.99,
+            "recall_at_10": 97.5
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 81.75,
+            "ndcg_at_10": 83.22,
+            "p95_ms": 0.91,
+            "recall_at_10": 95.0
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 91.25,
+            "ndcg_at_10": 80.54,
+            "p95_ms": 1594.91,
+            "recall_at_10": 78.54
+          },
+          "route": "Association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 91.25,
+            "ndcg_at_10": 80.54,
+            "p95_ms": 1727.19,
+            "recall_at_10": 78.54
+          },
+          "route": "Topic",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 91.25,
+            "ndcg_at_10": 80.54,
+            "p95_ms": 1735.27,
+            "recall_at_10": 78.54
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 78.42,
+            "ndcg_at_10": 80.29,
+            "p95_ms": 13957.18,
+            "recall_at_10": 96.67
+          },
+          "route": "Entity",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 58.19,
+            "ndcg_at_10": 63.24,
+            "p95_ms": 2387.46,
+            "recall_at_10": 83.33
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 53.25,
+            "ndcg_at_10": 60.97,
+            "p95_ms": 2393.27,
+            "recall_at_10": 88.96
+          },
+          "route": "Hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 62.5,
+            "ndcg_at_10": 54.41,
+            "p95_ms": 737.82,
+            "recall_at_10": 53.96
+          },
+          "route": "Graph search",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 43.55,
+            "ndcg_at_10": 51.2,
+            "p95_ms": 11329.79,
+            "recall_at_10": 79.58
+          },
+          "route": "Traversal",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 31.79,
+            "ndcg_at_10": 40.16,
+            "p95_ms": 2269.25,
+            "recall_at_10": 74.38
+          },
+          "route": "Lexical SQL comparator",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 29.13,
+            "ndcg_at_10": 39.38,
+            "p95_ms": 5.09,
+            "recall_at_10": 70.42
+          },
+          "route": "Vector",
+          "status": "measured"
+        }
+      ],
+      "scope": "Private book corpus; 18 direct routes, Top-10, three repetitions; published rounded aggregates.",
+      "source": "evaluations/data-science-ai-ml-books/reports/all-route-comparison.md",
+      "source_report": "evaluations/data-science-ai-ml-books/reports/all-route-comparison.md",
+      "source_sha256": "d865b462fe98d85541409bc0d65717577c143650fa0f882e9cdb04da46127eac"
+    },
+    {
+      "id": "astro-40",
+      "label": "Astro documentation (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 70.6,
+            "ndcg_at_10": 68.5,
+            "p95_ms": 3.6,
+            "recall_at_10": 82.3
+          },
+          "route": "legacy_tfidf",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 81.2,
+            "ndcg_at_10": 78.3,
+            "p95_ms": 107.8,
+            "recall_at_10": 89.8
+          },
+          "route": "lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 91.5,
+            "ndcg_at_10": 83.5,
+            "p95_ms": 1430.1,
+            "recall_at_10": 88.8
+          },
+          "route": "association",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 91.5,
+            "ndcg_at_10": 83.5,
+            "p95_ms": 1443.6,
+            "recall_at_10": 88.8
+          },
+          "route": "association",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 72.89999999999999,
+            "ndcg_at_10": 70.6,
+            "p95_ms": 1626.6,
+            "recall_at_10": 88.1
+          },
+          "route": "entity",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 89.0,
+            "ndcg_at_10": 81.89999999999999,
+            "p95_ms": 10938.4,
+            "recall_at_10": 89.6
+          },
+          "route": "quality",
+          "status": "measured"
+        }
+      ],
+      "scope": "Published best route for six families; raw pool 100, document deduplication; standalone selected-route P95.",
+      "source": "evaluations/semantic-okf-astro/reports/retrieval-comparison.md",
+      "source_report": "evaluations/semantic-okf-astro/reports/retrieval-comparison.md",
+      "source_sha256": "0ed19c2429ef691cf94633359d13a9f2ad181f56da6e16b5e5bca333f8ed9e8a"
+    },
+    {
+      "id": "endocrine-hygiene",
+      "label": "Endocrine hygiene",
+      "primary_metric": "ndcg_at_10",
+      "question_count": null,
+      "rows": [
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 96.7,
+            "ndcg_at_10": 94.69999999999999,
+            "p95_ms": 0.8,
+            "recall_at_10": 98.9
+          },
+          "route": "legacy_lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 93.30000000000001,
+            "ndcg_at_10": 92.80000000000001,
+            "p95_ms": 36.0,
+            "recall_at_10": 98.7
+          },
+          "route": "lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 95.0,
+            "ndcg_at_10": 95.3,
+            "p95_ms": 20.6,
+            "recall_at_10": 98.9
+          },
+          "route": "bm25",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "p95_ms": null,
+            "recall_at_10": null
+          },
+          "route": "N/A",
+          "status": "unavailable"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 95.0,
+            "ndcg_at_10": 95.3,
+            "p95_ms": 26.3,
+            "recall_at_10": 98.9
+          },
+          "route": "bm25",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "p95_ms": null,
+            "recall_at_10": null
+          },
+          "route": "N/A",
+          "status": "unavailable"
+        }
+      ],
+      "scope": "Published best route per family; entity-graph and ensemble are unavailable on this historical contract, not zero-score rows.",
+      "source": "evaluations/semantic-okf-endocrine-hygiene/reports/retrieval-comparison.md",
+      "source_report": "evaluations/semantic-okf-endocrine-hygiene/reports/retrieval-comparison.md",
+      "source_sha256": "bb02f571b8ed753815ef0b28e1de8275ca6df856d8f344a9ae9996594e6711f2"
+    },
+    {
+      "id": "quantum-error-correction-papers-40",
+      "label": "Quantum error correction (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 100.0,
+            "p95_ms": 34.006,
+            "recall_at_10": 100.0
+          },
+          "route": "retrospective-supervised-ngram",
+          "status": "measured"
+        },
+        {
+          "family": "specialized-expert",
+          "metrics": {
+            "mrr_at_10": 27.4018,
+            "ndcg_at_10": 36.6713,
+            "p95_ms": 123.55,
+            "recall_at_10": 74.5833
+          },
+          "route": "baseline-lexical",
+          "status": "measured"
+        }
+      ],
+      "scope": "All 40 qrels were exposed to supervised-profile construction. In-sample fixed-workload comparison only; no promotion or unseen-query claim.",
+      "source": "evaluations/quantum-error-correction-papers/reports/retrospective-supervised-expert-evaluation.md",
+      "source_report": "evaluations/quantum-error-correction-papers/reports/retrospective-supervised-expert-evaluation.md",
+      "source_sha256": "4e9aca1f74f6ac6590f037f3baf87c5840b9c18e982ccf296f44ea18f7c4def6"
+    },
+    {
+      "id": "tau3-banking-knowledge-97",
+      "label": "tau3 banking knowledge (97)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 97,
+      "rows": [
+        {
+          "family": "upstream-bm25",
+          "metrics": {
+            "mrr_at_10": 33.800000000000004,
+            "ndcg_at_10": 15.6,
+            "recall_at_10": 14.72
+          },
+          "route": "Upstream BM25",
+          "status": "measured"
+        },
+        {
+          "family": "integrated-classical",
+          "metrics": {
+            "mrr_at_10": 67.2,
+            "ndcg_at_10": 42.8,
+            "recall_at_10": 35.41
+          },
+          "route": "Local BM25",
+          "status": "measured"
+        },
+        {
+          "family": "integrated-classical",
+          "metrics": {
+            "mrr_at_10": 68.2,
+            "ndcg_at_10": 42.699999999999996,
+            "recall_at_10": 35.29
+          },
+          "route": "Local association",
+          "status": "measured"
+        },
+        {
+          "family": "integrated-classical",
+          "metrics": {
+            "mrr_at_10": 68.0,
+            "ndcg_at_10": 42.1,
+            "recall_at_10": 35.09
+          },
+          "route": "Local fusion",
+          "status": "measured"
+        },
+        {
+          "family": "integrated-classical",
+          "metrics": {
+            "mrr_at_10": 69.19999999999999,
+            "ndcg_at_10": 42.9,
+            "recall_at_10": 35.27
+          },
+          "route": "Local topic",
+          "status": "measured"
+        }
+      ],
+      "scope": "Retrospective oracle-context diagnostic. Local integrated Classical and chunked Classical have identical rankings. Official conversations and answer correctness were not measured.",
+      "source": "evaluations/tau3-banking-knowledge/REPORT.md",
+      "source_report": "evaluations/tau3-banking-knowledge/REPORT.md",
+      "source_sha256": "55932d4955faf4eb6093394aa3ceb178c86b06d449bab027d467a0d9192a6a41"
+    },
+    {
+      "id": "enterprise-rag-bench-40-v1",
+      "label": "EnterpriseRAG reduced corpus (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 60.77777777777777,
+            "ndcg_at_10": 59.40418860485238,
+            "p95_ms": 83.1696999957785,
+            "recall_at_10": 63.73015873015873
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 61.5,
+            "ndcg_at_10": 59.066918081551044,
+            "p95_ms": 10.284900024998933,
+            "recall_at_10": 61.85515873015872
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 60.56250000000001,
+            "ndcg_at_10": 58.9027672187069,
+            "p95_ms": 38.786199991591275,
+            "recall_at_10": 64.56349206349206
+          },
+          "route": "BM25",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 59.86111111111111,
+            "ndcg_at_10": 57.496953757228944,
+            "p95_ms": 3.5666999756358564,
+            "recall_at_10": 61.92460317460318
+          },
+          "route": "Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 60.357142857142854,
+            "ndcg_at_10": 55.379412585725454,
+            "p95_ms": 1315.9202999668196,
+            "recall_at_10": 58.99801587301587
+          },
+          "route": "Quality",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 59.06944444444444,
+            "ndcg_at_10": 52.294145469982624,
+            "p95_ms": 1224.4053999893367,
+            "recall_at_10": 58.99801587301587
+          },
+          "route": "Fast",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 53.96527777777778,
+            "ndcg_at_10": 51.47104759345517,
+            "p95_ms": 47.65860002953559,
+            "recall_at_10": 59.910714285714285
+          },
+          "route": "Hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 57.472222222222214,
+            "ndcg_at_10": 50.33603261131847,
+            "p95_ms": 1190.7689999789,
+            "recall_at_10": 58.99801587301587
+          },
+          "route": "Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 57.472222222222214,
+            "ndcg_at_10": 50.33603261131847,
+            "p95_ms": 1141.874800028745,
+            "recall_at_10": 58.99801587301587
+          },
+          "route": "Robust",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 56.25,
+            "ndcg_at_10": 47.214908122362345,
+            "p95_ms": 43.3560999808833,
+            "recall_at_10": 45.863095238095234
+          },
+          "route": "Association",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 47.333333333333336,
+            "ndcg_at_10": 46.73466879301481,
+            "p95_ms": 92.51759998733178,
+            "recall_at_10": 58.03571428571429
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 55.00000000000001,
+            "ndcg_at_10": 46.47058008261054,
+            "p95_ms": 39.6828000084497,
+            "recall_at_10": 45.863095238095234
+          },
+          "route": "Topic",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 46.673611111111114,
+            "ndcg_at_10": 45.252827908377355,
+            "p95_ms": 82.74820004589856,
+            "recall_at_10": 56.57738095238095
+          },
+          "route": "Entity",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 56.25,
+            "ndcg_at_10": 43.42376729604631,
+            "p95_ms": 41.141800000332296,
+            "recall_at_10": 42.46031746031746
+          },
+          "route": "Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 46.04166666666667,
+            "ndcg_at_10": 43.274149507640914,
+            "p95_ms": 82.56619999883696,
+            "recall_at_10": 50.32738095238095
+          },
+          "route": "Traversal",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 40.854166666666664,
+            "ndcg_at_10": 40.319114502840776,
+            "p95_ms": 52.03550000442192,
+            "recall_at_10": 49.87103174603175
+          },
+          "route": "Lexical SQL comparator",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 37.797619047619044,
+            "ndcg_at_10": 32.638974172822834,
+            "p95_ms": 34.756500041112304,
+            "recall_at_10": 36.92460317460318
+          },
+          "route": "Vector",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 20.42361111111111,
+            "ndcg_at_10": 13.626228624863055,
+            "p95_ms": 128.3024000003934,
+            "recall_at_10": 17.371031746031747
+          },
+          "route": "Graph search",
+          "status": "measured"
+        }
+      ],
+      "scope": "Pinned Onyx v1.0.0; 40 stratified questions, 985 documents including 900 distractors. Retrieval only; not the full official benchmark.",
+      "source": "evaluations/enterprise-rag-bench/reports/20260906-v2/comparison.json",
+      "source_report": "evaluations/enterprise-rag-bench/reports/20260906-v2/final-report.md",
+      "source_sha256": "23c451906b6195575eb716f9d86a387874d5a90af97ee3ab7303a65b8745b6ab"
+    },
+    {
+      "id": "enterprise-rag-e6-development-40",
+      "label": "EnterpriseRAG e6 development (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 64.375,
+            "ndcg_at_10": 63.19043854152289,
+            "p95_ms": 171.34919800000148,
+            "recall_at_10": 68.3829365079365
+          },
+          "route": "embeddings / baseline / hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 63.125,
+            "ndcg_at_10": 61.367407676138754,
+            "p95_ms": 1518.8767489999009,
+            "recall_at_10": 62.757936507936506
+          },
+          "route": "ensemble / candidate-018 / quality",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 62.5,
+            "ndcg_at_10": 60.35802201326674,
+            "p95_ms": 140.03631800005678,
+            "recall_at_10": 63.24404761904761
+          },
+          "route": "graphify / candidate-010 / search",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 61.5,
+            "ndcg_at_10": 59.61724167905328,
+            "p95_ms": 9.630229999970652,
+            "recall_at_10": 62.48015873015873
+          },
+          "route": "legacy / candidate-003 / lexical",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 61.5,
+            "ndcg_at_10": 59.61724167905328,
+            "p95_ms": 8.658830000058515,
+            "recall_at_10": 62.48015873015873
+          },
+          "route": "turso / candidate-003 / lexical-sql",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 60.357142857142854,
+            "ndcg_at_10": 58.62051635704519,
+            "p95_ms": 1305.6016000000454,
+            "recall_at_10": 62.202380952380956
+          },
+          "route": "adaptive / candidate-013 / adaptive",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 57.49999999999999,
+            "ndcg_at_10": 48.205239960246026,
+            "p95_ms": 39.302746999965166,
+            "recall_at_10": 45.863095238095234
+          },
+          "route": "classical / candidate-014 / fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 48.336309523809526,
+            "ndcg_at_10": 48.188524415128164,
+            "p95_ms": 39.5280200009438,
+            "recall_at_10": 58.59126984126984
+          },
+          "route": "entity-graph / candidate-010 / fusion",
+          "status": "measured"
+        }
+      ],
+      "scope": "Forty exposed development queries on a reference-enriched 985-document corpus. Eight retained primary routes from frozen experimental profiles: five construction and three consultation treatments. Eighteen retained-profile routes are available separately as diagnostics. These maxima do not describe installed defaults, unseen-query quality or official generated-answer accuracy; the terminal decision is separate.",
+      "source": "evaluations/reports/evolution/e6/catalog-001/comparison.json",
+      "source_report": "evaluations/reports/evolution/e6/catalog-001/comparison.md",
+      "source_sha256": "0c604264261f00d6e084fcb43bf6b3224786c3a96a611ee1ddaf6e2f0e5e360a"
+    },
+    {
+      "id": "enterprise-rag-generator-g2-fulltext-40",
+      "label": "EnterpriseRAG complete documents: incoming / G2 (40)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 40,
+      "rows": [
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 97.8637093564793,
+            "p95_ms": 2838.135684000008,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "Incoming / Quality",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 97.8637093564793,
+            "p95_ms": 2839.9758340001426,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "G2 / Quality",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 97.84563640837553,
+            "p95_ms": 252.10128599997006,
+            "recall_at_10": 98.59126984126985
+          },
+          "route": "Incoming / BM25",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 97.84563640837553,
+            "p95_ms": 256.6515050000362,
+            "recall_at_10": 98.59126984126985
+          },
+          "route": "G2 / BM25",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 96.58202482680448,
+            "p95_ms": 2337.991184999737,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "Incoming / Fast",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 100.0,
+            "ndcg_at_10": 96.58202482680448,
+            "p95_ms": 2308.265021999887,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "G2 / Fast",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 97.5,
+            "ndcg_at_10": 95.42985427782259,
+            "p95_ms": 762.0951699998386,
+            "recall_at_10": 96.01190476190476
+          },
+          "route": "Incoming / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 97.5,
+            "ndcg_at_10": 95.42985427782259,
+            "p95_ms": 770.3478440000708,
+            "recall_at_10": 96.01190476190476
+          },
+          "route": "G2 / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 95.12009171481232,
+            "p95_ms": 1590.0001679999605,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "Incoming / Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 95.12009171481232,
+            "p95_ms": 1577.5770949999242,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "Incoming / Robust",
+          "status": "measured"
+        },
+        {
+          "family": "adaptive",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 95.12009171481232,
+            "p95_ms": 1608.3233839999593,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "G2 / Adaptive fusion",
+          "status": "measured"
+        },
+        {
+          "family": "ensemble",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 95.12009171481232,
+            "p95_ms": 1570.694556000035,
+            "recall_at_10": 97.48015873015873
+          },
+          "route": "G2 / Robust",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 95.625,
+            "ndcg_at_10": 93.6304540860886,
+            "p95_ms": 203.6774649999984,
+            "recall_at_10": 94.88095238095238
+          },
+          "route": "Incoming / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 95.625,
+            "ndcg_at_10": 93.6304540860886,
+            "p95_ms": 203.2279520000202,
+            "recall_at_10": 94.88095238095238
+          },
+          "route": "G2 / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 248.68561800008138,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "Incoming / Association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 247.8122990000884,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "Incoming / Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 249.49546100003772,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "Incoming / Topic",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 251.537299000006,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "G2 / Association",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 252.2847579999734,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "G2 / Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "classical",
+          "metrics": {
+            "mrr_at_10": 98.75,
+            "ndcg_at_10": 90.32860526996372,
+            "p95_ms": 251.49491499996657,
+            "recall_at_10": 88.64087301587303
+          },
+          "route": "G2 / Topic",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 91.19047619047619,
+            "ndcg_at_10": 88.83049656774915,
+            "p95_ms": 6.888123000010182,
+            "recall_at_10": 92.5
+          },
+          "route": "Incoming / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "legacy",
+          "metrics": {
+            "mrr_at_10": 91.19047619047619,
+            "ndcg_at_10": 88.83049656774915,
+            "p95_ms": 6.841609000019844,
+            "recall_at_10": 92.5
+          },
+          "route": "G2 / Lexical",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 89.11111111111111,
+            "ndcg_at_10": 88.37911552956079,
+            "p95_ms": 395.32613000000083,
+            "recall_at_10": 94.83134920634922
+          },
+          "route": "Incoming / Hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 89.11111111111111,
+            "ndcg_at_10": 88.37911552956079,
+            "p95_ms": 388.35579900000994,
+            "recall_at_10": 94.83134920634922
+          },
+          "route": "G2 / Hybrid",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 79.6875,
+            "ndcg_at_10": 77.02106586862114,
+            "p95_ms": 766.4974169999823,
+            "recall_at_10": 82.66865079365078
+          },
+          "route": "Incoming / Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 79.6875,
+            "ndcg_at_10": 77.02106586862114,
+            "p95_ms": 776.1516240000219,
+            "recall_at_10": 82.66865079365078
+          },
+          "route": "G2 / Fusion",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 79.66666666666666,
+            "ndcg_at_10": 76.98234162510728,
+            "p95_ms": 188.06601,
+            "recall_at_10": 82.28174603174602
+          },
+          "route": "Incoming / Vector",
+          "status": "measured"
+        },
+        {
+          "family": "embeddings",
+          "metrics": {
+            "mrr_at_10": 79.66666666666666,
+            "ndcg_at_10": 76.98234162510728,
+            "p95_ms": 176.4987450000035,
+            "recall_at_10": 82.28174603174602
+          },
+          "route": "G2 / Vector",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 77.5,
+            "ndcg_at_10": 75.18897847013254,
+            "p95_ms": 771.2868859998707,
+            "recall_at_10": 81.29960317460319
+          },
+          "route": "Incoming / Entity",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 77.5,
+            "ndcg_at_10": 75.18897847013254,
+            "p95_ms": 773.5796279998794,
+            "recall_at_10": 81.29960317460319
+          },
+          "route": "G2 / Entity",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 71.48214285714285,
+            "ndcg_at_10": 69.4039143412453,
+            "p95_ms": 384.8506479999969,
+            "recall_at_10": 77.3611111111111
+          },
+          "route": "Incoming / Lexical SQL comparator",
+          "status": "measured"
+        },
+        {
+          "family": "turso",
+          "metrics": {
+            "mrr_at_10": 71.48214285714285,
+            "ndcg_at_10": 69.4039143412453,
+            "p95_ms": 379.1163510000004,
+            "recall_at_10": 77.3611111111111
+          },
+          "route": "G2 / Lexical SQL comparator",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 56.52380952380953,
+            "ndcg_at_10": 56.165226973479776,
+            "p95_ms": 764.7504480000862,
+            "recall_at_10": 69.5138888888889
+          },
+          "route": "Incoming / Traversal",
+          "status": "measured"
+        },
+        {
+          "family": "entity-graph",
+          "metrics": {
+            "mrr_at_10": 56.52380952380953,
+            "ndcg_at_10": 56.165226973479776,
+            "p95_ms": 769.9773869999262,
+            "recall_at_10": 69.5138888888889
+          },
+          "route": "G2 / Traversal",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 23.29861111111111,
+            "ndcg_at_10": 18.996205156626427,
+            "p95_ms": 213.56681699990077,
+            "recall_at_10": 23.849206349206348
+          },
+          "route": "Incoming / Graph search",
+          "status": "measured"
+        },
+        {
+          "family": "graphify",
+          "metrics": {
+            "mrr_at_10": 23.29861111111111,
+            "ndcg_at_10": 18.996205156626427,
+            "p95_ms": 208.93181200017352,
+            "recall_at_10": 23.849206349206348
+          },
+          "route": "G2 / Graph search",
+          "status": "measured"
+        }
+      ],
+      "scope": "Fixed incoming-versus-G2 generator replay: 985 complete documents, 40 exposed questions, eight families, eighteen routes and two versions. Both versions use identical explicit body mappings, plans and consultation code. Embeddings uses pinned MiniLM; Ensemble retains hashing. One query pass, descriptive P95, no generated answers, no independent retrieval gate and no promotion. Legacy lexical and Turso SQL are comparator routes. Do not pool with title-only v1/e6 or the S2 agent-answer contract. Each same-route version pair ties in all relevance metrics; numbered catalog rows enumerate alternatives and preserve these ties.",
+      "source": "evaluations/reports/enterprise-generator-g2/comparison.json",
+      "source_report": "evaluations/reports/enterprise-generator-g2/README.md",
+      "source_sha256": "fe111e6739cc604a380453d5e650940ba391ad608ca2bcc3ed077cd3c868a07e"
+    }
+  ],
+  "schema_version": "evaluation-report-catalog/1.0",
+  "token_source_sha256": "ebb1030d20359e8b306c4218f7038a921caee233e17b9418158c398f6afcd332"
+}

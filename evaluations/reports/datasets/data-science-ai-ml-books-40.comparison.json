@@ -1,0 +1,228 @@
+{
+  "alternatives": [
+    {
+      "id": "ensemble-fast",
+      "label": "ensemble / Fast",
+      "metrics": {
+        "mrr_at_10": 96.75,
+        "ndcg_at_10": 94.44,
+        "p95_ms": 16155.87,
+        "recall_at_10": 99.17
+      }
+    },
+    {
+      "id": "classical-bm25",
+      "label": "classical / BM25",
+      "metrics": {
+        "mrr_at_10": 94.06,
+        "ndcg_at_10": 93.08,
+        "p95_ms": 1766.7,
+        "recall_at_10": 98.33
+      }
+    },
+    {
+      "id": "ensemble-quality",
+      "label": "ensemble / Quality",
+      "metrics": {
+        "mrr_at_10": 94.11,
+        "ndcg_at_10": 92.78,
+        "p95_ms": 22566.2,
+        "recall_at_10": 99.17
+      }
+    },
+    {
+      "id": "adaptive-adaptive-fusion",
+      "label": "adaptive / Adaptive fusion",
+      "metrics": {
+        "mrr_at_10": 93.23,
+        "ndcg_at_10": 91.78,
+        "p95_ms": 5359.04,
+        "recall_at_10": 99.17
+      }
+    },
+    {
+      "id": "ensemble-robust",
+      "label": "ensemble / Robust",
+      "metrics": {
+        "mrr_at_10": 93.23,
+        "ndcg_at_10": 91.78,
+        "p95_ms": 5403.21,
+        "recall_at_10": 99.17
+      }
+    },
+    {
+      "id": "entity-graph-lexical",
+      "label": "entity-graph / Lexical",
+      "metrics": {
+        "mrr_at_10": 88.75,
+        "ndcg_at_10": 90.31,
+        "p95_ms": 14174.95,
+        "recall_at_10": 99.17
+      }
+    },
+    {
+      "id": "entity-graph-fusion",
+      "label": "entity-graph / Fusion",
+      "metrics": {
+        "mrr_at_10": 86.88,
+        "ndcg_at_10": 85.83,
+        "p95_ms": 14003.99,
+        "recall_at_10": 97.5
+      }
+    },
+    {
+      "id": "legacy-lexical",
+      "label": "legacy / Lexical",
+      "metrics": {
+        "mrr_at_10": 81.75,
+        "ndcg_at_10": 83.22,
+        "p95_ms": 0.91,
+        "recall_at_10": 95.0
+      }
+    },
+    {
+      "id": "classical-association",
+      "label": "classical / Association",
+      "metrics": {
+        "mrr_at_10": 91.25,
+        "ndcg_at_10": 80.54,
+        "p95_ms": 1594.91,
+        "recall_at_10": 78.54
+      }
+    },
+    {
+      "id": "classical-fusion",
+      "label": "classical / Fusion",
+      "metrics": {
+        "mrr_at_10": 91.25,
+        "ndcg_at_10": 80.54,
+        "p95_ms": 1735.27,
+        "recall_at_10": 78.54
+      }
+    },
+    {
+      "id": "classical-topic",
+      "label": "classical / Topic",
+      "metrics": {
+        "mrr_at_10": 91.25,
+        "ndcg_at_10": 80.54,
+        "p95_ms": 1727.19,
+        "recall_at_10": 78.54
+      }
+    },
+    {
+      "id": "entity-graph-entity",
+      "label": "entity-graph / Entity",
+      "metrics": {
+        "mrr_at_10": 78.42,
+        "ndcg_at_10": 80.29,
+        "p95_ms": 13957.18,
+        "recall_at_10": 96.67
+      }
+    },
+    {
+      "id": "embeddings-lexical",
+      "label": "embeddings / Lexical",
+      "metrics": {
+        "mrr_at_10": 58.19,
+        "ndcg_at_10": 63.24,
+        "p95_ms": 2387.46,
+        "recall_at_10": 83.33
+      }
+    },
+    {
+      "id": "embeddings-hybrid",
+      "label": "embeddings / Hybrid",
+      "metrics": {
+        "mrr_at_10": 53.25,
+        "ndcg_at_10": 60.97,
+        "p95_ms": 2393.27,
+        "recall_at_10": 88.96
+      }
+    },
+    {
+      "id": "graphify-graph-search",
+      "label": "graphify / Graph search",
+      "metrics": {
+        "mrr_at_10": 62.5,
+        "ndcg_at_10": 54.41,
+        "p95_ms": 737.82,
+        "recall_at_10": 53.96
+      }
+    },
+    {
+      "id": "entity-graph-traversal",
+      "label": "entity-graph / Traversal",
+      "metrics": {
+        "mrr_at_10": 43.55,
+        "ndcg_at_10": 51.2,
+        "p95_ms": 11329.79,
+        "recall_at_10": 79.58
+      }
+    },
+    {
+      "id": "turso-lexical-sql-comparator",
+      "label": "turso / Lexical SQL comparator",
+      "metrics": {
+        "mrr_at_10": 31.79,
+        "ndcg_at_10": 40.16,
+        "p95_ms": 2269.25,
+        "recall_at_10": 74.38
+      }
+    },
+    {
+      "id": "embeddings-vector",
+      "label": "embeddings / Vector",
+      "metrics": {
+        "mrr_at_10": 29.13,
+        "ndcg_at_10": 39.38,
+        "p95_ms": 5.09,
+        "recall_at_10": 70.42
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "data-science-ai-ml-books-40",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:d865b462fe98d85541409bc0d65717577c143650fa0f882e9cdb04da46127eac"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "data-science-ai-ml-books-40.md",
+  "schema_version": "final-report-comparison/1.0"
+}

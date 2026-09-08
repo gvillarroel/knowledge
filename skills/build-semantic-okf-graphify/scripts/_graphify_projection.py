@@ -736,6 +736,54 @@ def _extract_virtual_markdown(
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+def _normalize_local_heading_ids(root: Path, data: dict[str, Any]) -> None:
+    """Remove the pinned extractor's absolute-path ID for an empty heading.
+
+    Graphify relativizes symbols only when an underscore follows the file stem.
+    An empty heading has the bare stem, which otherwise leaks the temporary
+    build directory into published graph bytes. Keep it distinct from the file
+    root and preserve labels, source locations, and every relationship.
+    """
+
+    file_node_id = importlib.import_module("graphify.extract")._file_node_id
+    root = root.resolve()
+    occupied = {node.get("id") for node in data.get("nodes", [])}
+    remap: dict[str, str] = {}
+    for node in data.get("nodes", []):
+        source = node.get("source_file")
+        if not isinstance(source, str) or not source:
+            continue
+        source_path = Path(source)
+        absolute = (source_path if source_path.is_absolute() else root / source_path).resolve()
+        try:
+            relative = absolute.relative_to(root)
+        except ValueError:
+            continue
+        absolute_id = file_node_id(absolute)
+        if node.get("id") != absolute_id or absolute_id == file_node_id(relative):
+            continue
+        location = node.get("source_location")
+        if not isinstance(location, str) or not location:
+            raise GraphifyProjectionError("bare-stem Graphify heading has no source location")
+        # A colon cannot occur in Graphify's normalized IDs. Bind the full
+        # digest to the local document and location, and reject any collision.
+        binding = canonical_json([relative.as_posix(), location]).encode("utf-8")
+        replacement = "semantic-okf:heading:" + sha256_bytes(binding)
+        if replacement in occupied:
+            raise GraphifyProjectionError("normalized Graphify heading identity collides")
+        if absolute_id in remap and remap[absolute_id] != replacement:
+            raise GraphifyProjectionError("Graphify heading identity is ambiguous")
+        occupied.add(replacement)
+        remap[absolute_id] = replacement
+    for node in data.get("nodes", []):
+        if node.get("id") in remap:
+            node["id"] = remap[node["id"]]
+    for edge in data.get("links", data.get("edges", [])):
+        for endpoint in ("source", "target"):
+            if edge.get(endpoint) in remap:
+                edge[endpoint] = remap[edge[endpoint]]
+
+
 def _run_graphify(root: Path, view_entries: list[dict[str, Any]], output: Path) -> dict[str, Any]:
     installed = importlib.metadata.version(GRAPHIFY_DISTRIBUTION)
     if installed != GRAPHIFY_VERSION:
@@ -769,6 +817,7 @@ def _run_graphify(root: Path, view_entries: list[dict[str, Any]], output: Path) 
         if not export.to_json(graph, {}, str(output), force=True, built_at_commit=""):
             raise GraphifyProjectionError("Graphify refused to serialize the graph")
         data = json.loads(output.read_text(encoding="utf-8"))
+        _normalize_local_heading_ids(root, data)
     except GraphifyProjectionError:
         raise
     except Exception as exc:

@@ -1,0 +1,250 @@
+{
+  "schema_version": "knowledge-generator-comparison/1.0",
+  "study": "generator-evolution-g1",
+  "skill": "build-semantic-okf-knowledge-skill",
+  "task_phase": "construction",
+  "status": "independent-gate-unavailable",
+  "promoted": false,
+  "claim": "Declared-field construction correctness; no retrieval or answer-quality claim.",
+  "primary_metric": "binary construction correctness, pass threshold 1",
+  "required_metric": "source_unchanged >= 1 on every trial",
+  "development": {
+    "tasks_per_candidate": 8,
+    "source_schema_families": 2,
+    "baseline": {
+      "passed": 6,
+      "scored": 8,
+      "mean": 0.75,
+      "execution_errors": 0,
+      "sources_unchanged": 8,
+      "coverage_receipts": {
+        "passed": 0,
+        "eligible": 5
+      }
+    },
+    "candidate": {
+      "passed": 8,
+      "scored": 8,
+      "mean": 1.0,
+      "execution_errors": 0,
+      "sources_unchanged": 8,
+      "coverage_receipts": {
+        "passed": 5,
+        "eligible": 5
+      }
+    },
+    "paired_mean_gain": 0.25,
+    "fairness_basis": "lock-and-trial-results"
+  },
+  "validation": {
+    "status": "incomplete-not-evaluable",
+    "cohort_state": "consumed-once",
+    "source_schema_families": 3,
+    "role_aggregates": [
+      {
+        "completed_agent_executions_before_transport_failure": 2,
+        "execution_errors": 2,
+        "expected_trials": 8,
+        "native_job_completed": false,
+        "native_recorded_counts_at_abort": {
+          "n_cancelled_trials": 0,
+          "n_completed_trials": 2,
+          "n_errored_trials": 2,
+          "n_pending_trials": 5,
+          "n_retries": 0,
+          "n_running_trials": 1
+        },
+        "native_skill_digest_verified": "sha256:db2a2d8d09f6b4890035101fb294f9c1f4484414ea73240acf47800ac1dbf549",
+        "primary": {
+          "expected": 8,
+          "mean": null,
+          "observed": 0,
+          "passed": null,
+          "status": "unavailable"
+        },
+        "process_return_code": 1,
+        "recorded_terminal_trial_results": 2,
+        "reporting": {
+          "eligible": 5,
+          "mean": null,
+          "observed_eligible": 0,
+          "passed": null,
+          "status": "unavailable"
+        },
+        "role": "baseline",
+        "scored_trials": 0,
+        "source_unchanged": {
+          "observed": 0,
+          "passed": null,
+          "status": "unavailable",
+          "total": 8
+        },
+        "verifier_started": 0
+      },
+      {
+        "completed_agent_executions_before_transport_failure": 2,
+        "execution_errors": 2,
+        "expected_trials": 8,
+        "native_job_completed": false,
+        "native_recorded_counts_at_abort": {
+          "n_cancelled_trials": 0,
+          "n_completed_trials": 2,
+          "n_errored_trials": 2,
+          "n_pending_trials": 5,
+          "n_retries": 0,
+          "n_running_trials": 1
+        },
+        "native_skill_digest_verified": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940",
+        "primary": {
+          "expected": 8,
+          "mean": null,
+          "observed": 0,
+          "passed": null,
+          "status": "unavailable"
+        },
+        "process_return_code": 1,
+        "recorded_terminal_trial_results": 2,
+        "reporting": {
+          "eligible": 5,
+          "mean": null,
+          "observed_eligible": 0,
+          "passed": null,
+          "status": "unavailable"
+        },
+        "role": "winner",
+        "scored_trials": 0,
+        "source_unchanged": {
+          "observed": 0,
+          "passed": null,
+          "status": "unavailable",
+          "total": 8
+        },
+        "verifier_started": 0
+      }
+    ],
+    "attempt_policy": {
+      "attempts_per_task_configured": 1,
+      "launch_order": [
+        "baseline",
+        "winner"
+      ],
+      "retries_performed": 0,
+      "role_launches": 2
+    },
+    "interpretation": "Primary, source-preservation, and reporting measures are unavailable, not numeric zeros. The complete paired gate cannot be accepted from these attempts."
+  },
+  "preservation": {
+    "status": "pass",
+    "family_count": 8,
+    "rows": [
+      {
+        "family": "legacy",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "embeddings",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "classical",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "adaptive",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "entity-graph",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 5,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "ensemble",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 3,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "graphify",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "turso",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      }
+    ]
+  },
+  "candidate_unit_tests": {
+    "passed": 18,
+    "failed": 0,
+    "warnings": 0
+  },
+  "model_evaluation_calls": 0,
+  "identity": "deterministic-runtime/cpython-3.12",
+  "digests": {
+    "baseline_native_skill": "sha256:db2a2d8d09f6b4890035101fb294f9c1f4484414ea73240acf47800ac1dbf549",
+    "candidate_native_skill": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940",
+    "protocol_sha256": "53e152a0fc56c831d3063172c14a3851e331f79029d8e6e4c323220b728a64dc",
+    "independent_execution_receipt_sha256": "b57a54ea436a61e50b122b49d77df731b4eb61f7f869e447241efe665bdbeb46"
+  },
+  "limitations": [
+    "Small descriptive technical pilot; cases share source/schema families.",
+    "Independent confidentiality is a shared-host role boundary, not OS isolation.",
+    "No private reward was observed, so the gate cannot establish acceptance.",
+    "Receipt counts normalized content; raw source fidelity is not certified.",
+    "No autonomous model skill discovery or EnterpriseRAG ranking measurement."
+  ]
+}

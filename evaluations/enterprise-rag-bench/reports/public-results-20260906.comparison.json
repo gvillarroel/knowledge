@@ -1,0 +1,331 @@
+{
+  "schema_version": "final-report-comparison/1.0",
+  "report": "public-results-20260906.md",
+  "heading": "## Official public leaderboard",
+  "dataset_scope": {
+    "dataset_id": "enterpriserag-bench-official-v1.0.0",
+    "cohort": "official-public-500-question-leaderboard-snapshot-20260828",
+    "candidate_budget": "as-submitted; not a shared top-k budget across all systems",
+    "identity_grouping": "official released document identities and evaluator",
+    "metric_contract": "official-aggregate-csv-sha256:1c8b45b62883b7cec6c022951caddfbd76f20b042ac9378dd5a9eb2f55a7e1e2"
+  },
+  "metrics": [
+    {
+      "id": "overall_score",
+      "label": "Overall",
+      "unit": "score",
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2
+    },
+    {
+      "id": "correctness",
+      "label": "Correctness",
+      "unit": "percent",
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness",
+      "unit": "percent",
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2
+    },
+    {
+      "id": "recall",
+      "label": "Document recall",
+      "unit": "percent",
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2
+    },
+    {
+      "id": "invalid_extra_docs",
+      "label": "Invalid extra docs",
+      "unit": "count",
+      "aggregation": "mean",
+      "direction": "lower",
+      "display_precision": 2
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "metor-com",
+      "label": "metor.com",
+      "metrics": {
+        "overall_score": 80.34,
+        "correctness": 82.0,
+        "completeness": 86.22,
+        "recall": 85.53,
+        "invalid_extra_docs": 4.96
+      }
+    },
+    {
+      "id": "cdl-causal-dynamics-lab",
+      "label": "CDL (Causal Dynamics Lab)",
+      "metrics": {
+        "overall_score": 78.95,
+        "correctness": 82.0,
+        "completeness": 85.16,
+        "recall": 80.54,
+        "invalid_extra_docs": 14.08
+      }
+    },
+    {
+      "id": "troml",
+      "label": "Troml",
+      "metrics": {
+        "overall_score": 76.79,
+        "correctness": 83.8,
+        "completeness": 81.84,
+        "recall": 86.55,
+        "invalid_extra_docs": 12.65
+      }
+    },
+    {
+      "id": "skyller",
+      "label": "Skyller",
+      "metrics": {
+        "overall_score": 71.93,
+        "correctness": 77.0,
+        "completeness": 79.14,
+        "recall": 81.6,
+        "invalid_extra_docs": 8.86
+      }
+    },
+    {
+      "id": "openclaw",
+      "label": "OpenClaw",
+      "metrics": {
+        "overall_score": 68.22,
+        "correctness": 81.6,
+        "completeness": 72.86,
+        "recall": 79.02,
+        "invalid_extra_docs": 0.47
+      }
+    },
+    {
+      "id": "sovrarag-ch",
+      "label": "SovraRAG.ch",
+      "metrics": {
+        "overall_score": 65.61,
+        "correctness": 74.6,
+        "completeness": 72.37,
+        "recall": 78.8,
+        "invalid_extra_docs": 8.87
+      }
+    },
+    {
+      "id": "fgroo",
+      "label": "fgroo",
+      "metrics": {
+        "overall_score": 63.27,
+        "correctness": 71.0,
+        "completeness": 71.03,
+        "recall": 72.5,
+        "invalid_extra_docs": 0.63
+      }
+    },
+    {
+      "id": "openai-file-search",
+      "label": "OpenAI File Search",
+      "metrics": {
+        "overall_score": 61.03,
+        "correctness": 69.8,
+        "completeness": 67.87,
+        "recall": 71.65,
+        "invalid_extra_docs": 15.7
+      }
+    },
+    {
+      "id": "bash-agent-gpt-5-4-gpt-5-4",
+      "label": "Bash Agent (GPT-5.4) + GPT-5.4",
+      "metrics": {
+        "overall_score": 52.63,
+        "correctness": 60.6,
+        "completeness": 61.12,
+        "recall": 55.76,
+        "invalid_extra_docs": 2.0
+      }
+    },
+    {
+      "id": "bm25-gpt-5-4",
+      "label": "BM25 + GPT-5.4",
+      "metrics": {
+        "overall_score": 50.6,
+        "correctness": 68.8,
+        "completeness": 55.95,
+        "recall": 68.41,
+        "invalid_extra_docs": 9.01
+      }
+    },
+    {
+      "id": "ragflow",
+      "label": "RAGFlow",
+      "metrics": {
+        "overall_score": 50.24,
+        "correctness": 56.0,
+        "completeness": 58.74,
+        "recall": 63.05,
+        "invalid_extra_docs": 4.61
+      }
+    },
+    {
+      "id": "amazon-q-kendra",
+      "label": "Amazon Q (Kendra)",
+      "metrics": {
+        "overall_score": 48.96,
+        "correctness": 55.4,
+        "completeness": 60.65,
+        "recall": 70.38,
+        "invalid_extra_docs": 1.49
+      }
+    },
+    {
+      "id": "azure-ai-search",
+      "label": "Azure AI Search",
+      "metrics": {
+        "overall_score": 48.42,
+        "correctness": 56.4,
+        "completeness": 57.63,
+        "recall": 64.25,
+        "invalid_extra_docs": 3.25
+      }
+    },
+    {
+      "id": "hrag",
+      "label": "hRAG",
+      "metrics": {
+        "overall_score": 44.74,
+        "correctness": 52.6,
+        "completeness": 54.38,
+        "recall": 69.65,
+        "invalid_extra_docs": 9.01
+      }
+    },
+    {
+      "id": "cortexdb-kz",
+      "label": "CortexDB-KZ",
+      "metrics": {
+        "overall_score": 42.04,
+        "correctness": 47.4,
+        "completeness": 49.21,
+        "recall": 56.24,
+        "invalid_extra_docs": 9.2
+      }
+    },
+    {
+      "id": "vertex-ai-search",
+      "label": "Vertex AI Search",
+      "metrics": {
+        "overall_score": 41.87,
+        "correctness": 49.2,
+        "completeness": 55.45,
+        "recall": 61.76,
+        "invalid_extra_docs": 4.05
+      }
+    },
+    {
+      "id": "xfloor-ai",
+      "label": "xFloor.ai",
+      "metrics": {
+        "overall_score": 40.01,
+        "correctness": 53.0,
+        "completeness": 47.47,
+        "recall": 61.26,
+        "invalid_extra_docs": 0.73
+      }
+    },
+    {
+      "id": "nvidia-ai-blueprints",
+      "label": "NVIDIA AI Blueprints",
+      "metrics": {
+        "overall_score": 37.73,
+        "correctness": 59.6,
+        "completeness": 45.2,
+        "recall": 72.61,
+        "invalid_extra_docs": 7.72
+      }
+    },
+    {
+      "id": "vector-text-embedding-3-large-gpt-5-4",
+      "label": "Vector (text-embedding-3-large) + GPT-5.4",
+      "metrics": {
+        "overall_score": 37.72,
+        "correctness": 51.4,
+        "completeness": 42.94,
+        "recall": 46.03,
+        "invalid_extra_docs": 9.32
+      }
+    },
+    {
+      "id": "anythingllm",
+      "label": "AnythingLLM",
+      "metrics": {
+        "overall_score": 35.58,
+        "correctness": 47.8,
+        "completeness": 44.59,
+        "recall": 40.5,
+        "invalid_extra_docs": 3.31
+      }
+    },
+    {
+      "id": "weaviate-verba",
+      "label": "Weaviate Verba",
+      "metrics": {
+        "overall_score": 34.48,
+        "correctness": 41.4,
+        "completeness": 44.9,
+        "recall": 51.98,
+        "invalid_extra_docs": 1.81
+      }
+    },
+    {
+      "id": "cymatix-context",
+      "label": "Cymatix-Context",
+      "metrics": {
+        "overall_score": 33.93,
+        "correctness": 42.2,
+        "completeness": 42.74,
+        "recall": 50.7,
+        "invalid_extra_docs": 12.99
+      }
+    },
+    {
+      "id": "llamaindex-default-configs",
+      "label": "LlamaIndex (default configs)",
+      "metrics": {
+        "overall_score": 27.2,
+        "correctness": 32.4,
+        "completeness": 37.76,
+        "recall": 30.56,
+        "invalid_extra_docs": 1.49
+      }
+    },
+    {
+      "id": "langchain-default-configs",
+      "label": "LangChain (default configs)",
+      "metrics": {
+        "overall_score": 24.98,
+        "correctness": 31.0,
+        "completeness": 35.65,
+        "recall": 36.39,
+        "invalid_extra_docs": 3.15
+      }
+    },
+    {
+      "id": "open-webui-chroma",
+      "label": "Open WebUI + Chroma",
+      "metrics": {
+        "overall_score": 24.89,
+        "correctness": 32.4,
+        "completeness": 35.86,
+        "recall": 43.23,
+        "invalid_extra_docs": 2.62
+      }
+    }
+  ]
+}

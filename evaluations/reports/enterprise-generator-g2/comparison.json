@@ -1,0 +1,3996 @@
+{
+  "answer_quality_evaluated": false,
+  "binding_sha256": "5468e7a8694dda1b4721ce19b39a2fadb09ca40d4a4411e571ba30bb1fbadb67",
+  "builds": [
+    {
+      "build_seconds": {
+        "baseline": 116.55454799400002,
+        "g2": 116.56575210599999
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 30382407,
+        "g2": 30388183
+      },
+      "family": "legacy",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 183.25204120899997,
+        "g2": 182.73898563
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 41943271,
+        "g2": 41949047
+      },
+      "family": "embeddings",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 186.71618671399995,
+        "g2": 186.6663376119999
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 116712609,
+        "g2": 116718385
+      },
+      "family": "classical",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 186.38554997699998,
+        "g2": 186.2675628820001
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 116776661,
+        "g2": 116782437
+      },
+      "family": "adaptive",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 188.2642992189999,
+        "g2": 188.39704383100002
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 135416807,
+        "g2": 135422583
+      },
+      "family": "entity-graph",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 439.74451514299994,
+        "g2": 440.630561253
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 233397833,
+        "g2": 233403609
+      },
+      "family": "ensemble",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 726.7379887940001,
+        "g2": 726.7471119060001
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 40217902,
+        "g2": 40223678
+      },
+      "family": "graphify",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    },
+    {
+      "build_seconds": {
+        "baseline": 177.15882065200003,
+        "g2": 177.2465947300002
+      },
+      "changed_expert_files": [
+        "expert-manifest.json",
+        "references/source-coverage.json"
+      ],
+      "consultation_bytes_equal": true,
+      "coverage_audit_present": true,
+      "expert_bytes": {
+        "baseline": 141452717,
+        "g2": 141458493
+      },
+      "family": "turso",
+      "knowledge_bytes_equal": true,
+      "original_body_characters": 6291040,
+      "record_count": 985,
+      "source_count": 9
+    }
+  ],
+  "dataset_id": "enterprise-rag-generator-g2-fulltext-40",
+  "document_count": 985,
+  "embedding": {
+    "dimension": 384,
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "normalize": true,
+    "provider": "sentence-transformers",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  },
+  "ensemble_embedding": {
+    "dimension": 384,
+    "model_id": "knowledge-hashing-embedding",
+    "normalize": true,
+    "provider": "hashing",
+    "revision": "1"
+  },
+  "generator_versions": {
+    "baseline": {
+      "files": 248,
+      "native_skill_digest": "sha256:db2a2d8d09f6b4890035101fb294f9c1f4484414ea73240acf47800ac1dbf549"
+    },
+    "g2": {
+      "files": 249,
+      "native_skill_digest": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940"
+    }
+  },
+  "independent_corpus_count": 1,
+  "limitations": [
+    "Previously exposed, reference-enriched reduced corpus; no independent retrieval gate.",
+    "No model-generated answers or new semantic answer score.",
+    "One query pass per version; descriptive latency only, shared family caches.",
+    "MiniLM encodes bounded input; complete stored bodies do not imply full encoder coverage.",
+    "Ensemble uses its pinned hashing component; Legacy and Turso are historical comparator routes.",
+    "The first setup attempt rejected identical malformed guidance before builds or scoring.",
+    "The Turso comparator initially bypassed native temporary-copy consultation and failed before scoring. Both versions then used the same corrected adapter; original evidence is preserved."
+  ],
+  "llm_tokens": 0,
+  "local_compute_cost_usd": null,
+  "model_calls_llm": 0,
+  "paired_query_count": 720,
+  "pairs": [
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.666666666,
+              "ndcg_at_10": 0.5308925259999999,
+              "recall_at_10": 0.533333332
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8565086340000001,
+              "recall_at_10": 0.8666666660000001
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.728571428,
+              "ndcg_at_10": 0.792852616,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.9119047619047619,
+          "ndcg_at_10": 0.8883049656774915,
+          "recall_at_10": 0.925
+        },
+        "representative_p95_ms": 6.888123000010182
+      },
+      "family": "legacy",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.666666666,
+              "ndcg_at_10": 0.5308925259999999,
+              "recall_at_10": 0.533333332
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8565086340000001,
+              "recall_at_10": 0.8666666660000001
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.728571428,
+              "ndcg_at_10": 0.792852616,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.9119047619047619,
+          "ndcg_at_10": 0.8883049656774915,
+          "recall_at_10": 0.925
+        },
+        "representative_p95_ms": 6.841609000019844
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "legacy-lexical",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.85,
+              "ndcg_at_10": 0.734140456,
+              "recall_at_10": 0.7238095259999999
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9039239699999999,
+              "recall_at_10": 0.8666666660000001
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.95625,
+          "ndcg_at_10": 0.936304540860886,
+          "recall_at_10": 0.9488095238095238
+        },
+        "representative_p95_ms": 203.6774649999984
+      },
+      "family": "embeddings",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.85,
+              "ndcg_at_10": 0.734140456,
+              "recall_at_10": 0.7238095259999999
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9039239699999999,
+              "recall_at_10": 0.8666666660000001
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.95625,
+          "ndcg_at_10": 0.936304540860886,
+          "recall_at_10": 0.9488095238095238
+        },
+        "representative_p95_ms": 203.2279520000202
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "embeddings-lexical",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.8666666660000001,
+              "ndcg_at_10": 0.774285946,
+              "recall_at_10": 0.782539684
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.74,
+              "ndcg_at_10": 0.827001302,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.8666666660000001,
+              "ndcg_at_10": 0.9,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.67874223,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.3,
+              "ndcg_at_10": 0.32618595,
+              "recall_at_10": 0.4
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.7966666666666666,
+          "ndcg_at_10": 0.7698234162510728,
+          "recall_at_10": 0.8228174603174603
+        },
+        "representative_p95_ms": 188.06601
+      },
+      "family": "embeddings",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.8666666660000001,
+              "ndcg_at_10": 0.774285946,
+              "recall_at_10": 0.782539684
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.74,
+              "ndcg_at_10": 0.827001302,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.8666666660000001,
+              "ndcg_at_10": 0.9,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.67874223,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.3,
+              "ndcg_at_10": 0.32618595,
+              "recall_at_10": 0.4
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.7966666666666666,
+          "ndcg_at_10": 0.7698234162510728,
+          "recall_at_10": 0.8228174603174603
+        },
+        "representative_p95_ms": 176.4987450000035
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "embeddings-vector",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8609069139999999,
+              "recall_at_10": 0.836507936
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.930184186,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9154756340000001,
+              "recall_at_10": 0.95
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.528888888,
+              "ndcg_at_10": 0.637576562,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.8911111111111112,
+          "ndcg_at_10": 0.8837911552956079,
+          "recall_at_10": 0.9483134920634921
+        },
+        "representative_p95_ms": 395.32613000000083
+      },
+      "family": "embeddings",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8609069139999999,
+              "recall_at_10": 0.836507936
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.930184186,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9154756340000001,
+              "recall_at_10": 0.95
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.528888888,
+              "ndcg_at_10": 0.637576562,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.875,
+          "mrr_at_10": 0.8911111111111112,
+          "ndcg_at_10": 0.8837911552956079,
+          "recall_at_10": 0.9483134920634921
+        },
+        "representative_p95_ms": 388.35579900000994
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "embeddings-hybrid",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.914477628,
+              "recall_at_10": 0.8873015860000001
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.986987332,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.925,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9784563640837552,
+          "recall_at_10": 0.9859126984126985
+        },
+        "representative_p95_ms": 252.10128599997006
+      },
+      "family": "classical",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.914477628,
+              "recall_at_10": 0.8873015860000001
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.986987332,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.925,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9784563640837552,
+          "recall_at_10": 0.9859126984126985
+        },
+        "representative_p95_ms": 256.6515050000362
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "classical-bm25",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 249.49546100003772
+      },
+      "family": "classical",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 251.49491499996657
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "classical-topic",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 248.68561800008138
+      },
+      "family": "classical",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 251.537299000006
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "classical-association",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 247.8122990000884
+      },
+      "family": "classical",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.47742659,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.8226758780000001,
+              "recall_at_10": 0.75
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.8,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9032860526996371,
+          "recall_at_10": 0.8864087301587302
+        },
+        "representative_p95_ms": 252.2847579999734
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "classical-fusion",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.736172304,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9472490840000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9512009171481232,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 1590.0001679999605
+      },
+      "family": "adaptive",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.736172304,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9472490840000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9512009171481232,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 1608.3233839999593
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "adaptive-fusion",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.796992192,
+              "recall_at_10": 0.780952382
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9112102,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.975,
+          "ndcg_at_10": 0.9542985427782258,
+          "recall_at_10": 0.9601190476190476
+        },
+        "representative_p95_ms": 762.0951699998386
+      },
+      "family": "entity-graph",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.796992192,
+              "recall_at_10": 0.780952382
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9112102,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.975,
+          "ndcg_at_10": 0.9542985427782258,
+          "recall_at_10": 0.9601190476190476
+        },
+        "representative_p95_ms": 770.3478440000708
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "entity-graph-lexical",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.72063923,
+              "recall_at_10": 0.687301586
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8160558419999999,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.55,
+              "ndcg_at_10": 0.612321262,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.92759473,
+              "recall_at_10": 0.916666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.35,
+              "ndcg_at_10": 0.412321262,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.775,
+          "ndcg_at_10": 0.7518897847013254,
+          "recall_at_10": 0.8129960317460319
+        },
+        "representative_p95_ms": 771.2868859998707
+      },
+      "family": "entity-graph",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.4,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.72063923,
+              "recall_at_10": 0.687301586
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8160558419999999,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.55,
+              "ndcg_at_10": 0.612321262,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.92759473,
+              "recall_at_10": 0.916666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.35,
+              "ndcg_at_10": 0.412321262,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.775,
+          "ndcg_at_10": 0.7518897847013254,
+          "recall_at_10": 0.8129960317460319
+        },
+        "representative_p95_ms": 773.5796279998794
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "entity-graph-entity",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.628571428,
+              "ndcg_at_10": 0.666666666,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.366666666,
+              "ndcg_at_10": 0.22954331199999997,
+              "recall_at_10": 0.27777777800000003
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.666666666,
+              "ndcg_at_10": 0.635180394,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.8400000000000001,
+              "ndcg_at_10": 0.877370562,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.23333333399999998,
+              "ndcg_at_10": 0.32361333800000003,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.876844972,
+              "recall_at_10": 0.8833333339999999
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.286666666,
+              "ndcg_at_10": 0.357812966,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.625,
+          "mrr_at_10": 0.5652380952380953,
+          "ndcg_at_10": 0.5616522697347978,
+          "recall_at_10": 0.695138888888889
+        },
+        "representative_p95_ms": 764.7504480000862
+      },
+      "family": "entity-graph",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.628571428,
+              "ndcg_at_10": 0.666666666,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.366666666,
+              "ndcg_at_10": 0.22954331199999997,
+              "recall_at_10": 0.27777777800000003
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.666666666,
+              "ndcg_at_10": 0.635180394,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.8400000000000001,
+              "ndcg_at_10": 0.877370562,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.23333333399999998,
+              "ndcg_at_10": 0.32361333800000003,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.876844972,
+              "recall_at_10": 0.8833333339999999
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.286666666,
+              "ndcg_at_10": 0.357812966,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.625,
+          "mrr_at_10": 0.5652380952380953,
+          "ndcg_at_10": 0.5616522697347978,
+          "recall_at_10": 0.695138888888889
+        },
+        "representative_p95_ms": 769.9773869999262
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "entity-graph-traversal",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.85,
+              "ndcg_at_10": 0.625211412,
+              "recall_at_10": 0.5968253960000001
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.8452588759999999,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.825,
+              "ndcg_at_10": 0.8630929760000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.923378202,
+              "recall_at_10": 0.916666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.796875,
+          "ndcg_at_10": 0.7702106586862114,
+          "recall_at_10": 0.8266865079365079
+        },
+        "representative_p95_ms": 766.4974169999823
+      },
+      "family": "entity-graph",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.85,
+              "ndcg_at_10": 0.625211412,
+              "recall_at_10": 0.5968253960000001
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.8452588759999999,
+              "recall_at_10": 0.9
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.825,
+              "ndcg_at_10": 0.8630929760000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.923378202,
+              "recall_at_10": 0.916666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.796875,
+          "ndcg_at_10": 0.7702106586862114,
+          "recall_at_10": 0.8266865079365079
+        },
+        "representative_p95_ms": 776.1516240000219
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "entity-graph-fusion",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.775419704,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.951142282,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.9658202482680449,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 2337.991184999737
+      },
+      "family": "ensemble",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.775419704,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.951142282,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.9658202482680449,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 2308.265021999887
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "ensemble-fast",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.84488885,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.984207898,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.978637093564793,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 2838.135684000008
+      },
+      "family": "ensemble",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.84488885,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.984207898,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 1.0,
+          "ndcg_at_10": 0.978637093564793,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 2839.9758340001426
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "ensemble-quality",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.736172304,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9472490840000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9512009171481232,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 1577.5770949999242
+      },
+      "family": "ensemble",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.736172304,
+              "recall_at_10": 0.798412698
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.9472490840000001,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.92618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.9,
+          "mrr_at_10": 0.9875,
+          "ndcg_at_10": 0.9512009171481232,
+          "recall_at_10": 0.9748015873015874
+        },
+        "representative_p95_ms": 1570.694556000035
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "ensemble-robust",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.2,
+              "ndcg_at_10": 0.2,
+              "recall_at_10": 0.2
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.6,
+              "ndcg_at_10": 0.36281535000000004,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.247222222,
+              "ndcg_at_10": 0.235144998,
+              "recall_at_10": 0.4
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.066666666,
+              "ndcg_at_10": 0.1,
+              "recall_at_10": 0.2
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.35,
+              "ndcg_at_10": 0.412321262,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.4,
+              "ndcg_at_10": 0.209414802,
+              "recall_at_10": 0.166666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.15,
+          "mrr_at_10": 0.23298611111111112,
+          "ndcg_at_10": 0.18996205156626428,
+          "recall_at_10": 0.23849206349206348
+        },
+        "representative_p95_ms": 213.56681699990077
+      },
+      "family": "graphify",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.2,
+              "ndcg_at_10": 0.2,
+              "recall_at_10": 0.2
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.6,
+              "ndcg_at_10": 0.36281535000000004,
+              "recall_at_10": 0.341269842
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.247222222,
+              "ndcg_at_10": 0.235144998,
+              "recall_at_10": 0.4
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.066666666,
+              "ndcg_at_10": 0.1,
+              "recall_at_10": 0.2
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.35,
+              "ndcg_at_10": 0.412321262,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.4,
+              "ndcg_at_10": 0.209414802,
+              "recall_at_10": 0.166666666
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.0,
+              "mrr_at_10": 0.0,
+              "ndcg_at_10": 0.0,
+              "recall_at_10": 0.0
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.15,
+          "mrr_at_10": 0.23298611111111112,
+          "ndcg_at_10": 0.18996205156626428,
+          "recall_at_10": 0.23849206349206348
+        },
+        "representative_p95_ms": 208.93181200017352
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "graphify-search",
+      "unchanged_questions": 40
+    },
+    {
+      "baseline": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.766666666,
+              "ndcg_at_10": 0.82618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.32333333400000003,
+              "ndcg_at_10": 0.23527494799999998,
+              "recall_at_10": 0.355555556
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.959544578,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.428571428,
+              "ndcg_at_10": 0.46666666599999995,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.73845505,
+              "recall_at_10": 0.833333334
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.7148214285714285,
+          "ndcg_at_10": 0.694039143412453,
+          "recall_at_10": 0.773611111111111
+        },
+        "representative_p95_ms": 384.8506479999969
+      },
+      "family": "turso",
+      "g2": {
+        "categories": {
+          "basic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 0.766666666,
+              "ndcg_at_10": 0.82618595,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "completeness": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.2,
+              "mrr_at_10": 0.32333333400000003,
+              "ndcg_at_10": 0.23527494799999998,
+              "recall_at_10": 0.355555556
+            },
+            "question_count": 5
+          },
+          "conflicting_info": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 0.959544578,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "constrained": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 1.0,
+              "mrr_at_10": 1.0,
+              "ndcg_at_10": 1.0,
+              "recall_at_10": 1.0
+            },
+            "question_count": 5
+          },
+          "intra_document_reasoning": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.428571428,
+              "ndcg_at_10": 0.46666666599999995,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          },
+          "miscellaneous": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.8,
+              "mrr_at_10": 0.8,
+              "ndcg_at_10": 0.8,
+              "recall_at_10": 0.8
+            },
+            "question_count": 5
+          },
+          "project_related": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.9,
+              "ndcg_at_10": 0.73845505,
+              "recall_at_10": 0.833333334
+            },
+            "question_count": 5
+          },
+          "semantic": {
+            "metrics": {
+              "full_qrel_coverage_at_10": 0.6,
+              "mrr_at_10": 0.5,
+              "ndcg_at_10": 0.52618595,
+              "recall_at_10": 0.6
+            },
+            "question_count": 5
+          }
+        },
+        "metrics": {
+          "full_qrel_coverage_at_10": 0.725,
+          "mrr_at_10": 0.7148214285714285,
+          "ndcg_at_10": 0.694039143412453,
+          "recall_at_10": 0.773611111111111
+        },
+        "representative_p95_ms": 379.1163510000004
+      },
+      "identical_rankings": 40,
+      "improved_questions": 0,
+      "metric_deltas": {
+        "full_qrel_coverage_at_10": 0.0,
+        "mrr_at_10": 0.0,
+        "ndcg_at_10": 0.0,
+        "recall_at_10": 0.0
+      },
+      "paired_questions": 40,
+      "regressed_questions": 0,
+      "route": "turso-lexical-sql",
+      "unchanged_questions": 40
+    }
+  ],
+  "private_validation_released": false,
+  "promotion_eligible": false,
+  "provider_cost_usd": 0,
+  "push_decision": "not-pushed-condition-not-met",
+  "query_executions": 1440,
+  "question_count": 40,
+  "ranking": [
+    {
+      "family": "ensemble",
+      "label": "Incoming / Quality",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.978637093564793,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 2838.135684000008,
+      "strategy_id": "baseline-ensemble-quality",
+      "version": "baseline"
+    },
+    {
+      "family": "ensemble",
+      "label": "G2 / Quality",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.978637093564793,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 2839.9758340001426,
+      "strategy_id": "g2-ensemble-quality",
+      "version": "g2"
+    },
+    {
+      "family": "classical",
+      "label": "Incoming / BM25",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.925,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9784563640837552,
+        "recall_at_10": 0.9859126984126985
+      },
+      "representative_p95_ms": 252.10128599997006,
+      "strategy_id": "baseline-classical-bm25",
+      "version": "baseline"
+    },
+    {
+      "family": "classical",
+      "label": "G2 / BM25",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.925,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9784563640837552,
+        "recall_at_10": 0.9859126984126985
+      },
+      "representative_p95_ms": 256.6515050000362,
+      "strategy_id": "g2-classical-bm25",
+      "version": "g2"
+    },
+    {
+      "family": "ensemble",
+      "label": "Incoming / Fast",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9658202482680449,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 2337.991184999737,
+      "strategy_id": "baseline-ensemble-fast",
+      "version": "baseline"
+    },
+    {
+      "family": "ensemble",
+      "label": "G2 / Fast",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.9658202482680449,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 2308.265021999887,
+      "strategy_id": "g2-ensemble-fast",
+      "version": "g2"
+    },
+    {
+      "family": "entity-graph",
+      "label": "Incoming / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.975,
+        "ndcg_at_10": 0.9542985427782258,
+        "recall_at_10": 0.9601190476190476
+      },
+      "representative_p95_ms": 762.0951699998386,
+      "strategy_id": "baseline-entity-graph-lexical",
+      "version": "baseline"
+    },
+    {
+      "family": "entity-graph",
+      "label": "G2 / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.975,
+        "ndcg_at_10": 0.9542985427782258,
+        "recall_at_10": 0.9601190476190476
+      },
+      "representative_p95_ms": 770.3478440000708,
+      "strategy_id": "g2-entity-graph-lexical",
+      "version": "g2"
+    },
+    {
+      "family": "adaptive",
+      "label": "Incoming / Adaptive fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9512009171481232,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 1590.0001679999605,
+      "strategy_id": "baseline-adaptive-fusion",
+      "version": "baseline"
+    },
+    {
+      "family": "ensemble",
+      "label": "Incoming / Robust",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9512009171481232,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 1577.5770949999242,
+      "strategy_id": "baseline-ensemble-robust",
+      "version": "baseline"
+    },
+    {
+      "family": "adaptive",
+      "label": "G2 / Adaptive fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9512009171481232,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 1608.3233839999593,
+      "strategy_id": "g2-adaptive-fusion",
+      "version": "g2"
+    },
+    {
+      "family": "ensemble",
+      "label": "G2 / Robust",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.9,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9512009171481232,
+        "recall_at_10": 0.9748015873015874
+      },
+      "representative_p95_ms": 1570.694556000035,
+      "strategy_id": "g2-ensemble-robust",
+      "version": "g2"
+    },
+    {
+      "family": "embeddings",
+      "label": "Incoming / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.95625,
+        "ndcg_at_10": 0.936304540860886,
+        "recall_at_10": 0.9488095238095238
+      },
+      "representative_p95_ms": 203.6774649999984,
+      "strategy_id": "baseline-embeddings-lexical",
+      "version": "baseline"
+    },
+    {
+      "family": "embeddings",
+      "label": "G2 / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.95625,
+        "ndcg_at_10": 0.936304540860886,
+        "recall_at_10": 0.9488095238095238
+      },
+      "representative_p95_ms": 203.2279520000202,
+      "strategy_id": "g2-embeddings-lexical",
+      "version": "g2"
+    },
+    {
+      "family": "classical",
+      "label": "Incoming / Association",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 248.68561800008138,
+      "strategy_id": "baseline-classical-association",
+      "version": "baseline"
+    },
+    {
+      "family": "classical",
+      "label": "Incoming / Fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 247.8122990000884,
+      "strategy_id": "baseline-classical-fusion",
+      "version": "baseline"
+    },
+    {
+      "family": "classical",
+      "label": "Incoming / Topic",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 249.49546100003772,
+      "strategy_id": "baseline-classical-topic",
+      "version": "baseline"
+    },
+    {
+      "family": "classical",
+      "label": "G2 / Association",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 251.537299000006,
+      "strategy_id": "g2-classical-association",
+      "version": "g2"
+    },
+    {
+      "family": "classical",
+      "label": "G2 / Fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 252.2847579999734,
+      "strategy_id": "g2-classical-fusion",
+      "version": "g2"
+    },
+    {
+      "family": "classical",
+      "label": "G2 / Topic",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.8,
+        "mrr_at_10": 0.9875,
+        "ndcg_at_10": 0.9032860526996371,
+        "recall_at_10": 0.8864087301587302
+      },
+      "representative_p95_ms": 251.49491499996657,
+      "strategy_id": "g2-classical-topic",
+      "version": "g2"
+    },
+    {
+      "family": "legacy",
+      "label": "Incoming / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.9119047619047619,
+        "ndcg_at_10": 0.8883049656774915,
+        "recall_at_10": 0.925
+      },
+      "representative_p95_ms": 6.888123000010182,
+      "strategy_id": "baseline-legacy-lexical",
+      "version": "baseline"
+    },
+    {
+      "family": "legacy",
+      "label": "G2 / Lexical",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.9119047619047619,
+        "ndcg_at_10": 0.8883049656774915,
+        "recall_at_10": 0.925
+      },
+      "representative_p95_ms": 6.841609000019844,
+      "strategy_id": "g2-legacy-lexical",
+      "version": "g2"
+    },
+    {
+      "family": "embeddings",
+      "label": "Incoming / Hybrid",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.8911111111111112,
+        "ndcg_at_10": 0.8837911552956079,
+        "recall_at_10": 0.9483134920634921
+      },
+      "representative_p95_ms": 395.32613000000083,
+      "strategy_id": "baseline-embeddings-hybrid",
+      "version": "baseline"
+    },
+    {
+      "family": "embeddings",
+      "label": "G2 / Hybrid",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.875,
+        "mrr_at_10": 0.8911111111111112,
+        "ndcg_at_10": 0.8837911552956079,
+        "recall_at_10": 0.9483134920634921
+      },
+      "representative_p95_ms": 388.35579900000994,
+      "strategy_id": "g2-embeddings-hybrid",
+      "version": "g2"
+    },
+    {
+      "family": "entity-graph",
+      "label": "Incoming / Fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.796875,
+        "ndcg_at_10": 0.7702106586862114,
+        "recall_at_10": 0.8266865079365079
+      },
+      "representative_p95_ms": 766.4974169999823,
+      "strategy_id": "baseline-entity-graph-fusion",
+      "version": "baseline"
+    },
+    {
+      "family": "entity-graph",
+      "label": "G2 / Fusion",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.796875,
+        "ndcg_at_10": 0.7702106586862114,
+        "recall_at_10": 0.8266865079365079
+      },
+      "representative_p95_ms": 776.1516240000219,
+      "strategy_id": "g2-entity-graph-fusion",
+      "version": "g2"
+    },
+    {
+      "family": "embeddings",
+      "label": "Incoming / Vector",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.7966666666666666,
+        "ndcg_at_10": 0.7698234162510728,
+        "recall_at_10": 0.8228174603174603
+      },
+      "representative_p95_ms": 188.06601,
+      "strategy_id": "baseline-embeddings-vector",
+      "version": "baseline"
+    },
+    {
+      "family": "embeddings",
+      "label": "G2 / Vector",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.7966666666666666,
+        "ndcg_at_10": 0.7698234162510728,
+        "recall_at_10": 0.8228174603174603
+      },
+      "representative_p95_ms": 176.4987450000035,
+      "strategy_id": "g2-embeddings-vector",
+      "version": "g2"
+    },
+    {
+      "family": "entity-graph",
+      "label": "Incoming / Entity",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.775,
+        "ndcg_at_10": 0.7518897847013254,
+        "recall_at_10": 0.8129960317460319
+      },
+      "representative_p95_ms": 771.2868859998707,
+      "strategy_id": "baseline-entity-graph-entity",
+      "version": "baseline"
+    },
+    {
+      "family": "entity-graph",
+      "label": "G2 / Entity",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.775,
+        "ndcg_at_10": 0.7518897847013254,
+        "recall_at_10": 0.8129960317460319
+      },
+      "representative_p95_ms": 773.5796279998794,
+      "strategy_id": "g2-entity-graph-entity",
+      "version": "g2"
+    },
+    {
+      "family": "turso",
+      "label": "Incoming / Lexical SQL comparator",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.7148214285714285,
+        "ndcg_at_10": 0.694039143412453,
+        "recall_at_10": 0.773611111111111
+      },
+      "representative_p95_ms": 384.8506479999969,
+      "strategy_id": "baseline-turso-lexical-sql",
+      "version": "baseline"
+    },
+    {
+      "family": "turso",
+      "label": "G2 / Lexical SQL comparator",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.725,
+        "mrr_at_10": 0.7148214285714285,
+        "ndcg_at_10": 0.694039143412453,
+        "recall_at_10": 0.773611111111111
+      },
+      "representative_p95_ms": 379.1163510000004,
+      "strategy_id": "g2-turso-lexical-sql",
+      "version": "g2"
+    },
+    {
+      "family": "entity-graph",
+      "label": "Incoming / Traversal",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.625,
+        "mrr_at_10": 0.5652380952380953,
+        "ndcg_at_10": 0.5616522697347978,
+        "recall_at_10": 0.695138888888889
+      },
+      "representative_p95_ms": 764.7504480000862,
+      "strategy_id": "baseline-entity-graph-traversal",
+      "version": "baseline"
+    },
+    {
+      "family": "entity-graph",
+      "label": "G2 / Traversal",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.625,
+        "mrr_at_10": 0.5652380952380953,
+        "ndcg_at_10": 0.5616522697347978,
+        "recall_at_10": 0.695138888888889
+      },
+      "representative_p95_ms": 769.9773869999262,
+      "strategy_id": "g2-entity-graph-traversal",
+      "version": "g2"
+    },
+    {
+      "family": "graphify",
+      "label": "Incoming / Graph search",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.15,
+        "mrr_at_10": 0.23298611111111112,
+        "ndcg_at_10": 0.18996205156626428,
+        "recall_at_10": 0.23849206349206348
+      },
+      "representative_p95_ms": 213.56681699990077,
+      "strategy_id": "baseline-graphify-search",
+      "version": "baseline"
+    },
+    {
+      "family": "graphify",
+      "label": "G2 / Graph search",
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.15,
+        "mrr_at_10": 0.23298611111111112,
+        "ndcg_at_10": 0.18996205156626428,
+        "recall_at_10": 0.23849206349206348
+      },
+      "representative_p95_ms": 208.93181200017352,
+      "strategy_id": "g2-graphify-search",
+      "version": "g2"
+    }
+  ],
+  "repetitions": 1,
+  "result": "identical-retrieval",
+  "runtime_image": "sha256:01339d300da742ba89d3d8ff101ffa12252ed7cf056b68f5a00ef1257b53cc80",
+  "schema_version": "enterprise-generator-replay/1.0",
+  "semantic_retries": 0,
+  "source_bindings": {
+    "adaptive/baseline/build": "c90b5eaa426eb43c96e2c79e5871b7da0b2e8d038a213506e857fb7c3a6b5d57",
+    "adaptive/baseline/score": "a616e5ca18966b78db7af14fd6b4833405ce699f651855924d1fee4d052c2f31",
+    "adaptive/g2/build": "ba2b2f3527cb4ded1087fdb5876ea5a088f0e5d5a116ad9aed9d2c0f6baec9e9",
+    "adaptive/g2/score": "4fb0d8256146717a54532a5af52a45eb0e6dafed0aadafc997a8315e3868cae1",
+    "classical/baseline/build": "4496a4ea2ea758e46d0ba642ec26509e2e035968834aba1b95484b0eefad26b4",
+    "classical/baseline/score": "102381300c13b9b99c555eda5a43237855a29e25d6e83e63a3c469c16b64292c",
+    "classical/g2/build": "e0a02dc1e84595400f43487ee30efeb6393237babcffddba9cb628667f62c9f0",
+    "classical/g2/score": "ffcaccf26910012d874d78012bfeeea2c8636b900f275d1e8811abb1b2660c1e",
+    "embeddings/baseline/build": "1704ab2fa92f9e9d8f8cb4d56216ac98b13ba6b9361066898bd329e493af54f6",
+    "embeddings/baseline/score": "234f4c5b6129d95c3b479245b37824aa937dd203d077a7edbcb6d7c53e53e1cc",
+    "embeddings/g2/build": "04def2fc2743411a2c9409e6015eed3f0b3fec60f55aa9ff8792a1d6a2f1fb31",
+    "embeddings/g2/score": "0b4ab9915749535f1ad77625ef623f35a3bd8adc5181c089e3053538e71c5cfe",
+    "ensemble/baseline/build": "b292f86b3b0110cc83d1a478f2e84fbcf2676e98ff47ef6b2559a838710dc898",
+    "ensemble/baseline/score": "d2da5c41fc62b90107f305e6b9226c692dda743d671e958065b493bbc5a61f34",
+    "ensemble/g2/build": "4dabe7b676a0532a79a717148a867844b2fcd2e6e688b03412f3677dd6ca80da",
+    "ensemble/g2/score": "053b763203560152fb4b1c99f6e3f93c195393222d621b627ee17cde55ceb756",
+    "entity-graph/baseline/build": "ce6bdca2a7c1ab1307440689341ebb287caa5402a4adfde7e0a16847a753c160",
+    "entity-graph/baseline/score": "78e465a52a54475f7a93671c2a426ee61f220c0f26634334614695668623e4fe",
+    "entity-graph/g2/build": "3b0142d8fbf9f5e06216a6c1d89a12c283e96b412d934a4e2b006a6c6d753803",
+    "entity-graph/g2/score": "944777497da74571b072ecf5e55188d66c7375d577053c9e6db3ee8efd211e3e",
+    "graphify/baseline/build": "8afe50bf915ff730f51a74e6a8b654291acfc5eba4579bd195083a08ef15844e",
+    "graphify/baseline/score": "24a1536a2f6caa304ce6d68043192ad9a8efc8ce219480ca229daa1b8e590bc0",
+    "graphify/g2/build": "997dec35ab5f20be98030543a780e3ed751810b35e7e02cdcd43a17550000b50",
+    "graphify/g2/score": "68c1eac48d60ba1f7cfc7f710d32bcc56951d7d269f5bd5f7a93af8533de5247",
+    "legacy/baseline/build": "4b96442f11904dbd80d453dafe1035c17c4ecefea26cf59c8caeee0177ef0d0f",
+    "legacy/baseline/score": "d490c843d17a2da5a0a826342e6602ebcb12db016171cf83d2db876029e898d2",
+    "legacy/g2/build": "fc4e87dd36ad6e8c7ad90935b36876ce85d043b7dbf4fa1b4b9f32c59fefe090",
+    "legacy/g2/score": "145012f12b7a6d408957719d7c95e32a3cbcfc4d0fcbe5a18a2a18d884f1846b",
+    "turso/baseline/build": "6b8d8ed22a99b1e4003246917ce45ab23f398d0e8b70ce4f3380348ce0420bee",
+    "turso/baseline/score": "3476572feee6f8a09c14847253734ac632e587022c6e2f49261a14469d3a6b50",
+    "turso/g2/build": "8027418f21efff985c7f8cfc7e260d986164439722b580dbcf406009a46d5b39",
+    "turso/g2/score": "cca71808de9600581e3629b01f2eaaf1ac803f354e7beb21038334c5429a1fe5"
+  },
+  "source_count": 9,
+  "status": "pass",
+  "strategy_count": 18,
+  "top_k": 10,
+  "turso_adapter_amendment_sha256": "7e8687995ecc60c058acf619582b1ac5b43414db12b7a924537b77149783f66f",
+  "turso_connection_failure_before_queries": 1,
+  "version_count": 2
+}

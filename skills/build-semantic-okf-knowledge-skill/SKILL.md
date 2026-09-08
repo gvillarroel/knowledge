@@ -42,7 +42,12 @@ assets/families/FAMILY/consultant/references/
 1. Freeze intended questions, authority boundaries, evidence identities,
    runtime constraints, and acceptance gates.
 2. Select one family from the matrix in `family-contracts.md`. Use its exact
-   source manifest and, when required, its closed plan.
+   source manifest and, when required, its closed plan. For structured sources,
+   explicitly map the fields that must become knowledge; a field's `schema`
+   declaration alone does not retain its content. JSON/CSV schemas with fields
+   beyond identity/title require an explicit `fields` object. A partial map
+   deliberately omits the remaining fields; `fields: {}` deliberately selects
+   titles only. The generator rejects an absent decision before construction.
 3. Author UTF-8 reviewed guidance with exactly one H1 and these headings:
 
    - `## Scope`
@@ -59,7 +64,13 @@ assets/families/FAMILY/consultant/references/
    directory whose basename equals `--name`.
 6. Run the independent validator, deterministic `--check` rebuild, generated
    runtime smoke, deep generated verification, and representative search/get
-   operations.
+   operations. Review the bound `references/source-coverage.json` for omitted
+   fields, source scope, normalized value counts, and body character counts.
+   Its `raw_source_fidelity_verified: false` is deliberate: this receipt audits
+   declarations and normalized records. Compare intended source text with normalized records and retrieval
+   text using the adapter's documented rendering rules. Record counts alone can
+   pass even when a long document has been reduced to its title. Complete storage
+   also does not imply that a bounded embedding encoder processed every token.
 7. On every claimed dataset, compare the generated expert against the exact
    separate builder/consultant pair with identical input, plan, question,
    route, filters, and cutoff. Require byte-identical knowledge, identical

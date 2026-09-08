@@ -1,0 +1,68 @@
+{
+  "alternatives": [
+    {
+      "id": "specialized-expert-retrospective-supervised-ngram",
+      "label": "specialized-expert / retrospective-supervised-ngram",
+      "metrics": {
+        "mrr_at_10": 100.0,
+        "ndcg_at_10": 100.0,
+        "p95_ms": 34.006,
+        "recall_at_10": 100.0
+      }
+    },
+    {
+      "id": "specialized-expert-baseline-lexical",
+      "label": "specialized-expert / baseline-lexical",
+      "metrics": {
+        "mrr_at_10": 27.4018,
+        "ndcg_at_10": 36.6713,
+        "p95_ms": 123.55,
+        "recall_at_10": 74.5833
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "quantum-error-correction-papers-40",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:4e9aca1f74f6ac6590f037f3baf87c5840b9c18e982ccf296f44ea18f7c4def6"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "quantum-error-correction-papers-40.md",
+  "schema_version": "final-report-comparison/1.0"
+}

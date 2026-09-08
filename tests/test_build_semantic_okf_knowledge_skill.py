@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import importlib.util
+import csv
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,7 +19,10 @@ import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SKILL_ROOT = REPO_ROOT / "skills" / "build-semantic-okf-knowledge-skill"
+SKILL_ROOT = Path(os.environ.get(
+    "SEMANTIC_OKF_GENERATOR_UNDER_TEST",
+    REPO_ROOT / "skills" / "build-semantic-okf-knowledge-skill",
+))
 SCRIPTS = SKILL_ROOT / "scripts"
 BUILD = SCRIPTS / "build_semantic_okf_knowledge_skill.py"
 VALIDATE = SCRIPTS / "validate_semantic_okf_knowledge_skill.py"
@@ -44,6 +49,7 @@ def _run(*arguments: object, cwd: Path = REPO_ROOT) -> subprocess.CompletedProce
     environment = os.environ.copy()
     environment.pop("PYTHONPATH", None)
     environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    environment["PYTHONIOENCODING"] = "utf-8"
     environment["HF_HUB_OFFLINE"] = "1"
     environment["TRANSFORMERS_OFFLINE"] = "1"
     return subprocess.run(
@@ -503,3 +509,129 @@ def test_canonical_multi_family_parity_report_is_complete_and_passing() -> None:
     assert totals["native_payload_mismatches"] == 0
     assert totals["facade_payload_mismatches"] == 0
     assert "not a new model-judged Harbor" in report["boundary"]
+
+
+def _selection_fixture(root: Path, kind: str) -> tuple[Path, Path]:
+    manifest, guidance = _write_fixture(root)
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    data["rules"] = []
+    source = data["sources"][0]
+    if kind == "csv":
+        raw = root / source["path"]
+        rows = [json.loads(line) for line in raw.read_text(encoding="utf-8").splitlines()]
+        rows[0]["summary"] = 'Quoted "evidence", with <markup> & accents: café.\nA second line.'
+        source.update(kind="csv", path="sources/documents.csv", options={"multiLine": True})
+        with (root / source["path"]).open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+    _write_json(manifest, data)
+    return manifest, guidance
+
+
+@pytest.mark.parametrize("kind", ["json", "csv"])
+def test_generator_rejects_implicit_content_omission_before_publication(tmp_path: Path, kind: str) -> None:
+    manifest, guidance = _selection_fixture(tmp_path, kind)
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    data["sources"][0].pop("fields")
+    _write_json(manifest, data)
+    before = _tree_bytes(tmp_path)
+    output = tmp_path / "explicit-selection-expert"
+    rejected = _run(*_build_arguments(manifest, guidance, output))
+    assert rejected.returncode == 2
+    error = json.loads(rejected.stdout)
+    assert error["code"] == "knowledge-skill-error"
+    assert "fields" in error["error"] and "documents" in error["error"]
+    assert not output.exists()
+    assert _tree_bytes(tmp_path) == before
+
+
+@pytest.mark.parametrize("kind", ["json", "csv"])
+@pytest.mark.parametrize("fields", [{}, {"summary": "summary"}, {"summary": "summary", "code": "code"}])
+def test_generator_audits_authoritative_selective_and_empty_mappings(tmp_path: Path, kind: str, fields: dict) -> None:
+    manifest, guidance = _selection_fixture(tmp_path, kind)
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    source = data["sources"][0]
+    source["fields"] = fields
+    _write_json(manifest, data)
+    output = tmp_path / "selected-source-expert"
+    built = _run(*_build_arguments(manifest, guidance, output))
+    assert built.returncode == 0, built.stderr or built.stdout
+    receipt_path = output / "references/source-coverage.json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    records = [json.loads(line) for line in (output / "references/knowledge/semantic/records.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert receipt["raw_source_fidelity_verified"] is False
+    assert receipt["source_manifest_sha256"] == hashlib.sha256(manifest.read_bytes()).hexdigest()
+    row, = receipt["sources"]
+    assert row["kind"] == kind and row["mapping_explicit"] is True
+    assert row["scope"] == ("mapped-fields" if fields else "title-only")
+    assert row["mapped_fields"] == sorted(fields)
+    assert row["omitted_fields"] == sorted({"summary", "code"} - set(fields))
+    assert row["record_count"] == 2
+    assert row["mapped_value_count"] == 2 * len(fields)
+    assert row["null_mapped_value_count"] == 0
+    assert row["text_characters"] == sum(len(record["body"]) for record in records)
+    assert all(set(record["attributes"]) == set(fields) for record in records)
+    bound = json.loads((output / "expert-manifest.json").read_text(encoding="utf-8"))
+    assert any(item["path"] == "references/source-coverage.json" for item in bound["artifacts"])
+    before = _tree_bytes(output)
+    checked = _run(*_build_arguments(manifest, guidance, output), "--check")
+    assert checked.returncode == 0, checked.stdout
+    assert _tree_bytes(output) == before
+    receipt["raw_source_fidelity_verified"] = True
+    _write_json(receipt_path, receipt)
+    assert _run(VALIDATE, output, "--deep-validation").returncode != 0
+
+
+def test_identity_only_schema_needs_no_additional_field_decision(tmp_path: Path) -> None:
+    manifest, guidance = _selection_fixture(tmp_path, "json")
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    source = data["sources"][0]
+    source.pop("fields")
+    source["schema"] = {"id": "string", "title": "string"}
+    raw = tmp_path / source["path"]
+    rows = [json.loads(line) for line in raw.read_text(encoding="utf-8").splitlines()]
+    raw.write_text("".join(json.dumps({key: row[key] for key in ("id", "title")}) + "\n" for row in rows), encoding="utf-8")
+    _write_json(manifest, data)
+    output = tmp_path / "title-source-expert"
+    built = _run(*_build_arguments(manifest, guidance, output))
+    assert built.returncode == 0, built.stdout
+    row, = json.loads((output / "references/source-coverage.json").read_text())["sources"]
+    assert row["scope"] == "title-only" and row["mapping_explicit"] is False
+    assert row["omitted_fields"] == []
+
+
+def test_source_coverage_counts_null_native_empty_and_derived_records(tmp_path: Path) -> None:
+    sys.path.insert(0, str(SCRIPTS))
+    try:
+        spec = importlib.util.spec_from_file_location("generator_coverage_under_test", SCRIPTS / "_source_coverage.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.remove(str(SCRIPTS))
+    sources = [
+        {"id": "structured", "kind": "json", "schema": {"id": "string", "body": "string"}, "id_field": "id", "title_field": "id", "fields": {"body": "body"}},
+        {"id": "native", "kind": "markdown", "fields": {"title": "title"}},
+        {"id": "empty", "kind": "json", "schema": {"id": "string"}, "id_field": "id", "title_field": "id", "fields": {}},
+    ]
+    records = [
+        {"source_id": "structured", "record_id": "a", "attributes": {"body": None}, "body": "# A\n"},
+        {"source_id": "structured", "record_id": "b", "attributes": {"body": ""}, "body": "# B\n"},
+        {"source_id": "native", "record_id": "c", "attributes": {"title": "C"}, "body": "# C\nNative content."},
+        {"source_id": "logical", "record_id": "d", "attributes": {}, "body": "Derived evidence."},
+    ]
+    (tmp_path / "semantic").mkdir()
+    ledger = tmp_path / "semantic/records.jsonl"
+    ledger.write_text("".join(json.dumps(row) + "\n" for row in records), encoding="utf-8")
+    receipt = module.source_coverage(sources, "a" * 64, tmp_path)
+    by_id = {row["source_id"]: row for row in receipt["sources"]}
+    assert by_id["structured"]["null_mapped_value_count"] == 1
+    assert by_id["structured"]["mapped_value_count"] == 1
+    assert by_id["structured"]["identity_fields"] == ["id"]
+    assert by_id["native"]["scope"] == "native" and by_id["native"]["mapped_value_count"] == 1
+    assert by_id["empty"]["record_count"] == 0
+    assert by_id["logical"]["scope"] == "derived" and by_id["logical"]["mapping_explicit"] is False
+    records[0]["attributes"] = {}
+    ledger.write_text("".join(json.dumps(row) + "\n" for row in records), encoding="utf-8")
+    with pytest.raises(module.DirectSkillError, match="lost declared fields"):
+        module.source_coverage(sources, "a" * 64, tmp_path)

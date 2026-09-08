@@ -4,6 +4,20 @@ This directory contains reproducible evaluation definitions, validators, and
 compact reviewed documentation. Large or sensitive evaluation data stays local
 and is ignored by Git.
 
+Start with the [report hub](reports/README.md) for results by dataset and skill,
+the [CTA view](reports/cta/README.md) for cost/time/quality, and the
+[EnterpriseRAG-Bench guide](../docs/evaluation-datasets-and-reports.md) to
+reproduce the new local reduced-corpus comparison.
+
+The [2026-09-06 verification report](reports/validation/20260906-verification.md)
+records the executed tests, coverage, data migration, and reproducibility checks.
+
+The [skill evolution roadmap](../docs/knowledge-skill-evolution-roadmap.md)
+explains how to improve the current families with bounded retrieval and agent
+experiments. Its [readiness inventory](reports/evolution/20260906-readiness.md)
+binds the inspected skill versions and records the independent-validation
+prerequisites; it is not a scored comparison.
+
 ## Authoring new Harbor datasets
 
 Use the standalone

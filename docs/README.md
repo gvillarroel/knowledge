@@ -10,6 +10,22 @@
 - [Reliable Confluence synchronization](confluence-sync.md)
 - [Specification](../SPEC.md)
 - [Knowledge skill evolution playbook](knowledge-skill-evolution-playbook.md)
+- [Skill evolution roadmap: current rankings, candidate priorities, and independent validation](knowledge-skill-evolution-roadmap.md)
+- [Native retrieval-profile evolution: execution, isolation, and one-way validation](retrieval-profile-evolution.md)
+- [Combined development comparisons across generations](retrieval-profile-evolution.md#compare-both-generations)
+- [Exact source copies of the native campaign helpers](../evaluations/skill-evolution/campaign-tools/README.md)
+- [Native generation preflight and complete merge lineage](../.specs/adr/0120-preflight-native-profile-and-complete-merge-lineage.md)
+- [Interrupted evolution: evidence preservation and terminal closure](../.specs/adr/0121-preserve-interrupted-evolution-without-manufacturing-completion.md)
+- [Enterprise evolution: three consecutive misses per strategy and all eight knowledge families](enterprise-evolution-sweep.md)
+- [Enterprise evolution campaign status and reports](../evaluations/reports/evolution/e6/README.md)
+- [Completed Enterprise application-skill experiment: findings and retained ingestion checks](enterprise-source-skills.md)
+- [Generator evolution: explicit source selection and independent construction acceptance](../.specs/adr/0126-evolve-generator-explicit-source-selection.md)
+- [Using and evaluating the evolved knowledge-skill generator](knowledge-generator-evolution.md)
+- [EnterpriseRAG comparison of the incoming and G2 generators](enterprise-generator-comparison.md)
+- [Enterprise historical title-only ingestion scope correction](../evaluations/reports/enterprise-source-skills/ingestion-scope-20260907.md)
+- [Unavailable semantic review pairs: paired exclusion and full-cohort bounds](../.specs/adr/0124-report-unavailable-semantic-review-pairs.md)
+- [Local evaluation datasets, EnterpriseRAG-Bench, and reports by skill](evaluation-datasets-and-reports.md)
+- [EnterpriseRAG public leaderboard and external strategy results](../evaluations/enterprise-rag-bench/reports/public-results-20260906.md)
 
 
 This directory is the canonical documentation set for the `know` CLI.
@@ -50,10 +66,11 @@ Everything in this folder is intended to be readable on its own, with links that
 ### I want to create or improve a knowledge skill
 
 1. Read [knowledge-skill-evolution-playbook.md](knowledge-skill-evolution-playbook.md)
-2. Author disjoint task families and replayable adapter variations with the
+2. Review the [current evolution roadmap and readiness audit](knowledge-skill-evolution-roadmap.md)
+3. Author disjoint task families and replayable adapter variations with the
    [`harbor-author-evaluation-datasets` skill](../skills/harbor-author-evaluation-datasets/SKILL.md)
-3. Select the knowledge builder and artifact boundary before choosing an evolution strategy
-4. Keep only development optimizer-visible; release sealed validation once for
+4. Select the knowledge builder and artifact boundary before choosing an evolution strategy
+5. Keep only development optimizer-visible; release sealed validation once for
    the frozen winner, then use optional holdout only when the study declares it
 
 ## Documentation Conventions

@@ -1,0 +1,42 @@
+{
+  "schema_version": "enterprise-rag-bench-dataset/1.0",
+  "dataset_id": "enterprise-rag-bench-40-v1",
+  "upstream": {
+    "repository": "https://github.com/onyx-dot-app/EnterpriseRAG-Bench",
+    "commit": "d36685e273713975ee20299bbf1ab64165575b3c",
+    "release": "v1.0.0",
+    "license": "MIT",
+    "archive": {
+      "url": "https://github.com/onyx-dot-app/EnterpriseRAG-Bench/releases/download/v1.0.0/all_documents.zip",
+      "bytes": 1256181062,
+      "sha256": "9d1174928696ad08bc15f3f104739519de633c1605a4ec2034e0e3c0087bc5cd"
+    },
+    "questions_sha256": "f9524b9157cd43aae36b99333a124738804306ea6d07f332d49faa6d3d147905",
+    "license_sha256": "9eab95dae84867fa8ba1450e4bf34addf74e841923f4b6877f4d2df82bed3508",
+    "question_count": 500,
+    "document_count": 511962,
+    "unique_document_ids": 511958,
+    "ambiguous_document_ids": 4
+  },
+  "selection": {
+    "algorithm": "sha256-stratified-v1",
+    "seed": "enterprise-rag-bench-40-v1",
+    "questions_per_category": 5,
+    "distractors_per_source": 100,
+    "duplicate_qrel_policy": "set-semantics-preserve-upstream-bytes",
+    "duplicate_document_policy": "quarantine-all-colliding-ids-fail-if-selected-reference",
+    "categories": ["basic", "semantic", "intra_document_reasoning", "project_related", "constrained", "conflicting_info", "completeness", "miscellaneous"],
+    "sources": ["confluence", "fireflies", "github", "gmail", "google_drive", "hubspot", "jira", "linear", "slack"],
+    "excluded_categories": ["high_level", "info_not_found"]
+  },
+  "evaluation": {
+    "role": "retrospective-diagnostic",
+    "semantic_family": "redwood-inference-single-organization",
+    "promotion_eligible": false,
+    "top_k": 10,
+    "replicates": 3,
+    "primary_metric": "ndcg_at_10",
+    "metric_contract": "enterprise-rag-direct-retrieval/1.0",
+    "interpretation": "Reference-enriched reduced corpus; deterministic document retrieval only. Not the official full-corpus benchmark or generated-answer correctness. No independent evolution/validation split is claimed."
+  }
+}

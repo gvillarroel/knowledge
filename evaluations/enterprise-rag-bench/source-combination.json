@@ -1,0 +1,13 @@
+{
+  "protocol_version": "1.0",
+  "decision_id": "enterprise-rag-bench-source-types-v1",
+  "mode": "separate-in-bundle",
+  "members": ["confluence", "fireflies", "github", "gmail", "google-drive", "hubspot", "jira", "linear", "slack"],
+  "logical_source_id": null,
+  "identity_scope": "source-and-record-id",
+  "duplicate_policy": "quarantine-all-upstream-colliding-document-ids-before-selection",
+  "record_fusion": false,
+  "governance_reference": "descriptor.json",
+  "approval_reference": "user-request-2026-09-06",
+  "interpretation": "Preserve each source type as a separate authority in one shared synthetic-company bundle. No entity fusion or access isolation is inferred."
+}

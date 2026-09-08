@@ -874,6 +874,15 @@ one ready-to-use read-only expert with immutable knowledge under
   against the explicit source manifest and plan. It must reject an existing
   destination, unsafe input or output paths, links, special files, unknown
   artifacts, silent dependency or model fallback, and incomplete bindings.
+- JSON/CSV schemas with fields beyond identity and title must declare an explicit
+  `fields` object before construction. Partial maps remain authoritative and an
+  explicit empty map deliberately selects title-only knowledge. An absent
+  decision must produce an actionable error without publishing an expert.
+- New experts must include a deterministic, artifact-bound
+  `references/source-coverage.json` with declared, mapped and omitted fields,
+  source selection scope and normalized record/value/text counts. The receipt
+  must explicitly avoid certifying raw-source fidelity or encoder context
+  coverage. Native source semantics and historical frozen experts remain valid.
 - Publication must be atomic, deterministic, timestamp-free, and free of
   absolute source dependencies. A non-mutating `--check` rebuild must compare
   the complete generated artifact, and a copied generator or expert must
@@ -1064,6 +1073,24 @@ evaluation contract.
 - Preserve historical reports at their original paths; this presentation
   contract applies to current-facing final reports and newly generated final
   reports.
+
+### Local evaluation payloads and report navigation
+
+- Keep acquired corpora, materialized knowledge, question banks, qrels, reference
+  answers, generated tasks, and raw execution results local and excluded from
+  the Git index. Preserve their existing physical paths, source hashes, and
+  sealed-evidence boundaries. Track acquisition descriptors, manifests,
+  schemas, generators, runtime definitions, tests, and reviewed reports.
+- Maintain `evaluations/reports/` as an aggregate-only navigation hub with
+  dataset-specific primary comparisons, per-skill views, and cost/time/quality
+  diagnostics. Derive the views from an explicit inventory of reviewed
+  publications and bind each normalized source by SHA-256. Preserve original
+  reports, metric units, unavailable values, ties, and distinct causal layers.
+- The pinned EnterpriseRAG-Bench reduced corpus is a retrospective direct
+  retrieval diagnostic with question-independent skill projections. Its
+  reference-enriched 40-question results must not be labeled as official
+  full-corpus benchmark results, answer correctness, or promotion evidence.
+  It remains separate from the canonical dual-mode Harbor registry.
 
 ### Dual-mode Semantic OKF Harbor datasets
 

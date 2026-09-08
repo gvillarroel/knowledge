@@ -21,3 +21,46 @@
 # Trace-distillation state files that older studies wrote at their root.
 **/trace-distillation*.json
 
+# Acquired corpora and materialized knowledge snapshots. Keep their existing
+# local locations so pinned descriptors, tests, and historical receipts resolve.
+**/corpus/*
+!**/corpus/*manifest.json
+!**/corpus/README.md
+!**/corpus/input-inventory.json
+!**/corpus/source-combination.json
+!**/corpus/acquisition-selection.json
+**/sources/*
+!**/sources/inventory.json
+!**/sources/metadata.json
+**/bundle/
+**/bundles/
+**/knowledge/
+!know/fixtures/command-planning/src/knowledge/
+
+# Question banks, relevance labels, and evaluator-only source material.
+# Descriptors, manifests, generators, schemas, and aggregate reports stay tracked.
+**/*.jsonl
+**/*questions*.json
+**/*ground-truth.json
+**/*ground-truth-*.json
+!**/*ground-truth-manifest.json
+**/*best-answers.json
+**/*raw-semantic-adjudications.json
+
+# Captured website content is dataset payload, not authored documentation.
+**/crawl4ai_deep/pages/
+**/crawl4ai_deep/*.json
+**/playwright/pages/
+**/playwright/*.json
+
+# Authored runtime definitions are reproducibility code, not execution payloads.
+!semantic-okf-harbor/runtime/
+!semantic-okf-harbor/runtime/pinned/
+!semantic-okf-harbor/runtime/Dockerfile
+!semantic-okf-harbor/runtime/build_runtime.py
+!semantic-okf-harbor/runtime/requirements.txt
+!semantic-okf-harbor/runtime/pinned/Dockerfile
+!semantic-okf-harbor/runtime/pinned/build_runtime.py
+!semantic-okf-harbor/runtime/pinned/runtime-build.schema.json
+!semantic-okf-harbor/runtime/pinned/package-lock.json
+!semantic-okf-harbor/runtime/pinned/package.json

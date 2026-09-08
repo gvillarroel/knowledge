@@ -1,0 +1,128 @@
+{
+  "alternatives": [
+    {
+      "id": "embeddings-embeddings-baseline-hybrid",
+      "label": "embeddings / baseline / hybrid",
+      "metrics": {
+        "mrr_at_10": 64.375,
+        "ndcg_at_10": 63.19043854152289,
+        "p95_ms": 171.34919800000148,
+        "recall_at_10": 68.3829365079365
+      }
+    },
+    {
+      "id": "ensemble-ensemble-candidate-018-quality",
+      "label": "ensemble / candidate-018 / quality",
+      "metrics": {
+        "mrr_at_10": 63.125,
+        "ndcg_at_10": 61.367407676138754,
+        "p95_ms": 1518.8767489999009,
+        "recall_at_10": 62.757936507936506
+      }
+    },
+    {
+      "id": "graphify-graphify-candidate-010-search",
+      "label": "graphify / candidate-010 / search",
+      "metrics": {
+        "mrr_at_10": 62.5,
+        "ndcg_at_10": 60.35802201326674,
+        "p95_ms": 140.03631800005678,
+        "recall_at_10": 63.24404761904761
+      }
+    },
+    {
+      "id": "legacy-legacy-candidate-003-lexical",
+      "label": "legacy / candidate-003 / lexical",
+      "metrics": {
+        "mrr_at_10": 61.5,
+        "ndcg_at_10": 59.61724167905328,
+        "p95_ms": 9.630229999970652,
+        "recall_at_10": 62.48015873015873
+      }
+    },
+    {
+      "id": "turso-turso-candidate-003-lexical-sql",
+      "label": "turso / candidate-003 / lexical-sql",
+      "metrics": {
+        "mrr_at_10": 61.5,
+        "ndcg_at_10": 59.61724167905328,
+        "p95_ms": 8.658830000058515,
+        "recall_at_10": 62.48015873015873
+      }
+    },
+    {
+      "id": "adaptive-adaptive-candidate-013-adaptive",
+      "label": "adaptive / candidate-013 / adaptive",
+      "metrics": {
+        "mrr_at_10": 60.357142857142854,
+        "ndcg_at_10": 58.62051635704519,
+        "p95_ms": 1305.6016000000454,
+        "recall_at_10": 62.202380952380956
+      }
+    },
+    {
+      "id": "classical-classical-candidate-014-fusion",
+      "label": "classical / candidate-014 / fusion",
+      "metrics": {
+        "mrr_at_10": 57.49999999999999,
+        "ndcg_at_10": 48.205239960246026,
+        "p95_ms": 39.302746999965166,
+        "recall_at_10": 45.863095238095234
+      }
+    },
+    {
+      "id": "entity-graph-entity-graph-candidate-010-fusion",
+      "label": "entity-graph / candidate-010 / fusion",
+      "metrics": {
+        "mrr_at_10": 48.336309523809526,
+        "ndcg_at_10": 48.188524415128164,
+        "p95_ms": 39.5280200009438,
+        "recall_at_10": 58.59126984126984
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "enterprise-rag-e6-development-40",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:0c604264261f00d6e084fcb43bf6b3224786c3a96a611ee1ddaf6e2f0e5e360a"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "enterprise-rag-e6-development-40.md",
+  "schema_version": "final-report-comparison/1.0"
+}

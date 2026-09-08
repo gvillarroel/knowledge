@@ -1,0 +1,108 @@
+{
+  "alternatives": [
+    {
+      "id": "adaptive-association",
+      "label": "adaptive / association",
+      "metrics": {
+        "mrr_at_10": 91.5,
+        "ndcg_at_10": 83.5,
+        "p95_ms": 1443.6,
+        "recall_at_10": 88.8
+      }
+    },
+    {
+      "id": "classical-association",
+      "label": "classical / association",
+      "metrics": {
+        "mrr_at_10": 91.5,
+        "ndcg_at_10": 83.5,
+        "p95_ms": 1430.1,
+        "recall_at_10": 88.8
+      }
+    },
+    {
+      "id": "ensemble-quality",
+      "label": "ensemble / quality",
+      "metrics": {
+        "mrr_at_10": 89.0,
+        "ndcg_at_10": 81.89999999999999,
+        "p95_ms": 10938.4,
+        "recall_at_10": 89.6
+      }
+    },
+    {
+      "id": "embeddings-lexical",
+      "label": "embeddings / lexical",
+      "metrics": {
+        "mrr_at_10": 81.2,
+        "ndcg_at_10": 78.3,
+        "p95_ms": 107.8,
+        "recall_at_10": 89.8
+      }
+    },
+    {
+      "id": "entity-graph-entity",
+      "label": "entity-graph / entity",
+      "metrics": {
+        "mrr_at_10": 72.89999999999999,
+        "ndcg_at_10": 70.6,
+        "p95_ms": 1626.6,
+        "recall_at_10": 88.1
+      }
+    },
+    {
+      "id": "legacy-legacy-tfidf",
+      "label": "legacy / legacy_tfidf",
+      "metrics": {
+        "mrr_at_10": 70.6,
+        "ndcg_at_10": 68.5,
+        "p95_ms": 3.6,
+        "recall_at_10": 82.3
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "astro-40",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:0ed19c2429ef691cf94633359d13a9f2ad181f56da6e16b5e5bca333f8ed9e8a"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "astro-40.md",
+  "schema_version": "final-report-comparison/1.0"
+}

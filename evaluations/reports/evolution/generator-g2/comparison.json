@@ -1,0 +1,518 @@
+{
+  "schema_version": "knowledge-generator-comparison/1.0",
+  "study": "generator-evolution-g2",
+  "skill": "build-semantic-okf-knowledge-skill",
+  "task_phase": "construction",
+  "status": "accepted-and-promoted",
+  "promoted": true,
+  "primary_metric": "binary construction correctness; pass threshold 1",
+  "required_metric": "source_unchanged >= 1 on every case",
+  "claim": "Explicit declared-field construction and auditable normalized coverage; no retrieval or answer-quality claim.",
+  "cohorts": {
+    "development": {
+      "source_schema_families": 2,
+      "tasks_per_bundle": 8,
+      "source_format_task_counts": {
+        "json": 8
+      },
+      "rows": [
+        {
+          "role": "baseline",
+          "scored": 8,
+          "passed": 6,
+          "pass_rate": 0.75,
+          "mean_reward": 0.75,
+          "execution_errors": 0,
+          "mean_agent_execution_ms": 2236.358875,
+          "model_tokens_total": 0.0,
+          "model_cost_usd": 0.0
+        },
+        {
+          "role": "candidate",
+          "scored": 8,
+          "passed": 8,
+          "pass_rate": 1.0,
+          "mean_reward": 1.0,
+          "execution_errors": 0,
+          "mean_agent_execution_ms": 1807.871375,
+          "model_tokens_total": 0.0,
+          "model_cost_usd": 0.0
+        }
+      ],
+      "paired_mean_gain": 0.25,
+      "fairness_basis": "lock-and-trial-results"
+    },
+    "validation": {
+      "source_schema_families": 3,
+      "tasks_per_bundle": 8,
+      "source_format_task_counts": {
+        "csv": 3,
+        "json": 3,
+        "rdf": 2
+      },
+      "rows": [
+        {
+          "role": "baseline",
+          "scored": 8,
+          "passed": 6,
+          "pass_rate": 0.75,
+          "mean_reward": 0.75,
+          "execution_errors": 0,
+          "mean_agent_execution_ms": 2268.22025,
+          "model_tokens_total": 0.0,
+          "model_cost_usd": 0.0
+        },
+        {
+          "role": "candidate",
+          "scored": 8,
+          "passed": 8,
+          "pass_rate": 1.0,
+          "mean_reward": 1.0,
+          "execution_errors": 0,
+          "mean_agent_execution_ms": 1789.645,
+          "model_tokens_total": 0.0,
+          "model_cost_usd": 0.0
+        }
+      ],
+      "paired_mean_gain": 0.25,
+      "fairness_basis": "lock-and-trial-results"
+    }
+  },
+  "development_secondary_and_transport": {
+    "status": "pass",
+    "scope": "completed public development only",
+    "rows": [
+      {
+        "role": "baseline",
+        "primary_passed": 6,
+        "source_preservation_passed": 8,
+        "reporting_passed": 0,
+        "reporting_eligible": 5,
+        "tasks": 8,
+        "artifact_manifest_entries_ok": 16,
+        "artifact_manifest_entries_total": 16
+      },
+      {
+        "role": "explicit-fields",
+        "primary_passed": 8,
+        "source_preservation_passed": 8,
+        "reporting_passed": 5,
+        "reporting_eligible": 5,
+        "tasks": 8,
+        "artifact_manifest_entries_ok": 16,
+        "artifact_manifest_entries_total": 16
+      }
+    ]
+  },
+  "validation_decision": {
+    "status": "complete",
+    "evaluable": true,
+    "baselineMeanReward": 0.75,
+    "winnerMeanReward": 1.0,
+    "gain": 0.25,
+    "minimumGain": 0.01,
+    "errorFree": true,
+    "infrastructureFree": true,
+    "requiredRewardsComplete": true,
+    "primaryRewardsComplete": true,
+    "winnerQualified": true,
+    "baselineQualified": true,
+    "taskRegressionCount": 0,
+    "provenanceVerified": true,
+    "promotionBlockers": [],
+    "promoted": true
+  },
+  "independent_execution": {
+    "attempt_policy": {
+      "attempts_per_task_configured": 1,
+      "launch_order": [
+        "baseline",
+        "winner"
+      ],
+      "retries_performed": 0,
+      "role_launches": 2
+    },
+    "cohort_state": "consumed-once",
+    "created_at": "2026-09-08T01:31:38.505634+00:00",
+    "evidence": {
+      "consumption_receipt_sha256": "3a992c56e113772135d19f0369b55671963067273cee527707720ec8ba396f02",
+      "execution_receipts_sha256": "05057b08f19016da82d744ef9fa9342475a2786224857a352aa1e80fde79b0ed",
+      "native_bindings_sha256": "52842a288f7a89c4ca488acca5c07b49e28e1a2e1a35b17d681f50e1bc3ea58a"
+    },
+    "interpretation": "Artifact-copy or provenance failures are unavailable infrastructure evidence. Verified zero rewards remain semantic measurements. This projection does not select, rank, accept, or promote a candidate.",
+    "native_gate_status": "complete-evaluable",
+    "paired": {
+      "complete": true,
+      "expected_pairs": 8,
+      "improved": 2,
+      "mean_primary_gain": 0.25,
+      "observed_mean_primary_gain": 0.25,
+      "observed_pairs": 8,
+      "regressed": 0,
+      "unchanged": 6
+    },
+    "private_task_content_or_ids_disclosed": false,
+    "rejection_contracts": 3,
+    "reporting_eligible": 5,
+    "roles": [
+      {
+        "artifact_entries_ok": 16,
+        "artifact_entries_total": 16,
+        "artifact_manifests_observed": 8,
+        "artifact_manifests_verified": 8,
+        "complete_native_provenance": true,
+        "execution_errors": 0,
+        "expected_trials": 8,
+        "infrastructure_unavailable_trials": 0,
+        "launched": true,
+        "native_job_completed": true,
+        "native_recorded_counts": {
+          "n_cancelled_trials": 0,
+          "n_completed_trials": 8,
+          "n_errored_trials": 0,
+          "n_pending_trials": 0,
+          "n_retries": 0,
+          "n_running_trials": 0
+        },
+        "native_skill_digest": "sha256:db2a2d8d09f6b4890035101fb294f9c1f4484414ea73240acf47800ac1dbf549",
+        "primary": {
+          "mean": 0.75,
+          "observed": 8,
+          "observed_mean": 0.75,
+          "passed": 6,
+          "status": "complete",
+          "total": 8
+        },
+        "primary_by_contract": {
+          "build": {
+            "mean": 1.0,
+            "observed": 5,
+            "observed_mean": 1.0,
+            "passed": 5,
+            "status": "complete",
+            "total": 5
+          },
+          "reject": {
+            "mean": 0.3333333333333333,
+            "observed": 3,
+            "observed_mean": 0.3333333333333333,
+            "passed": 1,
+            "status": "complete",
+            "total": 3
+          }
+        },
+        "primary_by_source_format": {
+          "csv": {
+            "mean": 0.6666666666666666,
+            "observed": 3,
+            "observed_mean": 0.6666666666666666,
+            "passed": 2,
+            "status": "complete",
+            "total": 3
+          },
+          "json": {
+            "mean": 0.6666666666666666,
+            "observed": 3,
+            "observed_mean": 0.6666666666666666,
+            "passed": 2,
+            "status": "complete",
+            "total": 3
+          },
+          "rdf": {
+            "mean": 1.0,
+            "observed": 2,
+            "observed_mean": 1.0,
+            "passed": 2,
+            "status": "complete",
+            "total": 2
+          }
+        },
+        "process_return_code": 0,
+        "reason_codes": [],
+        "recorded_terminal_trial_results": 8,
+        "reporting": {
+          "eligible": 5,
+          "mean": 0.0,
+          "observed": 5,
+          "observed_mean": 0.0,
+          "passed": 0,
+          "status": "complete",
+          "total": 5
+        },
+        "role": "baseline",
+        "scored_trials": 8,
+        "source_unchanged": {
+          "mean": 1.0,
+          "observed": 8,
+          "observed_mean": 1.0,
+          "passed": 8,
+          "status": "complete",
+          "total": 8
+        }
+      },
+      {
+        "artifact_entries_ok": 16,
+        "artifact_entries_total": 16,
+        "artifact_manifests_observed": 8,
+        "artifact_manifests_verified": 8,
+        "complete_native_provenance": true,
+        "execution_errors": 0,
+        "expected_trials": 8,
+        "infrastructure_unavailable_trials": 0,
+        "launched": true,
+        "native_job_completed": true,
+        "native_recorded_counts": {
+          "n_cancelled_trials": 0,
+          "n_completed_trials": 8,
+          "n_errored_trials": 0,
+          "n_pending_trials": 0,
+          "n_retries": 0,
+          "n_running_trials": 0
+        },
+        "native_skill_digest": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940",
+        "primary": {
+          "mean": 1.0,
+          "observed": 8,
+          "observed_mean": 1.0,
+          "passed": 8,
+          "status": "complete",
+          "total": 8
+        },
+        "primary_by_contract": {
+          "build": {
+            "mean": 1.0,
+            "observed": 5,
+            "observed_mean": 1.0,
+            "passed": 5,
+            "status": "complete",
+            "total": 5
+          },
+          "reject": {
+            "mean": 1.0,
+            "observed": 3,
+            "observed_mean": 1.0,
+            "passed": 3,
+            "status": "complete",
+            "total": 3
+          }
+        },
+        "primary_by_source_format": {
+          "csv": {
+            "mean": 1.0,
+            "observed": 3,
+            "observed_mean": 1.0,
+            "passed": 3,
+            "status": "complete",
+            "total": 3
+          },
+          "json": {
+            "mean": 1.0,
+            "observed": 3,
+            "observed_mean": 1.0,
+            "passed": 3,
+            "status": "complete",
+            "total": 3
+          },
+          "rdf": {
+            "mean": 1.0,
+            "observed": 2,
+            "observed_mean": 1.0,
+            "passed": 2,
+            "status": "complete",
+            "total": 2
+          }
+        },
+        "process_return_code": 0,
+        "reason_codes": [],
+        "recorded_terminal_trial_results": 8,
+        "reporting": {
+          "eligible": 5,
+          "mean": 1.0,
+          "observed": 5,
+          "observed_mean": 1.0,
+          "passed": 5,
+          "status": "complete",
+          "total": 5
+        },
+        "role": "winner",
+        "scored_trials": 8,
+        "source_unchanged": {
+          "mean": 1.0,
+          "observed": 8,
+          "observed_mean": 1.0,
+          "passed": 8,
+          "status": "complete",
+          "total": 8
+        }
+      }
+    ],
+    "schema_version": "independent-gate-execution-summary/1.0",
+    "source_format_task_counts": {
+      "csv": 3,
+      "json": 3,
+      "rdf": 2
+    },
+    "source_schema_family_count": 3,
+    "successful_build_contracts": 5
+  },
+  "authoring": {
+    "cases": 8,
+    "checks_passed": 92,
+    "pinned_runtime_references_passed": 8,
+    "format_counts": {
+      "csv": 3,
+      "json": 3,
+      "rdf": 2
+    },
+    "independent_families": 3,
+    "candidate_executions_before_sealing": 0,
+    "overlap_clear_against_prior_cohorts": true
+  },
+  "public_native_preflight": {
+    "schema_version": "generator-native-preflight/1.0",
+    "status": "pass",
+    "native_trials": 2,
+    "completed": 2,
+    "execution_errors": 0,
+    "retries": 0,
+    "primary_passed": 2,
+    "source_preservation_passed": 2,
+    "isolation_passed": 2,
+    "artifact_manifest_entries_ok": 4,
+    "artifact_manifest_entries_total": 4,
+    "model_calls": 0,
+    "purpose": "public technical preflight, excluded from fitness",
+    "bindings_sha256": "bc45b34f781aea80552f3f5780aeb0463e04572b13d4d4db0d366bac1859d443"
+  },
+  "preservation": {
+    "status": "pass",
+    "family_count": 8,
+    "rows": [
+      {
+        "family": "legacy",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "embeddings",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "classical",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "adaptive",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 2,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "entity-graph",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 5,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "ensemble",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 3,
+        "exact_get": true,
+        "record_count": 3
+      },
+      {
+        "family": "graphify",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      },
+      {
+        "family": "turso",
+        "knowledge_bytes_equal": true,
+        "consultant_bytes_equal": true,
+        "deterministic_rebuild": true,
+        "deep_validation": true,
+        "native_payload_equal": true,
+        "citations_verified": 1,
+        "exact_get": true,
+        "record_count": 2
+      }
+    ]
+  },
+  "canonical_unit_tests": {
+    "status": "pass",
+    "passed": 18,
+    "failed": 0,
+    "warnings": 0,
+    "seconds": 38.08,
+    "scope": "complete canonical standalone generator suite after exact frozen promotion"
+  },
+  "application_coverage": {
+    "tests_passed": 1395,
+    "application_coverage_percent": 90.7,
+    "status": "pass"
+  },
+  "changed_skill_paths": [
+    "SKILL.md",
+    "references/expert-contract.md",
+    "scripts/_source_coverage.py",
+    "scripts/build_semantic_okf_knowledge_skill.py"
+  ],
+  "digests": {
+    "baseline_native_skill": "sha256:db2a2d8d09f6b4890035101fb294f9c1f4484414ea73240acf47800ac1dbf549",
+    "candidate_native_skill": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940",
+    "protocol_sha256": "d73a54c4de187b879ee532f3b01404bb462b793769f09c2b4ecb3a5ee5248f6a",
+    "independent_review_sha256": "eca22a2800d319a15f20a9f63eb08061df8ceff5713ea703e4204ed35bbb9ba2",
+    "independent_dataset_sha256": "6a2e15253e2b7d96fdda6f57b599c78c6ae6ec6752e37678ab92d961af4c48c8",
+    "independent_execution_receipt_sha256": "fbf3674ad1bf16c3f3120d919a81d44ad1987a92c7def87cc91d6d7f16d013e8",
+    "owner_decision_sha256": "8fe17368f65e111c214197c7e1872964c1740917b6fb5cefbac8d57ce5a9c331"
+  },
+  "limitations": [
+    "G2 development repeats G1 exposed cases; it is not a new independent development sample.",
+    "The small gate has three source/schema families and eight cases, without a statistical generalization claim.",
+    "Curator confidentiality uses shared-host role/tool-read boundaries, not separate OS accounts.",
+    "The deterministic agent invokes the CLI; it does not test autonomous model selection or instruction adherence.",
+    "The coverage receipt counts declared selection and normalized content, not raw-source fidelity.",
+    "Runtime figures mix successful builds and deliberate rejection contracts; no speed advantage is claimed.",
+    "Zero model cost concerns native trial calls; authoring, this coding session, host resources and verification are excluded."
+  ]
+}

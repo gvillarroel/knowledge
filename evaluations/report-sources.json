@@ -1,0 +1,88 @@
+{
+  "schema_version": "evaluation-report-catalog/1.0",
+  "datasets": [
+    {
+      "id": "graphrag-papers-parallel-eval-60-v1", "label": "GraphRAG generalization (60)",
+      "path": "evaluations/LATEST-REPORT.comparison.json", "report": "evaluations/LATEST-REPORT.md",
+      "format": "comparison-json", "question_count": 60, "expected_rows": 25,
+      "primary_metric": "ndcg_at_10", "scope": "Released evaluation-only 60-question cohort; authoritative-paper Top-10; no new execution."
+    },
+    {
+      "id": "graphrag-papers-contradiction-eval-40-v1", "label": "GraphRAG contradictions (40)",
+      "path": "evaluations/graphrag-unseen-generalization/study-v5-contradictions/publication/tables/contradiction-strategy-ranking.table.md",
+      "format": "markdown", "table_header": "Pair / strategy", "route_column": "Pair / strategy",
+      "question_count": 40, "expected_rows": 25, "primary_metric": "full_evidence_at_10",
+      "metrics": {"full_evidence_at_10": ["Full evidence@10", "percent"], "recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "percent"], "ndcg_at_10": ["nDCG@10", "percent"], "p95_ms": ["P95", "ms"]},
+      "scope": "Released evaluation-only contradiction cohort; complete evidence is the primary metric; 25 compatible routes."
+    },
+    {
+      "id": "software-architecture-books-40", "label": "Software architecture books (40)",
+      "path": "evaluations/software-architecture-books/reports/all-route-comparison.md", "format": "markdown",
+      "table_header": "Family", "family_column": "Family", "route_column": "Route", "question_count": 40,
+      "expected_rows": 18, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "percent"], "ndcg_at_10": ["nDCG@10", "percent"], "p95_ms": ["P95", "ms"]},
+      "scope": "Private book corpus; 18 direct routes, Top-10, three repetitions; published rounded aggregates."
+    },
+    {
+      "id": "data-science-ai-ml-books-40", "label": "Data science / AI / ML books (40)",
+      "path": "evaluations/data-science-ai-ml-books/reports/all-route-comparison.md", "format": "markdown",
+      "table_header": "Family", "family_column": "Family", "route_column": "Route", "question_count": 40,
+      "expected_rows": 18, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "percent"], "ndcg_at_10": ["nDCG@10", "percent"], "p95_ms": ["P95", "ms"]},
+      "scope": "Private book corpus; 18 direct routes, Top-10, three repetitions; published rounded aggregates."
+    },
+    {
+      "id": "astro-40", "label": "Astro documentation (40)",
+      "path": "evaluations/semantic-okf-astro/reports/retrieval-comparison.md", "format": "markdown",
+      "table_header": "Best route", "family_column": "Family", "route_column": "Best route", "question_count": 40,
+      "expected_rows": 6, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "ratio"], "ndcg_at_10": ["nDCG@10", "ratio"], "p95_ms": ["p95 ms", "ms"]},
+      "scope": "Published best route for six families; raw pool 100, document deduplication; standalone selected-route P95."
+    },
+    {
+      "id": "endocrine-hygiene", "label": "Endocrine hygiene",
+      "path": "evaluations/semantic-okf-endocrine-hygiene/reports/retrieval-comparison.md", "format": "markdown",
+      "table_header": "Best route", "family_column": "Family", "route_column": "Best route", "status_column": "Status",
+      "question_count": null, "expected_rows": 6, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10 overall", "percent"], "mrr_at_10": ["MRR@10", "ratio"], "ndcg_at_10": ["nDCG@10", "ratio"], "p95_ms": ["p95 ms", "ms"]},
+      "scope": "Published best route per family; entity-graph and ensemble are unavailable on this historical contract, not zero-score rows."
+    },
+    {
+      "id": "quantum-error-correction-papers-40", "label": "Quantum error correction (40)",
+      "path": "evaluations/quantum-error-correction-papers/reports/retrospective-supervised-expert-evaluation.md", "format": "markdown",
+      "table_header": "Treatment", "route_column": "Treatment", "fixed_family": "specialized-expert", "question_count": 40,
+      "expected_rows": 2, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "percent"], "ndcg_at_10": ["nDCG@10", "percent"], "p95_ms": ["Representative P95 (ms)", "ms"]},
+      "scope": "All 40 qrels were exposed to supervised-profile construction. In-sample fixed-workload comparison only; no promotion or unseen-query claim."
+    },
+    {
+      "id": "tau3-banking-knowledge-97", "label": "tau3 banking knowledge (97)",
+      "path": "evaluations/tau3-banking-knowledge/REPORT.md", "format": "markdown",
+      "table_header": "Runtime and mode", "route_column": "Runtime and mode", "family_from_tau3": true,
+      "question_count": 97, "expected_rows": 5, "primary_metric": "ndcg_at_10",
+      "metrics": {"recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "ratio"], "ndcg_at_10": ["nDCG@10", "ratio"]},
+      "scope": "Retrospective oracle-context diagnostic. Local integrated Classical and chunked Classical have identical rankings. Official conversations and answer correctness were not measured."
+    },
+    {
+      "id": "enterprise-rag-bench-40-v1", "label": "EnterpriseRAG reduced corpus (40)",
+      "path": "evaluations/enterprise-rag-bench/reports/20260906-v2/comparison.json", "format": "enterprise-json",
+      "report": "evaluations/enterprise-rag-bench/reports/20260906-v2/final-report.md",
+      "question_count": 40, "expected_rows": 18, "primary_metric": "ndcg_at_10",
+      "scope": "Pinned Onyx v1.0.0; 40 stratified questions, 985 documents including 900 distractors. Retrieval only; not the full official benchmark."
+    },
+    {
+      "id": "enterprise-rag-e6-development-40", "label": "EnterpriseRAG e6 development (40)",
+      "path": "evaluations/reports/evolution/e6/catalog-001/comparison.json", "format": "comparison-json",
+      "report": "evaluations/reports/evolution/e6/catalog-001/comparison.md",
+      "question_count": 40, "expected_rows": 8, "primary_metric": "ndcg_at_10",
+      "scope": "Forty exposed development queries on a reference-enriched 985-document corpus. Eight retained primary routes from frozen experimental profiles: five construction and three consultation treatments. Eighteen retained-profile routes are available separately as diagnostics. These maxima do not describe installed defaults, unseen-query quality or official generated-answer accuracy; the terminal decision is separate."
+    },
+    {
+      "id": "enterprise-rag-generator-g2-fulltext-40", "label": "EnterpriseRAG complete documents: incoming / G2 (40)",
+      "path": "evaluations/reports/enterprise-generator-g2/comparison.json", "format": "enterprise-json",
+      "report": "evaluations/reports/enterprise-generator-g2/README.md",
+      "question_count": 40, "expected_rows": 36, "primary_metric": "ndcg_at_10",
+      "scope": "Fixed incoming-versus-G2 generator replay: 985 complete documents, 40 exposed questions, eight families, eighteen routes and two versions. Both versions use identical explicit body mappings, plans and consultation code. Embeddings uses pinned MiniLM; Ensemble retains hashing. One query pass, descriptive P95, no generated answers, no independent retrieval gate and no promotion. Legacy lexical and Turso SQL are comparator routes. Do not pool with title-only v1/e6 or the S2 agent-answer contract. Each same-route version pair ties in all relevance metrics; numbered catalog rows enumerate alternatives and preserve these ties."
+    }
+  ]
+}

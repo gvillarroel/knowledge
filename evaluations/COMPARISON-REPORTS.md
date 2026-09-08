@@ -1,18 +1,52 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-08-27.
+Catalog updated: 2026-09-07.
 
-Newest included scored or audited evidence: 2026-08-15.
+Newest included scored or audited evidence: 2026-09-07.
 
 This is the entry point for reviewed reports that compare knowledge builders,
 consultants, generated expert skills, retrieval routes, or storage variants. It
 organizes existing evidence; it does not recompute scores or combine results
 from different datasets, cohorts, models, runtimes, or metric contracts.
 
+The generated [report hub](reports/README.md) adds a dataset-specific leader
+table, [pages by skill](reports/skills/README.md), and a
+[cost/time/quality view](reports/cta/README.md). It includes the new pinned
+EnterpriseRAG reduced-corpus diagnostic and preserves the contracts below.
+
+The completed [Enterprise evolution sweep e6](reports/evolution/e6/README.md)
+adds 106 new candidate evaluations and eight fresh controls across eight
+knowledge families. Its [primary-route comparison](reports/evolution/e6/catalog-001/comparison.md),
+[exact retained profiles](reports/evolution/e6/catalog-001/profiles.md), and
+[CTA report](reports/evolution/e6/development-001/CTA.md) retain a separate
+development contract. The campaign page records the terminal decision and
+independent-validation state. The catalog now contains ten comparison contracts;
+the two Enterprise entries use the same reduced corpus and are not separate
+independent datasets.
+
+The [agent-selected Enterprise source-skill study](reports/enterprise-source-skills/README.md)
+uses a separate full-text, generated-answer contract. Its comparison is not pooled
+with the ten historical retrieval contracts. The [ingestion scope correction](reports/enterprise-source-skills/ingestion-scope-20260907.md)
+binds all 114 e6 trials to the historical title-only projection and narrows the
+interpretation of those preserved scores.
+
+The [public EnterpriseRAG reference](enterprise-rag-bench/reports/public-results-20260906.md)
+contains the official 25-system leaderboard snapshot and additional published
+experiments checked on 2026-09-06. These external answer-quality scores use
+different contracts from the local skill retrieval comparison and are not
+pooled into the local rankings.
+
+For future improvements, the [skill evolution roadmap](../docs/knowledge-skill-evolution-roadmap.md)
+and [readiness inventory](reports/evolution/20260906-readiness.md) identify
+candidate priorities, measurement boundaries, and independent-validation
+prerequisites. They are unscored planning artifacts and do not change the
+published rankings.
+
 ## Reading order
 
 | Question | Current report | Compared scope | Interpretation boundary |
 | --- | --- | --- | --- |
+| Which Enterprise retrieval profiles improved under the three-miss rule? | [Completed e6 campaign](reports/evolution/e6/README.md) and [stopping ledger](reports/evolution/e6/development-001/strategies.md) | Eight primary routes, 33 finite tactics, 106 new candidates and eight fresh controls | Exposed development queries on 985 documents; each tactic stops at three misses or finite exhaustion; separate terminal acceptance decision |
 | Which direct retrieval routes perform best on the frozen GraphRAG paper workloads? | [`LATEST-REPORT.md`](LATEST-REPORT.md) and its [machine-readable contract](LATEST-REPORT.comparison.json) | Twenty-five compatible routes on the 60-question generalization contract, plus a separate 40-question contradiction contract | Retrieval only; the report cutoff is 2026-07-30 and it does not measure generated-answer correctness |
 | How do all eight registered build/consult families compare on agent tokens? | [Semantic OKF two-stage token usage](semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md) | Eight builders and eight consultants, with construction and consultation reported separately | Several consultation arms contain runtime errors; incomplete responses cannot be interpreted as efficient answers |
 | Does the direct multi-family generator reproduce the separate canonical skills? | [Canonical multi-family parity verification](integrated-semantic-okf-knowledge-skill/reports/20260813-parity-verification.md) | Eight families across three datasets and 960 bound question cells | Deterministic build, runtime, query, and citation parity; not model-judged answer quality |

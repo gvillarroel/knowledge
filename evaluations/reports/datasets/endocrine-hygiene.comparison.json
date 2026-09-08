@@ -1,0 +1,88 @@
+{
+  "alternatives": [
+    {
+      "id": "adaptive-bm25",
+      "label": "adaptive / bm25",
+      "metrics": {
+        "mrr_at_10": 95.0,
+        "ndcg_at_10": 95.3,
+        "p95_ms": 26.3,
+        "recall_at_10": 98.9
+      }
+    },
+    {
+      "id": "classical-bm25",
+      "label": "classical / bm25",
+      "metrics": {
+        "mrr_at_10": 95.0,
+        "ndcg_at_10": 95.3,
+        "p95_ms": 20.6,
+        "recall_at_10": 98.9
+      }
+    },
+    {
+      "id": "legacy-legacy-lexical",
+      "label": "legacy / legacy_lexical",
+      "metrics": {
+        "mrr_at_10": 96.7,
+        "ndcg_at_10": 94.69999999999999,
+        "p95_ms": 0.8,
+        "recall_at_10": 98.9
+      }
+    },
+    {
+      "id": "embeddings-lexical",
+      "label": "embeddings / lexical",
+      "metrics": {
+        "mrr_at_10": 93.30000000000001,
+        "ndcg_at_10": 92.80000000000001,
+        "p95_ms": 36.0,
+        "recall_at_10": 98.7
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "endocrine-hygiene",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:bb02f571b8ed753815ef0b28e1de8275ca6df856d8f344a9ae9996594e6711f2"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "endocrine-hygiene.md",
+  "schema_version": "final-report-comparison/1.0"
+}

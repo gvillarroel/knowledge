@@ -1,0 +1,27 @@
+{
+  "schema_version": "retrieval-profile-grid/1.0",
+  "target": "build-semantic-okf-knowledge-skill",
+  "mutable_layer": "construction-profile-only",
+  "consultants": "frozen canonical vendored bytes",
+  "status": "predeclared hypotheses; not fitness claims",
+  "generation_zero": [
+    {"id": "neural-record", "mechanism": "Replace symmetric hashing with pinned local MiniLM dense embeddings; preserve record chunking.", "operation": "learned-embedding", "model_id": "sentence-transformers/all-MiniLM-L6-v2", "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41", "dimension": 384},
+    {"id": "quarter-expansion", "mechanism": "Attenuate existing association and topic expansion weights by one fixed factor.", "operation": "expansion-scale", "factor": 0.25},
+    {"id": "bm25-low-b", "mechanism": "Reduce document-length normalization while preserving term and title weights.", "operation": "bm25-b", "value": 0.25},
+    {"id": "stronger-titles", "mechanism": "Increase the existing BM25 title field weight while preserving body weight and normalization.", "operation": "title-weight", "value": 4.0}
+  ],
+  "generation_one": {
+    "maximum_children": 4,
+    "rule": "Only merge non-conflicting operations already supported by complementary development cases; require ancestry in the native Pareto archive. No new mechanisms or validation feedback."
+  },
+  "maximum_generations": 2,
+  "maximum_candidate_profiles": 9,
+  "maximum_native_trials": 352,
+  "maximum_llm_calls": 0,
+  "maximum_model_provider_cost_usd": 0,
+  "per_trial_agent_timeout_seconds": 3600,
+  "native_attempts": 1,
+  "native_retries": 0,
+  "primary_metric": "binary nDCG@10 on the fixed default route of each family",
+  "validation_proposal": "Two fresh source-separated BEIR-derived cohorts, twelve seeded queries each, reference-enriched corpus of at least 985 documents; not full BEIR or answer-quality evaluation."
+}

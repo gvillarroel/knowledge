@@ -1,0 +1,85 @@
+{
+  "alternatives": [
+    {
+      "id": "integrated-classical-local-topic",
+      "label": "integrated-classical / Local topic",
+      "metrics": {
+        "mrr_at_10": 69.19999999999999,
+        "ndcg_at_10": 42.9,
+        "recall_at_10": 35.27
+      }
+    },
+    {
+      "id": "integrated-classical-local-bm25",
+      "label": "integrated-classical / Local BM25",
+      "metrics": {
+        "mrr_at_10": 67.2,
+        "ndcg_at_10": 42.8,
+        "recall_at_10": 35.41
+      }
+    },
+    {
+      "id": "integrated-classical-local-association",
+      "label": "integrated-classical / Local association",
+      "metrics": {
+        "mrr_at_10": 68.2,
+        "ndcg_at_10": 42.699999999999996,
+        "recall_at_10": 35.29
+      }
+    },
+    {
+      "id": "integrated-classical-local-fusion",
+      "label": "integrated-classical / Local fusion",
+      "metrics": {
+        "mrr_at_10": 68.0,
+        "ndcg_at_10": 42.1,
+        "recall_at_10": 35.09
+      }
+    },
+    {
+      "id": "upstream-bm25-upstream-bm25",
+      "label": "upstream-bm25 / Upstream BM25",
+      "metrics": {
+        "mrr_at_10": 33.800000000000004,
+        "ndcg_at_10": 15.6,
+        "recall_at_10": 14.72
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "tau3-banking-knowledge-97",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:55932d4955faf4eb6093394aa3ceb178c86b06d449bab027d467a0d9192a6a41"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    }
+  ],
+  "report": "tau3-banking-knowledge-97.md",
+  "schema_version": "final-report-comparison/1.0"
+}

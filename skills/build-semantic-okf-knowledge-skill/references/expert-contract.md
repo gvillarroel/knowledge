@@ -4,6 +4,7 @@
 
 - [Required inputs](#required-inputs)
 - [Closed output](#closed-output)
+- [Source selection coverage](#source-selection-coverage)
 - [Consultation semantics](#consultation-semantics)
 - [Acceptance evidence](#acceptance-evidence)
 
@@ -17,6 +18,12 @@ plan. Planless families reject a plan instead of ignoring it.
 Guidance is executable policy for the generated expert. It must be specific
 enough to decide scope, workflow, evidence requirements, negative evidence,
 and limitations; placeholder text is invalid.
+
+JSON/CSV sources with schema fields beyond `id_field` and `title_field` must
+declare a `fields` object. Map exactly the intended knowledge fields. A selective
+map is valid; use `fields: {}` for an intentional title-only expert. An absent
+decision fails before the canonical builder runs. Identity/title-only schemas
+may omit the map. Invalid mappings remain subject to canonical validation.
 
 ## Closed output
 
@@ -35,6 +42,30 @@ The manifest itself is excluded from its artifact list to avoid a circular
 digest. The validator requires its exact closed schema and rejects every
 unbound file, link, or special file. Generated experts contain the matched
 consultant scripts and documentation, but never builder code.
+
+## Source selection coverage
+
+Every new expert includes `references/source-coverage.json`, bound by the existing
+artifact list. Its schema is `semantic-okf-source-coverage/1.0` and it binds the
+original source-manifest SHA-256. Each source row records declared schema fields,
+identity fields, mapped fields, omitted fields, and whether the raw declaration
+explicitly included a map. Omitted fields exclude identity/title fields.
+
+`scope` is `mapped-fields` or `title-only` for structured sources, `native` for
+nonstructured sources, and `derived` for ledger source identities absent from
+the original declarations. A declared source with no retained records still
+has a row with zero counts. `record_count` counts normalized ledger records;
+`mapped_value_count` counts present non-null mapped attribute values, while
+`null_mapped_value_count` counts present null values. Missing mapped attributes
+are a construction error for structured records. `text_characters` sums normalized
+ledger body lengths, including the adapter's title and field rendering.
+
+This audit does not compare raw file contents with normalized values. It always
+sets `raw_source_fidelity_verified` to false and never certifies complete raw
+document retention or that an embedding encoder processed every retained token.
+Use the source adapter's rendering contract and independent raw-to-ledger checks
+when complete content fidelity is required. Canonical builders and consultants,
+knowledge bytes, native payloads and query behavior are unchanged.
 
 ## Consultation semantics
 

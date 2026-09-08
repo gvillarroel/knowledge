@@ -32,6 +32,7 @@ from _direct_skill import (
     validate_skill_name,
 )
 from _family_registry import PROFILES, FamilyProfile, profile, vendor_root
+from _source_coverage import source_coverage, source_declarations
 
 
 def _write_text(path: Path, text: str) -> None:
@@ -181,6 +182,7 @@ def _build_candidate(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     guidance = normalize_text(guidance_path, label="guidance")
     validate_guidance(guidance)
+    declarations, source_manifest_sha256 = source_declarations(manifest_path)
     plan_data = (
         json.loads(plan_path.read_text(encoding="utf-8")) if plan_path is not None else None
     )
@@ -219,6 +221,14 @@ def _build_candidate(
         family=family,
         candidate=candidate,
         uses_embedding_runtime=uses_embedding_runtime,
+    )
+
+    if sha256_file(manifest_path) != source_manifest_sha256:
+        raise DirectSkillError("Source manifest changed during construction")
+    _write_text(
+        candidate / "references" / "source-coverage.json",
+        json.dumps(source_coverage(declarations, source_manifest_sha256, knowledge_root),
+                   ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False) + "\n",
     )
 
     artifacts = [

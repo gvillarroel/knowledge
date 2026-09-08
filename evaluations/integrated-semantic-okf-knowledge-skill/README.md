@@ -1,5 +1,13 @@
 # Integrated Semantic OKF Knowledge Skill Evaluation
 
+The [generator G2 report](../reports/evolution/generator-g2/README.md) records the
+separate evolution of explicit structured source selection, following the
+[preserved G1 infrastructure interruption](../reports/evolution/generator-g1/README.md). Its deterministic
+Harbor construction metric is distinct from the historical parity study below.
+See the [operating guide](../../docs/knowledge-generator-evolution.md) for the
+field-selection and coverage-receipt contracts, and the
+[native adapter](evolution/README.md) for reproducible task construction.
+
 This study verifies the direct multi-family generator against the exact
 separate builder and consultant pairs registered in
 `evaluations/semantic-okf-datasets/families.json`.

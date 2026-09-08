@@ -14,6 +14,13 @@ those virtual paths. The expanded concepts are never written to the bundle.
 The resulting canonical graph bytes and retrieval rankings must be identical
 to the record-per-file release; file reduction alone is not sufficient.
 
+Graphify 0.9.17 leaves an absolute file-stem ID on an empty Markdown heading.
+Normalize that exact residual ID after extraction using the relative source
+path and source location. Keep a separate, collision-checked heading identity
+and remap both edge endpoints; never merge it into the document root. Preserve
+all labels, source fields, and relationships. Both physical layouts must produce
+the same graph across unrelated temporary build directories.
+
 The published `retrieval/graphify/index.json` binds the native node-link graph to
 the complete Semantic OKF core, `records.jsonl`, every normalized record, and the
 deterministic view-input digest. A release is invalid when any core artifact,
