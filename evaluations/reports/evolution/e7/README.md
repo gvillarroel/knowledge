@@ -4,12 +4,11 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-014/README.md) records two
+The latest [all-family progress audit](status-015/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.01%
 weighted nDCG@10, up from 55.04%, while its eleventh variant runs. Adaptive
-retains its 60.04% baseline after three construction variants scored 59.69%,
-58.00% and 59.64%. Its first saturation variant scored 58.35%; its fifth
-variant is running with `bm25.k1=2.0`.
+now retains 61.15%, up from 60.04%, after its fifth variant improved with
+`bm25.k1=2.0`. Its sixth variant is running with `bm25.k1=3.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
@@ -18,8 +17,19 @@ The preceding [first audit](status-001/README.md),
 [sixth audit](status-006/README.md), [seventh audit](status-007/README.md),
 [eighth audit](status-008/README.md), [ninth audit](status-009/README.md),
 [tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
-[twelfth audit](status-012/README.md) and [thirteenth audit](status-013/README.md)
+[twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md)
+and [fourteenth audit](status-014/README.md)
 remain unchanged.
+
+The [first Adaptive gain](adaptive-progress-001/README.md) sets `bm25.k1=2.0`
+and gains 1.12 percentage points over the initial baseline. It improves 18
+eligible questions, regresses on 7 and ties on 87. All four aggregate retrieval
+metrics improve, and the miss counter resets. The
+[category and application breakdown](adaptive-progress-001/subgroups.md)
+shows that semantic questions contribute 0.75 points to the overall gain.
+GitHub gains 5.57 points and Jira 0.72, while Fireflies loses 0.31, Google Drive
+0.14 and HubSpot 0.12. The remaining saturation variant and later mechanisms
+still have to complete; this is a development selection.
 
 The [fifth Classical gain](classical-progress-005/README.md) reduces
 `bm25.title_weight` to `1.0` on the retained `bm25.b=1.0`, `bm25.k1=3.0` base.
@@ -101,9 +111,9 @@ execution errors. The third consecutive miss stopped this mechanism and
 skipped the untested `bm25.b=1.0` setting in this pass. Replaying the exact
 three-attempt prefix reproduces the next sealed mutation, `bm25.k1=0.6`.
 That saturation variant then scored 58.35% without execution errors, the first
-miss of the new mechanism. The baseline is retained and `bm25.k1=2.0` is
-running. The remaining mechanisms and complete family stopping history still
-have to run.
+miss of the new mechanism. The next setting, `bm25.k1=2.0`, produced the first
+Adaptive gain and replaced the baseline. The remaining mechanisms and complete
+family stopping history still have to run.
 
 The [completed Embeddings search](embeddings-complete-001/README.md) retains
 its 63.51% baseline. Six distinct construction variants exceeded the same
