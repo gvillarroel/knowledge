@@ -12,6 +12,10 @@ The [knowledge-skill generator evolution](evolution/generator-g2/README.md) comp
 
 The [EnterpriseRAG generator replay](enterprise-generator-g2/README.md) compares the incoming and G2 versions on identical complete documents, with family, category and CTA views.
 
+The [full-corpus Classical run](enterprise-classical-full/README.md) covers all 511,962 documents and 500 questions. Only Classical BM25 is measured; its retrieval result does not establish an official answer-quality score or public-table position.
+
+The [internal Luna answer evaluation](enterprise-classical-full/luna.md) reuses that full-corpus retrieval with Luna for both answering and judging; its score is separate from the public GPT-5.4 judge contract.
+
 The earlier [construction-profile study](evolution/e5/README.md) records controlled comparisons across EnterpriseRAG, Astro, architecture and data science. Its reports provide skill, profile, dataset and CTA views, with completion status and independent-validation availability kept explicit.
 
 ## Historical retrieval comparisons
@@ -31,6 +35,7 @@ The table identifies the highest observed primary metric within each published c
 | [EnterpriseRAG reduced corpus (40)](datasets/enterprise-rag-bench-40-v1.md) | entity-graph / Lexical | nDCG@10 | 59.40% |
 | [EnterpriseRAG e6 development (40)](datasets/enterprise-rag-e6-development-40.md) | embeddings / baseline / hybrid | nDCG@10 | 63.19% |
 | [EnterpriseRAG complete documents: incoming / G2 (40)](datasets/enterprise-rag-generator-g2-fulltext-40.md) | ensemble / Incoming / Quality; ensemble / G2 / Quality | nDCG@10 | 97.86% |
+| [EnterpriseRAG full corpus: Classical (500)](datasets/enterprise-rag-classical-full-500.md) | classical / Classical / BM25 | nDCG@10 | 59.03% |
 
 Historical reports keep their original source locations and meanings. The hub reads only reviewed aggregate sources and does not reopen sealed tasks. Latency and costs from different hosts, cache policies, models, or cohorts must be interpreted separately.
 

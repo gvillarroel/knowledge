@@ -1,0 +1,58 @@
+{
+  "alternatives": [
+    {
+      "id": "classical-classical-bm25",
+      "label": "classical / Classical / BM25",
+      "metrics": {
+        "mrr_at_10": 59.53,
+        "ndcg_at_10": 59.03,
+        "p95_ms": 286.4,
+        "recall_at_10": 67.97
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "top-10",
+    "cohort": "published-source-cohort",
+    "dataset_id": "enterprise-rag-classical-full-500",
+    "identity_grouping": "as-defined-by-bound-source-report",
+    "metric_contract": "published-aggregate-sha256:5c9e108eb5163c7f87332ba427ee8c2192e4cb6b0c54c1d0788cc97218a07f14"
+  },
+  "heading": "## Direct comparison",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "ndcg_at_10",
+      "label": "nDCG@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "recall_at_10",
+      "label": "Recall@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "mrr_at_10",
+      "label": "MRR@10",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "percentile_95",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "p95_ms",
+      "label": "P95 (ms)",
+      "unit": "ms"
+    }
+  ],
+  "report": "enterprise-rag-classical-full-500.md",
+  "schema_version": "final-report-comparison/1.0"
+}

@@ -53,6 +53,21 @@ def test_fulltext_enterprise_report_is_not_mislabeled_as_title_only():
     assert "titles without mapped" not in rendered["datasets/enterprise-rag-generator-g2-fulltext-40.md"]
 
 
+def test_full_corpus_classical_does_not_turn_retrieval_into_a_public_answer_rank():
+    specs = json.loads((ROOT / "evaluations/report-sources.json").read_text(encoding="utf-8"))["datasets"]
+    group = CATALOG.load_dataset(next(s for s in specs if s["id"] == "enterprise-rag-classical-full-500"))
+    evidence = json.loads((ROOT / "evaluations/reports/enterprise-classical-full/aggregate.json").read_text(encoding="utf-8"))
+    assert group["question_count"] == 500 and len(group["rows"]) == 1
+    assert evidence["retrieval"]["documents"] == 511962
+    assert evidence["retrieval"]["all_questions"]["questions_with_references"] == 470
+    assert evidence["retrieval"]["public_leaderboard_position"] is None
+    assert evidence["answer_stage"]["overall"] is None
+    assert evidence["answer_stage"]["public_position"] is None
+    assert "only measured alternative" in group["scope"]
+    assert group["rows"][0]["metrics"]["ndcg_at_10"] == pytest.approx(
+        100 * evidence["retrieval"]["all_questions"]["metrics"]["ndcg_at_10"], abs=0.005)
+
+
 def test_existing_published_winners_and_missing_values_are_preserved():
     specs = json.loads((ROOT / "evaluations/report-sources.json").read_text(encoding="utf-8"))["datasets"]
     datasets = {spec["id"]: CATALOG.load_dataset(spec) for spec in specs if spec["format"] != "enterprise-json"}

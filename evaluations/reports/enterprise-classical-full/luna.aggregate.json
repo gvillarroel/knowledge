@@ -1,0 +1,249 @@
+{
+  "actual_reasoning_effort_verified": "medium",
+  "actual_response_models": {
+    "answers": {
+      "gpt-5.6-luna": 500
+    },
+    "judge": {
+      "gpt-5.6-luna": 4069
+    }
+  },
+  "aggregate_stats": {
+    "average_completeness_pct": 52.75,
+    "average_correctness_pct": 70.2,
+    "average_invalid_extra_docs": 8.89,
+    "average_recall_pct": 68.11,
+    "combined_correctness_completeness_score": 48.33,
+    "completed_questions": 500,
+    "num_corrected_questions": 9,
+    "skipped_rows": 0,
+    "total_questions": 500
+  },
+  "answer_model": "gpt-5.6-luna",
+  "corpus_documents": 511962,
+  "evidence_hashes": {
+    "answer-binding.json": "643153e5dce03557fa50ed0d1cad5366ed3e229e76b4f5774b8f70f7b77da92f",
+    "answers/answers.jsonl": "ca2c29b690a967ad423ce61e69dd6ba42411742367d42111b37972f830db02ef",
+    "answers/submission.json": "e4845e906ee3c05186741f7b83fff20ba597160ce1142084b7fc22463b543f7c",
+    "answers/usage.json": "9f65c58ab13862037132afbf885023981ffb29d65eeb30d60114c84e936a1768",
+    "effective-judge/completion.json": "3b50baa942fe6108506d03523f51776a77c58184a13793179cac5a43f9eb1168",
+    "effective-judge/results.json": "51282634f4a6edd7d5efe7f70b0825f3cea8a0f07236ce8d2680451147c1358b",
+    "effective-judge/usage.json": "6fd533435b1c7eafbdfd34481966e3581feddd989254d094995ed81591152dd7",
+    "official-documents/manifest.json": "0c6b6cef71a0617c900ecd4dda11697f45a0d14f1d54e50dcc3048e5c3504c85",
+    "retrieval/answer-input-public.json": "0a2ebcfc32ef35ce7d6648c077abee3bd3d0c4a00c9437ddc6cd3e877490c9b8"
+  },
+  "executions": {
+    "answer": {
+      "binding_sha256": "643153e5dce03557fa50ed0d1cad5366ed3e229e76b4f5774b8f70f7b77da92f",
+      "log_sha256": "2685605bc1f0c9d0c1446f2eba6fca7ef92f864e82ec528eaaedcab588f0ca50",
+      "phase": "answer",
+      "returncode": 0,
+      "wall_seconds": 808.4152593000326
+    },
+    "judge": {
+      "phase": "judge-with-first-evaluable-recovery",
+      "recovery_binding_sha256": "0564a73c87e1f882eff2198d74eccdf8f72a6a63ef7c1466339d9c39d7768074",
+      "returncode": 0,
+      "source_receipt_sha256": {
+        "judge-execution.json": "966a9c99d5d567a067986286bda817e48ccd55481261ee36f2bcba76a68374dc",
+        "recovery-audit-002-execution.json": "d3c0ad386589b9a6492eae0c75ea37101c104740d2d05fafaecc8b48d7a756be",
+        "recovery-audit-003-execution.json": "6cd27717ae509919e713e83ab048e8f21615842966e5eea617b4b04d43085cf4",
+        "recovery-audit-execution.json": "d54f2207ef826365876e6594e75298baafbf21bd2e69917759a4ca32c42c1875",
+        "recovery-live-002-execution.json": "46c171ce0b0feadfc050cf713da07d96dc2e11065fba38fdc26f8f190585c791",
+        "recovery-live-003-b-execution.json": "a518102e3b4e060a64fcf5bba57ef3df23def3964f8ab234f37a240e81198749",
+        "recovery-live-003-execution.json": "a7e72d0fe1ccd586b36b561114d71eb3bc835a879902d1ce83be387a9b89de95",
+        "recovery-live-execution.json": "a4d3d8eb06b0a040fbb0042cb7e97ef5f4506082b8f9c8e4a0e6f97ee64ac2f6"
+      },
+      "time_scope": "Sum of original judging, all offline replays, continuations and one failed pre-run launcher; excludes repair development between stages",
+      "wall_seconds": 4934.129763399833
+    }
+  },
+  "judge_model": "gpt-5.6-luna",
+  "maintainer_verified": false,
+  "provider": "openai-codex",
+  "public_comparison_eligible": false,
+  "public_position": null,
+  "question_type_stats": {
+    "basic": {
+      "average_completeness_pct": 55.01,
+      "average_correctness_pct": 78.29,
+      "average_invalid_extra_docs": 9.24,
+      "average_recall_pct": 76.0,
+      "combined_correctness_completeness_score": 54.38,
+      "count": 175
+    },
+    "completeness": {
+      "average_completeness_pct": 33.81,
+      "average_correctness_pct": 55.0,
+      "average_invalid_extra_docs": 5.95,
+      "average_recall_pct": 64.14,
+      "combined_correctness_completeness_score": 20.13,
+      "count": 20
+    },
+    "conflicting_info": {
+      "average_completeness_pct": 63.09,
+      "average_correctness_pct": 85.0,
+      "average_invalid_extra_docs": 8.25,
+      "average_recall_pct": 85.83,
+      "combined_correctness_completeness_score": 56.16,
+      "count": 20
+    },
+    "constrained": {
+      "average_completeness_pct": 87.52,
+      "average_correctness_pct": 86.67,
+      "average_invalid_extra_docs": 8.4,
+      "average_recall_pct": 93.33,
+      "combined_correctness_completeness_score": 79.73,
+      "count": 30
+    },
+    "high_level": {
+      "average_completeness_pct": 53.0,
+      "average_correctness_pct": 70.0,
+      "average_invalid_extra_docs": 0.0,
+      "average_recall_pct": 0.0,
+      "combined_correctness_completeness_score": 53.0,
+      "count": 10
+    },
+    "info_not_found": {
+      "average_completeness_pct": 100.0,
+      "average_correctness_pct": 100.0,
+      "average_invalid_extra_docs": 0.0,
+      "average_recall_pct": 0.0,
+      "combined_correctness_completeness_score": 100.0,
+      "count": 20
+    },
+    "intra_document_reasoning": {
+      "average_completeness_pct": 71.04,
+      "average_correctness_pct": 87.5,
+      "average_invalid_extra_docs": 9.05,
+      "average_recall_pct": 95.0,
+      "combined_correctness_completeness_score": 67.29,
+      "count": 40
+    },
+    "miscellaneous": {
+      "average_completeness_pct": 54.67,
+      "average_correctness_pct": 90.0,
+      "average_invalid_extra_docs": 8.9,
+      "average_recall_pct": 95.0,
+      "combined_correctness_completeness_score": 52.17,
+      "count": 20
+    },
+    "project_related": {
+      "average_completeness_pct": 52.38,
+      "average_correctness_pct": 57.5,
+      "average_invalid_extra_docs": 7.15,
+      "average_recall_pct": 65.29,
+      "combined_correctness_completeness_score": 32.96,
+      "count": 40
+    },
+    "semantic": {
+      "average_completeness_pct": 28.99,
+      "average_correctness_pct": 45.6,
+      "average_invalid_extra_docs": 9.58,
+      "average_recall_pct": 36.8,
+      "combined_correctness_completeness_score": 25.2,
+      "count": 125
+    }
+  },
+  "questions": 500,
+  "reasoning": "medium",
+  "recovery": {
+    "answers_regenerated": false,
+    "available_response_resampling": false,
+    "candidate_permutations": "Recorded orders restored; bound seed for unissued orders",
+    "completed_empty_judge_replies_delegated_to_upstream": 1,
+    "completed_reply_recovered_questions": 1,
+    "evidence_hashes": {
+      "judge-recovery-003/completion.json": "3dae47015643b609594f48d5e24b6bb8ddf11262609f758eb7eec56e5daad52e",
+      "judge-recovery-binding-002.json": "389e594476dd1e45fd2032098d0e558c822552aaaa7cacea71e1a10daa6b76f7",
+      "judge-recovery-binding-003.json": "0564a73c87e1f882eff2198d74eccdf8f72a6a63ef7c1466339d9c39d7768074",
+      "judge-recovery-binding.json": "8521bc168523a6a94108a1d912c3aada0a41101a2a7ca2cf1ab7141eacb9f45a",
+      "judge-recovery-source-003/manifest.json": "c97d9f361ff0050d0f7d6599d3db8f0e0cc4258815933ece6bfd3e0163696997",
+      "judge-replay-audit-002/completion.json": "ff3bb1b063988a9bc6478097d931bb9f745c026367e0120c9456725d92941b3f",
+      "judge-replay-audit-003/completion.json": "787091e9f1c61fbbc04d2898b4bafcacc5a355769570515857aa5a76218242da",
+      "judge-replay-audit/completion.json": "2720d323515e6a5fecda2ffa550e3b171535ba62271a04e3333a411d2d3699d9",
+      "judge/results.json": "1798b64d7f77e1259bde0487ec81bfb4fe43da0c8569dfbed8c5e4d5ddf49513"
+    },
+    "final_continuation_requests": 432,
+    "final_continued_questions": 61,
+    "final_exact_result_matches": 439,
+    "final_offline_retained_questions": 439,
+    "final_replayed_component_responses": 13,
+    "historical_transport_errors": 3,
+    "interrupted_aggregates_excluded": true,
+    "original_exact_result_matches": 232,
+    "original_offline_retained_questions": 233,
+    "post_response_exit_failures_recovered": 1,
+    "prior_completed_responses_preserved": 3637,
+    "runner_code": {
+      "full_corpus_classical.py": "194bf8c70ad3f138aac9b8a29fdff3e9009c70a88a7ba984fa0e9c096302df27",
+      "official_model_transport.py": "ad03ddbbb00b0774d4f234f69f622f6c1e41116083978a3ebaff68f1782aa1f9",
+      "recover_classical_judge.py": "ac26389d2c61623019dd4218a6a68d4ef4b1ac95b8655baeb04ee01732c08e46",
+      "run_official_classical_answers.py": "d6277f59598ce61e6dbb83c4c020d62dfb11d25b09c0a73da95c3bc4fba4b9a7",
+      "subscription_model_bridge.mjs": "f0b3e48864fba7b23bcade6bdbe41b35efe694fb8f66e52a13a9365352249000"
+    },
+    "status": "complete",
+    "unevaluable_historical_attempts": 2,
+    "unknown_usage_cost_upper_bound_usd": 0.4634448,
+    "unresolved_evaluator_failures": 0,
+    "unresolved_transport_errors": 0
+  },
+  "repository_validation": {
+    "application_coverage_percent": 90.7,
+    "status": "pass",
+    "tests_passed": 1440
+  },
+  "retrieval_reused_without_rerunning": true,
+  "schema_version": "enterprise-full-classical-luna-internal/1.0",
+  "scope": "Internal fixed Classical BM25 plus Luna answer generation and Luna judging",
+  "status": "complete",
+  "subscription_protocol": {
+    "api_output_cap": null,
+    "host_output_acceptance_limit": 8192,
+    "reservation_output_maximum": 128000,
+    "system_instruction": "You are a helpful assistant.",
+    "text_verbosity": "low"
+  },
+  "usage": {
+    "answers": {
+      "budget_usd": 75,
+      "cached_input_tokens": 0,
+      "calls": 500,
+      "completed_answers": 500,
+      "cost_basis": "frozen-runtime-token-rate-equivalent; not a Codex invoice",
+      "cost_usd": 1.684642599999999,
+      "input_tokens": 7864961,
+      "model": "gpt-5.6-luna",
+      "output_tokens": 93042,
+      "provider": "openai-codex",
+      "reasoning": "medium",
+      "transport_errors": 0
+    },
+    "judge": {
+      "budget_usd": 73.3153574,
+      "cached_input_tokens": 41472,
+      "calls": 4071,
+      "completed_empty_judge_replies_delegated_to_upstream": 1,
+      "completed_response_count": 4069,
+      "cost_basis": "frozen-runtime-token-rate-equivalent; not a Codex invoice",
+      "cost_equivalent_interval_usd": [
+        4.060567440000004,
+        4.524012240000005
+      ],
+      "cost_usd": 4.060567440000004,
+      "cost_usd_scope": "Known completed usage only; two historical attempts have unknown usage",
+      "evaluator_failures": [],
+      "historical_transport_errors": 3,
+      "input_tokens": 15383082,
+      "model": "gpt-5.6-luna",
+      "output_tokens": 826180,
+      "post_response_exit_failures_recovered": 1,
+      "provider": "openai-codex",
+      "reasoning": "medium",
+      "transport_errors": 0,
+      "unevaluable_historical_attempts": 2,
+      "unknown_usage_attempts": 2,
+      "unknown_usage_cost_upper_bound_usd": 0.4634448
+    }
+  }
+}

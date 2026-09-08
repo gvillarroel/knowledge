@@ -1,0 +1,67 @@
+{
+  "alternatives": [
+    {
+      "id": "classical-bm25-luna",
+      "label": "Classical / Luna / Luna judge",
+      "metrics": {
+        "average_completeness_pct": 52.75,
+        "average_correctness_pct": 70.2,
+        "average_invalid_extra_docs": 8.89,
+        "average_recall_pct": 68.11,
+        "combined_correctness_completeness_score": 48.33
+      }
+    }
+  ],
+  "dataset_scope": {
+    "candidate_budget": "One fixed Classical BM25 route; one Luna answer per question; Luna judge",
+    "cohort": "All 500 public questions",
+    "dataset_id": "enterprise-rag-classical-luna-full-500",
+    "identity_grouping": "Exact same 500 question-only inputs and source documents as the GPT-5.4 arm",
+    "metric_contract": "private-upstream-result-sha256:51282634f4a6edd7d5efe7f70b0825f3cea8a0f07236ce8d2680451147c1358b"
+  },
+  "heading": "## Internal answer quality",
+  "metrics": [
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "combined_correctness_completeness_score",
+      "label": "Overall",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "average_correctness_pct",
+      "label": "Correctness",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "average_completeness_pct",
+      "label": "Completeness",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "higher",
+      "display_precision": 2,
+      "id": "average_recall_pct",
+      "label": "Corrected document recall",
+      "unit": "percent"
+    },
+    {
+      "aggregation": "mean",
+      "direction": "lower",
+      "display_precision": 2,
+      "id": "average_invalid_extra_docs",
+      "label": "Invalid extra documents",
+      "unit": "count"
+    }
+  ],
+  "report": "luna.md",
+  "schema_version": "final-report-comparison/1.0"
+}

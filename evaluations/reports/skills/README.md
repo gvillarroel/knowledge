@@ -8,6 +8,10 @@
 
 [EnterpriseRAG: incoming versus G2 generator, all eight families](../enterprise-generator-g2/README.md)
 
+[EnterpriseRAG: Classical BM25 over the complete corpus and all 500 questions](../enterprise-classical-full/README.md)
+
+[EnterpriseRAG: internal Classical + Luna answer evaluation](../enterprise-classical-full/luna.md)
+
 The table links historical skill comparisons. The evolution campaign pages provide controlled per-family comparisons with their execution and independent-validation status.
 
 | Skill family | Reports |

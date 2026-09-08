@@ -83,6 +83,14 @@
       "report": "evaluations/reports/enterprise-generator-g2/README.md",
       "question_count": 40, "expected_rows": 36, "primary_metric": "ndcg_at_10",
       "scope": "Fixed incoming-versus-G2 generator replay: 985 complete documents, 40 exposed questions, eight families, eighteen routes and two versions. Both versions use identical explicit body mappings, plans and consultation code. Embeddings uses pinned MiniLM; Ensemble retains hashing. One query pass, descriptive P95, no generated answers, no independent retrieval gate and no promotion. Legacy lexical and Turso SQL are comparator routes. Do not pool with title-only v1/e6 or the S2 agent-answer contract. Each same-route version pair ties in all relevance metrics; numbered catalog rows enumerate alternatives and preserve these ties."
+    },
+    {
+      "id": "enterprise-rag-classical-full-500", "label": "EnterpriseRAG full corpus: Classical (500)",
+      "path": "evaluations/reports/enterprise-classical-full/README.md", "format": "markdown",
+      "table_header": "Pair / strategy", "route_column": "Pair / strategy", "fixed_family": "classical",
+      "question_count": 500, "expected_rows": 1, "primary_metric": "ndcg_at_10",
+      "metrics": {"ndcg_at_10": ["nDCG@10", "percent"], "recall_at_10": ["Recall@10", "percent"], "mrr_at_10": ["MRR@10", "percent"], "full_evidence_at_10": ["Full evidence@10", "percent"], "p95_ms": ["P95 (ms)", "ms"]},
+      "scope": "All 511,962 physical documents and all 500 public questions; retrieval quality means on the 470 questions with original qrels, latency on all 500. One unchanged Classical BM25 route, Top-10, one pass, disk-backed native-score adapter. Classical is the only measured alternative, so its local row number is not a public rank or evidence of superiority over other skills. This catalog row measures retrieval only; the source report owns the separate GPT-5.4 answer-stage status and official Overall availability. It does not measure a complete Semantic OKF bundle, agent skill selection or an independent promotion gate. The 985-document comparisons remain separate."
     }
   ]
 }

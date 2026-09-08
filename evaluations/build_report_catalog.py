@@ -222,6 +222,12 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                 "separate independent construction gate. Its metric is not a retrieval or answer score.", "",
                 "The [EnterpriseRAG generator replay](enterprise-generator-g2/README.md) compares the incoming "
                 "and G2 versions on identical complete documents, with family, category and CTA views.", "",
+                "The [full-corpus Classical run](enterprise-classical-full/README.md) covers all 511,962 "
+                "documents and 500 questions. Only Classical BM25 is measured; its retrieval result "
+                "does not establish an official answer-quality score or public-table position.", "",
+                "The [internal Luna answer evaluation](enterprise-classical-full/luna.md) reuses that "
+                "full-corpus retrieval with Luna for both answering and judging; its score is separate "
+                "from the public GPT-5.4 judge contract.", "",
                 "The earlier [construction-profile study](evolution/e5/README.md) records controlled comparisons "
                 "across EnterpriseRAG, Astro, architecture and data science. Its reports provide skill, profile, "
                 "dataset and CTA views, with completion status and independent-validation availability kept explicit.", "",
@@ -259,6 +265,8 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                    "[Agent-selected skills by application](../enterprise-source-skills/README.md)", "",
                    "[Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)", "",
                    "[EnterpriseRAG: incoming versus G2 generator, all eight families](../enterprise-generator-g2/README.md)", "",
+                   "[EnterpriseRAG: Classical BM25 over the complete corpus and all 500 questions](../enterprise-classical-full/README.md)", "",
+                   "[EnterpriseRAG: internal Classical + Luna answer evaluation](../enterprise-classical-full/luna.md)", "",
                    "The table links historical skill comparisons. The evolution campaign pages provide controlled per-family comparisons with their execution and independent-validation status.", "",
                    "| Skill family | Reports |", "|---|---|"]
     for family in families:
@@ -324,6 +332,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     cta.extend(["[Agent-selected Enterprise source skills and their separate answer/CTA contract](../enterprise-source-skills/README.md)", ""])
     cta.extend(["[Knowledge-skill generator: deterministic construction quality and execution cost](../evolution/generator-g2/README.md)", ""])
     cta.extend(["[EnterpriseRAG generator replay: fixed full-text retrieval and construction costs](../enterprise-generator-g2/cta.md)", ""])
+    cta.extend(["[EnterpriseRAG full corpus: Classical construction, 500-query latency and separate answer-stage usage](../enterprise-classical-full/cta.md)", ""])
     files["cta/README.md"] = "\n".join(cta)
     files["catalog.json"] = json.dumps({"schema_version": "evaluation-report-catalog/1.0", "datasets": datasets,
                                       "token_source_sha256": hashlib.sha256(token_text.encode()).hexdigest()},

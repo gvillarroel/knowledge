@@ -23,6 +23,7 @@ P95 covers the exact route and runtime described in each source report. Initiali
 | [EnterpriseRAG reduced corpus (40)](../datasets/enterprise-rag-bench-40-v1.md) | Lexical | 83.17 | 0.00 |
 | [EnterpriseRAG e6 development (40)](../datasets/enterprise-rag-e6-development-40.md) | embeddings / baseline / hybrid | 171.35 | N/A |
 | [EnterpriseRAG complete documents: incoming / G2 (40)](../datasets/enterprise-rag-generator-g2-fulltext-40.md) | Incoming / Quality; G2 / Quality | 2838.14; 2839.98 | N/A |
+| [EnterpriseRAG full corpus: Classical (500)](../datasets/enterprise-rag-classical-full-500.md) | Classical / BM25 | 286.40 | N/A |
 
 ## Historical agent token usage: construction
 
@@ -67,3 +68,5 @@ Use the [comparison catalog](../../COMPARISON-REPORTS.md) for the current isolat
 [Knowledge-skill generator: deterministic construction quality and execution cost](../evolution/generator-g2/README.md)
 
 [EnterpriseRAG generator replay: fixed full-text retrieval and construction costs](../enterprise-generator-g2/cta.md)
+
+[EnterpriseRAG full corpus: Classical construction, 500-query latency and separate answer-stage usage](../enterprise-classical-full/cta.md)

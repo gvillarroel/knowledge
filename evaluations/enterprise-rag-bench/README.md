@@ -3,6 +3,10 @@
 [Incoming versus G2 generator comparison](../../docs/enterprise-generator-comparison.md)
 uses a separate full-text projection and preserves the historical v1 contract.
 
+[Full-corpus Classical execution](../../docs/enterprise-classical-full-corpus.md)
+uses all 511,962 documents and 500 public questions, with a separate official
+answer-quality gate before any public-table position can be reported.
+
 This directory owns the pinned Onyx acquisition descriptor, evaluator-free
 dataset adapter, and direct comparison runner for `enterprise-rag-bench-40-v1`.
 

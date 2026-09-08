@@ -26,6 +26,7 @@
 - [Unavailable semantic review pairs: paired exclusion and full-cohort bounds](../.specs/adr/0124-report-unavailable-semantic-review-pairs.md)
 - [Local evaluation datasets, EnterpriseRAG-Bench, and reports by skill](evaluation-datasets-and-reports.md)
 - [EnterpriseRAG public leaderboard and external strategy results](../evaluations/enterprise-rag-bench/reports/public-results-20260906.md)
+- [Full-corpus EnterpriseRAG with Classical and official answer scoring](enterprise-classical-full-corpus.md)
 
 
 This directory is the canonical documentation set for the `know` CLI.

@@ -1988,6 +1988,30 @@
       "source": "evaluations/reports/enterprise-generator-g2/comparison.json",
       "source_report": "evaluations/reports/enterprise-generator-g2/README.md",
       "source_sha256": "fe111e6739cc604a380453d5e650940ba391ad608ca2bcc3ed077cd3c868a07e"
+    },
+    {
+      "id": "enterprise-rag-classical-full-500",
+      "label": "EnterpriseRAG full corpus: Classical (500)",
+      "primary_metric": "ndcg_at_10",
+      "question_count": 500,
+      "rows": [
+        {
+          "family": "classical",
+          "metrics": {
+            "full_evidence_at_10": 62.34,
+            "mrr_at_10": 59.53,
+            "ndcg_at_10": 59.03,
+            "p95_ms": 286.4,
+            "recall_at_10": 67.97
+          },
+          "route": "Classical / BM25",
+          "status": "measured"
+        }
+      ],
+      "scope": "All 511,962 physical documents and all 500 public questions; retrieval quality means on the 470 questions with original qrels, latency on all 500. One unchanged Classical BM25 route, Top-10, one pass, disk-backed native-score adapter. Classical is the only measured alternative, so its local row number is not a public rank or evidence of superiority over other skills. This catalog row measures retrieval only; the source report owns the separate GPT-5.4 answer-stage status and official Overall availability. It does not measure a complete Semantic OKF bundle, agent skill selection or an independent promotion gate. The 985-document comparisons remain separate.",
+      "source": "evaluations/reports/enterprise-classical-full/README.md",
+      "source_report": "evaluations/reports/enterprise-classical-full/README.md",
+      "source_sha256": "5c9e108eb5163c7f87332ba427ee8c2192e4cb6b0c54c1d0788cc97218a07f14"
     }
   ],
   "schema_version": "evaluation-report-catalog/1.0",

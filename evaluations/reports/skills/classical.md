@@ -120,4 +120,14 @@ Fixed incoming-versus-G2 generator replay: 985 complete documents, 40 exposed qu
 | classical / Incoming / Fusion | 90.33% | 88.64% | 98.75% | 247.81 |
 | classical / Incoming / Topic | 90.33% | 88.64% | 98.75% | 249.50 |
 
+## EnterpriseRAG full corpus: Classical (500)
+
+All 511,962 physical documents and all 500 public questions; retrieval quality means on the 470 questions with original qrels, latency on all 500. One unchanged Classical BM25 route, Top-10, one pass, disk-backed native-score adapter. Classical is the only measured alternative, so its local row number is not a public rank or evidence of superiority over other skills. This catalog row measures retrieval only; the source report owns the separate GPT-5.4 answer-stage status and official Overall availability. It does not measure a complete Semantic OKF bundle, agent skill selection or an independent promotion gate. The 985-document comparisons remain separate.
+
+[All compared skills](../datasets/enterprise-rag-classical-full-500.md)
+
+| Skill family / route | nDCG@10 | Recall@10 | MRR@10 | P95 (ms) |
+|---|---:|---:|---:|---:|
+| classical / Classical / BM25 | 59.03% | 67.97% | 59.53% | 286.40 |
+
 [Cost, time, quality, and measurement limits](../cta/README.md)

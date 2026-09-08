@@ -1,0 +1,294 @@
+{
+  "answer_stage": {
+    "actual_response_models": {
+      "gpt-5.4-2026-03-05": 317
+    },
+    "answer_model": "gpt-5.4",
+    "answer_receipt_count": 317,
+    "binding_sha256": "0c6f7f71cebff5e2fcc6b9716058e6a1b0420d3f84ae75496a7b4392caaed6e7",
+    "call_status_counts": {
+      "complete": 317,
+      "unavailable": 2
+    },
+    "completion_count_note": "Two in-flight successful answers finished while the executor drained after the first failure; all files are preserved.",
+    "execution": {
+      "binding_sha256": "0c6f7f71cebff5e2fcc6b9716058e6a1b0420d3f84ae75496a7b4392caaed6e7",
+      "log_sha256": "151c49ee4fb0fcd26278bfc782199c9461fbb6b5811ff40a5eee461a0419c04d",
+      "phase": "answer",
+      "returncode": 1,
+      "wall_seconds": 712.8134782999987
+    },
+    "failure_http_status_counts": {
+      "429": 2
+    },
+    "judge_model": "gpt-5.4",
+    "judgments_completed": 0,
+    "maintainer_verified": false,
+    "overall": null,
+    "provider": "github-copilot",
+    "public_position": null,
+    "questions_completed": 317,
+    "questions_planned": 500,
+    "reason": "Copilot HTTP 429 quota errors before all 500 answers completed",
+    "reported_completed_answers": 315,
+    "status": "unavailable",
+    "usage": {
+      "budget_usd": 250.0,
+      "cached_input_tokens": 0,
+      "calls": 319,
+      "completed_answers": 315,
+      "cost_basis": "OpenAI-token-rate-equivalent; not a Copilot invoice",
+      "cost_usd": 15.160537500000002,
+      "input_tokens": 4789977,
+      "model": "gpt-5.4",
+      "output_tokens": 212373,
+      "provider": "github-copilot",
+      "reasoning": "medium",
+      "transport_errors": 2
+    }
+  },
+  "archive_sha256": "9d1174928696ad08bc15f3f104739519de633c1605a4ec2034e0e3c0087bc5cd",
+  "citation_projection": {
+    "affected_questions": 1,
+    "dropped_physical_citations": 1,
+    "questions": 500,
+    "retrieval_rankings_changed": false,
+    "source_corpus_changed": false,
+    "status": "pass",
+    "unique_citations": 4999
+  },
+  "complete_semantic_okf_bundle": false,
+  "corpus": {
+    "average_field_lengths": {
+      "body": 1191.235685461,
+      "title": 7.7596286443
+    },
+    "colliding_records_preserved": 8,
+    "construction_seconds": 2798.829829442,
+    "documents": 511962,
+    "original_body_characters": 2464705888,
+    "postings": 401031580,
+    "records_sha256": "f468b25ad96a5b7dfa2fa0173db561629c83103afda7fe703341e9031da4ccd2",
+    "sources": {
+      "confluence": 5189,
+      "fireflies": 10173,
+      "github": 8052,
+      "gmail": 121390,
+      "google-drive": 25108,
+      "hubspot": 15017,
+      "jira": 6120,
+      "linear": 35308,
+      "slack": 285605
+    },
+    "terms": 28352610
+  },
+  "evidence_hashes": {
+    "adapter-parity.json": "0937054e2a701889b4cad7a68376f2bdc0ef0780f5a3158b660bb23044dcf655",
+    "citation-binding.json": "b235827337e880e8cd5fdd4cd95a8638a63629707c8741bdebb34d8ff55d8a34",
+    "full-index-execution.json": "3f328ded16b6b8b54e61a4ff4bf307ebe50e99fb1bb4e1e96f2f63e701ce8545",
+    "index-binding.json": "2e52f04fbdb779007201e95d38bd3905009c32cc3d6f56bae0b2eb30987510df",
+    "retrieval-binding.json": "c2cbf0e7ae80b7b1de7ddad19ca0724edc8cb0fd661a9b14e568fc32de78d72b",
+    "retrieval-execution.json": "db4f975e7d94dd35b85ab3a6419b5d9fe44f79afc24229311189591b98a5cd6f",
+    "retrieval/integrity.json": "bffc6d8dd3880f0df981881ec49adb1a127b8e369620e1c5db89bba4d75eb08f",
+    "retrieval/summary.json": "fae2fbe1ef6d3e97b7808396e625eeb32a720278962dec51999c5340d3c2a53c"
+  },
+  "frozen_files": {
+    "build-semantic-okf-classical/SKILL.md": "189b7a94ee88be4898434e8143dd5756be24407f791cf707fe00e4ab8be761bc",
+    "build-semantic-okf-classical/agents/openai.yaml": "84deff6c40158743e2e2f40b74a5cfa9697a8cc20d1d785e482c6c3a63c42b67",
+    "build-semantic-okf-classical/references/classical-plan.md": "4ef056dd9fa775d7ea6fae46129d8df8fdc76cee7e9a95987445070dc70122a2",
+    "build-semantic-okf-classical/references/coherence-contract.md": "31bdf813f95ea20d014dc6e9550847e9e12c4e95b9bd6b837f1a001b4477e15d",
+    "build-semantic-okf-classical/references/manifest.md": "b3858473e579e7b77ed18cf36a259efc2df99901933a4aa9fc1f84a6ba3dc8c6",
+    "build-semantic-okf-classical/references/source-combination.md": "15f4999242644cbf70e2667ee5372d9d3450f4009a22b1d59c64c588d4eade9f",
+    "build-semantic-okf-classical/scripts/_build_semantic_okf_core.py": "b4c9e44e4533eb4e5512e95e09235a0d995926017ad526d5cf360b3642c4e681",
+    "build-semantic-okf-classical/scripts/_classical_retrieval.py": "c752137324c16ac6a2685b25f242fbff2e9a83b6583f46c9a4ed6e782852aca4",
+    "build-semantic-okf-classical/scripts/_semantic_okf.py": "f9cfa4646a6a546ef94c39e9fc2485f710c018ddee2076cf4106d1f9596242ec",
+    "build-semantic-okf-classical/scripts/build_semantic_okf_classical.py": "dd9a8ff7daa0c34e5d3229d96b05597abef3daf1e9abe041204c99c46e17241e",
+    "build-semantic-okf-classical/scripts/requirements.in": "c2cb489e0481f733471700425fda16faf96986b08da3fc9070f0c8f103a975fe",
+    "build-semantic-okf-classical/scripts/requirements.txt": "9f820affeaabd1a61f3b627e5ae960ecc3b21885b094d74668f83d75b8a24128",
+    "build-semantic-okf-classical/scripts/runtime_smoke.py": "a334ff9cfd9c62f4d3309abf15f3ecd1ce5d3dd6cf2a5e6938d220952c89fd2f",
+    "build-semantic-okf-classical/scripts/validate_okf_bundle.py": "8955da73468d6a4bff7f9bc3ab979e5e50ebeaab651f2dcc174d4f0e861b496a",
+    "build-semantic-okf-classical/scripts/validate_semantic_okf_classical.py": "2fe639a2fe92329824dd6767839b817be2b55a7a7277ab0ade549d3f55e5be95",
+    "consult-semantic-okf-classical/SKILL.md": "f3470c848d8ca40ee254dd740a2005f3a8b24042b6bdef7738756fa3670a6af1",
+    "consult-semantic-okf-classical/agents/openai.yaml": "b7ec68a5045acb10875d057cf8d684cabd24f750b953f482466f7fdf25884e39",
+    "consult-semantic-okf-classical/references/querying.md": "627577cad5285fb5c89a12b1406d178da47d1ba9404cd52f44b07aeacb89ea22",
+    "consult-semantic-okf-classical/scripts/_classical_snapshot.py": "3809b930be4a6fff5bfc4aba52c5ea9585ec61d71880cd9655cd4c4eda8a8041",
+    "consult-semantic-okf-classical/scripts/query_semantic_okf_classical.py": "772fe0bdc8dae624b86db95037340468463c4628e95b3622b88a7ece7ecdfc34",
+    "consult-semantic-okf-classical/scripts/requirements.in": "7c73e6cd2d24c15e1013e7127ff861c52d6f37525dd1944735e75f153c657419",
+    "consult-semantic-okf-classical/scripts/requirements.txt": "7c73e6cd2d24c15e1013e7127ff861c52d6f37525dd1944735e75f153c657419",
+    "consult-semantic-okf-classical/scripts/runtime_smoke.py": "62dd30de5184f554dedbfdf2ad2d4b17bfcb05bcba549e1917ea399e20da9df1",
+    "full_corpus_classical.py": "194bf8c70ad3f138aac9b8a29fdff3e9009c70a88a7ba984fa0e9c096302df27"
+  },
+  "image": "sha256:01339d300da742ba89d3d8ff101ffa12252ed7cf056b68f5a00ef1257b53cc80",
+  "index_bytes": 4954062848,
+  "index_unchanged": true,
+  "internal_luna": {
+    "aggregate_report": "luna.aggregate.json",
+    "aggregate_sha256": "5841c8399470449cf337f202f270e66c3e3a2bd1a27f9500dfb3ab02e276ba93",
+    "answer_model": "gpt-5.6-luna",
+    "judge_model": "gpt-5.6-luna",
+    "overall": 48.33,
+    "public_position": null,
+    "questions": 500,
+    "status": "complete"
+  },
+  "native_implementation_sha256": "3809b930be4a6fff5bfc4aba52c5ea9585ec61d71880cd9655cd4c4eda8a8041",
+  "new_skill_mutation": false,
+  "optimizer_use": false,
+  "public_leaderboard_revision": "0c816c8559bb9734e13834813de0766152513758",
+  "questions_sha256": "f9524b9157cd43aae36b99333a124738804306ea6d07f332d49faa6d3d147905",
+  "retrieval": {
+    "all_questions": {
+      "mean_query_seconds": 0.16436856938999517,
+      "metrics": {
+        "complete_coverage_at_10": 0.6234042553191489,
+        "mrr_at_10": 0.5952769334684228,
+        "ndcg_at_10": 0.5902651345181376,
+        "recall_at_10": 0.679661431948666
+      },
+      "p95_query_seconds": 0.2864022379999369,
+      "query_seconds": 82.18428469499759,
+      "questions": 500,
+      "questions_with_references": 470
+    },
+    "ambiguous_upstream_ids_needed_for_answer_stage": 1,
+    "answer_quality_score": null,
+    "categories": {
+      "basic": {
+        "mean_query_seconds": 0.14742480766284383,
+        "metrics": {
+          "complete_coverage_at_10": 0.76,
+          "mrr_at_10": 0.630609977324263,
+          "ndcg_at_10": 0.6618227124145685,
+          "recall_at_10": 0.76
+        },
+        "p95_query_seconds": 0.2485724529997242,
+        "query_seconds": 25.79934134099767,
+        "questions": 175,
+        "questions_with_references": 175
+      },
+      "completeness": {
+        "mean_query_seconds": 0.18738836615002583,
+        "metrics": {
+          "complete_coverage_at_10": 0.25,
+          "mrr_at_10": 0.8,
+          "ndcg_at_10": 0.6285145950247846,
+          "recall_at_10": 0.6287103174603175
+        },
+        "p95_query_seconds": 0.33254449000014574,
+        "query_seconds": 3.7477673230005166,
+        "questions": 20,
+        "questions_with_references": 20
+      },
+      "conflicting_info": {
+        "mean_query_seconds": 0.10390801949995421,
+        "metrics": {
+          "complete_coverage_at_10": 0.75,
+          "mrr_at_10": 0.9125,
+          "ndcg_at_10": 0.8460519645611455,
+          "recall_at_10": 0.85
+        },
+        "p95_query_seconds": 0.1597329900000659,
+        "query_seconds": 2.078160389999084,
+        "questions": 20,
+        "questions_with_references": 20
+      },
+      "constrained": {
+        "mean_query_seconds": 0.23935321509998175,
+        "metrics": {
+          "complete_coverage_at_10": 0.9,
+          "mrr_at_10": 0.9,
+          "ndcg_at_10": 0.879658891776068,
+          "recall_at_10": 0.9333333333333333
+        },
+        "p95_query_seconds": 0.3707772789998671,
+        "query_seconds": 7.180596452999453,
+        "questions": 30,
+        "questions_with_references": 30
+      },
+      "high_level": {
+        "mean_query_seconds": 0.07126576119999299,
+        "metrics": null,
+        "p95_query_seconds": 0.10343934799993804,
+        "query_seconds": 0.7126576119999299,
+        "questions": 10,
+        "questions_with_references": 0
+      },
+      "info_not_found": {
+        "mean_query_seconds": 0.1556066746499937,
+        "metrics": null,
+        "p95_query_seconds": 0.24672934199998053,
+        "query_seconds": 3.112133492999874,
+        "questions": 20,
+        "questions_with_references": 0
+      },
+      "intra_document_reasoning": {
+        "mean_query_seconds": 0.16774152272496395,
+        "metrics": {
+          "complete_coverage_at_10": 0.95,
+          "mrr_at_10": 0.8916666666666667,
+          "ndcg_at_10": 0.9065464876785729,
+          "recall_at_10": 0.95
+        },
+        "p95_query_seconds": 0.23839677300020412,
+        "query_seconds": 6.709660908998558,
+        "questions": 40,
+        "questions_with_references": 40
+      },
+      "miscellaneous": {
+        "mean_query_seconds": 0.09481280120000975,
+        "metrics": {
+          "complete_coverage_at_10": 0.95,
+          "mrr_at_10": 0.8583333333333333,
+          "ndcg_at_10": 0.8809033347125469,
+          "recall_at_10": 0.95
+        },
+        "p95_query_seconds": 0.21958553900003608,
+        "query_seconds": 1.8962560240001949,
+        "questions": 20,
+        "questions_with_references": 20
+      },
+      "project_related": {
+        "mean_query_seconds": 0.17335400277499957,
+        "metrics": {
+          "complete_coverage_at_10": 0.25,
+          "mrr_at_10": 0.8189583333333333,
+          "ndcg_at_10": 0.5967122060270695,
+          "recall_at_10": 0.6466666666666666
+        },
+        "p95_query_seconds": 0.2589078289997815,
+        "query_seconds": 6.934160110999983,
+        "questions": 40,
+        "questions_with_references": 40
+      },
+      "semantic": {
+        "mean_query_seconds": 0.19210840831201859,
+        "metrics": {
+          "complete_coverage_at_10": 0.368,
+          "mrr_at_10": 0.18065396825396826,
+          "ndcg_at_10": 0.22380900930798311,
+          "recall_at_10": 0.368
+        },
+        "p95_query_seconds": 0.3055429549999644,
+        "query_seconds": 24.013551039002323,
+        "questions": 125,
+        "questions_with_references": 125
+      }
+    },
+    "complete_semantic_okf_bundle": false,
+    "documents": 511962,
+    "index_sha256": "4f0712aab9a00d9ee25594c4cf33c1e97227e2b8e15914d170524f5b80b34bca",
+    "model_calls": 0,
+    "passes": 1,
+    "public_leaderboard_position": null,
+    "questions_sha256": "f9524b9157cd43aae36b99333a124738804306ea6d07f332d49faa6d3d147905",
+    "schema_version": "enterprise-full-classical-retrieval/1.0",
+    "scope": "full-corpus-direct-bm25-retrieval",
+    "status": "complete",
+    "top_k": 10
+  },
+  "retrieval_runner": {
+    "full_corpus_classical.py": "194bf8c70ad3f138aac9b8a29fdff3e9009c70a88a7ba984fa0e9c096302df27",
+    "run_full_classical_retrieval.py": "3dc26318d2e2c33b7b54c2ad53439b015c1d5fa578bcaac2b771ad57400de4b1"
+  },
+  "schema_version": "enterprise-full-classical-publication/1.0"
+}

@@ -1,8 +1,8 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-09-07.
+Catalog updated: 2026-09-08.
 
-Newest included scored or audited evidence: 2026-09-07.
+Newest included scored or audited evidence: 2026-09-08.
 
 This is the entry point for reviewed reports that compare knowledge builders,
 consultants, generated expert skills, retrieval routes, or storage variants. It
@@ -14,19 +14,32 @@ table, [pages by skill](reports/skills/README.md), and a
 [cost/time/quality view](reports/cta/README.md). It includes the new pinned
 EnterpriseRAG reduced-corpus diagnostic and preserves the contracts below.
 
+The latest [Classical full-corpus run](reports/enterprise-classical-full/README.md)
+covers all 511,962 documents and all 500 public questions. Retrieval metrics
+average the 470 questions with original reference documents. Only Classical
+BM25 was evaluated; its local row number is not a public leaderboard position.
+The official GPT-5.4 answer and judge stages have a separately frozen protocol;
+their completion state is recorded in that report. [CTA](reports/enterprise-classical-full/cta.md) and
+[question categories](reports/enterprise-classical-full/categories.md) keep the
+retrieval and answer-quality boundaries visible.
+The [internal Luna arm](reports/enterprise-classical-full/luna.md) uses the same
+500 inputs with Luna for both answering and judging. Its score is separate from
+the public GPT-5.4 judge contract.
+
 The completed [Enterprise evolution sweep e6](reports/evolution/e6/README.md)
 adds 106 new candidate evaluations and eight fresh controls across eight
 knowledge families. Its [primary-route comparison](reports/evolution/e6/catalog-001/comparison.md),
 [exact retained profiles](reports/evolution/e6/catalog-001/profiles.md), and
 [CTA report](reports/evolution/e6/development-001/CTA.md) retain a separate
 development contract. The campaign page records the terminal decision and
-independent-validation state. The catalog now contains ten comparison contracts;
-the two Enterprise entries use the same reduced corpus and are not separate
-independent datasets.
+independent-validation state. The catalog contains twelve retrieval contracts,
+including the later incoming/G2 replay and the full-corpus Classical run.
+Several Enterprise entries share a reduced corpus and do not represent
+separate independent datasets.
 
 The [agent-selected Enterprise source-skill study](reports/enterprise-source-skills/README.md)
 uses a separate full-text, generated-answer contract. Its comparison is not pooled
-with the ten historical retrieval contracts. The [ingestion scope correction](reports/enterprise-source-skills/ingestion-scope-20260907.md)
+with the retrieval contracts. The [ingestion scope correction](reports/enterprise-source-skills/ingestion-scope-20260907.md)
 binds all 114 e6 trials to the historical title-only projection and narrows the
 interpretation of those preserved scores.
 
