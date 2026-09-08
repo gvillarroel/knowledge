@@ -4,11 +4,11 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-015/README.md) records two
-completed searches and four qualified baselines. Classical now retains 60.01%
-weighted nDCG@10, up from 55.04%, while its eleventh variant runs. Adaptive
-now retains 61.15%, up from 60.04%, after its fifth variant improved with
-`bm25.k1=2.0`. Its sixth variant is running with `bm25.k1=3.0`.
+The latest [all-family progress audit](status-016/README.md) records two
+completed searches and four qualified baselines. Classical now retains 60.10%
+weighted nDCG@10, up from 55.04%, while its twelfth variant tests zero expansion
+weights. Adaptive now retains 61.49%, up from 60.04%, after its sixth variant
+improved with `bm25.k1=3.0`. Its seventh variant tests title weight `4.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
@@ -17,8 +17,8 @@ The preceding [first audit](status-001/README.md),
 [sixth audit](status-006/README.md), [seventh audit](status-007/README.md),
 [eighth audit](status-008/README.md), [ninth audit](status-009/README.md),
 [tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
-[twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md)
-and [fourteenth audit](status-014/README.md)
+[twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md),
+[fourteenth audit](status-014/README.md) and [fifteenth audit](status-015/README.md)
 remain unchanged.
 
 The [provisional cross-family comparison](retained-cross-family-001/README.md)
@@ -30,6 +30,26 @@ leads the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
 
+The [second Adaptive gain](adaptive-progress-002/README.md) sets `bm25.k1=3.0`
+and gains 1.46 percentage points over the baseline, including 0.34 over
+candidate005. Against the baseline, 24 eligible questions improve, 6 regress
+and 82 tie; against candidate005, the counts are 11, 2 and 99. All four
+aggregate retrieval metrics improve. The saturation catalog ends on this gain
+with a reset miss counter, and title weighting starts next. The
+[category and application breakdown](adaptive-progress-002/subgroups.md)
+shows GitHub gaining 6.50 points, Google Drive 2.38 and Confluence 1.28, while
+Fireflies loses 0.14 and HubSpot loses 0.12. The profile remains provisional.
+
+The [sixth Classical gain](classical-progress-006/README.md) reduces expansion
+association weight to `0.0875` and topic weight to `0.05`. Fusion gains 5.06
+percentage points over the initial baseline and 0.0831 over candidate010.
+This small increment improves 2 eligible questions, regresses on none and
+ties on 110 against the incumbent. The
+[category and application breakdown](classical-progress-006/subgroups.md)
+shows reduced loss on constrained questions and a small semantic-category
+increment. The next variant sets both expansion weights to zero; the
+mechanism remains in progress.
+
 The [first Adaptive gain](adaptive-progress-001/README.md) sets `bm25.k1=2.0`
 and gains 1.12 percentage points over the initial baseline. It improves 18
 eligible questions, regresses on 7 and ties on 87. All four aggregate retrieval
@@ -37,17 +57,18 @@ metrics improve, and the miss counter resets. The
 [category and application breakdown](adaptive-progress-001/subgroups.md)
 shows that semantic questions contribute 0.75 points to the overall gain.
 GitHub gains 5.57 points and Jira 0.72, while Fireflies loses 0.31, Google Drive
-0.14 and HubSpot 0.12. The remaining saturation variant and later mechanisms
-still have to complete; this is a development selection.
+0.14 and HubSpot 0.12. The subsequent saturation setting produced the second
+gain. This earlier development snapshot remains unchanged.
 
 The [fifth Classical gain](classical-progress-005/README.md) reduces
 `bm25.title_weight` to `1.0` on the retained `bm25.b=1.0`, `bm25.k1=3.0` base.
 Fusion gains 4.97 percentage points over the initial baseline and 1.34 over
 candidate007. Against the baseline, 19 eligible questions improve, 10 regress
 and 83 tie; against candidate007, the counts are 9, 7 and 96. The title-weight
-catalog ends with this gain and a reset counter. The next mechanism tests
+catalog ends with this gain and a reset counter. The next mechanism tested
 expansion strength, starting with association weight `0.0875` and topic
-weight `0.05`. All four diagnostic routes improve against the baseline.
+weight `0.05`, and produced the sixth gain. All four diagnostic routes in
+this fifth-gain snapshot improve against the baseline.
 The [category and application breakdown](classical-progress-005/subgroups.md)
 shows contributions of 3.31 points from basic questions and 1.11 from semantic
 questions to the 4.97-point overall gain. Linear gains 11.27 points, GitHub
@@ -99,7 +120,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All ten completed variants have
+and 54.83% and were rejected before the later gains. All eleven completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
