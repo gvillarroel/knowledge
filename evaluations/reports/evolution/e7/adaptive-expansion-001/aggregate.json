@@ -1,0 +1,109 @@
+{
+  "all500_complete": false,
+  "consecutive_misses": 1,
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family": "adaptive",
+  "family_search_complete": false,
+  "llm_calls": 0,
+  "metric_deltas_percentage_points": {
+    "full_qrel_coverage_at_10": 0.0,
+    "mrr_at_10": -1.1243166371158408,
+    "ndcg_at_10": -0.8394646957142204,
+    "recall_at_10": 0.07880220646178104
+  },
+  "native_diagnostic_pass_threshold": 0.8,
+  "new_native_trials": 0,
+  "next_variant": {
+    "expansion.association_weight": 0.0,
+    "expansion.topic_weight": 0.0
+  },
+  "normalized_report_sha256": "c88898495c7bea5ffce3cd45097dd000514486da1bd8205c40c366245b346288",
+  "paired_cases_against_incumbent": {
+    "improved": 6,
+    "regressed": 5,
+    "tied": 101,
+    "without_references": 8
+  },
+  "prefix_audit_sha256": "34d2c2065b78653a88a710155412dfc370b5f52baa2b4a54d7a45ad925431c21",
+  "prefix_replayed_through_generation": 10,
+  "primary_route": "adaptive",
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "protocol_sha256": "35f54228ba31973e77326445aa9d8f0786f6a172b51909af2f088f742120287c",
+  "questions": 120,
+  "reference_candidate": "candidate-009",
+  "retained_candidate": "candidate-009",
+  "retained_profile": {
+    "plan": {
+      "bm25.k1": 3.0,
+      "bm25.title_weight": 1.0
+    },
+    "search": {}
+  },
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "agent_seconds": 1324.939042,
+      "archive_sha256": "fe79129737e33c91827f19e78dfef5836445770283814df816176b77445b5c4a",
+      "candidate": "candidate-009",
+      "diagnostics_sha256": "7435e9d221b75f71a2d6cd3473e62a679a0006ed556f7567e199b06afe1901f1",
+      "double_build_seconds": 584.1983999170006,
+      "evidence_integrity": 1,
+      "job_result_sha256": "af3960eb441cf63f28e4385abedf4ffba948dfb488071fef66b868c4c91a0f69",
+      "knowledge_bytes": 557899137,
+      "lock_sha256": "f42fb2c585b577bee46ce336c1e8bde8c90271b63b1ac1d15393e8a1deb9d342",
+      "native_errors": 0,
+      "native_job_seconds": 1375.443684,
+      "progress_sha256": "8802c2342863d6afc3e2218b03c9af888a42ab8a034afb3e83b4df43527d944c",
+      "retries": 0,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.6440602836879432,
+          "mrr_at_10": 0.6732755860914106,
+          "ndcg_at_10": 0.6523126909871916,
+          "p95_ms": 8382.58241299991,
+          "recall_at_10": 0.7122931442080378
+        }
+      },
+      "score": 0.6523126909871916,
+      "trial_result_sha256": "0723bffc2e0acac9d5fa17a19dc362f897389075ed1281bb6ab2041cc626366b"
+    },
+    {
+      "agent_seconds": 1470.992774,
+      "archive_sha256": "3746063c68a78291ebe0e4018cf0dd6cfe4e6866e462f6ecbe458a9c9ed92faa",
+      "candidate": "candidate-010",
+      "diagnostics_sha256": "e8c6f2791c1815d331c8f689db1d68f06f8074e34f579728bc21ab6a09df5490",
+      "double_build_seconds": 677.7563098600003,
+      "evidence_integrity": 1,
+      "job_result_sha256": "58c9ac837bb8e45dfc722fa5228ac91172de2b1ff560e426dec481ddd1ac4ddd",
+      "knowledge_bytes": 557899140,
+      "lock_sha256": "0562d77b3b314b69e874cd9895a1c0f5be4c4aa519ecd92fff4b68044eb0094e",
+      "native_errors": 0,
+      "native_job_seconds": 1541.03385,
+      "progress_sha256": "8ac63dc6a00c98efdbab83fd28a247de1969dc3478f0a3526f30c4b448c6b016",
+      "retries": 0,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.6440602836879432,
+          "mrr_at_10": 0.6620324197202522,
+          "ndcg_at_10": 0.6439180440300494,
+          "p95_ms": 9676.290280000103,
+          "recall_at_10": 0.7130811662726556
+        }
+      },
+      "score": 0.6439180440300494,
+      "trial_result_sha256": "c03aff0edd4148cf2cff10d2d96acdd8f638095d79ea17a8ef38e80699b2e2b4"
+    }
+  ],
+  "schema_version": "enterprise-e7-adaptive-expansion-tradeoff/1.0",
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "snapshot_utc": "2026-09-08T23:34:44.926379+00:00",
+  "status": "qualified-development-miss",
+  "tested_candidate": "candidate-010",
+  "tested_variant": {
+    "expansion.association_weight": 0.0875,
+    "expansion.topic_weight": 0.05
+  }
+}
