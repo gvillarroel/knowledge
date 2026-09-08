@@ -4,6 +4,13 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
+The [all-family progress audit](status-001/README.md), observed at 2026-09-08
+16:23 UTC, records one completed search, three qualified baselines and two
+verified live trials. Classical's baseline is 55.04% weighted nDCG@10 and its
+first variant is running. Embeddings retains its 63.51% baseline while its
+third variant runs after two execution failures. The five remaining families
+have not started and are explicitly excluded from completed opportunity counts.
+
 The [completed Legacy search](legacy-complete-001/README.md) retained 72.38%
 weighted development nDCG@10, up from 61.11% (+11.27 percentage points).
 Its 16 variants and two catalog rounds ended with a complete non-improving
