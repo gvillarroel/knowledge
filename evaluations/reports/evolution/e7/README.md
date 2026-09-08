@@ -4,11 +4,12 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-016/README.md) records two
+The latest [all-family progress audit](status-017/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
-weighted nDCG@10, up from 55.04%, while its twelfth variant tests zero expansion
-weights. Adaptive now retains 61.49%, up from 60.04%, after its sixth variant
-improved with `bm25.k1=3.0`. Its seventh variant tests title weight `4.0`.
+weighted nDCG@10, up from 55.04%, after zero expansion produced a small loss.
+Its thirteenth variant tests association weight `0.175` and topic weight `0.1`.
+Adaptive retains 61.49%, up from 60.04%, after title weight `4.0` scored 53.48%.
+Its eighth variant tests title weight `8.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
@@ -18,7 +19,8 @@ The preceding [first audit](status-001/README.md),
 [eighth audit](status-008/README.md), [ninth audit](status-009/README.md),
 [tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
 [twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md),
-[fourteenth audit](status-014/README.md) and [fifteenth audit](status-015/README.md)
+[fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md)
+and [sixteenth audit](status-016/README.md)
 remain unchanged.
 
 The [provisional cross-family comparison](retained-cross-family-002/README.md)
@@ -30,6 +32,16 @@ leads the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
 The [preceding comparison](retained-cross-family-001/README.md) remains unchanged.
+
+The [zero-expansion Classical trial](classical-expansion-001/README.md) scored
+60.095906%, just below the retained 60.097820%. The loss is 0.001915 percentage
+points even though both display as 60.10% at two decimal places. One eligible
+question improves, one regresses and 110 tie against candidate011. This is the
+first qualified expansion miss; display rounding does not change the decision.
+Adaptive's first title-weight trial, at `4.0` on its retained `bm25.k1=3.0`
+base, scored 53.48%, losing 8.02 points against 61.49%. It is the first
+qualified title miss. Both trials completed without execution errors, and
+both families retain their preceding profiles while testing the next settings.
 
 The [second Adaptive gain](adaptive-progress-002/README.md) sets `bm25.k1=3.0`
 and gains 1.46 percentage points over the baseline, including 0.34 over
@@ -48,8 +60,8 @@ This small increment improves 2 eligible questions, regresses on none and
 ties on 110 against the incumbent. The
 [category and application breakdown](classical-progress-006/subgroups.md)
 shows reduced loss on constrained questions and a small semantic-category
-increment. The next variant sets both expansion weights to zero; the
-mechanism remains in progress.
+increment. The next variant set both expansion weights to zero and produced
+the small measured loss documented above. The mechanism remains in progress.
 
 The [first Adaptive gain](adaptive-progress-001/README.md) sets `bm25.k1=2.0`
 and gains 1.12 percentage points over the initial baseline. It improves 18
@@ -121,7 +133,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All eleven completed variants have
+and 54.83% and were rejected before the later gains. All twelve completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
