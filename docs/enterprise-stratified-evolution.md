@@ -141,6 +141,12 @@ in both aggregates and case arrays; a total of 36 routes alone cannot establish
 coverage. The publication contract tests cover full 16-trial collection and
 reject substituted routes, unfinished jobs and a missing comparison arm.
 
+The terminal gate records acceptance for the declared evaluation scope and
+explicitly does not install the canonical skill. Preserve that immutable
+decision. A later authorized installation requires separate evidence of the
+exact accepted package, destination bytes and applicable usage scope. The final
+report must distinguish gate acceptance from repository installation.
+
 Development reports distinguish the scheduler's native objective from measured
 retrieval quality. Unqualified candidates have no published nDCG observation,
 even when the owner records a zero objective for a native execution error.

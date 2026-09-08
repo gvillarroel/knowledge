@@ -156,6 +156,8 @@ def collect():
     result = read(WORK/'recalculation-result.json')
     selection = read(WORK/'selection.json')
     terminal = read(WORK/'terminal-decision.json')
+    if terminal.get('canonical_skill_installed',False) is not False:
+        raise ValueError('The native terminal gate does not certify repository installation')
     if result['status']!='complete' or result['selection_sha256']!=sha(WORK/'selection.json'):
         raise ValueError('Final native comparison lacks an unchanged completed selection')
     if set(result['jobs'])!={'baseline','frozen'}:
@@ -247,7 +249,10 @@ def collect():
         'routes':sorted(routes,key=lambda r:(r['family'],r['arm'],r['route'])),
         'groups':grouped,'bindings':bindings,
         'terminal_decision':{key:terminal[key] for key in ('decision','promoted','private_gate_opened',
-            'further_evolution_permitted','families','native_aggregate_gate_passed') if key in terminal},
+            'further_evolution_permitted','families','native_aggregate_gate_passed',
+            'canonical_skill_installed') if key in terminal},
+        'repository_installation':{'installed_by_native_gate':False,
+            'separate_verified_installation_receipt_required':True},
         'selection_skill_digest':selection['skill_digest'],
         'protocol_sha256':sha(WORK/'protocol.json'),'execution_contract_sha256':sha(WORK/'execution-contract.json'),
         'selection_sha256':sha(WORK/'selection.json'),'terminal_sha256':sha(WORK/'terminal-decision.json'),
@@ -321,6 +326,9 @@ def render(value):
         'comparison, with no official answer Overall or public leaderboard rank.','',
         '**Terminal bundle decision:** '+value['terminal_decision']['decision']+'. '
         'All eight selections were frozen jointly before the final comparison and any private release.','',
+        '**Repository installation:** the native gate does not install the selected package. '
+        'Gate acceptance alone does not establish that the canonical skills have changed; '
+        'any later installation requires its own verified receipt.','',
         '[Category comparison](categories.md) · [Application comparison](applications.md) · '
         '[CTA](cta.md) · [All routes](routes.md) · [Development and stopping rules](development.md)','',
         '## Final primary routes','',
@@ -431,7 +439,7 @@ def plot(value,output):
     axis.set_xlim(0,100)
     axis.set_xlabel('nDCG@10 (%) · 470 eligible questions')
     axis.set_title('EnterpriseRAG E7 · 6,000 full-text documents\nInternal retrospective comparison')
-    axis.legend(loc='lower right')
+    axis.legend(loc='upper center',bbox_to_anchor=(0.5,-0.13),ncol=2,frameon=False)
     fig.savefig(output/'comparison.svg')
     fig.savefig(output/'comparison.png',dpi=160)
     plt.close(fig)

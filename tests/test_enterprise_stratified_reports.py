@@ -299,3 +299,28 @@ def test_final_collection_refuses_a_missing_comparison_arm(tmp_path,monkeypatch)
     path.write_text(REPORT.json.dumps(value),encoding='utf-8')
     with pytest.raises(ValueError,match='exactly the baseline and frozen arms'):
         REPORT.collect()
+
+
+def test_accepted_native_gate_does_not_claim_repository_installation(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    path=REPORT.WORK/'terminal-decision.json'
+    value={'decision':'accepted-for-declared-scope','promoted':True,
+           'private_gate_opened':True,'canonical_skill_installed':False}
+    path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+    result=REPORT.collect()
+    assert result['terminal_decision']['promoted'] is True
+    assert result['terminal_decision']['canonical_skill_installed'] is False
+    assert result['repository_installation']['installed_by_native_gate'] is False
+    text=REPORT.render(result)['README.md']
+    assert 'accepted-for-declared-scope' in text
+    assert 'Gate acceptance alone does not establish that the canonical skills have changed' in text
+
+
+def test_native_terminal_receipt_cannot_certify_a_later_installation(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    path=REPORT.WORK/'terminal-decision.json'
+    value=REPORT.read(path)
+    value['canonical_skill_installed']=True
+    path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+    with pytest.raises(ValueError,match='does not certify repository installation'):
+        REPORT.collect()
