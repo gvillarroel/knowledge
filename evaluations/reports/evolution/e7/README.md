@@ -4,11 +4,12 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-013/README.md) records two
-completed searches and four qualified baselines. Classical now retains 58.67%
-weighted nDCG@10, up from 55.04%, while its tenth variant runs. Adaptive
+The latest [all-family progress audit](status-014/README.md) records two
+completed searches and four qualified baselines. Classical now retains 60.01%
+weighted nDCG@10, up from 55.04%, while its eleventh variant runs. Adaptive
 retains its 60.04% baseline after three construction variants scored 59.69%,
-58.00% and 59.64%. Its fourth variant starts the saturation mechanism.
+58.00% and 59.64%. Its first saturation variant scored 58.35%; its fifth
+variant is running with `bm25.k1=2.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
@@ -16,23 +17,38 @@ The preceding [first audit](status-001/README.md),
 [fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
 [sixth audit](status-006/README.md), [seventh audit](status-007/README.md),
 [eighth audit](status-008/README.md), [ninth audit](status-009/README.md),
-[tenth audit](status-010/README.md), [eleventh audit](status-011/README.md)
-and [twelfth audit](status-012/README.md)
+[tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
+[twelfth audit](status-012/README.md) and [thirteenth audit](status-013/README.md)
 remain unchanged.
+
+The [fifth Classical gain](classical-progress-005/README.md) reduces
+`bm25.title_weight` to `1.0` on the retained `bm25.b=1.0`, `bm25.k1=3.0` base.
+Fusion gains 4.97 percentage points over the initial baseline and 1.34 over
+candidate007. Against the baseline, 19 eligible questions improve, 10 regress
+and 83 tie; against candidate007, the counts are 9, 7 and 96. The title-weight
+catalog ends with this gain and a reset counter. The next mechanism tests
+expansion strength, starting with association weight `0.0875` and topic
+weight `0.05`. All four diagnostic routes improve against the baseline.
+The [category and application breakdown](classical-progress-005/subgroups.md)
+shows contributions of 3.31 points from basic questions and 1.11 from semantic
+questions to the 4.97-point overall gain. Linear gains 11.27 points, GitHub
+10.68 and Slack 8.44, while Confluence loses 2.18 and Fireflies loses 0.64.
+These overlapping application groups describe development results; they do
+not change the selected profile or establish transfer performance.
 
 The [fourth Classical gain](classical-progress-004/README.md) combines
 `bm25.b=1.0` with `bm25.k1=3.0`. Fusion gains 3.63 percentage points over the
 baseline and 0.43 over candidate006. It improves 15 eligible questions,
 regresses on 8 and ties on 89. The finite saturation catalog ends with this
-gain and a reset miss counter; the next mechanism tests title weighting.
+gain and a reset miss counter; the next mechanism tested title weighting.
 This transition follows catalog exhaustion,
 not three consecutive misses.
 The [first title-weight mutation](classical-title-001/README.md), at `4.0`,
 scored 50.59%, a measured loss of 8.08 points against the incumbent. It
 improves 2 questions, regresses on 22 and ties on 88; all four routes decline.
 The next title weight, `8.0`, scored 42.81%, the second consecutive qualified
-miss. Candidate007 is retained, and weight `1.0` is running. Both title
-variants completed without execution errors.
+miss. Both title variants completed without execution errors. The later
+weight `1.0` produced the fifth gain and replaced candidate007.
 The [category and application breakdown](classical-progress-004/subgroups.md)
 shows that the basic category contributes 2.94 of the 3.63-point overall gain.
 Linear gains 11.27 points, GitHub 8.57 and Gmail 5.21, while Fireflies loses
@@ -64,7 +80,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All nine completed variants have
+and 54.83% and were rejected before the later gains. All ten completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
@@ -84,8 +100,10 @@ This is an initial measurement, not an improvement. The
 execution errors. The third consecutive miss stopped this mechanism and
 skipped the untested `bm25.b=1.0` setting in this pass. Replaying the exact
 three-attempt prefix reproduces the next sealed mutation, `bm25.k1=0.6`.
-The baseline is retained. The remaining mechanisms and complete family
-stopping history still have to run.
+That saturation variant then scored 58.35% without execution errors, the first
+miss of the new mechanism. The baseline is retained and `bm25.k1=2.0` is
+running. The remaining mechanisms and complete family stopping history still
+have to run.
 
 The [completed Embeddings search](embeddings-complete-001/README.md) retains
 its 63.51% baseline. Six distinct construction variants exceeded the same
