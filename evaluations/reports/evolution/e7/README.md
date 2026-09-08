@@ -4,12 +4,12 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-017/README.md) records two
+The latest [all-family progress audit](status-018/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
-weighted nDCG@10, up from 55.04%, after zero expansion produced a small loss.
-Its thirteenth variant tests association weight `0.175` and topic weight `0.1`.
-Adaptive retains 61.49%, up from 60.04%, after title weight `4.0` scored 53.48%.
-Its eighth variant tests title weight `8.0`.
+weighted nDCG@10, up from 55.04%, after two expansion variants produced losses.
+Its fourteenth variant tests association weight `0.7` and topic weight `0.4`.
+Adaptive retains 61.49%, up from 60.04%, after title weights `4.0` and `8.0`
+scored 53.48% and 47.06%. Its ninth variant tests title weight `1.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
@@ -19,8 +19,8 @@ The preceding [first audit](status-001/README.md),
 [eighth audit](status-008/README.md), [ninth audit](status-009/README.md),
 [tenth audit](status-010/README.md), [eleventh audit](status-011/README.md),
 [twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md),
-[fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md)
-and [sixteenth audit](status-016/README.md)
+[fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md),
+[sixteenth audit](status-016/README.md) and [seventeenth audit](status-017/README.md)
 remain unchanged.
 
 The [provisional cross-family comparison](retained-cross-family-002/README.md)
@@ -42,6 +42,15 @@ Adaptive's first title-weight trial, at `4.0` on its retained `bm25.k1=3.0`
 base, scored 53.48%, losing 8.02 points against 61.49%. It is the first
 qualified title miss. Both trials completed without execution errors, and
 both families retain their preceding profiles while testing the next settings.
+
+The following Classical expansion trial, at association weight `0.175` and
+topic weight `0.1`, scored 60.014757%, a loss of 0.083063 percentage points
+against candidate011. Adaptive's following title-weight trial, at `8.0`,
+scored 47.059863%, a loss of 14.433991 points against candidate006. Both
+qualified with no execution errors or retries. Each is its mechanism's second
+consecutive miss, so both mechanisms continue to their next declared variant.
+The current audit contains 43 completed variants: 37 qualified measurements
+and six Embeddings execution errors, plus four qualified native baselines.
 
 The [second Adaptive gain](adaptive-progress-002/README.md) sets `bm25.k1=3.0`
 and gains 1.46 percentage points over the baseline, including 0.34 over
@@ -133,7 +142,7 @@ not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gains. All twelve completed variants have
+and 54.83% and were rejected before the later gains. All thirteen completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
