@@ -21,14 +21,15 @@ The preceding [first audit](status-001/README.md),
 [fourteenth audit](status-014/README.md) and [fifteenth audit](status-015/README.md)
 remain unchanged.
 
-The [provisional cross-family comparison](retained-cross-family-001/README.md)
-aligns the four retained profiles from status015 across all question categories
+The [provisional cross-family comparison](retained-cross-family-002/README.md)
+aligns the four retained profiles from status016 across all question categories
 and application groups. Among these four, Embeddings has the highest nDCG in
 Confluence, GitHub and Slack; Adaptive in Fireflies; and Legacy in the other
 five application groups. Legacy has the highest aggregate, while Embeddings
 leads the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
+The [preceding comparison](retained-cross-family-001/README.md) remains unchanged.
 
 The [second Adaptive gain](adaptive-progress-002/README.md) sets `bm25.k1=3.0`
 and gains 1.46 percentage points over the baseline, including 0.34 over
