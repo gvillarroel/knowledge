@@ -4,13 +4,14 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-003/README.md), observed at 2026-09-08
-17:10 UTC, records one completed search, three qualified baselines and two
+The [all-family progress audit](status-004/README.md), observed at 2026-09-08
+17:34 UTC, records one completed search, three qualified baselines and two
 verified live trials. Classical now retains 56.06% weighted nDCG@10, up from
 55.04%, while its third variant runs. The five remaining families
 have not started and are explicitly excluded from completed opportunity counts.
-The preceding [first audit](status-001/README.md) and
-[second audit](status-002/README.md) remain unchanged.
+The preceding [first audit](status-001/README.md),
+[second audit](status-002/README.md) and [third audit](status-003/README.md)
+remain unchanged.
 
 The [first Classical gain](classical-progress-001/README.md) changes the
 construction profile to `bm25.b=0.25`. Its fixed fusion route gains 1.02
@@ -24,10 +25,13 @@ execution error, so its lower score is a measured quality result.
 
 The [Embeddings mechanism transition](runtime-002/README.md),
 observed at 16:54 UTC, records three original build timeouts at semantic
-thresholds 95, 90 and 80. The three-miss rule stopped that mechanism and a
-neighboring-sentence context candidate with buffer size 2 is running.
-Embeddings retains its 63.51% baseline. The three failed jobs consumed
-121.62 minutes and have no retrieval quality measurement.
+thresholds 95, 90 and 80. The three-miss rule stopped that mechanism.
+The first neighboring-sentence context candidate, with buffer size 2,
+subsequently exceeded the same construction limit. It is the first miss of
+that mechanism, and the next distinct variant with buffer size 3 is running.
+Embeddings retains its 63.51% baseline. The three segmentation failures
+consumed 121.62 minutes; all four failed variants have no retrieval quality
+measurement and were not retried.
 
 The [completed Legacy search](legacy-complete-001/README.md) retained 72.38%
 weighted development nDCG@10, up from 61.11% (+11.27 percentage points).
@@ -46,8 +50,8 @@ and all nine overlapping application groups, with their sample sizes and
 sampling weights. The aggregate gain does not hide individual regressions.
 
 The [first semantic-segmentation timeout receipt](runtime-001/README.md)
-remains preserved. All three failures used the same fixed 40-minute builder
-subprocess limit and were not retried.
+remains preserved. All four failures used the same fixed 40-minute builder
+subprocess limit.
 
 The study covers all eight knowledge families with 120 category-stratified
 development questions and a fixed 6,000-document full-text corpus. The final
