@@ -18,6 +18,7 @@
 - [Interrupted evolution: evidence preservation and terminal closure](../.specs/adr/0121-preserve-interrupted-evolution-without-manufacturing-completion.md)
 - [Enterprise evolution: three consecutive misses per strategy and all eight knowledge families](enterprise-evolution-sweep.md)
 - [Enterprise evolution campaign status and reports](../evaluations/reports/evolution/e6/README.md)
+- [Stratified Enterprise evolution across eight families and the all-500 internal comparison](enterprise-stratified-evolution.md)
 - [Completed Enterprise application-skill experiment: findings and retained ingestion checks](enterprise-source-skills.md)
 - [Generator evolution: explicit source selection and independent construction acceptance](../.specs/adr/0126-evolve-generator-explicit-source-selection.md)
 - [Using and evaluating the evolved knowledge-skill generator](knowledge-generator-evolution.md)

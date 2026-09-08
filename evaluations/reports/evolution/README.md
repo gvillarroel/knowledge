@@ -2,6 +2,11 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
+- [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
+  questions, 6,000 complete documents, all eight families, repeated catalog
+  rounds and a planned all-500 comparison after joint freezing. The campaign
+  page states the current execution and independent-gate status.
+
 - [Knowledge-skill generator G2](generator-g2/README.md): fixed-candidate confirmation
   with a fresh independent cohort after a verified native transport correction.
   Construction correctness improved from 6/8 to 8/8 on development and fresh

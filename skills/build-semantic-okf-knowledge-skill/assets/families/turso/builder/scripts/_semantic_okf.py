@@ -2508,7 +2508,7 @@ def validate_semantic_bundle(
                 (origin, PROV.atLocation, Literal(normalized_record.source_path)),
                 (origin, ns.recordSha256, Literal(normalized_record.record_sha256)),
             }
-            if not required_provenance.issubset(set(provenance)):
+            if not all(triple in provenance for triple in required_provenance):
                 _error(
                     errors,
                     "semantic-error",

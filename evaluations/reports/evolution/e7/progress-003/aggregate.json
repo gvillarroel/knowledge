@@ -1,0 +1,67 @@
+{
+  "all500_recalculation_complete": false,
+  "corpus_documents": 6000,
+  "delta": 0.11270995055842059,
+  "eligible_population_weight": 470,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family": "legacy",
+  "joint_freeze_complete": false,
+  "llm_calls": 0,
+  "metric": "category-weighted-nDCG@10",
+  "native_diagnostic_pass_threshold": 0.8,
+  "normalized_report_sha256": "3007c59d090bdace1f06816f08f6c506553a3e6f18fb7e0853f73edac4220ab6",
+  "profile_promoted": false,
+  "protocol_sha256": "35f54228ba31973e77326445aa9d8f0786f6a172b51909af2f088f742120287c",
+  "questions": 120,
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "archive_sha256": "2ea6f828beb8071d792af82ad9d9b7564258d578e26891330b7180908e146fba",
+      "candidate": "baseline",
+      "double_build_seconds": 63.281849156,
+      "evaluable": true,
+      "evidence_integrity": 1,
+      "family": "legacy",
+      "knowledge_bytes": 180168866,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.6660017730496454,
+        "mrr_at_10": 0.6100648271276595,
+        "ndcg_at_10": 0.611052744442418,
+        "p95_ms": 71.66628500000627,
+        "recall_at_10": 0.7160214736012609
+      },
+      "native_errors": 0,
+      "native_lock_sha256": "a78b93a587b3665081c0d46007f049e55d2d72f7aa0e99868d8b994ecd7fa287",
+      "native_result_sha256": "44694165a28b5fdbb4009a722f691ae1346f999fe46ecaa3fd49d221eca71697",
+      "route": "lexical",
+      "skill_digest": "sha256:2dc74826fa29e282b52bb1dcb6c58bd4cc8342d28fd3aa0baf54ebe3cd9332b9"
+    },
+    {
+      "archive_sha256": "6feb22eb4bb7e9320f7c8079a7627dceda4cd2e79a42acc47be77a0e99e6ae02",
+      "candidate": "candidate-009",
+      "double_build_seconds": 64.57693629200003,
+      "evaluable": true,
+      "evidence_integrity": 1,
+      "family": "legacy",
+      "knowledge_bytes": 180168866,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.7642952127659575,
+        "mrr_at_10": 0.7150891274062817,
+        "ndcg_at_10": 0.7237626950008386,
+        "p95_ms": 101.92718700000114,
+        "recall_at_10": 0.8199197202521671
+      },
+      "native_errors": 0,
+      "native_lock_sha256": "b5c212a3d35f9ba73e4b306d0bab1a3be0d01adfb9579a18207aa44645b938b1",
+      "native_result_sha256": "6ea5064d479dc1b6cc375d50cf1069f8b69f2abc7cdd536a187314eeb17e9131",
+      "route": "lexical",
+      "skill_digest": "sha256:ef9e48edaa15d816c763d0d1049c0915aa89c4268e0237076b8c818c26ba8dec"
+    }
+  ],
+  "schema_version": "enterprise-e7-progress/1.0",
+  "selection_final": false,
+  "snapshot_utc": "2026-09-08T15:13:07.748142+00:00",
+  "status": "partial-development-running",
+  "trials_above_diagnostic_threshold": 0,
+  "validation_released": false
+}

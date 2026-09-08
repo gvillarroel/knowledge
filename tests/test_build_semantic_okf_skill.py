@@ -790,6 +790,38 @@ def test_materializer_builds_exact_reproducible_okf_owl_shacl_bundle(tmp_path: P
     assert okf.returncode == 0, okf.stderr
 
 
+def test_record_provenance_uses_indexed_membership_and_still_rejects_missing_edges(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A per-record check must not scan the complete provenance graph."""
+    core = load_core()
+    original_iter = core.Graph.__iter__
+
+    def audited_iter(graph):
+        caller = sys._getframe(1)
+        if (caller.f_code.co_name == "validate_semantic_bundle"
+                and caller.f_locals.get("provenance") is graph
+                and "required_provenance" in caller.f_locals):
+            raise AssertionError("Per-record validation scanned the complete provenance graph")
+        return original_iter(graph)
+
+    monkeypatch.setattr(core.Graph, "__iter__", audited_iter)
+    manifest_path = write_fixture(tmp_path / "fixture")
+    manifest = core.load_manifest(manifest_path)
+    records, summaries = make_records(core, manifest, manifest_path.parent)
+    bundle = tmp_path / "bundle"
+    core.materialize_bundle(bundle, manifest, records, summaries, processor_info(records=6, sources=4))
+    assert core.validate_semantic_bundle(bundle).valid
+    path = bundle / "semantic/provenance.ttl"
+    graph = core.Graph().parse(path, format="turtle")
+    edge = next(graph.triples((None, core.PROV.specializationOf, None)))
+    graph.remove(edge)
+    core._write_canonical_graph(path, graph)
+    result = core.validate_semantic_bundle(bundle)
+    assert not result.valid
+    assert any("PROV source/record lineage is incomplete" in error["message"] for error in result.errors)
+
+
 def test_source_packed_layout_reduces_files_without_changing_logical_artifacts(
     tmp_path: Path,
 ) -> None:

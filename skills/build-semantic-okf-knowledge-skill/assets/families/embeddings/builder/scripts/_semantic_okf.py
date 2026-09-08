@@ -1920,7 +1920,7 @@ def validate_semantic_bundle(root: Path, *, require_build_report: bool = True) -
                 (origin, PROV.atLocation, Literal(normalized_record.source_path)),
                 (origin, ns.recordSha256, Literal(normalized_record.record_sha256)),
             }
-            if not required_provenance.issubset(set(provenance)):
+            if not all(triple in provenance for triple in required_provenance):
                 _error(errors, "semantic-error", relative, "PROV source/record lineage is incomplete")
         source_entry = source_entries.get(record.get("source_id"))
         if not source_entry:

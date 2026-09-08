@@ -1,0 +1,18 @@
+# E7 development progress: first Legacy improvement
+
+Partial snapshot at 2026-09-08T14:35:44.318388+00:00. The campaign is still running.
+
+**Legacy improved by 10.97 percentage points** on the stratified development metric. The first mutation changes lexical overlap to the frozen BM25 comparator with k1=1.2. The candidate preserves authoritative records and physical evidence.
+
+| Arm | Weighted nDCG@10 | Weighted recall@10 | Weighted MRR@10 | Evidence integrity | Execution errors |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| baseline | 61.11% | 71.60% | 61.01% | 1.00 | 0 |
+| candidate-001 | 72.08% | 82.51% | 71.61% | 1.00 | 0 |
+
+Both native jobs completed with exact locked provenance and passed the required evidence-integrity gate. Neither reaches the separate 0.8 diagnostic reward threshold; that threshold is not the development selection rule. Selection retains strict qualified improvements and resets the three-miss counter after a gain.
+
+Scope: 120 stratified questions, 112 with qrels, category weights totaling the 470 eligible public questions, and 6,000 reference-enriched complete documents. These are internal development results from one exposed source group. They are not official answer scores or full-corpus/public leaderboard comparisons.
+
+The remaining variants and families, joint freeze, all-500 recalculation and terminal private gate are pending. No retrieval profile has been promoted from this snapshot.
+
+[Exact aggregate and evidence hashes](aggregate.json) · [Campaign](../README.md)

@@ -217,6 +217,65 @@ def _load_query_template() -> ModuleType:
     return module
 
 
+def _load_direct_contract() -> ModuleType:
+    sys.path.insert(0, str(SCRIPTS))
+    try:
+        spec = importlib.util.spec_from_file_location("test_direct_contract", SCRIPTS / "_direct_skill.py")
+        assert spec and spec.loader
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        return module
+    finally:
+        sys.path.remove(str(SCRIPTS))
+
+
+def test_packed_evidence_is_read_once_per_validation_without_persistent_cache(tmp_path: Path, monkeypatch) -> None:
+    manifest, guidance = _write_fixture(tmp_path)
+    expert = tmp_path / "fixture-expert"
+    built = _run(*_build_arguments(manifest, guidance, expert))
+    assert built.returncode == 0, built.stdout + built.stderr
+    contract = _load_direct_contract()
+    original_read = Path.read_text
+    reads = []
+
+    def count_read(path, *args, **kwargs):
+        if "concepts" in path.parts:
+            reads.append(path)
+        return original_read(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", count_read)
+    knowledge = expert / "references/knowledge"
+    first = contract.validate_knowledge(knowledge)
+    assert first[1] == 2 and len(reads) == 1
+    assert contract.validate_knowledge(knowledge) == first
+    assert len(reads) == 2
+
+
+def test_cached_physical_evidence_validation_rejects_mid_pass_tree_mutation(tmp_path: Path, monkeypatch) -> None:
+    manifest, guidance = _write_fixture(tmp_path)
+    expert = tmp_path / "fixture-expert"
+    built = _run(*_build_arguments(manifest, guidance, expert))
+    assert built.returncode == 0, built.stdout + built.stderr
+    contract = _load_direct_contract()
+    original = contract.evidence_location
+    changed = False
+
+    def mutate_after_read(knowledge, record, **kwargs):
+        nonlocal changed
+        result = original(knowledge, record, **kwargs)
+        if not changed:
+            path = knowledge / result["physical_concept_path"]
+            with path.open("a", encoding="utf-8") as stream:
+                stream.write("\nUnexpected concurrent change.\n")
+            changed = True
+        return result
+
+    monkeypatch.setattr(contract, "evidence_location", mutate_after_read)
+    with pytest.raises(contract.DirectSkillError, match="Knowledge changed"):
+        contract.validate_knowledge(expert / "references/knowledge")
+
+
 def test_skill_metadata_and_registry_cover_all_canonical_families() -> None:
     skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
     metadata = yaml.safe_load(skill.split("---", 2)[1])

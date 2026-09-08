@@ -220,6 +220,7 @@ def evidence_location(
     *,
     layout: str,
     source_counts: Mapping[str, int],
+    _text_cache: dict[Path, str] | None = None,
 ) -> dict[str, Any]:
     """Resolve and verify one logical record against exact physical evidence."""
 
@@ -254,7 +255,12 @@ def evidence_location(
         target.resolve().relative_to(knowledge.resolve())
     except ValueError as exc:
         raise DirectSkillError(f"Physical evidence escapes knowledge: {physical}") from exc
-    text = target.read_text(encoding="utf-8")
+    if _text_cache is not None and target in _text_cache:
+        text = _text_cache[target]
+    else:
+        text = target.read_text(encoding="utf-8")
+        if _text_cache is not None:
+            _text_cache[target] = text
     body = record.get("body")
     if not isinstance(body, str) or body not in text:
         raise DirectSkillError(f"Physical evidence lacks exact body: {logical_raw}")
@@ -286,8 +292,15 @@ def validate_knowledge(knowledge: Path) -> tuple[TreeBinding, int, str]:
     rows = load_records(knowledge)
     layout = concept_layout(knowledge)
     counts = Counter(str(row["source_id"]) for row in rows)
+    # Packed sources can contain thousands of records. Read each physical
+    # document once within this validation only, preserving every exact
+    # body/anchor check and binding the complete tree again before returning.
+    text_cache: dict[Path, str] = {}
     for row in rows:
-        evidence_location(knowledge, row, layout=layout, source_counts=counts)
+        evidence_location(knowledge, row, layout=layout, source_counts=counts,
+                          _text_cache=text_cache)
+    if tree_binding(knowledge) != binding:
+        raise DirectSkillError("Knowledge changed during physical evidence validation")
     return binding, len(rows), layout
 
 
