@@ -4,17 +4,29 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-008/README.md), observed at 2026-09-08
-19:00 UTC, records two completed searches, three qualified baselines and two
-verified live trials. Classical now retains 57.10% weighted nDCG@10, up from
-55.04%, while its sixth variant runs. Adaptive has started its native baseline;
+The [all-family progress audit](status-009/README.md), observed at 2026-09-08
+19:15 UTC, records two completed searches, three qualified baselines and two
+verified live trials. Classical now retains 58.24% weighted nDCG@10, up from
+55.04%, while its seventh variant runs. Adaptive has started its native baseline;
 no score is available yet. Entity Graph, Ensemble, Graphify and Turso have not
 started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
 [fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
-[sixth audit](status-006/README.md) and [seventh audit](status-007/README.md)
+[sixth audit](status-006/README.md), [seventh audit](status-007/README.md)
+and [eighth audit](status-008/README.md)
 remain unchanged.
+
+The [third Classical gain](classical-progress-003/README.md) combines
+`bm25.b=1.0` with `bm25.k1=2.0`. Fusion gains 3.20 percentage points over the
+baseline and 1.14 over candidate004. It improves 13 eligible questions,
+regresses on 4 and ties on 95. All four retrieval metrics improve in aggregate;
+the miss counter resets, and `bm25.k1=3.0` is the next running variant.
+The [paired category and application breakdown](classical-progress-003/subgroups.md)
+shows that two basic questions contribute 2.33 of the 3.20-point overall gain.
+Linear gains 10.53 points, GitHub 9.95 and Slack 3.75, while Confluence loses
+0.34 and Jira loses 0.24. These are descriptive development results with
+overlapping application groups, not a new selection rule.
 
 The [second Classical gain](classical-progress-002/README.md) sets
 `bm25.b=1.0`. The fixed fusion route gains 2.06 percentage points over the
@@ -22,16 +34,15 @@ baseline and 1.04 over the previous retained setting. Against the baseline,
 11 eligible questions improve, 2 regress and 99 tie. All four diagnostic
 routes, build time and original native runtime are included in the report.
 The fourth variant replaced candidate001 and reset the miss counter.
-The finite length-normalization catalog is exhausted, and the next declared
-mechanism is BM25 saturation. Its first variant, `bm25.k1=0.6`, completed
-without execution errors at 54.23%, below the retained 57.10%. It is the first
-miss of that mechanism; `bm25.k1=2.0` is now running on the same `bm25.b=1.0` base.
+The finite length-normalization catalog was exhausted before BM25 saturation
+began. Its first variant, `bm25.k1=0.6`, completed without execution errors
+at 54.23%, below the then-retained 57.10%. That miss preceded the third gain.
 The change from length normalization to saturation followed catalog exhaustion,
 not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
-and 54.83% and were rejected before the later gain. All five completed variants have
+and 54.83% and were rejected before the later gains. All six completed variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
