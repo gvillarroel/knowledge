@@ -53,6 +53,8 @@ frozen bundle.
 
 See the [campaign status](README.md) and the
 [study guide](../../../../docs/enterprise-stratified-evolution.md) for dataset
-scope and the [completed Legacy search](legacy-complete-001/README.md) for the
-first completed family's evidence. This inventory does not claim a gain for
-an unfinished family.
+scope. The [completed Legacy search](legacy-complete-001/README.md) records a
+measured gain and a later plateau; the
+[completed Embeddings search](embeddings-complete-001/README.md) records six
+construction timeouts and retention of its baseline. Both terminal histories
+were replayed. This inventory does not claim a gain for an unfinished family.

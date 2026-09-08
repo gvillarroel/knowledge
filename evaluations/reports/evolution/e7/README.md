@@ -4,15 +4,16 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-007/README.md), observed at 2026-09-08
-18:44 UTC, records one completed search, three qualified baselines and two
+The [all-family progress audit](status-008/README.md), observed at 2026-09-08
+19:00 UTC, records two completed searches, three qualified baselines and two
 verified live trials. Classical now retains 57.10% weighted nDCG@10, up from
-55.04%, while its sixth variant runs. The five remaining families
-have not started and are explicitly excluded from completed opportunity counts.
+55.04%, while its sixth variant runs. Adaptive has started its native baseline;
+no score is available yet. Entity Graph, Ensemble, Graphify and Turso have not
+started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
-[fourth audit](status-004/README.md), [fifth audit](status-005/README.md) and
-[sixth audit](status-006/README.md)
+[fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
+[sixth audit](status-006/README.md) and [seventh audit](status-007/README.md)
 remain unchanged.
 
 The [second Classical gain](classical-progress-002/README.md) sets
@@ -25,7 +26,8 @@ The finite length-normalization catalog is exhausted, and the next declared
 mechanism is BM25 saturation. Its first variant, `bm25.k1=0.6`, completed
 without execution errors at 54.23%, below the retained 57.10%. It is the first
 miss of that mechanism; `bm25.k1=2.0` is now running on the same `bm25.b=1.0` base.
-This transition follows catalog exhaustion, not a third consecutive miss.
+The change from length normalization to saturation followed catalog exhaustion,
+not a third consecutive miss.
 
 The [first Classical gain](classical-progress-001/README.md), at `bm25.b=0.25`,
 remains preserved. The next `bm25.b=0` and `bm25.b=0.5` variants scored 54.30%
@@ -40,23 +42,24 @@ improved basic question contributes 1.55 of the 2.06 points of overall gain
 under the frozen sampling weights. This snapshot exposes the concentration
 of the gain and subgroup regressions without changing the retained profile.
 
-The [Embeddings mechanism transition](runtime-002/README.md),
-observed at 16:54 UTC, records three original build timeouts at semantic
-thresholds 95, 90 and 80. The three-miss rule stopped that mechanism.
-The first two neighboring-sentence context candidates, with buffer sizes 2
-and 3, subsequently exceeded the same construction limit. This mechanism
-has two consecutive misses; the next distinct variant, buffer size 4, is running.
-Embeddings retains its 63.51% baseline. The three segmentation failures
-consumed 121.62 minutes; all five failed variants have no retrieval quality
-measurement and were not retried.
+The [completed Embeddings search](embeddings-complete-001/README.md) retains
+its 63.51% baseline. Six distinct construction variants exceeded the same
+40-minute builder limit before retrieval could be measured. Three consecutive
+misses stopped semantic segmentation and three stopped neighboring-sentence
+context. The complete round had no improvement, and its native history was
+replayed against the frozen controller. The failed original jobs consumed
+243.17 minutes in total; no retrieval score was invented and no trial was retried.
+This establishes a budget limitation for the tested profiles, not worse
+retrieval relevance for semantic chunking in general. The earlier
+[three-miss mechanism transition](runtime-002/README.md) remains preserved.
 
 The [completed Legacy search](legacy-complete-001/README.md) retained 72.38%
 weighted development nDCG@10, up from 61.11% (+11.27 percentage points).
 Its 16 variants and two catalog rounds ended with a complete non-improving
 round. All 17 original jobs qualified without execution errors, and the
 entire selection and stopping history was replayed against native evidence.
-The other seven families, joint replay, final all-500 comparison and private
-gate remain pending. No E7 retrieval profile is promoted.
+The six remaining family searches, joint replay, final all-500 comparison
+and private gate remain pending. No E7 retrieval profile is promoted.
 
 The earlier [first increment](progress-001/README.md), [saturation adjustment](progress-002/README.md)
 and [title-weight increment](progress-003/README.md) remain separately preserved.
@@ -67,15 +70,14 @@ and all nine overlapping application groups, with their sample sizes and
 sampling weights. The aggregate gain does not hide individual regressions.
 
 The [first semantic-segmentation timeout receipt](runtime-001/README.md)
-remains preserved. All five failures used the same fixed 40-minute builder
+remains preserved. All six failures used the same fixed 40-minute builder
 subprocess limit.
 
 The study covers all eight knowledge families with 120 category-stratified
 development questions and a fixed 6,000-document full-text corpus. The final
 comparison covers all 500 public questions, of which 470 have original qrels.
 The [strategy coverage matrix](strategy-coverage.md) lists every family's
-mutation channel, primary route and predeclared mechanisms, including all
-seven families whose work follows the completed Legacy search.
+mutation channel, primary route and predeclared mechanisms.
 The [configuration audit](catalog-audit-001/README.md) checks the 117 declared
 variants and records a conditional Adaptive protection limit. These synthetic
 checks do not add to the native opportunity or performance counts.
