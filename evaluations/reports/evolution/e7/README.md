@@ -4,17 +4,17 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-009/README.md), observed at 2026-09-08
-19:15 UTC, records two completed searches, three qualified baselines and two
+The [all-family progress audit](status-010/README.md), observed at 2026-09-08
+19:24 UTC, records two completed searches, four qualified baselines and two
 verified live trials. Classical now retains 58.24% weighted nDCG@10, up from
-55.04%, while its seventh variant runs. Adaptive has started its native baseline;
-no score is available yet. Entity Graph, Ensemble, Graphify and Turso have not
-started and are excluded from completed opportunity counts.
+55.04%, while its seventh variant runs. Adaptive completed its baseline at
+60.04% and is running its first construction variant. Entity Graph, Ensemble,
+Graphify and Turso have not started and are excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
 [fourth audit](status-004/README.md), [fifth audit](status-005/README.md),
 [sixth audit](status-006/README.md), [seventh audit](status-007/README.md)
-and [eighth audit](status-008/README.md)
+[eighth audit](status-008/README.md) and [ninth audit](status-009/README.md)
 remain unchanged.
 
 The [third Classical gain](classical-progress-003/README.md) combines
@@ -52,6 +52,13 @@ gains 10.92 points, while Confluence loses 1.86 and Slack loses 0.54. One
 improved basic question contributes 1.55 of the 2.06 points of overall gain
 under the frozen sampling weights. This snapshot exposes the concentration
 of the gain and subgroup regressions without changing the retained profile.
+
+The [Adaptive baseline](adaptive-baseline-001/README.md) records 60.04%
+nDCG@10, 69.19% recall@10, 60.70% MRR@10 and 62.39% full qrel coverage@10.
+Its native job completed in 23.13 minutes with no execution errors or retries.
+This is an initial measurement, not an improvement. The first declared
+construction variant sets `bm25.b=0.25`; the remaining mechanisms and complete
+stopping history still have to run.
 
 The [completed Embeddings search](embeddings-complete-001/README.md) retains
 its 63.51% baseline. Six distinct construction variants exceeded the same
