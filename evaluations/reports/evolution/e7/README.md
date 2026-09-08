@@ -115,6 +115,13 @@ mutation channel, primary route and predeclared mechanisms.
 The [configuration audit](catalog-audit-001/README.md) checks the 117 declared
 variants and records a conditional Adaptive protection limit. These synthetic
 checks do not add to the native opportunity or performance counts.
+The [final runtime readiness audit](runtime-readiness-001/README.md) uses
+original query timings and the frozen category weights to project the cost
+of all 500 queries. Classical's baseline projects to 75.84 minutes against
+the declared 60-minute agent limit; Adaptive's baseline projects to 57.54.
+These are conditional estimates, not completed all-500 runs or observed
+failures. The audit checks all eight final task descriptors and leaves the
+native campaign unchanged.
 This is an internal, reference-enriched retrieval experiment. It does not
 replace the [full-corpus Classical/Luna report](../../enterprise-classical-full/README.md)
 and does not establish an official public rank or answer Overall score.
