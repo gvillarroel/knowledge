@@ -1,6 +1,7 @@
 """Native aggregate reporting must retain missingness, units and paired scope."""
 import importlib.util
 import copy
+import ast
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,17 @@ SPEC.loader.exec_module(REPORT)
 
 def metrics(value):
     return {key:value for key in REPORT.METRICS}
+
+
+def test_report_routes_match_the_native_execution_inventory():
+    source=SOURCE.parent/'enterprise-stratified-evolution/prepare.py'
+    declarations={node.targets[0].id:ast.literal_eval(node.value)
+                  for node in ast.parse(source.read_text(encoding='utf-8')).body
+                  if isinstance(node,ast.Assign) and len(node.targets)==1
+                  and isinstance(node.targets[0],ast.Name) and node.targets[0].id in {'MODES','PRIMARY'}}
+    assert REPORT.PRIMARY==declarations['PRIMARY']
+    assert {family:set(modes) for family,modes in REPORT.ROUTES.items()}=={
+        family:set(modes) for family,modes in declarations['MODES'].items()}
 
 
 def test_no_reference_cases_do_not_become_zero_scores():
@@ -180,10 +192,110 @@ def test_changed_public_metadata_cannot_relabel_completed_case_scores(tmp_path,m
     (REPORT.WORK/'protocol.json').write_text(REPORT.json.dumps(protocol),encoding='utf-8')
     contract={'workspace_files':{'protocol.json':REPORT.sha(REPORT.WORK/'protocol.json')}}
     (REPORT.WORK/'execution-contract.json').write_text(REPORT.json.dumps(contract),encoding='utf-8')
-    receipt={'status':'complete','selection_sha256':REPORT.sha(REPORT.WORK/'selection.json')}
+    receipt={'status':'complete','selection_sha256':REPORT.sha(REPORT.WORK/'selection.json'),
+             'jobs':{'baseline':'unused','frozen':'unused'}}
     (REPORT.WORK/'recalculation-result.json').write_text(REPORT.json.dumps(receipt),encoding='utf-8')
     questions=tmp_path/'evaluations/enterprise-rag-bench/raw/questions.jsonl'
     questions.parent.mkdir(parents=True)
     questions.write_text('{"question_type":"changed-category"}\n',encoding='utf-8')
     with pytest.raises(ValueError,match='question metadata'):
+        REPORT.collect()
+
+
+def final_report_fixture(tmp_path,monkeypatch):
+    """Fixture-only collection contract: this does not execute or score Harbor."""
+    monkeypatch.setattr(REPORT,'REPO',tmp_path)
+    monkeypatch.setattr(REPORT,'WORK',tmp_path/'work')
+
+    def write(path,value):
+        path.parent.mkdir(parents=True,exist_ok=True)
+        path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+
+    questions=[{'question_id':f'q{i:04d}','question_type':'eligible' if i<470 else 'unreferenced',
+                'source_types':['fixture'],'expected_doc_ids':['reference'] if i<470 else []}
+               for i in range(500)]
+    questions_path=tmp_path/'evaluations/enterprise-rag-bench/raw/questions.jsonl'
+    questions_path.parent.mkdir(parents=True)
+    questions_path.write_text('\n'.join(REPORT.json.dumps(q) for q in questions)+'\n',encoding='utf-8')
+    selected=REPORT.WORK/'development-selection-v2/selected.private.json'
+    write(selected,questions[:112]+questions[470:478])
+    write(REPORT.WORK/'selection.json',{'skill_digest':'sha256:'+'a'*64})
+    write(REPORT.WORK/'terminal-decision.json',{'decision':'baseline-retained','private_gate_opened':False})
+    write(REPORT.WORK/'protocol.json',{'development':{'questions_sha256':REPORT.sha(questions_path),
+                                                    'selection_sha256':REPORT.sha(selected)}})
+    write(REPORT.WORK/'execution-contract.json',{'workspace_files':{
+        'protocol.json':REPORT.sha(REPORT.WORK/'protocol.json')}})
+    write(REPORT.WORK/'development-task-map.json',{f:{'task':'/fixture/'+f,'family':f,'phase':'recalculation'}
+                                                  for f in REPORT.PRIMARY})
+    dates={'started_at':'2026-01-01T00:00:00','finished_at':'2026-01-01T00:00:02'}
+    job_state={**dates,'n_total_trials':8,'stats':{'n_completed_trials':8,'n_running_trials':0,
+                                               'n_pending_trials':0,'n_errored_trials':0,'n_cancelled_trials':0}}
+    jobs={arm:REPORT.WORK/'native'/arm for arm in ('baseline','frozen')}
+    for arm,job in jobs.items():
+        write(job/'result.json',job_state)
+        write(job/'lock.json',{'fixture_only':True})
+        for family,modes in REPORT.ROUTES.items():
+            write(job/family/'result.json',{**dates,'task_name':family,'exception_info':None,
+                'agent_execution':dates,'verifier_result':{'rewards':{'reward':.8,'evidence_integrity':1}}})
+            write(job/family/'verifier/diagnostics.json',{'status':'pass','question_count':500,
+                'routes':{mode:{**metrics(.8),'p95_ms':12} for mode in modes},
+                'cases':{mode:[metrics(.8)]*470+[None]*30 for mode in modes},
+                'build_seconds':1.5,'knowledge_bytes':4096})
+    write(REPORT.WORK/'recalculation-result.json',{'status':'complete',
+        'selection_sha256':REPORT.sha(REPORT.WORK/'selection.json'),
+        'jobs':{arm:str(path) for arm,path in jobs.items()}})
+    for family in REPORT.PRIMARY:
+        write(REPORT.WORK/'family-results'/(family+'.json'),{'family':family,'treatment':'fixture-only',
+            'status':'full-round-without-improvement','generation':0,'rounds':1,
+            'baseline_score':.8,'score':.8,'profile':{family:{'plan':{},'search':{}}},'events':[]})
+    # The real stopping audit has separate tests and an actual native Legacy
+    # replay; isolate this test to final collection, scope and report rendering.
+    monkeypatch.setattr(REPORT,'audit_development',lambda *args:[{'candidate':'baseline','strategy':'baseline',
+        'score':.8,'qualified':True,'status':'qualified','execution_errors':0,'native_job_seconds':2}])
+    return jobs
+
+
+def test_full_collection_covers_sixteen_trials_and_all_fixed_routes(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    result=REPORT.collect()
+    assert len(result['bindings'])==16 and len(result['routes'])==36
+    primary=[r for r in result['routes'] if r['primary']]
+    assert len(primary)==16 and {r['family'] for r in primary}==set(REPORT.PRIMARY)
+    assert all(r['questions']==500 and r['retrieval_eligible']==470 for r in result['routes'])
+    assert all(r['ndcg_at_10']==pytest.approx(.8) for r in result['routes'])
+    files=REPORT.render(result)
+    assert all('skills/'+family+'.md' in files for family in REPORT.PRIMARY)
+    assert 'unreferenced' in files['categories.md'] and 'N/A' in files['categories.md']
+    assert len(REPORT.comparison(result)['alternatives'])==16
+
+
+def test_same_route_count_cannot_hide_a_missing_primary(tmp_path,monkeypatch):
+    jobs=final_report_fixture(tmp_path,monkeypatch)
+    path=jobs['frozen']/'classical/verifier/diagnostics.json'
+    value=REPORT.read(path)
+    for key in ('routes','cases'):
+        value[key]['invented']=value[key].pop('fusion')
+    path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+    with pytest.raises(ValueError,match='declared family contract'):
+        REPORT.collect()
+
+
+def test_complete_receipt_does_not_hide_an_unfinished_native_arm(tmp_path,monkeypatch):
+    jobs=final_report_fixture(tmp_path,monkeypatch)
+    path=jobs['frozen']/'result.json'
+    value=REPORT.read(path)
+    value['finished_at']=None
+    value['stats']['n_running_trials']=1
+    path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+    with pytest.raises(ValueError,match='arm is incomplete'):
+        REPORT.collect()
+
+
+def test_final_collection_refuses_a_missing_comparison_arm(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    path=REPORT.WORK/'recalculation-result.json'
+    value=REPORT.read(path)
+    value['jobs'].pop('baseline')
+    path.write_text(REPORT.json.dumps(value),encoding='utf-8')
+    with pytest.raises(ValueError,match='exactly the baseline and frozen arms'):
         REPORT.collect()

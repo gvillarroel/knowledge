@@ -16,6 +16,10 @@ REPO = Path(__file__).resolve().parents[1]
 WORK = REPO/'tmp/e7'
 PRIMARY = {'legacy':'lexical','embeddings':'hybrid','classical':'fusion','adaptive':'adaptive',
            'entity-graph':'fusion','ensemble':'quality','graphify':'search','turso':'lexical-sql'}
+ROUTES = {'legacy':('lexical',),'embeddings':('lexical','vector','hybrid'),
+          'classical':('bm25','topic','association','fusion'),'adaptive':('adaptive',),
+          'entity-graph':('lexical','entity','traversal','fusion'),
+          'ensemble':('fast','quality','robust'),'graphify':('search',),'turso':('lexical-sql',)}
 METRICS = ('ndcg_at_10','recall_at_10','mrr_at_10','full_qrel_coverage_at_10')
 
 
@@ -50,6 +54,23 @@ def aggregate_group(cases, indices):
     return {'questions':len(indices),'retrieval_eligible':len(eligible),
             **{key:statistics.fmean(finite(row[key],upper=1) for row in eligible) if eligible else None
                for key in METRICS}}
+
+
+def require_complete_arm(job):
+    """Require eight settled successful native trials before publishing an arm."""
+    stats = job.get('stats',{})
+    if (not job.get('finished_at') or job.get('n_total_trials')!=8
+        or stats.get('n_completed_trials')!=8
+        or any(stats.get(key)!=0 for key in ('n_running_trials','n_pending_trials',
+                                            'n_errored_trials','n_cancelled_trials'))):
+        raise ValueError('Final native arm is incomplete or failed')
+
+
+def require_family_routes(family, diagnostics):
+    """Prevent a substituted route from preserving a misleading total count."""
+    expected = set(ROUTES[family])
+    if set(diagnostics['routes'])!=expected or set(diagnostics['cases'])!=expected:
+        raise ValueError('Final routes differ from the declared family contract')
 
 
 def replay_history(result, strategies, baseline_profile, profile_module, scheduler_module, max_rounds):
@@ -137,6 +158,8 @@ def collect():
     terminal = read(WORK/'terminal-decision.json')
     if result['status']!='complete' or result['selection_sha256']!=sha(WORK/'selection.json'):
         raise ValueError('Final native comparison lacks an unchanged completed selection')
+    if set(result['jobs'])!={'baseline','frozen'}:
+        raise ValueError('Final comparison requires exactly the baseline and frozen arms')
     protocol, contract = read(WORK/'protocol.json'), read(WORK/'execution-contract.json')
     if sha(WORK/'protocol.json')!=contract['workspace_files']['protocol.json']:
         raise ValueError('Frozen public metadata protocol changed')
@@ -161,6 +184,7 @@ def collect():
     routes, grouped, bindings = [],[],[]
     for arm,directory_value in result['jobs'].items():
         directory = host(directory_value)
+        require_complete_arm(read(directory/'result.json'))
         trials = sorted(directory.glob('*/result.json'))
         if len(trials)!=8:
             raise ValueError('Final arm does not contain eight native trials')
@@ -173,6 +197,7 @@ def collect():
             found.add(family)
             diagnostics_path = path.parent/'verifier/diagnostics.json'
             diagnostics = read(diagnostics_path)
+            require_family_routes(family,diagnostics)
             reward = trial['verifier_result']['rewards']
             if diagnostics['status']!='pass' or diagnostics['question_count']!=500 or reward['evidence_integrity']!=1:
                 raise ValueError('Invalid final verifier integrity or question coverage')

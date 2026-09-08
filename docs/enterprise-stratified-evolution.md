@@ -128,6 +128,12 @@ using unrounded scores, preserving ties within 1e-12. Groups without references
 have no winner, and comparisons require matching question denominators. These
 descriptive summaries never change the jointly frozen selection.
 
+Final collection requires both comparison arms and eight settled, error-free
+native trials in each. Verify the exact declared route names for every family
+in both aggregates and case arrays; a total of 36 routes alone cannot establish
+coverage. The publication contract tests cover full 16-trial collection and
+reject substituted routes, unfinished jobs and a missing comparison arm.
+
 Development reports distinguish the scheduler's native objective from measured
 retrieval quality. Unqualified candidates have no published nDCG observation,
 even when the owner records a zero objective for a native execution error.
