@@ -7,8 +7,7 @@ native pipeline is executing development; the private gate remains unopened.
 The [all-family progress audit](status-002/README.md), observed at 2026-09-08
 16:47 UTC, records one completed search, three qualified baselines and two
 verified live trials. Classical now retains 56.06% weighted nDCG@10, up from
-55.04%, while its second variant runs. Embeddings retains its 63.51% baseline while its
-third variant runs after two execution failures. The five remaining families
+55.04%, while its second variant runs. The five remaining families
 have not started and are explicitly excluded from completed opportunity counts.
 The [preceding audit](status-001/README.md) remains unchanged.
 
@@ -18,6 +17,13 @@ percentage points: 8 eligible questions improve, 8 regress and 96 tie.
 The report includes all four diagnostic routes and measured build/runtime
 costs. This is a provisional development improvement; the family search
 and all-500 measurement remain pending.
+
+The subsequent [Embeddings mechanism transition](runtime-002/README.md),
+observed at 16:54 UTC, records three original build timeouts at semantic
+thresholds 95, 90 and 80. The three-miss rule stopped that mechanism and a
+neighboring-sentence context candidate with buffer size 2 is running.
+Embeddings retains its 63.51% baseline. The three failed jobs consumed
+121.62 minutes and have no retrieval quality measurement.
 
 The [completed Legacy search](legacy-complete-001/README.md) retained 72.38%
 weighted development nDCG@10, up from 61.11% (+11.27 percentage points).
@@ -35,10 +41,9 @@ The [paired Legacy breakdown](legacy-subgroups-001/README.md) shows 46 improved,
 and all nine overlapping application groups, with their sample sizes and
 sampling weights. The aggregate gain does not hide individual regressions.
 
-The [first semantic-segmentation runtime receipt](runtime-001/README.md)
-records a completed Embeddings build timeout at the fixed 40-minute subprocess
-limit. The failed candidate has no measured retrieval score and cannot replace
-the 63.51% baseline. The next distinct variant continues under the same limits.
+The [first semantic-segmentation timeout receipt](runtime-001/README.md)
+remains preserved. All three failures used the same fixed 40-minute builder
+subprocess limit and were not retried.
 
 The study covers all eight knowledge families with 120 category-stratified
 development questions and a fixed 6,000-document full-text corpus. The final
