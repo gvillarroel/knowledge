@@ -124,8 +124,12 @@ is not a completed metric. An unchanged selection leaves validation unopened.
 
 The final publication must include baseline and frozen candidate metrics, all
 eight primary routes, all eighteen diagnostic routes, category/application
-views, CTA and exact source bindings. LLM usage is zero for E7; provider cost
-is unavailable, and local CPU time must not be presented as a provider invoice.
+views, CTA and exact source bindings. The leading table projects all sixteen
+baseline and frozen primary alternatives from its machine-readable comparison
+contract and passes the maintained Markdown/metric validator before publication.
+The eight-family paired delta table remains a separate view. LLM usage is zero
+for E7; provider cost is unavailable, and local CPU time must not be presented
+as a provider invoice.
 
 Before publishing, replay every family's stopping and selection history using
 the frozen scheduler and its existing native rewards. Reject missing attempts,

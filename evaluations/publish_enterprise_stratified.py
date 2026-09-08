@@ -315,7 +315,26 @@ def comparison(value):
             'label':row['family']+' / '+row['arm']+' / '+row['route'],
             'metrics':{**{key:row[key]*100 for key in METRICS[:3]},
                        'representative_p95_ms':row['query_p95_ms']}}
-            for row in value['routes'] if row['primary']]}
+            for row in sorted((r for r in value['routes'] if r['primary']),
+                key=lambda r:(-r['ndcg_at_10'],r['family'],r['arm']))]}
+
+
+def primary_table(contract):
+    """Project and validate every alternative against the maintained contract."""
+    spec = importlib.util.spec_from_file_location('e7_comparison_contract',
+        Path(__file__).with_name('validate_comparison_contract.py'))
+    validator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(validator)
+    validator.validate_contract(contract)
+    metrics = contract['metrics']
+    lines = [contract['heading'],'',
+        '| Pos. | Pair / strategy | '+' | '.join(metric['label'] for metric in metrics)+' |',
+        '| ---: | --- | '+' | '.join('---:' for _ in metrics)+' |']
+    for position,row in enumerate(contract['alternatives'],1):
+        lines.append(f"| {position} | {row['label']} | "+' | '.join(
+            validator.format_metric(row['metrics'][metric['id']],metric) for metric in metrics)+' |')
+    validator.validate_report_against_contract('\n'.join(lines),contract)
+    return lines
 
 
 def render(value):
@@ -324,6 +343,10 @@ def render(value):
         'Completed native retrieval comparison: **500 questions, 470 with qrels, 6,000 complete documents**. '
         'The corpus is reference-enriched and all questions have prior exposure. This is an internal retrospective '
         'comparison, with no official answer Overall or public leaderboard rank.','',
+        *primary_table(comparison(value)),'',
+        'Positions enumerate all sixteen baseline and frozen alternatives, ordered by unrounded nDCG@10. '
+        'Equal scores retain their numeric ties; the positions do not establish a public rank. '
+        'The exact metric table is validated against [comparison.json](comparison.json) before publication.','',
         '**Terminal bundle decision:** '+value['terminal_decision']['decision']+'. '
         'All eight selections were frozen jointly before the final comparison and any private release.','',
         '**Repository installation:** the native gate does not install the selected package. '
@@ -331,7 +354,7 @@ def render(value):
         'any later installation requires its own verified receipt.','',
         '[Category comparison](categories.md) · [Application comparison](applications.md) · '
         '[CTA](cta.md) · [All routes](routes.md) · [Development and stopping rules](development.md)','',
-        '## Final primary routes','',
+        '## Paired family deltas','',
         '| Family | Baseline nDCG@10 | Frozen nDCG@10 | Delta pp | Frozen recall@10 | Frozen MRR@10 | Frozen full evidence@10 |',
         '| --- | ---: | ---: | ---: | ---: | ---: | ---: |']
     for (family,),arms in sorted(pairs.items(),key=lambda item:-item[1]['frozen']['ndcg_at_10']):
@@ -450,10 +473,10 @@ def main():
     parser.add_argument('--output',required=True,type=Path)
     args = parser.parse_args()
     value = collect()
-    args.output.mkdir(parents=True,exist_ok=False)
     files = render(value)
     files['aggregate.json']=json.dumps(value,indent=2,sort_keys=True,allow_nan=False)+'\n'
     files['comparison.json']=json.dumps(comparison(value),indent=2,sort_keys=True,allow_nan=False)+'\n'
+    args.output.mkdir(parents=True,exist_ok=False)
     for relative,text in files.items():
         path=args.output/relative
         path.parent.mkdir(parents=True,exist_ok=True)

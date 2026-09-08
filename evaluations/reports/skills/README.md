@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)
+
 [Agent-selected skills by application](../enterprise-source-skills/README.md)
 
 [Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)

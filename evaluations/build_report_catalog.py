@@ -210,7 +210,12 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files: dict[str, str] = {}
     overview = ["# Evaluation report hub", "", "Reviewed results organized by dataset, skill, and cost/time/quality (CTA).",
                 "", "[By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)", "",
-                "The [Enterprise evolution sweep](evolution/e6/README.md) follows eight knowledge families "
+                "The [stratified Enterprise evolution E7](evolution/e7/README.md) covers all eight families "
+                "on 120 development questions and 6,000 complete documents. Its "
+                "[strategy coverage](evolution/e7/strategy-coverage.md) distinguishes declared mechanisms, "
+                "native attempts and completed searches. The campaign page owns current progress; interim "
+                "development scores do not enter the completed all-500 comparison table.", "",
+                "The earlier [Enterprise evolution sweep E6](evolution/e6/README.md) follows eight knowledge families "
                 "through a fixed tactic catalog, with three consecutive misses per tactic and a separate final validation gate. "
                 "Its campaign page records the execution and publication status.", "",
                 "The [agent-selected source-skill comparison](enterprise-source-skills/README.md) evaluates a unified "
@@ -262,6 +267,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                      "[Data storage and reproduction](../../docs/evaluation-datasets-and-reports.md)", ""])
     files["README.md"] = "\n".join(overview)
     skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+                   "[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)", "",
                    "[Agent-selected skills by application](../enterprise-source-skills/README.md)", "",
                    "[Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)", "",
                    "[EnterpriseRAG: incoming versus G2 generator, all eight families](../enterprise-generator-g2/README.md)", "",
@@ -276,7 +282,8 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
         if path:
             lines.extend([f"[Skill package](../../../{path})", ""])
         if family in {"legacy", "embeddings", "classical", "adaptive", "entity-graph", "ensemble", "graphify", "turso"}:
-            lines.extend(["[Enterprise evolution of this family](../evolution/e6/README.md)", ""])
+            lines.extend(["[Stratified Enterprise evolution E7 and this family's opportunity status](../evolution/e7/README.md)", "",
+                          "[Earlier Enterprise evolution E6](../evolution/e6/README.md)", ""])
         if family == "integrated-classical":
             lines.extend(["The tau3 source reports identical rankings for the integrated Classical and "
                           "[chunked Classical](../../../skills/build-classical-chunked-knowledge-skill/SKILL.md) packages.", ""])
@@ -294,6 +301,10 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
     cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+           "[Stratified Enterprise evolution E7](../evolution/e7/README.md) records native development time, "
+           "qualified retrieval scores and execution errors. Its declared model-call budget is zero; "
+           "a timed-out attempt has no retrieval quality measurement. Follow the campaign for completion "
+           "of all eight families, the paired all-500 comparison and the separate transfer gate.", "",
            "The evolution studies report query P95, two-build construction time, full native execution time and storage under their fixed runtimes. Follow each campaign's execution and publication status. The historical comparisons below retain their own measurement contracts.", "",
            "CTA is interpreted here as cost, time, and accuracy/quality. Retrieval relevance is measured by "
            "nDCG, Recall, MRR, or complete evidence; it is not generated-answer accuracy. "

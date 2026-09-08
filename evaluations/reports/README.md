@@ -4,7 +4,9 @@ Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
 [By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)
 
-The [Enterprise evolution sweep](evolution/e6/README.md) follows eight knowledge families through a fixed tactic catalog, with three consecutive misses per tactic and a separate final validation gate. Its campaign page records the execution and publication status.
+The [stratified Enterprise evolution E7](evolution/e7/README.md) covers all eight families on 120 development questions and 6,000 complete documents. Its [strategy coverage](evolution/e7/strategy-coverage.md) distinguishes declared mechanisms, native attempts and completed searches. The campaign page owns current progress; interim development scores do not enter the completed all-500 comparison table.
+
+The earlier [Enterprise evolution sweep E6](evolution/e6/README.md) follows eight knowledge families through a fixed tactic catalog, with three consecutive misses per tactic and a separate final validation gate. Its campaign page records the execution and publication status.
 
 The [agent-selected source-skill comparison](enterprise-source-skills/README.md) evaluates a unified expert and nine application experts with complete document bodies. The [ingestion scope correction](enterprise-source-skills/ingestion-scope-20260907.md) binds historical Enterprise v1/e6 retrieval to a title-only projection. Do not pool the two contracts.
 

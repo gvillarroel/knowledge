@@ -162,6 +162,14 @@ one normalized aggregate catalog. It can regenerate on a clean checkout
 without downloading datasets or opening ignored result files. Source report
 hashes make drift visible. Older evidence stays in its original location.
 
+An active study can be linked from the report hub, skill pages and CTA without
+registering unfinished comparisons as dataset rows. The
+[stratified Enterprise campaign E7](../evaluations/reports/evolution/e7/README.md)
+publishes measured development snapshots through that navigation. Its final
+catalog entry requires the completed paired all-500 aggregate, with eight
+fixed primary routes in each arm, and must retain its separate 6,000-document
+retrospective scope. Declared variants and queued families are not results.
+
 No single cross-dataset average or universal skill winner is computed. A
 dataset page compares rows only within its named contract. Historical
 construction tokens, consultation tokens, deterministic latency, and semantic

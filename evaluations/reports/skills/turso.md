@@ -6,7 +6,9 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Skill package](../../../skills/consult-semantic-okf-turso/SKILL.md)
 
-[Enterprise evolution of this family](../evolution/e6/README.md)
+[Stratified Enterprise evolution E7 and this family's opportunity status](../evolution/e7/README.md)
+
+[Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## Software architecture books (40)
 

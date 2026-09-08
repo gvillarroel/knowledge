@@ -2,6 +2,7 @@
 import importlib.util
 import copy
 import ast
+import sys
 from pathlib import Path
 
 import pytest
@@ -91,8 +92,10 @@ def test_catalog_converts_ratios_to_percent_but_preserves_latency_units():
              query_p95_ms=12,**metrics(.9))]}
     result = REPORT.comparison(value)
     assert len(result['alternatives'])==2
-    assert result['alternatives'][0]['metrics']['ndcg_at_10']==60
-    assert result['alternatives'][0]['metrics']['representative_p95_ms']==234.5
+    assert [r['id'] for r in result['alternatives']]==['classical-frozen','classical-baseline']
+    baseline=next(r for r in result['alternatives'] if r['id']=='classical-baseline')
+    assert baseline['metrics']['ndcg_at_10']==60
+    assert baseline['metrics']['representative_p95_ms']==234.5
     assert result['dataset_scope']['cohort']=='retrospective-all-500'
 
 
@@ -266,7 +269,27 @@ def test_full_collection_covers_sixteen_trials_and_all_fixed_routes(tmp_path,mon
     files=REPORT.render(result)
     assert all('skills/'+family+'.md' in files for family in REPORT.PRIMARY)
     assert 'unreferenced' in files['categories.md'] and 'N/A' in files['categories.md']
-    assert len(REPORT.comparison(result)['alternatives'])==16
+    contract=REPORT.comparison(result)
+    assert len(contract['alternatives'])==16
+    spec=importlib.util.spec_from_file_location('fixture_final_comparison_validator',
+        SOURCE.with_name('validate_comparison_contract.py'))
+    validator=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(validator)
+    table=validator.validate_report_against_contract(files['README.md'],contract)
+    assert len(table.rows)==16
+    assert '## Paired family deltas' in files['README.md']
+
+
+def test_invalid_primary_contract_is_rejected_before_creating_publication(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    contract=REPORT.comparison(REPORT.collect())
+    contract['alternatives'][0]['metrics'].pop('representative_p95_ms')
+    monkeypatch.setattr(REPORT,'comparison',lambda value:contract)
+    output=tmp_path/'unpublished'
+    monkeypatch.setattr(sys,'argv',['publish_enterprise_stratified.py','--output',str(output)])
+    with pytest.raises(ValueError,match='must provide exactly'):
+        REPORT.main()
+    assert not output.exists()
 
 
 def test_same_route_count_cannot_hide_a_missing_primary(tmp_path,monkeypatch):

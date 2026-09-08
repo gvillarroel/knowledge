@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Stratified Enterprise evolution E7](../evolution/e7/README.md) records native development time, qualified retrieval scores and execution errors. Its declared model-call budget is zero; a timed-out attempt has no retrieval quality measurement. Follow the campaign for completion of all eight families, the paired all-500 comparison and the separate transfer gate.
+
 The evolution studies report query P95, two-build construction time, full native execution time and storage under their fixed runtimes. Follow each campaign's execution and publication status. The historical comparisons below retain their own measurement contracts.
 
 CTA is interpreted here as cost, time, and accuracy/quality. Retrieval relevance is measured by nDCG, Recall, MRR, or complete evidence; it is not generated-answer accuracy. Missing USD costs or answer-quality measurements remain N/A.
