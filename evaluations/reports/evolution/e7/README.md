@@ -30,6 +30,13 @@ and 54.83% and were rejected before the later gain. All four variants have
 qualified measurements with no execution errors. The full family search and
 all-500 comparison remain pending.
 
+The [paired Classical breakdown](classical-subgroups-001/README.md) describes
+candidate004 by question category and all nine application groups. GitHub
+gains 10.92 points, while Confluence loses 1.86 and Slack loses 0.54. One
+improved basic question contributes 1.55 of the 2.06 points of overall gain
+under the frozen sampling weights. This snapshot exposes the concentration
+of the gain and subgroup regressions without changing the retained profile.
+
 The [Embeddings mechanism transition](runtime-002/README.md),
 observed at 16:54 UTC, records three original build timeouts at semantic
 thresholds 95, 90 and 80. The three-miss rule stopped that mechanism.
