@@ -4,13 +4,14 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The [all-family progress audit](status-004/README.md), observed at 2026-09-08
-17:34 UTC, records one completed search, three qualified baselines and two
+The [all-family progress audit](status-005/README.md), observed at 2026-09-08
+17:42 UTC, records one completed search, three qualified baselines and two
 verified live trials. Classical now retains 56.06% weighted nDCG@10, up from
-55.04%, while its third variant runs. The five remaining families
+55.04%, while its fourth variant runs. The five remaining families
 have not started and are explicitly excluded from completed opportunity counts.
 The preceding [first audit](status-001/README.md),
-[second audit](status-002/README.md) and [third audit](status-003/README.md)
+[second audit](status-002/README.md), [third audit](status-003/README.md) and
+[fourth audit](status-004/README.md)
 remain unchanged.
 
 The [first Classical gain](classical-progress-001/README.md) changes the
@@ -19,9 +20,10 @@ percentage points: 8 eligible questions improve, 8 regress and 96 tie.
 The report includes all four diagnostic routes and measured build/runtime
 costs. This is a provisional development improvement; the family search
 and all-500 measurement remain pending.
-The following `bm25.b=0` variant scored 54.30% and was rejected, leaving
-candidate001 retained and one consecutive miss. It completed without an
-execution error, so its lower score is a measured quality result.
+The following `bm25.b=0` and `bm25.b=0.5` variants scored 54.30% and 54.83%
+and were rejected, leaving candidate001 retained and two consecutive misses.
+Both completed without execution errors, so their lower scores are measured
+quality results. The next predeclared length-normalization variant is running.
 
 The [Embeddings mechanism transition](runtime-002/README.md),
 observed at 16:54 UTC, records three original build timeouts at semantic
