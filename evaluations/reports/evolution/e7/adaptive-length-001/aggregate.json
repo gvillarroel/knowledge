@@ -1,0 +1,160 @@
+{
+  "all500_recalculation_complete": false,
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family": "adaptive",
+  "family_search_complete": false,
+  "llm_calls": 0,
+  "native_diagnostic_pass_threshold": 0.8,
+  "native_errors": 0,
+  "next_mutation_contract_sha256": "d63ab56c3d5f455faec5e069f2bfe710cb184405238ee49c7f9fb3198c1bcd0b",
+  "next_strategy": "bm25-saturation",
+  "next_variant": {
+    "bm25.k1": 0.6
+  },
+  "normalized_report_sha256": "27174879d3bd8d999d8f9c92ee4715cb444e71c9c5747875e91c5ddd7bef85ee",
+  "prefix_replayed": true,
+  "primary_route": "adaptive",
+  "profile_promoted": false,
+  "progress_sha256": [
+    "4c8bd920e83f8e95881b9f76393bbab689b85b6da9b55236ab902e285b8da9d1",
+    "96fb973e87cb76391e1c424cc51faf0d601f4164d4eb3d4173f6862ce3ad1968",
+    "cf4bbb5d0d97053a660a324124879393a79dfe709108451a5811223c05d5bd7c"
+  ],
+  "protocol_sha256": "35f54228ba31973e77326445aa9d8f0786f6a172b51909af2f088f742120287c",
+  "questions": 120,
+  "retained_candidate": "baseline",
+  "retained_ndcg_at_10": 0.6003504668859466,
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "agent_seconds": 1339.793578,
+      "archive_sha256": "3a741f3bf801a19633985f74bc2b9625e5c1b056787a1b08afde127883bd7a4d",
+      "candidate": "baseline",
+      "diagnostics_sha256": "ac58d7b5230204a1db8961b8adfd7bee928ac19649f4621b21b9e4506ecf04b9",
+      "double_build_seconds": 589.0441903909996,
+      "evidence_integrity": 1,
+      "job_result_sha256": "5eb6afac1d452dc0d6ae804d76332409b94697c16e4ab1b7bc8e34e4e9f9f801",
+      "knowledge_bytes": 557899137,
+      "native_errors": 0,
+      "native_job_seconds": 1388.001149,
+      "native_lock_sha256": "200fd7d4e680e2b7643b25f2f9a7195e346438098de8103b16875fdfc590e525",
+      "qualified": true,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.6238918439716312,
+          "mrr_at_10": 0.6069533712568952,
+          "ndcg_at_10": 0.6003504668859466,
+          "p95_ms": 8415.325732999918,
+          "recall_at_10": 0.6918784475965327
+        }
+      },
+      "skill_digest": "sha256:2dc74826fa29e282b52bb1dcb6c58bd4cc8342d28fd3aa0baf54ebe3cd9332b9",
+      "trial_result_sha256": "70142f492b964aad0dde067c720f5eb66513bcdef8e30622c5a97eb79ae01a06",
+      "variant": null
+    },
+    {
+      "agent_seconds": 1336.958232,
+      "archive_sha256": "d55d994bb8e03805c647f4d7539eb9d3d68831c39eb1411ed575854c7c78d995",
+      "candidate": "candidate-001",
+      "diagnostics_sha256": "935d73f72e0d5843fd8d984cfb4e2f12a06dd6a31719983e0bde018e728463a7",
+      "double_build_seconds": 589.3258611750025,
+      "evidence_integrity": 1,
+      "job_result_sha256": "7e53c64e0443707365243a6c90659d8e6d7c5036540528e0d93c798263436177",
+      "knowledge_bytes": 557899137,
+      "native_errors": 0,
+      "native_job_seconds": 1385.561391,
+      "native_lock_sha256": "2690ebf28256df95ce61820667cf96252e0fcb8ed06e4db15688da4614c4b414",
+      "qualified": true,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.6037234042553191,
+          "mrr_at_10": 0.6129949763593381,
+          "ndcg_at_10": 0.5969354441992704,
+          "p95_ms": 8435.240693997912,
+          "recall_at_10": 0.6730102442868401
+        }
+      },
+      "skill_digest": "sha256:66a2ef07ac5dc675ef59b9a79e61048e9da0b82c647baac15b50d44e79001c59",
+      "trial_result_sha256": "e29e302783d5dc34da18cc9b157481e8f15a9d4a6c60d9e896b0ec8bd3ac9e47",
+      "variant": {
+        "bm25.b": 0.25
+      }
+    },
+    {
+      "agent_seconds": 1329.010288,
+      "archive_sha256": "d7055ac4afc31b127be2a51f8f92f2f9fc99527989ecf1c7726732b8bc53f821",
+      "candidate": "candidate-002",
+      "diagnostics_sha256": "dcb07c18dab8c5bc16376829b7784a2ab4b2daeda9fe275a6749fcc2ac60cdb8",
+      "double_build_seconds": 574.811223097,
+      "evidence_integrity": 1,
+      "job_result_sha256": "befc880d942427cdf3674423cfdc2da2723fdf513a0b75e0738903b4e4677f8a",
+      "knowledge_bytes": 557899135,
+      "native_errors": 0,
+      "native_job_seconds": 1379.479245,
+      "native_lock_sha256": "c85ce52b863bdb3fafea7c1470e0970d202bad4a0932eae8fe056669d8ff2643",
+      "qualified": true,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.5966312056737589,
+          "mrr_at_10": 0.5879860935213329,
+          "ndcg_at_10": 0.5800481842545647,
+          "p95_ms": 8444.628638000722,
+          "recall_at_10": 0.6706757289204098
+        }
+      },
+      "skill_digest": "sha256:e6e296fe77f768f3e595349af2438776b23ecba79ad93bc93872908b2952e17a",
+      "trial_result_sha256": "0807e8ec2c5fc77b5ef582300c97515ee1953990ee15a0503c3b22cb3e967694",
+      "variant": {
+        "bm25.b": 0.0
+      }
+    },
+    {
+      "agent_seconds": 1324.997209,
+      "archive_sha256": "9ccfe3d76f3e40c4957133b5496f3dbc949341d8bd753bfb264b50bbf26b059c",
+      "candidate": "candidate-003",
+      "diagnostics_sha256": "7825a77b0e7ab410cd1a01f4b2968f47bdece7d3e8931a7cc410fb8697d1eb99",
+      "double_build_seconds": 573.9857887699982,
+      "evidence_integrity": 1,
+      "job_result_sha256": "7edf9193ed04606b9d39fb2fdeafe24dedfaf873a754ac797fd1022396a152f5",
+      "knowledge_bytes": 557899135,
+      "native_errors": 0,
+      "native_job_seconds": 1374.944045,
+      "native_lock_sha256": "01e11db8b060d022887a4a357d5a10b3859d13459f829b0dc47f375d20dfb4d3",
+      "qualified": true,
+      "routes": {
+        "adaptive": {
+          "full_qrel_coverage_at_10": 0.6155806737588653,
+          "mrr_at_10": 0.6061410313238771,
+          "ndcg_at_10": 0.5963962829616594,
+          "p95_ms": 8464.405184000498,
+          "recall_at_10": 0.6836854806934594
+        }
+      },
+      "skill_digest": "sha256:aecec3e6784ecb94e9671249ef7cf8077f2f127c3a7b3fb3943f923bde2c67e5",
+      "trial_result_sha256": "d2c7df8e3d7c6cb165eb9c5a16a9a6826b45bb3a221ebe0cbdec5063b8922eb0",
+      "variant": {
+        "bm25.b": 0.5
+      }
+    }
+  ],
+  "schema_version": "enterprise-e7-adaptive-length-misses/1.0",
+  "selection_final": false,
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "skipped_untested_variant": {
+    "bm25.b": 1.0
+  },
+  "snapshot_utc": "2026-09-08T20:40:31.052406+00:00",
+  "status": "mechanism-stopped-family-in-progress",
+  "stop_event": {
+    "event": "strategy-finished",
+    "failures": 3,
+    "reason": "three-consecutive-failures",
+    "strategy": "length-normalization",
+    "unused_variants": 1
+  },
+  "summed_all_native_job_seconds": 5527.98583,
+  "summed_variant_native_job_seconds": 4139.984681,
+  "validation_released": false
+}
