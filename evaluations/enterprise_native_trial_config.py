@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import ast
 import copy
+from functools import wraps
 import hashlib
 import json
 import math
@@ -100,7 +101,9 @@ def strict_json(payload: bytes | str):
         value = json.loads(payload, object_pairs_hook=_object, parse_constant=_invalid_constant)
         _json_value(value)
         return value
-    except (UnicodeError, json.JSONDecodeError, RecursionError):
+    except NativeConfigRefusal:
+        raise
+    except (ValueError, UnicodeError, RecursionError):
         raise NativeConfigRefusal("native-config-invalid-json") from None
 
 
@@ -237,14 +240,29 @@ def _required_identity(raw):
              "native-config-staged-skill-identity")
 
 
-def _equivalent(left, right):
+def _equivalent(left, right, kind=None):
     if type(left) is not type(right):
-        return type(left) in (int, float) and type(right) in (int, float) and left == right
+        return (kind in {"number", "number?"} and type(left) in (int, float)
+                and type(right) in (int, float) and left == right)
     if type(left) is dict:
-        return set(left) == set(right) and all(_equivalent(left[key], right[key]) for key in left)
+        fields = FIELDS.get(kind, {})
+        return set(left) == set(right) and all(_equivalent(left[key], right[key], fields.get(key)) for key in left)
     if type(left) is list:
         return len(left) == len(right) and all(_equivalent(a, b) for a, b in zip(left, right))
     return left == right
+
+
+def _refusal_boundary(operation):
+    """Keep recursion failures in expansion/comparison out of caller messages."""
+    @wraps(operation)
+    def checked(*args, **kwargs):
+        try:
+            return operation(*args, **kwargs)
+        except NativeConfigRefusal:
+            raise
+        except RecursionError:
+            raise NativeConfigRefusal("native-config-nesting-limit") from None
+    return checked
 
 
 class NativeTrialReader:
@@ -256,6 +274,7 @@ class NativeTrialReader:
                      "native-" + name + "-source-drift")
         self._defaults = _defaults(config_source)
 
+    @_refusal_boundary
     def decode(self, payload: bytes | str) -> dict:
         """Restore only source-proven omissions; preserve explicit values."""
         raw = strict_json(payload)
@@ -277,6 +296,7 @@ class NativeTrialReader:
 
         return expand(raw, "TrialConfig")
 
+    @_refusal_boundary
     def require_policy(self, payload: bytes | str, *, expected: bytes | str,
                        phase: str, role: str) -> dict:
         """Match every effective input against a separately bound projection.
@@ -286,8 +306,8 @@ class NativeTrialReader:
         TrialConfig: Harbor uses the same trial inputs for agent and verifier.
         The caller separately enforces that role's native container contract.
         """
-        _require(phase in {"development", "recalculation", "validation"}, "native-config-phase")
-        _require(role in {"agent", "verifier"}, "native-config-role")
+        _require(type(phase) is str and phase in {"development", "recalculation", "validation"}, "native-config-phase")
+        _require(type(role) is str and role in {"agent", "verifier"}, "native-config-role")
         actual, wanted = self.decode(payload), self.decode(expected)
         final = phase == "recalculation"
         agent_name = "enterprise-stratified-final" if final else "enterprise-stratified-retrieval"
@@ -307,5 +327,5 @@ class NativeTrialReader:
             _require(all(task[key] is None for key in ("git_url", "git_commit_id", "name", "ref", "download_dir", "source"))
                      and task["overwrite"] is False, "native-local-task-policy")
             _require(verifier["disable"] is False, "native-verifier-disabled")
-        _require(_equivalent(actual, wanted), "native-effective-input-policy-drift")
+        _require(_equivalent(actual, wanted, "TrialConfig"), "native-effective-input-policy-drift")
         return actual

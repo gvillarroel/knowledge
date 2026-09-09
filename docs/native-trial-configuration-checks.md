@@ -14,12 +14,16 @@ defaults from the source AST without executing its factories. It validates all
 supported model fields, JSON types and nested mount fields before comparing the
 complete effective inputs with a separately bound expected projection.
 
-The supported contract is the local deterministic Enterprise workload. Optional
-MCP servers, TPU settings and artifact-object configurations are rejected. The
-reader preserves explicit supported values; it does not lowercase inputs, accept
+The supported contract is the local deterministic Enterprise workload. Nonempty
+MCP configurations, non-null TPU settings and every nonempty artifact declaration,
+including strings, are rejected. The reader preserves explicit supported values;
+it does not lowercase inputs, accept
 legacy aliases, discard unknown fields, overwrite overrides or generate missing
 identities. Duplicate JSON keys, non-finite values and booleans in numeric fields
-are refusals. Refusal messages contain static codes rather than input values.
+are refusals. Integer/float equivalence applies only to declared native numeric
+fields; arbitrary nested `kwargs` keep their exact JSON types. Refusal messages
+contain static codes rather than input values, including oversized integers,
+invalid phase/role types and recursion during parsing, expansion or comparison.
 
 ## Caller contract
 
@@ -50,11 +54,16 @@ Run the independent synthetic regressions with:
 python -B -m pytest tests/test_enterprise_native_trial_config.py tests/test_enterprise_execution_scope.py -q
 ```
 
-The 40 tests and 125 subtests cover omitted versus explicit defaults, all eight
+The 45 tests and 139 subtests cover omitted versus explicit defaults, all eight
 original overrides, complete effective-input drift, malformed JSON, identities,
-types, nested mounts, source drift and all three phases with both roles. The
-unit suite uses synthetic authenticated-source fixtures and does not claim a
-live native admission.
+types, nested mounts, source drift and all three phases with both roles. They
+also cover exact numeric types inside arbitrary maps and static refusal codes
+at parsing, expansion and comparison boundaries. The unit suite uses synthetic
+authenticated-source fixtures and does not claim a
+live native admission. The genuine recursion-limit regression runs in a child
+process because exhausting the parent stack can disable Python's coverage
+trace hook even when the expected exception is handled. The test preserves its
+original refusal assertions and verifies that the parent trace remains active.
 
 A separate artifact-only parity check used all three completed public E10
 durable configurations and the actual installed native configuration models.
@@ -63,7 +72,15 @@ job/task/identity/staged-skill projection. Twelve representation and role checks
 passed without a new native job, model inference or private task-body read.
 That evidence does not retroactively admit E10 or create its missing receipt.
 
-The repository completion gate passed with 1,626 tests, 359 subtests and 90.7%
+An independent source review accepted the exact reader after preserving and
+resolving two earlier checkpoints. It authenticated all 63 native fields,
+checked twelve phase/role/representation combinations, twelve targeted refusals
+and twelve independently constructed policy comparisons on the three real
+public durable configurations. The review covers the reader implementation;
+the future caller must establish the provenance of its expected inputs and
+enforce the remaining execution and custody checks.
+
+The repository completion gate passed with 1,631 tests, 373 subtests and 90.7%
 total application coverage. The reader itself remains a prospective component
 until its complete caller and replacement study receive independent review and
 a new seal. [ADR 0136](../.specs/adr/0136-read-native-trial-configurations-with-authenticated-defaults.md)

@@ -4,6 +4,8 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -269,6 +271,75 @@ class NativeTrialConfigTests(unittest.TestCase):
         full = self.policy()
         full["timeout_multiplier"] = 1
         self.assertEqual(self.policy(full)["timeout_multiplier"], 1)
+
+    def test_arbitrary_json_maps_preserve_numeric_types_at_every_depth(self):
+        for component in ("agent", "environment", "verifier"):
+            for expected_value, actual_value in (
+                ({"typed_switch": 1}, {"typed_switch": 1.0}),
+                ({"typed_switch": 1.0}, {"typed_switch": 1}),
+                ({"nested": [{"timeout_multiplier": 1}]}, {"nested": [{"timeout_multiplier": 1.0}]}),
+            ):
+                expected = replace(self.raw, (component, "kwargs"), expected_value)
+                actual = replace(self.raw, (component, "kwargs"), actual_value)
+                with self.subTest(component=component, expected=expected_value):
+                    self.assertEqual(self.policy(expected, expected)[component]["kwargs"], expected_value)
+                    with self.assertRaisesRegex(codec.NativeConfigRefusal, "effective-input-policy-drift"):
+                        self.policy(actual, expected)
+
+    def test_integer_parsing_limit_gets_a_static_refusal(self):
+        with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-config-invalid-json$"):
+            self.reader.decode('{"integer": ' + '1' * 5000 + '}')
+
+    def test_nonstring_phase_and_role_get_static_refusals(self):
+        for value in ([], {}, None, 1, True):
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-config-phase$"):
+                    self.policy(phase=value)
+                with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-config-role$"):
+                    self.policy(role=value)
+
+    def test_deep_supported_json_gets_a_static_refusal_during_expansion(self):
+        # Exhausting Python's stack can disable a coverage trace hook even when
+        # the public API catches the error. Keep the genuine boundary check in
+        # a child process so later application tests remain measured.
+        trace_before = sys.gettrace()
+        program = (
+            "import runpy, sys, unittest\n"
+            "case = runpy.run_path(sys.argv[1])['NativeTrialConfigTests']"
+            "('_check_deep_supported_json_refusals')\n"
+            "result = unittest.TextTestRunner().run(unittest.TestSuite([case]))\n"
+            "raise SystemExit(0 if result.wasSuccessful() else 1)\n"
+        )
+        result = subprocess.run([sys.executable, "-B", "-c", program, str(Path(__file__).resolve())],
+                                capture_output=True, text=True, timeout=30, check=False)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIs(sys.gettrace(), trace_before)
+
+    def _check_deep_supported_json_refusals(self):
+        nested = 1
+        for _ in range(600):
+            nested = {"inner": nested}
+        raw = synthetic_trial()
+        raw["agent"]["kwargs"] = nested
+        payload = json.dumps(raw)
+        # JSON parsing itself succeeds. Expansion's copy stack is separately
+        # bounded, so public decode must normalize its recursion failure too.
+        self.assertEqual(codec.strict_json(payload)["trial_name"], raw["trial_name"])
+        for operation in (
+            lambda: self.reader.decode(payload),
+            lambda: self.reader.require_policy(payload, expected=json.dumps(self.raw),
+                                                phase="development", role="agent"),
+        ):
+            with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-config-nesting-limit$"):
+                operation()
+
+    def test_policy_comparison_recursion_and_specific_refusals_keep_static_codes(self):
+        with patch.object(codec, "_equivalent", side_effect=RecursionError("synthetic-sensitive-value")):
+            with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-config-nesting-limit$"):
+                self.policy()
+        with patch.object(codec, "_equivalent", side_effect=codec.NativeConfigRefusal("native-effective-input-policy-drift")):
+            with self.assertRaisesRegex(codec.NativeConfigRefusal, "^native-effective-input-policy-drift$"):
+                self.policy()
 
     def test_each_native_source_is_authenticated_before_any_default(self):
         for sources in ({"config_source": DEFINITIONS + b"\n", "writer_source": WRITER},
