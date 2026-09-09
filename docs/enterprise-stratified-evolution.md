@@ -60,9 +60,12 @@ leaderboard or the existing full-corpus result.
 | Graphify | Consultation | Traversal depth, lexical fusion, reciprocal-rank decay |
 | Turso | Consultation | BM25 saturation, length normalization, title weight |
 
-Each mechanism changes after three consecutive new evaluable candidates fail
-to improve the incumbent. A gain resets that counter. Duplicate profiles do not
-consume another trial. An improving complete catalog round triggers another
+Each mechanism changes after three consecutive unique candidate attempts fail
+to improve the incumbent. A qualified strict gain resets that counter. Rejected
+internal execution attempts, such as the observed builder timeouts, count as
+non-improvements but have no retrieval measurement. External unavailability
+stops execution for separate review. Duplicate profiles do not consume another
+trial. An improving complete catalog round triggers another
 round, up to five; a complete round without improvement ends that family. The
 117 variants per round define a finite search space, with at most 585 new
 candidate trials across five rounds. A resource-limit stop is reported explicitly.
@@ -76,6 +79,12 @@ multiple references in one group. Zero novelty weights did not remove that limit
 The [reviewed expertise plan](../evaluations/reports/evolution/e7/classical-source-cap-001/plan-review.md)
 records separate cap-only and identity-only hypotheses for a fresh study. It
 creates no candidate, changes no frozen E7 setting and provides no measured gain.
+
+The [Ensemble fusion audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
+separately verifies the intentional protected Adaptive document set with eight
+synthetic function cases. Quality weights can reorder that set; they cannot
+admit missing document groups or refill a short set. This keeps rank improvement
+distinct from coverage improvement when interpreting later native trials.
 
 The native Harbor Pareto owner stages candidates, evaluates jobs and verifies
 locked provenance. The scheduler only proposes the next frozen mutation. Each

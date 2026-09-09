@@ -38,6 +38,14 @@ identity policy. The verified follow-up plan is untested and belongs to a new
 study; it is not an additional completed opportunity in this table. Exhausting
 the frozen catalog must not be reported as exhausting every possible operator.
 
+The [Ensemble protected-set audit](ensemble-protection-001/README.md) exercises
+the exact generic fusion function with synthetic component payloads. All three
+declared quality-weight variants can affect rank order in the full-set fixture,
+but every variant preserves Adaptive's document set. A short protected set is
+not refilled from auxiliary routes. Allocation therefore has a ranking
+opportunity; Adaptive construction can separately change coverage. These eight
+fixture cases are not native Enterprise trials or completed family opportunities.
+
 ## Execution and interpretation
 
 Two family lanes execute concurrently, with one trial at a time in each lane.

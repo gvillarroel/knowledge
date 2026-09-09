@@ -20,6 +20,7 @@
 - [Enterprise evolution campaign status and reports](../evaluations/reports/evolution/e6/README.md)
 - [Stratified Enterprise evolution across eight families and the all-500 internal comparison](enterprise-stratified-evolution.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
+- [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Completed Enterprise application-skill experiment: findings and retained ingestion checks](enterprise-source-skills.md)
 - [Generator evolution: explicit source selection and independent construction acceptance](../.specs/adr/0126-evolve-generator-explicit-source-selection.md)
 - [Using and evaluating the evolved knowledge-skill generator](knowledge-generator-evolution.md)
