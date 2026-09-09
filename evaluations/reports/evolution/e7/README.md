@@ -4,14 +4,17 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-026/README.md) records two
-completed searches and four qualified baselines. Classical now retains 60.10%
+The latest [all-family progress audit](status-027/README.md) records two
+completed searches and four qualified baselines. Classical now retains 60.89%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
-completed with six retained gains, so a second round begins. Candidate018 scored
+completed with six retained gains, and its second round has now added another.
+Candidate018 scored
 59.91% with `bm25.b=0.25`; candidate019 scored 59.00% with `bm25.b=0.0`. These
-are two consecutive length-normalization misses in this round. The next sealed
-candidate020 sets `bm25.b=0.5` on the retained candidate011 base.
+two length-normalization misses were followed by candidate020's gain at
+`bm25.b=0.5`, which resets the counter and replaces candidate011. The remaining
+`bm25.b=1.0` setting recreates a previously tested profile and is skipped without
+a new trial. The next sealed candidate021 tests `bm25.k1=0.6` on candidate020.
 Adaptive now retains 66.21%, up from 60.04%. Candidate014 gained with relevance
 weight `1.0` and both novelty weights at zero on the retained `bm25.k1=3.0`,
 title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 scored
@@ -24,7 +27,7 @@ three-miss stop. Candidate017 begins aspect allocation with
 `adaptive.aspect_weight=0.0` on retained candidate014.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 57 completed variants: 51 qualified measurements
+The current audit contains 58 completed variants: 52 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -37,15 +40,23 @@ The preceding [first audit](status-001/README.md),
 [sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md),
 [eighteenth audit](status-018/README.md), [nineteenth audit](status-019/README.md),
 [twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md),
-[twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md)
-[twenty-fourth audit](status-024/README.md) and [twenty-fifth audit](status-025/README.md)
+[twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md),
+[twenty-fourth audit](status-024/README.md), [twenty-fifth audit](status-025/README.md)
+and [twenty-sixth audit](status-026/README.md)
 remain unchanged.
 
 The latest Classical and Adaptive jobs completed with evidence integrity 1.0,
-no errors and no retries. Exact prefixes through variants nineteen and sixteen
+no errors and no retries. Exact prefixes through variants twenty and sixteen
 replayed against the original native case metrics, profiles, counters and next
-sealed mutations. Neither latest miss changes a retained profile, so the
-cross-family comparison below remains current.
+sealed mutations. The cross-family comparison below now uses Classical020.
+
+The [seventh Classical gain](classical-progress-007/README.md) adds 0.79
+percentage points over candidate011 and 5.85 over its initial baseline. Against
+candidate011, 13 eligible questions improve, 13 regress and 86 tie. Recall
+loses 0.3292 points, while MRR gains 1.1325 and full reference coverage gains
+0.0776. The [application breakdown](classical-progress-007/subgroups.md)
+preserves declines in GitHub, Gmail, Google Drive and Linear. The fixed global
+objective retains candidate020, with no per-application profile selection.
 
 The [fifth Adaptive gain](adaptive-progress-005/README.md) adds 0.85 percentage
 points over candidate012 and 6.17 over the baseline. Recall gains 2.71 points
@@ -126,20 +137,21 @@ A digest-bound [follow-up plan](classical-source-cap-001/plan-review.md) separat
 a cap-only treatment from a document-identity treatment. It has no new candidate
 score or reserved independent validation; the live E7 protocol is unchanged.
 
-The [provisional cross-family comparison](retained-cross-family-005/README.md)
-aligns the four retained profiles from status024 across all question categories
+The [provisional cross-family comparison](retained-cross-family-006/README.md)
+aligns the four retained profiles from status027 across all question categories
 and application groups. Among these four, Embeddings has the highest nDCG in
 Confluence, GitHub and Slack; Classical in Fireflies; and Legacy in the other
-five application groups. Classical's Fireflies score is unchanged; this change
-in the highest retained profile follows Adaptive's regression there. Legacy
+five application groups. Classical's Fireflies score rises from 78.32% to 78.91%.
+Legacy
 has the highest aggregate, Adaptive leads completeness and Embeddings leads
 the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
 The [first comparison](retained-cross-family-001/README.md),
 [second comparison](retained-cross-family-002/README.md),
-[third comparison](retained-cross-family-003/README.md) and
-[fourth comparison](retained-cross-family-004/README.md) remain unchanged.
+[third comparison](retained-cross-family-003/README.md),
+[fourth comparison](retained-cross-family-004/README.md) and
+[fifth comparison](retained-cross-family-005/README.md) remain unchanged.
 
 The [first Adaptive expansion trial](adaptive-expansion-001/README.md) illustrates
 a metric tradeoff: recall gains 0.0788 percentage points, but nDCG loses 0.8395
