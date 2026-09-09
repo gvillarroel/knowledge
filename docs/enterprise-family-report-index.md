@@ -5,6 +5,10 @@ without scanning every campaign checkpoint. The [E8 continuation](../evaluations
 preserves the terminal searches and the [E9 fixed-builder report](../evaluations/reports/evolution/e9/README.md)
 records the subsequent qualified Graphify feasibility result. This page adds navigation, not an evaluation,
 selection, score or promotion decision.
+The later [E10 starting attempt](../evaluations/reports/evolution/e10/README.md)
+is stopped after three completed native measurements and seven controller
+refusals. Its [serialization diagnosis and preserved allocation](../evaluations/reports/evolution/e10/startup-control-001/README.md)
+explain the prospective correction; the all-eight starting gate remains incomplete.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 
@@ -17,6 +21,11 @@ the frozen category weights. The all-500 paired comparison remains pending.
 E9's Graphify result uses a newly qualified package and native task version;
 its 8.12% nDCG@10 is reported separately until the required starting measurements
 establish the next common reference across all eight families.
+E10 reproduced Legacy's 61.11% baseline and 72.38% retained result, together
+with Embeddings' 63.51% baseline. These are new versioned starting jobs with
+exactly reproduced historical primary scores, not new mutation gains.
+Their [separate CTA](../evaluations/reports/evolution/e10/startup-control-001/cta.md)
+counts all three jobs once and preserves the incomplete controller gate.
 
 | Family | Fixed primary route | Native result and development evidence | Supporting function or delivery evidence |
 | --- | --- | --- | --- |
@@ -131,6 +140,7 @@ profile for each application.
 | View | Report | Scope |
 | --- | --- | --- |
 | Settled native work and remaining opportunities | [E8 terminal report](../evaluations/reports/evolution/e8/terminal-001/README.md) | 66 completed historical jobs, a valid new Turso pair, fourteen completed new Classical trials and one Graphify construction error; five families need prospective continuation |
+| Versioned starting measurements and current control lesson | [E10 stopped startup](../evaluations/reports/evolution/e10/README.md) | Three completed native roles, nine unstarted roles and no new variant claim; exact persisted-default decoding needs prospective correction |
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
 | Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md) | Legacy009, Embeddings baseline, Classical continuation-002, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |
