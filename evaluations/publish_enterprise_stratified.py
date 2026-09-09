@@ -448,6 +448,19 @@ def render(value):
                 f"{attempt['status']} | {attempt.get('improved',False)} | {attempt.get('consecutive_failures',0)} |")
         family_lines += ['', 'Exact retained source-generic profile:', '', '```json',
                          json.dumps(row['profile'][row['family']],indent=2,sort_keys=True), '```']
+        if row['family']=='legacy':
+            execution = ('in-memory BM25 over authoritative ledger records'
+                         if row['profile']['legacy']['search'] else
+                         'the original logarithmic-frequency and IDF lexical comparator')
+            family_lines += ['', '**Retained consultation execution:** '+execution+'.', '',
+                'The registered `lexical` route measures the explicit E7 comparator. The portable Legacy '
+                'expert instead defaults to native `ledger --contains`: a whole-query substring filter '
+                'over title, record ID, body or attributes in canonical ledger order. '
+                'The [generated-expert delivery audit](../../legacy-generated-expert-001/README.md) '
+                'verified that the baseline and retained009 generators produce identical experts and '
+                'default payloads on controlled synthetic inputs. Installing the profile alone does '
+                'not make those experts inherit the measured BM25 behavior. Automatic inheritance '
+                'requires separately tested integration and a different package digest.']
         if row['family']=='turso':
             execution = ('in-memory BM25 over canonical records loaded from the Turso database'
                          if row['profile']['turso']['search'] else

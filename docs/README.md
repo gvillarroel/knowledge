@@ -26,6 +26,7 @@
 - [Entity Graph function audit: graph reach, rank-based fusion, and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md)
 - [Turso audit: reproducible native databases, SQL baseline, and in-memory BM25 attribution](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md)
 - [Turso generated-expert audit: native parity and the experimental profile delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md)
+- [Legacy generated-expert audit: retained-profile delivery, native parity and exact record reads](../evaluations/reports/evolution/e7/legacy-generated-expert-001/README.md)
 - [Adaptive's first native aspect-allocation trial: exact payload and metric parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md)
 - [Stratified Enterprise development CTA: completed-job time, failures, and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md)
 - [Completed Enterprise application-skill experiment: findings and retained ingestion checks](enterprise-source-skills.md)

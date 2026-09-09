@@ -7,7 +7,7 @@ native pipeline is executing development; the private gate remains unopened.
 [Reports by family, mechanism, dataset contract and CTA](../../../../docs/enterprise-family-report-index.md)
 provides direct links to the native results and supporting audits.
 
-The latest [all-family progress audit](status-029/README.md) records two
+The latest [all-family progress audit](status-030/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.89%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
@@ -31,10 +31,12 @@ declared relevance-diversity settings are now tested, so this mechanism ends
 by catalog exhaustion with two misses after the retained gain, rather than a
 three-miss stop. Candidate017 tested aspect allocation with
 `adaptive.aspect_weight=0.0` on retained candidate014 and tied exactly, its first
-miss in this mechanism. Candidate018 tests `adaptive.aspect_weight=0.5`.
+miss in this mechanism. Candidate018 tested `adaptive.aspect_weight=0.5` and
+also tied all four primary quality metrics, its second consecutive miss.
+Candidate019 tests `adaptive.aspect_weight=1.0`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 60 completed variants: 54 qualified measurements
+The current audit contains 61 completed variants: 55 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -49,12 +51,12 @@ The preceding [first audit](status-001/README.md),
 [twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md),
 [twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md),
 [twenty-fourth audit](status-024/README.md), [twenty-fifth audit](status-025/README.md),
-[twenty-sixth audit](status-026/README.md), [twenty-seventh audit](status-027/README.md)
-and [twenty-eighth audit](status-028/README.md)
+[twenty-sixth audit](status-026/README.md), [twenty-seventh audit](status-027/README.md),
+[twenty-eighth audit](status-028/README.md) and [twenty-ninth audit](status-029/README.md)
 remain unchanged.
 
 The latest Classical and Adaptive jobs completed with evidence integrity 1.0,
-no errors and no retries. Exact prefixes through variants twenty-one and seventeen
+no errors and no retries. Exact prefixes through variants twenty-one and eighteen
 replayed against the original native case metrics, profiles, counters and next
 sealed mutations. The cross-family comparison below now uses Classical020.
 
@@ -151,6 +153,15 @@ one of three synthetic queries and from its BM25 projection on all three.
 Installing an accepted E7 package therefore does not automatically transfer its
 wrapper behavior into generated experts. This is a verified delivery boundary,
 with no new Enterprise score, study candidate or promoted profile.
+
+The [generated Legacy delivery audit](legacy-generated-expert-001/README.md)
+uses the original baseline and retained candidate009. Both generate identical
+forty-two-file experts with exact native ledger payloads, valid citations and
+24 verified record reads. Their portable default search differs from both E7
+comparators on all three synthetic queries. The observed Legacy gain belongs
+to the explicit E7 consultation route; the retained profile alone does not
+change generated experts. This adds delivery evidence, with no new Enterprise
+trial, changed selection or installation.
 
 The [Classical source-group audit](classical-source-cap-001/README.md) identifies
 an additional opportunity outside the frozen catalog. Its three diversified
