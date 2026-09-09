@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 11:12 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 11:44 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -21,7 +21,7 @@ The private gate remains unopened.
 
 ## Opportunity coverage across all eight strategies
 
-This fixed checkpoint covers completed work through Classical `continuation-011`.
+This fixed checkpoint covers completed work through Classical `continuation-012`.
 Variant counts exclude baselines, the two interrupted originals and any later
 or currently running job. They combine the [original E7 inventory](../e7/interruption-001/README.md)
 with the completed E8 prefixes linked below; historical imports add no attempt.
@@ -30,7 +30,7 @@ with the completed E8 prefixes linked below; historical imports add no attempt.
 | --- | ---: | --- | --- |
 | Legacy | 16 | [Declared catalog reached its stopping rule](../e7/legacy-complete-001/README.md) | Required joint replay and final comparisons |
 | Embeddings | 6 | [Both declared mechanisms stopped after construction timeouts](../e7/embeddings-complete-001/README.md); baseline retained | Required joint replay and final comparisons; failed variants have no quality measurement |
-| Classical | 33 | [Eleven E8 variants completed](classical-progress-011/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
+| Classical | 34 | [Twelve E8 variants completed](classical-progress-012/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
 | Adaptive | 18 | E7 prefix retained; first E8 proposal refused before dispatch | Continue remaining opportunities under a corrected prospective design; original interrupted profile remains unavailable |
 | Entity Graph | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
 | Ensemble | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
@@ -109,6 +109,14 @@ or retries. The same incumbent remains retained; the
 [application/category evidence](classical-progress-011/groups.md) and
 [CTA](classical-progress-011/cta.md) preserve the paired outcomes and original
 resource observations.
+The [second BM25 saturation trial](classical-progress-012/README.md) used
+`k1=3` and qualified at 60.99%, 1.11 percentage points below the retained
+62.10%. Two eligible questions improved, three regressed and 107 tied.
+It records the second consecutive miss in this mechanism, with zero execution
+errors or retries. The same incumbent remains retained; the
+[application/category evidence](classical-progress-012/groups.md) and
+[CTA](classical-progress-012/cta.md) preserve the paired outcomes and original
+resource observations.
 
 ## Retained development measurements
 
@@ -155,12 +163,14 @@ highest observed overall nDCG; Turso leads recall, MRR and full-qrel coverage
 among these five, plus the Gmail and HubSpot groups. These are provisional
 development comparisons. Turso's search has not reached a stopping rule.
 
-The [cumulative CTA through Classical006](development-cta-001/README.md) binds
-75 completed original jobs across E7 and E8: 68 qualified measurements and seven
-construction errors. Their native durations sum to 26.09 job hours, including
+The [cumulative CTA through Classical012](development-cta-002/README.md) binds
+81 completed original jobs across E7 and E8: 74 qualified measurements and seven
+construction errors. Their native durations sum to 28.42 job hours, including
 4.73 hours in failed jobs. This fixed total excludes the two interrupted
 originals, later/running jobs and host preparation. Missing token/cost telemetry
-remains unknown; historical imports count no additional native trial.
+remains unknown; historical imports count no additional native trial. The
+[earlier 75-job checkpoint](development-cta-001/README.md) remains unchanged,
+and each of its original observations is preserved exactly in the new total.
 
 The [supporting historical review before E7](pre-e7-history-review-001/README.md)
 now reconciles eight earlier registry directories, including two real

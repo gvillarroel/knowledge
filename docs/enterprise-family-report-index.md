@@ -93,6 +93,7 @@ existing subset/all-500 overlap remains explicit and no new score is assigned.
 | Classical | Zero length normalization in the third round | [`b=0` qualifies at 59.56%; second miss and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-009/README.md) |
 | Classical | Third length-normalization opportunity | [`b=1` qualifies at 60.39%; third consecutive miss and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-010/README.md) |
 | Classical | BM25 saturation in the third round | [`k1=0.6` qualifies at 60.26%; first miss and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-011/README.md) |
+| Classical | Second BM25 saturation opportunity in the third round | [`k1=3` qualifies at 60.99%; second miss and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-012/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
@@ -109,11 +110,12 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
-| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso pair, eleven completed new Classical trials and one Graphify construction error; additional native work remains active at this checkpoint |
+| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso pair, twelve completed new Classical trials and one Graphify construction error; additional native work remains active at this checkpoint |
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
 | Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md) | Legacy009, Embeddings baseline, Classical continuation-002, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |
 | Cumulative cost, time and quality through Classical006 | [E7/E8 development CTA](../evaluations/reports/evolution/e8/development-cta-001/README.md) | 75 completed original jobs counted once, including seven construction errors; 26.09 accumulated job hours with missing telemetry preserved |
+| Cumulative cost, time and quality through Classical012 | [Latest E7/E8 development CTA](../evaluations/reports/evolution/e8/development-cta-002/README.md) | 81 completed original jobs, 74 qualified measurements and seven construction errors; 28.42 accumulated job hours, with all earlier 75 observations preserved |
 | Complete declared evolution catalog | [Strategy coverage](../evaluations/reports/evolution/e7/strategy-coverage.md) | Eight families and 117 predeclared variants per catalog round; declared options are not completed attempts |
 | Full-corpus Classical and Luna answers | [Separate full-corpus experiment](../evaluations/reports/enterprise-classical-full/README.md) | 511,962 physical documents and 500 questions under a distinct retrieval and answer/judge contract |
 | Reports across repository datasets | [Comparison catalog](../evaluations/COMPARISON-REPORTS.md) | Source-linked reports with their own dataset, cohort and metric contracts |
