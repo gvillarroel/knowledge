@@ -349,6 +349,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     cta.extend(["[EnterpriseRAG generator replay: fixed full-text retrieval and construction costs](../enterprise-generator-g2/cta.md)", ""])
     cta.extend(["[EnterpriseRAG full corpus: Classical construction, 500-query latency and separate answer-stage usage](../enterprise-classical-full/cta.md)", ""])
     cta.extend(["[Turso E8: original SQL baseline versus retained BM25 candidate, build time and query latency](../evolution/e8/turso-progress-001/cta.md)", ""])
+    cta.extend(["[Classical E8: title-weight regression versus the retained incumbent, build time and query latency](../evolution/e8/classical-progress-001/cta.md)", ""])
     files["cta/README.md"] = "\n".join(cta)
     files["catalog.json"] = json.dumps({"schema_version": "evaluation-report-catalog/1.0", "datasets": datasets,
                                       "token_source_sha256": hashlib.sha256(token_text.encode()).hexdigest()},

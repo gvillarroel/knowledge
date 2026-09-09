@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 06:03 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 06:23 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -18,6 +18,11 @@ with zero native trials. The [independent diagnosis](dispatch-control-001/README
 confirmed that the sealed guard rejects Docker's legitimate Compose plugin
 child. Their missing opportunities are not quality failures.
 The private gate remains unopened.
+
+Classical's [first completed continuation candidate](classical-progress-001/README.md)
+raised title weight to 8 and regressed from its retained 61.89% to 38.78%
+weighted nDCG@10. It qualified without execution errors, counted as one miss,
+and retained the original `candidate-022`. Remaining catalog work is active.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -57,8 +62,12 @@ development comparisons. Turso's search has not reached a stopping rule.
 
 The [Graphify scaling audit](graphify-scaling-001/README.md) preserves an isolated
 neighbor-selection prototype with identical synthetic outputs and a 20.43-fold
-function timing ratio at 800 records. It is an untested native builder hypothesis,
-not a packaged candidate or an EnterpriseRAG quality improvement.
+function timing ratio at 800 records. A subsequent
+[complete candidate](graphify-candidate-001/README.md) is now sealed with one
+changed file and 150 exact synthetic comparisons. Native builder feasibility
+and retrieval quality remain unmeasured. The
+[versioned-reference decision](../../../../.specs/adr/0132-qualify-graphify-builder-before-consultation.md)
+keeps this construction treatment separate from consultation evolution.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

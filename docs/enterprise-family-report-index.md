@@ -27,6 +27,10 @@ Legacy and Embeddings have terminal searches. Classical and Adaptive were
 interrupted by a Windows update; the [interruption report](../evaluations/reports/evolution/e7/interruption-001/README.md)
 preserves both incomplete originals and the continuation boundary. An error has
 no retrieval measurement; it is not a measured zero.
+Classical's [first new title-weight trial](../evaluations/reports/evolution/e8/classical-progress-001/README.md)
+completed without execution errors but regressed to 38.78%; its retained score
+remains 61.89%. The report includes paired application/category outcomes,
+diagnostic routes and [build/query timing](../evaluations/reports/evolution/e8/classical-progress-001/cta.md).
 Turso now has a completed E8 baseline and one retained candidate gain. Its next
 candidate was refused before native dispatch; this is not a completed search.
 Graphify's original baseline exceeded the first construction budget;
@@ -34,6 +38,10 @@ Entity Graph and Ensemble were refused before dispatch by a
 [confirmed control false positive](../evaluations/reports/evolution/e8/dispatch-control-001/README.md).
 The synthetic audits do not replace native baselines or consume development
 attempts. The two refused admissions likewise contain no native quality result.
+
+Graphify now also has a [sealed builder-efficiency candidate](../evaluations/reports/evolution/e8/graphify-candidate-001/README.md)
+with exact synthetic edge parity. Full artifact parity and native construction
+feasibility remain pending before any consultation search uses that builder.
 
 ## Mechanism evidence
 
@@ -43,6 +51,7 @@ attempts. The two refused admissions likewise contain no native quality result.
 | Classical | Relevance and diversity | [Three native ties and completion of the first improving round](../evaluations/reports/evolution/e7/classical-diversity-001/README.md) |
 | Classical | Length normalization in the second round | [Gain after two misses; counter reset and duplicate-profile skip](../evaluations/reports/evolution/e7/classical-progress-007/README.md) |
 | Classical | BM25 saturation in the second round | [Gain after one miss; counter reset and duplicate-profile skip](../evaluations/reports/evolution/e7/classical-progress-008/README.md) |
+| Classical | Title weight in the second round | [Qualified regression at weight 8; original incumbent retained](../evaluations/reports/evolution/e8/classical-progress-001/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |

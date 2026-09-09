@@ -22,6 +22,14 @@ absolute host roots. Its caller must still verify source aliases, process
 ownership, all historical ledgers and current-study mounts. It has no runtime
 inventory, reservation or dispatch interface and is not loaded by E8.
 
+Graphify's original first build exceeded its fixed limit. A separate
+[sealed builder candidate](../evaluations/reports/evolution/e8/graphify-candidate-001/README.md)
+preserves the exact function-level synthetic outputs and awaits complete
+artifact and native feasibility checks. [ADR 0132](../.specs/adr/0132-qualify-graphify-builder-before-consultation.md)
+requires a fixed public feasibility study before a separately sealed
+consultation study uses that builder as an explicitly versioned reference.
+Neither study may replace E8's active reservation or reset consumed attempts.
+
 ## Execution order
 
 The native Pareto owner revalidates the 66 exact completed E7 job/skill mappings

@@ -74,3 +74,5 @@ Use the [comparison catalog](../../COMPARISON-REPORTS.md) for the current isolat
 [EnterpriseRAG full corpus: Classical construction, 500-query latency and separate answer-stage usage](../enterprise-classical-full/cta.md)
 
 [Turso E8: original SQL baseline versus retained BM25 candidate, build time and query latency](../evolution/e8/turso-progress-001/cta.md)
+
+[Classical E8: title-weight regression versus the retained incumbent, build time and query latency](../evolution/e8/classical-progress-001/cta.md)
