@@ -56,6 +56,7 @@
 - [Decision: preserve versioned profile qualification and single pending-claim allocations](../.specs/adr/0134-requalify-versioned-enterprise-profiles-without-resetting-search.md)
 - [Proposed decision: reconcile one preserved retired draft without rewriting executed Enterprise history](../.specs/adr/0135-reconcile-preserved-enterprise-draft-history-prospectively.md)
 - [Decision: authenticate native persisted defaults and preserve consumed starting measurements](../.specs/adr/0136-read-native-trial-configurations-with-authenticated-defaults.md)
+- [Native trial configuration checks: authenticated defaults, complete expected policy and regression coverage](native-trial-configuration-checks.md)
 - [Entity Graph function audit: graph reach, rank-based fusion, and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md)
 - [Turso audit: reproducible native databases, SQL baseline, and in-memory BM25 attribution](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md)
 - [Turso generated-expert audit: native parity and the experimental profile delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md)
