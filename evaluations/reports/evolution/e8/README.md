@@ -162,6 +162,15 @@ construction errors. Their native durations sum to 26.09 job hours, including
 originals, later/running jobs and host preparation. Missing token/cost telemetry
 remains unknown; historical imports count no additional native trial.
 
+The [supporting historical review before E7](pre-e7-history-review-001/README.md)
+now reconciles eight earlier registry directories, including two real
+preparation registries omitted from the supplied historical lists. It preserves
+three planned/unsealed registries, five with executed or stopped work, partial
+resource coverage and unavailable costs. Ten registries are currently present
+when E7/E8 are included. Current terminal history and private custody still
+require their final independent review; no new retrieval measurement follows
+from this accounting.
+
 ## Fixed Graphify preparation
 
 The [Graphify scaling audit](graphify-scaling-001/README.md) preserves an isolated
@@ -194,6 +203,10 @@ That [caller implementation review has now passed](graphify-native-caller-review
 450 isolated cases. Its original five defects and corrected source commitments
 are preserved. Complete terminal-history review, ordinary study design sealing
 and a separate independent admission remain required before its one native trial.
+The later [historical inventory review](pre-e7-history-review-001/README.md)
+also identified a real sibling registry omitted by that caller's directory-name
+filter. A prospective correction needs its own review before admission; the
+earlier 450-case receipt does not cover this newly identified inventory gap.
 The [public design preparation review](graphify-public-design-evidence-001/README.md)
 now supports the six static checks for that fixed ordinary evaluation, using
 eight prior reviews and 29 new synthetic verifier cases. It explicitly preserves

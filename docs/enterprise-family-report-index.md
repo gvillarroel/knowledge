@@ -56,6 +56,11 @@ The [corrected native caller review](../evaluations/reports/evolution/e8/graphif
 passed 450 isolated gate, lifecycle and admission cases. Its implementation
 receipt does not complete the future terminal-history review, design seal or
 independent native admission.
+The [supporting pre-E7 history review](../evaluations/reports/evolution/e8/pre-e7-history-review-001/README.md)
+reconciles eight earlier registry directories and preserves their actual work,
+partial resource evidence and missing costs. Two preparation registries require
+explicit inclusion in the final history; one also requires a prospective caller
+inventory correction. This review supplies no new fitness or execution admission.
 The [public design evidence](../evaluations/reports/evolution/e8/graphify-public-design-evidence-001/README.md)
 supports all six static preparation checks, with 29 synthetic verifier cases and
 explicit limits. Its pending template still requires actual registered lock
