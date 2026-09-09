@@ -18,6 +18,16 @@ the unchanged common starting gate failed. The original
 [startup checkpoint](../evaluations/reports/evolution/e11/startup-001/README.md)
 preserves the public-agent runtime check. Five family searches and the final
 all-500 comparison remain unfinished.
+The [verified E11 closure](../evaluations/reports/evolution/e11/closure-001/README.md)
+records all four stages stopped and the final ledger commitments; private
+validation remains unreleased.
+The [Entity Graph construction diagnosis](../evaluations/reports/evolution/e11/entity-graph-matching-diagnosis-001/README.md)
+documents alias-length scaling and a prospective exact-matching optimization;
+it contains no new native score.
+The [Ensemble candidate validation](../evaluations/reports/evolution/e11/ensemble-candidate-validation-001/README.md)
+records successful original/candidate artifact and nonempty query parity under
+both hashing and learned embeddings. Its four-record public fixture is distinct
+from the pending 6,000-document native measurement.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 

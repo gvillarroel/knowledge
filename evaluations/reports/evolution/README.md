@@ -9,7 +9,13 @@
   Graph timed out at 3,600 seconds; neither has a usable ranking. The
   [CTA](e11/starting-terminal-001/cta.md) counts nine new jobs separately from
   three E10 imports. Five family searches, final comparisons and independent
-  acceptance remain unfinished.
+  acceptance remain unfinished. The [verified terminal closure](e11/closure-001/README.md)
+  records all four stages stopped and no private release; the
+  [Entity Graph construction diagnosis](e11/entity-graph-matching-diagnosis-001/README.md)
+  documents a concrete optimization hypothesis without assigning a new score.
+  The [Ensemble candidate's public runtime validation](e11/ensemble-candidate-validation-001/README.md)
+  passed exact artifact/query parity under hashing and learned embeddings;
+  full-corpus feasibility remains pending.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

@@ -9,12 +9,26 @@ and [Entity Graph reached its 3,600-second agent limit](entity-graph-timeout-001
 Both lack a usable ranking and prevent the common starting gate from passing.
 E11 dispatched no new variant, automatic retry or private validation job.
 
+The [verified terminal closure](closure-001/README.md) now records all four
+organizer stages as stopped, with 18 ledger events and no private release.
+This closes the original failed execution without completing the remaining
+family searches or authorizing a successor run.
+
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
 proposal within the existing caps. The complete candidate passed both public
 fixture layouts, query/artifact parity, corruption rejection and graph-lifetime
-checks, and is digest-sealed. It has no native allocation or measured
-EnterpriseRAG improvement.
+checks, and is digest-sealed. Its subsequent
+[public runtime validation](ensemble-candidate-validation-001/README.md) also
+passed: the original and candidate generated 35 identical files and exact
+nonempty query responses with both hashing384 and pinned MiniLM384. This
+four-record fixture has no native allocation or measured EnterpriseRAG gain;
+the 6,000-document resource fit remains unproven.
+
+The [Entity Graph matching diagnosis](entity-graph-matching-diagnosis-001/README.md)
+identifies unnecessary token-window scans as a candidate construction target.
+Public metadata and synthetic profiling support investigating it; no Entity
+Graph mutation or native improvement has been measured at that checkpoint.
 
 The current retained scores are Legacy 72.38, Turso 72.08, Adaptive 66.21,
 Embeddings 63.51 and Classical 62.10 on the 0–100 nDCG@10 scale. Graphify's
