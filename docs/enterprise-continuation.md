@@ -29,6 +29,12 @@ artifact and native feasibility checks. [ADR 0132](../.specs/adr/0132-qualify-gr
 requires a fixed public feasibility study before a separately sealed
 consultation study uses that builder as an explicitly versioned reference.
 Neither study may replace E8's active reservation or reset consumed attempts.
+The original verifier binds builder files to their original digests, so
+[ADR 0133](../.specs/adr/0133-version-exact-builder-bindings-in-feasibility-tasks.md)
+requires a separately versioned task with exactly the intended fixed builder
+digest. The [preparation report](../evaluations/reports/evolution/e8/graphify-task-binding-001/README.md)
+records this single-value correction; the workload and mutable paths remain
+unchanged. The superseded first proposal executed no native trial.
 
 ## Execution order
 

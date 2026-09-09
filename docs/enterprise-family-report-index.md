@@ -55,6 +55,7 @@ feasibility remain pending before any consultation search uses that builder.
 | Classical | BM25 saturation in the second round | [Gain after one miss; counter reset and duplicate-profile skip](../evaluations/reports/evolution/e7/classical-progress-008/README.md) |
 | Classical | Title weight in the second round | [Qualified regression at weight 8; original incumbent retained](../evaluations/reports/evolution/e8/classical-progress-001/README.md) |
 | Classical | Expansion strength in the second round | [Zero expansion improves the retained nDCG to 62.10%; miss counter resets](../evaluations/reports/evolution/e8/classical-progress-002/README.md) |
+| Classical | Expansion follow-up | [Default expansion regresses to 61.89%; the zero-expansion incumbent remains retained](../evaluations/reports/evolution/e8/classical-progress-003/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
@@ -71,7 +72,7 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
-| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso baseline/candidate pair and one new Graphify construction error; additional native work remains active at this checkpoint |
+| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso pair, three completed new Classical trials and one Graphify construction error; additional native work remains active at this checkpoint |
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
 | Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md) | Legacy009, Embeddings baseline, Classical continuation-002, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |

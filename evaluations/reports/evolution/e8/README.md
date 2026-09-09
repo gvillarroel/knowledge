@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 07:03 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 07:21 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -30,6 +30,9 @@ and 111 tied. It is now retained, with the miss counter reset; remaining catalog
 work is active. [Applications/categories](classical-progress-002/groups.md),
 [routes](classical-progress-002/routes.md) and [CTA](classical-progress-002/cta.md)
 preserve the exact paired evidence.
+The [following expansion trial](classical-progress-003/README.md) restored the
+default association/topic weights and regressed to 61.89%. It had no execution
+error, retained `continuation-002` and recorded the first miss since that gain.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -75,6 +78,15 @@ changed file and 150 exact synthetic comparisons. Native builder feasibility
 and retrieval quality remain unmeasured. The
 [versioned-reference decision](../../../../.specs/adr/0132-qualify-graphify-builder-before-consultation.md)
 keeps this construction treatment separate from consultation evolution.
+Before native execution, an [exact task-binding correction](graphify-task-binding-001/README.md)
+also versions the verifier's one expected builder-file digest. The first
+unexecuted proposal would reject the intended constructor as frozen-file drift;
+questions, scoring and the mutable-path list remain unchanged.
+The first [public host fixture run](graphify-fixture-failure-001/README.md)
+stopped because its cross-layout comparator omitted the native physical
+snapshot hash's layout-dependent meaning. The completed same-layout singleton
+comparisons agreed, but the fixed design remains failed; a separately reviewed
+replacement design must retain its consumed costs and all required checks.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,
