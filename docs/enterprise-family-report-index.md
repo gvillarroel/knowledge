@@ -2,7 +2,7 @@
 
 Use this index to find a family's native evidence and its supporting audits
 without scanning every campaign checkpoint. The [campaign overview](../evaluations/reports/evolution/e7/README.md)
-owns the latest live status. This page adds navigation, not an evaluation,
+owns the latest execution status. This page adds navigation, not an evaluation,
 selection, score or promotion decision.
 
 ## Native family evidence
@@ -16,16 +16,18 @@ the frozen category weights. The all-500 paired comparison remains pending.
 | --- | --- | --- | --- |
 | Legacy | `lexical` | [Completed search and stopping history](../evaluations/reports/evolution/e7/legacy-complete-001/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/legacy-subgroups-001/README.md) | [Generated-expert delivery and native parity](../evaluations/reports/evolution/e7/legacy-generated-expert-001/README.md); [declared opportunities](../evaluations/reports/evolution/e7/strategy-coverage.md) |
 | Embeddings | `hybrid` | [Completed search, baseline and six construction timeouts](../evaluations/reports/evolution/e7/embeddings-complete-001/README.md) | [Original completed-job time and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md) |
-| Classical | `fusion` | [Seventh retained development gain](../evaluations/reports/evolution/e7/classical-progress-007/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/classical-progress-007/subgroups.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
+| Classical | `fusion` | [Eighth retained development gain](../evaluations/reports/evolution/e7/classical-progress-008/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/classical-progress-008/subgroups.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
 | Entity Graph | `fusion` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
 | Ensemble | `quality` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
 | Graphify | `search` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md) |
 | Turso | `lexical-sql` | No completed native family trial yet; see the campaign overview for current execution. | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 
-Legacy and Embeddings have terminal searches. Classical and Adaptive remain in
-development. An error has no retrieval measurement; it is not a measured zero.
-The synthetic audits for the four queued families do not replace their native
+Legacy and Embeddings have terminal searches. Classical and Adaptive were
+interrupted by a Windows update; the [interruption report](../evaluations/reports/evolution/e7/interruption-001/README.md)
+preserves both incomplete originals and the continuation boundary. An error has
+no retrieval measurement; it is not a measured zero.
+The synthetic audits for the four unstarted families do not replace their native
 baselines or consume development attempts.
 
 ## Mechanism evidence
@@ -35,6 +37,7 @@ baselines or consume development attempts.
 | Classical | Expansion strength | [Three misses after an expansion gain](../evaluations/reports/evolution/e7/classical-expansion-002/README.md) |
 | Classical | Relevance and diversity | [Three native ties and completion of the first improving round](../evaluations/reports/evolution/e7/classical-diversity-001/README.md) |
 | Classical | Length normalization in the second round | [Gain after two misses; counter reset and duplicate-profile skip](../evaluations/reports/evolution/e7/classical-progress-007/README.md) |
+| Classical | BM25 saturation in the second round | [Gain after one miss; counter reset and duplicate-profile skip](../evaluations/reports/evolution/e7/classical-progress-008/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
@@ -50,16 +53,17 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
-| Current native execution and opportunity counts | [Campaign overview](../evaluations/reports/evolution/e7/README.md) | Latest checkpoint for all eight families, including queued families and execution errors |
-| Retained profiles by category and application | [Four-family matrix, revision 006](../evaluations/reports/evolution/e7/retained-cross-family-006/README.md) | Legacy009, Embeddings baseline, Classical020 and Adaptive014 on the stratified development subset |
+| Current native execution and opportunity counts | [Interruption disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | All eight families: 66 completed jobs, two incomplete originals and four unstarted families |
+| Retained profiles by category and application | [Four-family matrix, revision 007](../evaluations/reports/evolution/e7/retained-cross-family-007/README.md) | Legacy009, Embeddings baseline, Classical022 and Adaptive014 on the stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |
 | Complete declared evolution catalog | [Strategy coverage](../evaluations/reports/evolution/e7/strategy-coverage.md) | Eight families and 117 predeclared variants per catalog round; declared options are not completed attempts |
 | Full-corpus Classical and Luna answers | [Separate full-corpus experiment](../evaluations/reports/enterprise-classical-full/README.md) | 511,962 physical documents and 500 questions under a distinct retrieval and answer/judge contract |
 | Reports across repository datasets | [Comparison catalog](../evaluations/COMPARISON-REPORTS.md) | Source-linked reports with their own dataset, cohort and metric contracts |
 
-The matrix is descriptive development evidence. Final E7 publication must still
-include the exact baseline/frozen all-500 comparison, all eighteen routes per
-arm, the joint acceptance result and a separate receipt for any permitted
+The matrix is descriptive development evidence. E7 did not reach final selection.
+The [prospective continuation decision](../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md)
+preserves the required baseline/frozen all-500 comparison, all eighteen routes
+per arm, joint acceptance result and a separate receipt for any permitted
 repository installation. The [study guide](enterprise-stratified-evolution.md)
 defines those boundaries; the [documentation index](README.md) links the broader
 repository workflow.

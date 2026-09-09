@@ -1,7 +1,12 @@
 # Stratified EnterpriseRAG evolution
 
-E7 evolves eight native retrieval strategies on 120 stratified questions and
-recalculates the frozen selections on all 500 public questions. Every arm uses
+E7 was designed to evolve eight native retrieval strategies on 120 stratified
+questions and recalculate frozen selections on all 500 public questions. A
+[Windows-update interruption](../evaluations/reports/evolution/e7/interruption-001/README.md)
+stopped it after 66 completed native jobs, before joint selection and the all-500
+comparison. [ADR 0130](../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md)
+defines the prospective continuation boundary. The original controls below are
+preserved as historical methodology, not a restart procedure. Every arm uses
 the same 6,000 complete-document, reference-enriched corpus. This is an internal
 retrieval comparison, distinct from the
 [511,962-document Classical/Luna evaluation](enterprise-classical-full-corpus.md).

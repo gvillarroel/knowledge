@@ -1,17 +1,25 @@
 # EnterpriseRAG stratified evolution E7
 
-Status: sealed and running. The independent review passed all 32 registered
-tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
-native pipeline is executing development; the private gate remains unopened.
+Status: interrupted by a planned Windows update on 2026-09-09 at 03:35 UTC.
+The [interruption report](interruption-001/README.md) preserves 66 completed
+native jobs and two incomplete originals. Classical023 and Adaptive019 have
+no measured result; Entity Graph, Ensemble, Graphify and Turso never started.
+The original pipeline is no longer running. Private validation remains unopened,
+and no final selection, all-500 comparison or promotion exists.
+
+[ADR 0130](../../../../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md)
+defines a prospectively reviewed continuation for the remaining opportunities.
+Completed measurements remain historical development evidence, and neither
+interrupted profile may be reissued or counted as an evaluable miss.
 
 [Reports by family, mechanism, dataset contract and CTA](../../../../docs/enterprise-family-report-index.md)
 provides direct links to the native results and supporting audits.
 
-The latest [all-family progress audit](status-030/README.md) records two
-completed searches and four qualified baselines. Classical now retains 60.89%
+The last pre-interruption [all-family progress audit](status-031/README.md) records two
+completed searches and four qualified baselines. Classical now retains 61.89%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
-completed with six retained gains, and its second round has now added another.
+completed with six retained gains, and its second round has now added two more.
 Candidate018 scored
 59.91% with `bm25.b=0.25`; candidate019 scored 59.00% with `bm25.b=0.0`. These
 two length-normalization misses were followed by candidate020's gain at
@@ -19,8 +27,11 @@ two length-normalization misses were followed by candidate020's gain at
 `bm25.b=1.0` setting recreates a previously tested profile and is skipped without
 a new trial. Candidate021 tested `bm25.k1=0.6` on candidate020 and scored
 60.25%, the first saturation miss of the second round. Recall, MRR and full
-reference coverage also declined. Candidate022 tests `bm25.k1=2.0` on the
-retained candidate020.
+reference coverage also declined. Candidate022 tested `bm25.k1=2.0` on
+candidate020 and gained 1.01 percentage points, replacing it. The remaining
+`bm25.k1=3.0` setting recreates candidate020 and is skipped without another trial.
+The saturation catalog ends with a reset counter. Candidate023 started testing
+`bm25.title_weight=4.0` on the new retained candidate022 before interruption.
 Adaptive now retains 66.21%, up from 60.04%. Candidate014 gained with relevance
 weight `1.0` and both novelty weights at zero on the retained `bm25.k1=3.0`,
 title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 scored
@@ -33,10 +44,10 @@ three-miss stop. Candidate017 tested aspect allocation with
 `adaptive.aspect_weight=0.0` on retained candidate014 and tied exactly, its first
 miss in this mechanism. Candidate018 tested `adaptive.aspect_weight=0.5` and
 also tied all four primary quality metrics, its second consecutive miss.
-Candidate019 tests `adaptive.aspect_weight=1.0`.
+Candidate019 started testing `adaptive.aspect_weight=1.0` before interruption.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 61 completed variants: 55 qualified measurements
+The current audit contains 62 completed variants: 56 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -52,13 +63,25 @@ The preceding [first audit](status-001/README.md),
 [twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md),
 [twenty-fourth audit](status-024/README.md), [twenty-fifth audit](status-025/README.md),
 [twenty-sixth audit](status-026/README.md), [twenty-seventh audit](status-027/README.md),
-[twenty-eighth audit](status-028/README.md) and [twenty-ninth audit](status-029/README.md)
+[twenty-eighth audit](status-028/README.md), [twenty-ninth audit](status-029/README.md)
+and [thirtieth audit](status-030/README.md)
 remain unchanged.
 
-The latest Classical and Adaptive jobs completed with evidence integrity 1.0,
-no errors and no retries. Exact prefixes through variants twenty-one and eighteen
+The last completed Classical and Adaptive jobs have evidence integrity 1.0,
+no errors and no retries. Exact prefixes through variants twenty-two and eighteen
 replayed against the original native case metrics, profiles, counters and next
-sealed mutations. The cross-family comparison below now uses Classical020.
+sealed mutations. The cross-family comparison below now uses Classical022.
+
+The [eighth Classical gain](classical-progress-008/README.md) adds 1.01
+percentage points over candidate020 and 6.85 over the initial baseline. Against
+candidate020, four eligible questions improve, three regress and 105 tie.
+Recall gains 0.6735 points, MRR 1.3686 and full reference coverage 0.8311.
+The [category and application breakdown](classical-progress-008/subgroups.md)
+shows gains of 3.53 points on semantic questions and 2.83 on constrained
+questions, alongside declines in completeness and project-related questions.
+Gmail declines by 0.04 points; the other eight application means do not decline.
+This is the eighth retained development gain, with the complete family search
+and joint acceptance still pending.
 
 The [seventh Classical gain](classical-progress-007/README.md) adds 0.79
 percentage points over candidate011 and 5.85 over its initial baseline. Against
@@ -66,14 +89,14 @@ candidate011, 13 eligible questions improve, 13 regress and 86 tie. Recall
 loses 0.3292 points, while MRR gains 1.1325 and full reference coverage gains
 0.0776. The [application breakdown](classical-progress-007/subgroups.md)
 preserves declines in GitHub, Gmail, Google Drive and Linear. The fixed global
-objective retains candidate020, with no per-application profile selection.
+objective retained candidate020 at that checkpoint, with no per-application profile selection.
 
 The [first native Adaptive aspect audit](adaptive-aspect-001/README.md) verifies
 that candidate017 preserves all 120 ordered hit payloads and all 120 metric
 entries from candidate014. Each returns ten hits per question. The bridge does
 not expose how many full-query hits were protected, so this observation does
-not establish protection as the sole cause. The next two aspect settings remain
-native opportunities; this first miss is not a completed mechanism or family.
+not establish protection as the sole cause. Candidate018 later tied all primary
+metrics; candidate019 was interrupted. The mechanism and family are incomplete.
 
 The [fifth Adaptive gain](adaptive-progress-005/README.md) adds 0.85 percentage
 points over candidate012 and 6.17 over the baseline. Recall gains 2.71 points
@@ -90,7 +113,7 @@ gain and next sealed mutation. The [second Adaptive expansion tradeoff](adaptive
 records a 0.3298-point nDCG loss alongside gains of 0.7878 points in recall and
 1.5403 points in full reference coverage. Its thirteen-variant prefix confirms
 catalog exhaustion after all four expansion settings, rather than a three-miss
-stop. Both family searches continue under the same frozen objective.
+stop. Both searches were subsequently interrupted under the same frozen objective.
 
 The [fourth Adaptive gain](adaptive-progress-004/README.md) adds 0.13 percentage
 points over candidate009 and 5.33 over the initial baseline. Against candidate009,
@@ -173,11 +196,11 @@ A digest-bound [follow-up plan](classical-source-cap-001/plan-review.md) separat
 a cap-only treatment from a document-identity treatment. It has no new candidate
 score or reserved independent validation; the live E7 protocol is unchanged.
 
-The [provisional cross-family comparison](retained-cross-family-006/README.md)
-aligns the four retained profiles from status027 across all question categories
+The [provisional cross-family comparison](retained-cross-family-007/README.md)
+aligns the four retained profiles from status031 across all question categories
 and application groups. Among these four, Embeddings has the highest nDCG in
 Confluence, GitHub and Slack; Classical in Fireflies; and Legacy in the other
-five application groups. Classical's Fireflies score rises from 78.32% to 78.91%.
+five application groups. Classical's Fireflies score remains at 78.91%.
 Legacy
 has the highest aggregate, Adaptive leads completeness and Embeddings leads
 the project-related category. These descriptive development means use
@@ -186,8 +209,9 @@ families are omitted, and the comparison does not change a selected profile.
 The [first comparison](retained-cross-family-001/README.md),
 [second comparison](retained-cross-family-002/README.md),
 [third comparison](retained-cross-family-003/README.md),
-[fourth comparison](retained-cross-family-004/README.md) and
-[fifth comparison](retained-cross-family-005/README.md) remain unchanged.
+[fourth comparison](retained-cross-family-004/README.md),
+[fifth comparison](retained-cross-family-005/README.md) and
+[sixth comparison](retained-cross-family-006/README.md) remain unchanged.
 
 The [first Adaptive expansion trial](adaptive-expansion-001/README.md) illustrates
 a metric tradeoff: recall gains 0.0788 percentage points, but nDCG loses 0.8395
@@ -216,7 +240,7 @@ association weight `0.7` and topic weight `0.4`, scored 59.994413%, losing
 3 improvements, 4 regressions and 105 ties. All four declared expansion
 options were exercised, and the third consecutive miss ends this mechanism.
 The fourteen-variant prefix and the next relevance-diversity mutation matched
-the frozen scheduler and sealed contract. The complete family search continues.
+the frozen scheduler and sealed contract. The complete family search was later interrupted.
 
 The [zero-expansion Classical trial](classical-expansion-001/README.md) scored
 60.095906%, just below the retained 60.097820%. The loss is 0.001915 percentage
