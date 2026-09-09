@@ -2,7 +2,8 @@
 
 Use this index to find a family's native evidence and its supporting audits
 without scanning every campaign checkpoint. The [E8 continuation](../evaluations/reports/evolution/e8/README.md)
-owns the latest execution status. This page adds navigation, not an evaluation,
+preserves the terminal searches and the [E9 fixed-builder report](../evaluations/reports/evolution/e9/README.md)
+records the subsequent qualified Graphify feasibility result. This page adds navigation, not an evaluation,
 selection, score or promotion decision.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
@@ -13,6 +14,9 @@ E7 and E8 measure deterministic retrieval on a stratified development subset of
 120 questions, 112 with references, and 6,000 reference-enriched full-text
 documents. Their five currently measured family routes share those questions and
 the frozen category weights. The all-500 paired comparison remains pending.
+E9's Graphify result uses a newly qualified package and native task version;
+its 8.12% nDCG@10 is reported separately until the required starting measurements
+establish the next common reference across all eight families.
 
 | Family | Fixed primary route | Native result and development evidence | Supporting function or delivery evidence |
 | --- | --- | --- | --- |
@@ -22,7 +26,7 @@ the frozen category weights. The all-500 paired comparison remains pending.
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
 | Entity Graph | `fusion` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
 | Ensemble | `quality` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
-| Graphify | `search` | [Original E8 baseline construction timeout; no retrieval score](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
+| Graphify | `search` | [E9 fixed-builder feasibility: 8.12% nDCG@10, zero errors](../evaluations/reports/evolution/e9/feasibility-001/README.md); [CTA](../evaluations/reports/evolution/e9/feasibility-001/cta.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
 | Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 
 Legacy and Embeddings have terminal searches. Classical and Adaptive were
@@ -43,7 +47,14 @@ Entity Graph and Ensemble were refused before dispatch by a
 The synthetic audits do not replace native baselines or consume development
 attempts. The two refused admissions likewise contain no native quality result.
 
-Graphify now also has a [sealed builder-efficiency candidate](../evaluations/reports/evolution/e8/graphify-candidate-001/README.md)
+## Historical preparation evidence
+
+The following checkpoints precede the completed E9 feasibility trial. Their
+pending qualification and admission statements record the state at each earlier
+checkpoint; the [E9 result](../evaluations/reports/evolution/e9/README.md) supplies
+the subsequent native outcome.
+
+Graphify has a [sealed builder-efficiency candidate](../evaluations/reports/evolution/e8/graphify-candidate-001/README.md)
 with exact synthetic edge parity. Native construction feasibility remains pending
 before any consultation search uses that builder.
 The [complete public fixture run](../evaluations/reports/evolution/e8/graphify-fixture-success-002/README.md)

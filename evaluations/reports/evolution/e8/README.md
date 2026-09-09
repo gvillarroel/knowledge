@@ -1,5 +1,10 @@
 # EnterpriseRAG continuation E8
 
+The subsequent [E9 fixed-builder evaluation](../e9/README.md) qualified the revised
+Graphify package, with 8.12% weighted development nDCG@10. It is a separate native
+profile and feasibility allowance; the E8 terminal history below remains the
+source for its preserved search state and costs.
+
 Status at 2026-09-09 12:38 UTC: stopped with required family lanes incomplete.
 The [terminal report](terminal-001/README.md) preserves the settled native work,
 exact scheduler state and all remaining opportunities. The original supervisor
