@@ -253,7 +253,7 @@ def final_report_fixture(tmp_path,monkeypatch):
             'baseline_score':.8,'score':.8,'profile':{family:{'plan':{},'search':{}}},'events':[]})
     # The real stopping audit has separate tests and an actual native Legacy
     # replay; isolate this test to final collection, scope and report rendering.
-    monkeypatch.setattr(REPORT,'audit_development',lambda *args:[{'candidate':'baseline','strategy':'baseline',
+    monkeypatch.setattr(REPORT,'audit_development',lambda *args,**kwargs:[{'candidate':'baseline','strategy':'baseline',
         'score':.8,'qualified':True,'status':'qualified','execution_errors':0,'native_job_seconds':2}])
     return jobs
 
@@ -347,3 +347,22 @@ def test_native_terminal_receipt_cannot_certify_a_later_installation(tmp_path,mo
     path.write_text(REPORT.json.dumps(value),encoding='utf-8')
     with pytest.raises(ValueError,match='does not certify repository installation'):
         REPORT.collect()
+
+
+def test_continuation_report_preserves_scope_and_distinguishes_historical_runtime(tmp_path,monkeypatch):
+    final_report_fixture(tmp_path,monkeypatch)
+    result=REPORT.collect()
+    result['campaign']='E8'
+    for row in result['development']:
+        row.update(historical_variants=0,new_variants=0,unavailable_hypotheses=0)
+    contract=REPORT.comparison(result)
+    assert contract['dataset_scope']['dataset_id']=='enterprise-rag-e8-fulltext-500'
+    assert len(contract['alternatives'])==16
+    files=REPORT.render(result)
+    assert files['README.md'].startswith('# EnterpriseRAG E8:')
+    assert 'docs/enterprise-continuation.md' in files['README.md']
+    assert '10,800-second' in files['cta.md'] and '66 completed historical jobs once' in files['cta.md']
+    assert 'partial runtime is excluded' in files['cta.md']
+    assert '../../../e7/legacy-generated-expert-001/' in files['skills/legacy.md']
+    assert '../../../e7/turso-generated-expert-001/' in files['skills/turso.md']
+    assert 'Completed variants' in files['development.md']

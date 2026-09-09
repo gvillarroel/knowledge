@@ -1,7 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
 Use this index to find a family's native evidence and its supporting audits
-without scanning every campaign checkpoint. The [campaign overview](../evaluations/reports/evolution/e7/README.md)
+without scanning every campaign checkpoint. The [E8 continuation](../evaluations/reports/evolution/e8/README.md)
 owns the latest execution status. This page adds navigation, not an evaluation,
 selection, score or promotion decision.
 

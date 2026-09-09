@@ -9,6 +9,7 @@ and no final selection, all-500 comparison or promotion exists.
 
 [ADR 0130](../../../../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md)
 defines a prospectively reviewed continuation for the remaining opportunities.
+[E8](../e8/README.md) records the replacement study's current preparation and execution.
 Completed measurements remain historical development evidence, and neither
 interrupted profile may be reissued or counted as an evaluable miss.
 

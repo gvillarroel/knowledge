@@ -118,7 +118,8 @@ def summarize_attempt(outcome, native):
             'qualified':qualified,'status':status,'execution_errors':errors}
 
 
-def audit_development(result,protocol,contract):
+def audit_development(result,protocol,contract,*,work=None,replay=None):
+    work = WORK if work is None else work
     modules = {}
     for name in ('profiles','sweep'):
         relative = 'evaluations/enterprise-stratified-evolution/'+name+'.py'
@@ -128,8 +129,8 @@ def audit_development(result,protocol,contract):
         spec = importlib.util.spec_from_file_location('e7_report_'+name,path)
         modules[name] = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(modules[name])
-    baseline = read(WORK/'baseline/build-semantic-okf-knowledge-skill/assets/retrieval-profile.json')
-    replay_history(result,protocol['strategies'][result['family']],baseline,
+    baseline = read(work/'baseline/build-semantic-okf-knowledge-skill/assets/retrieval-profile.json')
+    (replay or replay_history)(result,protocol['strategies'][result['family']],baseline,
                    modules['profiles'],modules['sweep'],protocol['budget']['maximum_outer_rounds'])
     attempts = []
     for outcome in result['outcomes']:
@@ -152,21 +153,25 @@ def audit_development(result,protocol,contract):
     return attempts
 
 
-def collect():
-    result = read(WORK/'recalculation-result.json')
-    selection = read(WORK/'selection.json')
-    terminal = read(WORK/'terminal-decision.json')
+def collect(*,work=None,execution_contract='execution-contract.json',selection_source=None,
+            replay=None,campaign='E7'):
+    work = WORK if work is None else work
+    if campaign not in ('E7','E8'):
+        raise ValueError('Unknown Enterprise campaign')
+    result = read(work/'recalculation-result.json')
+    selection = read(work/'selection.json')
+    terminal = read(work/'terminal-decision.json')
     if terminal.get('canonical_skill_installed',False) is not False:
         raise ValueError('The native terminal gate does not certify repository installation')
-    if result['status']!='complete' or result['selection_sha256']!=sha(WORK/'selection.json'):
+    if result['status']!='complete' or result['selection_sha256']!=sha(work/'selection.json'):
         raise ValueError('Final native comparison lacks an unchanged completed selection')
     if set(result['jobs'])!={'baseline','frozen'}:
         raise ValueError('Final comparison requires exactly the baseline and frozen arms')
-    protocol, contract = read(WORK/'protocol.json'), read(WORK/'execution-contract.json')
-    if sha(WORK/'protocol.json')!=contract['workspace_files']['protocol.json']:
+    protocol, contract = read(work/'protocol.json'), read(work/execution_contract)
+    if sha(work/'protocol.json')!=contract['workspace_files']['protocol.json']:
         raise ValueError('Frozen public metadata protocol changed')
     questions_path = REPO/'evaluations/enterprise-rag-bench/raw/questions.jsonl'
-    selected_path = WORK/'development-selection-v2/selected.private.json'
+    selected_path = selection_source or work/'development-selection-v2/selected.private.json'
     if (sha(questions_path)!=protocol['development']['questions_sha256']
         or sha(selected_path)!=protocol['development']['selection_sha256']):
         raise ValueError('Frozen public question metadata or subset changed')
@@ -175,7 +180,7 @@ def collect():
     seen = {row['question_id'] for row in read(selected_path)}
     if len(questions)!=500 or len(seen)!=120:
         raise ValueError('Frozen public measurement scope changed')
-    public = read(WORK/'development-task-map.json')
+    public = read(work/'development-task-map.json')
     taskmap = {Path(row['task']).name:row['family'] for row in public.values() if row['phase']=='recalculation'}
     groups = defaultdict(list)
     for index,question in enumerate(questions):
@@ -234,15 +239,23 @@ def collect():
         raise ValueError('Expected eighteen routes in both arms')
     development = []
     for family in PRIMARY:
-        row = read(WORK/'family-results'/(family+'.json'))
-        if row['status'] not in ('full-round-without-improvement','outer-round-budget-exhausted'):
+        row = read(work/'family-results'/(family+'.json'))
+        statuses = ('full-round-without-improvement','outer-round-budget-exhausted')
+        if campaign=='E8':
+            statuses += ('round-without-improvement-with-unavailable-hypothesis',)
+        if row['status'] not in statuses:
             raise ValueError('Family search is not terminal')
-        attempts = audit_development(row,protocol,contract)
+        attempts = audit_development(row,protocol,contract,work=work,replay=replay)
         development.append({key:row[key] for key in ('family','treatment','status','generation',
             'baseline_score','score','profile','rounds')})
         development[-1]['attempts'] = attempts
+        if campaign=='E8':
+            development[-1].update(native_generation=row['generation'],
+                historical_variants=row['historical_variants'],new_variants=row['new_variants'],
+                unavailable_hypotheses=len(row['unavailable_hypotheses']),
+                generation=row['historical_variants']+row['new_variants'])
         development[-1]['stops'] = [e for e in row['events'] if e['event'] in ('strategy-finished','round-finished')]
-    return {'schema_version':'enterprise-stratified-aggregate/1.0','source':'native-harbor',
+    return {'schema_version':'enterprise-stratified-aggregate/1.0','source':'native-harbor','campaign':campaign,
         'status':'complete','corpus_documents':6000,'questions':500,'retrieval_eligible':470,
         'official_overall_evaluated':False,'public_leaderboard_comparable':False,
         'llm_calls':0,'provider_cost_usd':None,'development':development,'development_history_replayed':True,
@@ -254,8 +267,8 @@ def collect():
         'repository_installation':{'installed_by_native_gate':False,
             'separate_verified_installation_receipt_required':True},
         'selection_skill_digest':selection['skill_digest'],
-        'protocol_sha256':sha(WORK/'protocol.json'),'execution_contract_sha256':sha(WORK/'execution-contract.json'),
-        'selection_sha256':sha(WORK/'selection.json'),'terminal_sha256':sha(WORK/'terminal-decision.json'),
+        'protocol_sha256':sha(work/'protocol.json'),'execution_contract_sha256':sha(work/execution_contract),
+        'selection_sha256':sha(work/'selection.json'),'terminal_sha256':sha(work/'terminal-decision.json'),
         'source_questions_sha256':sha(questions_path)}
 
 
@@ -301,7 +314,7 @@ def group_leaders(rows, dimension):
 def comparison(value):
     return {'schema_version':'final-report-comparison/1.0','report':'README.md',
         'heading':'## Final primary routes',
-        'dataset_scope':{'dataset_id':'enterprise-rag-e7-fulltext-500','cohort':'retrospective-all-500',
+        'dataset_scope':{'dataset_id':'enterprise-rag-'+value.get('campaign','E7').lower()+'-fulltext-500','cohort':'retrospective-all-500',
             'identity_grouping':'6000 reference-enriched full-text documents; one exposed source family',
             'candidate_budget':'Top-10; jointly frozen development profile',
             'metric_contract':'native-verifier-and-execution-sha256:'+value['execution_contract_sha256']},
@@ -339,7 +352,7 @@ def primary_table(contract):
 
 def render(value):
     pairs = paired(value['routes'])
-    lines = ['# EnterpriseRAG E7: all-family stratified evolution','',
+    lines = ['# EnterpriseRAG '+value.get('campaign','E7')+': all-family stratified evolution','',
         'Completed native retrieval comparison: **500 questions, 470 with qrels, 6,000 complete documents**. '
         'The corpus is reference-enriched and all questions have prior exposure. This is an internal retrospective '
         'comparison, with no official answer Overall or public leaderboard rank.','',
@@ -371,6 +384,12 @@ def render(value):
         'The [study guide](../../../../../docs/enterprise-stratified-evolution.md) explains sampling, source rendering, '
         'construction/consultation isolation and the one-way gate. Full exact aggregates are in '
         '[aggregate.json](aggregate.json); native artifact hashes are included without raw questions, answers or traces.']
+    if value.get('campaign')=='E8':
+        lines += ['', 'E8 continues the interrupted E7 search. Historical completed measurements are imported '
+            'once, with their original costs and exposure. Two original hypotheses remain unavailable and were '
+            'never reissued. Development stopping discloses these omissions; it is not a complete E7 plateau. '
+            'Only the paired all-500 runtime uses the prospectively declared 10,800-second limit.']
+        lines = [line.replace('docs/enterprise-stratified-evolution.md','docs/enterprise-continuation.md') for line in lines]
     files = {'README.md':'\n'.join(lines)+'\n'}
     for dimension,filename in (('category','categories.md'),('application','applications.md'),('exposure','exposure.md')):
         lines = ['# '+dimension.title()+' comparison','', '[General report](README.md)','',
@@ -414,6 +433,11 @@ def render(value):
         lines.append(f"| {row['family']} | {len(attempts)} | {sum(a['qualified'] for a in attempts)} | "
             f"{sum(a['execution_errors'] for a in attempts)} | "
             f"{number(sum(a['native_job_seconds'] for a in attempts),1)} |")
+    if value.get('campaign')=='E8':
+        lines += ['', 'E8 includes each of the 66 completed historical jobs once, together with new completed jobs. '
+            'The two original jobs interrupted by the host restart have no completed duration or fitness; '
+            'their partial runtime is excluded from these totals and must not be interpreted as zero. '
+            'The paired all-500 arms both use the prospectively frozen 10,800-second agent limit.']
     files['cta.md']='\n'.join(lines)+'\n'
     lines = ['# All eighteen routes in both frozen arms','', '[General report](README.md)','',
         'These are diagnostics; the family selection routes were fixed before development.','',
@@ -431,7 +455,7 @@ def render(value):
         'Scores use the preregistered category weights on 112 eligible questions from the 120-question subset. '
         'A complete non-improving round establishes a plateau only in the tested finite catalog. '
         'Budget exhaustion is a separate stop reason.','',
-        '| Family | Treatment | Baseline nDCG@10 | Retained nDCG@10 | New trials | Rounds | Stop reason |',
+        '| Family | Treatment | Baseline nDCG@10 | Retained nDCG@10 | Completed variants | Rounds | Stop reason |',
         '| --- | --- | ---: | ---: | ---: | ---: | --- |']
     for row in value['development']:
         lines.append(f"| {row['family']} | {row['treatment']} | {number(row['baseline_score'])} | "
@@ -478,6 +502,11 @@ def render(value):
                 'The [generated-expert delivery audit](../../turso-generated-expert-001/README.md) verifies '
                 'this distinction. An exact-package installation must retain the measured E7 usage scope; '
                 'automatic inheritance requires separately tested integration.']
+        if value.get('campaign')=='E8':
+            family_lines += ['', f"Historical completed variants: {row['historical_variants']}; new completed variants: {row['new_variants']}; unavailable original hypotheses: {row['unavailable_hypotheses']}. "
+                'Unavailable originals have no fitness and consume no evaluable miss. Their partial runtime is not included in complete-job totals.']
+            family_lines = [line.replace('../../legacy-generated-expert-001/', '../../../e7/legacy-generated-expert-001/')
+                           .replace('../../turso-generated-expert-001/', '../../../e7/turso-generated-expert-001/') for line in family_lines]
         files['skills/'+row['family']+'.md']='\n'.join(family_lines)+'\n'
     files['development.md']='\n'.join(lines)+'\n'
     return files
@@ -495,7 +524,7 @@ def plot(value,output):
     axis.set_yticks(range(8),[key[0] for key,_ in pairs])
     axis.set_xlim(0,100)
     axis.set_xlabel('nDCG@10 (%) · 470 eligible questions')
-    axis.set_title('EnterpriseRAG E7 · 6,000 full-text documents\nInternal retrospective comparison')
+    axis.set_title('EnterpriseRAG '+value.get('campaign','E7')+' · 6,000 full-text documents\nInternal retrospective comparison')
     axis.legend(loc='upper center',bbox_to_anchor=(0.5,-0.13),ncol=2,frameon=False)
     fig.savefig(output/'comparison.svg')
     fig.savefig(output/'comparison.png',dpi=160)

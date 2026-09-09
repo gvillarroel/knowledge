@@ -20,6 +20,7 @@
 - [Enterprise evolution campaign status and reports](../evaluations/reports/evolution/e6/README.md)
 - [Stratified Enterprise evolution across eight families and the all-500 internal comparison](enterprise-stratified-evolution.md)
 - [E7 Windows interruption and prospective continuation of the remaining strategies](../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md)
+- [EnterpriseRAG continuation: remaining native searches, inherited evidence and matched final execution](enterprise-continuation.md)
 - [EnterpriseRAG reports by family, mechanism, application, dataset contract and CTA](enterprise-family-report-index.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)

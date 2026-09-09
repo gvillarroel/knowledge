@@ -50,6 +50,15 @@ for changed limits and preserve E7's original descriptors and adapter. The
 original 120-question evidence keeps its original execution contract. Unmeasured
 runtime projections are not observed failures or measured speed improvements.
 
+For E8, keep the original task roots and paths so historical native job
+signatures remain exact. Version the final native JobConfig with Harbor's
+`agents.override_timeout_sec=10800` and an explicit final adapter whose actual
+execution limit is also 10,800 seconds. Harbor 0.18.0 applies this native override
+ahead of the inherited task default. Both all-500 arms receive that same
+prospectively declared execution profile; development, joint replay and private
+validation retain the original adapter and limits. This is an execution-profile
+version, without editing or moving the original task descriptors.
+
 After E7 has no active execution authority, the independent curator must verify
 cross-study non-consumption, imported development ancestry and actual executor
 isolation. A new exclusive reservation must include terminal E7 and all six
