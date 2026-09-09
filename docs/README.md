@@ -29,6 +29,7 @@
 - [Classical's following expansion miss: the 62.10% incumbent remains retained](../evaluations/reports/evolution/e8/classical-progress-003/README.md)
 - [Classical's stronger expansion miss: 60.13% measured, with two consecutive misses](../evaluations/reports/evolution/e8/classical-progress-004/README.md)
 - [Classical's relevance-only reranking tie: 62.10% retained with native groups, routes and CTA](../evaluations/reports/evolution/e8/classical-progress-005/README.md)
+- [Classical's mild-diversity reranking tie: second miss, with the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-006/README.md)
 - [E8 Compose admission diagnosis and prospective control correction](../evaluations/reports/evolution/e8/dispatch-control-001/README.md)
 - [Independent prospective scope review: regression probes and actual native Compose comparison](../evaluations/reports/evolution/e8/prospective-control-001/README.md)
 - [Five measured EnterpriseRAG strategies: retained results by application and category](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md)
