@@ -84,6 +84,15 @@ fusion expands its candidate pools, and rank-decay variants explicitly set
 lexical weight to one. These complete treatment changes must remain visible
 when interpreting future native scores. No Graphify trial is counted here.
 
+The [Entity Graph function audit](entity-graph-opportunity-001/README.md) covers
+the default and three variants for both graph reach and candidate-edge weight.
+On one synthetic section graph, reach changes the document set, while three
+positive edge weights leave exact fusion scores unchanged because their ranks
+are identical. Zero candidate-edge weight still permits direct-entity and
+mention contributions. Its document cap allows distinct documents from one
+application. These cases establish function behavior; its native baseline and
+complete family search remain pending.
+
 The [Classical source-group audit](classical-source-cap-001/README.md) identifies
 an additional opportunity outside the frozen catalog. Its three diversified
 routes cap results at one document per application and return five to nine

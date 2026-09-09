@@ -1,0 +1,461 @@
+{
+  "auditor_sha256": "a3111f600ddd06f14221915ba5ec72e6b1d53ce00b1312c8f2fb06c84b1d4e19",
+  "benchmark_query_content_used": false,
+  "benchmarked_enterprise_questions": 0,
+  "claim_limits": [
+    "no-full-build-or-native-extraction",
+    "no-persisted-snapshot-validation",
+    "no-end-to-end-query-or-BM25-test",
+    "no-Enterprise-frequency-or-quality-estimate",
+    "no-Harbor-container-attestation",
+    "no-controller-opportunity-or-miss-consumed"
+  ],
+  "controller_misses_consumed": 0,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family_development_trial_completed": false,
+  "fixture_summary": {
+    "applications": 1,
+    "candidate_terms": 4,
+    "documents": 4,
+    "edge_count": 23,
+    "edge_counts_by_predicate": {
+      "coMentionedWith": 3,
+      "mentionedInSection": 13,
+      "partOfDocument": 7
+    },
+    "edges_sha256": "5542e99c9c5b3b0baa2b25f988c530e418aa85ece375ab3c68c2f7d9eea5fba9",
+    "mentions": 13,
+    "sections": 7
+  },
+  "frozen_inputs_modified": false,
+  "frozen_source_hashes": {
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/entity-graph/consultant/scripts/_entity_graph_model.py": "fc3f8bf159b713a05ce7400d20837d16bf4e5ea51af43ae02c428228623cab8c",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/entity-graph/consultant/scripts/_entity_graph_snapshot.py": "805aa0de5ddaff9b25ee71d9e560b511ccb6ea52182145abb407c02ebcaadd51",
+    "baseline/build-semantic-okf-knowledge-skill/scripts/apply_retrieval_profile.py": "a10e182b67a4d0ce1fb8754339812cf8490e73921357696da4f5a21c56c977a7",
+    "runtime/prepare_strategy_bundles.py": "274281cd7f256215687d6c91deb754c0057c6403ac56ef28ee4888119ab7b58f"
+  },
+  "host_python": "3.14.7",
+  "input_construction": "synthetic-sections-entities-mentions-resolved-seed-and-lexical-scores",
+  "model_calls": 0,
+  "native_functions": [
+    "parse_plan",
+    "derive_generic_edges",
+    "_direct_entity_scores",
+    "_traversal_scores",
+    "_rank",
+    "_rrf",
+    "_diversify"
+  ],
+  "native_harbor_trials": 0,
+  "new_candidate_created": false,
+  "new_study_registered": false,
+  "observations": [
+    {
+      "candidate_edge_weight": 0.3,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152,
+        "section-d-0": 0.014925373134328358
+      },
+      "max_hops": 3,
+      "mechanism": "graph-reach",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c",
+        "document-d"
+      ],
+      "plan_sha256": "fbfbd976b6d577c2fbfa4fd9a98697c88a6ef95de0c040dd6569d44b3ced6da1",
+      "returned_documents": 4,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0",
+        "section-d-0"
+      ],
+      "traversal_path_edge_count": 12,
+      "traversal_scores": {
+        "section-a-0": 0.6007811229296587,
+        "section-a-1": 0.6007811229296587,
+        "section-b-0": 0.05456213353575799,
+        "section-b-1": 0.05456213353575799,
+        "section-c-0": 0.0033415841344122486,
+        "section-c-1": 0.0033415841344122486,
+        "section-d-0": 0.00012365604390518172
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1",
+        "section-d-0"
+      ],
+      "variant": {},
+      "variant_label": "baseline"
+    },
+    {
+      "candidate_edge_weight": 0.3,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625
+      },
+      "max_hops": 1,
+      "mechanism": "graph-reach",
+      "ordered_documents": [
+        "document-a",
+        "document-b"
+      ],
+      "plan_sha256": "dd9823be4300febdc4eefa8099aab4cd535546498d493c60f9ad95ccf4f3db57",
+      "returned_documents": 2,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0"
+      ],
+      "traversal_path_edge_count": 2,
+      "traversal_scores": {
+        "section-a-0": 0.5890905326361033,
+        "section-a-1": 0.5890905326361033,
+        "section-b-0": 0.043209732032219596,
+        "section-b-1": 0.043209732032219596
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1"
+      ],
+      "variant": {
+        "query.max_hops": 1
+      },
+      "variant_label": "variant-1"
+    },
+    {
+      "candidate_edge_weight": 0.3,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152
+      },
+      "max_hops": 2,
+      "mechanism": "graph-reach",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c"
+      ],
+      "plan_sha256": "c74af3577f283acce00ffe42341ed3e5a68345a511538e0914ca75d8e65ecbc8",
+      "returned_documents": 3,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0"
+      ],
+      "traversal_path_edge_count": 6,
+      "traversal_scores": {
+        "section-a-0": 0.5972250060491346,
+        "section-a-1": 0.5972250060491346,
+        "section-b-0": 0.05421129845742767,
+        "section-b-1": 0.05421129845742767,
+        "section-c-0": 0.0028670930121767494,
+        "section-c-1": 0.0028670930121767494
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1"
+      ],
+      "variant": {
+        "query.max_hops": 2
+      },
+      "variant_label": "variant-2"
+    },
+    {
+      "candidate_edge_weight": 0.3,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152,
+        "section-d-0": 0.014925373134328358
+      },
+      "max_hops": 4,
+      "mechanism": "graph-reach",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c",
+        "document-d"
+      ],
+      "plan_sha256": "67ad8f7f13b58aa517036e44d71c8c12ba02bfa42a651ceea8c7c20097b681ab",
+      "returned_documents": 4,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0",
+        "section-d-0"
+      ],
+      "traversal_path_edge_count": 17,
+      "traversal_scores": {
+        "section-a-0": 0.6007811229296587,
+        "section-a-1": 0.6007811229296587,
+        "section-b-0": 0.05466182614186026,
+        "section-b-1": 0.05466182614186026,
+        "section-c-0": 0.003351419486974027,
+        "section-c-1": 0.003351419486974027,
+        "section-d-0": 0.00013349139646696013
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1",
+        "section-d-0"
+      ],
+      "variant": {
+        "query.max_hops": 4
+      },
+      "variant_label": "variant-3"
+    },
+    {
+      "candidate_edge_weight": 0.3,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152,
+        "section-d-0": 0.014925373134328358
+      },
+      "max_hops": 3,
+      "mechanism": "graph-noise",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c",
+        "document-d"
+      ],
+      "plan_sha256": "fbfbd976b6d577c2fbfa4fd9a98697c88a6ef95de0c040dd6569d44b3ced6da1",
+      "returned_documents": 4,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0",
+        "section-d-0"
+      ],
+      "traversal_path_edge_count": 12,
+      "traversal_scores": {
+        "section-a-0": 0.6007811229296587,
+        "section-a-1": 0.6007811229296587,
+        "section-b-0": 0.05456213353575799,
+        "section-b-1": 0.05456213353575799,
+        "section-c-0": 0.0033415841344122486,
+        "section-c-1": 0.0033415841344122486,
+        "section-d-0": 0.00012365604390518172
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1",
+        "section-d-0"
+      ],
+      "variant": {},
+      "variant_label": "baseline"
+    },
+    {
+      "candidate_edge_weight": 0.0,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903
+      },
+      "max_hops": 3,
+      "mechanism": "graph-noise",
+      "ordered_documents": [
+        "document-a"
+      ],
+      "plan_sha256": "3a13fd4ce1e94e748d56a807e667d43fc37264147be8af8e9a123434a0feb74b",
+      "returned_documents": 1,
+      "selected_sections": [
+        "section-a-0"
+      ],
+      "traversal_path_edge_count": 0,
+      "traversal_scores": {
+        "section-a-0": 0.42328679513998635,
+        "section-a-1": 0.42328679513998635
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1"
+      ],
+      "variant": {
+        "query.candidate_edge_weight": 0.0
+      },
+      "variant_label": "variant-1"
+    },
+    {
+      "candidate_edge_weight": 0.1,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152,
+        "section-d-0": 0.014925373134328358
+      },
+      "max_hops": 3,
+      "mechanism": "graph-noise",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c",
+        "document-d"
+      ],
+      "plan_sha256": "2ad0498ee14b9b177a8bc817f62c86bdb98d49dd35eaaca155d3dcc95cfb142c",
+      "returned_documents": 4,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0",
+        "section-d-0"
+      ],
+      "traversal_path_edge_count": 12,
+      "traversal_scores": {
+        "section-a-0": 0.4806439103114257,
+        "section-a-1": 0.4806439103114257,
+        "section-b-0": 0.015638634171997446,
+        "section-b-1": 0.015638634171997446,
+        "section-c-0": 0.0003361396355098426,
+        "section-c-1": 0.0003361396355098426,
+        "section-d-0": 4.579853477969696e-06
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1",
+        "section-d-0"
+      ],
+      "variant": {
+        "query.candidate_edge_weight": 0.1
+      },
+      "variant_label": "variant-2"
+    },
+    {
+      "candidate_edge_weight": 0.6,
+      "entity_scores": {
+        "section-a-0": 2.6931471805599454,
+        "section-a-1": 2.6931471805599454
+      },
+      "fusion_scores": {
+        "section-a-0": 0.04918032786885246,
+        "section-a-1": 0.03225806451612903,
+        "section-b-0": 0.015873015873015872,
+        "section-b-1": 0.015625,
+        "section-c-0": 0.015384615384615385,
+        "section-c-1": 0.015151515151515152,
+        "section-d-0": 0.014925373134328358
+      },
+      "max_hops": 3,
+      "mechanism": "graph-noise",
+      "ordered_documents": [
+        "document-a",
+        "document-b",
+        "document-c",
+        "document-d"
+      ],
+      "plan_sha256": "f6cfeb7de92803b7343a7148f276c8032c04c1efb14e24ee353ba70a8dc1bb75",
+      "returned_documents": 4,
+      "selected_sections": [
+        "section-a-0",
+        "section-b-0",
+        "section-c-0",
+        "section-d-0"
+      ],
+      "traversal_path_edge_count": 12,
+      "traversal_scores": {
+        "section-a-0": 0.7945443975453937,
+        "section-a-1": 0.7945443975453937,
+        "section-b-0": 0.13323241039191405,
+        "section-b-1": 0.13323241039191405,
+        "section-c-0": 0.01526430102659099,
+        "section-c-1": 0.01526430102659099,
+        "section-d-0": 0.0009892483512414538
+      },
+      "traversal_section_order": [
+        "section-a-0",
+        "section-a-1",
+        "section-b-0",
+        "section-b-1",
+        "section-c-0",
+        "section-c-1",
+        "section-d-0"
+      ],
+      "variant": {
+        "query.candidate_edge_weight": 0.6
+      },
+      "variant_label": "variant-3"
+    }
+  ],
+  "observed_at_utc": "2026-09-09T01:34:55.115174+00:00",
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "published_at_utc": "2026-09-09T01:37:08.362525+00:00",
+  "publisher_sha256": "5e10002dbff8e7e198e85d295bd86b6abb08a4889bd568e55a759723a19cbe0f",
+  "relevance_labels_used": false,
+  "schema_version": "enterprise-e7-entity-graph-opportunity-publication/1.0",
+  "scope": "synthetic-query-functions-only",
+  "source_audit_sha256": "9b299cd53581560dfef33b89a61657a22a53533a9e653e329b1974aeb40fce64",
+  "study_guard_mechanical_digest_validation": true
+}

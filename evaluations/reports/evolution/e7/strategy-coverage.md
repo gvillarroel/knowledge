@@ -48,6 +48,15 @@ fixture cases are not native Enterprise trials or completed family opportunities
 
 ## Execution and interpretation
 
+The [Entity Graph function audit](entity-graph-opportunity-001/README.md)
+exercises graph reach and candidate-edge weights with synthetic sections,
+native edge construction and exact query functions. Increasing reach changes
+the returned document set in the fixture. Positive edge-weight changes with
+identical component order leave rank fusion unchanged; zero candidate-edge
+weight still permits direct-entity and mention contributions. Document grouping
+allows multiple records from one application. These eight cases do not replace
+any native Entity Graph trial or establish Enterprise performance.
+
 The [Graphify function audit](graphify-opportunity-001/README.md) verifies depth
 and fusion sensitivity with synthetic graphs and lists. Changing depth can
 change the returned set, while a larger visited set can leave the top ten
