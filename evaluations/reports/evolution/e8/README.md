@@ -205,8 +205,11 @@ are preserved. Complete terminal-history review, ordinary study design sealing
 and a separate independent admission remain required before its one native trial.
 The later [historical inventory review](pre-e7-history-review-001/README.md)
 also identified a real sibling registry omitted by that caller's directory-name
-filter. A prospective correction needs its own review before admission; the
-earlier 450-case receipt does not cover this newly identified inventory gap.
+filter. The [separate caller002 review](graphify-native-caller-review-002/README.md)
+now covers that correction with 17 targeted checks, preserving the prior 450
+cases and one shared native attempt. It accounts for the ten observed registry
+directories; complete current history/custody and actual admission still remain
+required. The earlier receipt alone does not cover this inventory gap.
 The [public design preparation review](graphify-public-design-evidence-001/README.md)
 now supports the six static checks for that fixed ordinary evaluation, using
 eight prior reviews and 29 new synthetic verifier cases. It explicitly preserves

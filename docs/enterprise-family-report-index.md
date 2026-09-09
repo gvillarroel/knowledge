@@ -61,6 +61,10 @@ reconciles eight earlier registry directories and preserves their actual work,
 partial resource evidence and missing costs. Two preparation registries require
 explicit inclusion in the final history; one also requires a prospective caller
 inventory correction. This review supplies no new fitness or execution admission.
+The [separate caller002 delta review](../evaluations/reports/evolution/e8/graphify-native-caller-review-002/README.md)
+passed 17 targeted checks and preserves the shared one-trial, zero-retry limit.
+Its exact receipt is bound; current history/custody, actual registration and
+native admission remain pending.
 The [public design evidence](../evaluations/reports/evolution/e8/graphify-public-design-evidence-001/README.md)
 supports all six static preparation checks, with 29 synthetic verifier cases and
 explicit limits. Its pending template still requires actual registered lock
