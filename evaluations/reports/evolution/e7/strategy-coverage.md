@@ -48,6 +48,15 @@ fixture cases are not native Enterprise trials or completed family opportunities
 
 ## Execution and interpretation
 
+The [Graphify function audit](graphify-opportunity-001/README.md) verifies depth
+and fusion sensitivity with synthetic graphs and lists. Changing depth can
+change the returned set, while a larger visited set can leave the top ten
+unchanged. First enabling lexical fusion also expands graph and lexical pools
+to at most 100 each. Rank-decay variants set lexical weight to one as well as
+changing decay, so exact parent and child profiles determine attribution. These
+fixtures use pinned local query functions and consume no native opportunities
+or controller misses.
+
 Two family lanes execute concurrently, with one trial at a time in each lane.
 The next queued family starts when a lane becomes free. Each agent has two CPU
 threads and 6 GiB RAM. These resource limits are part of the frozen comparison;

@@ -1,0 +1,438 @@
+{
+  "auditor_sha256": "3db27870ba5f63d1943eeda29a78f0ec9bfd992b19c14a7ac918ac0fc1753cb2",
+  "benchmark_query_content_used": false,
+  "candidate_created": false,
+  "claim_limits": [
+    "function-fixtures-only",
+    "not-native-Harbor-evidence",
+    "no-Enterprise-occurrence-estimate",
+    "no-quality-or-cost-measurement",
+    "host-dependencies-not-container-runtime-attestation"
+  ],
+  "controller_misses_consumed": 0,
+  "decay_profile_observations": [
+    {
+      "declared_variant": {
+        "lexical_weight": 1.0,
+        "rrf_k": 5
+      },
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-09",
+        "record-03",
+        "record-08",
+        "record-04",
+        "record-07",
+        "record-05",
+        "record-06"
+      ],
+      "parent_settings": {
+        "depth": 3,
+        "lexical_weight": 4.0
+      },
+      "resulting_settings": {
+        "depth": 3,
+        "lexical_weight": 1.0,
+        "rrf_k": 5
+      }
+    },
+    {
+      "declared_variant": {
+        "lexical_weight": 1.0,
+        "rrf_k": 20
+      },
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-09",
+        "record-03",
+        "record-08",
+        "record-04",
+        "record-07",
+        "record-05",
+        "record-06"
+      ],
+      "parent_settings": {
+        "depth": 3,
+        "lexical_weight": 4.0
+      },
+      "resulting_settings": {
+        "depth": 3,
+        "lexical_weight": 1.0,
+        "rrf_k": 20
+      }
+    },
+    {
+      "declared_variant": {
+        "lexical_weight": 1.0,
+        "rrf_k": 60
+      },
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-09",
+        "record-03",
+        "record-08",
+        "record-04",
+        "record-07",
+        "record-05",
+        "record-06"
+      ],
+      "parent_settings": {
+        "depth": 3,
+        "lexical_weight": 4.0
+      },
+      "resulting_settings": {
+        "depth": 3,
+        "lexical_weight": 1.0,
+        "rrf_k": 60
+      }
+    }
+  ],
+  "depth_observations": [
+    {
+      "depth": 0,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00"
+      ],
+      "returned": 1,
+      "visited_nodes": 1
+    },
+    {
+      "depth": 1,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01"
+      ],
+      "returned": 2,
+      "visited_nodes": 2
+    },
+    {
+      "depth": 2,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02"
+      ],
+      "returned": 3,
+      "visited_nodes": 3
+    },
+    {
+      "depth": 3,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03"
+      ],
+      "returned": 4,
+      "visited_nodes": 4
+    },
+    {
+      "depth": 4,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04"
+      ],
+      "returned": 5,
+      "visited_nodes": 5
+    },
+    {
+      "depth": 5,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05"
+      ],
+      "returned": 6,
+      "visited_nodes": 6
+    },
+    {
+      "depth": 6,
+      "fixture": "chain",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06"
+      ],
+      "returned": 7,
+      "visited_nodes": 7
+    },
+    {
+      "depth": 0,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00"
+      ],
+      "returned": 1,
+      "visited_nodes": 1
+    },
+    {
+      "depth": 1,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 11
+    },
+    {
+      "depth": 2,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 12
+    },
+    {
+      "depth": 3,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 12
+    },
+    {
+      "depth": 4,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 12
+    },
+    {
+      "depth": 5,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 12
+    },
+    {
+      "depth": 6,
+      "fixture": "branch",
+      "native_concept_hydration_verified": true,
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "returned": 10,
+      "visited_nodes": 12
+    }
+  ],
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family_development_trial_completed": false,
+  "fixture_files": {
+    "concepts/record-00.md": "046c7d0a0ca6fb432e0ec2a51e0c4f7e74b66aad10d80f4a20385ef36b4a97ac",
+    "concepts/record-01.md": "1379b08d1de2e6b60e740939052364f3720eb15f99680d5b7f72cb6a89864538",
+    "concepts/record-02.md": "9069491f6cde9347f0b86443526cf3c3553a2e99b14f413aa1f2dc000f464eba",
+    "concepts/record-03.md": "86a9fad6b8f87e9d8ac70387fc9a64a42b4db45df26436cbc981daa8f6170a62",
+    "concepts/record-04.md": "eb4407c1a97055b9f13d63acb3993c7cde4314adfa7f41b707d860d60eebdb09",
+    "concepts/record-05.md": "9dcdd9cca380019a73d9d68bff34f42d1e3aa9a9b73500f125e7190719887b8a",
+    "concepts/record-06.md": "81f9f931308bdad108aa0dc781f4aa26c153e4a83b542eef127685127c486f83",
+    "concepts/record-07.md": "a94935447c02307398012d0faf4736511bc040a782fae4f7f7769b3085998034",
+    "concepts/record-08.md": "682823e1c9b457db65e4ebd2276305340fcc2c4f7796819e317bf04f2b8162ed",
+    "concepts/record-09.md": "532669ef1615dd54674e7b45aa7ae702f6c4ad25d6559aa84a0a41ae9540c30e",
+    "concepts/record-10.md": "ad9d3cb4f6fc41105d2012f7d488a1988ef52354749a3ee82c53c9df8e949662",
+    "concepts/record-11.md": "dc6c091ac2f66011c3e1d35674acd808dc084e3589751e2e10080384c9cc7746"
+  },
+  "frozen_files_modified": false,
+  "frozen_source_hashes": {
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/graphify/consultant/scripts/_graphify_snapshot.py": "0f1aa99076cae1c1875b93b79be8d7b17b750baf8c19bda8f52efd4272f7a6dd",
+    "baseline/build-semantic-okf-knowledge-skill/scripts/apply_retrieval_profile.py": "a10e182b67a4d0ce1fb8754339812cf8490e73921357696da4f5a21c56c977a7",
+    "runtime/bridge.py": "c2b305449f7b1b97a40c739207f6d89a4f753b4266b22ae52b096b46a90341a1"
+  },
+  "fusion_observations": [
+    {
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-03",
+        "record-04",
+        "record-05",
+        "record-06",
+        "record-07",
+        "record-08",
+        "record-09"
+      ],
+      "settings": {
+        "lexical_weight": 0.5,
+        "rrf_k": 60
+      }
+    },
+    {
+      "ordered_record_ids": [
+        "record-00",
+        "record-01",
+        "record-02",
+        "record-09",
+        "record-03",
+        "record-08",
+        "record-04",
+        "record-07",
+        "record-05",
+        "record-06"
+      ],
+      "settings": {
+        "lexical_weight": 1.0,
+        "rrf_k": 60
+      }
+    },
+    {
+      "ordered_record_ids": [
+        "record-09",
+        "record-08",
+        "record-07",
+        "record-06",
+        "record-05",
+        "record-04",
+        "record-03",
+        "record-02",
+        "record-01",
+        "record-00"
+      ],
+      "settings": {
+        "lexical_weight": 2.0,
+        "rrf_k": 60
+      }
+    },
+    {
+      "ordered_record_ids": [
+        "record-09",
+        "record-08",
+        "record-07",
+        "record-06",
+        "record-05",
+        "record-04",
+        "record-03",
+        "record-02",
+        "record-01",
+        "record-00"
+      ],
+      "settings": {
+        "lexical_weight": 4.0,
+        "rrf_k": 60
+      }
+    }
+  ],
+  "harbor_calls": 0,
+  "host_runtime": {
+    "graphify_module_hashes": {
+      "graphify": "5afcd670aa65337ae49735582a9bc482a721abdfbfc063fcad1d0ccc90b0838a",
+      "graphify.build": "f50c40374553b1d17fd6ceec9718f777e03ec33fe7fe3fdf32e3ef0d8c7c30d5",
+      "graphify.ids": "ac9138fccaa369adf0fd110cb2775f77bf6244d6b833d417d5551759a4439f4c",
+      "graphify.paths": "b0b474b689dd218badaaaa59d719479c95929de4b635dadbdc855c3414e8edaa",
+      "graphify.security": "26effec8aec27935da8cb60ee060924aa1a1965644a4c9f7dd61f4ae6b90a516",
+      "graphify.serve": "3ae13d855e74121464033b737bc8cf024e2aaa3623cd330b3ac451913b1f86d9",
+      "graphify.validate": "be068c6b2ff4e514f31663e0155a9d63f35096d154b98ab6c9c467a23febd6f7"
+    },
+    "graphifyy": "0.9.17",
+    "networkx": "3.6.1",
+    "python": "3.14.7"
+  },
+  "llm_calls": 0,
+  "native_enterprise_trials": 0,
+  "new_study_registered": false,
+  "observed_at_utc": "2026-09-09T01:07:40.879922+00:00",
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "published_at_utc": "2026-09-09T01:09:57.748841+00:00",
+  "publisher_sha256": "29a0c9330a8e5e2d65f258bbab14e23e97ac6c708d6b9c37c399f7b6e692a024",
+  "ranking_functions": "frozen-Snapshot.search-and-pinned-local-Graphify-query-score-seed-bfs-and-frozen-fuse",
+  "relevance_labels_used": false,
+  "schema_version": "enterprise-e7-graphify-opportunity-publication/1.0",
+  "snapshot_construction": "synthetic-no-build-or-persisted-snapshot-validation",
+  "source_audit_sha256": "23d9c36d6181052c7a0c0c4d4b30396ff7f214ab258bdbc3b16a8bc716b49c66",
+  "study_guard_mechanical_digest_validation": true
+}

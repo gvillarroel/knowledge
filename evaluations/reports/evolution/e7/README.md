@@ -67,6 +67,15 @@ refill a short set from auxiliary evidence. Ensemble construction can separately
 change that protected set. These fixtures add no native Enterprise measurement
 or completed family opportunity.
 
+The [Graphify function audit](graphify-opportunity-001/README.md) exercises the
+frozen query function with pinned local Graphify scoring and traversal on two
+synthetic graphs. Fourteen depth cases show both a changing document set and
+an unchanged top ten despite visiting more nodes. Four lexical fusion settings
+produce three distinct orders. The audit also confirms that first enabling
+fusion expands its candidate pools, and rank-decay variants explicitly set
+lexical weight to one. These complete treatment changes must remain visible
+when interpreting future native scores. No Graphify trial is counted here.
+
 The [Classical source-group audit](classical-source-cap-001/README.md) identifies
 an additional opportunity outside the frozen catalog. Its three diversified
 routes cap results at one document per application and return five to nine
