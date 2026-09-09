@@ -48,6 +48,8 @@
 - [Graphify's two environment probes: exact package, effective resources and declared access](../evaluations/reports/evolution/e8/graphify-executor-probes-001/README.md)
 - [Graphify's corrected native caller: 450 independent checks, with execution admission pending](../evaluations/reports/evolution/e8/graphify-native-caller-review-001/README.md)
 - [Versioned Graphify reference and separate feasibility decision](../.specs/adr/0132-qualify-graphify-builder-before-consultation.md)
+- [Versioned Enterprise continuation: starting-score reproduction, full search state and pending first measurements](../evaluations/reports/evolution/e8/versioned-continuation-method-001/README.md)
+- [Decision: preserve versioned profile qualification and single pending-claim allocations](../.specs/adr/0134-requalify-versioned-enterprise-profiles-without-resetting-search.md)
 - [Entity Graph function audit: graph reach, rank-based fusion, and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md)
 - [Turso audit: reproducible native databases, SQL baseline, and in-memory BM25 attribution](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md)
 - [Turso generated-expert audit: native parity and the experimental profile delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md)

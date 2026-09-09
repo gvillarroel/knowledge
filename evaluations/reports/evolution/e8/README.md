@@ -244,6 +244,14 @@ task trees and Harbor identities agree. These authoring results add no native
 trial or quality gain and become usable only after the fixed feasibility and
 separate continuation gates.
 
+The [versioned continuation methodology](versioned-continuation-method-001/README.md)
+now preserves the complete historical search state and the two pending
+Turso/Adaptive proposals. Both retain their first native measurement within
+their already claimed variant slots. The revised reference requires new native
+qualification and exact starting-score reproduction; a new archive generation
+does not reset the campaign. These reviewed rules add no score or execution
+admission, and the concrete controller still requires its separate review.
+
 ## Execution and publication boundaries
 
 The continuation preserves cumulative attempts and rounds, excludes both

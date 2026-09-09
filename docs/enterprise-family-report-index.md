@@ -74,6 +74,13 @@ now preserve the complete fixed-builder binding across both public workloads.
 Their exact regeneration and native identities are preparation evidence; the
 existing subset/all-500 overlap remains explicit and no new score is assigned.
 
+The [versioned continuation methodology](../evaluations/reports/evolution/e8/versioned-continuation-method-001/README.md)
+now preserves complete search state and both pending Turso/Adaptive proposals.
+Each retains one first-measurement obligation inside its existing variant claim.
+The revised reference and retained profiles require fresh native qualification
+and exact starting-score reproduction before remaining proposals. Final history,
+the concrete controller and actual admission remain to be reviewed.
+
 ## Mechanism evidence
 
 | Family | Mechanism | Focused evidence |
