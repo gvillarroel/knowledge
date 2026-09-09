@@ -4,21 +4,20 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-023/README.md) records two
+The latest [all-family progress audit](status-024/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
-completed with six retained gains, so a second round begins. Candidate018 tests
-`bm25.b=0.25` on the retained candidate011 base.
-Adaptive now retains 65.36%, up from 60.04%. Its twelfth variant gained with
-association weight `0.175` and topic weight `0.1` on the retained `bm25.k1=3.0`,
-title-weight `1.0` base, resetting the counter after two expansion misses.
-The thirteenth gained recall but lost primary nDCG. The expansion catalog ends
-with one consecutive miss; candidate014 starts relevance-diversity with
-relevance weight `1.0` and both novelty weights at zero.
+completed with six retained gains, so a second round begins. Candidate018 scored
+59.91% with `bm25.b=0.25`, its first miss in this round. Candidate019 now tests
+`bm25.b=0.0` on the retained candidate011 base.
+Adaptive now retains 66.21%, up from 60.04%. Candidate014 gained with relevance
+weight `1.0` and both novelty weights at zero on the retained `bm25.k1=3.0`,
+title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 tests
+relevance `0.9` and both novelty weights approximately `0.05`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 52 completed variants: 46 qualified measurements
+The current audit contains 54 completed variants: 48 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -30,9 +29,18 @@ The preceding [first audit](status-001/README.md),
 [fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md),
 [sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md),
 [eighteenth audit](status-018/README.md), [nineteenth audit](status-019/README.md),
-[twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md)
-and [twenty-second audit](status-022/README.md)
+[twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md),
+[twenty-second audit](status-022/README.md) and [twenty-third audit](status-023/README.md)
 remain unchanged.
+
+The [fifth Adaptive gain](adaptive-progress-005/README.md) adds 0.85 percentage
+points over candidate012 and 6.17 over the baseline. Recall gains 2.71 points
+and full reference coverage gains 4.86 against candidate012, while MRR loses
+0.0850 points. The [application breakdown](adaptive-progress-005/subgroups.md)
+preserves a Fireflies decline from 80.52% to 69.60%, plus smaller Gmail and Jira
+regressions. There are 27 improved, 12 regressed and 73 tied eligible questions
+against candidate012. Its fourteen-variant prefix and next sealed mutation
+replayed exactly; the prior profile remains archived as complementary evidence.
 
 The [Classical diversity stopping audit](classical-diversity-001/README.md)
 replays the seventeen-variant prefix, its three qualified ties, first-round
@@ -86,17 +94,20 @@ A digest-bound [follow-up plan](classical-source-cap-001/plan-review.md) separat
 a cap-only treatment from a document-identity treatment. It has no new candidate
 score or reserved independent validation; the live E7 protocol is unchanged.
 
-The [provisional cross-family comparison](retained-cross-family-004/README.md)
-aligns the four retained profiles from status022 across all question categories
+The [provisional cross-family comparison](retained-cross-family-005/README.md)
+aligns the four retained profiles from status024 across all question categories
 and application groups. Among these four, Embeddings has the highest nDCG in
-Confluence, GitHub and Slack; Adaptive in Fireflies; and Legacy in the other
-five application groups. Legacy has the highest aggregate, while Embeddings
-leads the project-related category. These descriptive development means use
+Confluence, GitHub and Slack; Classical in Fireflies; and Legacy in the other
+five application groups. Classical's Fireflies score is unchanged; this change
+in the highest retained profile follows Adaptive's regression there. Legacy
+has the highest aggregate, Adaptive leads completeness and Embeddings leads
+the project-related category. These descriptive development means use
 matching question denominators and preserve exact ties. The four unmeasured
 families are omitted, and the comparison does not change a selected profile.
 The [first comparison](retained-cross-family-001/README.md),
-[second comparison](retained-cross-family-002/README.md) and
-[third comparison](retained-cross-family-003/README.md) remain unchanged.
+[second comparison](retained-cross-family-002/README.md),
+[third comparison](retained-cross-family-003/README.md) and
+[fourth comparison](retained-cross-family-004/README.md) remain unchanged.
 
 The [first Adaptive expansion trial](adaptive-expansion-001/README.md) illustrates
 a metric tradeoff: recall gains 0.0788 percentage points, but nDCG loses 0.8395
@@ -104,7 +115,7 @@ and MRR loses 1.1243 against candidate009. Full reference coverage is unchanged.
 There are 6 improved, 5 regressed and 101 tied eligible questions, but the
 weighted losses exceed the gains. The fixed nDCG objective retained candidate009
 at that checkpoint. The ten-variant prefix and next zero-expansion contract
-replayed exactly. The later candidate012 gain is reflected in the current matrix.
+replayed exactly. Later gains supersede that checkpoint in the current matrix.
 
 The [third Adaptive gain](adaptive-progress-003/README.md) reduces title weight
 to `1.0` on the retained `bm25.k1=3.0` base. It gains 5.20 percentage points
