@@ -14,6 +14,62 @@ spec.loader.exec_module(REPORT)
 CONTROLLER = REPORT.load_controller()
 
 
+def report_integrity_fixture(tmp_path, monkeypatch):
+    roots = {'source_files': tmp_path / 'repo', 'workspace_files': tmp_path / 'work',
+             'historical_files': tmp_path / 'history'}
+    for key, attribute in (('source_files', 'REPO'), ('workspace_files', 'WORK'), ('historical_files', 'HISTORY')):
+        monkeypatch.setattr(REPORT, attribute, roots[key])
+    contract = {}
+    paths = []
+    for key, root in roots.items():
+        path = root / 'input.txt'
+        path.parent.mkdir()
+        path.write_text('frozen', encoding='utf-8')
+        contract[key] = {'input.txt': REPORT.CORE.sha(path)}
+        paths.append(path)
+    external = tmp_path / 'external.txt'
+    external.write_text('frozen external', encoding='utf-8')
+    monkeypatch.setattr(REPORT.CORE, 'host', lambda path: external)
+    contract['external_read_only_files'] = {'/mnt/c/external.txt': REPORT.CORE.sha(external)}
+    return contract, paths + [external]
+
+
+def test_offline_reporting_verifies_every_frozen_source_group(tmp_path, monkeypatch):
+    contract, _ = report_integrity_fixture(tmp_path, monkeypatch)
+    assert REPORT.verify_report_files(contract) == 4
+
+
+@pytest.mark.parametrize('index', range(4))
+def test_offline_reporting_rejects_drift_in_every_frozen_source_group(tmp_path, monkeypatch, index):
+    contract, paths = report_integrity_fixture(tmp_path, monkeypatch)
+    paths[index].write_text('changed', encoding='utf-8')
+    with pytest.raises(ValueError, match='integrity mismatch'):
+        REPORT.verify_report_files(contract)
+
+
+@pytest.mark.parametrize('path', ['../escape', '/absolute', 'C:/absolute'])
+def test_report_contract_cannot_escape_its_declared_source_base(tmp_path, monkeypatch, path):
+    contract, _ = report_integrity_fixture(tmp_path, monkeypatch)
+    contract['source_files'] = {path: '0' * 64}
+    with pytest.raises(ValueError, match='source path'):
+        REPORT.verify_report_files(contract)
+
+
+@pytest.mark.parametrize('tamper', ['unsealed', 'validation', 'holdout', 'stopped', 'completed', 'planned'])
+def test_intermediate_report_never_opens_or_follows_a_private_gate(tamper):
+    state = {'designSeal': {'digest': 'fixture'}, 'validationRelease': None, 'holdoutRelease': None,
+             'stages': {'evolve': {'status': 'running'}}}
+    REPORT.verify_report_state(state)
+    if tamper == 'unsealed':
+        state['designSeal'] = None
+    elif tamper in ('validation', 'holdout'):
+        state[tamper + 'Release'] = {'digest': 'fixture'}
+    else:
+        state['stages']['evolve']['status'] = tamper
+    with pytest.raises(ValueError, match='unopened'):
+        REPORT.verify_report_state(state)
+
+
 def metrics(value):
     """Return fixture-only verifier metrics, not empirical Harbor results."""
     return {key: value for key in REPORT.CORE.METRICS}

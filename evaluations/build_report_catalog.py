@@ -210,6 +210,10 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files: dict[str, str] = {}
     overview = ["# Evaluation report hub", "", "Reviewed results organized by dataset, skill, and cost/time/quality (CTA).",
                 "", "[By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)", "",
+                "The [EnterpriseRAG continuation E8](evolution/e8/README.md) owns the current native execution status. "
+                "Its [five-family matrix](evolution/e8/retained-cross-family-001/README.md) compares retained development "
+                "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
+                "Construction failures and unattempted admissions remain explicit; these partial results do not enter the final all-500 table.", "",
                 "The [stratified Enterprise evolution E7](evolution/e7/README.md) covers all eight families "
                 "on 120 development questions and 6,000 complete documents. Its "
                 "[strategy coverage](evolution/e7/strategy-coverage.md) distinguishes declared mechanisms, "
@@ -344,6 +348,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     cta.extend(["[Knowledge-skill generator: deterministic construction quality and execution cost](../evolution/generator-g2/README.md)", ""])
     cta.extend(["[EnterpriseRAG generator replay: fixed full-text retrieval and construction costs](../enterprise-generator-g2/cta.md)", ""])
     cta.extend(["[EnterpriseRAG full corpus: Classical construction, 500-query latency and separate answer-stage usage](../enterprise-classical-full/cta.md)", ""])
+    cta.extend(["[Turso E8: original SQL baseline versus retained BM25 candidate, build time and query latency](../evolution/e8/turso-progress-001/cta.md)", ""])
     files["cta/README.md"] = "\n".join(cta)
     files["catalog.json"] = json.dumps({"schema_version": "evaluation-report-catalog/1.0", "datasets": datasets,
                                       "token_source_sha256": hashlib.sha256(token_text.encode()).hexdigest()},

@@ -8,6 +8,20 @@ preserves the observed evidence. [ADR 0130](../.specs/adr/0130-continue-interrup
 defines the new study boundary; the [E8 overview](../evaluations/reports/evolution/e8/README.md)
 owns current execution status.
 
+E8 subsequently exposed a native Compose process-classification gap. Entity
+Graph and Ensemble were refused before any native trial; the
+[independent diagnosis](../evaluations/reports/evolution/e8/dispatch-control-001/README.md)
+and [ADR 0131](../.specs/adr/0131-correct-sealed-enterprise-admission-prospectively.md)
+preserve the exact evidence and prospective correction boundary. The current
+sealed controller continues independent lanes. Completed artifact-only reports
+remain permissible after source verification; they do not authorize new jobs.
+
+The separate [prospective scope helper](../evaluations/enterprise_execution_scope.py)
+recognizes native Compose CLI/plugin forms and binds exceptions to declared
+absolute host roots. Its caller must still verify source aliases, process
+ownership, all historical ledgers and current-study mounts. It has no runtime
+inventory, reservation or dispatch interface and is not loaded by E8.
+
 ## Execution order
 
 The native Pareto owner revalidates the 66 exact completed E7 job/skill mappings
@@ -95,6 +109,13 @@ case aggregates. Its family, application/category, route and CTA pages distingui
 gain over baseline from gain over the actual previous incumbent. An intermediate
 report cannot freeze, promote or install a candidate, reopen a stage, or replace
 the final all-eight report.
+
+The prefix publisher verifies every frozen source group and the maintained
+organizer's deep source/ledger state without invoking live dispatch admission.
+It records that artifact-only scope in the aggregate. Development must still be
+running and private gates unopened. The
+[first Turso candidate report](../evaluations/reports/evolution/e8/turso-progress-001/README.md)
+exercises this path with a complete, locked native baseline/candidate comparison.
 
 Run the focused continuation/sweep tests after source changes and the repository
 coverage gate before implementation closure. Sealed inputs are immutable; a

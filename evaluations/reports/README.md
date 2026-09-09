@@ -4,6 +4,8 @@ Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
 [By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)
 
+The [EnterpriseRAG continuation E8](evolution/e8/README.md) owns the current native execution status. Its [five-family matrix](evolution/e8/retained-cross-family-001/README.md) compares retained development profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). Construction failures and unattempted admissions remain explicit; these partial results do not enter the final all-500 table.
+
 The [stratified Enterprise evolution E7](evolution/e7/README.md) covers all eight families on 120 development questions and 6,000 complete documents. Its [strategy coverage](evolution/e7/strategy-coverage.md) distinguishes declared mechanisms, native attempts and completed searches. The campaign page owns current progress; interim development scores do not enter the completed all-500 comparison table.
 
 The earlier [Enterprise evolution sweep E6](evolution/e6/README.md) follows eight knowledge families through a fixed tactic catalog, with three consecutive misses per tactic and a separate final validation gate. Its campaign page records the execution and publication status.

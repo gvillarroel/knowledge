@@ -7,9 +7,9 @@ selection, score or promotion decision.
 
 ## Native family evidence
 
-E7 measures deterministic retrieval on a stratified development subset of
+E7 and E8 measure deterministic retrieval on a stratified development subset of
 120 questions, 112 with references, and 6,000 reference-enriched full-text
-documents. Its four currently measured family routes share those questions and
+documents. Their five currently measured family routes share those questions and
 the frozen category weights. The all-500 paired comparison remains pending.
 
 | Family | Fixed primary route | Native result and development evidence | Supporting function or delivery evidence |
@@ -20,15 +20,20 @@ the frozen category weights. The all-500 paired comparison remains pending.
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
 | Entity Graph | `fusion` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
 | Ensemble | `quality` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
-| Graphify | `search` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md) |
-| Turso | `lexical-sql` | No completed native family trial yet; see the campaign overview for current execution. | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
+| Graphify | `search` | [Original E8 baseline construction timeout; no retrieval score](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
+| Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 
 Legacy and Embeddings have terminal searches. Classical and Adaptive were
 interrupted by a Windows update; the [interruption report](../evaluations/reports/evolution/e7/interruption-001/README.md)
 preserves both incomplete originals and the continuation boundary. An error has
 no retrieval measurement; it is not a measured zero.
-The synthetic audits for the four unstarted families do not replace their native
-baselines or consume development attempts.
+Turso now has a completed E8 baseline and one retained candidate gain. Its next
+candidate was refused before native dispatch; this is not a completed search.
+Graphify's original baseline exceeded the first construction budget;
+Entity Graph and Ensemble were refused before dispatch by a
+[confirmed control false positive](../evaluations/reports/evolution/e8/dispatch-control-001/README.md).
+The synthetic audits do not replace native baselines or consume development
+attempts. The two refused admissions likewise contain no native quality result.
 
 ## Mechanism evidence
 
@@ -42,6 +47,7 @@ baselines or consume development attempts.
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
 | Adaptive | Aspect allocation | [First native miss with 120 identical ordered payloads](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
+| Turso | SQL substring presence to in-memory BM25 | [First native qualified gain and application/category tradeoffs](../evaluations/reports/evolution/e8/turso-progress-001/README.md) |
 
 These are selected explanatory reports. The campaign's checkpoint history
 retains every completed attempt, including later misses that do not change a
@@ -53,8 +59,9 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
-| Current native execution and opportunity counts | [Interruption disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | All eight families: 66 completed jobs, two incomplete originals and four unstarted families |
-| Retained profiles by category and application | [Four-family matrix, revision 007](../evaluations/reports/evolution/e7/retained-cross-family-007/README.md) | Legacy009, Embeddings baseline, Classical022 and Adaptive014 on the stratified development subset |
+| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso baseline/candidate pair and one new Graphify construction error; additional native work remains active at this checkpoint |
+| Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
+| Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-001/README.md) | Legacy009, Embeddings baseline, Classical022, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |
 | Complete declared evolution catalog | [Strategy coverage](../evaluations/reports/evolution/e7/strategy-coverage.md) | Eight families and 117 predeclared variants per catalog round; declared options are not completed attempts |
 | Full-corpus Classical and Luna answers | [Separate full-corpus experiment](../evaluations/reports/enterprise-classical-full/README.md) | 511,962 physical documents and 500 questions under a distinct retrieval and answer/judge contract |

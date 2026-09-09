@@ -7,8 +7,7 @@ from datetime import datetime, timezone
 import importlib.util
 import json
 import math
-from pathlib import Path
-import subprocess
+from pathlib import Path, PurePosixPath
 import sys
 
 REPO = Path(__file__).resolve().parents[1]
@@ -17,6 +16,51 @@ HISTORY = REPO / 'tmp/e7'
 spec = importlib.util.spec_from_file_location('enterprise_progress_core', REPO / 'evaluations/publish_enterprise_stratified.py')
 CORE = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(CORE)
+
+
+def verify_report_files(contract):
+    """Verify frozen artifact inputs without admitting a new live execution."""
+    count = 0
+    for base, key in ((REPO, 'source_files'), (WORK, 'workspace_files'), (HISTORY, 'historical_files')):
+        for relative, expected in contract[key].items():
+            path = PurePosixPath(relative.replace('\\', '/'))
+            if path.is_absolute() or '..' in path.parts or ':' in relative:
+                raise ValueError('Invalid frozen report source path')
+            if CORE.sha(base / path) != expected:
+                raise ValueError('Frozen report source integrity mismatch')
+            count += 1
+    for path, expected in contract['external_read_only_files'].items():
+        if not path.startswith('/mnt/c/') or CORE.sha(CORE.host(path)) != expected:
+            raise ValueError('Frozen external report source integrity mismatch')
+        count += 1
+    return count
+
+
+def verify_report_state(state):
+    """Keep intermediate derivation within sealed development and closed gates."""
+    if (not state['designSeal'] or state['validationRelease'] or state['holdoutRelease']
+            or state['stages']['evolve']['status'] != 'running'):
+        raise ValueError('Expected sealed active development with unopened private gates')
+
+
+def verify_report_sources():
+    """Check native organizer/source commitments; do not invoke runtime admission."""
+    contract_path = WORK / 'execution-contract-v2.json'
+    count = verify_report_files(CORE.read(contract_path))
+    owner_path = REPO.parent / 'skill-arena/skills/harbor-organize-evaluations/scripts/manage_harbor_evaluations.py'
+    owner_spec = importlib.util.spec_from_file_location('enterprise_report_organizer', owner_path)
+    owner = importlib.util.module_from_spec(owner_spec)
+    sys.modules[owner_spec.name] = owner
+    try:
+        owner_spec.loader.exec_module(owner)
+        state = owner.build_state(WORK / 'study', verify_sources=True)
+        verify_report_state(state)
+    finally:
+        sys.modules.pop(owner_spec.name, None)
+    return {'scope': 'artifact-only', 'verified_files': count,
+        'execution_contract_sha256': CORE.sha(contract_path),
+        'organizer_source_verification': True, 'private_released': False,
+        'live_dispatch_admission_performed': False, 'native_jobs_dispatched': 0}
 
 
 def load_controller():
@@ -176,8 +220,7 @@ def inspect_measurement(family, native, questions):
 
 def collect(family, generation, normalized_path):
     """Collect one exact development prefix; sealed validation stays closed."""
-    subprocess.run([sys.executable, '-B', str(REPO / 'evaluations/enterprise-continuation/study_guard.py'),
-                    'development'], check=True, capture_output=True)
+    report_verification = verify_report_sources()
     protocol = CORE.read(WORK / 'protocol.json')
     contract = CORE.read(WORK / 'execution-contract-v2.json')
     history_path = WORK / 'historical-inputs.json'
@@ -219,6 +262,7 @@ def collect(family, generation, normalized_path):
                 'paired_cases': paired_cases(questions, arrays[reference], arrays[outcome['candidate']], indices)}
                 for reference in identifiers[:-1]]})
     return {'schema_version': 'enterprise-family-prefix-report/1.0', 'campaign': 'E8', 'status': 'partial-development',
+        'report_input_verification': report_verification,
         'snapshot_utc': datetime.now(timezone.utc).isoformat(), 'family': family, 'through_generation': generation,
         'treatment': protocol['treatments'][family], 'primary_route': CORE.PRIMARY[family], 'rows': rows, 'groups': subgroups,
         'candidate': outcome['candidate'], 'previous_incumbent': previous, 'retained_candidate': outcome['best_candidate'],
