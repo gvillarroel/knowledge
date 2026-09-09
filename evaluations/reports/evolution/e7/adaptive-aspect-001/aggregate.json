@@ -1,0 +1,94 @@
+{
+  "auditor_sha256": "9b59fce86b3308877b609cac79e1751e35824c81e1e583896fedb40a54523291",
+  "bindings": [
+    {
+      "archive_sha256": "1a00ef4e70216b1cebe89e4b95f98e5a6a72d3bb9427fb9db7ba8fb248540938",
+      "candidate": "candidate-014",
+      "diagnostics_sha256": "2b3477ff371e84220fba3cb94b7fc9db654f2e198bac71ca03baf018f180da5f",
+      "job_result_sha256": "b26924266afd5742e536dfeb63d8520cfb8a05c62e8efb4290d9a6582d4fb805",
+      "lock_sha256": "3c82ccd580be770944d33640ad73329c4b9262491a84d6015e3158454b803c1a",
+      "native_job_seconds": 1380.233265,
+      "plan_sha256": "79b3fddd154cccfaa5ca8658f05f48f17b866bdeeac3bd7ab88ce0d303b92cf0",
+      "primary_metrics": {
+        "full_qrel_coverage_at_10": 0.6927083333333334,
+        "mrr_at_10": 0.673708734380277,
+        "ndcg_at_10": 0.6620879880681476,
+        "p95_ms": 8286.94341800292,
+        "recall_at_10": 0.7402260638297873
+      },
+      "progress_sha256": "f7579a67cc4df80c4e9e1f079b09e1cf2bca6ad47b38848eb38011074184391d",
+      "response_path": "search/adaptive/development/generation-014/harbor-jobs/enterprise-e7-adaptive-g014-development-candidate-014/retrieval-44d0d1df6ab3ca066427__mG5m8qx/artifacts/response.json",
+      "response_sha256": "24fcb82d038238dfdb15d9d72bf0357f5bb44c34c0436d410042e10da534174e",
+      "score": 0.6620879880681476,
+      "trial_result_sha256": "6d74e254f1a6eb6095132674658ea645090bb3731af273cd63321542068e4f83"
+    },
+    {
+      "archive_sha256": "9558caef776b2ca96ba234b3e5d496eb9a58ae80567e5dcb2c86a141ab3474ff",
+      "candidate": "candidate-017",
+      "diagnostics_sha256": "2559937e4fc0c4a272d935927400d0e6ce5eca7e92080aecfb19ca0a005981e1",
+      "job_result_sha256": "796721592b45c28cde48d5cd72a94b1f1ee4ccfb1ab32fc7aec9bded7232be40",
+      "lock_sha256": "a064ec342fd1332ef289069c3f68ac690711946a38caec30aff3aedf6922cd3b",
+      "native_job_seconds": 1380.1229,
+      "plan_sha256": "03b334fde9deb5bb2b8a9ab3827bad574cda749dc902d54c24f6ca5366a3bcbc",
+      "primary_metrics": {
+        "full_qrel_coverage_at_10": 0.6927083333333334,
+        "mrr_at_10": 0.673708734380277,
+        "ndcg_at_10": 0.6620879880681476,
+        "p95_ms": 8316.386010003043,
+        "recall_at_10": 0.7402260638297873
+      },
+      "progress_sha256": "d163782a8737561eaeb130dc22724f17d208f5ee0cc749f28e279b66bea1ccc3",
+      "response_path": "search/adaptive/development/generation-017/harbor-jobs/enterprise-e7-adaptive-g017-development-candidate-017/retrieval-44d0d1df6ab3ca066427__qoH5GoH/artifacts/response.json",
+      "response_sha256": "fbcece5fdefef228d239acd9d858390bc6fea2339a4747f65ddd9344b67506d6",
+      "score": 0.6620879880681476,
+      "trial_result_sha256": "0f2bd0860206365d02dbf766e29fb46e7b34bc388b748a950a4ee0705069d8d2"
+    }
+  ],
+  "candidate_hit_count_distribution": {
+    "10": 120
+  },
+  "causal_protection_attribution_established": false,
+  "compared_candidates": [
+    "candidate-014",
+    "candidate-017"
+  ],
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "exactly_identical_metric_dict_cases": 120,
+  "exactly_identical_ordered_hit_payload_cases": 120,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family_search_complete": false,
+  "full_query_protection_metadata_observed": false,
+  "new_native_trials": 0,
+  "next_strategy": "aspect-allocation",
+  "next_variant": {
+    "adaptive.aspect_weight": 0.5
+  },
+  "normalized_report_sha256": "9e2df9356c9e63d0c1418fe1cf4b5e87f279d6462126ddd5ad3e4fce357720e1",
+  "prefix_audit_sha256": "1ac760e0b12e5b9b1135f2013fe152710401d2faf3db6cb4a147187c3b00fb2a",
+  "profile_promoted": false,
+  "published_at_utc": "2026-09-09T02:43:51.091570+00:00",
+  "publisher_sha256": "913041cd5110c789dc4280d9a4e7c5b6f2db296f5223cf2c8de3b2e967561733",
+  "qualified_attempt": {
+    "archive": "/mnt/c/Users/villa/dev/knowledge/tmp/e7/search/adaptive/development/generation-017/pareto-archive.json",
+    "best_candidate": "candidate-014",
+    "best_score": 0.6620879880681476,
+    "candidate": "candidate-017",
+    "consecutive_failures": 1,
+    "improved": false,
+    "job": "/mnt/c/Users/villa/dev/knowledge/tmp/e7/search/adaptive/development/generation-017/harbor-jobs/enterprise-e7-adaptive-g017-development-candidate-017",
+    "qualified": true,
+    "score": 0.6620879880681476,
+    "strategy": "aspect-allocation",
+    "variant": {
+      "adaptive.aspect_weight": 0.0
+    }
+  },
+  "questions": 120,
+  "retrieval_eligible": 112,
+  "schema_version": "enterprise-e7-adaptive-aspect-publication/1.0",
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "semantic_retries": 0,
+  "source": "original-native-harbor-development",
+  "source_audit_sha256": "5267e8de7abe65dacbe4dae932bf237a555eff9f0fbcefa2df03459529af3e61"
+}

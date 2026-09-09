@@ -167,6 +167,14 @@ including the first comparison's algorithm and token-match changes. The
 verifies ranking sensitivity, native database rebuild parity and read-only
 consultation; it contributes no Enterprise score or completed family trial.
 
+The [generated Turso delivery audit](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md)
+also verifies that changing only the experimental profile produces an identical
+portable expert. Its native `records --contains` default has a different search
+contract from the E7 SQL and BM25 wrappers. Exact-package installation and
+automatic inheritance by generated experts are distinct deliverables; the
+latter needs separately tested integration and must not inherit the E7 digest
+claim. The final Turso report records this empirical usage boundary.
+
 Before publishing, replay every family's stopping and selection history using
 the frozen scheduler and its existing native rewards. Reject missing attempts,
 changed incumbents, false stop reasons or disagreement with native archives.

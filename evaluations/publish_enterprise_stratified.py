@@ -458,7 +458,13 @@ def render(value):
                 'IDF, term saturation, length normalization and title weighting. Both treatments '
                 'retain the same authoritative database and registered `lexical-sql` route ID. '
                 'This profile does not add a SQL BM25 index or change the database schema. '
-                'Subsequent BM25 parameter changes must be attributed against their actual retained parent.']
+                'Subsequent BM25 parameter changes must be attributed against their actual retained parent.', '',
+                'The portable Turso expert has a separate default: native `records --contains` matches '
+                'the whole query substring in title, body or canonical record JSON and orders by concept ID. '
+                'Changing only the generator profile does not make that expert inherit the E7 wrapper. '
+                'The [generated-expert delivery audit](../../turso-generated-expert-001/README.md) verifies '
+                'this distinction. An exact-package installation must retain the measured E7 usage scope; '
+                'automatic inheritance requires separately tested integration.']
         files['skills/'+row['family']+'.md']='\n'.join(family_lines)+'\n'
     files['development.md']='\n'.join(lines)+'\n'
     return files
