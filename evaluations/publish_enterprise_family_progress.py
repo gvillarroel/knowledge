@@ -259,6 +259,16 @@ def render(value):
         'subgroups do not change retention. The separate native diagnostic reward threshold is 0.8.', '',
         '[Applications and categories](groups.md) · [All diagnostic routes](routes.md) · '
         '[Cost, time and quality](cta.md) · [Exact aggregate and evidence hashes](aggregate.json) · [Campaign](../README.md)']
+    if value['family'] == 'turso':
+        lines += ['', 'The registered `lexical-sql` route keeps its identifier across two execution modes. '
+            'The original empty-profile baseline ranks parameterized SQL substring presence. A nonempty '
+            'candidate profile loads canonical records from Turso and ranks normalized tokens with BM25 '
+            'in memory. The first gain therefore includes an algorithm and token-matching change; '
+            'later changes must be assessed against their actual BM25 parent. No SQL BM25 index or '
+            'database schema change is implied.', '',
+            'The [generated-expert delivery audit](../../e7/turso-generated-expert-001/README.md) '
+            'also distinguishes this measured consultation wrapper from the portable expert default. '
+            'A profile gain does not prove automatic inheritance by generated experts.']
     files = {'README.md': '\n'.join(lines) + '\n'}
     lines = ['# Applications and categories', '', '[Family report](README.md)', '',
         'Scores retain the frozen population weights. Application groups overlap and are not independent datasets. '

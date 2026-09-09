@@ -1,11 +1,12 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 05:05 UTC: independently reviewed, design-sealed and active.
-The native owner has revalidated 47 completed historical jobs: 17 Legacy,
-seven Embeddings and 23 Classical. Adaptive's 19-job import is in progress.
-The imports retain the original best candidates and do not execute new trials.
-All four imports precede the four new baseline opportunities. No new completed
-E8 score is published in this checkpoint.
+Status at 2026-09-09 05:11 UTC: independently reviewed, design-sealed and active.
+The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
+seven Embeddings, 23 Classical and 19 Adaptive. All imports retained the original
+best candidates and executed zero new trials. The new Turso and Graphify
+baselines are now running in their native containers; Entity Graph and Ensemble
+follow in the same two-worker baseline pass. No new completed E8 score is
+published in this checkpoint.
 The private gate remains unopened.
 
 E8 continues the remaining opportunities after the

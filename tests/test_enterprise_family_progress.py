@@ -233,6 +233,8 @@ def test_rendering_labels_a_miss_against_the_actual_previous_incumbent(tmp_path)
     files = REPORT.render(value)
     assert '+5.00 percentage points versus baseline and -5.00 versus the previous incumbent' in files['README.md']
     assert 'Recorded retention: `continuation-001`' in files['README.md']
+    assert 'first gain therefore includes an algorithm and token-matching change' in files['README.md']
+    assert 'does not prove automatic inheritance by generated experts' in files['README.md']
     assert 'Historical job' in files['README.md'] and 'not the total campaign workload' in files['cta.md']
     assert set(files) == {'README.md', 'groups.md', 'routes.md', 'cta.md'}
 
