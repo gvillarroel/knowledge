@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 11:44 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 12:07 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -21,7 +21,7 @@ The private gate remains unopened.
 
 ## Opportunity coverage across all eight strategies
 
-This fixed checkpoint covers completed work through Classical `continuation-012`.
+This fixed checkpoint covers completed work through Classical `continuation-013`.
 Variant counts exclude baselines, the two interrupted originals and any later
 or currently running job. They combine the [original E7 inventory](../e7/interruption-001/README.md)
 with the completed E8 prefixes linked below; historical imports add no attempt.
@@ -30,7 +30,7 @@ with the completed E8 prefixes linked below; historical imports add no attempt.
 | --- | ---: | --- | --- |
 | Legacy | 16 | [Declared catalog reached its stopping rule](../e7/legacy-complete-001/README.md) | Required joint replay and final comparisons |
 | Embeddings | 6 | [Both declared mechanisms stopped after construction timeouts](../e7/embeddings-complete-001/README.md); baseline retained | Required joint replay and final comparisons; failed variants have no quality measurement |
-| Classical | 34 | [Twelve E8 variants completed](classical-progress-012/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
+| Classical | 35 | [Thirteen E8 variants completed](classical-progress-013/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
 | Adaptive | 18 | E7 prefix retained; first E8 proposal refused before dispatch | Continue remaining opportunities under a corrected prospective design; original interrupted profile remains unavailable |
 | Entity Graph | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
 | Ensemble | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
@@ -117,6 +117,13 @@ errors or retries. The same incumbent remains retained; the
 [application/category evidence](classical-progress-012/groups.md) and
 [CTA](classical-progress-012/cta.md) preserve the paired outcomes and original
 resource observations.
+The [first title-weight trial in this round](classical-progress-013/README.md)
+used weight 4 and qualified at 49.18%, 12.92 percentage points below the retained
+62.10%. Three eligible questions improved, thirty regressed and 79 tied.
+It records the first miss in the title mechanism, with zero execution errors
+or retries. The same incumbent remains retained; the
+[application/category evidence](classical-progress-013/groups.md) and
+[CTA](classical-progress-013/cta.md) preserve the full paired comparison.
 
 ## Retained development measurements
 
