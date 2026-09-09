@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 08:02 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 08:20 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -37,6 +37,11 @@ The [stronger expansion trial](classical-progress-004/README.md) then used
 association/topic weights 0.7/0.4 and measured 60.13%, 1.98 percentage points
 below that incumbent. It qualified without errors and recorded a second
 consecutive miss. The 62.10% candidate remains retained.
+The next [relevance-only reranking trial](classical-progress-005/README.md)
+disabled source and topic novelty and tied that incumbent on all four primary
+metrics. It qualified with zero errors and recorded the first miss in the new
+`relevance-diversity` mechanism. This counter is separate from expansion's two
+misses; the frozen controller continues the remaining declared opportunities.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -95,8 +100,11 @@ replacement design retained its consumed costs and all required checks. That
 eight paired layout cells, 48 constructions/check rebuilds, 330 reads and sixteen
 declared corruption rejections completed in 301.75 host seconds. Original and
 candidate packages agreed within layouts; verified graph/query semantics agreed
-across layouts. Native full-workload feasibility and retrieval quality remain
-unmeasured.
+across layouts. The following [two environment probes](graphify-executor-probes-001/README.md)
+passed with the exact 252-file candidate, pinned images, effective CPU/memory
+limits and declared read-only mounts. They consumed no native trial. Actual
+Harbor-generated access and full-workload qualification still require the
+separately reviewed native caller; retrieval quality remains unmeasured.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

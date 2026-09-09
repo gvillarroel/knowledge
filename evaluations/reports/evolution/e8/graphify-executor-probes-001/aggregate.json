@@ -1,0 +1,97 @@
+{
+  "all500_complete": false,
+  "all_probe_containers_removed": true,
+  "concurrency": 1,
+  "container_starts": 2,
+  "effective_harbor_generated_mounts_measured": false,
+  "execution_artifact": {
+    "byte_count": 3940236,
+    "directory_sha256": "3944856d19c8a7ed72bcd8a5bdd36a7e1d9d0311ff541378fe1f4691e0be058a",
+    "file_count": 6
+  },
+  "independent_review": {
+    "directory_sha256": "ff9f256a378f282a4704b269e955f9ed4d1dcee40334edd96fc66d0d8a990f1a",
+    "file_count": 17,
+    "isolated_cases_passed": 78,
+    "source_bindings": 30,
+    "source_map_entries": 10
+  },
+  "limits": [
+    "Image and declared resource probes, not effective Harbor-generated mounts or a native trial.",
+    "Only module definitions imported; no builder, snapshot instance, query, scoring or model.",
+    "Verifier used a synthetic reference only. UID zero and trusted-host custody are not adversarial secrecy."
+  ],
+  "model_calls": 0,
+  "native_fitness": null,
+  "native_qualification": false,
+  "native_trials": 0,
+  "per_docker_operation_timeout_seconds": 60,
+  "private_validation_released": false,
+  "profiles": {
+    "agent": {
+      "builders_queries_verifiers_models_run": false,
+      "complete_package_unchanged_after_import": true,
+      "container_exit_code": 0,
+      "declared_readonly_mount_count": 3,
+      "effective_cpu_limit": 2,
+      "effective_memory_bytes": 6442450944,
+      "exact_imported_modules": {
+        "assets/families/graphify/builder/scripts/_graphify_projection.py": "257cf75c3419bafcf100371d95a48a6350b75a6cd74558544394e76b61903a19",
+        "assets/families/graphify/consultant/scripts/_graphify_snapshot.py": "0f1aa99076cae1c1875b93b79be8d7b17b750baf8c19bda8f52efd4272f7a6dd"
+      },
+      "exact_staged_package": true,
+      "external_knowledge_empty": true,
+      "image": "sha256:8fdc1911c64a7b103939051d1062899ea4463fa8151342a27700db67dae82f98",
+      "initial_workspace_empty": true,
+      "input_file_modes_nonwritable": true,
+      "native_trials": 0,
+      "network_interfaces": [
+        "lo"
+      ],
+      "role": "agent",
+      "runtime_sha256": {
+        "bridge.py": "c2b305449f7b1b97a40c739207f6d89a4f753b4266b22ae52b096b46a90341a1",
+        "evaluate_all_routes.py": "62668c1fbeafd10f273afc3b8d8f63b8b9b1f0f890da41fc1984c63401db677b",
+        "legacy_comparator.py": "d4496200249313ffd223de98bd3fa269d95a3087a96b4e7e4f5202a71ddbd658",
+        "prepare_strategy_bundles.py": "274281cd7f256215687d6c91deb754c0057c6403ac56ef28ee4888119ab7b58f"
+      },
+      "staged_skill_file_count": 252,
+      "status": "pass",
+      "task_contents_read": false,
+      "undeclared_paths_absent": 7
+    },
+    "verifier": {
+      "actual_reference_contents_mounted": false,
+      "builders_queries_verifiers_models_run": false,
+      "container_exit_code": 0,
+      "declared_readonly_mount_count": 4,
+      "effective_cpu_limit": 2,
+      "effective_memory_bytes": 2147483648,
+      "external_knowledge_empty": true,
+      "image": "sha256:bcd2b2b57b968ff8b4976bedf8c5ddf7b7e2ff41c341f7a13a05ae4df2ffc9d8",
+      "initial_workspace_empty": true,
+      "native_trials": 0,
+      "network_interfaces": [
+        "lo"
+      ],
+      "role": "verifier",
+      "status": "pass",
+      "synthetic_reference_write_denied": true,
+      "task_contents_read": false,
+      "undeclared_paths_absent": 7
+    }
+  },
+  "retries": 0,
+  "schema": "graphify-public-executor-probe-summary/1.0",
+  "skill_installed": false,
+  "source_sha256": {
+    "agent_result": "c0ac4bbc35ad028ca8d86a5c94d684fb755451e2834dbae3a3e9b4f1b7c4664d",
+    "container_probe": "cf36d3c36974572a91242e55bf9c20c91ee7d10ea7c26ae9b55a6ba145ad3df4",
+    "execution_receipt": "864b60c2c5e4a389a65f2d2f66c5dd6506e604b4f3ea73c1d2ee4e950b6240f0",
+    "review_assessment": "295163468c93949fdc6e36f41688ef27262648f1d04e023bc4e58027bc97c3bb",
+    "review_receipt": "890ba829e7421fce5c4a732a2f2742fe53670c9fea6f6890453c4758008f1a2a",
+    "runner": "f147af39f15df93fba7fc80de7feceea5e31c85c053bd6f08340030433fb9e27",
+    "verifier_result": "2f5cac6dbeaf37d1999db5e3c22d795546bbbbc81a58ae8630533073c4bf68cc"
+  },
+  "status": "two-direct-docker-probes-passed-native-feasibility-pending"
+}

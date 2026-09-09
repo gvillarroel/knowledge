@@ -36,6 +36,13 @@ digest. The [preparation report](../evaluations/reports/evolution/e8/graphify-ta
 records this single-value correction; the workload and mutable paths remain
 unchanged. The superseded first proposal executed no native trial.
 
+The [complete public fixture design](../evaluations/reports/evolution/e8/graphify-fixture-success-002/README.md)
+subsequently passed artifact, graph and query parity in both physical layouts.
+The [two direct Docker probes](../evaluations/reports/evolution/e8/graphify-executor-probes-001/README.md)
+also passed exact-package, image, resource and declared-access checks. Neither
+result substitutes for the prospective caller's actual Harbor-generated mounts,
+native identities, complete workload and qualification gate.
+
 ## Execution order
 
 The native Pareto owner revalidates the 66 exact completed E7 job/skill mappings
