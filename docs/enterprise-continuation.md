@@ -84,6 +84,18 @@ same eighteen routes, all 500 question positions and 470 eligible cases in each
 arm. Its historical job totals count completed originals once; incomplete
 original runtime remains unavailable. Missing final evidence prevents publication.
 
+During active development, publish a completed family prefix with
+`python evaluations/publish_enterprise_family_progress.py --family <family> --generation <completed-generation> --normalized-report <native-report>/final-report.json --output <new-report-directory>`.
+First produce and inspect the native `harbor-run-results` comparison for the exact
+baseline, previous incumbent and observed candidate, in that order with duplicate
+references removed. Use `--compare --pass-threshold 0.8` and a new output path.
+The prefix publisher requires that exact locked native comparison, replays all
+preceding outcomes and inherited exclusions, and checks every route's weighted
+case aggregates. Its family, application/category, route and CTA pages distinguish
+gain over baseline from gain over the actual previous incumbent. An intermediate
+report cannot freeze, promote or install a candidate, reopen a stage, or replace
+the final all-eight report.
+
 Run the focused continuation/sweep tests after source changes and the repository
 coverage gate before implementation closure. Sealed inputs are immutable; a
 later implementation change requires a separately reviewed version rather than

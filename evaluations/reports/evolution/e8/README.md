@@ -1,9 +1,11 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 04:43 UTC: independently reviewed, design-sealed and active.
-The new supervisor has started the ordered development phase. Completed E7
-measurements are revalidated by the native owner before the four new baseline
-opportunities. No new completed E8 score is published in this checkpoint.
+Status at 2026-09-09 05:05 UTC: independently reviewed, design-sealed and active.
+The native owner has revalidated 47 completed historical jobs: 17 Legacy,
+seven Embeddings and 23 Classical. Adaptive's 19-job import is in progress.
+The imports retain the original best candidates and do not execute new trials.
+All four imports precede the four new baseline opportunities. No new completed
+E8 score is published in this checkpoint.
 The private gate remains unopened.
 
 E8 continues the remaining opportunities after the
@@ -42,6 +44,13 @@ The review directory digest is
 `4660244022088d6d157a67562778bd326cbf9437a96fe1920eba0bb45f1e2300`.
 These checks establish the declared execution boundary; they are not retrieval
 scores or measured all-500 completion.
+
+The [family progress publisher](../../../../evaluations/publish_enterprise_family_progress.py)
+requires an exact native comparison and replays cumulative decisions before
+publishing a completed candidate prefix. It distinguishes gain over baseline
+from gain over the actual previous incumbent and includes application/category,
+route and CTA views. The latest implementation gate passed 1,568 tests with
+90.7% application coverage. This verification does not supply retrieval scores.
 
 [Operating guide](../../../../docs/enterprise-continuation.md) ·
 [Decision](../../../../.specs/adr/0130-continue-interrupted-enterprise-search-prospectively.md) ·
