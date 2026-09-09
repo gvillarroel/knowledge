@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 08:54 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 09:19 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -47,6 +47,11 @@ used relevance/source/topic weights 0.9/0.05/0.05 and again tied all four primar
 metrics. It qualified without execution errors and counted the second miss in
 that mechanism. The same 62.10% incumbent remains retained; neither tie supplies
 a new quality gain.
+The [third reranking variant](classical-progress-007/README.md), with weights
+0.5/0.25/0.25, also qualified and tied all four primary metrics. It records the
+third consecutive miss, satisfying the declared mechanism stopping rule.
+`continuation-002` remains retained at 62.10%; remaining outer-round catalog
+opportunities continue under the same cumulative budget.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
