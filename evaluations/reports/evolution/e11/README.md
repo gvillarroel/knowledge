@@ -1,9 +1,15 @@
 # EnterpriseRAG E11: remaining family searches
 
 E11 is the active continuation of the eight-family EnterpriseRAG study. Its
-protocol, baseline and independent review are sealed. Three original E10
-measurements passed their exact import checks; the nine new starting roles are
-being evaluated before any new variant can be proposed.
+protocol, baseline and independent review are sealed. Seven of twelve starting
+roles have settled: three exact E10 imports and four new Classical/Adaptive
+measurements. The common starting gate is incomplete, so no new variant has
+been proposed.
+
+The [latest starting checkpoint](starting-progress-002/README.md) confirms exact
+reproduction of Classical's 55.04% to 62.10% nDCG@10 and Adaptive's 60.04% to
+66.21%. These advantages were measured in earlier evolution. The remaining
+starting roles and five open family searches are still pending.
 
 The [startup checkpoint](startup-001/README.md) records the completed imports,
 the first two running native jobs and an actual public-agent runtime check.
@@ -13,7 +19,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | --- | --- |
 | Legacy | Preserve its completed catalog and retained profile |
 | Embeddings | Preserve its completed catalog and construction failures |
-| Classical | Reproduce its starting scores; preserve its completed catalog |
+| Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
 | Entity Graph | Establish the common baseline and execute its catalog |
 | Ensemble | Establish the common baseline and execute its catalog |

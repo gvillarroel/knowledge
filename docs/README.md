@@ -40,7 +40,7 @@
 - [E8 terminal outcome: Classical plateau, all-eight claim accounting and five families still pending](../evaluations/reports/evolution/e8/terminal-001/README.md)
 - [E9 Graphify builder feasibility: completed native construction, 8.12% retrieval nDCG and CTA](../evaluations/reports/evolution/e9/README.md)
 - [E10 preserved startup: three reproduced native measurements, serialization-control refusal and remaining opportunities](../evaluations/reports/evolution/e10/README.md)
-- [E11 active continuation: exact E10 imports, first new native jobs and remaining family searches](../evaluations/reports/evolution/e11/README.md)
+- [E11 active continuation: exact E10 imports, reproduced Classical/Adaptive results and remaining family searches](../evaluations/reports/evolution/e11/README.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)

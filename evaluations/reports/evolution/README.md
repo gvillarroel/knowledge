@@ -4,8 +4,10 @@
 
 - [EnterpriseRAG continuation E11](e11/README.md): active remaining-family
   searches after exact import of three completed E10 measurements. The
-  [startup checkpoint](e11/startup-001/README.md) records the first new native
-  baseline executions and the actual public-agent runtime observation. The
+  [starting comparison checkpoint](e11/starting-progress-002/README.md) records
+  seven settled roles and exact Classical/Adaptive reproduction. The original
+  [startup checkpoint](e11/startup-001/README.md) preserves the actual
+  public-agent runtime observation. The
   all-eight starting gate, final comparisons and acceptance remain incomplete.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development

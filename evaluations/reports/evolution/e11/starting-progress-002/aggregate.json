@@ -1,0 +1,129 @@
+{
+  "all500_recalculation_complete": false,
+  "campaign": "E11",
+  "canonical_skill_installed": false,
+  "captured_at_utc": "2026-09-09T20:53:42.803782+00:00",
+  "common_starting_gate_complete": false,
+  "comparisons": [
+    {
+      "baseline": 0.5504213258483941,
+      "family": "classical",
+      "new_e11_evolution_gain": false,
+      "retained_advantage_percentage_points": 7.062715584187695,
+      "retained_start": 0.621048481690271
+    },
+    {
+      "baseline": 0.6003504668859466,
+      "family": "adaptive",
+      "new_e11_evolution_gain": false,
+      "retained_advantage_percentage_points": 6.173752118220099,
+      "retained_start": 0.6620879880681476
+    }
+  ],
+  "complete_corpus_documents": 6000,
+  "completed_original_imports": 3,
+  "new_completed_roles_in_this_checkpoint": 4,
+  "new_e11_evolution_gain": false,
+  "new_variant_claims": 0,
+  "population_weight": 470,
+  "private_released": false,
+  "public_leaderboard_rank_established": false,
+  "public_questions": 120,
+  "qualified_starting_roles_in_this_checkpoint": 7,
+  "required_starting_roles": 12,
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "candidate": "baseline",
+      "exact_reproduction": true,
+      "family": "legacy",
+      "historical_fitness": 0.611052744442418,
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.611052744442418
+    },
+    {
+      "candidate": "retained-start",
+      "exact_reproduction": true,
+      "family": "legacy",
+      "historical_fitness": 0.7237626950008386,
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.7237626950008386
+    },
+    {
+      "candidate": "baseline",
+      "exact_reproduction": true,
+      "family": "embeddings",
+      "historical_fitness": 0.6350525198647472,
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.6350525198647472
+    },
+    {
+      "candidate": "baseline",
+      "exact_reproduction": true,
+      "family": "classical",
+      "historical_fitness": 0.5504213258483941,
+      "measurement_campaign": "E11",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": true,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.5504213258483941
+    },
+    {
+      "candidate": "retained-start",
+      "exact_reproduction": true,
+      "family": "classical",
+      "historical_fitness": 0.621048481690271,
+      "measurement_campaign": "E11",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": true,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.621048481690271
+    },
+    {
+      "candidate": "baseline",
+      "exact_reproduction": true,
+      "family": "adaptive",
+      "historical_fitness": 0.6003504668859466,
+      "measurement_campaign": "E11",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": true,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.6003504668859466
+    },
+    {
+      "candidate": "retained-start",
+      "exact_reproduction": true,
+      "family": "adaptive",
+      "historical_fitness": 0.6620879880681476,
+      "measurement_campaign": "E11",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": true,
+      "new_variant_claim": false,
+      "weighted_ndcg_at_10": 0.6620879880681476
+    }
+  ],
+  "schema": "enterprise-e11-starting-progress/1.0",
+  "source_sha256": {
+    "tmp/e11/dispatch/adaptive/generation-000/receipt.json": "48ee8e64ebe261a35a11cef80053b2c6c7b7668c2f39b3d75c4ac5b2d705649d",
+    "tmp/e11/dispatch/classical/generation-000/receipt.json": "7406d5ae3732d355a16e1ea2ce95b8fd65d78d0f4fd5565322b98ae61d016107",
+    "tmp/e11/dispatch/embeddings/generation-000/receipt.json": "a87024088a615dfbafb9ca918e421df7fdc7ab051e66c70444173c9a4013fbcd",
+    "tmp/e11/dispatch/legacy/generation-000/receipt.json": "1a18eddb739c6384cb70ba82f2c3a7a3a9ee86c8fee5f36bce32fc2b96272ea0",
+    "tmp/e11/execution-contract.json": "e2b1801476a5bf92d2a41dfa0658a775031ae5ea40646cdc16bdc24d1d3bdb7b",
+    "tmp/e11/protocol.json": "5b725d9d233aea131dffafd9c921b47581c26d03642668877c733a8f78ef607e",
+    "tmp/e11/search/adaptive/development/generation-000/pareto-archive.json": "bd93cbd1bcd3d0916c598db80a4eb9516f1d076c8941f426d4137291ba8b6914",
+    "tmp/e11/search/classical/development/generation-000/pareto-archive.json": "7a23013ed538ed1627af54c0f8a700f80be40732dc2be3c1bbda02713ec22690",
+    "tmp/e11/search/embeddings/development/generation-000/pareto-archive.json": "88cd17e25b1019031367c286a23666f56cb6d0a3bc792e482631ce97f0a87c9b",
+    "tmp/e11/search/legacy/development/generation-000/pareto-archive.json": "17b8d786892a0b6b4c4b8e83c1a434801280a4dc1f34cec75aa1b5508693f441",
+    "tmp/enterprise-next-preparation/versioned-starting-roles-001/plan.json": "fe38b5111394acca50d4bf64f7c649b3a367f7f1c5e8a374d3531b7f05a4eede"
+  },
+  "status": "seven-settled-starting-roles-common-gate-incomplete"
+}
