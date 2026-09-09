@@ -4,20 +4,21 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-022/README.md) records two
+The latest [all-family progress audit](status-023/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
-weighted nDCG@10, up from 55.04%, after three consecutive expansion misses.
-Its fifteenth variant tied exactly with relevance weight `1.0` and both novelty
-weights at zero; its sixteenth variant also tied at relevance weight `0.9`.
-The seventeenth tests relevance weight `0.5` and both novelty weights `0.25`.
+weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
+ending that mechanism after three consecutive misses. Its first full round
+completed with six retained gains, so a second round begins. Candidate018 tests
+`bm25.b=0.25` on the retained candidate011 base.
 Adaptive now retains 65.36%, up from 60.04%. Its twelfth variant gained with
 association weight `0.175` and topic weight `0.1` on the retained `bm25.k1=3.0`,
 title-weight `1.0` base, resetting the counter after two expansion misses.
-The thirteenth tests association weight `0.7` and topic weight `0.4` on the
-newly retained base.
+The thirteenth gained recall but lost primary nDCG. The expansion catalog ends
+with one consecutive miss; candidate014 starts relevance-diversity with
+relevance weight `1.0` and both novelty weights at zero.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 50 completed variants: 44 qualified measurements
+The current audit contains 52 completed variants: 46 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -29,8 +30,17 @@ The preceding [first audit](status-001/README.md),
 [fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md),
 [sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md),
 [eighteenth audit](status-018/README.md), [nineteenth audit](status-019/README.md),
-[twentieth audit](status-020/README.md) and [twenty-first audit](status-021/README.md)
+[twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md)
+and [twenty-second audit](status-022/README.md)
 remain unchanged.
+
+The [Classical diversity stopping audit](classical-diversity-001/README.md)
+replays the seventeen-variant prefix, its three qualified ties, first-round
+gain and next sealed mutation. The [second Adaptive expansion tradeoff](adaptive-expansion-002/README.md)
+records a 0.3298-point nDCG loss alongside gains of 0.7878 points in recall and
+1.5403 points in full reference coverage. Its thirteen-variant prefix confirms
+catalog exhaustion after all four expansion settings, rather than a three-miss
+stop. Both family searches continue under the same frozen objective.
 
 The [fourth Adaptive gain](adaptive-progress-004/README.md) adds 0.13 percentage
 points over candidate009 and 5.33 over the initial baseline. Against candidate009,
@@ -41,6 +51,14 @@ Fireflies at 80.52% and Gmail at 71.70%. Every application-group mean is
 nondecreasing against candidate009, while the question-level regression remains
 visible. The exact twelve-variant prefix and next sealed contract replayed;
 this is a development gain, not a final promotion.
+
+The [completed-job CTA snapshot](development-cta-001/README.md) covers all 54
+native jobs bound by status022, including four baselines and 50 variants.
+Their durations sum to 17.82 job-hours, with 4.05 hours in the six failed
+Embeddings attempts. This is accumulated job time, not campaign wall time or
+billed time. Forty-eight jobs record zero native tokens and USD cost; six have
+missing accounting fields. Complete cost remains unavailable, and orchestration
+and machine costs are outside those native records.
 
 The [Ensemble protection audit](ensemble-protection-001/README.md) verifies the
 ranking opportunity of its quality weights with eight synthetic function cases.

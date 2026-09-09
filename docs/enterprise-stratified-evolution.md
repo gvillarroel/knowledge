@@ -93,6 +93,14 @@ evidence, separate verification, offline models and deterministic reconstruction
 Five families mutate construction settings; three mutate consultation settings.
 E7 makes no language-model calls and does not measure autonomous skill selection.
 
+The [development CTA snapshot](../evaluations/reports/evolution/e7/development-cta-001/README.md)
+binds completed-job durations, qualified results, internal failures and missing
+usage fields to an explicit campaign checkpoint. It includes baselines and
+rejected attempts, excludes in-flight jobs, and distinguishes accumulated job
+time from wall time and financial cost. Missing native token or USD fields
+remain unavailable; the deterministic benchmark contract does not measure
+orchestration or local machine cost.
+
 The [configuration audit](../evaluations/reports/evolution/e7/catalog-audit-001/README.md)
 checks plan acceptance and consultation parameter delivery without scoring.
 It identifies a conditional Adaptive limitation: protecting ten full-query

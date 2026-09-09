@@ -1,0 +1,297 @@
+{
+  "all500_complete": false,
+  "comparisons": [
+    {
+      "all_route_case_metric_dicts_identical": true,
+      "candidate": "candidate-015",
+      "paired_cases": {
+        "improved": 0,
+        "regressed": 0,
+        "tied": 112,
+        "without_references": 8
+      },
+      "primary_delta_pp": 0,
+      "reference": "candidate-011"
+    },
+    {
+      "all_route_case_metric_dicts_identical": true,
+      "candidate": "candidate-016",
+      "paired_cases": {
+        "improved": 0,
+        "regressed": 0,
+        "tied": 112,
+        "without_references": 8
+      },
+      "primary_delta_pp": 0,
+      "reference": "candidate-011"
+    },
+    {
+      "all_route_case_metric_dicts_identical": true,
+      "candidate": "candidate-017",
+      "paired_cases": {
+        "improved": 0,
+        "regressed": 0,
+        "tied": 112,
+        "without_references": 8
+      },
+      "primary_delta_pp": 0,
+      "reference": "candidate-011"
+    }
+  ],
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family": "classical",
+  "family_search_complete": false,
+  "first_round_retained_gains": 6,
+  "first_round_variants": 17,
+  "llm_calls": 0,
+  "native_diagnostic_pass_threshold": 0.8,
+  "new_native_trials": 0,
+  "next_contract_sha256": "b34b499b1f0e516f663766db2efcb9ee925c35527f2ae298c3c33fa2495e922e",
+  "next_strategy": "length-normalization",
+  "next_variant": {
+    "bm25.b": 0.25
+  },
+  "normalized_report_sha256": "1dd8d2b09801970ad3c97d46e2dbb0b1d6f8c3d521a425d99ed98c15da892ee2",
+  "prefix_audit_sha256": "7e5365cf680064c5900fa3d7765dd4c6efa9b2b46975503deb7a2e10bd9d426d",
+  "prefix_replayed_through_generation": 17,
+  "primary_route": "fusion",
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "protocol_sha256": "35f54228ba31973e77326445aa9d8f0786f6a172b51909af2f088f742120287c",
+  "questions": 120,
+  "retained_candidate": "candidate-011",
+  "retained_ndcg_at_10": 0.6009782041618646,
+  "retained_profile": {
+    "plan": {
+      "bm25.b": 1.0,
+      "bm25.k1": 3.0,
+      "bm25.title_weight": 1.0,
+      "expansion.association_weight": 0.0875,
+      "expansion.topic_weight": 0.05
+    },
+    "search": {}
+  },
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "archive_sha256": "4eec6e22b3cf6be980167558fd15b0e6f473620cf550f77f12da059b2c73d043",
+      "candidate": "candidate-011",
+      "consecutive_misses": 0,
+      "diagnostics_sha256": "3b7a857ec7d5f3206ef7bac54887fcef1d7e36fc98076fe3de9b8f63e3fad14f",
+      "evidence_integrity": 1,
+      "job_result_sha256": "1bb8e4f1c95e4fb705d9c16de50051be54b86b069b1cb9c462e4458ecc783dda",
+      "lock_sha256": "3d5e963cd2165552355ec7cb13389b5b8078cbe85925b91a3b14fd57f4d4830d",
+      "native_errors": 0,
+      "native_job_seconds": 1616.421967,
+      "progress_sha256": "cb2f4c645cca5c731a65a666b88f3dccb37529849c9bd6dbf1abe104809b22a6",
+      "retries": 0,
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2120.2066959995136,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2172.7243329987687,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2189.1233589994954,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2188.8378609983192,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "ed79c2ef4dd698cab4bd844be5ede925f5ca5c5bb63dec3c90af97df5c872fc4",
+      "variant": {
+        "expansion.association_weight": 0.0875,
+        "expansion.topic_weight": 0.05
+      }
+    },
+    {
+      "archive_sha256": "7ddd6ae78f0ec3dea26eada65a0c59a2ef9dd4c06bdfb66f8f9344cfd5c901e2",
+      "candidate": "candidate-015",
+      "consecutive_misses": 1,
+      "diagnostics_sha256": "63748b1021db67bd9a726d1cde1c166eec1dd9a8b8185066b08281014a054ddf",
+      "evidence_integrity": 1,
+      "job_result_sha256": "d609d9edeb29268fbf5761eb4bb4d002937567f59e9750e93444a77c36d5f1a6",
+      "lock_sha256": "ccc5f15b6fb13a4edd6b46d6b13b580e7f788815454faf8eddc336709da909f3",
+      "native_errors": 0,
+      "native_job_seconds": 1711.812698,
+      "progress_sha256": "d345dcfc16169a08bf1b47d8ebc5a806cd21350c1bc8463dc920e59cfd914e42",
+      "retries": 0,
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2109.6468699979596,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2314.5532380003715,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2084.5419870020123,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2223.104839998996,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "699e8b4565ae4eccf34d11b254e7302df61fe5f8beb291c57ff8feb0286f776f",
+      "variant": {
+        "reranking.relevance_weight": 1.0,
+        "reranking.source_novelty_weight": 0.0,
+        "reranking.topic_novelty_weight": 0.0
+      }
+    },
+    {
+      "archive_sha256": "3fc7ff1f195b4c36c51eb1c20ee15f5f0eddd43afd62fd9edb30d230848f2178",
+      "candidate": "candidate-016",
+      "consecutive_misses": 2,
+      "diagnostics_sha256": "c79133cf4935855a8dc04b660a3189870d0c2cec145126bfef03f12d868dcf5b",
+      "evidence_integrity": 1,
+      "job_result_sha256": "65d541ea2ebdf9e6fcb905e7179cce52ba2cd84144a6f63b840fb35394c5a9ff",
+      "lock_sha256": "f8f9568bda4546fb413c9f66d30780a14ea97cf5b6cb893afddf1e54a887f245",
+      "native_errors": 0,
+      "native_job_seconds": 1629.53849,
+      "progress_sha256": "76c8d3e9c4d3596de0d152a8d38aac1c8b67c8fd2189947f3cf20b370c4b29ef",
+      "retries": 0,
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2066.576905999682,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2099.51967500092,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2099.0957399990293,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2099.0521400017315,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "c0d78c21677fd4085899c5e31027f6dbd15c2654739b77ae94cb7e64a5b553e5",
+      "variant": {
+        "reranking.relevance_weight": 0.9,
+        "reranking.source_novelty_weight": 0.04999999999999999,
+        "reranking.topic_novelty_weight": 0.04999999999999999
+      }
+    },
+    {
+      "archive_sha256": "b8072788edfa042fd26ab1ee11d98fb414f19e15cd81284465143265cbcd87c9",
+      "candidate": "candidate-017",
+      "consecutive_misses": 3,
+      "diagnostics_sha256": "561788df02d48663f87b10e3f5345bbbd808662722c023bdacb7985a511bfbb1",
+      "evidence_integrity": 1,
+      "job_result_sha256": "5be2c605fe5ddddd9f28f10100d4915d0395102cd384e8ec67eaf19166b7d068",
+      "lock_sha256": "2efd0106e98944325066a609a064d41c55f5d8a75264b652447ec9310e351197",
+      "native_errors": 0,
+      "native_job_seconds": 1603.227391,
+      "progress_sha256": "c8cb4b18ec0a6c214018c49238618027151c3f5938979d959800d38c50a67d04",
+      "retries": 0,
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2071.9344550016103,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2060.333831999742,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2122.333974002686,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2089.7536470001796,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "73539adb2db1137f9104c9e77b8a6d499fd3605c33b5ba49fb4bdc3880e45e83",
+      "variant": {
+        "reranking.relevance_weight": 0.5,
+        "reranking.source_novelty_weight": 0.25,
+        "reranking.topic_novelty_weight": 0.25
+      }
+    }
+  ],
+  "schema_version": "enterprise-e7-classical-diversity-stopping/1.0",
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "snapshot_utc": "2026-09-09T00:51:49.599606+00:00",
+  "status": "first-round-complete-second-round-in-progress",
+  "transition_events": [
+    {
+      "event": "strategy-finished",
+      "failures": 3,
+      "reason": "three-consecutive-failures",
+      "strategy": "relevance-diversity",
+      "unused_variants": 0
+    },
+    {
+      "event": "round-finished",
+      "improved": true,
+      "round": 1,
+      "score": 0.6009782041618646
+    }
+  ]
+}
