@@ -30,6 +30,14 @@ when the full query supplies ten identities, protecting all ten prevents
 aspect-weight changes from changing the top ten. Other Adaptive construction
 mechanisms remain able to change that full-query ranking.
 
+The later [Classical source-group audit](classical-source-cap-001/README.md)
+finds another limitation: diversity uses an application-level fallback identity
+with a cap of one, so three Classical routes cannot return multiple independent
+documents from the same application. The E7 catalog does not vary that cap or
+identity policy. The verified follow-up plan is untested and belongs to a new
+study; it is not an additional completed opportunity in this table. Exhausting
+the frozen catalog must not be reported as exhausting every possible operator.
+
 ## Execution and interpretation
 
 Two family lanes execute concurrently, with one trial at a time in each lane.

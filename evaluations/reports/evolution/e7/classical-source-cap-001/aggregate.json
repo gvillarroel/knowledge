@@ -1,0 +1,363 @@
+{
+  "affected_population_weight": 63.33333333333331,
+  "auditor_sha256": "2e6c3c4dee112d5ef86b2da352c177af1f83809e9264cd4fa1759ef5afd9e3eb",
+  "candidate_created": false,
+  "candidate_pool": 100,
+  "code_bindings": {
+    "runtime/bridge.py": "c2b305449f7b1b97a40c739207f6d89a4f753b4266b22ae52b096b46a90341a1",
+    "runtime/evaluate_all_routes.py": "62668c1fbeafd10f273afc3b8d8f63b8b9b1f0f890da41fc1984c63401db677b",
+    "runtime/prepare_strategy_bundles.py": "274281cd7f256215687d6c91deb754c0057c6403ac56ef28ee4888119ab7b58f",
+    "search/classical/development/generation-011/candidate-staging/candidate-011/skills/build-semantic-okf-knowledge-skill/assets/families/classical/builder/scripts/_classical_retrieval.py": "c752137324c16ac6a2685b25f242fbff2e9a83b6583f46c9a4ed6e782852aca4",
+    "search/classical/development/generation-011/candidate-staging/candidate-011/skills/build-semantic-okf-knowledge-skill/assets/families/classical/consultant/scripts/_classical_snapshot.py": "3809b930be4a6fff5bfc4aba52c5ea9585ec61d71880cd9655cd4c4eda8a8041"
+  },
+  "corpus_bindings": {
+    "documents/confluence.jsonl": "c64cdab70e5151706c27211168b92a06390a82df9c4e8fe12dbd3f3eb51a4de6",
+    "documents/fireflies.jsonl": "88683a8de4d7d8509d87fe7cbea33f28ce9b716b2b803651c5186d65259ef932",
+    "documents/github.jsonl": "41bb5ee282da6f81aba3286202c8d9d56d277f5a25ecb19d7e1fc52438fa387b",
+    "documents/gmail.jsonl": "7d33ed670a49b69a194ca4ac20568d396bc173bf7dfe04ce7b9085065c36006f",
+    "documents/google_drive.jsonl": "23527a195b3736499f7b0a1e526905283328ab67c81e0dc69272a5546f73c03c",
+    "documents/hubspot.jsonl": "60bd0876d6f249d118ea83807bc09a6ddf9ad8a17f996b39b620283d933377bd",
+    "documents/jira.jsonl": "9a28cc974ede771fce870f9f92fac3e33d727b076915faeea46598072cd33136",
+    "documents/linear.jsonl": "93f285ff527fd987c92b7a4dc4c4509ba6936c65393bbc21aa7ef371e4c4fea8",
+    "documents/slack.jsonl": "4d12b24f4d08358d7b2eab42eaff3188705f128dd7a17805d27199e03bf8d794",
+    "manifest.json": "df05213a63e1ad34dd5ce51ecb2306ae077b8d0e594dbe22c8e907c59c270c8c"
+  },
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "eligible_questions": 112,
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "grouping": "paper_id if present; otherwise application-level source_id",
+  "interpretation": {
+    "changing_novelty_weights_does_not_remove_identity_cap": true,
+    "complete_catalog_is_not_exhaustion_of_all_possible_operators": true,
+    "coverage_operator_wording_requires_document_identity_clarification": true,
+    "fresh_study_and_fresh_validation_required_before_promotion_capable_followup": true,
+    "reference_occurrences_not_adjusted_for_top_k_and_not_recoverable_gain": true
+  },
+  "live_protocol_changed": false,
+  "llm_calls": 0,
+  "max_per_evidence_identity": 1,
+  "new_candidate_scores": 0,
+  "new_native_trials": 0,
+  "observed_at_utc": "2026-09-09T00:04:50.375971+00:00",
+  "original_jobs": [
+    {
+      "agent_seconds": 1567.635118,
+      "archive_sha256": "4eec6e22b3cf6be980167558fd15b0e6f473620cf550f77f12da059b2c73d043",
+      "candidate": "candidate-011",
+      "diagnostics_sha256": "3b7a857ec7d5f3206ef7bac54887fcef1d7e36fc98076fe3de9b8f63e3fad14f",
+      "job_result_sha256": "1bb8e4f1c95e4fb705d9c16de50051be54b86b069b1cb9c462e4458ecc783dda",
+      "lock_sha256": "3d5e963cd2165552355ec7cb13389b5b8078cbe85925b91a3b14fd57f4d4830d",
+      "native_job_seconds": 1616.421967,
+      "plan_sha256": "1dbe5e757ab003fefd80f6f4000a26fa0546ca172ad918ef49813d2d21cda5a0",
+      "progress_sha256": "cb2f4c645cca5c731a65a666b88f3dccb37529849c9bd6dbf1abe104809b22a6",
+      "response_sha256": "933a8399955ccd4fb9dba5eb0eecdb5ca9f332a3e9ec2400d9dc992253b03976",
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2120.2066959995136,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2172.7243329987687,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2189.1233589994954,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2188.8378609983192,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "ed79c2ef4dd698cab4bd844be5ede925f5ca5c5bb63dec3c90af97df5c872fc4"
+    },
+    {
+      "agent_seconds": 1655.543837,
+      "archive_sha256": "7ddd6ae78f0ec3dea26eada65a0c59a2ef9dd4c06bdfb66f8f9344cfd5c901e2",
+      "candidate": "candidate-015",
+      "diagnostics_sha256": "63748b1021db67bd9a726d1cde1c166eec1dd9a8b8185066b08281014a054ddf",
+      "job_result_sha256": "d609d9edeb29268fbf5761eb4bb4d002937567f59e9750e93444a77c36d5f1a6",
+      "lock_sha256": "ccc5f15b6fb13a4edd6b46d6b13b580e7f788815454faf8eddc336709da909f3",
+      "native_job_seconds": 1711.812698,
+      "plan_sha256": "1f2f3971fa5d2b8c61a172d220faaac68cc98dd76082b48eebc192ac56d5c8e3",
+      "progress_sha256": "d345dcfc16169a08bf1b47d8ebc5a806cd21350c1bc8463dc920e59cfd914e42",
+      "response_sha256": "99938a8e9e5590bbff59082a75eb07dffea4a19a89f479016edb3e63a11ab701",
+      "routes": {
+        "association": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2109.6468699979596,
+          "recall_at_10": 0.6358845547675336
+        },
+        "bm25": {
+          "full_qrel_coverage_at_10": 0.6945921985815603,
+          "mrr_at_10": 0.6511955772261624,
+          "ndcg_at_10": 0.6505514439572487,
+          "p95_ms": 2314.5532380003715,
+          "recall_at_10": 0.7518026004728132
+        },
+        "fusion": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2084.5419870020123,
+          "recall_at_10": 0.6358845547675336
+        },
+        "topic": {
+          "full_qrel_coverage_at_10": 0.5691489361702128,
+          "mrr_at_10": 0.6387651447990543,
+          "ndcg_at_10": 0.6009782041618646,
+          "p95_ms": 2223.104839998996,
+          "recall_at_10": 0.6358845547675336
+        }
+      },
+      "score": 0.6009782041618646,
+      "trial_result_sha256": "699e8b4565ae4eccf34d11b254e7302df61fe5f8beb291c57ff8feb0286f776f"
+    }
+  ],
+  "paper_pattern_metadata_matches": 0,
+  "planner": {
+    "boundaries": {
+      "candidateBundlesCreated": 0,
+      "candidateFitnessEvaluated": false,
+      "candidateSelected": false,
+      "developmentOnlySanitizationVerified": false,
+      "harborCalls": 0,
+      "holdoutOpened": false,
+      "modelCalls": 0,
+      "operatorInstructionsContainCaseIds": false,
+      "promotionPerformed": false,
+      "rewardValuesRead": false,
+      "semanticGapTruthVerified": false,
+      "sourceSkillModified": false
+    },
+    "config_sha256": "1d580001f3480a25c8c643ed9fb52c159d9a65d9cac11e2e15945d612785a4b8",
+    "evaluation_handoff": {
+      "allowCaseRegressions": false,
+      "baselineRequired": true,
+      "claimScope": "retrospective-development-only",
+      "developmentSplitId": "e7-exposed-stratified-development",
+      "freshNativeHarborJobsRequired": true,
+      "holdout": {
+        "splitId": null,
+        "status": "unavailable"
+      },
+      "minimumCandidateCount": 5,
+      "minimumOperatorTrials": 2,
+      "promotionEligible": false,
+      "requiredRewardKeys": [
+        "evidence_integrity",
+        "mechanical_qualification_gate"
+      ],
+      "selectionMechanism": "harbor-reflective-pareto-search"
+    },
+    "operators": [
+      {
+        "coveredFailureModes": [],
+        "dimensionIds": [
+          "robustness"
+        ],
+        "family": "robustness",
+        "instruction": "Keep the incumbent behavior as an explicit conservative branch. Adopt a candidate behavior only under answer-independent signals that justify the change, and preserve per-case non-regression, evidence gates, deterministic fallback, and bounded cost.",
+        "mandatory": true,
+        "operatorId": "conservative-regression-gate"
+      },
+      {
+        "coveredFailureModes": [
+          "relevant-evidence-missing"
+        ],
+        "dimensionIds": [
+          "retrieval-breadth"
+        ],
+        "family": "retrieval-coverage",
+        "instruction": "Expand bounded retrieval coverage with query-derived terms and immutable snapshot signals while preserving the complete user intent, one authoritative identity per source, deterministic ordering, and the existing result budget.",
+        "mandatory": false,
+        "operatorId": "bounded-coverage-expansion"
+      },
+      {
+        "coveredFailureModes": [],
+        "dimensionIds": [
+          "evidence-fidelity"
+        ],
+        "family": "evidence",
+        "instruction": "Make evidence identity propagation fail closed: copy source, record, path, locator, and digest values only from verified helper output, validate them before synthesis, and reject any retyped or unbound evidence row.",
+        "mandatory": false,
+        "operatorId": "evidence-copy-integrity"
+      },
+      {
+        "coveredFailureModes": [],
+        "dimensionIds": [
+          "ranking-discrimination"
+        ],
+        "family": "ranking",
+        "instruction": "Recalibrate early ranking with query-derived features and immutable rank signals so authoritative evidence moves earlier without reducing bounded coverage. Preserve deterministic tie-breaking, exact evidence, and the declared result budget.",
+        "mandatory": false,
+        "operatorId": "early-rank-calibration"
+      }
+    ],
+    "plan_file_sha256": "7e1b59b0174bc9fceea2f3f0687965c1664e427473d66358f3f7cb5d20eda460",
+    "plan_sha256": "sha256:9e39ed86f19008117b9084191064c9f702789155391431d8f8b6567f1a503329",
+    "planner_script_sha256": "97f4538b6274fa997a134755c80f6256d7ba89a901e8ccdd0b44ca3211bd1b67",
+    "state": "planned-fitness-unverified",
+    "target": {
+      "directoryCount": 78,
+      "fileCount": 252,
+      "logicalName": "build-semantic-okf-knowledge-skill",
+      "totalBytes": 3312440,
+      "treeSha256": "sha256:f05c7b6b644f9adce4eafba3929c83c93c30d4ca7954b08b821e8501e282abec"
+    },
+    "verification": {
+      "campaignId": "source-group-coverage-followup-001",
+      "mode": "verified",
+      "operatorCount": 4,
+      "outputPath": "plan.json",
+      "planSha256": "sha256:9e39ed86f19008117b9084191064c9f702789155391431d8f8b6567f1a503329",
+      "status": "pass"
+    }
+  },
+  "prefix_audit_sha256": "a92a803ce8150a1344ed660ac0fa9fafc479a210c627e2103823f00cb9c20999",
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "protocol_sha256": "35f54228ba31973e77326445aa9d8f0786f6a172b51909af2f088f742120287c",
+  "publisher_sha256": "5a8ae8eb5eb35625fdc1514d68d4497b1866afadd8baf74b5768f106dbb6c9b8",
+  "questions": 120,
+  "questions_with_repeated_relevant_source": 24,
+  "reference_occurrence_count_is_not_a_candidate_score": true,
+  "retained_candidate": "candidate-011",
+  "route_audits": {
+    "association": {
+      "all_case_metric_dicts_identical": true,
+      "query_changes": {
+        "order_only_changed": 1,
+        "ordered_ids_identical": 119
+      },
+      "retained": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 10,
+          "7": 28,
+          "8": 46,
+          "9": 35
+        },
+        "max_returned_documents_per_source": 1
+      },
+      "tested": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 10,
+          "7": 28,
+          "8": 46,
+          "9": 35
+        },
+        "max_returned_documents_per_source": 1
+      }
+    },
+    "bm25": {
+      "all_case_metric_dicts_identical": true,
+      "query_changes": {
+        "ordered_ids_identical": 120
+      },
+      "retained": {
+        "hit_count_distribution": {
+          "10": 120
+        },
+        "max_returned_documents_per_source": 10
+      },
+      "tested": {
+        "hit_count_distribution": {
+          "10": 120
+        },
+        "max_returned_documents_per_source": 10
+      }
+    },
+    "fusion": {
+      "all_case_metric_dicts_identical": true,
+      "query_changes": {
+        "ordered_ids_identical": 120
+      },
+      "retained": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 10,
+          "7": 28,
+          "8": 45,
+          "9": 36
+        },
+        "max_returned_documents_per_source": 1
+      },
+      "tested": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 10,
+          "7": 28,
+          "8": 45,
+          "9": 36
+        },
+        "max_returned_documents_per_source": 1
+      }
+    },
+    "topic": {
+      "all_case_metric_dicts_identical": true,
+      "query_changes": {
+        "ordered_ids_identical": 119,
+        "set_changed": 1
+      },
+      "retained": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 11,
+          "7": 29,
+          "8": 44,
+          "9": 35
+        },
+        "max_returned_documents_per_source": 1
+      },
+      "tested": {
+        "hit_count_distribution": {
+          "5": 1,
+          "6": 11,
+          "7": 29,
+          "8": 44,
+          "9": 35
+        },
+        "max_returned_documents_per_source": 1
+      }
+    }
+  },
+  "schema_version": "enterprise-e7-source-cap-publication/1.0",
+  "scope": "original-stratified-development-evidence-only",
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "snapshot_utc": "2026-09-09T00:08:53.562446+00:00",
+  "source_audit_sha256": "95b729814e7de5bf58ab1e31b4fa69288471ff2fcf10931f9cae951b4f1ad221",
+  "source_cap_excluded_reference_occurrences": 79,
+  "source_counts": {
+    "confluence": 543,
+    "fireflies": 139,
+    "github": 312,
+    "gmail": 1336,
+    "google-drive": 647,
+    "hubspot": 321,
+    "jira": 584,
+    "linear": 991,
+    "slack": 1127
+  },
+  "tested_candidate": "candidate-015",
+  "tested_candidate_improved": false,
+  "tested_candidate_qualified": true,
+  "top_k": 10
+}

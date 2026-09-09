@@ -67,6 +67,16 @@ round, up to five; a complete round without improvement ends that family. The
 117 variants per round define a finite search space, with at most 585 new
 candidate trials across five rounds. A resource-limit stop is reported explicitly.
 
+The catalog is a bounded search, not proof that every possible improvement has
+been exhausted. The development-only
+[Classical identity-cap audit](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
+found that three diversified routes group ordinary documents by their application
+source and retain at most one per group. Twenty-four eligible questions require
+multiple references in one group. Zero novelty weights did not remove that limit.
+The [reviewed expertise plan](../evaluations/reports/evolution/e7/classical-source-cap-001/plan-review.md)
+records separate cap-only and identity-only hypotheses for a fresh study. It
+creates no candidate, changes no frozen E7 setting and provides no measured gain.
+
 The native Harbor Pareto owner stages candidates, evaluates jobs and verifies
 locked provenance. The scheduler only proposes the next frozen mutation. Each
 trial executes a matched native builder and consultant with exact full-text

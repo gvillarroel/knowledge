@@ -4,17 +4,20 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-020/README.md) records two
+The latest [all-family progress audit](status-021/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
 weighted nDCG@10, up from 55.04%, after three consecutive expansion misses.
-Its fifteenth variant tests relevance weight `1.0` with both novelty weights
-at zero. Adaptive now retains 65.23%, up from 60.04%, after its ninth variant
+Its fifteenth variant tied exactly with relevance weight `1.0` and both novelty
+weights at zero; its sixteenth variant tests relevance weight `0.9`.
+Adaptive now retains 65.23%, up from 60.04%, after its ninth variant
 improved with title weight `1.0` on `bm25.k1=3.0`. Its tenth variant's reduced
 expansion scored 64.39%, the first qualified miss of that mechanism. Its
-eleventh variant sets both expansion weights to zero on the retained base.
+eleventh variant scored 64.44% with both expansion weights at zero, the second
+qualified expansion miss. Its twelfth variant tests association weight `0.175`
+and topic weight `0.1` on the retained base.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 46 completed variants: 40 qualified measurements
+The current audit contains 48 completed variants: 42 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -25,8 +28,19 @@ The preceding [first audit](status-001/README.md),
 [twelfth audit](status-012/README.md), [thirteenth audit](status-013/README.md),
 [fourteenth audit](status-014/README.md), [fifteenth audit](status-015/README.md),
 [sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md),
-[eighteenth audit](status-018/README.md) and [nineteenth audit](status-019/README.md)
+[eighteenth audit](status-018/README.md), [nineteenth audit](status-019/README.md)
+and [twentieth audit](status-020/README.md)
 remain unchanged.
+
+The [Classical source-group audit](classical-source-cap-001/README.md) identifies
+an additional opportunity outside the frozen catalog. Its three diversified
+routes cap results at one document per application and return five to nine
+hits, while BM25 returns ten on all 120 questions. Twenty-four of the 112
+eligible questions require multiple documents from one application. The
+candidate015 tie confirms that zero novelty weights leave this cap active.
+A digest-bound [follow-up plan](classical-source-cap-001/plan-review.md) separates
+a cap-only treatment from a document-identity treatment. It has no new candidate
+score or reserved independent validation; the live E7 protocol is unchanged.
 
 The [provisional cross-family comparison](retained-cross-family-003/README.md)
 aligns the four retained profiles from status019 across all question categories
