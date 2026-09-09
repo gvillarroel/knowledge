@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 09:48 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 10:00 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -78,6 +78,13 @@ These are previously published E7 values, not new E8 measurements. The
 [last four-family matrix](../e7/retained-cross-family-007/README.md) link to their
 original category/application evidence. All retain the weighted 120-question,
 112-eligible, 6,000-document development contract.
+
+The [Embeddings workload audit](embeddings-window-workload-001/README.md)
+independently reconstructs 264,738 requested preliminary semantic windows from
+those public documents. Threshold changes occur after this encoding pass;
+identical whole-text reuse could remove at most 0.221% of its requested inputs.
+These are structural input counts, not timing or a proven timeout cause.
+The six original failed trials and the 63.51% retained score remain unchanged.
 
 | New E8 Turso measurement | nDCG@10 | Recall@10 | MRR@10 | Full qrel coverage@10 |
 | --- | ---: | ---: | ---: | ---: |
