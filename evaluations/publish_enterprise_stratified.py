@@ -417,6 +417,10 @@ def render(value):
     files['cta.md']='\n'.join(lines)+'\n'
     lines = ['# All eighteen routes in both frozen arms','', '[General report](README.md)','',
         'These are diagnostics; the family selection routes were fixed before development.','',
+        'Turso keeps the registered route ID `lexical-sql` in both arms. Its empty-profile baseline '
+        'uses parameterized SQL substring-presence ranking; a nonempty consultation profile loads '
+        'canonical records from Turso and applies BM25 in memory. The first such change includes '
+        'the ranking algorithm and token-match semantics. See the [exact retained Turso profile](skills/turso.md).','',
         '| Family | Arm | Route | Primary | nDCG@10 | Recall@10 | MRR@10 | Full evidence@10 |',
         '| --- | --- | --- | --- | ---: | ---: | ---: | ---: |']
     for row in value['routes']:
@@ -444,6 +448,17 @@ def render(value):
                 f"{attempt['status']} | {attempt.get('improved',False)} | {attempt.get('consecutive_failures',0)} |")
         family_lines += ['', 'Exact retained source-generic profile:', '', '```json',
                          json.dumps(row['profile'][row['family']],indent=2,sort_keys=True), '```']
+        if row['family']=='turso':
+            execution = ('in-memory BM25 over canonical records loaded from the Turso database'
+                         if row['profile']['turso']['search'] else
+                         'parameterized SQL substring-presence ranking inside Turso')
+            family_lines += ['', '**Retained consultation execution:** '+execution+'.', '',
+                'The empty-profile baseline uses SQL substring presence. Any nonempty Turso '
+                'search profile switches to in-memory BM25, with exact normalized token matches, '
+                'IDF, term saturation, length normalization and title weighting. Both treatments '
+                'retain the same authoritative database and registered `lexical-sql` route ID. '
+                'This profile does not add a SQL BM25 index or change the database schema. '
+                'Subsequent BM25 parameter changes must be attributed against their actual retained parent.']
         files['skills/'+row['family']+'.md']='\n'.join(family_lines)+'\n'
     files['development.md']='\n'.join(lines)+'\n'
     return files

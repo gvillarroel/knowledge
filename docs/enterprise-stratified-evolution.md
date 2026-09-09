@@ -158,6 +158,15 @@ The eight-family paired delta table remains a separate view. LLM usage is zero
 for E7; provider cost is unavailable, and local CPU time must not be presented
 as a provider invoice.
 
+Route identifiers remain fixed while the report explains the actual treatment.
+For Turso, `lexical-sql` denotes SQL substring-presence ranking with an empty
+profile and in-memory BM25 over canonical database records with a nonempty
+profile. The final route view and Turso skill report must preserve that distinction,
+including the first comparison's algorithm and token-match changes. The
+[synthetic Turso audit](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md)
+verifies ranking sensitivity, native database rebuild parity and read-only
+consultation; it contributes no Enterprise score or completed family trial.
+
 Before publishing, replay every family's stopping and selection history using
 the frozen scheduler and its existing native rewards. Reject missing attempts,
 changed incumbents, false stop reasons or disagreement with native archives.
