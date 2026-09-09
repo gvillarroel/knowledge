@@ -103,6 +103,15 @@ mention contributions. Its document cap allows distinct documents from one
 application. These cases establish function behavior; its native baseline and
 complete family search remain pending.
 
+The [Turso treatment audit](turso-opportunity-001/README.md) builds and validates
+the same twelve-document synthetic bundle twice with the actual Turso engine.
+Logical digests match and read-only consultation preserves both published
+databases. Eleven BM25 configurations produce different orders on controlled
+queries. The empty-profile baseline ranks with SQL substring presence; a
+nonempty profile loads database records and ranks with BM25 in memory under
+the same `lexical-sql` route ID. This distinction must accompany future native
+scores. These fixture checks do not count as completed Enterprise trials.
+
 The [Classical source-group audit](classical-source-cap-001/README.md) identifies
 an additional opportunity outside the frozen catalog. Its three diversified
 routes cap results at one document per application and return five to nine

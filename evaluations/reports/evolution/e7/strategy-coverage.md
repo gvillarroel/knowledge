@@ -66,6 +66,15 @@ changing decay, so exact parent and child profiles determine attribution. These
 fixtures use pinned local query functions and consume no native opportunities
 or controller misses.
 
+The [Turso treatment audit](turso-opportunity-001/README.md) verifies two native
+synthetic builds, logical rebuild parity, database immutability and ranking
+sensitivity across all eleven declared BM25 configurations. The route ID
+`lexical-sql` covers two execution treatments: SQL substring-presence ranking
+for the empty profile, and in-memory BM25 over canonical database records for
+a nonempty profile. The first BM25 trial changes algorithm and match semantics;
+it does not introduce a SQL BM25 index. These checks consume no native family
+opportunity and establish no Enterprise performance or equivalence to Legacy.
+
 Two family lanes execute concurrently, with one trial at a time in each lane.
 The next queued family starts when a lane becomes free. Each agent has two CPU
 threads and 6 GiB RAM. These resource limits are part of the frozen comparison;

@@ -23,6 +23,7 @@
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)
 - [Entity Graph function audit: graph reach, rank-based fusion, and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md)
+- [Turso audit: reproducible native databases, SQL baseline, and in-memory BM25 attribution](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md)
 - [Stratified Enterprise development CTA: completed-job time, failures, and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md)
 - [Completed Enterprise application-skill experiment: findings and retained ingestion checks](enterprise-source-skills.md)
 - [Generator evolution: explicit source selection and independent construction acceptance](../.specs/adr/0126-evolve-generator-explicit-source-selection.md)

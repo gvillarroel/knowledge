@@ -1,0 +1,739 @@
+{
+  "auditor_sha256": "8c31b41da54cfed14b4babe396d4b2578436b61c0bd0ff695896c9d1bc69bb75",
+  "benchmark_content_or_relevance_labels_used": false,
+  "benchmarked_enterprise_questions": 0,
+  "build_validations": [
+    {
+      "errors": [],
+      "logical_sha256": "a1e01398a7050950ace4c4faa979c16702465176aa4e70b8ba6a86ee20ad14d3",
+      "status": "pass",
+      "summary": {
+        "artifacts": 10,
+        "attributes": 0,
+        "concepts": 12,
+        "records": 12,
+        "sources": 1,
+        "statements": 155
+      },
+      "valid": true
+    },
+    {
+      "errors": [],
+      "logical_sha256": "a1e01398a7050950ace4c4faa979c16702465176aa4e70b8ba6a86ee20ad14d3",
+      "status": "pass",
+      "summary": {
+        "artifacts": 10,
+        "attributes": 0,
+        "concepts": 12,
+        "records": 12,
+        "sources": 1,
+        "statements": 155
+      },
+      "valid": true
+    }
+  ],
+  "candidate_created": false,
+  "commands": [
+    {
+      "exit_code": 0,
+      "label": "runtime-smoke",
+      "receipt": "turso-fixture-001/logs/runtime-smoke.json",
+      "receipt_sha256": "6d495f33920dc7eb7f8f06b95abfc16be9a7470e94ce76509b1e3f54159974f7"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-a",
+      "receipt": "turso-fixture-001/logs/build-a.json",
+      "receipt_sha256": "afdd2048a5ddeba2d324223f46c3417e4b5217aeff8422003c3fd5a620ecb5df"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-a-okf",
+      "receipt": "turso-fixture-001/logs/build-a-okf.json",
+      "receipt_sha256": "e744083fcb11d32de6571787d67c7f75ddaf0bfc6a51fe08833ea3e73abac1f4"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-a-semantic",
+      "receipt": "turso-fixture-001/logs/build-a-semantic.json",
+      "receipt_sha256": "d5c35fee1414a23597aeddcde810f836faff15fa8c8f6964b096f8de54618ec5"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-a-turso",
+      "receipt": "turso-fixture-001/logs/build-a-turso.json",
+      "receipt_sha256": "d7f3a00e3e25624f3152f478a10af6a4c086a5cca584e70afada6c778d96febb"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-b",
+      "receipt": "turso-fixture-001/logs/build-b.json",
+      "receipt_sha256": "f33ba4f3a54ca374c382e6f5fcc37c55d0b454d54f9a871348117693777d88e9"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-b-okf",
+      "receipt": "turso-fixture-001/logs/build-b-okf.json",
+      "receipt_sha256": "2503cf8baf34eb5cd08adabf674988a3667304915bdcf91e1ec3602454bc8cee"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-b-semantic",
+      "receipt": "turso-fixture-001/logs/build-b-semantic.json",
+      "receipt_sha256": "760c79787de4aa1ed5da49c6dd75cbd4b43be4be40f01ff3e64bf80e3816c70b"
+    },
+    {
+      "exit_code": 0,
+      "label": "build-b-turso",
+      "receipt": "turso-fixture-001/logs/build-b-turso.json",
+      "receipt_sha256": "8ca81329bc87f54b9400ebcc84ec3f0707241d324798d8526c0da29d2858e296"
+    }
+  ],
+  "controller_misses_consumed": 0,
+  "created_at_utc": "2026-09-09T02:09:13.675700+00:00",
+  "distinct_bm25_orders_by_query": {
+    "photon": 4,
+    "quasar": 6,
+    "quasar photon": 9
+  },
+  "execution_contract_sha256": "392de11dffad8e86809da19e7446e1f38a4eeeaffa9c49e03cd3746d1bd01256",
+  "family_development_trial_completed": false,
+  "fixture": {
+    "documents": 12,
+    "logical_sources": 1,
+    "manifest_sha256": "c73e343b547bb55e17ce7ea9714c2efd6147118cc65191855f3499a8c4b4ef04",
+    "member_hashes": {
+      "sources/record-00.md": "1ae5943398686972f918263e255c400511bbbb9119faf4e0ad2d1e1d352d5eb2",
+      "sources/record-01.md": "cd8079e9b82ad187d9bfd804501249222c4f7f574071da2a872094b8b733eaba",
+      "sources/record-02.md": "63d6e3aaaf7529d24efee8b03201786a1c9324c84b80398df572a4757f817f5a",
+      "sources/record-03.md": "9afa80fd2db2aa9b07d756ac45d8206c287390a72ecea906643b5430cd8dcb95",
+      "sources/record-04.md": "9857e9b4180c8540cb947a151674b07127ecff8707db51e7c8907506196dfc46",
+      "sources/record-05.md": "4168df34dfbc42f3e03b4a73dc9e4d96d351999d55999e5e9f72ea3d4e42990c",
+      "sources/record-06.md": "cf5b420f17b68d9240c545dcd9c29331d2421395f8e0a7ec668c3870c187d914",
+      "sources/record-07.md": "9b3bdc7c05ea32caad33aef310871c63a56d92d9b9f1cad3494be2dbb4b25fff",
+      "sources/record-08.md": "7aeba456092caf82ab184a5293a90eb3699b3aae7ddc27ece5b0a88d19da0f07",
+      "sources/record-09.md": "61c14903c82d64a0b04ac97572bfd7c973f35c93e5dee5de8b9ceca6545b84ee",
+      "sources/record-10.md": "cdfc4cd0ca4b7ed59578e719b018fcde71c71e524fca30d2700df6eb3c79a694",
+      "sources/record-11.md": "47d4e5f3b0f9dfd02606df5d3c98b63bdd227de5e4deadc618905f83fef4b07a"
+    },
+    "physical_sources": 12,
+    "queries": 3,
+    "source_combination_sha256": "7333d7e36f6844a1b2df6b8c2604bc0cdb021172c876ce57c8a0510316943bbc"
+  },
+  "frozen_source_hashes": {
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/_semantic_okf.py": "572b8cbe33433afc3537473fcc92369fc7c2afa80cf0779ba91a4db20df6e14d",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/_turso_store.py": "40d28ba1059890049c0ebe9777dc969c5c13d0fad539645157f6aa947ce9427e",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/build_semantic_okf.py": "ddc67b86c3c03fcfc18d35751d0ae49db0ff33def936aff1128abb6cc551fe30",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/materialize_turso_store.py": "6a88d0884eaca98f5ed3973fd337be020626cbbd7f4aac0381ef944584623070",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/refresh_semantic_okf.py": "620bcdf2d07bc6b37888c39519f461883702007f87385696fea357f2b55f4356",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/requirements.in": "3b5d8d297b32b174640366a115ca65b6758c2724a69aea56cbce6bfb504cfb4b",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/requirements.txt": "d782343e0db7cf47e51cf369bd34de862e73fa1b4891d1d3e40614e010585e85",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/runtime_smoke.py": "2e6b9a2b5efeb5307903fadf1b13b35be8ffada011cd3566513c02273463f1f5",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/validate_okf_bundle.py": "aa61c64d61d6b9ad311dfe0a5f5254025ca29b248c0bca2ab6309c7354746d58",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/validate_semantic_okf.py": "343887610c7b9c9b4e2d7d33e4b2b7314f2328c294786be7269b57354e2827d8",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/builder/scripts/validate_turso_store.py": "8163994c5260024833e137fb52db8cb2ea0433f93ad344782ea79aea5844e385",
+    "baseline/build-semantic-okf-knowledge-skill/assets/families/turso/consultant/scripts/_turso_read.py": "e68d0405efe814b9516e72a4df902d899b77573948f3433ed699d458cf547fd7",
+    "baseline/build-semantic-okf-knowledge-skill/scripts/apply_retrieval_profile.py": "a10e182b67a4d0ce1fb8754339812cf8490e73921357696da4f5a21c56c977a7",
+    "runtime/bridge.py": "c2b305449f7b1b97a40c739207f6d89a4f753b4266b22ae52b096b46a90341a1",
+    "runtime/evaluate_all_routes.py": "62668c1fbeafd10f273afc3b8d8f63b8b9b1f0f890da41fc1984c63401db677b"
+  },
+  "full_bridge_dispatch_executed": false,
+  "logical_rebuild_parity": true,
+  "model_calls": 0,
+  "native_harbor_trials": 0,
+  "new_study_registered": false,
+  "observations": [
+    {
+      "execution": "parameterized-sql-substring-presence",
+      "mechanism": "sql-baseline",
+      "queries": {
+        "photon": [
+          "sources/record-00",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-05",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-10"
+        ],
+        "quasar": [
+          "sources/record-00",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-05",
+          "sources/record-06",
+          "sources/record-07",
+          "sources/record-08",
+          "sources/record-10"
+        ],
+        "quasar photon": [
+          "sources/record-00",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-05",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-06",
+          "sources/record-07"
+        ]
+      },
+      "settings": {}
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "bm25-saturation",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-01",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-01",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-07",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "k1": 1.2
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "bm25-saturation",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-01",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-09",
+          "sources/record-01",
+          "sources/record-10",
+          "sources/record-07",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "k1": 0.6
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "bm25-saturation",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-01",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-09",
+          "sources/record-08",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "k1": 2.0
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "bm25-saturation",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-01",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-09",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "k1": 3.0
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "length-normalization",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-04",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-01",
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-06",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-01",
+          "sources/record-09",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-07",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "b": 0.25,
+        "engine": "bm25"
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "length-normalization",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-05",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10"
+        ],
+        "quasar": [
+          "sources/record-01",
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-06",
+          "sources/record-07",
+          "sources/record-02",
+          "sources/record-04",
+          "sources/record-08",
+          "sources/record-10"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-01",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-09",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-06",
+          "sources/record-07"
+        ]
+      },
+      "settings": {
+        "b": 0.0,
+        "engine": "bm25"
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "length-normalization",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-01",
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-06",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-05",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-01",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-07",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "b": 0.5,
+        "engine": "bm25"
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "length-normalization",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-02",
+          "sources/record-01",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "b": 1.0,
+        "engine": "bm25"
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "title-weight",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-04",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-05",
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-06",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-04",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "title_weight": 2.0
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "title-weight",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-04",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-06",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-04",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "title_weight": 4.0
+      }
+    },
+    {
+      "execution": "in-memory-bm25-over-database-record-json",
+      "mechanism": "title-weight",
+      "queries": {
+        "photon": [
+          "sources/record-09",
+          "sources/record-03",
+          "sources/record-04",
+          "sources/record-05",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-01"
+        ],
+        "quasar": [
+          "sources/record-07",
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-01",
+          "sources/record-02",
+          "sources/record-06",
+          "sources/record-08",
+          "sources/record-10",
+          "sources/record-04"
+        ],
+        "quasar photon": [
+          "sources/record-03",
+          "sources/record-05",
+          "sources/record-04",
+          "sources/record-02",
+          "sources/record-08",
+          "sources/record-09",
+          "sources/record-01",
+          "sources/record-07",
+          "sources/record-10",
+          "sources/record-06"
+        ]
+      },
+      "settings": {
+        "engine": "bm25",
+        "title_weight": 8.0
+      }
+    }
+  ],
+  "profile_promoted": false,
+  "published_at_utc": "2026-09-09T02:10:40.975716+00:00",
+  "published_database_bytes_unchanged": true,
+  "published_database_states": [
+    {
+      "knowledge.db": "d8c7ffbdae58f93c658d81b99edbf19d1df2d5e33caf50696aed7e7910264477"
+    },
+    {
+      "knowledge.db": "d8c7ffbdae58f93c658d81b99edbf19d1df2d5e33caf50696aed7e7910264477"
+    }
+  ],
+  "publisher_sha256": "3c48839e70ca805903e809966a5f138a9681a14bc59f60563685554fbc0bc487",
+  "read_verifications": [
+    {
+      "engine": {
+        "distribution": "pyturso",
+        "engine": "Turso Database",
+        "version": "0.6.1"
+      },
+      "errors": [],
+      "logical_sha256": "a1e01398a7050950ace4c4faa979c16702465176aa4e70b8ba6a86ee20ad14d3",
+      "status": "pass",
+      "summary": {
+        "artifacts": 10,
+        "attributes": 0,
+        "concepts": 12,
+        "records": 12,
+        "sources": 1,
+        "statements": 155
+      },
+      "valid": true,
+      "validation": "full"
+    },
+    {
+      "engine": {
+        "distribution": "pyturso",
+        "engine": "Turso Database",
+        "version": "0.6.1"
+      },
+      "errors": [],
+      "logical_sha256": "a1e01398a7050950ace4c4faa979c16702465176aa4e70b8ba6a86ee20ad14d3",
+      "status": "pass",
+      "summary": {
+        "artifacts": 10,
+        "attributes": 0,
+        "concepts": 12,
+        "records": 12,
+        "sources": 1,
+        "statements": 155
+      },
+      "valid": true,
+      "validation": "full"
+    }
+  ],
+  "returned_records_exact_database_parity": true,
+  "runtime": {
+    "database": {
+      "engine": "Turso Database",
+      "sqlite_compatibility_version": "3.45.0"
+    },
+    "dependencies": {
+      "pyshacl": "0.40.0",
+      "pyturso": "0.6.1",
+      "pyyaml": "6.0.3",
+      "rdflib": "7.6.0"
+    },
+    "processor": "semantic-okf-python+turso-database",
+    "python_implementation": "CPython",
+    "python_version": "3.14.7",
+    "status": "pass"
+  },
+  "same_database_used_for_all_query_treatments": true,
+  "schema_version": "enterprise-e7-turso-opportunity-publication/1.0",
+  "scope": "synthetic-native-database-and-ranking-functions",
+  "source_audit_sha256": "a17935093b6ef174b6292fab7264b807e43a772275615c113ad42701ea18c6cb",
+  "study_guard_mechanical_digest_checks": true,
+  "treatment_parent": "each declared variant independently applied to the frozen baseline profile; no selection or search"
+}
