@@ -62,6 +62,14 @@ keep the admitted running-stage ledger unchanged through the single native run,
 report generation/read and qualification. Append evidence and close the stage
 only afterward. Any required failure retains the allocation and prohibits retry.
 
+The [independent public design evidence](../evaluations/reports/evolution/e8/graphify-public-design-evidence-001/README.md)
+now supports the six static preparation checks. Its reusable template leaves
+registered digests and final statuses pending. After terminal-history and custody
+review, the curator must bind the actual registered lock in a fresh final review,
+with supporting evidence inside that review directory, before design sealing.
+The synthetic verifier checks establish neither completed construction nor
+actual native access; the fixed bridge and all runtime checkpoints remain required.
+
 ## Execution order
 
 The native Pareto owner revalidates the 66 exact completed E7 job/skill mappings

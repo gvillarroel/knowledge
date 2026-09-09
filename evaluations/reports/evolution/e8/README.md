@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 10:18 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 10:32 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -18,6 +18,34 @@ with zero native trials. The [independent diagnosis](dispatch-control-001/README
 confirmed that the sealed guard rejects Docker's legitimate Compose plugin
 child. Their missing opportunities are not quality failures.
 The private gate remains unopened.
+
+## Opportunity coverage across all eight strategies
+
+This fixed checkpoint covers completed work through Classical `continuation-009`.
+Variant counts exclude baselines, the two interrupted originals and any later
+or currently running job. They combine the [original E7 inventory](../e7/interruption-001/README.md)
+with the completed E8 prefixes linked below; historical imports add no attempt.
+
+| Strategy | Completed variant attempts | Current search disposition | Remaining work |
+| --- | ---: | --- | --- |
+| Legacy | 16 | [Declared catalog reached its stopping rule](../e7/legacy-complete-001/README.md) | Required joint replay and final comparisons |
+| Embeddings | 6 | [Both declared mechanisms stopped after construction timeouts](../e7/embeddings-complete-001/README.md); baseline retained | Required joint replay and final comparisons; failed variants have no quality measurement |
+| Classical | 31 | [Nine E8 variants completed](classical-progress-009/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
+| Adaptive | 18 | E7 prefix retained; first E8 proposal refused before dispatch | Continue remaining opportunities under a corrected prospective design; original interrupted profile remains unavailable |
+| Entity Graph | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
+| Ensemble | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
+| Graphify | 0 | [Original baseline failed during construction](graphify-baseline-failure-001/README.md) | Fixed builder feasibility, then separately sealed consultation search |
+| Turso | 1 | [First E8 gain retained](turso-progress-001/README.md); next proposal refused before dispatch | Continue remaining opportunities under a corrected prospective design |
+
+Completing a declared catalog does not exhaust every possible future operator.
+All eight strategies still require the common final gates. The
+[five-family measurement matrix](retained-cross-family-002/README.md) shows
+comparable retained retrieval quality by application and category. Entity Graph,
+Ensemble and Graphify have no native retrieval score at this checkpoint; missing
+results are not zeroes. The all-500 comparison, frozen joint selection and
+one-way acceptance remain incomplete.
+
+## Completed Classical continuation measurements
 
 Classical's [first completed continuation candidate](classical-progress-001/README.md)
 raised title weight to 8 and regressed from its retained 61.89% to 38.78%
@@ -65,6 +93,8 @@ second miss in the third round's length mechanism, with zero execution errors
 or retries. The same 62.10% candidate remains retained; the
 [application/category comparison](classical-progress-009/groups.md) and
 [CTA](classical-progress-009/cta.md) include the complete paired evidence.
+
+## Retained development measurements
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -116,6 +146,8 @@ construction errors. Their native durations sum to 26.09 job hours, including
 originals, later/running jobs and host preparation. Missing token/cost telemetry
 remains unknown; historical imports count no additional native trial.
 
+## Fixed Graphify preparation
+
 The [Graphify scaling audit](graphify-scaling-001/README.md) preserves an isolated
 neighbor-selection prototype with identical synthetic outputs and a 20.43-fold
 function timing ratio at 800 records. A subsequent
@@ -146,6 +178,13 @@ That [caller implementation review has now passed](graphify-native-caller-review
 450 isolated cases. Its original five defects and corrected source commitments
 are preserved. Complete terminal-history review, ordinary study design sealing
 and a separate independent admission remain required before its one native trial.
+The [public design preparation review](graphify-public-design-evidence-001/README.md)
+now supports the six static checks for that fixed ordinary evaluation, using
+eight prior reviews and 29 new synthetic verifier cases. It explicitly preserves
+the zero-quality-cutoff and self-reported-construction limitations. Its template
+contains no final pass declarations or registered lock digests; terminal history,
+private custody, actual registration, sealing, admission and native observations
+remain required. This is preparation evidence and supplies no retrieval result.
 The [common public task bindings](aggregate-public-task-bindings-001/README.md)
 are also prepared and independently reviewed for all eight strategies, covering
 sixteen task roots. Each recognizes the exact fixed builder through one digest
@@ -155,6 +194,8 @@ development question identities overlap the all-500 workload. The reproduced
 task trees and Harbor identities agree. These authoring results add no native
 trial or quality gain and become usable only after the fixed feasibility and
 separate continuation gates.
+
+## Execution and publication boundaries
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

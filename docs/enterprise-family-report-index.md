@@ -4,6 +4,8 @@ Use this index to find a family's native evidence and its supporting audits
 without scanning every campaign checkpoint. The [E8 continuation](../evaluations/reports/evolution/e8/README.md)
 owns the latest execution status. This page adds navigation, not an evaluation,
 selection, score or promotion decision.
+Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
+for completed variant counts, unresolved baselines and the remaining final gates.
 
 ## Native family evidence
 
@@ -54,6 +56,10 @@ The [corrected native caller review](../evaluations/reports/evolution/e8/graphif
 passed 450 isolated gate, lifecycle and admission cases. Its implementation
 receipt does not complete the future terminal-history review, design seal or
 independent native admission.
+The [public design evidence](../evaluations/reports/evolution/e8/graphify-public-design-evidence-001/README.md)
+supports all six static preparation checks, with 29 synthetic verifier cases and
+explicit limits. Its pending template still requires actual registered lock
+binding, terminal-history/custody review and native observations.
 The [reviewed public task versions for all eight strategies](../evaluations/reports/evolution/e8/aggregate-public-task-bindings-001/README.md)
 now preserve the complete fixed-builder binding across both public workloads.
 Their exact regeneration and native identities are preparation evidence; the
