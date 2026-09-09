@@ -50,6 +50,10 @@ Those host checks supply no EnterpriseRAG score or native feasibility result.
 The following [two environment probes](../evaluations/reports/evolution/e8/graphify-executor-probes-001/README.md)
 passed the exact-package, effective-resource and declared-access checks. Actual
 Harbor-generated access and native full-workload qualification remain pending.
+The [corrected native caller review](../evaluations/reports/evolution/e8/graphify-native-caller-review-001/README.md)
+passed 450 isolated gate, lifecycle and admission cases. Its implementation
+receipt does not complete the future terminal-history review, design seal or
+independent native admission.
 
 ## Mechanism evidence
 
@@ -85,6 +89,7 @@ profile for each application.
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
 | Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md) | Legacy009, Embeddings baseline, Classical continuation-002, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |
+| Cumulative cost, time and quality through Classical006 | [E7/E8 development CTA](../evaluations/reports/evolution/e8/development-cta-001/README.md) | 75 completed original jobs counted once, including seven construction errors; 26.09 accumulated job hours with missing telemetry preserved |
 | Complete declared evolution catalog | [Strategy coverage](../evaluations/reports/evolution/e7/strategy-coverage.md) | Eight families and 117 predeclared variants per catalog round; declared options are not completed attempts |
 | Full-corpus Classical and Luna answers | [Separate full-corpus experiment](../evaluations/reports/enterprise-classical-full/README.md) | 511,962 physical documents and 500 questions under a distinct retrieval and answer/judge contract |
 | Reports across repository datasets | [Comparison catalog](../evaluations/COMPARISON-REPORTS.md) | Source-linked reports with their own dataset, cohort and metric contracts |

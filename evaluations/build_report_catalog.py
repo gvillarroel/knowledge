@@ -304,7 +304,10 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files["skills/README.md"] = "\n".join(skill_index) + "\n"
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
-    cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+    cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e8/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+           "[Cumulative E7/E8 development CTA through Classical006](../evolution/e8/development-cta-001/README.md) "
+           "binds 75 completed native jobs, including seven construction errors. It preserves missing telemetry "
+           "and excludes running, interrupted and later jobs from its fixed time total.", "",
            "[Stratified Enterprise evolution E7](../evolution/e7/README.md) records native development time, "
            "qualified retrieval scores and execution errors. Its declared model-call budget is zero; "
            "a timed-out attempt has no retrieval quality measurement. Follow the campaign for completion "

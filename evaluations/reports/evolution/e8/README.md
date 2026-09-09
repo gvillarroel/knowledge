@@ -84,6 +84,13 @@ highest observed overall nDCG; Turso leads recall, MRR and full-qrel coverage
 among these five, plus the Gmail and HubSpot groups. These are provisional
 development comparisons. Turso's search has not reached a stopping rule.
 
+The [cumulative CTA through Classical006](development-cta-001/README.md) binds
+75 completed original jobs across E7 and E8: 68 qualified measurements and seven
+construction errors. Their native durations sum to 26.09 job hours, including
+4.73 hours in failed jobs. This fixed total excludes the two interrupted
+originals, later/running jobs and host preparation. Missing token/cost telemetry
+remains unknown; historical imports count no additional native trial.
+
 The [Graphify scaling audit](graphify-scaling-001/README.md) preserves an isolated
 neighbor-selection prototype with identical synthetic outputs and a 20.43-fold
 function timing ratio at 800 records. A subsequent
@@ -110,6 +117,10 @@ passed with the exact 252-file candidate, pinned images, effective CPU/memory
 limits and declared read-only mounts. They consumed no native trial. Actual
 Harbor-generated access and full-workload qualification still require the
 separately reviewed native caller; retrieval quality remains unmeasured.
+That [caller implementation review has now passed](graphify-native-caller-review-001/README.md)
+450 isolated cases. Its original five defects and corrected source commitments
+are preserved. Complete terminal-history review, ordinary study design sealing
+and a separate independent admission remain required before its one native trial.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

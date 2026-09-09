@@ -43,6 +43,15 @@ also passed exact-package, image, resource and declared-access checks. Neither
 result substitutes for the prospective caller's actual Harbor-generated mounts,
 native identities, complete workload and qualification gate.
 
+The [complete caller implementation review](../evaluations/reports/evolution/e8/graphify-native-caller-review-001/README.md)
+passed 450 isolated cases after preserving and correcting five initial defects.
+It binds full checkpoint payloads, registered public inputs, native identities
+and exact report reproduction. It provides no live admission while E8 runs.
+After terminal-history review and the separate ordinary design/admission gates,
+keep the admitted running-stage ledger unchanged through the single native run,
+report generation/read and qualification. Append evidence and close the stage
+only afterward. Any required failure retains the allocation and prohibits retry.
+
 ## Execution order
 
 The native Pareto owner revalidates the 66 exact completed E7 job/skill mappings
