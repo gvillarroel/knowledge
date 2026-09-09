@@ -1,0 +1,93 @@
+{
+  "all500_recalculation_complete": false,
+  "automatic_retries": 0,
+  "campaign": "E11",
+  "canonical_skill_installed": false,
+  "captured_at_utc": "2026-09-09T20:07:27.470829+00:00",
+  "closed_families": [
+    "legacy",
+    "embeddings",
+    "classical"
+  ],
+  "complete_corpus_documents": 6000,
+  "completed_original_imports": 3,
+  "cumulative_variant_cap": 585,
+  "imported_measurements": [
+    {
+      "candidate": "baseline",
+      "e11_completed_import": true,
+      "family": "legacy",
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "weighted_ndcg_at_10": 0.611052744442418
+    },
+    {
+      "candidate": "retained-start",
+      "e11_completed_import": true,
+      "family": "legacy",
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "weighted_ndcg_at_10": 0.7237626950008386
+    },
+    {
+      "candidate": "baseline",
+      "e11_completed_import": true,
+      "family": "embeddings",
+      "measurement_campaign": "E10",
+      "native_errors": 0,
+      "new_semantic_execution_in_e11": false,
+      "weighted_ndcg_at_10": 0.6350525198647472
+    }
+  ],
+  "inherited_variant_claims": 81,
+  "joint_selection_frozen": false,
+  "maximum_rounds": 5,
+  "new_improvement_measured": false,
+  "new_native_jobs_completed": 0,
+  "new_native_jobs_started": 2,
+  "new_starting_roles": 9,
+  "new_starting_roles_not_yet_started": 7,
+  "new_variant_claims": 0,
+  "open_families": [
+    "adaptive",
+    "entity-graph",
+    "ensemble",
+    "graphify",
+    "turso"
+  ],
+  "population_weight": 470,
+  "private_released": false,
+  "public_leaderboard_rank_established": false,
+  "public_questions": 120,
+  "retrieval_eligible": 112,
+  "runtime_observation": {
+    "containers_verified": 2,
+    "cpu_per_agent": 2,
+    "custody_conflicts": 0,
+    "families": [
+      "adaptive",
+      "classical"
+    ],
+    "memory_bytes_per_agent": 6442450944,
+    "observed_at_utc": "2026-09-09T20:01:21.765715+00:00",
+    "policy_refusals": 0,
+    "role": "agent",
+    "scope": "One public startup point; no verifier, terminal submission, private or full-lifecycle claim."
+  },
+  "schema": "enterprise-e11-startup-checkpoint/1.0",
+  "source_sha256": {
+    "tmp/e11/design-review-001/receipt.json": "0ae9359634714f22711b15a7ed6e6bcf310ef9a706eb935dfd3930b7eb0a8af0",
+    "tmp/e11/dispatch-start.json": "3827be12a91a39ffc71d0230909563453dd9e60c142e114797753fbbb6241d18",
+    "tmp/e11/dispatch/embeddings/generation-000/receipt.json": "a87024088a615dfbafb9ca918e421df7fdc7ab051e66c70444173c9a4013fbcd",
+    "tmp/e11/dispatch/legacy/generation-000/receipt.json": "1a18eddb739c6384cb70ba82f2c3a7a3a9ee86c8fee5f36bce32fc2b96272ea0",
+    "tmp/e11/execution-contract.json": "e2b1801476a5bf92d2a41dfa0658a775031ae5ea40646cdc16bdc24d1d3bdb7b",
+    "tmp/e11/native-startup-observation-001/receipt.json": "44ac1ae6a627a22b8c15f507c6ed159ab155b0d182b81ce28144e143b10ed95e",
+    "tmp/e11/search/embeddings/development/generation-000/pareto-archive.json": "88cd17e25b1019031367c286a23666f56cb6d0a3bc792e482631ce97f0a87c9b",
+    "tmp/e11/search/legacy/development/generation-000/pareto-archive.json": "17b8d786892a0b6b4c4b8e83c1a434801280a4dc1f34cec75aa1b5508693f441",
+    "tmp/enterprise-next-preparation/e11-registration-001/design-review-verification.json": "2cf72919c005e1446b46feadda7f80a747b66087967065bd163adf328cb77e0c",
+    "tmp/enterprise-next-preparation/e11-registration-001/runtime-observation-verification.json": "1a349063ffc0ee1a97a94e2e4a05e604083f6c3f3763df3961a8999bc07e538a"
+  },
+  "status": "three-imports-qualified-nine-new-starting-measurements-incomplete"
+}

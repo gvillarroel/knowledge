@@ -2,10 +2,16 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
+- [EnterpriseRAG continuation E11](e11/README.md): active remaining-family
+  searches after exact import of three completed E10 measurements. The
+  [startup checkpoint](e11/startup-001/README.md) records the first new native
+  baseline executions and the actual public-agent runtime observation. The
+  all-eight starting gate, final comparisons and acceptance remain incomplete.
+
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog
   rounds and a planned all-500 comparison after joint freezing. The campaign
-  page states the current execution and independent-gate status.
+  page preserves its execution and independent-gate history.
 
 - [Knowledge-skill generator G2](generator-g2/README.md): fixed-candidate confirmation
   with a fresh independent cohort after a verified native transport correction.

@@ -9,6 +9,11 @@ The later [E10 starting attempt](../evaluations/reports/evolution/e10/README.md)
 is stopped after three completed native measurements and seven controller
 refusals. Its [serialization diagnosis and preserved allocation](../evaluations/reports/evolution/e10/startup-control-001/README.md)
 explain the prospective correction; the all-eight starting gate remains incomplete.
+The active [E11 continuation](../evaluations/reports/evolution/e11/README.md)
+has verified all three original E10 imports and started new baseline jobs.
+Its [startup checkpoint](../evaluations/reports/evolution/e11/startup-001/README.md)
+records the actual public-agent runtime check and the five remaining family
+searches. The common starting gate and final all-500 comparison are pending.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 
