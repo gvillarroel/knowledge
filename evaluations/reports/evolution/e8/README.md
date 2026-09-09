@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 09:19 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 09:48 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -52,6 +52,12 @@ The [third reranking variant](classical-progress-007/README.md), with weights
 third consecutive miss, satisfying the declared mechanism stopping rule.
 `continuation-002` remains retained at 62.10%; remaining outer-round catalog
 opportunities continue under the same cumulative budget.
+The next [length-normalization trial](classical-progress-008/README.md) started
+the third round with `b=0.25`. It qualified at 60.89%, 1.21 percentage points
+below the retained 62.10%. Three eligible questions improved, eleven regressed
+and 98 tied. This records the first miss in that round's length mechanism;
+`continuation-002` remains retained. Its [application/category evidence](classical-progress-008/groups.md)
+and [CTA](classical-progress-008/cta.md) preserve the full paired comparison.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -126,6 +132,15 @@ That [caller implementation review has now passed](graphify-native-caller-review
 450 isolated cases. Its original five defects and corrected source commitments
 are preserved. Complete terminal-history review, ordinary study design sealing
 and a separate independent admission remain required before its one native trial.
+The [common public task bindings](aggregate-public-task-bindings-001/README.md)
+are also prepared and independently reviewed for all eight strategies, covering
+sixteen task roots. Each recognizes the exact fixed builder through one digest
+change while preserving every other contract value and seven other files.
+Both public roles retain their original exposure and weighting; all 120
+development question identities overlap the all-500 workload. The reproduced
+task trees and Harbor identities agree. These authoring results add no native
+trial or quality gain and become usable only after the fixed feasibility and
+separate continuation gates.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

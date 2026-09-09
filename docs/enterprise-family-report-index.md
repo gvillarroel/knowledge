@@ -54,6 +54,10 @@ The [corrected native caller review](../evaluations/reports/evolution/e8/graphif
 passed 450 isolated gate, lifecycle and admission cases. Its implementation
 receipt does not complete the future terminal-history review, design seal or
 independent native admission.
+The [reviewed public task versions for all eight strategies](../evaluations/reports/evolution/e8/aggregate-public-task-bindings-001/README.md)
+now preserve the complete fixed-builder binding across both public workloads.
+Their exact regeneration and native identities are preparation evidence; the
+existing subset/all-500 overlap remains explicit and no new score is assigned.
 
 ## Mechanism evidence
 
@@ -70,6 +74,7 @@ independent native admission.
 | Classical | Relevance-only reranking in the second round | [All four primary metrics tie; 62.10% retained and one miss in this mechanism](../evaluations/reports/evolution/e8/classical-progress-005/README.md) |
 | Classical | Mild-diversity reranking in the second round | [Relevance/source/topic weights 0.9/0.05/0.05 tie; two misses and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-006/README.md) |
 | Classical | Third reranking opportunity in the second round | [Weights 0.5/0.25/0.25 tie; three consecutive misses with the same incumbent](../evaluations/reports/evolution/e8/classical-progress-007/README.md) |
+| Classical | Length normalization in the third round | [`b=0.25` qualifies at 60.89%; first miss and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-008/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
