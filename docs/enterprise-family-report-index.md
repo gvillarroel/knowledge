@@ -10,10 +10,13 @@ is stopped after three completed native measurements and seven controller
 refusals. Its [serialization diagnosis and preserved allocation](../evaluations/reports/evolution/e10/startup-control-001/README.md)
 explain the prospective correction; the all-eight starting gate remains incomplete.
 The active [E11 continuation](../evaluations/reports/evolution/e11/README.md)
-has settled seven starting roles: three original E10 imports and four new
+has qualified seven starting roles: three original E10 imports and four new
 Classical/Adaptive measurements. Its
 [starting comparison checkpoint](../evaluations/reports/evolution/e11/starting-progress-002/README.md)
-records exact reproduction of their previous advantages. The original
+records exact reproduction of their previous advantages. The later
+[Ensemble construction failure](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md)
+exceeded the declared 6 GiB limit and prevents the unchanged common starting
+gate from passing; it has no retrieval score. The original
 [startup checkpoint](../evaluations/reports/evolution/e11/startup-001/README.md)
 preserves the public-agent runtime check. The common starting gate, five open
 family searches and final all-500 comparison are pending.
@@ -42,7 +45,7 @@ counts all three jobs once and preserves the incomplete controller gate.
 | Classical | `fusion` | [Retained E8 expansion gain: 62.10% nDCG@10](../evaluations/reports/evolution/e8/classical-progress-002/README.md); [category and application breakdown](../evaluations/reports/evolution/e8/classical-progress-002/groups.md); [CTA](../evaluations/reports/evolution/e8/classical-progress-002/cta.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
 | Entity Graph | `fusion` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
-| Ensemble | `quality` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
+| Ensemble | `quality` | [E11 construction exceeded the 6 GiB memory limit](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md); one completed execution error, no measured retrieval score. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
 | Graphify | `search` | [E9 fixed-builder feasibility: 8.12% nDCG@10, zero errors](../evaluations/reports/evolution/e9/feasibility-001/README.md); [CTA](../evaluations/reports/evolution/e9/feasibility-001/cta.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
 | Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 

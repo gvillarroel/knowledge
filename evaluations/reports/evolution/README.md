@@ -3,7 +3,10 @@
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
 - [EnterpriseRAG continuation E11](e11/README.md): active remaining-family
-  searches after exact import of three completed E10 measurements. The
+  work after exact import of three completed E10 measurements. The original
+  [Ensemble construction failure](e11/ensemble-memory-001/README.md) exceeded
+  its 6 GiB memory limit and prevents the unchanged common starting gate from
+  passing. The
   [starting comparison checkpoint](e11/starting-progress-002/README.md) records
   seven settled roles and exact Classical/Adaptive reproduction. The original
   [startup checkpoint](e11/startup-001/README.md) preserves the actual

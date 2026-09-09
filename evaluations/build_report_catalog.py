@@ -211,8 +211,10 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     overview = ["# Evaluation report hub", "", "Reviewed results organized by dataset, skill, and cost/time/quality (CTA).",
                 "", "[By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)", "",
                 "The [EnterpriseRAG continuation E11](evolution/e11/README.md) owns the active native execution status. "
-                "Its [startup checkpoint](evolution/e11/startup-001/README.md) records three exact E10 imports "
-                "and the first new baseline jobs. The earlier E8 "
+                "Its [Ensemble construction failure](evolution/e11/ensemble-memory-001/README.md) records a 6 GiB "
+                "memory-limit failure that prevents the unchanged common starting gate from passing. "
+                "The earlier [starting comparisons](evolution/e11/starting-progress-002/README.md) preserve "
+                "exact Classical/Adaptive reproduction. The earlier E8 "
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
