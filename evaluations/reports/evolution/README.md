@@ -2,16 +2,14 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
-- [EnterpriseRAG continuation E11](e11/README.md): active remaining-family
-  work after exact import of three completed E10 measurements. The original
-  [Ensemble construction failure](e11/ensemble-memory-001/README.md) exceeded
-  its 6 GiB memory limit and prevents the unchanged common starting gate from
-  passing. The
-  [starting comparison checkpoint](e11/starting-progress-002/README.md) records
-  seven settled roles and exact Classical/Adaptive reproduction. The original
-  [startup checkpoint](e11/startup-001/README.md) preserves the actual
-  public-agent runtime observation. The
-  all-eight starting gate, final comparisons and acceptance remain incomplete.
+- [EnterpriseRAG continuation E11](e11/README.md): the original execution
+  stopped after [all twelve starting roles settled](e11/starting-terminal-001/README.md).
+  Ten qualified across six families, with all nine required historical scores
+  reproduced exactly. Ensemble exceeded its 6 GiB memory limit and Entity
+  Graph timed out at 3,600 seconds; neither has a usable ranking. The
+  [CTA](e11/starting-terminal-001/cta.md) counts nine new jobs separately from
+  three E10 imports. Five family searches, final comparisons and independent
+  acceptance remain unfinished.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

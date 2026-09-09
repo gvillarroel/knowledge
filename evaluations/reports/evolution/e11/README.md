@@ -1,17 +1,28 @@
-# EnterpriseRAG E11: remaining family searches
+# EnterpriseRAG E11: starting results and remaining family searches
 
-E11 is the active continuation of the eight-family EnterpriseRAG study. Its
-protocol, baseline and independent review are sealed. Seven starting roles
-qualified: three exact E10 imports and four new Classical/Adaptive measurements.
-The original [Ensemble construction job exceeded its 6 GiB memory limit](ensemble-memory-001/README.md)
-and produced no ranking. That failed role prevents the unchanged common
-starting gate from passing while the other preallocated measurements settle.
-No new variant has been proposed.
+E11's original native execution stopped after all twelve starting roles
+settled. The [terminal comparison](starting-terminal-001/README.md) records
+ten qualified roles across six families and two execution failures. All nine
+required historical primary-score reproductions passed exactly. The original
+[Ensemble construction job exceeded its 6 GiB memory limit](ensemble-memory-001/README.md),
+and [Entity Graph reached its 3,600-second agent limit](entity-graph-timeout-001/README.md).
+Both lack a usable ranking and prevent the common starting gate from passing.
+E11 dispatched no new variant, automatic retry or private validation job.
 
-The [earlier starting checkpoint](starting-progress-002/README.md) confirms exact
-reproduction of Classical's 55.04% to 62.10% nDCG@10 and Adaptive's 60.04% to
-66.21%. These advantages were measured in earlier evolution. The remaining
-starting roles and five open family searches are still pending.
+A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
+releases persisted state before independent revalidation. It consumes one
+proposal within the existing caps. The complete candidate passed both public
+fixture layouts, query/artifact parity, corruption rejection and graph-lifetime
+checks, and is digest-sealed. It has no native allocation or measured
+EnterpriseRAG improvement.
+
+The current retained scores are Legacy 72.38, Turso 72.08, Adaptive 66.21,
+Embeddings 63.51 and Classical 62.10 on the 0–100 nDCG@10 scale. Graphify's
+qualified baseline is 8.12. These are internal stratified-subset retrieval
+results. The [CTA report](starting-terminal-001/cta.md) separates nine new E11
+jobs from three original E10 imports and preserves both failed attempts.
+The [earlier starting checkpoint](starting-progress-002/README.md) remains an
+immutable snapshot of the first seven qualified roles.
 
 The [startup checkpoint](startup-001/README.md) records the completed imports,
 the first two running native jobs and an actual public-agent runtime check.
@@ -23,10 +34,10 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Establish the common baseline and execute its catalog |
+| Entity Graph | Original agent timed out without a ranking; a valid baseline and its catalog remain pending |
 | Ensemble | Original construction failed from memory exhaustion; a valid baseline and its catalog remain pending |
-| Graphify | Reproduce the fixed-builder reference and execute its consultation catalog |
-| Turso | Reproduce its starting scores, complete the pending first measurement and remaining catalog |
+| Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
+| Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
 
 Every family retains its inherited claims, unique-profile history, costs and
 stopping state. Three consecutive evaluable misses end a mechanism; the

@@ -9,17 +9,15 @@ The later [E10 starting attempt](../evaluations/reports/evolution/e10/README.md)
 is stopped after three completed native measurements and seven controller
 refusals. Its [serialization diagnosis and preserved allocation](../evaluations/reports/evolution/e10/startup-control-001/README.md)
 explain the prospective correction; the all-eight starting gate remains incomplete.
-The active [E11 continuation](../evaluations/reports/evolution/e11/README.md)
-has qualified seven starting roles: three original E10 imports and four new
-Classical/Adaptive measurements. Its
-[starting comparison checkpoint](../evaluations/reports/evolution/e11/starting-progress-002/README.md)
-records exact reproduction of their previous advantages. The later
-[Ensemble construction failure](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md)
-exceeded the declared 6 GiB limit and prevents the unchanged common starting
-gate from passing; it has no retrieval score. The original
+The [E11 execution](../evaluations/reports/evolution/e11/README.md) stopped after
+[all twelve starting roles settled](../evaluations/reports/evolution/e11/starting-terminal-001/README.md).
+Ten qualified across six families, and all nine required historical primary
+scores reproduced exactly. Ensemble exceeded the declared 6 GiB limit; Entity
+Graph reached the 3,600-second agent limit. Neither has a usable ranking, so
+the unchanged common starting gate failed. The original
 [startup checkpoint](../evaluations/reports/evolution/e11/startup-001/README.md)
-preserves the public-agent runtime check. The common starting gate, five open
-family searches and final all-500 comparison are pending.
+preserves the public-agent runtime check. Five family searches and the final
+all-500 comparison remain unfinished.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 
@@ -27,11 +25,10 @@ for completed variant counts, unresolved baselines and the remaining final gates
 
 E7 and E8 measure deterministic retrieval on a stratified development subset of
 120 questions, 112 with references, and 6,000 reference-enriched full-text
-documents. Their five currently measured family routes share those questions and
-the frozen category weights. The all-500 paired comparison remains pending.
-E9's Graphify result uses a newly qualified package and native task version;
-its 8.12% nDCG@10 is reported separately until the required starting measurements
-establish the next common reference across all eight families.
+documents. Their measured family routes share those questions and the frozen
+category weights. E11 also qualified Graphify's fixed-builder baseline at 8.12%
+nDCG@10. A common reference across all eight families remains incomplete because
+of the two failed roles, and the all-500 paired comparison remains pending.
 E10 reproduced Legacy's 61.11% baseline and 72.38% retained result, together
 with Embeddings' 63.51% baseline. These are new versioned starting jobs with
 exactly reproduced historical primary scores, not new mutation gains.
@@ -44,9 +41,9 @@ counts all three jobs once and preserves the incomplete controller gate.
 | Embeddings | `hybrid` | [Completed search, baseline and six construction timeouts](../evaluations/reports/evolution/e7/embeddings-complete-001/README.md) | [Original completed-job time and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md); [independently checked semantic-window workload](../evaluations/reports/evolution/e8/embeddings-window-workload-001/README.md) |
 | Classical | `fusion` | [Retained E8 expansion gain: 62.10% nDCG@10](../evaluations/reports/evolution/e8/classical-progress-002/README.md); [category and application breakdown](../evaluations/reports/evolution/e8/classical-progress-002/groups.md); [CTA](../evaluations/reports/evolution/e8/classical-progress-002/cta.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
-| Entity Graph | `fusion` | No completed native family trial yet; see the campaign overview for current execution. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
+| Entity Graph | `fusion` | [E11 agent timeout after 3,600 seconds](../evaluations/reports/evolution/e11/entity-graph-timeout-001/README.md); missing ranking, no measured retrieval score. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
 | Ensemble | `quality` | [E11 construction exceeded the 6 GiB memory limit](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md); one completed execution error, no measured retrieval score. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
-| Graphify | `search` | [E9 fixed-builder feasibility: 8.12% nDCG@10, zero errors](../evaluations/reports/evolution/e9/feasibility-001/README.md); [CTA](../evaluations/reports/evolution/e9/feasibility-001/cta.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
+| Graphify | `search` | [E11 qualified baseline: 8.12% nDCG@10](../evaluations/reports/evolution/e11/starting-terminal-001/README.md); [current CTA](../evaluations/reports/evolution/e11/starting-terminal-001/cta.md); [earlier E9 feasibility](../evaluations/reports/evolution/e9/feasibility-001/README.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
 | Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 
 Legacy and Embeddings have terminal searches. Classical and Adaptive were
@@ -150,6 +147,7 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
+| Current settled starting comparison and CTA | [E11 terminal starting results](../evaluations/reports/evolution/e11/starting-terminal-001/README.md); [CTA](../evaluations/reports/evolution/e11/starting-terminal-001/cta.md) | Twelve settled roles: ten qualified measurements across six families, two execution errors, all nine required historical reproductions passed, no new evolution gain |
 | Settled native work and remaining opportunities | [E8 terminal report](../evaluations/reports/evolution/e8/terminal-001/README.md) | 66 completed historical jobs, a valid new Turso pair, fourteen completed new Classical trials and one Graphify construction error; five families need prospective continuation |
 | Versioned starting measurements and current control lesson | [E10 stopped startup](../evaluations/reports/evolution/e10/README.md) | Three completed native roles, nine unstarted roles and no new variant claim; exact persisted-default decoding needs prospective correction |
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |

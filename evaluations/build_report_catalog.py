@@ -210,11 +210,12 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files: dict[str, str] = {}
     overview = ["# Evaluation report hub", "", "Reviewed results organized by dataset, skill, and cost/time/quality (CTA).",
                 "", "[By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)", "",
-                "The [EnterpriseRAG continuation E11](evolution/e11/README.md) owns the active native execution status. "
-                "Its [Ensemble construction failure](evolution/e11/ensemble-memory-001/README.md) records a 6 GiB "
-                "memory-limit failure that prevents the unchanged common starting gate from passing. "
-                "The earlier [starting comparisons](evolution/e11/starting-progress-002/README.md) preserve "
-                "exact Classical/Adaptive reproduction. The earlier E8 "
+                "The [EnterpriseRAG continuation E11](evolution/e11/README.md) stopped after "
+                "[twelve starting roles settled](evolution/e11/starting-terminal-001/README.md): "
+                "ten qualified across six families, while Ensemble exceeded 6 GiB and Entity Graph timed out. "
+                "All nine required historical scores reproduced exactly; the "
+                "[CTA](evolution/e11/starting-terminal-001/cta.md) separates nine new jobs from three E10 imports. "
+                "Five family searches and final acceptance remain unfinished. The earlier E8 "
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
@@ -359,6 +360,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     cta.extend(["[Turso E8: original SQL baseline versus retained BM25 candidate, build time and query latency](../evolution/e8/turso-progress-001/cta.md)", ""])
     cta.extend(["[Classical E8: title-weight regression versus the retained incumbent, build time and query latency](../evolution/e8/classical-progress-001/cta.md)", ""])
     cta.extend(["[Classical E8: zero-expansion gain, paired quality and native execution time](../evolution/e8/classical-progress-002/cta.md)", ""])
+    cta.extend(["[EnterpriseRAG E11: twelve settled starting roles, nine new jobs, three imports and two execution errors](../evolution/e11/starting-terminal-001/cta.md)", ""])
     files["cta/README.md"] = "\n".join(cta)
     files["catalog.json"] = json.dumps({"schema_version": "evaluation-report-catalog/1.0", "datasets": datasets,
                                       "token_source_sha256": hashlib.sha256(token_text.encode()).hexdigest()},
