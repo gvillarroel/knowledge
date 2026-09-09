@@ -4,7 +4,10 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-028/README.md) records two
+[Reports by family, mechanism, dataset contract and CTA](../../../../docs/enterprise-family-report-index.md)
+provides direct links to the native results and supporting audits.
+
+The latest [all-family progress audit](status-029/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.89%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
@@ -14,7 +17,10 @@ Candidate018 scored
 two length-normalization misses were followed by candidate020's gain at
 `bm25.b=0.5`, which resets the counter and replaces candidate011. The remaining
 `bm25.b=1.0` setting recreates a previously tested profile and is skipped without
-a new trial. The next sealed candidate021 tests `bm25.k1=0.6` on candidate020.
+a new trial. Candidate021 tested `bm25.k1=0.6` on candidate020 and scored
+60.25%, the first saturation miss of the second round. Recall, MRR and full
+reference coverage also declined. Candidate022 tests `bm25.k1=2.0` on the
+retained candidate020.
 Adaptive now retains 66.21%, up from 60.04%. Candidate014 gained with relevance
 weight `1.0` and both novelty weights at zero on the retained `bm25.k1=3.0`,
 title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 scored
@@ -28,7 +34,7 @@ three-miss stop. Candidate017 tested aspect allocation with
 miss in this mechanism. Candidate018 tests `adaptive.aspect_weight=0.5`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 59 completed variants: 53 qualified measurements
+The current audit contains 60 completed variants: 54 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -43,11 +49,12 @@ The preceding [first audit](status-001/README.md),
 [twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md),
 [twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md),
 [twenty-fourth audit](status-024/README.md), [twenty-fifth audit](status-025/README.md),
-[twenty-sixth audit](status-026/README.md) and [twenty-seventh audit](status-027/README.md)
+[twenty-sixth audit](status-026/README.md), [twenty-seventh audit](status-027/README.md)
+and [twenty-eighth audit](status-028/README.md)
 remain unchanged.
 
 The latest Classical and Adaptive jobs completed with evidence integrity 1.0,
-no errors and no retries. Exact prefixes through variants twenty and seventeen
+no errors and no retries. Exact prefixes through variants twenty-one and seventeen
 replayed against the original native case metrics, profiles, counters and next
 sealed mutations. The cross-family comparison below now uses Classical020.
 
