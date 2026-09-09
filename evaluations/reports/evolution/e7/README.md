@@ -4,20 +4,23 @@ Status: sealed and running. The independent review passed all 32 registered
 tasks, 36 runtime isolation probes and 224 production-verifier fixtures. The
 native pipeline is executing development; the private gate remains unopened.
 
-The latest [all-family progress audit](status-024/README.md) records two
+The latest [all-family progress audit](status-025/README.md) records two
 completed searches and four qualified baselines. Classical now retains 60.10%
 weighted nDCG@10, up from 55.04%. All three declared diversity variants tied,
 ending that mechanism after three consecutive misses. Its first full round
 completed with six retained gains, so a second round begins. Candidate018 scored
-59.91% with `bm25.b=0.25`, its first miss in this round. Candidate019 now tests
-`bm25.b=0.0` on the retained candidate011 base.
+59.91% with `bm25.b=0.25`; candidate019 scored 59.00% with `bm25.b=0.0`. These
+are two consecutive length-normalization misses in this round. The next sealed
+candidate020 sets `bm25.b=0.5` on the retained candidate011 base.
 Adaptive now retains 66.21%, up from 60.04%. Candidate014 gained with relevance
 weight `1.0` and both novelty weights at zero on the retained `bm25.k1=3.0`,
-title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 tests
-relevance `0.9` and both novelty weights approximately `0.05`.
+title-weight `1.0`, association/topic-weight `0.175/0.1` base. Candidate015 scored
+65.96% with relevance `0.9` and both novelty weights approximately `0.05`, its
+first miss in this mechanism. Candidate016 tests relevance `0.5` and both
+novelty weights `0.25`.
 Entity Graph, Ensemble,
 Graphify and Turso have not started and are excluded from completed opportunity counts.
-The current audit contains 54 completed variants: 48 qualified measurements
+The current audit contains 56 completed variants: 50 qualified measurements
 and six Embeddings execution errors, plus four qualified native baselines.
 The preceding [first audit](status-001/README.md),
 [second audit](status-002/README.md), [third audit](status-003/README.md),
@@ -30,8 +33,15 @@ The preceding [first audit](status-001/README.md),
 [sixteenth audit](status-016/README.md), [seventeenth audit](status-017/README.md),
 [eighteenth audit](status-018/README.md), [nineteenth audit](status-019/README.md),
 [twentieth audit](status-020/README.md), [twenty-first audit](status-021/README.md),
-[twenty-second audit](status-022/README.md) and [twenty-third audit](status-023/README.md)
+[twenty-second audit](status-022/README.md), [twenty-third audit](status-023/README.md)
+and [twenty-fourth audit](status-024/README.md)
 remain unchanged.
+
+The latest Classical and Adaptive jobs completed with evidence integrity 1.0,
+no errors and no retries. Exact prefixes through variants nineteen and fifteen
+replayed against the original native case metrics, profiles, counters and next
+sealed mutations. Neither latest miss changes a retained profile, so the
+cross-family comparison below remains current.
 
 The [fifth Adaptive gain](adaptive-progress-005/README.md) adds 0.85 percentage
 points over candidate012 and 6.17 over the baseline. Recall gains 2.71 points
