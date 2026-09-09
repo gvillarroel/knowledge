@@ -42,8 +42,11 @@ The synthetic audits do not replace native baselines or consume development
 attempts. The two refused admissions likewise contain no native quality result.
 
 Graphify now also has a [sealed builder-efficiency candidate](../evaluations/reports/evolution/e8/graphify-candidate-001/README.md)
-with exact synthetic edge parity. Full artifact parity and native construction
-feasibility remain pending before any consultation search uses that builder.
+with exact synthetic edge parity. Native construction feasibility remains pending
+before any consultation search uses that builder.
+The [complete public fixture run](../evaluations/reports/evolution/e8/graphify-fixture-success-002/README.md)
+now passed all eight paired layout cells and sixteen corruption rejections.
+Those host checks supply no EnterpriseRAG score or native feasibility result.
 
 ## Mechanism evidence
 
@@ -56,6 +59,7 @@ feasibility remain pending before any consultation search uses that builder.
 | Classical | Title weight in the second round | [Qualified regression at weight 8; original incumbent retained](../evaluations/reports/evolution/e8/classical-progress-001/README.md) |
 | Classical | Expansion strength in the second round | [Zero expansion improves the retained nDCG to 62.10%; miss counter resets](../evaluations/reports/evolution/e8/classical-progress-002/README.md) |
 | Classical | Expansion follow-up | [Default expansion regresses to 61.89%; the zero-expansion incumbent remains retained](../evaluations/reports/evolution/e8/classical-progress-003/README.md) |
+| Classical | Stronger expansion | [Weights 0.7/0.4 regress to 60.13%; two misses and the 62.10% incumbent retained](../evaluations/reports/evolution/e8/classical-progress-004/README.md) |
 | Adaptive | Length normalization | [Initial native length trials](../evaluations/reports/evolution/e7/adaptive-length-001/README.md) |
 | Adaptive | Expansion strength | [Coverage/ranking tradeoff and catalog exhaustion](../evaluations/reports/evolution/e7/adaptive-expansion-002/README.md) |
 | Adaptive | Relevance and diversity | [Retained gain and application regressions](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md) |
@@ -72,7 +76,7 @@ profile for each application.
 
 | View | Report | Scope |
 | --- | --- | --- |
-| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso pair, three completed new Classical trials and one Graphify construction error; additional native work remains active at this checkpoint |
+| Current native execution and opportunity counts | [E8 continuation](../evaluations/reports/evolution/e8/README.md) | 66 completed historical jobs, a valid new Turso pair, four completed new Classical trials and one Graphify construction error; additional native work remains active at this checkpoint |
 | Original host interruption | [E7 disposition](../evaluations/reports/evolution/e7/interruption-001/README.md) | Fixed original inventory: 66 completed jobs, two incomplete originals and four unstarted families |
 | Retained profiles by category and application | [Five-family matrix](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md) | Legacy009, Embeddings baseline, Classical continuation-002, Adaptive014 and Turso continuation-001 on the same stratified development subset |
 | Cost, time and quality accounting | [Development CTA checkpoint 001](../evaluations/reports/evolution/e7/development-cta-001/README.md) | The 54 completed original jobs at checkpoint022; its denominator is fixed and does not expand with later trials |

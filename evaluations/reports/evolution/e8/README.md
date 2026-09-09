@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 07:21 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 08:02 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -33,6 +33,10 @@ preserve the exact paired evidence.
 The [following expansion trial](classical-progress-003/README.md) restored the
 default association/topic weights and regressed to 61.89%. It had no execution
 error, retained `continuation-002` and recorded the first miss since that gain.
+The [stronger expansion trial](classical-progress-004/README.md) then used
+association/topic weights 0.7/0.4 and measured 60.13%, 1.98 percentage points
+below that incumbent. It qualified without errors and recorded a second
+consecutive miss. The 62.10% candidate remains retained.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -86,7 +90,13 @@ The first [public host fixture run](graphify-fixture-failure-001/README.md)
 stopped because its cross-layout comparator omitted the native physical
 snapshot hash's layout-dependent meaning. The completed same-layout singleton
 comparisons agreed, but the fixed design remains failed; a separately reviewed
-replacement design must retain its consumed costs and all required checks.
+replacement design retained its consumed costs and all required checks. That
+[complete second design passed](graphify-fixture-success-002/README.md): all
+eight paired layout cells, 48 constructions/check rebuilds, 330 reads and sixteen
+declared corruption rejections completed in 301.75 host seconds. Original and
+candidate packages agreed within layouts; verified graph/query semantics agreed
+across layouts. Native full-workload feasibility and retrieval quality remain
+unmeasured.
 
 The continuation preserves cumulative attempts and rounds, excludes both
 interrupted profiles from new dispatch, and requires all-eight joint replay,

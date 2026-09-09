@@ -1,0 +1,78 @@
+{
+  "all500_complete": false,
+  "all_other_exit_codes": 0,
+  "arm_layout_cells": 16,
+  "candidate_files": 252,
+  "cumulative_actual_commands": {
+    "build": 40,
+    "check": 20,
+    "negative": 16,
+    "read": 408
+  },
+  "cumulative_host_seconds": 373.2522740000004,
+  "execution_artifact": {
+    "byte_count": 11739851,
+    "directory_sha256": "d1fde27984c5bfa589188b0a50046a648d1160bb1403c8c0d05ea07415abf064",
+    "file_count": 2096
+  },
+  "fixture_record_counts": [
+    1,
+    6,
+    8,
+    12
+  ],
+  "layouts": [
+    "record-per-file-v1",
+    "source-packed-v1"
+  ],
+  "native_fitness": null,
+  "native_qualification": false,
+  "negative_exit_codes_expected_and_observed": 2,
+  "outcome": {
+    "arms": 2,
+    "command_counts": {
+      "build": 32,
+      "check": 16,
+      "negative": 16,
+      "read": 330
+    },
+    "complete_paired_payloads_equal": true,
+    "cross_layout_graph_and_query_semantics_equal": true,
+    "independent_oracle_score_absolute_tolerance": 1e-12,
+    "model_calls": 0,
+    "native_jobs": 0,
+    "negative_rejections": 16,
+    "positive_cells": 8,
+    "protocol_sha256": "1154763c71378b6ec233a9014ccee3b530e45ef97b257f88e813abb5058ff1a2",
+    "review_receipt_sha256": "993170104bce3f26e9d77080bcdc15071036d555fc5701794dc2d6e8097680e3",
+    "runner_sha256": "d3a95951a6c0086e528792e15f74257044d0fa4872640c36965317502fbe089b",
+    "seconds": 301.7542080000003,
+    "status": "host-public-fixture-preflight-passed"
+  },
+  "paired_layout_cells": 8,
+  "prior_consumed_commands": {
+    "build": 8,
+    "check": 4,
+    "negative": 0,
+    "read": 78
+  },
+  "prior_design_status": "failed-preserved",
+  "private_validation_released": false,
+  "recorded_commands": 394,
+  "review": {
+    "directory_sha256": "c391c9f0ec4705589cd2a17b292e4171f21bf685c11cfacfdf22b92f095ba8ea",
+    "new_ast_probes": 45,
+    "prior_source_bound_branch_cases_reused": 41
+  },
+  "schema": "graphify-reviewed-public-fixture-result/2.0",
+  "skill_installed": false,
+  "source_sha256": {
+    "commands.json": "c883c02ed324535646d89911feccca4a01b4553baf0e7d6e881d93657e29ed54",
+    "outcome.json": "1ee543e1052346d7104e94a7bdc25cb59b27f4085b632f9144a0a4a45c672da3",
+    "protocol.json": "1154763c71378b6ec233a9014ccee3b530e45ef97b257f88e813abb5058ff1a2",
+    "review-assessment.md": "617a9639eff106a145ed8476feed1ca5f89b8a10042c5055a21d2ea16ba4d544",
+    "review-receipt.json": "993170104bce3f26e9d77080bcdc15071036d555fc5701794dc2d6e8097680e3",
+    "run_preflight.py": "d3a95951a6c0086e528792e15f74257044d0fa4872640c36965317502fbe089b"
+  },
+  "status": "public-host-correctness-preflight-passed"
+}
