@@ -76,3 +76,5 @@ Use the [comparison catalog](../../COMPARISON-REPORTS.md) for the current isolat
 [Turso E8: original SQL baseline versus retained BM25 candidate, build time and query latency](../evolution/e8/turso-progress-001/cta.md)
 
 [Classical E8: title-weight regression versus the retained incumbent, build time and query latency](../evolution/e8/classical-progress-001/cta.md)
+
+[Classical E8: zero-expansion gain, paired quality and native execution time](../evolution/e8/classical-progress-002/cta.md)

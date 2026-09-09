@@ -1,6 +1,6 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 06:23 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 07:03 UTC: independently reviewed, design-sealed and active.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -22,7 +22,14 @@ The private gate remains unopened.
 Classical's [first completed continuation candidate](classical-progress-001/README.md)
 raised title weight to 8 and regressed from its retained 61.89% to 38.78%
 weighted nDCG@10. It qualified without execution errors, counted as one miss,
-and retained the original `candidate-022`. Remaining catalog work is active.
+and retained the original `candidate-022`. The next
+[expansion-strength candidate](classical-progress-002/README.md) disabled both
+expansion weights and improved nDCG@10 to **62.10%**, a gain of 0.21 percentage
+points over that incumbent. One eligible question improved, none regressed
+and 111 tied. It is now retained, with the miss counter reset; remaining catalog
+work is active. [Applications/categories](classical-progress-002/groups.md),
+[routes](classical-progress-002/routes.md) and [CTA](classical-progress-002/cta.md)
+preserve the exact paired evidence.
 
 E8 continues the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
@@ -54,7 +61,7 @@ The original Turso route uses SQL substring presence; its declared nonempty
 profile variants introduce in-memory BM25 over the canonical database records.
 The [mechanism audit](../e7/turso-opportunity-001/README.md) describes that boundary.
 
-The [five-family matrix](retained-cross-family-001/README.md) compares exact
+The [five-family matrix](retained-cross-family-002/README.md) compares exact
 retained aggregates across categories and applications. Legacy retains the
 highest observed overall nDCG; Turso leads recall, MRR and full-qrel coverage
 among these five, plus the Gmail and HubSpot groups. These are provisional

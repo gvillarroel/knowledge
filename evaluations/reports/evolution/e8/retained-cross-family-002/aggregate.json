@@ -1,0 +1,430 @@
+{
+  "all500_complete": false,
+  "all_families_complete": false,
+  "corpus_documents": 6000,
+  "eligible_population_weight": 470,
+  "families": [
+    {
+      "candidate": "candidate-014",
+      "family": "adaptive",
+      "family_search_complete_at_snapshot": false,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.6927083333333334,
+        "mrr_at_10": 0.673708734380277,
+        "ndcg_at_10": 0.6620879880681476,
+        "recall_at_10": 0.7402260638297873
+      },
+      "primary_route": "adaptive"
+    },
+    {
+      "candidate": "continuation-002",
+      "family": "classical",
+      "family_search_complete_at_snapshot": false,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.5782358156028369,
+        "mrr_at_10": 0.6637762263593381,
+        "ndcg_at_10": 0.621048481690271,
+        "recall_at_10": 0.6416912923561859
+      },
+      "primary_route": "fusion"
+    },
+    {
+      "candidate": "baseline",
+      "family": "embeddings",
+      "family_search_complete_at_snapshot": true,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.7560948581560283,
+        "mrr_at_10": 0.6159483001238321,
+        "ndcg_at_10": 0.6350525198647472,
+        "recall_at_10": 0.808242218282112
+      },
+      "primary_route": "hybrid"
+    },
+    {
+      "candidate": "candidate-009",
+      "family": "legacy",
+      "family_search_complete_at_snapshot": true,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.7642952127659575,
+        "mrr_at_10": 0.7150891274062817,
+        "ndcg_at_10": 0.7237626950008386,
+        "recall_at_10": 0.8199197202521671
+      },
+      "primary_route": "lexical"
+    },
+    {
+      "candidate": "continuation-001",
+      "family": "turso",
+      "family_search_complete_at_snapshot": false,
+      "metrics": {
+        "full_qrel_coverage_at_10": 0.7726063829787234,
+        "mrr_at_10": 0.7160716484436564,
+        "ndcg_at_10": 0.7207839745370085,
+        "recall_at_10": 0.8250788022064618
+      },
+      "primary_route": "lexical-sql"
+    }
+  ],
+  "groups": [
+    {
+      "dimension": "all",
+      "group": "all",
+      "highest_among_measured": [
+        "legacy"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6620879880681476,
+        "classical": 0.621048481690271,
+        "embeddings": 0.6350525198647472,
+        "legacy": 0.7237626950008386,
+        "turso": 0.7207839745370085
+      },
+      "questions": 120,
+      "retrieval_eligible": 112,
+      "sum_of_category_weights": 470.0
+    },
+    {
+      "dimension": "application",
+      "group": "confluence",
+      "highest_among_measured": [
+        "embeddings"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6808722897022222,
+        "classical": 0.6004505585400998,
+        "embeddings": 0.7099259394212217,
+        "legacy": 0.6999393646469679,
+        "turso": 0.6969894783146877
+      },
+      "questions": 39,
+      "retrieval_eligible": 39,
+      "sum_of_category_weights": 139.73958333333334
+    },
+    {
+      "dimension": "application",
+      "group": "fireflies",
+      "highest_among_measured": [
+        "classical"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6960158238333354,
+        "classical": 0.7890863359674517,
+        "embeddings": 0.5610472514454189,
+        "legacy": 0.7765391852585631,
+        "turso": 0.7819145731444561
+      },
+      "questions": 9,
+      "retrieval_eligible": 9,
+      "sum_of_category_weights": 33.229166666666664
+    },
+    {
+      "dimension": "application",
+      "group": "github",
+      "highest_among_measured": [
+        "embeddings"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6271172986094028,
+        "classical": 0.5763271388384349,
+        "embeddings": 0.6729041094217874,
+        "legacy": 0.6476283401108317,
+        "turso": 0.6258175067547026
+      },
+      "questions": 12,
+      "retrieval_eligible": 12,
+      "sum_of_category_weights": 44.01041666666667
+    },
+    {
+      "dimension": "application",
+      "group": "gmail",
+      "highest_among_measured": [
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.7115310503526697,
+        "classical": 0.5006665538232123,
+        "embeddings": 0.49644260424959935,
+        "legacy": 0.7218657911631591,
+        "turso": 0.7252003717704292
+      },
+      "questions": 10,
+      "retrieval_eligible": 10,
+      "sum_of_category_weights": 37.395833333333336
+    },
+    {
+      "dimension": "application",
+      "group": "google_drive",
+      "highest_among_measured": [
+        "legacy"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6873066057754214,
+        "classical": 0.6233043897079146,
+        "embeddings": 0.663299035719532,
+        "legacy": 0.7629116241089208,
+        "turso": 0.7307528672244167
+      },
+      "questions": 14,
+      "retrieval_eligible": 14,
+      "sum_of_category_weights": 55.989583333333336
+    },
+    {
+      "dimension": "application",
+      "group": "hubspot",
+      "highest_among_measured": [
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.5996730333713812,
+        "classical": 0.5689655172413793,
+        "embeddings": 0.6367593147463748,
+        "legacy": 0.7413793103448276,
+        "turso": 0.752666358066505
+      },
+      "questions": 9,
+      "retrieval_eligible": 9,
+      "sum_of_category_weights": 45.3125
+    },
+    {
+      "dimension": "application",
+      "group": "jira",
+      "highest_among_measured": [
+        "legacy"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6915991485489117,
+        "classical": 0.6561333155913093,
+        "embeddings": 0.6537291981814942,
+        "legacy": 0.7977127526360729,
+        "turso": 0.7780390223352802
+      },
+      "questions": 26,
+      "retrieval_eligible": 26,
+      "sum_of_category_weights": 99.11458333333334
+    },
+    {
+      "dimension": "application",
+      "group": "linear",
+      "highest_among_measured": [
+        "classical"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.8132520039232123,
+        "classical": 0.8323104304308355,
+        "embeddings": 0.6972301787788685,
+        "legacy": 0.8305991936629661,
+        "turso": 0.8216373497697533
+      },
+      "questions": 15,
+      "retrieval_eligible": 15,
+      "sum_of_category_weights": 69.21875
+    },
+    {
+      "dimension": "application",
+      "group": "slack",
+      "highest_among_measured": [
+        "embeddings"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.5015641157141544,
+        "classical": 0.4668363182497394,
+        "embeddings": 0.6280023819969882,
+        "legacy": 0.5619874582739111,
+        "turso": 0.5635959338356792
+      },
+      "questions": 24,
+      "retrieval_eligible": 24,
+      "sum_of_category_weights": 86.82291666666667
+    },
+    {
+      "dimension": "category",
+      "group": "basic",
+      "highest_among_measured": [
+        "legacy"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.8472222222222222,
+        "classical": 0.7916666666666667,
+        "embeddings": 0.7154136854420547,
+        "legacy": 0.8479631622558056,
+        "turso": 0.8443872117736989
+      },
+      "questions": 24,
+      "retrieval_eligible": 24,
+      "sum_of_category_weights": 175.0
+    },
+    {
+      "dimension": "category",
+      "group": "completeness",
+      "highest_among_measured": [
+        "adaptive"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6290421148883322,
+        "classical": 0.30998494882975824,
+        "embeddings": 0.5219731729573417,
+        "legacy": 0.5570791229674383,
+        "turso": 0.5552616671901222
+      },
+      "questions": 12,
+      "retrieval_eligible": 12,
+      "sum_of_category_weights": 20.0
+    },
+    {
+      "dimension": "category",
+      "group": "conflicting_info",
+      "highest_among_measured": [
+        "legacy"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.9625862263836886,
+        "classical": 0.9032867981913647,
+        "embeddings": 0.7829701695616396,
+        "legacy": 1.0,
+        "turso": 0.9799301972870469
+      },
+      "questions": 4,
+      "retrieval_eligible": 4,
+      "sum_of_category_weights": 20.0
+    },
+    {
+      "dimension": "category",
+      "group": "constrained",
+      "highest_among_measured": [
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.8069506436984325,
+        "classical": 0.7145821117043031,
+        "embeddings": 0.8692318258004651,
+        "legacy": 0.8784480240398502,
+        "turso": 0.8804714136440032
+      },
+      "questions": 8,
+      "retrieval_eligible": 8,
+      "sum_of_category_weights": 30.0
+    },
+    {
+      "dimension": "category",
+      "group": "high_level",
+      "highest_among_measured": [],
+      "ndcg_at_10_by_family": {
+        "adaptive": null,
+        "classical": null,
+        "embeddings": null,
+        "legacy": null,
+        "turso": null
+      },
+      "questions": 4,
+      "retrieval_eligible": 0,
+      "sum_of_category_weights": 0
+    },
+    {
+      "dimension": "category",
+      "group": "info_not_found",
+      "highest_among_measured": [],
+      "ndcg_at_10_by_family": {
+        "adaptive": null,
+        "classical": null,
+        "embeddings": null,
+        "legacy": null,
+        "turso": null
+      },
+      "questions": 4,
+      "retrieval_eligible": 0,
+      "sum_of_category_weights": 0
+    },
+    {
+      "dimension": "category",
+      "group": "intra_document_reasoning",
+      "highest_among_measured": [
+        "adaptive",
+        "classical",
+        "legacy",
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 1.0,
+        "classical": 1.0,
+        "embeddings": 0.8288662191964322,
+        "legacy": 1.0,
+        "turso": 1.0
+      },
+      "questions": 12,
+      "retrieval_eligible": 12,
+      "sum_of_category_weights": 40.0
+    },
+    {
+      "dimension": "category",
+      "group": "miscellaneous",
+      "highest_among_measured": [
+        "legacy",
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.875,
+        "classical": 0.875,
+        "embeddings": 0.9077324383928644,
+        "legacy": 0.928834569759174,
+        "turso": 0.928834569759174
+      },
+      "questions": 8,
+      "retrieval_eligible": 8,
+      "sum_of_category_weights": 20.0
+    },
+    {
+      "dimension": "category",
+      "group": "project_related",
+      "highest_among_measured": [
+        "embeddings"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.6026714621124584,
+        "classical": 0.5495728575827383,
+        "embeddings": 0.7166122217791953,
+        "legacy": 0.6362361517285743,
+        "turso": 0.6067594688129647
+      },
+      "questions": 12,
+      "retrieval_eligible": 12,
+      "sum_of_category_weights": 40.0
+    },
+    {
+      "dimension": "category",
+      "group": "semantic",
+      "highest_among_measured": [
+        "turso"
+      ],
+      "ndcg_at_10_by_family": {
+        "adaptive": 0.20215616705799,
+        "classical": 0.22532245706319712,
+        "embeddings": 0.3290214508223654,
+        "legacy": 0.40203002088605955,
+        "turso": 0.40828524900344887
+      },
+      "questions": 32,
+      "retrieval_eligible": 32,
+      "sum_of_category_weights": 125.0
+    }
+  ],
+  "new_native_trials": 0,
+  "private_validation_used": false,
+  "profile_promoted": false,
+  "questions": 120,
+  "retrieval_eligible": 112,
+  "schema_version": "enterprise-published-retained-comparison/1.0",
+  "selection_changed": false,
+  "selection_sha256": "23d852db3401d2d1f082fdce34c4ded26f32c1b4f85089f90454745a8dbfe7a0",
+  "snapshot_utc": "2026-09-09T07:02:23.852449+00:00",
+  "source_aggregates": {
+    "evaluations/reports/evolution/e8/classical-progress-002/aggregate.json": "742c72ee5a86b5691e32a437e78a5d6aedc924882bf94ec29075f1991dd5f0e5",
+    "evaluations/reports/evolution/e8/retained-cross-family-001/aggregate.json": "d8d8310682654f62452ef7ec9b7c766adc6f04bad8e906e6a7576f1d854e8ce5"
+  },
+  "source_cases_rescored": false,
+  "status": "provisional-five-family-development-comparison",
+  "unscored_families": [
+    "entity-graph",
+    "ensemble",
+    "graphify"
+  ]
+}
