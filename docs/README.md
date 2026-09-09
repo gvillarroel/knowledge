@@ -36,6 +36,8 @@
 - [Five measured EnterpriseRAG strategies: retained results by application and category](../evaluations/reports/evolution/e8/retained-cross-family-002/README.md)
 - [Cumulative EnterpriseRAG CTA: 75 completed jobs, construction errors and missing cost telemetry](../evaluations/reports/evolution/e8/development-cta-001/README.md)
 - [Cumulative EnterpriseRAG CTA through Classical012: 81 completed jobs with prior observations preserved](../evaluations/reports/evolution/e8/development-cta-002/README.md)
+- [Terminal EnterpriseRAG CTA: 83 completed jobs and exact preservation of prior observations](../evaluations/reports/evolution/e8/development-cta-003/README.md)
+- [E8 terminal outcome: Classical plateau, all-eight claim accounting and five families still pending](../evaluations/reports/evolution/e8/terminal-001/README.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)

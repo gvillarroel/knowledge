@@ -1,6 +1,9 @@
 # EnterpriseRAG continuation E8
 
-Status at 2026-09-09 12:07 UTC: independently reviewed, design-sealed and active.
+Status at 2026-09-09 12:38 UTC: stopped with required family lanes incomplete.
+The [terminal report](terminal-001/README.md) preserves the settled native work,
+exact scheduler state and all remaining opportunities. The original supervisor
+ended; all four stages are stopped and the private gate was never released.
 Turso has its first retained gain. Four later or initial admissions were refused
 before native dispatch; Graphify has one native construction timeout.
 The native owner has revalidated all 66 completed historical jobs: 17 Legacy,
@@ -21,7 +24,7 @@ The private gate remains unopened.
 
 ## Opportunity coverage across all eight strategies
 
-This fixed checkpoint covers completed work through Classical `continuation-013`.
+This fixed checkpoint covers completed work through Classical `continuation-014`.
 Variant counts exclude baselines, the two interrupted originals and any later
 or currently running job. They combine the [original E7 inventory](../e7/interruption-001/README.md)
 with the completed E8 prefixes linked below; historical imports add no attempt.
@@ -30,7 +33,7 @@ with the completed E8 prefixes linked below; historical imports add no attempt.
 | --- | ---: | --- | --- |
 | Legacy | 16 | [Declared catalog reached its stopping rule](../e7/legacy-complete-001/README.md) | Required joint replay and final comparisons |
 | Embeddings | 6 | [Both declared mechanisms stopped after construction timeouts](../e7/embeddings-complete-001/README.md); baseline retained | Required joint replay and final comparisons; failed variants have no quality measurement |
-| Classical | 35 | [Thirteen E8 variants completed](classical-progress-013/README.md); third round continues with `continuation-002` retained | Remaining declared opportunities; original interrupted profile remains unavailable |
+| Classical | 36 | [Fourteen E8 variants completed](classical-progress-014/README.md); third round ended without improvement, with `continuation-002` retained | Required joint replay and final comparisons; original interrupted profile remains unavailable |
 | Adaptive | 18 | E7 prefix retained; first E8 proposal refused before dispatch | Continue remaining opportunities under a corrected prospective design; original interrupted profile remains unavailable |
 | Entity Graph | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
 | Ensemble | 0 | Baseline refused before dispatch | Qualified baseline and declared candidate search |
@@ -46,6 +49,9 @@ results are not zeroes. The all-500 comparison, frozen joint selection and
 one-way acceptance remain incomplete.
 
 ## Completed Classical continuation measurements
+
+The following paragraphs preserve the decision at each measured opportunity.
+The terminal inventory above governs the final search disposition.
 
 Classical's [first completed continuation candidate](classical-progress-001/README.md)
 raised title weight to 8 and regressed from its retained 61.89% to 38.78%
@@ -124,15 +130,21 @@ It records the first miss in the title mechanism, with zero execution errors
 or retries. The same incumbent remains retained; the
 [application/category evidence](classical-progress-013/groups.md) and
 [CTA](classical-progress-013/cta.md) preserve the full paired comparison.
+The [second title-weight trial](classical-progress-014/README.md) used weight 8
+and qualified at 38.95%, 23.16 percentage points below the retained 62.10%.
+Three eligible questions improved, 49 regressed and 60 tied. It recorded a second
+title-weight miss with no execution error or retry. The remaining catalog
+positions were duplicates; the native owner then ended round three without
+improvement. The original interrupted hypothesis remains unavailable.
 
 ## Retained development measurements
 
-E8 continues the remaining opportunities after the
+E8 continued the remaining opportunities after the
 [E7 interruption](../e7/interruption-001/README.md), preserving 66 completed
-original jobs and two unavailable original profiles. It first measures native
-baselines for Turso, Graphify, Entity Graph and Ensemble, then evolves those
-families and continues Classical and Adaptive. Legacy and Embeddings keep their
-completed searches as historical development evidence.
+original jobs and two unavailable original profiles. Its new native work
+completed a Turso baseline and first gain, fourteen Classical variants and one
+failed Graphify baseline. Four admission refusals left other opportunities
+pending. Legacy and Embeddings kept their completed historical searches.
 
 | Inherited family | Baseline nDCG@10 | Last retained nDCG@10 | Historical scope |
 | --- | ---: | ---: | --- |
@@ -170,14 +182,14 @@ highest observed overall nDCG; Turso leads recall, MRR and full-qrel coverage
 among these five, plus the Gmail and HubSpot groups. These are provisional
 development comparisons. Turso's search has not reached a stopping rule.
 
-The [cumulative CTA through Classical012](development-cta-002/README.md) binds
-81 completed original jobs across E7 and E8: 74 qualified measurements and seven
-construction errors. Their native durations sum to 28.42 job hours, including
+The [terminal cumulative CTA](development-cta-003/README.md) binds
+83 completed original jobs across E7 and E8: 76 qualified measurements and seven
+construction errors. Their native durations sum to 29.15 job hours, including
 4.73 hours in failed jobs. This fixed total excludes the two interrupted
-originals, later/running jobs and host preparation. Missing token/cost telemetry
+originals, future work and host preparation. Missing token/cost telemetry
 remains unknown; historical imports count no additional native trial. The
-[earlier 75-job checkpoint](development-cta-001/README.md) remains unchanged,
-and each of its original observations is preserved exactly in the new total.
+[earlier 81-job checkpoint](development-cta-002/README.md) remains unchanged,
+and each of its original observations is preserved exactly in the terminal total.
 
 The [supporting historical review before E7](pre-e7-history-review-001/README.md)
 now reconciles eight earlier registry directories, including two real
@@ -262,8 +274,8 @@ arms; it supplies no final measurement yet. Raw data and native artifacts remain
 ignored under `tmp/e8/`.
 
 The missing baselines prevent E8 from satisfying its all-eight joint gate.
-The existing controller continues independent lanes under its sealed rules.
-Corrected execution requires a prospective study after E8 becomes terminal,
+The original controller finished its independent lanes under its sealed rules.
+Corrected execution requires a prospective study after the terminal-history review,
 with all completed evidence, consumed budgets and unavailable profiles retained.
 The [control decision](../../../../.specs/adr/0131-correct-sealed-enterprise-admission-prospectively.md)
 does not authorize an in-place guard change or a new private release.
