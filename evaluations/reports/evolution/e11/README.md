@@ -1,10 +1,19 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The new [consultant-only token-automaton candidate](entity-consultant-token-automaton-001/README.md)
+passes seven declared software checks with the complete builder frozen. It
+preserves 1,120 ordered matching comparisons, four complete integration cells
+and all 32 nonempty paired query payloads. Cumulative proposals are now
+**86 of 585**. Its separate native first measurement is unassigned; the
+[retained eight-family scores](entity-consultant-token-automaton-001/README.md#retained-eight-family-context)
+remain unchanged. Its [CTA](entity-consultant-token-automaton-001/cta.md)
+separates software evidence from pending native feasibility.
+
 The latest [Entity Graph token-automaton native measurement](entity-token-automaton-native-001/README.md)
 reached the unchanged **3,600-second agent limit** without a submitted response
 or retrieval score. The original report completed, qualification failed and the
 ordinary study is stopped at sequence 7. This first measurement is consumed;
-cumulative proposal claims remain **85 of 585**, with no retry or new quality
+its accounting checkpoint preserves **85 of 585** claims, with no retry or new quality
 miss. The [current eight-family comparison](entity-token-automaton-native-001/README.md#eight-family-comparison),
 [application/category availability](entity-token-automaton-native-001/groups.md)
 and [CTA](entity-token-automaton-native-001/cta.md) preserve the outcome and all
@@ -106,7 +115,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original, prefix correction and token automaton reached the agent limit; software parity is preserved, but complete qualification and the catalog remain pending |
+| Entity Graph | Original, prefix correction and builder automaton reached the agent limit; a separate consultant-only automaton passes software checks, with native qualification and the catalog still pending |
 | Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |

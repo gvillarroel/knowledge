@@ -42,6 +42,10 @@
   The [current eight-family comparison](e11/entity-token-automaton-native-001/README.md#eight-family-comparison)
   and [CTA](e11/entity-token-automaton-native-001/cta.md) preserve that consumed
   attempt, unchanged retained scores and all five open searches.
+  A separate [consultant-only automaton candidate](e11/entity-consultant-token-automaton-001/README.md)
+  now passes seven software checks while freezing the builder. Cumulative
+  proposals are 86; its native first measurement remains unassigned, and its
+  [CTA](e11/entity-consultant-token-automaton-001/cta.md) establishes no new native gain.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog
