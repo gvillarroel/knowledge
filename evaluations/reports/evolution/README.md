@@ -78,6 +78,13 @@
   [resource evidence](e11/entity-ngram-eligibility-native-001/resources.md)
   preserve the outcome, a memory-pressure snapshot during the second build,
   and three unreserved transfer hypotheses. No canonical skill is promoted.
+  One of those hypotheses is now the separately charged [Entity builder lifetime
+  transfer](e11/entity-memory-lifetime-001/README.md). It passed nine software
+  checks and the pinned JSON runtime with 19 identical reference files. Its
+  [CTA](e11/entity-memory-lifetime-001/cta.md) and [contract coverage](e11/entity-memory-lifetime-001/groups.md)
+  document released construction state and exact compatibility. Cumulative
+  claims are now 88; the new native first measurement remains unassigned and
+  no retained retrieval score changes.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

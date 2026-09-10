@@ -1,16 +1,28 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The new [Entity builder lifetime transfer](entity-memory-lifetime-001/README.md)
+passes nine software checks and a pinned 1,024-record JSON runtime cell, with
+all 19 reference files preserved. Two builder files release persisted RDF and
+projection state before independent checks; the complete consultant and 250
+other package files are frozen. [CTA](entity-memory-lifetime-001/cta.md) and
+[contract coverage](entity-memory-lifetime-001/groups.md) preserve the measured
+work. Claims are now **88 of 585**, including **5 of Entity's 80**. Its native
+first measurement is unassigned; the six earlier construction measurements
+remain consumed, five searches remain open and retained retrieval scores are
+unchanged. No canonical skill has been promoted.
+
 The latest [Entity builder extraction native measurement](entity-ngram-eligibility-native-001/README.md)
 reached the unchanged **3,600-second agent limit** without a submitted ranking
 or qualified retrieval score. The original dispatcher and maintained report
 are terminal; qualification failed and the ordinary study is stopped at
-sequence 7. All **six construction first measurements are consumed**. Total
-claims remain **87 of 585**, including **4 of Entity's 80**; the retained scores
-and five open family searches are unchanged. The [native CTA](entity-ngram-eligibility-native-001/cta.md),
+sequence 7. At that checkpoint, all **six construction first measurements were
+consumed**, with **87 of 585** total claims, including **4 of Entity's 80**;
+retained scores and five open family searches were unchanged. The [native CTA](entity-ngram-eligibility-native-001/cta.md),
 [application/category availability](entity-ngram-eligibility-native-001/groups.md)
 and [resource evidence](entity-ngram-eligibility-native-001/resources.md)
 preserve the outcome and memory pressure observed during the second builder
-invocation. Three source-transfer opportunities remain unreserved and untested.
+invocation. Its three source-transfer hypotheses were unreserved and untested
+at that checkpoint; the builder lifetime treatment above now has software evidence.
 The all-500 comparison and independent acceptance are unfinished; no canonical
 skill is promoted.
 
@@ -171,7 +183,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original and all four corrections reached the agent limit; exact software checks remain valid. Builder memory-lifetime transfer and separate consultant extraction transfer are untested; full-workload qualification and the catalog remain pending |
+| Entity Graph | Original and first four corrections reached the agent limit. The fifth correction, builder lifetime transfer, passes software and pinned-runtime checks; its native first measurement is unassigned. Separate consultant extraction transfer is untested; full-workload qualification and the catalog remain pending |
 | Ensemble | Original and first correction failed with memory exhaustion; second correction timed out. Function-only matching/extraction transfer is untested; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |

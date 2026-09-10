@@ -1,0 +1,475 @@
+{
+  "all500_complete": false,
+  "atomic_failure_pairs": 4,
+  "candidate_tree_sha256": "sha256:810ca4eee999ce0c93f19a3b0302a31de6f28cfd9ba1ee09c39e6014c056ddb5",
+  "canonical_skill_installed": false,
+  "changed_files": {
+    "assets/families/entity-graph/builder/scripts/_entity_graph_build.py": "bf06f45a42913cfff11f2552e49143d8c300727cf6733dafed70101788a6cd0f",
+    "assets/families/entity-graph/builder/scripts/_semantic_okf.py": "bcd6132f64698005fc2204c521326450de7c5d08ce5bd055512d4dbd19ca96b0"
+  },
+  "consultant_frozen": true,
+  "cumulative_claims": 88,
+  "development_contract": {
+    "answer_quality": false,
+    "documents": 6000,
+    "metric": "frozen-category-weighted nDCG@10",
+    "questions": 120,
+    "retrieval_eligible": 112
+  },
+  "donor_tree_sha256": "sha256:3adc772b29c0175023b48875e4592a85499394d322f09a8d6e837c460025014c",
+  "families": [
+    {
+      "baseline_ndcg_at_10": 0.6003504668859466,
+      "best_observed_development_ndcg_at_10": 0.6620879880681476,
+      "claimed_proposals": 20,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "adaptive",
+      "historical_claims": 20,
+      "historical_measured_gain_points": 6.173752118220099,
+      "historical_pending_first_measurements": 1,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 100,
+      "retained_start_ndcg_at_10": 0.6620879880681476,
+      "search_closed": false,
+      "subsequent_construction_claims": 0
+    },
+    {
+      "baseline_ndcg_at_10": 0.5504213258483941,
+      "best_observed_development_ndcg_at_10": 0.621048481690271,
+      "claimed_proposals": 37,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "classical",
+      "historical_claims": 37,
+      "historical_measured_gain_points": 7.062715584187695,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 85,
+      "retained_start_ndcg_at_10": 0.621048481690271,
+      "search_closed": true,
+      "subsequent_construction_claims": 0
+    },
+    {
+      "baseline_ndcg_at_10": 0.6350525198647472,
+      "best_observed_development_ndcg_at_10": 0.6350525198647472,
+      "claimed_proposals": 6,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "embeddings",
+      "historical_claims": 6,
+      "historical_measured_gain_points": 0.0,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 40,
+      "retained_start_ndcg_at_10": 0.6350525198647472,
+      "search_closed": true,
+      "subsequent_construction_claims": 0
+    },
+    {
+      "baseline_ndcg_at_10": null,
+      "best_observed_development_ndcg_at_10": null,
+      "claimed_proposals": 2,
+      "construction_measurements_consumed": 2,
+      "current_construction_ndcg_at_10": null,
+      "family": "ensemble",
+      "historical_claims": 0,
+      "historical_measured_gain_points": null,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 105,
+      "retained_start_ndcg_at_10": null,
+      "search_closed": false,
+      "subsequent_construction_claims": 2
+    },
+    {
+      "baseline_ndcg_at_10": null,
+      "best_observed_development_ndcg_at_10": null,
+      "claimed_proposals": 5,
+      "construction_measurements_consumed": 4,
+      "current_construction_ndcg_at_10": null,
+      "family": "entity-graph",
+      "historical_claims": 0,
+      "historical_measured_gain_points": null,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 1,
+      "proposal_cap": 80,
+      "retained_start_ndcg_at_10": null,
+      "search_closed": false,
+      "subsequent_construction_claims": 5
+    },
+    {
+      "baseline_ndcg_at_10": 0.08116433357167044,
+      "best_observed_development_ndcg_at_10": 0.08116433357167044,
+      "claimed_proposals": 0,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "graphify",
+      "historical_claims": 0,
+      "historical_measured_gain_points": 0.0,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 65,
+      "retained_start_ndcg_at_10": 0.08116433357167044,
+      "search_closed": false,
+      "subsequent_construction_claims": 0
+    },
+    {
+      "baseline_ndcg_at_10": 0.611052744442418,
+      "best_observed_development_ndcg_at_10": 0.7237626950008386,
+      "claimed_proposals": 16,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "legacy",
+      "historical_claims": 16,
+      "historical_measured_gain_points": 11.270995055842059,
+      "historical_pending_first_measurements": 0,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 55,
+      "retained_start_ndcg_at_10": 0.7237626950008386,
+      "search_closed": true,
+      "subsequent_construction_claims": 0
+    },
+    {
+      "baseline_ndcg_at_10": 0.4542900785976876,
+      "best_observed_development_ndcg_at_10": 0.7207839745370085,
+      "claimed_proposals": 2,
+      "construction_measurements_consumed": 0,
+      "current_construction_ndcg_at_10": null,
+      "family": "turso",
+      "historical_claims": 2,
+      "historical_measured_gain_points": 26.64938959393209,
+      "historical_pending_first_measurements": 1,
+      "new_evaluable_quality_misses": 0,
+      "pending_construction_first_measurements": 0,
+      "proposal_cap": 55,
+      "retained_start_ndcg_at_10": 0.7207839745370085,
+      "search_closed": false,
+      "subsequent_construction_claims": 0
+    }
+  ],
+  "family_searches_still_open": 5,
+  "full_goal_complete": false,
+  "global_proposal_cap": 585,
+  "host_cost_usd": null,
+  "independent_acceptance": false,
+  "integration_cells": [
+    {
+      "benchmark_questions": 0,
+      "commands": 48,
+      "complete_builds": 4,
+      "consultant_corruption_rejections": 10,
+      "consultant_deep_validations": 2,
+      "corruption_rejections": 10,
+      "identical_files": 21,
+      "independent_validations": 4,
+      "layout": "record-per-file-v1",
+      "model_calls": 0,
+      "native_harbor_trials": 0,
+      "nonempty_query_pairs": 8,
+      "overwrite_rejections": 2,
+      "package_trees_unchanged": true,
+      "paired_queries": 8,
+      "schema": "generic",
+      "status": "pass",
+      "validator_sha256": "06ae0b0b46e23aaf56019364bbbfbf991818ef51def8bc47a174cb4fe56d9e84"
+    },
+    {
+      "benchmark_questions": 0,
+      "commands": 48,
+      "complete_builds": 4,
+      "consultant_corruption_rejections": 10,
+      "consultant_deep_validations": 2,
+      "corruption_rejections": 10,
+      "identical_files": 21,
+      "independent_validations": 4,
+      "layout": "source-packed-v1",
+      "model_calls": 0,
+      "native_harbor_trials": 0,
+      "nonempty_query_pairs": 8,
+      "overwrite_rejections": 2,
+      "package_trees_unchanged": true,
+      "paired_queries": 8,
+      "schema": "generic",
+      "status": "pass",
+      "validator_sha256": "06ae0b0b46e23aaf56019364bbbfbf991818ef51def8bc47a174cb4fe56d9e84"
+    },
+    {
+      "benchmark_questions": 0,
+      "commands": 48,
+      "complete_builds": 4,
+      "consultant_corruption_rejections": 10,
+      "consultant_deep_validations": 2,
+      "corruption_rejections": 10,
+      "identical_files": 105,
+      "independent_validations": 4,
+      "layout": "record-per-file-v1",
+      "model_calls": 0,
+      "native_harbor_trials": 0,
+      "nonempty_query_pairs": 8,
+      "overwrite_rejections": 2,
+      "package_trees_unchanged": true,
+      "paired_queries": 8,
+      "schema": "scientific",
+      "status": "pass",
+      "validator_sha256": "06ae0b0b46e23aaf56019364bbbfbf991818ef51def8bc47a174cb4fe56d9e84"
+    },
+    {
+      "benchmark_questions": 0,
+      "commands": 48,
+      "complete_builds": 4,
+      "consultant_corruption_rejections": 10,
+      "consultant_deep_validations": 2,
+      "corruption_rejections": 10,
+      "identical_files": 20,
+      "independent_validations": 4,
+      "layout": "source-packed-v1",
+      "model_calls": 0,
+      "native_harbor_trials": 0,
+      "nonempty_query_pairs": 8,
+      "overwrite_rejections": 2,
+      "package_trees_unchanged": true,
+      "paired_queries": 8,
+      "schema": "scientific",
+      "status": "pass",
+      "validator_sha256": "06ae0b0b46e23aaf56019364bbbfbf991818ef51def8bc47a174cb4fe56d9e84"
+    }
+  ],
+  "lifetime_observations": {
+    "candidate": {
+      "core": {
+        "shacl_entry": [
+          [
+            4
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "validation_entry": [
+          [
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "projection_arrays_copied": false,
+      "projection_mapping_instrumented": true,
+      "projection_validation_entry": [
+        [
+          false
+        ],
+        [
+          false,
+          false
+        ]
+      ],
+      "retained_at_return": {
+        "parsed": {
+          "data.ttl": false,
+          "ontology.ttl": false,
+          "provenance.ttl": false,
+          "shapes.ttl": false,
+          "validation-report.ttl": false
+        },
+        "reports": [
+          false
+        ]
+      }
+    },
+    "parent": {
+      "core": {
+        "shacl_entry": [
+          [
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            0,
+            4
+          ]
+        ],
+        "validation_entry": [
+          [
+            4
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      },
+      "projection_arrays_copied": false,
+      "projection_mapping_instrumented": true,
+      "projection_validation_entry": [
+        [
+          true
+        ],
+        [
+          true,
+          false
+        ]
+      ],
+      "retained_at_return": {
+        "parsed": {
+          "data.ttl": true,
+          "ontology.ttl": true,
+          "provenance.ttl": true,
+          "shapes.ttl": true,
+          "validation-report.ttl": true
+        },
+        "reports": [
+          true
+        ]
+      }
+    }
+  },
+  "maximum_catalog_rounds": 5,
+  "model_cost_usd": null,
+  "native_first_measurement": {
+    "attempts_dispatched": 0,
+    "cardinality_limit": 1,
+    "id": "entity-memory-lifetime-001-first-measurement",
+    "native_allocation": "unassigned",
+    "proposal_id": "entity-memory-lifetime-001"
+  },
+  "native_peak_memory_reduction": null,
+  "new_evaluable_quality_misses": 0,
+  "new_model_calls": 0,
+  "new_native_retrieval_score": null,
+  "new_native_trials": 0,
+  "new_quality_gain": null,
+  "official_overall": null,
+  "paired_native_speedup": null,
+  "parent_tree_sha256": "sha256:1805605cb708f5e37f9f035fcc2eac397f3500d173ea34cf327433511e1e5df7",
+  "private_released": false,
+  "proposal_id": "entity-memory-lifetime-001",
+  "public_rank": null,
+  "realization_commands_passed": 9,
+  "runtime": {
+    "candidate_tree_sha256": "sha256:810ca4eee999ce0c93f19a3b0302a31de6f28cfd9ba1ee09c39e6014c056ddb5",
+    "commands": [
+      {
+        "action": "build",
+        "elapsed_seconds": 38.184601259000004,
+        "exit_code": 0,
+        "records": 1024
+      },
+      {
+        "action": "validate",
+        "elapsed_seconds": 11.219609523999992,
+        "exit_code": 0,
+        "records": 1024
+      },
+      {
+        "action": "consult-deep",
+        "elapsed_seconds": 10.012389162000005,
+        "exit_code": 0,
+        "records": 1024
+      }
+    ],
+    "memory_bytes": 6442450944,
+    "nano_cpus": 2000000000,
+    "network": "none",
+    "parent_reexecuted": false,
+    "profiling_overhead_included": true,
+    "records": 1024,
+    "reference_artifact_parity": true,
+    "reference_files": 19,
+    "versions": {
+      "instrumentation": "cProfile only; asynchronous traceback sampler disabled; overhead included",
+      "pyshacl": "0.40.0",
+      "python": "3.12.13",
+      "rdflib": "7.6.0",
+      "storage": "container-writable-layer",
+      "yaml": "6.0.3"
+    }
+  },
+  "schema": "enterprise-entity-builder-lifetime-software-report/1.0",
+  "source_sha256": {
+    ".specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md": "36bc6c5cfff36adb8dac29df1c0303c7c5fbac9b87189725dcda2ed408210183",
+    ".specs/adr/0140-collect-semantic-validation-state-after-frame-return.md": "3c985965da8e8d921fa3a683df5332645e5eaa1c55ebc39bd781b97f13cb218e",
+    ".specs/adr/0145-transfer-builder-state-lifetimes-to-entity-graph.md": "515141f64ce1fbb3aa55a1ac5a5304e110efe3cf775e212da64deb984d550514",
+    "evaluations/graphrag-cross-paper/manifest.json": "a4e83ce7d9630bf57ce4b3c2bf2cb445e34032c3ec46673b4bbed585885b0c37",
+    "evaluations/graphrag-cross-paper/sources/claims/2402.07630v3.jsonl": "d8d6e4ecc38ec1e258ddf2eec35f861a5237919132cedee78232668c84f65228",
+    "evaluations/graphrag-cross-paper/sources/markdown/2402.07630v3.md": "57e1202311e255a1122ab1cddd45091c16c444c6d9fc9c1ed92fed2afcec3df4",
+    "evaluations/graphrag-cross-paper/sources/semantic/analysis-vocabulary.jsonl": "512951d58fa9ed0b03e43bdd54f13b99c812660991be071760933afb031db59b",
+    "evaluations/reports/evolution/e11/entity-ngram-eligibility-native-001/aggregate.json": "c1437050edd0fecd2f8b30ef7ae430545a744df4c4c6aad24b80506ea843bd4d",
+    "evaluations/reports/evolution/e11/entity-ngram-eligibility-native-001/resource-diagnosis.json": "edd6dae895a737eab19b2903a9cf4b1adc95e10f6eb302b593a084f9e2659f84",
+    "evaluations/semantic-okf-entity-graph/entity-graph-plan.json": "aa2f94b07009433111e17336965f41c551195d8b92231c663842f734b8825d27",
+    "tmp/enterprise-next-preparation/ensemble-memory-runtime-fixture-002/input/manifest.json": "3633c72c7547729ff608f5d4dcc47d81c815107e6176dd48bfcbc9e904b0031d",
+    "tmp/enterprise-next-preparation/ensemble-memory-runtime-fixture-002/input/plan.json": "fb0049b01704cd62c140c6baa2d3b2b2898a00c6eb90aa8e7e07eba38e993afa",
+    "tmp/enterprise-next-preparation/ensemble-memory-runtime-fixture-002/input/sources/another.md": "007bc0d688eb19f2368dca308bb409cd73423f3ff452d96327f10e6053b194b8",
+    "tmp/enterprise-next-preparation/ensemble-memory-runtime-fixture-002/input/sources/headerless.md": "ee91fd1e029c004c52ba22f8d403b1a7ead5b80e3e7b2efac8df8ffcdcb87ec7",
+    "tmp/enterprise-next-preparation/ensemble-memory-runtime-fixture-002/input/sources/shared.md": "99587f2750f6c6a4407a88bb04c6abe5eba376fbf3d70f66e911927dfd70340f",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder/scripts/_entity_graph_build.py": "bf06f45a42913cfff11f2552e49143d8c300727cf6733dafed70101788a6cd0f",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder/scripts/_semantic_okf.py": "f6a5c3c051e47b1d49c2684204793aa2d8dc2fb9ae18815f21632d7e328967c7",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/operator-realization.json": "5a65f0b8ea3999ac8cfa0e149b4dc8acf9f1572d0f770c011f2ee990239352ea",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/atomic-failure-parity/result.json": "b53e9ff2aba1764bf512d6d2131d34629e3059554344ab20611f7a3ad9b1079c",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/generic-record-per-file-v1/result.json": "1d947575ebc05bec5769af7f2a31e9992dad46cc93db6702244cbac31d7e5c4f",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/generic-source-packed-v1/result.json": "a714e92a88e36643cb7164afd63166c2fcaea3a088e538c7f4541f004eb127a9",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/released-builder-state/result.json": "7e3c4015d8a86009d010577dd2d76a55c22bb33d9f9590285179e6c91e40bba4",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/scientific-record-per-file-v1/result.json": "d5161282c7fe4693e186e683b53353e772996e2e2cab57b44cf18996d7e55585",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/scientific-source-packed-v1/result.json": "fae40558e85dbefb5ae04b519363827bae9d3359aaf93c2e0794ba9f05436719",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/two-file-transfer-scope/result.json": "d342e828ac56bbbdf82587906b120e779df84892c3d59c10428a0ffe987e9a5d",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-checks-001/validator-forwarding/result.json": "d5976acfa3516f5c17ff0eb5108ddba81a3af1884c789b50f1daa18ae1dde38f",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/declaration-review.json": "cd968f670f630e57255465982cd7f8dbd064fa82f74bfe0e1f1d549d88ab05ee",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/mutation-applied.json": "e6be8dc661daf9287e85996619914a140bab1b2d12421264031732808d5f09e8",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/realization.json": "2671ee68b6c1dce0ff8de865138bdbcf399857232c22fe435dcac87905320e8e",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/reservation.json": "e2e6e60c2e20760097b651d66b93a4ad7d40eb90b6b7f038b6cdde67d5b68e7d",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/reserve_and_declare.py": "fe51d46145a1e75da15eadf430024569069382ec8b3036ca651ae0a915a8cd8c",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/seal-original-terminal-observation.json": "0076e064dd6c76c1ab127031e541a5845ce7c0fef883b5887c4f656dc81162b9",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/validate_candidate.py": "06ae0b0b46e23aaf56019364bbbfbf991818ef51def8bc47a174cb4fe56d9e84",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-preparation-001/verify-original-terminal-observation.json": "3080ab80ae148b30e74c63a6f32b5275e4ef0ee0311276b2d931eb1ca4fa9801",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-report-001/publish.py": "9f619cfb6e0ad386a824a7552731b437944bf157868d913988cf0ddd5f02c05b",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/declaration.json": "14653d95a7bc2248619c3727cb657ab370cde47ca21eea741cf60bd4db806002",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/execution-001/result.json": "c5b4fd248b6d9190f4503859b619b4165aea1c2346e109657970a53c0e8391d2",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/execution-001/runtime.json": "9cfa8de96edf06fb97bf24c0d5d23848215999b2a7b9b3fdfe965ce55cc88c44",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/execution-001/terminal.json": "eb45aa5d595d1e7190521dbb487d1d5a7ca64fd40c8a2748f9d4ed629abe638b",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/fixture.py": "7c02a3dc73e743f1828fceab30295d29281e8b6dd99b8e97d17133dc6108a85f",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/original-terminal-observation.json": "3e515b318f75389de555ed0d7db7a29e8f2a0ccbdbaf29ade0a877c668959397",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/prepare.py": "b405708d38d1b4fdb28f96c070bc85eff14b49fc04aec77beba51b3c4cf2111e",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/profile_cli.py": "4e1a4874f00b15a82072866d8336779d4909e780535903a41cf365ce662fdcfb",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/run.py": "39d8de660a49558db59a7a0d8edac978ae50e6dcbecf2079c96426f9712dc533",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-runtime-fixture-001/source-transformation.json": "ba59ffb7ffc46404f08a1a4512afe81bfb90b0929aae4aa55223aa721a2949e7",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-sealed-001/candidate-manifest.json": "69ee1d354954a98d9978240a62d3f4f1605ac83924607f9613c036d793177053",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-sealed-001/operator-realization.json": "e64d393a28c57e5b975bbab08c198aec613ed35917018152f21097c16e2f5a6f",
+    "tmp/enterprise-next-preparation/entity-memory-lifetime-sealed-001/validation.json": "60f054a8ac510eedbefbbfc02325329e36f1a50cbbe17547470d9a3a037643be",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/terminal-state-001.json": "ca6839e5a720d437dc1d767a54b84f7b6ec293c2b7d3b1a19f869ab447882afe",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixture-inputs.json": "3ce4d7e64ccab9fcf34832299acff22b8f70f54bbdad4097fc8d2c3077812942",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/generic/manifest.json": "3633c72c7547729ff608f5d4dcc47d81c815107e6176dd48bfcbc9e904b0031d",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/generic/plan.json": "80e4d8d2b0caf98193ac7f33e7438a5d44a20d1d9ace0632c53586e3f11db7dc",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/generic/sources/another.md": "007bc0d688eb19f2368dca308bb409cd73423f3ff452d96327f10e6053b194b8",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/generic/sources/headerless.md": "ee91fd1e029c004c52ba22f8d403b1a7ead5b80e3e7b2efac8df8ffcdcb87ec7",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/generic/sources/shared.md": "99587f2750f6c6a4407a88bb04c6abe5eba376fbf3d70f66e911927dfd70340f",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/scientific/manifest.json": "9305b998c6c15f41b4f51b45f876608e1653bedd2cfbedf3428f63c89bfdea11",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/scientific/plan.json": "de2dc4463199a95659ea36fa790372f1703f8b516f3a050e44cd3af612a8efa6",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/scientific/sources/claims/2402.07630v3.jsonl": "d8d6e4ecc38ec1e258ddf2eec35f861a5237919132cedee78232668c84f65228",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/scientific/sources/markdown/2402.07630v3.md": "57e1202311e255a1122ab1cddd45091c16c444c6d9fc9c1ed92fed2afcec3df4",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/fixtures/scientific/sources/semantic/analysis-vocabulary.jsonl": "512951d58fa9ed0b03e43bdd54f13b99c812660991be071760933afb031db59b",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-preparation-001/validate_candidate.py": "8b9de078f51380ad5a13e8f25347af6e620466ff1a4513bd07de0c1d6ed62a5d",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-sealed-001/operator-realization.json": "f8c5283cd29bbb1becb08243f8c2a471fa74b43647706e4d906966a5cf30ef49"
+  },
+  "status": "software-checks-and-pinned-runtime-passed",
+  "unchanged_package_files": 250
+}

@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from types import ModuleType
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COVERAGE_SCRIPT = REPO_ROOT / "scripts" / "check_coverage.py"
@@ -62,3 +64,44 @@ def test_trace_environment_prioritizes_the_current_checkout(
 
     assert entries[:2] == [str(REPO_ROOT / "src"), str(REPO_ROOT)]
     assert entries[2] == "C:/external/package"
+
+
+@pytest.mark.parametrize(
+    ("source", "extra_args", "exit_code"),
+    [
+        ("def test_outcome():\n    assert True\n", [], 0),
+        ("def test_outcome():\n    assert False\n", [], 1),
+        ("raise RuntimeError('collection failure')\n", [], 2),
+        ("def test_outcome():\n    assert True\n", ["--unknown-coverage-test-option"], 4),
+        ("# No tests collected.\n", [], 5),
+    ],
+)
+def test_real_trace_preserves_pytest_exit_status(
+    tmp_path: Path, monkeypatch, capsys, source: str, extra_args: list[str], exit_code: int,
+) -> None:
+    coverage = load_coverage_script()
+    monkeypatch.setenv("PYTEST_DISABLE_PLUGIN_AUTOLOAD", "1")
+    config = tmp_path / "pytest.ini"
+    config.write_text("[pytest]\n", encoding="utf-8")
+    probe = tmp_path / "test_probe.py"
+    probe.write_text(source, encoding="utf-8")
+    coverdir = tmp_path / "coverage"
+    pytest_args = ["-c", str(config), str(probe), *extra_args]
+
+    if exit_code:
+        with pytest.raises(SystemExit) as error:
+            coverage.run_trace(coverdir, pytest_args)
+        assert error.value.code == exit_code
+    else:
+        output = coverage.run_trace(coverdir, pytest_args)
+        assert "1 passed" in output
+        assert coverage.parse_summary(output, "test_probe")
+
+    if exit_code in (0, 1, 2):
+        # Coverage artifacts must survive unsuccessful execution too.
+        assert (coverdir / "test_probe.cover").is_file()
+    captured = capsys.readouterr()
+    if exit_code == 1:
+        assert "1 failed" in captured.out
+    if exit_code == 4:
+        assert "unrecognized arguments" in captured.err

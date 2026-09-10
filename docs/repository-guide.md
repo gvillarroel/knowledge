@@ -43,7 +43,7 @@ For a clean checkout with `uv`, keep the application lock unchanged and provide 
 uv run --locked --python 3.12 --with pytest --with pypdf python scripts/check_coverage.py --threshold 80
 ```
 
-Review both the pytest summary and the coverage total. The existing `trace` wrapper can print a successful coverage gate even when the pytest summary contains failures; coverage alone is not a passing test suite. Some repository study tests require private, ignored fixtures or external runtimes that a clean clone does not contain. Do not copy private evidence into Git or weaken a test to make a documentation change pass. Record unavailable inputs and report test failures separately from the coverage percentage.
+Review both the pytest summary and the coverage total. The coverage runner preserves pytest's exit status and writes trace artifacts even when tests fail. A failed test run exits before the coverage threshold can report success; historical reports from the older `python -m trace` wrapper still require separate inspection because that wrapper swallowed pytest's exit status. See [ADR 0146](../.specs/adr/0146-preserve-pytest-exit-status-in-coverage-checks.md). Some repository study tests require private, ignored fixtures or external runtimes that a clean clone does not contain. Do not copy private evidence into Git or weaken a test to make a documentation change pass. Record unavailable inputs and report test failures separately from the coverage percentage.
 
 Use the project environment with test dependencies installed. The repository requires at least 80% total application coverage before task closure; preserve any stricter requirement in `SPEC.md` for broader implementation work.
 

@@ -167,25 +167,16 @@ def run_trace(coverdir: Path, pytest_args: list[str]) -> str:
     repo_root = Path(__file__).resolve().parents[1]
     python_lib = Path(sys.base_prefix) / "Lib"
     site_packages = python_lib / "site-packages"
-    ignore_dirs = os.pathsep.join(
-        [
-            str(python_lib),
-            str(site_packages),
-        ]
-    )
     command = [
         sys.executable,
-        "-m",
-        "trace",
-        "--count",
-        "--summary",
-        "--missing",
+        str(repo_root / "scripts" / "traced_pytest.py"),
         "--coverdir",
         str(coverdir),
         "--ignore-dir",
-        ignore_dirs,
-        "--module",
-        "pytest",
+        str(python_lib),
+        "--ignore-dir",
+        str(site_packages),
+        "--",
         "-q",
         *pytest_args,
     ]
