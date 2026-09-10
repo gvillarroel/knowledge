@@ -19,15 +19,21 @@
   The [Entity Graph candidate validation](e11/entity-prefix-candidate-validation-001/README.md)
   passed exact mention matching, artifact/query parity and negative checks in
   four integration cells. Its additional construction charge brings the total
-  to 83. The latest [native construction report](e11/construction-native-terminal-001/README.md)
+  to 83. The earlier [native construction report](e11/construction-native-terminal-001/README.md)
   records both measurements as consumed: Ensemble had a validator OOM event,
   and Entity Graph timed out. Neither qualified or produced a new score. Its
   [CTA](e11/construction-native-terminal-001/cta.md) preserves the two execution
   errors, and its eight-family opportunity table shows the remaining work.
   The [second Ensemble correction](e11/ensemble-semantic-return-001/README.md)
   passed exact artifact/query/rejection parity on a four-record public fixture
-  in the native runtime. It brings cumulative proposals to 84; full-workload
-  qualification and new retrieval scores remain pending.
+  in the native runtime. It brings cumulative proposals to 84. Its
+  [subsequent native outcome](e11/ensemble-semantic-return-native-001/README.md)
+  is an agent timeout at the unchanged 3,600-second limit, with no submitted
+  ranking or qualified score. That ordinary study is stopped. The new
+  [eight-family comparison](e11/ensemble-semantic-return-native-001/README.md#eight-family-comparison),
+  [application/category availability](e11/ensemble-semantic-return-native-001/groups.md)
+  and [CTA](e11/ensemble-semantic-return-native-001/cta.md) preserve the evidence
+  and all remaining opportunities.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

@@ -49,6 +49,7 @@
 - [Construction worker controls: Windows/Linux path diagnosis, tested correction and unchanged EnterpriseRAG results](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
 - [Native construction results: Ensemble validator OOM, Entity Graph timeout, consumed measurements and unchanged retained rankings](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md)
 - [Second Ensemble correction: exact public runtime parity, 84 cumulative proposals and full-workload evaluation pending](../evaluations/reports/evolution/e11/ensemble-semantic-return-001/README.md)
+- [Second Ensemble correction, native outcome: 60-minute timeout, retained eight-family comparison, application/category availability and CTA](../evaluations/reports/evolution/e11/ensemble-semantic-return-native-001/README.md)
 - [Decision: collect completed semantic-validation state after its frame returns](../.specs/adr/0140-collect-semantic-validation-state-after-frame-return.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)

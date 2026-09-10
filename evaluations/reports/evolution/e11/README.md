@@ -27,7 +27,7 @@ both first measurements then unconsumed and no changed retrieval score. The
 isolated POSIX correction passed 76 Windows and 95 Linux metadata checks;
 the next evaluation used those corrected controls.
 
-The latest [native construction results](construction-native-terminal-001/README.md)
+The earlier [native construction results](construction-native-terminal-001/README.md)
 now record both first measurements as consumed. Ensemble failed during
 standalone first-bundle validation with a confirmed container OOM event;
 Entity Graph again reached the 3,600-second agent limit. Both native reports
@@ -41,8 +41,14 @@ collects semantic state after the complete validator frame returns. Five sealed
 checks and a retained native-runtime public fixture passed, with 35 identical
 files, all three query policies and exact rejection JSON. Its
 [CTA](ensemble-semantic-return-001/cta.md) records 48.42 seconds on four public
-records. Cumulative claims now total 84. Its complete EnterpriseRAG task is
-prepared but unmeasured, and the retained retrieval scores remain unchanged.
+records. Cumulative claims now total 84. Its subsequent
+[native measurement reached the 3,600-second agent limit](ensemble-semantic-return-native-001/README.md).
+The native report completed, qualification failed, and that ordinary study is
+stopped at sequence 7. No ranking was submitted and no retrieval score was
+assigned. The [current eight-family comparison](ensemble-semantic-return-native-001/README.md#eight-family-comparison)
+preserves all retained scores, while the [CTA](ensemble-semantic-return-native-001/cta.md)
+records the one consumed attempt without inferring missing costs or counting
+the execution error as an evaluable quality miss.
 
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
@@ -86,7 +92,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
 | Entity Graph | Original and corrected construction timed out; a qualified baseline and its catalog remain pending |
-| Ensemble | Original and corrected construction failed with memory exhaustion; a qualified baseline and its catalog remain pending |
+| Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
 
