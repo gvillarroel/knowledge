@@ -70,7 +70,14 @@
   preserving all 19 reference files. Total claims are now 87. Its
   [CTA](e11/entity-ngram-eligibility-001/cta.md) and
   [contract/application coverage](e11/entity-ngram-eligibility-001/groups.md)
-  report software compatibility; a new native first measurement remains unassigned.
+  report software compatibility. Its [original native measurement](e11/entity-ngram-eligibility-native-001/README.md)
+  subsequently timed out at the unchanged 3,600-second agent limit, without
+  a qualified ranking. All six construction first measurements are consumed;
+  retained scores, 87 cumulative claims and five open searches are unchanged.
+  The [native CTA](e11/entity-ngram-eligibility-native-001/cta.md) and
+  [resource evidence](e11/entity-ngram-eligibility-native-001/resources.md)
+  preserve the outcome, a memory-pressure snapshot during the second build,
+  and three unreserved transfer hypotheses. No canonical skill is promoted.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

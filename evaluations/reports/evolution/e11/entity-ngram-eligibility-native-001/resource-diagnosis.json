@@ -1,0 +1,368 @@
+{
+  "candidates_generated": 0,
+  "canonical_changes": 0,
+  "created_at_utc": "2026-09-10T21:46:17.932634+00:00",
+  "cumulative_claims": 87,
+  "limitations": [
+    "The native trial remains governed by its original dispatcher; this analysis cannot close or score it.",
+    "Kernel fields were read sequentially, not atomically; small counter differences are expected.",
+    "Kernel peaks and counters cover the cgroup lifetime up to observation, not a finalized job or one Python allocation site.",
+    "Observed swap, memory-limit events and major faults support memory-pressure diagnosis but do not identify the responsible source allocation or quantify a causal speedup.",
+    "The 1024-record cProfile observations include profiling overhead and are not full-workload performance predictions.",
+    "The failed fixed-PID observer was preserved; the later snapshot discovered actual members of the same container cgroup."
+  ],
+  "memory_bytes": {
+    "memory.current": 6442434560,
+    "memory.max": 6442450944,
+    "memory.peak": 6442708992,
+    "memory.swap.current": 1671512064,
+    "memory.swap.max": 6442450944,
+    "memory.swap.peak": 4061745152
+  },
+  "memory_counters": {
+    "cpu.stat": {
+      "burst_usec": 0,
+      "nr_bursts": 0,
+      "nr_periods": 18117,
+      "nr_throttled": 0,
+      "system_usec": 194289156,
+      "throttled_usec": 0,
+      "usage_usec": 741506827,
+      "user_usec": 547217671
+    },
+    "memory.events": {
+      "high": 0,
+      "low": 0,
+      "max": 408604,
+      "oom": 0,
+      "oom_group_kill": 0,
+      "oom_kill": 0
+    },
+    "memory.events.local": {
+      "high": 0,
+      "low": 0,
+      "max": 408617,
+      "oom": 0,
+      "oom_group_kill": 0,
+      "oom_kill": 0
+    },
+    "memory.stat": {
+      "active_anon": 3316764672,
+      "active_file": 2453504,
+      "anon": 6178426880,
+      "anon_thp": 0,
+      "file": 3219456,
+      "file_dirty": 0,
+      "file_mapped": 1802240,
+      "file_thp": 0,
+      "file_writeback": 0,
+      "inactive_anon": 3098398720,
+      "inactive_file": 765952,
+      "kernel": 24039424,
+      "kernel_stack": 49152,
+      "pagetables": 15622144,
+      "percpu": 7920,
+      "pgactivate": 10916848,
+      "pgdeactivate": 12972088,
+      "pgfault": 38459520,
+      "pglazyfree": 0,
+      "pglazyfreed": 0,
+      "pgmajfault": 5346995,
+      "pgrefill": 12982104,
+      "pgscan": 52693487,
+      "pgscan_direct": 52693487,
+      "pgscan_khugepaged": 0,
+      "pgscan_kswapd": 0,
+      "pgsteal": 15579286,
+      "pgsteal_direct": 15579286,
+      "pgsteal_khugepaged": 0,
+      "pgsteal_kswapd": 0,
+      "sec_pagetables": 0,
+      "shmem": 0,
+      "shmem_thp": 0,
+      "slab": 8250216,
+      "slab_reclaimable": 7956568,
+      "slab_unreclaimable": 293648,
+      "sock": 0,
+      "swapcached": 303587328,
+      "thp_collapse_alloc": 0,
+      "thp_fault_alloc": 0,
+      "unevictable": 0,
+      "vmalloc": 24576,
+      "workingset_activate_anon": 4743241,
+      "workingset_activate_file": 874474,
+      "workingset_nodereclaim": 0,
+      "workingset_refault_anon": 12733637,
+      "workingset_refault_file": 1515985,
+      "workingset_restore_anon": 2293463,
+      "workingset_restore_file": 5751
+    }
+  },
+  "memory_pressure": {
+    "full": {
+      "avg10": 11.34,
+      "avg300": 4.54,
+      "avg60": 3.3,
+      "total": 116018022
+    },
+    "some": {
+      "avg10": 11.34,
+      "avg300": 4.54,
+      "avg60": 3.3,
+      "total": 116018206
+    }
+  },
+  "memory_snapshot_at_utc": "2026-09-10T21:38:43.281198+00:00",
+  "native_jobs_added": 0,
+  "native_measurement_id": "entity-ngram-eligibility-001-first-measurement",
+  "native_retrieval_quality": null,
+  "native_terminal_status": null,
+  "new_proposal_charges": 0,
+  "observed_rebuild_process": {
+    "argv": [
+      "/usr/local/bin/python",
+      "-B",
+      "/harbor/skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/builder/scripts/build_semantic_okf_entity_graph.py",
+      "/dataset/input/manifest.json",
+      "/workspace/result-829f269c/adjusted-plan.json",
+      "/workspace/result-829f269c/rebuild",
+      "--concept-layout",
+      "source-packed-v1",
+      "--output-format",
+      "json"
+    ],
+    "available": true,
+    "fields": {
+      "Name": "python",
+      "PPid": "12225",
+      "State": "R (running)",
+      "Threads": "1",
+      "VmHWM": "6244868 kB",
+      "VmPeak": "7697360 kB",
+      "VmRSS": "6039920 kB",
+      "VmSize": "7697360 kB",
+      "VmSwap": "1548800 kB"
+    },
+    "pid": 12367
+  },
+  "opportunities_are_untested_in_target_families": true,
+  "private_data_read": false,
+  "profile_rows": [
+    {
+      "extraction_share_percent": 23.173733239391286,
+      "operation": "build",
+      "profile_sha256": "3f004389223880cd957896ff1cec880fa26c8679b8a5e86e0a23140b9c2531a5",
+      "selected_functions": [
+        {
+          "calls": 3,
+          "cumulative_seconds": 17.800794655,
+          "function": "derive_projection",
+          "line": 1796,
+          "own_seconds": 0.015187672000000001,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 3,
+          "cumulative_seconds": 3.1468848620000003,
+          "function": "derive_mentions",
+          "line": 1168,
+          "own_seconds": 0.784475912,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 3,
+          "cumulative_seconds": 8.90789265,
+          "function": "_candidate_statistics",
+          "line": 1081,
+          "own_seconds": 3.0915700000000004,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        }
+      ],
+      "total_profile_seconds": 38.43960987200001
+    },
+    {
+      "extraction_share_percent": 26.147689324017403,
+      "operation": "validate",
+      "profile_sha256": "7b8352501b89e72c5f7cabea8fc3d0b8236a6345eafcd2737652ced124882a93",
+      "selected_functions": [
+        {
+          "calls": 1,
+          "cumulative_seconds": 5.855820802,
+          "function": "derive_projection",
+          "line": 1796,
+          "own_seconds": 0.0047763910000000005,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 2.961852888,
+          "function": "_candidate_statistics",
+          "line": 1081,
+          "own_seconds": 1.014266237,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 1.011687409,
+          "function": "derive_mentions",
+          "line": 1168,
+          "own_seconds": 0.26739602700000004,
+          "source": "/workspace/package/assets/families/entity-graph/builder/scripts/_entity_graph_model.py"
+        }
+      ],
+      "total_profile_seconds": 11.327398192999997
+    },
+    {
+      "extraction_share_percent": 46.8720568274443,
+      "operation": "consult-deep",
+      "profile_sha256": "c1520501bfa74eaca9cd03c87fba23ddd70b570a6fa73bc83018844b8aba2e75",
+      "selected_functions": [
+        {
+          "calls": 1,
+          "cumulative_seconds": 7.106870236000001,
+          "function": "derive_projection",
+          "line": 1793,
+          "own_seconds": 0.0046501400000000005,
+          "source": "/workspace/package/assets/families/entity-graph/consultant/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 1.008913444,
+          "function": "derive_mentions",
+          "line": 1165,
+          "own_seconds": 0.248970254,
+          "source": "/workspace/package/assets/families/entity-graph/consultant/scripts/_entity_graph_model.py"
+        },
+        {
+          "calls": 1,
+          "cumulative_seconds": 4.263418476,
+          "function": "_candidate_statistics",
+          "line": 1081,
+          "own_seconds": 1.225405902,
+          "source": "/workspace/package/assets/families/entity-graph/consultant/scripts/_entity_graph_model.py"
+        }
+      ],
+      "total_profile_seconds": 9.095863856999985
+    }
+  ],
+  "prospective_unreserved_opportunities": [
+    {
+      "family": "entity-graph",
+      "files": [
+        "_semantic_okf.py",
+        "_entity_graph_build.py"
+      ],
+      "hypothesis": "Transfer the already source-reviewed RDF and persisted-projection lifetime boundaries from Ensemble into the two matching Entity builder files.",
+      "layer": "builder",
+      "preserve": "All validations, source documents, independent rederivations, artifact bytes, error paths, extraction optimization, matching automaton and the entire consultant.",
+      "required_evidence": "A new family-cap reservation, complete isolated realization, two-schema and two-layout artifact/query/corruption parity, explicit nonempty graph-lifetime tests, and a separately admitted native first measurement."
+    },
+    {
+      "family": "ensemble",
+      "files": [
+        "_entity_graph_model.py"
+      ],
+      "hypothesis": "Transfer only _candidate_statistics and derive_mentions from the current Entity builder into Ensemble's local entity model.",
+      "layer": "builder",
+      "preserve": "Ensemble's DERIVED_ROOTS declaration and core_inventory exclusions for adaptive, entity-graph, retrieval and ensemble; retain all memory-lifetime changes and freeze all consultation files.",
+      "required_evidence": "A separate Ensemble reservation, function-scoped realization, exact matching and candidate-count oracles, complete component and inventory parity, corruption rejection and its own native qualification. Whole-file replacement is inappropriate."
+    },
+    {
+      "family": "entity-graph",
+      "files": [
+        "consultant/scripts/_entity_graph_model.py::_candidate_statistics"
+      ],
+      "hypothesis": "Evaluate a separately reserved transfer of prefix-count eligibility to the unchanged consultant extraction function.",
+      "layer": "consultation",
+      "preserve": "Freeze the whole builder and every other consultation function; preserve exact extraction ordering and deep-validation behavior.",
+      "required_evidence": "Its own treatment, reservation, correctness and pinned-runtime checks; never merge it into a builder-only measurement or infer native feasibility from synthetic timing."
+    }
+  ],
+  "reference_definitions": [
+    {
+      "title": "Linux cgroup v2 memory interface",
+      "url": "https://www.kernel.org/doc/html/v6.6/admin-guide/cgroup-v2.html"
+    },
+    {
+      "title": "Linux Pressure Stall Information",
+      "url": "https://docs.kernel.org/accounting/psi.html"
+    },
+    {
+      "title": "Docker container stats",
+      "url": "https://docs.docker.com/reference/cli/docker/container/stats/"
+    }
+  ],
+  "schema": "enterprise-construction-transfer-diagnosis/1.0",
+  "source_comparisons": [
+    {
+      "changed_functions": [
+        "materialize_bundle",
+        "validate_semantic_bundle"
+      ],
+      "ensemble_only_functions": [
+        "_validate_reconstructed_graphs",
+        "_validate_semantic_bundle"
+      ],
+      "entity_only_functions": [],
+      "filename": "_semantic_okf.py"
+    },
+    {
+      "changed_functions": [
+        "build_projection"
+      ],
+      "ensemble_only_functions": [],
+      "entity_only_functions": [],
+      "filename": "_entity_graph_build.py"
+    },
+    {
+      "changed_functions": [
+        "_candidate_statistics",
+        "core_inventory",
+        "derive_mentions"
+      ],
+      "ensemble_only_functions": [],
+      "entity_only_functions": [],
+      "filename": "_entity_graph_model.py"
+    }
+  ],
+  "source_sha256": {
+    "evaluations/reports/evolution/e11/entity-ngram-eligibility-001/aggregate.json": "3cd1bd0c8b8f9215248a668cffecb40e160d1d585ce7c85dd05a092c38adbafe",
+    "tmp/enterprise-construction-qualification-007/cases/entity-graph/audit/agent-staged.json": "0d637428b4644e9a7f2883e065e1ae2cc4e37c7885801365835970bad80540df",
+    "tmp/enterprise-next-preparation/construction-transfer-diagnosis-001/analyze.py": "b7b9bc3db7956c693dd82f795d4ec2312c0c685e3847b2f955ee7ccaf7c7add4",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder/scripts/_entity_graph_build.py": "bf06f45a42913cfff11f2552e49143d8c300727cf6733dafed70101788a6cd0f",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder/scripts/_entity_graph_model.py": "7fbd8e368e3b70ff78bb1c2fcf3e1609b98ddb5594bd17101cd0fae09c068de2",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder/scripts/_semantic_okf.py": "f6a5c3c051e47b1d49c2684204793aa2d8dc2fb9ae18815f21632d7e328967c7",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/declaration.json": "c91c5eafc454ef9d1c59a494b65107f5b88567e88411ca040e0d8a1530d7a6d4",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/receipt.json": "5f3674b08c8879aefdb63085e45145e81e321ff7291251ffe03695d483fee00d",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/stats.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/stats.stdout": "f01aaa9c95125fe60321b0a75a198cd046d9fe6a32e2e5403e0ca37760194257",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/top.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-002/top.stdout": "4c9c2bc33b9c55580b2778692597c9848eacb9edee92d190d1b92f33c73e556b",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/cpu.stat.txt": "bc04b09636f9067a3327a57319fb919d0f9687b9e64bf6e941da9dac6301fb35",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/declaration.json": "be3915fa1f17bf86a4c2c3bdce0957895382358a365a0ea03d338a1b588455de",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/io.stat.txt": "1c8810a4e87b7bd6d160471a1186da07cf22a0b437f3d1ef19d5a544da4fd669",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.current.txt": "035f284c80c499272f837599073b9de405f44050811298e2d87eda6a60fff4c7",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.events.local.txt": "1920a6cec76b86170ffe75135719bc1558cedeb33613bf7a199d50f4ad186955",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.events.txt": "d930434b00b3ce3cbae9375c4e9d704634e7e97b24988802c3de86acc806afa3",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.max.txt": "4ec6f2997edee06903a4e9016e3951ea175c801925fe151d5d5eea90dd9cd3d9",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.peak.txt": "a010dc1a1aa15695dd3a120cd676e6be90fcc5953d0fc89f487483c74f4e51dc",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.pressure.txt": "3b7100d79d902507c445d9f0383202db59bf76aa2ae344aa7b6dc3796780d420",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.stat.txt": "3c285816889e8f9821d322ae22bb3bd5745a2714f61a98ca7ede525da5488abf",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.swap.current.txt": "3bb6616d1473ff439404ab0dacafc49a0a9e6d360f3202b91b8bfe06d52c14cd",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.swap.max.txt": "4ec6f2997edee06903a4e9016e3951ea175c801925fe151d5d5eea90dd9cd3d9",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/memory.swap.peak.txt": "966d9e3051fe07e8d81f23db73f96b4cf36f0188ed2bc44a0735d1fd7e03413e",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/process-status.json": "43e588b036bfd5fbcb44605903eca4012a6ff506352084aae558c9840571c718",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/live-observation-004/receipt.json": "6464d4cb950b2e2dcb440394c041e4a41042b4f9d6ac2c66f6d0e0eac8b2a70a",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/memory-observer-revision-004.json": "23f7b4954e7e2399dc25081c018dfacd81663a5cd7463abdd8407911e9b5e206",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/observe_memory_004.py": "bea5de012ef1e27729a05e50e6b7847a25b66eea2ecd50c890bc95017a631396",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-native-report-001/observe_phase_002.py": "9e9bca4efe72c487411ef5ae693faef3e025d9fd950f52d0d632617689d96729",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-runtime-fixture-001/execution-001/records-1024-build.pstats": "3f004389223880cd957896ff1cec880fa26c8679b8a5e86e0a23140b9c2531a5",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-runtime-fixture-001/execution-001/records-1024-consult-deep.pstats": "c1520501bfa74eaca9cd03c87fba23ddd70b570a6fa73bc83018844b8aba2e75",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-runtime-fixture-001/execution-001/records-1024-validate.pstats": "7b8352501b89e72c5f7cabea8fc3d0b8236a6345eafcd2737652ced124882a93",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/builder/scripts/_entity_graph_build.py": "e83a03ff06b6fa08cc790269eafbfb3af12bc00f1cbdd74688e723795f525b47",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/builder/scripts/_entity_graph_model.py": "18b9afaaa33e39928dc923617252818d43728ce39fb80b6f2ed19576e61f1aca",
+    "tmp/enterprise-next-preparation/entity-ngram-eligibility-sealed-001/candidate/skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/builder/scripts/_semantic_okf.py": "eaa3843d70cda34c5263f2c53c97a8a83b9b2d63af4127c8a2a6968a32da19c2"
+  },
+  "status": "source-and-observation-diagnosis-complete",
+  "subject_executions_added": 0
+}

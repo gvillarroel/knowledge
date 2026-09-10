@@ -1,16 +1,29 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
-The latest [Entity builder extraction candidate](entity-ngram-eligibility-001/README.md)
+The latest [Entity builder extraction native measurement](entity-ngram-eligibility-native-001/README.md)
+reached the unchanged **3,600-second agent limit** without a submitted ranking
+or qualified retrieval score. The original dispatcher and maintained report
+are terminal; qualification failed and the ordinary study is stopped at
+sequence 7. All **six construction first measurements are consumed**. Total
+claims remain **87 of 585**, including **4 of Entity's 80**; the retained scores
+and five open family searches are unchanged. The [native CTA](entity-ngram-eligibility-native-001/cta.md),
+[application/category availability](entity-ngram-eligibility-native-001/groups.md)
+and [resource evidence](entity-ngram-eligibility-native-001/resources.md)
+preserve the outcome and memory pressure observed during the second builder
+invocation. Three source-transfer opportunities remain unreserved and untested.
+The all-500 comparison and independent acceptance are unfinished; no canonical
+skill is promoted.
+
+The [Entity builder extraction candidate](entity-ngram-eligibility-001/README.md)
 passed seven software checks, including 4,080 exact independent comparisons,
 and a new pinned 1,024-record JSON runtime cell. Its complete output matches
 all 19 retained reference files. It changes one builder function and freezes
 the consultant. [CTA](entity-ngram-eligibility-001/cta.md) and
 [contract/application coverage](entity-ngram-eligibility-001/groups.md) describe
-the measured work. Total claims are **87 of 585**, including **4 of Entity's 80**.
-The new native first measurement is unassigned; scores and the five open family
-searches below remain unchanged. No canonical skill is promoted.
+the measured software work. Its subsequent native timeout is reported above;
+the software checks establish no paired full-workload speedup or retrieval gain.
 
-The subsequent [public JSON scaling diagnosis](entity-json-scaling-001/README.md)
+The earlier [public JSON scaling diagnosis](entity-json-scaling-001/README.md)
 completed construction, independent validation and deep consultation on 1,024
 synthetic records in a separate instrumentation control. It preserves the
 original signal failure and the passed 256-record cell. Candidate extraction
@@ -20,12 +33,13 @@ Its [input sizes by application](entity-json-scaling-001/groups.md) and
 [CTA](entity-json-scaling-001/cta.md) distinguish software evidence from the
 unchanged native results below. No new candidate, charge or score is added.
 
-The latest [Entity consultant native measurement](entity-consultant-token-automaton-native-001/README.md)
+The earlier [Entity consultant native measurement](entity-consultant-token-automaton-native-001/README.md)
 also reached the unchanged **3,600-second agent limit** without a submitted
 ranking or qualified retrieval score. Its original dispatcher and maintained
 report are terminal, qualification failed, and the ordinary study is stopped
-at sequence 7. All five construction first measurements are consumed; the
-total remains **86 of 585** proposals, with no retry or new evaluable quality miss.
+at sequence 7. At that checkpoint, all five construction first measurements
+were consumed and the total was **86 of 585** proposals, with no retry or new
+evaluable quality miss.
 The [eight-family comparison](entity-consultant-token-automaton-native-001/README.md#eight-family-comparison),
 [application/category availability](entity-consultant-token-automaton-native-001/groups.md)
 and [CTA](entity-consultant-token-automaton-native-001/cta.md) preserve the actual
@@ -157,8 +171,8 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original, prefix correction and builder automaton reached the agent limit; the consultant-only automaton passes software and pinned-runtime compatibility checks, with full-workload qualification and the catalog still pending |
-| Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
+| Entity Graph | Original and all four corrections reached the agent limit; exact software checks remain valid. Builder memory-lifetime transfer and separate consultant extraction transfer are untested; full-workload qualification and the catalog remain pending |
+| Ensemble | Original and first correction failed with memory exhaustion; second correction timed out. Function-only matching/extraction transfer is untested; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
 
