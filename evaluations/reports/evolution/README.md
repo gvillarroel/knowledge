@@ -34,6 +34,10 @@
   [application/category availability](e11/ensemble-semantic-return-native-001/groups.md)
   and [CTA](e11/ensemble-semantic-return-native-001/cta.md) preserve the evidence
   and all remaining opportunities.
+  The new [Entity Graph token automaton](e11/entity-token-automaton-001/README.md)
+  passes exact software checks and public runtime artifact parity; it brings
+  cumulative proposals to 85. Full EnterpriseRAG qualification remains pending,
+  so the retained scores and five open searches are unchanged.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

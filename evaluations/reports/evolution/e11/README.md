@@ -1,5 +1,13 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The latest [Entity Graph token-automaton candidate](entity-token-automaton-001/README.md)
+passes exact matching, complete artifact/query/corruption checks and a public
+128-record fixture in the pinned native runtime. It brings cumulative proposal
+claims to **85 of 585**. Its EnterpriseRAG first measurement is unassigned;
+the retained retrieval scores and five open searches remain unchanged. The
+[candidate CTA](entity-token-automaton-001/cta.md) reports its software evidence
+separately from benchmark quality.
+
 E11's original native execution stopped after all twelve starting roles
 settled. The [terminal comparison](starting-terminal-001/README.md) records
 ten qualified roles across six families and two execution failures. All nine
@@ -91,7 +99,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original and corrected construction timed out; a qualified baseline and its catalog remain pending |
+| Entity Graph | Original and first correction timed out; new token automaton passes software checks, with full qualification and catalog pending |
 | Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
