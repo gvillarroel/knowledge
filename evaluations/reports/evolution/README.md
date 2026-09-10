@@ -46,6 +46,9 @@
   now passes seven software checks while freezing the builder. Cumulative
   proposals are 86; its native first measurement remains unassigned, and its
   [CTA](e11/entity-consultant-token-automaton-001/cta.md) establishes no new native gain.
+  Its subsequent [pinned-runtime compatibility fixture](e11/entity-consultant-runtime-001/README.md)
+  passes two deep validations and eight nonempty paired queries on the same
+  processed snapshot. No complete EnterpriseRAG score or qualification is added.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

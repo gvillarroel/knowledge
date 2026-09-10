@@ -1,5 +1,12 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The [consultant's pinned-runtime fixture](entity-consultant-runtime-001/README.md)
+now passes: two deep validations and eight nonempty paired queries preserve
+exact payloads on the same 128-record, 145-file processed public snapshot.
+No build was repeated, and no EnterpriseRAG job, score or proposal was added.
+Its [CTA](entity-consultant-runtime-001/cta.md) reports the single fixed-order
+pair without inferring a full-workload speedup. Native qualification is next.
+
 The new [consultant-only token-automaton candidate](entity-consultant-token-automaton-001/README.md)
 passes seven declared software checks with the complete builder frozen. It
 preserves 1,120 ordered matching comparisons, four complete integration cells
@@ -115,7 +122,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original, prefix correction and builder automaton reached the agent limit; a separate consultant-only automaton passes software checks, with native qualification and the catalog still pending |
+| Entity Graph | Original, prefix correction and builder automaton reached the agent limit; the consultant-only automaton passes software and pinned-runtime compatibility checks, with full-workload qualification and the catalog still pending |
 | Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
