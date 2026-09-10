@@ -29,6 +29,13 @@ The [Entity Graph matching diagnosis](entity-graph-matching-diagnosis-001/README
 identifies unnecessary token-window scans as a candidate construction target.
 Public metadata and synthetic profiling support investigating it; no Entity
 Graph mutation or native improvement has been measured at that checkpoint.
+The subsequent [Entity Graph candidate validation](entity-prefix-candidate-validation-001/README.md)
+passed all seven declared checks and final digest verification. It preserves
+1,120 ordered matching comparisons and exact artifacts/queries across four
+integration cells while avoiding irrelevant alias lookups. The correction is
+one separate construction claim: 81 historical claims plus Ensemble and Entity
+Graph now total 83. Its native first measurement remains unallocated, and no
+new EnterpriseRAG score is assigned.
 
 The current retained scores are Legacy 72.38, Turso 72.08, Adaptive 66.21,
 Embeddings 63.51 and Classical 62.10 on the 0–100 nDCG@10 scale. Graphify's

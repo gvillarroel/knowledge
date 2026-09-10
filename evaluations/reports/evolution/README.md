@@ -16,6 +16,10 @@
   The [Ensemble candidate's public runtime validation](e11/ensemble-candidate-validation-001/README.md)
   passed exact artifact/query parity under hashing and learned embeddings;
   full-corpus feasibility remains pending.
+  The [Entity Graph candidate validation](e11/entity-prefix-candidate-validation-001/README.md)
+  passed exact mention matching, artifact/query parity and negative checks in
+  four integration cells. Its additional construction charge brings the total
+  to 83; it also awaits native full-workload qualification.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

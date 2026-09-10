@@ -24,6 +24,10 @@ validation remains unreleased.
 The [Entity Graph construction diagnosis](../evaluations/reports/evolution/e11/entity-graph-matching-diagnosis-001/README.md)
 documents alias-length scaling and a prospective exact-matching optimization;
 it contains no new native score.
+The subsequent [Entity Graph candidate validation](../evaluations/reports/evolution/e11/entity-prefix-candidate-validation-001/README.md)
+passed 1,120 exact matching comparisons and four complete integration cells.
+Its sealed correction consumes one existing family claim, bringing cumulative
+claims to 83. Full-workload qualification and its retrieval score remain pending.
 The [Ensemble candidate validation](../evaluations/reports/evolution/e11/ensemble-candidate-validation-001/README.md)
 records successful original/candidate artifact and nonempty query parity under
 both hashing and learned embeddings. Its four-record public fixture is distinct
