@@ -14,10 +14,10 @@ table, [pages by skill](reports/skills/README.md), and a
 [cost/time/quality view](reports/cta/README.md). It includes the new pinned
 EnterpriseRAG reduced-corpus diagnostic and preserves the contracts below.
 
-The current [Entity Graph token-automaton native outcome](reports/evolution/e11/entity-token-automaton-native-001/README.md)
-adds the original component measurement to the [eight-family development comparison](reports/evolution/e11/entity-token-automaton-native-001/README.md#eight-family-comparison),
-with [application/category availability](reports/evolution/e11/entity-token-automaton-native-001/groups.md)
-and [CTA](reports/evolution/e11/entity-token-automaton-native-001/cta.md). The
+The current [Entity Graph consultant token-automaton native outcome](reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md)
+records a 3,600-second timeout without a ranking and preserves the [eight-family development comparison](reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md#eight-family-comparison),
+with [application/category availability](reports/evolution/e11/entity-consultant-token-automaton-native-001/groups.md)
+and [CTA](reports/evolution/e11/entity-consultant-token-automaton-native-001/cta.md). The
 120-question, 6,000-document contract remains separate from full-corpus
 retrieval, generated-answer quality and the final all-500 comparison. Five
 family searches and independent whole-bundle acceptance remain open.

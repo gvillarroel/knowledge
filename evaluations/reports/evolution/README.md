@@ -39,16 +39,25 @@
   cumulative proposals to 85. Its [original native measurement](e11/entity-token-automaton-native-001/README.md)
   also reached the 3,600-second agent limit without a submitted response or
   score. Its report completed, qualification failed and the study is stopped.
-  The [current eight-family comparison](e11/entity-token-automaton-native-001/README.md#eight-family-comparison)
+  Its [eight-family comparison](e11/entity-token-automaton-native-001/README.md#eight-family-comparison)
   and [CTA](e11/entity-token-automaton-native-001/cta.md) preserve that consumed
   attempt, unchanged retained scores and all five open searches.
   A separate [consultant-only automaton candidate](e11/entity-consultant-token-automaton-001/README.md)
   now passes seven software checks while freezing the builder. Cumulative
-  proposals are 86; its native first measurement remains unassigned, and its
+  proposals are 86; its native first measurement was unassigned at that checkpoint, and its
   [CTA](e11/entity-consultant-token-automaton-001/cta.md) establishes no new native gain.
   Its subsequent [pinned-runtime compatibility fixture](e11/entity-consultant-runtime-001/README.md)
   passes two deep validations and eight nonempty paired queries on the same
   processed snapshot. No complete EnterpriseRAG score or qualification is added.
+  The subsequent [consultant native outcome](e11/entity-consultant-token-automaton-native-001/README.md)
+  is another timeout at the unchanged 3,600-second limit, with no submitted
+  ranking or qualified score. Reporting completed, qualification failed and the
+  ordinary study is stopped. All five construction attempts are consumed,
+  while the total remains 86 proposals and the six retained family scores stay
+  unchanged. The latest [eight-family comparison](e11/entity-consultant-token-automaton-native-001/README.md#eight-family-comparison),
+  [application/category availability](e11/entity-consultant-token-automaton-native-001/groups.md)
+  and [CTA](e11/entity-consultant-token-automaton-native-001/cta.md) preserve the
+  result, the limited live observation and the five open searches.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

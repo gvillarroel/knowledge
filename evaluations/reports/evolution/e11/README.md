@@ -1,27 +1,42 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The latest [Entity consultant native measurement](entity-consultant-token-automaton-native-001/README.md)
+also reached the unchanged **3,600-second agent limit** without a submitted
+ranking or qualified retrieval score. Its original dispatcher and maintained
+report are terminal, qualification failed, and the ordinary study is stopped
+at sequence 7. All five construction first measurements are consumed; the
+total remains **86 of 585** proposals, with no retry or new evaluable quality miss.
+The [eight-family comparison](entity-consultant-token-automaton-native-001/README.md#eight-family-comparison),
+[application/category availability](entity-consultant-token-automaton-native-001/groups.md)
+and [CTA](entity-consultant-token-automaton-native-001/cta.md) preserve the actual
+outcome and unchanged retained scores. The earlier live snapshot does not
+identify the exact timeout phase; its flat-path counters do not measure the
+actual nested staging directories. Five searches and final acceptance remain open.
+
 The [consultant's pinned-runtime fixture](entity-consultant-runtime-001/README.md)
-now passes: two deep validations and eight nonempty paired queries preserve
+passed: two deep validations and eight nonempty paired queries preserve
 exact payloads on the same 128-record, 145-file processed public snapshot.
 No build was repeated, and no EnterpriseRAG job, score or proposal was added.
 Its [CTA](entity-consultant-runtime-001/cta.md) reports the single fixed-order
-pair without inferring a full-workload speedup. Native qualification is next.
+pair without inferring a full-workload speedup. The subsequent native timeout
+above preserves these software findings without establishing qualification.
 
 The new [consultant-only token-automaton candidate](entity-consultant-token-automaton-001/README.md)
 passes seven declared software checks with the complete builder frozen. It
 preserves 1,120 ordered matching comparisons, four complete integration cells
 and all 32 nonempty paired query payloads. Cumulative proposals are now
-**86 of 585**. Its separate native first measurement is unassigned; the
+**86 of 585** at that software checkpoint. Its separate native first measurement
+is now consumed by the reported timeout; the
 [retained eight-family scores](entity-consultant-token-automaton-001/README.md#retained-eight-family-context)
 remain unchanged. Its [CTA](entity-consultant-token-automaton-001/cta.md)
-separates software evidence from pending native feasibility.
+separates software evidence from the later failed native feasibility measurement.
 
-The latest [Entity Graph token-automaton native measurement](entity-token-automaton-native-001/README.md)
+The earlier [Entity Graph builder token-automaton native measurement](entity-token-automaton-native-001/README.md)
 reached the unchanged **3,600-second agent limit** without a submitted response
 or retrieval score. The original report completed, qualification failed and the
 ordinary study is stopped at sequence 7. This first measurement is consumed;
 its accounting checkpoint preserves **85 of 585** claims, with no retry or new quality
-miss. The [current eight-family comparison](entity-token-automaton-native-001/README.md#eight-family-comparison),
+miss. Its [eight-family comparison](entity-token-automaton-native-001/README.md#eight-family-comparison),
 [application/category availability](entity-token-automaton-native-001/groups.md)
 and [CTA](entity-token-automaton-native-001/cta.md) preserve the outcome and all
 retained scores. Five family searches remain open.

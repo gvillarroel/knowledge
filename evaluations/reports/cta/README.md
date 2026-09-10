@@ -2,7 +2,7 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
-[Entity Graph token automaton: original native outcome, cost/time and eight-family context](../evolution/e11/entity-token-automaton-native-001/cta.md)
+[Entity Graph consultant token automaton: original native outcome, cost/time and eight-family context](../evolution/e11/entity-consultant-token-automaton-native-001/cta.md)
 
 [Terminal E7/E8 development CTA](../evolution/e8/development-cta-003/README.md) binds 83 completed native jobs, including seven construction errors and 29.15 accumulated job hours. It preserves missing telemetry and excludes interrupted originals and future work from its fixed time total. All observations in the [earlier 81-job checkpoint](../evolution/e8/development-cta-002/README.md) remain unchanged.
 
