@@ -65,6 +65,12 @@
   [CTA](e11/entity-json-scaling-001/cta.md) and
   [application input sizes](e11/entity-json-scaling-001/groups.md) add no
   EnterpriseRAG score, proposal charge or native qualification.
+  The separately charged [Entity extraction candidate](e11/entity-ngram-eligibility-001/README.md)
+  then passed 4,080 independent exact comparisons and the pinned JSON runtime,
+  preserving all 19 reference files. Total claims are now 87. Its
+  [CTA](e11/entity-ngram-eligibility-001/cta.md) and
+  [contract/application coverage](e11/entity-ngram-eligibility-001/groups.md)
+  report software compatibility; a new native first measurement remains unassigned.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

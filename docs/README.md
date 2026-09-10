@@ -56,6 +56,8 @@
 - [Entity consultant pinned-runtime compatibility: deep validation, exact query parity and descriptive CTA](../evaluations/reports/evolution/e11/entity-consultant-runtime-001/README.md)
 - [Entity consultant native outcome: 60-minute timeout, unchanged eight-family scores, application/category availability and CTA](../evaluations/reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md)
 - [Entity public JSON diagnosis: 1,024-record control completed, preserved instrumentation failure, application sizes and CTA](../evaluations/reports/evolution/e11/entity-json-scaling-001/README.md)
+- [Entity n-gram candidate: 4,080 exact comparisons, unchanged retrieval context, pinned JSON compatibility and CTA](../evaluations/reports/evolution/e11/entity-ngram-eligibility-001/README.md)
+- [Decision: reuse token eligibility while preserving exact Entity extraction](../.specs/adr/0144-reuse-token-eligibility-in-entity-candidate-extraction.md)
 - [Decision: bind workload shape and keep profiling separate from skill mutations](../.specs/adr/0143-separate-workload-profiling-from-skill-mutations.md)
 - [Decision: preserve exact Entity Graph mentions with linked token-automaton outputs](../.specs/adr/0141-use-token-automaton-for-exact-entity-mentions.md)
 - [Decision: optimize Entity consultant matching separately while freezing the builder](../.specs/adr/0142-optimize-entity-consultant-matching-with-frozen-builder.md)

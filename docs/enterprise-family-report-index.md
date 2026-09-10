@@ -101,6 +101,13 @@ failure. Its [application input sizes](../evaluations/reports/evolution/e11/enti
 and [CTA](../evaluations/reports/evolution/e11/entity-json-scaling-001/cta.md)
 support a bounded investigation of candidate extraction costs. This software
 evidence adds no native score, new proposal charge or completed family search.
+The next [builder extraction candidate](../evaluations/reports/evolution/e11/entity-ngram-eligibility-001/README.md)
+passes 4,080 exact independent comparisons, four complete schema/layout cells
+and the pinned 1,024-record JSON runtime with all reference artifacts unchanged.
+Its separate proposal brings the total to 87, including four Entity claims;
+the native first measurement is still unassigned. [CTA](../evaluations/reports/evolution/e11/entity-ngram-eligibility-001/cta.md)
+and [contract/application coverage](../evaluations/reports/evolution/e11/entity-ngram-eligibility-001/groups.md)
+preserve the distinction between software evidence and unchanged native scores.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 

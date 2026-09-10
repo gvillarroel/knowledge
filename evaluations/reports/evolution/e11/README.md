@@ -1,5 +1,15 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The latest [Entity builder extraction candidate](entity-ngram-eligibility-001/README.md)
+passed seven software checks, including 4,080 exact independent comparisons,
+and a new pinned 1,024-record JSON runtime cell. Its complete output matches
+all 19 retained reference files. It changes one builder function and freezes
+the consultant. [CTA](entity-ngram-eligibility-001/cta.md) and
+[contract/application coverage](entity-ngram-eligibility-001/groups.md) describe
+the measured work. Total claims are **87 of 585**, including **4 of Entity's 80**.
+The new native first measurement is unassigned; scores and the five open family
+searches below remain unchanged. No canonical skill is promoted.
+
 The subsequent [public JSON scaling diagnosis](entity-json-scaling-001/README.md)
 completed construction, independent validation and deep consultation on 1,024
 synthetic records in a separate instrumentation control. It preserves the
