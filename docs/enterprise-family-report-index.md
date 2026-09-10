@@ -27,17 +27,25 @@ it contains no new native score.
 The subsequent [Entity Graph candidate validation](../evaluations/reports/evolution/e11/entity-prefix-candidate-validation-001/README.md)
 passed 1,120 exact matching comparisons and four complete integration cells.
 Its sealed correction consumes one existing family claim, bringing cumulative
-claims to 83. Full-workload qualification and its retrieval score remain pending.
+claims to 83. Its subsequent full-workload attempt timed out without a ranking.
 The [Ensemble candidate validation](../evaluations/reports/evolution/e11/ensemble-candidate-validation-001/README.md)
 records successful original/candidate artifact and nonempty query parity under
 both hashing and learned embeddings. Its four-record public fixture is distinct
-from the pending 6,000-document native measurement.
-The latest [construction-control report](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
+from the subsequent 6,000-document native measurement.
+The earlier [construction-control report](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
 preserves two worker refusals before native attempt creation and a tested
-Windows/Linux path correction. Both construction first measurements remain
+Windows/Linux path correction. Both construction first measurements were then
 unconsumed. Its [CTA](../evaluations/reports/evolution/e11/construction-owner-portability-001/cta.md)
 records the successful 363.287-second startup callback and subsequent control
 failures without assigning new retrieval scores or native workload costs.
+The latest [native construction report](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md)
+records two consumed first measurements: Ensemble failed during standalone
+validation with a container OOM event, and Entity Graph reached its agent time
+limit. Neither qualified or submitted a ranking. The
+[new CTA](../evaluations/reports/evolution/e11/construction-native-terminal-001/cta.md)
+preserves both execution errors and missing quality/cost values. Its retained
+comparison and opportunity table cover all eight families; five searches and
+the all-500 comparison remain unfinished.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 
@@ -61,8 +69,8 @@ counts all three jobs once and preserves the incomplete controller gate.
 | Embeddings | `hybrid` | [Completed search, baseline and six construction timeouts](../evaluations/reports/evolution/e7/embeddings-complete-001/README.md) | [Original completed-job time and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md); [independently checked semantic-window workload](../evaluations/reports/evolution/e8/embeddings-window-workload-001/README.md) |
 | Classical | `fusion` | [Retained E8 expansion gain: 62.10% nDCG@10](../evaluations/reports/evolution/e8/classical-progress-002/README.md); [category and application breakdown](../evaluations/reports/evolution/e8/classical-progress-002/groups.md); [CTA](../evaluations/reports/evolution/e8/classical-progress-002/cta.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
-| Entity Graph | `fusion` | [E11 agent timeout after 3,600 seconds](../evaluations/reports/evolution/e11/entity-graph-timeout-001/README.md); missing ranking, no measured retrieval score. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
-| Ensemble | `quality` | [E11 construction exceeded the 6 GiB memory limit](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md); one completed execution error, no measured retrieval score. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
+| Entity Graph | `fusion` | [Original E11 timeout](../evaluations/reports/evolution/e11/entity-graph-timeout-001/README.md); [matching correction also timed out](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md); no measured retrieval score. | [Synthetic graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
+| Ensemble | `quality` | [Original E11 memory failure](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md); [memory-lifetime correction failed during standalone validation](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md); no measured retrieval score. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
 | Graphify | `search` | [E11 qualified baseline: 8.12% nDCG@10](../evaluations/reports/evolution/e11/starting-terminal-001/README.md); [current CTA](../evaluations/reports/evolution/e11/starting-terminal-001/cta.md); [earlier E9 feasibility](../evaluations/reports/evolution/e9/feasibility-001/README.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
 | Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |
 

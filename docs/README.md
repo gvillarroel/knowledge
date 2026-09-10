@@ -47,6 +47,7 @@
 - [Entity Graph candidate validation: exact mention matching, four integration cells and preserved construction accounting](../evaluations/reports/evolution/e11/entity-prefix-candidate-validation-001/README.md)
 - [Construction evaluation startup: control timeout, zero native attempts and preserved pending measurements](../evaluations/reports/evolution/e11/construction-callback-timeout-001/README.md)
 - [Construction worker controls: Windows/Linux path diagnosis, tested correction and unchanged EnterpriseRAG results](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
+- [Native construction results: Ensemble validator OOM, Entity Graph timeout, consumed measurements and unchanged retained rankings](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)

@@ -15,11 +15,15 @@
   documents a concrete optimization hypothesis without assigning a new score.
   The [Ensemble candidate's public runtime validation](e11/ensemble-candidate-validation-001/README.md)
   passed exact artifact/query parity under hashing and learned embeddings;
-  full-corpus feasibility remains pending.
+  the subsequent full-corpus attempt failed during standalone validation.
   The [Entity Graph candidate validation](e11/entity-prefix-candidate-validation-001/README.md)
   passed exact mention matching, artifact/query parity and negative checks in
   four integration cells. Its additional construction charge brings the total
-  to 83; it also awaits native full-workload qualification.
+  to 83. The latest [native construction report](e11/construction-native-terminal-001/README.md)
+  records both measurements as consumed: Ensemble had a validator OOM event,
+  and Entity Graph timed out. Neither qualified or produced a new score. Its
+  [CTA](e11/construction-native-terminal-001/cta.md) preserves the two execution
+  errors, and its eight-family opportunity table shows the remaining work.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

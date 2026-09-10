@@ -16,16 +16,25 @@ family searches or authorizing a successor run.
 
 The subsequent [fixed construction evaluation stopped before native allocation](construction-callback-timeout-001/README.md):
 its complete startup control exceeded its 180-second limit. The two new
-construction first measurements remain unconsumed, and cumulative claims remain
-83. That ordinary study is now stopped; no new retrieval score was produced.
+construction first measurements remained unconsumed at that checkpoint, with
+83 cumulative claims. That ordinary study is stopped; no retrieval score was produced.
 The candidate correctness evidence below remains valid.
 
 The next [construction control passed startup, then exposed a Windows/Linux path defect](construction-owner-portability-001/README.md).
 Its complete callback finished in 363.287 seconds, but both worker controls
 failed before native allocation. That ordinary study is also stopped, with
-both first measurements still unconsumed and no changed retrieval score. The
+both first measurements then unconsumed and no changed retrieval score. The
 isolated POSIX correction passed 76 Windows and 95 Linux metadata checks;
-reviewed successor execution and full-workload qualification remain pending.
+the next evaluation used those corrected controls.
+
+The latest [native construction results](construction-native-terminal-001/README.md)
+now record both first measurements as consumed. Ensemble failed during
+standalone first-bundle validation with a confirmed container OOM event;
+Entity Graph again reached the 3,600-second agent limit. Both native reports
+completed, both qualifications failed, and the ordinary study is stopped at
+sequence 7. Neither produced a ranking or retrieval score. Its
+[CTA](construction-native-terminal-001/cta.md) records 2,136.072 and 3,600.101
+agent seconds respectively, with no native retry or new proposal charge.
 
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
@@ -47,8 +56,8 @@ passed all seven declared checks and final digest verification. It preserves
 1,120 ordered matching comparisons and exact artifacts/queries across four
 integration cells while avoiding irrelevant alias lookups. The correction is
 one separate construction claim: 81 historical claims plus Ensemble and Entity
-Graph now total 83. Its native first measurement remains unallocated, and no
-new EnterpriseRAG score is assigned.
+Graph total 83. Its subsequent native timeout above consumes that first
+measurement and supplies no new EnterpriseRAG score.
 
 The current retained scores are Legacy 72.38, Turso 72.08, Adaptive 66.21,
 Embeddings 63.51 and Classical 62.10 on the 0–100 nDCG@10 scale. Graphify's
@@ -68,8 +77,8 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original agent timed out without a ranking; a valid baseline and its catalog remain pending |
-| Ensemble | Original construction failed from memory exhaustion; a valid baseline and its catalog remain pending |
+| Entity Graph | Original and corrected construction timed out; a qualified baseline and its catalog remain pending |
+| Ensemble | Original and corrected construction failed with memory exhaustion; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |
 
