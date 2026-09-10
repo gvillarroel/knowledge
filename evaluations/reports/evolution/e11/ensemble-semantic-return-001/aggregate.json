@@ -1,0 +1,143 @@
+{
+  "all500_complete": false,
+  "all_eight_searches_complete": false,
+  "candidate_tree_sha256": "sha256:3adc772b29c0175023b48875e4592a85499394d322f09a8d6e837c460025014c",
+  "canonical_skill_installed": false,
+  "captured_at_utc": "2026-09-10T07:09:10.576725+00:00",
+  "changed_files": 1,
+  "compute_cost_usd": null,
+  "concept_layout": "source-packed-v1",
+  "container_cpu_limit": 2,
+  "container_memory_limit_bytes": 6442450944,
+  "container_network": "none",
+  "container_oom": false,
+  "container_retries": 0,
+  "cumulative_claims": 84,
+  "embedding_dimension": 384,
+  "embedding_provider": "hashing",
+  "ensemble_claims": 2,
+  "ensemble_proposal_cap": 105,
+  "evidence_scope": "public software correctness and prospective ordinary-task preparation",
+  "exact_valid_and_corrupt_validation_json": true,
+  "families": [
+    {
+      "baseline_ndcg_at_10": 0.6003504668859466,
+      "best_verified_ndcg_at_10": 0.6620879880681476,
+      "claimed_proposals": 20,
+      "family": "adaptive",
+      "proposal_cap": 100,
+      "search_closed": false
+    },
+    {
+      "baseline_ndcg_at_10": 0.5504213258483941,
+      "best_verified_ndcg_at_10": 0.621048481690271,
+      "claimed_proposals": 37,
+      "family": "classical",
+      "proposal_cap": 85,
+      "search_closed": true
+    },
+    {
+      "baseline_ndcg_at_10": 0.6350525198647472,
+      "best_verified_ndcg_at_10": 0.6350525198647472,
+      "claimed_proposals": 6,
+      "family": "embeddings",
+      "proposal_cap": 40,
+      "search_closed": true
+    },
+    {
+      "baseline_ndcg_at_10": null,
+      "best_verified_ndcg_at_10": null,
+      "claimed_proposals": 2,
+      "family": "ensemble",
+      "proposal_cap": 105,
+      "search_closed": false
+    },
+    {
+      "baseline_ndcg_at_10": null,
+      "best_verified_ndcg_at_10": null,
+      "claimed_proposals": 1,
+      "family": "entity-graph",
+      "proposal_cap": 80,
+      "search_closed": false
+    },
+    {
+      "baseline_ndcg_at_10": 0.08116433357167044,
+      "best_verified_ndcg_at_10": 0.08116433357167044,
+      "claimed_proposals": 0,
+      "family": "graphify",
+      "proposal_cap": 65,
+      "search_closed": false
+    },
+    {
+      "baseline_ndcg_at_10": 0.611052744442418,
+      "best_verified_ndcg_at_10": 0.7237626950008386,
+      "claimed_proposals": 16,
+      "family": "legacy",
+      "proposal_cap": 55,
+      "search_closed": true
+    },
+    {
+      "baseline_ndcg_at_10": 0.4542900785976876,
+      "best_verified_ndcg_at_10": 0.7207839745370085,
+      "claimed_proposals": 2,
+      "family": "turso",
+      "proposal_cap": 55,
+      "search_closed": false
+    }
+  ],
+  "global_proposal_cap": 585,
+  "identical_artifact_files": 35,
+  "independent_acceptance_complete": false,
+  "independent_reviews": {
+    "ensemble-semantic-return-candidate-review-001": {
+      "complete_review_sha256": "ba7ba71ba8490702be009195db7c31f887dd7823b0e9cafde702f3eac57522cc",
+      "receipt_sha256": "4d66295e26532e0d4b61796654f7e51b35450202baeca523947fa5370c08c4e0"
+    },
+    "ensemble-semantic-return-runtime-review-001": {
+      "complete_review_sha256": "3375aeb582c5997184240b6c00ff89700df259c23d08f7b98b4201d38d96f683",
+      "receipt_sha256": "59c120da97e5610a5c017afb045402f0d7b197f3f2ca98237407ac492ba6371f"
+    }
+  },
+  "language_model_calls": 0,
+  "native_record_chunking": true,
+  "new_first_measurement_dispatched": false,
+  "new_harbor_jobs": 0,
+  "new_retrieval_quality_measurements": 0,
+  "parent_tree_sha256": "sha256:d41f9aa819ff9e6154d5d3eea08e7963e060d86f67e7ab1a104225c828180eef",
+  "peak_memory_bytes": null,
+  "previous_construction_measurements_consumed": 2,
+  "quality_misses_added": 0,
+  "retained_complete_documents": 6000,
+  "retained_eligible_questions": 112,
+  "retained_metric": "frozen-category-weighted nDCG@10",
+  "retained_questions": 120,
+  "runtime_child_python_commands": 12,
+  "runtime_complete_builds": 2,
+  "runtime_container_seconds": 48.421681,
+  "runtime_independent_validations": 2,
+  "runtime_paired_nonempty_query_policies": [
+    "fast",
+    "quality",
+    "robust"
+  ],
+  "runtime_public_records": 4,
+  "runtime_python": "3.12.13",
+  "schema": "enterprise-semantic-return-candidate-checkpoint/1.0",
+  "sealed_validation_commands_passed": 5,
+  "source_sha256": {
+    "evaluations/reports/evolution/e11/construction-native-terminal-001/aggregate.json": "8d2afdcda4c94672b050b2ab3605deca8f96281d5113885d63ce704bae753ba5",
+    "tmp/enterprise-next-preparation/construction-qualification-preparation-004/native-config-validation.json": "d24db0f1c02e73695546cdf6d628a330db4fdf0e8a07ca550a46ae1b8d92efbf",
+    "tmp/enterprise-next-preparation/construction-qualification-preparation-004/native-identities.json": "f3f67bf841931b0a8a4f143c326554b4e68095265f538bd337aa16b6b7cc4d0e",
+    "tmp/enterprise-next-preparation/construction-qualification-preparation-004/protocol.proposal.json": "920a3b922c3d8978c21b5d20345262e2a97fb654299e1435f3f35574cf404e96",
+    "tmp/enterprise-next-preparation/construction-qualification-preparation-004/publish_checkpoint.py": "bd6ad74afa8e8ea4a84b6fab3bafef15dc28b9cb86813f250516a65f99baafc8",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-candidate-review-001/receipt.json": "4d66295e26532e0d4b61796654f7e51b35450202baeca523947fa5370c08c4e0",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-preparation-001/reservation.json": "8b66acbc8e8e5200b39e1ea79c1eaf262ad7e97baf034e1076cac9678125b2bc",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-runtime-fixture-001/declaration.json": "a275f5091e9fc6c18c387c3e7610c0aefed683fa3169693ddbf8f7812567a059",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-runtime-fixture-001/execution-001/result.json": "9a139ed44eea6958d9fdcc43e0a1c207542f051bb445696e552962f2263afeae",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-runtime-fixture-001/execution-001/terminal.json": "836091d9cd78d7bafb2cb51f56423aa09c2e8f662460b12c3a23775abecdd473",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-runtime-review-001/receipt.json": "59c120da97e5610a5c017afb045402f0d7b197f3f2ca98237407ac492ba6371f",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/candidate-manifest.json": "81ccab1d87e6b40a033799a12171b0558f218425345dfa94cd89d0beebe1198f",
+    "tmp/enterprise-next-preparation/ensemble-semantic-return-sealed-001/validation.json": "240889132e07ef9c08264d971422e37d407c26b3dd328077c3b51562efe3e060"
+  },
+  "unchanged_files": 251
+}

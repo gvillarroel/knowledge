@@ -48,6 +48,8 @@
 - [Construction evaluation startup: control timeout, zero native attempts and preserved pending measurements](../evaluations/reports/evolution/e11/construction-callback-timeout-001/README.md)
 - [Construction worker controls: Windows/Linux path diagnosis, tested correction and unchanged EnterpriseRAG results](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
 - [Native construction results: Ensemble validator OOM, Entity Graph timeout, consumed measurements and unchanged retained rankings](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md)
+- [Second Ensemble correction: exact public runtime parity, 84 cumulative proposals and full-workload evaluation pending](../evaluations/reports/evolution/e11/ensemble-semantic-return-001/README.md)
+- [Decision: collect completed semantic-validation state after its frame returns](../.specs/adr/0140-collect-semantic-validation-state-after-frame-return.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)

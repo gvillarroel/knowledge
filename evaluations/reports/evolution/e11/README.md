@@ -36,6 +36,14 @@ sequence 7. Neither produced a ranking or retrieval score. Its
 [CTA](construction-native-terminal-001/cta.md) records 2,136.072 and 3,600.101
 agent seconds respectively, with no native retry or new proposal charge.
 
+The [second Ensemble construction correction](ensemble-semantic-return-001/README.md)
+collects semantic state after the complete validator frame returns. Five sealed
+checks and a retained native-runtime public fixture passed, with 35 identical
+files, all three query policies and exact rejection JSON. Its
+[CTA](ensemble-semantic-return-001/cta.md) records 48.42 seconds on four public
+records. Cumulative claims now total 84. Its complete EnterpriseRAG task is
+prepared but unmeasured, and the retained retrieval scores remain unchanged.
+
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
 proposal within the existing caps. The complete candidate passed both public

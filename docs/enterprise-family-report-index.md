@@ -46,6 +46,12 @@ limit. Neither qualified or submitted a ranking. The
 preserves both execution errors and missing quality/cost values. Its retained
 comparison and opportunity table cover all eight families; five searches and
 the all-500 comparison remain unfinished.
+The [second Ensemble correction](../evaluations/reports/evolution/e11/ensemble-semantic-return-001/README.md)
+passed exact public artifact, query and rejection parity in the native Python
+runtime. Its [fixture CTA](../evaluations/reports/evolution/e11/ensemble-semantic-return-001/cta.md)
+records 48.42 seconds on four public records. This adds one proposal, bringing
+the total to 84, and no new retrieval score. Its complete workload is prepared
+but remains unmeasured; the two earlier construction attempts stay consumed.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 

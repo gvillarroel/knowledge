@@ -24,6 +24,10 @@
   and Entity Graph timed out. Neither qualified or produced a new score. Its
   [CTA](e11/construction-native-terminal-001/cta.md) preserves the two execution
   errors, and its eight-family opportunity table shows the remaining work.
+  The [second Ensemble correction](e11/ensemble-semantic-return-001/README.md)
+  passed exact artifact/query/rejection parity on a four-record public fixture
+  in the native runtime. It brings cumulative proposals to 84; full-workload
+  qualification and new retrieval scores remain pending.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog
