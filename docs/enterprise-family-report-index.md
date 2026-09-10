@@ -32,6 +32,12 @@ The [Ensemble candidate validation](../evaluations/reports/evolution/e11/ensembl
 records successful original/candidate artifact and nonempty query parity under
 both hashing and learned embeddings. Its four-record public fixture is distinct
 from the pending 6,000-document native measurement.
+The latest [construction-control report](../evaluations/reports/evolution/e11/construction-owner-portability-001/README.md)
+preserves two worker refusals before native attempt creation and a tested
+Windows/Linux path correction. Both construction first measurements remain
+unconsumed. Its [CTA](../evaluations/reports/evolution/e11/construction-owner-portability-001/cta.md)
+records the successful 363.287-second startup callback and subsequent control
+failures without assigning new retrieval scores or native workload costs.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 

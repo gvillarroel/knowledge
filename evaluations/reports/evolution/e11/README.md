@@ -18,8 +18,14 @@ The subsequent [fixed construction evaluation stopped before native allocation](
 its complete startup control exceeded its 180-second limit. The two new
 construction first measurements remain unconsumed, and cumulative claims remain
 83. That ordinary study is now stopped; no new retrieval score was produced.
-The candidate correctness evidence below remains valid, while a prospective
-control revision is needed before the complete workloads can run.
+The candidate correctness evidence below remains valid.
+
+The next [construction control passed startup, then exposed a Windows/Linux path defect](construction-owner-portability-001/README.md).
+Its complete callback finished in 363.287 seconds, but both worker controls
+failed before native allocation. That ordinary study is also stopped, with
+both first measurements still unconsumed and no changed retrieval score. The
+isolated POSIX correction passed 76 Windows and 95 Linux metadata checks;
+reviewed successor execution and full-workload qualification remain pending.
 
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
