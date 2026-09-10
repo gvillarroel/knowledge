@@ -55,6 +55,8 @@
 - [Entity consultant token automaton: seven passed software checks, frozen builder, retained scores and 86 cumulative proposals](../evaluations/reports/evolution/e11/entity-consultant-token-automaton-001/README.md)
 - [Entity consultant pinned-runtime compatibility: deep validation, exact query parity and descriptive CTA](../evaluations/reports/evolution/e11/entity-consultant-runtime-001/README.md)
 - [Entity consultant native outcome: 60-minute timeout, unchanged eight-family scores, application/category availability and CTA](../evaluations/reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md)
+- [Entity public JSON diagnosis: 1,024-record control completed, preserved instrumentation failure, application sizes and CTA](../evaluations/reports/evolution/e11/entity-json-scaling-001/README.md)
+- [Decision: bind workload shape and keep profiling separate from skill mutations](../.specs/adr/0143-separate-workload-profiling-from-skill-mutations.md)
 - [Decision: preserve exact Entity Graph mentions with linked token-automaton outputs](../.specs/adr/0141-use-token-automaton-for-exact-entity-mentions.md)
 - [Decision: optimize Entity consultant matching separately while freezing the builder](../.specs/adr/0142-optimize-entity-consultant-matching-with-frozen-builder.md)
 - [Decision: collect completed semantic-validation state after its frame returns](../.specs/adr/0140-collect-semantic-validation-state-after-frame-return.md)

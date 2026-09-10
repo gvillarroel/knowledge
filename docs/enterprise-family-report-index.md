@@ -94,6 +94,13 @@ consumed, with 86 proposals and no new evaluable quality miss. The latest
 and [CTA](../evaluations/reports/evolution/e11/entity-consultant-token-automaton-native-001/cta.md)
 preserve unchanged scores, missing usage and the limits of the earlier live
 snapshot. The exact timeout phase remains unresolved; no canonical skill was promoted.
+The later [public JSON scaling diagnosis](../evaluations/reports/evolution/e11/entity-json-scaling-001/README.md)
+completed build, independent validation and deep consultation on 1,024 synthetic
+records in a separate instrumentation control, preserving the original signal
+failure. Its [application input sizes](../evaluations/reports/evolution/e11/entity-json-scaling-001/groups.md)
+and [CTA](../evaluations/reports/evolution/e11/entity-json-scaling-001/cta.md)
+support a bounded investigation of candidate extraction costs. This software
+evidence adds no native score, new proposal charge or completed family search.
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 

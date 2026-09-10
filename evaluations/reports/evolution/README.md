@@ -58,6 +58,13 @@
   [application/category availability](e11/entity-consultant-token-automaton-native-001/groups.md)
   and [CTA](e11/entity-consultant-token-automaton-native-001/cta.md) preserve the
   result, the limited live observation and the five open searches.
+  A later [public JSON scaling diagnosis](e11/entity-json-scaling-001/README.md)
+  completed all three 1,024-record operations in a separate instrumentation
+  control while preserving the original signal failure and passed 256-record
+  cell. Candidate extraction is a measured cost worth investigating; its
+  [CTA](e11/entity-json-scaling-001/cta.md) and
+  [application input sizes](e11/entity-json-scaling-001/groups.md) add no
+  EnterpriseRAG score, proposal charge or native qualification.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

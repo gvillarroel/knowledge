@@ -1,5 +1,15 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The subsequent [public JSON scaling diagnosis](entity-json-scaling-001/README.md)
+completed construction, independent validation and deep consultation on 1,024
+synthetic records in a separate instrumentation control. It preserves the
+original signal failure and the passed 256-record cell. Candidate extraction
+accounts for 32.10% of profiled build time and 48.39% of profiled deep-consult
+time in the larger cell, supporting a new bounded source-only hypothesis.
+Its [input sizes by application](entity-json-scaling-001/groups.md) and
+[CTA](entity-json-scaling-001/cta.md) distinguish software evidence from the
+unchanged native results below. No new candidate, charge or score is added.
+
 The latest [Entity consultant native measurement](entity-consultant-token-automaton-native-001/README.md)
 also reached the unchanged **3,600-second agent limit** without a submitted
 ranking or qualified retrieval score. Its original dispatcher and maintained

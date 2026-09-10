@@ -311,6 +311,28 @@ Use `harbor-run-results` to:
 Do not begin mutation from a partial or structurally invalid baseline. Missing
 cells, provider failures, and verifier faults are not semantic zeroes.
 
+### Diagnose resource failures with a declared software profile
+
+A public software profile can support a construction-repair hypothesis while
+the failed native baseline remains unavailable. Bind the complete package and
+record how the diagnostic differs in source adapter, mapped content, document
+size, sectioning, extraction limits, storage and validation path. Preserve
+complete construction and independent validation in the measured workflow.
+Repeated sizes from one template remain one source family.
+
+Declare instrumentation and command/resource caps before execution. Preserve
+failed and unattempted cells, and keep successful cells when a later operation
+fails. Treat asynchronous tracing as a separate diagnostic control; a crash
+observed during tracing does not by itself establish a skill defect. Nested
+profile times include overhead and must not be added or extrapolated into
+native speedups. Keep unavailable costs and memory telemetry explicit.
+
+Reserve a proposed skill change separately before realization. A profile adds
+no retrieval reward, promotion decision or permission to reopen a stopped
+study. Builder and consultant mutations remain separate treatments. See the
+[profiling decision](../.specs/adr/0143-separate-workload-profiling-from-skill-mutations.md)
+and its [source-bound Entity example](../evaluations/reports/evolution/e11/entity-json-scaling-001/README.md).
+
 ## Step 6: choose the primary evolution strategy
 
 ### Strategy A: GEPA evolution of `SKILL.md`
