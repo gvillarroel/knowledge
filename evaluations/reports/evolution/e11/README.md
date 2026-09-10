@@ -1,12 +1,19 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
-The latest [Entity Graph token-automaton candidate](entity-token-automaton-001/README.md)
-passes exact matching, complete artifact/query/corruption checks and a public
-128-record fixture in the pinned native runtime. It brings cumulative proposal
-claims to **85 of 585**. Its EnterpriseRAG first measurement is unassigned;
-the retained retrieval scores and five open searches remain unchanged. The
-[candidate CTA](entity-token-automaton-001/cta.md) reports its software evidence
-separately from benchmark quality.
+The latest [Entity Graph token-automaton native measurement](entity-token-automaton-native-001/README.md)
+reached the unchanged **3,600-second agent limit** without a submitted response
+or retrieval score. The original report completed, qualification failed and the
+ordinary study is stopped at sequence 7. This first measurement is consumed;
+cumulative proposal claims remain **85 of 585**, with no retry or new quality
+miss. The [current eight-family comparison](entity-token-automaton-native-001/README.md#eight-family-comparison),
+[application/category availability](entity-token-automaton-native-001/groups.md)
+and [CTA](entity-token-automaton-native-001/cta.md) preserve the outcome and all
+retained scores. Five family searches remain open.
+
+The [candidate's exact matching, artifact/query/corruption checks and public
+128-record runtime fixture](entity-token-automaton-001/README.md) remain valid
+software evidence. They did not establish complete EnterpriseRAG qualification
+or authorize a canonical skill promotion.
 
 E11's original native execution stopped after all twelve starting roles
 settled. The [terminal comparison](starting-terminal-001/README.md) records
@@ -53,7 +60,7 @@ records. Cumulative claims now total 84. Its subsequent
 [native measurement reached the 3,600-second agent limit](ensemble-semantic-return-native-001/README.md).
 The native report completed, qualification failed, and that ordinary study is
 stopped at sequence 7. No ranking was submitted and no retrieval score was
-assigned. The [current eight-family comparison](ensemble-semantic-return-native-001/README.md#eight-family-comparison)
+assigned. The [eight-family comparison at that checkpoint](ensemble-semantic-return-native-001/README.md#eight-family-comparison)
 preserves all retained scores, while the [CTA](ensemble-semantic-return-native-001/cta.md)
 records the one consumed attempt without inferring missing costs or counting
 the execution error as an evaluable quality miss.
@@ -99,7 +106,7 @@ It establishes no new retrieval gain, final all-500 result or skill promotion.
 | Embeddings | Preserve its completed catalog and construction failures |
 | Classical | Starting scores reproduced; preserve its completed catalog |
 | Adaptive | Complete the pending first measurement and remaining catalog |
-| Entity Graph | Original and first correction timed out; new token automaton passes software checks, with full qualification and catalog pending |
+| Entity Graph | Original, prefix correction and token automaton reached the agent limit; software parity is preserved, but complete qualification and the catalog remain pending |
 | Ensemble | Original and first correction failed with memory exhaustion; second correction timed out; a qualified baseline and its catalog remain pending |
 | Graphify | Current fixed-builder baseline qualified at 8.12; execute its consultation catalog |
 | Turso | Starting scores reproduced; complete the pending first measurement and remaining catalog |

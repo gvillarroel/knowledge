@@ -1,8 +1,8 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-09-08.
+Catalog updated: 2026-09-10.
 
-Newest included scored or audited evidence: 2026-09-08.
+Newest included scored or audited evidence: 2026-09-10.
 
 This is the entry point for reviewed reports that compare knowledge builders,
 consultants, generated expert skills, retrieval routes, or storage variants. It
@@ -13,6 +13,14 @@ The generated [report hub](reports/README.md) adds a dataset-specific leader
 table, [pages by skill](reports/skills/README.md), and a
 [cost/time/quality view](reports/cta/README.md). It includes the new pinned
 EnterpriseRAG reduced-corpus diagnostic and preserves the contracts below.
+
+The current [Entity Graph token-automaton native outcome](reports/evolution/e11/entity-token-automaton-native-001/README.md)
+adds the original component measurement to the [eight-family development comparison](reports/evolution/e11/entity-token-automaton-native-001/README.md#eight-family-comparison),
+with [application/category availability](reports/evolution/e11/entity-token-automaton-native-001/groups.md)
+and [CTA](reports/evolution/e11/entity-token-automaton-native-001/cta.md). The
+120-question, 6,000-document contract remains separate from full-corpus
+retrieval, generated-answer quality and the final all-500 comparison. Five
+family searches and independent whole-bundle acceptance remain open.
 
 The [stratified Enterprise evolution E7](reports/evolution/e7/README.md) extends
 the all-family search to 120 development questions and 6,000 complete documents.
@@ -66,7 +74,7 @@ published rankings.
 
 | Question | Current report | Compared scope | Interpretation boundary |
 | --- | --- | --- | --- |
-| Has every family received an opportunity on stratified full-text EnterpriseRAG? | [E7 campaign status](reports/evolution/e7/README.md) and [strategy coverage](reports/evolution/e7/strategy-coverage.md) | Eight families; 120 development questions; 6,000 complete documents; three consecutive misses per mechanism and repeated improving rounds | Declared variants, live attempts and completed searches remain separate; final all-500 measurement and the private gate have their own completion evidence |
+| Has every family received an opportunity on stratified full-text EnterpriseRAG? | [Current E11 status](reports/evolution/e11/README.md), [family evidence index](../docs/enterprise-family-report-index.md) and [strategy coverage](reports/evolution/e7/strategy-coverage.md) | Eight families; 120 development questions; 6,000 complete documents; three consecutive misses per mechanism and repeated improving rounds | Declared variants, live attempts and completed searches remain separate; final all-500 measurement and the private gate have their own completion evidence |
 | Which Enterprise retrieval profiles improved under the three-miss rule? | [Completed e6 campaign](reports/evolution/e6/README.md) and [stopping ledger](reports/evolution/e6/development-001/strategies.md) | Eight primary routes, 33 finite tactics, 106 new candidates and eight fresh controls | Exposed development queries on 985 documents; each tactic stops at three misses or finite exhaustion; separate terminal acceptance decision |
 | Which direct retrieval routes perform best on the frozen GraphRAG paper workloads? | [`LATEST-REPORT.md`](LATEST-REPORT.md) and its [machine-readable contract](LATEST-REPORT.comparison.json) | Twenty-five compatible routes on the 60-question generalization contract, plus a separate 40-question contradiction contract | Retrieval only; the report cutoff is 2026-07-30 and it does not measure generated-answer correctness |
 | How do all eight registered build/consult families compare on agent tokens? | [Semantic OKF two-stage token usage](semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md) | Eight builders and eight consultants, with construction and consultation reported separately | Several consultation arms contain runtime errors; incomplete responses cannot be interpreted as efficient answers |

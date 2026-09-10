@@ -219,6 +219,12 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
+                "The subsequent [Entity Graph token-automaton native outcome](evolution/e11/entity-token-automaton-native-001/README.md) "
+                "records the original fixed measurement with 85 cumulative proposals. Its "
+                "[eight-family comparison](evolution/e11/entity-token-automaton-native-001/README.md#eight-family-comparison), "
+                "[application/category availability](evolution/e11/entity-token-automaton-native-001/groups.md) and "
+                "[CTA](evolution/e11/entity-token-automaton-native-001/cta.md) preserve qualified results and missing evidence. "
+                "No final all-500 result or canonical skill promotion is established by this component evaluation.", "",
                 "The [stratified Enterprise evolution E7](evolution/e7/README.md) records the original eight-family work "
                 "on 120 development questions and 6,000 complete documents. Its "
                 "[strategy coverage](evolution/e7/strategy-coverage.md) distinguishes declared mechanisms, "
@@ -275,8 +281,9 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                      "Latency and costs from different hosts, cache policies, models, or cohorts must be interpreted separately.", "",
                      "[Data storage and reproduction](../../docs/evaluation-datasets-and-reports.md)", ""])
     files["README.md"] = "\n".join(overview)
-    skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e6/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+    skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
                    "[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)", "",
+                   "[Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)", "",
                    "[Agent-selected skills by application](../enterprise-source-skills/README.md)", "",
                    "[Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)", "",
                    "[EnterpriseRAG: incoming versus G2 generator, all eight families](../enterprise-generator-g2/README.md)", "",
@@ -292,6 +299,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
             lines.extend([f"[Skill package](../../../{path})", ""])
         if family in {"legacy", "embeddings", "classical", "adaptive", "entity-graph", "ensemble", "graphify", "turso"}:
             lines.extend(["[Stratified Enterprise evolution E7 and this family's opportunity status](../evolution/e7/README.md)", "",
+                          "[Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)", "",
                           "[Earlier Enterprise evolution E6](../evolution/e6/README.md)", ""])
         if family == "integrated-classical":
             lines.extend(["The tau3 source reports identical rankings for the integrated Classical and "
@@ -309,7 +317,8 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files["skills/README.md"] = "\n".join(skill_index) + "\n"
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
-    cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e8/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+    cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+           "[Entity Graph token automaton: original native outcome, cost/time and eight-family context](../evolution/e11/entity-token-automaton-native-001/cta.md)", "",
            "[Terminal E7/E8 development CTA](../evolution/e8/development-cta-003/README.md) "
            "binds 83 completed native jobs, including seven construction errors and 29.15 accumulated job hours. "
            "It preserves missing telemetry and excludes interrupted originals and future work from its fixed time total. "

@@ -56,15 +56,21 @@ native report and refused qualification. No ranking was submitted. The
 [eight-family comparison](../evaluations/reports/evolution/e11/ensemble-semantic-return-native-001/README.md#eight-family-comparison)
 retains all prior scores; its [CTA](../evaluations/reports/evolution/e11/ensemble-semantic-return-native-001/cta.md)
 preserves the consumed attempt and unavailable usage. This ordinary study is
-stopped; all three construction attempts remain consumed and five searches
-remain open.
-The new [Entity Graph token automaton](../evaluations/reports/evolution/e11/entity-token-automaton-001/README.md)
+stopped; all three construction attempts were consumed at that checkpoint and
+five searches remained open.
+The [Entity Graph token automaton](../evaluations/reports/evolution/e11/entity-token-automaton-001/README.md)
 passes 1,120 exact matching comparisons, four complete integration cells and a
 128-record fixture in the pinned native runtime with 145 identical output
-files. This second Entity Graph proposal brings cumulative claims to 85;
-its full EnterpriseRAG first measurement remains unassigned, and all retained
-scores stay unchanged. Its [CTA](../evaluations/reports/evolution/e11/entity-token-automaton-001/cta.md)
-separates software operation counts and timings from native retrieval fitness.
+files. This second Entity Graph proposal brings cumulative claims to 85. Its
+[original full-workload measurement](../evaluations/reports/evolution/e11/entity-token-automaton-native-001/README.md)
+reached the 3,600-second agent limit without a submitted response or score.
+The report completed, qualification failed and the ordinary study is stopped
+at sequence 7. All four construction first measurements are now consumed,
+while the proposal total and retained scores stay unchanged. The
+[current eight-family comparison](../evaluations/reports/evolution/e11/entity-token-automaton-native-001/README.md#eight-family-comparison),
+[application/category availability](../evaluations/reports/evolution/e11/entity-token-automaton-native-001/groups.md)
+and [native CTA](../evaluations/reports/evolution/e11/entity-token-automaton-native-001/cta.md)
+preserve that outcome separately from the [software fixture CTA](../evaluations/reports/evolution/e11/entity-token-automaton-001/cta.md).
 Start with the [all-eight opportunity inventory](../evaluations/reports/evolution/e8/README.md#opportunity-coverage-across-all-eight-strategies)
 for completed variant counts, unresolved baselines and the remaining final gates.
 
@@ -88,7 +94,7 @@ counts all three jobs once and preserves the incomplete controller gate.
 | Embeddings | `hybrid` | [Completed search, baseline and six construction timeouts](../evaluations/reports/evolution/e7/embeddings-complete-001/README.md) | [Original completed-job time and missing usage](../evaluations/reports/evolution/e7/development-cta-001/README.md); [independently checked semantic-window workload](../evaluations/reports/evolution/e8/embeddings-window-workload-001/README.md) |
 | Classical | `fusion` | [Retained E8 expansion gain: 62.10% nDCG@10](../evaluations/reports/evolution/e8/classical-progress-002/README.md); [category and application breakdown](../evaluations/reports/evolution/e8/classical-progress-002/groups.md); [CTA](../evaluations/reports/evolution/e8/classical-progress-002/cta.md) | [Application-group cap and untested follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md) |
 | Adaptive | `adaptive` | [Fifth retained development gain](../evaluations/reports/evolution/e7/adaptive-progress-005/README.md); [category and application breakdown](../evaluations/reports/evolution/e7/adaptive-progress-005/subgroups.md) | [First native aspect trial and exact payload parity](../evaluations/reports/evolution/e7/adaptive-aspect-001/README.md) |
-| Entity Graph | `fusion` | [Original E11 timeout](../evaluations/reports/evolution/e11/entity-graph-timeout-001/README.md); [first matching correction also timed out](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md); no measured retrieval score. | [New token automaton: exact correctness and public runtime parity](../evaluations/reports/evolution/e11/entity-token-automaton-001/README.md); [graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
+| Entity Graph | `fusion` | [Original E11 timeout](../evaluations/reports/evolution/e11/entity-graph-timeout-001/README.md); [first matching correction also timed out](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md); [token automaton reached the same agent limit](../evaluations/reports/evolution/e11/entity-token-automaton-native-001/README.md); no measured retrieval score. | [Token automaton: exact correctness and public runtime parity](../evaluations/reports/evolution/e11/entity-token-automaton-001/README.md); [graph reach, rank fusion and document grouping](../evaluations/reports/evolution/e7/entity-graph-opportunity-001/README.md) |
 | Ensemble | `quality` | [Original E11 memory failure](../evaluations/reports/evolution/e11/ensemble-memory-001/README.md); [first correction failed during standalone validation](../evaluations/reports/evolution/e11/construction-native-terminal-001/README.md); [second correction reached the agent time limit](../evaluations/reports/evolution/e11/ensemble-semantic-return-native-001/README.md); no measured retrieval score. | [Synthetic protected-set and allocation audit](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md) |
 | Graphify | `search` | [E11 qualified baseline: 8.12% nDCG@10](../evaluations/reports/evolution/e11/starting-terminal-001/README.md); [current CTA](../evaluations/reports/evolution/e11/starting-terminal-001/cta.md); [earlier E9 feasibility](../evaluations/reports/evolution/e9/feasibility-001/README.md); [preserved E8 timeout](../evaluations/reports/evolution/e8/graphify-baseline-failure-001/README.md) | [Synthetic traversal depth and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md); [construction-scaling prototype with exact synthetic outputs](../evaluations/reports/evolution/e8/graphify-scaling-001/README.md) |
 | Turso | `lexical-sql` | [First retained E8 gain: 45.43% to 72.08% weighted nDCG@10](../evaluations/reports/evolution/e8/turso-progress-001/README.md); [applications/categories](../evaluations/reports/evolution/e8/turso-progress-001/groups.md); [CTA](../evaluations/reports/evolution/e8/turso-progress-001/cta.md) | [Native synthetic databases and SQL/BM25 ranking treatments](../evaluations/reports/evolution/e7/turso-opportunity-001/README.md); [generated-expert delivery boundary](../evaluations/reports/evolution/e7/turso-generated-expert-001/README.md) |

@@ -6,6 +6,7 @@ import importlib.util
 import json
 import re
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 import pytest
 
@@ -105,13 +106,23 @@ def test_rendered_navigation_and_cta_have_no_broken_local_links():
     specs = json.loads((ROOT / "evaluations/report-sources.json").read_text(encoding="utf-8"))["datasets"]
     groups = [CATALOG.load_dataset(spec) for spec in specs if spec["format"] != "enterprise-json"]
     files = CATALOG.render(groups)
-    virtual = {(CATALOG.OUTPUT / path).resolve() for path in files}
+    virtual = {(CATALOG.OUTPUT / path).resolve(): content for path, content in files.items()}
     for relative, content in files.items():
         if not relative.endswith(".md"):
             continue
         for target in re.findall(r"\]\(([^)]+)\)", content):
-            path = (CATALOG.OUTPUT / relative).parent / target
-            assert path.resolve() in virtual or path.exists(), (relative, target)
+            link = urlsplit(target)
+            assert not link.scheme and not link.netloc, (relative, target)
+            path = ((CATALOG.OUTPUT / relative).parent / unquote(link.path)).resolve()
+            assert path in virtual or path.is_file(), (relative, target)
+            if link.fragment:
+                target_content = virtual[path] if path in virtual else path.read_text(encoding="utf-8")
+                headings = re.findall(r"^#{1,6}\s+(.+?)\s*#*\s*$", target_content, re.MULTILINE)
+                anchors = {
+                    re.sub(r"[^\w\- ]", "", heading.lower()).replace(" ", "-")
+                    for heading in headings
+                }
+                assert unquote(link.fragment) in anchors, (relative, target)
     assert "Runtime errors" in files["cta/README.md"]
     assert "input plus output" in files["cta/README.md"]
 
