@@ -14,6 +14,13 @@ organizer stages as stopped, with 18 ledger events and no private release.
 This closes the original failed execution without completing the remaining
 family searches or authorizing a successor run.
 
+The subsequent [fixed construction evaluation stopped before native allocation](construction-callback-timeout-001/README.md):
+its complete startup control exceeded its 180-second limit. The two new
+construction first measurements remain unconsumed, and cumulative claims remain
+83. That ordinary study is now stopped; no new retrieval score was produced.
+The candidate correctness evidence below remains valid, while a prospective
+control revision is needed before the complete workloads can run.
+
 A separate [prospective Ensemble construction correction](../../../../.specs/adr/0137-charge-construction-corrections-within-enterprise-search-caps.md)
 releases persisted state before independent revalidation. It consumes one
 proposal within the existing caps. The complete candidate passed both public

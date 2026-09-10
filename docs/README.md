@@ -45,6 +45,7 @@
 - [Entity Graph construction diagnosis: alias-length scaling, public metadata and an untested exact-matching hypothesis](../evaluations/reports/evolution/e11/entity-graph-matching-diagnosis-001/README.md)
 - [Ensemble candidate validation: exact hashing/MiniLM runtime parity, atomic failures and bounded fixture CTA](../evaluations/reports/evolution/e11/ensemble-candidate-validation-001/README.md)
 - [Entity Graph candidate validation: exact mention matching, four integration cells and preserved construction accounting](../evaluations/reports/evolution/e11/entity-prefix-candidate-validation-001/README.md)
+- [Construction evaluation startup: control timeout, zero native attempts and preserved pending measurements](../evaluations/reports/evolution/e11/construction-callback-timeout-001/README.md)
 - [Classical application-group diversity limit and an untested document-identity follow-up](../evaluations/reports/evolution/e7/classical-source-cap-001/README.md)
 - [Ensemble protected-set audit: ranking changes and the coverage boundary](../evaluations/reports/evolution/e7/ensemble-protection-001/README.md)
 - [Graphify function audit: traversal reach, ranking changes, and exact fusion treatments](../evaluations/reports/evolution/e7/graphify-opportunity-001/README.md)
