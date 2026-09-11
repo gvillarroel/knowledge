@@ -10,7 +10,7 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 | Strategy | Retained score | Source |
 | --- | ---: | --- |
 | Legacy | 72.38 | Historical reviewed development result |
-| Turso | 72.08 | Historical reviewed development result |
+| Turso | 72.08 | Historical incumbent exactly reproduced by E14 |
 | Adaptive | 66.21 | Historical reviewed development result |
 | Embeddings | 63.51 | Historical reviewed development result |
 | Classical | 62.10 | Historical reviewed development result |
@@ -21,19 +21,25 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 Legacy has the highest retained score in this partial development comparison.
 This does not establish a winner on the all-500 workload, on other datasets,
 or on generated-answer quality. Exact evidence and opportunity limits are in
-the [eight-family report](../evolution/e13/turso-baseline-and-controller-stop-001/README.md#retained-eight-family-comparison).
+the [eight-family report](../evolution/e14/turso-starting-qualified-001/README.md#retained-eight-family-comparison).
 
 ## Latest continuation
 
-[E13](../evolution/e13/README.md) completed one **Turso reference** at **45.43**,
-exactly reproducing its historical baseline. It did not remeasure the 72.08
-retained profile. A cache phase-declaration defect stopped subsequent admission;
-the original study is closed with its baseline preserved. Five family searches
-and the final all-eight comparison remain unfinished.
+[E14](../evolution/e14/README.md) completes **Turso's starting qualification**.
+One new retained-profile trial exactly reproduces **72.08**, paired with the
+preserved original E13 reference at **45.43**. Both records are qualified and
+error-free; only the retained-profile execution is new. This checkpoint
+establishes no new champion. One of eight current family qualifications is
+complete; five inherited searches and the final all-eight comparison remain
+unfinished. Private validation is unopened.
 
-- [Nine applications and ten question categories](../evolution/e13/turso-baseline-and-controller-stop-001/groups.md)
-- [Native cost, time and quality](../evolution/e13/turso-baseline-and-controller-stop-001/cta.md)
-- [Machine-readable checkpoint](../evolution/e13/turso-baseline-and-controller-stop-001/aggregate.json)
+The [earlier E13 study](../evolution/e13/README.md) remains closed after its
+cache phase-declaration controller stop. Its reference is reused under its
+original job and staged-skill identity.
+
+- [Nine applications and ten question categories](../evolution/e14/turso-starting-qualified-001/groups.md)
+- [Native cost, time and quality](../evolution/e14/turso-starting-qualified-001/cta.md)
+- [Machine-readable checkpoint](../evolution/e14/turso-starting-qualified-001/aggregate.json)
 - [Earlier five-family retained application/category matrix](../evolution/e8/retained-cross-family-002/README.md)
 
 Keep this contract separate from the [full-corpus Classical 500-question run](enterprise-rag-classical-full-500.md),

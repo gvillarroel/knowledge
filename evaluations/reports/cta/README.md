@@ -1,8 +1,10 @@
 # CTA: cost, time, and quality
 
-[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e13/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
+[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
-[Latest E13 Turso reference: one completed native trial, exact baseline reproduction, measured latency and zero model calls](../evolution/e13/turso-baseline-and-controller-stop-001/cta.md)
+[Latest E14 Turso starting pair: 246.684 new job seconds, 72.08 reproduced nDCG, original-reference cost kept separate](../evolution/e14/turso-starting-qualified-001/cta.md)
+
+[Earlier E13 Turso reference: one completed native trial, exact baseline reproduction, measured latency and zero model calls](../evolution/e13/turso-baseline-and-controller-stop-001/cta.md)
 
 [Entity evidence-index reuse: exact runtime responses, observed timing and unassigned native measurement](../evolution/e11/entity-evidence-index-reuse-001/cta.md)
 
