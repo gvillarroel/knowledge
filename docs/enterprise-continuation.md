@@ -1,5 +1,12 @@
 # Continuing EnterpriseRAG evolution after E7
 
+[ADR 0150](../.specs/adr/0150-continue-enterprise-searches-by-family-readiness.md)
+defines a prospective continuation based on each family's exact starting
+reproduction. It preserves the old stopped path, historical claims and final
+all-eight acceptance, while allowing ready families to use their remaining
+opportunities. The new controller and dataset versions are in preparation;
+the decision is not current native admission or a new benchmark result.
+
 E8 continues the authorized search across eight retrieval families after a
 planned Windows update interrupted E7. The original study is terminal, with
 66 completed native jobs, two incomplete originals and no private release.
