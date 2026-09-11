@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Original starting errors: Ensemble 1,501.739 job seconds and Entity Graph 3,648.920 job seconds, with unavailable retrieval quality](../evolution/e14/starting-execution-errors-001/README.md#cost-time-and-quality)
+
 [Cross-family CTA: six qualified retained profiles on the same stratified workload](../evolution/e14/qualified-starts-comparison-001/README.md#cost-time-and-quality)
 
 [Latest E14 Classical starting pair: 3,161.579 new job seconds, 55.04 reference and 62.10 retained nDCG reproduced](../evolution/e14/classical-starting-qualified-001/cta.md)

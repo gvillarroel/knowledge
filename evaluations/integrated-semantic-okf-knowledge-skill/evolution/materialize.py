@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from time import sleep
 
 
 def hashes(root):
@@ -80,6 +81,20 @@ workdir = "/workspace"
 ''', encoding="utf-8", newline="\n")
 
 
+def _publish_task_tree(pending, output):
+    """Publish once, allowing bounded retries for Windows access conflicts."""
+    for attempt in range(5):
+        if output.exists() or output.is_symlink() or getattr(output, "is_junction", lambda: False)():
+            raise FileExistsError(output)
+        try:
+            pending.rename(output)
+            return
+        except PermissionError as error:
+            if getattr(error, "winerror", None) not in (5, 32, 33) or attempt == 4:
+                raise
+            sleep(0.05 * 2 ** attempt)
+
+
 def materialize(cases, output, image, check=False):
     if output.exists() and not check:
         raise FileExistsError(output)
@@ -98,7 +113,7 @@ def materialize(cases, output, image, check=False):
             if hashes(pending) != hashes(output):
                 raise ValueError("Deterministic task replay differs")
         else:
-            pending.rename(output)
+            _publish_task_tree(pending, output)
     return {"task_count": len(inputs), "tree_sha256": hashlib.sha256(json.dumps(hashes(output), sort_keys=True).encode()).hexdigest()}
 
 

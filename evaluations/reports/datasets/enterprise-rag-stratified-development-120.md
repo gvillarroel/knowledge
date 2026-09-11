@@ -15,8 +15,8 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 | Embeddings | 63.51 | Historical reference exactly reproduced by E14 |
 | Classical | 62.10 | Historical incumbent exactly reproduced by E14 |
 | Graphify | 8.12 | Historical reference exactly reproduced by E14 |
-| Entity Graph | Unavailable | No qualified ranking |
-| Ensemble | Unavailable | No qualified ranking |
+| Entity Graph | Unavailable | E14 starting timeout; no qualified ranking |
+| Ensemble | Unavailable | E14 starting memory failure; no qualified ranking |
 
 Legacy has the highest retained score in this partial development comparison.
 This does not establish a winner on the all-500 workload, on other datasets,
@@ -30,15 +30,22 @@ descriptive subgroup results do not select a candidate or evaluate a router.
 
 ## Latest continuation
 
+The [original Entity Graph and Ensemble starts](../evolution/e14/starting-execution-errors-001/README.md)
+finished with execution errors: a 3,600-second timeout and a Docker out-of-memory
+event under the fixed 6 GiB limit, respectively. Both stopped locally before
+qualification. Their remaining evolution hypotheses are still outstanding;
+the failures are not mutation quality misses or measured zero retrieval scores.
+
 [E14](../evolution/e14/README.md) completes **six current starting
 qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and Graphify**.
 Classical's two new jobs reproduce **55.04** for the reference and **62.10** for
 the retained profile. Its recorded catalog stop and inherited charges remain
 preserved. The other retained scores are unchanged. All ten native records
 included in the six family reports are qualified and error-free. These
-checkpoints establish no new champion. Two current family qualifications,
-five inherited searches and the final all-eight comparison remain unfinished.
-Private validation is unopened.
+checkpoints establish no new champion. Turso, Adaptive and Graphify can continue
+their inherited searches. The two failed family starts, their unexercised
+hypotheses and the final all-eight comparison remain unresolved. Private
+validation is unopened.
 
 The [earlier E13 study](../evolution/e13/README.md) remains closed after its
 cache phase-declaration controller stop. Its reference is reused under its

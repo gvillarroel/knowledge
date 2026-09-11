@@ -10,6 +10,8 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)
 
+[E14 original starting timeout after 3,600 seconds](../evolution/e14/starting-execution-errors-001/README.md#entity-graph): both build and validation summaries passed, but no complete retrieval result was produced. The exclusive first measurement is consumed; its unexercised evolution hypotheses remain outstanding.
+
 [Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## GraphRAG generalization (60)

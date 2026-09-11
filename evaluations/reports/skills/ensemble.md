@@ -10,6 +10,8 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)
 
+[E14 original starting memory failure](../evolution/e14/starting-execution-errors-001/README.md#ensemble): Docker recorded an OOM event during construction under the fixed 6 GiB limit. Retrieval quality is unavailable; this is a local starting stop, not an exhausted evolution search or a mutation quality miss.
+
 [Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## GraphRAG generalization (60)

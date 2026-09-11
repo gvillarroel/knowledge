@@ -1,4 +1,13 @@
-# EnterpriseRAG E14: qualified family starts and inherited evolution
+# EnterpriseRAG E14: starting results and inherited evolution
+
+The original Entity Graph and Ensemble starting attempts have now finished with
+execution errors: **Entity Graph timed out after 3,600 seconds; Ensemble
+encountered an out-of-memory event under the fixed 6 GiB limit**. Their retrieval
+scores remain unavailable. Both were stopped locally before qualification;
+their remaining evolution hypotheses have not been exhausted. The
+[failure report](starting-execution-errors-001/README.md) preserves the native
+errors, cost/time measurements and auxiliary build evidence. These errors do
+not count as mutation quality misses.
 
 The latest published checkpoint completes **six of eight current family
 starting qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and
@@ -9,6 +18,8 @@ are unchanged. All ten included native records are qualified, with zero errors
 and zero retries. Turso's reference remains the exact original E13 job. These
 checkpoints reproduce existing results and establish no new champion or promotion.
 
+- [Latest native starting errors: Entity Graph timeout and Ensemble memory failure](starting-execution-errors-001/README.md)
+- [Failure evidence and unchanged eight-family ranking](starting-execution-errors-001/aggregate.json)
 - [Cross-family comparison: six qualified retained profiles by application, category and CTA](qualified-starts-comparison-001/README.md)
 - [Latest starting qualification, retained eight-family comparison and remaining opportunities](classical-starting-qualified-001/README.md)
 - [Classical cost, time and quality](classical-starting-qualified-001/cta.md)
@@ -23,10 +34,12 @@ checkpoints reproduce existing results and establish no new champion or promotio
 
 The actual E14 design is registered and sealed. The workload remains 120
 stratified questions, 112 retrieval-eligible questions and 6,000 complete
-documents. At this published checkpoint, six current family
-qualifications are complete, five inherited searches remain open and private
-validation is unopened. The original three-miss rule, five-round ceiling,
-family caps and consumed identities remain preserved.
+documents. At this published checkpoint, six current family qualifications are
+complete. Turso, Adaptive and Graphify can continue their inherited searches;
+Entity Graph and Ensemble stopped locally before qualification, with unexercised
+hypotheses still outstanding. Private validation is unopened. The original
+three-miss rule, five-round ceiling, family caps and consumed identities remain
+preserved.
 
 The full objective still requires all eight family qualifications and inherited
 searches, the paired joint replay, one frozen whole bundle, the all-500

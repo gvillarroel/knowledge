@@ -76,6 +76,107 @@ def test_materializer_rejects_linked_sources(tmp_path):
         module.hashes(tmp_path)
 
 
+@pytest.mark.parametrize("winerror", [5, 32, 33])
+def test_task_publication_recovers_from_temporary_windows_access_error(tmp_path, monkeypatch, winerror):
+    module = load("materialize")
+    pending = tmp_path / "pending"
+    pending.mkdir()
+    (pending / "evidence.txt").write_bytes(b"complete task evidence")
+    output = tmp_path / "published"
+    original_rename = Path.rename
+    attempts = []
+    delays = []
+
+    def rename(path, target):
+        attempts.append((path, target))
+        if len(attempts) == 1:
+            error = PermissionError("temporary Windows access conflict")
+            error.winerror = winerror
+            raise error
+        return original_rename(path, target)
+
+    monkeypatch.setattr(Path, "rename", rename)
+    monkeypatch.setattr(module, "sleep", delays.append)
+    module._publish_task_tree(pending, output)
+    assert (output / "evidence.txt").read_bytes() == b"complete task evidence"
+    assert not pending.exists()
+    assert attempts == [(pending, output), (pending, output)]
+    assert delays == [0.05]
+
+
+def test_task_publication_preserves_source_after_bounded_persistent_failure(tmp_path, monkeypatch):
+    module = load("materialize")
+    pending = tmp_path / "pending"
+    pending.mkdir()
+    (pending / "evidence.txt").write_bytes(b"complete task evidence")
+    output = tmp_path / "published"
+    error = PermissionError("persistent Windows access conflict")
+    error.winerror = 5
+    attempts = []
+    delays = []
+
+    def rename(path, target):
+        attempts.append((path, target))
+        raise error
+
+    monkeypatch.setattr(Path, "rename", rename)
+    monkeypatch.setattr(module, "sleep", delays.append)
+    with pytest.raises(PermissionError) as caught:
+        module._publish_task_tree(pending, output)
+    assert caught.value is error
+    assert len(attempts) == 5 and delays == [0.05, 0.1, 0.2, 0.4]
+    assert (pending / "evidence.txt").read_bytes() == b"complete task evidence"
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("winerror", [None, 123])
+def test_task_publication_propagates_other_permission_errors_immediately(tmp_path, monkeypatch, winerror):
+    module = load("materialize")
+    pending = tmp_path / "pending"
+    pending.mkdir()
+    error = PermissionError("unrelated permission failure")
+    if winerror is not None:
+        error.winerror = winerror
+    attempts = []
+
+    def rename(path, target):
+        attempts.append((path, target))
+        raise error
+
+    monkeypatch.setattr(Path, "rename", rename)
+    monkeypatch.setattr(module, "sleep", lambda _: pytest.fail("Unexpected retry"))
+    with pytest.raises(PermissionError) as caught:
+        module._publish_task_tree(pending, tmp_path / "published")
+    assert caught.value is error and len(attempts) == 1
+
+
+def test_task_publication_preserves_destination_created_during_retry(tmp_path, monkeypatch):
+    module = load("materialize")
+    pending = tmp_path / "pending"
+    pending.mkdir()
+    (pending / "evidence.txt").write_bytes(b"new evidence")
+    output = tmp_path / "published"
+    attempts = []
+
+    def rename(path, target):
+        attempts.append((path, target))
+        error = PermissionError("temporary Windows access conflict")
+        error.winerror = 32
+        raise error
+
+    def another_writer_publishes(_):
+        output.mkdir()
+        (output / "evidence.txt").write_bytes(b"existing evidence")
+
+    monkeypatch.setattr(Path, "rename", rename)
+    monkeypatch.setattr(module, "sleep", another_writer_publishes)
+    with pytest.raises(FileExistsError):
+        module._publish_task_tree(pending, output)
+    assert len(attempts) == 1
+    assert (output / "evidence.txt").read_bytes() == b"existing evidence"
+    assert (pending / "evidence.txt").read_bytes() == b"new evidence"
+
+
 def test_generator_transport_rejects_undeclared_schema_before_execution(monkeypatch):
     module = load("run_generator")
     monkeypatch.setattr(module.subprocess, "run", lambda *a, **k: pytest.fail("Unexpected execution"))

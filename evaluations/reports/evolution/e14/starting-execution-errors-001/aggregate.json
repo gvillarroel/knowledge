@@ -1,0 +1,341 @@
+{
+  "all_family_searches_complete": false,
+  "application_coverage_percent": 90.5,
+  "automatic_retries": 0,
+  "complete_documents": 6000,
+  "eligible_population_weight": 470,
+  "entity_auxiliary_build_evidence": {
+    "all_four_build_and_validation_logs_passed": true,
+    "build_summary_bytes_identical": true,
+    "counts": {
+      "candidate_edges": 1598463,
+      "candidate_entities": 1200,
+      "edges": 1604806,
+      "entities": 7200,
+      "inputs": 9,
+      "lexicon_terms": 36691,
+      "mentions": 1594205,
+      "reviewed_edges": 6343,
+      "reviewed_entities": 6000,
+      "sections": 6343,
+      "selected_records": 6000
+    },
+    "retrieval_completion_proven": false,
+    "source_kind": "read-only copied logs from the original live container before timeout",
+    "validation_summary_bytes_identical": true,
+    "whole_bundle_byte_equality_proven_by_copied_logs": false
+  },
+  "execution_contract_sha256": "0ae31b88a56e80ed7e65f29a9d8d1f49c93c9edc7b623341e0d990b26a9c277d",
+  "failed_starting_families": [
+    "entity-graph",
+    "ensemble"
+  ],
+  "final_all500_complete": false,
+  "generated_at_utc": "2026-09-11T18:50:56.149903+00:00",
+  "goal_complete": false,
+  "new_evolution_champion": false,
+  "new_failed_native_trials": 2,
+  "new_mutation_quality_misses": 0,
+  "new_proposals": 0,
+  "oom_event": {
+    "container_id": "9abdef11247480e7910bc7388ee7af44498a634a7950a87cce1fdf6244c6b7cd",
+    "event": "oom",
+    "exact_killed_process_available": false,
+    "memory_limit_bytes": 6442450944,
+    "occurred_at_utc": "2026-09-11T18:27:30.567879610Z",
+    "time_unix_nanoseconds_decimal": "1789151250567879610",
+    "time_unix_seconds": 1789151250
+  },
+  "private_gate_access": false,
+  "promoted": false,
+  "qualified_families": [
+    "adaptive",
+    "classical",
+    "embeddings",
+    "graphify",
+    "legacy",
+    "turso"
+  ],
+  "questions": 120,
+  "report_operation_native_runs": 0,
+  "report_scope": "Two consumed E14 starting execution errors with unchanged qualified retrieval scores",
+  "required_family_count": 8,
+  "resource_changes": 0,
+  "retained_comparison": [
+    {
+      "current_start": "Qualified",
+      "family": "legacy",
+      "family_proposal_cap": 55,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 16,
+      "retained_display_value": "72.38"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "turso",
+      "family_proposal_cap": 55,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 2,
+      "retained_display_value": "72.08"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "adaptive",
+      "family_proposal_cap": 100,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 20,
+      "retained_display_value": "66.21"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "embeddings",
+      "family_proposal_cap": 40,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 6,
+      "retained_display_value": "63.51"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "classical",
+      "family_proposal_cap": 85,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 37,
+      "retained_display_value": "62.10"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "graphify",
+      "family_proposal_cap": 65,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 0,
+      "retained_display_value": "8.12"
+    },
+    {
+      "current_start": "Execution error; not qualified",
+      "family": "ensemble",
+      "family_proposal_cap": 105,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 2,
+      "retained_display_value": "Unavailable"
+    },
+    {
+      "current_start": "Execution error; not qualified",
+      "family": "entity-graph",
+      "family_proposal_cap": 80,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 8,
+      "retained_display_value": "Unavailable"
+    }
+  ],
+  "retrieval_eligible": 112,
+  "rows": [
+    {
+      "agent_seconds": 1472.485152,
+      "attempts": 1,
+      "candidate": "baseline",
+      "completed_trials": 1,
+      "controller_stop": "FamilyStopped",
+      "execution_errors": 1,
+      "family": "ensemble",
+      "generation": 0,
+      "job_directory": "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline",
+      "job_id": "c99d8350-af43-4dd0-be43-6172a814f43c",
+      "native_exception_message": "Skill runtime failed with exit code 1",
+      "native_exception_type": "RuntimeError",
+      "native_job_seconds": 1501.73946,
+      "native_job_signature": "sha256:884b34d4e93c107592a775c155c3537928b96e81bb55d356d1905cefdbadf559",
+      "native_lock_signature": "sha256:a260e22bf017e908e3f3c776d4346329160bbe560d6939ede0dfc5193e8a4c87",
+      "native_owner_evaluable": true,
+      "native_owner_qualification": {
+        "belowThresholdRewards": 0,
+        "infrastructureFailureTrials": 0,
+        "missingRequiredRewards": 1,
+        "passed": false,
+        "providerFailureTrials": 0,
+        "unqualifiedTrials": 1
+      },
+      "native_owner_summary": {
+        "completedTrials": 1,
+        "diagnosticsAvailableTrials": 0,
+        "diagnosticsUnavailableTrials": 1,
+        "errorCount": 1,
+        "evaluableMeanReward": 0.0,
+        "evaluableTrials": 1,
+        "expectedTrials": 1,
+        "infrastructureFailureTrials": 0,
+        "meanReward": 0.0,
+        "nonEvaluableTrials": 0,
+        "observedMeanReward": null,
+        "passRate": 0.0,
+        "providerFailureTrials": 0
+      },
+      "native_reported_reward": null,
+      "native_skill_digest": "sha256:fa0fe13dea36dd5aa61dd886d1806f9c2263b3407ccaa9064356d7f640cd2b4c",
+      "native_verifier_result": null,
+      "qualified": false,
+      "remaining_search_exhausted": false,
+      "reported_provider_cost_usd": null,
+      "reported_tokens": null,
+      "retries": 0,
+      "retrieval_metrics_available": false,
+      "retrieval_ndcg_at_10": null,
+      "source_complete_digest": "sha256:c4d3c66cb4567ac4bbb6236e183c17bccaad9f4cccac77f67a382cfdbc735faf",
+      "trial_id": "3501af40-9a1b-4f69-9230-a65b72a35758",
+      "trial_name": "retrieval-76f0dd4cbfca746a6f4c__zpYckfM",
+      "verifier_diagnostics": null
+    },
+    {
+      "agent_seconds": 3600.10184,
+      "attempts": 1,
+      "candidate": "baseline",
+      "completed_trials": 1,
+      "controller_stop": "FamilyStopped",
+      "execution_errors": 1,
+      "family": "entity-graph",
+      "generation": 0,
+      "job_directory": "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline",
+      "job_id": "5550bc14-6081-415d-b8a2-461a94b4d0de",
+      "native_exception_message": "Agent execution timed out after 3600.0 seconds",
+      "native_exception_type": "AgentTimeoutError",
+      "native_job_seconds": 3648.919982,
+      "native_job_signature": "sha256:c3fea31dd973168cdba400b9fcaf41badee0aac71e3e7ebd5d3d33c534253dad",
+      "native_lock_signature": "sha256:2af042a2fcd5d7072bfefaf8ab5f2c92fcf9d7818d71f082a2c9d2f1d277fa8f",
+      "native_owner_evaluable": true,
+      "native_owner_qualification": {
+        "belowThresholdRewards": 1,
+        "infrastructureFailureTrials": 0,
+        "missingRequiredRewards": 0,
+        "passed": false,
+        "providerFailureTrials": 0,
+        "unqualifiedTrials": 1
+      },
+      "native_owner_summary": {
+        "completedTrials": 1,
+        "diagnosticsAvailableTrials": 1,
+        "diagnosticsUnavailableTrials": 0,
+        "errorCount": 1,
+        "evaluableMeanReward": 0.0,
+        "evaluableTrials": 1,
+        "expectedTrials": 1,
+        "infrastructureFailureTrials": 0,
+        "meanReward": 0.0,
+        "nonEvaluableTrials": 0,
+        "observedMeanReward": 0.0,
+        "passRate": 0.0,
+        "providerFailureTrials": 0
+      },
+      "native_reported_reward": {
+        "average": 0.0,
+        "count": 1,
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "stddev": 0.0,
+        "total": 0.0
+      },
+      "native_skill_digest": "sha256:fa0fe13dea36dd5aa61dd886d1806f9c2263b3407ccaa9064356d7f640cd2b4c",
+      "native_verifier_result": {
+        "rewards": {
+          "evidence_integrity": 0.0,
+          "reward": 0.0
+        }
+      },
+      "qualified": false,
+      "remaining_search_exhausted": false,
+      "reported_provider_cost_usd": null,
+      "reported_tokens": null,
+      "retries": 0,
+      "retrieval_metrics_available": false,
+      "retrieval_ndcg_at_10": null,
+      "source_complete_digest": "sha256:c4d3c66cb4567ac4bbb6236e183c17bccaad9f4cccac77f67a382cfdbc735faf",
+      "trial_id": "785a75f8-bd89-4c1e-8948-622e2b75d4b8",
+      "trial_name": "retrieval-829f269c142f63468a4b__ywyvMAo",
+      "verifier_diagnostics": {
+        "error_type": "FileNotFoundError",
+        "message": "[Errno 2] No such file or directory: '/workspace/result-829f269c/ranking.json'",
+        "status": "failed"
+      }
+    }
+  ],
+  "schema": 1,
+  "software_verification": {
+    "application_coverage_percent": 90.5,
+    "correction": "Bound final task-directory rename retries to Windows PermissionError codes 5, 32 and 33; five attempts, 0.75 seconds total delay, no destination replacement or task regeneration.",
+    "current_gate": "coverage-052",
+    "exit_code": 0,
+    "frozen_execution_source_changed": false,
+    "intervening_targeted_check": {
+      "exit_code": 0,
+      "passed_tests": 2,
+      "source_changed": false
+    },
+    "native_trials_retried": 0,
+    "passed_subtests": 373,
+    "passed_tests": 1643,
+    "post_fix_targeted_check": {
+      "exit_code": 0,
+      "passed_tests": 12
+    },
+    "prior_full_gates": [
+      {
+        "exit_code": 1,
+        "failed_tests": 2,
+        "gate": "coverage-050",
+        "passed_tests": 1634
+      },
+      {
+        "exit_code": 1,
+        "failed_tests": 1,
+        "gate": "coverage-051",
+        "passed_tests": 1635
+      }
+    ],
+    "required_threshold_percent": 80,
+    "unproven_cause": "The responsible Windows process or operating-system component is unknown."
+  },
+  "source_sha256": {
+    ".specs/adr/0154-bound-windows-task-tree-publication-retries.md": "222c4479d94e996961e12b4241b89aa931cf93b42d3db55a227a85d854c9d023",
+    "evaluations/integrated-semantic-okf-knowledge-skill/evolution/materialize.py": "b9bfe966d65335cca51cba91ad1b9173096f5d26d2095535f70393231fd82b33",
+    "evaluations/reports/evolution/e14/classical-starting-qualified-001/aggregate.json": "9f551640cb80956fde5fbada4f9cec4400c6c1691919185fe1b20c2dfb616fdd",
+    "tests/test_generator_evolution_transport.py": "b21ee991355a395c2e6f4b8746bf41aa5ecd41e63dc3631fce45031f3d1f05fe",
+    "tmp/e14/allocations/development/ensemble/000-baseline.json": "04082101ed981b482bf0df065f846a04dd8feb665f3be51aad8b71a6708fa1a7",
+    "tmp/e14/allocations/development/entity-graph/000-baseline.json": "603691f82877393ab0b141937dd255184473023363acac589c50b029d67e21a8",
+    "tmp/e14/errors/start-ensemble.json": "69ffbced37a23c8ed58a655359a1b94d9c7fe1c754e11af98d1fd476631c0ae8",
+    "tmp/e14/errors/start-entity-graph.json": "ea99421e7e9ede343a0f1ead4ff80dceb6517bbb85db56a4a30903c9dc1ddd4d",
+    "tmp/e14/execution-contract.json": "0ae31b88a56e80ed7e65f29a9d8d1f49c93c9edc7b623341e0d990b26a9c277d",
+    "tmp/e14/native-reports/ensemble-generation-000-error-001/final-report.json": "5132434e3aab30a0253be4c4bf4a231c58b958a3eddb5da47b04b05136f8e39d",
+    "tmp/e14/native-reports/entity-graph-generation-000-error-001/final-report.json": "a433075796197848fe17d4b95c717453c361362a85ed6b0bc7c4595a0f96c74f",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/lock.json": "aefb2767db17566ae85a950cbb41ed019f2ac4fffd3e63938cfdd75b806fc40f",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/result.json": "44da99943d4d7e68b8c39c8cb5fb552e1fa7d5a6a3fa2b9ae54f9400d4c5c44c",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/retrieval-76f0dd4cbfca746a6f4c__zpYckfM/agent/execution.txt": "3717f055ab975b44308d31589c91c72698cbb53cd09935699403440e4b8596df",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/retrieval-76f0dd4cbfca746a6f4c__zpYckfM/artifacts/manifest.json": "4d07a4a58ed9f69ac05dbb96c9930f8b7e8c760f60e411acf316dbfa0a2011ed",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/retrieval-76f0dd4cbfca746a6f4c__zpYckfM/exception.txt": "da097188a36c019980abaa661535fd904ba0f1876bdaebce6c614864fd728298",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/retrieval-76f0dd4cbfca746a6f4c__zpYckfM/lock.json": "87e2e29762d8f21dd29d6d906902c9685e14319fe60cd0356f54a7d3a0fc4810",
+    "tmp/e14/search/ensemble/development/generation-000/harbor-jobs/enterprise-e14-ensemble-g000-development-baseline/retrieval-76f0dd4cbfca746a6f4c__zpYckfM/result.json": "4ad869ce6f8d422dc46907f55d9c87c9fee27bcbf820329ff9ddab366ecb98ae",
+    "tmp/e14/search/ensemble/development/generation-000/pareto-archive.json": "bcae7e4a64bed2f3c1a230ce98ffc4e597b2cc65e79d7c91818082a60cb5d7d6",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/lock.json": "0d11026fe7d3e30d65703e91ddcd2e27c38613ec09a2f100fb2cd8606cd7579d",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/result.json": "36db31ddc4b3e946a847a802de4187ec0da5c7c1eebfe107a96cafd9682ecf54",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/artifacts/manifest.json": "7c5f89ea758a746606aa694e3dbbcb0588413461f61265447fbfb85fbf9fb92e",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/exception.txt": "b52deea8cb679ae5f1d9b5c6bdc845f6108d7383b56588a4c6802800bf6336cd",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/lock.json": "aed2066821e90050908a51e50df2a5e3899970d12e60dc609ffaeb5dd1d790e8",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/result.json": "49304d2b61381e1b6b16de943a70eb0cfae60dcadf1bf0e8b689c04886750a89",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/verifier/diagnostics.json": "3989a24baad691a3f2faa226e213b8129735fb4e2c3983aa936ea9741161c33f",
+    "tmp/e14/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e14-entity-graph-g000-development-baseline/retrieval-829f269c142f63468a4b__ywyvMAo/verifier/reward.json": "f2b2ebf3356a6c3e34fe4533a78731a421c5b5cd46e92e5babb4552c3aba00c4",
+    "tmp/e14/search/entity-graph/development/generation-000/pareto-archive.json": "5d0491e5cf813f0381af32d4644813b3ee8dc401f7601b34699d58f283306f5a",
+    "tmp/enterprise-next-preparation/coverage-050/coverage.log": "2812575cd8560ca505202570c695f3f5e815fba18c6301dc669b13ef1f93c176",
+    "tmp/enterprise-next-preparation/coverage-050/terminal.json": "416a3f5f1d036018c5ad4712575d28d89ea7d8542acdfe8d24049abd10cea1c0",
+    "tmp/enterprise-next-preparation/coverage-051/coverage.log": "a340f93c5f30d04b8d5dc466ed210ef44604bcaa295c7c5606584c264f410b73",
+    "tmp/enterprise-next-preparation/coverage-051/terminal.json": "3e32c81e42c0e9921124d83cce1135dbdd2fe1bed0ba091e8012ef6ad6ea9357",
+    "tmp/enterprise-next-preparation/coverage-052/coverage.log": "306dd62937598e93d957c108bcd910f554bd3143d7fa56e0403302cfc42b7def",
+    "tmp/enterprise-next-preparation/coverage-052/terminal.json": "b335ede89906aa282bcd10a055b1d37f9c194603da34d03139c13c79e1953b17",
+    "tmp/enterprise-next-preparation/e14-family-report-001/ensemble-oom-event-001.json": "5b25b8f995563c1c257b443bf9910c89c523e1ca1bc1affc64418c6d94664506",
+    "tmp/enterprise-next-preparation/e14-family-report-001/ensemble-oom-event-exact-002.json": "57e5eb065e67b456640a1b6e96bc99ee14643dc8dfe8e7fe78cd1d6b39c8c0f6",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-ensemble-runtime-observations-001.json": "b0aaec1755f106acbcabe60f9783756b8f5ab2c4d079202d5bbfc057cd3762fd",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-runtime-logs-001/knowledge-build.log": "3c979ea647ffcc1177123ea90a497e9f35931897e2842fa94df97fc9925ec1e0",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-runtime-logs-001/knowledge-validate.log": "eef9701518cb808413c92cfd88e06787043d79a38f84bedaa2ea318d491e4b6a",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-runtime-logs-001/provenance.json": "527ea25750b3de2fe3e814bfdf83646b770ce1e746aafba178435ab3cdbb039c",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-runtime-logs-001/rebuild-build.log": "3c979ea647ffcc1177123ea90a497e9f35931897e2842fa94df97fc9925ec1e0",
+    "tmp/enterprise-next-preparation/e14-family-report-001/entity-runtime-logs-001/rebuild-validate.log": "eef9701518cb808413c92cfd88e06787043d79a38f84bedaa2ea318d491e4b6a",
+    "tmp/enterprise-next-preparation/e14-family-report-001/publish_start_errors_v1.py": "35853e30b9caca27434c440d96a6703e7ebc3767cf1104d69624a66d51510c05",
+    "tmp/enterprise-next-preparation/e14-family-report-001/software-publication-recovery-001.json": "00832e6910330e55959a55be136f9d14d92fb46c4e6092ac7f62eabb08ff4b97"
+  }
+}
