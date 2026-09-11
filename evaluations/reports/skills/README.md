@@ -1,6 +1,8 @@
 # Reports by skill
 
-[Report hub](../README.md) · [Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
+[Report hub](../README.md) · [Enterprise evolution](../evolution/e13/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
+
+[Latest EnterpriseRAG eight-family status: retained historical results, one E13 Turso reference and unfinished opportunities](../evolution/e13/turso-baseline-and-controller-stop-001/README.md#retained-eight-family-comparison)
 
 [Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)
 

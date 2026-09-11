@@ -1,0 +1,406 @@
+{
+  "all_500_recalculated": false,
+  "automatic_retries": 0,
+  "baseline": {
+    "candidate_role": "generation-zero-baseline",
+    "complete_documents": 6000,
+    "cta": {
+      "agent_seconds": 365.147319,
+      "double_build_seconds": 174.33868481900004,
+      "host_cost_measured": false,
+      "job_seconds": 415.515444,
+      "knowledge_bytes": 842070178,
+      "query_p95_ms": 2442.047253000055,
+      "reported_model_cost_usd": 0.0
+    },
+    "exact_historical_baseline_score_reproduced": true,
+    "family": "turso",
+    "groups": [
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.3779351472232575,
+        "group": "confluence",
+        "mrr_at_10": 0.6547059971957474,
+        "ndcg_at_10": 0.5254768825826618,
+        "population_weight": 139.73958333333334,
+        "questions": 39,
+        "recall_at_10": 0.5651219613202467,
+        "retrieval_eligible": 39
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.7319749216300941,
+        "group": "fireflies",
+        "mrr_at_10": 0.6774294670846396,
+        "ndcg_at_10": 0.6909046311204509,
+        "population_weight": 33.229166666666664,
+        "questions": 9,
+        "recall_at_10": 0.7683385579937304,
+        "retrieval_eligible": 9
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.16568047337278105,
+        "group": "github",
+        "mrr_at_10": 0.3065727434958204,
+        "ndcg_at_10": 0.24814690395045833,
+        "population_weight": 44.01041666666667,
+        "questions": 12,
+        "recall_at_10": 0.3381985535831689,
+        "retrieval_eligible": 12
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.5682451253481894,
+        "group": "gmail",
+        "mrr_at_10": 0.5137728257505416,
+        "ndcg_at_10": 0.5103056885301243,
+        "population_weight": 37.395833333333336,
+        "questions": 10,
+        "recall_at_10": 0.6420303311668214,
+        "retrieval_eligible": 10
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.35348837209302325,
+        "group": "google_drive",
+        "mrr_at_10": 0.6630697674418604,
+        "ndcg_at_10": 0.5396858332060427,
+        "population_weight": 55.989583333333336,
+        "questions": 14,
+        "recall_at_10": 0.5238242894056847,
+        "retrieval_eligible": 14
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.33333333333333337,
+        "group": "hubspot",
+        "mrr_at_10": 0.2686781609195403,
+        "ndcg_at_10": 0.2842537262706948,
+        "population_weight": 45.3125,
+        "questions": 9,
+        "recall_at_10": 0.33333333333333337,
+        "retrieval_eligible": 9
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.3988439306358381,
+        "group": "jira",
+        "mrr_at_10": 0.5667826072450349,
+        "ndcg_at_10": 0.49291117056729994,
+        "population_weight": 99.11458333333334,
+        "questions": 26,
+        "recall_at_10": 0.5230921936124248,
+        "retrieval_eligible": 26
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.5327313769751693,
+        "group": "linear",
+        "mrr_at_10": 0.40943064961123654,
+        "ndcg_at_10": 0.4151817463629754,
+        "population_weight": 69.21875,
+        "questions": 15,
+        "recall_at_10": 0.5942646935874927,
+        "retrieval_eligible": 15
+      },
+      {
+        "dimension": "application",
+        "full_qrel_coverage_at_10": 0.3161367726454709,
+        "group": "slack",
+        "mrr_at_10": 0.3342398187029261,
+        "ndcg_at_10": 0.30416702731737816,
+        "population_weight": 86.82291666666667,
+        "questions": 24,
+        "recall_at_10": 0.41744984336466034,
+        "retrieval_eligible": 24
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.6666666666666667,
+        "group": "basic",
+        "mrr_at_10": 0.45601851851851855,
+        "ndcg_at_10": 0.5075398415440764,
+        "population_weight": 175.0,
+        "questions": 24,
+        "recall_at_10": 0.6666666666666667,
+        "retrieval_eligible": 24
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.0,
+        "group": "completeness",
+        "mrr_at_10": 0.35208333333333336,
+        "ndcg_at_10": 0.15841843527978633,
+        "population_weight": 20.0,
+        "questions": 12,
+        "recall_at_10": 0.13333333333333336,
+        "retrieval_eligible": 12
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.5,
+        "group": "conflicting_info",
+        "mrr_at_10": 1.0,
+        "ndcg_at_10": 0.7443924510656817,
+        "population_weight": 20.0,
+        "questions": 4,
+        "recall_at_10": 0.75,
+        "retrieval_eligible": 4
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.625,
+        "group": "constrained",
+        "mrr_at_10": 0.90625,
+        "ndcg_at_10": 0.7912255107999854,
+        "population_weight": 30.0,
+        "questions": 8,
+        "recall_at_10": 0.8125,
+        "retrieval_eligible": 8
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": null,
+        "group": "high_level",
+        "mrr_at_10": null,
+        "ndcg_at_10": null,
+        "population_weight": 0,
+        "questions": 4,
+        "recall_at_10": null,
+        "retrieval_eligible": 0
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": null,
+        "group": "info_not_found",
+        "mrr_at_10": null,
+        "ndcg_at_10": null,
+        "population_weight": 0,
+        "questions": 4,
+        "recall_at_10": null,
+        "retrieval_eligible": 0
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.9166666666666667,
+        "group": "intra_document_reasoning",
+        "mrr_at_10": 0.6833333333333333,
+        "ndcg_at_10": 0.7399279730793988,
+        "population_weight": 40.0,
+        "questions": 12,
+        "recall_at_10": 0.9166666666666667,
+        "retrieval_eligible": 12
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.875,
+        "group": "miscellaneous",
+        "mrr_at_10": 0.875,
+        "ndcg_at_10": 0.875,
+        "population_weight": 20.0,
+        "questions": 8,
+        "recall_at_10": 0.875,
+        "retrieval_eligible": 8
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.0,
+        "group": "project_related",
+        "mrr_at_10": 0.5406084656084656,
+        "ndcg_at_10": 0.35204345104380563,
+        "population_weight": 40.0,
+        "questions": 12,
+        "recall_at_10": 0.3962962962962963,
+        "retrieval_eligible": 12
+      },
+      {
+        "dimension": "category",
+        "full_qrel_coverage_at_10": 0.21875,
+        "group": "semantic",
+        "mrr_at_10": 0.15885416666666666,
+        "ndcg_at_10": 0.17380019723890158,
+        "population_weight": 125.0,
+        "questions": 32,
+        "recall_at_10": 0.21875,
+        "retrieval_eligible": 32
+      }
+    ],
+    "native_skill_digest": "sha256:fa0fe13dea36dd5aa61dd886d1806f9c2263b3407ccaa9064356d7f640cd2b4c",
+    "overall": {
+      "full_qrel_coverage_at_10": 0.4828235815602837,
+      "mrr_at_10": 0.4688230855285377,
+      "ndcg_at_10": 0.4542900785976876,
+      "population_weight": 470.0,
+      "questions": 120,
+      "recall_at_10": 0.5448310677698975,
+      "retrieval_eligible": 112
+    },
+    "questions": 120,
+    "routes": {
+      "lexical-sql": {
+        "full_qrel_coverage_at_10": 0.4828235815602837,
+        "mrr_at_10": 0.4688230855285377,
+        "ndcg_at_10": 0.4542900785976876,
+        "p95_ms": 2442.047253000055,
+        "recall_at_10": 0.5448310677698975
+      }
+    },
+    "snapshot_files_verified": 252,
+    "source_tree_sha256": "sha256:c4d3c66cb4567ac4bbb6236e183c17bccaad9f4cccac77f67a382cfdbc735faf"
+  },
+  "candidate_selected": false,
+  "completed_native_trials": 1,
+  "date": "2026-09-11",
+  "diagnosis": {
+    "captured_conflicting_processes": 0,
+    "captured_current_agent_ownership_passed": true,
+    "captured_reserved_private_mounts": 0,
+    "cause": "specific-cache-exception-phase-vocabulary-mismatch",
+    "frozen_private_task_tree_unchanged": true,
+    "recorded_private_release": false,
+    "unlogged_access_not_assessed": true
+  },
+  "evidence_kind": "one-completed-native-baseline-and-captured-controller-diagnosis",
+  "family_starting_qualifications_completed": 0,
+  "full_goal_complete": false,
+  "model_calls": 0,
+  "native_errors": 0,
+  "native_jobs": 1,
+  "new_improved_champions": 0,
+  "new_proposal_claims": 0,
+  "new_quality_misses": 0,
+  "new_scores": 1,
+  "new_starting_measurements_consumed": 1,
+  "opportunities": {
+    "consumed_role": "turso/generation-000/baseline",
+    "cumulative_claims": 91,
+    "e13_consumed_starting_roles": 1,
+    "maximum_additional_open_family_claims": 373,
+    "new_entity_first_measurement": "unassigned",
+    "nontransferable_closed_unused_slots": 121,
+    "open_family_searches": 5,
+    "overall_cap": 585,
+    "planned_starting_roles": 12,
+    "prior_consumed_construction_first_measurements": 9
+  },
+  "retained_comparison": {
+    "complete_documents": 6000,
+    "generated_answer_overall": null,
+    "metric": "frozen-category-weighted-nDCG@10-times100",
+    "public_leaderboard_rank": null,
+    "questions": 120,
+    "retrieval_eligible_questions": 112,
+    "rows": [
+      {
+        "display_value": "72.38",
+        "family": "legacy",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 55,
+        "proposal_claims": 16,
+        "retained_ndcg10_x100": 72.38
+      },
+      {
+        "display_value": "72.08",
+        "family": "turso",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 55,
+        "proposal_claims": 2,
+        "retained_ndcg10_x100": 72.08
+      },
+      {
+        "display_value": "66.21",
+        "family": "adaptive",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 100,
+        "proposal_claims": 20,
+        "retained_ndcg10_x100": 66.21
+      },
+      {
+        "display_value": "63.51",
+        "family": "embeddings",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 40,
+        "proposal_claims": 6,
+        "retained_ndcg10_x100": 63.51
+      },
+      {
+        "display_value": "62.10",
+        "family": "classical",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 85,
+        "proposal_claims": 37,
+        "retained_ndcg10_x100": 62.1
+      },
+      {
+        "display_value": "8.12",
+        "family": "graphify",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 65,
+        "proposal_claims": 0,
+        "retained_ndcg10_x100": 8.12
+      },
+      {
+        "display_value": "Unavailable",
+        "family": "ensemble",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 105,
+        "proposal_claims": 2,
+        "retained_ndcg10_x100": null
+      },
+      {
+        "display_value": "Unavailable",
+        "family": "entity-graph",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 80,
+        "proposal_claims": 8,
+        "retained_ndcg10_x100": null
+      }
+    ],
+    "source": "evaluations/reports/evolution/e12/preallocation-failure-001/aggregate.json"
+  },
+  "schema": "enterprise-e13-public-baseline-and-controller-terminal/1.0",
+  "skill_promoted": false,
+  "source_sha256": {
+    "baseline_reconciliation": "4f5eb25a431f45744de2bb3fd66fa3ffbe5eacafa14dc404465e2d4ca1e0e8fe",
+    "execution_contract": "582afc93265e894f6066a5fe44c0363e6913e19ae34f86d631b5b5a5f9d59747",
+    "independent_diagnosis_receipt": "d3425e4b76ec228dac973cfa7bead0a528e117b48f4f412cb728839f9d074b91",
+    "native_normalized_markdown": "0bcd65f3189b6f3b0df953fe61d9d3ab5ef75ddb1dd3eb466744e7b2f69d49b4",
+    "native_normalized_report": "e5b4ce4324a1292c54b53edf719b95e6dcf8874a654799079a7990762d8275f5",
+    "native_result": "49672407312ce5a81ed42ab119592cf934ea57fb817ee9815af950cef65b4566",
+    "prior_public_aggregate": "5698ca065fe6b3fa1e042bfd744431890a0964f065cd5ba3fc277ab04fa83fa2",
+    "terminal_closure": "787b8ba6a715e90f867e667705c2ee165a3361cf9c24152a5f5883f991cf926e"
+  },
+  "terminal": {
+    "audit_tree_sha256": "9080ad0b2ee1a86e60e63c584185fe3da6919f3c7f2a503eb682888b76d9bbd3",
+    "consumed_native_baselines": 1,
+    "cumulative_claims": 91,
+    "ledger": {
+      "eventCount": 16,
+      "headSha256": "017a628bfa49f07d755fdb53558d42d504640cf3dc61e80f5e8af16add00b534"
+    },
+    "ledger_sha256": "a33949fe54c8a02cfe6bd7d42ae6c613ff9770894bcd2a61898236abb8e251d5",
+    "new_native_runs": 0,
+    "new_quality_misses": 0,
+    "organizer_verify_exit_code": 0,
+    "schema": "enterprise-e13-terminal-closure/1.0",
+    "stage_statuses": {
+      "evolve": "stopped",
+      "publish": "stopped",
+      "recalculate": "stopped",
+      "validate": "stopped"
+    },
+    "status": "closed-stopped-not-completed",
+    "status_sha256": "28b794ee2d213d28bc9aae3fe5252ca5145cb909361ce0896c441b991379c654",
+    "validation_released": false
+  },
+  "validation_released": false
+}

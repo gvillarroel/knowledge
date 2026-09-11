@@ -10,6 +10,8 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)
 
+[E13 reference: 45.43 weighted nDCG@10 x100, exact baseline reproduction, application breakdown and CTA](../evolution/e13/turso-baseline-and-controller-stop-001/README.md)
+
 [Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## Software architecture books (40)

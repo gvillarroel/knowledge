@@ -1,8 +1,10 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-09-10.
+Catalog updated: 2026-09-11.
 
-Newest included scored or audited evidence: 2026-09-10.
+Newest included scored or audited evidence: 2026-09-11.
+
+Latest EnterpriseRAG evidence: [E13's completed Turso reference and diagnosed controller stop](reports/evolution/e13/README.md), with [retained eight-family results](reports/evolution/e13/turso-baseline-and-controller-stop-001/README.md#retained-eight-family-comparison), [application/category aggregates](reports/evolution/e13/turso-baseline-and-controller-stop-001/groups.md), [CTA](reports/evolution/e13/turso-baseline-and-controller-stop-001/cta.md) and a [stratified dataset view](reports/datasets/enterprise-rag-stratified-development-120.md). This remains partial development evidence; final all-500 comparison and acceptance are unfinished.
 
 This is the entry point for reviewed reports that compare knowledge builders,
 consultants, generated expert skills, retrieval routes, or storage variants. It
