@@ -1,5 +1,7 @@
 # adaptive: dataset results
 
+[Adaptive generation 6](../evolution/e14/adaptive-generation-006-001/README.md): `{"bm25.title_weight": 4.0}` scored **54.79**, retaining **66.21**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **25 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-006-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-006-001/cta.md) preserve this observation.
+
 [Adaptive generation 5](../evolution/e14/adaptive-generation-005-001/README.md): `{"bm25.k1": 2.0}` scored **65.61**, retaining **66.21**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **24 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-005-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-005-001/cta.md) preserve this observation.
 
 [Adaptive generation 4](../evolution/e14/adaptive-generation-004-001/README.md): `{"bm25.k1": 0.6}` scored **65.52**, retaining **66.21**. The `bm25-saturation` mechanism records **1 / 3 consecutive evaluable misses** and the family **23 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-004-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-004-001/cta.md) preserve this observation.

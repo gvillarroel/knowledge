@@ -1,5 +1,7 @@
 # EnterpriseRAG: stratified development, 120 questions
 
+[Adaptive generation 6](../evolution/e14/adaptive-generation-006-001/README.md): `{"bm25.title_weight": 4.0}` scored **54.79**, retaining **66.21**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **25 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-006-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-006-001/cta.md) preserve this observation.
+
 [Turso generation 7](../evolution/e14/turso-generation-007-001/README.md): `{"engine": "bm25", "title_weight": 2.0}` scored **72.12**, retaining **72.13**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **8 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-007-001/groups.md) and [CTA](../evolution/e14/turso-generation-007-001/cta.md) preserve this observation.
 
 [Adaptive generation 5](../evolution/e14/adaptive-generation-005-001/README.md): `{"bm25.k1": 2.0}` scored **65.61**, retaining **66.21**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **24 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-005-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-005-001/cta.md) preserve this observation.
