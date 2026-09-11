@@ -219,6 +219,12 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
+                "The new [Entity evidence-index candidate](evolution/e11/entity-evidence-index-reuse-001/README.md) "
+                "passed nine software checks and reproduced all 48 retained public runtime responses. Observed profiled "
+                "query time changed from 7.785 to 6.579 seconds with one evidence-index build. Its "
+                "[eight-family context](evolution/e11/entity-evidence-index-reuse-001/README.md#retained-enterpriserag-comparison) "
+                "preserves all six native scores and records 91 charged proposals. The new native measurement is "
+                "unassigned. See [CTA](evolution/e11/entity-evidence-index-reuse-001/cta.md) for the software timing scope.", "",
                 "The latest [Entity traversal adjacency native outcome](evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md) "
                 "settled without a qualified retrieval score. The workload remains 120 stratified questions, "
                 "112 retrieval-eligible questions and 6,000 complete documents. Its "
@@ -312,6 +318,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
                    "[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)", "",
                    "[Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)", "",
+                   "[Current software candidate: evidence-index reuse, nine checks and 91 charged proposals](../evolution/e11/entity-evidence-index-reuse-001/README.md)", "",
                    "[Latest native EnterpriseRAG comparison: eight families, original traversal outcome and remaining opportunities](../evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md)", "",
                    "[Traversal software checkpoint: exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)", "",
                    "[Previous native EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)", "",
@@ -351,6 +358,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
     cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
+           "[Entity evidence-index reuse: exact runtime responses, observed timing and unassigned native measurement](../evolution/e11/entity-evidence-index-reuse-001/cta.md)", "",
            "[Latest Entity traversal native outcome: original measurement, quality availability and timing](../evolution/e11/entity-traversal-adjacency-reuse-native-001/cta.md)", "",
            "[Earlier traversal software fixture: exact query replay and descriptive profile timing](../evolution/e11/entity-traversal-adjacency-reuse-001/cta.md)", "",
            "[Previous Entity consultant native outcome: one consumed trial, 60-minute timeout, successful phase logs and separate timing scopes](../evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md)", "",

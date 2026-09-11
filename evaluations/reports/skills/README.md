@@ -6,6 +6,8 @@
 
 [Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)
 
+[Current software candidate: evidence-index reuse, nine checks and 91 charged proposals](../evolution/e11/entity-evidence-index-reuse-001/README.md)
+
 [Latest native EnterpriseRAG comparison: eight families, original traversal outcome and remaining opportunities](../evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md)
 
 [Traversal software checkpoint: exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)
