@@ -2,12 +2,15 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
-The current [Entity consultant eligibility checkpoint](e11/entity-consultant-ngram-eligibility-001/README.md)
-passes seven software checks and exact deep-validation parity on 1,024 synthetic
-records. It updates the eight-family opportunity table to 89 charged proposals;
-its native first measurement remains unassigned. The [CTA](e11/entity-consultant-ngram-eligibility-001/cta.md)
-preserves the refused preflight and corrected runtime. Retained EnterpriseRAG
-scores and the five open family searches are unchanged.
+The latest [Entity consultant eligibility native outcome](e11/entity-consultant-ngram-eligibility-native-001/README.md)
+records a 3,600-second timeout after both build logs and both standalone
+validation logs reported success. No qualified ranking was produced. The
+[eight-family comparison](e11/entity-consultant-ngram-eligibility-native-001/README.md#eight-family-comparison)
+and [CTA](e11/entity-consultant-ngram-eligibility-native-001/cta.md) preserve the
+six retained scores, 89 charged proposals and eight consumed construction first
+measurements. Five searches and final acceptance remain unfinished. The
+[software checkpoint](e11/entity-consultant-ngram-eligibility-001/README.md)
+retains the separate extraction and 1,024-record consultation parity evidence.
 
 - [EnterpriseRAG continuation E11](e11/README.md): the original execution
   stopped after [all twelve starting roles settled](e11/starting-terminal-001/README.md).

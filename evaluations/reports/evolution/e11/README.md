@@ -1,16 +1,29 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
-The new [Entity consultant eligibility transfer](entity-consultant-ngram-eligibility-001/README.md)
+The latest [Entity consultant eligibility native outcome](entity-consultant-ngram-eligibility-native-001/README.md)
+is closed: the sole measurement reached the **3,600-second agent limit** without
+a qualified ranking. Both complete build logs and both standalone validation
+logs reported success. Its [eight-family comparison](entity-consultant-ngram-eligibility-native-001/README.md#eight-family-comparison),
+[application/category availability](entity-consultant-ngram-eligibility-native-001/groups.md)
+and [CTA](entity-consultant-ngram-eligibility-native-001/cta.md) preserve the
+unchanged six measured family scores. All **eight construction first
+measurements are consumed**, with **89 of 585** proposals and **6 of Entity's
+80**. This timeout adds no evaluable quality miss. Five searches, the all-500
+comparison and independent acceptance remain unfinished; no canonical skill
+has been promoted.
+
+The preceding [Entity consultant eligibility transfer](entity-consultant-ngram-eligibility-001/README.md)
 passed seven software checks, 4,080 exact comparisons and a consultation-only
 runtime on the retained 1,024-record snapshot. Its exact response and all 19
 files were preserved. The original preflight refusal and corrected empty-data
 mount are retained in the [CTA](entity-consultant-ngram-eligibility-001/cta.md).
-This separate consultation proposal brings claims to **89 of 585**, including
-**6 of Entity's 80**; its first native measurement is unassigned. The
+This separate consultation proposal brought claims to **89 of 585**, including
+**6 of Entity's 80**; the native outcome above supersedes its then-unassigned
+measurement status. The
 [eight-family comparison](entity-consultant-ngram-eligibility-001/README.md#retained-enterpriserag-comparison)
 is unchanged. Five searches and the all-500 comparison remain unfinished.
 
-The latest [Entity builder lifetime native outcome](entity-memory-lifetime-native-001/README.md)
+The earlier [Entity builder lifetime native outcome](entity-memory-lifetime-native-001/README.md)
 is closed: the original measurement reached the **3,600-second agent limit**
 without submitting a ranking. Both complete build logs and both standalone
 validation logs reported success before the timeout. The maintained report

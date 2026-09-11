@@ -6,7 +6,9 @@
 
 [Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)
 
-[Latest EnterpriseRAG comparison: all eight families and the Entity builder lifetime outcome](../evolution/e11/entity-memory-lifetime-native-001/README.md)
+[Latest EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)
+
+[Earlier Entity builder lifetime outcome and retained comparison](../evolution/e11/entity-memory-lifetime-native-001/README.md)
 
 [Entity consultant eligibility: exact software/runtime parity, all eight families and current opportunity counts](../evolution/e11/entity-consultant-ngram-eligibility-001/README.md)
 

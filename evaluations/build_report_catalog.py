@@ -219,11 +219,18 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
-                "The new [Entity consultant eligibility transfer](evolution/e11/entity-consultant-ngram-eligibility-001/README.md) "
-                "passed seven software checks and exact deep-validation parity on a retained 1,024-record snapshot. "
-                "Its [CTA](evolution/e11/entity-consultant-ngram-eligibility-001/cta.md) preserves a preflight refusal and the corrected runtime. "
-                "Claims are now 89 of 585; its native first measurement is unassigned and the six measured family scores remain unchanged.", "",
-                "The latest [Entity Graph builder lifetime native outcome](evolution/e11/entity-memory-lifetime-native-001/README.md) "
+                "The latest [Entity consultant eligibility native outcome](evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md) "
+                "records another 3,600-second timeout. Both build logs and both standalone validation logs reported success, "
+                "but no qualified retrieval score was produced. Its "
+                "[eight-family comparison](evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md#eight-family-comparison), "
+                "[application/category availability](evolution/e11/entity-consultant-ngram-eligibility-native-001/groups.md) and "
+                "[CTA](evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md) preserve the six retained scores "
+                "and the unavailable Entity/Ensemble measurements. Claims remain 89 of 585; all eight construction first "
+                "measurements are consumed. Five searches, the all-500 comparison and independent acceptance remain unfinished.", "",
+                "The preceding [software and runtime checkpoint](evolution/e11/entity-consultant-ngram-eligibility-001/README.md) "
+                "preserves seven passed software checks and exact deep-validation parity on a retained 1,024-record snapshot. "
+                "These checks do not establish a native retrieval gain.", "",
+                "The earlier [Entity Graph builder lifetime native outcome](evolution/e11/entity-memory-lifetime-native-001/README.md) "
                 "records a 3,600-second timeout without a ranking, with 88 cumulative proposals and seven consumed construction attempts. "
                 "Both complete build logs and both independent validator logs reported success before the timeout. Its "
                 "[eight-family comparison](evolution/e11/entity-memory-lifetime-native-001/README.md#eight-family-comparison), "
@@ -289,7 +296,8 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
                    "[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)", "",
                    "[Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)", "",
-                   "[Latest EnterpriseRAG comparison: all eight families and the Entity builder lifetime outcome](../evolution/e11/entity-memory-lifetime-native-001/README.md)", "",
+                   "[Latest EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)", "",
+                   "[Earlier Entity builder lifetime outcome and retained comparison](../evolution/e11/entity-memory-lifetime-native-001/README.md)", "",
                    "[Entity consultant eligibility: exact software/runtime parity, all eight families and current opportunity counts](../evolution/e11/entity-consultant-ngram-eligibility-001/README.md)", "",
                    "[Agent-selected skills by application](../enterprise-source-skills/README.md)", "",
                    "[Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)", "",
@@ -325,7 +333,8 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
     cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
-           "[Entity Graph builder lifetime: original native outcome, successful phase logs, cost/time and eight-family context](../evolution/e11/entity-memory-lifetime-native-001/cta.md)", "",
+           "[Latest Entity consultant native outcome: one consumed trial, 60-minute timeout, successful phase logs and separate timing scopes](../evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md)", "",
+           "[Earlier Entity Graph builder lifetime: original native outcome, successful phase logs, cost/time and eight-family context](../evolution/e11/entity-memory-lifetime-native-001/cta.md)", "",
            "[Entity consultant eligibility: preserved preflight refusal, corrected consultation runtime and unchanged retrieval quality](../evolution/e11/entity-consultant-ngram-eligibility-001/cta.md)", "",
            "[Terminal E7/E8 development CTA](../evolution/e8/development-cta-003/README.md) "
            "binds 83 completed native jobs, including seven construction errors and 29.15 accumulated job hours. "
