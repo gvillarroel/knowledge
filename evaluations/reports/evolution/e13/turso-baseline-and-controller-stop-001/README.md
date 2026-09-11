@@ -97,6 +97,17 @@ used for a new evaluation. [ADR 0152](../../../../../.specs/adr/0152-match-pinne
 and the [correction summary](cache-phase-correction.json) bind this software
 result and the unfinished integration boundary.
 
+The prospective continuation now has a verified way to preserve the completed
+reference. The pinned native loader accepted the **exact original Turso job and
+staged skill**, unchanged score and current public template; it rejected a
+same-byte source at a different path. All **89 runtime tests**, **16 reporting
+tests** and the **19-profile native planning check** passed. This checkpoint
+contains zero new native trials or quality observations. Twelve starting roles
+remain one consumed original plus eleven new roles; the operational integration
+and actual registered design still precede execution. [ADR 0153](../../../../../.specs/adr/0153-preserve-consumed-native-reference-in-enterprise-continuation.md)
+and its [safe aggregate](continuation-readiness.json) record the tested reuse and
+unchanged cumulative budgets.
+
 ## Remaining opportunity and acceptance work
 
 Claims remain **91 of 585**, with **373 maximum additional family-bound claims**

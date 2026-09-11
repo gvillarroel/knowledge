@@ -17,6 +17,7 @@ resulted. Five inherited family searches still have unfinished work.
 - [Machine-readable aggregate](turso-baseline-and-controller-stop-001/aggregate.json)
 - [Stratified EnterpriseRAG dataset view](../../datasets/enterprise-rag-stratified-development-120.md)
 - [Tested prospective cache correction](turso-baseline-and-controller-stop-001/README.md#tested-prospective-correction)
+- [Verified original-reference reuse and continuation planning](turso-baseline-and-controller-stop-001/continuation-readiness.json)
 
 The full objective remains incomplete. This checkpoint preserves the measured
 baseline and the exact interruption; it does not restart the consumed study

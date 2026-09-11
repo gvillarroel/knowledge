@@ -28,6 +28,7 @@
 - [EnterpriseRAG stratified dataset: retained strategies, latest baseline, applications and CTA](../evaluations/reports/datasets/enterprise-rag-stratified-development-120.md)
 - [Decision: load native Enterprise job templates through the owning API](../.specs/adr/0151-load-enterprise-native-job-templates-through-owner-api.md)
 - [Decision: match the pinned model-cache exception to actual execution phases](../.specs/adr/0152-match-pinned-model-cache-exceptions-to-execution-phases.md)
+- [Decision: preserve a consumed native reference and unchanged budgets in Enterprise continuation](../.specs/adr/0153-preserve-consumed-native-reference-in-enterprise-continuation.md)
 - [Entity evidence-index reuse: nine software checks, 48 exact runtime responses and 91 proposals](../evaluations/reports/evolution/e11/entity-evidence-index-reuse-001/README.md)
 - [Turso's first native E8 baseline on the stratified Enterprise subset](../evaluations/reports/evolution/e8/turso-baseline-001/README.md)
 - [Turso's first retained gain: native SQL-to-BM25 comparison by application, category and CTA](../evaluations/reports/evolution/e8/turso-progress-001/README.md)
