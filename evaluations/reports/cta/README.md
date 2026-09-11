@@ -1,5 +1,7 @@
 # CTA: cost, time, and quality
 
+[New Turso and Adaptive pending-variant CTA](../evolution/e14/generation-001-pending-variants-001/cta.md): native job time, agent time, two-build time, query p95, knowledge size and recorded provider cost for both references, incumbents and pending measurements. Neither new variant improved its retained quality.
+
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
 [Original starting errors: Ensemble 1,501.739 job seconds and Entity Graph 3,648.920 job seconds, with unavailable retrieval quality](../evolution/e14/starting-execution-errors-001/README.md#cost-time-and-quality)

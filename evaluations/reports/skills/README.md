@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Turso and Adaptive: two new qualified pending measurements, retained incumbents and one evaluable miss each](../evolution/e14/generation-001-pending-variants-001/README.md)
+
 [Report hub](../README.md) · [Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
 [Entity Graph and Ensemble: original starting errors, unavailable quality and outstanding evolution hypotheses](../evolution/e14/starting-execution-errors-001/README.md)

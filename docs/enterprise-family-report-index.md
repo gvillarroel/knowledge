@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[New E14 pending measurements](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/README.md): Turso measured 69.31 and retained 72.08; Adaptive measured 64.53 and retained 66.21. Each records one evaluable miss, with zero additional proposal charges and zero retries. [Applications and categories](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/cta.md) preserve both observations.
+
 [Latest starting outcomes](../evaluations/reports/evolution/e14/starting-execution-errors-001/README.md): Entity Graph timed out after 3,600 seconds and Ensemble encountered a Docker memory event under the fixed 6 GiB limit. Both original attempts are consumed, with unavailable retrieval quality and family-local stops. Their remaining evolution hypotheses are outstanding; these errors are not mutation quality misses. The other six qualified starting scores are unchanged.
 
 [Cross-family comparison of six qualified retained profiles: global quality, application and category leaders, and CTA](../evaluations/reports/evolution/e14/qualified-starts-comparison-001/README.md).

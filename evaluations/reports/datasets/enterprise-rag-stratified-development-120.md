@@ -30,6 +30,8 @@ descriptive subgroup results do not select a candidate or evaluate a router.
 
 ## Latest continuation
 
+The [new pending Turso and Adaptive variants](../evolution/e14/generation-001-pending-variants-001/README.md) scored **69.31** and **64.53**, retaining **72.08** and **66.21**. Both are qualified observations on this exact workload, with one evaluable miss each and zero new proposal charges. The retained dataset ranking is unchanged.
+
 The [original Entity Graph and Ensemble starts](../evolution/e14/starting-execution-errors-001/README.md)
 finished with execution errors: a 3,600-second timeout and a Docker out-of-memory
 event under the fixed 6 GiB limit, respectively. Both stopped locally before

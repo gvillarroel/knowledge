@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Latest E14 pending variant](../evolution/e14/generation-001-pending-variants-001/README.md): consultation BM25 `k1=0.6` scored 69.31 versus retained 72.08. This is one evaluable miss, with zero new proposal charges. [Application/category comparison](../evolution/e14/generation-001-pending-variants-001/groups.md#turso) and [CTA](../evolution/e14/generation-001-pending-variants-001/cta.md).
+
 [Report hub](../README.md) · [All skills](README.md)
 
 This is a navigation and diagnostic view of published results. Dataset pages own the bound primary rankings.

@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+The [first pending Turso and Adaptive variants](generation-001-pending-variants-001/README.md) have now completed and been reconciled. Turso measured **69.31** and Adaptive **64.53**, retaining **72.08** and **66.21** respectively. Each adds one evaluable miss to its current mechanism and zero proposal charges. See [applications and categories](generation-001-pending-variants-001/groups.md) and [cost, time and quality](generation-001-pending-variants-001/cta.md).
+
 The original Entity Graph and Ensemble starting attempts have now finished with
 execution errors: **Entity Graph timed out after 3,600 seconds; Ensemble
 encountered an out-of-memory event under the fixed 6 GiB limit**. Their retrieval

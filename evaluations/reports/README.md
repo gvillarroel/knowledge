@@ -1,5 +1,7 @@
 # Evaluation report hub
 
+[New EnterpriseRAG evolution observations](evolution/e14/generation-001-pending-variants-001/README.md): Turso's pending variant scored 69.31 versus its retained 72.08; Adaptive's scored 64.53 versus 66.21. Both qualified and count as one evaluable miss each. The eight-family retained comparison is unchanged.
+
 Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
 [By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)
