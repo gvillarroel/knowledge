@@ -2,7 +2,7 @@
 
 [Report hub](../README.md) · [Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
-[Latest EnterpriseRAG eight-family status: qualified Turso and Adaptive starts, retained results and unfinished opportunities](../evolution/e14/adaptive-starting-qualified-001/README.md#retained-eight-family-comparison)
+[Latest EnterpriseRAG eight-family status: qualified Legacy, Turso and Adaptive starts, retained results and unfinished opportunities](../evolution/e14/legacy-starting-qualified-001/README.md#retained-eight-family-comparison)
 
 [Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)
 

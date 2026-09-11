@@ -1,23 +1,25 @@
 # EnterpriseRAG E14: qualified family starts and inherited evolution
 
-The latest published checkpoint completes **two of eight current family
-starting qualifications: Turso and Adaptive**. Adaptive's new pair exactly
-reproduces **60.04** for the reference and **66.21 weighted nDCG@10 x100** for
-the retained profile. Turso's retained profile reproduces **72.08**; its
-**45.43** reference remains the original E13 native job. All four included
-records are qualified, with zero errors and zero retries. These checkpoints
-reproduce existing results and establish no new champion or promotion.
+The latest published checkpoint completes **three of eight current family
+starting qualifications: Legacy, Turso and Adaptive**. Legacy's new pair
+exactly reproduces **61.11** for the reference and **72.38 weighted nDCG@10
+x100** for the retained profile. Adaptive's pair reproduces **60.04** and
+**66.21**. Turso's retained profile reproduces **72.08**; its **45.43** reference
+remains the original E13 native job. All six included records are qualified,
+with zero errors and zero retries. These checkpoints reproduce existing
+results and establish no new champion or promotion.
 
-- [Latest starting pair, retained eight-family comparison and remaining opportunities](adaptive-starting-qualified-001/README.md)
-- [Adaptive cost, time and quality](adaptive-starting-qualified-001/cta.md)
-- [Adaptive results across nine applications and ten question categories](adaptive-starting-qualified-001/groups.md)
-- [Latest machine-readable aggregate and source commitments](adaptive-starting-qualified-001/aggregate.json)
+- [Latest starting pair, retained eight-family comparison and remaining opportunities](legacy-starting-qualified-001/README.md)
+- [Legacy cost, time and quality](legacy-starting-qualified-001/cta.md)
+- [Legacy results across nine applications and ten question categories](legacy-starting-qualified-001/groups.md)
+- [Latest machine-readable aggregate and source commitments](legacy-starting-qualified-001/aggregate.json)
+- [Preserved Adaptive starting pair](adaptive-starting-qualified-001/README.md), [CTA](adaptive-starting-qualified-001/cta.md) and [applications/categories](adaptive-starting-qualified-001/groups.md)
 - [Preserved Turso starting pair](turso-starting-qualified-001/README.md), [CTA](turso-starting-qualified-001/cta.md) and [applications/categories](turso-starting-qualified-001/groups.md)
 - [Stratified EnterpriseRAG dataset view](../../datasets/enterprise-rag-stratified-development-120.md)
 
 The actual E14 design is registered and sealed. The workload remains 120
 stratified questions, 112 retrieval-eligible questions and 6,000 complete
-documents. At this published checkpoint, two current family
+documents. At this published checkpoint, three current family
 qualifications are complete, five inherited searches remain open and private
 validation is unopened. The original three-miss rule, five-round ceiling,
 family caps and consumed identities remain preserved.

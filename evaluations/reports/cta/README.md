@@ -2,7 +2,9 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
-[Latest E14 Adaptive starting pair: 2,683.378 new job seconds, 60.04 reference and 66.21 retained nDCG reproduced](../evolution/e14/adaptive-starting-qualified-001/cta.md)
+[Latest E14 Legacy starting pair: 242.914 new job seconds, 61.11 reference and 72.38 retained nDCG reproduced](../evolution/e14/legacy-starting-qualified-001/cta.md)
+
+[Preserved E14 Adaptive starting pair: 2,683.378 new job seconds, 60.04 reference and 66.21 retained nDCG reproduced](../evolution/e14/adaptive-starting-qualified-001/cta.md)
 
 [Preserved E14 Turso starting pair: 246.684 new job seconds, 72.08 reproduced nDCG, original-reference cost kept separate](../evolution/e14/turso-starting-qualified-001/cta.md)
 
