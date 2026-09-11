@@ -6,6 +6,8 @@
 
 [Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)
 
+[Latest EnterpriseRAG comparison: all eight families and the Entity builder lifetime outcome](../evolution/e11/entity-memory-lifetime-native-001/README.md)
+
 [Agent-selected skills by application](../enterprise-source-skills/README.md)
 
 [Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)

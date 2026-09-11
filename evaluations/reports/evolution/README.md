@@ -83,8 +83,14 @@
   checks and the pinned JSON runtime with 19 identical reference files. Its
   [CTA](e11/entity-memory-lifetime-001/cta.md) and [contract coverage](e11/entity-memory-lifetime-001/groups.md)
   document released construction state and exact compatibility. Cumulative
-  claims are now 88; the new native first measurement remains unassigned and
-  no retained retrieval score changes.
+  claims are now 88. Its [native first measurement](e11/entity-memory-lifetime-native-001/README.md)
+  is now consumed: both complete builds and standalone validators reported
+  success, but the agent reached 3,600 seconds without a ranking. The
+  [eight-family comparison](e11/entity-memory-lifetime-native-001/README.md#eight-family-comparison),
+  [application/category availability](e11/entity-memory-lifetime-native-001/groups.md)
+  and [CTA](e11/entity-memory-lifetime-native-001/cta.md) preserve this stopped
+  outcome. All seven construction measurements are consumed; retained scores,
+  five open searches and independent acceptance remain unchanged.
 
 - [Stratified Enterprise evolution E7](e7/README.md): 120 stratified development
   questions, 6,000 complete documents, all eight families, repeated catalog

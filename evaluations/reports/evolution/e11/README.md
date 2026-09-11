@@ -1,5 +1,18 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The latest [Entity builder lifetime native outcome](entity-memory-lifetime-native-001/README.md)
+is closed: the original measurement reached the **3,600-second agent limit**
+without submitting a ranking. Both complete build logs and both standalone
+validation logs reported success before the timeout. The maintained report
+completed, qualification failed, and the ordinary study is stopped at sequence 7.
+The [eight-family comparison](entity-memory-lifetime-native-001/README.md#eight-family-comparison),
+[application/category availability](entity-memory-lifetime-native-001/groups.md)
+and [CTA](entity-memory-lifetime-native-001/cta.md) preserve the result and its
+source-bound phase evidence. All **seven construction first measurements are
+consumed**, with **88 of 585** proposals, unchanged retained scores and five
+open family searches. The all-500 comparison and independent acceptance remain
+unfinished; no canonical skill has been promoted.
+
 The new [Entity builder lifetime transfer](entity-memory-lifetime-001/README.md)
 passes nine software checks and a pinned 1,024-record JSON runtime cell, with
 all 19 reference files preserved. Two builder files release persisted RDF and
@@ -7,9 +20,9 @@ projection state before independent checks; the complete consultant and 250
 other package files are frozen. [CTA](entity-memory-lifetime-001/cta.md) and
 [contract coverage](entity-memory-lifetime-001/groups.md) preserve the measured
 work. Claims are now **88 of 585**, including **5 of Entity's 80**. Its native
-first measurement is unassigned; the six earlier construction measurements
-remain consumed, five searches remain open and retained retrieval scores are
-unchanged. No canonical skill has been promoted.
+first measurement was unassigned at that software checkpoint and is now
+consumed by the native outcome above. Its software evidence remains valid;
+the full-workload attempt does not establish a qualified retrieval score.
 
 The latest [Entity builder extraction native measurement](entity-ngram-eligibility-native-001/README.md)
 reached the unchanged **3,600-second agent limit** without a submitted ranking

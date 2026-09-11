@@ -59,6 +59,7 @@
 - [Entity n-gram candidate: 4,080 exact comparisons, unchanged retrieval context, pinned JSON compatibility and CTA](../evaluations/reports/evolution/e11/entity-ngram-eligibility-001/README.md)
 - [Entity n-gram native outcome: 60-minute timeout, unchanged eight-family comparison, memory observations and transfer opportunities](../evaluations/reports/evolution/e11/entity-ngram-eligibility-native-001/README.md)
 - [Entity builder lifetime transfer: nine software checks, released graph state, pinned JSON parity and 88 cumulative proposals](../evaluations/reports/evolution/e11/entity-memory-lifetime-001/README.md)
+- [Entity builder lifetime native outcome: four successful phase logs, 60-minute timeout, retained eight-family comparison and CTA](../evaluations/reports/evolution/e11/entity-memory-lifetime-native-001/README.md)
 - [Decision: reuse token eligibility while preserving exact Entity extraction](../.specs/adr/0144-reuse-token-eligibility-in-entity-candidate-extraction.md)
 - [Decision: transfer builder state lifetime boundaries to Entity Graph while freezing consultation](../.specs/adr/0145-transfer-builder-state-lifetimes-to-entity-graph.md)
 - [Decision: preserve pytest exit status when collecting application coverage](../.specs/adr/0146-preserve-pytest-exit-status-in-coverage-checks.md)
