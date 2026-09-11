@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Adaptive reaches three normalization misses](../evolution/e14/adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](../evolution/e14/adaptive-generation-003-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+
 [Turso and Adaptive retain their incumbents after new qualified misses: complete prefixes, paired groups and opportunity accounting](../evolution/e14/turso-003-adaptive-002-observations-001/README.md)
 
 [Graphify depth-zero candidate: 7.03 versus retained 8.12, paired results and the first evaluable miss](../evolution/e14/graphify-generation-001-001/README.md)

@@ -26,6 +26,7 @@
 - [E12 terminal status: zero native allocations, unchanged eight-family scores and tested controller correction](../evaluations/reports/evolution/e12/README.md)
 - [E13 terminal status: one measured Turso reference, cache-phase diagnosis and retained eight-family comparison](../evaluations/reports/evolution/e13/README.md)
 - [E14 starting results: six qualified strategies and two execution errors](../evaluations/reports/evolution/e14/README.md)
+- [E14 Adaptive b=0.5: third normalization miss, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-003-001/README.md)
 - [E14 Turso k1=3.0 and Adaptive b=0.0: retained incumbents, paired results and exact opportunity accounting](../evaluations/reports/evolution/e14/turso-003-adaptive-002-observations-001/README.md)
 - [E14 Graphify depth-zero observation: 7.03 candidate, 8.12 retained, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-001-001/README.md)
 - [E14 Turso improves to 72.13: new development incumbent, paired groups, updated six-family comparison and CTA](../evaluations/reports/evolution/e14/turso-generation-002-001/README.md)

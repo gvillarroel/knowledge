@@ -1,5 +1,7 @@
 # CTA: cost, time, and quality
 
+[Adaptive reaches three normalization misses](../evolution/e14/adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](../evolution/e14/adaptive-generation-003-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+
 [Latest Turso and Adaptive CTA](../evolution/e14/turso-003-adaptive-002-observations-001/cta.md) preserves all nine native records in their completed prefixes, including the two new non-improving observations. It reports job, agent and two-build time, query p95, knowledge size and native provider cost; host costs remain unpriced.
 
 [Graphify depth-zero CTA](../evolution/e14/graphify-generation-001-001/cta.md): 3,101.809 native job seconds, 2,938.085 seconds in the two required builds, 841.188-ms query p95 and 7.03 candidate nDCG. Its 8.12 reference remains retained; timing is descriptive and host costs remain unpriced.

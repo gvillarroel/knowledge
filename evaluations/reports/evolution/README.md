@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Adaptive reaches three normalization misses](e14/adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](e14/adaptive-generation-003-001/groups.md) and [CTA](e14/adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+
 [Turso generation three and Adaptive generation two](e14/turso-003-adaptive-002-observations-001/README.md) preserve **72.13** and **66.21** after candidates scored **71.13** and **62.31**. Turso has one miss since its last gain and has issued all four declared saturation variants. Adaptive has two consecutive misses in its current mechanism. Their inherited family limits remain in force.
 
 [Graphify generation one](e14/graphify-generation-001-001/README.md) completes a qualified depth-zero proposal: **7.03** versus retained **8.12**. One unique evaluable miss and 1 / 65 cumulative claims are recorded; the mechanism remains open under the three-miss rule.

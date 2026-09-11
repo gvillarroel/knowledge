@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Adaptive reaches three normalization misses](adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](adaptive-generation-003-001/groups.md) and [CTA](adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+
 The [latest qualified Turso and Adaptive candidates](turso-003-adaptive-002-observations-001/README.md) scored **71.13** and **62.31**, retaining **72.13** and **66.21**. Their cumulative claim counts are 4 / 55 and 21 / 100 at these observations. The [accounting report](turso-003-adaptive-002-observations-001/README.md#search-accounting) distinguishes Turso's exhausted saturation variant list from Adaptive's second consecutive miss. See [paired groups](turso-003-adaptive-002-observations-001/groups.md) and [CTA](turso-003-adaptive-002-observations-001/cta.md).
 
 The [qualified Graphify depth-zero observation](graphify-generation-001-001/README.md) scored **7.03**, below its retained **8.12** reference. It records one evaluable miss and 1 / 65 claims, with no execution error or retry. See [paired application/category results](graphify-generation-001-001/groups.md) and [CTA](graphify-generation-001-001/cta.md). The retained six-family comparison remains unchanged.

@@ -1,5 +1,7 @@
 # EnterpriseRAG: stratified development, 120 questions
 
+[Adaptive reaches three normalization misses](../evolution/e14/adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](../evolution/e14/adaptive-generation-003-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+
 This dataset view separates the retained internal strategy comparison from
 the latest incomplete continuation. The fixed workload uses **120 stratified
 questions, 112 retrieval-eligible questions and 6,000 complete documents**.
