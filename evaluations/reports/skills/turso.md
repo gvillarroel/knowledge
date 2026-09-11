@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Turso generation 4](../evolution/e14/turso-generation-004-001/README.md): `{"b": 0.25, "engine": "bm25"}` scored **66.80**, retaining **72.13**. The `length-normalization` mechanism records **1 / 3 consecutive evaluable misses** and the family **5 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-004-001/groups.md) and [CTA](../evolution/e14/turso-generation-004-001/cta.md) preserve this observation.
+
 [Latest E14 observation](../evolution/e14/turso-003-adaptive-002-observations-001/README.md): consultation `k1=3.0` scored **71.13**, below retained **72.13**. This is one consecutive miss since the preceding gain and 4 / 55 cumulative claims. All four saturation variants have been issued. [Paired groups](../evolution/e14/turso-003-adaptive-002-observations-001/groups.md#turso) and [CTA](../evolution/e14/turso-003-adaptive-002-observations-001/cta.md).
 
 [Latest E14 incumbent](../evolution/e14/turso-generation-002-001/README.md): consultation BM25 `k1=2.0` scored **72.13**, a 0.04949-point nDCG gain over 72.08. Recall and MRR fell slightly. Turso now has 3 / 55 claims and zero consecutive misses in this mechanism. [Paired groups](../evolution/e14/turso-generation-002-001/groups.md), [six-family comparison](../evolution/e14/turso-generation-002-001/comparison.md) and [CTA](../evolution/e14/turso-generation-002-001/cta.md).
