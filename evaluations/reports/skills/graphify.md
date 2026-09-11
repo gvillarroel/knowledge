@@ -10,6 +10,8 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)
 
+[Current E14 starting qualification: 8.12 reference nDCG@10 and an open inherited search](../evolution/e14/graphify-starting-qualified-001/README.md) · [Applications and question categories](../evolution/e14/graphify-starting-qualified-001/groups.md) · [CTA](../evolution/e14/graphify-starting-qualified-001/cta.md)
+
 [Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## Software architecture books (40)

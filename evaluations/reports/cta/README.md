@@ -2,7 +2,9 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
-[Latest E14 Legacy starting pair: 242.914 new job seconds, 61.11 reference and 72.38 retained nDCG reproduced](../evolution/e14/legacy-starting-qualified-001/cta.md)
+[Latest E14 Graphify starting role: 3,086.715 new job seconds, 8.12 reference nDCG reproduced, no paired candidate yet](../evolution/e14/graphify-starting-qualified-001/cta.md)
+
+[Preserved E14 Legacy starting pair: 242.914 new job seconds, 61.11 reference and 72.38 retained nDCG reproduced](../evolution/e14/legacy-starting-qualified-001/cta.md)
 
 [Preserved E14 Adaptive starting pair: 2,683.378 new job seconds, 60.04 reference and 66.21 retained nDCG reproduced](../evolution/e14/adaptive-starting-qualified-001/cta.md)
 
