@@ -1,5 +1,12 @@
 # EnterpriseRAG reports by retrieval family
 
+The latest [Entity consultant eligibility software checkpoint](../evaluations/reports/evolution/e11/entity-consultant-ngram-eligibility-001/README.md)
+preserves seven passed checks and a successful deep consultation on the retained
+1,024-record snapshot. Its [eight-family comparison](../evaluations/reports/evolution/e11/entity-consultant-ngram-eligibility-001/README.md#retained-enterpriserag-comparison)
+retains the measured scores while updating opportunity accounting to 89 claims.
+Its native first measurement remains unassigned. The [CTA](../evaluations/reports/evolution/e11/entity-consultant-ngram-eligibility-001/cta.md)
+records the successful cell and the original refusal before subject execution.
+
 Use this index to find a family's native evidence and its supporting audits
 without scanning every campaign checkpoint. The [E8 continuation](../evaluations/reports/evolution/e8/README.md)
 preserves the terminal searches and the [E9 fixed-builder report](../evaluations/reports/evolution/e9/README.md)

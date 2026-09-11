@@ -8,6 +8,8 @@
 
 [Latest EnterpriseRAG comparison: all eight families and the Entity builder lifetime outcome](../evolution/e11/entity-memory-lifetime-native-001/README.md)
 
+[Entity consultant eligibility: exact software/runtime parity, all eight families and current opportunity counts](../evolution/e11/entity-consultant-ngram-eligibility-001/README.md)
+
 [Agent-selected skills by application](../enterprise-source-skills/README.md)
 
 [Knowledge-skill generator: construction evolution and independent acceptance](../evolution/generator-g2/README.md)

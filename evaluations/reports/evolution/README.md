@@ -2,6 +2,13 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
+The current [Entity consultant eligibility checkpoint](e11/entity-consultant-ngram-eligibility-001/README.md)
+passes seven software checks and exact deep-validation parity on 1,024 synthetic
+records. It updates the eight-family opportunity table to 89 charged proposals;
+its native first measurement remains unassigned. The [CTA](e11/entity-consultant-ngram-eligibility-001/cta.md)
+preserves the refused preflight and corrected runtime. Retained EnterpriseRAG
+scores and the five open family searches are unchanged.
+
 - [EnterpriseRAG continuation E11](e11/README.md): the original execution
   stopped after [all twelve starting roles settled](e11/starting-terminal-001/README.md).
   Ten qualified across six families, with all nine required historical scores
@@ -83,7 +90,7 @@
   checks and the pinned JSON runtime with 19 identical reference files. Its
   [CTA](e11/entity-memory-lifetime-001/cta.md) and [contract coverage](e11/entity-memory-lifetime-001/groups.md)
   document released construction state and exact compatibility. Cumulative
-  claims are now 88. Its [native first measurement](e11/entity-memory-lifetime-native-001/README.md)
+  claims were 88 at that checkpoint. Its [native first measurement](e11/entity-memory-lifetime-native-001/README.md)
   is now consumed: both complete builds and standalone validators reported
   success, but the agent reached 3,600 seconds without a ranking. The
   [eight-family comparison](e11/entity-memory-lifetime-native-001/README.md#eight-family-comparison),

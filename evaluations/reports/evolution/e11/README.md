@@ -1,5 +1,15 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
+The new [Entity consultant eligibility transfer](entity-consultant-ngram-eligibility-001/README.md)
+passed seven software checks, 4,080 exact comparisons and a consultation-only
+runtime on the retained 1,024-record snapshot. Its exact response and all 19
+files were preserved. The original preflight refusal and corrected empty-data
+mount are retained in the [CTA](entity-consultant-ngram-eligibility-001/cta.md).
+This separate consultation proposal brings claims to **89 of 585**, including
+**6 of Entity's 80**; its first native measurement is unassigned. The
+[eight-family comparison](entity-consultant-ngram-eligibility-001/README.md#retained-enterpriserag-comparison)
+is unchanged. Five searches and the all-500 comparison remain unfinished.
+
 The latest [Entity builder lifetime native outcome](entity-memory-lifetime-native-001/README.md)
 is closed: the original measurement reached the **3,600-second agent limit**
 without submitting a ranking. Both complete build logs and both standalone
@@ -9,7 +19,7 @@ The [eight-family comparison](entity-memory-lifetime-native-001/README.md#eight-
 [application/category availability](entity-memory-lifetime-native-001/groups.md)
 and [CTA](entity-memory-lifetime-native-001/cta.md) preserve the result and its
 source-bound phase evidence. All **seven construction first measurements are
-consumed**, with **88 of 585** proposals, unchanged retained scores and five
+consumed**, with **88 of 585** proposals at that native checkpoint, unchanged retained scores and five
 open family searches. The all-500 comparison and independent acceptance remain
 unfinished; no canonical skill has been promoted.
 

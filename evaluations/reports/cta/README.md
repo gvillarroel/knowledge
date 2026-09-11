@@ -4,6 +4,8 @@
 
 [Entity Graph builder lifetime: original native outcome, successful phase logs, cost/time and eight-family context](../evolution/e11/entity-memory-lifetime-native-001/cta.md)
 
+[Entity consultant eligibility: preserved preflight refusal, corrected consultation runtime and unchanged retrieval quality](../evolution/e11/entity-consultant-ngram-eligibility-001/cta.md)
+
 [Terminal E7/E8 development CTA](../evolution/e8/development-cta-003/README.md) binds 83 completed native jobs, including seven construction errors and 29.15 accumulated job hours. It preserves missing telemetry and excludes interrupted originals and future work from its fixed time total. All observations in the [earlier 81-job checkpoint](../evolution/e8/development-cta-002/README.md) remain unchanged.
 
 [Stratified Enterprise evolution E7](../evolution/e7/README.md) records native development time, qualified retrieval scores and execution errors. Its declared model-call budget is zero; a timed-out attempt has no retrieval quality measurement. Follow the campaign for completion of all eight families, the paired all-500 comparison and the separate transfer gate.
