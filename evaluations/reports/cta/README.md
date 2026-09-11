@@ -1,12 +1,14 @@
 # CTA: cost, time, and quality
 
+[Updated Turso and retained-family CTA](../evolution/e14/turso-generation-002-001/cta.md): the `k1=2.0` candidate retained 72.13 nDCG with a 230.526-second native job and 104.090-ms query p95. The report preserves all four original Turso observations and the six retained family profiles; elapsed differences are descriptive and host costs remain unpriced.
+
 [New Turso and Adaptive pending-variant CTA](../evolution/e14/generation-001-pending-variants-001/cta.md): native job time, agent time, two-build time, query p95, knowledge size and recorded provider cost for both references, incumbents and pending measurements. Neither new variant improved its retained quality.
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
 [Original starting errors: Ensemble 1,501.739 job seconds and Entity Graph 3,648.920 job seconds, with unavailable retrieval quality](../evolution/e14/starting-execution-errors-001/README.md#cost-time-and-quality)
 
-[Cross-family CTA: six qualified retained profiles on the same stratified workload](../evolution/e14/qualified-starts-comparison-001/README.md#cost-time-and-quality)
+[Cross-family CTA: six qualified retained profiles on the same stratified workload](../evolution/e14/turso-generation-002-001/cta.md)
 
 [Latest E14 Classical starting pair: 3,161.579 new job seconds, 55.04 reference and 62.10 retained nDCG reproduced](../evolution/e14/classical-starting-qualified-001/cta.md)
 

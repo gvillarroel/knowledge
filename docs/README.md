@@ -26,6 +26,7 @@
 - [E12 terminal status: zero native allocations, unchanged eight-family scores and tested controller correction](../evaluations/reports/evolution/e12/README.md)
 - [E13 terminal status: one measured Turso reference, cache-phase diagnosis and retained eight-family comparison](../evaluations/reports/evolution/e13/README.md)
 - [E14 starting results: six qualified strategies and two execution errors](../evaluations/reports/evolution/e14/README.md)
+- [E14 Turso improves to 72.13: new development incumbent, paired groups, updated six-family comparison and CTA](../evaluations/reports/evolution/e14/turso-generation-002-001/README.md)
 - [E14 pending variants: Turso 69.31 and Adaptive 64.53, retained incumbents and paired application/category results](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/README.md)
 - [E14 starting failures: Entity Graph timeout, Ensemble memory event and preserved opportunities](../evaluations/reports/evolution/e14/starting-execution-errors-001/README.md)
 - [E14 cross-family comparison: six retained profiles by application, question category and CTA](../evaluations/reports/evolution/e14/qualified-starts-comparison-001/README.md)

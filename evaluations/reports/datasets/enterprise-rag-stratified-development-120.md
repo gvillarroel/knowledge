@@ -10,7 +10,7 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 | Strategy | Retained score | Source |
 | --- | ---: | --- |
 | Legacy | 72.38 | Historical incumbent exactly reproduced by E14 |
-| Turso | 72.08 | Historical incumbent exactly reproduced by E14 |
+| Turso | 72.13 | [Qualified E14 generation-two incumbent](../evolution/e14/turso-generation-002-001/README.md) |
 | Adaptive | 66.21 | Historical incumbent exactly reproduced by E14 |
 | Embeddings | 63.51 | Historical reference exactly reproduced by E14 |
 | Classical | 62.10 | Historical incumbent exactly reproduced by E14 |
@@ -21,16 +21,18 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 Legacy has the highest retained score in this partial development comparison.
 This does not establish a winner on the all-500 workload, on other datasets,
 or on generated-answer quality. Exact evidence and opportunity limits are in
-the [eight-family report](../evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison).
+the [eight-family report](../evolution/e14/turso-generation-002-001/README.md#retained-eight-family-comparison).
 
-The [consolidated six-family comparison](../evolution/e14/qualified-starts-comparison-001/README.md)
+The [consolidated six-family comparison](../evolution/e14/turso-generation-002-001/comparison.md)
 shows the retained scores for every application and question category, their
 observed leaders and the corresponding native cost/time measurements. These
 descriptive subgroup results do not select a candidate or evaluate a router.
 
 ## Latest continuation
 
-The [new pending Turso and Adaptive variants](../evolution/e14/generation-001-pending-variants-001/README.md) scored **69.31** and **64.53**, retaining **72.08** and **66.21**. Both are qualified observations on this exact workload, with one evaluable miss each and zero new proposal charges. The retained dataset ranking is unchanged.
+The [qualified Turso `k1=2.0` observation](../evolution/e14/turso-generation-002-001/README.md) improves its retained nDCG to **72.13**. The gain is 0.04949 points; recall and MRR fall slightly. Legacy remains first overall. The updated application comparison puts Turso first in Jira and tied with Legacy in HubSpot.
+
+The [earlier pending Turso and Adaptive variants](../evolution/e14/generation-001-pending-variants-001/README.md) scored **69.31** and **64.53**, retaining **72.08** and **66.21**. Both are qualified observations on this exact workload, with one evaluable miss each and zero new proposal charges. The retained dataset ranking is unchanged.
 
 The [original Entity Graph and Ensemble starts](../evolution/e14/starting-execution-errors-001/README.md)
 finished with execution errors: a 3,600-second timeout and a Docker out-of-memory

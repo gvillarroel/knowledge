@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+The [qualified Turso generation-two result](turso-generation-002-001/README.md) raises its retained development nDCG@10 to **72.13**. The observed gain is **0.04949 points**, while recall and MRR fall slightly. It is a new family development incumbent, with no final promotion. See the [updated six-family application/category comparison](turso-generation-002-001/comparison.md), [paired Turso groups](turso-generation-002-001/groups.md) and [CTA](turso-generation-002-001/cta.md).
+
 The [first pending Turso and Adaptive variants](generation-001-pending-variants-001/README.md) have now completed and been reconciled. Turso measured **69.31** and Adaptive **64.53**, retaining **72.08** and **66.21** respectively. Each adds one evaluable miss to its current mechanism and zero proposal charges. See [applications and categories](generation-001-pending-variants-001/groups.md) and [cost, time and quality](generation-001-pending-variants-001/cta.md).
 
 The original Entity Graph and Ensemble starting attempts have now finished with
@@ -11,7 +13,7 @@ their remaining evolution hypotheses have not been exhausted. The
 errors, cost/time measurements and auxiliary build evidence. These errors do
 not count as mutation quality misses.
 
-The latest published checkpoint completes **six of eight current family
+The starting checkpoints completed **six of eight current family
 starting qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and
 Graphify**. Classical's new pair exactly reproduces **55.04** for the reference
 and **62.10 weighted nDCG@10 x100** for the retained profile. Its recorded

@@ -1,6 +1,8 @@
 # Evaluation report hub
 
-[New EnterpriseRAG evolution observations](evolution/e14/generation-001-pending-variants-001/README.md): Turso's pending variant scored 69.31 versus its retained 72.08; Adaptive's scored 64.53 versus 66.21. Both qualified and count as one evaluable miss each. The eight-family retained comparison is unchanged.
+[Latest EnterpriseRAG gain](evolution/e14/turso-generation-002-001/README.md): Turso now retains **72.13** after the qualified `k1=2.0` observation. The primary-metric gain is 0.04949 points, with secondary-metric regressions and no promotion. [Updated retained comparison by application and category](evolution/e14/turso-generation-002-001/comparison.md).
+
+[Earlier EnterpriseRAG evolution observations](evolution/e14/generation-001-pending-variants-001/README.md): Turso's pending variant scored 69.31 versus its retained 72.08; Adaptive's scored 64.53 versus 66.21. Both qualified and count as one evaluable miss each. The eight-family retained comparison is unchanged.
 
 Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
@@ -8,7 +10,7 @@ Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
 [Latest EnterpriseRAG starting outcomes](evolution/e14/starting-execution-errors-001/README.md): Entity Graph timed out after 3,600 seconds; Ensemble encountered an out-of-memory event under the fixed 6 GiB limit. Both remain unqualified, with unavailable retrieval scores and unexercised evolution hypotheses. The six qualified starting scores are unchanged; execution errors are not mutation quality misses.
 
-[EnterpriseRAG cross-family comparison: six qualified retained profiles by application, question category and CTA](evolution/e14/qualified-starts-comparison-001/README.md).
+[EnterpriseRAG cross-family comparison: six qualified retained profiles by application, question category and CTA](evolution/e14/turso-generation-002-001/comparison.md).
 
 The latest [EnterpriseRAG E14 checkpoint](evolution/e14/README.md) completes **six of eight current starting qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and Graphify**. Classical's two new jobs reproduce **55.04** for the reference and **62.10 weighted nDCG@10 x100** for the retained profile. Its recorded catalog stop and inherited charges remain preserved. The other retained scores are unchanged. All ten native records included in the six family reports are qualified and error-free; there is no new champion. See the [eight-family comparison and remaining opportunities](evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison), [Classical CTA](evolution/e14/classical-starting-qualified-001/cta.md), [nine-application and ten-category breakdown](evolution/e14/classical-starting-qualified-001/groups.md) and [dataset view](datasets/enterprise-rag-stratified-development-120.md). Five inherited searches, the all-500 comparison and independent acceptance remain incomplete.
 

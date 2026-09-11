@@ -1,12 +1,14 @@
 # Reports by skill
 
+[Turso improves to 72.13: qualified development gain, secondary-metric tradeoffs and updated six-family comparison](../evolution/e14/turso-generation-002-001/README.md)
+
 [Turso and Adaptive: two new qualified pending measurements, retained incumbents and one evaluable miss each](../evolution/e14/generation-001-pending-variants-001/README.md)
 
 [Report hub](../README.md) · [Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
 [Entity Graph and Ensemble: original starting errors, unavailable quality and outstanding evolution hypotheses](../evolution/e14/starting-execution-errors-001/README.md)
 
-[Compare six qualified EnterpriseRAG profiles across applications, question categories and CTA](../evolution/e14/qualified-starts-comparison-001/README.md)
+[Compare six qualified EnterpriseRAG profiles across applications, question categories and CTA](../evolution/e14/turso-generation-002-001/comparison.md)
 
 [Latest EnterpriseRAG eight-family status: six qualified starts, retained results and unfinished opportunities](../evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison)
 

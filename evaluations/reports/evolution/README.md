@@ -1,6 +1,8 @@
 # Knowledge-skill evolution evidence
 
-[New E14 generation-one observations](e14/generation-001-pending-variants-001/README.md) complete the original pending Turso and Adaptive identities: 69.31 and 64.53, below retained 72.08 and 66.21. Both mechanisms remain open with one consecutive evaluable miss. The treatment types remain separate, and neither observation incurs another proposal charge.
+[Turso generation two](e14/turso-generation-002-001/README.md) establishes a new development incumbent at **72.13**, up from 72.08. One new proposal brings Turso to 3 / 55 claims and resets its current mechanism's consecutive misses to zero. The candidate remains subject to all-eight completion and independent acceptance.
+
+[Earlier E14 generation-one observations](e14/generation-001-pending-variants-001/README.md) complete the original pending Turso and Adaptive identities: 69.31 and 64.53, below retained 72.08 and 66.21. Both mechanisms remain open with one consecutive evaluable miss. The treatment types remain separate, and neither observation incurs another proposal charge.
 
 [Latest E14 starting failures](e14/starting-execution-errors-001/README.md) preserve Entity Graph's 3,600-second timeout and Ensemble's memory event under the fixed 6 GiB limit. Both families stopped before qualification and retain outstanding evolution hypotheses. Their errors do not become zero retrieval scores, quality misses or completed searches. The six qualified starting profiles below remain unchanged.
 
