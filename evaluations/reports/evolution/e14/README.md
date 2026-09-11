@@ -1,19 +1,19 @@
 # EnterpriseRAG E14: qualified family starts and inherited evolution
 
-The latest published checkpoint completes **five of eight current family
-starting qualifications: Legacy, Turso, Adaptive, Embeddings and Graphify**.
-Embeddings' single registered starting role exactly reproduces **63.51 weighted
-nDCG@10 x100**. Its recorded catalog stop and inherited charges remain preserved.
-The retained Legacy, Turso, Adaptive and Graphify values remain **72.38**,
-**72.08**, **66.21** and **8.12**, respectively. All eight included native records
-are qualified, with zero errors and zero retries. Turso's reference remains
-the exact original E13 job. These checkpoints reproduce existing results and
-establish no new champion or promotion.
+The latest published checkpoint completes **six of eight current family
+starting qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and
+Graphify**. Classical's new pair exactly reproduces **55.04** for the reference
+and **62.10 weighted nDCG@10 x100** for the retained profile. Its recorded
+catalog stop and inherited charges remain preserved. The other retained scores
+are unchanged. All ten included native records are qualified, with zero errors
+and zero retries. Turso's reference remains the exact original E13 job. These
+checkpoints reproduce existing results and establish no new champion or promotion.
 
-- [Latest starting qualification, retained eight-family comparison and remaining opportunities](embeddings-starting-qualified-001/README.md)
-- [Embeddings cost, time and quality](embeddings-starting-qualified-001/cta.md)
-- [Embeddings results across nine applications and ten question categories](embeddings-starting-qualified-001/groups.md)
-- [Latest machine-readable aggregate and source commitments](embeddings-starting-qualified-001/aggregate.json)
+- [Latest starting qualification, retained eight-family comparison and remaining opportunities](classical-starting-qualified-001/README.md)
+- [Classical cost, time and quality](classical-starting-qualified-001/cta.md)
+- [Classical results across nine applications and ten question categories](classical-starting-qualified-001/groups.md)
+- [Latest machine-readable aggregate and source commitments](classical-starting-qualified-001/aggregate.json)
+- [Preserved Embeddings starting role](embeddings-starting-qualified-001/README.md), [CTA](embeddings-starting-qualified-001/cta.md) and [applications/categories](embeddings-starting-qualified-001/groups.md)
 - [Preserved Graphify starting role](graphify-starting-qualified-001/README.md), [CTA](graphify-starting-qualified-001/cta.md) and [applications/categories](graphify-starting-qualified-001/groups.md)
 - [Preserved Legacy starting pair](legacy-starting-qualified-001/README.md), [CTA](legacy-starting-qualified-001/cta.md) and [applications/categories](legacy-starting-qualified-001/groups.md)
 - [Preserved Adaptive starting pair](adaptive-starting-qualified-001/README.md), [CTA](adaptive-starting-qualified-001/cta.md) and [applications/categories](adaptive-starting-qualified-001/groups.md)
@@ -22,7 +22,7 @@ establish no new champion or promotion.
 
 The actual E14 design is registered and sealed. The workload remains 120
 stratified questions, 112 retrieval-eligible questions and 6,000 complete
-documents. At this published checkpoint, five current family
+documents. At this published checkpoint, six current family
 qualifications are complete, five inherited searches remain open and private
 validation is unopened. The original three-miss rule, five-round ceiling,
 family caps and consumed identities remain preserved.

@@ -13,7 +13,7 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 | Turso | 72.08 | Historical incumbent exactly reproduced by E14 |
 | Adaptive | 66.21 | Historical incumbent exactly reproduced by E14 |
 | Embeddings | 63.51 | Historical reference exactly reproduced by E14 |
-| Classical | 62.10 | Historical reviewed development result |
+| Classical | 62.10 | Historical incumbent exactly reproduced by E14 |
 | Graphify | 8.12 | Historical reference exactly reproduced by E14 |
 | Entity Graph | Unavailable | No qualified ranking |
 | Ensemble | Unavailable | No qualified ranking |
@@ -21,30 +21,28 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 Legacy has the highest retained score in this partial development comparison.
 This does not establish a winner on the all-500 workload, on other datasets,
 or on generated-answer quality. Exact evidence and opportunity limits are in
-the [eight-family report](../evolution/e14/embeddings-starting-qualified-001/README.md#retained-eight-family-comparison).
+the [eight-family report](../evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison).
 
 ## Latest continuation
 
-[E14](../evolution/e14/README.md) completes **five current starting
-qualifications: Legacy, Turso, Adaptive, Embeddings and Graphify**. Embeddings'
-single registered starting role reproduces **63.51**; its recorded catalog
-stop and inherited charges remain preserved. The retained
-[Legacy](../evolution/e14/legacy-starting-qualified-001/README.md),
-[Turso](../evolution/e14/turso-starting-qualified-001/README.md),
-[Adaptive](../evolution/e14/adaptive-starting-qualified-001/README.md) and
-[Graphify](../evolution/e14/graphify-starting-qualified-001/README.md) values
-remain **72.38**, **72.08**, **66.21** and **8.12**, respectively. All eight native
-records are qualified and error-free. These checkpoints establish no new
-champion. Three current family qualifications, five inherited searches and the
-final all-eight comparison remain unfinished. Private validation is unopened.
+[E14](../evolution/e14/README.md) completes **six current starting
+qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and Graphify**.
+Classical's two new jobs reproduce **55.04** for the reference and **62.10** for
+the retained profile. Its recorded catalog stop and inherited charges remain
+preserved. The other retained scores are unchanged. All ten native records
+included in the six family reports are qualified and error-free. These
+checkpoints establish no new champion. Two current family qualifications,
+five inherited searches and the final all-eight comparison remain unfinished.
+Private validation is unopened.
 
 The [earlier E13 study](../evolution/e13/README.md) remains closed after its
 cache phase-declaration controller stop. Its reference is reused under its
 original job and staged-skill identity.
 
-- [Embeddings results across nine applications and ten question categories](../evolution/e14/embeddings-starting-qualified-001/groups.md)
-- [Embeddings native cost, time and quality](../evolution/e14/embeddings-starting-qualified-001/cta.md)
-- [Latest machine-readable checkpoint](../evolution/e14/embeddings-starting-qualified-001/aggregate.json)
+- [Classical results across nine applications and ten question categories](../evolution/e14/classical-starting-qualified-001/groups.md)
+- [Classical native cost, time and quality](../evolution/e14/classical-starting-qualified-001/cta.md)
+- [Latest machine-readable checkpoint](../evolution/e14/classical-starting-qualified-001/aggregate.json)
+- [Preserved Embeddings application/category results](../evolution/e14/embeddings-starting-qualified-001/groups.md) and [CTA](../evolution/e14/embeddings-starting-qualified-001/cta.md)
 - [Preserved Graphify application/category results](../evolution/e14/graphify-starting-qualified-001/groups.md) and [CTA](../evolution/e14/graphify-starting-qualified-001/cta.md)
 - [Preserved Legacy application/category results](../evolution/e14/legacy-starting-qualified-001/groups.md) and [CTA](../evolution/e14/legacy-starting-qualified-001/cta.md)
 - [Preserved Adaptive application/category results](../evolution/e14/adaptive-starting-qualified-001/groups.md) and [CTA](../evolution/e14/adaptive-starting-qualified-001/cta.md)
