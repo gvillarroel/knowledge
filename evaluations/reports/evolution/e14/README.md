@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Turso generation 7](turso-generation-007-001/README.md): `{"engine": "bm25", "title_weight": 2.0}` scored **72.12**, retaining **72.13**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **8 / 55 claims**. [Paired applications/categories](turso-generation-007-001/groups.md) and [CTA](turso-generation-007-001/cta.md) preserve this observation.
+
 [Adaptive generation 5](adaptive-generation-005-001/README.md): `{"bm25.k1": 2.0}` scored **65.61**, retaining **66.21**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **24 / 100 claims**. [Paired applications/categories](adaptive-generation-005-001/groups.md) and [CTA](adaptive-generation-005-001/cta.md) preserve this observation.
 
 [Graphify generation 3](graphify-generation-003-001/README.md): `{"depth": 3}` raises retained nDCG from **8.12 to 27.90**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **3 / 65 claims**. **[Latest general application/category comparison](graphify-generation-003-001/comparison.md)** · [Paired groups](graphify-generation-003-001/groups.md) · [CTA](graphify-generation-003-001/cta.md).
