@@ -1,5 +1,7 @@
 # Evaluation report hub
 
+[Turso generation 8](evolution/e14/turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Latest general application/category comparison](evolution/e14/turso-generation-008-001/comparison.md)** · [Paired groups](evolution/e14/turso-generation-008-001/groups.md) · [CTA](evolution/e14/turso-generation-008-001/cta.md).
+
 [Adaptive generation 6](evolution/e14/adaptive-generation-006-001/README.md): `{"bm25.title_weight": 4.0}` scored **54.79**, retaining **66.21**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **25 / 100 claims**. [Paired applications/categories](evolution/e14/adaptive-generation-006-001/groups.md) and [CTA](evolution/e14/adaptive-generation-006-001/cta.md) preserve this observation.
 
 [Turso generation 7](evolution/e14/turso-generation-007-001/README.md): `{"engine": "bm25", "title_weight": 2.0}` scored **72.12**, retaining **72.13**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **8 / 55 claims**. [Paired applications/categories](evolution/e14/turso-generation-007-001/groups.md) and [CTA](evolution/e14/turso-generation-007-001/cta.md) preserve this observation.
