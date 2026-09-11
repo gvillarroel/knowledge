@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Cross-family CTA: six qualified retained profiles on the same stratified workload](../evolution/e14/qualified-starts-comparison-001/README.md#cost-time-and-quality)
+
 [Latest E14 Classical starting pair: 3,161.579 new job seconds, 55.04 reference and 62.10 retained nDCG reproduced](../evolution/e14/classical-starting-qualified-001/cta.md)
 
 [Preserved E14 Embeddings starting role: 1,047.799 new job seconds, 63.51 reference nDCG reproduced](../evolution/e14/embeddings-starting-qualified-001/cta.md)

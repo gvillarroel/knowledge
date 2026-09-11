@@ -4,6 +4,8 @@ Reviewed results organized by dataset, skill, and cost/time/quality (CTA).
 
 [By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)
 
+[EnterpriseRAG cross-family comparison: six qualified retained profiles by application, question category and CTA](evolution/e14/qualified-starts-comparison-001/README.md).
+
 The latest [EnterpriseRAG E14 checkpoint](evolution/e14/README.md) completes **six of eight current starting qualifications: Legacy, Turso, Adaptive, Embeddings, Classical and Graphify**. Classical's two new jobs reproduce **55.04** for the reference and **62.10 weighted nDCG@10 x100** for the retained profile. Its recorded catalog stop and inherited charges remain preserved. The other retained scores are unchanged. All ten native records included in the six family reports are qualified and error-free; there is no new champion. See the [eight-family comparison and remaining opportunities](evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison), [Classical CTA](evolution/e14/classical-starting-qualified-001/cta.md), [nine-application and ten-category breakdown](evolution/e14/classical-starting-qualified-001/groups.md) and [dataset view](datasets/enterprise-rag-stratified-development-120.md). Five inherited searches, the all-500 comparison and independent acceptance remain incomplete.
 
 The earlier [EnterpriseRAG E13 report](evolution/e13/README.md) preserves the completed **45.43** Turso reference and a subsequent cache phase-declaration controller stop. Its four stages are closed and verified. The original measurement remains consumed; E14 reuses it under the same identity.

@@ -23,6 +23,11 @@ This does not establish a winner on the all-500 workload, on other datasets,
 or on generated-answer quality. Exact evidence and opportunity limits are in
 the [eight-family report](../evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison).
 
+The [consolidated six-family comparison](../evolution/e14/qualified-starts-comparison-001/README.md)
+shows the retained scores for every application and question category, their
+observed leaders and the corresponding native cost/time measurements. These
+descriptive subgroup results do not select a candidate or evaluate a router.
+
 ## Latest continuation
 
 [E14](../evolution/e14/README.md) completes **six current starting

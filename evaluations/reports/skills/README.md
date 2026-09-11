@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [Enterprise evolution](../evolution/e14/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Compare six qualified EnterpriseRAG profiles across applications, question categories and CTA](../evolution/e14/qualified-starts-comparison-001/README.md)
+
 [Latest EnterpriseRAG eight-family status: six qualified starts, retained results and unfinished opportunities](../evolution/e14/classical-starting-qualified-001/README.md#retained-eight-family-comparison)
 
 [Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)
