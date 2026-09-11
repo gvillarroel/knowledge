@@ -10,6 +10,8 @@ This is a navigation and diagnostic view of published results. Dataset pages own
 
 [Current EnterpriseRAG family evidence and native outcomes](../../../docs/enterprise-family-report-index.md)
 
+[Current E14 starting qualification: 60.04 reference and 66.21 retained nDCG@10](../evolution/e14/adaptive-starting-qualified-001/README.md) · [Applications and question categories](../evolution/e14/adaptive-starting-qualified-001/groups.md) · [CTA](../evolution/e14/adaptive-starting-qualified-001/cta.md)
+
 [Earlier Enterprise evolution E6](../evolution/e6/README.md)
 
 ## GraphRAG generalization (60)

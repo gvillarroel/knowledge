@@ -25,7 +25,7 @@
 - [Prospective Enterprise continuation by family readiness and unchanged whole-bundle acceptance](../.specs/adr/0150-continue-enterprise-searches-by-family-readiness.md)
 - [E12 terminal status: zero native allocations, unchanged eight-family scores and tested controller correction](../evaluations/reports/evolution/e12/README.md)
 - [E13 terminal status: one measured Turso reference, cache-phase diagnosis and retained eight-family comparison](../evaluations/reports/evolution/e13/README.md)
-- [E14 current starting qualification: Turso reproduces 72.08, with eight-family context, applications and CTA](../evaluations/reports/evolution/e14/README.md)
+- [E14 current starting qualifications: Turso reproduces 72.08 and Adaptive 66.21, with eight-family context, applications and CTA](../evaluations/reports/evolution/e14/README.md)
 - [EnterpriseRAG stratified dataset: retained strategies, latest baseline, applications and CTA](../evaluations/reports/datasets/enterprise-rag-stratified-development-120.md)
 - [Decision: load native Enterprise job templates through the owning API](../.specs/adr/0151-load-enterprise-native-job-templates-through-owner-api.md)
 - [Decision: match the pinned model-cache exception to actual execution phases](../.specs/adr/0152-match-pinned-model-cache-exceptions-to-execution-phases.md)
