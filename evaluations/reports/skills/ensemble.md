@@ -1,5 +1,7 @@
 # ensemble: dataset results
 
+[Prospective Ensemble mention-automaton candidate](../evolution/candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
+
 [Report hub](../README.md) · [All skills](README.md)
 
 This is a navigation and diagnostic view of published results. Dataset pages own the bound primary rankings.

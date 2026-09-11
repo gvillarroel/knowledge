@@ -1,5 +1,8 @@
 # Documentation Index
 
+- [Prospective Ensemble mention-automaton candidate](../evaluations/reports/evolution/candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
+- [Decision: transfer only the exact mention automaton into Ensemble construction](../.specs/adr/0155-transfer-exact-mention-automaton-to-ensemble.md)
+
 ## Start here
 
 - [Usage and setup](getting-started.md)

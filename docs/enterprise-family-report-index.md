@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[Prospective Ensemble mention-automaton candidate](../evaluations/reports/evolution/candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
+
 [Turso generation 6](../evaluations/reports/evolution/e14/turso-generation-006-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **70.44**, retaining **72.13**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **7 / 55 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/turso-generation-006-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/turso-generation-006-001/cta.md) preserve this observation.
 
 [Adaptive generation 4](../evaluations/reports/evolution/e14/adaptive-generation-004-001/README.md): `{"bm25.k1": 0.6}` scored **65.52**, retaining **66.21**. The `bm25-saturation` mechanism records **1 / 3 consecutive evaluable misses** and the family **23 / 100 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/adaptive-generation-004-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/adaptive-generation-004-001/cta.md) preserve this observation.
