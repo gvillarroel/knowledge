@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 3](graphify-generation-003-001/README.md): `{"depth": 3}` raises retained nDCG from **8.12 to 27.90**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **3 / 65 claims**. **[Latest general application/category comparison](graphify-generation-003-001/comparison.md)** · [Paired groups](graphify-generation-003-001/groups.md) · [CTA](graphify-generation-003-001/cta.md).
+
 [Prospective Ensemble mention-automaton candidate](../candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
 [Turso generation 6](turso-generation-006-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **70.44**, retaining **72.13**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **7 / 55 claims**. [Paired applications/categories](turso-generation-006-001/groups.md) and [CTA](turso-generation-006-001/cta.md) preserve this observation.
