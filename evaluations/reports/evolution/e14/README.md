@@ -26,6 +26,7 @@ are unchanged. All ten included native records are qualified, with zero errors
 and zero retries. Turso's reference remains the exact original E13 job. These
 checkpoints reproduce existing results and establish no new champion or promotion.
 
+- [Entity query arithmetic diagnostic: preserved operation order and rejected shortcuts](entity-query-arithmetic-diagnostic-001/README.md)
 - [Latest native starting errors: Entity Graph timeout and Ensemble memory failure](starting-execution-errors-001/README.md)
 - [Failure evidence and unchanged eight-family ranking](starting-execution-errors-001/aggregate.json)
 - [Cross-family comparison: six qualified retained profiles by application, category and CTA](qualified-starts-comparison-001/README.md)

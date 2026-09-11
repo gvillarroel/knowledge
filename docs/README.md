@@ -30,6 +30,7 @@
 - [E14 Graphify depth-zero observation: 7.03 candidate, 8.12 retained, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-001-001/README.md)
 - [E14 Turso improves to 72.13: new development incumbent, paired groups, updated six-family comparison and CTA](../evaluations/reports/evolution/e14/turso-generation-002-001/README.md)
 - [E14 pending variants: Turso 69.31 and Adaptive 64.53, retained incumbents and paired application/category results](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/README.md)
+- [Entity query arithmetic diagnostic: response-contract constraints and exact scalar comparisons](../evaluations/reports/evolution/e14/entity-query-arithmetic-diagnostic-001/README.md)
 - [E14 starting failures: Entity Graph timeout, Ensemble memory event and preserved opportunities](../evaluations/reports/evolution/e14/starting-execution-errors-001/README.md)
 - [E14 cross-family comparison: six retained profiles by application, question category and CTA](../evaluations/reports/evolution/e14/qualified-starts-comparison-001/README.md)
 - [EnterpriseRAG stratified dataset: retained strategies, latest baseline, applications and CTA](../evaluations/reports/datasets/enterprise-rag-stratified-development-120.md)
