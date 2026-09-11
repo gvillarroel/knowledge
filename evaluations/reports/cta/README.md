@@ -2,6 +2,8 @@
 
 [Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)
 
+[Traversal adjacency reuse: exact query replay, observed 2.02x public profile ratio and native measurement pending](../evolution/e11/entity-traversal-adjacency-reuse-001/cta.md)
+
 [Latest Entity consultant native outcome: one consumed trial, 60-minute timeout, successful phase logs and separate timing scopes](../evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md)
 
 [Earlier Entity Graph builder lifetime: original native outcome, successful phase logs, cost/time and eight-family context](../evolution/e11/entity-memory-lifetime-native-001/cta.md)

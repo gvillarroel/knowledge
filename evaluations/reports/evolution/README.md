@@ -2,6 +2,14 @@
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
 
+The new [Entity traversal adjacency candidate](e11/entity-traversal-adjacency-reuse-001/README.md)
+passed eight software checks and a pinned-runtime replay with 48 exact reference
+responses. Profiled query time fell from 15.727 to 7.785 seconds; this supplies
+no new EnterpriseRAG quality score. Its [eight-family context](e11/entity-traversal-adjacency-reuse-001/README.md#retained-enterpriserag-comparison)
+and [CTA](e11/entity-traversal-adjacency-reuse-001/cta.md) record 90 proposals,
+eight consumed construction first measurements and a new unassigned measurement.
+Five searches and the final comparisons remain unfinished.
+
 The latest [Entity consultant eligibility native outcome](e11/entity-consultant-ngram-eligibility-native-001/README.md)
 records a 3,600-second timeout after both build logs and both standalone
 validation logs reported success. No qualified ranking was produced. The
