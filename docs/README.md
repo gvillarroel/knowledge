@@ -29,6 +29,7 @@
 - [Graphify generation 2: 6.85 candidate, 8.12 retained, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-002-001/README.md)
 - [Turso generation 5: 61.35 candidate, 72.13 retained, paired groups and CTA](../evaluations/reports/evolution/e14/turso-generation-005-001/README.md)
 - [Adaptive generation 4: 65.52 candidate, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-004-001/README.md)
+- [Turso generation 6: 70.44 candidate, 72.13 retained, paired groups and CTA](../evaluations/reports/evolution/e14/turso-generation-006-001/README.md)
 - [E14 starting results: six qualified strategies and two execution errors](../evaluations/reports/evolution/e14/README.md)
 - [E14 Adaptive b=0.5: third normalization miss, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-003-001/README.md)
 - [E14 Turso k1=3.0 and Adaptive b=0.0: retained incumbents, paired results and exact opportunity accounting](../evaluations/reports/evolution/e14/turso-003-adaptive-002-observations-001/README.md)

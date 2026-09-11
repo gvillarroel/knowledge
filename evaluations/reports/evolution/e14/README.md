@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Turso generation 6](turso-generation-006-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **70.44**, retaining **72.13**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **7 / 55 claims**. [Paired applications/categories](turso-generation-006-001/groups.md) and [CTA](turso-generation-006-001/cta.md) preserve this observation.
+
 [Adaptive generation 4](adaptive-generation-004-001/README.md): `{"bm25.k1": 0.6}` scored **65.52**, retaining **66.21**. The `bm25-saturation` mechanism records **1 / 3 consecutive evaluable misses** and the family **23 / 100 claims**. [Paired applications/categories](adaptive-generation-004-001/groups.md) and [CTA](adaptive-generation-004-001/cta.md) preserve this observation.
 
 [Turso generation 5](turso-generation-005-001/README.md): `{"b": 0.0, "engine": "bm25"}` scored **61.35**, retaining **72.13**. The `length-normalization` mechanism records **2 / 3 consecutive evaluable misses** and the family **6 / 55 claims**. [Paired applications/categories](turso-generation-005-001/groups.md) and [CTA](turso-generation-005-001/cta.md) preserve this observation.
