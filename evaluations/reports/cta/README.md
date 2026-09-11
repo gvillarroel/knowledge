@@ -1,5 +1,7 @@
 # CTA: cost, time, and quality
 
+[Turso generation 5](../evolution/e14/turso-generation-005-001/README.md): `{"b": 0.0, "engine": "bm25"}` scored **61.35**, retaining **72.13**. The `length-normalization` mechanism records **2 / 3 consecutive evaluable misses** and the family **6 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-005-001/groups.md) and [CTA](../evolution/e14/turso-generation-005-001/cta.md) preserve this observation.
+
 [Graphify generation 2](../evolution/e14/graphify-generation-002-001/README.md): `{"depth": 1}` scored **6.85**, retaining **8.12**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **2 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-002-001/groups.md) and [CTA](../evolution/e14/graphify-generation-002-001/cta.md) preserve this observation.
 
 [Turso generation 4](../evolution/e14/turso-generation-004-001/README.md): `{"b": 0.25, "engine": "bm25"}` scored **66.80**, retaining **72.13**. The `length-normalization` mechanism records **1 / 3 consecutive evaluable misses** and the family **5 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-004-001/groups.md) and [CTA](../evolution/e14/turso-generation-004-001/cta.md) preserve this observation.
