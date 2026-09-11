@@ -6,9 +6,11 @@
 
 [Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)
 
-[Current eight-family context: traversal adjacency reuse, exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)
+[Latest native EnterpriseRAG comparison: eight families, original traversal outcome and remaining opportunities](../evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md)
 
-[Latest native EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)
+[Traversal software checkpoint: exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)
+
+[Previous native EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)
 
 [Earlier Entity builder lifetime outcome and retained comparison](../evolution/e11/entity-memory-lifetime-native-001/README.md)
 

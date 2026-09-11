@@ -210,7 +210,7 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     files: dict[str, str] = {}
     overview = ["# Evaluation report hub", "", "Reviewed results organized by dataset, skill, and cost/time/quality (CTA).",
                 "", "[By skill](skills/README.md) · [CTA](cta/README.md) · [Evolution studies](evolution/README.md) · [Report catalog](../COMPARISON-REPORTS.md)", "",
-                "The [EnterpriseRAG continuation E11](evolution/e11/README.md) stopped after "
+                "The original [EnterpriseRAG continuation E11](evolution/e11/README.md) stopped after "
                 "[twelve starting roles settled](evolution/e11/starting-terminal-001/README.md): "
                 "ten qualified across six families, while Ensemble exceeded 6 GiB and Entity Graph timed out. "
                 "All nine required historical scores reproduced exactly; the "
@@ -219,14 +219,23 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
                 "[five-family matrix](evolution/e8/retained-cross-family-002/README.md) preserves retained development "
                 "profiles by application and category, including the first [Turso gain](evolution/e8/turso-progress-001/README.md). "
                 "These partial results do not enter the final all-500 table.", "",
-                "The new [Entity traversal adjacency candidate](evolution/e11/entity-traversal-adjacency-reuse-001/README.md) "
-                "passed eight software checks and reproduced all 48 retained query responses in the pinned public runtime. "
-                "Its observed profiled query time fell from 15.727 to 7.785 seconds, with one adjacency build; "
-                "this is software evidence and supplies no new EnterpriseRAG score. The "
-                "[eight-family comparison](evolution/e11/entity-traversal-adjacency-reuse-001/README.md#retained-enterpriserag-comparison) "
-                "keeps the six retained scores and records 90 charged proposals. Its new native first measurement is unassigned. "
-                "See [CTA](evolution/e11/entity-traversal-adjacency-reuse-001/cta.md) for timing scope.", "",
-                "The latest [Entity consultant eligibility native outcome](evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md) "
+                "The latest [Entity traversal adjacency native outcome](evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md) "
+                "settled without a qualified retrieval score. The workload remains 120 stratified questions, "
+                "112 retrieval-eligible questions and 6,000 complete documents. Its "
+                "[eight-family comparison](evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md#eight-family-comparison) "
+                "preserves the six previous qualified scores; "
+                "[opportunity accounting](evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md#opportunity-accounting) "
+                "distinguishes completed attempts, unavailable originals and pending measurements. See "
+                "[application/category results](evolution/e11/entity-traversal-adjacency-reuse-native-001/groups.md) and "
+                "[CTA](evolution/e11/entity-traversal-adjacency-reuse-native-001/cta.md). The checkpoint accounts for "
+                "90 proposals and nine consumed construction first measurements. Five family searches, the all-500 "
+                "comparison and independent whole-bundle acceptance remain unfinished.", "",
+                "The [earlier traversal software checkpoint](evolution/e11/entity-traversal-adjacency-reuse-001/README.md) "
+                "preserves eight software checks, 48 exact reference responses and the observed profiled query-time "
+                "change from 15.727 to 7.785 seconds. Its native status was unassigned at that checkpoint; "
+                "the native outcome above supersedes that status. See "
+                "[software CTA](evolution/e11/entity-traversal-adjacency-reuse-001/cta.md) for the limited timing scope.", "",
+                "The previous [Entity consultant eligibility native outcome](evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md) "
                 "records another 3,600-second timeout. Both build logs and both standalone validation logs reported success, "
                 "but no qualified retrieval score was produced. Its "
                 "[eight-family comparison](evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md#eight-family-comparison), "
@@ -303,8 +312,9 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     skill_index = ["# Reports by skill", "", "[Report hub](../README.md) · [Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
                    "[Stratified Enterprise evolution E7: all eight families, opportunity counts and campaign status](../evolution/e7/README.md)", "",
                    "[Current EnterpriseRAG family evidence, native outcomes and remaining opportunities](../../../docs/enterprise-family-report-index.md)", "",
-                   "[Current eight-family context: traversal adjacency reuse, exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)", "",
-                   "[Latest native EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)", "",
+                   "[Latest native EnterpriseRAG comparison: eight families, original traversal outcome and remaining opportunities](../evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md)", "",
+                   "[Traversal software checkpoint: exact runtime responses and 90 charged proposals](../evolution/e11/entity-traversal-adjacency-reuse-001/README.md)", "",
+                   "[Previous native EnterpriseRAG comparison: all eight families, the Entity consultant timeout and remaining opportunities](../evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)", "",
                    "[Earlier Entity builder lifetime outcome and retained comparison](../evolution/e11/entity-memory-lifetime-native-001/README.md)", "",
                    "[Entity consultant eligibility: exact software/runtime parity, all eight families and current opportunity counts](../evolution/e11/entity-consultant-ngram-eligibility-001/README.md)", "",
                    "[Agent-selected skills by application](../enterprise-source-skills/README.md)", "",
@@ -341,8 +351,9 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     token_path = "evaluations/semantic-okf-datasets/reports/20260730-semantic-okf-token-usage.md"
     token_text = (REPO / token_path).read_text(encoding="utf-8")
     cta = ["# CTA: cost, time, and quality", "", "[Report hub](../README.md) · [By skill](../skills/README.md) · [Current Enterprise evolution](../evolution/e11/README.md) · [Construction-profile evolution](../evolution/e5/README.md)", "",
-           "[Traversal adjacency reuse: exact query replay, observed 2.02x public profile ratio and native measurement pending](../evolution/e11/entity-traversal-adjacency-reuse-001/cta.md)", "",
-           "[Latest Entity consultant native outcome: one consumed trial, 60-minute timeout, successful phase logs and separate timing scopes](../evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md)", "",
+           "[Latest Entity traversal native outcome: original measurement, quality availability and timing](../evolution/e11/entity-traversal-adjacency-reuse-native-001/cta.md)", "",
+           "[Earlier traversal software fixture: exact query replay and descriptive profile timing](../evolution/e11/entity-traversal-adjacency-reuse-001/cta.md)", "",
+           "[Previous Entity consultant native outcome: one consumed trial, 60-minute timeout, successful phase logs and separate timing scopes](../evolution/e11/entity-consultant-ngram-eligibility-native-001/cta.md)", "",
            "[Earlier Entity Graph builder lifetime: original native outcome, successful phase logs, cost/time and eight-family context](../evolution/e11/entity-memory-lifetime-native-001/cta.md)", "",
            "[Entity consultant eligibility: preserved preflight refusal, corrected consultation runtime and unchanged retrieval quality](../evolution/e11/entity-consultant-ngram-eligibility-001/cta.md)", "",
            "[Terminal E7/E8 development CTA](../evolution/e8/development-cta-003/README.md) "

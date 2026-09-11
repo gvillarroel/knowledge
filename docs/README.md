@@ -63,6 +63,7 @@
 - [Entity consultant eligibility transfer: exact extraction parity, isolated runtime, retained eight-family scores and 89 cumulative proposals](../evaluations/reports/evolution/e11/entity-consultant-ngram-eligibility-001/README.md)
 - [Entity consultant eligibility native outcome: 60-minute timeout, four successful phase logs, eight-family comparison and CTA](../evaluations/reports/evolution/e11/entity-consultant-ngram-eligibility-native-001/README.md)
 - [Entity traversal adjacency reuse: eight software checks, 48 exact runtime responses, observed query-time improvement and 90 proposals](../evaluations/reports/evolution/e11/entity-traversal-adjacency-reuse-001/README.md)
+- [Entity traversal adjacency reuse, native outcome: eight-family comparison, opportunity accounting, application/category results and CTA](../evaluations/reports/evolution/e11/entity-traversal-adjacency-reuse-native-001/README.md)
 - [Decision: cache Entity traversal adjacency by weak snapshot identity while preserving exact scoring](../.specs/adr/0148-cache-entity-traversal-adjacency-by-snapshot.md)
 - [Decision: reuse token eligibility while preserving exact Entity extraction](../.specs/adr/0144-reuse-token-eligibility-in-entity-candidate-extraction.md)
 - [Decision: transfer builder state lifetime boundaries to Entity Graph while freezing consultation](../.specs/adr/0145-transfer-builder-state-lifetimes-to-entity-graph.md)

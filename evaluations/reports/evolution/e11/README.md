@@ -1,17 +1,10 @@
 # EnterpriseRAG E11: starting results and remaining family searches
 
-The new [traversal adjacency reuse candidate](entity-traversal-adjacency-reuse-001/README.md)
-passed all eight software checks and reproduced all 48 retained responses in the
-pinned public runtime. Its observed profiled query time fell from **15.727 to
-7.785 seconds**, with one adjacency build. This is software/runtime evidence;
-the new native first measurement is **unassigned**. The
-[eight-family comparison](entity-traversal-adjacency-reuse-001/README.md#retained-enterpriserag-comparison)
-keeps the six measured scores and updates accounting to **90 of 585**, including
-**7 of Entity's 80**. The eight previous construction first measurements remain
-consumed. See [CTA](entity-traversal-adjacency-reuse-001/cta.md) and
-[ADR 0148](../../../../.specs/adr/0148-cache-entity-traversal-adjacency-by-snapshot.md).
+The latest [Entity traversal adjacency native outcome](entity-traversal-adjacency-reuse-native-001/README.md) settled without a qualified retrieval score. The workload remains 120 stratified questions, 112 retrieval-eligible questions and 6,000 complete documents. Its [eight-family comparison](entity-traversal-adjacency-reuse-native-001/README.md#eight-family-comparison) preserves the six previous qualified scores; [opportunity accounting](entity-traversal-adjacency-reuse-native-001/README.md#opportunity-accounting) distinguishes completed attempts, unavailable originals and pending measurements. See [application/category results](entity-traversal-adjacency-reuse-native-001/groups.md) and [CTA](entity-traversal-adjacency-reuse-native-001/cta.md). The checkpoint accounts for 90 proposals and nine consumed construction first measurements. Five family searches, the all-500 comparison and independent whole-bundle acceptance remain unfinished.
 
-The latest [Entity consultant eligibility native outcome](entity-consultant-ngram-eligibility-native-001/README.md)
+The [earlier traversal software checkpoint](entity-traversal-adjacency-reuse-001/README.md) preserves eight software checks, 48 exact reference responses and the observed profiled query-time change from 15.727 to 7.785 seconds. Its native status was unassigned at that checkpoint; the native outcome above supersedes that status. See [software CTA](entity-traversal-adjacency-reuse-001/cta.md) for the limited timing scope.
+
+The previous [Entity consultant eligibility native outcome](entity-consultant-ngram-eligibility-native-001/README.md)
 is closed: the sole measurement reached the **3,600-second agent limit** without
 a qualified ranking. Both complete build logs and both standalone validation
 logs reported success. Its [eight-family comparison](entity-consultant-ngram-eligibility-native-001/README.md#eight-family-comparison),
