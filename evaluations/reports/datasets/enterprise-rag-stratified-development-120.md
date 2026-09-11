@@ -30,6 +30,8 @@ descriptive subgroup results do not select a candidate or evaluate a router.
 
 ## Latest continuation
 
+The [latest Turso and Adaptive variants](../evolution/e14/turso-003-adaptive-002-observations-001/README.md) scored **71.13** and **62.31**, below retained **72.13** and **66.21**. Both are qualified observations, with one proposal each and no errors or retries. The retained dataset ranking is unchanged.
+
 The [Graphify depth-zero candidate](../evolution/e14/graphify-generation-001-001/README.md) scored **7.03** against its retained **8.12** reference. It is one qualified evaluable miss on this exact workload, with zero errors or retries. The dataset ranking is unchanged.
 
 The [qualified Turso `k1=2.0` observation](../evolution/e14/turso-generation-002-001/README.md) improves its retained nDCG to **72.13**. The gain is 0.04949 points; recall and MRR fall slightly. Legacy remains first overall. The updated application comparison puts Turso first in Jira and tied with Legacy in HubSpot.

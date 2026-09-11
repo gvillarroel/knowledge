@@ -1,5 +1,7 @@
 # CTA: cost, time, and quality
 
+[Latest Turso and Adaptive CTA](../evolution/e14/turso-003-adaptive-002-observations-001/cta.md) preserves all nine native records in their completed prefixes, including the two new non-improving observations. It reports job, agent and two-build time, query p95, knowledge size and native provider cost; host costs remain unpriced.
+
 [Graphify depth-zero CTA](../evolution/e14/graphify-generation-001-001/cta.md): 3,101.809 native job seconds, 2,938.085 seconds in the two required builds, 841.188-ms query p95 and 7.03 candidate nDCG. Its 8.12 reference remains retained; timing is descriptive and host costs remain unpriced.
 
 [Updated Turso and retained-family CTA](../evolution/e14/turso-generation-002-001/cta.md): the `k1=2.0` candidate retained 72.13 nDCG with a 230.526-second native job and 104.090-ms query p95. The report preserves all four original Turso observations and the six retained family profiles; elapsed differences are descriptive and host costs remain unpriced.

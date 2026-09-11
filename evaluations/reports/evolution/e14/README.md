@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+The [latest qualified Turso and Adaptive candidates](turso-003-adaptive-002-observations-001/README.md) scored **71.13** and **62.31**, retaining **72.13** and **66.21**. Their cumulative claim counts are 4 / 55 and 21 / 100 at these observations. The [accounting report](turso-003-adaptive-002-observations-001/README.md#search-accounting) distinguishes Turso's exhausted saturation variant list from Adaptive's second consecutive miss. See [paired groups](turso-003-adaptive-002-observations-001/groups.md) and [CTA](turso-003-adaptive-002-observations-001/cta.md).
+
 The [qualified Graphify depth-zero observation](graphify-generation-001-001/README.md) scored **7.03**, below its retained **8.12** reference. It records one evaluable miss and 1 / 65 claims, with no execution error or retry. See [paired application/category results](graphify-generation-001-001/groups.md) and [CTA](graphify-generation-001-001/cta.md). The retained six-family comparison remains unchanged.
 
 The [qualified Turso generation-two result](turso-generation-002-001/README.md) raises its retained development nDCG@10 to **72.13**. The observed gain is **0.04949 points**, while recall and MRR fall slightly. It is a new family development incumbent, with no final promotion. See the [updated six-family application/category comparison](turso-generation-002-001/comparison.md), [paired Turso groups](turso-generation-002-001/groups.md) and [CTA](turso-generation-002-001/cta.md).

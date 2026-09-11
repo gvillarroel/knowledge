@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Latest E14 observation](../evolution/e14/turso-003-adaptive-002-observations-001/README.md): consultation `k1=3.0` scored **71.13**, below retained **72.13**. This is one consecutive miss since the preceding gain and 4 / 55 cumulative claims. All four saturation variants have been issued. [Paired groups](../evolution/e14/turso-003-adaptive-002-observations-001/groups.md#turso) and [CTA](../evolution/e14/turso-003-adaptive-002-observations-001/cta.md).
+
 [Latest E14 incumbent](../evolution/e14/turso-generation-002-001/README.md): consultation BM25 `k1=2.0` scored **72.13**, a 0.04949-point nDCG gain over 72.08. Recall and MRR fell slightly. Turso now has 3 / 55 claims and zero consecutive misses in this mechanism. [Paired groups](../evolution/e14/turso-generation-002-001/groups.md), [six-family comparison](../evolution/e14/turso-generation-002-001/comparison.md) and [CTA](../evolution/e14/turso-generation-002-001/cta.md).
 
 [Earlier E14 pending variant](../evolution/e14/generation-001-pending-variants-001/README.md): consultation BM25 `k1=0.6` scored 69.31 versus retained 72.08. This is one evaluable miss, with zero new proposal charges. [Application/category comparison](../evolution/e14/generation-001-pending-variants-001/groups.md#turso) and [CTA](../evolution/e14/generation-001-pending-variants-001/cta.md).

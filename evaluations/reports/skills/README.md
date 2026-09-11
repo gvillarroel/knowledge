@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Turso and Adaptive retain their incumbents after new qualified misses: complete prefixes, paired groups and opportunity accounting](../evolution/e14/turso-003-adaptive-002-observations-001/README.md)
+
 [Graphify depth-zero candidate: 7.03 versus retained 8.12, paired results and the first evaluable miss](../evolution/e14/graphify-generation-001-001/README.md)
 
 [Turso improves to 72.13: qualified development gain, secondary-metric tradeoffs and updated six-family comparison](../evolution/e14/turso-generation-002-001/README.md)
