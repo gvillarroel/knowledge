@@ -23,6 +23,8 @@
 - [EnterpriseRAG continuation: remaining native searches, inherited evidence, family progress reports and matched final execution](enterprise-continuation.md)
 - [EnterpriseRAG reports by family, mechanism, application, dataset contract and CTA](enterprise-family-report-index.md)
 - [Prospective Enterprise continuation by family readiness and unchanged whole-bundle acceptance](../.specs/adr/0150-continue-enterprise-searches-by-family-readiness.md)
+- [E12 terminal status: zero native allocations, unchanged eight-family scores and tested controller correction](../evaluations/reports/evolution/e12/README.md)
+- [Decision: load native Enterprise job templates through the owning API](../.specs/adr/0151-load-enterprise-native-job-templates-through-owner-api.md)
 - [Entity evidence-index reuse: nine software checks, 48 exact runtime responses and 91 proposals](../evaluations/reports/evolution/e11/entity-evidence-index-reuse-001/README.md)
 - [Turso's first native E8 baseline on the stratified Enterprise subset](../evaluations/reports/evolution/e8/turso-baseline-001/README.md)
 - [Turso's first retained gain: native SQL-to-BM25 comparison by application, category and CTA](../evaluations/reports/evolution/e8/turso-progress-001/README.md)

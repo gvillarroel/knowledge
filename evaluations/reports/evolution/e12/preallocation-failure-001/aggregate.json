@@ -1,0 +1,150 @@
+{
+  "all_500_recalculated": false,
+  "candidate_selected": false,
+  "date": "2026-09-11",
+  "evidence_kind": "controller-diagnostic-and-software-regression",
+  "full_goal_complete": false,
+  "model_calls": 0,
+  "native_jobs": 0,
+  "native_normalized_report": null,
+  "new_first_measurements": 0,
+  "new_proposal_claims": 0,
+  "new_quality_misses": 0,
+  "new_scores": 0,
+  "opportunities": {
+    "cumulative_claims": 91,
+    "maximum_additional_open_family_claims": 373,
+    "new_entity_first_measurement": "unassigned",
+    "nontransferable_closed_unused_slots": 121,
+    "open_family_searches": 5,
+    "overall_cap": 585,
+    "prior_consumed_construction_first_measurements": 9
+  },
+  "retained_comparison": {
+    "complete_documents": 6000,
+    "generated_answer_overall": null,
+    "metric": "frozen-category-weighted-nDCG@10-times100",
+    "public_leaderboard_rank": null,
+    "questions": 120,
+    "retrieval_eligible_questions": 112,
+    "rows": [
+      {
+        "display_value": "72.38",
+        "family": "legacy",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 55,
+        "proposal_claims": 16,
+        "retained_ndcg10_x100": 72.38
+      },
+      {
+        "display_value": "72.08",
+        "family": "turso",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 55,
+        "proposal_claims": 2,
+        "retained_ndcg10_x100": 72.08
+      },
+      {
+        "display_value": "66.21",
+        "family": "adaptive",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 100,
+        "proposal_claims": 20,
+        "retained_ndcg10_x100": 66.21
+      },
+      {
+        "display_value": "63.51",
+        "family": "embeddings",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 40,
+        "proposal_claims": 6,
+        "retained_ndcg10_x100": 63.51
+      },
+      {
+        "display_value": "62.10",
+        "family": "classical",
+        "historical_search_state": "Recorded catalog stop",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 85,
+        "proposal_claims": 37,
+        "retained_ndcg10_x100": 62.1
+      },
+      {
+        "display_value": "8.12",
+        "family": "graphify",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 65,
+        "proposal_claims": 0,
+        "retained_ndcg10_x100": 8.12
+      },
+      {
+        "display_value": "Unavailable",
+        "family": "ensemble",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 105,
+        "proposal_claims": 2,
+        "retained_ndcg10_x100": null
+      },
+      {
+        "display_value": "Unavailable",
+        "family": "entity-graph",
+        "historical_search_state": "Open",
+        "measurement_origin": "previous-reviewed-public-report",
+        "proposal_cap": 80,
+        "proposal_claims": 8,
+        "retained_ndcg10_x100": null
+      }
+    ],
+    "source": "evaluations/reports/evolution/e11/entity-evidence-index-reuse-001/README.md"
+  },
+  "schema": "enterprise-e12-public-controller-terminal/1.0",
+  "skill_promoted": false,
+  "software_tests": {
+    "admission_and_persistence": "in-memory-test-doubles",
+    "duration_seconds": 14.092,
+    "harbor_version": "0.18.0",
+    "native_admission_established": false,
+    "native_executor": "synthetic-spy",
+    "passed": 9,
+    "private_input": "synthetic-only",
+    "real_api_functions": [
+      "normalize_config",
+      "load_job_template",
+      "job_signature"
+    ]
+  },
+  "source_sha256": {
+    "complete_independent_audit_tree": "d1606b0df586271dd2d1d95d9c538dd8cfb5a22808d918a9e368483f8c89e71c",
+    "frozen_adapter": "ee5cf52cf60db3e93297f0e01355fa62e35e2563fc270d315b1a8875845d5143",
+    "independent_terminal_assessment": "0d9e697c3bb6467b32ff03587cfeb4dc966dbaed030586d0b8d176c1789cd0b4",
+    "independent_terminal_receipt": "c99ce8583e5aef6052c1a4e5b064a011844f73f8ea0a4942e501df5dbd7bb8c6",
+    "native_api_test_log": "c2c3c5710181c02a194d06097fbf6102294c6b64f08bcba1eca61d0d5aac17f3",
+    "native_api_test_receipt": "2e3afde9fc52bd68ee80cc7787ea10b4d8eac593ec81a44f534947d71ee1422e",
+    "native_api_tests": "2c7cb3dd8075ccd46bfa19d04b7dbfa33a36cbb66b5c51818efe4812ceb66826",
+    "prior_public_aggregate": "1750bf5ad33f442e5f9df6e6774d3b199a173b157f03a2962156fcd61a19c11f",
+    "prospective_adapter": "5cdfb24a3a4c9c210d49023829c73423ee78a9a02944a7d4d95f335c2f76d28e",
+    "verified_closure_receipt": "b519c5772cb4219e6e194f4eac5227312c002e6926db9f648a7762d288688b93"
+  },
+  "terminal": {
+    "ledger": {
+      "eventCount": 14,
+      "headSha256": "c941f53959a90120690a013b9df982bdda23268f8ea83164ff763c4ee7aea2e3"
+    },
+    "ledger_sha256": "f32f93711901ea735dc8db2c1186fd29bae7447f3be06f38589f3e700b7dbdfc",
+    "organizer_verify_exit_code": 0,
+    "stages": {
+      "evolve": "stopped",
+      "publish": "stopped",
+      "recalculate": "stopped",
+      "validate": "stopped"
+    },
+    "status": "closed-stopped-not-completed"
+  },
+  "validation_released": false
+}

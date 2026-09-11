@@ -1,11 +1,19 @@
 # Continuing EnterpriseRAG evolution after E7
 
+The latest [E12 continuation checkpoint](../evaluations/reports/evolution/e12/README.md)
+is terminal after a controller error before native allocation. All four stages
+are stopped and verified. The isolated template-loader correction passed nine
+software integration tests, but has no new benchmark result or execution
+admission. [ADR 0151](../.specs/adr/0151-load-enterprise-native-job-templates-through-owner-api.md)
+preserves the actual native API contract and the separate continuation boundary.
+
 [ADR 0150](../.specs/adr/0150-continue-enterprise-searches-by-family-readiness.md)
 defines a prospective continuation based on each family's exact starting
 reproduction. It preserves the old stopped path, historical claims and final
 all-eight acceptance, while allowing ready families to use their remaining
-opportunities. The new controller and dataset versions are in preparation;
-the decision is not current native admission or a new benchmark result.
+opportunities. Its E12 implementation reached registration and sealing, then
+stopped as described above. The decision remains a scheduling direction, not
+current native admission or a new benchmark result.
 
 E8 continues the authorized search across eight retrieval families after a
 planned Windows update interrupted E7. The original study is terminal, with

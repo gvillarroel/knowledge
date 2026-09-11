@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+The latest [E12 checkpoint](e12/README.md) records a verified terminal controller failure before any native allocation. The isolated template-loader correction passed nine integration tests with the actual pinned API. The [retained eight-family results](e12/preallocation-failure-001/README.md#retained-enterpriserag-comparison), [CTA](e12/preallocation-failure-001/cta.md) and [dataset availability](e12/preallocation-failure-001/groups.md) show no new scores, claims or consumed measurements; five searches and the final all-500 comparison remain unfinished.
+
 The new [Entity evidence-index candidate](e11/entity-evidence-index-reuse-001/README.md) passed nine software checks and reproduced all 48 retained public runtime responses. Observed profiled query time changed from 7.785 to 6.579 seconds. Its [eight-family context](e11/entity-evidence-index-reuse-001/README.md#retained-enterpriserag-comparison) preserves the six native scores and records 91 proposals. The new native measurement remains unassigned; [CTA](e11/entity-evidence-index-reuse-001/cta.md) describes the limited timing scope.
 
 [Report hub](../README.md) · [Operating guide](../../../docs/retrieval-profile-evolution.md)
