@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Graphify generation one](e14/graphify-generation-001-001/README.md) completes a qualified depth-zero proposal: **7.03** versus retained **8.12**. One unique evaluable miss and 1 / 65 cumulative claims are recorded; the mechanism remains open under the three-miss rule.
+
 [Turso generation two](e14/turso-generation-002-001/README.md) establishes a new development incumbent at **72.13**, up from 72.08. One new proposal brings Turso to 3 / 55 claims and resets its current mechanism's consecutive misses to zero. The candidate remains subject to all-eight completion and independent acceptance.
 
 [Earlier E14 generation-one observations](e14/generation-001-pending-variants-001/README.md) complete the original pending Turso and Adaptive identities: 69.31 and 64.53, below retained 72.08 and 66.21. Both mechanisms remain open with one consecutive evaluable miss. The treatment types remain separate, and neither observation incurs another proposal charge.

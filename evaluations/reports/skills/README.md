@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Graphify depth-zero candidate: 7.03 versus retained 8.12, paired results and the first evaluable miss](../evolution/e14/graphify-generation-001-001/README.md)
+
 [Turso improves to 72.13: qualified development gain, secondary-metric tradeoffs and updated six-family comparison](../evolution/e14/turso-generation-002-001/README.md)
 
 [Turso and Adaptive: two new qualified pending measurements, retained incumbents and one evaluable miss each](../evolution/e14/generation-001-pending-variants-001/README.md)

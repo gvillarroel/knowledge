@@ -1,5 +1,7 @@
 # Evaluation report hub
 
+[Latest Graphify development observation](evolution/e14/graphify-generation-001-001/README.md): consultation `depth=0` scored **7.03** versus retained **8.12**, with no execution error or retry. This is the first evaluable miss in its traversal-depth mechanism. The retained ranking, including Turso's 72.13 incumbent, is unchanged.
+
 [Latest EnterpriseRAG gain](evolution/e14/turso-generation-002-001/README.md): Turso now retains **72.13** after the qualified `k1=2.0` observation. The primary-metric gain is 0.04949 points, with secondary-metric regressions and no promotion. [Updated retained comparison by application and category](evolution/e14/turso-generation-002-001/comparison.md).
 
 [Earlier EnterpriseRAG evolution observations](evolution/e14/generation-001-pending-variants-001/README.md): Turso's pending variant scored 69.31 versus its retained 72.08; Adaptive's scored 64.53 versus 66.21. Both qualified and count as one evaluable miss each. The eight-family retained comparison is unchanged.

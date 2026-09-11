@@ -14,7 +14,7 @@ The primary metric is frozen-category-weighted **nDCG@10 multiplied by 100**.
 | Adaptive | 66.21 | Historical incumbent exactly reproduced by E14 |
 | Embeddings | 63.51 | Historical reference exactly reproduced by E14 |
 | Classical | 62.10 | Historical incumbent exactly reproduced by E14 |
-| Graphify | 8.12 | Historical reference exactly reproduced by E14 |
+| Graphify | 8.12 | [Reference retained after the qualified depth-zero miss](../evolution/e14/graphify-generation-001-001/README.md) |
 | Entity Graph | Unavailable | E14 starting timeout; no qualified ranking |
 | Ensemble | Unavailable | E14 starting memory failure; no qualified ranking |
 
@@ -29,6 +29,8 @@ observed leaders and the corresponding native cost/time measurements. These
 descriptive subgroup results do not select a candidate or evaluate a router.
 
 ## Latest continuation
+
+The [Graphify depth-zero candidate](../evolution/e14/graphify-generation-001-001/README.md) scored **7.03** against its retained **8.12** reference. It is one qualified evaluable miss on this exact workload, with zero errors or retries. The dataset ranking is unchanged.
 
 The [qualified Turso `k1=2.0` observation](../evolution/e14/turso-generation-002-001/README.md) improves its retained nDCG to **72.13**. The gain is 0.04949 points; recall and MRR fall slightly. Legacy remains first overall. The updated application comparison puts Turso first in Jira and tied with Legacy in HubSpot.
 

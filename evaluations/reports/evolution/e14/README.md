@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+The [qualified Graphify depth-zero observation](graphify-generation-001-001/README.md) scored **7.03**, below its retained **8.12** reference. It records one evaluable miss and 1 / 65 claims, with no execution error or retry. See [paired application/category results](graphify-generation-001-001/groups.md) and [CTA](graphify-generation-001-001/cta.md). The retained six-family comparison remains unchanged.
+
 The [qualified Turso generation-two result](turso-generation-002-001/README.md) raises its retained development nDCG@10 to **72.13**. The observed gain is **0.04949 points**, while recall and MRR fall slightly. It is a new family development incumbent, with no final promotion. See the [updated six-family application/category comparison](turso-generation-002-001/comparison.md), [paired Turso groups](turso-generation-002-001/groups.md) and [CTA](turso-generation-002-001/cta.md).
 
 The [first pending Turso and Adaptive variants](generation-001-pending-variants-001/README.md) have now completed and been reconciled. Turso measured **69.31** and Adaptive **64.53**, retaining **72.08** and **66.21** respectively. Each adds one evaluable miss to its current mechanism and zero proposal charges. See [applications and categories](generation-001-pending-variants-001/groups.md) and [cost, time and quality](generation-001-pending-variants-001/cta.md).

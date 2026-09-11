@@ -1,5 +1,7 @@
 # graphify: dataset results
 
+[Latest E14 Graphify observation](../evolution/e14/graphify-generation-001-001/README.md): consultation `depth=0` scored **7.03** versus retained **8.12**. It consumes one proposal (1 / 65) and records one evaluable miss, with no error or retry. [Applications and categories](../evolution/e14/graphify-generation-001-001/groups.md) and [CTA](../evolution/e14/graphify-generation-001-001/cta.md).
+
 [Report hub](../README.md) · [All skills](README.md)
 
 This is a navigation and diagnostic view of published results. Dataset pages own the bound primary rankings.

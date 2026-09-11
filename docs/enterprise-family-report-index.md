@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[Graphify's first traversal-depth observation](../evaluations/reports/evolution/e14/graphify-generation-001-001/README.md): `depth=0` scored **7.03**, below retained **8.12**. It is qualified and records one evaluable miss with 1 / 65 claims. [Applications and categories](../evaluations/reports/evolution/e14/graphify-generation-001-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/graphify-generation-001-001/cta.md) preserve the measured loss; the current six-family ranking remains unchanged.
+
 [New Turso development incumbent](../evaluations/reports/evolution/e14/turso-generation-002-001/README.md): BM25 `k1=2.0` raises retained nDCG@10 from 72.08 to **72.13**, with slightly lower recall and MRR. Turso remains second overall, leads Jira and shares the HubSpot lead. [Updated six-family comparison](../evaluations/reports/evolution/e14/turso-generation-002-001/comparison.md) and [CTA](../evaluations/reports/evolution/e14/turso-generation-002-001/cta.md).
 
 [Earlier E14 pending measurements](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/README.md): Turso measured 69.31 and retained 72.08; Adaptive measured 64.53 and retained 66.21. Each records one evaluable miss, with zero additional proposal charges and zero retries. [Applications and categories](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/generation-001-pending-variants-001/cta.md) preserve both observations.
