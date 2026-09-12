@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 17](graphify-generation-017-001/README.md): `{"depth": 5}` scored **63.46**, retaining **63.72**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **17 / 65 claims**. [Paired applications/categories](graphify-generation-017-001/groups.md) and [CTA](graphify-generation-017-001/cta.md) preserve this observation.
+
 [Graphify generation 16](graphify-generation-016-001/README.md): `{"depth": 3}` raises retained nDCG from **63.46 to 63.72**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **16 / 65 claims**. **[Latest general application/category comparison](graphify-generation-016-001/comparison.md)** · [Paired groups](graphify-generation-016-001/groups.md) · [CTA](graphify-generation-016-001/cta.md).
 
 [Graphify generation 15](graphify-generation-015-001/README.md): `{"depth": 1}` scored **60.48**, retaining **63.46**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 65 claims**. [Paired applications/categories](graphify-generation-015-001/groups.md) and [CTA](graphify-generation-015-001/cta.md) preserve this observation.
