@@ -70,6 +70,7 @@
 - [Graphify generation 10: 57.63 to 63.46, latest general comparison, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-010-001/README.md)
 - [EnterpriseRAG application heatmap: eight strategies after Graphify 10](../evaluations/reports/evolution/e14/application-heatmap-010/README.md)
 - [Graphify generation 11: 59.35 candidate, 63.46 retained, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-011-001/README.md)
+- [Graphify generation 12: 54.45 candidate, 63.46 retained, paired groups and CTA](../evaluations/reports/evolution/e14/graphify-generation-012-001/README.md)
 - [E14 starting results: six qualified strategies and two execution errors](../evaluations/reports/evolution/e14/README.md)
 - [E14 Adaptive b=0.5: third normalization miss, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-003-001/README.md)
 - [E14 Turso k1=3.0 and Adaptive b=0.0: retained incumbents, paired results and exact opportunity accounting](../evaluations/reports/evolution/e14/turso-003-adaptive-002-observations-001/README.md)
