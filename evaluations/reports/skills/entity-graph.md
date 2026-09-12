@@ -1,5 +1,7 @@
 # entity-graph: dataset results
 
+[Prospective Entity bounded-selection candidate](../evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
+
 [Report hub](../README.md) · [All skills](README.md)
 
 This is a navigation and diagnostic view of published results. Dataset pages own the bound primary rankings.

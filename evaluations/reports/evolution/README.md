@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Prospective Entity bounded-selection candidate](candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
+
 [Graphify generation 4](e14/graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-004-001/comparison.md)** · [Paired groups](e14/graphify-generation-004-001/groups.md) · [CTA](e14/graphify-generation-004-001/cta.md).
 
 [Turso generation 8](e14/turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Latest general application/category comparison](e14/turso-generation-008-001/comparison.md)** · [Paired groups](e14/turso-generation-008-001/groups.md) · [CTA](e14/turso-generation-008-001/cta.md).
