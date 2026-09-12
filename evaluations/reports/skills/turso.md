@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Turso generation 12](../evolution/e14/turso-generation-012-001/README.md): `{"engine": "bm25", "k1": 3.0}` scored **71.36**, retaining **72.38**. The `bm25-saturation` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-012-001/groups.md) and [CTA](../evolution/e14/turso-generation-012-001/cta.md) preserve this observation.
+
 [Turso generation 11](../evolution/e14/turso-generation-011-001/README.md): `{"engine": "bm25", "k1": 0.6}` scored **69.24**, retaining **72.38**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **12 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-011-001/groups.md) and [CTA](../evolution/e14/turso-generation-011-001/cta.md) preserve this observation.
 
 [Turso generation 10](../evolution/e14/turso-generation-010-001/README.md): `{"engine": "bm25", "k1": 1.2}` scored **71.97**, retaining **72.38**. The `bm25-saturation` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-010-001/groups.md) and [CTA](../evolution/e14/turso-generation-010-001/cta.md) preserve this observation.

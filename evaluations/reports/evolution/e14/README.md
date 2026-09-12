@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Turso generation 12](turso-generation-012-001/README.md): `{"engine": "bm25", "k1": 3.0}` scored **71.36**, retaining **72.38**. The `bm25-saturation` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 55 claims**. [Paired applications/categories](turso-generation-012-001/groups.md) and [CTA](turso-generation-012-001/cta.md) preserve this observation.
+
 [Adaptive generation 9](adaptive-generation-009-001/README.md): `{"expansion.association_weight": 0.0, "expansion.topic_weight": 0.0}` scored **65.12**, retaining **66.21**. The `expansion-strength` mechanism records **2 / 3 consecutive evaluable misses** and the family **28 / 100 claims**. [Paired applications/categories](adaptive-generation-009-001/groups.md) and [CTA](adaptive-generation-009-001/cta.md) preserve this observation.
 
 [Turso generation 11](turso-generation-011-001/README.md): `{"engine": "bm25", "k1": 0.6}` scored **69.24**, retaining **72.38**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **12 / 55 claims**. [Paired applications/categories](turso-generation-011-001/groups.md) and [CTA](turso-generation-011-001/cta.md) preserve this observation.
