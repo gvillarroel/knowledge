@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Turso generation 14](../evolution/e14/turso-generation-014-001/README.md): `{"b": 0.0, "engine": "bm25"}` scored **61.38**, retaining **72.38**. The `length-normalization` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-014-001/groups.md) and [CTA](../evolution/e14/turso-generation-014-001/cta.md) preserve this observation.
+
 [Turso generation 13](../evolution/e14/turso-generation-013-001/README.md): `{"b": 0.25, "engine": "bm25"}` scored **66.70**, retaining **72.38**. The `length-normalization` mechanism records **1 / 3 consecutive evaluable misses** and the family **14 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-013-001/groups.md) and [CTA](../evolution/e14/turso-generation-013-001/cta.md) preserve this observation.
 
 [Turso generation 12](../evolution/e14/turso-generation-012-001/README.md): `{"engine": "bm25", "k1": 3.0}` scored **71.36**, retaining **72.38**. The `bm25-saturation` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-012-001/groups.md) and [CTA](../evolution/e14/turso-generation-012-001/cta.md) preserve this observation.

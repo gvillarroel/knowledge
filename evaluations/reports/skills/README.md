@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Turso generation 14](../evolution/e14/turso-generation-014-001/README.md): `{"b": 0.0, "engine": "bm25"}` scored **61.38**, retaining **72.38**. The `length-normalization` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-014-001/groups.md) and [CTA](../evolution/e14/turso-generation-014-001/cta.md) preserve this observation.
+
 [Turso generation 13](../evolution/e14/turso-generation-013-001/README.md): `{"b": 0.25, "engine": "bm25"}` scored **66.70**, retaining **72.38**. The `length-normalization` mechanism records **1 / 3 consecutive evaluable misses** and the family **14 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-013-001/groups.md) and [CTA](../evolution/e14/turso-generation-013-001/cta.md) preserve this observation.
 
 [Graphify generation 6](../evolution/e14/graphify-generation-006-001/README.md): `{"depth": 6}` scored **27.93**, retaining **27.94**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **6 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-006-001/groups.md) and [CTA](../evolution/e14/graphify-generation-006-001/cta.md) preserve this observation.
