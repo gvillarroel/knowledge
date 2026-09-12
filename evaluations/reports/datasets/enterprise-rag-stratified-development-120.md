@@ -1,5 +1,7 @@
 # EnterpriseRAG: stratified development, 120 questions
 
+[Graphify generation 22](../evolution/e14/graphify-generation-022-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 5}` scored **59.37**, retaining **63.72**. The `fusion-rank-decay` mechanism records **1 / 3 consecutive evaluable misses** and the family **22 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-022-001/groups.md) and [CTA](../evolution/e14/graphify-generation-022-001/cta.md) preserve this observation.
+
 [Graphify generation 21](../evolution/e14/graphify-generation-021-001/README.md): `{"lexical_weight": 2.0}` scored **57.62**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **3 / 3 consecutive evaluable misses** and the family **21 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-021-001/groups.md) and [CTA](../evolution/e14/graphify-generation-021-001/cta.md) preserve this observation.
 
 [Graphify generation 20](../evolution/e14/graphify-generation-020-001/README.md): `{"lexical_weight": 1.0}` scored **52.42**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **2 / 3 consecutive evaluable misses** and the family **20 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-020-001/groups.md) and [CTA](../evolution/e14/graphify-generation-020-001/cta.md) preserve this observation.
