@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 16](graphify-generation-016-001/README.md): `{"depth": 3}` raises retained nDCG from **63.46 to 63.72**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **16 / 65 claims**. **[Latest general application/category comparison](graphify-generation-016-001/comparison.md)** · [Paired groups](graphify-generation-016-001/groups.md) · [CTA](graphify-generation-016-001/cta.md).
+
 [Graphify generation 15](graphify-generation-015-001/README.md): `{"depth": 1}` scored **60.48**, retaining **63.46**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 65 claims**. [Paired applications/categories](graphify-generation-015-001/groups.md) and [CTA](graphify-generation-015-001/cta.md) preserve this observation.
 
 [Graphify generation 14](graphify-generation-014-001/README.md): `{"depth": 0}` scored **60.49**, retaining **63.46**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **14 / 65 claims**. [Paired applications/categories](graphify-generation-014-001/groups.md) and [CTA](graphify-generation-014-001/cta.md) preserve this observation.
@@ -10,7 +12,7 @@
 
 [Graphify generation 11](graphify-generation-011-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 5}` scored **59.35**, retaining **63.46**. The `fusion-rank-decay` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 65 claims**. [Paired applications/categories](graphify-generation-011-001/groups.md) and [CTA](graphify-generation-011-001/cta.md) preserve this observation.
 
-[Graphify generation 10](graphify-generation-010-001/README.md): `{"lexical_weight": 4.0}` raises retained nDCG from **57.63 to 63.46**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **10 / 65 claims**. **[Latest general application/category comparison](graphify-generation-010-001/comparison.md)** · [Paired groups](graphify-generation-010-001/groups.md) · [CTA](graphify-generation-010-001/cta.md).
+[Graphify generation 10](graphify-generation-010-001/README.md): `{"lexical_weight": 4.0}` raises retained nDCG from **57.63 to 63.46**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **10 / 65 claims**. **[Comparison at this observation](graphify-generation-010-001/comparison.md)** · [Paired groups](graphify-generation-010-001/groups.md) · [CTA](graphify-generation-010-001/cta.md).
 
 [Graphify generation 9](graphify-generation-009-001/README.md): `{"lexical_weight": 2.0}` raises retained nDCG from **52.33 to 57.63**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 65 claims**. **[Comparison at this observation](graphify-generation-009-001/comparison.md)** · [Paired groups](graphify-generation-009-001/groups.md) · [CTA](graphify-generation-009-001/cta.md).
 
@@ -18,7 +20,7 @@
 
 ## Verified development status
 
-Explicitly selected published observation: **Graphify generation 10**, published 2026-09-12T07:07:00.428137+00:00. [Source-bound result](graphify-generation-010-001/README.md).
+Explicitly selected published observation: **Graphify generation 16**, published 2026-09-12T13:14:33.702466+00:00. [Source-bound result](graphify-generation-016-001/README.md).
 
 The fixed development workload contains **120 stratified questions, 112 retrieval-eligible questions and 6,000 complete documents**. Scores are frozen-category-weighted **nDCG@10 x100**; the eligible population weight is 470.
 
@@ -29,11 +31,11 @@ The fixed development workload contains **120 stratified questions, 112 retrieva
 | Adaptive | 66.21 | Qualified |
 | Embeddings | 63.51 | Qualified |
 | Classical | 62.10 | Qualified |
-| Graphify | 63.46 | Qualified |
+| Graphify | 63.72 | Qualified |
 | Ensemble | Unavailable | Unavailable after execution error |
 | Entity Graph | Unavailable | Unavailable after execution error |
 
-The selected Graphify gain is **57.63 to 63.46**. Paired questions: **46 improve, 4 regress and 62 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
+The selected Graphify gain is **63.46 to 63.72**. Paired questions: **2 improve, 1 regress and 109 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
 
 ### Catalog status and remaining work
 
@@ -43,7 +45,7 @@ The [catalog inventory](opportunity-accounting-002/README.md) is a separate snap
 
 ### Applications, categories and CTA
 
-[General application/category comparison](graphify-generation-010-001/comparison.md) · [Paired groups](graphify-generation-010-001/groups.md) · [Retained-family CTA](graphify-generation-010-001/cta.md).
+[General application/category comparison](graphify-generation-016-001/comparison.md) · [Paired groups](graphify-generation-016-001/groups.md) · [Retained-family CTA](graphify-generation-016-001/cta.md).
 
 Application cohorts overlap. Highest values describe the supplied comparison; no application router is tested.
 

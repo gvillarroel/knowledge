@@ -1,5 +1,9 @@
 # Evaluation report hub
 
+[Graphify generation 16](evolution/e14/graphify-generation-016-001/README.md): `{"depth": 3}` raises retained nDCG from **63.46 to 63.72**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **16 / 65 claims**. **[Latest general application/category comparison](evolution/e14/graphify-generation-016-001/comparison.md)** · [Paired groups](evolution/e14/graphify-generation-016-001/groups.md) · [CTA](evolution/e14/graphify-generation-016-001/cta.md).
+
+[Application heatmap after Graphify 16](evolution/e14/application-heatmap-016/README.md) shows the updated eight-strategy comparison while preserving both unavailable measurements.
+
 [Graphify generation 15](evolution/e14/graphify-generation-015-001/README.md): `{"depth": 1}` scored **60.48**, retaining **63.46**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 65 claims**. [Paired applications/categories](evolution/e14/graphify-generation-015-001/groups.md) and [CTA](evolution/e14/graphify-generation-015-001/cta.md) preserve this observation.
 
 [Graphify generation 14](evolution/e14/graphify-generation-014-001/README.md): `{"depth": 0}` scored **60.49**, retaining **63.46**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **14 / 65 claims**. [Paired applications/categories](evolution/e14/graphify-generation-014-001/groups.md) and [CTA](evolution/e14/graphify-generation-014-001/cta.md) preserve this observation.
@@ -10,7 +14,7 @@
 
 [Graphify generation 11](evolution/e14/graphify-generation-011-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 5}` scored **59.35**, retaining **63.46**. The `fusion-rank-decay` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 65 claims**. [Paired applications/categories](evolution/e14/graphify-generation-011-001/groups.md) and [CTA](evolution/e14/graphify-generation-011-001/cta.md) preserve this observation.
 
-[Graphify generation 10](evolution/e14/graphify-generation-010-001/README.md): `{"lexical_weight": 4.0}` raises retained nDCG from **57.63 to 63.46**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **10 / 65 claims**. **[Latest general application/category comparison](evolution/e14/graphify-generation-010-001/comparison.md)** · [Paired groups](evolution/e14/graphify-generation-010-001/groups.md) · [CTA](evolution/e14/graphify-generation-010-001/cta.md).
+[Graphify generation 10](evolution/e14/graphify-generation-010-001/README.md): `{"lexical_weight": 4.0}` raises retained nDCG from **57.63 to 63.46**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **10 / 65 claims**. **[Comparison at this observation](evolution/e14/graphify-generation-010-001/comparison.md)** · [Paired groups](evolution/e14/graphify-generation-010-001/groups.md) · [CTA](evolution/e14/graphify-generation-010-001/cta.md).
 
 [Application heatmap after Graphify 10](evolution/e14/application-heatmap-010/README.md) shows the next verified comparison, including Graphify's GitHub and Google Drive leads.
 
