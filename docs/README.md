@@ -1,5 +1,9 @@
 # Documentation Index
 
+[Five verified catalog stops and remaining EnterpriseRAG work](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
+
+[ADR 0158: catalog stops and historical hypothesis coverage](../.specs/adr/0158-distinguish-catalog-stops-from-hypothesis-coverage.md) defines the terminal-state reporting checks and preserves unavailable identities.
+
 [Opportunity inventory for all eight families](../evaluations/reports/evolution/e14/opportunity-accounting-001/README.md): snapshot at 2026-09-12 02:07 UTC, with three inherited catalog stops, five open family obligations and two families still awaiting valid native evidence. Reservations and pending trials are counted separately.
 
 - [Decision: normalize complete Enterprise native histories before publication](../.specs/adr/0157-normalize-complete-enterprise-native-prefixes.md)
