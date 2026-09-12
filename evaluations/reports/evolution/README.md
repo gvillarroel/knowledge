@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Graphify generation 13](e14/graphify-generation-013-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.33**, retaining **63.46**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 65 claims**. [Paired applications/categories](e14/graphify-generation-013-001/groups.md) and [CTA](e14/graphify-generation-013-001/cta.md) preserve this observation.
+
 [Graphify generation 12](e14/graphify-generation-012-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 20}` scored **54.45**, retaining **63.46**. The `fusion-rank-decay` mechanism records **2 / 3 consecutive evaluable misses** and the family **12 / 65 claims**. [Paired applications/categories](e14/graphify-generation-012-001/groups.md) and [CTA](e14/graphify-generation-012-001/cta.md) preserve this observation.
 
 [Graphify generation 11](e14/graphify-generation-011-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 5}` scored **59.35**, retaining **63.46**. The `fusion-rank-decay` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 65 claims**. [Paired applications/categories](e14/graphify-generation-011-001/groups.md) and [CTA](e14/graphify-generation-011-001/cta.md) preserve this observation.
