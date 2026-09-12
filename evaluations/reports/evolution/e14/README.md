@@ -1,5 +1,36 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+## Verified development status
+
+Snapshot through published **Graphify generation 7, Turso generation 15 and
+Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
+qualified retrieval references; five have recorded catalog stops.** Legacy,
+Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
+Graphify remains open; Ensemble and Entity Graph still need valid full-workload
+evidence. Adaptive and Classical each retain one unavailable historical
+hypothesis, so catalog closure does not imply complete measurement coverage.
+
+[The retained eight-family comparison](graphify-generation-007-001/README.md#retained-eight-family-comparison)
+reports Legacy/Turso 72.38, Adaptive 66.21, Embeddings 63.51, Classical 62.10
+and Graphify 34.16 nDCG@10 x100. Entity Graph and Ensemble have unavailable
+scores after execution errors. The fixed workload contains 120 stratified
+questions, 112 retrieval-eligible questions and 6,000 complete documents.
+
+[Applications and categories](graphify-generation-007-001/comparison.md) ·
+[Retained-family CTA](graphify-generation-007-001/cta.md) ·
+[Verified catalog stops and historical fitness gaps](opportunity-accounting-002/README.md) ·
+[Dataset view](../../datasets/enterprise-rag-stratified-development-120.md)
+
+The opportunity inventory's fixed snapshot predates Graphify7; it preserves
+its original scores and counts. All eight family obligations, the joint
+replay, the whole-bundle freeze, the all-500 comparison and independent
+acceptance remain required. No canonical skill is promoted.
+
+## Published observation history
+
+Each entry below describes the state at its own checkpoint. A mechanism that
+was open in an earlier entry may have a later verified catalog stop.
+
 [Graphify generation 7](graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](graphify-generation-007-001/comparison.md)** · [Paired groups](graphify-generation-007-001/groups.md) · [CTA](graphify-generation-007-001/cta.md).
 
 [Five verified catalog stops and remaining EnterpriseRAG work](opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
@@ -34,9 +65,9 @@
 
 [Prospective Entity bounded-selection candidate](../candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
-[Graphify generation 4](graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Latest general application/category comparison](graphify-generation-004-001/comparison.md)** · [Paired groups](graphify-generation-004-001/groups.md) · [CTA](graphify-generation-004-001/cta.md).
+[Graphify generation 4](graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Comparison at this observation](graphify-generation-004-001/comparison.md)** · [Paired groups](graphify-generation-004-001/groups.md) · [CTA](graphify-generation-004-001/cta.md).
 
-[Turso generation 8](turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Latest general application/category comparison](turso-generation-008-001/comparison.md)** · [Paired groups](turso-generation-008-001/groups.md) · [CTA](turso-generation-008-001/cta.md).
+[Turso generation 8](turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Comparison at this observation](turso-generation-008-001/comparison.md)** · [Paired groups](turso-generation-008-001/groups.md) · [CTA](turso-generation-008-001/cta.md).
 
 [Adaptive generation 6](adaptive-generation-006-001/README.md): `{"bm25.title_weight": 4.0}` scored **54.79**, retaining **66.21**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **25 / 100 claims**. [Paired applications/categories](adaptive-generation-006-001/groups.md) and [CTA](adaptive-generation-006-001/cta.md) preserve this observation.
 
@@ -44,7 +75,7 @@
 
 [Adaptive generation 5](adaptive-generation-005-001/README.md): `{"bm25.k1": 2.0}` scored **65.61**, retaining **66.21**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **24 / 100 claims**. [Paired applications/categories](adaptive-generation-005-001/groups.md) and [CTA](adaptive-generation-005-001/cta.md) preserve this observation.
 
-[Graphify generation 3](graphify-generation-003-001/README.md): `{"depth": 3}` raises retained nDCG from **8.12 to 27.90**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **3 / 65 claims**. **[Latest general application/category comparison](graphify-generation-003-001/comparison.md)** · [Paired groups](graphify-generation-003-001/groups.md) · [CTA](graphify-generation-003-001/cta.md).
+[Graphify generation 3](graphify-generation-003-001/README.md): `{"depth": 3}` raises retained nDCG from **8.12 to 27.90**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **3 / 65 claims**. **[Comparison at this observation](graphify-generation-003-001/comparison.md)** · [Paired groups](graphify-generation-003-001/groups.md) · [CTA](graphify-generation-003-001/cta.md).
 
 [Prospective Ensemble mention-automaton candidate](../candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
@@ -58,9 +89,9 @@
 
 [Turso generation 4](turso-generation-004-001/README.md): `{"b": 0.25, "engine": "bm25"}` scored **66.80**, retaining **72.13**. The `length-normalization` mechanism records **1 / 3 consecutive evaluable misses** and the family **5 / 55 claims**. [Paired applications/categories](turso-generation-004-001/groups.md) and [CTA](turso-generation-004-001/cta.md) preserve this observation.
 
-[Adaptive reaches three normalization misses](adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities remain open. [Paired applications/categories](adaptive-generation-003-001/groups.md) and [CTA](adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
+[Adaptive reaches three normalization misses](adaptive-generation-003-001/README.md): construction `bm25.b=0.5` scored **65.78**, below retained **66.21**. This is the third consecutive unique evaluable miss in the mechanism, with **22 / 100 claims**. Its other search opportunities were still open at this observation. [Paired applications/categories](adaptive-generation-003-001/groups.md) and [CTA](adaptive-generation-003-001/cta.md) preserve the measured result. The retained six-family ranking is unchanged.
 
-The [latest qualified Turso and Adaptive candidates](turso-003-adaptive-002-observations-001/README.md) scored **71.13** and **62.31**, retaining **72.13** and **66.21**. Their cumulative claim counts are 4 / 55 and 21 / 100 at these observations. The [accounting report](turso-003-adaptive-002-observations-001/README.md#search-accounting) distinguishes Turso's exhausted saturation variant list from Adaptive's second consecutive miss. See [paired groups](turso-003-adaptive-002-observations-001/groups.md) and [CTA](turso-003-adaptive-002-observations-001/cta.md).
+The [earlier qualified Turso and Adaptive candidates](turso-003-adaptive-002-observations-001/README.md) scored **71.13** and **62.31**, retaining **72.13** and **66.21**. Their cumulative claim counts are 4 / 55 and 21 / 100 at these observations. The [accounting report](turso-003-adaptive-002-observations-001/README.md#search-accounting) distinguishes Turso's exhausted saturation variant list from Adaptive's second consecutive miss. See [paired groups](turso-003-adaptive-002-observations-001/groups.md) and [CTA](turso-003-adaptive-002-observations-001/cta.md).
 
 The [qualified Graphify depth-zero observation](graphify-generation-001-001/README.md) scored **7.03**, below its retained **8.12** reference. It records one evaluable miss and 1 / 65 claims, with no execution error or retry. See [paired application/category results](graphify-generation-001-001/groups.md) and [CTA](graphify-generation-001-001/cta.md). The retained six-family comparison remains unchanged.
 
@@ -87,13 +118,13 @@ and zero retries. Turso's reference remains the exact original E13 job. These
 checkpoints reproduce existing results and establish no new champion or promotion.
 
 - [Entity query arithmetic diagnostic: preserved operation order and rejected shortcuts](entity-query-arithmetic-diagnostic-001/README.md)
-- [Latest native starting errors: Entity Graph timeout and Ensemble memory failure](starting-execution-errors-001/README.md)
+- [Original native starting errors: Entity Graph timeout and Ensemble memory failure](starting-execution-errors-001/README.md)
 - [Failure evidence and unchanged eight-family ranking](starting-execution-errors-001/aggregate.json)
 - [Cross-family comparison: six qualified retained profiles by application, category and CTA](qualified-starts-comparison-001/README.md)
-- [Latest starting qualification, retained eight-family comparison and remaining opportunities](classical-starting-qualified-001/README.md)
+- [Starting qualification, retained eight-family comparison and remaining opportunities](classical-starting-qualified-001/README.md)
 - [Classical cost, time and quality](classical-starting-qualified-001/cta.md)
 - [Classical results across nine applications and ten question categories](classical-starting-qualified-001/groups.md)
-- [Latest machine-readable aggregate and source commitments](classical-starting-qualified-001/aggregate.json)
+- [Starting-qualification aggregate and source commitments](classical-starting-qualified-001/aggregate.json)
 - [Preserved Embeddings starting role](embeddings-starting-qualified-001/README.md), [CTA](embeddings-starting-qualified-001/cta.md) and [applications/categories](embeddings-starting-qualified-001/groups.md)
 - [Preserved Graphify starting role](graphify-starting-qualified-001/README.md), [CTA](graphify-starting-qualified-001/cta.md) and [applications/categories](graphify-starting-qualified-001/groups.md)
 - [Preserved Legacy starting pair](legacy-starting-qualified-001/README.md), [CTA](legacy-starting-qualified-001/cta.md) and [applications/categories](legacy-starting-qualified-001/groups.md)
@@ -103,8 +134,8 @@ checkpoints reproduce existing results and establish no new champion or promotio
 
 The actual E14 design is registered and sealed. The workload remains 120
 stratified questions, 112 retrieval-eligible questions and 6,000 complete
-documents. At this published checkpoint, six current family qualifications are
-complete. Turso, Adaptive and Graphify can continue their inherited searches;
+documents. At the earlier starting checkpoint, six family qualifications were
+complete. Turso, Adaptive and Graphify still had open inherited searches;
 Entity Graph and Ensemble stopped locally before qualification, with unexercised
 hypotheses still outstanding. Private validation is unopened. The original
 three-miss rule, five-round ceiling, family caps and consumed identities remain
