@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[E15 prospective registration after terminal E14](../evaluations/reports/evolution/e15/registration-001/README.md): the new registry binds the unchanged public workload, unopened validation and the two exclusive Entity Graph and Ensemble first measurements. It is unsealed, has dispatched zero native trials and adds no retrieval score. [CTA](../evaluations/reports/evolution/e15/registration-001/cta.md) preserves the zero-execution boundary.
+
 [Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both public parity fixtures passed after the E14 owner terminated. They add no retrieval score, proposal charge or quality miss. The six qualified-family ranking remains Legacy/Turso 72.38, Adaptive 66.21, Graphify 63.72, Embeddings 63.51 and Classical 62.10. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) preserves runtime scope.
 
 [Graphify generation 24](../evaluations/reports/evolution/e14/graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/graphify-generation-024-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/graphify-generation-024-001/cta.md) preserve this observation.

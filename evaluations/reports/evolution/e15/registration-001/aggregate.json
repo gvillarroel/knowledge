@@ -1,0 +1,115 @@
+{
+  "schema": "enterprise-e15-registration-report/1.0",
+  "generated_at_utc": "2026-09-12T23:32:00Z",
+  "study_id": "enterprise-e15",
+  "predecessor": {
+    "study_id": "enterprise-e14",
+    "status": "terminal-incomplete",
+    "terminal_ledger_head_sha256": "2516180c44ab4a66d7fb77a7b709d4109d76558ef390fc64b56a8adf0848649d",
+    "terminal_receipt_sha256": "38437206ab5d3deb565f83a3df20041ea2ce500e9724608d932c3ddcf3dd9013",
+    "validation_released": false,
+    "holdout_released": false
+  },
+  "registration": {
+    "comparison_profile": "enterprise-post-e14-two-family-qualification-native-v1",
+    "organizer_head_sha256": "e8e2abb383ff6a5557ad6027d37f495c7efb40058e2b40eccdbd95859df73bec",
+    "datasets": 2,
+    "stages": 4,
+    "design_sealed": false,
+    "evolution_running": false,
+    "validation_released": false,
+    "native_trials_dispatched": 0,
+    "model_calls": 0
+  },
+  "datasets": {
+    "development": {
+      "split": "development",
+      "task_count": 16,
+      "file_count": 128,
+      "byte_count": 54063150,
+      "sha256": "687c87ce86b205a7fd3f63b1289a4d20803273b9a61d58fa9bf63fe3e90574f6",
+      "optimizer_visible": true
+    },
+    "validation": {
+      "split": "validation",
+      "task_count": 16,
+      "file_count": 128,
+      "byte_count": 7258258,
+      "sha256": "2e94f62ff793249a6e4ac88ab4aee732b3b330ed78b73192f4f3a8f9064b37d6",
+      "optimizer_visible": false,
+      "previously_released": false,
+      "reuse_eligibility": "pending-new-independent-review-and-exclusive-reservation"
+    }
+  },
+  "first_measurements": [
+    {
+      "family": "entity-graph",
+      "identity": "entity-bounded-selection-001-first-measurement",
+      "candidate_tree_sha256": "255fb106596f0b032e9513ecbf3a2fe2d73bd84cb6795c2f779691eeb025d24f",
+      "proposal_claims": 9,
+      "proposal_cap": 80,
+      "attempts_dispatched": 0,
+      "automatic_retries": 0
+    },
+    {
+      "family": "ensemble",
+      "identity": "ensemble-mention-automaton-transfer-001-first-measurement",
+      "candidate_tree_sha256": "31aca8a9abddb5b362c53b8133b3c6e30acaf82cdd946bc9ceaa88a251fd6e76",
+      "proposal_claims": 3,
+      "proposal_cap": 105,
+      "attempts_dispatched": 0,
+      "automatic_retries": 0
+    }
+  ],
+  "accounting": {
+    "cumulative_proposal_claims": 140,
+    "cumulative_proposal_cap": 585,
+    "closed_nontransferable_unused_slots": 272,
+    "open_family_remaining_slots": 173,
+    "cumulative_consumed_development_allocations": 61,
+    "new_proposal_charges": 0,
+    "new_native_trials": 0
+  },
+  "retained_e14_ndcg_at_10_times_100": {
+    "legacy": 72.38,
+    "turso": 72.38,
+    "adaptive": 66.21,
+    "graphify": 63.72,
+    "embeddings": 63.51,
+    "classical": 62.10,
+    "entity-graph": null,
+    "ensemble": null
+  },
+  "remaining_required_trials": {
+    "full_workload_first_measurements": 2,
+    "joint_development": 16,
+    "all_500_comparison": 16,
+    "independent_acceptance": 32
+  },
+  "checks": {
+    "focused_tests_passed": 4,
+    "organizer_verification": "pass",
+    "candidate_tree_verification": "pass",
+    "predecessor_terminal_verification": "pass",
+    "activation_status": "waiting-for-executable-preflight-and-independent-review"
+  },
+  "source_sha256": {
+    "tmp/enterprise-next-preparation/e14-terminal-closure-001/terminal-receipt.json": "38437206ab5d3deb565f83a3df20041ea2ce500e9724608d932c3ddcf3dd9013",
+    "tmp/enterprise-next-preparation/e15-registration-001/registration-contract.json": "52dda3f8065d218f047c1e14e913fc97c130ff34ae7167c4d665fba7808549d0",
+    "tmp/enterprise-next-preparation/e15-registration-001/verification-receipt.json": "77c48d12264c0ae794fbcabd0fbda019f20292b0ffe0e11f0b91cf168a2ab6f5",
+    "tmp/enterprise-next-preparation/e15-registration-001/validate_registration.py": "cf41e40c347ca5f56db91fa762156a50b8969650af03a4563d791fed1f7a15e1",
+    "tmp/enterprise-next-preparation/e15-registration-001/test_validate_registration.py": "03d57622fec973f19656ddb82fbc06e42a0cdf1d4060b53f5076765fe1be7cbb",
+    "tmp/e15/study/ledger.jsonl": "be36ae29b20ae02feed22c6fb739d9af2a3f927d065cdda45bb4a997d8a16351",
+    "tmp/e15/study/status.json": "b87c928f7bde4bc9a2d8fc172888ab0d40f38291fc2edacf0cc00d5459927ba2",
+    "tmp/e15/study/study.json": "b04698abfee20b8f9e0acb725546ff20f7f8c49b550f82a47add7900ba29b352",
+    "../skill-arena/skills/harbor-organize-evaluations/scripts/manage_harbor_evaluations.py": "3bedc68d93da3eb4df2cfced3728bb34cdab85704e55d9e479d4ec4015da5abc"
+  },
+  "claims": {
+    "new_enterpriserag_score": false,
+    "full_workload_qualification": false,
+    "all_500_complete": false,
+    "independent_acceptance_complete": false,
+    "public_leaderboard_position": false,
+    "canonical_skill_promoted": false
+  }
+}

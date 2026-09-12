@@ -1,5 +1,14 @@
 # Continuing EnterpriseRAG evolution after E7
 
+E14 is now terminal after its owner preserved six qualified family searches and
+stopped on missing Entity Graph and Ensemble full-workload qualifications. Its
+private validation remained sealed and unreleased. The separately registered
+[E15 checkpoint](../evaluations/reports/evolution/e15/registration-001/README.md)
+binds the two prospective first measurements, unchanged workload and full
+downstream stage order. It is unsealed and has dispatched no native work; the
+executable preflight, new independent review, exclusive private reservation and
+design seal remain mandatory under [ADR 0162](../.specs/adr/0162-terminate-e14-and-register-e15-before-prospective-qualification.md).
+
 The latest [E12 continuation checkpoint](../evaluations/reports/evolution/e12/README.md)
 is terminal after a controller error before native allocation. All four stages
 are stopped and verified. The isolated template-loader correction passed nine

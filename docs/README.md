@@ -1,5 +1,7 @@
 # Documentation Index
 
+[E15 prospective registration after terminal E14](../evaluations/reports/evolution/e15/registration-001/README.md): E14 is now terminal with validation unreleased; E15 digest-locks development and validation and plans the complete downstream sequence. It remains unsealed, has run zero native trials and awaits executable preflight plus a new independent review. [Decision](../.specs/adr/0162-terminate-e14-and-register-e15-before-prospective-qualification.md) · [CTA](../evaluations/reports/evolution/e15/registration-001/cta.md).
+
 [Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence; neither supplies an EnterpriseRAG score, so the retained measurable table is unchanged. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 
 [Five verified catalog stops and remaining EnterpriseRAG work](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.

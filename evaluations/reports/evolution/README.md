@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[E15 prospective registration after terminal E14](e15/registration-001/README.md): E14 is terminal with validation unreleased, and a new E15 registry binds the two remaining family qualifications plus all downstream gates. It remains unsealed and has dispatched no native trial. [CTA](e15/registration-001/cta.md) records the zero-execution boundary.
+
 [Post-owner Entity Graph and Ensemble runtime diagnostics](e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after the E14 controller stopped. The checks add no EnterpriseRAG retrieval score, proposal charge or quality miss. [CTA](e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 
 [Graphify generation 24](e14/graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](e14/graphify-generation-024-001/groups.md) and [CTA](e14/graphify-generation-024-001/cta.md) preserve this observation.

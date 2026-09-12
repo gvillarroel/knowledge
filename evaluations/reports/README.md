@@ -1,5 +1,7 @@
 # Evaluation report hub
 
+[E15 prospective EnterpriseRAG registration](evolution/e15/registration-001/README.md): terminal E14 is preserved, the successor datasets and stages are digest-locked, and zero native trials have run. E15 remains unsealed pending executable preflight and independent review.
+
 [Post-owner Entity Graph and Ensemble runtime diagnostics](evolution/e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence. They are software evidence and supply no EnterpriseRAG score; the retained measurable table remains unchanged. [CTA](evolution/e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 
 [Graphify generation 24](evolution/e14/graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](evolution/e14/graphify-generation-024-001/groups.md) and [CTA](evolution/e14/graphify-generation-024-001/cta.md) preserve this observation.
