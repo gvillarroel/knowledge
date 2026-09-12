@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Graphify generation 4](e14/graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-004-001/comparison.md)** · [Paired groups](e14/graphify-generation-004-001/groups.md) · [CTA](e14/graphify-generation-004-001/cta.md).
+
 [Turso generation 8](e14/turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Latest general application/category comparison](e14/turso-generation-008-001/comparison.md)** · [Paired groups](e14/turso-generation-008-001/groups.md) · [CTA](e14/turso-generation-008-001/cta.md).
 
 [Adaptive generation 6](e14/adaptive-generation-006-001/README.md): `{"bm25.title_weight": 4.0}` scored **54.79**, retaining **66.21**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **25 / 100 claims**. [Paired applications/categories](e14/adaptive-generation-006-001/groups.md) and [CTA](e14/adaptive-generation-006-001/cta.md) preserve this observation.

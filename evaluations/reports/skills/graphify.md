@@ -1,5 +1,7 @@
 # graphify: dataset results
 
+[Graphify generation 4](../evolution/e14/graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-004-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-004-001/groups.md) · [CTA](../evolution/e14/graphify-generation-004-001/cta.md).
+
 [Graphify generation 3](../evolution/e14/graphify-generation-003-001/README.md): `{"depth": 3}` raises retained nDCG from **8.12 to 27.90**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **3 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-003-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-003-001/groups.md) · [CTA](../evolution/e14/graphify-generation-003-001/cta.md).
 
 [Graphify generation 2](../evolution/e14/graphify-generation-002-001/README.md): `{"depth": 1}` scored **6.85**, retaining **8.12**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **2 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-002-001/groups.md) and [CTA](../evolution/e14/graphify-generation-002-001/cta.md) preserve this observation.
