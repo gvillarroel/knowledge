@@ -159,3 +159,94 @@ def test_evolution_labels_keep_the_candidate_without_repeating_the_family():
     assert "embeddings / embeddings /" not in rendered
     assert "ensemble / candidate-018 / quality" in rendered
     assert "embeddings / baseline / hybrid" in rendered
+
+
+def test_authored_report_conflict_prevents_any_catalog_write(tmp_path):
+    authored = tmp_path / "README.md"
+    original = b"# Current EnterpriseRAG results\r\n\r\nReviewed publication.\r\n"
+    authored.write_bytes(original)
+    files = {"new-dataset.md": "New projection\n", "README.md": "Older generated overview\n"}
+    with pytest.raises(FileExistsError, match="new review directory"):
+        CATALOG.write_reports(files, tmp_path)
+    assert authored.read_bytes() == original
+    assert not (tmp_path / "new-dataset.md").exists()
+
+
+def test_new_catalog_is_created_and_identical_reports_are_not_rewritten(tmp_path):
+    output = tmp_path / "review"
+    files = {"README.md": "# Catalog\n", "datasets/example.md": "# Dataset\n"}
+    CATALOG.write_reports(files, output)
+    paths = [output / name for name in files]
+    before = {path: (path.read_bytes(), path.stat().st_mtime_ns) for path in paths}
+    CATALOG.write_reports(files, output)
+    CATALOG.write_reports(files, output, check=True)
+    assert before == {path: (path.read_bytes(), path.stat().st_mtime_ns) for path in paths}
+
+
+@pytest.mark.parametrize("existing", [False, True])
+def test_check_never_creates_or_repairs_drifted_files(tmp_path, existing):
+    output = tmp_path / "review"
+    if existing:
+        output.mkdir()
+        (output / "README.md").write_text("Authored content", encoding="utf-8")
+    with pytest.raises(ValueError, match="report drift"):
+        CATALOG.write_reports({"README.md": "Generated content"}, output, check=True)
+    if existing:
+        assert (output / "README.md").read_text() == "Authored content"
+    else:
+        assert not output.exists()
+
+
+@pytest.mark.parametrize("relative", ["../outside.md", ".", "nested/../../outside.md"])
+def test_escaping_output_is_rejected_before_any_file_is_written(tmp_path, relative):
+    output = tmp_path / "review"
+    with pytest.raises(ValueError, match="escapes"):
+        CATALOG.write_reports({"first.md": "Safe", relative: "Unsafe"}, output)
+    assert not output.exists()
+
+
+def test_absolute_and_duplicate_destinations_are_rejected(tmp_path):
+    with pytest.raises(ValueError, match="escapes"):
+        CATALOG.write_reports({str(tmp_path / "absolute.md"): "Invalid"}, tmp_path)
+    with pytest.raises(ValueError, match="duplicate"):
+        CATALOG.write_reports({"same.md": "First", "nested/../same.md": "Second"}, tmp_path)
+    assert not list(tmp_path.iterdir())
+
+
+def test_directory_collision_preserves_the_entire_output(tmp_path):
+    (tmp_path / "README.md").mkdir()
+    with pytest.raises(ValueError, match="not a file"):
+        CATALOG.write_reports({"new.md": "New", "README.md": "Conflict"}, tmp_path)
+    assert list(tmp_path.iterdir()) == [tmp_path / "README.md"]
+
+
+def test_file_parent_collision_is_detected_before_any_write(tmp_path):
+    (tmp_path / "datasets").write_text("Authored file", encoding="utf-8")
+    with pytest.raises(ValueError, match="parent is not a directory"):
+        CATALOG.write_reports({"first.md": "New", "datasets/example.md": "Conflict"}, tmp_path)
+    assert not (tmp_path / "first.md").exists()
+    assert (tmp_path / "datasets").read_text() == "Authored file"
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_overlapping_planned_destinations_are_rejected_in_either_order(tmp_path, reverse):
+    items = [("nested", "File"), ("nested/child.md", "Child")]
+    with pytest.raises(ValueError, match="overlap"):
+        CATALOG.write_reports(dict(reversed(items) if reverse else items), tmp_path)
+    assert not list(tmp_path.iterdir())
+
+
+def test_cli_review_output_does_not_touch_the_published_hub(tmp_path, monkeypatch):
+    (tmp_path / "evaluations").mkdir()
+    (tmp_path / "evaluations/report-sources.json").write_text('{"datasets": []}', encoding="utf-8")
+    published = tmp_path / "published"
+    published.mkdir()
+    (published / "README.md").write_text("Reviewed current results", encoding="utf-8")
+    output = tmp_path / "review"
+    monkeypatch.setattr(CATALOG, "REPO", tmp_path)
+    monkeypatch.setattr(CATALOG, "OUTPUT", published)
+    monkeypatch.setattr(CATALOG, "render", lambda datasets: {"README.md": "Candidate catalog\n"})
+    monkeypatch.setattr("sys.argv", ["build_report_catalog.py", "--output", str(output)])
+    assert CATALOG.main() == 0
+    assert (output / "README.md").read_text() == "Candidate catalog\n"
+    assert (published / "README.md").read_text() == "Reviewed current results"

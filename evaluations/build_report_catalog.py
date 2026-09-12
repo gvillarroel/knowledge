@@ -422,21 +422,56 @@ def render(datasets: list[dict[str, Any]]) -> dict[str, str]:
     return files
 
 
+def write_reports(files: dict[str, str], output: Path, *, check: bool = False) -> None:
+    """Preflight every destination and preserve existing differing report content."""
+    base = output.resolve()
+    pending: list[tuple[Path, str]] = []
+    destinations: set[Path] = set()
+    for relative, content in files.items():
+        path = (base / relative).resolve()
+        if Path(relative).is_absolute() or not path.is_relative_to(base) or path == base:
+            raise ValueError(f"report path escapes output directory: {relative}")
+        if path in destinations:
+            raise ValueError(f"duplicate report destination: {relative}")
+        destinations.add(path)
+        for parent in path.parents:
+            if parent.exists() and not parent.is_dir():
+                raise ValueError(f"report parent is not a directory: {relative}")
+            if parent == base:
+                break
+        if path.exists():
+            if not path.is_file():
+                raise ValueError(f"report destination is not a file: {relative}")
+            if path.read_text(encoding="utf-8") == content:
+                continue
+            if check:
+                raise ValueError(f"report drift: {relative}")
+            raise FileExistsError(
+                f"Preserve existing report: {relative}. "
+                "Use --output with a new review directory to inspect the generated catalog."
+            )
+        if check:
+            raise ValueError(f"report drift: {relative}")
+        pending.append((path, content))
+    for path in destinations:
+        if any(parent in destinations for parent in path.parents):
+            raise ValueError("report destinations overlap as a file and directory")
+    for path, content in pending:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("x", encoding="utf-8", newline="\n") as stream:
+            stream.write(content)
+
+
 def main() -> int:
-    """Regenerate or check all report views using only tracked aggregate publications."""
+    """Create or check aggregate views without replacing authored report updates."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--output", type=Path, default=OUTPUT,
+                        help="Catalog directory; differing existing files are preserved.")
     args = parser.parse_args()
     specs = json.loads((REPO / "evaluations/report-sources.json").read_text(encoding="utf-8"))["datasets"]
     files = render([load_dataset(spec) for spec in specs])
-    for relative, content in files.items():
-        path = OUTPUT / relative
-        if args.check:
-            if not path.is_file() or path.read_text(encoding="utf-8") != content:
-                raise ValueError(f"report drift: {relative}")
-        else:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content, encoding="utf-8", newline="\n")
+    write_reports(files, args.output, check=args.check)
     print(json.dumps({"status": "pass", "datasets": len(specs), "report_files": len(files)}))
     return 0
 

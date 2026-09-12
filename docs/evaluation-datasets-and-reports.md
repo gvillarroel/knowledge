@@ -138,12 +138,25 @@ not publish a complete comparison.
 
 [`report-sources.json`](../evaluations/report-sources.json) is the explicit
 inventory of approved aggregate sources. Update it when adding a new completed
-report, then regenerate all views:
+report, then generate candidate views in a new repository-local review directory:
 
 ```powershell
-python evaluations/build_report_catalog.py
-python evaluations/build_report_catalog.py --check
+python evaluations/build_report_catalog.py --output tmp/report-catalog-review-001
+python evaluations/build_report_catalog.py --output tmp/report-catalog-review-001 --check
 ```
+
+Choose a fresh directory for a later revision. Existing identical files are
+left untouched; a differing file stops the operation before any planned file
+is written. `--check` never creates or repairs files. The default destination
+remains `evaluations/reports`, where authored campaign updates are preserved.
+
+Review the candidate output against the published hub and apply only the
+intended changes. Active EnterpriseRAG observations, current comparison tables,
+catalog stops and historical notes can be newer than the completed-source
+catalog; retain those reviewed additions. A generated catalog is not authority
+to replace them. See [the preservation decision](../.specs/adr/0159-preserve-authored-report-indexes-during-catalog-generation.md).
+Candidate files retain the relative links expected at their published paths;
+the review directory is for inspecting the proposed text, not a standalone site.
 
 For a newly completed EnterpriseRAG run, first point its source entry at the
 new aggregate and publish the canonical table and companion contract:
@@ -154,7 +167,7 @@ python evaluations/publish_enterprise_report.py --check
 ```
 
 Publication is create-only. Use only `--check` for an already published run,
-then regenerate the report hub to reflect the selected source.
+then generate and review candidate catalog views for the selected source.
 
 The generator reads only those reviewed sources, validates row counts and
 numeric units, preserves missing metrics and ties, and derives every view from
