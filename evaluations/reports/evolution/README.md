@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Graphify generation 20](e14/graphify-generation-020-001/README.md): `{"lexical_weight": 1.0}` scored **52.42**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **2 / 3 consecutive evaluable misses** and the family **20 / 65 claims**. [Paired applications/categories](e14/graphify-generation-020-001/groups.md) and [CTA](e14/graphify-generation-020-001/cta.md) preserve this observation.
+
 [Graphify generation 19](e14/graphify-generation-019-001/README.md): `{"lexical_weight": 0.5}` scored **34.08**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **1 / 3 consecutive evaluable misses** and the family **19 / 65 claims**. [Paired applications/categories](e14/graphify-generation-019-001/groups.md) and [CTA](e14/graphify-generation-019-001/cta.md) preserve this observation.
 
 [Graphify generation 18](e14/graphify-generation-018-001/README.md): `{"depth": 6}` scored **63.46**, retaining **63.72**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **18 / 65 claims**. [Paired applications/categories](e14/graphify-generation-018-001/groups.md) and [CTA](e14/graphify-generation-018-001/cta.md) preserve this observation.
