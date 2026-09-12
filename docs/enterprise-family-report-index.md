@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[Graphify generation 7](../evaluations/reports/evolution/e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-007-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-007-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-007-001/cta.md).
+
 [Five verified catalog stops and remaining EnterpriseRAG work](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
 
 [Turso generation 15](../evaluations/reports/evolution/e14/turso-generation-015-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **69.72**, retaining **72.38**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **16 / 55 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/turso-generation-015-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/turso-generation-015-001/cta.md) preserve this observation.
