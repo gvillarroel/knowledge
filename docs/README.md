@@ -54,6 +54,7 @@
 - [Turso generation 11: 69.24 candidate, 72.38 retained, paired groups and CTA](../evaluations/reports/evolution/e14/turso-generation-011-001/README.md)
 - [Adaptive generation 9: 65.12 candidate, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-009-001/README.md)
 - [Turso generation 12: 71.36 candidate, 72.38 retained, paired groups and CTA](../evaluations/reports/evolution/e14/turso-generation-012-001/README.md)
+- [Adaptive generation 10: 66.04 candidate, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-010-001/README.md)
 - [E14 starting results: six qualified strategies and two execution errors](../evaluations/reports/evolution/e14/README.md)
 - [E14 Adaptive b=0.5: third normalization miss, 66.21 retained, paired groups and CTA](../evaluations/reports/evolution/e14/adaptive-generation-003-001/README.md)
 - [E14 Turso k1=3.0 and Adaptive b=0.0: retained incumbents, paired results and exact opportunity accounting](../evaluations/reports/evolution/e14/turso-003-adaptive-002-observations-001/README.md)
