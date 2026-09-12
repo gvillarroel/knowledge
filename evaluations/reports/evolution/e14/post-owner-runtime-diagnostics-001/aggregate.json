@@ -1,0 +1,190 @@
+{
+  "schema": "enterprise-e14-post-owner-runtime-diagnostics/1.0",
+  "generated_at_utc": "2026-09-12T22:31:00Z",
+  "status": "pass",
+  "controller": {
+    "all_family_searches_complete": false,
+    "joint_selection_authorized": false,
+    "private_release_authorized": false,
+    "owner_exit_code": 1,
+    "terminal_condition": "required-family-searches-incomplete",
+    "graphify": {
+      "generation": 24,
+      "last_candidate_score": 0.5242133932084371,
+      "retained_candidate": "versioned-016",
+      "retained_score": 0.6372163222534529,
+      "status": "full-round-without-improvement",
+      "terminal_round": 3
+    },
+    "failed_starts": [
+      "entity-graph",
+      "ensemble"
+    ]
+  },
+  "diagnostics": [
+    {
+      "family": "entity-graph",
+      "schema": "entity-bounded-selection-public-runtime-parity/1.0",
+      "status": "pass",
+      "parent_package_sha256": "c4d3c66cb4567ac4bbb6236e183c17bccaad9f4cccac77f67a382cfdbc735faf",
+      "candidate_package_sha256": "255fb106596f0b032e9513ecbf3a2fe2d73bd84cb6795c2f779691eeb025d24f",
+      "public_records": 1024,
+      "body_characters": 8388608,
+      "container_seconds": 173.45254,
+      "whole_run_cap_seconds": 900,
+      "child_python_commands": 22,
+      "complete_builds": 4,
+      "independent_validations": 2,
+      "standalone_deep_inspections": 2,
+      "consultant_deep_loads": 10,
+      "paired_query_responses_matched": 8,
+      "paired_query_routes": [
+        "lexical",
+        "entity",
+        "traversal",
+        "fusion"
+      ],
+      "identical_artifact_files": 19,
+      "mentions": 66552,
+      "corruption_rejections": 4,
+      "overwrite_rejections": 2,
+      "container_exit_code": 0,
+      "oom_killed": false,
+      "retries": 0,
+      "harbor_jobs": 0,
+      "language_model_calls": 0,
+      "new_proposal_charges": 0,
+      "new_quality_misses": 0,
+      "retrieval_quality_scored": false,
+      "native_first_measurement_allocated": false,
+      "full_corpus_feasibility_measured": false
+    },
+    {
+      "family": "ensemble",
+      "schema": "public-mention-automaton-runtime-parity/1.0",
+      "status": "pass",
+      "parent_package_sha256": "3adc772b29c0175023b48875e4592a85499394d322f09a8d6e837c460025014c",
+      "candidate_package_sha256": "31aca8a9abddb5b362c53b8133b3c6e30acaf82cdd946bc9ceaa88a251fd6e76",
+      "public_records": 4,
+      "embedding_provider": "hashing",
+      "embedding_dimension": 384,
+      "container_seconds": 88.390255,
+      "whole_run_cap_seconds": 240,
+      "child_python_commands": 16,
+      "complete_builds": 4,
+      "independent_validations": 2,
+      "paired_query_policies": [
+        "fast",
+        "quality",
+        "robust"
+      ],
+      "identical_artifact_files": 35,
+      "parent_mentions": 53,
+      "candidate_mentions": 53,
+      "corruption_rejections": 4,
+      "container_exit_code": 0,
+      "oom_killed": false,
+      "retries": 0,
+      "harbor_jobs": 0,
+      "language_model_calls": 0,
+      "new_proposal_charges": 0,
+      "new_quality_misses": 0,
+      "retrieval_quality_scored": false,
+      "native_first_measurement_allocated": false,
+      "full_corpus_feasibility_measured": false
+    }
+  ],
+  "retained_measurable_table": [
+    {
+      "rank": "1=",
+      "family": "legacy",
+      "ndcg_at_10_x100": 72.38,
+      "status": "qualified"
+    },
+    {
+      "rank": "1=",
+      "family": "turso",
+      "ndcg_at_10_x100": 72.38,
+      "status": "qualified"
+    },
+    {
+      "rank": "3",
+      "family": "adaptive",
+      "ndcg_at_10_x100": 66.21,
+      "status": "qualified"
+    },
+    {
+      "rank": "4",
+      "family": "graphify",
+      "ndcg_at_10_x100": 63.72,
+      "status": "qualified"
+    },
+    {
+      "rank": "5",
+      "family": "embeddings",
+      "ndcg_at_10_x100": 63.51,
+      "status": "qualified"
+    },
+    {
+      "rank": "6",
+      "family": "classical",
+      "ndcg_at_10_x100": 62.1,
+      "status": "qualified"
+    },
+    {
+      "rank": null,
+      "family": "entity-graph",
+      "ndcg_at_10_x100": null,
+      "status": "original-start-unqualified-software-diagnostic-passed"
+    },
+    {
+      "rank": null,
+      "family": "ensemble",
+      "ndcg_at_10_x100": null,
+      "status": "original-start-unqualified-software-diagnostic-passed"
+    }
+  ],
+  "development_scope": {
+    "questions": 120,
+    "retrieval_eligible_questions": 112,
+    "complete_documents": 6000,
+    "eligible_population_weight": 470,
+    "retrieval_metric": "weighted-ndcg-at-10-x100"
+  },
+  "scope_flags": {
+    "all_eight_qualified": false,
+    "joint_16_complete": false,
+    "whole_bundle_frozen": false,
+    "all_500_complete": false,
+    "independent_acceptance_32_complete": false,
+    "generated_answer_overall_available": false,
+    "public_leaderboard_rank_available": false,
+    "canonical_skill_promoted": false,
+    "private_gate_access": false
+  },
+  "coverage": {
+    "gate": "061",
+    "tests_passed": 1697,
+    "subtests_passed": 373,
+    "application_coverage_percent": 90.5,
+    "threshold_percent": 80,
+    "exit_code": 0
+  },
+  "source_sha256": {
+    "evaluations/reports/evolution/e14/graphify-generation-016-001/aggregate.json": "b20fedcc3c04646d873357dff10afae5b9f0d72f1faf386428ee5bc222579e9c",
+    "evaluations/reports/evolution/e14/graphify-generation-024-001/aggregate.json": "d5d0ce62ac1df1e78560631a8e6c9e2c948417027f8588d1b613ab7f0b4f387e",
+    "tmp/e14/coordination-result.json": "0c045a9c1a77b3e27dbda3ea984b4ff1b6561e4fdb8814e8ff8e02500e13f8cd",
+    "tmp/e14/logs/development-live-001.log": "78f0e6a06394d1eb9d55c69cc098603e8d1cca2a8ced5fdae7b7fc6cd1100782",
+    "tmp/enterprise-next-preparation/coverage-061/coverage.log": "de429d61bc87bc0e8d33402c1cd325190eb4ccdb469930348cef73fd64077d07",
+    "tmp/enterprise-next-preparation/coverage-061/terminal.json": "14294a117ddeb1f33be793977c1ddc3c8bafd5e3ebc3a30128404f4f874cb128",
+    "tmp/enterprise-next-preparation/e14-terminal-quiescence-001/receipt.json": "2c7465a3c371e09690fa725849647cdff69920ec9974a96b6fdbd493efd9f854",
+    "tmp/enterprise-next-preparation/entity-bounded-selection-runtime-fixture-001/declaration.json": "86f02eb99b584548ccf624e4037dcf46ed0a3caf211aef5fbcd2ecb9801dd32c",
+    "tmp/enterprise-next-preparation/entity-bounded-selection-runtime-fixture-001/execution-001/result.json": "4230a17360c281229eda8a4876a6c19d8b403e54ff51cbdbae6c468348362938",
+    "tmp/enterprise-next-preparation/entity-bounded-selection-runtime-fixture-001/execution-001/terminal.json": "b597cd48bed3f10cbfdb076f6350ee0542cc9492e2f4917d25ac6763d1f4f4eb",
+    "tmp/enterprise-next-preparation/entity-bounded-selection-runtime-fixture-001/run.py": "a463e2ac76291b5d088d53a158175f9e5b49b5d7b86808472c763913b125b31e",
+    "tmp/enterprise-next-preparation/ensemble-mention-automaton-runtime-fixture-001/declaration.json": "717e5319889dbb504d73f146025d52f30b220bf2cca199afaafbd158b21ecb6c",
+    "tmp/enterprise-next-preparation/ensemble-mention-automaton-runtime-fixture-001/execution-001/result.json": "c5b1875c80faf22b1b18026a82a24fca3fcca664b4062fdcb3cedd74e9f36e2f",
+    "tmp/enterprise-next-preparation/ensemble-mention-automaton-runtime-fixture-001/execution-001/terminal.json": "1d5dfd50e86a21bb1701fe65bac5a0550829040e884b4f4c2d4f1e730e8f01b8",
+    "tmp/enterprise-next-preparation/ensemble-mention-automaton-runtime-fixture-001/run.py": "8ee7e7b950697666947bc3338ee75c836e97308fbc3b1e91c9e75e543dfdbe3f"
+  }
+}

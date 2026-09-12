@@ -1,5 +1,7 @@
 # entity-graph: dataset results
 
+[Post-owner bounded-selection runtime diagnostic](../evolution/e14/post-owner-runtime-diagnostics-001/README.md): passed exact artifacts, eight paired route responses, four corruption rejections and two overwrite rejections on 1,024 public records. This is software parity evidence; EnterpriseRAG retrieval quality remains unavailable. [CTA](../evolution/e14/post-owner-runtime-diagnostics-001/cta.md).
+
 [Prospective Entity bounded-selection candidate](../evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
 [Report hub](../README.md) · [All skills](README.md)

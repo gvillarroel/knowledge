@@ -1,5 +1,7 @@
 # Documentation Index
 
+[Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence; neither supplies an EnterpriseRAG score, so the retained measurable table is unchanged. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
+
 [Five verified catalog stops and remaining EnterpriseRAG work](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
 
 [ADR 0158: catalog stops and historical hypothesis coverage](../.specs/adr/0158-distinguish-catalog-stops-from-hypothesis-coverage.md) defines the terminal-state reporting checks and preserves unavailable identities.

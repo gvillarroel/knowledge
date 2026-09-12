@@ -1,5 +1,7 @@
 # ensemble: dataset results
 
+[Post-owner mention-automaton runtime diagnostic](../evolution/e14/post-owner-runtime-diagnostics-001/README.md): passed exact artifacts, three paired policy responses and four corruption rejections on the four-record public fixture. This is software parity evidence; EnterpriseRAG retrieval quality remains unavailable. [CTA](../evolution/e14/post-owner-runtime-diagnostics-001/cta.md).
+
 [Prospective Ensemble mention-automaton candidate](../evolution/candidates/ensemble-mention-automaton-transfer-001/README.md): five sealed software checks passed, one builder function changed and Ensemble reached **3 / 105 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
 [Report hub](../README.md) · [All skills](README.md)

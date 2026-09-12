@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Post-owner Entity Graph and Ensemble runtime diagnostics](e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after the E14 controller stopped. The checks add no EnterpriseRAG retrieval score, proposal charge or quality miss. [CTA](e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
+
 [Graphify generation 24](e14/graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](e14/graphify-generation-024-001/groups.md) and [CTA](e14/graphify-generation-024-001/cta.md) preserve this observation.
 
 [Graphify generation 23](e14/graphify-generation-023-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 20}` scored **54.51**, retaining **63.72**. The `fusion-rank-decay` mechanism records **2 / 3 consecutive evaluable misses** and the family **23 / 65 claims**. [Paired applications/categories](e14/graphify-generation-023-001/groups.md) and [CTA](e14/graphify-generation-023-001/cta.md) preserve this observation.
