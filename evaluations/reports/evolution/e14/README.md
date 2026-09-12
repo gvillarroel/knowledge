@@ -4,29 +4,52 @@
 
 ## Verified development status
 
-Snapshot through published **Graphify generation 8, Turso generation 15 and
-Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
-qualified retrieval references; five have recorded catalog stops.** Legacy,
-Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
-Graphify remains open; Ensemble and Entity Graph still need valid full-workload
-evidence. Adaptive and Classical each retain one unavailable historical
-hypothesis, so catalog closure does not imply complete measurement coverage.
+Explicitly selected published observation: **Graphify generation 8**, published 2026-09-12T05:02:03.256304+00:00. [Source-bound result](graphify-generation-008-001/README.md).
 
-[The retained eight-family comparison](graphify-generation-008-001/README.md#retained-eight-family-comparison)
-reports Legacy/Turso 72.38, Adaptive 66.21, Embeddings 63.51, Classical 62.10
-and Graphify 52.33 nDCG@10 x100. Entity Graph and Ensemble have unavailable
-scores after execution errors. The fixed workload contains 120 stratified
-questions, 112 retrieval-eligible questions and 6,000 complete documents.
+The fixed development workload contains **120 stratified questions, 112 retrieval-eligible questions and 6,000 complete documents**. Scores are frozen-category-weighted **nDCG@10 x100**; the eligible population weight is 470.
 
-[Applications and categories](graphify-generation-008-001/comparison.md) ·
-[Retained-family CTA](graphify-generation-008-001/cta.md) ·
-[Verified catalog stops and historical fitness gaps](opportunity-accounting-002/README.md) ·
-[Dataset view](../../datasets/enterprise-rag-stratified-development-120.md)
+| Family | Retained nDCG@10 x100 | Qualification |
+| --- | ---: | --- |
+| Legacy | 72.38 | Qualified |
+| Turso | 72.38 | Qualified |
+| Adaptive | 66.21 | Qualified |
+| Embeddings | 63.51 | Qualified |
+| Classical | 62.10 | Qualified |
+| Graphify | 52.33 | Qualified |
+| Ensemble | Unavailable | Unavailable after execution error |
+| Entity Graph | Unavailable | Unavailable after execution error |
 
-The opportunity inventory's fixed snapshot predates Graphify8; it preserves
-its original scores and counts. All eight family obligations, the joint
-replay, the whole-bundle freeze, the all-500 comparison and independent
-acceptance remain required. No canonical skill is promoted.
+The selected Graphify gain is **34.16 to 52.33**. Paired questions: **61 improve, 4 regress and 47 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
+
+### Catalog status and remaining work
+
+The [catalog inventory](opportunity-accounting-002/README.md) is a separate snapshot at **2026-09-12T03:39:49.038282+00:00**. It records **5 catalog stops**: Legacy, Turso, Adaptive, Embeddings, Classical. It also preserves **2 unavailable historical hypotheses** among stopped families. Catalog closure does not imply complete historical measurement coverage. This dated inventory does not supply current reservation counts or replace the newer retained scores above.
+
+**6 of eight families have qualified retrieval references** in this comparison. Remaining work includes outstanding family qualification and evolution, the paired joint development replay, one whole-bundle freeze, the all-500 comparison and independent acceptance. Validation stays sealed until the selected candidate is frozen.
+
+### Applications, categories and CTA
+
+[General application/category comparison](graphify-generation-008-001/comparison.md) · [Paired groups](graphify-generation-008-001/groups.md) · [Retained-family CTA](graphify-generation-008-001/cta.md).
+
+Application cohorts overlap. Highest values describe the supplied comparison; no application router is tested.
+
+| Application | Highest retained nDCG |
+| --- | --- |
+| Confluence | Embeddings |
+| Fireflies | Classical |
+| GitHub | Embeddings |
+| Gmail | Legacy, Turso |
+| Google Drive | Legacy, Turso |
+| HubSpot | Legacy, Turso |
+| Jira | Legacy, Turso |
+| Linear | Classical |
+| Slack | Embeddings |
+
+### Measurement boundaries
+
+These development retrieval metrics do not establish all-500 results, generated-answer Overall, statistical significance, canonical promotion or a public leaderboard position. Host and orchestration costs are unpriced. Historical observations below retain their original scope and counts.
+
+The earlier [Classical full-corpus run](../../datasets/enterprise-rag-classical-full-500.md), [Luna answer audit](../../enterprise-classical-full/luna.md) and [cross-dataset comparisons](../../README.md#historical-retrieval-comparisons) retain their separate workloads and scoring contracts.
 
 ## Published observation history
 

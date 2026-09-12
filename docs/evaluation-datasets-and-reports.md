@@ -194,6 +194,51 @@ Follow their own acquisition descriptors and access policies; never copy raw
 data into tracked source to satisfy a test. The report hub and the new small
 unit fixtures require no private source data.
 
+## Refresh current EnterpriseRAG summaries
+
+The active E14 campaign has a separate
+[`refresh_enterprise_current_views.py`](../evaluations/refresh_enterprise_current_views.py)
+helper for its current dataset, family and campaign summaries. Use it after the
+existing native reporting, reconciliation and observation publisher have
+completed for an explicitly chosen gain. It consumes only two public,
+SHA-bound aggregates: the selected retained comparison and a dated opportunity
+inventory. It does not choose a candidate, run Harbor, rescore retrieval,
+change a skill, establish native qualification or grant promotion.
+
+The following example binds the immutable Graphify generation-eight
+observation and inventory 002. For a later gain, supply that observation's
+actual leaf and verified aggregate hash; do not choose a source by filename
+order, modification time or an inferred best score.
+
+```powershell
+python evaluations/refresh_enterprise_current_views.py --comparison graphify-generation-008-001 --comparison-sha256 50e6f6ccccc85115cf19f3b2b3bcc43df596e3ac137dbe7293d0052cff320754 --inventory opportunity-accounting-002 --inventory-sha256 5707dc9de5ebcd141e9c8185e95de1b16cf22fa8cf0cc81b6cdfe47fff3473f6 --check
+```
+
+`--check` is read-only and reports differing current views. After verifying the
+source bindings, use the same command with `--apply`, inspect the Git diff,
+and repeat `--check`. Apply preflights every affected index before any write,
+preserves bytes outside the three named current-summary sections, and relabels
+obsolete latest-comparison links only when their exact public predecessor
+aggregate is bound by the supplied publication, directly or through its verified
+public comparison chain. This includes the other seven family pages, which can
+still point at earlier observations. It never follows ignored or private source
+paths. The selected observation must already be exported to the main indexes
+and its own family page by the existing observation publisher.
+
+Current tables use full-precision retained metrics, preserve unavailable
+families and ties, and validate paired counts and application leaders. Catalog
+stops and historical measurement gaps retain the separate inventory's timestamp;
+they never become current reservation counts. Earlier Classical full-corpus,
+Luna answer and cross-dataset reports retain their own contracts and links.
+Fixed observation leaves, aggregates and historical scores are not rewritten.
+
+Each changed index is replaced atomically. A later I/O failure can leave some
+indexes updated and others unchanged; inspect that explicit failure before
+continuing. There is no multi-file transaction or automatic retry. No-op apply
+and check preserve file modification times. This helper supports the declared
+E14 gain and inventory schemas; a final all-500 report needs its own publication
+contract. See [ADR 0160](../.specs/adr/0160-refresh-bounded-enterprise-current-views.md).
+
 ## Improve the evaluated skills
 
 The [evolution roadmap](knowledge-skill-evolution-roadmap.md) distinguishes

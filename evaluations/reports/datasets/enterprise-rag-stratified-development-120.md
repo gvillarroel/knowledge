@@ -8,67 +8,52 @@ questions and 6,000 complete documents**. Scores are frozen-category-weighted
 
 ## Retained comparison
 
-Published comparison through Graphify generation 8, verified on 2026-09-12.
+Explicitly selected published observation: **Graphify generation 8**, published 2026-09-12T05:02:03.256304+00:00. [Source-bound result](../evolution/e14/graphify-generation-008-001/README.md).
 
-| Strategy | Retained score | Qualified source |
+The fixed development workload contains **120 stratified questions, 112 retrieval-eligible questions and 6,000 complete documents**. Scores are frozen-category-weighted **nDCG@10 x100**; the eligible population weight is 470.
+
+| Family | Retained nDCG@10 x100 | Qualification |
 | --- | ---: | --- |
-| Legacy | 72.38 | [E14 reproduced incumbent](../evolution/e14/legacy-starting-qualified-001/README.md) |
-| Turso | 72.38 | [E14 generation-eight gain](../evolution/e14/turso-generation-008-001/README.md) |
-| Adaptive | 66.21 | [E14 reproduced incumbent](../evolution/e14/adaptive-starting-qualified-001/README.md) |
-| Embeddings | 63.51 | [E14 reproduced reference](../evolution/e14/embeddings-starting-qualified-001/README.md) |
-| Classical | 62.10 | [E14 reproduced incumbent](../evolution/e14/classical-starting-qualified-001/README.md) |
-| Graphify | 52.33 | [E14 generation-eight gain](../evolution/e14/graphify-generation-008-001/README.md) |
-| Entity Graph | Unavailable | [E14 starting timeout](../evolution/e14/starting-execution-errors-001/README.md) |
-| Ensemble | Unavailable | [E14 starting memory failure](../evolution/e14/starting-execution-errors-001/README.md) |
+| Legacy | 72.38 | Qualified |
+| Turso | 72.38 | Qualified |
+| Adaptive | 66.21 | Qualified |
+| Embeddings | 63.51 | Qualified |
+| Classical | 62.10 | Qualified |
+| Graphify | 52.33 | Qualified |
+| Ensemble | Unavailable | Unavailable after execution error |
+| Entity Graph | Unavailable | Unavailable after execution error |
 
-Legacy and Turso share the highest retained score in this development
-comparison. Graphify's latest measured gain is **34.16 to 52.33**: 61 questions
-improve, four regress, 47 tie and eight lack retrieval references.
-[The full-precision aggregate](../evolution/e14/graphify-generation-008-001/aggregate.json)
-binds the original results and the unchanged metrics of the other families.
+The selected Graphify gain is **34.16 to 52.33**. Paired questions: **61 improve, 4 regress and 47 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
 
-## Current evolution status
+### Catalog status and remaining work
 
-Snapshot through published **Graphify generation 8, Turso generation 15 and
-Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
-qualified retrieval references; five have recorded catalog stops.** Legacy,
-Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
-Graphify remains open; Ensemble and Entity Graph still need valid full-workload
-evidence. Adaptive and Classical each retain one unavailable historical
-hypothesis, so catalog closure does not imply complete measurement coverage.
+The [catalog inventory](../evolution/e14/opportunity-accounting-002/README.md) is a separate snapshot at **2026-09-12T03:39:49.038282+00:00**. It records **5 catalog stops**: Legacy, Turso, Adaptive, Embeddings, Classical. It also preserves **2 unavailable historical hypotheses** among stopped families. Catalog closure does not imply complete historical measurement coverage. This dated inventory does not supply current reservation counts or replace the newer retained scores above.
 
-The [verified catalog inventory](../evolution/e14/opportunity-accounting-002/README.md)
-provides the terminal-state evidence and limitations. Its fixed 03:39 UTC
-snapshot predates Graphify's latest gain; use the comparison above for the
-retained scores. Claims in each historical observation describe that
-observation's completion, not a live reservation count.
+**6 of eight families have qualified retrieval references** in this comparison. Remaining work includes outstanding family qualification and evolution, the paired joint development replay, one whole-bundle freeze, the all-500 comparison and independent acceptance. Validation stays sealed until the selected candidate is frozen.
 
-The remaining work includes valid qualification and remaining opportunities
-for the open families, the paired joint development replay, one whole-bundle
-freeze, the all-500 comparison and independent acceptance. Validation remains
-sealed until the selected candidate is frozen.
+### Applications, categories and CTA
 
-## Applications, categories and CTA
+[General application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md) · [Paired groups](../evolution/e14/graphify-generation-008-001/groups.md) · [Retained-family CTA](../evolution/e14/graphify-generation-008-001/cta.md).
 
-The [general application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md)
-covers nine overlapping application cohorts. Embeddings leads Confluence,
-GitHub and Slack; Classical leads Fireflies and Linear; Legacy and Turso share
-the highest values in Gmail, Google Drive, HubSpot and Jira. Adaptive leads
-the completeness category. These are descriptive subgroup results.
+Application cohorts overlap. Highest values describe the supplied comparison; no application router is tested.
 
-Use [Graphify's paired groups](../evolution/e14/graphify-generation-008-001/groups.md)
-for its observed changes and [the retained-family CTA](../evolution/e14/graphify-generation-008-001/cta.md)
-for native job/build time, query latency, knowledge size and reported provider
-cost. Host and orchestration costs are unpriced.
+| Application | Highest retained nDCG |
+| --- | --- |
+| Confluence | Embeddings |
+| Fireflies | Classical |
+| GitHub | Embeddings |
+| Gmail | Legacy, Turso |
+| Google Drive | Legacy, Turso |
+| HubSpot | Legacy, Turso |
+| Jira | Legacy, Turso |
+| Linear | Classical |
+| Slack | Embeddings |
 
-## Measurement boundaries
+### Measurement boundaries
 
-These development retrieval metrics do not establish all-500 results,
-generated-answer quality, statistical significance, canonical promotion or a
-public leaderboard position. The [Classical 500-question run](enterprise-rag-classical-full-500.md),
-[internal Luna answer evaluation](../enterprise-classical-full/luna.md) and
-[comparisons across datasets](../README.md#historical-retrieval-comparisons)
-retain their own workload and scoring contracts.
+These development retrieval metrics do not establish all-500 results, generated-answer Overall, statistical significance, canonical promotion or a public leaderboard position. Host and orchestration costs are unpriced. Historical observations below retain their original scope and counts.
+
+The earlier [Classical full-corpus run](enterprise-rag-classical-full-500.md), [Luna answer audit](../enterprise-classical-full/luna.md) and [cross-dataset comparisons](../README.md#historical-retrieval-comparisons) retain their separate workloads and scoring contracts.
 
 ## Observation history
 

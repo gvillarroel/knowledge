@@ -163,6 +163,7 @@
 - [Enterprise historical title-only ingestion scope correction](../evaluations/reports/enterprise-source-skills/ingestion-scope-20260907.md)
 - [Unavailable semantic review pairs: paired exclusion and full-cohort bounds](../.specs/adr/0124-report-unavailable-semantic-review-pairs.md)
 - [Local evaluation datasets, EnterpriseRAG-Bench, and reports by skill](evaluation-datasets-and-reports.md)
+- [Refresh current EnterpriseRAG summaries from explicit public aggregates](evaluation-datasets-and-reports.md#refresh-current-enterpriserag-summaries)
 - [Preserve authored report indexes when generating the aggregate catalog](../.specs/adr/0159-preserve-authored-report-indexes-during-catalog-generation.md)
 - [EnterpriseRAG public leaderboard and external strategy results](../evaluations/enterprise-rag-bench/reports/public-results-20260906.md)
 - [Full-corpus EnterpriseRAG with Classical and official answer scoring](enterprise-classical-full-corpus.md)
