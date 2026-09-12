@@ -1,5 +1,7 @@
 # adaptive: dataset results
 
+[Adaptive generation 9](../evolution/e14/adaptive-generation-009-001/README.md): `{"expansion.association_weight": 0.0, "expansion.topic_weight": 0.0}` scored **65.12**, retaining **66.21**. The `expansion-strength` mechanism records **2 / 3 consecutive evaluable misses** and the family **28 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-009-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-009-001/cta.md) preserve this observation.
+
 [Adaptive generation 8](../evolution/e14/adaptive-generation-008-001/README.md): `{"expansion.association_weight": 0.0875, "expansion.topic_weight": 0.05}` scored **65.47**, retaining **66.21**. The `expansion-strength` mechanism records **1 / 3 consecutive evaluable misses** and the family **27 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-008-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-008-001/cta.md) preserve this observation.
 
 [Adaptive generation 7](../evolution/e14/adaptive-generation-007-001/README.md): `{"bm25.title_weight": 8.0}` scored **47.65**, retaining **66.21**. The `title-weight` mechanism records **2 / 3 consecutive evaluable misses** and the family **26 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-007-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-007-001/cta.md) preserve this observation.

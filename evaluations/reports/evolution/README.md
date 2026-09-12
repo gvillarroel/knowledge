@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Adaptive generation 9](e14/adaptive-generation-009-001/README.md): `{"expansion.association_weight": 0.0, "expansion.topic_weight": 0.0}` scored **65.12**, retaining **66.21**. The `expansion-strength` mechanism records **2 / 3 consecutive evaluable misses** and the family **28 / 100 claims**. [Paired applications/categories](e14/adaptive-generation-009-001/groups.md) and [CTA](e14/adaptive-generation-009-001/cta.md) preserve this observation.
+
 [Turso generation 11](e14/turso-generation-011-001/README.md): `{"engine": "bm25", "k1": 0.6}` scored **69.24**, retaining **72.38**. The `bm25-saturation` mechanism records **2 / 3 consecutive evaluable misses** and the family **12 / 55 claims**. [Paired applications/categories](e14/turso-generation-011-001/groups.md) and [CTA](e14/turso-generation-011-001/cta.md) preserve this observation.
 
 [Graphify generation 5](e14/graphify-generation-005-001/README.md): `{"depth": 5}` scored **27.93**, retaining **27.94**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **5 / 65 claims**. [Paired applications/categories](e14/graphify-generation-005-001/groups.md) and [CTA](e14/graphify-generation-005-001/cta.md) preserve this observation.
