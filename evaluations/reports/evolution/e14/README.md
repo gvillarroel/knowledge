@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 14](graphify-generation-014-001/README.md): `{"depth": 0}` scored **60.49**, retaining **63.46**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **14 / 65 claims**. [Paired applications/categories](graphify-generation-014-001/groups.md) and [CTA](graphify-generation-014-001/cta.md) preserve this observation.
+
 [Graphify generation 13](graphify-generation-013-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.33**, retaining **63.46**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 65 claims**. [Paired applications/categories](graphify-generation-013-001/groups.md) and [CTA](graphify-generation-013-001/cta.md) preserve this observation.
 
 [Graphify generation 12](graphify-generation-012-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 20}` scored **54.45**, retaining **63.46**. The `fusion-rank-decay` mechanism records **2 / 3 consecutive evaluable misses** and the family **12 / 65 claims**. [Paired applications/categories](graphify-generation-012-001/groups.md) and [CTA](graphify-generation-012-001/cta.md) preserve this observation.
