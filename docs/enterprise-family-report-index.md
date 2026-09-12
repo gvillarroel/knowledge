@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[Opportunity inventory for all eight families](../evaluations/reports/evolution/e14/opportunity-accounting-001/README.md): snapshot at 2026-09-12 02:07 UTC, with three inherited catalog stops, five open family obligations and two families still awaiting valid native evidence. Reservations and pending trials are counted separately.
+
 [Turso generation 12](../evaluations/reports/evolution/e14/turso-generation-012-001/README.md): `{"engine": "bm25", "k1": 3.0}` scored **71.36**, retaining **72.38**. The `bm25-saturation` mechanism records **3 / 3 consecutive evaluable misses** and the family **13 / 55 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/turso-generation-012-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/turso-generation-012-001/cta.md) preserve this observation.
 
 [Adaptive generation 9](../evaluations/reports/evolution/e14/adaptive-generation-009-001/README.md): `{"expansion.association_weight": 0.0, "expansion.topic_weight": 0.0}` scored **65.12**, retaining **66.21**. The `expansion-strength` mechanism records **2 / 3 consecutive evaluable misses** and the family **28 / 100 claims**. [Paired applications/categories](../evaluations/reports/evolution/e14/adaptive-generation-009-001/groups.md) and [CTA](../evaluations/reports/evolution/e14/adaptive-generation-009-001/cta.md) preserve this observation.

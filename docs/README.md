@@ -1,5 +1,7 @@
 # Documentation Index
 
+[Opportunity inventory for all eight families](../evaluations/reports/evolution/e14/opportunity-accounting-001/README.md): snapshot at 2026-09-12 02:07 UTC, with three inherited catalog stops, five open family obligations and two families still awaiting valid native evidence. Reservations and pending trials are counted separately.
+
 - [Decision: normalize complete Enterprise native histories before publication](../.specs/adr/0157-normalize-complete-enterprise-native-prefixes.md)
 
 - [Prospective Entity bounded-selection candidate](../evaluations/reports/evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks; native measurement pending.
