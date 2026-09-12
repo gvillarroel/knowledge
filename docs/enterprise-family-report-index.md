@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[Application heatmap after Graphify 9](../evaluations/reports/evolution/e14/application-heatmap-001/README.md): a dated visual comparison with all eight strategies, missing measurements and cohort leaders.
+
 [Graphify generation 9](../evaluations/reports/evolution/e14/graphify-generation-009-001/README.md): `{"lexical_weight": 2.0}` raises retained nDCG from **52.33 to 57.63**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 65 claims**. **[Latest general application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-009-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-009-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-009-001/cta.md).
 
 [Graphify generation 8](../evaluations/reports/evolution/e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Comparison at this observation](../evaluations/reports/evolution/e14/graphify-generation-008-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-008-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-008-001/cta.md).

@@ -239,6 +239,30 @@ and check preserve file modification times. This helper supports the declared
 E14 gain and inventory schemas; a final all-500 report needs its own publication
 contract. See [ADR 0160](../.specs/adr/0160-refresh-bounded-enterprise-current-views.md).
 
+## Render a public application comparison
+
+The [application heatmap after Graphify 9](../evaluations/reports/evolution/e14/application-heatmap-001/README.md)
+shows the overall and nine application cohorts across all eight strategies.
+Numeric cells retain the published nDCG contract; unavailable strategies are
+masked, and outlines preserve full-precision row leaders and ties. The figure
+is a dated observation, not a tested application router or a public ranking.
+
+Use [`render_enterprise_application_heatmap.py`](../evaluations/render_enterprise_application_heatmap.py)
+with an explicit public comparison leaf and SHA-256, an explicit dated
+inventory and SHA-256, and an unused `application-heatmap-NNN` output leaf.
+Python and Matplotlib are required for rendering. The figure's README contains
+a complete command using its original immutable inputs.
+
+The renderer validates the public presentation contract before writing, reads
+no private datasets or native traces, and never invokes an evaluator or selects
+a candidate. It writes PNG, SVG and a full-precision matrix with input,
+implementation and image digests. Cache files stay in ignored repository-local
+temporary storage. Existing output is rejected; failed partial output must be
+preserved and diagnosed before using another leaf. Inspect the image, verify
+its numeric companion and source bindings, add navigation links, and review
+the diff before publishing. Existing reports and current-view sections remain
+unchanged. See [ADR 0161](../.specs/adr/0161-bind-enterprise-application-heatmaps.md).
+
 ## Improve the evaluated skills
 
 The [evolution roadmap](knowledge-skill-evolution-roadmap.md) distinguishes
