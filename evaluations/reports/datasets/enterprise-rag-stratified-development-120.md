@@ -1,6 +1,8 @@
 # EnterpriseRAG: stratified development, 120 questions
 
-[Graphify generation 8](../evolution/e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-008-001/groups.md) · [CTA](../evolution/e14/graphify-generation-008-001/cta.md).
+[Graphify generation 9](../evolution/e14/graphify-generation-009-001/README.md): `{"lexical_weight": 2.0}` raises retained nDCG from **52.33 to 57.63**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-009-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-009-001/groups.md) · [CTA](../evolution/e14/graphify-generation-009-001/cta.md).
+
+[Graphify generation 8](../evolution/e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Comparison at this observation](../evolution/e14/graphify-generation-008-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-008-001/groups.md) · [CTA](../evolution/e14/graphify-generation-008-001/cta.md).
 
 This view covers **120 stratified development questions, 112 retrieval-eligible
 questions and 6,000 complete documents**. Scores are frozen-category-weighted
@@ -8,7 +10,7 @@ questions and 6,000 complete documents**. Scores are frozen-category-weighted
 
 ## Retained comparison
 
-Explicitly selected published observation: **Graphify generation 8**, published 2026-09-12T05:02:03.256304+00:00. [Source-bound result](../evolution/e14/graphify-generation-008-001/README.md).
+Explicitly selected published observation: **Graphify generation 9**, published 2026-09-12T06:11:30.526863+00:00. [Source-bound result](../evolution/e14/graphify-generation-009-001/README.md).
 
 The fixed development workload contains **120 stratified questions, 112 retrieval-eligible questions and 6,000 complete documents**. Scores are frozen-category-weighted **nDCG@10 x100**; the eligible population weight is 470.
 
@@ -19,11 +21,11 @@ The fixed development workload contains **120 stratified questions, 112 retrieva
 | Adaptive | 66.21 | Qualified |
 | Embeddings | 63.51 | Qualified |
 | Classical | 62.10 | Qualified |
-| Graphify | 52.33 | Qualified |
+| Graphify | 57.63 | Qualified |
 | Ensemble | Unavailable | Unavailable after execution error |
 | Entity Graph | Unavailable | Unavailable after execution error |
 
-The selected Graphify gain is **34.16 to 52.33**. Paired questions: **61 improve, 4 regress and 47 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
+The selected Graphify gain is **52.33 to 57.63**. Paired questions: **57 improve, 4 regress and 51 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
 
 ### Catalog status and remaining work
 
@@ -33,7 +35,7 @@ The [catalog inventory](../evolution/e14/opportunity-accounting-002/README.md) i
 
 ### Applications, categories and CTA
 
-[General application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md) · [Paired groups](../evolution/e14/graphify-generation-008-001/groups.md) · [Retained-family CTA](../evolution/e14/graphify-generation-008-001/cta.md).
+[General application/category comparison](../evolution/e14/graphify-generation-009-001/comparison.md) · [Paired groups](../evolution/e14/graphify-generation-009-001/groups.md) · [Retained-family CTA](../evolution/e14/graphify-generation-009-001/cta.md).
 
 Application cohorts overlap. Highest values describe the supplied comparison; no application router is tested.
 
@@ -43,7 +45,7 @@ Application cohorts overlap. Highest values describe the supplied comparison; no
 | Fireflies | Classical |
 | GitHub | Embeddings |
 | Gmail | Legacy, Turso |
-| Google Drive | Legacy, Turso |
+| Google Drive | Graphify |
 | HubSpot | Legacy, Turso |
 | Jira | Legacy, Turso |
 | Linear | Classical |

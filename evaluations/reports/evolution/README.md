@@ -1,6 +1,8 @@
 # Knowledge-skill evolution evidence
 
-[Graphify generation 8](e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-008-001/comparison.md)** · [Paired groups](e14/graphify-generation-008-001/groups.md) · [CTA](e14/graphify-generation-008-001/cta.md).
+[Graphify generation 9](e14/graphify-generation-009-001/README.md): `{"lexical_weight": 2.0}` raises retained nDCG from **52.33 to 57.63**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-009-001/comparison.md)** · [Paired groups](e14/graphify-generation-009-001/groups.md) · [CTA](e14/graphify-generation-009-001/cta.md).
+
+[Graphify generation 8](e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Comparison at this observation](e14/graphify-generation-008-001/comparison.md)** · [Paired groups](e14/graphify-generation-008-001/groups.md) · [CTA](e14/graphify-generation-008-001/cta.md).
 
 [Graphify generation 7](e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Comparison at this observation](e14/graphify-generation-007-001/comparison.md)** · [Paired groups](e14/graphify-generation-007-001/groups.md) · [CTA](e14/graphify-generation-007-001/cta.md).
 
