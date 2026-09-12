@@ -1,6 +1,8 @@
 # Knowledge-skill evolution evidence
 
-[Graphify generation 7](e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-007-001/comparison.md)** · [Paired groups](e14/graphify-generation-007-001/groups.md) · [CTA](e14/graphify-generation-007-001/cta.md).
+[Graphify generation 8](e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-008-001/comparison.md)** · [Paired groups](e14/graphify-generation-008-001/groups.md) · [CTA](e14/graphify-generation-008-001/cta.md).
+
+[Graphify generation 7](e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Comparison at this observation](e14/graphify-generation-007-001/comparison.md)** · [Paired groups](e14/graphify-generation-007-001/groups.md) · [CTA](e14/graphify-generation-007-001/cta.md).
 
 [Turso generation 15](e14/turso-generation-015-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **69.72**, retaining **72.38**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **16 / 55 claims**. [Paired applications/categories](e14/turso-generation-015-001/groups.md) and [CTA](e14/turso-generation-015-001/cta.md) preserve this observation.
 

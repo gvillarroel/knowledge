@@ -1,8 +1,10 @@
 # EnterpriseRAG reports by retrieval family
 
+[Graphify generation 8](../evaluations/reports/evolution/e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-008-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-008-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-008-001/cta.md).
+
 ## Verified EnterpriseRAG comparison
 
-Snapshot through published **Graphify generation 7, Turso generation 15 and
+Snapshot through published **Graphify generation 8, Turso generation 15 and
 Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
 qualified retrieval references; five have recorded catalog stops.** Legacy,
 Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
@@ -17,12 +19,12 @@ hypothesis, so catalog closure does not imply complete measurement coverage.
 | Adaptive | 66.21 | [Generation 10; retained incumbent unchanged](../evaluations/reports/evolution/e14/adaptive-generation-010-001/README.md) |
 | Embeddings | 63.51 | [Qualified E14 reference](../evaluations/reports/evolution/e14/embeddings-starting-qualified-001/README.md) |
 | Classical | 62.10 | [Qualified E14 incumbent](../evaluations/reports/evolution/e14/classical-starting-qualified-001/README.md) |
-| Graphify | 34.16 | [Generation 7 improves the incumbent](../evaluations/reports/evolution/e14/graphify-generation-007-001/README.md) |
+| Graphify | 52.33 | [Generation 8 improves the incumbent](../evaluations/reports/evolution/e14/graphify-generation-008-001/README.md) |
 | Ensemble | Unavailable | [Original native error](../evaluations/reports/evolution/e14/starting-execution-errors-001/README.md); [prepared construction candidate](../evaluations/reports/evolution/candidates/ensemble-mention-automaton-transfer-001/README.md) |
 | Entity Graph | Unavailable | [Original native error](../evaluations/reports/evolution/e14/starting-execution-errors-001/README.md); [prepared construction candidate](../evaluations/reports/evolution/candidates/entity-bounded-selection-001/README.md) |
 
-[General application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-007-001/comparison.md) ·
-[Retained-family CTA](../evaluations/reports/evolution/e14/graphify-generation-007-001/cta.md) ·
+[General application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-008-001/comparison.md) ·
+[Retained-family CTA](../evaluations/reports/evolution/e14/graphify-generation-008-001/cta.md) ·
 [Dataset scope and remaining work](../evaluations/reports/datasets/enterprise-rag-stratified-development-120.md) ·
 [Verified catalog inventory](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md)
 
@@ -37,7 +39,7 @@ These summaries preserve their original observation scope. Earlier scores,
 open-search descriptions and counts are superseded by the verified summary
 above when later evidence exists.
 
-[Graphify generation 7](../evaluations/reports/evolution/e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](../evaluations/reports/evolution/e14/graphify-generation-007-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-007-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-007-001/cta.md).
+[Graphify generation 7](../evaluations/reports/evolution/e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Comparison at this observation](../evaluations/reports/evolution/e14/graphify-generation-007-001/comparison.md)** · [Paired groups](../evaluations/reports/evolution/e14/graphify-generation-007-001/groups.md) · [CTA](../evaluations/reports/evolution/e14/graphify-generation-007-001/cta.md).
 
 [Five verified catalog stops and remaining EnterpriseRAG work](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
 

@@ -1,12 +1,14 @@
 # EnterpriseRAG: stratified development, 120 questions
 
+[Graphify generation 8](../evolution/e14/graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-008-001/groups.md) · [CTA](../evolution/e14/graphify-generation-008-001/cta.md).
+
 This view covers **120 stratified development questions, 112 retrieval-eligible
 questions and 6,000 complete documents**. Scores are frozen-category-weighted
 **nDCG@10 multiplied by 100**. The eligible population weight is 470.
 
 ## Retained comparison
 
-Published comparison through Graphify generation 7, verified on 2026-09-12.
+Published comparison through Graphify generation 8, verified on 2026-09-12.
 
 | Strategy | Retained score | Qualified source |
 | --- | ---: | --- |
@@ -15,19 +17,19 @@ Published comparison through Graphify generation 7, verified on 2026-09-12.
 | Adaptive | 66.21 | [E14 reproduced incumbent](../evolution/e14/adaptive-starting-qualified-001/README.md) |
 | Embeddings | 63.51 | [E14 reproduced reference](../evolution/e14/embeddings-starting-qualified-001/README.md) |
 | Classical | 62.10 | [E14 reproduced incumbent](../evolution/e14/classical-starting-qualified-001/README.md) |
-| Graphify | 34.16 | [E14 generation-seven gain](../evolution/e14/graphify-generation-007-001/README.md) |
+| Graphify | 52.33 | [E14 generation-eight gain](../evolution/e14/graphify-generation-008-001/README.md) |
 | Entity Graph | Unavailable | [E14 starting timeout](../evolution/e14/starting-execution-errors-001/README.md) |
 | Ensemble | Unavailable | [E14 starting memory failure](../evolution/e14/starting-execution-errors-001/README.md) |
 
 Legacy and Turso share the highest retained score in this development
-comparison. Graphify's latest measured gain is **27.94 to 34.16**: 28 questions
-improve, one regresses, 83 tie and eight lack retrieval references.
-[The full-precision aggregate](../evolution/e14/graphify-generation-007-001/aggregate.json)
+comparison. Graphify's latest measured gain is **34.16 to 52.33**: 61 questions
+improve, four regress, 47 tie and eight lack retrieval references.
+[The full-precision aggregate](../evolution/e14/graphify-generation-008-001/aggregate.json)
 binds the original results and the unchanged metrics of the other families.
 
 ## Current evolution status
 
-Snapshot through published **Graphify generation 7, Turso generation 15 and
+Snapshot through published **Graphify generation 8, Turso generation 15 and
 Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
 qualified retrieval references; five have recorded catalog stops.** Legacy,
 Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
@@ -48,14 +50,14 @@ sealed until the selected candidate is frozen.
 
 ## Applications, categories and CTA
 
-The [general application/category comparison](../evolution/e14/graphify-generation-007-001/comparison.md)
+The [general application/category comparison](../evolution/e14/graphify-generation-008-001/comparison.md)
 covers nine overlapping application cohorts. Embeddings leads Confluence,
 GitHub and Slack; Classical leads Fireflies and Linear; Legacy and Turso share
 the highest values in Gmail, Google Drive, HubSpot and Jira. Adaptive leads
 the completeness category. These are descriptive subgroup results.
 
-Use [Graphify's paired groups](../evolution/e14/graphify-generation-007-001/groups.md)
-for its observed changes and [the retained-family CTA](../evolution/e14/graphify-generation-007-001/cta.md)
+Use [Graphify's paired groups](../evolution/e14/graphify-generation-008-001/groups.md)
+for its observed changes and [the retained-family CTA](../evolution/e14/graphify-generation-008-001/cta.md)
 for native job/build time, query latency, knowledge size and reported provider
 cost. Host and orchestration costs are unpriced.
 
@@ -73,7 +75,7 @@ retain their own workload and scoring contracts.
 The entries below preserve the state at each observation, newest first.
 Their scores, proposal counts and open-mechanism descriptions are historical.
 
-[Graphify generation 7](../evolution/e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](../evolution/e14/graphify-generation-007-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-007-001/groups.md) · [CTA](../evolution/e14/graphify-generation-007-001/cta.md).
+[Graphify generation 7](../evolution/e14/graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Comparison at this observation](../evolution/e14/graphify-generation-007-001/comparison.md)** · [Paired groups](../evolution/e14/graphify-generation-007-001/groups.md) · [CTA](../evolution/e14/graphify-generation-007-001/cta.md).
 
 [Turso generation 15](../evolution/e14/turso-generation-015-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **69.72**, retaining **72.38**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **16 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-015-001/groups.md) and [CTA](../evolution/e14/turso-generation-015-001/cta.md) preserve this observation.
 

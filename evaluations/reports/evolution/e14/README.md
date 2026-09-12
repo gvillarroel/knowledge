@@ -1,8 +1,10 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 8](graphify-generation-008-001/README.md): `{"lexical_weight": 1.0}` raises retained nDCG from **34.16 to 52.33**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **8 / 65 claims**. **[Latest general application/category comparison](graphify-generation-008-001/comparison.md)** · [Paired groups](graphify-generation-008-001/groups.md) · [CTA](graphify-generation-008-001/cta.md).
+
 ## Verified development status
 
-Snapshot through published **Graphify generation 7, Turso generation 15 and
+Snapshot through published **Graphify generation 8, Turso generation 15 and
 Adaptive generation 10**, verified on 2026-09-12. **Six of eight families have
 qualified retrieval references; five have recorded catalog stops.** Legacy,
 Turso, Adaptive, Embeddings and Classical have stopped their finite catalogs.
@@ -10,18 +12,18 @@ Graphify remains open; Ensemble and Entity Graph still need valid full-workload
 evidence. Adaptive and Classical each retain one unavailable historical
 hypothesis, so catalog closure does not imply complete measurement coverage.
 
-[The retained eight-family comparison](graphify-generation-007-001/README.md#retained-eight-family-comparison)
+[The retained eight-family comparison](graphify-generation-008-001/README.md#retained-eight-family-comparison)
 reports Legacy/Turso 72.38, Adaptive 66.21, Embeddings 63.51, Classical 62.10
-and Graphify 34.16 nDCG@10 x100. Entity Graph and Ensemble have unavailable
+and Graphify 52.33 nDCG@10 x100. Entity Graph and Ensemble have unavailable
 scores after execution errors. The fixed workload contains 120 stratified
 questions, 112 retrieval-eligible questions and 6,000 complete documents.
 
-[Applications and categories](graphify-generation-007-001/comparison.md) ·
-[Retained-family CTA](graphify-generation-007-001/cta.md) ·
+[Applications and categories](graphify-generation-008-001/comparison.md) ·
+[Retained-family CTA](graphify-generation-008-001/cta.md) ·
 [Verified catalog stops and historical fitness gaps](opportunity-accounting-002/README.md) ·
 [Dataset view](../../datasets/enterprise-rag-stratified-development-120.md)
 
-The opportunity inventory's fixed snapshot predates Graphify7; it preserves
+The opportunity inventory's fixed snapshot predates Graphify8; it preserves
 its original scores and counts. All eight family obligations, the joint
 replay, the whole-bundle freeze, the all-500 comparison and independent
 acceptance remain required. No canonical skill is promoted.
@@ -31,7 +33,7 @@ acceptance remain required. No canonical skill is promoted.
 Each entry below describes the state at its own checkpoint. A mechanism that
 was open in an earlier entry may have a later verified catalog stop.
 
-[Graphify generation 7](graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Latest general application/category comparison](graphify-generation-007-001/comparison.md)** · [Paired groups](graphify-generation-007-001/groups.md) · [CTA](graphify-generation-007-001/cta.md).
+[Graphify generation 7](graphify-generation-007-001/README.md): `{"lexical_weight": 0.5}` raises retained nDCG from **27.94 to 34.16**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **7 / 65 claims**. **[Comparison at this observation](graphify-generation-007-001/comparison.md)** · [Paired groups](graphify-generation-007-001/groups.md) · [CTA](graphify-generation-007-001/cta.md).
 
 [Five verified catalog stops and remaining EnterpriseRAG work](opportunity-accounting-002/README.md): snapshot at 2026-09-12 03:39 UTC. Six qualified references, three families without a catalog closure, and two historical fitness gaps among the stopped families remain distinct. The inventory preserves all eight strategies and exact proposal accounting.
 
