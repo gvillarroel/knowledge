@@ -1,5 +1,7 @@
 # turso: dataset results
 
+[Turso generation 10](../evolution/e14/turso-generation-010-001/README.md): `{"engine": "bm25", "k1": 1.2}` scored **71.97**, retaining **72.38**. The `bm25-saturation` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-010-001/groups.md) and [CTA](../evolution/e14/turso-generation-010-001/cta.md) preserve this observation.
+
 [Turso generation 9](../evolution/e14/turso-generation-009-001/README.md): `{"engine": "bm25", "title_weight": 8.0}` scored **72.12**, retaining **72.38**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **10 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-009-001/groups.md) and [CTA](../evolution/e14/turso-generation-009-001/cta.md) preserve this observation.
 
 [Turso generation 8](../evolution/e14/turso-generation-008-001/README.md): `{"engine": "bm25", "title_weight": 4.0}` raises retained nDCG from **72.13 to 72.38**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 55 claims**. **[Latest general application/category comparison](../evolution/e14/turso-generation-008-001/comparison.md)** · [Paired groups](../evolution/e14/turso-generation-008-001/groups.md) · [CTA](../evolution/e14/turso-generation-008-001/cta.md).
