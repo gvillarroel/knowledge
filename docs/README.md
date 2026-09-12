@@ -1,5 +1,7 @@
 # Documentation Index
 
+- [Decision: normalize complete Enterprise native histories before publication](../.specs/adr/0157-normalize-complete-enterprise-native-prefixes.md)
+
 - [Prospective Entity bounded-selection candidate](../evaluations/reports/evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks; native measurement pending.
 - [Decision: preserve exact order with bounded Entity selection](../.specs/adr/0156-bound-entity-candidate-selection-with-exact-order.md)
 
