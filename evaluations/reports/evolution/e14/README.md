@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 21](graphify-generation-021-001/README.md): `{"lexical_weight": 2.0}` scored **57.62**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **3 / 3 consecutive evaluable misses** and the family **21 / 65 claims**. [Paired applications/categories](graphify-generation-021-001/groups.md) and [CTA](graphify-generation-021-001/cta.md) preserve this observation.
+
 [Graphify generation 20](graphify-generation-020-001/README.md): `{"lexical_weight": 1.0}` scored **52.42**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **2 / 3 consecutive evaluable misses** and the family **20 / 65 claims**. [Paired applications/categories](graphify-generation-020-001/groups.md) and [CTA](graphify-generation-020-001/cta.md) preserve this observation.
 
 [Graphify generation 19](graphify-generation-019-001/README.md): `{"lexical_weight": 0.5}` scored **34.08**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **1 / 3 consecutive evaluable misses** and the family **19 / 65 claims**. [Paired applications/categories](graphify-generation-019-001/groups.md) and [CTA](graphify-generation-019-001/cta.md) preserve this observation.
