@@ -1,5 +1,7 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+[Graphify generation 6](graphify-generation-006-001/README.md): `{"depth": 6}` scored **27.93**, retaining **27.94**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **6 / 65 claims**. [Paired applications/categories](graphify-generation-006-001/groups.md) and [CTA](graphify-generation-006-001/cta.md) preserve this observation.
+
 [Adaptive generation 10](adaptive-generation-010-001/README.md): `{"expansion.association_weight": 0.7, "expansion.topic_weight": 0.4}` scored **66.04**, retaining **66.21**. The `expansion-strength` mechanism records **3 / 3 consecutive evaluable misses** and the family **29 / 100 claims**. [Paired applications/categories](adaptive-generation-010-001/groups.md) and [CTA](adaptive-generation-010-001/cta.md) preserve this observation.
 
 [Opportunity inventory for all eight families](opportunity-accounting-001/README.md): snapshot at 2026-09-12 02:07 UTC, with three inherited catalog stops, five open family obligations and two families still awaiting valid native evidence. Reservations and pending trials are counted separately.
