@@ -1,5 +1,7 @@
 # Reports by skill
 
+[Turso generation 9](../evolution/e14/turso-generation-009-001/README.md): `{"engine": "bm25", "title_weight": 8.0}` scored **72.12**, retaining **72.38**. The `title-weight` mechanism records **1 / 3 consecutive evaluable misses** and the family **10 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-009-001/groups.md) and [CTA](../evolution/e14/turso-generation-009-001/cta.md) preserve this observation.
+
 [Adaptive generation 7](../evolution/e14/adaptive-generation-007-001/README.md): `{"bm25.title_weight": 8.0}` scored **47.65**, retaining **66.21**. The `title-weight` mechanism records **2 / 3 consecutive evaluable misses** and the family **26 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-007-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-007-001/cta.md) preserve this observation.
 
 [Prospective Entity bounded-selection candidate](../evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
