@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Graphify generation 11](e14/graphify-generation-011-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 5}` scored **59.35**, retaining **63.46**. The `fusion-rank-decay` mechanism records **1 / 3 consecutive evaluable misses** and the family **11 / 65 claims**. [Paired applications/categories](e14/graphify-generation-011-001/groups.md) and [CTA](e14/graphify-generation-011-001/cta.md) preserve this observation.
+
 [Graphify generation 10](e14/graphify-generation-010-001/README.md): `{"lexical_weight": 4.0}` raises retained nDCG from **57.63 to 63.46**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **10 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-010-001/comparison.md)** · [Paired groups](e14/graphify-generation-010-001/groups.md) · [CTA](e14/graphify-generation-010-001/cta.md).
 
 [Graphify generation 9](e14/graphify-generation-009-001/README.md): `{"lexical_weight": 2.0}` raises retained nDCG from **52.33 to 57.63**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **9 / 65 claims**. **[Comparison at this observation](e14/graphify-generation-009-001/comparison.md)** · [Paired groups](e14/graphify-generation-009-001/groups.md) · [CTA](e14/graphify-generation-009-001/cta.md).
