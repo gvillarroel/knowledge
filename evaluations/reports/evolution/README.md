@@ -1,5 +1,7 @@
 # Knowledge-skill evolution evidence
 
+[Adaptive generation 7](e14/adaptive-generation-007-001/README.md): `{"bm25.title_weight": 8.0}` scored **47.65**, retaining **66.21**. The `title-weight` mechanism records **2 / 3 consecutive evaluable misses** and the family **26 / 100 claims**. [Paired applications/categories](e14/adaptive-generation-007-001/groups.md) and [CTA](e14/adaptive-generation-007-001/cta.md) preserve this observation.
+
 [Prospective Entity bounded-selection candidate](candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.
 
 [Graphify generation 4](e14/graphify-generation-004-001/README.md): `{"depth": 4}` raises retained nDCG from **27.90 to 27.94**, resets consecutive evaluable misses to **0 / 3**, and brings the family to **4 / 65 claims**. **[Latest general application/category comparison](e14/graphify-generation-004-001/comparison.md)** · [Paired groups](e14/graphify-generation-004-001/groups.md) · [CTA](e14/graphify-generation-004-001/cta.md).

@@ -1,0 +1,4116 @@
+{
+  "all500_comparison_complete": false,
+  "all_family_searches_complete": false,
+  "application_coverage_percent": 90.5,
+  "catalog_round": 2,
+  "consecutive_evaluable_misses": 2,
+  "declared_variants": 3,
+  "family_prefix": {
+    "accounting": {
+      "claimed_variants": 26,
+      "family_variant_cap": 100,
+      "issued_pending": [
+        "continuation-001"
+      ],
+      "new_claims": 6
+    },
+    "comparison_fairness_basis": "lock-and-trial-results",
+    "complete_documents": 6000,
+    "cumulative_native_trials": 9,
+    "eligible_population_weight": 470,
+    "execution_contract_sha256": "0ae31b88a56e80ed7e65f29a9d8d1f49c93c9edc7b623341e0d990b26a9c277d",
+    "family": "adaptive",
+    "generated_at_utc": "2026-09-12T00:15:53.339603+00:00",
+    "groups": [
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 35,
+              "regressed": 12,
+              "tied": 65,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 31,
+              "regressed": 17,
+              "tied": 64,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 25,
+              "regressed": 22,
+              "tied": 65,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 31,
+              "regressed": 16,
+              "tied": 65,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 33,
+              "regressed": 13,
+              "tied": 66,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 33,
+              "regressed": 13,
+              "tied": 66,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 20,
+              "regressed": 31,
+              "tied": 61,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 12,
+              "regressed": 44,
+              "tied": 56,
+              "without_references": 8
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 54,
+              "tied": 52,
+              "without_references": 8
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "all",
+        "group": "all",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.6238918439716312,
+            "mrr_at_10": 0.6069533712568952,
+            "ndcg_at_10": 0.6003504668859466,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.6918784475965327,
+            "retrieval_eligible": 112
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6927083333333334,
+            "mrr_at_10": 0.673708734380277,
+            "ndcg_at_10": 0.6620879880681476,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.7402260638297873,
+            "retrieval_eligible": 112
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.6769725177304964,
+            "mrr_at_10": 0.6473123258611956,
+            "ndcg_at_10": 0.6452615667814057,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.7264307525610717,
+            "retrieval_eligible": 112
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.6412898936170213,
+            "mrr_at_10": 0.6270258147585276,
+            "ndcg_at_10": 0.6230904940043712,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.6926295311268715,
+            "retrieval_eligible": 112
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6927083333333334,
+            "mrr_at_10": 0.6638020833333333,
+            "ndcg_at_10": 0.6577794965216942,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.7391622340425532,
+            "retrieval_eligible": 112
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.6678856382978723,
+            "mrr_at_10": 0.6735360467325228,
+            "ndcg_at_10": 0.6552067559204343,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.7319912332545311,
+            "retrieval_eligible": 112
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.685616134751773,
+            "mrr_at_10": 0.6697578942924687,
+            "ndcg_at_10": 0.6560881169146595,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.7368868203309692,
+            "retrieval_eligible": 112
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.6025044326241135,
+            "mrr_at_10": 0.5419346029635258,
+            "ndcg_at_10": 0.5478658042411272,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.6637337470449173,
+            "retrieval_eligible": 112
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.5490913120567377,
+            "mrr_at_10": 0.4523552713047394,
+            "ndcg_at_10": 0.4764582356235439,
+            "population_weight": 470.0,
+            "questions": 120,
+            "recall_at_10": 0.6192745271867612,
+            "retrieval_eligible": 112
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 17,
+              "regressed": 7,
+              "tied": 15,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 18,
+              "regressed": 7,
+              "tied": 14,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 15,
+              "regressed": 12,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 17,
+              "regressed": 8,
+              "tied": 14,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 17,
+              "regressed": 6,
+              "tied": 16,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 17,
+              "regressed": 8,
+              "tied": 14,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 10,
+              "regressed": 15,
+              "tied": 14,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 20,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 23,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "confluence",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.5001863585538575,
+            "mrr_at_10": 0.7178365842547728,
+            "ndcg_at_10": 0.6388982205235095,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.6995320329647575,
+            "retrieval_eligible": 39
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6235557212076034,
+            "mrr_at_10": 0.7453898443462363,
+            "ndcg_at_10": 0.6808722897022222,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7632003975649149,
+            "retrieval_eligible": 39
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.6265374580693253,
+            "mrr_at_10": 0.7349253678362884,
+            "ndcg_at_10": 0.6891953670280109,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7762869093469168,
+            "retrieval_eligible": 39
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.6265374580693253,
+            "mrr_at_10": 0.6986209467014536,
+            "ndcg_at_10": 0.6638761298436385,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7735702157617923,
+            "retrieval_eligible": 39
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6235557212076034,
+            "mrr_at_10": 0.7517082867436948,
+            "ndcg_at_10": 0.6863604509472262,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7617095291340539,
+            "retrieval_eligible": 39
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.5121133060007454,
+            "mrr_at_10": 0.7677972418934029,
+            "ndcg_at_10": 0.669078634239352,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7099349815712096,
+            "retrieval_eligible": 39
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.5997018263138277,
+            "mrr_at_10": 0.7592123245123618,
+            "ndcg_at_10": 0.6814972522508413,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.7519691887190955,
+            "retrieval_eligible": 39
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.48415952292210207,
+            "mrr_at_10": 0.6584207443693094,
+            "ndcg_at_10": 0.5951252655970664,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.6734998136414462,
+            "retrieval_eligible": 39
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.47670518076779717,
+            "mrr_at_10": 0.5328316442740595,
+            "ndcg_at_10": 0.5261925937780855,
+            "population_weight": 139.73958333333334,
+            "questions": 39,
+            "recall_at_10": 0.6897005839234688,
+            "retrieval_eligible": 39
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 2,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 5,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 4,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 4,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 4,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 2,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 5,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 5,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 3,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "fireflies",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.8495297805642634,
+            "mrr_at_10": 0.7565308254963428,
+            "ndcg_at_10": 0.7920248134379969,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.9360501567398121,
+            "retrieval_eligible": 9
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.7272727272727274,
+            "ndcg_at_10": 0.6960158238333354,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.7009404388714734,
+            "retrieval_eligible": 9
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.6854754440961338,
+            "ndcg_at_10": 0.6742167976815188,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.6808777429467086,
+            "retrieval_eligible": 9
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.7319749216300941,
+            "mrr_at_10": 0.7173458725182864,
+            "ndcg_at_10": 0.7195426047383499,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.7946708463949844,
+            "retrieval_eligible": 9
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.6871473354231976,
+            "ndcg_at_10": 0.6843323952803249,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.69717868338558,
+            "retrieval_eligible": 9
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.6871473354231976,
+            "ndcg_at_10": 0.6828705327737863,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.690909090909091,
+            "retrieval_eligible": 9
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.7272727272727274,
+            "ndcg_at_10": 0.6960158238333354,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.7009404388714734,
+            "retrieval_eligible": 9
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.6833855799373042,
+            "ndcg_at_10": 0.6780959219914168,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.690909090909091,
+            "retrieval_eligible": 9
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.6144200626959249,
+            "mrr_at_10": 0.6771159874608151,
+            "ndcg_at_10": 0.6682797412256442,
+            "population_weight": 33.229166666666664,
+            "questions": 9,
+            "recall_at_10": 0.6746081504702195,
+            "retrieval_eligible": 9
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 3,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 5,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 5,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 7,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 5,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 4,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 8,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 9,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 9,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "github",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.4816568047337278,
+            "mrr_at_10": 0.5667455621301775,
+            "ndcg_at_10": 0.5420536415046935,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.665956607495069,
+            "retrieval_eligible": 12
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.5704142011834319,
+            "mrr_at_10": 0.7313609467455621,
+            "ndcg_at_10": 0.6271172986094028,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.7130571992110454,
+            "retrieval_eligible": 12
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.5704142011834319,
+            "mrr_at_10": 0.6420118343195266,
+            "ndcg_at_10": 0.6091180091144565,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.730309007232084,
+            "retrieval_eligible": 12
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.4816568047337278,
+            "mrr_at_10": 0.5635108481262326,
+            "ndcg_at_10": 0.5355344961106241,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.6457593688362918,
+            "retrieval_eligible": 12
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.5704142011834319,
+            "mrr_at_10": 0.667258382642998,
+            "ndcg_at_10": 0.6013903427421496,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.7092702169625246,
+            "retrieval_eligible": 12
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.49467455621301776,
+            "mrr_at_10": 0.7518737672583826,
+            "ndcg_at_10": 0.6233687978644706,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.7067455621301775,
+            "retrieval_eligible": 12
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.5704142011834319,
+            "mrr_at_10": 0.7341786418709495,
+            "ndcg_at_10": 0.6256459955278455,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.7130571992110454,
+            "retrieval_eligible": 12
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.49467455621301776,
+            "mrr_at_10": 0.5084812623274161,
+            "ndcg_at_10": 0.49845773437117497,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.6903353057199211,
+            "retrieval_eligible": 12
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.33017751479289936,
+            "mrr_at_10": 0.3734319526627219,
+            "ndcg_at_10": 0.37955905811520124,
+            "population_weight": 44.01041666666667,
+            "questions": 12,
+            "recall_at_10": 0.5742274819197896,
+            "retrieval_eligible": 12
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 1,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 4,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 5,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 3,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 2,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 1,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 6,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 6,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 6,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "gmail",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.6128133704735376,
+            "mrr_at_10": 0.5905292479108636,
+            "ndcg_at_10": 0.5846112156382669,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.7237387805632931,
+            "retrieval_eligible": 10
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6128133704735376,
+            "mrr_at_10": 0.7576601671309192,
+            "ndcg_at_10": 0.7115310503526697,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.7138347260909935,
+            "retrieval_eligible": 10
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.5682451253481894,
+            "mrr_at_10": 0.6114206128133705,
+            "ndcg_at_10": 0.5831417442588523,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.6885793871866295,
+            "retrieval_eligible": 10
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.5682451253481894,
+            "mrr_at_10": 0.46935933147632314,
+            "ndcg_at_10": 0.5105067681645914,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.6994738471061591,
+            "retrieval_eligible": 10
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6128133704735376,
+            "mrr_at_10": 0.66016713091922,
+            "ndcg_at_10": 0.63077890699083,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.7049210770659238,
+            "retrieval_eligible": 10
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.5682451253481894,
+            "mrr_at_10": 0.6016713091922005,
+            "ndcg_at_10": 0.5929065451741067,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.7173011451562984,
+            "retrieval_eligible": 10
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.6128133704735376,
+            "mrr_at_10": 0.66016713091922,
+            "ndcg_at_10": 0.6395674925532324,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.7138347260909935,
+            "retrieval_eligible": 10
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.5682451253481894,
+            "mrr_at_10": 0.4846796657381615,
+            "ndcg_at_10": 0.48811413822889677,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.6974930362116992,
+            "retrieval_eligible": 10
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.37325905292479106,
+            "mrr_at_10": 0.3881151346332405,
+            "ndcg_at_10": 0.3971952617160676,
+            "population_weight": 37.395833333333336,
+            "questions": 10,
+            "recall_at_10": 0.5034973692355308,
+            "retrieval_eligible": 10
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 1,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 1,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 2,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 2,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 2,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 1,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 3,
+              "tied": 7,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 5,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 8,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "google_drive",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.5023255813953488,
+            "mrr_at_10": 0.6337984496124032,
+            "ndcg_at_10": 0.5930277258653702,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.666046511627907,
+            "retrieval_eligible": 14
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6213953488372093,
+            "mrr_at_10": 0.7454263565891474,
+            "ndcg_at_10": 0.6873066057754214,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7206201550387596,
+            "retrieval_eligible": 14
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.5916279069767442,
+            "mrr_at_10": 0.6645581395348837,
+            "ndcg_at_10": 0.6653379870025321,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7321963824289406,
+            "retrieval_eligible": 14
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.5916279069767442,
+            "mrr_at_10": 0.6546356589147286,
+            "ndcg_at_10": 0.6595689711592387,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7305426356589148,
+            "retrieval_eligible": 14
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6213953488372093,
+            "mrr_at_10": 0.7106976744186045,
+            "ndcg_at_10": 0.6770867121598749,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7206201550387596,
+            "retrieval_eligible": 14
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.5618604651162791,
+            "mrr_at_10": 0.7454263565891474,
+            "ndcg_at_10": 0.6882917249916323,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7255813953488371,
+            "retrieval_eligible": 14
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.6213953488372093,
+            "mrr_at_10": 0.7454263565891474,
+            "ndcg_at_10": 0.6856767142266995,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7206201550387596,
+            "retrieval_eligible": 14
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.6213953488372093,
+            "mrr_at_10": 0.643720930232558,
+            "ndcg_at_10": 0.6269999057302986,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.7206201550387596,
+            "retrieval_eligible": 14
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.4725581395348837,
+            "mrr_at_10": 0.517953488372093,
+            "ndcg_at_10": 0.5371277864758357,
+            "population_weight": 55.989583333333336,
+            "questions": 14,
+            "recall_at_10": 0.6544702842377261,
+            "retrieval_eligible": 14
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 1,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 1,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 3,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 3,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "hubspot",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.5797413793103449,
+            "ndcg_at_10": 0.596160765240149,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.5833333333333334,
+            "ndcg_at_10": 0.5996730333713812,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.5689655172413793,
+            "mrr_at_10": 0.5689655172413793,
+            "ndcg_at_10": 0.5689655172413793,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.5689655172413793,
+            "retrieval_eligible": 9
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.5689655172413793,
+            "mrr_at_10": 0.5689655172413793,
+            "ndcg_at_10": 0.5689655172413793,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.5689655172413793,
+            "retrieval_eligible": 9
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.5797413793103449,
+            "ndcg_at_10": 0.596160765240149,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.7413793103448276,
+            "mrr_at_10": 0.5969827586206896,
+            "ndcg_at_10": 0.6295101451741613,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.7413793103448276,
+            "retrieval_eligible": 9
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.5797413793103449,
+            "ndcg_at_10": 0.596160765240149,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.5833333333333334,
+            "ndcg_at_10": 0.5996730333713812,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.6551724137931034,
+            "mrr_at_10": 0.4216954022988506,
+            "ndcg_at_10": 0.47548263589974177,
+            "population_weight": 45.3125,
+            "questions": 9,
+            "recall_at_10": 0.6551724137931034,
+            "retrieval_eligible": 9
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 9,
+              "regressed": 6,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 8,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 8,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 10,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 10,
+              "regressed": 6,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 7,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 11,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 13,
+              "tied": 11,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 14,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "jira",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.5675249605885444,
+            "mrr_at_10": 0.7054125065685759,
+            "ndcg_at_10": 0.654439119535498,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.6923337420447246,
+            "retrieval_eligible": 26
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.6857593273778244,
+            "mrr_at_10": 0.7645822385706778,
+            "ndcg_at_10": 0.6915991485489117,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.7816079873883341,
+            "retrieval_eligible": 26
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.6295323173935891,
+            "mrr_at_10": 0.7365782098441057,
+            "ndcg_at_10": 0.6767059275029206,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.7522858644245927,
+            "retrieval_eligible": 26
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.5733053074093536,
+            "mrr_at_10": 0.7048770112353926,
+            "ndcg_at_10": 0.6606821198008282,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.723150580954049,
+            "retrieval_eligible": 26
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.6463478717813977,
+            "mrr_at_10": 0.7344762655456297,
+            "ndcg_at_10": 0.6709198014734544,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.7405149763531267,
+            "retrieval_eligible": 26
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.6353126642143982,
+            "mrr_at_10": 0.8153166679178239,
+            "ndcg_at_10": 0.7218295306250802,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.7823553453611256,
+            "retrieval_eligible": 26
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.6857593273778244,
+            "mrr_at_10": 0.7668186822811099,
+            "ndcg_at_10": 0.6887690037903702,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.7748817656332107,
+            "retrieval_eligible": 26
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.5564897530215449,
+            "mrr_at_10": 0.643116758001151,
+            "ndcg_at_10": 0.6085917662948764,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.6898931511648274,
+            "retrieval_eligible": 26
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.4324750394114556,
+            "mrr_at_10": 0.5944917798964041,
+            "ndcg_at_10": 0.5576962960066072,
+            "population_weight": 99.11458333333334,
+            "questions": 26,
+            "recall_at_10": 0.6026858177147194,
+            "retrieval_eligible": 26
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 0,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 1,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 2,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 1,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 1,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 0,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 5,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 6,
+              "tied": 7,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 8,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "linear",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.7426636568848759,
+            "mrr_at_10": 0.7426636568848759,
+            "ndcg_at_10": 0.7370638318854508,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.8309505894156007,
+            "retrieval_eligible": 15
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.7908201655379985,
+            "mrr_at_10": 0.8419864559819413,
+            "ndcg_at_10": 0.8132520039232123,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.8470027589666416,
+            "retrieval_eligible": 15
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.8472535741158767,
+            "mrr_at_10": 0.8404815650865313,
+            "ndcg_at_10": 0.8454059391898003,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.9168129755037205,
+            "retrieval_eligible": 15
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.7908201655379985,
+            "mrr_at_10": 0.8630549285176825,
+            "ndcg_at_10": 0.8395125877078033,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.855028843742162,
+            "retrieval_eligible": 15
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.8472535741158767,
+            "mrr_at_10": 0.8645598194130926,
+            "ndcg_at_10": 0.8453253906135588,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.9034361675445197,
+            "retrieval_eligible": 15
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.7426636568848759,
+            "mrr_at_10": 0.8871331828442438,
+            "ndcg_at_10": 0.8471215728319171,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.8389766741911212,
+            "retrieval_eligible": 15
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.7908201655379985,
+            "mrr_at_10": 0.8448081264108352,
+            "ndcg_at_10": 0.8157640538775739,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.8470027589666416,
+            "retrieval_eligible": 15
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.6862302483069977,
+            "mrr_at_10": 0.6596438424880863,
+            "ndcg_at_10": 0.6566429960765946,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.7745171808377227,
+            "retrieval_eligible": 15
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.6862302483069977,
+            "mrr_at_10": 0.5316277903185352,
+            "ndcg_at_10": 0.5790169775900631,
+            "population_weight": 69.21875,
+            "questions": 15,
+            "recall_at_10": 0.7691664576540423,
+            "retrieval_eligible": 15
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 11,
+              "regressed": 4,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 8,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 8,
+              "tied": 10,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 8,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 7,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 10,
+              "regressed": 5,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 13,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 14,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 15,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "application",
+        "group": "slack",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.38032393521295743,
+            "mrr_at_10": 0.4522995400919816,
+            "ndcg_at_10": 0.4142648373027197,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.5509564753715923,
+            "retrieval_eligible": 24
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.5026994601079784,
+            "mrr_at_10": 0.5695860827834432,
+            "ndcg_at_10": 0.5015641157141544,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.6210757848430314,
+            "retrieval_eligible": 24
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.4385122975404919,
+            "mrr_at_10": 0.5172965406918616,
+            "ndcg_at_10": 0.47559436546407124,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.5816303405985469,
+            "retrieval_eligible": 24
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.35452909418116374,
+            "mrr_at_10": 0.4897020595880824,
+            "ndcg_at_10": 0.4472816911326214,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.49807371858961536,
+            "retrieval_eligible": 24
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.5026994601079784,
+            "mrr_at_10": 0.5498900219956009,
+            "ndcg_at_10": 0.49418922278218164,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.6153169366126775,
+            "retrieval_eligible": 24
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.4451109778044391,
+            "mrr_at_10": 0.516496700659868,
+            "ndcg_at_10": 0.4505947629867306,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.5956941944944345,
+            "retrieval_eligible": 24
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.4643071385722855,
+            "mrr_at_10": 0.5616676664667066,
+            "ndcg_at_10": 0.4863271653182078,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.6005998800239952,
+            "retrieval_eligible": 24
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.27294541091781643,
+            "mrr_at_10": 0.3754106321592824,
+            "ndcg_at_10": 0.3250589153262716,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.4359528094381123,
+            "retrieval_eligible": 24
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.22795440911817635,
+            "mrr_at_10": 0.2805762656992411,
+            "ndcg_at_10": 0.2674542499001434,
+            "population_weight": 86.82291666666667,
+            "questions": 24,
+            "recall_at_10": 0.38712257548490303,
+            "retrieval_eligible": 24
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 1,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 6,
+              "tied": 16,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 7,
+              "tied": 15,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 10,
+              "tied": 13,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "basic",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.8333333333333334,
+            "mrr_at_10": 0.7365079365079364,
+            "ndcg_at_10": 0.7591744225236615,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.8333333333333334,
+            "retrieval_eligible": 24
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.8392857142857143,
+            "ndcg_at_10": 0.8472222222222222,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 24
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.80625,
+            "ndcg_at_10": 0.8216558910163033,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 24
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.8333333333333334,
+            "mrr_at_10": 0.78125,
+            "ndcg_at_10": 0.7942335963185355,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.8333333333333334,
+            "retrieval_eligible": 24
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.8194444444444444,
+            "ndcg_at_10": 0.8327973725283117,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 24
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.7833333333333334,
+            "ndcg_at_10": 0.8044519744634954,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 24
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.818452380952381,
+            "ndcg_at_10": 0.8318442952876997,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 24
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.8333333333333334,
+            "mrr_at_10": 0.61875,
+            "ndcg_at_10": 0.6713554435460689,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.8333333333333334,
+            "retrieval_eligible": 24
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.7916666666666667,
+            "mrr_at_10": 0.5510416666666667,
+            "ndcg_at_10": 0.6080870830308455,
+            "population_weight": 175.0,
+            "questions": 24,
+            "recall_at_10": 0.7916666666666667,
+            "retrieval_eligible": 24
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 10,
+              "regressed": 2,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 7,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 9,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 4,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 9,
+              "regressed": 3,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 10,
+              "regressed": 2,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 5,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 8,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 11,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "completeness",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.16666666666666669,
+            "mrr_at_10": 0.6856481481481482,
+            "ndcg_at_10": 0.5132000477110568,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.5833333333333334,
+            "retrieval_eligible": 12
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.25,
+            "mrr_at_10": 0.75,
+            "ndcg_at_10": 0.6290421148883322,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.6680555555555556,
+            "retrieval_eligible": 12
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.08333333333333334,
+            "mrr_at_10": 0.549404761904762,
+            "ndcg_at_10": 0.4879034504973235,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.5333333333333334,
+            "retrieval_eligible": 12
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.0,
+            "mrr_at_10": 0.5444444444444445,
+            "ndcg_at_10": 0.4327113020792811,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.4479166666666667,
+            "retrieval_eligible": 12
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.25,
+            "mrr_at_10": 0.6277777777777778,
+            "ndcg_at_10": 0.5747894574865995,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.6430555555555556,
+            "retrieval_eligible": 12
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.16666666666666669,
+            "mrr_at_10": 0.7736111111111111,
+            "ndcg_at_10": 0.6008507131837499,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.6236111111111111,
+            "retrieval_eligible": 12
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.25,
+            "mrr_at_10": 0.75,
+            "ndcg_at_10": 0.6312637337397918,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.6784722222222223,
+            "retrieval_eligible": 12
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.16666666666666669,
+            "mrr_at_10": 0.6590277777777778,
+            "ndcg_at_10": 0.5632992907496137,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.6152777777777778,
+            "retrieval_eligible": 12
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.08333333333333334,
+            "mrr_at_10": 0.5833333333333334,
+            "ndcg_at_10": 0.4671518399046043,
+            "population_weight": 20.0,
+            "questions": 12,
+            "recall_at_10": 0.49236111111111114,
+            "retrieval_eligible": 12
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 1,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 0,
+              "tied": 3,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 1,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 2,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 2,
+              "tied": 2,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "conflicting_info",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9032867981913647,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 4
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9625862263836886,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9625862263836886,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9425164236707356,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9625862263836886,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9494307223862567,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9578886573959057,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 0.9169004487218888,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 4
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.6125,
+            "ndcg_at_10": 0.6764120582325933,
+            "population_weight": 20.0,
+            "questions": 4,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 4
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 1,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 1,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 1,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 3,
+              "regressed": 1,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 0,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 1,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 2,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 1,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "constrained",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.9,
+            "ndcg_at_10": 0.7862269506277285,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.8069506436984325,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.8434851257174211,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.9375,
+            "retrieval_eligible": 8
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.8541666666666666,
+            "ndcg_at_10": 0.8181021387782006,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.9375,
+            "retrieval_eligible": 8
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.8126582294177359,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.9166666666666666,
+            "ndcg_at_10": 0.8252025405333205,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.9375,
+            "ndcg_at_10": 0.8352374418897971,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.9375,
+            "ndcg_at_10": 0.8280128983420842,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.75,
+            "mrr_at_10": 0.8541666666666666,
+            "ndcg_at_10": 0.7883216995478411,
+            "population_weight": 30.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "high_level",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 0,
+              "without_references": 4
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "info_not_found",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": null,
+            "mrr_at_10": null,
+            "ndcg_at_10": null,
+            "population_weight": 0,
+            "questions": 4,
+            "recall_at_10": null,
+            "retrieval_eligible": 0
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 0,
+              "tied": 12,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 3,
+              "tied": 9,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 4,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 4,
+              "tied": 8,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "intra_document_reasoning",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 1.0,
+            "ndcg_at_10": 1.0,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 0.861111111111111,
+            "ndcg_at_10": 0.8968216255952429,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 1.0,
+            "mrr_at_10": 0.7666666666666667,
+            "ndcg_at_10": 0.8228324789928351,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 1.0,
+            "retrieval_eligible": 12
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 0,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 0,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 1,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 0,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 0,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 0,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 1,
+              "tied": 6,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 2,
+              "tied": 5,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 4,
+              "tied": 4,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "miscellaneous",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.6875,
+            "ndcg_at_10": 0.7320258983885027,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.875,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.8125,
+            "ndcg_at_10": 0.8288662191964322,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.75,
+            "ndcg_at_10": 0.7827324383928644,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.875,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.875,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.875,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.6666666666666667,
+            "ndcg_at_10": 0.7202324383928644,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.875,
+            "mrr_at_10": 0.5729166666666667,
+            "ndcg_at_10": 0.6490670081520384,
+            "population_weight": 20.0,
+            "questions": 8,
+            "recall_at_10": 0.875,
+            "retrieval_eligible": 8
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 5,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 5,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 7,
+              "regressed": 5,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 8,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 7,
+              "tied": 0,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 4,
+              "regressed": 7,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 9,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 1,
+              "regressed": 10,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 9,
+              "tied": 1,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "project_related",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.25,
+            "mrr_at_10": 0.6944444444444444,
+            "ndcg_at_10": 0.572778277722952,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.6842592592592592,
+            "retrieval_eligible": 12
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.4166666666666667,
+            "mrr_at_10": 0.826388888888889,
+            "ndcg_at_10": 0.6026714621124584,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.6722222222222223,
+            "retrieval_eligible": 12
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.4166666666666667,
+            "mrr_at_10": 0.7777777777777779,
+            "ndcg_at_10": 0.6147512704155369,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.725925925925926,
+            "retrieval_eligible": 12
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.4166666666666667,
+            "mrr_at_10": 0.7083333333333334,
+            "ndcg_at_10": 0.6014491578168171,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.7490740740740741,
+            "retrieval_eligible": 12
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.4166666666666667,
+            "mrr_at_10": 0.7986111111111112,
+            "ndcg_at_10": 0.5900679997036278,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.6722222222222223,
+            "retrieval_eligible": 12
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.16666666666666669,
+            "mrr_at_10": 0.8402777777777779,
+            "ndcg_at_10": 0.5672760321343278,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.5976851851851852,
+            "retrieval_eligible": 12
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.33333333333333337,
+            "mrr_at_10": 0.8222222222222223,
+            "ndcg_at_10": 0.5761090047499946,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.6277777777777778,
+            "retrieval_eligible": 12
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.16666666666666669,
+            "mrr_at_10": 0.6403769841269842,
+            "ndcg_at_10": 0.5020495898392006,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.5680555555555555,
+            "retrieval_eligible": 12
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.08333333333333334,
+            "mrr_at_10": 0.5378306878306878,
+            "ndcg_at_10": 0.460926737085666,
+            "population_weight": 40.0,
+            "questions": 12,
+            "recall_at_10": 0.5472222222222223,
+            "retrieval_eligible": 12
+          }
+        }
+      },
+      {
+        "comparisons": [
+          {
+            "candidate": "retained-start",
+            "paired_cases": {
+              "improved": 9,
+              "regressed": 4,
+              "tied": 19,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-000-pending-continuation-001",
+            "paired_cases": {
+              "improved": 9,
+              "regressed": 4,
+              "tied": 19,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-001",
+            "paired_cases": {
+              "improved": 6,
+              "regressed": 4,
+              "tied": 22,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-002",
+            "paired_cases": {
+              "improved": 9,
+              "regressed": 3,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-003",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 3,
+              "tied": 21,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-004",
+            "paired_cases": {
+              "improved": 8,
+              "regressed": 4,
+              "tied": 20,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-005",
+            "paired_cases": {
+              "improved": 5,
+              "regressed": 5,
+              "tied": 22,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 2,
+              "regressed": 9,
+              "tied": 21,
+              "without_references": 0
+            },
+            "reference": "baseline"
+          },
+          {
+            "candidate": "versioned-006",
+            "paired_cases": {
+              "improved": 0,
+              "regressed": 13,
+              "tied": 19,
+              "without_references": 0
+            },
+            "reference": "retained-start"
+          }
+        ],
+        "dimension": "category",
+        "group": "semantic",
+        "metrics": {
+          "baseline": {
+            "full_qrel_coverage_at_10": 0.3125,
+            "mrr_at_10": 0.11310763888888889,
+            "ndcg_at_10": 0.1587280078494861,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.3125,
+            "retrieval_eligible": 32
+          },
+          "retained-start": {
+            "full_qrel_coverage_at_10": 0.40625,
+            "mrr_at_10": 0.14370039682539684,
+            "ndcg_at_10": 0.20215616705799,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.40625,
+            "retrieval_eligible": 32
+          },
+          "versioned-000-pending-continuation-001": {
+            "full_qrel_coverage_at_10": 0.34375,
+            "mrr_at_10": 0.14835069444444446,
+            "ndcg_at_10": 0.19201146359771637,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.34375,
+            "retrieval_eligible": 32
+          },
+          "versioned-001": {
+            "full_qrel_coverage_at_10": 0.28125,
+            "mrr_at_10": 0.14508928571428573,
+            "ndcg_at_10": 0.1768113525394756,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.28125,
+            "retrieval_eligible": 32
+          },
+          "versioned-002": {
+            "full_qrel_coverage_at_10": 0.40625,
+            "mrr_at_10": 0.16267361111111112,
+            "ndcg_at_10": 0.2174947409972704,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.40625,
+            "retrieval_eligible": 32
+          },
+          "versioned-003": {
+            "full_qrel_coverage_at_10": 0.40625,
+            "mrr_at_10": 0.20316220238095237,
+            "ndcg_at_10": 0.24972266830975662,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.40625,
+            "retrieval_eligible": 32
+          },
+          "versioned-004": {
+            "full_qrel_coverage_at_10": 0.40625,
+            "mrr_at_10": 0.1443452380952381,
+            "ndcg_at_10": 0.20323305604107916,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.40625,
+            "retrieval_eligible": 32
+          },
+          "versioned-005": {
+            "full_qrel_coverage_at_10": 0.21875,
+            "mrr_at_10": 0.09383680555555556,
+            "ndcg_at_10": 0.12164676998272118,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.21875,
+            "retrieval_eligible": 32
+          },
+          "versioned-006": {
+            "full_qrel_coverage_at_10": 0.15625,
+            "mrr_at_10": 0.02395833333333333,
+            "ndcg_at_10": 0.05333994765846127,
+            "population_weight": 125.0,
+            "questions": 32,
+            "recall_at_10": 0.15625,
+            "retrieval_eligible": 32
+          }
+        }
+      }
+    ],
+    "historical_primary_targets_reproduced": 2,
+    "new_e14_native_trials": 9,
+    "original_native_trials": 0,
+    "prefix": [
+      {
+        "archive_sha256": "85e547281f58948ce9921ad6174cf57a3673bca7954363ea7caac7af0926333e",
+        "candidate": "versioned-000-pending-continuation-001",
+        "claim_sha256": "7068fa81a81ad6a3669cfdcd498dc4321425bdbb775215ccbfb286450f5f3a2c",
+        "generation": 1,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "0e42adfd9a4518cebbc3679b8dfddabcd51a6a1d0e0a7d8f94d433a8bce61540",
+        "candidate": "versioned-001",
+        "claim_sha256": "99bba0b63428f71d369701d4bf154393745e0605d389bb86ba117fa69ca9e65e",
+        "generation": 2,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "3160e4a9fb6956636df294b6679ba6f5c1bc87c5153c3e6383ec700a5d96aa3d",
+        "candidate": "versioned-002",
+        "claim_sha256": "e38fc76c54f3e76873a17619d223d6d521b07b0fe4567e4ff561841396843d36",
+        "generation": 3,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "452ea2c18f3bf86f150d28e8505c53391550f2e55e5b42e5e22b73900c0fb59f",
+        "candidate": "versioned-003",
+        "claim_sha256": "640f856a27f7c1d29b82e8cf8f671ac88d49b46aae41bbd0412e38dc386828a6",
+        "generation": 4,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "67ef0fa133067e356644281183409f0d72953f9a9fead0dbbf388643c7450a06",
+        "candidate": "versioned-004",
+        "claim_sha256": "d2aa979de614a44c77fc68a18a8391d82d6d4721f990721a22ee0cbb7f0bc108",
+        "generation": 5,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "0af8203403a5bf25541ef6ed260f9315c25187c233274eeb2ad985ea54ab440d",
+        "candidate": "versioned-005",
+        "claim_sha256": "86931893b63d4dbf6f5b2755047df4cfa6029ce1c29b5082740c4eed2dca2c76",
+        "generation": 6,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      },
+      {
+        "archive_sha256": "e8d0eee503ebb288f461e7cf60ef7dcec5ed7b6d45f9ab455d4543899df70e3d",
+        "candidate": "versioned-006",
+        "claim_sha256": "02fa0fcb9da11a4136d815376f49d70c691ce8c59a4082cdc4d1098550745335",
+        "generation": 7,
+        "improved": false,
+        "previous_incumbent": {
+          "candidate": "retained-start",
+          "score": 0.6620879880681476
+        }
+      }
+    ],
+    "private_gate_access": false,
+    "promoted": false,
+    "published": false,
+    "questions": 120,
+    "report_operation_native_runs": 0,
+    "retained_candidate": "retained-start",
+    "retained_score": 0.6620879880681476,
+    "retrieval_eligible": 112,
+    "rows": [
+      {
+        "agent_seconds": 1305.629993,
+        "candidate": "baseline",
+        "complete_package_digest": "sha256:c4d3c66cb4567ac4bbb6236e183c17bccaad9f4cccac77f67a382cfdbc735faf",
+        "diagnostics_sha256": "0cc41099ada20c40f33c789c77aa6fadfdfbe5a07db652381c6147e9e9f91207",
+        "double_build_seconds": 577.1162998050002,
+        "evidence_integrity": 1,
+        "generation": 0,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899137,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1356.010754,
+        "native_lock_sha256": "04299b3a1e7f32167914ec8bfe7fdc61609b826aa3eed97853ca161fd901577b",
+        "native_result_sha256": "07d54a879daec3fb709601879812975933de00b5f109f3cb9340b981a6f89077",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "ade70899da68a536f6aaf965a2cb400188d4138921a5f88ff6321d628fd9e6b6",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6238918439716312,
+            "mrr_at_10": 0.6069533712568952,
+            "ndcg_at_10": 0.6003504668859466,
+            "p95_ms": 8356.394414000079,
+            "recall_at_10": 0.6918784475965327
+          }
+        },
+        "score": 0.6003504668859466,
+        "skill_digest": "sha256:fa0fe13dea36dd5aa61dd886d1806f9c2263b3407ccaa9064356d7f640cd2b4c",
+        "trial_result_sha256": "e8c6cbf5ec064fcc01d44298c86f7f719dd62ed289638a2253b4372327e62389",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1277.897891,
+        "candidate": "retained-start",
+        "complete_package_digest": "sha256:91dca1ba88a50e2e80ed717487fdbe71257c80dd2ad1886d46a66c23f1f16e08",
+        "diagnostics_sha256": "9358a824fa438aa8c9621eec06dc09a398455f65ae03fc54b65ab31e3e652003",
+        "double_build_seconds": 562.077189739,
+        "evidence_integrity": 1,
+        "generation": 0,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1327.366748,
+        "native_lock_sha256": "b83c3816b154105bce466a5537b299c1778714704ef036a760bb2459f80aec1e",
+        "native_result_sha256": "06f1d973503e0e616f0a8f28a4293f22243f8c6218e2f7e071be4a13d6123e4b",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "8194f14ddedc46110bf81b6b3bd4b1ad93f90c7576a28e28210c96768a1b51e1",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6927083333333334,
+            "mrr_at_10": 0.673708734380277,
+            "ndcg_at_10": 0.6620879880681476,
+            "p95_ms": 8479.284351999922,
+            "recall_at_10": 0.7402260638297873
+          }
+        },
+        "score": 0.6620879880681476,
+        "skill_digest": "sha256:f5baedcf205cbe7e6434a3acaedf58ebb31a3783f7f8d29edf221008a24044b7",
+        "trial_result_sha256": "3c8792d6ab52cd2edfd959c4408f9c3932749dae417099ca40e534a31da9498b",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1268.432953,
+        "candidate": "versioned-000-pending-continuation-001",
+        "complete_package_digest": "sha256:d7173a859a32bda5da76b375c35b62e46e5ecbda150f8ffa655c0c5ceb2feca3",
+        "diagnostics_sha256": "662e71b898c21991b0ded23c506f9edf577f2fb7c5622db2f4486ad94e1374ae",
+        "double_build_seconds": 565.2987619169999,
+        "evidence_integrity": 1,
+        "generation": 1,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1315.955127,
+        "native_lock_sha256": "d32cfe6d1edf11385d0e64dc1159268a50aba87559753e465c1f7b3bc0f52f23",
+        "native_result_sha256": "3919e47021b06ad2d77c9b4fd5f4b5e01f1f0c81979f462ef078be376cf3be3a",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "8c625033c49fd6cf856dc48f255ae9b7cc791469a95bdfde77d4fdd6dd97063c",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6769725177304964,
+            "mrr_at_10": 0.6473123258611956,
+            "ndcg_at_10": 0.6452615667814057,
+            "p95_ms": 7878.64079999963,
+            "recall_at_10": 0.7264307525610717
+          }
+        },
+        "score": 0.6452615667814057,
+        "skill_digest": "sha256:677f13c9804616a920249d66dc6beafb1da8bb759a40207ea6bdd98c09f8bad8",
+        "trial_result_sha256": "5d29bf1538ab9d6b6725f830978fc032277c9e6056ace5ca296d2a106de01ad4",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1287.717147,
+        "candidate": "versioned-001",
+        "complete_package_digest": "sha256:2db2d5d7919a6074f540fc35e905619817d770bf9b2fbd6bcac50381badfa293",
+        "diagnostics_sha256": "7081e0ff786573b400528e715e541d61023ca8663ec428b155f3cb8848ee16ae",
+        "double_build_seconds": 573.1266191089999,
+        "evidence_integrity": 1,
+        "generation": 2,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899134,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1338.8875,
+        "native_lock_sha256": "4ef672c7210b33c491e29d3a905f0546ac93d71c570523021acd7c783daae859",
+        "native_result_sha256": "65adb906eca3d170977a60e45b467872447b69e59d205d128eb600c0d1339a7c",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "e0650f5bb8cd28b9e4439a474f474e4dcddc8e7a8d0c105c5dcbfc374ecc3314",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6412898936170213,
+            "mrr_at_10": 0.6270258147585276,
+            "ndcg_at_10": 0.6230904940043712,
+            "p95_ms": 8293.559181000091,
+            "recall_at_10": 0.6926295311268715
+          }
+        },
+        "score": 0.6230904940043712,
+        "skill_digest": "sha256:05dd67704e75c110cac1882b6781812c59891eba25c8d05ec3afaff9b6bd499e",
+        "trial_result_sha256": "ab3c2a14688c1e12209e7f4d3d21d7283842bb18bcf4d67b0d5ef336e3d53e87",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1276.661293,
+        "candidate": "versioned-002",
+        "complete_package_digest": "sha256:36d1aac5697e6f149c08cac271f053584a41882181bc3ede0754bbc873006b88",
+        "diagnostics_sha256": "437d020284cdec8e83d2aa9d6c0876b7946b3a6a5176bafad9e9b14aee524e21",
+        "double_build_seconds": 561.5176681099983,
+        "evidence_integrity": 1,
+        "generation": 3,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899134,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1323.298975,
+        "native_lock_sha256": "a7b5a302bebf2931e449b3935b67ab0062bb63d743f7d285f5328cf92771aa85",
+        "native_result_sha256": "0c6e6fe8aa5dc8269c62afecf146357bd897a6b57d7f7aaac251dd71b3c297ed",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "56ebe8e2a8485891eafe3fcb1fa489567ea729f6a473e121662a6c732ad2f949",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6927083333333334,
+            "mrr_at_10": 0.6638020833333333,
+            "ndcg_at_10": 0.6577794965216942,
+            "p95_ms": 8330.635714999516,
+            "recall_at_10": 0.7391622340425532
+          }
+        },
+        "score": 0.6577794965216942,
+        "skill_digest": "sha256:c231a020c19966fccd0f1c77d7a6c47eaa07e2bf6d22158c45ee8d09920d272f",
+        "trial_result_sha256": "173b5549ca7e00e1e08b084fa55e0793f0ed5aa419bb688f704948a5e332531b",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1325.606238,
+        "candidate": "versioned-003",
+        "complete_package_digest": "sha256:f32084bfa4681a141aa86149d9c68e5d2f4c8b29cf203650dc3392e7c5bf69a7",
+        "diagnostics_sha256": "df6f96c803e37d4bda2cf62670cdc9ca563f8d9ef48ecc0227494661fcee3b12",
+        "double_build_seconds": 572.1823233499999,
+        "evidence_integrity": 1,
+        "generation": 4,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1375.860287,
+        "native_lock_sha256": "da4e8fc94887b0e1ee3d295d9b383084e93fb32b75e8e9d7b06f03b98427b99d",
+        "native_result_sha256": "8e5eae27a31918f66bb24504b5ec2c21e8ff1e37129a47c444b726b22c9f8dd0",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "7918e87ad89ff8f6df3976a9185d46be1b418fccbf565342c49c3e594c67d9d8",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6678856382978723,
+            "mrr_at_10": 0.6735360467325228,
+            "ndcg_at_10": 0.6552067559204343,
+            "p95_ms": 8576.668982997944,
+            "recall_at_10": 0.7319912332545311
+          }
+        },
+        "score": 0.6552067559204343,
+        "skill_digest": "sha256:4971e12d97fca7749825e4efa67efa7bc76c7b52c47de1d13a95989029b2c5ab",
+        "trial_result_sha256": "84c5f24da6db483c35e474b72612558c1f6c8118557bac26b16c16edba73fe87",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1271.261116,
+        "candidate": "versioned-004",
+        "complete_package_digest": "sha256:9145c95d4d96c942329de7218451caa83633b08853764d3b7a137253c7a40324",
+        "diagnostics_sha256": "468b1a3db27b34d29b519e34f3a2bd0b53f13146f7ad4ef858530ec98d9b1bed",
+        "double_build_seconds": 579.6628333219996,
+        "evidence_integrity": 1,
+        "generation": 5,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1318.216982,
+        "native_lock_sha256": "7caba35af4d7ecaf89eae45934ffab4a1ac38dc9fe55904415559adc9297ddd2",
+        "native_result_sha256": "f7695388a86ab97fb21ff56b811605bfcafe5411f9d075cc579c35ba1b9bc961",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "fd3cd590721fb0610212778924eeb21f21417ef132d768031f0939b303a2398d",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.685616134751773,
+            "mrr_at_10": 0.6697578942924687,
+            "ndcg_at_10": 0.6560881169146595,
+            "p95_ms": 8158.883945001435,
+            "recall_at_10": 0.7368868203309692
+          }
+        },
+        "score": 0.6560881169146595,
+        "skill_digest": "sha256:5e658e51983e5fe76c2a7b7657a328a712dca50d0d27672cb61249486f193f4c",
+        "trial_result_sha256": "46e25fb729c63bc6071979bd2a2e14cd5c7ab31577ff8c06e7c6d4b614b0e646",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1281.685165,
+        "candidate": "versioned-005",
+        "complete_package_digest": "sha256:2b0b79f1017fa639f8e7ddcea61c83948a3fe280dd9f8a5ae8ca1d02c79279a1",
+        "diagnostics_sha256": "aca1e4ee53e08433026fdf42f8a42ee558b7e1a259c13aeeaab1a574b140bcab",
+        "double_build_seconds": 564.7200095789995,
+        "evidence_integrity": 1,
+        "generation": 6,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1330.339214,
+        "native_lock_sha256": "b89e2f171406bea7496485d52688ed7e44f7edee715dfcfc7531997950ba14e0",
+        "native_result_sha256": "22e65680d91fe51e23fc29bc9dcce8795bbd594caf19aeff9c403f7d3c71c882",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "4049fb6fea867dd27ee2826c784cf856afcc8c26522b548b28dc667f8f3287a6",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.6025044326241135,
+            "mrr_at_10": 0.5419346029635258,
+            "ndcg_at_10": 0.5478658042411272,
+            "p95_ms": 8377.18372299787,
+            "recall_at_10": 0.6637337470449173
+          }
+        },
+        "score": 0.5478658042411272,
+        "skill_digest": "sha256:374960a5256d674996109ae1eed6d919668141db16012592e6dd0d4b37e5b46f",
+        "trial_result_sha256": "0e850d3ea8248a734b5213e614af13bdbfaa121dff3d9f9f1b3b4a1393945780",
+        "verified_skill_files": 252
+      },
+      {
+        "agent_seconds": 1262.112509,
+        "candidate": "versioned-006",
+        "complete_package_digest": "sha256:4fc5cc6ff731cf38de74207aa757d86f701dae49d554b17a499c9004ed9307c0",
+        "diagnostics_sha256": "15edf4ea30b9877a516c9440adff1f8fd69db544854a0e9691de9316070f77a3",
+        "double_build_seconds": 553.1578662409993,
+        "evidence_integrity": 1,
+        "generation": 7,
+        "historical_import": false,
+        "host_cost_measured": false,
+        "knowledge_bytes": 557899136,
+        "model_calls": 0,
+        "native_errors": 0,
+        "native_job_seconds": 1310.78119,
+        "native_lock_sha256": "b0efe16dcc06d963ec5b347784de1b1f65c1a0de5b801fe1f5e1f070d4a49a30",
+        "native_result_sha256": "e0e869a132624f442c1a48421b8965f1968c610fa576c685e40bf38b36d246b0",
+        "new_e14_job": true,
+        "primary_route": "adaptive",
+        "reported_provider_cost_usd": 0.0,
+        "response_sha256": "0ca06ce777714d6976dc4e2f0977267592eb649f8df80db02fb7fceb86240cd9",
+        "retries": 0,
+        "routes": {
+          "adaptive": {
+            "full_qrel_coverage_at_10": 0.5490913120567377,
+            "mrr_at_10": 0.4523552713047394,
+            "ndcg_at_10": 0.4764582356235439,
+            "p95_ms": 8222.327534000215,
+            "recall_at_10": 0.6192745271867612
+          }
+        },
+        "score": 0.4764582356235439,
+        "skill_digest": "sha256:b08fec82a317ff391d3176238b5707f2c5ed0f51841b19af7bfcc44ef611f683",
+        "trial_result_sha256": "f0455013801daa45e09cf2d12e426d29549dff7926b5bacf4dc378ce61a23766",
+        "verified_skill_files": 252
+      }
+    ],
+    "schema": "enterprise-e14-family-prefix-reconciliation/1.0",
+    "through_generation": 7,
+    "treatment": "construction"
+  },
+  "family_search_stopped": false,
+  "generated_at_utc": "2026-09-12T00:16:14.965598+00:00",
+  "goal_complete": false,
+  "latest_claim": {
+    "additional_claim_charge": 1,
+    "id": "versioned-006",
+    "kind": "new-catalog-claim",
+    "profile_sha256": "588237331f42f4c0fdd4edd18888bac2862aad6b2c6bc82e1a69a1739b177ec3",
+    "variant": {
+      "bm25.title_weight": 8.0
+    }
+  },
+  "mechanism": "title-weight",
+  "new_family_development_incumbent": false,
+  "new_native_observations": 1,
+  "new_proposal_charges": 1,
+  "private_gate_access": false,
+  "promoted": false,
+  "report_operation_native_runs": 0,
+  "retained_comparison": [
+    {
+      "current_start": "Qualified",
+      "family": "legacy",
+      "family_proposal_cap": 55,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 16,
+      "retained_display_value": "72.38"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "turso",
+      "family_proposal_cap": 55,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 2,
+      "retained_display_value": "72.38"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "adaptive",
+      "family_proposal_cap": 100,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 20,
+      "retained_display_value": "66.21"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "embeddings",
+      "family_proposal_cap": 40,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 6,
+      "retained_display_value": "63.51"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "classical",
+      "family_proposal_cap": 85,
+      "historical_search_state": "Recorded catalog stop",
+      "inherited_proposal_claims": 37,
+      "retained_display_value": "62.10"
+    },
+    {
+      "current_start": "Qualified",
+      "family": "graphify",
+      "family_proposal_cap": 65,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 0,
+      "retained_display_value": "27.94"
+    },
+    {
+      "current_start": "Execution error; not qualified",
+      "family": "ensemble",
+      "family_proposal_cap": 105,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 2,
+      "retained_display_value": "Unavailable"
+    },
+    {
+      "current_start": "Execution error; not qualified",
+      "family": "entity-graph",
+      "family_proposal_cap": 80,
+      "historical_search_state": "Open",
+      "inherited_proposal_claims": 8,
+      "retained_display_value": "Unavailable"
+    }
+  ],
+  "retained_comparison_groups_verified": 20,
+  "schema": "enterprise-e14-family-observation/1.0",
+  "source_sha256": {
+    "evaluations/reports/evolution/e14/graphify-generation-004-001/aggregate.json": "4341c82bc64502543b15a11e7f12406008a0e6d9524f2666c97b2528494b6d94",
+    "tmp/e14/claims/adaptive/007.json": "02fa0fcb9da11a4136d815376f49d70c691ce8c59a4082cdc4d1098550745335",
+    "tmp/e14/progress/adaptive/007.json": "b4fb039b1220b39fcb16f828405bbccd6ebf76a0c71347c186545679b0c5f8b7",
+    "tmp/enterprise-next-preparation/coverage-052/coverage.log": "306dd62937598e93d957c108bcd910f554bd3143d7fa56e0403302cfc42b7def",
+    "tmp/enterprise-next-preparation/coverage-052/terminal.json": "b335ede89906aa282bcd10a055b1d37f9c194603da34d03139c13c79e1953b17",
+    "tmp/enterprise-next-preparation/e14-family-report-001/adaptive-generation-007-001.json": "83be32fc0b8603d9d7094008bc10bdb4e123d73d57f38d8d06476921e0206bce",
+    "tmp/enterprise-next-preparation/e14-family-report-001/publish_nonimproving_observation_v1.py": "3e63dfbd2b1034c12dd9572e4346078e22da126919aa96d764a210002c581ff5"
+  },
+  "three_miss_boundary_reached": false,
+  "variant_cursor": 2,
+  "variant_list_fully_issued": false
+}
