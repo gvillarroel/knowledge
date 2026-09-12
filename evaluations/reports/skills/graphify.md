@@ -1,5 +1,7 @@
 # graphify: dataset results
 
+[Graphify generation 19](../evolution/e14/graphify-generation-019-001/README.md): `{"lexical_weight": 0.5}` scored **34.08**, retaining **63.72**. The `lexical-graph-fusion` mechanism records **1 / 3 consecutive evaluable misses** and the family **19 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-019-001/groups.md) and [CTA](../evolution/e14/graphify-generation-019-001/cta.md) preserve this observation.
+
 [Graphify generation 18](../evolution/e14/graphify-generation-018-001/README.md): `{"depth": 6}` scored **63.46**, retaining **63.72**. The `traversal-depth` mechanism records **2 / 3 consecutive evaluable misses** and the family **18 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-018-001/groups.md) and [CTA](../evolution/e14/graphify-generation-018-001/cta.md) preserve this observation.
 
 [Graphify generation 17](../evolution/e14/graphify-generation-017-001/README.md): `{"depth": 5}` scored **63.46**, retaining **63.72**. The `traversal-depth` mechanism records **1 / 3 consecutive evaluable misses** and the family **17 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-017-001/groups.md) and [CTA](../evolution/e14/graphify-generation-017-001/cta.md) preserve this observation.
