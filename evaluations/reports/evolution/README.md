@@ -1,8 +1,12 @@
 # Knowledge-skill evolution evidence
 
-[E15 executable preflight](e15/executable-preflight-001/README.md): the controller, family-scoped eight-strategy composition, source bindings and four Harbor owner configurations passed 18 focused tests plus dry-run and doctor checks. No native trial ran; E15 remains blocked pending independent review, exclusive private custody and sealing. [CTA](e15/executable-preflight-001/cta.md) preserves zero-execution accounting.
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](e15/terminal-001/groups.md) · [Cost, time and quality](e15/terminal-001/cta.md).
 
-[E15 prospective registration after terminal E14](e15/registration-001/README.md): E14 is terminal with validation unreleased, and a new E15 registry binds the two remaining family qualifications plus all downstream gates. It remains unsealed and has dispatched no native trial. [CTA](e15/registration-001/cta.md) records the zero-execution boundary.
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
+[Historical E15 component preflight](e15/executable-preflight-001/README.md): 18 focused tests and owner dry-run/doctor configuration checks passed; the later independent review rejected activation and found that the complete search/finalization driver was absent.
+
+[Historical E15 registration](e15/registration-001/README.md): two datasets and four stages were registered before execution; all four stages are now stopped after failed independent preparation review.
 
 [Post-owner Entity Graph and Ensemble runtime diagnostics](e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after the E14 controller stopped. The checks add no EnterpriseRAG retrieval score, proposal charge or quality miss. [CTA](e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 

@@ -1,5 +1,9 @@
 # EnterpriseRAG E14: starting results and inherited evolution
 
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../e15/terminal-001/groups.md) · [Cost, time and quality](../e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
 [Post-owner Entity Graph and Ensemble runtime diagnostics](post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence. They do not qualify either family on EnterpriseRAG, and the retained measurable table remains unchanged. [CTA](post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 
 [Graphify generation 24](graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](graphify-generation-024-001/groups.md) and [CTA](graphify-generation-024-001/cta.md) preserve this observation.

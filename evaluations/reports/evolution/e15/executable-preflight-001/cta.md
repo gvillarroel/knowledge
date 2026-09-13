@@ -1,5 +1,10 @@
 # EnterpriseRAG E15 executable preflight: cost, time and quality
 
+**Historical diagnostic accounting.** The [terminal closure](../terminal-001/README.md)
+supersedes this checkpoint's readiness conclusion. Component checks passed;
+the complete driver was absent and independent preparation was rejected.
+E15 added no native measurement. See [final CTA](../terminal-001/cta.md).
+
 This checkpoint validates the executable controller, family-scoped composition,
 derived Harbor configurations and admission boundary. It performs no benchmark
 execution, scoring, candidate generation or private release.

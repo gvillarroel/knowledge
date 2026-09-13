@@ -1,5 +1,11 @@
 # EnterpriseRAG E15: prospective registration after terminal E14
 
+**Historical registration; E15 is now closed.** The
+[terminal report](../terminal-001/README.md) records the failed independent access
+review and four stopped stages. The initial registration below did not establish
+actual private-data isolation. Its source aggregate remains unchanged; no E15
+native work or validation release occurred.
+
 Date: 2026-09-12. E14 is now truthfully terminal: all four organizer stages are
 stopped, its original controller cannot restart, and its private validation was
 never released. A new empty E15 registry now binds two datasets and plans four

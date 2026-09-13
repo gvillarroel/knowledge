@@ -1,5 +1,9 @@
 # turso: dataset results
 
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
 [Turso generation 15](../evolution/e14/turso-generation-015-001/README.md): `{"b": 0.5, "engine": "bm25"}` scored **69.72**, retaining **72.38**. The `length-normalization` mechanism records **3 / 3 consecutive evaluable misses** and the family **16 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-015-001/groups.md) and [CTA](../evolution/e14/turso-generation-015-001/cta.md) preserve this observation.
 
 [Turso generation 14](../evolution/e14/turso-generation-014-001/README.md): `{"b": 0.0, "engine": "bm25"}` scored **61.38**, retaining **72.38**. The `length-normalization` mechanism records **2 / 3 consecutive evaluable misses** and the family **15 / 55 claims**. [Paired applications/categories](../evolution/e14/turso-generation-014-001/groups.md) and [CTA](../evolution/e14/turso-generation-014-001/cta.md) preserve this observation.

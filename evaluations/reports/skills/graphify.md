@@ -1,5 +1,9 @@
 # graphify: dataset results
 
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
 [Graphify generation 24](../evolution/e14/graphify-generation-024-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 60}` scored **52.42**, retaining **63.72**. The `fusion-rank-decay` mechanism records **3 / 3 consecutive evaluable misses** and the family **24 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-024-001/groups.md) and [CTA](../evolution/e14/graphify-generation-024-001/cta.md) preserve this observation.
 
 [Graphify generation 23](../evolution/e14/graphify-generation-023-001/README.md): `{"lexical_weight": 1.0, "rrf_k": 20}` scored **54.51**, retaining **63.72**. The `fusion-rank-decay` mechanism records **2 / 3 consecutive evaluable misses** and the family **23 / 65 claims**. [Paired applications/categories](../evolution/e14/graphify-generation-023-001/groups.md) and [CTA](../evolution/e14/graphify-generation-023-001/cta.md) preserve this observation.

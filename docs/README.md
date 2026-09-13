@@ -1,8 +1,12 @@
 # Documentation Index
 
-[E15 executable preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md): the controller, per-family eight-strategy composition and four derived Harbor configurations passed 18 focused checks plus owner dry-run and doctor. It adds no score and remains blocked until independent review, exclusive private custody and sealing. [Decision](../.specs/adr/0163-compose-family-scoped-e15-reference-and-require-independent-activation.md) · [CTA](../evaluations/reports/evolution/e15/executable-preflight-001/cta.md).
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
 
-[E15 prospective registration after terminal E14](../evaluations/reports/evolution/e15/registration-001/README.md): E14 is now terminal with validation unreleased; E15 digest-locks development and validation and plans the complete downstream sequence. This initial checkpoint records the pre-preflight boundary and zero native trials. [Decision](../.specs/adr/0162-terminate-e14-and-register-e15-before-prospective-qualification.md) · [CTA](../evaluations/reports/evolution/e15/registration-001/cta.md).
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
+[Historical E15 component preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md): 18 focused tests and owner dry-run/doctor configuration checks passed; the later independent review rejected activation and found that the complete search/finalization driver was absent.
+
+[Historical E15 registration](../evaluations/reports/evolution/e15/registration-001/README.md): two datasets and four stages were registered before execution; all four stages are now stopped after failed independent preparation review.
 
 [Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence; neither supplies an EnterpriseRAG score, so the retained measurable table is unchanged. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 

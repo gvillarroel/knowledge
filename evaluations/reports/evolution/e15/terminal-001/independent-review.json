@@ -1,0 +1,37 @@
+{
+  "design_seal_authorized": false,
+  "evidence_sha256": {
+    "assessment": "0f78bc3e1f122b1070aecf2fe4b3f4b4a59161d2a170a7aafc75e59fcf0c907b",
+    "collector_source": "5e97167b0dd689cb4b8f1b23ec9f2c30283e28561e88a9291050ccbffe983086",
+    "current_access_observation": "a74f4241c688a1e3b7efe1f84f75c8b1bca5188a687e94fe549aa3eb966cc209",
+    "current_registry_and_declared_history": "c8a8e6c95092c5a4cf7453be3c5d3ba6647acb2be5e7ac272ad7e652cd53e6d0",
+    "nonpassing_review": "d39ca2fe28b14dd7119695d94d4e8d57adb555ec1807610eaa1d39c3e35cb51d",
+    "retained_evidence_bindings": "db5620f1cfe7414f4d5d737932a5f834c1064a7b1876e88c3f5ac49f808a6dc4"
+  },
+  "execution_contract_issued": false,
+  "independent": true,
+  "native_execution_authorized": false,
+  "private_evidence_used_for_evolution": false,
+  "private_reservation_issued": false,
+  "private_scoring_or_consumption_asserted": false,
+  "private_task_details_in_safe_receipt": false,
+  "private_validation_release_observed": false,
+  "reason_code": "optimizer-access-isolation-failed",
+  "recorded_at": "2026-09-13T18:57:26.753088+00:00",
+  "required_public_actions": [
+    "Keep E15 unsealed and close planned stages without native allocation or validation release.",
+    "Retain both reserved first-measurement identities as unconsumed.",
+    "Preserve the current cohort and evidence; do not relabel access failure as private scoring or consumption.",
+    "Establish distinct enforced optimizer and evaluator access boundaries and actual denied-access evidence before a new study.",
+    "Use a fresh independently curated private cohort when historical nonexposure cannot be established; do not silently replace E15 data.",
+    "Complete and independently audit the full public runtime before future prospective activation."
+  ],
+  "reviewer_candidate_mutations": 0,
+  "reviewer_model_calls": 0,
+  "reviewer_native_jobs": 0,
+  "reviewer_study_mutations": 0,
+  "safe_conclusion": "The current tool identity can read private verifier inputs and inherited workspace ACLs do not isolate the optimizer. Historical ledger nonrelease does not establish prior nondisclosure. The E15 preparation gate fails; this is not a private candidate quality result.",
+  "schema_version": "enterprise-e15-independent-preparation-rejection/1.0",
+  "status": "terminal-preparation-rejected",
+  "study_id": "enterprise-e15"
+}

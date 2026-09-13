@@ -1,5 +1,9 @@
 # adaptive: dataset results
 
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
 [Adaptive generation 10](../evolution/e14/adaptive-generation-010-001/README.md): `{"expansion.association_weight": 0.7, "expansion.topic_weight": 0.4}` scored **66.04**, retaining **66.21**. The `expansion-strength` mechanism records **3 / 3 consecutive evaluable misses** and the family **29 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-010-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-010-001/cta.md) preserve this observation.
 
 [Adaptive generation 9](../evolution/e14/adaptive-generation-009-001/README.md): `{"expansion.association_weight": 0.0, "expansion.topic_weight": 0.0}` scored **65.12**, retaining **66.21**. The `expansion-strength` mechanism records **2 / 3 consecutive evaluable misses** and the family **28 / 100 claims**. [Paired applications/categories](../evolution/e14/adaptive-generation-009-001/groups.md) and [CTA](../evolution/e14/adaptive-generation-009-001/cta.md) preserve this observation.

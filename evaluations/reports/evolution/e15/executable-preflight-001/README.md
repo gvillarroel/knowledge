@@ -1,5 +1,13 @@
 # EnterpriseRAG E15: executable preflight
 
+**Superseded by the [terminal review and closure](../terminal-001/README.md) on
+2026-09-13.** The passing component tests and configuration checks below remain
+historical observations. They did not establish a complete executable campaign:
+the remaining search/finalization driver was absent, and the independent access
+review rejected activation. All E15 stages are now stopped. The original
+aggregate remains unchanged; [public findings](../terminal-001/public-runtime-findings.md)
+correct the scope of the earlier readiness claim.
+
 Date: 2026-09-13. The prospective E15 runtime now passes its executable
 preflight. This is a diagnostic result only: E15 remains unsealed and blocked
 pending a new independent review, exclusive private custody, organizer design

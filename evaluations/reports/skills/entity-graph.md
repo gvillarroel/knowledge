@@ -1,5 +1,9 @@
 # entity-graph: dataset results
 
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
 [Post-owner bounded-selection runtime diagnostic](../evolution/e14/post-owner-runtime-diagnostics-001/README.md): passed exact artifacts, eight paired route responses, four corruption rejections and two overwrite rejections on 1,024 public records. This is software parity evidence; EnterpriseRAG retrieval quality remains unavailable. [CTA](../evolution/e14/post-owner-runtime-diagnostics-001/cta.md).
 
 [Prospective Entity bounded-selection candidate](../evolution/candidates/entity-bounded-selection-001/README.md): eight sealed software checks passed, one builder function changed and Entity Graph reached **9 / 80 proposals**. Its new native first measurement is unassigned; retained EnterpriseRAG scores are unchanged.

@@ -1,6 +1,10 @@
 # Evaluation report hub
 
-[E15 executable preflight](evolution/e15/executable-preflight-001/README.md): the exact controller, family-scoped reference composition and four Harbor owner configurations passed software and native dry-run diagnostics. No native trial or model call ran, and the independent activation gate remains closed. [CTA](evolution/e15/executable-preflight-001/cta.md) records the diagnostic cost and scope.
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](evolution/e15/terminal-001/groups.md) · [Cost, time and quality](evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
+[Historical E15 component preflight](evolution/e15/executable-preflight-001/README.md): 18 focused tests and owner dry-run/doctor configuration checks passed; the later independent review rejected activation and found that the complete search/finalization driver was absent.
 
 [E15 prospective EnterpriseRAG registration](evolution/e15/registration-001/README.md): terminal E14 is preserved, the successor datasets and stages are digest-locked, and zero native trials have run. This initial checkpoint records the boundary before the later executable preflight.
 

@@ -1,8 +1,12 @@
 # EnterpriseRAG reports by retrieval family
 
-[E15 executable preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md): all eight family subtrees and retrieval-profile entries now compose from their exact bound sources. Eighteen focused checks and all eight owner dry-run/doctor calls passed. Entity Graph and Ensemble still have no retrieval measurement, and the activation gate remains closed. [CTA](../evaluations/reports/evolution/e15/executable-preflight-001/cta.md) preserves zero-execution accounting.
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
 
-[E15 prospective registration after terminal E14](../evaluations/reports/evolution/e15/registration-001/README.md): the new registry binds the unchanged public workload, unopened validation and the two exclusive Entity Graph and Ensemble first measurements. It is unsealed, has dispatched zero native trials and adds no retrieval score. [CTA](../evaluations/reports/evolution/e15/registration-001/cta.md) preserves the zero-execution boundary.
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
+
+[Historical E15 component preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md): 18 focused tests and owner dry-run/doctor configuration checks passed; the later independent review rejected activation and found that the complete search/finalization driver was absent.
+
+[Historical E15 registration](../evaluations/reports/evolution/e15/registration-001/README.md): two datasets and four stages were registered before execution; all four stages are now stopped after failed independent preparation review.
 
 [Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both public parity fixtures passed after the E14 owner terminated. They add no retrieval score, proposal charge or quality miss. The six qualified-family ranking remains Legacy/Turso 72.38, Adaptive 66.21, Graphify 63.72, Embeddings 63.51 and Classical 62.10. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) preserves runtime scope.
 
@@ -65,11 +69,11 @@ The fixed development workload contains **120 stratified questions, 112 retrieva
 
 The selected Graphify gain is **63.46 to 63.72**. Paired questions: **2 improve, 1 regress and 109 tie**; eight questions lack retrieval references. Other retained families keep their original observations.
 
-### Catalog status and remaining work
+### Terminal catalog and evaluation status
 
-The [catalog inventory](../evaluations/reports/evolution/e14/opportunity-accounting-002/README.md) is a separate snapshot at **2026-09-12T03:39:49.038282+00:00**. It records **5 catalog stops**: Legacy, Turso, Adaptive, Embeddings, Classical. It also preserves **2 unavailable historical hypotheses** among stopped families. Catalog closure does not imply complete historical measurement coverage. This dated inventory does not supply current reservation counts or replace the newer retained scores above.
+The terminal E14 record closes six finite family catalogs: Legacy, Turso, Adaptive, Embeddings, Classical and Graphify. Entity Graph and Ensemble stopped before qualified measurement; their hypotheses were not exhausted. The cumulative proposal ledger retains 140 of 585 claims, including 272 unused nontransferable slots in closed families and 173 unexecuted slots in the two unqualified families. Two historical fitness gaps in closed families remain disclosed. These bounds do not imply that every possible knowledge-generation strategy was tried.
 
-**6 of eight families have qualified retrieval references** in this comparison. Remaining work includes outstanding family qualification and evolution, the paired joint development replay, one whole-bundle freeze, the all-500 comparison and independent acceptance. Validation stays sealed until the selected candidate is frozen.
+The [terminal E15 report](../evaluations/reports/evolution/e15/terminal-001/README.md) records four stopped stages and no private release. Joint replay, whole-bundle freeze, the all-500 comparison and independent acceptance are unexecuted. No E15 skill was promoted.
 
 ### Applications, categories and CTA
 

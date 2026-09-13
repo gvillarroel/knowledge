@@ -1,16 +1,8 @@
 # Continuing EnterpriseRAG evolution after E7
 
-E14 is now terminal after its owner preserved six qualified family searches and
-stopped on missing Entity Graph and Ensemble full-workload qualifications. Its
-private validation remained sealed and unreleased. The separately registered
-[E15 checkpoint](../evaluations/reports/evolution/e15/registration-001/README.md)
-binds the two prospective first measurements, unchanged workload and full
-downstream stage order. Its [executable preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md)
-now passes for the controller, per-family composition and four Harbor owner
-configurations. E15 is still unsealed and has dispatched no native work; the new
-independent review, exclusive private reservation, design seal and development
-stage transition remain mandatory under [ADR 0162](../.specs/adr/0162-terminate-e14-and-register-e15-before-prospective-qualification.md)
-and [ADR 0163](../.specs/adr/0163-compose-family-scoped-e15-reference-and-require-independent-activation.md).
+**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
+
+Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
 The latest [E12 continuation checkpoint](../evaluations/reports/evolution/e12/README.md)
 is terminal after a controller error before native allocation. All four stages
