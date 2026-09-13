@@ -1,5 +1,7 @@
 # EnterpriseRAG reports by retrieval family
 
+[E15 executable preflight](../evaluations/reports/evolution/e15/executable-preflight-001/README.md): all eight family subtrees and retrieval-profile entries now compose from their exact bound sources. Eighteen focused checks and all eight owner dry-run/doctor calls passed. Entity Graph and Ensemble still have no retrieval measurement, and the activation gate remains closed. [CTA](../evaluations/reports/evolution/e15/executable-preflight-001/cta.md) preserves zero-execution accounting.
+
 [E15 prospective registration after terminal E14](../evaluations/reports/evolution/e15/registration-001/README.md): the new registry binds the unchanged public workload, unopened validation and the two exclusive Entity Graph and Ensemble first measurements. It is unsealed, has dispatched zero native trials and adds no retrieval score. [CTA](../evaluations/reports/evolution/e15/registration-001/cta.md) preserves the zero-execution boundary.
 
 [Post-owner Entity Graph and Ensemble runtime diagnostics](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/README.md): both public parity fixtures passed after the E14 owner terminated. They add no retrieval score, proposal charge or quality miss. The six qualified-family ranking remains Legacy/Turso 72.38, Adaptive 66.21, Graphify 63.72, Embeddings 63.51 and Classical 62.10. [CTA](../evaluations/reports/evolution/e14/post-owner-runtime-diagnostics-001/cta.md) preserves runtime scope.

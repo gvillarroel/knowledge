@@ -1,6 +1,8 @@
 # Evaluation report hub
 
-[E15 prospective EnterpriseRAG registration](evolution/e15/registration-001/README.md): terminal E14 is preserved, the successor datasets and stages are digest-locked, and zero native trials have run. E15 remains unsealed pending executable preflight and independent review.
+[E15 executable preflight](evolution/e15/executable-preflight-001/README.md): the exact controller, family-scoped reference composition and four Harbor owner configurations passed software and native dry-run diagnostics. No native trial or model call ran, and the independent activation gate remains closed. [CTA](evolution/e15/executable-preflight-001/cta.md) records the diagnostic cost and scope.
+
+[E15 prospective EnterpriseRAG registration](evolution/e15/registration-001/README.md): terminal E14 is preserved, the successor datasets and stages are digest-locked, and zero native trials have run. This initial checkpoint records the boundary before the later executable preflight.
 
 [Post-owner Entity Graph and Ensemble runtime diagnostics](evolution/e14/post-owner-runtime-diagnostics-001/README.md): both exact-behavior fixtures passed after controller quiescence. They are software evidence and supply no EnterpriseRAG score; the retained measurable table remains unchanged. [CTA](evolution/e14/post-owner-runtime-diagnostics-001/cta.md) records bounded runtime evidence.
 
