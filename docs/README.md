@@ -1,6 +1,6 @@
 # Documentation Index
 
-**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
+**EnterpriseRAG continuation resumed on 2026-09-14.** The [E16 public runtime checkpoint](../evaluations/reports/evolution/e16/public-freeze-001/README.md) records the complete frozen controller, verified executor isolation and 90.5% application coverage; independent fresh validation registration remains pending. The [last measured table and E15 terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md) remain unchanged: E14 and E15 are terminal, six retained development measurements are available, and Entity Graph and Ensemble still lack qualified scores. The requested eight-family all-500 comparison and independent acceptance remain unfinished. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
@@ -245,6 +245,8 @@ Everything in this folder is intended to be readable on its own, with links that
 6. For the remaining EnterpriseRAG finite search, follow the
    [isolated evolution execution guide](enterprise-isolated-evolution.md) and
    [public runtime verification checkpoint](../evaluations/reports/evolution/e16/public-freeze-001/README.md)
+7. Keep the [current external leaderboard reference](../evaluations/reports/evolution/e16/public-reference-001/README.md)
+   separate from internal retrieval and Luna answer measurements
 
 ## Documentation Conventions
 

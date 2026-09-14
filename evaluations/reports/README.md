@@ -6,6 +6,8 @@
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
+[Public leaderboard recheck, 2026-09-14](evolution/e16/public-reference-001/README.md): the official CSV remains byte-identical to the preserved 25-strategy table. This is an external reference check, with no new internal score or public rank.
+
 [Historical E15 component preflight](evolution/e15/executable-preflight-001/README.md): 18 focused tests and owner dry-run/doctor configuration checks passed; the later independent review rejected activation and found that the complete search/finalization driver was absent.
 
 [E15 prospective EnterpriseRAG registration](evolution/e15/registration-001/README.md): terminal E14 is preserved, the successor datasets and stages are digest-locked, and zero native trials have run. This initial checkpoint records the boundary before the later executable preflight.
