@@ -242,6 +242,9 @@ Everything in this folder is intended to be readable on its own, with links that
 4. Select the knowledge builder and artifact boundary before choosing an evolution strategy
 5. Keep only development optimizer-visible; release sealed validation once for
    the frozen winner, then use optional holdout only when the study declares it
+6. For the remaining EnterpriseRAG finite search, follow the
+   [isolated evolution execution guide](enterprise-isolated-evolution.md) and
+   [public runtime verification checkpoint](../evaluations/reports/evolution/e16/public-freeze-001/README.md)
 
 ## Documentation Conventions
 

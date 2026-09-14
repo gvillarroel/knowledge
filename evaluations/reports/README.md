@@ -1,6 +1,8 @@
 # Evaluation report hub
 
-**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](evolution/e15/terminal-001/groups.md) · [Cost, time and quality](evolution/e15/terminal-001/cta.md).
+**EnterpriseRAG continuation: public runtime frozen on 2026-09-14.** The [E16 verification checkpoint](evolution/e16/public-freeze-001/README.md) records 33 focused tests, actual executor isolation rehearsals and 90.5% application coverage. The [isolated evolution runner](../../docs/enterprise-isolated-evolution.md) covers the finite search and finalization lifecycle. A fresh independent review, validation registration and seal remain required before native execution; this checkpoint adds no benchmark scores.
+
+**Latest measured table:** [E15 terminal outcome and retained E14 results](evolution/e15/terminal-001/README.md). E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed in those studies. [Applications and categories](evolution/e15/terminal-001/groups.md) · [Cost, time and quality](evolution/e15/terminal-001/cta.md).
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
