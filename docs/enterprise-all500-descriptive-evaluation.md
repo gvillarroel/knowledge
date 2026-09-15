@@ -58,10 +58,17 @@ verified read-only root, disabled networking, restricted privileges, isolated
 feedback paths and fresh workspace volumes. No optimizer notes, prior traces,
 private data or undeclared state are added to their mounts or prompts.
 
-The declaration permits one complete job only. Every trial settles under the
-native job even when a sibling fails. Preserve partial or failed output and do
-not retry or change a candidate to improve the displayed table. E16's original
-120-question jobs, journal and study remain untouched.
+The declaration permits one complete job only. Every admitted trial settles
+under the native job even when a sibling fails. A sticky global stop prevents
+later environments from starting after source drift, inaccessible inputs, a
+proven failure of the frozen agent's access contract, or an exhausted required
+host filesystem. Use Harbor's environment-start hook inside its native error
+boundary; the end hook may latch failure but never throw and cancel siblings.
+Preserve refused originals as native `AdmissionStopped` errors, distinguish them
+from executed environments, and keep all eight rows in the report. Ordinary
+agent timeouts, runtime failures and verifier outcomes do not authorize a retry
+or a replacement. E16's original 120-question jobs, journal and study remain
+untouched.
 
 ## Reporting and interpretation
 
