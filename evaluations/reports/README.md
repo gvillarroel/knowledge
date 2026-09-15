@@ -1,8 +1,8 @@
 # Evaluation report hub
 
-**Latest EnterpriseRAG outcome: [E16 terminal execution failures](evolution/e16/terminal-001/README.md).** Both corrected original implementations timed out at 3,600 seconds, producing no qualified score. Both jobs settled, the optimizer was removed and every E16 stage stopped without selection or private release. The six retained E14 development scores remain unchanged; Entity Graph and Ensemble remain unavailable. [CTA](evolution/e16/terminal-001/cta.md) · [Applications, categories and dataset availability](evolution/e16/terminal-001/groups.md).
+**Latest EnterpriseRAG measurement: [interrupted all-500 evaluation, partial diagnostic table](datasets/enterprise-all500-descriptive-001/README.md).** Four of eight strategies produced qualified native observations: Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** nDCG@10 ×100 on 470 eligible questions among 500, using 6,000 complete documents. Entity Graph and Ensemble were interrupted without results; Graphify and Turso were not admitted. [Applications and categories](datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](datasets/enterprise-all500-descriptive-001/cta.md) · [Dataset scopes](datasets/enterprise-all500-descriptive-001/datasets.md).
 
-A separate [fixed all-500 public descriptive evaluation](../../docs/enterprise-all500-descriptive-evaluation.md) started native execution on 2026-09-15 UTC after six independent review checks, registration and sealing. Its eight-strategy reference and final-cohort resource settings predate E16's failures. It has no new candidates or promotion, and does not substitute for the unfinished paired evolution and acceptance gates. All eight original trials are allocated; Legacy and Embeddings started first under concurrency two. No final all-500 score is published at this checkpoint.
+The [fixed evaluation protocol](../../docs/enterprise-all500-descriptive-evaluation.md) and original evidence remain unchanged. The job is incomplete, both dependent study stages stopped, and no trial was rerun. This partial descriptive measurement does not establish a winner across all eight strategies, causal improvement, promotion or a public leaderboard rank. [E16's earlier terminal failures](evolution/e16/terminal-001/README.md) and six retained E14 development scores remain separate historical evidence.
 
 The [E16 activation checkpoint](evolution/e16/activation-001/README.md) and [runtime verification](evolution/e16/public-freeze-001/README.md) retain their dated evidence: 33 focused tests, actual isolation rehearsals and 90.5% application coverage.
 
@@ -182,7 +182,8 @@ The table identifies the highest observed primary metric within each published c
 | [EnterpriseRAG e6 development (40)](datasets/enterprise-rag-e6-development-40.md) | embeddings / baseline / hybrid | nDCG@10 | 63.19% |
 | [EnterpriseRAG complete documents: incoming / G2 (40)](datasets/enterprise-rag-generator-g2-fulltext-40.md) | ensemble / Incoming / Quality; ensemble / G2 / Quality | nDCG@10 | 97.86% |
 | [EnterpriseRAG full corpus: Classical (500)](datasets/enterprise-rag-classical-full-500.md) | classical / Classical / BM25 | nDCG@10 | 59.03% |
-| [EnterpriseRAG stratified development (120; partial)](datasets/enterprise-rag-stratified-development-120.md) | legacy / retained development profile | Weighted nDCG@10 | 72.38% |
+| [EnterpriseRAG stratified development (120; partial)](datasets/enterprise-rag-stratified-development-120.md) | legacy / retained development profile; turso / retained development profile | Weighted nDCG@10 | 72.38% |
+| [EnterpriseRAG all-500 / 6,000 documents (interrupted; 4/8 qualified)](datasets/enterprise-all500-descriptive-001/README.md) | legacy / lexical; highest among four observed strategies only | nDCG@10 | 70.72% |
 
 Historical reports keep their original source locations and meanings. The hub reads only reviewed aggregate sources and does not reopen sealed tasks. Latency and costs from different hosts, cache policies, models, or cohorts must be interpreted separately.
 

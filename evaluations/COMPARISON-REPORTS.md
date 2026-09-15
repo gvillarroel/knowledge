@@ -2,11 +2,11 @@
 
 Catalog updated: 2026-09-15 UTC.
 
-Newest included terminal execution evidence: 2026-09-14. No score from the new all-500 evaluation is published yet.
+Newest included diagnostic evidence: 2026-09-15. The interrupted all-500 job has four qualified observations out of eight allocated strategies.
 
-Latest EnterpriseRAG outcome: [E16's two terminal agent timeouts](reports/evolution/e16/terminal-001/README.md), with [applications, categories and dataset availability](reports/evolution/e16/terminal-001/groups.md), [CTA](reports/evolution/e16/terminal-001/cta.md) and the [120-question development view](reports/datasets/enterprise-rag-stratified-development-120.md). Six retained E14 scores remain historical development observations; Entity Graph and Ensemble have no qualified development score. E16 is closed without completing evolution, paired final comparison or independent acceptance.
+Latest EnterpriseRAG measurement: [partial all-500 diagnostic table](reports/datasets/enterprise-all500-descriptive-001/README.md), with [applications and categories](reports/datasets/enterprise-all500-descriptive-001/groups.md), [CTA](reports/datasets/enterprise-all500-descriptive-001/cta.md), [per-skill pages](reports/skills/README.md) and [dataset scopes](reports/datasets/enterprise-all500-descriptive-001/datasets.md). Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** are qualified native nDCG@10 ×100 observations on 470 eligible questions among 500, with 6,000 documents. The other four strategies have unavailable scores.
 
-A separate [fixed all-500 public descriptive evaluation](../docs/enterprise-all500-descriptive-evaluation.md) started on 2026-09-15 UTC after independent admission. It allocates one original to each of eight strategies on 500 questions and 6,000 complete documents. Native execution is still in progress. This measurement does not select or promote a skill, substitute for E16's unfulfilled gates, or establish an official public leaderboard position.
+The [fixed all-500 evaluation](../docs/enterprise-all500-descriptive-evaluation.md) was interrupted; its native job remains incomplete and both study stages stopped. No trial was rerun or missing score imputed. [E16's terminal agent timeouts](reports/evolution/e16/terminal-001/README.md) and the [120-question development view](reports/datasets/enterprise-rag-stratified-development-120.md) remain historical evidence. The partial measurement does not complete E16's evolution or independent acceptance, select or promote a skill, or establish an official public leaderboard position.
 
 The remaining catalog preserves dated historical evidence; older statements about pending work describe those checkpoints.
 

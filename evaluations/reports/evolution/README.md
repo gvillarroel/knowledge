@@ -1,6 +1,8 @@
 # Knowledge-skill evolution evidence
 
-[E16 terminal outcome](e16/terminal-001/README.md): two original 3,600-second timeouts, no new qualified score, no selection or private release; all stages closed. [CTA](e16/terminal-001/cta.md).
+[Latest separate public measurement](../datasets/enterprise-all500-descriptive-001/README.md): the fixed all-500 evaluation was interrupted after four of eight strategies produced qualified observations. This is a partial diagnostic report with unavailable scores for the other four strategies, no retries and no promotion. It does not complete evolution or independent acceptance. [Applications and categories](../datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](../datasets/enterprise-all500-descriptive-001/cta.md).
+
+[E16 terminal evolution outcome](e16/terminal-001/README.md): two original 3,600-second timeouts, no new qualified score, no selection or private release; all stages closed. [CTA](e16/terminal-001/cta.md).
 
 **Historical E15 checkpoint (2026-09-13).** [Final measured table and terminal outcome](e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](e15/terminal-001/groups.md) · [Cost, time and quality](e15/terminal-001/cta.md).
 

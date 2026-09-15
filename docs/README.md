@@ -1,8 +1,8 @@
 # Documentation Index
 
-**EnterpriseRAG E16 is closed after two 3,600-second execution timeouts.** The [reviewed terminal report](../evaluations/reports/evolution/e16/terminal-001/README.md) preserves the six E14 development scores and marks Entity Graph and Ensemble unavailable. Both original jobs finished, all E16 stages stopped, and no selection or private release occurred. [CTA](../evaluations/reports/evolution/e16/terminal-001/cta.md) · [Application/category and dataset availability](../evaluations/reports/evolution/e16/terminal-001/groups.md).
+**EnterpriseRAG now has a [partial all-500 diagnostic report](../evaluations/reports/datasets/enterprise-all500-descriptive-001/README.md).** Four of eight strategies settled before execution was interrupted: Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** nDCG@10 ×100, on 470 eligible questions and 6,000 documents. Entity Graph and Ensemble have no final results; Graphify and Turso were not admitted. [Applications and categories](../evaluations/reports/datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](../evaluations/reports/datasets/enterprise-all500-descriptive-001/cta.md) · [Dataset scopes](../evaluations/reports/datasets/enterprise-all500-descriptive-001/datasets.md).
 
-A separate [fixed all-500 public descriptive evaluation](enterprise-all500-descriptive-evaluation.md) started native execution on 2026-09-15 UTC after six independent review checks, registration and sealing. It measures the complete precommitted eight-strategy bundle under the original final-cohort limits; it does not replace E16's unfinished evolution, paired comparison or acceptance gates. All eight original trials are allocated; Legacy and Embeddings started first under concurrency two. No final all-500 score is published at this checkpoint. The [E16 activation checkpoint](../evaluations/reports/evolution/e16/activation-001/README.md) and [verified isolated runtime](../evaluations/reports/evolution/e16/public-freeze-001/README.md) remain historical evidence.
+The [fixed all-500 protocol](enterprise-all500-descriptive-evaluation.md) remains frozen; the native job is incomplete and both study stages stopped without retries. The partial report does not promote a skill or establish a public leaderboard position. [E16's earlier closure](../evaluations/reports/evolution/e16/terminal-001/README.md), unfinished evolution and acceptance gates, and six historical E14 development observations remain separate. The [E16 activation checkpoint](../evaluations/reports/evolution/e16/activation-001/README.md) and [verified isolated runtime](../evaluations/reports/evolution/e16/public-freeze-001/README.md) retain their dated scope.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
@@ -244,7 +244,8 @@ Everything in this folder is intended to be readable on its own, with links that
 4. Select the knowledge builder and artifact boundary before choosing an evolution strategy
 5. Keep only development optimizer-visible; release sealed validation once for
    the frozen winner, then use optional holdout only when the study declares it
-6. For EnterpriseRAG, read the [terminal E16 outcome](../evaluations/reports/evolution/e16/terminal-001/README.md)
+6. For EnterpriseRAG, read the [partial all-500 report](../evaluations/reports/datasets/enterprise-all500-descriptive-001/README.md),
+   the [terminal E16 outcome](../evaluations/reports/evolution/e16/terminal-001/README.md),
    and the separate [fixed all-500 descriptive protocol](enterprise-all500-descriptive-evaluation.md)
 7. Keep the [current external leaderboard reference](../evaluations/reports/evolution/e16/public-reference-001/README.md)
    separate from internal retrieval and Luna answer measurements

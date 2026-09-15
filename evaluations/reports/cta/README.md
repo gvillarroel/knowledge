@@ -1,6 +1,8 @@
 # CTA: cost, time, and quality
 
-[E16 execution-failure CTA](../evolution/e16/terminal-001/cta.md): two original timeouts, native agent and total trial timing, unavailable provider usage, and no inferred quality score.
+[Latest all-500 partial CTA](../datasets/enterprise-all500-descriptive-001/cta.md): four qualified strategies retain native trial, agent, two-build and primary-query timing. Four incomplete strategy allocations retain unavailable usage and quality; total job wall time is unavailable. Planned route workloads differ, so total trial time is not an isolated primary-route cost. Reported zero provider cost excludes local compute and orchestration. [Strategy outcomes](../datasets/enterprise-all500-descriptive-001/README.md).
+
+[Historical E16 execution-failure CTA](../evolution/e16/terminal-001/cta.md): two original timeouts, native agent and total trial timing, unavailable provider usage, and no inferred quality score.
 
 **Historical E15 checkpoint (2026-09-13).** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
 
