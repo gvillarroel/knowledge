@@ -1,6 +1,8 @@
 # Knowledge-skill evolution evidence
 
-**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](e15/terminal-001/groups.md) · [Cost, time and quality](e15/terminal-001/cta.md).
+[E16 terminal outcome](e16/terminal-001/README.md): two original 3,600-second timeouts, no new qualified score, no selection or private release; all stages closed. [CTA](e16/terminal-001/cta.md).
+
+**Historical E15 checkpoint (2026-09-13).** [Final measured table and terminal outcome](e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](e15/terminal-001/groups.md) · [Cost, time and quality](e15/terminal-001/cta.md).
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 

@@ -1,0 +1,228 @@
+{
+  "all500_trials_executed": 0,
+  "canonical_skills_promoted": 0,
+  "cumulative_development_allocations": 63,
+  "e16_closed": true,
+  "generated_at_utc": "2026-09-14T23:38:46.083849+00:00",
+  "joint_trials_executed": 0,
+  "limits": [
+    "Execution failures do not measure retrieval quality and do not count as quality misses.",
+    "Both consumed original identities are nonreissuable; E16 cannot be resumed.",
+    "Six finite catalogs are closed; the remaining Entity Graph and Ensemble hypotheses are unexercised.",
+    "This report does not establish an all-500 result, an official leaderboard rank, or skill promotion."
+  ],
+  "metric_contract": {
+    "complete_documents": 6000,
+    "display_multiplier": 100,
+    "eligible_population_weight": 470,
+    "metric": "frozen-category-weighted-ndcg-at-10",
+    "public_leaderboard_position": null,
+    "questions": 120,
+    "retrieval_eligible_questions": 112,
+    "scope": "retained E14 development observations; no new scoring"
+  },
+  "new_errors": 2,
+  "new_native_jobs": 2,
+  "new_proposal_charges": 0,
+  "new_qualified_scores": 0,
+  "new_quality_misses": 0,
+  "new_retries": 0,
+  "optimizer_selection_emitted": false,
+  "original_attempts": [
+    {
+      "agent_seconds": 3600.014691,
+      "candidate_id": "entity-bounded-selection-001-first-measurement",
+      "candidate_tree_sha256": "255fb106596f0b032e9513ecbf3a2fe2d73bd84cb6795c2f779691eeb025d24f",
+      "completed_trials": 1,
+      "errors": 1,
+      "family": "entity-graph",
+      "memory_limit_gib": 6,
+      "native_lock_sha256": "5a90f66464ef4faf683e387d7dd27ba8aefedbcd46cdf00f85f499a61addc345",
+      "native_record_sha256": "f77ac65e872b37ab72713248c91357307572cd3b0c6ce56d75e025a0f1429c09",
+      "native_skill_digest": "sha256:688fc159a9a26e845be785554e12f26e60906598319322adc362e1657934d4b4",
+      "ndcg_at_10": null,
+      "provider_usd": null,
+      "quality_misses": 0,
+      "retries": 0,
+      "status": "unqualified-agent-timeout",
+      "timeout_seconds": 3600,
+      "trial_result_sha256": "a176ebf617066c7b8d1e9f321f0f35144789a235164c49d6f4fcd58d08716d99",
+      "trial_seconds": 3647.178738
+    },
+    {
+      "agent_seconds": 3600.016932,
+      "candidate_id": "ensemble-mention-automaton-transfer-001-first-measurement",
+      "candidate_tree_sha256": "31aca8a9abddb5b362c53b8133b3c6e30acaf82cdd946bc9ceaa88a251fd6e76",
+      "completed_trials": 1,
+      "errors": 1,
+      "family": "ensemble",
+      "memory_limit_gib": 6,
+      "native_lock_sha256": "ad9ea20a56bcdac0118634b20ad23afea99cdae263bcb3bdacadcb16dda7841f",
+      "native_record_sha256": "2eca4f0c76df1c61802a9350e418530cb183858aa7c2c81d833655e412993c7f",
+      "native_skill_digest": "sha256:acabf093d2f44c43cc2f86b3a9e594ebec4ccc860a74a499f80db78fe73085c8",
+      "ndcg_at_10": null,
+      "provider_usd": null,
+      "quality_misses": 0,
+      "retries": 0,
+      "status": "unqualified-agent-timeout",
+      "timeout_seconds": 3600,
+      "trial_result_sha256": "7b10fd212e713881f71378c9eea2a3a34f1ad0bd297f356cee13f34e6e747bff",
+      "trial_seconds": 3646.514551
+    }
+  ],
+  "private_acceptance_trials_executed": 0,
+  "private_validation_released": false,
+  "proposal_accounting": {
+    "closed_nontransferable_unused_slots": 272,
+    "cumulative_cap": 585,
+    "cumulative_claims": 140,
+    "families": {
+      "adaptive": {
+        "cap": 100,
+        "claims": 29,
+        "status": "closed"
+      },
+      "classical": {
+        "cap": 85,
+        "claims": 37,
+        "status": "closed"
+      },
+      "embeddings": {
+        "cap": 40,
+        "claims": 6,
+        "status": "closed"
+      },
+      "ensemble": {
+        "cap": 105,
+        "claims": 3,
+        "status": "open"
+      },
+      "entity-graph": {
+        "cap": 80,
+        "claims": 9,
+        "status": "open"
+      },
+      "graphify": {
+        "cap": 65,
+        "claims": 24,
+        "status": "closed"
+      },
+      "legacy": {
+        "cap": 55,
+        "claims": 16,
+        "status": "closed"
+      },
+      "turso": {
+        "cap": 55,
+        "claims": 16,
+        "status": "closed"
+      }
+    },
+    "open_family_remaining_slots": 173
+  },
+  "proposal_accounting_context": "Historical cumulative inventory only. E16 is terminal: the 173 unexercised open-family slots do not authorize further work in E16.",
+  "requested_evaluation_complete": false,
+  "retained_family_rows": [
+    {
+      "cap": 55,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 16,
+      "family": "legacy",
+      "mrr_at_10": 0.7150891274062817,
+      "ndcg_at_10": 0.7237626950008386,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.8199197202521671
+    },
+    {
+      "cap": 55,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 16,
+      "family": "turso",
+      "mrr_at_10": 0.7150891274062817,
+      "ndcg_at_10": 0.7237626950008386,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.8199197202521671
+    },
+    {
+      "cap": 100,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 29,
+      "family": "adaptive",
+      "mrr_at_10": 0.673708734380277,
+      "ndcg_at_10": 0.6620879880681476,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.7402260638297873
+    },
+    {
+      "cap": 65,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 24,
+      "family": "graphify",
+      "mrr_at_10": 0.6044714095744681,
+      "ndcg_at_10": 0.6372163222534529,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.817861012608353
+    },
+    {
+      "cap": 40,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 6,
+      "family": "embeddings",
+      "mrr_at_10": 0.6159483001238321,
+      "ndcg_at_10": 0.6350525198647472,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.808242218282112
+    },
+    {
+      "cap": 85,
+      "catalog_state": "closed-finite-catalog",
+      "claims": 37,
+      "family": "classical",
+      "mrr_at_10": 0.6637762263593381,
+      "ndcg_at_10": 0.621048481690271,
+      "qualification": "qualified-development-observation",
+      "recall_at_10": 0.6416912923561859
+    },
+    {
+      "cap": 80,
+      "catalog_state": "stopped-before-qualification-hypotheses-unexhausted",
+      "claims": 9,
+      "family": "entity-graph",
+      "mrr_at_10": null,
+      "ndcg_at_10": null,
+      "qualification": "unavailable-after-e16-agent-timeout",
+      "recall_at_10": null
+    },
+    {
+      "cap": 105,
+      "catalog_state": "stopped-before-qualification-hypotheses-unexhausted",
+      "claims": 3,
+      "family": "ensemble",
+      "mrr_at_10": null,
+      "ndcg_at_10": null,
+      "qualification": "unavailable-after-e16-agent-timeout",
+      "recall_at_10": null
+    }
+  ],
+  "schema": "enterprise-e16-terminal-aggregate/1.0",
+  "source_sha256": {
+    "evaluations/reports/evolution/e15/terminal-001/aggregate.json": "6d57675dd28625d58b715fefe5d5b1ad168fdd2f0de9ba21d376d40e1ccaf96c",
+    "tmp/e16/authority.jsonl": "232e5a766314b07907e9757df2e3110daf9cdb942b859a66b013e7f5be963835",
+    "tmp/e16/dispatch/ensemble/generation-000/record.json": "2eca4f0c76df1c61802a9350e418530cb183858aa7c2c81d833655e412993c7f",
+    "tmp/e16/dispatch/ensemble/generation-000/response.json": "3ecaccc067bbc439bd805ea4a562decc613dae90d1b96248b7efa4f02f796849",
+    "tmp/e16/dispatch/entity-graph/generation-000/record.json": "f77ac65e872b37ab72713248c91357307572cd3b0c6ce56d75e025a0f1429c09",
+    "tmp/e16/dispatch/entity-graph/generation-000/response.json": "23ae73a486db78f14cd02b8c4ea3b172425c8de03215e39025bc9b8db1bcba4e",
+    "tmp/e16/runtime-contract.json": "7830ffa814ff375dc4371003534bab40214570a375be8a5cd4b927b4f9490e52",
+    "tmp/e16/search/ensemble/development/generation-000/harbor-jobs/enterprise-e16-ensemble-g000-development-ensemble-mention-automaton-transfer-001-first-measurement/lock.json": "ad9ea20a56bcdac0118634b20ad23afea99cdae263bcb3bdacadcb16dda7841f",
+    "tmp/e16/search/ensemble/development/generation-000/harbor-jobs/enterprise-e16-ensemble-g000-development-ensemble-mention-automaton-transfer-001-first-measurement/result.json": "4c6bdfcbc788d0aae5ad7441276ef92c691790cb971afd7b080c03d5775a9dc1",
+    "tmp/e16/search/ensemble/development/generation-000/harbor-jobs/enterprise-e16-ensemble-g000-development-ensemble-mention-automaton-transfer-001-first-measurement/retrieval-2a8fd69eafc5bc897af5__4AhvUb4/result.json": "7b10fd212e713881f71378c9eea2a3a34f1ad0bd297f356cee13f34e6e747bff",
+    "tmp/e16/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e16-entity-graph-g000-development-entity-bounded-selection-001-first-measurement/lock.json": "5a90f66464ef4faf683e387d7dd27ba8aefedbcd46cdf00f85f499a61addc345",
+    "tmp/e16/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e16-entity-graph-g000-development-entity-bounded-selection-001-first-measurement/result.json": "e46e371175e09e8b7a20ab40f526e624244fde59d9006c2d61dbb648cc26e136",
+    "tmp/e16/search/entity-graph/development/generation-000/harbor-jobs/enterprise-e16-entity-graph-g000-development-entity-bounded-selection-001-first-measurement/retrieval-522cb80855293cfec9b0__eHngujW/result.json": "a176ebf617066c7b8d1e9f321f0f35144789a235164c49d6f4fcd58d08716d99",
+    "tmp/e16/terminal-cleanup.json": "f46ac7718a93a902d1be280479c4b481f6bb61a985eb24058067c58532dd6757",
+    "tmp/enterprise-next-preparation/e16-public-runtime-observations-001.jsonl": "d1c9ced2caa324033576d47edf859b604cbd49a7be60f3ee8e5bbdae474a3477",
+    "tmp/enterprise-next-preparation/e16-terminal-native-report-001/final-report.json": "f3d16d91244b21df5ebcd7ef7039b61bc63e2495cbedcfb46c69b5c0ba337190"
+  },
+  "status": "terminal-execution-failed",
+  "study_id": "enterprise-e16"
+}

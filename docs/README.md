@@ -1,6 +1,8 @@
 # Documentation Index
 
-**EnterpriseRAG E16 is registered, sealed and running as of 2026-09-14.** The [activation checkpoint](../evaluations/reports/evolution/e16/activation-001/README.md) records independent preparation, actual launcher admission and allocation of the two original first measurements. The [runtime checkpoint](../evaluations/reports/evolution/e16/public-freeze-001/README.md) records verified executor isolation and 90.5% application coverage. The [last measured table and E15 terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md) remain unchanged: E14 and E15 are terminal, six retained development measurements are available, and Entity Graph and Ensemble still lack qualified scores. The requested eight-family all-500 comparison and independent acceptance remain unfinished. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
+**EnterpriseRAG E16 is closed after two 3,600-second execution timeouts.** The [reviewed terminal report](../evaluations/reports/evolution/e16/terminal-001/README.md) preserves the six E14 development scores and marks Entity Graph and Ensemble unavailable. Both original jobs finished, all E16 stages stopped, and no selection or private release occurred. [CTA](../evaluations/reports/evolution/e16/terminal-001/cta.md) · [Application/category and dataset availability](../evaluations/reports/evolution/e16/terminal-001/groups.md).
+
+A separate [fixed all-500 public descriptive evaluation](enterprise-all500-descriptive-evaluation.md) is in prospective preparation. It measures the complete precommitted eight-strategy bundle under the original final-cohort limits; it does not replace E16's unfinished evolution, paired comparison or acceptance gates. No new all-500 measurement has started at this checkpoint. The [E16 activation checkpoint](../evaluations/reports/evolution/e16/activation-001/README.md) and [verified isolated runtime](../evaluations/reports/evolution/e16/public-freeze-001/README.md) remain historical evidence.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
@@ -242,9 +244,8 @@ Everything in this folder is intended to be readable on its own, with links that
 4. Select the knowledge builder and artifact boundary before choosing an evolution strategy
 5. Keep only development optimizer-visible; release sealed validation once for
    the frozen winner, then use optional holdout only when the study declares it
-6. For the remaining EnterpriseRAG finite search, follow the
-   [isolated evolution execution guide](enterprise-isolated-evolution.md) and
-   [public runtime verification checkpoint](../evaluations/reports/evolution/e16/public-freeze-001/README.md)
+6. For EnterpriseRAG, read the [terminal E16 outcome](../evaluations/reports/evolution/e16/terminal-001/README.md)
+   and the separate [fixed all-500 descriptive protocol](enterprise-all500-descriptive-evaluation.md)
 7. Keep the [current external leaderboard reference](../evaluations/reports/evolution/e16/public-reference-001/README.md)
    separate from internal retrieval and Luna answer measurements
 
