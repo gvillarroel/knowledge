@@ -1,10 +1,14 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-09-11.
+Catalog updated: 2026-09-15 UTC.
 
-Newest included scored or audited evidence: 2026-09-11.
+Newest included terminal execution evidence: 2026-09-14. No score from the new all-500 evaluation is published yet.
 
-Latest EnterpriseRAG evidence: [E13's completed Turso reference and diagnosed controller stop](reports/evolution/e13/README.md), with [retained eight-family results](reports/evolution/e13/turso-baseline-and-controller-stop-001/README.md#retained-eight-family-comparison), [application/category aggregates](reports/evolution/e13/turso-baseline-and-controller-stop-001/groups.md), [CTA](reports/evolution/e13/turso-baseline-and-controller-stop-001/cta.md) and a [stratified dataset view](reports/datasets/enterprise-rag-stratified-development-120.md). This remains partial development evidence; final all-500 comparison and acceptance are unfinished.
+Latest EnterpriseRAG outcome: [E16's two terminal agent timeouts](reports/evolution/e16/terminal-001/README.md), with [applications, categories and dataset availability](reports/evolution/e16/terminal-001/groups.md), [CTA](reports/evolution/e16/terminal-001/cta.md) and the [120-question development view](reports/datasets/enterprise-rag-stratified-development-120.md). Six retained E14 scores remain historical development observations; Entity Graph and Ensemble have no qualified development score. E16 is closed without completing evolution, paired final comparison or independent acceptance.
+
+A separate [fixed all-500 public descriptive evaluation](../docs/enterprise-all500-descriptive-evaluation.md) started on 2026-09-15 UTC after independent admission. It allocates one original to each of eight strategies on 500 questions and 6,000 complete documents. Native execution is still in progress. This measurement does not select or promote a skill, substitute for E16's unfulfilled gates, or establish an official public leaderboard position.
+
+The remaining catalog preserves dated historical evidence; older statements about pending work describe those checkpoints.
 
 This is the entry point for reviewed reports that compare knowledge builders,
 consultants, generated expert skills, retrieval routes, or storage variants. It
@@ -16,7 +20,7 @@ table, [pages by skill](reports/skills/README.md), and a
 [cost/time/quality view](reports/cta/README.md). It includes the new pinned
 EnterpriseRAG reduced-corpus diagnostic and preserves the contracts below.
 
-The current [Entity Graph consultant token-automaton native outcome](reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md)
+The historical [Entity Graph consultant token-automaton native outcome](reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md)
 records a 3,600-second timeout without a ranking and preserves the [eight-family development comparison](reports/evolution/e11/entity-consultant-token-automaton-native-001/README.md#eight-family-comparison),
 with [application/category availability](reports/evolution/e11/entity-consultant-token-automaton-native-001/groups.md)
 and [CTA](reports/evolution/e11/entity-consultant-token-automaton-native-001/cta.md). The

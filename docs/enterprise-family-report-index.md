@@ -1,6 +1,8 @@
 # EnterpriseRAG reports by retrieval family
 
-**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evaluations/reports/evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evaluations/reports/evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evaluations/reports/evolution/e15/terminal-001/cta.md).
+**Latest EnterpriseRAG outcome: [E16 terminal execution failures](../evaluations/reports/evolution/e16/terminal-001/README.md).** Both original corrected implementations timed out at 3,600 seconds. All E16 stages stopped without selection or private release; six retained E14 development scores remain unchanged, and Entity Graph and Ensemble remain unavailable. [Applications, categories and dataset availability](../evaluations/reports/evolution/e16/terminal-001/groups.md) and [cost, time and quality](../evaluations/reports/evolution/e16/terminal-001/cta.md) preserve this closure.
+
+The separate [fixed all-500 public descriptive evaluation](enterprise-all500-descriptive-evaluation.md) started on 2026-09-15 UTC after independent admission. All eight original trials are allocated, and native execution is in progress. No final all-500 score is published yet. Its fixed reference measurement does not complete E16's unfinished evolution, paired recalculation or independent acceptance, and does not promote a skill.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 

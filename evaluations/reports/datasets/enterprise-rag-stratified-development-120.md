@@ -1,6 +1,8 @@
 # EnterpriseRAG: stratified development, 120 questions
 
-**EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
+**Latest development closure: [E16 terminal execution failures](../evolution/e16/terminal-001/README.md).** Both original corrected implementations timed out at 3,600 seconds without qualified retrieval scores. Six retained E14 development observations remain unchanged; Entity Graph and Ensemble remain unavailable. E16 stopped without completing evolution, paired final comparison or independent acceptance. [Applications, categories and dataset availability](../evolution/e16/terminal-001/groups.md) and [cost, time and quality](../evolution/e16/terminal-001/cta.md) preserve this outcome.
+
+The separate [fixed all-500 public descriptive evaluation](../../../docs/enterprise-all500-descriptive-evaluation.md) started on 2026-09-15 UTC and remains in progress. It uses a different, overlapping question cohort. Its eventual observations cannot replace or be pooled with this 120-question development evidence.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 
