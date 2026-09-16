@@ -1,12 +1,14 @@
 # Skill Comparison Report Catalog
 
-Catalog updated: 2026-09-15 UTC.
+Catalog updated: 2026-09-16 UTC.
 
-Newest included diagnostic evidence: 2026-09-15. The interrupted all-500 job has four qualified observations out of eight allocated strategies.
+**Latest EnterpriseRAG measurement: [two-study all-500 catalog](reports/datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
-Latest EnterpriseRAG measurement: [partial all-500 diagnostic table](reports/datasets/enterprise-all500-descriptive-001/README.md), with [applications and categories](reports/datasets/enterprise-all500-descriptive-001/groups.md), [CTA](reports/datasets/enterprise-all500-descriptive-001/cta.md), [per-skill pages](reports/skills/README.md) and [dataset scopes](reports/datasets/enterprise-all500-descriptive-001/datasets.md). Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** are qualified native nDCG@10 ×100 observations on 470 eligible questions among 500, with 6,000 documents. The other four strategies have unavailable scores.
+Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
 
-The [fixed all-500 evaluation](../docs/enterprise-all500-descriptive-evaluation.md) was interrupted; its native job remains incomplete and both study stages stopped. No trial was rerun or missing score imputed. [E16's terminal agent timeouts](reports/evolution/e16/terminal-001/README.md) and the [120-question development view](reports/datasets/enterprise-rag-stratified-development-120.md) remain historical evidence. The partial measurement does not complete E16's evolution or independent acceptance, select or promote a skill, or establish an official public leaderboard position.
+[Applications and categories](reports/datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](reports/datasets/enterprise-all500-first-executions-001/cta.md) · [Dataset scopes](reports/datasets/enterprise-all500-first-executions-001/datasets.md) · [Per-strategy reports](reports/datasets/enterprise-all500-first-executions-001/README.md).
+
+The [120-question development view](reports/datasets/enterprise-rag-stratified-development-120.md) uses a different, overlapping cohort and remains historical. Timing rows retain source-study provenance because concurrency partners differ.
 
 The remaining catalog preserves dated historical evidence; older statements about pending work describe those checkpoints.
 

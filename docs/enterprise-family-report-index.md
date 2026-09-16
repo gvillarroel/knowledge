@@ -1,8 +1,12 @@
 # EnterpriseRAG reports by retrieval family
 
-**Latest EnterpriseRAG measurement: [partial all-500 diagnostic report](../evaluations/reports/datasets/enterprise-all500-descriptive-001/README.md).** Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** nDCG@10 ×100 are qualified on 470 eligible questions among 500 and 6,000 documents. Entity Graph and Ensemble were interrupted without native results; Graphify and Turso were not admitted. [Applications and categories](../evaluations/reports/datasets/enterprise-all500-descriptive-001/groups.md) · [Cost, time and quality](../evaluations/reports/datasets/enterprise-all500-descriptive-001/cta.md) · [Per-skill pages](../evaluations/reports/skills/README.md).
+**Latest EnterpriseRAG measurement: [two-study all-500 catalog](../evaluations/reports/datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
-The [fixed all-500 evaluation](enterprise-all500-descriptive-evaluation.md) is incomplete and both dependent study stages stopped without retries. Its partial results do not establish a winner across eight strategies or an official leaderboard rank. [E16's terminal execution failures](../evaluations/reports/evolution/e16/terminal-001/README.md), unfinished evolution and acceptance gates, and six retained E14 development scores remain unchanged. No skill was promoted.
+Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
+
+[Applications and categories](../evaluations/reports/datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](../evaluations/reports/datasets/enterprise-all500-first-executions-001/cta.md) · [Dataset scopes](../evaluations/reports/datasets/enterprise-all500-first-executions-001/datasets.md) · [Per-strategy reports](../evaluations/reports/datasets/enterprise-all500-first-executions-001/README.md).
+
+The [new ordinary evaluation protocol](enterprise-all500-first-executions.md) preserves the fixed reference bundle. [E16's terminal report](../evaluations/reports/evolution/e16/terminal-001/README.md) and historical 120-question scores retain their separate scope.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 

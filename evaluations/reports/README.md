@@ -1,10 +1,12 @@
 # Evaluation report hub
 
-**Latest EnterpriseRAG measurement: [interrupted all-500 evaluation, partial diagnostic table](datasets/enterprise-all500-descriptive-001/README.md).** Four of eight strategies produced qualified native observations: Legacy **70.72**, Embeddings **64.04**, Adaptive **63.61** and Classical **56.16** nDCG@10 ×100 on 470 eligible questions among 500, using 6,000 complete documents. Entity Graph and Ensemble were interrupted without results; Graphify and Turso were not admitted. [Applications and categories](datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](datasets/enterprise-all500-descriptive-001/cta.md) · [Dataset scopes](datasets/enterprise-all500-descriptive-001/datasets.md).
+**Latest EnterpriseRAG measurement: [two-study all-500 catalog](datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
-The [fixed evaluation protocol](../../docs/enterprise-all500-descriptive-evaluation.md) and original evidence remain unchanged. The job is incomplete, both dependent study stages stopped, and no trial was rerun. This partial descriptive measurement does not establish a winner across all eight strategies, causal improvement, promotion or a public leaderboard rank. [E16's earlier terminal failures](evolution/e16/terminal-001/README.md) and six retained E14 development scores remain separate historical evidence.
+Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
 
-The [E16 activation checkpoint](evolution/e16/activation-001/README.md) and [runtime verification](evolution/e16/public-freeze-001/README.md) retain their dated evidence: 33 focused tests, actual isolation rehearsals and 90.5% application coverage.
+[Applications and categories](datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](datasets/enterprise-all500-first-executions-001/cta.md) · [Dataset scopes](datasets/enterprise-all500-first-executions-001/datasets.md) · [Per-strategy reports](datasets/enterprise-all500-first-executions-001/README.md).
+
+The [fixed protocol](../../docs/enterprise-all500-first-executions.md) records two new first-execution allocations; all eight previous allocations remain charged. [E16's terminal report](evolution/e16/terminal-001/README.md) retains the unfulfilled development and acceptance gates.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 

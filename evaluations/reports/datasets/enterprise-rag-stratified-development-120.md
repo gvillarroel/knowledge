@@ -2,7 +2,7 @@
 
 **Latest development closure: [E16 terminal execution failures](../evolution/e16/terminal-001/README.md).** Both original corrected implementations timed out at 3,600 seconds without qualified retrieval scores. Six retained E14 development observations remain unchanged; Entity Graph and Ensemble remain unavailable. E16 stopped without completing evolution, paired final comparison or independent acceptance. [Applications, categories and dataset availability](../evolution/e16/terminal-001/groups.md) and [cost, time and quality](../evolution/e16/terminal-001/cta.md) preserve this outcome.
 
-The separate [all-500 partial diagnostic report](enterprise-all500-descriptive-001/README.md) preserves four qualified observations after execution was interrupted; its other four strategy scores are unavailable. It uses a different, overlapping question cohort and cannot replace or be pooled with this 120-question development evidence. The [fixed protocol](../../../docs/enterprise-all500-descriptive-evaluation.md) remains unchanged, with no retry or promotion.
+The separate [all-500 catalog across two studies](enterprise-all500-first-executions-001/README.md) contains 6 qualified strategies; the new two-trial job settled Graphify and Turso. Entity Graph and Ensemble remain unavailable, and the original interrupted job is unchanged. The all-500 results use a different, overlapping question cohort and cannot replace or be pooled with this 120-question development evidence. The [two-strategy protocol](../../../docs/enterprise-all500-first-executions.md) preserves the reference bundle and zero-retry budget.
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.
 

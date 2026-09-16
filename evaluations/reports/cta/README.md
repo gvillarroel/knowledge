@@ -1,6 +1,6 @@
 # CTA: cost, time, and quality
 
-[Latest all-500 partial CTA](../datasets/enterprise-all500-descriptive-001/cta.md): four qualified strategies retain native trial, agent, two-build and primary-query timing. Four incomplete strategy allocations retain unavailable usage and quality; total job wall time is unavailable. Planned route workloads differ, so total trial time is not an isolated primary-route cost. Reported zero provider cost excludes local compute and orchestration. [Strategy outcomes](../datasets/enterprise-all500-descriptive-001/README.md).
+[Latest all-500 CTA across two source studies](../datasets/enterprise-all500-first-executions-001/cta.md): 6 qualified strategy observations retain native trial, agent, two-build and primary-query timing. The new Graphify/Turso job completed; the previous interrupted job retains unavailable final wall time. Rows identify their source study, and different concurrency partners prevent treating these times as a matched runtime comparison. Missing usage remains unavailable. Zero reported provider cost excludes local compute and orchestration. [Quality and outcomes](../datasets/enterprise-all500-first-executions-001/README.md).
 
 [Historical E16 execution-failure CTA](../evolution/e16/terminal-001/cta.md): two original timeouts, native agent and total trial timing, unavailable provider usage, and no inferred quality score.
 

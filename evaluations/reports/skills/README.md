@@ -1,19 +1,21 @@
 # Reports by skill
 
-[Latest all-500 partial diagnostic report](../datasets/enterprise-all500-descriptive-001/README.md): four qualified native observations, two interrupted strategies without results and two strategies not admitted. Each row below covers the same 500-question / 6,000-document allocation; scores use 470 eligible questions. The native job is incomplete and no canonical skill was promoted.
+**Latest EnterpriseRAG measurement: [two-study all-500 catalog](../datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
-| Strategy | nDCG@10 ×100 | Reported outcome |
-| --- | ---: | --- |
-| [Legacy](../datasets/enterprise-all500-descriptive-001/skills/legacy.md) | 70.72 | Qualified |
-| [Embeddings](../datasets/enterprise-all500-descriptive-001/skills/embeddings.md) | 64.04 | Qualified |
-| [Adaptive](../datasets/enterprise-all500-descriptive-001/skills/adaptive.md) | 63.61 | Qualified |
-| [Classical](../datasets/enterprise-all500-descriptive-001/skills/classical.md) | 56.16 | Qualified |
-| [Entity Graph](../datasets/enterprise-all500-descriptive-001/skills/entity-graph.md) | Unavailable | Interrupted; no native result |
-| [Ensemble](../datasets/enterprise-all500-descriptive-001/skills/ensemble.md) | Unavailable | Interrupted; no native result |
-| [Graphify](../datasets/enterprise-all500-descriptive-001/skills/graphify.md) | Unavailable | Not admitted; no native result |
-| [Turso](../datasets/enterprise-all500-descriptive-001/skills/turso.md) | Unavailable | Not admitted; no native result |
+Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
 
-[Applications and categories](../datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](../datasets/enterprise-all500-descriptive-001/cta.md) · [Historical E16 development closure](../evolution/e16/terminal-001/README.md).
+[Applications and categories](../datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](../datasets/enterprise-all500-first-executions-001/cta.md) · [Dataset scopes](../datasets/enterprise-all500-first-executions-001/datasets.md) · [Per-strategy reports](../datasets/enterprise-all500-first-executions-001/README.md).
+
+| Strategy | nDCG@10 ×100 | Outcome | Source study |
+| --- | ---: | --- | --- |
+| [Legacy](../datasets/enterprise-all500-first-executions-001/skills/legacy.md) | 70.72 | Qualified | enterprise-all500-descriptive-001 |
+| [Turso](../datasets/enterprise-all500-first-executions-001/skills/turso.md) | 70.72 | Qualified | enterprise-all500-first-executions-001 |
+| [Embeddings](../datasets/enterprise-all500-first-executions-001/skills/embeddings.md) | 64.04 | Qualified | enterprise-all500-descriptive-001 |
+| [Adaptive](../datasets/enterprise-all500-first-executions-001/skills/adaptive.md) | 63.61 | Qualified | enterprise-all500-descriptive-001 |
+| [Graphify](../datasets/enterprise-all500-first-executions-001/skills/graphify.md) | 60.50 | Qualified | enterprise-all500-first-executions-001 |
+| [Classical](../datasets/enterprise-all500-first-executions-001/skills/classical.md) | 56.16 | Qualified | enterprise-all500-descriptive-001 |
+| [Ensemble](../datasets/enterprise-all500-first-executions-001/skills/ensemble.md) | Unavailable | Interrupted; no native result | enterprise-all500-descriptive-001 |
+| [Entity Graph](../datasets/enterprise-all500-first-executions-001/skills/entity-graph.md) | Unavailable | Interrupted; no native result | enterprise-all500-descriptive-001 |
 
 **Historical E15 checkpoint (2026-09-13).** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
 

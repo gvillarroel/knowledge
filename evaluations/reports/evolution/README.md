@@ -1,6 +1,6 @@
 # Knowledge-skill evolution evidence
 
-[Latest separate public measurement](../datasets/enterprise-all500-descriptive-001/README.md): the fixed all-500 evaluation was interrupted after four of eight strategies produced qualified observations. This is a partial diagnostic report with unavailable scores for the other four strategies, no retries and no promotion. It does not complete evolution or independent acceptance. [Applications and categories](../datasets/enterprise-all500-descriptive-001/groups.md) · [CTA](../datasets/enterprise-all500-descriptive-001/cta.md).
+[Latest separate public measurement](../datasets/enterprise-all500-first-executions-001/README.md): the new two-trial job settled Graphify and Turso, with 2 qualified observations. The descriptive catalog contains 6 qualified strategies from two separate studies. Entity Graph and Ensemble remain unavailable. This fixed-reference measurement adds no evolution, private acceptance or promotion, and the original interrupted job remains incomplete. [Applications and categories](../datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](../datasets/enterprise-all500-first-executions-001/cta.md).
 
 [E16 terminal evolution outcome](e16/terminal-001/README.md): two original 3,600-second timeouts, no new qualified score, no selection or private release; all stages closed. [CTA](e16/terminal-001/cta.md).
 
