@@ -1,10 +1,16 @@
 # Reports by skill
 
+[Primary-route observations and current catalog](../datasets/enterprise-primary-route-001/README.md): The two-original native job finished with 1/2 qualified retrieval outcomes. Entity Graph: 34.96; Ensemble: unavailable. The source-linked catalog contains 7/8 qualified observations. Values are nDCG@10 multiplied by 100 on the same 500 public questions, 470 eligible questions and 6,000 complete documents.
+
+Entity Graph and Ensemble use the new primary-route-only treatment; the other six rows retain their original all-declared-routes treatment. Mode exposure and cache history differ. [Applications/categories](../datasets/enterprise-primary-route-001/groups.md) · [CTA](../datasets/enterprise-primary-route-001/cta.md) · [Phases](../datasets/enterprise-primary-route-001/phases.md) · [Dataset scopes](../datasets/enterprise-primary-route-001/datasets.md).
+
+Earlier entries below retain their dated study scope.
+
 [Source-packed verifier conformance](../datasets/enterprise-verifier-conformance-001/README.md): **4/4** native cells passed on fresh nine- and eighteen-record fictional fixtures. [Semantic counterexamples](../datasets/enterprise-verifier-conformance-001/checks.md) and [CTA](../datasets/enterprise-verifier-conformance-001/cta.md) preserve complete accounting. This tests the corrected verifier with unchanged skills; existing EnterpriseRAG retrieval rankings and earlier failed rewards remain unchanged.
 
 [Construction diagnostic on 256 and 1,024 complete public records](../datasets/enterprise-build-profile-001/README.md): 0/4 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](../datasets/enterprise-build-profile-001/phases.md) and [CTA](../datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
 
-**Latest EnterpriseRAG measurement: [two-study all-500 catalog](../datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
+**Previous EnterpriseRAG measurement: [two-study all-500 catalog](../datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
 Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
 
