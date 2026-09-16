@@ -1,5 +1,7 @@
 # Skill Comparison Report Catalog
 
+[Construction diagnostic on 256 and 1,024 complete public records](reports/datasets/enterprise-build-profile-001/README.md): 0/4 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](reports/datasets/enterprise-build-profile-001/phases.md) and [CTA](reports/datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
+
 Catalog updated: 2026-09-16 UTC.
 
 **Latest EnterpriseRAG measurement: [two-study all-500 catalog](reports/datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.

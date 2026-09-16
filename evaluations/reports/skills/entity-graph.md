@@ -1,5 +1,7 @@
 # entity-graph: dataset results
 
+[Construction diagnostic on 256 and 1,024 complete public records](../datasets/enterprise-build-profile-001/skills/entity-graph.md): 0/2 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](../datasets/enterprise-build-profile-001/phases.md) and [CTA](../datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
+
 **EnterpriseRAG campaign closed on 2026-09-13.** [Final measured table and terminal outcome](../evolution/e15/terminal-001/README.md): E14 is terminal and E15 was rejected before execution because private-data access isolation failed. Six retained development results remain valid observations; Entity Graph and Ensemble are unavailable. The requested eight-family all-500 comparison and independent acceptance were not completed. [Applications and categories](../evolution/e15/terminal-001/groups.md) · [Cost, time and quality](../evolution/e15/terminal-001/cta.md).
 
 Earlier checkpoints below retain their dated measurement and diagnostic scope; their statements about future work do not describe an active campaign.

@@ -1,5 +1,7 @@
 # Evaluation report hub
 
+[Construction diagnostic on 256 and 1,024 complete public records](datasets/enterprise-build-profile-001/README.md): 0/4 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](datasets/enterprise-build-profile-001/phases.md) and [CTA](datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
+
 **Latest EnterpriseRAG measurement: [two-study all-500 catalog](datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.
 
 Graphify and Turso belong to a new completed two-trial job; the four earlier qualified observations retain their original source study. Entity Graph and Ensemble remain unavailable after interruption. The original eight-trial job remains incomplete. No previously executed strategy was rerun, no skill was promoted, and this catalog does not establish an official answer-quality leaderboard rank or complete E16's evolution and acceptance.
