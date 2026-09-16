@@ -1,0 +1,334 @@
+{
+  "answer_quality_evaluated": false,
+  "attempts": 1,
+  "concurrency": 2,
+  "cpus_per_environment": 2,
+  "execution_evidence": {
+    "complete_cleanup_confirmed": true,
+    "expected_environments": 8,
+    "lifecycle_observation_failures": 0,
+    "native_owner_exit_code": 0,
+    "observed_environment_starts": 8,
+    "observed_environment_stops": 8
+  },
+  "interpretation": "The complete declared conformance grid passed. The corrected verifier can be used as a prospectively bound input to a future study covering this fixed JSON layout contract.",
+  "job_seconds": 353.329827,
+  "memory_gib_per_environment": 6,
+  "official_native_summary": {
+    "agentLatencyMs": {
+      "average": 6595.51375,
+      "count": 4,
+      "maximum": 9661.288,
+      "minimum": 4446.866,
+      "stddev": 2045.758728633997,
+      "total": 26382.055
+    },
+    "completedTrials": 4,
+    "costUsd": {
+      "average": 0.0,
+      "count": 4,
+      "maximum": 0.0,
+      "minimum": 0.0,
+      "stddev": 0.0,
+      "total": 0.0
+    },
+    "erroredTrials": 0,
+    "passRate": 1.0,
+    "passedTrials": 4,
+    "requestedTrials": 4,
+    "reward": {
+      "average": 1.0,
+      "count": 4,
+      "maximum": 1.0,
+      "minimum": 1.0,
+      "stddev": 0.0,
+      "total": 4.0
+    },
+    "totalTokens": {
+      "average": 0.0,
+      "count": 4,
+      "maximum": 0.0,
+      "minimum": 0.0,
+      "stddev": 0.0,
+      "total": 0.0
+    },
+    "verifierFailedTrials": 0
+  },
+  "old_rewards_changed": false,
+  "original_trials": 4,
+  "planned_constructions": 8,
+  "related_authored_families": 1,
+  "retries": 0,
+  "retrieval_evaluated": false,
+  "rows": [
+    {
+      "agent_seconds": 4.446866,
+      "attempted_negatives": 6,
+      "completed_validator_command_seconds": 0.9187339560000112,
+      "declared_llm_calls": 0,
+      "evaluator_calls": 7,
+      "family": "entity-graph",
+      "granted_validator_entries": 1,
+      "native_error": null,
+      "native_reward": 1.0,
+      "native_trial_seconds": 142.531151,
+      "native_verifier_seconds": 94.886916,
+      "negative_checks": [
+        {
+          "case": "omitted-record",
+          "reason": "record-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "altered-row-body",
+          "reason": "authoritative-body-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "wrong-logical-path",
+          "reason": "logical-path-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-physical-document",
+          "reason": "physical-document-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-anchor-or-body",
+          "reason": "anchor-or-body-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "unrelated-physical-body",
+          "reason": "unrelated-physical-body-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        }
+      ],
+      "passed_negatives": 6,
+      "positive_knowledge_bytes": 122539,
+      "positive_passed": true,
+      "positive_status": "pass",
+      "positive_validator_sequence_seconds": 0.9389493099999981,
+      "provider_usd": 0.0,
+      "raw_body_bytes": 2648,
+      "records": 9,
+      "status": "pass",
+      "trusted_child_completions": 1,
+      "trusted_child_starts": 1,
+      "unattempted_negatives": 0,
+      "variant": "single"
+    },
+    {
+      "agent_seconds": 7.210332,
+      "attempted_negatives": 6,
+      "completed_validator_command_seconds": 1.1192317240000023,
+      "declared_llm_calls": 0,
+      "evaluator_calls": 7,
+      "family": "ensemble",
+      "granted_validator_entries": 1,
+      "native_error": null,
+      "native_reward": 1.0,
+      "native_trial_seconds": 158.663123,
+      "native_verifier_seconds": 113.889828,
+      "negative_checks": [
+        {
+          "case": "omitted-record",
+          "reason": "record-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "altered-row-body",
+          "reason": "authoritative-body-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "wrong-logical-path",
+          "reason": "logical-path-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-physical-document",
+          "reason": "physical-document-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-anchor-or-body",
+          "reason": "anchor-or-body-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "unrelated-physical-body",
+          "reason": "unrelated-physical-body-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        }
+      ],
+      "passed_negatives": 6,
+      "positive_knowledge_bytes": 236916,
+      "positive_passed": true,
+      "positive_status": "pass",
+      "positive_validator_sequence_seconds": 1.1345045120000066,
+      "provider_usd": 0.0,
+      "raw_body_bytes": 2648,
+      "records": 9,
+      "status": "pass",
+      "trusted_child_completions": 1,
+      "trusted_child_starts": 1,
+      "unattempted_negatives": 0,
+      "variant": "single"
+    },
+    {
+      "agent_seconds": 5.063569,
+      "attempted_negatives": 6,
+      "completed_validator_command_seconds": 0.9182676390000211,
+      "declared_llm_calls": 0,
+      "evaluator_calls": 7,
+      "family": "entity-graph",
+      "granted_validator_entries": 1,
+      "native_error": null,
+      "native_reward": 1.0,
+      "native_trial_seconds": 134.583073,
+      "native_verifier_seconds": 84.822797,
+      "negative_checks": [
+        {
+          "case": "omitted-record",
+          "reason": "record-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "altered-row-body",
+          "reason": "authoritative-body-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "wrong-logical-path",
+          "reason": "logical-path-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-physical-document",
+          "reason": "physical-document-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-anchor-or-body",
+          "reason": "anchor-or-body-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "unrelated-physical-body",
+          "reason": "unrelated-physical-body-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        }
+      ],
+      "passed_negatives": 6,
+      "positive_knowledge_bytes": 482481,
+      "positive_passed": true,
+      "positive_status": "pass",
+      "positive_validator_sequence_seconds": 0.9338576570000328,
+      "provider_usd": 0.0,
+      "raw_body_bytes": 5258,
+      "records": 18,
+      "status": "pass",
+      "trusted_child_completions": 1,
+      "trusted_child_starts": 1,
+      "unattempted_negatives": 0,
+      "variant": "mixed"
+    },
+    {
+      "agent_seconds": 9.661288,
+      "attempted_negatives": 6,
+      "completed_validator_command_seconds": 1.1684214389999852,
+      "declared_llm_calls": 0,
+      "evaluator_calls": 7,
+      "family": "ensemble",
+      "granted_validator_entries": 1,
+      "native_error": null,
+      "native_reward": 1.0,
+      "native_trial_seconds": 151.892126,
+      "native_verifier_seconds": 103.857451,
+      "negative_checks": [
+        {
+          "case": "omitted-record",
+          "reason": "record-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "altered-row-body",
+          "reason": "authoritative-body-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "wrong-logical-path",
+          "reason": "logical-path-change-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-physical-document",
+          "reason": "physical-document-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "missing-anchor-or-body",
+          "reason": "anchor-or-body-omission-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        },
+        {
+          "case": "unrelated-physical-body",
+          "reason": "unrelated-physical-body-rejected",
+          "status": "pass",
+          "trusted_validator_entered": false
+        }
+      ],
+      "passed_negatives": 6,
+      "positive_knowledge_bytes": 660827,
+      "positive_passed": true,
+      "positive_status": "pass",
+      "positive_validator_sequence_seconds": 1.1879508659999942,
+      "provider_usd": 0.0,
+      "raw_body_bytes": 5258,
+      "records": 18,
+      "status": "pass",
+      "trusted_child_completions": 1,
+      "trusted_child_starts": 1,
+      "unattempted_negatives": 0,
+      "variant": "mixed"
+    }
+  ],
+  "schema": "enterprise-conformance-reviewed-projection/2.0",
+  "scope": "This is a separate engineering conformance study on fictional records. It uses the unchanged complete reference skill, deterministic construction tools, and the corrected structured-JSON source-packed verifier. It measures neither retrieval nDCG nor Luna answer quality and does not change any earlier reward or promote a skill. The four tasks are one related authored family.",
+  "skill_promotion": false,
+  "source_commitments": {
+    "execution_manifest": "dad759b21b7c6cb47f538cb95688d5d663da5d9e7341981dcb26b6a36b4fce2d",
+    "frozen_protocol": "4e031a45208d44b4c476307997168c37eb18840da750a96038582cde7cb72383",
+    "independent_admission": "d4a1c88bd132d1d1998d7d85a1a99ba269c660e8bd28f7ad938d70d10b656409",
+    "independent_fixture_review": "d8fb38b8fbe8c149e4f04ce9222a6133ad41202da8e269540638d9730aec7517",
+    "native_task_bindings": "64a4d002be79d8eff50ac852131a00e33bd4c8a9f875d99e35b5e9d59932b2f8",
+    "official_native_report": "dd379160495f2a561f31631bf8930e2a1bd8e59d86dab59beeb2bcd6cd45a32c",
+    "reviewed_projection_source": "aad348b77d7abfc6b34ce39ac29a3ff1325d85d98d8e9433a201a8502e80814e"
+  },
+  "study_id": "enterprise-verifier-conformance-001"
+}

@@ -1,5 +1,9 @@
 # Documentation Index
 
+[Source-packed verifier conformance](../evaluations/reports/datasets/enterprise-verifier-conformance-001/README.md): **4/4** native cells passed on fresh nine- and eighteen-record fictional fixtures. [Semantic counterexamples](../evaluations/reports/datasets/enterprise-verifier-conformance-001/checks.md) and [CTA](../evaluations/reports/datasets/enterprise-verifier-conformance-001/cta.md) preserve complete accounting. This tests the corrected verifier with unchanged skills; existing EnterpriseRAG retrieval rankings and earlier failed rewards remain unchanged.
+
+[Verifier conformance methodology](enterprise-verifier-conformance.md) · [ADR 0169](../.specs/adr/0169-check-source-packed-verifier-conformance-with-fresh-fixtures.md).
+
 [Construction diagnostic on 256 and 1,024 complete public records](../evaluations/reports/datasets/enterprise-build-profile-001/README.md): 0/4 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](../evaluations/reports/datasets/enterprise-build-profile-001/phases.md) and [CTA](../evaluations/reports/datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
 
 **Latest EnterpriseRAG measurement: [two-study all-500 catalog](../evaluations/reports/datasets/enterprise-all500-first-executions-001/README.md).** The catalog has 6 qualified strategies out of eight, using the same 500 public questions, 470 retrieval-eligible questions and 6,000 complete documents. Values are native nDCG@10 multiplied by 100. Legacy **70.72**, Turso **70.72**, Embeddings **64.04**, Adaptive **63.61**, Graphify **60.50**, Classical **56.16**.

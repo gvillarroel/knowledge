@@ -1,5 +1,7 @@
 # Skill Comparison Report Catalog
 
+[Source-packed verifier conformance](reports/datasets/enterprise-verifier-conformance-001/README.md): **4/4** native cells passed on fresh nine- and eighteen-record fictional fixtures. [Semantic counterexamples](reports/datasets/enterprise-verifier-conformance-001/checks.md) and [CTA](reports/datasets/enterprise-verifier-conformance-001/cta.md) preserve complete accounting. This tests the corrected verifier with unchanged skills; existing EnterpriseRAG retrieval rankings and earlier failed rewards remain unchanged.
+
 [Construction diagnostic on 256 and 1,024 complete public records](reports/datasets/enterprise-build-profile-001/README.md): 0/4 qualified construction outcomes for the reported cells, using the unchanged reference. [Phase costs](reports/datasets/enterprise-build-profile-001/phases.md) and [CTA](reports/datasets/enterprise-build-profile-001/cta.md) retain every original. The report documents the verifier's source-packed path assumption and the missing multiple-record rehearsal case. This separate ordinary study adds no retrieval score; the existing all-500 ranking remains unchanged.
 
 Catalog updated: 2026-09-16 UTC.
