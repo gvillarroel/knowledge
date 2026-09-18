@@ -1,0 +1,237 @@
+{
+  "accepted_generator_delta": {
+    "historical_accepted_native_digest": "sha256:50341f2c79378d8509cbbcdc01665ac00d6024fb7b5005214d3c7c7cb321b940",
+    "later_maintenance_commit": "fe854cbfe3d268444ac5c2a7e17c1701b38c87fb",
+    "publication_commit": "d52f3c8b3df0d4829797ce28fcd50b03e1b32bbe",
+    "study": "generator-evolution-g2",
+    "unchanged_promoted_files_sha256": {
+      "skills/build-semantic-okf-knowledge-skill/SKILL.md": "091162289e0b36590001436cb23f97cc60e30713531e38d211a012db2f935c3c",
+      "skills/build-semantic-okf-knowledge-skill/references/expert-contract.md": "4f52075d2e2ab6a1a5860a02e33eb77bc987c94ae0eda73538854ca4bd3791fd",
+      "skills/build-semantic-okf-knowledge-skill/scripts/_source_coverage.py": "9f5635daea84210c43978b790a8b637578079156516fdd8418ac17fd355532ac",
+      "skills/build-semantic-okf-knowledge-skill/scripts/build_semantic_okf_knowledge_skill.py": "ce6a16baae0352f8d72e607181f54cdb448c01b5cb9e0cae2181e05cc7608d91"
+    },
+    "whole_current_package_equals_historical_candidate": false
+  },
+  "automatic_continuation": false,
+  "campaign_status": "closed",
+  "checks": {
+    "application_coverage_percent": 90.5,
+    "application_subtests_passed": 378,
+    "application_tests_passed": 1730,
+    "canonical_vendored_pairs_equal": 16,
+    "coverage_log_sha256": "f0a69a52d5ca0d22d3fb68f8d4ba775dfa97bdbb9fea68d0303dd492bb11e522",
+    "coverage_receipt_sha256": "bbc3722d9bee09abbe65b6cfdb180c47825df41d952776bd25e7e786b19c52bf",
+    "dataset_descriptors_passed": 3,
+    "generator_tests_passed": 20,
+    "package_validators_passed": 17,
+    "required_coverage_percent": 80,
+    "skill_checks_receipt_sha256": "897af3b341ac14a1ff68f6227cf5299d214bf62b90db94e5938e4d1c08448f3e"
+  },
+  "date": "2026-09-18",
+  "decision": "retain-current-canonical-skills",
+  "limitations": [
+    "Retains accepted behavior and tested maintenance; no new benchmark ranking or independent acceptance claim.",
+    "Development-only profiles and runtime candidates were not installed as accepted defaults.",
+    "Historical G2 construction acceptance does not establish EnterpriseRAG retrieval or answer-quality improvement.",
+    "Closure preserves incomplete outcomes and unmeasured hypotheses; it does not assert exhaustive strategy search."
+  ],
+  "new_native_jobs": 0,
+  "new_private_releases": 0,
+  "new_skill_promotion": false,
+  "package_digest_algorithm": "SHA256 of UTF-8 JSON mapping relative POSIX file paths to file SHA256; keys sorted, separators comma/colon, ensure_ascii=true; __pycache__ and .pyc excluded. All included files must be Git-tracked.",
+  "packages": [
+    {
+      "bytes": 3302015,
+      "file_count": 249,
+      "file_inventory_sha256": "87b8e3dafc7034c32be1543d3bcfcf6cd165f311bfef8b9740b41d528b97854b",
+      "git_tree": "974096bb4a7cc5a6dc26b60e8d11af215161c696",
+      "path": "skills/build-semantic-okf-knowledge-skill",
+      "role": "generator"
+    },
+    {
+      "bytes": 241406,
+      "family": "adaptive",
+      "file_count": 17,
+      "file_inventory_sha256": "b24de296c1b693ffb180f77d66ca5df7942ba0bbf0ad4858a0d4fd07c5a51816",
+      "git_tree": "7d3d7609dd3dbadff95030d4ecabe7937e95c8e2",
+      "path": "skills/build-semantic-okf-adaptive",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/adaptive/builder"
+    },
+    {
+      "bytes": 135010,
+      "family": "adaptive",
+      "file_count": 9,
+      "file_inventory_sha256": "1453db664a8b356395bea4a2003213f55d80483cef6ff0589940acb8acab6f60",
+      "git_tree": "13380620c3bef1b603a38b86d15db6f5af7e0caa",
+      "path": "skills/consult-semantic-okf-adaptive",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/adaptive/consultant"
+    },
+    {
+      "bytes": 222674,
+      "family": "classical",
+      "file_count": 15,
+      "file_inventory_sha256": "43689c9c5100649be2179c79faeed9e921c065fd30486546bf7fe9613078eb35",
+      "git_tree": "3e844c1952739db52f19b4fb4b2c5c1e99792a40",
+      "path": "skills/build-semantic-okf-classical",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/classical/builder"
+    },
+    {
+      "bytes": 72226,
+      "family": "classical",
+      "file_count": 8,
+      "file_inventory_sha256": "f29699affd1311c33226e17169cf736737b849ea7d5d95a32dec75618f9c48b4",
+      "git_tree": "701908ea0710e8487eff9e2fc9d043a6fefdad79",
+      "path": "skills/consult-semantic-okf-classical",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/classical/consultant"
+    },
+    {
+      "bytes": 238229,
+      "family": "embeddings",
+      "file_count": 20,
+      "file_inventory_sha256": "9494e9a26591cc29273878537ecd4d6ef0f2de52f3b1039eecb31bed63945af9",
+      "git_tree": "ca55894e0a0019d25b5880977912b7dc308c10e6",
+      "path": "skills/build-semantic-okf-embeddings",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/embeddings/builder"
+    },
+    {
+      "bytes": 75304,
+      "family": "embeddings",
+      "file_count": 11,
+      "file_inventory_sha256": "ee1d2619307c428a6989f4d1b32558b9b94412d07e8f3fe229f5056e613727ba",
+      "git_tree": "671784da3f1c67d7b972df3baccd065685144cdd",
+      "path": "skills/consult-semantic-okf-embeddings",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/embeddings/consultant"
+    },
+    {
+      "bytes": 441830,
+      "family": "ensemble",
+      "file_count": 30,
+      "file_inventory_sha256": "cc202874bb4ed49610491a607f16e30801ed4cdc57ffb214bae89692ea6ac308",
+      "git_tree": "1be4f98911b21272081c9cd418bc7988b3c57800",
+      "path": "skills/build-semantic-okf-ensemble",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/builder"
+    },
+    {
+      "bytes": 445243,
+      "family": "ensemble",
+      "file_count": 18,
+      "file_inventory_sha256": "473a08d09d224c02f3ec09cb41a8760bc58116faca55ac52e7fb31490709b715",
+      "git_tree": "9d0d25ef14cd8588a984309a057d3686bd935793",
+      "path": "skills/consult-semantic-okf-ensemble",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/ensemble/consultant"
+    },
+    {
+      "bytes": 276820,
+      "family": "entity-graph",
+      "file_count": 18,
+      "file_inventory_sha256": "05066eb123a5253035ee61f65932e1821516c316764efd895ce1e9c2e61d63dc",
+      "git_tree": "cd63104aed0d45af7ab2177de21151d67ea53335",
+      "path": "skills/build-semantic-okf-entity-graph",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/builder"
+    },
+    {
+      "bytes": 126542,
+      "family": "entity-graph",
+      "file_count": 10,
+      "file_inventory_sha256": "f67424cccf25bca4589f7537df9a18fbe70efa8e0bcc6caaa5ae51c8e7ecde80",
+      "git_tree": "409a7e94fbd1dd2710913a4a1503ad92b1808d99",
+      "path": "skills/consult-semantic-okf-entity-graph",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/entity-graph/consultant"
+    },
+    {
+      "bytes": 205257,
+      "family": "graphify",
+      "file_count": 13,
+      "file_inventory_sha256": "dab9e4b301692d331a25dd8c7d8adb24f7d720a22bf92295421f06744fc40477",
+      "git_tree": "16a10a6b738b2ae8ddea083342ad5f17efdce9fb",
+      "path": "skills/build-semantic-okf-graphify",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/graphify/builder"
+    },
+    {
+      "bytes": 43838,
+      "family": "graphify",
+      "file_count": 9,
+      "file_inventory_sha256": "8fcaf597228ed7452c5e1ac571f5959e61ed5798fcc0e247af53378c1d102a2d",
+      "git_tree": "9b69919619391a42b0a81e10d8aa314904187ca6",
+      "path": "skills/consult-semantic-okf-graphify",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/graphify/consultant"
+    },
+    {
+      "bytes": 238340,
+      "family": "legacy",
+      "file_count": 15,
+      "file_inventory_sha256": "2dd297f03a06bc589d855bf9ed9ecaa98af7bbd10669e6c60577e4b718b6fe50",
+      "git_tree": "bc2f43cf7a65742a7c30279514a5d95e40ba337c",
+      "path": "skills/build-semantic-okf",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/legacy/builder"
+    },
+    {
+      "bytes": 103255,
+      "family": "legacy",
+      "file_count": 13,
+      "file_inventory_sha256": "28aa76f5aa4fa7cfc2a90c9aa48d2a2ef3c86095de387e1076785a02dcb7fc9b",
+      "git_tree": "0b533241cd02a89c6120fd6d05f22af784318fed",
+      "path": "skills/consult-semantic-okf",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/legacy/consultant"
+    },
+    {
+      "bytes": 279467,
+      "family": "turso",
+      "file_count": 19,
+      "file_inventory_sha256": "7f130d4ed6fbe1ba84fea6b56edc85222d501deabba2e3b4365b0970d5ad4554",
+      "git_tree": "20add15268b03f6d5e9bcfca6e7eb258e169dc1c",
+      "path": "skills/build-semantic-okf-turso",
+      "role": "builder",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/turso/builder"
+    },
+    {
+      "bytes": 49568,
+      "family": "turso",
+      "file_count": 10,
+      "file_inventory_sha256": "e641de8f7711bb7832d7b7028f28080933c02701fc523e47834cd5eece01121d",
+      "git_tree": "d38aa39625b44ad55d728f2612676dd3558d99a1",
+      "path": "skills/consult-semantic-okf-turso",
+      "role": "consultant",
+      "vendored_bytes_equal": true,
+      "vendored_path": "skills/build-semantic-okf-knowledge-skill/assets/families/turso/consultant"
+    }
+  ],
+  "published_source_files_sha256": {
+    "evaluations/reports/datasets/enterprise-primary-route-001/aggregate.json": "eaecf5812cd67cf906ef413a48f35cd79c118958aa13f7ba07d00e97693e309d",
+    "evaluations/reports/evolution/e15/terminal-001/aggregate.json": "6d57675dd28625d58b715fefe5d5b1ad168fdd2f0de9ba21d376d40e1ccaf96c",
+    "evaluations/reports/evolution/e16/terminal-001/aggregate.json": "1e4cbc5f490e6f33d67625c8f079a0a87a7d4aaed003a937cc4930c37fe22bf6",
+    "evaluations/reports/evolution/e6/terminal-001/decision.json": "9be921285b3a478d6a129b369cceae82ab58dfd4dc0edca27f467f7f56e96070",
+    "evaluations/reports/evolution/generator-g2/comparison.json": "80e974440429c0a97772a4c44fc39c3f84a416a5879f5262578d78ca9be4ab72"
+  },
+  "schema": "enterprise-campaign-closure/1.0",
+  "source_commit": "a67872cf1b0961bac80d7a005dca1ff571c64821"
+}

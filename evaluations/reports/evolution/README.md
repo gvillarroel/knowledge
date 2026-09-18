@@ -1,6 +1,18 @@
 # Knowledge-skill evolution evidence
 
-[Latest separate public measurement](../datasets/enterprise-all500-first-executions-001/README.md): the new two-trial job settled Graphify and Turso, with 2 qualified observations. The descriptive catalog contains 6 qualified strategies from two separate studies. Entity Graph and Ensemble remain unavailable. This fixed-reference measurement adds no evolution, private acceptance or promotion, and the original interrupted job remains incomplete. [Applications and categories](../datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](../datasets/enterprise-all500-first-executions-001/cta.md).
+[Campaign closed and canonical skill release retained](../../../docs/enterprise-skill-release.md)
+(2026-09-18). G2's accepted generator improvement is already canonical; no later
+EnterpriseRAG development candidate completed independent acceptance. The
+[release inventory](../releases/enterprise-skills-20260918.json) records exact
+package identities and checks. There is no pending campaign launch.
+
+[Current public retrieval catalog](../datasets/enterprise-primary-route-001/README.md):
+seven valid strategy observations; Entity Graph is 34.96 and Ensemble remains
+unavailable after its three-hour limit. These are descriptive nDCG@10 x100
+measurements on 500 questions and 6,000 complete documents, with different
+runtime treatments. No new skill promotion follows from this catalog.
+
+[Previous separate public measurement](../datasets/enterprise-all500-first-executions-001/README.md): the new two-trial job settled Graphify and Turso, with 2 qualified observations. The descriptive catalog contains 6 qualified strategies from two separate studies. Entity Graph and Ensemble remain unavailable. This fixed-reference measurement adds no evolution, private acceptance or promotion, and the original interrupted job remains incomplete. [Applications and categories](../datasets/enterprise-all500-first-executions-001/groups.md) · [CTA](../datasets/enterprise-all500-first-executions-001/cta.md).
 
 [E16 terminal evolution outcome](e16/terminal-001/README.md): two original 3,600-second timeouts, no new qualified score, no selection or private release; all stages closed. [CTA](e16/terminal-001/cta.md).
 

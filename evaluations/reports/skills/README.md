@@ -1,5 +1,11 @@
 # Reports by skill
 
+[Closed campaign and retained canonical skill versions](../../../docs/enterprise-skill-release.md)
+(2026-09-18) · [Exact release inventory](../releases/enterprise-skills-20260918.json).
+The accepted generator delta is already installed; the eight canonical
+builder/consultant pairs remain synchronized with the generator's vendored copies.
+Development-only variants remain experimental.
+
 [Primary-route observations and current catalog](../datasets/enterprise-primary-route-001/README.md): The two-original native job finished with 1/2 qualified retrieval outcomes. Entity Graph: 34.96; Ensemble: unavailable. The source-linked catalog contains 7/8 qualified observations. Values are nDCG@10 multiplied by 100 on the same 500 public questions, 470 eligible questions and 6,000 complete documents.
 
 Entity Graph and Ensemble use the new primary-route-only treatment; the other six rows retain their original all-declared-routes treatment. Mode exposure and cache history differ. [Applications/categories](../datasets/enterprise-primary-route-001/groups.md) · [CTA](../datasets/enterprise-primary-route-001/cta.md) · [Phases](../datasets/enterprise-primary-route-001/phases.md) · [Dataset scopes](../datasets/enterprise-primary-route-001/datasets.md).

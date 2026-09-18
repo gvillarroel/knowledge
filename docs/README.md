@@ -1,5 +1,11 @@
 # Documentation Index
 
+[EnterpriseRAG campaign closure and retained skill release](enterprise-skill-release.md)
+(2026-09-18): accepted generator behavior and all eight canonical pairs remain
+published; experimental profiles were not promoted. The
+[release inventory](../evaluations/reports/releases/enterprise-skills-20260918.json)
+binds the exact packages and closure checks.
+
 [Primary-route observations and current catalog](../evaluations/reports/datasets/enterprise-primary-route-001/README.md): The two-original native job finished with 1/2 qualified retrieval outcomes. Entity Graph: 34.96; Ensemble: unavailable. The source-linked catalog contains 7/8 qualified observations. Values are nDCG@10 multiplied by 100 on the same 500 public questions, 470 eligible questions and 6,000 complete documents.
 
 Entity Graph and Ensemble use the new primary-route-only treatment; the other six rows retain their original all-declared-routes treatment. Mode exposure and cache history differ. [Applications/categories](../evaluations/reports/datasets/enterprise-primary-route-001/groups.md) · [CTA](../evaluations/reports/datasets/enterprise-primary-route-001/cta.md) · [Phases](../evaluations/reports/datasets/enterprise-primary-route-001/phases.md) · [Dataset scopes](../evaluations/reports/datasets/enterprise-primary-route-001/datasets.md).
